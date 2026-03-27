@@ -320,6 +320,7 @@ export type CompanyWhereInput = {
   costCenters?: Prisma.CostCenterListRelationFilter
   bankAccounts?: Prisma.BankAccountListRelationFilter
   documents?: Prisma.CompanyDocumentListRelationFilter
+  financeEntries?: Prisma.FinanceEntryListRelationFilter
 }
 
 export type CompanyOrderByWithRelationInput = {
@@ -355,6 +356,7 @@ export type CompanyOrderByWithRelationInput = {
   costCenters?: Prisma.CostCenterOrderByRelationAggregateInput
   bankAccounts?: Prisma.BankAccountOrderByRelationAggregateInput
   documents?: Prisma.CompanyDocumentOrderByRelationAggregateInput
+  financeEntries?: Prisma.FinanceEntryOrderByRelationAggregateInput
 }
 
 export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -394,6 +396,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   costCenters?: Prisma.CostCenterListRelationFilter
   bankAccounts?: Prisma.BankAccountListRelationFilter
   documents?: Prisma.CompanyDocumentListRelationFilter
+  financeEntries?: Prisma.FinanceEntryListRelationFilter
 }, "id" | "companies_cnpj_tenant_unique_active">
 
 export type CompanyOrderByWithAggregationInput = {
@@ -484,6 +487,7 @@ export type CompanyCreateInput = {
   costCenters?: Prisma.CostCenterCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateInput = {
@@ -518,6 +522,7 @@ export type CompanyUncheckedCreateInput = {
   costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUpdateInput = {
@@ -552,6 +557,7 @@ export type CompanyUpdateInput = {
   costCenters?: Prisma.CostCenterUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateInput = {
@@ -586,6 +592,7 @@ export type CompanyUncheckedUpdateInput = {
   costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateManyInput = {
@@ -946,6 +953,22 @@ export type CompanyUpdateOneWithoutBankAccountsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutBankAccountsInput, Prisma.CompanyUpdateWithoutBankAccountsInput>, Prisma.CompanyUncheckedUpdateWithoutBankAccountsInput>
 }
 
+export type CompanyCreateNestedOneWithoutFinanceEntriesInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutFinanceEntriesInput, Prisma.CompanyUncheckedCreateWithoutFinanceEntriesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutFinanceEntriesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneWithoutFinanceEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutFinanceEntriesInput, Prisma.CompanyUncheckedCreateWithoutFinanceEntriesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutFinanceEntriesInput
+  upsert?: Prisma.CompanyUpsertWithoutFinanceEntriesInput
+  disconnect?: Prisma.CompanyWhereInput | boolean
+  delete?: Prisma.CompanyWhereInput | boolean
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutFinanceEntriesInput, Prisma.CompanyUpdateWithoutFinanceEntriesInput>, Prisma.CompanyUncheckedUpdateWithoutFinanceEntriesInput>
+}
+
 export type CompanyCreateWithoutEmployeesInput = {
   id?: string
   legalName: string
@@ -977,6 +1000,7 @@ export type CompanyCreateWithoutEmployeesInput = {
   costCenters?: Prisma.CostCenterCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutEmployeesInput = {
@@ -1010,6 +1034,7 @@ export type CompanyUncheckedCreateWithoutEmployeesInput = {
   costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutEmployeesInput = {
@@ -1059,6 +1084,7 @@ export type CompanyUpdateWithoutEmployeesInput = {
   costCenters?: Prisma.CostCenterUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutEmployeesInput = {
@@ -1092,6 +1118,7 @@ export type CompanyUncheckedUpdateWithoutEmployeesInput = {
   costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutDepartmentsInput = {
@@ -1125,6 +1152,7 @@ export type CompanyCreateWithoutDepartmentsInput = {
   costCenters?: Prisma.CostCenterCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutDepartmentsInput = {
@@ -1158,6 +1186,7 @@ export type CompanyUncheckedCreateWithoutDepartmentsInput = {
   costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutDepartmentsInput = {
@@ -1207,6 +1236,7 @@ export type CompanyUpdateWithoutDepartmentsInput = {
   costCenters?: Prisma.CostCenterUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutDepartmentsInput = {
@@ -1240,6 +1270,7 @@ export type CompanyUncheckedUpdateWithoutDepartmentsInput = {
   costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutDocumentsInput = {
@@ -1273,6 +1304,7 @@ export type CompanyCreateWithoutDocumentsInput = {
   stakeholders?: Prisma.CompanyStakeholderCreateNestedManyWithoutCompanyInput
   costCenters?: Prisma.CostCenterCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutDocumentsInput = {
@@ -1306,6 +1338,7 @@ export type CompanyUncheckedCreateWithoutDocumentsInput = {
   stakeholders?: Prisma.CompanyStakeholderUncheckedCreateNestedManyWithoutCompanyInput
   costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutDocumentsInput = {
@@ -1355,6 +1388,7 @@ export type CompanyUpdateWithoutDocumentsInput = {
   stakeholders?: Prisma.CompanyStakeholderUpdateManyWithoutCompanyNestedInput
   costCenters?: Prisma.CostCenterUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutDocumentsInput = {
@@ -1388,6 +1422,7 @@ export type CompanyUncheckedUpdateWithoutDocumentsInput = {
   stakeholders?: Prisma.CompanyStakeholderUncheckedUpdateManyWithoutCompanyNestedInput
   costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutAddressesInput = {
@@ -1421,6 +1456,7 @@ export type CompanyCreateWithoutAddressesInput = {
   costCenters?: Prisma.CostCenterCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutAddressesInput = {
@@ -1454,6 +1490,7 @@ export type CompanyUncheckedCreateWithoutAddressesInput = {
   costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutAddressesInput = {
@@ -1503,6 +1540,7 @@ export type CompanyUpdateWithoutAddressesInput = {
   costCenters?: Prisma.CostCenterUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutAddressesInput = {
@@ -1536,6 +1574,7 @@ export type CompanyUncheckedUpdateWithoutAddressesInput = {
   costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutCnaesInput = {
@@ -1569,6 +1608,7 @@ export type CompanyCreateWithoutCnaesInput = {
   costCenters?: Prisma.CostCenterCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutCnaesInput = {
@@ -1602,6 +1642,7 @@ export type CompanyUncheckedCreateWithoutCnaesInput = {
   costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutCnaesInput = {
@@ -1651,6 +1692,7 @@ export type CompanyUpdateWithoutCnaesInput = {
   costCenters?: Prisma.CostCenterUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutCnaesInput = {
@@ -1684,6 +1726,7 @@ export type CompanyUncheckedUpdateWithoutCnaesInput = {
   costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutFiscalSettingsInput = {
@@ -1717,6 +1760,7 @@ export type CompanyCreateWithoutFiscalSettingsInput = {
   costCenters?: Prisma.CostCenterCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutFiscalSettingsInput = {
@@ -1750,6 +1794,7 @@ export type CompanyUncheckedCreateWithoutFiscalSettingsInput = {
   costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutFiscalSettingsInput = {
@@ -1799,6 +1844,7 @@ export type CompanyUpdateWithoutFiscalSettingsInput = {
   costCenters?: Prisma.CostCenterUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFiscalSettingsInput = {
@@ -1832,6 +1878,7 @@ export type CompanyUncheckedUpdateWithoutFiscalSettingsInput = {
   costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutStakeholdersInput = {
@@ -1865,6 +1912,7 @@ export type CompanyCreateWithoutStakeholdersInput = {
   costCenters?: Prisma.CostCenterCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutStakeholdersInput = {
@@ -1898,6 +1946,7 @@ export type CompanyUncheckedCreateWithoutStakeholdersInput = {
   costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutStakeholdersInput = {
@@ -1947,6 +1996,7 @@ export type CompanyUpdateWithoutStakeholdersInput = {
   costCenters?: Prisma.CostCenterUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutStakeholdersInput = {
@@ -1980,6 +2030,7 @@ export type CompanyUncheckedUpdateWithoutStakeholdersInput = {
   costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutTenantInput = {
@@ -2013,6 +2064,7 @@ export type CompanyCreateWithoutTenantInput = {
   costCenters?: Prisma.CostCenterCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutTenantInput = {
@@ -2046,6 +2098,7 @@ export type CompanyUncheckedCreateWithoutTenantInput = {
   costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutTenantInput = {
@@ -2133,6 +2186,7 @@ export type CompanyCreateWithoutCostCentersInput = {
   stakeholders?: Prisma.CompanyStakeholderCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutCostCentersInput = {
@@ -2166,6 +2220,7 @@ export type CompanyUncheckedCreateWithoutCostCentersInput = {
   stakeholders?: Prisma.CompanyStakeholderUncheckedCreateNestedManyWithoutCompanyInput
   bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutCostCentersInput = {
@@ -2215,6 +2270,7 @@ export type CompanyUpdateWithoutCostCentersInput = {
   stakeholders?: Prisma.CompanyStakeholderUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutCostCentersInput = {
@@ -2248,6 +2304,7 @@ export type CompanyUncheckedUpdateWithoutCostCentersInput = {
   stakeholders?: Prisma.CompanyStakeholderUncheckedUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutBankAccountsInput = {
@@ -2281,6 +2338,7 @@ export type CompanyCreateWithoutBankAccountsInput = {
   stakeholders?: Prisma.CompanyStakeholderCreateNestedManyWithoutCompanyInput
   costCenters?: Prisma.CostCenterCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutBankAccountsInput = {
@@ -2314,6 +2372,7 @@ export type CompanyUncheckedCreateWithoutBankAccountsInput = {
   stakeholders?: Prisma.CompanyStakeholderUncheckedCreateNestedManyWithoutCompanyInput
   costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutCompanyInput
   documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutBankAccountsInput = {
@@ -2363,6 +2422,7 @@ export type CompanyUpdateWithoutBankAccountsInput = {
   stakeholders?: Prisma.CompanyStakeholderUpdateManyWithoutCompanyNestedInput
   costCenters?: Prisma.CostCenterUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutBankAccountsInput = {
@@ -2395,6 +2455,159 @@ export type CompanyUncheckedUpdateWithoutBankAccountsInput = {
   fiscalSettings?: Prisma.CompanyFiscalSettingsUncheckedUpdateOneWithoutCompanyNestedInput
   stakeholders?: Prisma.CompanyStakeholderUncheckedUpdateManyWithoutCompanyNestedInput
   costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutFinanceEntriesInput = {
+  id?: string
+  legalName: string
+  cnpj: string
+  tradeName?: string | null
+  stateRegistration?: string | null
+  municipalRegistration?: string | null
+  legalNature?: string | null
+  taxRegime?: $Enums.TaxRegimeEnum | null
+  taxRegimeDetail?: string | null
+  activityStartDate?: Date | string | null
+  status?: $Enums.CompanyStatusEnum
+  email?: string | null
+  phoneMain?: string | null
+  phoneAlt?: string | null
+  logoUrl?: string | null
+  cnpjHash?: string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutCompaniesInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutCompanyInput
+  departments?: Prisma.DepartmentCreateNestedManyWithoutCompanyInput
+  addresses?: Prisma.CompanyAddressCreateNestedManyWithoutCompanyInput
+  cnaes?: Prisma.CompanyCnaeCreateNestedManyWithoutCompanyInput
+  fiscalSettings?: Prisma.CompanyFiscalSettingsCreateNestedOneWithoutCompanyInput
+  stakeholders?: Prisma.CompanyStakeholderCreateNestedManyWithoutCompanyInput
+  costCenters?: Prisma.CostCenterCreateNestedManyWithoutCompanyInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutFinanceEntriesInput = {
+  id?: string
+  tenantId: string
+  legalName: string
+  cnpj: string
+  tradeName?: string | null
+  stateRegistration?: string | null
+  municipalRegistration?: string | null
+  legalNature?: string | null
+  taxRegime?: $Enums.TaxRegimeEnum | null
+  taxRegimeDetail?: string | null
+  activityStartDate?: Date | string | null
+  status?: $Enums.CompanyStatusEnum
+  email?: string | null
+  phoneMain?: string | null
+  phoneAlt?: string | null
+  logoUrl?: string | null
+  cnpjHash?: string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.CompanyCreatependingIssuesInput | string[]
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutCompanyInput
+  departments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutCompanyInput
+  addresses?: Prisma.CompanyAddressUncheckedCreateNestedManyWithoutCompanyInput
+  cnaes?: Prisma.CompanyCnaeUncheckedCreateNestedManyWithoutCompanyInput
+  fiscalSettings?: Prisma.CompanyFiscalSettingsUncheckedCreateNestedOneWithoutCompanyInput
+  stakeholders?: Prisma.CompanyStakeholderUncheckedCreateNestedManyWithoutCompanyInput
+  costCenters?: Prisma.CostCenterUncheckedCreateNestedManyWithoutCompanyInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutCompanyInput
+  documents?: Prisma.CompanyDocumentUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutFinanceEntriesInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutFinanceEntriesInput, Prisma.CompanyUncheckedCreateWithoutFinanceEntriesInput>
+}
+
+export type CompanyUpsertWithoutFinanceEntriesInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutFinanceEntriesInput, Prisma.CompanyUncheckedUpdateWithoutFinanceEntriesInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutFinanceEntriesInput, Prisma.CompanyUncheckedCreateWithoutFinanceEntriesInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutFinanceEntriesInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutFinanceEntriesInput, Prisma.CompanyUncheckedUpdateWithoutFinanceEntriesInput>
+}
+
+export type CompanyUpdateWithoutFinanceEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.StringFieldUpdateOperationsInput | string
+  cnpj?: Prisma.StringFieldUpdateOperationsInput | string
+  tradeName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stateRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalNature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxRegime?: Prisma.NullableEnumTaxRegimeEnumFieldUpdateOperationsInput | $Enums.TaxRegimeEnum | null
+  taxRegimeDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumCompanyStatusEnumFieldUpdateOperationsInput | $Enums.CompanyStatusEnum
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutCompaniesNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutCompanyNestedInput
+  departments?: Prisma.DepartmentUpdateManyWithoutCompanyNestedInput
+  addresses?: Prisma.CompanyAddressUpdateManyWithoutCompanyNestedInput
+  cnaes?: Prisma.CompanyCnaeUpdateManyWithoutCompanyNestedInput
+  fiscalSettings?: Prisma.CompanyFiscalSettingsUpdateOneWithoutCompanyNestedInput
+  stakeholders?: Prisma.CompanyStakeholderUpdateManyWithoutCompanyNestedInput
+  costCenters?: Prisma.CostCenterUpdateManyWithoutCompanyNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutCompanyNestedInput
+  documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutFinanceEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.StringFieldUpdateOperationsInput | string
+  cnpj?: Prisma.StringFieldUpdateOperationsInput | string
+  tradeName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stateRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalNature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxRegime?: Prisma.NullableEnumTaxRegimeEnumFieldUpdateOperationsInput | $Enums.TaxRegimeEnum | null
+  taxRegimeDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  activityStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumCompanyStatusEnumFieldUpdateOperationsInput | $Enums.CompanyStatusEnum
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneMain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnpjHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.CompanyUpdatependingIssuesInput | string[]
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutCompanyNestedInput
+  departments?: Prisma.DepartmentUncheckedUpdateManyWithoutCompanyNestedInput
+  addresses?: Prisma.CompanyAddressUncheckedUpdateManyWithoutCompanyNestedInput
+  cnaes?: Prisma.CompanyCnaeUncheckedUpdateManyWithoutCompanyNestedInput
+  fiscalSettings?: Prisma.CompanyFiscalSettingsUncheckedUpdateOneWithoutCompanyNestedInput
+  stakeholders?: Prisma.CompanyStakeholderUncheckedUpdateManyWithoutCompanyNestedInput
+  costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutCompanyNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -2453,6 +2666,7 @@ export type CompanyUpdateWithoutTenantInput = {
   costCenters?: Prisma.CostCenterUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutTenantInput = {
@@ -2486,6 +2700,7 @@ export type CompanyUncheckedUpdateWithoutTenantInput = {
   costCenters?: Prisma.CostCenterUncheckedUpdateManyWithoutCompanyNestedInput
   bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutCompanyNestedInput
   documents?: Prisma.CompanyDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateManyWithoutTenantInput = {
@@ -2526,6 +2741,7 @@ export type CompanyCountOutputType = {
   costCenters: number
   bankAccounts: number
   documents: number
+  financeEntries: number
 }
 
 export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2537,6 +2753,7 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   costCenters?: boolean | CompanyCountOutputTypeCountCostCentersArgs
   bankAccounts?: boolean | CompanyCountOutputTypeCountBankAccountsArgs
   documents?: boolean | CompanyCountOutputTypeCountDocumentsArgs
+  financeEntries?: boolean | CompanyCountOutputTypeCountFinanceEntriesArgs
 }
 
 /**
@@ -2605,6 +2822,13 @@ export type CompanyCountOutputTypeCountDocumentsArgs<ExtArgs extends runtime.Typ
   where?: Prisma.CompanyDocumentWhereInput
 }
 
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountFinanceEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FinanceEntryWhereInput
+}
+
 
 export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2639,6 +2863,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   costCenters?: boolean | Prisma.Company$costCentersArgs<ExtArgs>
   bankAccounts?: boolean | Prisma.Company$bankAccountsArgs<ExtArgs>
   documents?: boolean | Prisma.Company$documentsArgs<ExtArgs>
+  financeEntries?: boolean | Prisma.Company$financeEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
 
@@ -2731,6 +2956,7 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   costCenters?: boolean | Prisma.Company$costCentersArgs<ExtArgs>
   bankAccounts?: boolean | Prisma.Company$bankAccountsArgs<ExtArgs>
   documents?: boolean | Prisma.Company$documentsArgs<ExtArgs>
+  financeEntries?: boolean | Prisma.Company$financeEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CompanyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2753,6 +2979,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     costCenters: Prisma.$CostCenterPayload<ExtArgs>[]
     bankAccounts: Prisma.$BankAccountPayload<ExtArgs>[]
     documents: Prisma.$CompanyDocumentPayload<ExtArgs>[]
+    financeEntries: Prisma.$FinanceEntryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3181,6 +3408,7 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   costCenters<T extends Prisma.Company$costCentersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$costCentersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CostCenterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bankAccounts<T extends Prisma.Company$bankAccountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$bankAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   documents<T extends Prisma.Company$documentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  financeEntries<T extends Prisma.Company$financeEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$financeEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3836,6 +4064,30 @@ export type Company$documentsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.CompanyDocumentScalarFieldEnum | Prisma.CompanyDocumentScalarFieldEnum[]
+}
+
+/**
+ * Company.financeEntries
+ */
+export type Company$financeEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FinanceEntry
+   */
+  select?: Prisma.FinanceEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FinanceEntry
+   */
+  omit?: Prisma.FinanceEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FinanceEntryInclude<ExtArgs> | null
+  where?: Prisma.FinanceEntryWhereInput
+  orderBy?: Prisma.FinanceEntryOrderByWithRelationInput | Prisma.FinanceEntryOrderByWithRelationInput[]
+  cursor?: Prisma.FinanceEntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FinanceEntryScalarFieldEnum | Prisma.FinanceEntryScalarFieldEnum[]
 }
 
 /**

@@ -510,6 +510,21 @@ export type CipaMandate = Prisma.CipaMandateModel
  */
 export type CipaMember = Prisma.CipaMemberModel
 /**
+ * Model BenefitPlan
+ * 
+ */
+export type BenefitPlan = Prisma.BenefitPlanModel
+/**
+ * Model BenefitEnrollment
+ * 
+ */
+export type BenefitEnrollment = Prisma.BenefitEnrollmentModel
+/**
+ * Model FlexBenefitAllocation
+ * 
+ */
+export type FlexBenefitAllocation = Prisma.FlexBenefitAllocationModel
+/**
  * Model Company
  * 
  */
@@ -639,6 +654,11 @@ export type BankReconciliation = Prisma.BankReconciliationModel
  * 
  */
 export type BankReconciliationItem = Prisma.BankReconciliationItemModel
+/**
+ * Model ReconciliationSuggestion
+ * 
+ */
+export type ReconciliationSuggestion = Prisma.ReconciliationSuggestionModel
 /**
  * Model Loan
  * 
@@ -1430,11 +1450,6 @@ export type CashflowSnapshot = Prisma.CashflowSnapshotModel
  */
 export type AccountantAccess = Prisma.AccountantAccessModel
 /**
- * Model ExchangeRate
- * 
- */
-export type ExchangeRate = Prisma.ExchangeRateModel
-/**
  * Model Quote
  * 
  */
@@ -1569,3 +1584,38 @@ export type TenantIntegration = Prisma.TenantIntegrationModel
  * 
  */
 export type LeadRoutingRule = Prisma.LeadRoutingRuleModel
+/**
+ * Model EmployeeRequest
+ * 
+ */
+export type EmployeeRequest = Prisma.EmployeeRequestModel
+/**
+ * Model CompanyAnnouncement
+ * 
+ */
+export type CompanyAnnouncement = Prisma.CompanyAnnouncementModel
+/**
+ * Model EmployeeKudos
+ * 
+ */
+export type EmployeeKudos = Prisma.EmployeeKudosModel
+/**
+ * Model OnboardingChecklist
+ * 
+ */
+export type OnboardingChecklist = Prisma.OnboardingChecklistModel
+/**
+ * Model AdmissionInvite
+ * 
+ */
+export type AdmissionInvite = Prisma.AdmissionInviteModel
+/**
+ * Model AdmissionDocument
+ * 
+ */
+export type AdmissionDocument = Prisma.AdmissionDocumentModel
+/**
+ * Model DigitalSignature
+ * 
+ */
+export type DigitalSignature = Prisma.DigitalSignatureModel

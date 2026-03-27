@@ -145,6 +145,9 @@ export const ModelName = {
   WorkplaceRisk: 'WorkplaceRisk',
   CipaMandate: 'CipaMandate',
   CipaMember: 'CipaMember',
+  BenefitPlan: 'BenefitPlan',
+  BenefitEnrollment: 'BenefitEnrollment',
+  FlexBenefitAllocation: 'FlexBenefitAllocation',
   Company: 'Company',
   CompanyDocument: 'CompanyDocument',
   CompanyAddress: 'CompanyAddress',
@@ -171,6 +174,7 @@ export const ModelName = {
   FinanceAttachment: 'FinanceAttachment',
   BankReconciliation: 'BankReconciliation',
   BankReconciliationItem: 'BankReconciliationItem',
+  ReconciliationSuggestion: 'ReconciliationSuggestion',
   Loan: 'Loan',
   LoanInstallment: 'LoanInstallment',
   Consortium: 'Consortium',
@@ -329,7 +333,6 @@ export const ModelName = {
   PaymentLink: 'PaymentLink',
   CashflowSnapshot: 'CashflowSnapshot',
   AccountantAccess: 'AccountantAccess',
-  ExchangeRate: 'ExchangeRate',
   Quote: 'Quote',
   QuoteItem: 'QuoteItem',
   Proposal: 'Proposal',
@@ -356,7 +359,14 @@ export const ModelName = {
   LandingPage: 'LandingPage',
   Integration: 'Integration',
   TenantIntegration: 'TenantIntegration',
-  LeadRoutingRule: 'LeadRoutingRule'
+  LeadRoutingRule: 'LeadRoutingRule',
+  EmployeeRequest: 'EmployeeRequest',
+  CompanyAnnouncement: 'CompanyAnnouncement',
+  EmployeeKudos: 'EmployeeKudos',
+  OnboardingChecklist: 'OnboardingChecklist',
+  AdmissionInvite: 'AdmissionInvite',
+  AdmissionDocument: 'AdmissionDocument',
+  DigitalSignature: 'DigitalSignature'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2310,6 +2320,59 @@ export const CipaMemberScalarFieldEnum = {
 export type CipaMemberScalarFieldEnum = (typeof CipaMemberScalarFieldEnum)[keyof typeof CipaMemberScalarFieldEnum]
 
 
+export const BenefitPlanScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  type: 'type',
+  provider: 'provider',
+  policyNumber: 'policyNumber',
+  isActive: 'isActive',
+  rules: 'rules',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BenefitPlanScalarFieldEnum = (typeof BenefitPlanScalarFieldEnum)[keyof typeof BenefitPlanScalarFieldEnum]
+
+
+export const BenefitEnrollmentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  employeeId: 'employeeId',
+  benefitPlanId: 'benefitPlanId',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  employeeContribution: 'employeeContribution',
+  employerContribution: 'employerContribution',
+  dependantIds: 'dependantIds',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BenefitEnrollmentScalarFieldEnum = (typeof BenefitEnrollmentScalarFieldEnum)[keyof typeof BenefitEnrollmentScalarFieldEnum]
+
+
+export const FlexBenefitAllocationScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  employeeId: 'employeeId',
+  month: 'month',
+  year: 'year',
+  totalBudget: 'totalBudget',
+  allocations: 'allocations',
+  status: 'status',
+  confirmedAt: 'confirmedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FlexBenefitAllocationScalarFieldEnum = (typeof FlexBenefitAllocationScalarFieldEnum)[keyof typeof FlexBenefitAllocationScalarFieldEnum]
+
+
 export const CompanyScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -2635,6 +2698,7 @@ export const FinanceEntryScalarFieldEnum = {
   description: 'description',
   notes: 'notes',
   categoryId: 'categoryId',
+  companyId: 'companyId',
   costCenterId: 'costCenterId',
   bankAccountId: 'bankAccountId',
   supplierName: 'supplierName',
@@ -2844,6 +2908,22 @@ export const BankReconciliationItemScalarFieldEnum = {
 } as const
 
 export type BankReconciliationItemScalarFieldEnum = (typeof BankReconciliationItemScalarFieldEnum)[keyof typeof BankReconciliationItemScalarFieldEnum]
+
+
+export const ReconciliationSuggestionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  transactionId: 'transactionId',
+  entryId: 'entryId',
+  score: 'score',
+  matchReasons: 'matchReasons',
+  status: 'status',
+  reviewedAt: 'reviewedAt',
+  reviewedBy: 'reviewedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type ReconciliationSuggestionScalarFieldEnum = (typeof ReconciliationSuggestionScalarFieldEnum)[keyof typeof ReconciliationSuggestionScalarFieldEnum]
 
 
 export const LoanScalarFieldEnum = {
@@ -4808,6 +4888,7 @@ export const CustomerPortalAccessScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
   customerId: 'customerId',
+  customerName: 'customerName',
   accessToken: 'accessToken',
   contactId: 'contactId',
   isActive: 'isActive',
@@ -6155,18 +6236,6 @@ export const AccountantAccessScalarFieldEnum = {
 export type AccountantAccessScalarFieldEnum = (typeof AccountantAccessScalarFieldEnum)[keyof typeof AccountantAccessScalarFieldEnum]
 
 
-export const ExchangeRateScalarFieldEnum = {
-  id: 'id',
-  currency: 'currency',
-  rate: 'rate',
-  date: 'date',
-  source: 'source',
-  createdAt: 'createdAt'
-} as const
-
-export type ExchangeRateScalarFieldEnum = (typeof ExchangeRateScalarFieldEnum)[keyof typeof ExchangeRateScalarFieldEnum]
-
-
 export const QuoteScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -6617,6 +6686,132 @@ export const LeadRoutingRuleScalarFieldEnum = {
 } as const
 
 export type LeadRoutingRuleScalarFieldEnum = (typeof LeadRoutingRuleScalarFieldEnum)[keyof typeof LeadRoutingRuleScalarFieldEnum]
+
+
+export const EmployeeRequestScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  employeeId: 'employeeId',
+  type: 'type',
+  status: 'status',
+  data: 'data',
+  approverEmployeeId: 'approverEmployeeId',
+  approvedAt: 'approvedAt',
+  rejectionReason: 'rejectionReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EmployeeRequestScalarFieldEnum = (typeof EmployeeRequestScalarFieldEnum)[keyof typeof EmployeeRequestScalarFieldEnum]
+
+
+export const CompanyAnnouncementScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  content: 'content',
+  priority: 'priority',
+  publishedAt: 'publishedAt',
+  expiresAt: 'expiresAt',
+  authorEmployeeId: 'authorEmployeeId',
+  targetDepartmentIds: 'targetDepartmentIds',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CompanyAnnouncementScalarFieldEnum = (typeof CompanyAnnouncementScalarFieldEnum)[keyof typeof CompanyAnnouncementScalarFieldEnum]
+
+
+export const EmployeeKudosScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  fromEmployeeId: 'fromEmployeeId',
+  toEmployeeId: 'toEmployeeId',
+  message: 'message',
+  category: 'category',
+  isPublic: 'isPublic',
+  createdAt: 'createdAt'
+} as const
+
+export type EmployeeKudosScalarFieldEnum = (typeof EmployeeKudosScalarFieldEnum)[keyof typeof EmployeeKudosScalarFieldEnum]
+
+
+export const OnboardingChecklistScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  employeeId: 'employeeId',
+  items: 'items',
+  progress: 'progress',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OnboardingChecklistScalarFieldEnum = (typeof OnboardingChecklistScalarFieldEnum)[keyof typeof OnboardingChecklistScalarFieldEnum]
+
+
+export const AdmissionInviteScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  token: 'token',
+  email: 'email',
+  phone: 'phone',
+  fullName: 'fullName',
+  positionId: 'positionId',
+  departmentId: 'departmentId',
+  companyId: 'companyId',
+  expectedStartDate: 'expectedStartDate',
+  salary: 'salary',
+  contractType: 'contractType',
+  workRegime: 'workRegime',
+  status: 'status',
+  candidateData: 'candidateData',
+  expiresAt: 'expiresAt',
+  completedAt: 'completedAt',
+  employeeId: 'employeeId',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AdmissionInviteScalarFieldEnum = (typeof AdmissionInviteScalarFieldEnum)[keyof typeof AdmissionInviteScalarFieldEnum]
+
+
+export const AdmissionDocumentScalarFieldEnum = {
+  id: 'id',
+  admissionInviteId: 'admissionInviteId',
+  tenantId: 'tenantId',
+  type: 'type',
+  fileName: 'fileName',
+  fileUrl: 'fileUrl',
+  status: 'status',
+  rejectionReason: 'rejectionReason',
+  validatedBy: 'validatedBy',
+  validatedAt: 'validatedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AdmissionDocumentScalarFieldEnum = (typeof AdmissionDocumentScalarFieldEnum)[keyof typeof AdmissionDocumentScalarFieldEnum]
+
+
+export const DigitalSignatureScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  admissionInviteId: 'admissionInviteId',
+  documentId: 'documentId',
+  signerName: 'signerName',
+  signerCpf: 'signerCpf',
+  signerEmail: 'signerEmail',
+  signedAt: 'signedAt',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  documentHash: 'documentHash',
+  pinVerified: 'pinVerified',
+  signatureType: 'signatureType'
+} as const
+
+export type DigitalSignatureScalarFieldEnum = (typeof DigitalSignatureScalarFieldEnum)[keyof typeof DigitalSignatureScalarFieldEnum]
 
 
 export const SortOrder = {

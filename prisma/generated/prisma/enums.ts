@@ -183,6 +183,15 @@ export const ReconciliationMatchStatus = {
 export type ReconciliationMatchStatus = (typeof ReconciliationMatchStatus)[keyof typeof ReconciliationMatchStatus]
 
 
+export const ReconciliationSuggestionStatus = {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type ReconciliationSuggestionStatus = (typeof ReconciliationSuggestionStatus)[keyof typeof ReconciliationSuggestionStatus]
+
+
 export const FinanceAttachmentType = {
   BOLETO: 'BOLETO',
   PAYMENT_RECEIPT: 'PAYMENT_RECEIPT',
@@ -3172,17 +3181,6 @@ export const PaymentLinkStatus = {
 export type PaymentLinkStatus = (typeof PaymentLinkStatus)[keyof typeof PaymentLinkStatus]
 
 
-export const QuoteStatus = {
-  DRAFT: 'DRAFT',
-  SENT: 'SENT',
-  ACCEPTED: 'ACCEPTED',
-  REJECTED: 'REJECTED',
-  EXPIRED: 'EXPIRED'
-} as const
-
-export type QuoteStatus = (typeof QuoteStatus)[keyof typeof QuoteStatus]
-
-
 export const ProposalStatus = {
   DRAFT: 'DRAFT',
   SENT: 'SENT',
@@ -3277,6 +3275,18 @@ export const CashierTransactionType = {
 } as const
 
 export type CashierTransactionType = (typeof CashierTransactionType)[keyof typeof CashierTransactionType]
+
+
+export const QuoteStatus = {
+  DRAFT: 'DRAFT',
+  SENT: 'SENT',
+  VIEWED: 'VIEWED',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type QuoteStatus = (typeof QuoteStatus)[keyof typeof QuoteStatus]
 
 
 export const CadenceStepType = {

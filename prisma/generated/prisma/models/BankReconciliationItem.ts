@@ -270,6 +270,7 @@ export type BankReconciliationItemWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"BankReconciliationItem"> | Date | string
   reconciliation?: Prisma.XOR<Prisma.BankReconciliationScalarRelationFilter, Prisma.BankReconciliationWhereInput>
   matchedEntry?: Prisma.XOR<Prisma.FinanceEntryNullableScalarRelationFilter, Prisma.FinanceEntryWhereInput> | null
+  suggestions?: Prisma.ReconciliationSuggestionListRelationFilter
 }
 
 export type BankReconciliationItemOrderByWithRelationInput = {
@@ -286,6 +287,7 @@ export type BankReconciliationItemOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   reconciliation?: Prisma.BankReconciliationOrderByWithRelationInput
   matchedEntry?: Prisma.FinanceEntryOrderByWithRelationInput
+  suggestions?: Prisma.ReconciliationSuggestionOrderByRelationAggregateInput
 }
 
 export type BankReconciliationItemWhereUniqueInput = Prisma.AtLeast<{
@@ -306,6 +308,7 @@ export type BankReconciliationItemWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"BankReconciliationItem"> | Date | string
   reconciliation?: Prisma.XOR<Prisma.BankReconciliationScalarRelationFilter, Prisma.BankReconciliationWhereInput>
   matchedEntry?: Prisma.XOR<Prisma.FinanceEntryNullableScalarRelationFilter, Prisma.FinanceEntryWhereInput> | null
+  suggestions?: Prisma.ReconciliationSuggestionListRelationFilter
 }, "id" | "reconciliationId_fitId">
 
 export type BankReconciliationItemOrderByWithAggregationInput = {
@@ -356,6 +359,7 @@ export type BankReconciliationItemCreateInput = {
   createdAt?: Date | string
   reconciliation: Prisma.BankReconciliationCreateNestedOneWithoutItemsInput
   matchedEntry?: Prisma.FinanceEntryCreateNestedOneWithoutReconciliationItemsInput
+  suggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutTransactionInput
 }
 
 export type BankReconciliationItemUncheckedCreateInput = {
@@ -370,6 +374,7 @@ export type BankReconciliationItemUncheckedCreateInput = {
   matchConfidence?: number | null
   matchStatus?: $Enums.ReconciliationMatchStatus
   createdAt?: Date | string
+  suggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutTransactionInput
 }
 
 export type BankReconciliationItemUpdateInput = {
@@ -384,6 +389,7 @@ export type BankReconciliationItemUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reconciliation?: Prisma.BankReconciliationUpdateOneRequiredWithoutItemsNestedInput
   matchedEntry?: Prisma.FinanceEntryUpdateOneWithoutReconciliationItemsNestedInput
+  suggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutTransactionNestedInput
 }
 
 export type BankReconciliationItemUncheckedUpdateInput = {
@@ -398,6 +404,7 @@ export type BankReconciliationItemUncheckedUpdateInput = {
   matchConfidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   matchStatus?: Prisma.EnumReconciliationMatchStatusFieldUpdateOperationsInput | $Enums.ReconciliationMatchStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  suggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutTransactionNestedInput
 }
 
 export type BankReconciliationItemCreateManyInput = {
@@ -507,6 +514,11 @@ export type BankReconciliationItemSumOrderByAggregateInput = {
   matchConfidence?: Prisma.SortOrder
 }
 
+export type BankReconciliationItemScalarRelationFilter = {
+  is?: Prisma.BankReconciliationItemWhereInput
+  isNot?: Prisma.BankReconciliationItemWhereInput
+}
+
 export type BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput = {
   create?: Prisma.XOR<Prisma.BankReconciliationItemCreateWithoutMatchedEntryInput, Prisma.BankReconciliationItemUncheckedCreateWithoutMatchedEntryInput> | Prisma.BankReconciliationItemCreateWithoutMatchedEntryInput[] | Prisma.BankReconciliationItemUncheckedCreateWithoutMatchedEntryInput[]
   connectOrCreate?: Prisma.BankReconciliationItemCreateOrConnectWithoutMatchedEntryInput | Prisma.BankReconciliationItemCreateOrConnectWithoutMatchedEntryInput[]
@@ -595,6 +607,20 @@ export type EnumReconciliationMatchStatusFieldUpdateOperationsInput = {
   set?: $Enums.ReconciliationMatchStatus
 }
 
+export type BankReconciliationItemCreateNestedOneWithoutSuggestionsInput = {
+  create?: Prisma.XOR<Prisma.BankReconciliationItemCreateWithoutSuggestionsInput, Prisma.BankReconciliationItemUncheckedCreateWithoutSuggestionsInput>
+  connectOrCreate?: Prisma.BankReconciliationItemCreateOrConnectWithoutSuggestionsInput
+  connect?: Prisma.BankReconciliationItemWhereUniqueInput
+}
+
+export type BankReconciliationItemUpdateOneRequiredWithoutSuggestionsNestedInput = {
+  create?: Prisma.XOR<Prisma.BankReconciliationItemCreateWithoutSuggestionsInput, Prisma.BankReconciliationItemUncheckedCreateWithoutSuggestionsInput>
+  connectOrCreate?: Prisma.BankReconciliationItemCreateOrConnectWithoutSuggestionsInput
+  upsert?: Prisma.BankReconciliationItemUpsertWithoutSuggestionsInput
+  connect?: Prisma.BankReconciliationItemWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BankReconciliationItemUpdateToOneWithWhereWithoutSuggestionsInput, Prisma.BankReconciliationItemUpdateWithoutSuggestionsInput>, Prisma.BankReconciliationItemUncheckedUpdateWithoutSuggestionsInput>
+}
+
 export type BankReconciliationItemCreateWithoutMatchedEntryInput = {
   id?: string
   fitId: string
@@ -606,6 +632,7 @@ export type BankReconciliationItemCreateWithoutMatchedEntryInput = {
   matchStatus?: $Enums.ReconciliationMatchStatus
   createdAt?: Date | string
   reconciliation: Prisma.BankReconciliationCreateNestedOneWithoutItemsInput
+  suggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutTransactionInput
 }
 
 export type BankReconciliationItemUncheckedCreateWithoutMatchedEntryInput = {
@@ -619,6 +646,7 @@ export type BankReconciliationItemUncheckedCreateWithoutMatchedEntryInput = {
   matchConfidence?: number | null
   matchStatus?: $Enums.ReconciliationMatchStatus
   createdAt?: Date | string
+  suggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutTransactionInput
 }
 
 export type BankReconciliationItemCreateOrConnectWithoutMatchedEntryInput = {
@@ -675,6 +703,7 @@ export type BankReconciliationItemCreateWithoutReconciliationInput = {
   matchStatus?: $Enums.ReconciliationMatchStatus
   createdAt?: Date | string
   matchedEntry?: Prisma.FinanceEntryCreateNestedOneWithoutReconciliationItemsInput
+  suggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutTransactionInput
 }
 
 export type BankReconciliationItemUncheckedCreateWithoutReconciliationInput = {
@@ -688,6 +717,7 @@ export type BankReconciliationItemUncheckedCreateWithoutReconciliationInput = {
   matchConfidence?: number | null
   matchStatus?: $Enums.ReconciliationMatchStatus
   createdAt?: Date | string
+  suggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutTransactionInput
 }
 
 export type BankReconciliationItemCreateOrConnectWithoutReconciliationInput = {
@@ -716,6 +746,78 @@ export type BankReconciliationItemUpdateManyWithWhereWithoutReconciliationInput 
   data: Prisma.XOR<Prisma.BankReconciliationItemUpdateManyMutationInput, Prisma.BankReconciliationItemUncheckedUpdateManyWithoutReconciliationInput>
 }
 
+export type BankReconciliationItemCreateWithoutSuggestionsInput = {
+  id?: string
+  fitId: string
+  transactionDate: Date | string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  description: string
+  type: string
+  matchConfidence?: number | null
+  matchStatus?: $Enums.ReconciliationMatchStatus
+  createdAt?: Date | string
+  reconciliation: Prisma.BankReconciliationCreateNestedOneWithoutItemsInput
+  matchedEntry?: Prisma.FinanceEntryCreateNestedOneWithoutReconciliationItemsInput
+}
+
+export type BankReconciliationItemUncheckedCreateWithoutSuggestionsInput = {
+  id?: string
+  reconciliationId: string
+  fitId: string
+  transactionDate: Date | string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  description: string
+  type: string
+  matchedEntryId?: string | null
+  matchConfidence?: number | null
+  matchStatus?: $Enums.ReconciliationMatchStatus
+  createdAt?: Date | string
+}
+
+export type BankReconciliationItemCreateOrConnectWithoutSuggestionsInput = {
+  where: Prisma.BankReconciliationItemWhereUniqueInput
+  create: Prisma.XOR<Prisma.BankReconciliationItemCreateWithoutSuggestionsInput, Prisma.BankReconciliationItemUncheckedCreateWithoutSuggestionsInput>
+}
+
+export type BankReconciliationItemUpsertWithoutSuggestionsInput = {
+  update: Prisma.XOR<Prisma.BankReconciliationItemUpdateWithoutSuggestionsInput, Prisma.BankReconciliationItemUncheckedUpdateWithoutSuggestionsInput>
+  create: Prisma.XOR<Prisma.BankReconciliationItemCreateWithoutSuggestionsInput, Prisma.BankReconciliationItemUncheckedCreateWithoutSuggestionsInput>
+  where?: Prisma.BankReconciliationItemWhereInput
+}
+
+export type BankReconciliationItemUpdateToOneWithWhereWithoutSuggestionsInput = {
+  where?: Prisma.BankReconciliationItemWhereInput
+  data: Prisma.XOR<Prisma.BankReconciliationItemUpdateWithoutSuggestionsInput, Prisma.BankReconciliationItemUncheckedUpdateWithoutSuggestionsInput>
+}
+
+export type BankReconciliationItemUpdateWithoutSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fitId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  matchConfidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  matchStatus?: Prisma.EnumReconciliationMatchStatusFieldUpdateOperationsInput | $Enums.ReconciliationMatchStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reconciliation?: Prisma.BankReconciliationUpdateOneRequiredWithoutItemsNestedInput
+  matchedEntry?: Prisma.FinanceEntryUpdateOneWithoutReconciliationItemsNestedInput
+}
+
+export type BankReconciliationItemUncheckedUpdateWithoutSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  reconciliationId?: Prisma.StringFieldUpdateOperationsInput | string
+  fitId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  matchedEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  matchConfidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  matchStatus?: Prisma.EnumReconciliationMatchStatusFieldUpdateOperationsInput | $Enums.ReconciliationMatchStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type BankReconciliationItemCreateManyMatchedEntryInput = {
   id?: string
   reconciliationId: string
@@ -740,6 +842,7 @@ export type BankReconciliationItemUpdateWithoutMatchedEntryInput = {
   matchStatus?: Prisma.EnumReconciliationMatchStatusFieldUpdateOperationsInput | $Enums.ReconciliationMatchStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reconciliation?: Prisma.BankReconciliationUpdateOneRequiredWithoutItemsNestedInput
+  suggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutTransactionNestedInput
 }
 
 export type BankReconciliationItemUncheckedUpdateWithoutMatchedEntryInput = {
@@ -753,6 +856,7 @@ export type BankReconciliationItemUncheckedUpdateWithoutMatchedEntryInput = {
   matchConfidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   matchStatus?: Prisma.EnumReconciliationMatchStatusFieldUpdateOperationsInput | $Enums.ReconciliationMatchStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  suggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutTransactionNestedInput
 }
 
 export type BankReconciliationItemUncheckedUpdateManyWithoutMatchedEntryInput = {
@@ -792,6 +896,7 @@ export type BankReconciliationItemUpdateWithoutReconciliationInput = {
   matchStatus?: Prisma.EnumReconciliationMatchStatusFieldUpdateOperationsInput | $Enums.ReconciliationMatchStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   matchedEntry?: Prisma.FinanceEntryUpdateOneWithoutReconciliationItemsNestedInput
+  suggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutTransactionNestedInput
 }
 
 export type BankReconciliationItemUncheckedUpdateWithoutReconciliationInput = {
@@ -805,6 +910,7 @@ export type BankReconciliationItemUncheckedUpdateWithoutReconciliationInput = {
   matchConfidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   matchStatus?: Prisma.EnumReconciliationMatchStatusFieldUpdateOperationsInput | $Enums.ReconciliationMatchStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  suggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutTransactionNestedInput
 }
 
 export type BankReconciliationItemUncheckedUpdateManyWithoutReconciliationInput = {
@@ -821,6 +927,35 @@ export type BankReconciliationItemUncheckedUpdateManyWithoutReconciliationInput 
 }
 
 
+/**
+ * Count Type BankReconciliationItemCountOutputType
+ */
+
+export type BankReconciliationItemCountOutputType = {
+  suggestions: number
+}
+
+export type BankReconciliationItemCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  suggestions?: boolean | BankReconciliationItemCountOutputTypeCountSuggestionsArgs
+}
+
+/**
+ * BankReconciliationItemCountOutputType without action
+ */
+export type BankReconciliationItemCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BankReconciliationItemCountOutputType
+   */
+  select?: Prisma.BankReconciliationItemCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * BankReconciliationItemCountOutputType without action
+ */
+export type BankReconciliationItemCountOutputTypeCountSuggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReconciliationSuggestionWhereInput
+}
+
 
 export type BankReconciliationItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -836,6 +971,8 @@ export type BankReconciliationItemSelect<ExtArgs extends runtime.Types.Extension
   createdAt?: boolean
   reconciliation?: boolean | Prisma.BankReconciliationDefaultArgs<ExtArgs>
   matchedEntry?: boolean | Prisma.BankReconciliationItem$matchedEntryArgs<ExtArgs>
+  suggestions?: boolean | Prisma.BankReconciliationItem$suggestionsArgs<ExtArgs>
+  _count?: boolean | Prisma.BankReconciliationItemCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bankReconciliationItem"]>
 
 export type BankReconciliationItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -888,6 +1025,8 @@ export type BankReconciliationItemOmit<ExtArgs extends runtime.Types.Extensions.
 export type BankReconciliationItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   reconciliation?: boolean | Prisma.BankReconciliationDefaultArgs<ExtArgs>
   matchedEntry?: boolean | Prisma.BankReconciliationItem$matchedEntryArgs<ExtArgs>
+  suggestions?: boolean | Prisma.BankReconciliationItem$suggestionsArgs<ExtArgs>
+  _count?: boolean | Prisma.BankReconciliationItemCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BankReconciliationItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   reconciliation?: boolean | Prisma.BankReconciliationDefaultArgs<ExtArgs>
@@ -903,6 +1042,7 @@ export type $BankReconciliationItemPayload<ExtArgs extends runtime.Types.Extensi
   objects: {
     reconciliation: Prisma.$BankReconciliationPayload<ExtArgs>
     matchedEntry: Prisma.$FinanceEntryPayload<ExtArgs> | null
+    suggestions: Prisma.$ReconciliationSuggestionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1312,6 +1452,7 @@ export interface Prisma__BankReconciliationItemClient<T, Null = never, ExtArgs e
   readonly [Symbol.toStringTag]: "PrismaPromise"
   reconciliation<T extends Prisma.BankReconciliationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BankReconciliationDefaultArgs<ExtArgs>>): Prisma.Prisma__BankReconciliationClient<runtime.Types.Result.GetResult<Prisma.$BankReconciliationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   matchedEntry<T extends Prisma.BankReconciliationItem$matchedEntryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BankReconciliationItem$matchedEntryArgs<ExtArgs>>): Prisma.Prisma__FinanceEntryClient<runtime.Types.Result.GetResult<Prisma.$FinanceEntryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  suggestions<T extends Prisma.BankReconciliationItem$suggestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BankReconciliationItem$suggestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReconciliationSuggestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1764,6 +1905,30 @@ export type BankReconciliationItem$matchedEntryArgs<ExtArgs extends runtime.Type
    */
   include?: Prisma.FinanceEntryInclude<ExtArgs> | null
   where?: Prisma.FinanceEntryWhereInput
+}
+
+/**
+ * BankReconciliationItem.suggestions
+ */
+export type BankReconciliationItem$suggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReconciliationSuggestion
+   */
+  select?: Prisma.ReconciliationSuggestionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReconciliationSuggestion
+   */
+  omit?: Prisma.ReconciliationSuggestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReconciliationSuggestionInclude<ExtArgs> | null
+  where?: Prisma.ReconciliationSuggestionWhereInput
+  orderBy?: Prisma.ReconciliationSuggestionOrderByWithRelationInput | Prisma.ReconciliationSuggestionOrderByWithRelationInput[]
+  cursor?: Prisma.ReconciliationSuggestionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReconciliationSuggestionScalarFieldEnum | Prisma.ReconciliationSuggestionScalarFieldEnum[]
 }
 
 /**

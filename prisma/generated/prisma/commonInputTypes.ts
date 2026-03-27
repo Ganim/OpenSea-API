@@ -1785,6 +1785,23 @@ export type EnumReconciliationMatchStatusWithAggregatesFilter<$PrismaModel = nev
   _max?: Prisma.NestedEnumReconciliationMatchStatusFilter<$PrismaModel>
 }
 
+export type EnumReconciliationSuggestionStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ReconciliationSuggestionStatus | Prisma.EnumReconciliationSuggestionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ReconciliationSuggestionStatus[] | Prisma.ListEnumReconciliationSuggestionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ReconciliationSuggestionStatus[] | Prisma.ListEnumReconciliationSuggestionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumReconciliationSuggestionStatusFilter<$PrismaModel> | $Enums.ReconciliationSuggestionStatus
+}
+
+export type EnumReconciliationSuggestionStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ReconciliationSuggestionStatus | Prisma.EnumReconciliationSuggestionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ReconciliationSuggestionStatus[] | Prisma.ListEnumReconciliationSuggestionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ReconciliationSuggestionStatus[] | Prisma.ListEnumReconciliationSuggestionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumReconciliationSuggestionStatusWithAggregatesFilter<$PrismaModel> | $Enums.ReconciliationSuggestionStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumReconciliationSuggestionStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumReconciliationSuggestionStatusFilter<$PrismaModel>
+}
+
 export type EnumLoanTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.LoanType | Prisma.EnumLoanTypeFieldRefInput<$PrismaModel>
   in?: $Enums.LoanType[] | Prisma.ListEnumLoanTypeFieldRefInput<$PrismaModel>
@@ -6738,6 +6755,23 @@ export type NestedEnumReconciliationMatchStatusWithAggregatesFilter<$PrismaModel
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumReconciliationMatchStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumReconciliationMatchStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumReconciliationSuggestionStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ReconciliationSuggestionStatus | Prisma.EnumReconciliationSuggestionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ReconciliationSuggestionStatus[] | Prisma.ListEnumReconciliationSuggestionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ReconciliationSuggestionStatus[] | Prisma.ListEnumReconciliationSuggestionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumReconciliationSuggestionStatusFilter<$PrismaModel> | $Enums.ReconciliationSuggestionStatus
+}
+
+export type NestedEnumReconciliationSuggestionStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ReconciliationSuggestionStatus | Prisma.EnumReconciliationSuggestionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ReconciliationSuggestionStatus[] | Prisma.ListEnumReconciliationSuggestionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ReconciliationSuggestionStatus[] | Prisma.ListEnumReconciliationSuggestionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumReconciliationSuggestionStatusWithAggregatesFilter<$PrismaModel> | $Enums.ReconciliationSuggestionStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumReconciliationSuggestionStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumReconciliationSuggestionStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumLoanTypeFilter<$PrismaModel = never> = {

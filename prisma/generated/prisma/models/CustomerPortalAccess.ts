@@ -28,6 +28,7 @@ export type CustomerPortalAccessMinAggregateOutputType = {
   id: string | null
   tenantId: string | null
   customerId: string | null
+  customerName: string | null
   accessToken: string | null
   contactId: string | null
   isActive: boolean | null
@@ -41,6 +42,7 @@ export type CustomerPortalAccessMaxAggregateOutputType = {
   id: string | null
   tenantId: string | null
   customerId: string | null
+  customerName: string | null
   accessToken: string | null
   contactId: string | null
   isActive: boolean | null
@@ -54,6 +56,7 @@ export type CustomerPortalAccessCountAggregateOutputType = {
   id: number
   tenantId: number
   customerId: number
+  customerName: number
   accessToken: number
   contactId: number
   isActive: number
@@ -70,6 +73,7 @@ export type CustomerPortalAccessMinAggregateInputType = {
   id?: true
   tenantId?: true
   customerId?: true
+  customerName?: true
   accessToken?: true
   contactId?: true
   isActive?: true
@@ -83,6 +87,7 @@ export type CustomerPortalAccessMaxAggregateInputType = {
   id?: true
   tenantId?: true
   customerId?: true
+  customerName?: true
   accessToken?: true
   contactId?: true
   isActive?: true
@@ -96,6 +101,7 @@ export type CustomerPortalAccessCountAggregateInputType = {
   id?: true
   tenantId?: true
   customerId?: true
+  customerName?: true
   accessToken?: true
   contactId?: true
   isActive?: true
@@ -183,6 +189,7 @@ export type CustomerPortalAccessGroupByOutputType = {
   id: string
   tenantId: string
   customerId: string
+  customerName: string | null
   accessToken: string
   contactId: string | null
   isActive: boolean
@@ -218,6 +225,7 @@ export type CustomerPortalAccessWhereInput = {
   id?: Prisma.StringFilter<"CustomerPortalAccess"> | string
   tenantId?: Prisma.StringFilter<"CustomerPortalAccess"> | string
   customerId?: Prisma.StringFilter<"CustomerPortalAccess"> | string
+  customerName?: Prisma.StringNullableFilter<"CustomerPortalAccess"> | string | null
   accessToken?: Prisma.StringFilter<"CustomerPortalAccess"> | string
   contactId?: Prisma.StringNullableFilter<"CustomerPortalAccess"> | string | null
   isActive?: Prisma.BoolFilter<"CustomerPortalAccess"> | boolean
@@ -235,6 +243,7 @@ export type CustomerPortalAccessOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   customerId?: Prisma.SortOrder
+  customerName?: Prisma.SortOrderInput | Prisma.SortOrder
   accessToken?: Prisma.SortOrder
   contactId?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -256,6 +265,7 @@ export type CustomerPortalAccessWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CustomerPortalAccessWhereInput | Prisma.CustomerPortalAccessWhereInput[]
   tenantId?: Prisma.StringFilter<"CustomerPortalAccess"> | string
   customerId?: Prisma.StringFilter<"CustomerPortalAccess"> | string
+  customerName?: Prisma.StringNullableFilter<"CustomerPortalAccess"> | string | null
   contactId?: Prisma.StringNullableFilter<"CustomerPortalAccess"> | string | null
   isActive?: Prisma.BoolFilter<"CustomerPortalAccess"> | boolean
   permissions?: Prisma.JsonFilter<"CustomerPortalAccess">
@@ -272,6 +282,7 @@ export type CustomerPortalAccessOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   customerId?: Prisma.SortOrder
+  customerName?: Prisma.SortOrderInput | Prisma.SortOrder
   accessToken?: Prisma.SortOrder
   contactId?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -292,6 +303,7 @@ export type CustomerPortalAccessScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"CustomerPortalAccess"> | string
   tenantId?: Prisma.StringWithAggregatesFilter<"CustomerPortalAccess"> | string
   customerId?: Prisma.StringWithAggregatesFilter<"CustomerPortalAccess"> | string
+  customerName?: Prisma.StringNullableWithAggregatesFilter<"CustomerPortalAccess"> | string | null
   accessToken?: Prisma.StringWithAggregatesFilter<"CustomerPortalAccess"> | string
   contactId?: Prisma.StringNullableWithAggregatesFilter<"CustomerPortalAccess"> | string | null
   isActive?: Prisma.BoolWithAggregatesFilter<"CustomerPortalAccess"> | boolean
@@ -304,6 +316,7 @@ export type CustomerPortalAccessScalarWhereWithAggregatesInput = {
 
 export type CustomerPortalAccessCreateInput = {
   id?: string
+  customerName?: string | null
   accessToken: string
   isActive?: boolean
   permissions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -320,6 +333,7 @@ export type CustomerPortalAccessUncheckedCreateInput = {
   id?: string
   tenantId: string
   customerId: string
+  customerName?: string | null
   accessToken: string
   contactId?: string | null
   isActive?: boolean
@@ -332,6 +346,7 @@ export type CustomerPortalAccessUncheckedCreateInput = {
 
 export type CustomerPortalAccessUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   permissions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -348,6 +363,7 @@ export type CustomerPortalAccessUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -362,6 +378,7 @@ export type CustomerPortalAccessCreateManyInput = {
   id?: string
   tenantId: string
   customerId: string
+  customerName?: string | null
   accessToken: string
   contactId?: string | null
   isActive?: boolean
@@ -374,6 +391,7 @@ export type CustomerPortalAccessCreateManyInput = {
 
 export type CustomerPortalAccessUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   permissions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -387,6 +405,7 @@ export type CustomerPortalAccessUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -411,6 +430,7 @@ export type CustomerPortalAccessCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   customerId?: Prisma.SortOrder
+  customerName?: Prisma.SortOrder
   accessToken?: Prisma.SortOrder
   contactId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -425,6 +445,7 @@ export type CustomerPortalAccessMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   customerId?: Prisma.SortOrder
+  customerName?: Prisma.SortOrder
   accessToken?: Prisma.SortOrder
   contactId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -438,6 +459,7 @@ export type CustomerPortalAccessMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   customerId?: Prisma.SortOrder
+  customerName?: Prisma.SortOrder
   accessToken?: Prisma.SortOrder
   contactId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -575,6 +597,7 @@ export type CustomerPortalAccessUncheckedUpdateManyWithoutTenantNestedInput = {
 
 export type CustomerPortalAccessCreateWithoutCustomerInput = {
   id?: string
+  customerName?: string | null
   accessToken: string
   isActive?: boolean
   permissions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -589,6 +612,7 @@ export type CustomerPortalAccessCreateWithoutCustomerInput = {
 export type CustomerPortalAccessUncheckedCreateWithoutCustomerInput = {
   id?: string
   tenantId: string
+  customerName?: string | null
   accessToken: string
   contactId?: string | null
   isActive?: boolean
@@ -632,6 +656,7 @@ export type CustomerPortalAccessScalarWhereInput = {
   id?: Prisma.StringFilter<"CustomerPortalAccess"> | string
   tenantId?: Prisma.StringFilter<"CustomerPortalAccess"> | string
   customerId?: Prisma.StringFilter<"CustomerPortalAccess"> | string
+  customerName?: Prisma.StringNullableFilter<"CustomerPortalAccess"> | string | null
   accessToken?: Prisma.StringFilter<"CustomerPortalAccess"> | string
   contactId?: Prisma.StringNullableFilter<"CustomerPortalAccess"> | string | null
   isActive?: Prisma.BoolFilter<"CustomerPortalAccess"> | boolean
@@ -644,6 +669,7 @@ export type CustomerPortalAccessScalarWhereInput = {
 
 export type CustomerPortalAccessCreateWithoutContactInput = {
   id?: string
+  customerName?: string | null
   accessToken: string
   isActive?: boolean
   permissions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -659,6 +685,7 @@ export type CustomerPortalAccessUncheckedCreateWithoutContactInput = {
   id?: string
   tenantId: string
   customerId: string
+  customerName?: string | null
   accessToken: string
   isActive?: boolean
   permissions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -696,6 +723,7 @@ export type CustomerPortalAccessUpdateManyWithWhereWithoutContactInput = {
 
 export type CustomerPortalAccessCreateWithoutTenantInput = {
   id?: string
+  customerName?: string | null
   accessToken: string
   isActive?: boolean
   permissions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -710,6 +738,7 @@ export type CustomerPortalAccessCreateWithoutTenantInput = {
 export type CustomerPortalAccessUncheckedCreateWithoutTenantInput = {
   id?: string
   customerId: string
+  customerName?: string | null
   accessToken: string
   contactId?: string | null
   isActive?: boolean
@@ -749,6 +778,7 @@ export type CustomerPortalAccessUpdateManyWithWhereWithoutTenantInput = {
 export type CustomerPortalAccessCreateManyCustomerInput = {
   id?: string
   tenantId: string
+  customerName?: string | null
   accessToken: string
   contactId?: string | null
   isActive?: boolean
@@ -761,6 +791,7 @@ export type CustomerPortalAccessCreateManyCustomerInput = {
 
 export type CustomerPortalAccessUpdateWithoutCustomerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   permissions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -775,6 +806,7 @@ export type CustomerPortalAccessUpdateWithoutCustomerInput = {
 export type CustomerPortalAccessUncheckedUpdateWithoutCustomerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -788,6 +820,7 @@ export type CustomerPortalAccessUncheckedUpdateWithoutCustomerInput = {
 export type CustomerPortalAccessUncheckedUpdateManyWithoutCustomerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -802,6 +835,7 @@ export type CustomerPortalAccessCreateManyContactInput = {
   id?: string
   tenantId: string
   customerId: string
+  customerName?: string | null
   accessToken: string
   isActive?: boolean
   permissions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -813,6 +847,7 @@ export type CustomerPortalAccessCreateManyContactInput = {
 
 export type CustomerPortalAccessUpdateWithoutContactInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   permissions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -828,6 +863,7 @@ export type CustomerPortalAccessUncheckedUpdateWithoutContactInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   permissions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -841,6 +877,7 @@ export type CustomerPortalAccessUncheckedUpdateManyWithoutContactInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   permissions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -853,6 +890,7 @@ export type CustomerPortalAccessUncheckedUpdateManyWithoutContactInput = {
 export type CustomerPortalAccessCreateManyTenantInput = {
   id?: string
   customerId: string
+  customerName?: string | null
   accessToken: string
   contactId?: string | null
   isActive?: boolean
@@ -865,6 +903,7 @@ export type CustomerPortalAccessCreateManyTenantInput = {
 
 export type CustomerPortalAccessUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   permissions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -879,6 +918,7 @@ export type CustomerPortalAccessUpdateWithoutTenantInput = {
 export type CustomerPortalAccessUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -892,6 +932,7 @@ export type CustomerPortalAccessUncheckedUpdateWithoutTenantInput = {
 export type CustomerPortalAccessUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accessToken?: Prisma.StringFieldUpdateOperationsInput | string
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -908,6 +949,7 @@ export type CustomerPortalAccessSelect<ExtArgs extends runtime.Types.Extensions.
   id?: boolean
   tenantId?: boolean
   customerId?: boolean
+  customerName?: boolean
   accessToken?: boolean
   contactId?: boolean
   isActive?: boolean
@@ -925,6 +967,7 @@ export type CustomerPortalAccessSelectCreateManyAndReturn<ExtArgs extends runtim
   id?: boolean
   tenantId?: boolean
   customerId?: boolean
+  customerName?: boolean
   accessToken?: boolean
   contactId?: boolean
   isActive?: boolean
@@ -942,6 +985,7 @@ export type CustomerPortalAccessSelectUpdateManyAndReturn<ExtArgs extends runtim
   id?: boolean
   tenantId?: boolean
   customerId?: boolean
+  customerName?: boolean
   accessToken?: boolean
   contactId?: boolean
   isActive?: boolean
@@ -959,6 +1003,7 @@ export type CustomerPortalAccessSelectScalar = {
   id?: boolean
   tenantId?: boolean
   customerId?: boolean
+  customerName?: boolean
   accessToken?: boolean
   contactId?: boolean
   isActive?: boolean
@@ -969,7 +1014,7 @@ export type CustomerPortalAccessSelectScalar = {
   updatedAt?: boolean
 }
 
-export type CustomerPortalAccessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "customerId" | "accessToken" | "contactId" | "isActive" | "permissions" | "lastAccessAt" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["customerPortalAccess"]>
+export type CustomerPortalAccessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "customerId" | "customerName" | "accessToken" | "contactId" | "isActive" | "permissions" | "lastAccessAt" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["customerPortalAccess"]>
 export type CustomerPortalAccessInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
@@ -997,6 +1042,7 @@ export type $CustomerPortalAccessPayload<ExtArgs extends runtime.Types.Extension
     id: string
     tenantId: string
     customerId: string
+    customerName: string | null
     accessToken: string
     contactId: string | null
     isActive: boolean
@@ -1434,6 +1480,7 @@ export interface CustomerPortalAccessFieldRefs {
   readonly id: Prisma.FieldRef<"CustomerPortalAccess", 'String'>
   readonly tenantId: Prisma.FieldRef<"CustomerPortalAccess", 'String'>
   readonly customerId: Prisma.FieldRef<"CustomerPortalAccess", 'String'>
+  readonly customerName: Prisma.FieldRef<"CustomerPortalAccess", 'String'>
   readonly accessToken: Prisma.FieldRef<"CustomerPortalAccess", 'String'>
   readonly contactId: Prisma.FieldRef<"CustomerPortalAccess", 'String'>
   readonly isActive: Prisma.FieldRef<"CustomerPortalAccess", 'Boolean'>

@@ -62,6 +62,7 @@ export type FinanceEntryMinAggregateOutputType = {
   description: string | null
   notes: string | null
   categoryId: string | null
+  companyId: string | null
   costCenterId: string | null
   bankAccountId: string | null
   supplierName: string | null
@@ -115,6 +116,7 @@ export type FinanceEntryMaxAggregateOutputType = {
   description: string | null
   notes: string | null
   categoryId: string | null
+  companyId: string | null
   costCenterId: string | null
   bankAccountId: string | null
   supplierName: string | null
@@ -168,6 +170,7 @@ export type FinanceEntryCountAggregateOutputType = {
   description: number
   notes: number
   categoryId: number
+  companyId: number
   costCenterId: number
   bankAccountId: number
   supplierName: number
@@ -253,6 +256,7 @@ export type FinanceEntryMinAggregateInputType = {
   description?: true
   notes?: true
   categoryId?: true
+  companyId?: true
   costCenterId?: true
   bankAccountId?: true
   supplierName?: true
@@ -306,6 +310,7 @@ export type FinanceEntryMaxAggregateInputType = {
   description?: true
   notes?: true
   categoryId?: true
+  companyId?: true
   costCenterId?: true
   bankAccountId?: true
   supplierName?: true
@@ -359,6 +364,7 @@ export type FinanceEntryCountAggregateInputType = {
   description?: true
   notes?: true
   categoryId?: true
+  companyId?: true
   costCenterId?: true
   bankAccountId?: true
   supplierName?: true
@@ -501,6 +507,7 @@ export type FinanceEntryGroupByOutputType = {
   description: string
   notes: string | null
   categoryId: string
+  companyId: string | null
   costCenterId: string | null
   bankAccountId: string | null
   supplierName: string | null
@@ -579,6 +586,7 @@ export type FinanceEntryWhereInput = {
   description?: Prisma.StringFilter<"FinanceEntry"> | string
   notes?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   categoryId?: Prisma.StringFilter<"FinanceEntry"> | string
+  companyId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   costCenterId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   bankAccountId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   supplierName?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
@@ -626,6 +634,7 @@ export type FinanceEntryWhereInput = {
   fiscalDocumentId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   category?: Prisma.XOR<Prisma.FinanceCategoryScalarRelationFilter, Prisma.FinanceCategoryWhereInput>
+  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
   costCenter?: Prisma.XOR<Prisma.CostCenterNullableScalarRelationFilter, Prisma.CostCenterWhereInput> | null
   bankAccount?: Prisma.XOR<Prisma.BankAccountNullableScalarRelationFilter, Prisma.BankAccountWhereInput> | null
   parentEntry?: Prisma.XOR<Prisma.FinanceEntryNullableScalarRelationFilter, Prisma.FinanceEntryWhereInput> | null
@@ -636,6 +645,7 @@ export type FinanceEntryWhereInput = {
   attachments?: Prisma.FinanceAttachmentListRelationFilter
   costCenterAllocations?: Prisma.FinanceEntryCostCenterListRelationFilter
   reconciliationItems?: Prisma.BankReconciliationItemListRelationFilter
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionListRelationFilter
   overdueActions?: Prisma.OverdueActionListRelationFilter
   retentions?: Prisma.FinanceEntryRetentionListRelationFilter
   paymentLinks?: Prisma.PaymentLinkListRelationFilter
@@ -649,6 +659,7 @@ export type FinanceEntryOrderByWithRelationInput = {
   description?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   categoryId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
   costCenterId?: Prisma.SortOrderInput | Prisma.SortOrder
   bankAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
   supplierName?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -696,6 +707,7 @@ export type FinanceEntryOrderByWithRelationInput = {
   fiscalDocumentId?: Prisma.SortOrderInput | Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   category?: Prisma.FinanceCategoryOrderByWithRelationInput
+  company?: Prisma.CompanyOrderByWithRelationInput
   costCenter?: Prisma.CostCenterOrderByWithRelationInput
   bankAccount?: Prisma.BankAccountOrderByWithRelationInput
   parentEntry?: Prisma.FinanceEntryOrderByWithRelationInput
@@ -706,6 +718,7 @@ export type FinanceEntryOrderByWithRelationInput = {
   attachments?: Prisma.FinanceAttachmentOrderByRelationAggregateInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterOrderByRelationAggregateInput
   reconciliationItems?: Prisma.BankReconciliationItemOrderByRelationAggregateInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionOrderByRelationAggregateInput
   overdueActions?: Prisma.OverdueActionOrderByRelationAggregateInput
   retentions?: Prisma.FinanceEntryRetentionOrderByRelationAggregateInput
   paymentLinks?: Prisma.PaymentLinkOrderByRelationAggregateInput
@@ -723,6 +736,7 @@ export type FinanceEntryWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringFilter<"FinanceEntry"> | string
   notes?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   categoryId?: Prisma.StringFilter<"FinanceEntry"> | string
+  companyId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   costCenterId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   bankAccountId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   supplierName?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
@@ -770,6 +784,7 @@ export type FinanceEntryWhereUniqueInput = Prisma.AtLeast<{
   fiscalDocumentId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   category?: Prisma.XOR<Prisma.FinanceCategoryScalarRelationFilter, Prisma.FinanceCategoryWhereInput>
+  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
   costCenter?: Prisma.XOR<Prisma.CostCenterNullableScalarRelationFilter, Prisma.CostCenterWhereInput> | null
   bankAccount?: Prisma.XOR<Prisma.BankAccountNullableScalarRelationFilter, Prisma.BankAccountWhereInput> | null
   parentEntry?: Prisma.XOR<Prisma.FinanceEntryNullableScalarRelationFilter, Prisma.FinanceEntryWhereInput> | null
@@ -780,6 +795,7 @@ export type FinanceEntryWhereUniqueInput = Prisma.AtLeast<{
   attachments?: Prisma.FinanceAttachmentListRelationFilter
   costCenterAllocations?: Prisma.FinanceEntryCostCenterListRelationFilter
   reconciliationItems?: Prisma.BankReconciliationItemListRelationFilter
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionListRelationFilter
   overdueActions?: Prisma.OverdueActionListRelationFilter
   retentions?: Prisma.FinanceEntryRetentionListRelationFilter
   paymentLinks?: Prisma.PaymentLinkListRelationFilter
@@ -793,6 +809,7 @@ export type FinanceEntryOrderByWithAggregationInput = {
   description?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   categoryId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
   costCenterId?: Prisma.SortOrderInput | Prisma.SortOrder
   bankAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
   supplierName?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -856,6 +873,7 @@ export type FinanceEntryScalarWhereWithAggregatesInput = {
   description?: Prisma.StringWithAggregatesFilter<"FinanceEntry"> | string
   notes?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
   categoryId?: Prisma.StringWithAggregatesFilter<"FinanceEntry"> | string
+  companyId?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
   costCenterId?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
   bankAccountId?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
   supplierName?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
@@ -951,6 +969,7 @@ export type FinanceEntryCreateInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceEntriesInput
   category: Prisma.FinanceCategoryCreateNestedOneWithoutFinanceEntriesInput
+  company?: Prisma.CompanyCreateNestedOneWithoutFinanceEntriesInput
   costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
@@ -961,6 +980,7 @@ export type FinanceEntryCreateInput = {
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkCreateNestedManyWithoutEntryInput
@@ -974,6 +994,7 @@ export type FinanceEntryUncheckedCreateInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   costCenterId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
@@ -1024,6 +1045,7 @@ export type FinanceEntryUncheckedCreateInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionUncheckedCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkUncheckedCreateNestedManyWithoutEntryInput
@@ -1077,6 +1099,7 @@ export type FinanceEntryUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceEntriesNestedInput
   category?: Prisma.FinanceCategoryUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutFinanceEntriesNestedInput
   costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
@@ -1087,6 +1110,7 @@ export type FinanceEntryUpdateInput = {
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUpdateManyWithoutEntryNestedInput
@@ -1100,6 +1124,7 @@ export type FinanceEntryUncheckedUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1150,6 +1175,7 @@ export type FinanceEntryUncheckedUpdateInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUncheckedUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUncheckedUpdateManyWithoutEntryNestedInput
@@ -1163,6 +1189,7 @@ export type FinanceEntryCreateManyInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   costCenterId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
@@ -1266,6 +1293,7 @@ export type FinanceEntryUncheckedUpdateManyInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1342,6 +1370,7 @@ export type FinanceEntryCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
   costCenterId?: Prisma.SortOrder
   bankAccountId?: Prisma.SortOrder
   supplierName?: Prisma.SortOrder
@@ -1411,6 +1440,7 @@ export type FinanceEntryMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
   costCenterId?: Prisma.SortOrder
   bankAccountId?: Prisma.SortOrder
   supplierName?: Prisma.SortOrder
@@ -1464,6 +1494,7 @@ export type FinanceEntryMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
   costCenterId?: Prisma.SortOrder
   bankAccountId?: Prisma.SortOrder
   supplierName?: Prisma.SortOrder
@@ -1526,6 +1557,48 @@ export type FinanceEntrySumOrderByAggregateInput = {
 export type FinanceEntryScalarRelationFilter = {
   is?: Prisma.FinanceEntryWhereInput
   isNot?: Prisma.FinanceEntryWhereInput
+}
+
+export type FinanceEntryCreateNestedManyWithoutCompanyInput = {
+  create?: Prisma.XOR<Prisma.FinanceEntryCreateWithoutCompanyInput, Prisma.FinanceEntryUncheckedCreateWithoutCompanyInput> | Prisma.FinanceEntryCreateWithoutCompanyInput[] | Prisma.FinanceEntryUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.FinanceEntryCreateOrConnectWithoutCompanyInput | Prisma.FinanceEntryCreateOrConnectWithoutCompanyInput[]
+  createMany?: Prisma.FinanceEntryCreateManyCompanyInputEnvelope
+  connect?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+}
+
+export type FinanceEntryUncheckedCreateNestedManyWithoutCompanyInput = {
+  create?: Prisma.XOR<Prisma.FinanceEntryCreateWithoutCompanyInput, Prisma.FinanceEntryUncheckedCreateWithoutCompanyInput> | Prisma.FinanceEntryCreateWithoutCompanyInput[] | Prisma.FinanceEntryUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.FinanceEntryCreateOrConnectWithoutCompanyInput | Prisma.FinanceEntryCreateOrConnectWithoutCompanyInput[]
+  createMany?: Prisma.FinanceEntryCreateManyCompanyInputEnvelope
+  connect?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+}
+
+export type FinanceEntryUpdateManyWithoutCompanyNestedInput = {
+  create?: Prisma.XOR<Prisma.FinanceEntryCreateWithoutCompanyInput, Prisma.FinanceEntryUncheckedCreateWithoutCompanyInput> | Prisma.FinanceEntryCreateWithoutCompanyInput[] | Prisma.FinanceEntryUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.FinanceEntryCreateOrConnectWithoutCompanyInput | Prisma.FinanceEntryCreateOrConnectWithoutCompanyInput[]
+  upsert?: Prisma.FinanceEntryUpsertWithWhereUniqueWithoutCompanyInput | Prisma.FinanceEntryUpsertWithWhereUniqueWithoutCompanyInput[]
+  createMany?: Prisma.FinanceEntryCreateManyCompanyInputEnvelope
+  set?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+  disconnect?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+  delete?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+  connect?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+  update?: Prisma.FinanceEntryUpdateWithWhereUniqueWithoutCompanyInput | Prisma.FinanceEntryUpdateWithWhereUniqueWithoutCompanyInput[]
+  updateMany?: Prisma.FinanceEntryUpdateManyWithWhereWithoutCompanyInput | Prisma.FinanceEntryUpdateManyWithWhereWithoutCompanyInput[]
+  deleteMany?: Prisma.FinanceEntryScalarWhereInput | Prisma.FinanceEntryScalarWhereInput[]
+}
+
+export type FinanceEntryUncheckedUpdateManyWithoutCompanyNestedInput = {
+  create?: Prisma.XOR<Prisma.FinanceEntryCreateWithoutCompanyInput, Prisma.FinanceEntryUncheckedCreateWithoutCompanyInput> | Prisma.FinanceEntryCreateWithoutCompanyInput[] | Prisma.FinanceEntryUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.FinanceEntryCreateOrConnectWithoutCompanyInput | Prisma.FinanceEntryCreateOrConnectWithoutCompanyInput[]
+  upsert?: Prisma.FinanceEntryUpsertWithWhereUniqueWithoutCompanyInput | Prisma.FinanceEntryUpsertWithWhereUniqueWithoutCompanyInput[]
+  createMany?: Prisma.FinanceEntryCreateManyCompanyInputEnvelope
+  set?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+  disconnect?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+  delete?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+  connect?: Prisma.FinanceEntryWhereUniqueInput | Prisma.FinanceEntryWhereUniqueInput[]
+  update?: Prisma.FinanceEntryUpdateWithWhereUniqueWithoutCompanyInput | Prisma.FinanceEntryUpdateWithWhereUniqueWithoutCompanyInput[]
+  updateMany?: Prisma.FinanceEntryUpdateManyWithWhereWithoutCompanyInput | Prisma.FinanceEntryUpdateManyWithWhereWithoutCompanyInput[]
+  deleteMany?: Prisma.FinanceEntryScalarWhereInput | Prisma.FinanceEntryScalarWhereInput[]
 }
 
 export type FinanceEntryCreateNestedManyWithoutTenantInput = {
@@ -1851,6 +1924,20 @@ export type FinanceEntryUpdateOneWithoutReconciliationItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.FinanceEntryUpdateToOneWithWhereWithoutReconciliationItemsInput, Prisma.FinanceEntryUpdateWithoutReconciliationItemsInput>, Prisma.FinanceEntryUncheckedUpdateWithoutReconciliationItemsInput>
 }
 
+export type FinanceEntryCreateNestedOneWithoutReconciliationSuggestionsInput = {
+  create?: Prisma.XOR<Prisma.FinanceEntryCreateWithoutReconciliationSuggestionsInput, Prisma.FinanceEntryUncheckedCreateWithoutReconciliationSuggestionsInput>
+  connectOrCreate?: Prisma.FinanceEntryCreateOrConnectWithoutReconciliationSuggestionsInput
+  connect?: Prisma.FinanceEntryWhereUniqueInput
+}
+
+export type FinanceEntryUpdateOneRequiredWithoutReconciliationSuggestionsNestedInput = {
+  create?: Prisma.XOR<Prisma.FinanceEntryCreateWithoutReconciliationSuggestionsInput, Prisma.FinanceEntryUncheckedCreateWithoutReconciliationSuggestionsInput>
+  connectOrCreate?: Prisma.FinanceEntryCreateOrConnectWithoutReconciliationSuggestionsInput
+  upsert?: Prisma.FinanceEntryUpsertWithoutReconciliationSuggestionsInput
+  connect?: Prisma.FinanceEntryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FinanceEntryUpdateToOneWithWhereWithoutReconciliationSuggestionsInput, Prisma.FinanceEntryUpdateWithoutReconciliationSuggestionsInput>, Prisma.FinanceEntryUncheckedUpdateWithoutReconciliationSuggestionsInput>
+}
+
 export type FinanceEntryCreateNestedManyWithoutFiscalDocumentInput = {
   create?: Prisma.XOR<Prisma.FinanceEntryCreateWithoutFiscalDocumentInput, Prisma.FinanceEntryUncheckedCreateWithoutFiscalDocumentInput> | Prisma.FinanceEntryCreateWithoutFiscalDocumentInput[] | Prisma.FinanceEntryUncheckedCreateWithoutFiscalDocumentInput[]
   connectOrCreate?: Prisma.FinanceEntryCreateOrConnectWithoutFiscalDocumentInput | Prisma.FinanceEntryCreateOrConnectWithoutFiscalDocumentInput[]
@@ -1965,7 +2052,7 @@ export type FinanceEntryUpdateOneWithoutPaymentLinksNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.FinanceEntryUpdateToOneWithWhereWithoutPaymentLinksInput, Prisma.FinanceEntryUpdateWithoutPaymentLinksInput>, Prisma.FinanceEntryUncheckedUpdateWithoutPaymentLinksInput>
 }
 
-export type FinanceEntryCreateWithoutTenantInput = {
+export type FinanceEntryCreateWithoutCompanyInput = {
   id?: string
   type: $Enums.FinanceEntryType
   code: string
@@ -2011,6 +2098,7 @@ export type FinanceEntryCreateWithoutTenantInput = {
   createdBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutFinanceEntriesInput
   category: Prisma.FinanceCategoryCreateNestedOneWithoutFinanceEntriesInput
   costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
@@ -2022,13 +2110,15 @@ export type FinanceEntryCreateWithoutTenantInput = {
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkCreateNestedManyWithoutEntryInput
 }
 
-export type FinanceEntryUncheckedCreateWithoutTenantInput = {
+export type FinanceEntryUncheckedCreateWithoutCompanyInput = {
   id?: string
+  tenantId: string
   type: $Enums.FinanceEntryType
   code: string
   description: string
@@ -2084,35 +2174,36 @@ export type FinanceEntryUncheckedCreateWithoutTenantInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionUncheckedCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkUncheckedCreateNestedManyWithoutEntryInput
 }
 
-export type FinanceEntryCreateOrConnectWithoutTenantInput = {
+export type FinanceEntryCreateOrConnectWithoutCompanyInput = {
   where: Prisma.FinanceEntryWhereUniqueInput
-  create: Prisma.XOR<Prisma.FinanceEntryCreateWithoutTenantInput, Prisma.FinanceEntryUncheckedCreateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.FinanceEntryCreateWithoutCompanyInput, Prisma.FinanceEntryUncheckedCreateWithoutCompanyInput>
 }
 
-export type FinanceEntryCreateManyTenantInputEnvelope = {
-  data: Prisma.FinanceEntryCreateManyTenantInput | Prisma.FinanceEntryCreateManyTenantInput[]
+export type FinanceEntryCreateManyCompanyInputEnvelope = {
+  data: Prisma.FinanceEntryCreateManyCompanyInput | Prisma.FinanceEntryCreateManyCompanyInput[]
   skipDuplicates?: boolean
 }
 
-export type FinanceEntryUpsertWithWhereUniqueWithoutTenantInput = {
+export type FinanceEntryUpsertWithWhereUniqueWithoutCompanyInput = {
   where: Prisma.FinanceEntryWhereUniqueInput
-  update: Prisma.XOR<Prisma.FinanceEntryUpdateWithoutTenantInput, Prisma.FinanceEntryUncheckedUpdateWithoutTenantInput>
-  create: Prisma.XOR<Prisma.FinanceEntryCreateWithoutTenantInput, Prisma.FinanceEntryUncheckedCreateWithoutTenantInput>
+  update: Prisma.XOR<Prisma.FinanceEntryUpdateWithoutCompanyInput, Prisma.FinanceEntryUncheckedUpdateWithoutCompanyInput>
+  create: Prisma.XOR<Prisma.FinanceEntryCreateWithoutCompanyInput, Prisma.FinanceEntryUncheckedCreateWithoutCompanyInput>
 }
 
-export type FinanceEntryUpdateWithWhereUniqueWithoutTenantInput = {
+export type FinanceEntryUpdateWithWhereUniqueWithoutCompanyInput = {
   where: Prisma.FinanceEntryWhereUniqueInput
-  data: Prisma.XOR<Prisma.FinanceEntryUpdateWithoutTenantInput, Prisma.FinanceEntryUncheckedUpdateWithoutTenantInput>
+  data: Prisma.XOR<Prisma.FinanceEntryUpdateWithoutCompanyInput, Prisma.FinanceEntryUncheckedUpdateWithoutCompanyInput>
 }
 
-export type FinanceEntryUpdateManyWithWhereWithoutTenantInput = {
+export type FinanceEntryUpdateManyWithWhereWithoutCompanyInput = {
   where: Prisma.FinanceEntryScalarWhereInput
-  data: Prisma.XOR<Prisma.FinanceEntryUpdateManyMutationInput, Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantInput>
+  data: Prisma.XOR<Prisma.FinanceEntryUpdateManyMutationInput, Prisma.FinanceEntryUncheckedUpdateManyWithoutCompanyInput>
 }
 
 export type FinanceEntryScalarWhereInput = {
@@ -2126,6 +2217,7 @@ export type FinanceEntryScalarWhereInput = {
   description?: Prisma.StringFilter<"FinanceEntry"> | string
   notes?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   categoryId?: Prisma.StringFilter<"FinanceEntry"> | string
+  companyId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   costCenterId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   bankAccountId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
   supplierName?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
@@ -2171,6 +2263,160 @@ export type FinanceEntryScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"FinanceEntry"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FinanceEntry"> | Date | string
   fiscalDocumentId?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+}
+
+export type FinanceEntryCreateWithoutTenantInput = {
+  id?: string
+  type: $Enums.FinanceEntryType
+  code: string
+  description: string
+  notes?: string | null
+  supplierName?: string | null
+  customerName?: string | null
+  supplierId?: string | null
+  customerId?: string | null
+  salesOrderId?: string | null
+  expectedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  actualAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  interest?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  penalty?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  issueDate: Date | string
+  dueDate: Date | string
+  competenceDate?: Date | string | null
+  paymentDate?: Date | string | null
+  status?: $Enums.FinanceEntryStatus
+  recurrenceType?: $Enums.FinanceEntryRecurrence
+  recurrenceInterval?: number | null
+  recurrenceUnit?: $Enums.RecurrenceUnit | null
+  totalInstallments?: number | null
+  currentInstallment?: number | null
+  contractId?: string | null
+  boletoBarcode?: string | null
+  boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
+  currency?: string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.FinanceEntryCreatetagsInput | string[]
+  deletedAt?: Date | string | null
+  createdBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  category: Prisma.FinanceCategoryCreateNestedOneWithoutFinanceEntriesInput
+  company?: Prisma.CompanyCreateNestedOneWithoutFinanceEntriesInput
+  costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
+  bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
+  parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
+  childEntries?: Prisma.FinanceEntryCreateNestedManyWithoutParentEntryInput
+  pixCharge?: Prisma.PixChargeCreateNestedOneWithoutFinanceEntriesInput
+  fiscalDocument?: Prisma.FiscalDocumentCreateNestedOneWithoutFinanceEntriesInput
+  payments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutEntryInput
+  attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
+  costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
+  reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutEntryInput
+  overdueActions?: Prisma.OverdueActionCreateNestedManyWithoutEntryInput
+  retentions?: Prisma.FinanceEntryRetentionCreateNestedManyWithoutEntryInput
+  paymentLinks?: Prisma.PaymentLinkCreateNestedManyWithoutEntryInput
+}
+
+export type FinanceEntryUncheckedCreateWithoutTenantInput = {
+  id?: string
+  type: $Enums.FinanceEntryType
+  code: string
+  description: string
+  notes?: string | null
+  categoryId: string
+  companyId?: string | null
+  costCenterId?: string | null
+  bankAccountId?: string | null
+  supplierName?: string | null
+  customerName?: string | null
+  supplierId?: string | null
+  customerId?: string | null
+  salesOrderId?: string | null
+  expectedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  actualAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  interest?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  penalty?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  issueDate: Date | string
+  dueDate: Date | string
+  competenceDate?: Date | string | null
+  paymentDate?: Date | string | null
+  status?: $Enums.FinanceEntryStatus
+  recurrenceType?: $Enums.FinanceEntryRecurrence
+  recurrenceInterval?: number | null
+  recurrenceUnit?: $Enums.RecurrenceUnit | null
+  totalInstallments?: number | null
+  currentInstallment?: number | null
+  parentEntryId?: string | null
+  contractId?: string | null
+  pixChargeId?: string | null
+  boletoBarcode?: string | null
+  boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
+  currency?: string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.FinanceEntryCreatetagsInput | string[]
+  deletedAt?: Date | string | null
+  createdBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  fiscalDocumentId?: string | null
+  childEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutParentEntryInput
+  payments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutEntryInput
+  attachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutEntryInput
+  costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedCreateNestedManyWithoutEntryInput
+  reconciliationItems?: Prisma.BankReconciliationItemUncheckedCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutEntryInput
+  overdueActions?: Prisma.OverdueActionUncheckedCreateNestedManyWithoutEntryInput
+  retentions?: Prisma.FinanceEntryRetentionUncheckedCreateNestedManyWithoutEntryInput
+  paymentLinks?: Prisma.PaymentLinkUncheckedCreateNestedManyWithoutEntryInput
+}
+
+export type FinanceEntryCreateOrConnectWithoutTenantInput = {
+  where: Prisma.FinanceEntryWhereUniqueInput
+  create: Prisma.XOR<Prisma.FinanceEntryCreateWithoutTenantInput, Prisma.FinanceEntryUncheckedCreateWithoutTenantInput>
+}
+
+export type FinanceEntryCreateManyTenantInputEnvelope = {
+  data: Prisma.FinanceEntryCreateManyTenantInput | Prisma.FinanceEntryCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type FinanceEntryUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.FinanceEntryWhereUniqueInput
+  update: Prisma.XOR<Prisma.FinanceEntryUpdateWithoutTenantInput, Prisma.FinanceEntryUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.FinanceEntryCreateWithoutTenantInput, Prisma.FinanceEntryUncheckedCreateWithoutTenantInput>
+}
+
+export type FinanceEntryUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.FinanceEntryWhereUniqueInput
+  data: Prisma.XOR<Prisma.FinanceEntryUpdateWithoutTenantInput, Prisma.FinanceEntryUncheckedUpdateWithoutTenantInput>
+}
+
+export type FinanceEntryUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.FinanceEntryScalarWhereInput
+  data: Prisma.XOR<Prisma.FinanceEntryUpdateManyMutationInput, Prisma.FinanceEntryUncheckedUpdateManyWithoutTenantInput>
 }
 
 export type FinanceEntryCreateWithoutCostCenterInput = {
@@ -2221,6 +2467,7 @@ export type FinanceEntryCreateWithoutCostCenterInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceEntriesInput
   category: Prisma.FinanceCategoryCreateNestedOneWithoutFinanceEntriesInput
+  company?: Prisma.CompanyCreateNestedOneWithoutFinanceEntriesInput
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
   childEntries?: Prisma.FinanceEntryCreateNestedManyWithoutParentEntryInput
@@ -2230,6 +2477,7 @@ export type FinanceEntryCreateWithoutCostCenterInput = {
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkCreateNestedManyWithoutEntryInput
@@ -2243,6 +2491,7 @@ export type FinanceEntryUncheckedCreateWithoutCostCenterInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
   customerName?: string | null
@@ -2292,6 +2541,7 @@ export type FinanceEntryUncheckedCreateWithoutCostCenterInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionUncheckedCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkUncheckedCreateNestedManyWithoutEntryInput
@@ -2371,6 +2621,7 @@ export type FinanceEntryCreateWithoutBankAccountInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceEntriesInput
   category: Prisma.FinanceCategoryCreateNestedOneWithoutFinanceEntriesInput
+  company?: Prisma.CompanyCreateNestedOneWithoutFinanceEntriesInput
   costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
   childEntries?: Prisma.FinanceEntryCreateNestedManyWithoutParentEntryInput
@@ -2380,6 +2631,7 @@ export type FinanceEntryCreateWithoutBankAccountInput = {
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkCreateNestedManyWithoutEntryInput
@@ -2393,6 +2645,7 @@ export type FinanceEntryUncheckedCreateWithoutBankAccountInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   costCenterId?: string | null
   supplierName?: string | null
   customerName?: string | null
@@ -2442,6 +2695,7 @@ export type FinanceEntryUncheckedCreateWithoutBankAccountInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionUncheckedCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkUncheckedCreateNestedManyWithoutEntryInput
@@ -2520,6 +2774,7 @@ export type FinanceEntryCreateWithoutCategoryInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceEntriesInput
+  company?: Prisma.CompanyCreateNestedOneWithoutFinanceEntriesInput
   costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
@@ -2530,6 +2785,7 @@ export type FinanceEntryCreateWithoutCategoryInput = {
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkCreateNestedManyWithoutEntryInput
@@ -2542,6 +2798,7 @@ export type FinanceEntryUncheckedCreateWithoutCategoryInput = {
   code: string
   description: string
   notes?: string | null
+  companyId?: string | null
   costCenterId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
@@ -2592,6 +2849,7 @@ export type FinanceEntryUncheckedCreateWithoutCategoryInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionUncheckedCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkUncheckedCreateNestedManyWithoutEntryInput
@@ -2671,6 +2929,7 @@ export type FinanceEntryCreateWithoutChildEntriesInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceEntriesInput
   category: Prisma.FinanceCategoryCreateNestedOneWithoutFinanceEntriesInput
+  company?: Prisma.CompanyCreateNestedOneWithoutFinanceEntriesInput
   costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
@@ -2680,6 +2939,7 @@ export type FinanceEntryCreateWithoutChildEntriesInput = {
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkCreateNestedManyWithoutEntryInput
@@ -2693,6 +2953,7 @@ export type FinanceEntryUncheckedCreateWithoutChildEntriesInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   costCenterId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
@@ -2742,6 +3003,7 @@ export type FinanceEntryUncheckedCreateWithoutChildEntriesInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionUncheckedCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkUncheckedCreateNestedManyWithoutEntryInput
@@ -2800,6 +3062,7 @@ export type FinanceEntryCreateWithoutParentEntryInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceEntriesInput
   category: Prisma.FinanceCategoryCreateNestedOneWithoutFinanceEntriesInput
+  company?: Prisma.CompanyCreateNestedOneWithoutFinanceEntriesInput
   costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   childEntries?: Prisma.FinanceEntryCreateNestedManyWithoutParentEntryInput
@@ -2809,6 +3072,7 @@ export type FinanceEntryCreateWithoutParentEntryInput = {
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkCreateNestedManyWithoutEntryInput
@@ -2822,6 +3086,7 @@ export type FinanceEntryUncheckedCreateWithoutParentEntryInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   costCenterId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
@@ -2871,6 +3136,7 @@ export type FinanceEntryUncheckedCreateWithoutParentEntryInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionUncheckedCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkUncheckedCreateNestedManyWithoutEntryInput
@@ -2945,6 +3211,7 @@ export type FinanceEntryUpdateWithoutChildEntriesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceEntriesNestedInput
   category?: Prisma.FinanceCategoryUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutFinanceEntriesNestedInput
   costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
@@ -2954,6 +3221,7 @@ export type FinanceEntryUpdateWithoutChildEntriesInput = {
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUpdateManyWithoutEntryNestedInput
@@ -2967,6 +3235,7 @@ export type FinanceEntryUncheckedUpdateWithoutChildEntriesInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3016,6 +3285,7 @@ export type FinanceEntryUncheckedUpdateWithoutChildEntriesInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUncheckedUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUncheckedUpdateManyWithoutEntryNestedInput
@@ -3085,6 +3355,7 @@ export type FinanceEntryCreateWithoutRetentionsInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceEntriesInput
   category: Prisma.FinanceCategoryCreateNestedOneWithoutFinanceEntriesInput
+  company?: Prisma.CompanyCreateNestedOneWithoutFinanceEntriesInput
   costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
@@ -3095,6 +3366,7 @@ export type FinanceEntryCreateWithoutRetentionsInput = {
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkCreateNestedManyWithoutEntryInput
 }
@@ -3107,6 +3379,7 @@ export type FinanceEntryUncheckedCreateWithoutRetentionsInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   costCenterId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
@@ -3157,6 +3430,7 @@ export type FinanceEntryUncheckedCreateWithoutRetentionsInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionUncheckedCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkUncheckedCreateNestedManyWithoutEntryInput
 }
@@ -3225,6 +3499,7 @@ export type FinanceEntryUpdateWithoutRetentionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceEntriesNestedInput
   category?: Prisma.FinanceCategoryUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutFinanceEntriesNestedInput
   costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
@@ -3235,6 +3510,7 @@ export type FinanceEntryUpdateWithoutRetentionsInput = {
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUpdateManyWithoutEntryNestedInput
 }
@@ -3247,6 +3523,7 @@ export type FinanceEntryUncheckedUpdateWithoutRetentionsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3297,6 +3574,7 @@ export type FinanceEntryUncheckedUpdateWithoutRetentionsInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUncheckedUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUncheckedUpdateManyWithoutEntryNestedInput
 }
@@ -3349,6 +3627,7 @@ export type FinanceEntryCreateWithoutPaymentsInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceEntriesInput
   category: Prisma.FinanceCategoryCreateNestedOneWithoutFinanceEntriesInput
+  company?: Prisma.CompanyCreateNestedOneWithoutFinanceEntriesInput
   costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
@@ -3358,6 +3637,7 @@ export type FinanceEntryCreateWithoutPaymentsInput = {
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkCreateNestedManyWithoutEntryInput
@@ -3371,6 +3651,7 @@ export type FinanceEntryUncheckedCreateWithoutPaymentsInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   costCenterId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
@@ -3420,6 +3701,7 @@ export type FinanceEntryUncheckedCreateWithoutPaymentsInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionUncheckedCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkUncheckedCreateNestedManyWithoutEntryInput
@@ -3489,6 +3771,7 @@ export type FinanceEntryUpdateWithoutPaymentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceEntriesNestedInput
   category?: Prisma.FinanceCategoryUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutFinanceEntriesNestedInput
   costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
@@ -3498,6 +3781,7 @@ export type FinanceEntryUpdateWithoutPaymentsInput = {
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUpdateManyWithoutEntryNestedInput
@@ -3511,6 +3795,7 @@ export type FinanceEntryUncheckedUpdateWithoutPaymentsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3560,6 +3845,7 @@ export type FinanceEntryUncheckedUpdateWithoutPaymentsInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUncheckedUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUncheckedUpdateManyWithoutEntryNestedInput
@@ -3613,6 +3899,7 @@ export type FinanceEntryCreateWithoutCostCenterAllocationsInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceEntriesInput
   category: Prisma.FinanceCategoryCreateNestedOneWithoutFinanceEntriesInput
+  company?: Prisma.CompanyCreateNestedOneWithoutFinanceEntriesInput
   costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
@@ -3622,6 +3909,7 @@ export type FinanceEntryCreateWithoutCostCenterAllocationsInput = {
   payments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutEntryInput
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkCreateNestedManyWithoutEntryInput
@@ -3635,6 +3923,7 @@ export type FinanceEntryUncheckedCreateWithoutCostCenterAllocationsInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   costCenterId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
@@ -3684,6 +3973,7 @@ export type FinanceEntryUncheckedCreateWithoutCostCenterAllocationsInput = {
   payments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutEntryInput
   attachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionUncheckedCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkUncheckedCreateNestedManyWithoutEntryInput
@@ -3753,6 +4043,7 @@ export type FinanceEntryUpdateWithoutCostCenterAllocationsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceEntriesNestedInput
   category?: Prisma.FinanceCategoryUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutFinanceEntriesNestedInput
   costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
@@ -3762,6 +4053,7 @@ export type FinanceEntryUpdateWithoutCostCenterAllocationsInput = {
   payments?: Prisma.FinanceEntryPaymentUpdateManyWithoutEntryNestedInput
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUpdateManyWithoutEntryNestedInput
@@ -3775,6 +4067,7 @@ export type FinanceEntryUncheckedUpdateWithoutCostCenterAllocationsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3824,6 +4117,7 @@ export type FinanceEntryUncheckedUpdateWithoutCostCenterAllocationsInput = {
   payments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutEntryNestedInput
   attachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUncheckedUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUncheckedUpdateManyWithoutEntryNestedInput
@@ -3877,6 +4171,7 @@ export type FinanceEntryCreateWithoutAttachmentsInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceEntriesInput
   category: Prisma.FinanceCategoryCreateNestedOneWithoutFinanceEntriesInput
+  company?: Prisma.CompanyCreateNestedOneWithoutFinanceEntriesInput
   costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
@@ -3886,6 +4181,7 @@ export type FinanceEntryCreateWithoutAttachmentsInput = {
   payments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkCreateNestedManyWithoutEntryInput
@@ -3899,6 +4195,7 @@ export type FinanceEntryUncheckedCreateWithoutAttachmentsInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   costCenterId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
@@ -3948,6 +4245,7 @@ export type FinanceEntryUncheckedCreateWithoutAttachmentsInput = {
   payments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionUncheckedCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkUncheckedCreateNestedManyWithoutEntryInput
@@ -4017,6 +4315,7 @@ export type FinanceEntryUpdateWithoutAttachmentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceEntriesNestedInput
   category?: Prisma.FinanceCategoryUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutFinanceEntriesNestedInput
   costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
@@ -4026,6 +4325,7 @@ export type FinanceEntryUpdateWithoutAttachmentsInput = {
   payments?: Prisma.FinanceEntryPaymentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUpdateManyWithoutEntryNestedInput
@@ -4039,6 +4339,7 @@ export type FinanceEntryUncheckedUpdateWithoutAttachmentsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4088,6 +4389,7 @@ export type FinanceEntryUncheckedUpdateWithoutAttachmentsInput = {
   payments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUncheckedUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUncheckedUpdateManyWithoutEntryNestedInput
@@ -4141,6 +4443,7 @@ export type FinanceEntryCreateWithoutReconciliationItemsInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceEntriesInput
   category: Prisma.FinanceCategoryCreateNestedOneWithoutFinanceEntriesInput
+  company?: Prisma.CompanyCreateNestedOneWithoutFinanceEntriesInput
   costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
@@ -4150,6 +4453,7 @@ export type FinanceEntryCreateWithoutReconciliationItemsInput = {
   payments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutEntryInput
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkCreateNestedManyWithoutEntryInput
@@ -4163,6 +4467,7 @@ export type FinanceEntryUncheckedCreateWithoutReconciliationItemsInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   costCenterId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
@@ -4212,6 +4517,7 @@ export type FinanceEntryUncheckedCreateWithoutReconciliationItemsInput = {
   payments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutEntryInput
   attachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedCreateNestedManyWithoutEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionUncheckedCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkUncheckedCreateNestedManyWithoutEntryInput
@@ -4281,6 +4587,7 @@ export type FinanceEntryUpdateWithoutReconciliationItemsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceEntriesNestedInput
   category?: Prisma.FinanceCategoryUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutFinanceEntriesNestedInput
   costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
@@ -4290,6 +4597,7 @@ export type FinanceEntryUpdateWithoutReconciliationItemsInput = {
   payments?: Prisma.FinanceEntryPaymentUpdateManyWithoutEntryNestedInput
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUpdateManyWithoutEntryNestedInput
@@ -4303,6 +4611,7 @@ export type FinanceEntryUncheckedUpdateWithoutReconciliationItemsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4352,6 +4661,279 @@ export type FinanceEntryUncheckedUpdateWithoutReconciliationItemsInput = {
   payments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutEntryNestedInput
   attachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedUpdateManyWithoutEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutEntryNestedInput
+  overdueActions?: Prisma.OverdueActionUncheckedUpdateManyWithoutEntryNestedInput
+  retentions?: Prisma.FinanceEntryRetentionUncheckedUpdateManyWithoutEntryNestedInput
+  paymentLinks?: Prisma.PaymentLinkUncheckedUpdateManyWithoutEntryNestedInput
+}
+
+export type FinanceEntryCreateWithoutReconciliationSuggestionsInput = {
+  id?: string
+  type: $Enums.FinanceEntryType
+  code: string
+  description: string
+  notes?: string | null
+  supplierName?: string | null
+  customerName?: string | null
+  supplierId?: string | null
+  customerId?: string | null
+  salesOrderId?: string | null
+  expectedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  actualAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  interest?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  penalty?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  issueDate: Date | string
+  dueDate: Date | string
+  competenceDate?: Date | string | null
+  paymentDate?: Date | string | null
+  status?: $Enums.FinanceEntryStatus
+  recurrenceType?: $Enums.FinanceEntryRecurrence
+  recurrenceInterval?: number | null
+  recurrenceUnit?: $Enums.RecurrenceUnit | null
+  totalInstallments?: number | null
+  currentInstallment?: number | null
+  contractId?: string | null
+  boletoBarcode?: string | null
+  boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
+  currency?: string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.FinanceEntryCreatetagsInput | string[]
+  deletedAt?: Date | string | null
+  createdBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutFinanceEntriesInput
+  category: Prisma.FinanceCategoryCreateNestedOneWithoutFinanceEntriesInput
+  company?: Prisma.CompanyCreateNestedOneWithoutFinanceEntriesInput
+  costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
+  bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
+  parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
+  childEntries?: Prisma.FinanceEntryCreateNestedManyWithoutParentEntryInput
+  pixCharge?: Prisma.PixChargeCreateNestedOneWithoutFinanceEntriesInput
+  fiscalDocument?: Prisma.FiscalDocumentCreateNestedOneWithoutFinanceEntriesInput
+  payments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutEntryInput
+  attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
+  costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
+  reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
+  overdueActions?: Prisma.OverdueActionCreateNestedManyWithoutEntryInput
+  retentions?: Prisma.FinanceEntryRetentionCreateNestedManyWithoutEntryInput
+  paymentLinks?: Prisma.PaymentLinkCreateNestedManyWithoutEntryInput
+}
+
+export type FinanceEntryUncheckedCreateWithoutReconciliationSuggestionsInput = {
+  id?: string
+  tenantId: string
+  type: $Enums.FinanceEntryType
+  code: string
+  description: string
+  notes?: string | null
+  categoryId: string
+  companyId?: string | null
+  costCenterId?: string | null
+  bankAccountId?: string | null
+  supplierName?: string | null
+  customerName?: string | null
+  supplierId?: string | null
+  customerId?: string | null
+  salesOrderId?: string | null
+  expectedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  actualAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  interest?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  penalty?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  issueDate: Date | string
+  dueDate: Date | string
+  competenceDate?: Date | string | null
+  paymentDate?: Date | string | null
+  status?: $Enums.FinanceEntryStatus
+  recurrenceType?: $Enums.FinanceEntryRecurrence
+  recurrenceInterval?: number | null
+  recurrenceUnit?: $Enums.RecurrenceUnit | null
+  totalInstallments?: number | null
+  currentInstallment?: number | null
+  parentEntryId?: string | null
+  contractId?: string | null
+  pixChargeId?: string | null
+  boletoBarcode?: string | null
+  boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
+  currency?: string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.FinanceEntryCreatetagsInput | string[]
+  deletedAt?: Date | string | null
+  createdBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  fiscalDocumentId?: string | null
+  childEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutParentEntryInput
+  payments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutEntryInput
+  attachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutEntryInput
+  costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedCreateNestedManyWithoutEntryInput
+  reconciliationItems?: Prisma.BankReconciliationItemUncheckedCreateNestedManyWithoutMatchedEntryInput
+  overdueActions?: Prisma.OverdueActionUncheckedCreateNestedManyWithoutEntryInput
+  retentions?: Prisma.FinanceEntryRetentionUncheckedCreateNestedManyWithoutEntryInput
+  paymentLinks?: Prisma.PaymentLinkUncheckedCreateNestedManyWithoutEntryInput
+}
+
+export type FinanceEntryCreateOrConnectWithoutReconciliationSuggestionsInput = {
+  where: Prisma.FinanceEntryWhereUniqueInput
+  create: Prisma.XOR<Prisma.FinanceEntryCreateWithoutReconciliationSuggestionsInput, Prisma.FinanceEntryUncheckedCreateWithoutReconciliationSuggestionsInput>
+}
+
+export type FinanceEntryUpsertWithoutReconciliationSuggestionsInput = {
+  update: Prisma.XOR<Prisma.FinanceEntryUpdateWithoutReconciliationSuggestionsInput, Prisma.FinanceEntryUncheckedUpdateWithoutReconciliationSuggestionsInput>
+  create: Prisma.XOR<Prisma.FinanceEntryCreateWithoutReconciliationSuggestionsInput, Prisma.FinanceEntryUncheckedCreateWithoutReconciliationSuggestionsInput>
+  where?: Prisma.FinanceEntryWhereInput
+}
+
+export type FinanceEntryUpdateToOneWithWhereWithoutReconciliationSuggestionsInput = {
+  where?: Prisma.FinanceEntryWhereInput
+  data: Prisma.XOR<Prisma.FinanceEntryUpdateWithoutReconciliationSuggestionsInput, Prisma.FinanceEntryUncheckedUpdateWithoutReconciliationSuggestionsInput>
+}
+
+export type FinanceEntryUpdateWithoutReconciliationSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumFinanceEntryTypeFieldUpdateOperationsInput | $Enums.FinanceEntryType
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expectedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  actualAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  interest?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  penalty?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  competenceDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumFinanceEntryStatusFieldUpdateOperationsInput | $Enums.FinanceEntryStatus
+  recurrenceType?: Prisma.EnumFinanceEntryRecurrenceFieldUpdateOperationsInput | $Enums.FinanceEntryRecurrence
+  recurrenceInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
+  totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  category?: Prisma.FinanceCategoryUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutFinanceEntriesNestedInput
+  costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
+  bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
+  parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
+  childEntries?: Prisma.FinanceEntryUpdateManyWithoutParentEntryNestedInput
+  pixCharge?: Prisma.PixChargeUpdateOneWithoutFinanceEntriesNestedInput
+  fiscalDocument?: Prisma.FiscalDocumentUpdateOneWithoutFinanceEntriesNestedInput
+  payments?: Prisma.FinanceEntryPaymentUpdateManyWithoutEntryNestedInput
+  attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
+  costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
+  reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
+  overdueActions?: Prisma.OverdueActionUpdateManyWithoutEntryNestedInput
+  retentions?: Prisma.FinanceEntryRetentionUpdateManyWithoutEntryNestedInput
+  paymentLinks?: Prisma.PaymentLinkUpdateManyWithoutEntryNestedInput
+}
+
+export type FinanceEntryUncheckedUpdateWithoutReconciliationSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumFinanceEntryTypeFieldUpdateOperationsInput | $Enums.FinanceEntryType
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expectedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  actualAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  interest?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  penalty?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  competenceDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumFinanceEntryStatusFieldUpdateOperationsInput | $Enums.FinanceEntryStatus
+  recurrenceType?: Prisma.EnumFinanceEntryRecurrenceFieldUpdateOperationsInput | $Enums.FinanceEntryRecurrence
+  recurrenceInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
+  totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiscalDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  childEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutParentEntryNestedInput
+  payments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutEntryNestedInput
+  attachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutEntryNestedInput
+  costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedUpdateManyWithoutEntryNestedInput
+  reconciliationItems?: Prisma.BankReconciliationItemUncheckedUpdateManyWithoutMatchedEntryNestedInput
   overdueActions?: Prisma.OverdueActionUncheckedUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUncheckedUpdateManyWithoutEntryNestedInput
@@ -4405,6 +4987,7 @@ export type FinanceEntryCreateWithoutFiscalDocumentInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceEntriesInput
   category: Prisma.FinanceCategoryCreateNestedOneWithoutFinanceEntriesInput
+  company?: Prisma.CompanyCreateNestedOneWithoutFinanceEntriesInput
   costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
@@ -4414,6 +4997,7 @@ export type FinanceEntryCreateWithoutFiscalDocumentInput = {
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkCreateNestedManyWithoutEntryInput
@@ -4427,6 +5011,7 @@ export type FinanceEntryUncheckedCreateWithoutFiscalDocumentInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   costCenterId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
@@ -4476,6 +5061,7 @@ export type FinanceEntryUncheckedCreateWithoutFiscalDocumentInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionUncheckedCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkUncheckedCreateNestedManyWithoutEntryInput
@@ -4555,6 +5141,7 @@ export type FinanceEntryCreateWithoutPixChargeInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceEntriesInput
   category: Prisma.FinanceCategoryCreateNestedOneWithoutFinanceEntriesInput
+  company?: Prisma.CompanyCreateNestedOneWithoutFinanceEntriesInput
   costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
@@ -4564,6 +5151,7 @@ export type FinanceEntryCreateWithoutPixChargeInput = {
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkCreateNestedManyWithoutEntryInput
@@ -4577,6 +5165,7 @@ export type FinanceEntryUncheckedCreateWithoutPixChargeInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   costCenterId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
@@ -4626,6 +5215,7 @@ export type FinanceEntryUncheckedCreateWithoutPixChargeInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionUncheckedCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkUncheckedCreateNestedManyWithoutEntryInput
@@ -4705,6 +5295,7 @@ export type FinanceEntryCreateWithoutOverdueActionsInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceEntriesInput
   category: Prisma.FinanceCategoryCreateNestedOneWithoutFinanceEntriesInput
+  company?: Prisma.CompanyCreateNestedOneWithoutFinanceEntriesInput
   costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
@@ -4715,6 +5306,7 @@ export type FinanceEntryCreateWithoutOverdueActionsInput = {
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkCreateNestedManyWithoutEntryInput
 }
@@ -4727,6 +5319,7 @@ export type FinanceEntryUncheckedCreateWithoutOverdueActionsInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   costCenterId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
@@ -4777,6 +5370,7 @@ export type FinanceEntryUncheckedCreateWithoutOverdueActionsInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedCreateNestedManyWithoutEntryInput
   paymentLinks?: Prisma.PaymentLinkUncheckedCreateNestedManyWithoutEntryInput
 }
@@ -4845,6 +5439,7 @@ export type FinanceEntryUpdateWithoutOverdueActionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceEntriesNestedInput
   category?: Prisma.FinanceCategoryUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutFinanceEntriesNestedInput
   costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
@@ -4855,6 +5450,7 @@ export type FinanceEntryUpdateWithoutOverdueActionsInput = {
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUpdateManyWithoutEntryNestedInput
 }
@@ -4867,6 +5463,7 @@ export type FinanceEntryUncheckedUpdateWithoutOverdueActionsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4917,6 +5514,7 @@ export type FinanceEntryUncheckedUpdateWithoutOverdueActionsInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUncheckedUpdateManyWithoutEntryNestedInput
 }
@@ -4969,6 +5567,7 @@ export type FinanceEntryCreateWithoutPaymentLinksInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceEntriesInput
   category: Prisma.FinanceCategoryCreateNestedOneWithoutFinanceEntriesInput
+  company?: Prisma.CompanyCreateNestedOneWithoutFinanceEntriesInput
   costCenter?: Prisma.CostCenterCreateNestedOneWithoutFinanceEntriesInput
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinanceEntriesInput
   parentEntry?: Prisma.FinanceEntryCreateNestedOneWithoutChildEntriesInput
@@ -4979,6 +5578,7 @@ export type FinanceEntryCreateWithoutPaymentLinksInput = {
   attachments?: Prisma.FinanceAttachmentCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionCreateNestedManyWithoutEntryInput
 }
@@ -4991,6 +5591,7 @@ export type FinanceEntryUncheckedCreateWithoutPaymentLinksInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   costCenterId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
@@ -5041,6 +5642,7 @@ export type FinanceEntryUncheckedCreateWithoutPaymentLinksInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedCreateNestedManyWithoutEntryInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedCreateNestedManyWithoutEntryInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedCreateNestedManyWithoutMatchedEntryInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedCreateNestedManyWithoutEntryInput
   overdueActions?: Prisma.OverdueActionUncheckedCreateNestedManyWithoutEntryInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedCreateNestedManyWithoutEntryInput
 }
@@ -5109,6 +5711,7 @@ export type FinanceEntryUpdateWithoutPaymentLinksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceEntriesNestedInput
   category?: Prisma.FinanceCategoryUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutFinanceEntriesNestedInput
   costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
@@ -5119,11 +5722,195 @@ export type FinanceEntryUpdateWithoutPaymentLinksInput = {
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUpdateManyWithoutEntryNestedInput
 }
 
 export type FinanceEntryUncheckedUpdateWithoutPaymentLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumFinanceEntryTypeFieldUpdateOperationsInput | $Enums.FinanceEntryType
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expectedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  actualAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  interest?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  penalty?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  competenceDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumFinanceEntryStatusFieldUpdateOperationsInput | $Enums.FinanceEntryStatus
+  recurrenceType?: Prisma.EnumFinanceEntryRecurrenceFieldUpdateOperationsInput | $Enums.FinanceEntryRecurrence
+  recurrenceInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
+  totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiscalDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  childEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutParentEntryNestedInput
+  payments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutEntryNestedInput
+  attachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutEntryNestedInput
+  costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedUpdateManyWithoutEntryNestedInput
+  reconciliationItems?: Prisma.BankReconciliationItemUncheckedUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutEntryNestedInput
+  overdueActions?: Prisma.OverdueActionUncheckedUpdateManyWithoutEntryNestedInput
+  retentions?: Prisma.FinanceEntryRetentionUncheckedUpdateManyWithoutEntryNestedInput
+}
+
+export type FinanceEntryCreateManyCompanyInput = {
+  id?: string
+  tenantId: string
+  type: $Enums.FinanceEntryType
+  code: string
+  description: string
+  notes?: string | null
+  categoryId: string
+  costCenterId?: string | null
+  bankAccountId?: string | null
+  supplierName?: string | null
+  customerName?: string | null
+  supplierId?: string | null
+  customerId?: string | null
+  salesOrderId?: string | null
+  expectedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  actualAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  interest?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  penalty?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  issueDate: Date | string
+  dueDate: Date | string
+  competenceDate?: Date | string | null
+  paymentDate?: Date | string | null
+  status?: $Enums.FinanceEntryStatus
+  recurrenceType?: $Enums.FinanceEntryRecurrence
+  recurrenceInterval?: number | null
+  recurrenceUnit?: $Enums.RecurrenceUnit | null
+  totalInstallments?: number | null
+  currentInstallment?: number | null
+  parentEntryId?: string | null
+  contractId?: string | null
+  pixChargeId?: string | null
+  boletoBarcode?: string | null
+  boletoDigitLine?: string | null
+  boletoChargeId?: number | null
+  boletoBarcodeNumber?: string | null
+  boletoDigitableLine?: string | null
+  boletoPdfUrl?: string | null
+  beneficiaryName?: string | null
+  beneficiaryCpfCnpj?: string | null
+  pixKey?: string | null
+  pixKeyType?: string | null
+  currency?: string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.FinanceEntryCreatetagsInput | string[]
+  deletedAt?: Date | string | null
+  createdBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  fiscalDocumentId?: string | null
+}
+
+export type FinanceEntryUpdateWithoutCompanyInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumFinanceEntryTypeFieldUpdateOperationsInput | $Enums.FinanceEntryType
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expectedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  actualAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  interest?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  penalty?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  competenceDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumFinanceEntryStatusFieldUpdateOperationsInput | $Enums.FinanceEntryStatus
+  recurrenceType?: Prisma.EnumFinanceEntryRecurrenceFieldUpdateOperationsInput | $Enums.FinanceEntryRecurrence
+  recurrenceInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
+  totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  category?: Prisma.FinanceCategoryUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
+  bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
+  parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
+  childEntries?: Prisma.FinanceEntryUpdateManyWithoutParentEntryNestedInput
+  pixCharge?: Prisma.PixChargeUpdateOneWithoutFinanceEntriesNestedInput
+  fiscalDocument?: Prisma.FiscalDocumentUpdateOneWithoutFinanceEntriesNestedInput
+  payments?: Prisma.FinanceEntryPaymentUpdateManyWithoutEntryNestedInput
+  attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
+  costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
+  reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutEntryNestedInput
+  overdueActions?: Prisma.OverdueActionUpdateManyWithoutEntryNestedInput
+  retentions?: Prisma.FinanceEntryRetentionUpdateManyWithoutEntryNestedInput
+  paymentLinks?: Prisma.PaymentLinkUpdateManyWithoutEntryNestedInput
+}
+
+export type FinanceEntryUncheckedUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumFinanceEntryTypeFieldUpdateOperationsInput | $Enums.FinanceEntryType
@@ -5181,8 +5968,65 @@ export type FinanceEntryUncheckedUpdateWithoutPaymentLinksInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUncheckedUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedUpdateManyWithoutEntryNestedInput
+  paymentLinks?: Prisma.PaymentLinkUncheckedUpdateManyWithoutEntryNestedInput
+}
+
+export type FinanceEntryUncheckedUpdateManyWithoutCompanyInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumFinanceEntryTypeFieldUpdateOperationsInput | $Enums.FinanceEntryType
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expectedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  actualAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  interest?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  penalty?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  competenceDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumFinanceEntryStatusFieldUpdateOperationsInput | $Enums.FinanceEntryStatus
+  recurrenceType?: Prisma.EnumFinanceEntryRecurrenceFieldUpdateOperationsInput | $Enums.FinanceEntryRecurrence
+  recurrenceInterval?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recurrenceUnit?: Prisma.NullableEnumRecurrenceUnitFieldUpdateOperationsInput | $Enums.RecurrenceUnit | null
+  totalInstallments?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  currentInstallment?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  parentEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixChargeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoBarcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoChargeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  boletoBarcodeNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoDigitableLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  boletoPdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  beneficiaryCpfCnpj?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiscalDocumentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type FinanceEntryCreateManyTenantInput = {
@@ -5192,6 +6036,7 @@ export type FinanceEntryCreateManyTenantInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   costCenterId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
@@ -5286,6 +6131,7 @@ export type FinanceEntryUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   category?: Prisma.FinanceCategoryUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutFinanceEntriesNestedInput
   costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
@@ -5296,6 +6142,7 @@ export type FinanceEntryUpdateWithoutTenantInput = {
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUpdateManyWithoutEntryNestedInput
@@ -5308,6 +6155,7 @@ export type FinanceEntryUncheckedUpdateWithoutTenantInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5358,6 +6206,7 @@ export type FinanceEntryUncheckedUpdateWithoutTenantInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUncheckedUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUncheckedUpdateManyWithoutEntryNestedInput
@@ -5370,6 +6219,7 @@ export type FinanceEntryUncheckedUpdateManyWithoutTenantInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5425,6 +6275,7 @@ export type FinanceEntryCreateManyCostCenterInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
   customerName?: string | null
@@ -5519,6 +6370,7 @@ export type FinanceEntryUpdateWithoutCostCenterInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceEntriesNestedInput
   category?: Prisma.FinanceCategoryUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutFinanceEntriesNestedInput
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
   childEntries?: Prisma.FinanceEntryUpdateManyWithoutParentEntryNestedInput
@@ -5528,6 +6380,7 @@ export type FinanceEntryUpdateWithoutCostCenterInput = {
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUpdateManyWithoutEntryNestedInput
@@ -5541,6 +6394,7 @@ export type FinanceEntryUncheckedUpdateWithoutCostCenterInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5590,6 +6444,7 @@ export type FinanceEntryUncheckedUpdateWithoutCostCenterInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUncheckedUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUncheckedUpdateManyWithoutEntryNestedInput
@@ -5603,6 +6458,7 @@ export type FinanceEntryUncheckedUpdateManyWithoutCostCenterInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5657,6 +6513,7 @@ export type FinanceEntryCreateManyBankAccountInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   costCenterId?: string | null
   supplierName?: string | null
   customerName?: string | null
@@ -5751,6 +6608,7 @@ export type FinanceEntryUpdateWithoutBankAccountInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceEntriesNestedInput
   category?: Prisma.FinanceCategoryUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutFinanceEntriesNestedInput
   costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
   childEntries?: Prisma.FinanceEntryUpdateManyWithoutParentEntryNestedInput
@@ -5760,6 +6618,7 @@ export type FinanceEntryUpdateWithoutBankAccountInput = {
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUpdateManyWithoutEntryNestedInput
@@ -5773,6 +6632,7 @@ export type FinanceEntryUncheckedUpdateWithoutBankAccountInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5822,6 +6682,7 @@ export type FinanceEntryUncheckedUpdateWithoutBankAccountInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUncheckedUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUncheckedUpdateManyWithoutEntryNestedInput
@@ -5835,6 +6696,7 @@ export type FinanceEntryUncheckedUpdateManyWithoutBankAccountInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5888,6 +6750,7 @@ export type FinanceEntryCreateManyCategoryInput = {
   code: string
   description: string
   notes?: string | null
+  companyId?: string | null
   costCenterId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
@@ -5982,6 +6845,7 @@ export type FinanceEntryUpdateWithoutCategoryInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutFinanceEntriesNestedInput
   costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
@@ -5992,6 +6856,7 @@ export type FinanceEntryUpdateWithoutCategoryInput = {
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUpdateManyWithoutEntryNestedInput
@@ -6004,6 +6869,7 @@ export type FinanceEntryUncheckedUpdateWithoutCategoryInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6054,6 +6920,7 @@ export type FinanceEntryUncheckedUpdateWithoutCategoryInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUncheckedUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUncheckedUpdateManyWithoutEntryNestedInput
@@ -6066,6 +6933,7 @@ export type FinanceEntryUncheckedUpdateManyWithoutCategoryInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6121,6 +6989,7 @@ export type FinanceEntryCreateManyParentEntryInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   costCenterId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
@@ -6215,6 +7084,7 @@ export type FinanceEntryUpdateWithoutParentEntryInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceEntriesNestedInput
   category?: Prisma.FinanceCategoryUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutFinanceEntriesNestedInput
   costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   childEntries?: Prisma.FinanceEntryUpdateManyWithoutParentEntryNestedInput
@@ -6224,6 +7094,7 @@ export type FinanceEntryUpdateWithoutParentEntryInput = {
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUpdateManyWithoutEntryNestedInput
@@ -6237,6 +7108,7 @@ export type FinanceEntryUncheckedUpdateWithoutParentEntryInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6286,6 +7158,7 @@ export type FinanceEntryUncheckedUpdateWithoutParentEntryInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUncheckedUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUncheckedUpdateManyWithoutEntryNestedInput
@@ -6299,6 +7172,7 @@ export type FinanceEntryUncheckedUpdateManyWithoutParentEntryInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6353,6 +7227,7 @@ export type FinanceEntryCreateManyFiscalDocumentInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   costCenterId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
@@ -6447,6 +7322,7 @@ export type FinanceEntryUpdateWithoutFiscalDocumentInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceEntriesNestedInput
   category?: Prisma.FinanceCategoryUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutFinanceEntriesNestedInput
   costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
@@ -6456,6 +7332,7 @@ export type FinanceEntryUpdateWithoutFiscalDocumentInput = {
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUpdateManyWithoutEntryNestedInput
@@ -6469,6 +7346,7 @@ export type FinanceEntryUncheckedUpdateWithoutFiscalDocumentInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6518,6 +7396,7 @@ export type FinanceEntryUncheckedUpdateWithoutFiscalDocumentInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUncheckedUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUncheckedUpdateManyWithoutEntryNestedInput
@@ -6531,6 +7410,7 @@ export type FinanceEntryUncheckedUpdateManyWithoutFiscalDocumentInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6585,6 +7465,7 @@ export type FinanceEntryCreateManyPixChargeInput = {
   description: string
   notes?: string | null
   categoryId: string
+  companyId?: string | null
   costCenterId?: string | null
   bankAccountId?: string | null
   supplierName?: string | null
@@ -6679,6 +7560,7 @@ export type FinanceEntryUpdateWithoutPixChargeInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceEntriesNestedInput
   category?: Prisma.FinanceCategoryUpdateOneRequiredWithoutFinanceEntriesNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutFinanceEntriesNestedInput
   costCenter?: Prisma.CostCenterUpdateOneWithoutFinanceEntriesNestedInput
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinanceEntriesNestedInput
   parentEntry?: Prisma.FinanceEntryUpdateOneWithoutChildEntriesNestedInput
@@ -6688,6 +7570,7 @@ export type FinanceEntryUpdateWithoutPixChargeInput = {
   attachments?: Prisma.FinanceAttachmentUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUpdateManyWithoutEntryNestedInput
@@ -6701,6 +7584,7 @@ export type FinanceEntryUncheckedUpdateWithoutPixChargeInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6750,6 +7634,7 @@ export type FinanceEntryUncheckedUpdateWithoutPixChargeInput = {
   attachments?: Prisma.FinanceAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   costCenterAllocations?: Prisma.FinanceEntryCostCenterUncheckedUpdateManyWithoutEntryNestedInput
   reconciliationItems?: Prisma.BankReconciliationItemUncheckedUpdateManyWithoutMatchedEntryNestedInput
+  reconciliationSuggestions?: Prisma.ReconciliationSuggestionUncheckedUpdateManyWithoutEntryNestedInput
   overdueActions?: Prisma.OverdueActionUncheckedUpdateManyWithoutEntryNestedInput
   retentions?: Prisma.FinanceEntryRetentionUncheckedUpdateManyWithoutEntryNestedInput
   paymentLinks?: Prisma.PaymentLinkUncheckedUpdateManyWithoutEntryNestedInput
@@ -6763,6 +7648,7 @@ export type FinanceEntryUncheckedUpdateManyWithoutPixChargeInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bankAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6820,6 +7706,7 @@ export type FinanceEntryCountOutputType = {
   attachments: number
   costCenterAllocations: number
   reconciliationItems: number
+  reconciliationSuggestions: number
   overdueActions: number
   retentions: number
   paymentLinks: number
@@ -6831,6 +7718,7 @@ export type FinanceEntryCountOutputTypeSelect<ExtArgs extends runtime.Types.Exte
   attachments?: boolean | FinanceEntryCountOutputTypeCountAttachmentsArgs
   costCenterAllocations?: boolean | FinanceEntryCountOutputTypeCountCostCenterAllocationsArgs
   reconciliationItems?: boolean | FinanceEntryCountOutputTypeCountReconciliationItemsArgs
+  reconciliationSuggestions?: boolean | FinanceEntryCountOutputTypeCountReconciliationSuggestionsArgs
   overdueActions?: boolean | FinanceEntryCountOutputTypeCountOverdueActionsArgs
   retentions?: boolean | FinanceEntryCountOutputTypeCountRetentionsArgs
   paymentLinks?: boolean | FinanceEntryCountOutputTypeCountPaymentLinksArgs
@@ -6884,6 +7772,13 @@ export type FinanceEntryCountOutputTypeCountReconciliationItemsArgs<ExtArgs exte
 /**
  * FinanceEntryCountOutputType without action
  */
+export type FinanceEntryCountOutputTypeCountReconciliationSuggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReconciliationSuggestionWhereInput
+}
+
+/**
+ * FinanceEntryCountOutputType without action
+ */
 export type FinanceEntryCountOutputTypeCountOverdueActionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.OverdueActionWhereInput
 }
@@ -6911,6 +7806,7 @@ export type FinanceEntrySelect<ExtArgs extends runtime.Types.Extensions.Internal
   description?: boolean
   notes?: boolean
   categoryId?: boolean
+  companyId?: boolean
   costCenterId?: boolean
   bankAccountId?: boolean
   supplierName?: boolean
@@ -6958,6 +7854,7 @@ export type FinanceEntrySelect<ExtArgs extends runtime.Types.Extensions.Internal
   fiscalDocumentId?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   category?: boolean | Prisma.FinanceCategoryDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.FinanceEntry$companyArgs<ExtArgs>
   costCenter?: boolean | Prisma.FinanceEntry$costCenterArgs<ExtArgs>
   bankAccount?: boolean | Prisma.FinanceEntry$bankAccountArgs<ExtArgs>
   parentEntry?: boolean | Prisma.FinanceEntry$parentEntryArgs<ExtArgs>
@@ -6968,6 +7865,7 @@ export type FinanceEntrySelect<ExtArgs extends runtime.Types.Extensions.Internal
   attachments?: boolean | Prisma.FinanceEntry$attachmentsArgs<ExtArgs>
   costCenterAllocations?: boolean | Prisma.FinanceEntry$costCenterAllocationsArgs<ExtArgs>
   reconciliationItems?: boolean | Prisma.FinanceEntry$reconciliationItemsArgs<ExtArgs>
+  reconciliationSuggestions?: boolean | Prisma.FinanceEntry$reconciliationSuggestionsArgs<ExtArgs>
   overdueActions?: boolean | Prisma.FinanceEntry$overdueActionsArgs<ExtArgs>
   retentions?: boolean | Prisma.FinanceEntry$retentionsArgs<ExtArgs>
   paymentLinks?: boolean | Prisma.FinanceEntry$paymentLinksArgs<ExtArgs>
@@ -6982,6 +7880,7 @@ export type FinanceEntrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   description?: boolean
   notes?: boolean
   categoryId?: boolean
+  companyId?: boolean
   costCenterId?: boolean
   bankAccountId?: boolean
   supplierName?: boolean
@@ -7029,6 +7928,7 @@ export type FinanceEntrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   fiscalDocumentId?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   category?: boolean | Prisma.FinanceCategoryDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.FinanceEntry$companyArgs<ExtArgs>
   costCenter?: boolean | Prisma.FinanceEntry$costCenterArgs<ExtArgs>
   bankAccount?: boolean | Prisma.FinanceEntry$bankAccountArgs<ExtArgs>
   parentEntry?: boolean | Prisma.FinanceEntry$parentEntryArgs<ExtArgs>
@@ -7044,6 +7944,7 @@ export type FinanceEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   description?: boolean
   notes?: boolean
   categoryId?: boolean
+  companyId?: boolean
   costCenterId?: boolean
   bankAccountId?: boolean
   supplierName?: boolean
@@ -7091,6 +7992,7 @@ export type FinanceEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   fiscalDocumentId?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   category?: boolean | Prisma.FinanceCategoryDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.FinanceEntry$companyArgs<ExtArgs>
   costCenter?: boolean | Prisma.FinanceEntry$costCenterArgs<ExtArgs>
   bankAccount?: boolean | Prisma.FinanceEntry$bankAccountArgs<ExtArgs>
   parentEntry?: boolean | Prisma.FinanceEntry$parentEntryArgs<ExtArgs>
@@ -7106,6 +8008,7 @@ export type FinanceEntrySelectScalar = {
   description?: boolean
   notes?: boolean
   categoryId?: boolean
+  companyId?: boolean
   costCenterId?: boolean
   bankAccountId?: boolean
   supplierName?: boolean
@@ -7153,10 +8056,11 @@ export type FinanceEntrySelectScalar = {
   fiscalDocumentId?: boolean
 }
 
-export type FinanceEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "type" | "code" | "description" | "notes" | "categoryId" | "costCenterId" | "bankAccountId" | "supplierName" | "customerName" | "supplierId" | "customerId" | "salesOrderId" | "expectedAmount" | "actualAmount" | "discount" | "interest" | "penalty" | "issueDate" | "dueDate" | "competenceDate" | "paymentDate" | "status" | "recurrenceType" | "recurrenceInterval" | "recurrenceUnit" | "totalInstallments" | "currentInstallment" | "parentEntryId" | "contractId" | "pixChargeId" | "boletoBarcode" | "boletoDigitLine" | "boletoChargeId" | "boletoBarcodeNumber" | "boletoDigitableLine" | "boletoPdfUrl" | "beneficiaryName" | "beneficiaryCpfCnpj" | "pixKey" | "pixKeyType" | "currency" | "exchangeRate" | "originalAmount" | "metadata" | "tags" | "deletedAt" | "createdBy" | "createdAt" | "updatedAt" | "fiscalDocumentId", ExtArgs["result"]["financeEntry"]>
+export type FinanceEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "type" | "code" | "description" | "notes" | "categoryId" | "companyId" | "costCenterId" | "bankAccountId" | "supplierName" | "customerName" | "supplierId" | "customerId" | "salesOrderId" | "expectedAmount" | "actualAmount" | "discount" | "interest" | "penalty" | "issueDate" | "dueDate" | "competenceDate" | "paymentDate" | "status" | "recurrenceType" | "recurrenceInterval" | "recurrenceUnit" | "totalInstallments" | "currentInstallment" | "parentEntryId" | "contractId" | "pixChargeId" | "boletoBarcode" | "boletoDigitLine" | "boletoChargeId" | "boletoBarcodeNumber" | "boletoDigitableLine" | "boletoPdfUrl" | "beneficiaryName" | "beneficiaryCpfCnpj" | "pixKey" | "pixKeyType" | "currency" | "exchangeRate" | "originalAmount" | "metadata" | "tags" | "deletedAt" | "createdBy" | "createdAt" | "updatedAt" | "fiscalDocumentId", ExtArgs["result"]["financeEntry"]>
 export type FinanceEntryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   category?: boolean | Prisma.FinanceCategoryDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.FinanceEntry$companyArgs<ExtArgs>
   costCenter?: boolean | Prisma.FinanceEntry$costCenterArgs<ExtArgs>
   bankAccount?: boolean | Prisma.FinanceEntry$bankAccountArgs<ExtArgs>
   parentEntry?: boolean | Prisma.FinanceEntry$parentEntryArgs<ExtArgs>
@@ -7167,6 +8071,7 @@ export type FinanceEntryInclude<ExtArgs extends runtime.Types.Extensions.Interna
   attachments?: boolean | Prisma.FinanceEntry$attachmentsArgs<ExtArgs>
   costCenterAllocations?: boolean | Prisma.FinanceEntry$costCenterAllocationsArgs<ExtArgs>
   reconciliationItems?: boolean | Prisma.FinanceEntry$reconciliationItemsArgs<ExtArgs>
+  reconciliationSuggestions?: boolean | Prisma.FinanceEntry$reconciliationSuggestionsArgs<ExtArgs>
   overdueActions?: boolean | Prisma.FinanceEntry$overdueActionsArgs<ExtArgs>
   retentions?: boolean | Prisma.FinanceEntry$retentionsArgs<ExtArgs>
   paymentLinks?: boolean | Prisma.FinanceEntry$paymentLinksArgs<ExtArgs>
@@ -7175,6 +8080,7 @@ export type FinanceEntryInclude<ExtArgs extends runtime.Types.Extensions.Interna
 export type FinanceEntryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   category?: boolean | Prisma.FinanceCategoryDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.FinanceEntry$companyArgs<ExtArgs>
   costCenter?: boolean | Prisma.FinanceEntry$costCenterArgs<ExtArgs>
   bankAccount?: boolean | Prisma.FinanceEntry$bankAccountArgs<ExtArgs>
   parentEntry?: boolean | Prisma.FinanceEntry$parentEntryArgs<ExtArgs>
@@ -7184,6 +8090,7 @@ export type FinanceEntryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types
 export type FinanceEntryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   category?: boolean | Prisma.FinanceCategoryDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.FinanceEntry$companyArgs<ExtArgs>
   costCenter?: boolean | Prisma.FinanceEntry$costCenterArgs<ExtArgs>
   bankAccount?: boolean | Prisma.FinanceEntry$bankAccountArgs<ExtArgs>
   parentEntry?: boolean | Prisma.FinanceEntry$parentEntryArgs<ExtArgs>
@@ -7196,6 +8103,7 @@ export type $FinanceEntryPayload<ExtArgs extends runtime.Types.Extensions.Intern
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
     category: Prisma.$FinanceCategoryPayload<ExtArgs>
+    company: Prisma.$CompanyPayload<ExtArgs> | null
     costCenter: Prisma.$CostCenterPayload<ExtArgs> | null
     bankAccount: Prisma.$BankAccountPayload<ExtArgs> | null
     parentEntry: Prisma.$FinanceEntryPayload<ExtArgs> | null
@@ -7206,6 +8114,7 @@ export type $FinanceEntryPayload<ExtArgs extends runtime.Types.Extensions.Intern
     attachments: Prisma.$FinanceAttachmentPayload<ExtArgs>[]
     costCenterAllocations: Prisma.$FinanceEntryCostCenterPayload<ExtArgs>[]
     reconciliationItems: Prisma.$BankReconciliationItemPayload<ExtArgs>[]
+    reconciliationSuggestions: Prisma.$ReconciliationSuggestionPayload<ExtArgs>[]
     overdueActions: Prisma.$OverdueActionPayload<ExtArgs>[]
     retentions: Prisma.$FinanceEntryRetentionPayload<ExtArgs>[]
     paymentLinks: Prisma.$PaymentLinkPayload<ExtArgs>[]
@@ -7218,6 +8127,7 @@ export type $FinanceEntryPayload<ExtArgs extends runtime.Types.Extensions.Intern
     description: string
     notes: string | null
     categoryId: string
+    companyId: string | null
     costCenterId: string | null
     bankAccountId: string | null
     supplierName: string | null
@@ -7659,6 +8569,7 @@ export interface Prisma__FinanceEntryClient<T, Null = never, ExtArgs extends run
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   category<T extends Prisma.FinanceCategoryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceCategoryDefaultArgs<ExtArgs>>): Prisma.Prisma__FinanceCategoryClient<runtime.Types.Result.GetResult<Prisma.$FinanceCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  company<T extends Prisma.FinanceEntry$companyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceEntry$companyArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   costCenter<T extends Prisma.FinanceEntry$costCenterArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceEntry$costCenterArgs<ExtArgs>>): Prisma.Prisma__CostCenterClient<runtime.Types.Result.GetResult<Prisma.$CostCenterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   bankAccount<T extends Prisma.FinanceEntry$bankAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceEntry$bankAccountArgs<ExtArgs>>): Prisma.Prisma__BankAccountClient<runtime.Types.Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   parentEntry<T extends Prisma.FinanceEntry$parentEntryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceEntry$parentEntryArgs<ExtArgs>>): Prisma.Prisma__FinanceEntryClient<runtime.Types.Result.GetResult<Prisma.$FinanceEntryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -7669,6 +8580,7 @@ export interface Prisma__FinanceEntryClient<T, Null = never, ExtArgs extends run
   attachments<T extends Prisma.FinanceEntry$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceEntry$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   costCenterAllocations<T extends Prisma.FinanceEntry$costCenterAllocationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceEntry$costCenterAllocationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceEntryCostCenterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reconciliationItems<T extends Prisma.FinanceEntry$reconciliationItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceEntry$reconciliationItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BankReconciliationItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reconciliationSuggestions<T extends Prisma.FinanceEntry$reconciliationSuggestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceEntry$reconciliationSuggestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReconciliationSuggestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   overdueActions<T extends Prisma.FinanceEntry$overdueActionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceEntry$overdueActionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OverdueActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   retentions<T extends Prisma.FinanceEntry$retentionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceEntry$retentionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceEntryRetentionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   paymentLinks<T extends Prisma.FinanceEntry$paymentLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceEntry$paymentLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -7708,6 +8620,7 @@ export interface FinanceEntryFieldRefs {
   readonly description: Prisma.FieldRef<"FinanceEntry", 'String'>
   readonly notes: Prisma.FieldRef<"FinanceEntry", 'String'>
   readonly categoryId: Prisma.FieldRef<"FinanceEntry", 'String'>
+  readonly companyId: Prisma.FieldRef<"FinanceEntry", 'String'>
   readonly costCenterId: Prisma.FieldRef<"FinanceEntry", 'String'>
   readonly bankAccountId: Prisma.FieldRef<"FinanceEntry", 'String'>
   readonly supplierName: Prisma.FieldRef<"FinanceEntry", 'String'>
@@ -8149,6 +9062,25 @@ export type FinanceEntryDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
 }
 
 /**
+ * FinanceEntry.company
+ */
+export type FinanceEntry$companyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Company
+   */
+  select?: Prisma.CompanySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Company
+   */
+  omit?: Prisma.CompanyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyInclude<ExtArgs> | null
+  where?: Prisma.CompanyWhereInput
+}
+
+/**
  * FinanceEntry.costCenter
  */
 export type FinanceEntry$costCenterArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -8361,6 +9293,30 @@ export type FinanceEntry$reconciliationItemsArgs<ExtArgs extends runtime.Types.E
   take?: number
   skip?: number
   distinct?: Prisma.BankReconciliationItemScalarFieldEnum | Prisma.BankReconciliationItemScalarFieldEnum[]
+}
+
+/**
+ * FinanceEntry.reconciliationSuggestions
+ */
+export type FinanceEntry$reconciliationSuggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReconciliationSuggestion
+   */
+  select?: Prisma.ReconciliationSuggestionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReconciliationSuggestion
+   */
+  omit?: Prisma.ReconciliationSuggestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReconciliationSuggestionInclude<ExtArgs> | null
+  where?: Prisma.ReconciliationSuggestionWhereInput
+  orderBy?: Prisma.ReconciliationSuggestionOrderByWithRelationInput | Prisma.ReconciliationSuggestionOrderByWithRelationInput[]
+  cursor?: Prisma.ReconciliationSuggestionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReconciliationSuggestionScalarFieldEnum | Prisma.ReconciliationSuggestionScalarFieldEnum[]
 }
 
 /**

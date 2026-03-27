@@ -871,6 +871,8 @@ export type EmployeeWhereInput = {
   termination?: Prisma.XOR<Prisma.TerminationNullableScalarRelationFilter, Prisma.TerminationWhereInput> | null
   medicalExams?: Prisma.MedicalExamListRelationFilter
   cipaMembers?: Prisma.CipaMemberListRelationFilter
+  benefitEnrollments?: Prisma.BenefitEnrollmentListRelationFilter
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationListRelationFilter
   managedDepartments?: Prisma.DepartmentListRelationFilter
   company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
 }
@@ -981,6 +983,8 @@ export type EmployeeOrderByWithRelationInput = {
   termination?: Prisma.TerminationOrderByWithRelationInput
   medicalExams?: Prisma.MedicalExamOrderByRelationAggregateInput
   cipaMembers?: Prisma.CipaMemberOrderByRelationAggregateInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentOrderByRelationAggregateInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationOrderByRelationAggregateInput
   managedDepartments?: Prisma.DepartmentOrderByRelationAggregateInput
   company?: Prisma.CompanyOrderByWithRelationInput
 }
@@ -1097,6 +1101,8 @@ export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
   termination?: Prisma.XOR<Prisma.TerminationNullableScalarRelationFilter, Prisma.TerminationWhereInput> | null
   medicalExams?: Prisma.MedicalExamListRelationFilter
   cipaMembers?: Prisma.CipaMemberListRelationFilter
+  benefitEnrollments?: Prisma.BenefitEnrollmentListRelationFilter
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationListRelationFilter
   managedDepartments?: Prisma.DepartmentListRelationFilter
   company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
 }, "id" | "userId" | "employees_registration_tenant_unique_active" | "employees_cpf_tenant_unique_active" | "employees_pis_tenant_unique_active">
@@ -1386,6 +1392,8 @@ export type EmployeeCreateInput = {
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -1490,6 +1498,8 @@ export type EmployeeUncheckedCreateInput = {
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -1592,6 +1602,8 @@ export type EmployeeUpdateInput = {
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -1696,6 +1708,8 @@ export type EmployeeUncheckedUpdateInput = {
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -2678,6 +2692,34 @@ export type EmployeeUpdateOneRequiredWithoutCipaMembersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutCipaMembersInput, Prisma.EmployeeUpdateWithoutCipaMembersInput>, Prisma.EmployeeUncheckedUpdateWithoutCipaMembersInput>
 }
 
+export type EmployeeCreateNestedOneWithoutBenefitEnrollmentsInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutBenefitEnrollmentsInput, Prisma.EmployeeUncheckedCreateWithoutBenefitEnrollmentsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutBenefitEnrollmentsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeUpdateOneRequiredWithoutBenefitEnrollmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutBenefitEnrollmentsInput, Prisma.EmployeeUncheckedCreateWithoutBenefitEnrollmentsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutBenefitEnrollmentsInput
+  upsert?: Prisma.EmployeeUpsertWithoutBenefitEnrollmentsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutBenefitEnrollmentsInput, Prisma.EmployeeUpdateWithoutBenefitEnrollmentsInput>, Prisma.EmployeeUncheckedUpdateWithoutBenefitEnrollmentsInput>
+}
+
+export type EmployeeCreateNestedOneWithoutFlexBenefitAllocationsInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutFlexBenefitAllocationsInput, Prisma.EmployeeUncheckedCreateWithoutFlexBenefitAllocationsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutFlexBenefitAllocationsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeUpdateOneRequiredWithoutFlexBenefitAllocationsNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutFlexBenefitAllocationsInput, Prisma.EmployeeUncheckedCreateWithoutFlexBenefitAllocationsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutFlexBenefitAllocationsInput
+  upsert?: Prisma.EmployeeUpsertWithoutFlexBenefitAllocationsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutFlexBenefitAllocationsInput, Prisma.EmployeeUpdateWithoutFlexBenefitAllocationsInput>, Prisma.EmployeeUncheckedUpdateWithoutFlexBenefitAllocationsInput>
+}
+
 export type EmployeeCreateNestedManyWithoutCompanyInput = {
   create?: Prisma.XOR<Prisma.EmployeeCreateWithoutCompanyInput, Prisma.EmployeeUncheckedCreateWithoutCompanyInput> | Prisma.EmployeeCreateWithoutCompanyInput[] | Prisma.EmployeeUncheckedCreateWithoutCompanyInput[]
   connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutCompanyInput | Prisma.EmployeeCreateOrConnectWithoutCompanyInput[]
@@ -2860,6 +2902,8 @@ export type EmployeeCreateWithoutUserInput = {
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -2963,6 +3007,8 @@ export type EmployeeUncheckedCreateWithoutUserInput = {
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -3080,6 +3126,8 @@ export type EmployeeUpdateWithoutUserInput = {
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -3183,6 +3231,8 @@ export type EmployeeUncheckedUpdateWithoutUserInput = {
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -3284,6 +3334,8 @@ export type EmployeeCreateWithoutOrganizationInput = {
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -3387,6 +3439,8 @@ export type EmployeeUncheckedCreateWithoutOrganizationInput = {
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -3606,6 +3660,8 @@ export type EmployeeCreateWithoutSubordinatesInput = {
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -3709,6 +3765,8 @@ export type EmployeeUncheckedCreateWithoutSubordinatesInput = {
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -3815,6 +3873,8 @@ export type EmployeeCreateWithoutSupervisorInput = {
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -3918,6 +3978,8 @@ export type EmployeeUncheckedCreateWithoutSupervisorInput = {
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -4040,6 +4102,8 @@ export type EmployeeUpdateWithoutSubordinatesInput = {
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -4143,6 +4207,8 @@ export type EmployeeUncheckedUpdateWithoutSubordinatesInput = {
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -4261,6 +4327,8 @@ export type EmployeeCreateWithoutManagedDepartmentsInput = {
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
 
@@ -4364,6 +4432,8 @@ export type EmployeeUncheckedCreateWithoutManagedDepartmentsInput = {
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutManagedDepartmentsInput = {
@@ -4469,6 +4539,8 @@ export type EmployeeCreateWithoutDepartmentInput = {
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -4572,6 +4644,8 @@ export type EmployeeUncheckedCreateWithoutDepartmentInput = {
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -4695,6 +4769,8 @@ export type EmployeeUpdateWithoutManagedDepartmentsInput = {
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
 
@@ -4798,6 +4874,8 @@ export type EmployeeUncheckedUpdateWithoutManagedDepartmentsInput = {
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUpsertWithWhereUniqueWithoutDepartmentInput = {
@@ -4914,6 +4992,8 @@ export type EmployeeCreateWithoutPositionInput = {
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -5017,6 +5097,8 @@ export type EmployeeUncheckedCreateWithoutPositionInput = {
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -5144,6 +5226,8 @@ export type EmployeeCreateWithoutTimeEntriesInput = {
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -5247,6 +5331,8 @@ export type EmployeeUncheckedCreateWithoutTimeEntriesInput = {
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -5364,6 +5450,8 @@ export type EmployeeUpdateWithoutTimeEntriesInput = {
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -5467,6 +5555,8 @@ export type EmployeeUncheckedUpdateWithoutTimeEntriesInput = {
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -5568,6 +5658,8 @@ export type EmployeeCreateWithoutOvertimeInput = {
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -5671,6 +5763,8 @@ export type EmployeeUncheckedCreateWithoutOvertimeInput = {
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -5788,6 +5882,8 @@ export type EmployeeUpdateWithoutOvertimeInput = {
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -5891,6 +5987,8 @@ export type EmployeeUncheckedUpdateWithoutOvertimeInput = {
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -5992,6 +6090,8 @@ export type EmployeeCreateWithoutTimeBanksInput = {
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -6095,6 +6195,8 @@ export type EmployeeUncheckedCreateWithoutTimeBanksInput = {
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -6212,6 +6314,8 @@ export type EmployeeUpdateWithoutTimeBanksInput = {
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -6315,6 +6419,8 @@ export type EmployeeUncheckedUpdateWithoutTimeBanksInput = {
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -6416,6 +6522,8 @@ export type EmployeeCreateWithoutAbsencesInput = {
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -6519,6 +6627,8 @@ export type EmployeeUncheckedCreateWithoutAbsencesInput = {
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -6636,6 +6746,8 @@ export type EmployeeUpdateWithoutAbsencesInput = {
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -6739,6 +6851,8 @@ export type EmployeeUncheckedUpdateWithoutAbsencesInput = {
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -6840,6 +6954,8 @@ export type EmployeeCreateWithoutVacationPeriodsInput = {
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -6943,6 +7059,8 @@ export type EmployeeUncheckedCreateWithoutVacationPeriodsInput = {
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -7060,6 +7178,8 @@ export type EmployeeUpdateWithoutVacationPeriodsInput = {
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -7163,6 +7283,8 @@ export type EmployeeUncheckedUpdateWithoutVacationPeriodsInput = {
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -7264,6 +7386,8 @@ export type EmployeeCreateWithoutPayrollItemsInput = {
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -7367,6 +7491,8 @@ export type EmployeeUncheckedCreateWithoutPayrollItemsInput = {
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -7484,6 +7610,8 @@ export type EmployeeUpdateWithoutPayrollItemsInput = {
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -7587,6 +7715,8 @@ export type EmployeeUncheckedUpdateWithoutPayrollItemsInput = {
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -7688,6 +7818,8 @@ export type EmployeeCreateWithoutBonusesInput = {
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -7791,6 +7923,8 @@ export type EmployeeUncheckedCreateWithoutBonusesInput = {
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -7908,6 +8042,8 @@ export type EmployeeUpdateWithoutBonusesInput = {
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -8011,6 +8147,8 @@ export type EmployeeUncheckedUpdateWithoutBonusesInput = {
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -8112,6 +8250,8 @@ export type EmployeeCreateWithoutDeductionsInput = {
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -8215,6 +8355,8 @@ export type EmployeeUncheckedCreateWithoutDeductionsInput = {
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -8332,6 +8474,8 @@ export type EmployeeUpdateWithoutDeductionsInput = {
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -8435,6 +8579,8 @@ export type EmployeeUncheckedUpdateWithoutDeductionsInput = {
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -8536,6 +8682,8 @@ export type EmployeeCreateWithoutDependantsInput = {
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -8639,6 +8787,8 @@ export type EmployeeUncheckedCreateWithoutDependantsInput = {
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -8756,6 +8906,8 @@ export type EmployeeUpdateWithoutDependantsInput = {
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -8859,6 +9011,8 @@ export type EmployeeUncheckedUpdateWithoutDependantsInput = {
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -8960,6 +9114,8 @@ export type EmployeeCreateWithoutTerminationInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -9063,6 +9219,8 @@ export type EmployeeUncheckedCreateWithoutTerminationInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -9180,6 +9338,8 @@ export type EmployeeUpdateWithoutTerminationInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -9283,6 +9443,8 @@ export type EmployeeUncheckedUpdateWithoutTerminationInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -9384,6 +9546,8 @@ export type EmployeeCreateWithoutMedicalExamsInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -9487,6 +9651,8 @@ export type EmployeeUncheckedCreateWithoutMedicalExamsInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -9604,6 +9770,8 @@ export type EmployeeUpdateWithoutMedicalExamsInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -9707,6 +9875,8 @@ export type EmployeeUncheckedUpdateWithoutMedicalExamsInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -9808,6 +9978,8 @@ export type EmployeeCreateWithoutCipaMembersInput = {
   dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -9911,6 +10083,8 @@ export type EmployeeUncheckedCreateWithoutCipaMembersInput = {
   dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -10028,6 +10202,8 @@ export type EmployeeUpdateWithoutCipaMembersInput = {
   dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -10131,6 +10307,872 @@ export type EmployeeUncheckedUpdateWithoutCipaMembersInput = {
   dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+}
+
+export type EmployeeCreateWithoutBenefitEnrollmentsInput = {
+  id?: string
+  registrationNumber: string
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
+  user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
+  position?: Prisma.PositionCreateNestedOneWithoutEmployeesInput
+  supervisor?: Prisma.EmployeeCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.EmployeeCreateNestedManyWithoutSupervisorInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutEmployeesInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
+}
+
+export type EmployeeUncheckedCreateWithoutBenefitEnrollmentsInput = {
+  id?: string
+  tenantId: string
+  registrationNumber: string
+  userId?: string | null
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  departmentId?: string | null
+  positionId?: string | null
+  supervisorId?: string | null
+  organizationId?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  companyId?: string | null
+  subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+}
+
+export type EmployeeCreateOrConnectWithoutBenefitEnrollmentsInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutBenefitEnrollmentsInput, Prisma.EmployeeUncheckedCreateWithoutBenefitEnrollmentsInput>
+}
+
+export type EmployeeUpsertWithoutBenefitEnrollmentsInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutBenefitEnrollmentsInput, Prisma.EmployeeUncheckedUpdateWithoutBenefitEnrollmentsInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutBenefitEnrollmentsInput, Prisma.EmployeeUncheckedCreateWithoutBenefitEnrollmentsInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutBenefitEnrollmentsInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutBenefitEnrollmentsInput, Prisma.EmployeeUncheckedUpdateWithoutBenefitEnrollmentsInput>
+}
+
+export type EmployeeUpdateWithoutBenefitEnrollmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
+  user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutEmployeesNestedInput
+  supervisor?: Prisma.EmployeeUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.EmployeeUpdateManyWithoutSupervisorNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutEmployeesNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutBenefitEnrollmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supervisorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+}
+
+export type EmployeeCreateWithoutFlexBenefitAllocationsInput = {
+  id?: string
+  registrationNumber: string
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
+  user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
+  position?: Prisma.PositionCreateNestedOneWithoutEmployeesInput
+  supervisor?: Prisma.EmployeeCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.EmployeeCreateNestedManyWithoutSupervisorInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutEmployeesInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
+}
+
+export type EmployeeUncheckedCreateWithoutFlexBenefitAllocationsInput = {
+  id?: string
+  tenantId: string
+  registrationNumber: string
+  userId?: string | null
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  departmentId?: string | null
+  positionId?: string | null
+  supervisorId?: string | null
+  organizationId?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  companyId?: string | null
+  subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+}
+
+export type EmployeeCreateOrConnectWithoutFlexBenefitAllocationsInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutFlexBenefitAllocationsInput, Prisma.EmployeeUncheckedCreateWithoutFlexBenefitAllocationsInput>
+}
+
+export type EmployeeUpsertWithoutFlexBenefitAllocationsInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutFlexBenefitAllocationsInput, Prisma.EmployeeUncheckedUpdateWithoutFlexBenefitAllocationsInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutFlexBenefitAllocationsInput, Prisma.EmployeeUncheckedCreateWithoutFlexBenefitAllocationsInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutFlexBenefitAllocationsInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutFlexBenefitAllocationsInput, Prisma.EmployeeUncheckedUpdateWithoutFlexBenefitAllocationsInput>
+}
+
+export type EmployeeUpdateWithoutFlexBenefitAllocationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
+  user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutEmployeesNestedInput
+  supervisor?: Prisma.EmployeeUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.EmployeeUpdateManyWithoutSupervisorNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutEmployeesNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutFlexBenefitAllocationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supervisorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -10233,6 +11275,8 @@ export type EmployeeCreateWithoutCompanyInput = {
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
 }
 
@@ -10335,6 +11379,8 @@ export type EmployeeUncheckedCreateWithoutCompanyInput = {
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -10462,6 +11508,8 @@ export type EmployeeCreateWithoutTenantInput = {
   termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
 }
@@ -10565,6 +11613,8 @@ export type EmployeeUncheckedCreateWithoutTenantInput = {
   termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
   medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
 }
 
@@ -10780,6 +11830,8 @@ export type EmployeeUpdateWithoutOrganizationInput = {
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -10883,6 +11935,8 @@ export type EmployeeUncheckedUpdateWithoutOrganizationInput = {
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -11160,6 +12214,8 @@ export type EmployeeUpdateWithoutSupervisorInput = {
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -11263,6 +12319,8 @@ export type EmployeeUncheckedUpdateWithoutSupervisorInput = {
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -11540,6 +12598,8 @@ export type EmployeeUpdateWithoutDepartmentInput = {
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -11643,6 +12703,8 @@ export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -11920,6 +12982,8 @@ export type EmployeeUpdateWithoutPositionInput = {
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -12023,6 +13087,8 @@ export type EmployeeUncheckedUpdateWithoutPositionInput = {
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -12301,6 +13367,8 @@ export type EmployeeUpdateWithoutCompanyInput = {
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
 }
 
@@ -12403,6 +13471,8 @@ export type EmployeeUncheckedUpdateWithoutCompanyInput = {
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -12680,6 +13750,8 @@ export type EmployeeUpdateWithoutTenantInput = {
   termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
 }
@@ -12783,6 +13855,8 @@ export type EmployeeUncheckedUpdateWithoutTenantInput = {
   termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
   medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
 }
 
@@ -12892,6 +13966,8 @@ export type EmployeeCountOutputType = {
   dependants: number
   medicalExams: number
   cipaMembers: number
+  benefitEnrollments: number
+  flexBenefitAllocations: number
   managedDepartments: number
 }
 
@@ -12908,6 +13984,8 @@ export type EmployeeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   dependants?: boolean | EmployeeCountOutputTypeCountDependantsArgs
   medicalExams?: boolean | EmployeeCountOutputTypeCountMedicalExamsArgs
   cipaMembers?: boolean | EmployeeCountOutputTypeCountCipaMembersArgs
+  benefitEnrollments?: boolean | EmployeeCountOutputTypeCountBenefitEnrollmentsArgs
+  flexBenefitAllocations?: boolean | EmployeeCountOutputTypeCountFlexBenefitAllocationsArgs
   managedDepartments?: boolean | EmployeeCountOutputTypeCountManagedDepartmentsArgs
 }
 
@@ -13003,6 +14081,20 @@ export type EmployeeCountOutputTypeCountMedicalExamsArgs<ExtArgs extends runtime
  */
 export type EmployeeCountOutputTypeCountCipaMembersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CipaMemberWhereInput
+}
+
+/**
+ * EmployeeCountOutputType without action
+ */
+export type EmployeeCountOutputTypeCountBenefitEnrollmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BenefitEnrollmentWhereInput
+}
+
+/**
+ * EmployeeCountOutputType without action
+ */
+export type EmployeeCountOutputTypeCountFlexBenefitAllocationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FlexBenefitAllocationWhereInput
 }
 
 /**
@@ -13119,6 +14211,8 @@ export type EmployeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   termination?: boolean | Prisma.Employee$terminationArgs<ExtArgs>
   medicalExams?: boolean | Prisma.Employee$medicalExamsArgs<ExtArgs>
   cipaMembers?: boolean | Prisma.Employee$cipaMembersArgs<ExtArgs>
+  benefitEnrollments?: boolean | Prisma.Employee$benefitEnrollmentsArgs<ExtArgs>
+  flexBenefitAllocations?: boolean | Prisma.Employee$flexBenefitAllocationsArgs<ExtArgs>
   managedDepartments?: boolean | Prisma.Employee$managedDepartmentsArgs<ExtArgs>
   company?: boolean | Prisma.Employee$companyArgs<ExtArgs>
   _count?: boolean | Prisma.EmployeeCountOutputTypeDefaultArgs<ExtArgs>
@@ -13426,6 +14520,8 @@ export type EmployeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   termination?: boolean | Prisma.Employee$terminationArgs<ExtArgs>
   medicalExams?: boolean | Prisma.Employee$medicalExamsArgs<ExtArgs>
   cipaMembers?: boolean | Prisma.Employee$cipaMembersArgs<ExtArgs>
+  benefitEnrollments?: boolean | Prisma.Employee$benefitEnrollmentsArgs<ExtArgs>
+  flexBenefitAllocations?: boolean | Prisma.Employee$flexBenefitAllocationsArgs<ExtArgs>
   managedDepartments?: boolean | Prisma.Employee$managedDepartmentsArgs<ExtArgs>
   company?: boolean | Prisma.Employee$companyArgs<ExtArgs>
   _count?: boolean | Prisma.EmployeeCountOutputTypeDefaultArgs<ExtArgs>
@@ -13471,6 +14567,8 @@ export type $EmployeePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     termination: Prisma.$TerminationPayload<ExtArgs> | null
     medicalExams: Prisma.$MedicalExamPayload<ExtArgs>[]
     cipaMembers: Prisma.$CipaMemberPayload<ExtArgs>[]
+    benefitEnrollments: Prisma.$BenefitEnrollmentPayload<ExtArgs>[]
+    flexBenefitAllocations: Prisma.$FlexBenefitAllocationPayload<ExtArgs>[]
     managedDepartments: Prisma.$DepartmentPayload<ExtArgs>[]
     company: Prisma.$CompanyPayload<ExtArgs> | null
   }
@@ -13974,6 +15072,8 @@ export interface Prisma__EmployeeClient<T, Null = never, ExtArgs extends runtime
   termination<T extends Prisma.Employee$terminationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$terminationArgs<ExtArgs>>): Prisma.Prisma__TerminationClient<runtime.Types.Result.GetResult<Prisma.$TerminationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   medicalExams<T extends Prisma.Employee$medicalExamsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$medicalExamsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MedicalExamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   cipaMembers<T extends Prisma.Employee$cipaMembersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$cipaMembersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CipaMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  benefitEnrollments<T extends Prisma.Employee$benefitEnrollmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$benefitEnrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BenefitEnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  flexBenefitAllocations<T extends Prisma.Employee$flexBenefitAllocationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$flexBenefitAllocationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FlexBenefitAllocationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   managedDepartments<T extends Prisma.Employee$managedDepartmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$managedDepartmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   company<T extends Prisma.Employee$companyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$companyArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
@@ -14886,6 +15986,54 @@ export type Employee$cipaMembersArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.CipaMemberScalarFieldEnum | Prisma.CipaMemberScalarFieldEnum[]
+}
+
+/**
+ * Employee.benefitEnrollments
+ */
+export type Employee$benefitEnrollmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BenefitEnrollment
+   */
+  select?: Prisma.BenefitEnrollmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BenefitEnrollment
+   */
+  omit?: Prisma.BenefitEnrollmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BenefitEnrollmentInclude<ExtArgs> | null
+  where?: Prisma.BenefitEnrollmentWhereInput
+  orderBy?: Prisma.BenefitEnrollmentOrderByWithRelationInput | Prisma.BenefitEnrollmentOrderByWithRelationInput[]
+  cursor?: Prisma.BenefitEnrollmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BenefitEnrollmentScalarFieldEnum | Prisma.BenefitEnrollmentScalarFieldEnum[]
+}
+
+/**
+ * Employee.flexBenefitAllocations
+ */
+export type Employee$flexBenefitAllocationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FlexBenefitAllocation
+   */
+  select?: Prisma.FlexBenefitAllocationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FlexBenefitAllocation
+   */
+  omit?: Prisma.FlexBenefitAllocationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FlexBenefitAllocationInclude<ExtArgs> | null
+  where?: Prisma.FlexBenefitAllocationWhereInput
+  orderBy?: Prisma.FlexBenefitAllocationOrderByWithRelationInput | Prisma.FlexBenefitAllocationOrderByWithRelationInput[]
+  cursor?: Prisma.FlexBenefitAllocationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FlexBenefitAllocationScalarFieldEnum | Prisma.FlexBenefitAllocationScalarFieldEnum[]
 }
 
 /**
