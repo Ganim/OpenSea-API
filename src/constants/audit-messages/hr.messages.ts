@@ -749,6 +749,251 @@ export const HR_AUDIT_MESSAGES = {
     module: AuditModule.HR,
     description: '{{userName}} removeu {{stakeholderName}} de {{companyName}}',
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // BENEFIT PLANS - Planos de Benefícios
+  // ============================================================================
+
+  /** Plano de benefício criado */
+  BENEFIT_PLAN_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.BENEFIT_PLAN,
+    module: AuditModule.HR,
+    description: '{{userName}} criou o plano de benefício {{planName}}',
+  } satisfies AuditMessage,
+
+  /** Plano de benefício atualizado */
+  BENEFIT_PLAN_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.BENEFIT_PLAN,
+    module: AuditModule.HR,
+    description: '{{userName}} atualizou o plano de benefício {{planName}}',
+  } satisfies AuditMessage,
+
+  /** Plano de benefício desativado */
+  BENEFIT_PLAN_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.BENEFIT_PLAN,
+    module: AuditModule.HR,
+    description: '{{userName}} desativou o plano de benefício {{planName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // BENEFIT ENROLLMENTS - Inscrições em Benefícios
+  // ============================================================================
+
+  /** Funcionário inscrito em benefício */
+  BENEFIT_ENROLLMENT_CREATE: {
+    action: AuditAction.BENEFIT_ENROLL,
+    entity: AuditEntity.BENEFIT_ENROLLMENT,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} inscreveu {{employeeName}} no plano {{planName}}',
+  } satisfies AuditMessage,
+
+  /** Inscrição em benefício atualizada */
+  BENEFIT_ENROLLMENT_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.BENEFIT_ENROLLMENT,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} atualizou inscrição de {{employeeName}} no plano {{planName}}',
+  } satisfies AuditMessage,
+
+  /** Inscrição em benefício cancelada */
+  BENEFIT_ENROLLMENT_CANCEL: {
+    action: AuditAction.BENEFIT_CANCEL,
+    entity: AuditEntity.BENEFIT_ENROLLMENT,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} cancelou inscrição de {{employeeName}} no benefício',
+  } satisfies AuditMessage,
+
+  /** Inscrição em massa em benefício */
+  BENEFIT_ENROLLMENT_BULK: {
+    action: AuditAction.BENEFIT_BULK_ENROLL,
+    entity: AuditEntity.BENEFIT_ENROLLMENT,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} inscreveu {{count}} funcionários no plano {{planName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // FLEX BENEFITS - Benefícios Flexíveis
+  // ============================================================================
+
+  /** Alocação de benefício flexível */
+  FLEX_BENEFIT_ALLOCATE: {
+    action: AuditAction.FLEX_BENEFIT_ALLOCATE,
+    entity: AuditEntity.FLEX_BENEFIT_ALLOCATION,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} alocou benefícios flexíveis para {{employeeName}} em {{month}}/{{year}}',
+  } satisfies AuditMessage,
+
+  /** Cálculo de deduções de benefícios */
+  BENEFIT_DEDUCTION_CALCULATE: {
+    action: AuditAction.BENEFIT_DEDUCTION_CALCULATE,
+    entity: AuditEntity.BENEFIT_ENROLLMENT,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} calculou deduções de benefícios de {{employeeName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // PORTAL DO COLABORADOR - Solicitações
+  // ============================================================================
+
+  /** Solicitação criada */
+  EMPLOYEE_REQUEST_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.EMPLOYEE_REQUEST,
+    module: AuditModule.HR,
+    description: '{{userName}} criou uma solicitação de {{requestType}}',
+  } satisfies AuditMessage,
+
+  /** Solicitação cancelada */
+  EMPLOYEE_REQUEST_CANCEL: {
+    action: AuditAction.CANCEL,
+    entity: AuditEntity.EMPLOYEE_REQUEST,
+    module: AuditModule.HR,
+    description: '{{userName}} cancelou a solicitação',
+  } satisfies AuditMessage,
+
+  /** Solicitação aprovada */
+  EMPLOYEE_REQUEST_APPROVE: {
+    action: AuditAction.REQUEST_APPROVE,
+    entity: AuditEntity.EMPLOYEE_REQUEST,
+    module: AuditModule.HR,
+    description: '{{userName}} aprovou a solicitação de {{employeeName}}',
+  } satisfies AuditMessage,
+
+  /** Solicitação rejeitada */
+  EMPLOYEE_REQUEST_REJECT: {
+    action: AuditAction.REQUEST_REJECT,
+    entity: AuditEntity.EMPLOYEE_REQUEST,
+    module: AuditModule.HR,
+    description: '{{userName}} rejeitou a solicitação de {{employeeName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // PORTAL DO COLABORADOR - Comunicados
+  // ============================================================================
+
+  /** Comunicado criado */
+  ANNOUNCEMENT_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.COMPANY_ANNOUNCEMENT,
+    module: AuditModule.HR,
+    description: '{{userName}} criou o comunicado "{{announcementTitle}}"',
+  } satisfies AuditMessage,
+
+  /** Comunicado atualizado */
+  ANNOUNCEMENT_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.COMPANY_ANNOUNCEMENT,
+    module: AuditModule.HR,
+    description: '{{userName}} atualizou o comunicado "{{announcementTitle}}"',
+  } satisfies AuditMessage,
+
+  /** Comunicado removido */
+  ANNOUNCEMENT_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.COMPANY_ANNOUNCEMENT,
+    module: AuditModule.HR,
+    description: '{{userName}} removeu o comunicado "{{announcementTitle}}"',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // PORTAL DO COLABORADOR - Kudos
+  // ============================================================================
+
+  /** Kudos enviado */
+  KUDOS_SEND: {
+    action: AuditAction.KUDOS_SEND,
+    entity: AuditEntity.EMPLOYEE_KUDOS,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} enviou um kudos de {{category}} para {{recipientName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // PORTAL DO COLABORADOR - Onboarding
+  // ============================================================================
+
+  /** Item de onboarding concluído */
+  ONBOARDING_ITEM_COMPLETE: {
+    action: AuditAction.ONBOARDING_COMPLETE_ITEM,
+    entity: AuditEntity.ONBOARDING_CHECKLIST,
+    module: AuditModule.HR,
+    description: '{{userName}} concluiu o item "{{itemTitle}}" do onboarding',
+  } satisfies AuditMessage,
+
+  /** Checklist de onboarding criado */
+  ONBOARDING_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.ONBOARDING_CHECKLIST,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} criou checklist de onboarding para {{employeeName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // ADMISSÃO DIGITAL - Convites e assinaturas
+  // ============================================================================
+
+  /** Convite de admissão criado */
+  ADMISSION_INVITE_CREATE: {
+    action: AuditAction.ADMISSION_CREATE,
+    entity: AuditEntity.ADMISSION_INVITE,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} criou convite de admissão para {{candidateName}}',
+  } satisfies AuditMessage,
+
+  /** Convite de admissão atualizado */
+  ADMISSION_INVITE_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.ADMISSION_INVITE,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} atualizou convite de admissão de {{candidateName}}',
+  } satisfies AuditMessage,
+
+  /** Convite de admissão cancelado */
+  ADMISSION_INVITE_CANCEL: {
+    action: AuditAction.ADMISSION_CANCEL,
+    entity: AuditEntity.ADMISSION_INVITE,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} cancelou convite de admissão de {{candidateName}}',
+  } satisfies AuditMessage,
+
+  /** Admissão aprovada — funcionário criado */
+  ADMISSION_APPROVE: {
+    action: AuditAction.ADMISSION_APPROVE,
+    entity: AuditEntity.ADMISSION_INVITE,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} aprovou a admissão de {{candidateName}} (matrícula {{registrationNumber}})',
+  } satisfies AuditMessage,
+
+  /** Admissão rejeitada */
+  ADMISSION_REJECT: {
+    action: AuditAction.ADMISSION_REJECT,
+    entity: AuditEntity.ADMISSION_INVITE,
+    module: AuditModule.HR,
+    description: '{{userName}} rejeitou a admissão de {{candidateName}}',
+  } satisfies AuditMessage,
+
+  /** Documento assinado digitalmente */
+  ADMISSION_SIGN: {
+    action: AuditAction.ADMISSION_SIGN,
+    entity: AuditEntity.DIGITAL_SIGNATURE,
+    module: AuditModule.HR,
+    description:
+      '{{signerName}} assinou digitalmente o documento ({{signatureType}})',
+  } satisfies AuditMessage,
 } as const;
 
 export type HrAuditMessageKey = keyof typeof HR_AUDIT_MESSAGES;

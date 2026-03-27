@@ -276,6 +276,40 @@ export const PermissionCodes = {
       REMOVE: 'hr.safety.remove' as const,
       ADMIN: 'hr.safety.admin' as const,
     },
+    BENEFITS: {
+      ACCESS: 'hr.benefits.access' as const,
+      REGISTER: 'hr.benefits.register' as const,
+      MODIFY: 'hr.benefits.modify' as const,
+      REMOVE: 'hr.benefits.remove' as const,
+      ADMIN: 'hr.benefits.admin' as const,
+    },
+    ANNOUNCEMENTS: {
+      ACCESS: 'hr.announcements.access' as const,
+      REGISTER: 'hr.announcements.register' as const,
+      MODIFY: 'hr.announcements.modify' as const,
+      REMOVE: 'hr.announcements.remove' as const,
+    },
+    EMPLOYEE_REQUESTS: {
+      ACCESS: 'hr.employee-requests.access' as const,
+      REGISTER: 'hr.employee-requests.register' as const,
+      ADMIN: 'hr.employee-requests.admin' as const,
+    },
+    KUDOS: {
+      ACCESS: 'hr.kudos.access' as const,
+      REGISTER: 'hr.kudos.register' as const,
+    },
+    ONBOARDING: {
+      ACCESS: 'hr.onboarding.access' as const,
+      MODIFY: 'hr.onboarding.modify' as const,
+      ADMIN: 'hr.onboarding.admin' as const,
+    },
+    ADMISSIONS: {
+      ACCESS: 'hr.admissions.access' as const,
+      REGISTER: 'hr.admissions.register' as const,
+      MODIFY: 'hr.admissions.modify' as const,
+      REMOVE: 'hr.admissions.remove' as const,
+      ADMIN: 'hr.admissions.admin' as const,
+    },
   },
 
   // ============================================================================

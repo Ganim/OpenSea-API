@@ -153,6 +153,7 @@ import { financeAccountantRoutes } from './controllers/finance/accountant/routes
 import { bankConnectionsRoutes } from './controllers/finance/bank-connections/routes';
 import { paymentLinksRoutes } from './controllers/finance/payment-links/routes';
 import { financeExchangeRatesRoutes } from './controllers/finance/exchange-rates/routes';
+import { financeCustomerPortalRoutes } from './controllers/finance/customer-portal/routes';
 
 // Accountant Portal routes (token-based auth)
 import { accountantPortalRoutes } from './controllers/accountant/routes';
@@ -241,7 +242,16 @@ import { workplaceRisksRoutes } from './controllers/hr/workplace-risks/routes';
 import { cipaMandatesRoutes } from './controllers/hr/cipa-mandates/routes';
 import { cipaMembersRoutes } from './controllers/hr/cipa-members/routes';
 import { hrConfigRoutes } from './controllers/hr/hr-config/routes';
+import { admissionsRoutes } from './controllers/hr/admissions/routes';
 import { esocialRoutes } from './controllers/hr/esocial/routes';
+import { employeeRequestsRoutes } from './controllers/hr/employee-requests/routes';
+import { hrAnnouncementsRoutes } from './controllers/hr/announcements/routes';
+import { kudosRoutes } from './controllers/hr/kudos/routes';
+import { onboardingRoutes } from './controllers/hr/onboarding/routes';
+import { benefitPlansRoutes } from './controllers/hr/benefit-plans/routes';
+import { benefitEnrollmentsRoutes } from './controllers/hr/benefit-enrollments/routes';
+import { flexBenefitsRoutes } from './controllers/hr/flex-benefits/routes';
+import { benefitDeductionsRoutes } from './controllers/hr/benefit-deductions/routes';
 
 export async function registerRoutes(app: FastifyInstance) {
   // Core routes
@@ -381,6 +391,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(bankConnectionsRoutes);
   await app.register(paymentLinksRoutes);
   await app.register(financeExchangeRatesRoutes);
+  await app.register(financeCustomerPortalRoutes);
 
   // Accountant Portal routes (token-based auth, no JWT)
   await app.register(accountantPortalRoutes);
@@ -432,7 +443,16 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(cipaMandatesRoutes);
   await app.register(cipaMembersRoutes);
   await app.register(hrConfigRoutes);
+  await app.register(admissionsRoutes);
   await app.register(esocialRoutes);
+  await app.register(employeeRequestsRoutes);
+  await app.register(hrAnnouncementsRoutes);
+  await app.register(kudosRoutes);
+  await app.register(onboardingRoutes);
+  await app.register(benefitPlansRoutes);
+  await app.register(benefitEnrollmentsRoutes);
+  await app.register(flexBenefitsRoutes);
+  await app.register(benefitDeductionsRoutes);
 
   // Tasks routes
   await app.register(taskBoardsRoutes);

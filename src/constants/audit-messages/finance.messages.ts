@@ -348,6 +348,22 @@ export const FINANCE_AUDIT_MESSAGES = {
     description: '{{userName}} finalizou a conciliação bancária {{fileName}}',
   } satisfies AuditMessage,
 
+  RECONCILIATION_SUGGESTION_ACCEPT: {
+    action: AuditAction.RECONCILIATION_SUGGESTION_ACCEPT,
+    entity: AuditEntity.RECONCILIATION_SUGGESTION,
+    module: AuditModule.FINANCE,
+    description:
+      '{{userName}} aceitou sugestão de conciliação (score: {{score}}) para o lançamento {{entryId}}',
+  } satisfies AuditMessage,
+
+  RECONCILIATION_SUGGESTION_REJECT: {
+    action: AuditAction.RECONCILIATION_SUGGESTION_REJECT,
+    entity: AuditEntity.RECONCILIATION_SUGGESTION,
+    module: AuditModule.FINANCE,
+    description:
+      '{{userName}} rejeitou sugestão de conciliação (score: {{score}}) para o lançamento {{entryId}}',
+  } satisfies AuditMessage,
+
   // ============================================================================
   // CONTRACTS - Contratos de Servico
   // ============================================================================
