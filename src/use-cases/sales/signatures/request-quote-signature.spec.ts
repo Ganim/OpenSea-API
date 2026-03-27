@@ -28,7 +28,7 @@ function createTestCustomer(overrides?: Partial<{ email: string }>): Customer {
   return Customer.create({
     tenantId: new UniqueEntityID(TENANT_ID),
     name: 'Acme Corp',
-    type: new CustomerType('COMPANY'),
+    type: CustomerType.BUSINESS(),
     email: overrides?.email ?? 'customer@acme.com',
   });
 }
@@ -171,7 +171,7 @@ describe('RequestQuoteSignatureUseCase', () => {
     const customerWithoutEmail = Customer.create({
       tenantId: new UniqueEntityID(TENANT_ID),
       name: 'No Email Corp',
-      type: new CustomerType('COMPANY'),
+      type: CustomerType.BUSINESS(),
     });
     customersRepository.items.push(customerWithoutEmail);
 

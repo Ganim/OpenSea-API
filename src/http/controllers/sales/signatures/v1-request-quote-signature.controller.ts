@@ -19,7 +19,7 @@ export async function requestQuoteSignatureController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.SALES.QUOTES.ADMIN,
+        permissionCode: PermissionCodes.SALES.QUOTES.SEND,
         resource: 'quotes',
       }),
     ],
