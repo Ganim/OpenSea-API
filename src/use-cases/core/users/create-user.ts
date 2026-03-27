@@ -4,6 +4,7 @@ import { Password } from '@/entities/core/value-objects/password';
 import { Url } from '@/entities/core/value-objects/url';
 import { Username } from '@/entities/core/value-objects/username';
 import { UserDTO, userToDTO } from '@/mappers/core/user/user-to-dto';
+import type { AuthLinksRepository } from '@/repositories/core/auth-links-repository';
 import { UsersRepository } from '@/repositories/core/users-repository';
 
 interface CreateUserUseCaseRequest {
@@ -25,7 +26,10 @@ interface CreateUserUseCaseResponse {
 }
 
 export class CreateUserUseCase {
-  constructor(private userRespository: UsersRepository) {}
+  constructor(
+    private userRespository: UsersRepository,
+    private authLinksRepository?: AuthLinksRepository,
+  ) {}
 
   async execute({
     username,
@@ -69,6 +73,16 @@ export class CreateUserUseCase {
         avatarUrl: validAvatarUrl,
       },
     });
+
+    // Create EMAIL AuthLink for the new user
+    if (this.authLinksRepository) {
+      await this.authLinksRepository.create({
+        userId: newUser.id,
+        provider: 'EMAIL',
+        identifier: validEmail.value.toLowerCase(),
+        credential: newUser.password.toString(),
+      });
+    }
 
     const user = userToDTO(newUser);
 

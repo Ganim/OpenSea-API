@@ -10,6 +10,7 @@ import {
 } from '@/entities/hr/value-objects';
 import type { TransactionManager } from '@/lib/transaction-manager';
 import { UserDTO } from '@/mappers/core/user/user-to-dto';
+import type { AuthLinksRepository } from '@/repositories/core/auth-links-repository';
 import type { TenantUsersRepository } from '@/repositories/core/tenant-users-repository';
 import type { UsersRepository } from '@/repositories/core/users-repository';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
@@ -96,6 +97,7 @@ export class CreateEmployeeWithUserUseCase {
     private tenantUsersRepository: TenantUsersRepository,
     private assignGroupToUserUseCase: AssignGroupToUserUseCase,
     private transactionManager?: TransactionManager,
+    private authLinksRepository?: AuthLinksRepository,
   ) {}
 
   async execute(
@@ -311,7 +313,38 @@ export class CreateEmployeeWithUserUseCase {
           pendingIssues,
         });
 
-        // Step 5: Assign permission group to user (if provided)
+        // Step 5: Create CPF and ENROLLMENT AuthLinks
+        if (this.authLinksRepository) {
+          // Get user's password hash for credential-based AuthLinks
+          const fullUser = await this.usersRepository.findById(
+            new UniqueEntityID(user.id),
+          );
+          const passwordHash = fullUser?.password.toString();
+
+          // CPF AuthLink
+          if (cpf && passwordHash) {
+            const cpfClean = cpf.replace(/[\.\-\/]/g, '');
+            await this.authLinksRepository.create({
+              userId: new UniqueEntityID(user.id),
+              provider: 'CPF',
+              identifier: cpfClean,
+              credential: passwordHash,
+            });
+          }
+
+          // ENROLLMENT AuthLink (matrícula is tenant-scoped)
+          if (registrationNumber && passwordHash) {
+            await this.authLinksRepository.create({
+              userId: new UniqueEntityID(user.id),
+              tenantId: new UniqueEntityID(tenantId),
+              provider: 'ENROLLMENT',
+              identifier: registrationNumber,
+              credential: passwordHash,
+            });
+          }
+        }
+
+        // Step 6: Assign permission group to user (if provided)
         if (permissionGroupId) {
           await this.assignGroupToUserUseCase.execute({
             userId: user.id,
