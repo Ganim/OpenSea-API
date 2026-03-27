@@ -8,3 +8,5 @@ export * from './time-management';
 export * from './leave';
 export * from './payroll';
 export * from './termination';
+export * from './admission';
+export * from './benefits';
