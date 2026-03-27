@@ -17,6 +17,7 @@ function mapToDomain(data: Record<string, unknown>): Conversation {
       status: data.status as 'OPEN' | 'CLOSED' | 'ARCHIVED',
       lastMessageAt: (data.lastMessageAt as Date) ?? undefined,
       createdBy: data.createdBy as string,
+      overallSentiment: (data.overallSentiment as string) ?? undefined,
       isActive: data.isActive as boolean,
       createdAt: data.createdAt as Date,
       updatedAt: data.updatedAt as Date,
@@ -26,9 +27,7 @@ function mapToDomain(data: Record<string, unknown>): Conversation {
   );
 }
 
-export class PrismaConversationsRepository
-  implements ConversationsRepository
-{
+export class PrismaConversationsRepository implements ConversationsRepository {
   async create(data: CreateConversationSchema): Promise<Conversation> {
     const conversationData = await prisma.conversation.create({
       data: {
@@ -99,6 +98,7 @@ export class PrismaConversationsRepository
         subject: conversation.subject,
         status: conversation.status as ConversationStatus,
         lastMessageAt: conversation.lastMessageAt,
+        overallSentiment: conversation.overallSentiment ?? null,
         isActive: conversation.isActive,
         deletedAt: conversation.deletedAt,
       },

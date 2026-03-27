@@ -15,6 +15,7 @@ function mapToDomain(data: Record<string, unknown>): ConversationMessage {
       senderName: data.senderName as string,
       senderType: data.senderType as string,
       content: data.content as string,
+      sentiment: (data.sentiment as string) ?? undefined,
       readAt: (data.readAt as Date) ?? undefined,
       createdAt: data.createdAt as Date,
     },
@@ -68,6 +69,7 @@ export class PrismaConversationMessagesRepository
     await prisma.conversationMessage.update({
       where: { id: message.id.toString() },
       data: {
+        sentiment: message.sentiment ?? null,
         readAt: message.readAt,
       },
     });
