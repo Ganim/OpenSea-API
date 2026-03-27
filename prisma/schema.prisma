@@ -4807,11 +4807,191 @@ model CipaMember {
   employee Employee    @relation(fields: [employeeId], references: [id])
 
   @@unique([mandateId, employeeId])
-// ===============================================// BENEFITS MODULE// ===============================================model BenefitPlan {  id           String  @id @default(cuid())  tenantId     String  @map("tenant_id")  name         String  @db.VarChar(128)  type         String  @db.VarChar(32) // VT, VR, VA, HEALTH, DENTAL, LIFE_INSURANCE, DAYCARE, PLR, LOAN, EDUCATION, HOME_OFFICE, FLEX  provider     String? @db.VarChar(128)  policyNumber String? @map("policy_number") @db.VarChar(64)  isActive     Boolean @default(true) @map("is_active")  rules        Json? // Type-specific rules (deduction rates, age brackets, etc.)  description  String? @db.VarChar(1000)  createdAt DateTime @default(now()) @map("created_at")  updatedAt DateTime @updatedAt @map("updated_at")  tenant      Tenant              @relation(fields: [tenantId], references: [id])  enrollments BenefitEnrollment[]  @@index([tenantId, type])  @@index([tenantId, isActive])  @@map("benefit_plans")}model BenefitEnrollment {  id                   String    @id @default(cuid())  tenantId             String    @map("tenant_id")  employeeId           String    @map("employee_id")  benefitPlanId        String    @map("benefit_plan_id")  startDate            DateTime  @map("start_date")  endDate              DateTime? @map("end_date")  status               String    @default("ACTIVE") @db.VarChar(16) // ACTIVE, SUSPENDED, CANCELLED  employeeContribution Decimal?  @default(0) @map("employee_contribution") @db.Decimal(10, 2)  employerContribution Decimal?  @default(0) @map("employer_contribution") @db.Decimal(10, 2)  dependantIds         Json?     @map("dependant_ids") // string[] of dependant IDs covered  metadata             Json? // Extra data per enrollment  createdAt DateTime @default(now()) @map("created_at")  updatedAt DateTime @updatedAt @map("updated_at")  tenant      Tenant      @relation(fields: [tenantId], references: [id])  employee    Employee    @relation(fields: [employeeId], references: [id])  benefitPlan BenefitPlan @relation(fields: [benefitPlanId], references: [id])  @@index([tenantId, employeeId])  @@index([tenantId, benefitPlanId])  @@index([tenantId, status])  @@map("benefit_enrollments")}model FlexBenefitAllocation {  id          String    @id @default(cuid())  tenantId    String    @map("tenant_id")  employeeId  String    @map("employee_id")  month       Int  year        Int  totalBudget Decimal   @map("total_budget") @db.Decimal(10, 2)  allocations Json // { category: amount }  status      String    @default("DRAFT") @db.VarChar(16) // DRAFT, CONFIRMED, LOCKED  confirmedAt DateTime? @map("confirmed_at")  createdAt DateTime @default(now()) @map("created_at")  updatedAt DateTime @updatedAt @map("updated_at")  tenant   Tenant   @relation(fields: [tenantId], references: [id])  employee Employee @relation(fields: [employeeId], references: [id])  @@unique([tenantId, employeeId, month, year])  @@index([tenantId, month, year])  @@map("flex_benefit_allocations")}
+model BenefitPlan {
+
+   id           String
+   @id @default(cuid())
+   tenantId     String
+   @map("tenant_id")
+   name         String
+   @db.VarChar(128)
+   type         String
+   @db.VarChar(32) // VT, VR, VA, HEALTH, DENTAL, LIFE_INSURANCE, DAYCARE, PLR, LOAN, EDUCATION, HOME_OFFICE, FLEX
+   provider     String? @db.VarChar(128)
+   policyNumber String? @map("policy_number") @db.VarChar(64)
+   isActive     Boolean @default(true) @map("is_active")
+   rules        Json? // Type-specific rules (deduction rates, age brackets, etc.)
+   description  String? @db.VarChar(1000)
+   createdAt DateTime @default(now()) @map("created_at")
+   updatedAt DateTime @updatedAt @map("updated_at")
+   tenant      Tenant
+   
+   
+   
+   
+   
+   
+   @relation(fields: [tenantId], references: [id])
+   enrollments BenefitEnrollment[]
+
+   @@index([tenantId, type])
+
+   @@index([tenantId, isActive])
+
+   @@map("benefit_plans")}model BenefitEnrollment {
+
+   id                   String
+   
+   @id @default(cuid())
+   tenantId             String
+   
+   @map("tenant_id")
+   employeeId           String
+   
+   @map("employee_id")
+   benefitPlanId        String
+   
+   @map("benefit_plan_id")
+   startDate            DateTime
+   @map("start_date")
+   endDate              DateTime? @map("end_date")
+   status               String
+   
+   @default("ACTIVE") @db.VarChar(16) // ACTIVE, SUSPENDED, CANCELLED
+   employeeContribution Decimal?
+   @default(0) @map("employee_contribution") @db.Decimal(10, 2)
+   employerContribution Decimal?
+   @default(0) @map("employer_contribution") @db.Decimal(10, 2)
+   dependantIds         Json?
+   
+    @map("dependant_ids") // string[] of dependant IDs covered
+   metadata             Json? // Extra data per enrollment
+   createdAt DateTime @default(now()) @map("created_at")
+   updatedAt DateTime @updatedAt @map("updated_at")
+   tenant      Tenant
+   
+   
+   @relation(fields: [tenantId], references: [id])
+   employee    Employee
+   
+   @relation(fields: [employeeId], references: [id])
+   benefitPlan BenefitPlan @relation(fields: [benefitPlanId], references: [id])
+
+   @@index([tenantId, employeeId])
+
+   @@index([tenantId, benefitPlanId])
+
+   @@index([tenantId, status])
+
+   @@map("benefit_enrollments")}model FlexBenefitAllocation {
+
+   id          String
+   
+   @id @default(cuid())
+   tenantId    String
+   
+   @map("tenant_id")
+   employeeId  String
+   
+   @map("employee_id")
+   month       Int
+   year        Int
+   totalBudget Decimal
+    @map("total_budget") @db.Decimal(10, 2)
+   allocations Json // { category: amount }
+   status      String
+   
+   @default("DRAFT") @db.VarChar(16) // DRAFT, CONFIRMED, LOCKED
+   confirmedAt DateTime? @map("confirmed_at")
+   createdAt DateTime @default(now()) @map("created_at")
+   updatedAt DateTime @updatedAt @map("updated_at")
+   tenant   Tenant
+    @relation(fields: [tenantId], references: [id])
+   employee Employee @relation(fields: [employeeId], references: [id])
+
+   @@unique([tenantId, employeeId, month, year])
+
+   @@index([tenantId, month, year])
+
+   @@map("flex_benefit_allocations")}
   @@index([tenantId])
   @@index([mandateId])
   @@index([employeeId])
   @@map("cipa_members")
+}
+
+// ===============================================
+// BENEFITS MODULE
+// ===============================================
+
+model BenefitPlan {
+  id           String  @id @default(cuid())
+  tenantId     String  @map("tenant_id")
+  name         String  @db.VarChar(128)
+  type         String  @db.VarChar(32) // VT, VR, VA, HEALTH, DENTAL, LIFE_INSURANCE, DAYCARE, PLR, LOAN, EDUCATION, HOME_OFFICE, FLEX
+  provider     String? @db.VarChar(128)
+  policyNumber String? @map("policy_number") @db.VarChar(64)
+  isActive     Boolean @default(true) @map("is_active")
+  rules        Json? // Type-specific rules (deduction rates, age brackets, etc.)
+  description  String? @db.VarChar(1000)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant      Tenant              @relation(fields: [tenantId], references: [id])
+  enrollments BenefitEnrollment[]
+
+  @@index([tenantId, type])
+  @@index([tenantId, isActive])
+  @@map("benefit_plans")
+}
+
+model BenefitEnrollment {
+  id                   String    @id @default(cuid())
+  tenantId             String    @map("tenant_id")
+  employeeId           String    @map("employee_id")
+  benefitPlanId        String    @map("benefit_plan_id")
+  startDate            DateTime  @map("start_date")
+  endDate              DateTime? @map("end_date")
+  status               String    @default("ACTIVE") @db.VarChar(16) // ACTIVE, SUSPENDED, CANCELLED
+  employeeContribution Decimal?  @default(0) @map("employee_contribution") @db.Decimal(10, 2)
+  employerContribution Decimal?  @default(0) @map("employer_contribution") @db.Decimal(10, 2)
+  dependantIds         Json?     @map("dependant_ids") // string[] of dependant IDs covered
+  metadata             Json? // Extra data per enrollment
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant      Tenant      @relation(fields: [tenantId], references: [id])
+  employee    Employee    @relation(fields: [employeeId], references: [id])
+  benefitPlan BenefitPlan @relation(fields: [benefitPlanId], references: [id])
+
+  @@index([tenantId, employeeId])
+  @@index([tenantId, benefitPlanId])
+  @@index([tenantId, status])
+  @@map("benefit_enrollments")
+}
+
+model FlexBenefitAllocation {
+  id          String    @id @default(cuid())
+  tenantId    String    @map("tenant_id")
+  employeeId  String    @map("employee_id")
+  month       Int
+  year        Int
+  totalBudget Decimal   @map("total_budget") @db.Decimal(10, 2)
+  allocations Json // { category: amount }
+  status      String    @default("DRAFT") @db.VarChar(16) // DRAFT, CONFIRMED, LOCKED
+  confirmedAt DateTime? @map("confirmed_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id])
+  employee Employee @relation(fields: [employeeId], references: [id])
+
+  @@unique([tenantId, employeeId, month, year])
+  @@index([tenantId, month, year])
+  @@map("flex_benefit_allocations")
 }
 
 // ===============================================
