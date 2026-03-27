@@ -19,6 +19,9 @@ export class InMemorySessionsRepository implements SessionsRepository {
     const session = Session.create({
       userId: data.userId,
       ip: data.ip,
+      deviceInfo: data.deviceInfo,
+      geoLocation: data.geoLocation,
+      loginMethod: data.loginMethod,
       createdAt: new Date(),
     });
 
