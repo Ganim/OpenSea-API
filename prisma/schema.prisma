@@ -142,6 +142,12 @@ enum ReconciliationMatchStatus {
   CREATED
 }
 
+enum ReconciliationSuggestionStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
 enum FinanceAttachmentType {
   BOLETO
   PAYMENT_RECEIPT
@@ -4015,6 +4021,10 @@ model Employee {
   // CIPA
   cipaMembers CipaMember[]
 
+  // Benefits
+  benefitEnrollments     BenefitEnrollment[]
+  flexBenefitAllocations FlexBenefitAllocation[]
+
   // Management
   managedDepartments Department[] @relation("DepartmentManager")
   company            Company?     @relation(fields: [companyId], references: [id])
@@ -4797,6 +4807,7 @@ model CipaMember {
   employee Employee    @relation(fields: [employeeId], references: [id])
 
   @@unique([mandateId, employeeId])
+// ===============================================// BENEFITS MODULE// ===============================================model BenefitPlan {  id           String  @id @default(cuid())  tenantId     String  @map("tenant_id")  name         String  @db.VarChar(128)  type         String  @db.VarChar(32) // VT, VR, VA, HEALTH, DENTAL, LIFE_INSURANCE, DAYCARE, PLR, LOAN, EDUCATION, HOME_OFFICE, FLEX  provider     String? @db.VarChar(128)  policyNumber String? @map("policy_number") @db.VarChar(64)  isActive     Boolean @default(true) @map("is_active")  rules        Json? // Type-specific rules (deduction rates, age brackets, etc.)  description  String? @db.VarChar(1000)  createdAt DateTime @default(now()) @map("created_at")  updatedAt DateTime @updatedAt @map("updated_at")  tenant      Tenant              @relation(fields: [tenantId], references: [id])  enrollments BenefitEnrollment[]  @@index([tenantId, type])  @@index([tenantId, isActive])  @@map("benefit_plans")}model BenefitEnrollment {  id                   String    @id @default(cuid())  tenantId             String    @map("tenant_id")  employeeId           String    @map("employee_id")  benefitPlanId        String    @map("benefit_plan_id")  startDate            DateTime  @map("start_date")  endDate              DateTime? @map("end_date")  status               String    @default("ACTIVE") @db.VarChar(16) // ACTIVE, SUSPENDED, CANCELLED  employeeContribution Decimal?  @default(0) @map("employee_contribution") @db.Decimal(10, 2)  employerContribution Decimal?  @default(0) @map("employer_contribution") @db.Decimal(10, 2)  dependantIds         Json?     @map("dependant_ids") // string[] of dependant IDs covered  metadata             Json? // Extra data per enrollment  createdAt DateTime @default(now()) @map("created_at")  updatedAt DateTime @updatedAt @map("updated_at")  tenant      Tenant      @relation(fields: [tenantId], references: [id])  employee    Employee    @relation(fields: [employeeId], references: [id])  benefitPlan BenefitPlan @relation(fields: [benefitPlanId], references: [id])  @@index([tenantId, employeeId])  @@index([tenantId, benefitPlanId])  @@index([tenantId, status])  @@map("benefit_enrollments")}model FlexBenefitAllocation {  id          String    @id @default(cuid())  tenantId    String    @map("tenant_id")  employeeId  String    @map("employee_id")  month       Int  year        Int  totalBudget Decimal   @map("total_budget") @db.Decimal(10, 2)  allocations Json // { category: amount }  status      String    @default("DRAFT") @db.VarChar(16) // DRAFT, CONFIRMED, LOCKED  confirmedAt DateTime? @map("confirmed_at")  createdAt DateTime @default(now()) @map("created_at")  updatedAt DateTime @updatedAt @map("updated_at")  tenant   Tenant   @relation(fields: [tenantId], references: [id])  employee Employee @relation(fields: [employeeId], references: [id])  @@unique([tenantId, employeeId, month, year])  @@index([tenantId, month, year])  @@map("flex_benefit_allocations")}
   @@index([tenantId])
   @@index([mandateId])
   @@index([employeeId])
@@ -4900,6 +4911,7 @@ model Company {
   costCenters    CostCenter[]
   bankAccounts   BankAccount[]
   documents      CompanyDocument[]
+  financeEntries FinanceEntry[]
 
   @@unique([cnpjHash, tenantId, deletedAt], name: "companies_cnpj_tenant_unique_active")
   @@index([tenantId])
@@ -5418,6 +5430,10 @@ model Tenant {
   workplaceRisks          WorkplaceRisk[]
   cipaMandates            CipaMandate[]
   cipaMembers             CipaMember[]
+  admissionInvites        AdmissionInvite[]
+  benefitPlans            BenefitPlan[]
+  benefitEnrollments      BenefitEnrollment[]
+  flexBenefitAllocations  FlexBenefitAllocation[]
   // Audit domain
   auditLogs               AuditLog[]
   // Core domain
@@ -5436,6 +5452,7 @@ model Tenant {
   financeBudgets          FinanceBudget[]
   contracts               Contract[]
   bankReconciliations     BankReconciliation[]
+  reconciliationSuggestions ReconciliationSuggestion[]
   overdueEscalations      OverdueEscalation[]
   overdueActions          OverdueAction[]
   financeApprovalRules    FinanceApprovalRule[]
@@ -5615,6 +5632,12 @@ model Tenant {
 
   // Lead Routing domain
   leadRoutingRules LeadRoutingRule[]
+
+  // Employee Portal domain
+  employeeRequests      EmployeeRequest[]
+  companyAnnouncements  CompanyAnnouncement[]
+  employeeKudos         EmployeeKudos[]
+  onboardingChecklists  OnboardingChecklist[]
 
   @@index([status])
   @@index([deletedAt])
@@ -5891,6 +5914,7 @@ model FinanceEntry {
   notes       String? @db.Text
 
   categoryId    String  @map("category_id")
+  companyId     String? @map("company_id")
   costCenterId  String? @map("cost_center_id")
   bankAccountId String? @map("bank_account_id")
 
@@ -5951,6 +5975,7 @@ model FinanceEntry {
 
   tenant       Tenant          @relation(fields: [tenantId], references: [id])
   category     FinanceCategory @relation(fields: [categoryId], references: [id])
+  company      Company?        @relation(fields: [companyId], references: [id])
   costCenter   CostCenter?     @relation(fields: [costCenterId], references: [id])
   bankAccount  BankAccount?    @relation(fields: [bankAccountId], references: [id])
   parentEntry  FinanceEntry?   @relation("EntryRecurrence", fields: [parentEntryId], references: [id])
@@ -5964,6 +5989,7 @@ model FinanceEntry {
   attachments           FinanceAttachment[]
   costCenterAllocations FinanceEntryCostCenter[]
   reconciliationItems   BankReconciliationItem[]
+  reconciliationSuggestions ReconciliationSuggestion[] @relation("ReconciliationSuggestionEntry")
   overdueActions        OverdueAction[]
   retentions            FinanceEntryRetention[]
   paymentLinks          PaymentLink[]
@@ -5972,6 +5998,7 @@ model FinanceEntry {
   @@index([tenantId])
   @@index([type])
   @@index([categoryId])
+  @@index([companyId])
   @@index([costCenterId])
   @@index([bankAccountId])
   @@index([status])
@@ -5986,6 +6013,7 @@ model FinanceEntry {
   @@index([fiscalDocumentId])
   @@index([tenantId, type, status])
   @@index([tenantId, dueDate, status])
+  @@index([tenantId, companyId])
   @@map("finance_entries")
 }
 
@@ -6224,6 +6252,7 @@ model BankReconciliationItem {
 
   reconciliation BankReconciliation @relation(fields: [reconciliationId], references: [id], onDelete: Cascade)
   matchedEntry   FinanceEntry?      @relation(fields: [matchedEntryId], references: [id])
+  suggestions ReconciliationSuggestion[]
 
   @@unique([reconciliationId, fitId])
   @@index([reconciliationId])
@@ -6232,6 +6261,28 @@ model BankReconciliationItem {
   @@map("bank_reconciliation_items")
 }
 
+model ReconciliationSuggestion {
+  id            String @id @default(uuid())
+  tenantId      String @map("tenant_id")
+  transactionId String @map("transaction_id")
+  entryId       String @map("entry_id")
+  score         Int
+  matchReasons  String[] @map("match_reasons")
+  status        ReconciliationSuggestionStatus @default(PENDING)
+  reviewedAt    DateTime?                      @map("reviewed_at")
+  reviewedBy    String?                        @map("reviewed_by")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  tenant      Tenant                 @relation(fields: [tenantId], references: [id])
+  transaction BankReconciliationItem @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  entry       FinanceEntry           @relation("ReconciliationSuggestionEntry", fields: [entryId], references: [id])
+
+  @@index([tenantId])
+  @@index([transactionId])
+  @@index([entryId])
+  @@index([status])
+  @@map("reconciliation_suggestions")
+}
 // ============================================================================
 // LOANS - Emprestimos e Financiamentos
 // ============================================================================
@@ -6446,7 +6497,6 @@ model Contract {
   @@unique([code, tenantId, deletedAt], name: "contracts_code_tenant_unique_active")
   @@index([tenantId])
   @@index([status])
-  @@index([companyId])
   @@index([endDate])
   @@index([deletedAt])
   @@index([tenantId, status])
@@ -9942,11 +9992,12 @@ model CustomerPortalAccess {
   id       String @id @default(uuid())
   tenantId String @map("tenant_id")
 
-  customerId  String  @map("customer_id")
-  accessToken String  @unique @map("access_token")
-  contactId   String? @map("contact_id")
-  isActive    Boolean @default(true) @map("is_active")
-  permissions Json    @default("{}")
+  customerId   String  @map("customer_id")
+  customerName String? @map("customer_name") @db.VarChar(256)
+  accessToken  String  @unique @map("access_token")
+  contactId    String? @map("contact_id")
+  isActive     Boolean @default(true) @map("is_active")
+  permissions  Json    @default("{}")
 
   lastAccessAt DateTime? @map("last_access_at")
   expiresAt    DateTime? @map("expires_at")
@@ -12781,35 +12832,6 @@ model AccountantAccess {
   @@map("accountant_accesses")
 }
 
-// ============================================================================
-// EXCHANGE RATES (Global — BCB public rates, no tenantId)
-// ============================================================================
-
-model ExchangeRate {
-  id       String   @id @default(uuid())
-  currency String   @db.VarChar(3)
-  rate     Decimal  @db.Decimal(12, 6)
-  date     DateTime @db.Date
-  source   String   @default("BCB") @db.VarChar(16)
-
-  createdAt DateTime @default(now()) @map("created_at")
-
-  @@unique([currency, date])
-  @@map("exchange_rates")
-}
-
-// ============================================================================
-// SALES EVOLUTION — Enums
-// ============================================================================
-
-enum QuoteStatus {
-  DRAFT
-  SENT
-  ACCEPTED
-  REJECTED
-  EXPIRED
-}
-
 enum ProposalStatus {
   DRAFT
   SENT
@@ -13571,4 +13593,157 @@ model LeadRoutingRule {
   @@index([tenantId])
   @@index([isActive])
   @@map("lead_routing_rules")
+}
+
+// ============================================================================
+// HR — Employee Portal
+// ============================================================================
+
+model EmployeeRequest {
+  id                 String    @id @default(cuid())
+  tenantId           String    @map("tenant_id")
+  employeeId         String    @map("employee_id")
+  type               String    @db.VarChar(30) // VACATION, ABSENCE, ADVANCE, DATA_CHANGE, SUPPORT
+  status             String    @default("PENDING") @db.VarChar(20) // PENDING, APPROVED, REJECTED, CANCELLED
+  data               Json      @default("{}")
+  approverEmployeeId String?   @map("approver_employee_id")
+  approvedAt         DateTime? @map("approved_at")
+  rejectionReason    String?   @map("rejection_reason") @db.Text
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId, employeeId])
+  @@index([tenantId, status])
+  @@map("employee_requests")
+}
+
+model CompanyAnnouncement {
+  id                  String    @id @default(cuid())
+  tenantId            String    @map("tenant_id")
+  title               String    @db.VarChar(255)
+  content             String    @db.Text
+  priority            String    @default("NORMAL") @db.VarChar(20) // NORMAL, IMPORTANT, URGENT
+  publishedAt         DateTime? @map("published_at")
+  expiresAt           DateTime? @map("expires_at")
+  authorEmployeeId    String?   @map("author_employee_id")
+  targetDepartmentIds Json?     @map("target_department_ids") // string[]
+  isActive            Boolean   @default(true) @map("is_active")
+  createdAt           DateTime  @default(now()) @map("created_at")
+  updatedAt           DateTime  @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId, isActive])
+  @@map("company_announcements")
+}
+
+model EmployeeKudos {
+  id             String   @id @default(cuid())
+  tenantId       String   @map("tenant_id")
+  fromEmployeeId String   @map("from_employee_id")
+  toEmployeeId   String   @map("to_employee_id")
+  message        String   @db.Text
+  category       String   @db.VarChar(30) // TEAMWORK, INNOVATION, LEADERSHIP, EXCELLENCE, HELPFULNESS
+  isPublic       Boolean  @default(true) @map("is_public")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId, toEmployeeId])
+  @@index([tenantId, createdAt])
+  @@map("employee_kudos")
+}
+
+model OnboardingChecklist {
+  id         String   @id @default(cuid())
+  tenantId   String   @map("tenant_id")
+  employeeId String   @unique @map("employee_id")
+  items      Json     @default("[]") // [{ id, title, description, completed, completedAt }]
+  progress   Int      @default(0)
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("onboarding_checklists")
+}
+
+// ============================================================================
+// HR — Digital Admission
+// ============================================================================
+
+model AdmissionInvite {
+  id                String    @id @default(uuid())
+  tenantId          String    @map("tenant_id")
+  token             String    @unique @default(uuid())
+  email             String?   @db.VarChar(255)
+  phone             String?   @db.VarChar(30)
+  fullName          String    @map("full_name") @db.VarChar(255)
+  positionId        String?   @map("position_id")
+  departmentId      String?   @map("department_id")
+  companyId         String?   @map("company_id")
+  expectedStartDate DateTime? @map("expected_start_date")
+  salary            Decimal?  @db.Decimal(12, 2)
+  contractType      String?   @default("CLT") @map("contract_type") @db.VarChar(30)
+  workRegime        String?   @default("FULL_TIME") @map("work_regime") @db.VarChar(30)
+  status            String    @default("PENDING") @db.VarChar(20) // PENDING, IN_PROGRESS, COMPLETED, EXPIRED, CANCELLED
+  candidateData     Json?     @map("candidate_data")
+  expiresAt         DateTime? @map("expires_at")
+  completedAt       DateTime? @map("completed_at")
+  employeeId        String?   @map("employee_id")
+  createdBy         String?   @map("created_by")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+
+  tenant     Tenant              @relation(fields: [tenantId], references: [id])
+  documents  AdmissionDocument[]
+  signatures DigitalSignature[]
+
+  @@index([tenantId, status])
+  @@index([token])
+  @@map("admission_invites")
+}
+
+model AdmissionDocument {
+  id                String    @id @default(uuid())
+  admissionInviteId String    @map("admission_invite_id")
+  tenantId          String    @map("tenant_id")
+  type              String    @db.VarChar(30) // RG, CPF, CTPS, PROOF_ADDRESS, PHOTO, BIRTH_CERT, MARRIAGE_CERT, OTHER
+  fileName          String    @map("file_name") @db.VarChar(500)
+  fileUrl           String    @map("file_url") @db.VarChar(1000)
+  status            String    @default("PENDING") @db.VarChar(20) // PENDING, UPLOADED, VALIDATED, REJECTED
+  rejectionReason   String?   @map("rejection_reason") @db.Text
+  validatedBy       String?   @map("validated_by")
+  validatedAt       DateTime? @map("validated_at")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+
+  admissionInvite AdmissionInvite @relation(fields: [admissionInviteId], references: [id], onDelete: Cascade)
+
+  @@index([admissionInviteId])
+  @@map("admission_documents")
+}
+
+model DigitalSignature {
+  id                String   @id @default(uuid())
+  tenantId          String   @map("tenant_id")
+  admissionInviteId String?  @map("admission_invite_id")
+  documentId        String?  @map("document_id")
+  signerName        String   @map("signer_name") @db.VarChar(255)
+  signerCpf         String?  @map("signer_cpf") @db.VarChar(14)
+  signerEmail       String?  @map("signer_email") @db.VarChar(255)
+  signedAt          DateTime @default(now()) @map("signed_at")
+  ipAddress         String   @map("ip_address") @db.VarChar(45)
+  userAgent         String   @map("user_agent") @db.Text
+  documentHash      String   @map("document_hash") @db.VarChar(128)
+  pinVerified       Boolean  @default(false) @map("pin_verified")
+  signatureType     String   @map("signature_type") @db.VarChar(50) // ADMISSION_CONTRACT, DOCUMENT_ACKNOWLEDGMENT, POLICY_ACCEPTANCE
+
+  admissionInvite AdmissionInvite? @relation(fields: [admissionInviteId], references: [id])
+
+  @@index([admissionInviteId])
+  @@map("digital_signatures")
 }

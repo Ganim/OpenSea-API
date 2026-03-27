@@ -153,6 +153,21 @@ export const cashflowAccuracyResponseSchema = z.object({
   periodCount: z.number(),
 });
 
+// Financial Health Score
+export const financialHealthResponseSchema = z.object({
+  score: z.number().int().min(0).max(100),
+  dimensions: z.array(
+    z.object({
+      name: z.string(),
+      score: z.number(),
+      maxScore: z.number(),
+      details: z.string(),
+    }),
+  ),
+  tips: z.array(z.string()),
+  trend: z.enum(['UP', 'DOWN', 'STABLE']),
+});
+
 // Cashflow
 export const cashflowQuerySchema = z.object({
   startDate: z.coerce.date(),

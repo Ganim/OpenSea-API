@@ -24,3 +24,15 @@ export type { CipaMemberProps } from './cipa-member';
 
 export { HrTenantConfig } from './hr-tenant-config';
 export type { HrTenantConfigProps } from './hr-tenant-config';
+
+export { EmployeeRequest } from './employee-request';
+export type { EmployeeRequestProps } from './employee-request';
+
+export { CompanyAnnouncement } from './company-announcement';
+export type { CompanyAnnouncementProps } from './company-announcement';
+
+export { EmployeeKudos } from './employee-kudos';
+export type { EmployeeKudosProps } from './employee-kudos';
+
+export { OnboardingChecklist } from './onboarding-checklist';
+export type { OnboardingChecklistProps } from './onboarding-checklist';

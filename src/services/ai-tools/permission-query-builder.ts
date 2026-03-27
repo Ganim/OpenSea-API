@@ -234,7 +234,7 @@ export class PermissionAwareQueryBuilder {
         }));
 
         try {
-          const modelDelegate = (prisma as Record<string, unknown>)[
+          const modelDelegate = (prisma as unknown as Record<string, unknown>)[
             config.model
           ] as {
             findMany: (args: unknown) => Promise<unknown[]>;
@@ -560,14 +560,13 @@ export class PermissionAwareQueryBuilder {
   ): Promise<unknown> {
     const items = await prisma.salesOrderItem.findMany({
       where: {
-        salesOrder: { tenantId, deletedAt: null },
+        order: { tenantId, deletedAt: null },
       },
       select: {
-        productName: true,
         quantity: true,
         totalPrice: true,
         variant: {
-          select: { id: true, sku: true },
+          select: { id: true, name: true, sku: true },
         },
       },
       orderBy: { totalPrice: 'desc' },
@@ -577,7 +576,12 @@ export class PermissionAwareQueryBuilder {
     return {
       queryType: 'top_by_metric',
       metric: 'revenue',
-      items,
+      items: items.map((i) => ({
+        variantName: i.variant.name,
+        sku: i.variant.sku,
+        quantity: i.quantity,
+        totalPrice: i.totalPrice,
+      })),
     };
   }
 
@@ -587,12 +591,14 @@ export class PermissionAwareQueryBuilder {
   ): Promise<unknown> {
     const items = await prisma.salesOrderItem.findMany({
       where: {
-        salesOrder: { tenantId, deletedAt: null },
+        order: { tenantId, deletedAt: null },
       },
       select: {
-        productName: true,
         quantity: true,
         totalPrice: true,
+        variant: {
+          select: { id: true, name: true, sku: true },
+        },
       },
       orderBy: { quantity: 'desc' },
       take: limit,
@@ -601,7 +607,12 @@ export class PermissionAwareQueryBuilder {
     return {
       queryType: 'top_by_metric',
       metric: 'quantity',
-      items,
+      items: items.map((i) => ({
+        variantName: i.variant.name,
+        sku: i.variant.sku,
+        quantity: i.quantity,
+        totalPrice: i.totalPrice,
+      })),
     };
   }
 
@@ -641,10 +652,10 @@ export class PermissionAwareQueryBuilder {
         finalPrice: true,
         items: {
           select: {
-            productName: true,
             quantity: true,
             unitPrice: true,
             totalPrice: true,
+            variant: { select: { name: true, sku: true } },
           },
         },
       },
