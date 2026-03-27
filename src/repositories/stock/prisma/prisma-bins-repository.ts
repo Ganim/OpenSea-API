@@ -171,10 +171,22 @@ export class PrismaBinsRepository implements BinsRepository {
 
     const bins = await prisma.bin.findMany({
       where,
+      include: {
+        _count: {
+          select: { items: { where: { deletedAt: null } } },
+        },
+      },
       orderBy: [{ aisle: 'asc' }, { shelf: 'asc' }, { position: 'asc' }],
     });
 
-    let result = bins.map(mapToBin);
+    let result = bins.map((bin) => {
+      const entity = mapToBin(bin);
+      // Override stored currentOccupancy with real item count
+      if (bin._count?.items !== undefined) {
+        entity.currentOccupancy = bin._count.items;
+      }
+      return entity;
+    });
 
     // Post-filter for isFull if needed
     if (filters?.isFull) {

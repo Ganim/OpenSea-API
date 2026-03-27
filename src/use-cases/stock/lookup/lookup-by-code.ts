@@ -181,6 +181,10 @@ export class LookupByCodeUseCase {
     ]);
 
     const binAddress = bin?.address ?? item.lastKnownAddress;
+    const categories = product?.categories;
+    const categoryName = categories?.length
+      ? categories.map((c) => c.name).join(', ')
+      : undefined;
 
     return {
       entityType: 'ITEM',
@@ -194,8 +198,9 @@ export class LookupByCodeUseCase {
         variantName: variant?.name,
         productName: product?.name,
         templateName: template?.name,
-        unitOfMeasure: template?.unitOfMeasure,
+        unitOfMeasure: template?.unitOfMeasure?.value,
         manufacturerName: manufacturer?.name,
+        categoryName,
         reference: variant?.reference,
         colorHex: variant?.colorHex,
         secondaryColorHex: variant?.secondaryColorHex,
