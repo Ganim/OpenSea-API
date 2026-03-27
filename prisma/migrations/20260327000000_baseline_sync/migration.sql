@@ -115,7 +115,7 @@ ALTER TABLE "finance_entries" ADD COLUMN     "company_id" TEXT;
 ALTER TABLE "users" ALTER COLUMN "password_hash" DROP NOT NULL;
 
 -- DropTable
-DROP TABLE "exchange_rates";
+DROP TABLE IF EXISTS "exchange_rates";
 
 -- CreateTable
 CREATE TABLE "process_blueprints" (
@@ -1108,6 +1108,64 @@ CREATE INDEX "finance_entries_company_id_idx" ON "finance_entries"("company_id")
 
 -- CreateIndex
 CREATE INDEX "finance_entries_tenant_id_company_id_idx" ON "finance_entries"("tenant_id", "company_id");
+
+-- CreateEnum (missing from previous migrations — applied via db push)
+DO $$ BEGIN
+  CREATE TYPE "ReconciliationStatus" AS ENUM ('PENDING', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED');
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+
+DO $$ BEGIN
+  CREATE TYPE "ReconciliationMatchStatus" AS ENUM ('UNMATCHED', 'AUTO_MATCHED', 'MANUAL_MATCHED', 'IGNORED', 'CREATED');
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+
+-- CreateTable (missing from previous migrations — applied via db push)
+CREATE TABLE IF NOT EXISTS "bank_reconciliations" (
+    "id" TEXT NOT NULL,
+    "tenant_id" TEXT NOT NULL,
+    "bank_account_id" TEXT NOT NULL,
+    "import_date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "file_name" VARCHAR(256) NOT NULL,
+    "period_start" TIMESTAMP(3) NOT NULL,
+    "period_end" TIMESTAMP(3) NOT NULL,
+    "total_transactions" INTEGER NOT NULL DEFAULT 0,
+    "matched_count" INTEGER NOT NULL DEFAULT 0,
+    "unmatched_count" INTEGER NOT NULL DEFAULT 0,
+    "status" "ReconciliationStatus" NOT NULL DEFAULT 'PENDING',
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+    CONSTRAINT "bank_reconciliations_pkey" PRIMARY KEY ("id")
+);
+
+CREATE TABLE IF NOT EXISTS "bank_reconciliation_items" (
+    "id" TEXT NOT NULL,
+    "reconciliation_id" TEXT NOT NULL,
+    "fit_id" VARCHAR(64) NOT NULL,
+    "transaction_date" TIMESTAMP(3) NOT NULL,
+    "amount" DECIMAL(12,2) NOT NULL,
+    "description" VARCHAR(512) NOT NULL,
+    "type" VARCHAR(16) NOT NULL,
+    "matched_entry_id" TEXT,
+    "match_confidence" DOUBLE PRECISION,
+    "match_status" "ReconciliationMatchStatus" NOT NULL DEFAULT 'UNMATCHED',
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT "bank_reconciliation_items_pkey" PRIMARY KEY ("id")
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS "bank_reconciliation_items_reconciliation_id_fit_id_key" ON "bank_reconciliation_items"("reconciliation_id", "fit_id");
+CREATE INDEX IF NOT EXISTS "bank_reconciliation_items_reconciliation_id_idx" ON "bank_reconciliation_items"("reconciliation_id");
+CREATE INDEX IF NOT EXISTS "bank_reconciliation_items_matched_entry_id_idx" ON "bank_reconciliation_items"("matched_entry_id");
+CREATE INDEX IF NOT EXISTS "bank_reconciliation_items_match_status_idx" ON "bank_reconciliation_items"("match_status");
+CREATE INDEX IF NOT EXISTS "bank_reconciliations_tenant_id_idx" ON "bank_reconciliations"("tenant_id");
+CREATE INDEX IF NOT EXISTS "bank_reconciliations_bank_account_id_idx" ON "bank_reconciliations"("bank_account_id");
+CREATE INDEX IF NOT EXISTS "bank_reconciliations_status_idx" ON "bank_reconciliations"("status");
+
+-- AddForeignKey (bank_reconciliations)
+ALTER TABLE "bank_reconciliations" ADD CONSTRAINT "bank_reconciliations_tenant_id_fkey" FOREIGN KEY ("tenant_id") REFERENCES "tenants"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "bank_reconciliations" ADD CONSTRAINT "bank_reconciliations_bank_account_id_fkey" FOREIGN KEY ("bank_account_id") REFERENCES "bank_accounts"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "bank_reconciliation_items" ADD CONSTRAINT "bank_reconciliation_items_reconciliation_id_fkey" FOREIGN KEY ("reconciliation_id") REFERENCES "bank_reconciliations"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "bank_reconciliation_items" ADD CONSTRAINT "bank_reconciliation_items_matched_entry_id_fkey" FOREIGN KEY ("matched_entry_id") REFERENCES "finance_entries"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "process_blueprints" ADD CONSTRAINT "process_blueprints_tenant_id_fkey" FOREIGN KEY ("tenant_id") REFERENCES "tenants"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

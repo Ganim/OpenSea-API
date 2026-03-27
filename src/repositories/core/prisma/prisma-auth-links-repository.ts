@@ -1,6 +1,6 @@
 import { AuthLink } from '@/entities/core/auth-link';
 import type { AuthLinkProvider, AuthLinkStatus } from '@/entities/core/auth-link';
-import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { prisma, Prisma } from '@/lib/prisma';
 import type { TransactionClient } from '@/lib/transaction-manager';
 import type {
@@ -12,8 +12,8 @@ import type {
 function mapToDomain(raw: any): AuthLink {
   return AuthLink.create(
     {
-      userId: raw.userId,
-      tenantId: raw.tenantId ?? null,
+      userId: new UniqueEntityID(raw.userId),
+      tenantId: raw.tenantId ? new UniqueEntityID(raw.tenantId) : null,
       provider: raw.provider,
       identifier: raw.identifier,
       credential: raw.credential ?? null,
@@ -25,7 +25,7 @@ function mapToDomain(raw: any): AuthLink {
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
     },
-    raw.id,
+    new UniqueEntityID(raw.id),
   );
 }
 

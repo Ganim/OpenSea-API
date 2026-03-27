@@ -460,6 +460,7 @@ const ALL_PERMISSIONS = {
     'company-cnaes': ['create', 'read', 'update', 'delete', 'manage'],
     'company-fiscal-settings': ['create', 'read', 'update', 'delete', 'manage'],
     'company-stakeholder': ['create', 'read', 'update', 'delete', 'manage'],
+    settings: ['access', 'admin'],
   },
   // FINANCE module
   finance: {
