@@ -6,6 +6,7 @@ import { Email } from '@/entities/core/value-objects/email';
 import { Password } from '@/entities/core/value-objects/password';
 import { Token } from '@/entities/core/value-objects/token';
 import { UserDTO, userToDTO } from '@/mappers/core/user/user-to-dto';
+import type { AuthLinksRepository } from '@/repositories/core/auth-links-repository';
 import type { UsersRepository } from '@/repositories/core/users-repository';
 import crypto from 'crypto';
 import type { FastifyReply } from 'fastify';
@@ -29,6 +30,7 @@ export class AuthenticateWithPasswordUseCase {
   constructor(
     private usersRepository: UsersRepository,
     private createSessionUseCase: CreateSessionUseCase,
+    private authLinksRepository?: AuthLinksRepository,
   ) {}
 
   async execute({
@@ -44,6 +46,24 @@ export class AuthenticateWithPasswordUseCase {
 
     if (!existingUser || existingUser.deletedAt) {
       throw new BadRequestError('Invalid credentials');
+    }
+
+    // Graceful migration: ensure AuthLink exists for this user
+    if (this.authLinksRepository) {
+      const normalizedEmail = validEmail.value.toLowerCase();
+      const existingLink =
+        await this.authLinksRepository.findByProviderAndIdentifier(
+          'EMAIL',
+          normalizedEmail,
+        );
+      if (!existingLink && existingUser.password) {
+        await this.authLinksRepository.create({
+          userId: existingUser.id,
+          provider: 'EMAIL',
+          identifier: normalizedEmail,
+          credential: existingUser.password.toString(),
+        });
+      }
     }
 
     if (existingUser.blockedUntil && new Date() < existingUser.blockedUntil) {
