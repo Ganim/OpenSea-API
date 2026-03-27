@@ -767,6 +767,10 @@ export const PermissionCodes = {
       EXPORT: 'admin.audit.export' as const,
       ADMIN: 'admin.audit.admin' as const,
     },
+    SETTINGS: {
+      ACCESS: 'admin.settings.access' as const,
+      ADMIN: 'admin.settings.admin' as const,
+    },
   },
 
   // ============================================================================

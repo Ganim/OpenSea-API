@@ -47,10 +47,13 @@ export const geoLocationSchema = z.object({
 
 export const loginMethodSchema = z.enum([
   'password',
+  'email',
+  'cpf',
+  'enrollment',
   'oauth',
   'magic_link',
-  'api_key',
   'access_pin',
+  'api_key',
 ]);
 
 /**

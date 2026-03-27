@@ -6,10 +6,13 @@ import { IpAddress } from './value-objects/ip-address';
 
 export type LoginMethod =
   | 'password'
+  | 'email'
+  | 'cpf'
+  | 'enrollment'
   | 'oauth'
   | 'magic_link'
-  | 'api_key'
-  | 'access_pin';
+  | 'access_pin'
+  | 'api_key';
 
 export interface SessionProps {
   userId: UniqueEntityID;
