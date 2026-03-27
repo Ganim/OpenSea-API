@@ -1281,6 +1281,10 @@ async function main() {
   );
   await seedEsocialTables(prisma);
 
+  // Integration Marketplace Hub seed
+  const { seedIntegrations } = await import('./seeds/integrations-seed.js');
+  await seedIntegrations(prisma);
+
   console.log('\n🎉 Seed concluído com sucesso!');
 }
 

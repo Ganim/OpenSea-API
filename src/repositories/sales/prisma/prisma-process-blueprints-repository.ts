@@ -215,7 +215,7 @@ export class PrismaProcessBlueprintsRepository
     });
   }
 
-  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId: string): Promise<void> {
     await prisma.processBlueprint.update({
       where: { id: id.toString() },
       data: { deletedAt: new Date() },

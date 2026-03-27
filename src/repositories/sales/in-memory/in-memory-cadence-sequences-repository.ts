@@ -8,7 +8,6 @@ import type {
   CadenceSequencesRepository,
   CreateCadenceEnrollmentSchema,
   CreateCadenceSequenceSchema,
-  UpdateCadenceSequenceSchema,
 } from '../cadence-sequences-repository';
 
 export class InMemoryCadenceSequencesRepository

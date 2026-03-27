@@ -1,6 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { CadenceEnrollmentDTO } from '@/mappers/sales/cadence/cadence-sequence-to-dto';
 import { cadenceEnrollmentToDTO } from '@/mappers/sales/cadence/cadence-sequence-to-dto';
 import type { CadenceSequencesRepository } from '@/repositories/sales/cadence-sequences-repository';

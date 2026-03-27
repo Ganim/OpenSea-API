@@ -20,3 +20,4 @@ export * from './sales/catalogs/catalog.schema';
 export * from './sales/content/content.schema';
 export * from './sales/marketplaces';
 export * from './sales/lead-routing/lead-routing.schema';
+export * from './sales/integrations';

@@ -221,6 +221,23 @@ async function start() {
     // Start finance scheduler (recurring entries, escalations, bank sync)
     const financeScheduler = getFinanceScheduler();
     financeScheduler.start();
+
+    // Start business snapshot refresh (every 1 hour for active tenants)
+    const snapshotService = new BusinessSnapshotService();
+    const SNAPSHOT_INTERVAL_MS = 60 * 60 * 1000; // 1 hour
+    setInterval(async () => {
+      try {
+        const tenants = await prisma.tenant.findMany({
+          where: { status: 'ACTIVE' },
+          select: { id: true },
+        });
+        for (const tenant of tenants) {
+          await snapshotService.generate(tenant.id);
+        }
+      } catch (err) {
+        console.error('[snapshot] Refresh failed:', err);
+      }
+    }, SNAPSHOT_INTERVAL_MS);
   } catch (err) {
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
     console.error(`[startup] Failed after ${elapsed}s:`, err);
