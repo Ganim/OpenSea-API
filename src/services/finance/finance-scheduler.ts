@@ -425,23 +425,23 @@ export class FinanceScheduler {
               tenantId,
               type: 'RECEIVABLE',
               status: { in: ['PAID', 'RECEIVED'] },
-              paidDate: { gte: todayStart, lte: todayEnd },
+              paymentDate: { gte: todayStart, lte: todayEnd },
             },
-            _sum: { paidAmount: true },
+            _sum: { actualAmount: true },
           }),
           prisma.financeEntry.aggregate({
             where: {
               tenantId,
               type: 'PAYABLE',
               status: { in: ['PAID', 'RECEIVED'] },
-              paidDate: { gte: todayStart, lte: todayEnd },
+              paymentDate: { gte: todayStart, lte: todayEnd },
             },
-            _sum: { paidAmount: true },
+            _sum: { actualAmount: true },
           }),
         ]);
 
-        const actualInflow = Number(actualInflowData._sum.paidAmount ?? 0);
-        const actualOutflow = Number(actualOutflowData._sum.paidAmount ?? 0);
+        const actualInflow = Number(actualInflowData._sum.actualAmount ?? 0);
+        const actualOutflow = Number(actualOutflowData._sum.actualAmount ?? 0);
 
         await snapshotsRepository.upsert({
           tenantId,

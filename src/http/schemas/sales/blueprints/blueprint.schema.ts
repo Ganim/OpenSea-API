@@ -86,12 +86,20 @@ export const validateStageTransitionSchema = z.object({
 
 // ─── Blueprint Stage Rule Response ─────────────────────────────────────────
 
+const stageValidationResponseSchema = z.object({
+  field: z.string().describe('Field name'),
+  condition: z.string().describe('Validation condition'),
+  value: z.string().describe('Expected value'),
+});
+
 export const blueprintStageRuleResponseSchema = z.object({
   id: z.string().uuid().describe('Stage rule ID'),
   blueprintId: z.string().uuid().describe('Blueprint ID'),
   stageId: z.string().uuid().describe('Pipeline stage ID'),
   requiredFields: z.array(z.string()).describe('Required deal fields'),
-  validations: z.array(stageValidationSchema).describe('Field validations'),
+  validations: z
+    .array(stageValidationResponseSchema)
+    .describe('Field validations'),
   blocksAdvance: z.boolean().describe('Whether failing blocks advancement'),
   createdAt: z.coerce.date().describe('Creation date'),
   updatedAt: z.coerce.date().nullable().describe('Last update date'),

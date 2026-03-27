@@ -1358,6 +1358,49 @@ export const SALES_AUDIT_MESSAGES = {
     module: AuditModule.SALES,
     description: '{{userName}} sincronizou a integração {{integrationName}}',
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // CHATBOT - Configuração do Chatbot
+  // ============================================================================
+
+  CHATBOT_CONFIG_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.CHATBOT_CONFIG,
+    module: AuditModule.SALES,
+    description: '{{userName}} atualizou a configuração do chatbot',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // DEAL PREDICTIONS - Predições de Negócios
+  // ============================================================================
+
+  DEAL_PREDICTION_CREATE: {
+    action: AuditAction.PREDICT,
+    entity: AuditEntity.DEAL_PREDICTION,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} gerou predição de fechamento para o negócio {{dealTitle}}',
+  } satisfies AuditMessage,
+
+  DEAL_PREDICTION_BATCH: {
+    action: AuditAction.PREDICT,
+    entity: AuditEntity.DEAL_PREDICTION,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} executou predição em lote para {{processedCount}} negócios',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // SENTIMENT - Análise de Sentimento
+  // ============================================================================
+
+  SENTIMENT_ANALYZE: {
+    action: AuditAction.SENTIMENT_ANALYZE,
+    entity: AuditEntity.CONVERSATION,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} analisou o sentimento da conversa (resultado: {{overallSentiment}})',
+  } satisfies AuditMessage,
 } as const;
 
 export type SalesAuditMessageKey = keyof typeof SALES_AUDIT_MESSAGES;

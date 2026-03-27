@@ -340,6 +340,23 @@ export const PermissionCodes = {
       REASSIGN: 'sales.conversations.reassign' as const,
       ADMIN: 'sales.conversations.admin' as const,
     },
+    // --- Chatbot ---
+    CHATBOT: {
+      ACCESS: 'sales.chatbot.access' as const,
+      MODIFY: 'sales.chatbot.modify' as const,
+      ADMIN: 'sales.chatbot.admin' as const,
+    },
+    // --- AI Predictions ---
+    PREDICTIONS: {
+      ACCESS: 'sales.predictions.access' as const,
+      EXECUTE: 'sales.predictions.execute' as const,
+      ADMIN: 'sales.predictions.admin' as const,
+    },
+    // --- Sentiment Analysis ---
+    SENTIMENT: {
+      ACCESS: 'sales.sentiment.access' as const,
+      EXECUTE: 'sales.sentiment.execute' as const,
+    },
     // --- CRM: Workflows ---
     WORKFLOWS: {
       ACCESS: 'sales.workflows.access' as const,
