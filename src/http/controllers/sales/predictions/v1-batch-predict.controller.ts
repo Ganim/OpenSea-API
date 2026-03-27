@@ -9,7 +9,6 @@ import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-ge
 import { makeBatchPredictUseCase } from '@/use-cases/sales/deal-predictions/factories/make-batch-predict-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { z } from 'zod';
 
 export async function batchPredictController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({

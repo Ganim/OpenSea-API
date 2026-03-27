@@ -8,6 +8,7 @@ export interface ConversationDTO {
   status: string;
   lastMessageAt?: Date;
   createdBy: string;
+  overallSentiment?: string;
   isActive: boolean;
   createdAt: Date;
   updatedAt?: Date;
@@ -28,7 +29,10 @@ export function conversationToDTO(
     createdAt: conversation.createdAt,
   };
 
-  if (conversation.lastMessageAt) dto.lastMessageAt = conversation.lastMessageAt;
+  if (conversation.lastMessageAt)
+    dto.lastMessageAt = conversation.lastMessageAt;
+  if (conversation.overallSentiment)
+    dto.overallSentiment = conversation.overallSentiment;
   if (conversation.updatedAt) dto.updatedAt = conversation.updatedAt;
   if (messages) dto.messages = messages;
 
