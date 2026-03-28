@@ -938,6 +938,24 @@ export const HR_AUDIT_MESSAGES = {
       '{{userName}} criou checklist de onboarding para {{employeeName}}',
   } satisfies AuditMessage,
 
+  /** Checklist de onboarding atualizado */
+  ONBOARDING_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.ONBOARDING_CHECKLIST,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} atualizou o checklist de onboarding de {{employeeName}}',
+  } satisfies AuditMessage,
+
+  /** Checklist de onboarding excluído */
+  ONBOARDING_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.ONBOARDING_CHECKLIST,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} excluiu o checklist de onboarding de {{employeeName}}',
+  } satisfies AuditMessage,
+
   // ============================================================================
   // ADMISSÃO DIGITAL - Convites e assinaturas
   // ============================================================================

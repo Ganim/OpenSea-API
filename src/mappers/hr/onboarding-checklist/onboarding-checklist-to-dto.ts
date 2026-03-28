@@ -1,8 +1,13 @@
-import type { OnboardingChecklist, OnboardingChecklistItem } from '@/entities/hr/onboarding-checklist';
+import type {
+  OnboardingChecklist,
+  OnboardingChecklistItem,
+} from '@/entities/hr/onboarding-checklist';
 
 export interface OnboardingChecklistDTO {
   id: string;
+  tenantId: string;
   employeeId: string;
+  title: string;
   items: OnboardingChecklistItem[];
   progress: number;
   createdAt: Date;
@@ -14,7 +19,9 @@ export function onboardingChecklistToDTO(
 ): OnboardingChecklistDTO {
   return {
     id: checklist.id.toString(),
+    tenantId: checklist.tenantId.toString(),
     employeeId: checklist.employeeId.toString(),
+    title: checklist.title,
     items: checklist.items,
     progress: checklist.progress,
     createdAt: checklist.createdAt,

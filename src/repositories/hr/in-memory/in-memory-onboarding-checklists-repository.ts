@@ -1,6 +1,10 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { OnboardingChecklist } from '@/entities/hr/onboarding-checklist';
-import type { OnboardingChecklistsRepository } from '../onboarding-checklists-repository';
+import type {
+  FindManyOnboardingChecklistsParams,
+  FindManyOnboardingChecklistsResult,
+  OnboardingChecklistsRepository,
+} from '../onboarding-checklists-repository';
 
 export class InMemoryOnboardingChecklistsRepository
   implements OnboardingChecklistsRepository
@@ -11,25 +15,80 @@ export class InMemoryOnboardingChecklistsRepository
     this.items.push(checklist);
   }
 
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<OnboardingChecklist | null> {
+    return (
+      this.items.find(
+        (checklist) =>
+          checklist.id.equals(id) &&
+          checklist.tenantId.toString() === tenantId &&
+          !checklist.isDeleted(),
+      ) ?? null
+    );
+  }
+
   async findByEmployeeId(
     employeeId: UniqueEntityID,
     tenantId: string,
   ): Promise<OnboardingChecklist | null> {
     return (
       this.items.find(
-        (item) =>
-          item.employeeId.equals(employeeId) &&
-          item.tenantId.toString() === tenantId,
+        (checklist) =>
+          checklist.employeeId.equals(employeeId) &&
+          checklist.tenantId.toString() === tenantId &&
+          !checklist.isDeleted(),
       ) ?? null
     );
   }
 
-  async save(checklist: OnboardingChecklist): Promise<void> {
-    const index = this.items.findIndex((item) =>
-      item.id.equals(checklist.id),
+  async findMany(
+    params: FindManyOnboardingChecklistsParams,
+  ): Promise<FindManyOnboardingChecklistsResult> {
+    let filtered = this.items.filter(
+      (checklist) =>
+        checklist.tenantId.toString() === params.tenantId &&
+        !checklist.isDeleted(),
     );
+
+    if (params.employeeId) {
+      filtered = filtered.filter(
+        (checklist) => checklist.employeeId.toString() === params.employeeId,
+      );
+    }
+
+    if (params.status === 'COMPLETED') {
+      filtered = filtered.filter((checklist) => checklist.isComplete());
+    } else if (params.status === 'IN_PROGRESS') {
+      filtered = filtered.filter((checklist) => !checklist.isComplete());
+    }
+
+    if (params.search) {
+      const searchLower = params.search.toLowerCase();
+      filtered = filtered.filter((checklist) =>
+        checklist.title.toLowerCase().includes(searchLower),
+      );
+    }
+
+    const total = filtered.length;
+    const start = (params.page - 1) * params.perPage;
+    const paginatedChecklists = filtered.slice(start, start + params.perPage);
+
+    return { checklists: paginatedChecklists, total };
+  }
+
+  async save(checklist: OnboardingChecklist): Promise<void> {
+    const index = this.items.findIndex((item) => item.id.equals(checklist.id));
     if (index >= 0) {
       this.items[index] = checklist;
+    }
+  }
+
+  async delete(id: UniqueEntityID): Promise<void> {
+    const checklist = this.items.find((item) => item.id.equals(id));
+    if (checklist) {
+      checklist.softDelete();
     }
   }
 }

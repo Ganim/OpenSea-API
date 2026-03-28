@@ -300,7 +300,9 @@ export const PermissionCodes = {
     },
     ONBOARDING: {
       ACCESS: 'hr.onboarding.access' as const,
+      REGISTER: 'hr.onboarding.register' as const,
       MODIFY: 'hr.onboarding.modify' as const,
+      REMOVE: 'hr.onboarding.remove' as const,
       ADMIN: 'hr.onboarding.admin' as const,
     },
     ADMISSIONS: {

@@ -30725,10 +30725,12 @@ export const OnboardingChecklistScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
   employeeId: 'employeeId',
+  title: 'title',
   items: 'items',
   progress: 'progress',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 } as const
 
 export type OnboardingChecklistScalarFieldEnum = (typeof OnboardingChecklistScalarFieldEnum)[keyof typeof OnboardingChecklistScalarFieldEnum]

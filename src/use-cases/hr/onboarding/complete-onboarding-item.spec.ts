@@ -19,6 +19,7 @@ function createTestChecklist(
   return OnboardingChecklist.create({
     tenantId: new UniqueEntityID(tenantId),
     employeeId: new UniqueEntityID(employeeId),
+    title: 'Onboarding',
     items: [
       {
         id: 'item-1',

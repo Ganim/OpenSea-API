@@ -9,6 +9,57 @@ import { CreateEmployeeUseCase } from '@/use-cases/hr/employees/create-employee'
 import type { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import type { Employee } from '@/entities/hr/employee';
 
+const DEFAULT_ADMISSION_ONBOARDING_ITEMS = [
+  {
+    title: 'Assinar contrato de trabalho',
+    description: 'Leia e assine o contrato de trabalho junto ao departamento pessoal',
+  },
+  {
+    title: 'Entregar documentos pessoais',
+    description: 'Apresente os documentos originais para conferência (RG, CPF, CTPS, etc.)',
+  },
+  {
+    title: 'Realizar exame admissional (ASO)',
+    description: 'Agende e realize o exame médico admissional na clínica indicada',
+  },
+  {
+    title: 'Receber crachá e credenciais de acesso',
+    description: 'Retire seu crachá e credenciais de acesso às dependências da empresa',
+  },
+  {
+    title: 'Configurar e-mail corporativo',
+    description: 'Configure seu e-mail corporativo e demais ferramentas de comunicação',
+  },
+  {
+    title: 'Receber equipamentos de trabalho',
+    description: 'Retire e confira os equipamentos necessários para suas atividades',
+  },
+  {
+    title: 'Participar da integração com a equipe',
+    description: 'Conheça seus colegas de equipe e participe da dinâmica de boas-vindas',
+  },
+  {
+    title: 'Conhecer as instalações da empresa',
+    description: 'Faça o tour pelas instalações da empresa com o responsável designado',
+  },
+  {
+    title: 'Ler e assinar o manual do colaborador',
+    description: 'Leia o manual do colaborador e assine o termo de ciência',
+  },
+  {
+    title: 'Configurar acesso aos sistemas internos',
+    description: 'Solicite e configure os acessos aos sistemas e plataformas internas',
+  },
+  {
+    title: 'Reunião com gestor direto',
+    description: 'Agende uma reunião inicial com seu gestor para alinhamento de expectativas',
+  },
+  {
+    title: 'Treinamento de segurança do trabalho',
+    description: 'Participe do treinamento obrigatório de segurança do trabalho',
+  },
+];
+
 export interface ApproveAdmissionRequest {
   tenantId: string;
   inviteId: string;
@@ -139,6 +190,27 @@ export class ApproveAdmissionUseCase {
         referenceId: employee.id.toString(),
       }),
     );
+
+    // Auto-create onboarding checklist for the new employee — non-blocking
+    import(
+      '@/use-cases/hr/onboarding/factories/make-create-onboarding-checklist-use-case'
+    )
+      .then(({ makeCreateOnboardingChecklistUseCase }) => {
+        const createOnboardingChecklist =
+          makeCreateOnboardingChecklistUseCase();
+        return createOnboardingChecklist.execute({
+          tenantId,
+          employeeId: employee.id.toString(),
+          title: `Onboarding — ${employee.fullName}`,
+          items: DEFAULT_ADMISSION_ONBOARDING_ITEMS,
+        });
+      })
+      .catch((onboardingError) => {
+        console.error(
+          '[ApproveAdmission] Failed to auto-create onboarding checklist:',
+          onboardingError,
+        );
+      });
 
     return { invite: updatedInvite, employee };
   }

@@ -36,6 +36,7 @@ const DEFAULT_ONBOARDING_ITEMS: Omit<
 export interface CreateOnboardingChecklistInput {
   tenantId: string;
   employeeId: string;
+  title?: string;
   items?: Omit<OnboardingChecklistItem, 'id' | 'completed' | 'completedAt'>[];
 }
 
@@ -51,7 +52,7 @@ export class CreateOnboardingChecklistUseCase {
   async execute(
     input: CreateOnboardingChecklistInput,
   ): Promise<CreateOnboardingChecklistOutput> {
-    const { tenantId, employeeId, items } = input;
+    const { tenantId, employeeId, title, items } = input;
 
     const existingChecklist =
       await this.onboardingChecklistsRepository.findByEmployeeId(
@@ -77,6 +78,7 @@ export class CreateOnboardingChecklistUseCase {
     const checklist = OnboardingChecklist.create({
       tenantId: new UniqueEntityID(tenantId),
       employeeId: new UniqueEntityID(employeeId),
+      title: title ?? 'Onboarding',
       items: checklistItems,
     });
 

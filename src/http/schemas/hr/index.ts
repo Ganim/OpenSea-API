@@ -10,3 +10,4 @@ export * from './payroll';
 export * from './termination';
 export * from './admission';
 export * from './benefits';
+export * from './onboarding';

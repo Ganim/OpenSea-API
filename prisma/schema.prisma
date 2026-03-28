@@ -13755,17 +13755,21 @@ model EmployeeKudos {
 }
 
 model OnboardingChecklist {
-  id         String   @id @default(cuid())
-  tenantId   String   @map("tenant_id")
-  employeeId String   @unique @map("employee_id")
-  items      Json     @default("[]") // [{ id, title, description, completed, completedAt }]
-  progress   Int      @default(0)
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
+  id         String    @id @default(cuid())
+  tenantId   String    @map("tenant_id")
+  employeeId String    @map("employee_id")
+  title      String    @default("Onboarding") @db.VarChar(200)
+  items      Json      @default("[]") // [{ id, title, description, completed, completedAt }]
+  progress   Int       @default(0)
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+  deletedAt  DateTime? @map("deleted_at")
 
   tenant Tenant @relation(fields: [tenantId], references: [id])
 
+  @@unique([tenantId, employeeId])
   @@index([tenantId])
+  @@index([tenantId, deletedAt])
   @@map("onboarding_checklists")
 }
 
