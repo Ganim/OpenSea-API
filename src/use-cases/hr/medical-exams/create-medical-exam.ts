@@ -75,6 +75,16 @@ export class CreateMedicalExamUseCase {
       documentUrl,
     });
 
+    // Auto-generate eSocial S-2220 (Medical Exam / ASO) event — non-blocking
+    import('@/services/esocial/auto-generate').then(({ tryAutoGenerateEvent }) =>
+      tryAutoGenerateEvent({
+        tenantId,
+        eventType: 'S-2220',
+        referenceType: 'MEDICAL_EXAM',
+        referenceId: medicalExam.id.toString(),
+      }),
+    );
+
     return { medicalExam };
   }
 }

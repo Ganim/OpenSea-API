@@ -8,8 +8,13 @@ import {
   startEmailSyncScheduler,
   stopEmailSyncScheduler,
 } from './email-sync-scheduler';
+import {
+  startEsocialBatchScheduler,
+  stopEsocialBatchScheduler,
+} from './esocial-batch-scheduler';
 import { stopNotificationsScheduler } from './notifications-scheduler';
 import { startEmailSyncWorker } from './queues/email-sync.queue';
+import { startEsocialBatchPollingWorker } from './queues/esocial-batch-polling.queue';
 import { startNotificationWorker } from './queues/notification.queue';
 
 let workersStarted = false;
@@ -81,12 +86,20 @@ export async function startAllWorkers(): Promise<void> {
 
   startEmailSyncWorker();
   startNotificationWorker();
+  startEsocialBatchPollingWorker();
 
   // Start the email sync scheduler (enqueues periodic sync jobs)
   try {
     await startEmailSyncScheduler();
   } catch (err) {
     console.error('[Workers] Failed to start email sync scheduler:', err);
+  }
+
+  // Start eSocial batch polling scheduler (non-critical)
+  try {
+    await startEsocialBatchScheduler();
+  } catch (err) {
+    console.error('[Workers] Failed to start eSocial batch scheduler:', err);
   }
 
   // Start IMAP IDLE real-time monitoring (non-critical)
@@ -112,6 +125,7 @@ export async function stopAllWorkers(): Promise<void> {
   // Stop all schedulers (prevent new jobs from being enqueued)
   stopCalendarRemindersScheduler();
   stopEmailSyncScheduler();
+  stopEsocialBatchScheduler();
   stopNotificationsScheduler();
 
   // Then close BullMQ queues and workers

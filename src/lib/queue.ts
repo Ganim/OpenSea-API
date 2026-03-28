@@ -289,6 +289,7 @@ export const QUEUE_NAMES = {
   MARKETPLACE_IMPORT_ORDERS: 'marketplace-import-orders',
   MARKETPLACE_SYNC_INVENTORY: 'marketplace-sync-inventory',
   AI_GENERATE_INSIGHTS: 'ai-generate-insights',
+  ESOCIAL_BATCH_POLLING: 'esocial-batch-polling',
 } as const;
 
 export type QueueName = (typeof QUEUE_NAMES)[keyof typeof QUEUE_NAMES];

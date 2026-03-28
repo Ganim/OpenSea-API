@@ -130,6 +130,16 @@ export class ApproveAdmissionUseCase {
       throw new ResourceNotFoundError('Failed to update admission status');
     }
 
+    // Auto-generate eSocial S-2200 (Admission) event — non-blocking
+    import('@/services/esocial/auto-generate').then(({ tryAutoGenerateEvent }) =>
+      tryAutoGenerateEvent({
+        tenantId,
+        eventType: 'S-2200',
+        referenceType: 'EMPLOYEE',
+        referenceId: employee.id.toString(),
+      }),
+    );
+
     return { invite: updatedInvite, employee };
   }
 }

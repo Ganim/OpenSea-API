@@ -130,6 +130,16 @@ export class CreateTerminationUseCase {
       },
     });
 
+    // Auto-generate eSocial S-2299 (Termination) event — non-blocking
+    import('@/services/esocial/auto-generate').then(({ tryAutoGenerateEvent }) =>
+      tryAutoGenerateEvent({
+        tenantId,
+        eventType: 'S-2299',
+        referenceType: 'TERMINATION',
+        referenceId: termination.id.toString(),
+      }),
+    );
+
     return { termination };
   }
 }
