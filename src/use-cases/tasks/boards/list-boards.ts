@@ -5,6 +5,7 @@ interface ListBoardsRequest {
   tenantId: string;
   userId: string;
   type?: string;
+  teamId?: string;
   search?: string;
   includeArchived?: boolean;
   page?: number;
@@ -25,7 +26,7 @@ export class ListBoardsUseCase {
   constructor(private boardsRepository: BoardsRepository) {}
 
   async execute(request: ListBoardsRequest): Promise<ListBoardsResponse> {
-    const { tenantId, userId, type, search, includeArchived } = request;
+    const { tenantId, userId, type, teamId, search, includeArchived } = request;
     const page = request.page ?? 1;
     const limit = Math.min(request.limit ?? 20, 100);
 
@@ -33,6 +34,7 @@ export class ListBoardsUseCase {
       tenantId,
       userId,
       type,
+      teamId,
       search,
       includeArchived,
       page,

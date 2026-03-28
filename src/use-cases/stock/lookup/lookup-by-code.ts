@@ -186,6 +186,32 @@ export class LookupByCodeUseCase {
       ? categories.map((c) => c.name).join(', ')
       : undefined;
 
+    // Build viewable custom attributes from template definition + item values
+    const customFields: Array<{
+      key: string;
+      label: string;
+      value: unknown;
+      type: string;
+      unitOfMeasure?: string;
+    }> = [];
+
+    if (template) {
+      const itemAttrDefs = template.itemAttributes ?? {};
+      const itemValues = item.attributes ?? {};
+
+      for (const [key, def] of Object.entries(itemAttrDefs)) {
+        if (def.enableView && itemValues[key] != null) {
+          customFields.push({
+            key,
+            label: def.label || key,
+            value: itemValues[key],
+            type: def.type,
+            unitOfMeasure: def.unitOfMeasure,
+          });
+        }
+      }
+    }
+
     return {
       entityType: 'ITEM',
       entityId: item.id.toString(),
@@ -212,6 +238,7 @@ export class LookupByCodeUseCase {
         manufacturedAt: item.manufacturingDate?.toISOString(),
         quantity: item.currentQuantity,
         status: item.status.value,
+        customFields: customFields.length > 0 ? customFields : undefined,
       },
     };
   }

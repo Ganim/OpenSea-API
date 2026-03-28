@@ -177,6 +177,11 @@ export enum AuditEntity {
   HR_TENANT_CONFIG = 'HR_TENANT_CONFIG',
 
   // ==========================================
+  // HR - Advertências (Warnings)
+  // ==========================================
+  EMPLOYEE_WARNING = 'EMPLOYEE_WARNING',
+
+  // ==========================================
   // HR - Ausências e Férias
   // ==========================================
   ABSENCE = 'ABSENCE',
@@ -195,10 +200,13 @@ export enum AuditEntity {
   BENEFIT_PLAN = 'BENEFIT_PLAN',
   BENEFIT_ENROLLMENT = 'BENEFIT_ENROLLMENT',
   FLEX_BENEFIT_ALLOCATION = 'FLEX_BENEFIT_ALLOCATION',
+  TRAINING_PROGRAM = 'TRAINING_PROGRAM',
+  TRAINING_ENROLLMENT = 'TRAINING_ENROLLMENT',
   EMPLOYEE_REQUEST = 'EMPLOYEE_REQUEST',
   EMPLOYEE_KUDOS = 'EMPLOYEE_KUDOS',
   COMPANY_ANNOUNCEMENT = 'COMPANY_ANNOUNCEMENT',
   ONBOARDING_CHECKLIST = 'ONBOARDING_CHECKLIST',
+  OFFBOARDING_CHECKLIST = 'OFFBOARDING_CHECKLIST',
   ADMISSION_INVITE = 'ADMISSION_INVITE',
   DIGITAL_SIGNATURE = 'DIGITAL_SIGNATURE',
 

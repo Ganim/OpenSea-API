@@ -33,6 +33,7 @@ export const updateBoardSchema = z.object({
 
 export const listBoardsQuerySchema = z.object({
   type: boardTypeEnum.optional(),
+  teamId: z.string().uuid().optional(),
   search: z.string().max(256).optional(),
   includeArchived: z
     .enum(['true', 'false'])

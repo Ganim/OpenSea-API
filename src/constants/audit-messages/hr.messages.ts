@@ -957,6 +957,45 @@ export const HR_AUDIT_MESSAGES = {
   } satisfies AuditMessage,
 
   // ============================================================================
+  // OFFBOARDING - Checklists de desligamento
+  // ============================================================================
+
+  /** Item de offboarding concluído */
+  OFFBOARDING_ITEM_COMPLETE: {
+    action: AuditAction.ONBOARDING_COMPLETE_ITEM,
+    entity: AuditEntity.OFFBOARDING_CHECKLIST,
+    module: AuditModule.HR,
+    description: '{{userName}} concluiu o item "{{itemTitle}}" do offboarding',
+  } satisfies AuditMessage,
+
+  /** Checklist de offboarding criado */
+  OFFBOARDING_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.OFFBOARDING_CHECKLIST,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} criou checklist de offboarding para {{employeeName}}',
+  } satisfies AuditMessage,
+
+  /** Checklist de offboarding atualizado */
+  OFFBOARDING_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.OFFBOARDING_CHECKLIST,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} atualizou o checklist de offboarding de {{employeeName}}',
+  } satisfies AuditMessage,
+
+  /** Checklist de offboarding excluído */
+  OFFBOARDING_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.OFFBOARDING_CHECKLIST,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} excluiu o checklist de offboarding de {{employeeName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
   // ADMISSÃO DIGITAL - Convites e assinaturas
   // ============================================================================
 
@@ -1011,6 +1050,110 @@ export const HR_AUDIT_MESSAGES = {
     module: AuditModule.HR,
     description:
       '{{signerName}} assinou digitalmente o documento ({{signatureType}})',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // WARNINGS - Advertências Disciplinares
+  // ============================================================================
+
+  /** Advertência criada */
+  WARNING_CREATE: {
+    action: AuditAction.WARNING_CREATE,
+    entity: AuditEntity.EMPLOYEE_WARNING,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} registrou advertência ({{warningType}}) para {{employeeName}}',
+  } satisfies AuditMessage,
+
+  /** Advertência atualizada */
+  WARNING_UPDATE: {
+    action: AuditAction.WARNING_UPDATE,
+    entity: AuditEntity.EMPLOYEE_WARNING,
+    module: AuditModule.HR,
+    description: '{{userName}} atualizou advertência de {{employeeName}}',
+  } satisfies AuditMessage,
+
+  /** Advertência excluída */
+  WARNING_DELETE: {
+    action: AuditAction.WARNING_DELETE,
+    entity: AuditEntity.EMPLOYEE_WARNING,
+    module: AuditModule.HR,
+    description: '{{userName}} excluiu advertência de {{employeeName}}',
+  } satisfies AuditMessage,
+
+  /** Advertência revogada */
+  WARNING_REVOKE: {
+    action: AuditAction.WARNING_REVOKE,
+    entity: AuditEntity.EMPLOYEE_WARNING,
+    module: AuditModule.HR,
+    description: '{{userName}} revogou advertência de {{employeeName}}',
+  } satisfies AuditMessage,
+
+  /** Advertência reconhecida pelo funcionário */
+  WARNING_ACKNOWLEDGE: {
+    action: AuditAction.WARNING_ACKNOWLEDGE,
+    entity: AuditEntity.EMPLOYEE_WARNING,
+    module: AuditModule.HR,
+    description: '{{userName}} reconheceu advertência',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // TRAINING PROGRAMS - Programas de Treinamento
+  // ============================================================================
+
+  /** Programa de treinamento criado */
+  TRAINING_PROGRAM_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.TRAINING_PROGRAM,
+    module: AuditModule.HR,
+    description: '{{userName}} criou o programa de treinamento {{programName}}',
+  } satisfies AuditMessage,
+
+  /** Programa de treinamento atualizado */
+  TRAINING_PROGRAM_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.TRAINING_PROGRAM,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} atualizou o programa de treinamento {{programName}}',
+  } satisfies AuditMessage,
+
+  /** Programa de treinamento excluído */
+  TRAINING_PROGRAM_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.TRAINING_PROGRAM,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} desativou o programa de treinamento {{programName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // TRAINING ENROLLMENTS - Inscrições em Treinamentos
+  // ============================================================================
+
+  /** Funcionário inscrito em treinamento */
+  TRAINING_ENROLLMENT_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.TRAINING_ENROLLMENT,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} inscreveu funcionário no treinamento {{programName}}',
+  } satisfies AuditMessage,
+
+  /** Treinamento concluído */
+  TRAINING_ENROLLMENT_COMPLETE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.TRAINING_ENROLLMENT,
+    module: AuditModule.HR,
+    description: '{{userName}} registrou conclusão de treinamento',
+  } satisfies AuditMessage,
+
+  /** Inscrição em treinamento cancelada */
+  TRAINING_ENROLLMENT_CANCEL: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.TRAINING_ENROLLMENT,
+    module: AuditModule.HR,
+    description: '{{userName}} cancelou inscrição em treinamento',
   } satisfies AuditMessage,
 } as const;
 

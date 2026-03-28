@@ -475,6 +475,11 @@ export type Bonus = Prisma.BonusModel
  */
 export type Deduction = Prisma.DeductionModel
 /**
+ * Model EmployeeWarning
+ * 
+ */
+export type EmployeeWarning = Prisma.EmployeeWarningModel
+/**
  * Model EmployeeDependant
  * 
  */
@@ -519,6 +524,16 @@ export type BenefitPlan = Prisma.BenefitPlanModel
  * 
  */
 export type BenefitEnrollment = Prisma.BenefitEnrollmentModel
+/**
+ * Model TrainingProgram
+ * 
+ */
+export type TrainingProgram = Prisma.TrainingProgramModel
+/**
+ * Model TrainingEnrollment
+ * 
+ */
+export type TrainingEnrollment = Prisma.TrainingEnrollmentModel
 /**
  * Model FlexBenefitAllocation
  * 
@@ -1604,6 +1619,11 @@ export type EmployeeKudos = Prisma.EmployeeKudosModel
  * 
  */
 export type OnboardingChecklist = Prisma.OnboardingChecklistModel
+/**
+ * Model OffboardingChecklist
+ * 
+ */
+export type OffboardingChecklist = Prisma.OffboardingChecklistModel
 /**
  * Model AdmissionInvite
  * 

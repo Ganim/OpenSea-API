@@ -16,3 +16,4 @@ export * from './hr/leave';
 export * from './hr/payroll';
 export * from './hr/termination';
 export * from './hr/safety';
+export * from './hr/warnings';

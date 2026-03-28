@@ -245,27 +245,27 @@ describe('Schedule Vacation Split Use Case (CLT Art. 134)', () => {
       ).rejects.toThrow('não corresponde ao número de dias');
     });
 
-    it.skip('should throw if vacation starts on Friday (2 days before DSR)', async () => {
-      // July 5 2024 is Friday
+    it('should throw if vacation starts on Friday (2 days before DSR)', async () => {
+      // July 5 2024 is Friday (local time)
       await expect(
         sut.execute({
           tenantId: TENANT_ID,
           vacationPeriodId: testVacationPeriod.id.toString(),
-          startDate: new Date('2024-07-05'), // Friday
-          endDate: new Date('2024-07-18'), // Thursday
+          startDate: new Date(2024, 6, 5), // Friday July 5
+          endDate: new Date(2024, 6, 18), // Thursday July 18
           days: 14,
         }),
       ).rejects.toThrow('2 dias anteriores ao repouso semanal');
     });
 
     it('should throw if vacation starts on Saturday', async () => {
-      // July 6 2024 is Saturday
+      // July 6 2024 is Saturday (local time)
       await expect(
         sut.execute({
           tenantId: TENANT_ID,
           vacationPeriodId: testVacationPeriod.id.toString(),
-          startDate: new Date('2024-07-06'), // Saturday
-          endDate: new Date('2024-07-19'), // Friday
+          startDate: new Date(2024, 6, 6), // Saturday July 6
+          endDate: new Date(2024, 6, 19), // Friday July 19
           days: 14,
         }),
       ).rejects.toThrow('2 dias anteriores ao repouso semanal');

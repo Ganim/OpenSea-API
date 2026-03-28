@@ -249,10 +249,14 @@ import { employeeRequestsRoutes } from './controllers/hr/employee-requests/route
 import { hrAnnouncementsRoutes } from './controllers/hr/announcements/routes';
 import { kudosRoutes } from './controllers/hr/kudos/routes';
 import { onboardingRoutes } from './controllers/hr/onboarding/routes';
+import { offboardingRoutes } from './controllers/hr/offboarding/routes';
 import { benefitPlansRoutes } from './controllers/hr/benefit-plans/routes';
 import { benefitEnrollmentsRoutes } from './controllers/hr/benefit-enrollments/routes';
 import { flexBenefitsRoutes } from './controllers/hr/flex-benefits/routes';
 import { benefitDeductionsRoutes } from './controllers/hr/benefit-deductions/routes';
+import { trainingProgramsRoutes } from './controllers/hr/training-programs/routes';
+import { trainingEnrollmentsRoutes } from './controllers/hr/training-enrollments/routes';
+import { warningsRoutes } from './controllers/hr/warnings/routes';
 
 export async function registerRoutes(app: FastifyInstance) {
   // Core routes
@@ -451,10 +455,14 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(hrAnnouncementsRoutes);
   await app.register(kudosRoutes);
   await app.register(onboardingRoutes);
+  await app.register(offboardingRoutes);
   await app.register(benefitPlansRoutes);
   await app.register(benefitEnrollmentsRoutes);
   await app.register(flexBenefitsRoutes);
   await app.register(benefitDeductionsRoutes);
+  await app.register(trainingProgramsRoutes);
+  await app.register(trainingEnrollmentsRoutes);
+  await app.register(warningsRoutes);
 
   // Tasks routes
   await app.register(taskBoardsRoutes);

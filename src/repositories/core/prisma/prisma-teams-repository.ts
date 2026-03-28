@@ -55,6 +55,8 @@ export class PrismaTeamsRepository implements TeamsRepository {
       where: { id: { in: creatorIds } },
       select: {
         id: true,
+        username: true,
+        email: true,
         profile: { select: { name: true, surname: true } },
       },
     });
@@ -64,7 +66,8 @@ export class PrismaTeamsRepository implements TeamsRepository {
       const fullName = [u.profile?.name, u.profile?.surname]
         .filter(Boolean)
         .join(' ');
-      if (fullName) map.set(u.id, fullName);
+      const displayName = fullName || u.username || u.email;
+      if (displayName) map.set(u.id, displayName);
     }
     return map;
   }

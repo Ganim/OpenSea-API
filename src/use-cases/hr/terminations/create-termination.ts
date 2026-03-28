@@ -2,10 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Termination } from '@/entities/hr/termination';
-import {
-  NoticeType,
-  TerminationType,
-} from '@/entities/hr/termination';
+import { NoticeType, TerminationType } from '@/entities/hr/termination';
 import { EmployeeStatus } from '@/entities/hr/value-objects';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import { TerminationsRepository } from '@/repositories/hr/terminations-repository';
@@ -75,9 +72,7 @@ export class CreateTerminationUseCase {
       );
 
     if (existingTermination) {
-      throw new BadRequestError(
-        'Funcionário já possui registro de rescisão',
-      );
+      throw new BadRequestError('Funcionário já possui registro de rescisão');
     }
 
     // Check employment stability for non-exempt termination types
@@ -131,14 +126,32 @@ export class CreateTerminationUseCase {
     });
 
     // Auto-generate eSocial S-2299 (Termination) event — non-blocking
-    import('@/services/esocial/auto-generate').then(({ tryAutoGenerateEvent }) =>
-      tryAutoGenerateEvent({
-        tenantId,
-        eventType: 'S-2299',
-        referenceType: 'TERMINATION',
-        referenceId: termination.id.toString(),
-      }),
+    import('@/services/esocial/auto-generate').then(
+      ({ tryAutoGenerateEvent }) =>
+        tryAutoGenerateEvent({
+          tenantId,
+          eventType: 'S-2299',
+          referenceType: 'TERMINATION',
+          referenceId: termination.id.toString(),
+        }),
     );
+
+    // Auto-create offboarding checklist — fire-and-forget (same pattern as Admission→Onboarding)
+    import(
+      '@/use-cases/hr/offboarding/factories/make-create-offboarding-checklist-use-case'
+    ).then(({ makeCreateOffboardingChecklistUseCase }) => {
+      const createOffboardingChecklist =
+        makeCreateOffboardingChecklistUseCase();
+      createOffboardingChecklist
+        .execute({
+          tenantId,
+          employeeId,
+          terminationId: termination.id.toString(),
+        })
+        .catch(() => {
+          // Silently ignore — offboarding checklist is not critical for termination
+        });
+    });
 
     return { termination };
   }

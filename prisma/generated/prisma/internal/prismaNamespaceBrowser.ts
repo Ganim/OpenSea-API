@@ -138,6 +138,7 @@ export const ModelName = {
   PayrollItem: 'PayrollItem',
   Bonus: 'Bonus',
   Deduction: 'Deduction',
+  EmployeeWarning: 'EmployeeWarning',
   EmployeeDependant: 'EmployeeDependant',
   Termination: 'Termination',
   MedicalExam: 'MedicalExam',
@@ -147,6 +148,8 @@ export const ModelName = {
   CipaMember: 'CipaMember',
   BenefitPlan: 'BenefitPlan',
   BenefitEnrollment: 'BenefitEnrollment',
+  TrainingProgram: 'TrainingProgram',
+  TrainingEnrollment: 'TrainingEnrollment',
   FlexBenefitAllocation: 'FlexBenefitAllocation',
   Company: 'Company',
   CompanyDocument: 'CompanyDocument',
@@ -364,6 +367,7 @@ export const ModelName = {
   CompanyAnnouncement: 'CompanyAnnouncement',
   EmployeeKudos: 'EmployeeKudos',
   OnboardingChecklist: 'OnboardingChecklist',
+  OffboardingChecklist: 'OffboardingChecklist',
   AdmissionInvite: 'AdmissionInvite',
   AdmissionDocument: 'AdmissionDocument',
   DigitalSignature: 'DigitalSignature',
@@ -2181,6 +2185,32 @@ export const DeductionScalarFieldEnum = {
 export type DeductionScalarFieldEnum = (typeof DeductionScalarFieldEnum)[keyof typeof DeductionScalarFieldEnum]
 
 
+export const EmployeeWarningScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  employeeId: 'employeeId',
+  issuedBy: 'issuedBy',
+  type: 'type',
+  severity: 'severity',
+  reason: 'reason',
+  description: 'description',
+  incidentDate: 'incidentDate',
+  witnessName: 'witnessName',
+  employeeAcknowledged: 'employeeAcknowledged',
+  acknowledgedAt: 'acknowledgedAt',
+  suspensionDays: 'suspensionDays',
+  attachmentUrl: 'attachmentUrl',
+  status: 'status',
+  revokedAt: 'revokedAt',
+  revokeReason: 'revokeReason',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EmployeeWarningScalarFieldEnum = (typeof EmployeeWarningScalarFieldEnum)[keyof typeof EmployeeWarningScalarFieldEnum]
+
+
 export const EmployeeDependantScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -2357,6 +2387,46 @@ export const BenefitEnrollmentScalarFieldEnum = {
 } as const
 
 export type BenefitEnrollmentScalarFieldEnum = (typeof BenefitEnrollmentScalarFieldEnum)[keyof typeof BenefitEnrollmentScalarFieldEnum]
+
+
+export const TrainingProgramScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  category: 'category',
+  format: 'format',
+  durationHours: 'durationHours',
+  instructor: 'instructor',
+  maxParticipants: 'maxParticipants',
+  isActive: 'isActive',
+  isMandatory: 'isMandatory',
+  validityMonths: 'validityMonths',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type TrainingProgramScalarFieldEnum = (typeof TrainingProgramScalarFieldEnum)[keyof typeof TrainingProgramScalarFieldEnum]
+
+
+export const TrainingEnrollmentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  trainingProgramId: 'trainingProgramId',
+  employeeId: 'employeeId',
+  status: 'status',
+  enrolledAt: 'enrolledAt',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  score: 'score',
+  certificateUrl: 'certificateUrl',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TrainingEnrollmentScalarFieldEnum = (typeof TrainingEnrollmentScalarFieldEnum)[keyof typeof TrainingEnrollmentScalarFieldEnum]
 
 
 export const FlexBenefitAllocationScalarFieldEnum = {
@@ -6755,6 +6825,22 @@ export const OnboardingChecklistScalarFieldEnum = {
 } as const
 
 export type OnboardingChecklistScalarFieldEnum = (typeof OnboardingChecklistScalarFieldEnum)[keyof typeof OnboardingChecklistScalarFieldEnum]
+
+
+export const OffboardingChecklistScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  employeeId: 'employeeId',
+  terminationId: 'terminationId',
+  title: 'title',
+  items: 'items',
+  progress: 'progress',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type OffboardingChecklistScalarFieldEnum = (typeof OffboardingChecklistScalarFieldEnum)[keyof typeof OffboardingChecklistScalarFieldEnum]
 
 
 export const AdmissionInviteScalarFieldEnum = {

@@ -11,7 +11,7 @@ import { v1UpdateOnboardingChecklistController } from './v1-update-onboarding-ch
 import { v1DeleteOnboardingChecklistController } from './v1-delete-onboarding-checklist.controller';
 
 export async function onboardingRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

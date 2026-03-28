@@ -37,6 +37,9 @@ export type { EmployeeKudosProps } from './employee-kudos';
 export { OnboardingChecklist } from './onboarding-checklist';
 export type { OnboardingChecklistProps } from './onboarding-checklist';
 
+export { OffboardingChecklist } from './offboarding-checklist';
+export type { OffboardingChecklistProps } from './offboarding-checklist';
+
 export { BenefitPlan } from './benefit-plan';
 export type { BenefitPlanProps } from './benefit-plan';
 

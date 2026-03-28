@@ -39,7 +39,7 @@ describe('Schedule Collective Vacation Use Case', () => {
       registrationNumber,
       fullName: `Employee ${registrationNumber}`,
       cpf: CPF.create('529.982.247-25'),
-      hireDate: new Date('2022-01-01'),
+      hireDate: new Date(2022, 0, 1),
       status: EmployeeStatus.ACTIVE(),
       baseSalary: 3000,
       contractType: ContractType.CLT(),
@@ -53,10 +53,10 @@ describe('Schedule Collective Vacation Use Case', () => {
     const period = VacationPeriod.create({
       tenantId: new UniqueEntityID(TENANT_ID),
       employeeId,
-      acquisitionStart: new Date('2022-01-01'),
-      acquisitionEnd: new Date('2023-01-01'),
-      concessionStart: new Date('2023-01-01'),
-      concessionEnd: new Date('2025-12-31'),
+      acquisitionStart: new Date(2022, 0, 1),
+      acquisitionEnd: new Date(2023, 0, 1),
+      concessionStart: new Date(2023, 0, 1),
+      concessionEnd: new Date(2025, 11, 31),
       totalDays: 30,
       usedDays: 0,
       soldDays: 0,
@@ -67,18 +67,21 @@ describe('Schedule Collective Vacation Use Case', () => {
     return period;
   }
 
-  it.skip('should schedule collective vacation for multiple employees', async () => {
+  // Use Dec 16-31 (16 days) to satisfy first-split >= 14 days rule
+  const collectiveStart = new Date(2024, 11, 16); // Dec 16 Mon
+  const collectiveEnd = new Date(2024, 11, 31); // Dec 31
+
+  it('should schedule collective vacation for multiple employees', async () => {
     const emp1 = await createEmployee('EMP001');
     const emp2 = await createEmployee('EMP002');
     createVacationPeriod(emp1.id);
     createVacationPeriod(emp2.id);
 
-    // 14+ days to satisfy CLT Art. 134 §1 (first split >= 14 days)
     const result = await sut.execute({
       tenantId: TENANT_ID,
       employeeIds: [emp1.id.toString(), emp2.id.toString()],
-      startDate: new Date(2024, 11, 16), // Dec 16
-      endDate: new Date(2024, 11, 31), // Dec 31 → 16 days
+      startDate: collectiveStart,
+      endDate: collectiveEnd,
     });
 
     expect(result.totalScheduled).toBe(2);
@@ -91,8 +94,8 @@ describe('Schedule Collective Vacation Use Case', () => {
     const result = await sut.execute({
       tenantId: TENANT_ID,
       employeeIds: [new UniqueEntityID().toString()],
-      startDate: new Date(2024, 11, 16),
-      endDate: new Date(2024, 11, 31),
+      startDate: collectiveStart,
+      endDate: collectiveEnd,
     });
 
     expect(result.totalFailed).toBe(1);
@@ -100,13 +103,13 @@ describe('Schedule Collective Vacation Use Case', () => {
     expect(result.results[0].error).toContain('não encontrado');
   });
 
-  it.skip('should fail for inactive employees', async () => {
+  it('should fail for terminated employees', async () => {
     const emp = await employeesRepository.create({
       tenantId: TENANT_ID,
-      registrationNumber: 'EMP-INACTIVE',
-      fullName: 'Inactive Employee',
+      registrationNumber: 'EMP-TERMINATED',
+      fullName: 'Terminated Employee',
       cpf: CPF.create('529.982.247-25'),
-      hireDate: new Date('2022-01-01'),
+      hireDate: new Date(2022, 0, 1),
       status: EmployeeStatus.TERMINATED(),
       baseSalary: 3000,
       contractType: ContractType.CLT(),
@@ -118,8 +121,8 @@ describe('Schedule Collective Vacation Use Case', () => {
     const result = await sut.execute({
       tenantId: TENANT_ID,
       employeeIds: [emp.id.toString()],
-      startDate: new Date(2024, 11, 16),
-      endDate: new Date(2024, 11, 31),
+      startDate: collectiveStart,
+      endDate: collectiveEnd,
     });
 
     expect(result.totalFailed).toBe(1);
@@ -128,13 +131,12 @@ describe('Schedule Collective Vacation Use Case', () => {
 
   it('should fail for employees without available vacation periods', async () => {
     const emp = await createEmployee('EMP-NO-PERIOD');
-    // Do NOT create a vacation period
 
     const result = await sut.execute({
       tenantId: TENANT_ID,
       employeeIds: [emp.id.toString()],
-      startDate: new Date(2024, 11, 16),
-      endDate: new Date(2024, 11, 31),
+      startDate: collectiveStart,
+      endDate: collectiveEnd,
     });
 
     expect(result.totalFailed).toBe(1);
@@ -159,7 +161,7 @@ describe('Schedule Collective Vacation Use Case', () => {
           tenantId: TENANT_ID,
           employeeIds: ['any-id'],
           startDate: new Date(2024, 11, 20),
-          endDate: new Date(2024, 11, 25), // 6 days
+          endDate: new Date(2024, 11, 25),
         }),
       ).rejects.toThrow('mínimo 10 dias');
     });
@@ -169,25 +171,22 @@ describe('Schedule Collective Vacation Use Case', () => {
         sut.execute({
           tenantId: TENANT_ID,
           employeeIds: [],
-          startDate: new Date('2024-12-20'),
-          endDate: new Date('2024-12-31'),
+          startDate: collectiveStart,
+          endDate: collectiveEnd,
         }),
       ).rejects.toThrow('ao menos um empregado');
     });
   });
 
-  it.skip('should handle mixed success and failure results', async () => {
+  it('should handle mixed success and failure results', async () => {
     const activeEmp = await createEmployee('EMP-ACTIVE');
     createVacationPeriod(activeEmp.id);
 
     const result = await sut.execute({
       tenantId: TENANT_ID,
-      employeeIds: [
-        activeEmp.id.toString(),
-        new UniqueEntityID().toString(), // non-existent
-      ],
-      startDate: new Date('2024-12-20'),
-      endDate: new Date('2024-12-31'),
+      employeeIds: [activeEmp.id.toString(), new UniqueEntityID().toString()],
+      startDate: collectiveStart,
+      endDate: collectiveEnd,
     });
 
     expect(result.totalScheduled).toBe(1);
@@ -195,30 +194,30 @@ describe('Schedule Collective Vacation Use Case', () => {
     expect(result.results).toHaveLength(2);
   });
 
-  it.skip('should create splits in the vacation splits repository', async () => {
+  it('should create splits in the vacation splits repository', async () => {
     const emp = await createEmployee('EMP-SPLIT');
     createVacationPeriod(emp.id);
 
     await sut.execute({
       tenantId: TENANT_ID,
       employeeIds: [emp.id.toString()],
-      startDate: new Date('2024-12-20'),
-      endDate: new Date('2024-12-31'),
+      startDate: collectiveStart,
+      endDate: collectiveEnd,
     });
 
     expect(vacationSplitsRepository.items).toHaveLength(1);
-    expect(vacationSplitsRepository.items[0].days).toBe(12);
+    expect(vacationSplitsRepository.items[0].days).toBe(16);
   });
 
-  it.skip('should return splitId for successful schedules', async () => {
+  it('should return splitId for successful schedules', async () => {
     const emp = await createEmployee('EMP-RES');
     createVacationPeriod(emp.id);
 
     const result = await sut.execute({
       tenantId: TENANT_ID,
       employeeIds: [emp.id.toString()],
-      startDate: new Date('2024-12-20'),
-      endDate: new Date('2024-12-31'),
+      startDate: collectiveStart,
+      endDate: collectiveEnd,
     });
 
     expect(result.results[0].splitId).toBeDefined();

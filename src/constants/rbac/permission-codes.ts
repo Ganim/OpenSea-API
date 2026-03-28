@@ -237,6 +237,13 @@ export const PermissionCodes = {
       ADMIN: 'hr.absences.admin' as const,
       ONLYSELF: 'hr.absences.onlyself' as const,
     },
+    WARNINGS: {
+      ACCESS: 'hr.warnings.access' as const,
+      REGISTER: 'hr.warnings.register' as const,
+      MODIFY: 'hr.warnings.modify' as const,
+      REMOVE: 'hr.warnings.remove' as const,
+      ADMIN: 'hr.warnings.admin' as const,
+    },
     PAYROLL: {
       ACCESS: 'hr.payroll.access' as const,
       REGISTER: 'hr.payroll.register' as const,
@@ -276,6 +283,13 @@ export const PermissionCodes = {
       REMOVE: 'hr.safety.remove' as const,
       ADMIN: 'hr.safety.admin' as const,
     },
+    TRAINING: {
+      ACCESS: 'hr.training.access' as const,
+      REGISTER: 'hr.training.register' as const,
+      MODIFY: 'hr.training.modify' as const,
+      REMOVE: 'hr.training.remove' as const,
+      ADMIN: 'hr.training.admin' as const,
+    },
     BENEFITS: {
       ACCESS: 'hr.benefits.access' as const,
       REGISTER: 'hr.benefits.register' as const,
@@ -304,6 +318,13 @@ export const PermissionCodes = {
       MODIFY: 'hr.onboarding.modify' as const,
       REMOVE: 'hr.onboarding.remove' as const,
       ADMIN: 'hr.onboarding.admin' as const,
+    },
+    OFFBOARDING: {
+      ACCESS: 'hr.offboarding.access' as const,
+      REGISTER: 'hr.offboarding.register' as const,
+      MODIFY: 'hr.offboarding.modify' as const,
+      REMOVE: 'hr.offboarding.remove' as const,
+      ADMIN: 'hr.offboarding.admin' as const,
     },
     ADMISSIONS: {
       ACCESS: 'hr.admissions.access' as const,
