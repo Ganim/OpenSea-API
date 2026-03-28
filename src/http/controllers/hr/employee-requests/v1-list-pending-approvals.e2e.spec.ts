@@ -1,0 +1,56 @@
+import request from 'supertest';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+
+import { app } from '@/app';
+import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
+import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
+import { createEmployeeE2E } from '@/utils/tests/factories/hr/create-employee.e2e';
+import { createEmployeeRequestE2E } from '@/utils/tests/factories/hr/create-employee-request.e2e';
+
+describe('List Pending Approvals (E2E)', () => {
+  let tenantId: string;
+
+  beforeAll(async () => {
+    await app.ready();
+    const { tenantId: tid } = await createAndSetupTenant();
+    tenantId = tid;
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  it('should list pending requests for approver', async () => {
+    const { token, user: userResponse } = await createAndAuthenticateUser(app, {
+      tenantId,
+    });
+
+    const userId = userResponse.user.id.toString();
+    await createEmployeeE2E({ tenantId, userId, status: 'ACTIVE' });
+
+    // Create another employee with a pending request
+    const { employeeId: requesterEmployeeId } = await createEmployeeE2E({
+      tenantId,
+      status: 'ACTIVE',
+    });
+
+    await createEmployeeRequestE2E({
+      tenantId,
+      employeeId: requesterEmployeeId,
+      type: 'VACATION',
+      status: 'PENDING',
+    });
+
+    const response = await request(app.server)
+      .get('/v1/hr/requests/pending-approvals')
+      .set('Authorization', `Bearer ${token}`)
+      .query({ page: 1, limit: 20 });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('employeeRequests');
+    expect(response.body).toHaveProperty('meta');
+    expect(Array.isArray(response.body.employeeRequests)).toBe(true);
+    expect(response.body.meta).toHaveProperty('total');
+    expect(response.body.meta).toHaveProperty('page');
+  });
+});

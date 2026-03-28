@@ -452,6 +452,7 @@ const ALL_PERMISSIONS = {
       'manage',
     ],
     'time-control': ['create', 'read', 'update', 'delete', 'list', 'manage'],
+    admissions: ['access', 'register', 'modify', 'remove', 'admin'],
   },
   // ADMIN module (tenant-scoped admin operations)
   admin: {
