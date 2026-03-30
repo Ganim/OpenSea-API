@@ -1,3 +1,4 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { prisma } from '@/lib/prisma';
 
 export interface GetEsocialBatchRequest {
@@ -59,7 +60,7 @@ export class GetEsocialBatchUseCase {
     });
 
     if (!batch) {
-      throw new Error('Lote não encontrado.');
+      throw new ResourceNotFoundError('Lote não encontrado.');
     }
 
     return {

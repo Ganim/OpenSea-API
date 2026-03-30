@@ -752,8 +752,7 @@ export function getFinanceTools(): ToolDefinition[] {
         properties: {
           daysAhead: {
             type: 'number',
-            description:
-              'Dias no futuro para analisar (padrão 30, máximo 90)',
+            description: 'Dias no futuro para analisar (padrão 30, máximo 90)',
           },
         },
       },
@@ -794,6 +793,45 @@ export function getFinanceTools(): ToolDefinition[] {
               'Dias para buscar vencimentos futuros (padrão 7, máximo 90)',
           },
         },
+      },
+      module: 'finance',
+      permission: 'finance.entries.access',
+      requiresConfirmation: false,
+      category: 'report',
+    },
+
+    // ─── AI / Auto-Categorization & Alerts ─────────────────────
+
+    {
+      name: 'finance_suggest_category',
+      description:
+        'Sugere a categoria mais provável para um lançamento financeiro com base no fornecedor e/ou descrição. Usa dados históricos para calcular confiança. Use para perguntas como "Em qual categoria colocar?" ou "Categorize automaticamente"',
+      parameters: {
+        type: 'object',
+        properties: {
+          supplierName: {
+            type: 'string',
+            description: 'Nome do fornecedor ou cliente para sugerir categoria',
+          },
+          description: {
+            type: 'string',
+            description:
+              'Descrição do lançamento para análise de palavras-chave',
+          },
+        },
+      },
+      module: 'finance',
+      permission: 'finance.entries.access',
+      requiresConfirmation: false,
+      category: 'query',
+    },
+    {
+      name: 'finance_check_cash_alerts',
+      description:
+        'Verifica alertas de fluxo de caixa: saldo negativo projetado, saldo baixo e saídas grandes nos próximos 7 dias. Use para perguntas como "Vou ficar no vermelho?", "Tem algum alerta financeiro?" ou "Como está meu caixa?"',
+      parameters: {
+        type: 'object',
+        properties: {},
       },
       module: 'finance',
       permission: 'finance.entries.access',

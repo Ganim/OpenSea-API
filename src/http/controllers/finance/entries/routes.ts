@@ -35,6 +35,8 @@ import { threeWayMatchController } from './v1-three-way-match.controller';
 import { checkDuplicateController } from './v1-check-duplicate.controller';
 import { getSupplierSummaryController } from './v1-get-supplier-summary.controller';
 import { splitPaymentController } from './v1-split-payment.controller';
+import { suggestCategoryController } from './v1-suggest-category.controller';
+import { createEntryFromSalesOrderController } from './v1-create-entry-from-sales-order.controller';
 
 export async function financeEntriesRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
@@ -49,6 +51,7 @@ export async function financeEntriesRoutes(app: FastifyInstance) {
       queryApp.register(listEntryRetentionsController);
       queryApp.register(checkDuplicateController);
       queryApp.register(getSupplierSummaryController);
+      queryApp.register(suggestCategoryController);
       queryApp.register(checkOverdueController);
     },
     { prefix: '' },
@@ -69,6 +72,7 @@ export async function financeEntriesRoutes(app: FastifyInstance) {
       mutationApp.register(calculateEntryRetentionsController);
       mutationApp.register(applyEntryRetentionsController);
       mutationApp.register(threeWayMatchController);
+      mutationApp.register(createEntryFromSalesOrderController);
     },
     { prefix: '' },
   );

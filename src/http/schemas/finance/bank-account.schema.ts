@@ -34,10 +34,18 @@ export const bankAccountResponseSchema = z.object({
   agencyDigit: z.string().optional().nullable(),
   accountNumber: z.string(),
   accountDigit: z.string().optional().nullable(),
+  maskedAccountNumber: z
+    .string()
+    .describe('Número da conta mascarado (ex: ****1234)'),
   accountType: z.string(),
   status: z.string(),
   pixKeyType: z.string().optional().nullable(),
   pixKey: z.string().optional().nullable(),
+  maskedPixKey: z
+    .string()
+    .optional()
+    .nullable()
+    .describe('Chave PIX mascarada'),
   currentBalance: z.number(),
   balanceUpdatedAt: z.coerce.date().optional().nullable(),
   color: z.string().optional().nullable(),

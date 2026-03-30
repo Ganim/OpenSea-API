@@ -9,7 +9,7 @@ import type { DomainEvent, EventConsumer } from '../domain-event.interface';
 import { FINANCE_EVENTS } from '../finance-events';
 import type { PixPaymentReceivedData } from '../finance-events';
 import { SALES_EVENTS } from '../sales-events';
-import type { OrderPaidData } from '../sales-events';
+import type { OrderConfirmedData, OrderPaidData } from '../sales-events';
 
 // Lazy logger to avoid @env initialization in unit tests
 let _logger: {
@@ -210,6 +210,108 @@ export const financePixPaymentConsumer: EventConsumer = {
         '[FinanceConsumer] Falha ao processar pagamento PIX recebido',
       );
       throw err; // Re-throw to trigger retry
+    }
+  },
+};
+
+export const financeOrderConfirmedConsumer: EventConsumer = {
+  consumerId: 'finance.order-confirmed-handler',
+  moduleId: 'finance',
+  subscribesTo: [SALES_EVENTS.ORDER_CONFIRMED],
+
+  async handle(event: DomainEvent): Promise<void> {
+    const data = event.data as unknown as OrderConfirmedData;
+    const { orderId, customerId, total, items } = data;
+
+    getLogger().info(
+      { orderId, total, eventId: event.id },
+      `[FinanceConsumer] Criando conta a receber para pedido confirmado #${orderId.slice(0, 8)}`,
+    );
+
+    try {
+      const prismaClient = getPrismaClient();
+
+      // Find or create the "Vendas" category for this tenant
+      let salesCategory = await prismaClient.financeCategory.findFirst({
+        where: {
+          tenantId: event.tenantId,
+          name: 'Vendas',
+        },
+      });
+
+      if (!salesCategory) {
+        salesCategory = await prismaClient.financeCategory.create({
+          data: {
+            tenantId: event.tenantId,
+            name: 'Vendas',
+            slug: 'vendas',
+            type: 'RECEIVABLE',
+            color: '#10B981',
+            isSystem: true,
+          },
+        });
+      }
+
+      // Check if entry already exists for this sales order (idempotency)
+      const existingEntry = await prismaClient.financeEntry.findFirst({
+        where: {
+          tenantId: event.tenantId,
+          salesOrderId: orderId,
+          type: 'RECEIVABLE',
+        },
+      });
+
+      if (existingEntry) {
+        getLogger().info(
+          { orderId, existingEntryId: existingEntry.id, eventId: event.id },
+          `[FinanceConsumer] Entrada financeira já existe para pedido #${orderId.slice(0, 8)}, ignorando`,
+        );
+        return;
+      }
+
+      const entryCount = await prismaClient.financeEntry.count({
+        where: { tenantId: event.tenantId },
+      });
+      const entryCode = `REC-${String(entryCount + 1).padStart(6, '0')}`;
+
+      const itemCount = items?.length ?? 0;
+      const description = `Pedido de venda #${orderId.slice(0, 8)} — ${itemCount} item(ns)`;
+
+      // Default due date: 30 days from now
+      const dueDate = new Date();
+      dueDate.setDate(dueDate.getDate() + 30);
+
+      await prismaClient.financeEntry.create({
+        data: {
+          tenantId: event.tenantId,
+          type: 'RECEIVABLE',
+          code: entryCode,
+          description,
+          categoryId: salesCategory.id,
+          customerId,
+          salesOrderId: orderId,
+          expectedAmount: total,
+          issueDate: new Date(),
+          dueDate,
+          status: 'PENDING',
+          tags: ['sales-order'],
+          metadata: {
+            orderId,
+            sourceEventId: event.id,
+          },
+        },
+      });
+
+      getLogger().info(
+        { orderId, entryCode, total: formatBRL(total), eventId: event.id },
+        `[FinanceConsumer] Conta a receber ${entryCode} criada para pedido confirmado #${orderId.slice(0, 8)}`,
+      );
+    } catch (err) {
+      getLogger().error(
+        { orderId, eventId: event.id, error: err },
+        '[FinanceConsumer] Falha ao criar conta a receber para pedido confirmado',
+      );
+      throw err;
     }
   },
 };

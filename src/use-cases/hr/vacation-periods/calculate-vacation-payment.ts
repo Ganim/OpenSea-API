@@ -9,6 +9,7 @@
  * - Prazo de pagamento: até 2 dias úteis antes do início das férias
  */
 
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { getINSSTable, getIRRFTable } from '@/constants/hr/tax-tables';
 
 export interface VacationPaymentRequest {
@@ -84,16 +85,16 @@ export function calculateVacationPayment(
   } = request;
 
   if (vacationDays <= 0) {
-    throw new Error('Vacation days must be greater than zero');
+    throw new BadRequestError('Vacation days must be greater than zero');
   }
 
   if (soldDays < 0) {
-    throw new Error('Sold days cannot be negative');
+    throw new BadRequestError('Sold days cannot be negative');
   }
 
   if (soldDays > Math.floor(vacationDays / 3) + soldDays) {
     // Max 1/3 of total vacation can be sold — total = vacationDays + soldDays
-    throw new Error(
+    throw new BadRequestError(
       'Abono pecuniário não pode exceder 1/3 do total de férias',
     );
   }

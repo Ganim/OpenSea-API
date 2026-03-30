@@ -137,6 +137,7 @@ import { storageTrashRoutes } from './controllers/storage/trash/routes';
 import { financeAttachmentsRoutes } from './controllers/finance/attachments/routes';
 import { bankAccountsRoutes } from './controllers/finance/bank-accounts/routes';
 import { financeCategoriesRoutes } from './controllers/finance/categories/routes';
+import { chartOfAccountsRoutes } from './controllers/finance/chart-of-accounts/routes';
 import { consortiaRoutes } from './controllers/finance/consortia/routes';
 import { costCentersRoutes } from './controllers/finance/cost-centers/routes';
 import { financeDashboardRoutes } from './controllers/finance/dashboard/routes';
@@ -155,6 +156,7 @@ import { bankConnectionsRoutes } from './controllers/finance/bank-connections/ro
 import { paymentLinksRoutes } from './controllers/finance/payment-links/routes';
 import { financeExchangeRatesRoutes } from './controllers/finance/exchange-rates/routes';
 import { financeCustomerPortalRoutes } from './controllers/finance/customer-portal/routes';
+import { financeComplianceRoutes } from './controllers/finance/compliance/routes';
 
 // Accountant Portal routes (token-based auth)
 import { accountantPortalRoutes } from './controllers/accountant/routes';
@@ -384,6 +386,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(requestsRoutes);
 
   // Finance routes
+  await app.register(chartOfAccountsRoutes);
   await app.register(costCentersRoutes);
   await app.register(bankAccountsRoutes);
   await app.register(financeCategoriesRoutes);
@@ -405,6 +408,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(paymentLinksRoutes);
   await app.register(financeExchangeRatesRoutes);
   await app.register(financeCustomerPortalRoutes);
+  await app.register(financeComplianceRoutes);
 
   // Accountant Portal routes (token-based auth, no JWT)
   await app.register(accountantPortalRoutes);

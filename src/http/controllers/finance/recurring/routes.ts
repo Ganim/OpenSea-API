@@ -10,6 +10,7 @@ import { updateRecurringConfigController } from './v1-update-recurring-config.co
 import { pauseRecurringController } from './v1-pause-recurring.controller';
 import { resumeRecurringController } from './v1-resume-recurring.controller';
 import { cancelRecurringController } from './v1-cancel-recurring.controller';
+import { previewRecurringDatesController } from './v1-preview-recurring-dates.controller';
 
 export async function financeRecurringRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
@@ -20,6 +21,7 @@ export async function financeRecurringRoutes(app: FastifyInstance) {
       queryApp.register(rateLimit, rateLimitConfig.query);
       queryApp.register(listRecurringConfigsController);
       queryApp.register(getRecurringConfigController);
+      queryApp.register(previewRecurringDatesController);
     },
     { prefix: '' },
   );

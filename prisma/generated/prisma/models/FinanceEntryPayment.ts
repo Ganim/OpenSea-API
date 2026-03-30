@@ -43,6 +43,7 @@ export type FinanceEntryPaymentMinAggregateOutputType = {
   method: string | null
   reference: string | null
   notes: string | null
+  idempotencyKey: string | null
   createdBy: string | null
   createdAt: Date | null
 }
@@ -56,6 +57,7 @@ export type FinanceEntryPaymentMaxAggregateOutputType = {
   method: string | null
   reference: string | null
   notes: string | null
+  idempotencyKey: string | null
   createdBy: string | null
   createdAt: Date | null
 }
@@ -69,6 +71,7 @@ export type FinanceEntryPaymentCountAggregateOutputType = {
   method: number
   reference: number
   notes: number
+  idempotencyKey: number
   createdBy: number
   createdAt: number
   _all: number
@@ -92,6 +95,7 @@ export type FinanceEntryPaymentMinAggregateInputType = {
   method?: true
   reference?: true
   notes?: true
+  idempotencyKey?: true
   createdBy?: true
   createdAt?: true
 }
@@ -105,6 +109,7 @@ export type FinanceEntryPaymentMaxAggregateInputType = {
   method?: true
   reference?: true
   notes?: true
+  idempotencyKey?: true
   createdBy?: true
   createdAt?: true
 }
@@ -118,6 +123,7 @@ export type FinanceEntryPaymentCountAggregateInputType = {
   method?: true
   reference?: true
   notes?: true
+  idempotencyKey?: true
   createdBy?: true
   createdAt?: true
   _all?: true
@@ -218,6 +224,7 @@ export type FinanceEntryPaymentGroupByOutputType = {
   method: string | null
   reference: string | null
   notes: string | null
+  idempotencyKey: string | null
   createdBy: string | null
   createdAt: Date
   _count: FinanceEntryPaymentCountAggregateOutputType | null
@@ -254,6 +261,7 @@ export type FinanceEntryPaymentWhereInput = {
   method?: Prisma.StringNullableFilter<"FinanceEntryPayment"> | string | null
   reference?: Prisma.StringNullableFilter<"FinanceEntryPayment"> | string | null
   notes?: Prisma.StringNullableFilter<"FinanceEntryPayment"> | string | null
+  idempotencyKey?: Prisma.StringNullableFilter<"FinanceEntryPayment"> | string | null
   createdBy?: Prisma.StringNullableFilter<"FinanceEntryPayment"> | string | null
   createdAt?: Prisma.DateTimeFilter<"FinanceEntryPayment"> | Date | string
   entry?: Prisma.XOR<Prisma.FinanceEntryScalarRelationFilter, Prisma.FinanceEntryWhereInput>
@@ -269,6 +277,7 @@ export type FinanceEntryPaymentOrderByWithRelationInput = {
   method?: Prisma.SortOrderInput | Prisma.SortOrder
   reference?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrderInput | Prisma.SortOrder
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   entry?: Prisma.FinanceEntryOrderByWithRelationInput
@@ -277,6 +286,7 @@ export type FinanceEntryPaymentOrderByWithRelationInput = {
 
 export type FinanceEntryPaymentWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  idempotencyKey?: string
   AND?: Prisma.FinanceEntryPaymentWhereInput | Prisma.FinanceEntryPaymentWhereInput[]
   OR?: Prisma.FinanceEntryPaymentWhereInput[]
   NOT?: Prisma.FinanceEntryPaymentWhereInput | Prisma.FinanceEntryPaymentWhereInput[]
@@ -291,7 +301,7 @@ export type FinanceEntryPaymentWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"FinanceEntryPayment"> | Date | string
   entry?: Prisma.XOR<Prisma.FinanceEntryScalarRelationFilter, Prisma.FinanceEntryWhereInput>
   bankAccount?: Prisma.XOR<Prisma.BankAccountNullableScalarRelationFilter, Prisma.BankAccountWhereInput> | null
-}, "id">
+}, "id" | "idempotencyKey">
 
 export type FinanceEntryPaymentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -302,6 +312,7 @@ export type FinanceEntryPaymentOrderByWithAggregationInput = {
   method?: Prisma.SortOrderInput | Prisma.SortOrder
   reference?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrderInput | Prisma.SortOrder
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.FinanceEntryPaymentCountOrderByAggregateInput
@@ -323,6 +334,7 @@ export type FinanceEntryPaymentScalarWhereWithAggregatesInput = {
   method?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntryPayment"> | string | null
   reference?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntryPayment"> | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntryPayment"> | string | null
+  idempotencyKey?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntryPayment"> | string | null
   createdBy?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntryPayment"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"FinanceEntryPayment"> | Date | string
 }
@@ -334,6 +346,7 @@ export type FinanceEntryPaymentCreateInput = {
   method?: string | null
   reference?: string | null
   notes?: string | null
+  idempotencyKey?: string | null
   createdBy?: string | null
   createdAt?: Date | string
   entry: Prisma.FinanceEntryCreateNestedOneWithoutPaymentsInput
@@ -349,6 +362,7 @@ export type FinanceEntryPaymentUncheckedCreateInput = {
   method?: string | null
   reference?: string | null
   notes?: string | null
+  idempotencyKey?: string | null
   createdBy?: string | null
   createdAt?: Date | string
 }
@@ -360,6 +374,7 @@ export type FinanceEntryPaymentUpdateInput = {
   method?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   entry?: Prisma.FinanceEntryUpdateOneRequiredWithoutPaymentsNestedInput
@@ -375,6 +390,7 @@ export type FinanceEntryPaymentUncheckedUpdateInput = {
   method?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -388,6 +404,7 @@ export type FinanceEntryPaymentCreateManyInput = {
   method?: string | null
   reference?: string | null
   notes?: string | null
+  idempotencyKey?: string | null
   createdBy?: string | null
   createdAt?: Date | string
 }
@@ -399,6 +416,7 @@ export type FinanceEntryPaymentUpdateManyMutationInput = {
   method?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -412,6 +430,7 @@ export type FinanceEntryPaymentUncheckedUpdateManyInput = {
   method?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -435,6 +454,7 @@ export type FinanceEntryPaymentCountOrderByAggregateInput = {
   method?: Prisma.SortOrder
   reference?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -452,6 +472,7 @@ export type FinanceEntryPaymentMaxOrderByAggregateInput = {
   method?: Prisma.SortOrder
   reference?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -465,6 +486,7 @@ export type FinanceEntryPaymentMinOrderByAggregateInput = {
   method?: Prisma.SortOrder
   reference?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -564,6 +586,7 @@ export type FinanceEntryPaymentCreateWithoutBankAccountInput = {
   method?: string | null
   reference?: string | null
   notes?: string | null
+  idempotencyKey?: string | null
   createdBy?: string | null
   createdAt?: Date | string
   entry: Prisma.FinanceEntryCreateNestedOneWithoutPaymentsInput
@@ -577,6 +600,7 @@ export type FinanceEntryPaymentUncheckedCreateWithoutBankAccountInput = {
   method?: string | null
   reference?: string | null
   notes?: string | null
+  idempotencyKey?: string | null
   createdBy?: string | null
   createdAt?: Date | string
 }
@@ -619,6 +643,7 @@ export type FinanceEntryPaymentScalarWhereInput = {
   method?: Prisma.StringNullableFilter<"FinanceEntryPayment"> | string | null
   reference?: Prisma.StringNullableFilter<"FinanceEntryPayment"> | string | null
   notes?: Prisma.StringNullableFilter<"FinanceEntryPayment"> | string | null
+  idempotencyKey?: Prisma.StringNullableFilter<"FinanceEntryPayment"> | string | null
   createdBy?: Prisma.StringNullableFilter<"FinanceEntryPayment"> | string | null
   createdAt?: Prisma.DateTimeFilter<"FinanceEntryPayment"> | Date | string
 }
@@ -630,6 +655,7 @@ export type FinanceEntryPaymentCreateWithoutEntryInput = {
   method?: string | null
   reference?: string | null
   notes?: string | null
+  idempotencyKey?: string | null
   createdBy?: string | null
   createdAt?: Date | string
   bankAccount?: Prisma.BankAccountCreateNestedOneWithoutFinancePaymentsInput
@@ -643,6 +669,7 @@ export type FinanceEntryPaymentUncheckedCreateWithoutEntryInput = {
   method?: string | null
   reference?: string | null
   notes?: string | null
+  idempotencyKey?: string | null
   createdBy?: string | null
   createdAt?: Date | string
 }
@@ -681,6 +708,7 @@ export type FinanceEntryPaymentCreateManyBankAccountInput = {
   method?: string | null
   reference?: string | null
   notes?: string | null
+  idempotencyKey?: string | null
   createdBy?: string | null
   createdAt?: Date | string
 }
@@ -692,6 +720,7 @@ export type FinanceEntryPaymentUpdateWithoutBankAccountInput = {
   method?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   entry?: Prisma.FinanceEntryUpdateOneRequiredWithoutPaymentsNestedInput
@@ -705,6 +734,7 @@ export type FinanceEntryPaymentUncheckedUpdateWithoutBankAccountInput = {
   method?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -717,6 +747,7 @@ export type FinanceEntryPaymentUncheckedUpdateManyWithoutBankAccountInput = {
   method?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -729,6 +760,7 @@ export type FinanceEntryPaymentCreateManyEntryInput = {
   method?: string | null
   reference?: string | null
   notes?: string | null
+  idempotencyKey?: string | null
   createdBy?: string | null
   createdAt?: Date | string
 }
@@ -740,6 +772,7 @@ export type FinanceEntryPaymentUpdateWithoutEntryInput = {
   method?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bankAccount?: Prisma.BankAccountUpdateOneWithoutFinancePaymentsNestedInput
@@ -753,6 +786,7 @@ export type FinanceEntryPaymentUncheckedUpdateWithoutEntryInput = {
   method?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -765,6 +799,7 @@ export type FinanceEntryPaymentUncheckedUpdateManyWithoutEntryInput = {
   method?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -780,6 +815,7 @@ export type FinanceEntryPaymentSelect<ExtArgs extends runtime.Types.Extensions.I
   method?: boolean
   reference?: boolean
   notes?: boolean
+  idempotencyKey?: boolean
   createdBy?: boolean
   createdAt?: boolean
   entry?: boolean | Prisma.FinanceEntryDefaultArgs<ExtArgs>
@@ -795,6 +831,7 @@ export type FinanceEntryPaymentSelectCreateManyAndReturn<ExtArgs extends runtime
   method?: boolean
   reference?: boolean
   notes?: boolean
+  idempotencyKey?: boolean
   createdBy?: boolean
   createdAt?: boolean
   entry?: boolean | Prisma.FinanceEntryDefaultArgs<ExtArgs>
@@ -810,6 +847,7 @@ export type FinanceEntryPaymentSelectUpdateManyAndReturn<ExtArgs extends runtime
   method?: boolean
   reference?: boolean
   notes?: boolean
+  idempotencyKey?: boolean
   createdBy?: boolean
   createdAt?: boolean
   entry?: boolean | Prisma.FinanceEntryDefaultArgs<ExtArgs>
@@ -825,11 +863,12 @@ export type FinanceEntryPaymentSelectScalar = {
   method?: boolean
   reference?: boolean
   notes?: boolean
+  idempotencyKey?: boolean
   createdBy?: boolean
   createdAt?: boolean
 }
 
-export type FinanceEntryPaymentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "entryId" | "bankAccountId" | "amount" | "paidAt" | "method" | "reference" | "notes" | "createdBy" | "createdAt", ExtArgs["result"]["financeEntryPayment"]>
+export type FinanceEntryPaymentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "entryId" | "bankAccountId" | "amount" | "paidAt" | "method" | "reference" | "notes" | "idempotencyKey" | "createdBy" | "createdAt", ExtArgs["result"]["financeEntryPayment"]>
 export type FinanceEntryPaymentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   entry?: boolean | Prisma.FinanceEntryDefaultArgs<ExtArgs>
   bankAccount?: boolean | Prisma.FinanceEntryPayment$bankAccountArgs<ExtArgs>
@@ -858,6 +897,7 @@ export type $FinanceEntryPaymentPayload<ExtArgs extends runtime.Types.Extensions
     method: string | null
     reference: string | null
     notes: string | null
+    idempotencyKey: string | null
     createdBy: string | null
     createdAt: Date
   }, ExtArgs["result"]["financeEntryPayment"]>
@@ -1293,6 +1333,7 @@ export interface FinanceEntryPaymentFieldRefs {
   readonly method: Prisma.FieldRef<"FinanceEntryPayment", 'String'>
   readonly reference: Prisma.FieldRef<"FinanceEntryPayment", 'String'>
   readonly notes: Prisma.FieldRef<"FinanceEntryPayment", 'String'>
+  readonly idempotencyKey: Prisma.FieldRef<"FinanceEntryPayment", 'String'>
   readonly createdBy: Prisma.FieldRef<"FinanceEntryPayment", 'String'>
   readonly createdAt: Prisma.FieldRef<"FinanceEntryPayment", 'DateTime'>
 }

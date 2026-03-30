@@ -503,6 +503,7 @@ export const ModelName = {
   TenantUser: 'TenantUser',
   TenantFeatureFlag: 'TenantFeatureFlag',
   CostCenter: 'CostCenter',
+  ChartOfAccount: 'ChartOfAccount',
   BankAccount: 'BankAccount',
   FinanceCategory: 'FinanceCategory',
   FinanceEntry: 'FinanceEntry',
@@ -670,6 +671,7 @@ export const ModelName = {
   EsocialEventStatusHistory: 'EsocialEventStatusHistory',
   EsocialTable: 'EsocialTable',
   FinanceApprovalRule: 'FinanceApprovalRule',
+  TaxObligation: 'TaxObligation',
   BankConnection: 'BankConnection',
   PaymentLink: 'PaymentLink',
   CashflowSnapshot: 'CashflowSnapshot',
@@ -730,7 +732,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "inventorySession" | "inventorySessionItem" | "customer" | "salesOrder" | "salesOrderItem" | "crmContact" | "crmPipeline" | "crmPipelineStage" | "crmDeal" | "crmActivity" | "crmTimelineEvent" | "pipeline" | "pipelineStage" | "processBlueprint" | "blueprintStageRule" | "contact" | "deal" | "contactDeal" | "activity" | "timelineEvent" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "shift" | "shiftAssignment" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "vacationSplit" | "payroll" | "payrollItem" | "bonus" | "deduction" | "employeeWarning" | "employeeDependant" | "termination" | "medicalExam" | "occupationalExamRequirement" | "safetyProgram" | "workplaceRisk" | "cipaMandate" | "cipaMember" | "benefitPlan" | "benefitEnrollment" | "trainingProgram" | "trainingEnrollment" | "reviewCycle" | "performanceReview" | "flexBenefitAllocation" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryRetention" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeBudget" | "financeAttachment" | "bankReconciliation" | "bankReconciliationItem" | "reconciliationSuggestion" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig" | "priceTable" | "priceTableRule" | "priceTableItem" | "customerPrice" | "taxProfile" | "taxRule" | "campaign" | "campaignRule" | "campaignProduct" | "coupon" | "couponUsage" | "combo" | "comboItem" | "catalog" | "catalogItem" | "catalogExport" | "tenantBrand" | "contentTemplate" | "generatedContent" | "productMockup" | "emailCampaign" | "order" | "orderItem" | "paymentCondition" | "orderPayment" | "orderDelivery" | "orderDeliveryItem" | "orderReturn" | "orderReturnItem" | "storeCredit" | "storeCreditUsage" | "customerCreditLimit" | "approvalRule" | "orderCommission" | "commissionRule" | "orderHistory" | "digitalCertificate" | "signatureEnvelope" | "signatureEnvelopeSigner" | "signatureAuditEvent" | "signatureTemplate" | "analyticsWidget" | "analyticsDashboard" | "analyticsDashboardWidget" | "analyticsGoal" | "analyticsReport" | "analyticsReportGeneration" | "customerPortalAccess" | "aiTenantConfig" | "aiConversation" | "aiMessage" | "aiFavoriteQuery" | "aiActionLog" | "aiInsight" | "posTerminal" | "posSession" | "posTransaction" | "posTransactionPayment" | "posCashMovement" | "posOfflineQueue" | "posVisitLog" | "cardIntegration" | "eventLog" | "bid" | "bidItem" | "bidProposal" | "bidDocument" | "bidContract" | "bidEmpenho" | "bidMonitorEvent" | "bidHistory" | "bidAiConfig" | "certidaoSchedule" | "marketplaceConnection" | "marketplaceListing" | "marketplaceOrder" | "marketplacePayment" | "messagingAccount" | "messagingContact" | "messagingMessage" | "messagingTemplate" | "fiscalConfig" | "fiscalCertificate" | "fiscalDocument" | "fiscalDocumentItem" | "fiscalDocumentEvent" | "pixCharge" | "aiWorkflow" | "aiWorkflowExecution" | "overdueEscalation" | "overdueEscalationStep" | "overdueAction" | "punchConfiguration" | "hrTenantConfig" | "geofenceZone" | "emailToEntryConfig" | "esocialConfig" | "esocialCertificate" | "esocialEvent" | "esocialBatch" | "esocialRubrica" | "esocialEventStatusHistory" | "esocialTable" | "financeApprovalRule" | "bankConnection" | "paymentLink" | "cashflowSnapshot" | "accountantAccess" | "quote" | "quoteItem" | "proposal" | "proposalItem" | "proposalAttachment" | "discountRule" | "workflow" | "workflowStep" | "conversation" | "conversationMessage" | "chatbotConfig" | "dealPrediction" | "form" | "formField" | "formSubmission" | "messageTemplate" | "cashierSession" | "cashierTransaction" | "leadScoringRule" | "leadScore" | "cadenceSequence" | "cadenceStep" | "cadenceEnrollment" | "landingPage" | "integration" | "tenantIntegration" | "leadRoutingRule" | "employeeRequest" | "companyAnnouncement" | "employeeKudos" | "onboardingChecklist" | "pPEItem" | "pPEAssignment" | "offboardingChecklist" | "admissionInvite" | "admissionDocument" | "digitalSignature" | "authLink" | "tenantAuthConfig" | "magicLinkToken" | "approvalDelegation"
+    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "inventorySession" | "inventorySessionItem" | "customer" | "salesOrder" | "salesOrderItem" | "crmContact" | "crmPipeline" | "crmPipelineStage" | "crmDeal" | "crmActivity" | "crmTimelineEvent" | "pipeline" | "pipelineStage" | "processBlueprint" | "blueprintStageRule" | "contact" | "deal" | "contactDeal" | "activity" | "timelineEvent" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "shift" | "shiftAssignment" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "vacationSplit" | "payroll" | "payrollItem" | "bonus" | "deduction" | "employeeWarning" | "employeeDependant" | "termination" | "medicalExam" | "occupationalExamRequirement" | "safetyProgram" | "workplaceRisk" | "cipaMandate" | "cipaMember" | "benefitPlan" | "benefitEnrollment" | "trainingProgram" | "trainingEnrollment" | "reviewCycle" | "performanceReview" | "flexBenefitAllocation" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "chartOfAccount" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryRetention" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeBudget" | "financeAttachment" | "bankReconciliation" | "bankReconciliationItem" | "reconciliationSuggestion" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig" | "priceTable" | "priceTableRule" | "priceTableItem" | "customerPrice" | "taxProfile" | "taxRule" | "campaign" | "campaignRule" | "campaignProduct" | "coupon" | "couponUsage" | "combo" | "comboItem" | "catalog" | "catalogItem" | "catalogExport" | "tenantBrand" | "contentTemplate" | "generatedContent" | "productMockup" | "emailCampaign" | "order" | "orderItem" | "paymentCondition" | "orderPayment" | "orderDelivery" | "orderDeliveryItem" | "orderReturn" | "orderReturnItem" | "storeCredit" | "storeCreditUsage" | "customerCreditLimit" | "approvalRule" | "orderCommission" | "commissionRule" | "orderHistory" | "digitalCertificate" | "signatureEnvelope" | "signatureEnvelopeSigner" | "signatureAuditEvent" | "signatureTemplate" | "analyticsWidget" | "analyticsDashboard" | "analyticsDashboardWidget" | "analyticsGoal" | "analyticsReport" | "analyticsReportGeneration" | "customerPortalAccess" | "aiTenantConfig" | "aiConversation" | "aiMessage" | "aiFavoriteQuery" | "aiActionLog" | "aiInsight" | "posTerminal" | "posSession" | "posTransaction" | "posTransactionPayment" | "posCashMovement" | "posOfflineQueue" | "posVisitLog" | "cardIntegration" | "eventLog" | "bid" | "bidItem" | "bidProposal" | "bidDocument" | "bidContract" | "bidEmpenho" | "bidMonitorEvent" | "bidHistory" | "bidAiConfig" | "certidaoSchedule" | "marketplaceConnection" | "marketplaceListing" | "marketplaceOrder" | "marketplacePayment" | "messagingAccount" | "messagingContact" | "messagingMessage" | "messagingTemplate" | "fiscalConfig" | "fiscalCertificate" | "fiscalDocument" | "fiscalDocumentItem" | "fiscalDocumentEvent" | "pixCharge" | "aiWorkflow" | "aiWorkflowExecution" | "overdueEscalation" | "overdueEscalationStep" | "overdueAction" | "punchConfiguration" | "hrTenantConfig" | "geofenceZone" | "emailToEntryConfig" | "esocialConfig" | "esocialCertificate" | "esocialEvent" | "esocialBatch" | "esocialRubrica" | "esocialEventStatusHistory" | "esocialTable" | "financeApprovalRule" | "taxObligation" | "bankConnection" | "paymentLink" | "cashflowSnapshot" | "accountantAccess" | "quote" | "quoteItem" | "proposal" | "proposalItem" | "proposalAttachment" | "discountRule" | "workflow" | "workflowStep" | "conversation" | "conversationMessage" | "chatbotConfig" | "dealPrediction" | "form" | "formField" | "formSubmission" | "messageTemplate" | "cashierSession" | "cashierTransaction" | "leadScoringRule" | "leadScore" | "cadenceSequence" | "cadenceStep" | "cadenceEnrollment" | "landingPage" | "integration" | "tenantIntegration" | "leadRoutingRule" | "employeeRequest" | "companyAnnouncement" | "employeeKudos" | "onboardingChecklist" | "pPEItem" | "pPEAssignment" | "offboardingChecklist" | "admissionInvite" | "admissionDocument" | "digitalSignature" | "authLink" | "tenantAuthConfig" | "magicLinkToken" | "approvalDelegation"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -9537,6 +9539,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.CostCenterCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.CostCenterCountAggregateOutputType> | number
+        }
+      }
+    }
+    ChartOfAccount: {
+      payload: Prisma.$ChartOfAccountPayload<ExtArgs>
+      fields: Prisma.ChartOfAccountFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ChartOfAccountFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChartOfAccountPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ChartOfAccountFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+        }
+        findFirst: {
+          args: Prisma.ChartOfAccountFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChartOfAccountPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ChartOfAccountFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+        }
+        findMany: {
+          args: Prisma.ChartOfAccountFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>[]
+        }
+        create: {
+          args: Prisma.ChartOfAccountCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+        }
+        createMany: {
+          args: Prisma.ChartOfAccountCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ChartOfAccountCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>[]
+        }
+        delete: {
+          args: Prisma.ChartOfAccountDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+        }
+        update: {
+          args: Prisma.ChartOfAccountUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+        }
+        deleteMany: {
+          args: Prisma.ChartOfAccountDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ChartOfAccountUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ChartOfAccountUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>[]
+        }
+        upsert: {
+          args: Prisma.ChartOfAccountUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+        }
+        aggregate: {
+          args: Prisma.ChartOfAccountAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateChartOfAccount>
+        }
+        groupBy: {
+          args: Prisma.ChartOfAccountGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChartOfAccountGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ChartOfAccountCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChartOfAccountCountAggregateOutputType> | number
         }
       }
     }
@@ -21898,6 +21974,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TaxObligation: {
+      payload: Prisma.$TaxObligationPayload<ExtArgs>
+      fields: Prisma.TaxObligationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TaxObligationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaxObligationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TaxObligationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaxObligationPayload>
+        }
+        findFirst: {
+          args: Prisma.TaxObligationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaxObligationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TaxObligationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaxObligationPayload>
+        }
+        findMany: {
+          args: Prisma.TaxObligationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaxObligationPayload>[]
+        }
+        create: {
+          args: Prisma.TaxObligationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaxObligationPayload>
+        }
+        createMany: {
+          args: Prisma.TaxObligationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TaxObligationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaxObligationPayload>[]
+        }
+        delete: {
+          args: Prisma.TaxObligationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaxObligationPayload>
+        }
+        update: {
+          args: Prisma.TaxObligationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaxObligationPayload>
+        }
+        deleteMany: {
+          args: Prisma.TaxObligationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TaxObligationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TaxObligationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaxObligationPayload>[]
+        }
+        upsert: {
+          args: Prisma.TaxObligationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TaxObligationPayload>
+        }
+        aggregate: {
+          args: Prisma.TaxObligationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTaxObligation>
+        }
+        groupBy: {
+          args: Prisma.TaxObligationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TaxObligationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TaxObligationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TaxObligationCountAggregateOutputType> | number
+        }
+      }
+    }
     BankConnection: {
       payload: Prisma.$BankConnectionPayload<ExtArgs>
       fields: Prisma.BankConnectionFieldRefs
@@ -27690,6 +27840,25 @@ export const CostCenterScalarFieldEnum = {
 export type CostCenterScalarFieldEnum = (typeof CostCenterScalarFieldEnum)[keyof typeof CostCenterScalarFieldEnum]
 
 
+export const ChartOfAccountScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  code: 'code',
+  name: 'name',
+  type: 'type',
+  class: 'class',
+  nature: 'nature',
+  parentId: 'parentId',
+  isActive: 'isActive',
+  isSystem: 'isSystem',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ChartOfAccountScalarFieldEnum = (typeof ChartOfAccountScalarFieldEnum)[keyof typeof ChartOfAccountScalarFieldEnum]
+
+
 export const BankAccountScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -27836,6 +28005,7 @@ export const FinanceEntryPaymentScalarFieldEnum = {
   method: 'method',
   reference: 'reference',
   notes: 'notes',
+  idempotencyKey: 'idempotencyKey',
   createdBy: 'createdBy',
   createdAt: 'createdAt'
 } as const
@@ -31220,6 +31390,25 @@ export const FinanceApprovalRuleScalarFieldEnum = {
 export type FinanceApprovalRuleScalarFieldEnum = (typeof FinanceApprovalRuleScalarFieldEnum)[keyof typeof FinanceApprovalRuleScalarFieldEnum]
 
 
+export const TaxObligationScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  taxType: 'taxType',
+  referenceMonth: 'referenceMonth',
+  referenceYear: 'referenceYear',
+  dueDate: 'dueDate',
+  amount: 'amount',
+  status: 'status',
+  paidAt: 'paidAt',
+  darfCode: 'darfCode',
+  entryId: 'entryId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TaxObligationScalarFieldEnum = (typeof TaxObligationScalarFieldEnum)[keyof typeof TaxObligationScalarFieldEnum]
+
+
 export const BankConnectionScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -33028,6 +33217,48 @@ export type EnumFeatureFlagCategoryFieldRefInput<$PrismaModel> = FieldRefInputTy
  * Reference to a field of type 'FeatureFlagCategory[]'
  */
 export type ListEnumFeatureFlagCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FeatureFlagCategory[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AccountType'
+ */
+export type EnumAccountTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountType'>
+    
+
+
+/**
+ * Reference to a field of type 'AccountType[]'
+ */
+export type ListEnumAccountTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AccountClass'
+ */
+export type EnumAccountClassFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountClass'>
+    
+
+
+/**
+ * Reference to a field of type 'AccountClass[]'
+ */
+export type ListEnumAccountClassFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountClass[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AccountNature'
+ */
+export type EnumAccountNatureFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountNature'>
+    
+
+
+/**
+ * Reference to a field of type 'AccountNature[]'
+ */
+export type ListEnumAccountNatureFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountNature[]'>
     
 
 
@@ -35594,6 +35825,20 @@ export type ListEnumFinanceApprovalActionFieldRefInput<$PrismaModel> = FieldRefI
 
 
 /**
+ * Reference to a field of type 'TaxObligationStatus'
+ */
+export type EnumTaxObligationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TaxObligationStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'TaxObligationStatus[]'
+ */
+export type ListEnumTaxObligationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TaxObligationStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'BankConnectionStatus'
  */
 export type EnumBankConnectionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BankConnectionStatus'>
@@ -36058,6 +36303,7 @@ export type GlobalOmitConfig = {
   tenantUser?: Prisma.TenantUserOmit
   tenantFeatureFlag?: Prisma.TenantFeatureFlagOmit
   costCenter?: Prisma.CostCenterOmit
+  chartOfAccount?: Prisma.ChartOfAccountOmit
   bankAccount?: Prisma.BankAccountOmit
   financeCategory?: Prisma.FinanceCategoryOmit
   financeEntry?: Prisma.FinanceEntryOmit
@@ -36225,6 +36471,7 @@ export type GlobalOmitConfig = {
   esocialEventStatusHistory?: Prisma.EsocialEventStatusHistoryOmit
   esocialTable?: Prisma.EsocialTableOmit
   financeApprovalRule?: Prisma.FinanceApprovalRuleOmit
+  taxObligation?: Prisma.TaxObligationOmit
   bankConnection?: Prisma.BankConnectionOmit
   paymentLink?: Prisma.PaymentLinkOmit
   cashflowSnapshot?: Prisma.CashflowSnapshotOmit

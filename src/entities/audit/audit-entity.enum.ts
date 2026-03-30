@@ -223,6 +223,7 @@ export enum AuditEntity {
   // ==========================================
   // Finance - Financeiro
   // ==========================================
+  CHART_OF_ACCOUNT = 'CHART_OF_ACCOUNT',
   COST_CENTER = 'COST_CENTER',
   BANK_ACCOUNT = 'BANK_ACCOUNT',
   FINANCE_CATEGORY = 'FINANCE_CATEGORY',

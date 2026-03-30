@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { prisma } from '@/lib/prisma';
 import { CertificateManager } from '@/services/esocial/crypto/certificate-manager';
 import { env } from '@/@env';
@@ -39,7 +40,7 @@ export class UploadEsocialCertificateUseCase {
 
     // 2. Check if certificate is already expired
     if (this.certManager.isExpired(certInfo.validUntil)) {
-      throw new Error('O certificado enviado já está expirado.');
+      throw new BadRequestError('O certificado enviado já está expirado.');
     }
 
     // 3. Encrypt PFX for secure storage

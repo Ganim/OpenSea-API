@@ -157,6 +157,12 @@ export interface OverdueByParty {
   oldestDueDate: Date;
 }
 
+export interface CategoryFrequency {
+  categoryId: string;
+  categoryName: string;
+  count: number;
+}
+
 export interface FinanceEntriesRepository {
   create(
     data: CreateFinanceEntrySchema,
@@ -216,4 +222,14 @@ export interface FinanceEntriesRepository {
     tenantId: string,
     limit?: number,
   ): Promise<OverdueByParty[]>;
+
+  // Category suggestion queries
+  findCategoryFrequencyBySupplier(
+    tenantId: string,
+    supplierName: string,
+  ): Promise<CategoryFrequency[]>;
+  findCategoryFrequencyByKeywords(
+    tenantId: string,
+    keywords: string[],
+  ): Promise<CategoryFrequency[]>;
 }

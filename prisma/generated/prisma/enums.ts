@@ -56,6 +56,36 @@ export const FinanceCategoryType = {
 export type FinanceCategoryType = (typeof FinanceCategoryType)[keyof typeof FinanceCategoryType]
 
 
+export const AccountType = {
+  ASSET: 'ASSET',
+  LIABILITY: 'LIABILITY',
+  EQUITY: 'EQUITY',
+  REVENUE: 'REVENUE',
+  EXPENSE: 'EXPENSE'
+} as const
+
+export type AccountType = (typeof AccountType)[keyof typeof AccountType]
+
+
+export const AccountClass = {
+  CURRENT: 'CURRENT',
+  NON_CURRENT: 'NON_CURRENT',
+  OPERATIONAL: 'OPERATIONAL',
+  FINANCIAL: 'FINANCIAL',
+  OTHER: 'OTHER'
+} as const
+
+export type AccountClass = (typeof AccountClass)[keyof typeof AccountClass]
+
+
+export const AccountNature = {
+  DEBIT: 'DEBIT',
+  CREDIT: 'CREDIT'
+} as const
+
+export type AccountNature = (typeof AccountNature)[keyof typeof AccountNature]
+
+
 export const BankAccountType = {
   CHECKING: 'CHECKING',
   SAVINGS: 'SAVINGS',
@@ -3159,6 +3189,16 @@ export const FinanceApprovalAction = {
 } as const
 
 export type FinanceApprovalAction = (typeof FinanceApprovalAction)[keyof typeof FinanceApprovalAction]
+
+
+export const TaxObligationStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  OVERDUE: 'OVERDUE',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type TaxObligationStatus = (typeof TaxObligationStatus)[keyof typeof TaxObligationStatus]
 
 
 export const BankConnectionStatus = {

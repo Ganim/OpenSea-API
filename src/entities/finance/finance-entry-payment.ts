@@ -12,6 +12,7 @@ export interface FinanceEntryPaymentProps {
   method?: PaymentMethod;
   reference?: string;
   notes?: string;
+  idempotencyKey?: string;
   createdBy?: string;
   createdAt: Date;
 }
@@ -40,6 +41,9 @@ export class FinanceEntryPayment extends Entity<FinanceEntryPaymentProps> {
   }
   get notes(): string | undefined {
     return this.props.notes;
+  }
+  get idempotencyKey(): string | undefined {
+    return this.props.idempotencyKey;
   }
   get createdBy(): string | undefined {
     return this.props.createdBy;

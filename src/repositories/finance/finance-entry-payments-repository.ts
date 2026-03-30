@@ -10,6 +10,7 @@ export interface CreateFinanceEntryPaymentSchema {
   method?: string;
   reference?: string;
   notes?: string;
+  idempotencyKey?: string;
   createdBy?: string;
 }
 
@@ -20,6 +21,10 @@ export interface FinanceEntryPaymentsRepository {
   ): Promise<FinanceEntryPayment>;
   findByEntryId(entryId: UniqueEntityID): Promise<FinanceEntryPayment[]>;
   findById(id: UniqueEntityID): Promise<FinanceEntryPayment | null>;
+  findByIdempotencyKey(
+    idempotencyKey: string,
+    tx?: TransactionClient,
+  ): Promise<FinanceEntryPayment | null>;
   sumByEntryId(
     entryId: UniqueEntityID,
     tx?: TransactionClient,

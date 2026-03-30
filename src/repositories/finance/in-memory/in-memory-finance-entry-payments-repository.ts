@@ -25,6 +25,7 @@ export class InMemoryFinanceEntryPaymentsRepository
       method: data.method as PaymentMethod | undefined,
       reference: data.reference,
       notes: data.notes,
+      idempotencyKey: data.idempotencyKey,
       createdBy: data.createdBy,
     });
 
@@ -41,6 +42,14 @@ export class InMemoryFinanceEntryPaymentsRepository
   async findById(id: UniqueEntityID): Promise<FinanceEntryPayment | null> {
     const item = this.items.find((i) => i.id.toString() === id.toString());
     return item ?? null;
+  }
+
+  async findByIdempotencyKey(
+    idempotencyKey: string,
+    _tx?: unknown,
+  ): Promise<FinanceEntryPayment | null> {
+    const payment = this.items.find((i) => i.idempotencyKey === idempotencyKey);
+    return payment ?? null;
   }
 
   async sumByEntryId(entryId: UniqueEntityID, _tx?: unknown): Promise<number> {

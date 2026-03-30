@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+
 /**
  * Aviso Prévio Proporcional — Lei 12.506/2011
  *
@@ -29,7 +31,7 @@ export function calculateNoticeDays(
   terminationDate: Date,
 ): number {
   if (terminationDate < hireDate) {
-    throw new Error(
+    throw new BadRequestError(
       'Termination date cannot be before hire date',
     );
   }

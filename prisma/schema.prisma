@@ -50,6 +50,26 @@ enum FinanceCategoryType {
   REVENUE
   BOTH
 }
+enum AccountType {
+  ASSET
+  LIABILITY
+  EQUITY
+  REVENUE
+  EXPENSE
+}
+
+enum AccountClass {
+  CURRENT
+  NON_CURRENT
+  OPERATIONAL
+  FINANCIAL
+  OTHER
+}
+
+enum AccountNature {
+  DEBIT
+  CREDIT
+}
 
 enum BankAccountType {
   CHECKING
@@ -5163,6 +5183,176 @@ model PerformanceReview {
   @@map("performance_reviews")
 }
 
+// ===============================================
+// SURVEYS (Pesquisas de Clima)
+// ===============================================
+
+model Survey {
+  id          String    @id @default(cuid())
+  tenantId    String    @map("tenant_id")
+  title       String    @db.VarChar(256)
+  description String?   @db.VarChar(2000)
+  type        String    @db.VarChar(32) // ENGAGEMENT, SATISFACTION, PULSE, EXIT, CUSTOM
+  status      String    @default("DRAFT") @db.VarChar(16) // DRAFT, ACTIVE, CLOSED, ARCHIVED
+  isAnonymous Boolean   @default(false) @map("is_anonymous")
+  startDate   DateTime  @map("start_date")
+  endDate     DateTime  @map("end_date")
+  createdBy   String    @map("created_by")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  tenant    Tenant           @relation(fields: [tenantId], references: [id])
+  creator   Employee         @relation("SurveyCreator", fields: [createdBy], references: [id])
+  questions SurveyQuestion[]
+  responses SurveyResponse[]
+
+  @@index([tenantId, status])
+  @@index([tenantId, type])
+  @@index([tenantId, createdBy])
+  @@map("surveys")
+}
+
+model SurveyQuestion {
+  id         String  @id @default(cuid())
+  tenantId   String  @map("tenant_id")
+  surveyId   String  @map("survey_id")
+  text       String  @db.VarChar(1000)
+  type       String  @db.VarChar(32) // RATING_1_5, RATING_1_10, YES_NO, TEXT, MULTIPLE_CHOICE, NPS
+  options    Json?   // For MULTIPLE_CHOICE: ["Option A", "Option B", ...]
+  order      Int
+  isRequired Boolean @default(true) @map("is_required")
+  category   String  @db.VarChar(32) // ENGAGEMENT, LEADERSHIP, CULTURE, WORK_LIFE, GROWTH, COMPENSATION, CUSTOM
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant  Tenant         @relation(fields: [tenantId], references: [id])
+  survey  Survey         @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+  answers SurveyAnswer[]
+
+  @@index([tenantId, surveyId])
+  @@index([surveyId, order])
+  @@map("survey_questions")
+}
+
+model SurveyResponse {
+  id          String    @id @default(cuid())
+  tenantId    String    @map("tenant_id")
+  surveyId    String    @map("survey_id")
+  employeeId  String?   @map("employee_id") // Nullable if anonymous
+  submittedAt DateTime  @default(now()) @map("submitted_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  tenant   Tenant         @relation(fields: [tenantId], references: [id])
+  survey   Survey         @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+  employee Employee?      @relation("SurveyResponseEmployee", fields: [employeeId], references: [id])
+  answers  SurveyAnswer[]
+
+  @@index([tenantId, surveyId])
+  @@index([tenantId, employeeId])
+  @@map("survey_responses")
+}
+
+model SurveyAnswer {
+  id               String  @id @default(cuid())
+  tenantId         String  @map("tenant_id")
+  surveyResponseId String  @map("survey_response_id")
+  questionId       String  @map("question_id")
+  ratingValue      Int?    @map("rating_value")
+  textValue        String? @map("text_value") @db.VarChar(2000)
+  selectedOptions  Json?   @map("selected_options") // For MULTIPLE_CHOICE: ["Option A"]
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  tenant   Tenant         @relation(fields: [tenantId], references: [id])
+  response SurveyResponse @relation(fields: [surveyResponseId], references: [id], onDelete: Cascade)
+  question SurveyQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([surveyResponseId, questionId])
+  @@index([tenantId, surveyResponseId])
+  @@index([tenantId, questionId])
+  @@map("survey_answers")
+}
+
+// ===============================================
+// OKRs (Objectives and Key Results)
+// ===============================================
+
+model Objective {
+  id          String    @id @default(cuid())
+  tenantId    String    @map("tenant_id")
+  title       String    @db.VarChar(256)
+  description String?   @db.VarChar(2000)
+  ownerId     String    @map("owner_id")
+  parentId    String?   @map("parent_id")
+  level       String    @db.VarChar(16) // COMPANY, DEPARTMENT, TEAM, INDIVIDUAL
+  status      String    @default("DRAFT") @db.VarChar(16) // DRAFT, ACTIVE, COMPLETED, CANCELLED
+  period      String    @db.VarChar(16) // e.g., Q1_2026, Q2_2026
+  startDate   DateTime  @map("start_date")
+  endDate     DateTime  @map("end_date")
+  progress    Float     @default(0) // 0-100, computed from key results
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  tenant     Tenant      @relation(fields: [tenantId], references: [id])
+  owner      Employee    @relation("ObjectiveOwner", fields: [ownerId], references: [id])
+  parent     Objective?  @relation("ObjectiveParent", fields: [parentId], references: [id])
+  children   Objective[] @relation("ObjectiveParent")
+  keyResults KeyResult[]
+
+  @@index([tenantId, status])
+  @@index([tenantId, ownerId])
+  @@index([tenantId, level])
+  @@index([tenantId, period])
+  @@index([tenantId, parentId])
+  @@map("objectives")
+}
+
+model KeyResult {
+  id           String  @id @default(cuid())
+  tenantId     String  @map("tenant_id")
+  objectiveId  String  @map("objective_id")
+  title        String  @db.VarChar(256)
+  description  String? @db.VarChar(2000)
+  type         String  @db.VarChar(16) // NUMERIC, PERCENTAGE, CURRENCY, BINARY
+  startValue   Float   @default(0) @map("start_value")
+  targetValue  Float   @map("target_value")
+  currentValue Float   @default(0) @map("current_value")
+  unit         String? @db.VarChar(32)
+  status       String  @default("ON_TRACK") @db.VarChar(16) // ON_TRACK, AT_RISK, BEHIND, COMPLETED
+  weight       Float   @default(1) // For weighted progress calculation
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  tenant    Tenant       @relation(fields: [tenantId], references: [id])
+  objective Objective    @relation(fields: [objectiveId], references: [id], onDelete: Cascade)
+  checkIns  OKRCheckIn[]
+
+  @@index([tenantId, objectiveId])
+  @@index([tenantId, status])
+  @@map("key_results")
+}
+
+model OKRCheckIn {
+  id            String   @id @default(cuid())
+  tenantId      String   @map("tenant_id")
+  keyResultId   String   @map("key_result_id")
+  employeeId    String   @map("employee_id")
+  previousValue Float    @map("previous_value")
+  newValue      Float    @map("new_value")
+  note          String?  @db.VarChar(2000)
+  confidence    String   @db.VarChar(8) // LOW, MEDIUM, HIGH
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  tenant    Tenant    @relation(fields: [tenantId], references: [id])
+  keyResult KeyResult @relation(fields: [keyResultId], references: [id], onDelete: Cascade)
+  employee  Employee  @relation("OKRCheckInEmployee", fields: [employeeId], references: [id])
+
+  @@index([tenantId, keyResultId])
+  @@index([tenantId, employeeId])
+  @@map("okr_check_ins")
+}
+
 model FlexBenefitAllocation {
   id          String    @id @default(cuid())
   tenantId    String    @map("tenant_id")
@@ -5812,6 +6002,21 @@ model Tenant {
   trainingEnrollments       TrainingEnrollment[]
   reviewCycles              ReviewCycle[]
   performanceReviews        PerformanceReview[]
+  // Surveys domain
+  surveys                   Survey[]
+  surveyQuestions           SurveyQuestion[]
+  surveyResponses           SurveyResponse[]
+  surveyAnswers             SurveyAnswer[]
+  // OKRs domain
+  objectives                Objective[]
+  keyResults                KeyResult[]
+  okrCheckIns               OKRCheckIn[]
+  // Recruitment domain
+  jobPostings               JobPosting[]
+  candidates                Candidate[]
+  applications              Application[]
+  interviewStages           InterviewStage[]
+  interviews                Interview[]
   // Audit domain
   auditLogs                 AuditLog[]
   // Core domain
@@ -5836,6 +6041,7 @@ model Tenant {
   financeApprovalRules      FinanceApprovalRule[]
   bankConnections           BankConnection[]
   paymentLinks              PaymentLink[]
+  taxObligations            TaxObligation[]
   // Storage domain
   storageFolders            StorageFolder[]
   storageFiles              StorageFile[]
@@ -6031,6 +6237,8 @@ model Tenant {
   // Auth domain
   authLinks        AuthLink[]
   tenantAuthConfig TenantAuthConfig?
+  // Chart of Accounts domain
+  chartOfAccounts ChartOfAccount[]
 
   @@index([status])
   @@index([deletedAt])
@@ -6202,6 +6410,36 @@ model CostCenter {
   @@index([isActive])
   @@index([deletedAt])
   @@map("cost_centers")
+}
+
+model ChartOfAccount {
+  id String @id @default(uuid())
+
+  tenantId String         @map("tenant_id")
+  code     String         @db.VarChar(20)
+  name     String         @db.VarChar(128)
+  type     AccountType
+  class    AccountClass
+  nature   AccountNature
+  parentId String?        @map("parent_id")
+  isActive Boolean        @default(true) @map("is_active")
+  isSystem Boolean        @default(false) @map("is_system")
+
+  deletedAt DateTime? @map("deleted_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  tenant   Tenant           @relation(fields: [tenantId], references: [id])
+  parent   ChartOfAccount?  @relation("AccountHierarchy", fields: [parentId], references: [id])
+  children ChartOfAccount[] @relation("AccountHierarchy")
+
+  @@unique([tenantId, code], name: "chart_of_accounts_tenant_code_unique")
+  @@index([tenantId])
+  @@index([parentId])
+  @@index([type])
+  @@index([isActive])
+  @@index([deletedAt])
+  @@map("chart_of_accounts")
 }
 
 model BankAccount {
@@ -6386,6 +6624,7 @@ model FinanceEntry {
   overdueActions            OverdueAction[]
   retentions                FinanceEntryRetention[]
   paymentLinks              PaymentLink[]
+  taxObligations            TaxObligation[]
 
   @@unique([code, tenantId, deletedAt], name: "finance_entries_code_tenant_unique_active")
   @@index([tenantId])
@@ -6451,6 +6690,8 @@ model FinanceEntryPayment {
   method    String?  @db.VarChar(32)
   reference String?  @db.VarChar(128)
   notes     String?  @db.Text
+
+  idempotencyKey String? @unique @map("idempotency_key") @db.VarChar(64)
 
   createdBy String?  @map("created_by")
   createdAt DateTime @default(now()) @map("created_at")
@@ -13099,6 +13340,45 @@ model FinanceApprovalRule {
   @@index([tenantId])
   @@index([tenantId, isActive])
   @@map("finance_approval_rules")
+}
+
+// ============================================================================
+// TAX OBLIGATIONS - DARF Calendar & Tracking
+// ============================================================================
+
+enum TaxObligationStatus {
+  PENDING
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
+model TaxObligation {
+  id       String @id @default(uuid())
+  tenantId String @map("tenant_id")
+
+  taxType        String              @map("tax_type") @db.VarChar(20)
+  referenceMonth Int                 @map("reference_month")
+  referenceYear  Int                 @map("reference_year")
+  dueDate        DateTime            @map("due_date")
+  amount         Decimal             @db.Decimal(12, 2)
+  status         TaxObligationStatus @default(PENDING)
+  paidAt         DateTime?           @map("paid_at")
+  darfCode       String?             @map("darf_code") @db.VarChar(10)
+  entryId        String?             @map("entry_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant        @relation(fields: [tenantId], references: [id])
+  entry  FinanceEntry? @relation(fields: [entryId], references: [id])
+
+  @@unique([tenantId, taxType, referenceMonth, referenceYear])
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, referenceYear, referenceMonth])
+  @@index([dueDate])
+  @@map("tax_obligations")
 }
 
 // ============================================================================

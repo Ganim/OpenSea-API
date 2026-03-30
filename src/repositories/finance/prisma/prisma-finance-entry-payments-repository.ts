@@ -26,6 +26,7 @@ export class PrismaFinanceEntryPaymentsRepository
         method: data.method,
         reference: data.reference,
         notes: data.notes,
+        idempotencyKey: data.idempotencyKey,
         createdBy: data.createdBy,
       },
     });
@@ -49,6 +50,19 @@ export class PrismaFinanceEntryPaymentsRepository
       where: {
         id: id.toString(),
       },
+    });
+
+    if (!payment) return null;
+    return financeEntryPaymentPrismaToDomain(payment);
+  }
+
+  async findByIdempotencyKey(
+    idempotencyKey: string,
+    tx?: TransactionClient,
+  ): Promise<FinanceEntryPayment | null> {
+    const client = tx ?? prisma;
+    const payment = await client.financeEntryPayment.findUnique({
+      where: { idempotencyKey },
     });
 
     if (!payment) return null;

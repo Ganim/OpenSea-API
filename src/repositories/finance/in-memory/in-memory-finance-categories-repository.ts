@@ -54,6 +54,17 @@ export class InMemoryFinanceCategoriesRepository
     return item ?? null;
   }
 
+  async findByName(
+    name: string,
+    tenantId: string,
+  ): Promise<FinanceCategory | null> {
+    const item = this.items.find(
+      (i) =>
+        !i.deletedAt && i.name === name && i.tenantId.toString() === tenantId,
+    );
+    return item ?? null;
+  }
+
   async findMany(tenantId: string): Promise<FinanceCategory[]> {
     return this.items.filter(
       (i) => !i.deletedAt && i.tenantId.toString() === tenantId,

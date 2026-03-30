@@ -11,6 +11,7 @@ import type {
   CostCenterSum,
   OverdueSum,
   OverdueByParty,
+  CategoryFrequency,
 } from '../finance-entries-repository';
 
 export class InMemoryFinanceEntriesRepository
@@ -144,7 +145,10 @@ export class InMemoryFinanceEntriesRepository
             : i.competenceDate;
 
         if (!dateToCheck) return false;
-        if (options.competenceDateFrom && dateToCheck < options.competenceDateFrom)
+        if (
+          options.competenceDateFrom &&
+          dateToCheck < options.competenceDateFrom
+        )
           return false;
         if (options.competenceDateTo && dateToCheck > options.competenceDateTo)
           return false;
@@ -539,5 +543,63 @@ export class InMemoryFinanceEntriesRepository
       .sort(([, a], [, b]) => b.total - a.total)
       .slice(0, limit)
       .map(([name, data]) => ({ name, ...data }));
+  }
+
+  // Category suggestion methods
+
+  async findCategoryFrequencyBySupplier(
+    tenantId: string,
+    supplierName: string,
+  ): Promise<CategoryFrequency[]> {
+    const lowerSupplier = supplierName.toLowerCase();
+    const matchingEntries = this.getActiveEntries(tenantId).filter(
+      (entry) =>
+        entry.supplierName?.toLowerCase().includes(lowerSupplier) ||
+        entry.customerName?.toLowerCase().includes(lowerSupplier),
+    );
+
+    const frequencyMap = new Map<string, number>();
+    for (const entry of matchingEntries) {
+      const categoryId = entry.categoryId.toString();
+      frequencyMap.set(categoryId, (frequencyMap.get(categoryId) ?? 0) + 1);
+    }
+
+    return Array.from(frequencyMap.entries())
+      .sort(([, countA], [, countB]) => countB - countA)
+      .slice(0, 3)
+      .map(([categoryId, count]) => ({
+        categoryId,
+        categoryName: this.categoryNames.get(categoryId) ?? categoryId,
+        count,
+      }));
+  }
+
+  async findCategoryFrequencyByKeywords(
+    tenantId: string,
+    keywords: string[],
+  ): Promise<CategoryFrequency[]> {
+    const lowerKeywords = keywords.map((k) => k.toLowerCase());
+    const matchingEntries = this.getActiveEntries(tenantId).filter((entry) =>
+      lowerKeywords.some(
+        (keyword) =>
+          entry.description.toLowerCase().includes(keyword) ||
+          entry.notes?.toLowerCase().includes(keyword),
+      ),
+    );
+
+    const frequencyMap = new Map<string, number>();
+    for (const entry of matchingEntries) {
+      const categoryId = entry.categoryId.toString();
+      frequencyMap.set(categoryId, (frequencyMap.get(categoryId) ?? 0) + 1);
+    }
+
+    return Array.from(frequencyMap.entries())
+      .sort(([, countA], [, countB]) => countB - countA)
+      .slice(0, 3)
+      .map(([categoryId, count]) => ({
+        categoryId,
+        categoryName: this.categoryNames.get(categoryId) ?? categoryId,
+        count,
+      }));
   }
 }

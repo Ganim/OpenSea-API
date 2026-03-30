@@ -1,4 +1,8 @@
 import type { BankAccount } from '@/entities/finance/bank-account';
+import {
+  maskAccountNumber,
+  maskPixKey,
+} from '@/utils/finance/mask-sensitive-data';
 
 export interface BankAccountDTO {
   id: string;
@@ -10,10 +14,12 @@ export interface BankAccountDTO {
   agencyDigit?: string;
   accountNumber: string;
   accountDigit?: string;
+  maskedAccountNumber: string;
   accountType: string;
   status: string;
   pixKeyType?: string;
   pixKey?: string;
+  maskedPixKey?: string | null;
   currentBalance: number;
   balanceUpdatedAt?: Date;
   color?: string;
@@ -23,7 +29,12 @@ export interface BankAccountDTO {
   deletedAt?: Date;
 }
 
-export function bankAccountToDTO(bankAccount: BankAccount): BankAccountDTO {
+export function bankAccountToDTO(
+  bankAccount: BankAccount,
+  options?: { maskSensitiveData?: boolean },
+): BankAccountDTO {
+  const shouldMask = options?.maskSensitiveData ?? false;
+
   return {
     id: bankAccount.id.toString(),
     companyId: bankAccount.companyId?.toString(),
@@ -32,12 +43,16 @@ export function bankAccountToDTO(bankAccount: BankAccount): BankAccountDTO {
     bankName: bankAccount.bankName,
     agency: bankAccount.agency,
     agencyDigit: bankAccount.agencyDigit,
-    accountNumber: bankAccount.accountNumber,
+    accountNumber: shouldMask
+      ? maskAccountNumber(bankAccount.accountNumber)
+      : bankAccount.accountNumber,
     accountDigit: bankAccount.accountDigit,
+    maskedAccountNumber: maskAccountNumber(bankAccount.accountNumber),
     accountType: bankAccount.accountType,
     status: bankAccount.status,
     pixKeyType: bankAccount.pixKeyType,
-    pixKey: bankAccount.pixKey,
+    pixKey: shouldMask ? undefined : bankAccount.pixKey,
+    maskedPixKey: maskPixKey(bankAccount.pixKey),
     currentBalance: bankAccount.currentBalance,
     balanceUpdatedAt: bankAccount.balanceUpdatedAt,
     color: bankAccount.color,

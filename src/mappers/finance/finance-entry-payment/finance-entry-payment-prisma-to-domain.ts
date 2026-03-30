@@ -18,6 +18,7 @@ export function financeEntryPaymentPrismaToDomain(
       method: (raw.method as PaymentMethod) ?? undefined,
       reference: raw.reference ?? undefined,
       notes: raw.notes ?? undefined,
+      idempotencyKey: raw.idempotencyKey ?? undefined,
       createdBy: raw.createdBy ?? undefined,
       createdAt: raw.createdAt,
     },

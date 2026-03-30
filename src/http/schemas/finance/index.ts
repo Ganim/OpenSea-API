@@ -1,3 +1,4 @@
+export * from './chart-of-account.schema';
 export * from './cost-center.schema';
 export * from './bank-account.schema';
 export * from './finance-category.schema';
@@ -14,3 +15,5 @@ export * from './reconciliation.schema';
 export * from './pix-charge.schema';
 export * from './email-to-entry.schema';
 export * from './supplier-summary.schema';
+export * from './suggest-category.schema';
+export * from './cashflow-alerts.schema';

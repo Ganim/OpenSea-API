@@ -1,3 +1,4 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { prisma } from '@/lib/prisma';
 
 export interface GetEsocialEventRequest {
@@ -47,7 +48,7 @@ export class GetEsocialEventUseCase {
     });
 
     if (!event) {
-      throw new Error('Evento não encontrado.');
+      throw new ResourceNotFoundError('Evento não encontrado.');
     }
 
     return {

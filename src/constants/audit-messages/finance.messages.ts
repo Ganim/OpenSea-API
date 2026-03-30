@@ -5,6 +5,31 @@ import type { AuditMessage } from './types';
 
 export const FINANCE_AUDIT_MESSAGES = {
   // ============================================================================
+  // CHART OF ACCOUNTS - Plano de Contas
+  // ============================================================================
+
+  CHART_OF_ACCOUNT_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.CHART_OF_ACCOUNT,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} criou a conta contábil {{accountName}}',
+  } satisfies AuditMessage,
+
+  CHART_OF_ACCOUNT_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.CHART_OF_ACCOUNT,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} atualizou a conta contábil {{accountName}}',
+  } satisfies AuditMessage,
+
+  CHART_OF_ACCOUNT_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.CHART_OF_ACCOUNT,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} excluiu a conta contábil {{accountName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
   // COST CENTERS - Centros de Custo
   // ============================================================================
 

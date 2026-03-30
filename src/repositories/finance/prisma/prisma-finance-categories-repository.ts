@@ -66,6 +66,22 @@ export class PrismaFinanceCategoriesRepository
     return financeCategoryPrismaToDomain(category);
   }
 
+  async findByName(
+    name: string,
+    tenantId: string,
+  ): Promise<FinanceCategory | null> {
+    const category = await prisma.financeCategory.findFirst({
+      where: {
+        name,
+        tenantId,
+        deletedAt: null,
+      },
+    });
+
+    if (!category) return null;
+    return financeCategoryPrismaToDomain(category);
+  }
+
   async findMany(tenantId: string): Promise<FinanceCategory[]> {
     const categories = await prisma.financeCategory.findMany({
       where: {

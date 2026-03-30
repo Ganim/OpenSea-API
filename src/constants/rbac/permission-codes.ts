@@ -107,6 +107,12 @@ export const PermissionCodes = {
   // FINANCE — Financeiro
   // ============================================================================
   FINANCE: {
+    CHART_OF_ACCOUNTS: {
+      ACCESS: 'finance.chart-of-accounts.access' as const,
+      REGISTER: 'finance.chart-of-accounts.register' as const,
+      MODIFY: 'finance.chart-of-accounts.modify' as const,
+      REMOVE: 'finance.chart-of-accounts.remove' as const,
+    },
     CATEGORIES: {
       ACCESS: 'finance.categories.access' as const,
       REGISTER: 'finance.categories.register' as const,
@@ -184,6 +190,11 @@ export const PermissionCodes = {
       REGISTER: 'finance.budgets.register' as const,
       MODIFY: 'finance.budgets.modify' as const,
       REMOVE: 'finance.budgets.remove' as const,
+    },
+    COMPLIANCE: {
+      ACCESS: 'finance.compliance.access' as const,
+      EXPORT: 'finance.compliance.export' as const,
+      MODIFY: 'finance.compliance.modify' as const,
     },
   },
 

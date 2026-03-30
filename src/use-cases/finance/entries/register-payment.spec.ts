@@ -512,6 +512,51 @@ describe('RegisterPaymentUseCase', () => {
     expect(result.entry.status).toBe('PAID');
   });
 
+  // --- IDEMPOTENCY TESTS ---
+
+  it('should return cached result when idempotencyKey already exists', async () => {
+    const createdEntry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAG-IDEMP',
+      description: 'Idempotency test',
+      categoryId: 'category-1',
+      expectedAmount: 5000,
+      issueDate: new Date('2026-02-01'),
+      dueDate: new Date('2026-02-28'),
+    });
+
+    const idempotencyKey = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890';
+
+    // First call: should create the payment
+    const firstResult = await sut.execute({
+      entryId: createdEntry.id.toString(),
+      tenantId: 'tenant-1',
+      amount: 5000,
+      paidAt: new Date('2026-02-15'),
+      method: 'PIX',
+      idempotencyKey,
+    });
+
+    expect(firstResult.payment.amount).toBe(5000);
+    expect(firstResult.entry.status).toBe('PAID');
+    expect(paymentsRepository.items).toHaveLength(1);
+
+    // Second call with same idempotencyKey: should return cached result, NOT create duplicate
+    const secondResult = await sut.execute({
+      entryId: createdEntry.id.toString(),
+      tenantId: 'tenant-1',
+      amount: 5000,
+      paidAt: new Date('2026-02-15'),
+      method: 'PIX',
+      idempotencyKey,
+    });
+
+    expect(secondResult.payment.amount).toBe(5000);
+    // Should still be only 1 payment
+    expect(paymentsRepository.items).toHaveLength(1);
+  });
+
   it('should not calculate interest/penalty when category has no rates', async () => {
     // Category without rates
     const category = await categoriesRepository.create({

@@ -9,6 +9,8 @@
  *  33+   faltas injustificadas → 0 dias (perde o direito)
  */
 
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+
 /**
  * Calculate vacation days based on unjustified absences in the acquisition period.
  *
@@ -17,7 +19,7 @@
  */
 export function calculateVacationDays(unjustifiedAbsences: number): number {
   if (unjustifiedAbsences < 0) {
-    throw new Error('Unjustified absences cannot be negative');
+    throw new BadRequestError('Unjustified absences cannot be negative');
   }
 
   if (unjustifiedAbsences <= 5) return 30;

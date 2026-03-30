@@ -39,6 +39,7 @@ export interface FinanceCategoriesRepository {
     tenantId: string,
   ): Promise<FinanceCategory | null>;
   findBySlug(slug: string, tenantId: string): Promise<FinanceCategory | null>;
+  findByName(name: string, tenantId: string): Promise<FinanceCategory | null>;
   findMany(tenantId: string): Promise<FinanceCategory[]>;
   findByParentId(
     parentId: UniqueEntityID,

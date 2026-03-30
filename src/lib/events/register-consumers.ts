@@ -14,6 +14,7 @@ import { notificationConsumer } from './consumers/notification-consumer';
 import {
   financeOrderPaymentConsumer,
   financePixPaymentConsumer,
+  financeOrderConfirmedConsumer,
 } from './consumers/finance-consumer';
 import { marketplaceOrderImportConsumer } from './consumers/marketplace-consumer';
 import { dealWonOrderCreationConsumer } from './consumers/deal-won-consumer';
@@ -31,7 +32,8 @@ export function registerEventConsumers(eventBus: TypedEventBus): void {
   // Notifications module — in-app alerts for high-priority events
   eventBus.register(notificationConsumer);
 
-  // Finance module — auto-create entries on order payment and PIX receipt
+  // Finance module — auto-create entries on order confirm, payment and PIX receipt
+  eventBus.register(financeOrderConfirmedConsumer);
   eventBus.register(financeOrderPaymentConsumer);
   eventBus.register(financePixPaymentConsumer);
 

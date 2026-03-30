@@ -14,6 +14,9 @@ import { getPredictiveCashflowController } from './v1-get-predictive-cashflow.co
 import { getPaymentTimingController } from './v1-get-payment-timing.controller';
 import { getCashflowAccuracyController } from './v1-get-cashflow-accuracy.controller';
 import { getFinancialHealthController } from './v1-get-financial-health.controller';
+import { getBalanceSheetController } from './v1-get-balance-sheet.controller';
+import { getDashboardQuickActionsController } from './v1-get-dashboard-quick-actions.controller';
+import { checkCashFlowAlertsController } from './v1-check-cashflow-alerts.controller';
 
 export async function financeDashboardRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
@@ -25,6 +28,8 @@ export async function financeDashboardRoutes(app: FastifyInstance) {
       queryApp.register(getFinanceDashboardController);
       queryApp.register(getCashflowController);
       queryApp.register(getFinanceOverviewController);
+      queryApp.register(getDashboardQuickActionsController);
+      queryApp.register(checkCashFlowAlertsController);
     },
     { prefix: '' },
   );
@@ -41,6 +46,7 @@ export async function financeDashboardRoutes(app: FastifyInstance) {
       heavyApp.register(getPaymentTimingController);
       heavyApp.register(getCashflowAccuracyController);
       heavyApp.register(getFinancialHealthController);
+      heavyApp.register(getBalanceSheetController);
     },
     { prefix: '' },
   );

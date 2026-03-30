@@ -23,6 +23,7 @@ import type {
   CostCenterSum,
   OverdueSum,
   OverdueByParty,
+  CategoryFrequency,
 } from '../finance-entries-repository';
 
 const { encryptedFields } = ENCRYPTED_FIELD_CONFIG.FinanceEntry;
@@ -214,21 +215,31 @@ export class PrismaFinanceEntriesRepository
         where.OR = [
           {
             competenceDate: {
-              ...(options.competenceDateFrom && { gte: options.competenceDateFrom }),
-              ...(options.competenceDateTo && { lte: options.competenceDateTo }),
+              ...(options.competenceDateFrom && {
+                gte: options.competenceDateFrom,
+              }),
+              ...(options.competenceDateTo && {
+                lte: options.competenceDateTo,
+              }),
             },
           },
           {
             competenceDate: null,
             issueDate: {
-              ...(options.competenceDateFrom && { gte: options.competenceDateFrom }),
-              ...(options.competenceDateTo && { lte: options.competenceDateTo }),
+              ...(options.competenceDateFrom && {
+                gte: options.competenceDateFrom,
+              }),
+              ...(options.competenceDateTo && {
+                lte: options.competenceDateTo,
+              }),
             },
           },
         ];
       } else {
         where.competenceDate = {
-          ...(options.competenceDateFrom && { gte: options.competenceDateFrom }),
+          ...(options.competenceDateFrom && {
+            gte: options.competenceDateFrom,
+          }),
           ...(options.competenceDateTo && { lte: options.competenceDateTo }),
         };
       }
@@ -530,8 +541,14 @@ export class PrismaFinanceEntriesRepository
     const results = await baseQuery(truncExpr);
 
     return results.map((r) => ({
-      date: r.date instanceof Date ? r.date.toISOString().split('T')[0] : String(r.date),
-      total: r.total !== null && r.total !== undefined ? parseFloat(Number(r.total).toFixed(2)) : 0,
+      date:
+        r.date instanceof Date
+          ? r.date.toISOString().split('T')[0]
+          : String(r.date),
+      total:
+        r.total !== null && r.total !== undefined
+          ? parseFloat(Number(r.total).toFixed(2))
+          : 0,
     }));
   }
 
@@ -541,7 +558,11 @@ export class PrismaFinanceEntriesRepository
     from: Date,
     to: Date,
   ): Promise<CategorySum[]> {
-    type RawCategorySum = { categoryId: string; categoryName: string; total: Prisma.Decimal };
+    type RawCategorySum = {
+      categoryId: string;
+      categoryName: string;
+      total: Prisma.Decimal;
+    };
 
     const results = type
       ? await prisma.$queryRaw<RawCategorySum[]>`
@@ -569,7 +590,10 @@ export class PrismaFinanceEntriesRepository
     return results.map((r) => ({
       categoryId: r.categoryId,
       categoryName: r.categoryName,
-      total: r.total !== null && r.total !== undefined ? parseFloat(Number(r.total).toFixed(2)) : 0,
+      total:
+        r.total !== null && r.total !== undefined
+          ? parseFloat(Number(r.total).toFixed(2))
+          : 0,
     }));
   }
 
@@ -579,7 +603,11 @@ export class PrismaFinanceEntriesRepository
     from: Date,
     to: Date,
   ): Promise<CostCenterSum[]> {
-    type RawCostCenterSum = { costCenterId: string; costCenterName: string; total: Prisma.Decimal };
+    type RawCostCenterSum = {
+      costCenterId: string;
+      costCenterName: string;
+      total: Prisma.Decimal;
+    };
 
     const results = type
       ? await prisma.$queryRaw<RawCostCenterSum[]>`
@@ -607,7 +635,10 @@ export class PrismaFinanceEntriesRepository
     return results.map((r) => ({
       costCenterId: r.costCenterId,
       costCenterName: r.costCenterName,
-      total: r.total !== null && r.total !== undefined ? parseFloat(Number(r.total).toFixed(2)) : 0,
+      total:
+        r.total !== null && r.total !== undefined
+          ? parseFloat(Number(r.total).toFixed(2))
+          : 0,
     }));
   }
 
@@ -653,9 +684,11 @@ export class PrismaFinanceEntriesRepository
     });
 
     return {
-      total: result._sum.expectedAmount !== null && result._sum.expectedAmount !== undefined
-        ? parseFloat(Number(result._sum.expectedAmount).toFixed(2))
-        : 0,
+      total:
+        result._sum.expectedAmount !== null &&
+        result._sum.expectedAmount !== undefined
+          ? parseFloat(Number(result._sum.expectedAmount).toFixed(2))
+          : 0,
       count: result._count.id,
     };
   }
@@ -686,7 +719,10 @@ export class PrismaFinanceEntriesRepository
 
     return results.map((r) => ({
       name: r.name,
-      total: r.total !== null && r.total !== undefined ? parseFloat(Number(r.total).toFixed(2)) : 0,
+      total:
+        r.total !== null && r.total !== undefined
+          ? parseFloat(Number(r.total).toFixed(2))
+          : 0,
       count: Number(r.count),
       oldestDueDate: r.oldestDueDate,
     }));
@@ -718,9 +754,74 @@ export class PrismaFinanceEntriesRepository
 
     return results.map((r) => ({
       name: r.name,
-      total: r.total !== null && r.total !== undefined ? parseFloat(Number(r.total).toFixed(2)) : 0,
+      total:
+        r.total !== null && r.total !== undefined
+          ? parseFloat(Number(r.total).toFixed(2))
+          : 0,
       count: Number(r.count),
       oldestDueDate: r.oldestDueDate,
+    }));
+  }
+
+  async findCategoryFrequencyBySupplier(
+    tenantId: string,
+    supplierName: string,
+  ): Promise<CategoryFrequency[]> {
+    const searchTerm = `%${supplierName}%`;
+
+    const results = await prisma.$queryRaw<
+      { categoryId: string; categoryName: string; count: bigint }[]
+    >`
+      SELECT e."category_id" as "categoryId", c."name" as "categoryName", COUNT(*) as count
+      FROM "finance_entries" e
+      JOIN "finance_categories" c ON c."id" = e."category_id"
+      WHERE e."tenant_id" = ${tenantId}
+        AND e."deleted_at" IS NULL
+        AND (e."supplier_name" ILIKE ${searchTerm} OR e."customer_name" ILIKE ${searchTerm})
+      GROUP BY e."category_id", c."name"
+      ORDER BY count DESC
+      LIMIT 3`;
+
+    return results.map((r) => ({
+      categoryId: r.categoryId,
+      categoryName: r.categoryName,
+      count: Number(r.count),
+    }));
+  }
+
+  async findCategoryFrequencyByKeywords(
+    tenantId: string,
+    keywords: string[],
+  ): Promise<CategoryFrequency[]> {
+    if (keywords.length === 0) return [];
+
+    const searchPatterns = keywords.map((k) => `%${k}%`);
+
+    const conditions = Prisma.join(
+      searchPatterns.map(
+        (pattern) =>
+          Prisma.sql`(e."description" ILIKE ${pattern} OR e."notes" ILIKE ${pattern})`,
+      ),
+      ' OR ',
+    );
+
+    const results = await prisma.$queryRaw<
+      { categoryId: string; categoryName: string; count: bigint }[]
+    >`
+      SELECT e."category_id" as "categoryId", c."name" as "categoryName", COUNT(*) as count
+      FROM "finance_entries" e
+      JOIN "finance_categories" c ON c."id" = e."category_id"
+      WHERE e."tenant_id" = ${tenantId}
+        AND e."deleted_at" IS NULL
+        AND (${conditions})
+      GROUP BY e."category_id", c."name"
+      ORDER BY count DESC
+      LIMIT 3`;
+
+    return results.map((r) => ({
+      categoryId: r.categoryId,
+      categoryName: r.categoryName,
+      count: Number(r.count),
     }));
   }
 }

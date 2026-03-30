@@ -3,6 +3,7 @@ import type {
   TransactionClient,
   TransactionManager,
 } from '@/lib/transaction-manager';
+import type { FinanceApprovalRulesRepository } from '@/repositories/finance/finance-approval-rules-repository';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 import type { FinanceEntryPaymentsRepository } from '@/repositories/finance/finance-entry-payments-repository';
 import { queueAuditLog } from '@/workers/queues/audit.queue';
@@ -35,6 +36,7 @@ export class BulkPayEntriesUseCase {
     private financeEntriesRepository: FinanceEntriesRepository,
     private financeEntryPaymentsRepository: FinanceEntryPaymentsRepository,
     private transactionManager: TransactionManager,
+    private approvalRulesRepository?: FinanceApprovalRulesRepository,
   ) {}
 
   async execute(
@@ -71,6 +73,30 @@ export class BulkPayEntriesUseCase {
               error: `Cannot pay entry with status ${entry.status}`,
             });
             continue;
+          }
+
+          // Check approval rules: skip entries that require approval but haven't been approved
+          if (this.approvalRulesRepository) {
+            const approvalRules =
+              await this.approvalRulesRepository.findActiveByTenant(tenantId);
+
+            const requiresApproval = approvalRules.some(
+              (rule) =>
+                rule.action === 'FLAG_REVIEW' &&
+                (!rule.maxAmount || entry.expectedAmount <= rule.maxAmount),
+            );
+
+            if (
+              requiresApproval &&
+              !entry.tags.includes('auto-approved') &&
+              !entry.tags.includes('manually-approved')
+            ) {
+              errors.push({
+                entryId,
+                error: 'Lançamento requer aprovação antes do pagamento',
+              });
+              continue;
+            }
           }
 
           const existingPaymentsSum =

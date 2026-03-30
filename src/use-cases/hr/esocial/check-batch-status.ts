@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { prisma } from '@/lib/prisma';
 import { CertificateManager } from '@/services/esocial/crypto/certificate-manager';
 import { EsocialSoapClient } from '@/services/esocial/transmitter/soap-client';
@@ -39,11 +41,11 @@ export class CheckBatchStatusUseCase {
     });
 
     if (!batch) {
-      throw new Error('Lote não encontrado.');
+      throw new ResourceNotFoundError('Lote não encontrado.');
     }
 
     if (!batch.protocol) {
-      throw new Error('Lote não possui protocolo. Transmita o lote primeiro.');
+      throw new BadRequestError('Lote não possui protocolo. Transmita o lote primeiro.');
     }
 
     // 2. Get config
@@ -52,7 +54,7 @@ export class CheckBatchStatusUseCase {
     });
 
     if (!config) {
-      throw new Error('Configuração do eSocial não encontrada.');
+      throw new ResourceNotFoundError('Configuração do eSocial não encontrada.');
     }
 
     // 3. Get and decrypt certificate
@@ -61,7 +63,7 @@ export class CheckBatchStatusUseCase {
     });
 
     if (!certificate) {
-      throw new Error('Certificado digital não encontrado.');
+      throw new ResourceNotFoundError('Certificado digital não encontrado.');
     }
 
     const encryptionKey = env.ESOCIAL_ENCRYPTION_KEY || env.JWT_SECRET;

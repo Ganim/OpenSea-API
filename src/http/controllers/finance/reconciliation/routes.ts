@@ -13,6 +13,7 @@ import { completeReconciliationController } from './v1-complete-reconciliation.c
 import { listReconciliationSuggestionsController } from './v1-list-reconciliation-suggestions.controller';
 import { acceptReconciliationSuggestionController } from './v1-accept-reconciliation-suggestion.controller';
 import { rejectReconciliationSuggestionController } from './v1-reject-reconciliation-suggestion.controller';
+import { processCnabReturnController } from './v1-process-cnab-return.controller';
 
 export async function reconciliationRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
@@ -42,11 +43,12 @@ export async function reconciliationRoutes(app: FastifyInstance) {
     { prefix: '' },
   );
 
-  // Heavy operations — OFX import is file processing
+  // Heavy operations — OFX import and CNAB processing
   app.register(
     async (heavyApp) => {
       heavyApp.register(rateLimit, rateLimitConfig.financeBulk);
       heavyApp.register(importOfxReconciliationController);
+      heavyApp.register(processCnabReturnController);
     },
     { prefix: '' },
   );

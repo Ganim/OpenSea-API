@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+const MAX_PAST_DAYS = 365;
+const MAX_FUTURE_DAYS = 730;
+const MS_PER_DAY = 86_400_000;
+
 const costCenterAllocationSchema = z.object({
   costCenterId: z.string().uuid(),
   percentage: z.number().min(0.01).max(100),
@@ -59,8 +63,24 @@ export const createFinanceEntrySchema = z
       .describe('Valor de desconto em reais'),
     interest: z.number().min(0).optional().describe('Valor de juros em reais'),
     penalty: z.number().min(0).optional().describe('Valor de multa em reais'),
-    issueDate: z.coerce.date().describe('Data de emissão (ISO 8601)'),
-    dueDate: z.coerce.date().describe('Data de vencimento (ISO 8601)'),
+    issueDate: z.coerce
+      .date()
+      .refine(
+        (d) => d >= new Date(Date.now() - MAX_PAST_DAYS * MS_PER_DAY),
+        'Data de emissão não pode ser anterior a 1 ano',
+      )
+      .refine(
+        (d) => d <= new Date(Date.now() + MAX_FUTURE_DAYS * MS_PER_DAY),
+        'Data de emissão não pode ser superior a 2 anos',
+      )
+      .describe('Data de emissão (ISO 8601)'),
+    dueDate: z.coerce
+      .date()
+      .refine(
+        (d) => d <= new Date(Date.now() + MAX_FUTURE_DAYS * MS_PER_DAY),
+        'Data de vencimento não pode ser superior a 2 anos',
+      )
+      .describe('Data de vencimento (ISO 8601)'),
     competenceDate: z.coerce
       .date()
       .optional()
@@ -150,14 +170,21 @@ export const createFinanceEntrySchema = z
         applyPIS: z.boolean().optional().describe('Reter PIS'),
         applyCOFINS: z.boolean().optional().describe('Reter COFINS'),
         applyCSLL: z.boolean().optional().describe('Reter CSLL'),
-        issRate: z.number().min(0).max(0.05).optional().describe('Alíquota ISS customizada'),
+        issRate: z
+          .number()
+          .min(0)
+          .max(0.05)
+          .optional()
+          .describe('Alíquota ISS customizada'),
         taxRegime: z
           .enum(['CUMULATIVO', 'NAO_CUMULATIVO'])
           .optional()
           .describe('Regime tributário para PIS/COFINS'),
       })
       .optional()
-      .describe('Configuração das retenções tributárias (requer applyRetentions=true)'),
+      .describe(
+        'Configuração das retenções tributárias (requer applyRetentions=true)',
+      ),
   })
   .refine(
     (data) =>

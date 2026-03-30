@@ -1,3 +1,4 @@
+import { InMemoryFinanceApprovalRulesRepository } from '@/repositories/finance/in-memory/in-memory-finance-approval-rules-repository';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
 import { InMemoryFinanceEntryPaymentsRepository } from '@/repositories/finance/in-memory/in-memory-finance-entry-payments-repository';
 import type { TransactionManager } from '@/lib/transaction-manager';
@@ -151,6 +152,64 @@ describe('BulkPayEntriesUseCase', () => {
 
     expect(result.succeeded).toBe(1);
     expect(result.failed).toBe(2);
+  });
+
+  it('should skip entries that require approval but are not approved', async () => {
+    const approvalRulesRepository =
+      new InMemoryFinanceApprovalRulesRepository();
+
+    // Create a FLAG_REVIEW rule for all entries up to 50000
+    await approvalRulesRepository.create({
+      tenantId: 'tenant-1',
+      name: 'Review all entries',
+      isActive: true,
+      action: 'FLAG_REVIEW',
+      maxAmount: 50000,
+    });
+
+    const sutWithApproval = new BulkPayEntriesUseCase(
+      entriesRepository,
+      paymentsRepository,
+      fakeTransactionManager,
+      approvalRulesRepository,
+    );
+
+    // Create entry WITHOUT approval tag
+    const unapprovedEntry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAG-UNAP',
+      description: 'Requires approval',
+      categoryId: 'category-1',
+      expectedAmount: 5000,
+      issueDate: new Date('2026-01-01'),
+      dueDate: new Date('2026-02-01'),
+    });
+
+    // Create entry WITH approval tag
+    const approvedEntry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAG-APPR',
+      description: 'Already approved',
+      categoryId: 'category-1',
+      expectedAmount: 3000,
+      issueDate: new Date('2026-01-01'),
+      dueDate: new Date('2026-02-01'),
+      tags: ['auto-approved'],
+    });
+
+    const result = await sutWithApproval.execute({
+      tenantId: 'tenant-1',
+      entryIds: [unapprovedEntry.id.toString(), approvedEntry.id.toString()],
+      bankAccountId: 'bank-1',
+      method: 'PIX',
+    });
+
+    // Approved entry should succeed, unapproved should fail
+    expect(result.succeeded).toBe(1);
+    expect(result.failed).toBe(1);
+    expect(result.errors[0].error).toContain('aprovação');
   });
 
   it('should not pay entries from another tenant', async () => {

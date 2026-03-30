@@ -35,6 +35,10 @@ import { makeGetFinanceDashboardUseCase } from '@/use-cases/finance/dashboard/fa
 import { makeGetCashflowUseCase } from '@/use-cases/finance/dashboard/factories/make-get-cashflow-use-case';
 import { makeGetForecastUseCase } from '@/use-cases/finance/dashboard/factories/make-get-forecast-use-case';
 
+// === AI / Suggestion Factories ===
+import { makeSuggestCategoryUseCase } from '@/use-cases/finance/entries/factories/make-suggest-category-use-case';
+import { makeCheckCashFlowAlertsUseCase } from '@/use-cases/finance/alerts/factories/make-check-cashflow-alerts-use-case';
+
 // ─── Helpers ─────────────────────────────────────────────────────────
 
 function clampLimit(limit: unknown, fallback = 10): number {
@@ -1391,17 +1395,19 @@ export function getFinanceHandlers(): Record<string, ToolHandler> {
           analyzedPeriod: result.analyzedPeriod,
           totalEntriesAnalyzed: result.totalEntriesAnalyzed,
           categoriesAnalyzed: result.categoriesAnalyzed,
-          anomalies: result.anomalies.slice(0, TOOL_LIST_MAX_ITEMS).map((a) => ({
-            type: a.type,
-            severity: a.severity,
-            entryId: a.entryId,
-            categoryName: a.categoryName,
-            supplierName: a.supplierName,
-            currentValue: a.currentValue,
-            expectedValue: a.expectedValue,
-            deviationPercent: a.deviationPercent,
-            description: a.description,
-          })),
+          anomalies: result.anomalies
+            .slice(0, TOOL_LIST_MAX_ITEMS)
+            .map((a) => ({
+              type: a.type,
+              severity: a.severity,
+              entryId: a.entryId,
+              categoryName: a.categoryName,
+              supplierName: a.supplierName,
+              currentValue: a.currentValue,
+              expectedValue: a.expectedValue,
+              deviationPercent: a.deviationPercent,
+              description: a.description,
+            })),
         };
       },
     },
@@ -1414,7 +1420,10 @@ export function getFinanceHandlers(): Record<string, ToolHandler> {
         const { makeSuggestPaymentTimingUseCase } = await import(
           '@/use-cases/finance/analytics/factories/make-suggest-payment-timing-use-case'
         );
-        const daysAhead = Math.min(Math.max(1, (args.daysAhead as number) ?? 30), 90);
+        const daysAhead = Math.min(
+          Math.max(1, (args.daysAhead as number) ?? 30),
+          90,
+        );
 
         const useCase = makeSuggestPaymentTimingUseCase();
         const result = await useCase.execute({
@@ -1422,25 +1431,28 @@ export function getFinanceHandlers(): Record<string, ToolHandler> {
           daysAhead,
         });
 
-        const summaryText = result.suggestions.length === 0
-          ? `Analisei ${result.analyzedEntries} lançamento(s) a pagar e não encontrei otimizações de timing. Todos os pagamentos estão no prazo ideal.`
-          : `Encontrei ${result.suggestions.length} sugestão(ões) de otimização de pagamento com economia potencial de R$ ${result.totalPotentialSavings.toFixed(2)}.`;
+        const summaryText =
+          result.suggestions.length === 0
+            ? `Analisei ${result.analyzedEntries} lançamento(s) a pagar e não encontrei otimizações de timing. Todos os pagamentos estão no prazo ideal.`
+            : `Encontrei ${result.suggestions.length} sugestão(ões) de otimização de pagamento com economia potencial de R$ ${result.totalPotentialSavings.toFixed(2)}.`;
 
         return {
           summary: summaryText,
           totalPotentialSavings: result.totalPotentialSavings,
           analyzedEntries: result.analyzedEntries,
-          suggestions: result.suggestions.slice(0, TOOL_LIST_MAX_ITEMS).map((s) => ({
-            entryId: s.entryId,
-            supplierName: s.supplierName,
-            amount: s.amount,
-            currentDueDate: s.currentDueDate,
-            suggestedPayDate: s.suggestedPayDate,
-            reason: s.reason,
-            savingsAmount: s.savingsAmount,
-            priority: s.priority,
-            type: s.type,
-          })),
+          suggestions: result.suggestions
+            .slice(0, TOOL_LIST_MAX_ITEMS)
+            .map((s) => ({
+              entryId: s.entryId,
+              supplierName: s.supplierName,
+              amount: s.amount,
+              currentDueDate: s.currentDueDate,
+              suggestedPayDate: s.suggestedPayDate,
+              reason: s.reason,
+              savingsAmount: s.savingsAmount,
+              priority: s.priority,
+              type: s.type,
+            })),
         };
       },
     },
@@ -1475,7 +1487,10 @@ export function getFinanceHandlers(): Record<string, ToolHandler> {
           };
         } catch (error) {
           return {
-            error: error instanceof Error ? error.message : 'Erro ao executar matching',
+            error:
+              error instanceof Error
+                ? error.message
+                : 'Erro ao executar matching',
           };
         }
       },
@@ -1549,6 +1564,77 @@ export function getFinanceHandlers(): Record<string, ToolHandler> {
           totalEntries: result.meta.total,
           grandTotal,
           dailyGroups,
+        };
+      },
+    },
+
+    // =========================================================
+    // AI / AUTO-CATEGORIZATION & ALERTS
+    // =========================================================
+
+    finance_suggest_category: {
+      async execute(
+        args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
+        const supplierName = args.supplierName as string | undefined;
+        const description = args.description as string | undefined;
+
+        if (!supplierName && !description) {
+          return {
+            error:
+              'Informe ao menos supplierName ou description para sugestão.',
+          };
+        }
+
+        const useCase = makeSuggestCategoryUseCase();
+        const { suggestions } = await useCase.execute({
+          tenantId: context.tenantId,
+          supplierName,
+          description,
+        });
+
+        if (suggestions.length === 0) {
+          return {
+            message:
+              'Nenhuma sugestão encontrada. Não há dados históricos suficientes para este fornecedor/descrição.',
+            suggestions: [],
+          };
+        }
+
+        return {
+          message: `${suggestions.length} sugestão(ões) de categoria encontrada(s).`,
+          suggestions: suggestions.map((suggestion) => ({
+            categoryId: suggestion.categoryId,
+            categoryName: suggestion.categoryName,
+            confidence: suggestion.confidence,
+            reason: suggestion.reason,
+          })),
+        };
+      },
+    },
+
+    finance_check_cash_alerts: {
+      async execute(
+        _args: Record<string, unknown>,
+        context: ToolExecutionContext,
+      ) {
+        const useCase = makeCheckCashFlowAlertsUseCase();
+        const { alerts, nextSevenDays } = await useCase.execute({
+          tenantId: context.tenantId,
+        });
+
+        return {
+          alertCount: alerts.length,
+          hasCritical: alerts.some((a) => a.severity === 'CRITICAL'),
+          alerts: alerts.map((alert) => ({
+            type: alert.type,
+            severity: alert.severity,
+            message: alert.message,
+            projectedDate: alert.projectedDate.toISOString().split('T')[0],
+            projectedBalance: alert.projectedBalance,
+          })),
+          nextSevenDays,
         };
       },
     },

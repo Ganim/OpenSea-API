@@ -635,6 +635,11 @@ export type TenantFeatureFlag = Prisma.TenantFeatureFlagModel
  */
 export type CostCenter = Prisma.CostCenterModel
 /**
+ * Model ChartOfAccount
+ * 
+ */
+export type ChartOfAccount = Prisma.ChartOfAccountModel
+/**
  * Model BankAccount
  * 
  */
@@ -1469,6 +1474,11 @@ export type EsocialTable = Prisma.EsocialTableModel
  * 
  */
 export type FinanceApprovalRule = Prisma.FinanceApprovalRuleModel
+/**
+ * Model TaxObligation
+ * 
+ */
+export type TaxObligation = Prisma.TaxObligationModel
 /**
  * Model BankConnection
  * 

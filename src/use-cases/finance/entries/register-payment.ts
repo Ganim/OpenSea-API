@@ -30,6 +30,7 @@ interface RegisterPaymentUseCaseRequest {
   method?: string;
   reference?: string;
   notes?: string;
+  idempotencyKey?: string;
   createdBy?: string;
   interest?: number;
   penalty?: number;
@@ -56,6 +57,26 @@ export class RegisterPaymentUseCase {
     request: RegisterPaymentUseCaseRequest,
   ): Promise<RegisterPaymentUseCaseResponse> {
     const { entryId, tenantId, amount, paidAt } = request;
+
+    // Idempotency check: if a payment with this key already exists, return cached result
+    if (request.idempotencyKey) {
+      const existingPayment =
+        await this.financeEntryPaymentsRepository.findByIdempotencyKey(
+          request.idempotencyKey,
+        );
+
+      if (existingPayment) {
+        const existingEntry = await this.financeEntriesRepository.findById(
+          existingPayment.entryId,
+          tenantId,
+        );
+
+        return {
+          entry: financeEntryToDTO(existingEntry!),
+          payment: financeEntryPaymentToDTO(existingPayment),
+        };
+      }
+    }
 
     // Validation outside transaction
     const entry = await this.financeEntriesRepository.findById(
@@ -181,6 +202,7 @@ export class RegisterPaymentUseCase {
           method: request.method,
           reference: request.reference,
           notes: request.notes,
+          idempotencyKey: request.idempotencyKey,
           createdBy: request.createdBy,
         },
         tx,

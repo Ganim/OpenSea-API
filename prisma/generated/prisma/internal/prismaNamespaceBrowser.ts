@@ -170,6 +170,7 @@ export const ModelName = {
   TenantUser: 'TenantUser',
   TenantFeatureFlag: 'TenantFeatureFlag',
   CostCenter: 'CostCenter',
+  ChartOfAccount: 'ChartOfAccount',
   BankAccount: 'BankAccount',
   FinanceCategory: 'FinanceCategory',
   FinanceEntry: 'FinanceEntry',
@@ -337,6 +338,7 @@ export const ModelName = {
   EsocialEventStatusHistory: 'EsocialEventStatusHistory',
   EsocialTable: 'EsocialTable',
   FinanceApprovalRule: 'FinanceApprovalRule',
+  TaxObligation: 'TaxObligation',
   BankConnection: 'BankConnection',
   PaymentLink: 'PaymentLink',
   CashflowSnapshot: 'CashflowSnapshot',
@@ -2823,6 +2825,25 @@ export const CostCenterScalarFieldEnum = {
 export type CostCenterScalarFieldEnum = (typeof CostCenterScalarFieldEnum)[keyof typeof CostCenterScalarFieldEnum]
 
 
+export const ChartOfAccountScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  code: 'code',
+  name: 'name',
+  type: 'type',
+  class: 'class',
+  nature: 'nature',
+  parentId: 'parentId',
+  isActive: 'isActive',
+  isSystem: 'isSystem',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ChartOfAccountScalarFieldEnum = (typeof ChartOfAccountScalarFieldEnum)[keyof typeof ChartOfAccountScalarFieldEnum]
+
+
 export const BankAccountScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -2969,6 +2990,7 @@ export const FinanceEntryPaymentScalarFieldEnum = {
   method: 'method',
   reference: 'reference',
   notes: 'notes',
+  idempotencyKey: 'idempotencyKey',
   createdBy: 'createdBy',
   createdAt: 'createdAt'
 } as const
@@ -6351,6 +6373,25 @@ export const FinanceApprovalRuleScalarFieldEnum = {
 } as const
 
 export type FinanceApprovalRuleScalarFieldEnum = (typeof FinanceApprovalRuleScalarFieldEnum)[keyof typeof FinanceApprovalRuleScalarFieldEnum]
+
+
+export const TaxObligationScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  taxType: 'taxType',
+  referenceMonth: 'referenceMonth',
+  referenceYear: 'referenceYear',
+  dueDate: 'dueDate',
+  amount: 'amount',
+  status: 'status',
+  paidAt: 'paidAt',
+  darfCode: 'darfCode',
+  entryId: 'entryId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TaxObligationScalarFieldEnum = (typeof TaxObligationScalarFieldEnum)[keyof typeof TaxObligationScalarFieldEnum]
 
 
 export const BankConnectionScalarFieldEnum = {

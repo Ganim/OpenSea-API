@@ -129,6 +129,22 @@ export const predictiveCashflowResponseSchema = z.object({
       isNegative: z.boolean(),
     }),
   ),
+  forecast: z.array(
+    z.object({
+      date: z.string(),
+      predicted: z.number(),
+      p10: z.number(),
+      p50: z.number(),
+      p90: z.number(),
+      seasonal: z.number(),
+      trend: z.number(),
+    }),
+  ),
+  accuracy: z.object({
+    mape: z.number(),
+    historicalMonths: z.number(),
+  }),
+  seasonalFactors: z.record(z.string(), z.number()),
   suggestions: z.array(z.string()),
   dataQuality: z.enum(['HIGH', 'MEDIUM', 'LOW']),
 });
