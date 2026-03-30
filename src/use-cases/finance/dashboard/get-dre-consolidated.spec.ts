@@ -71,7 +71,7 @@ describe('GetConsolidatedDREUseCase', () => {
       parentId: expenseRoot.id.toString(),
     });
 
-    // Company A entries
+    // Company A entries (competenceDate set for accrual accounting)
     await entriesRepository.create({
       tenantId: 'tenant-1',
       type: 'RECEIVABLE',
@@ -82,6 +82,7 @@ describe('GetConsolidatedDREUseCase', () => {
       expectedAmount: 10000,
       issueDate: new Date('2026-01-01'),
       dueDate: new Date('2026-01-15'),
+      competenceDate: new Date('2026-01-01'),
       status: 'RECEIVED',
     });
 
@@ -95,10 +96,11 @@ describe('GetConsolidatedDREUseCase', () => {
       expectedAmount: 3000,
       issueDate: new Date('2026-01-01'),
       dueDate: new Date('2026-01-10'),
+      competenceDate: new Date('2026-01-01'),
       status: 'PAID',
     });
 
-    // Company B entries
+    // Company B entries (competenceDate set for accrual accounting)
     await entriesRepository.create({
       tenantId: 'tenant-1',
       type: 'RECEIVABLE',
@@ -109,6 +111,7 @@ describe('GetConsolidatedDREUseCase', () => {
       expectedAmount: 5000,
       issueDate: new Date('2026-01-01'),
       dueDate: new Date('2026-01-20'),
+      competenceDate: new Date('2026-01-01'),
       status: 'RECEIVED',
     });
 
@@ -122,6 +125,7 @@ describe('GetConsolidatedDREUseCase', () => {
       expectedAmount: 2000,
       issueDate: new Date('2026-01-01'),
       dueDate: new Date('2026-01-10'),
+      competenceDate: new Date('2026-01-01'),
       status: 'PAID',
     });
   });

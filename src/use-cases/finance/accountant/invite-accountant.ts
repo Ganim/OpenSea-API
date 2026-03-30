@@ -1,9 +1,10 @@
-import { randomUUID } from 'node:crypto';
+import { randomBytes } from 'node:crypto';
 import { ConflictError } from '@/@errors/use-cases/conflict-error';
 import type {
   AccountantAccessesRepository,
   AccountantAccessRecord,
 } from '@/repositories/finance/accountant-accesses-repository';
+import { hashToken } from '@/utils/security/hash-token';
 
 interface InviteAccountantRequest {
   tenantId: string;
@@ -16,6 +17,8 @@ interface InviteAccountantRequest {
 
 interface InviteAccountantResponse {
   access: AccountantAccessRecord;
+  /** Raw plaintext token — displayed once to the user, never stored. */
+  rawToken: string;
   portalUrl: string;
 }
 
@@ -41,15 +44,16 @@ export class InviteAccountantUseCase {
       );
     }
 
-    // Generate unique access token
-    const accessToken = `acc_${randomUUID().replace(/-/g, '')}`;
+    // Generate cryptographically secure token
+    const rawToken = `acc_${randomBytes(32).toString('hex')}`;
+    // Store only the SHA-256 hash in the database (hard cutover)
+    const hashedToken = hashToken(rawToken);
 
-    // Calculate expiration
-    let expiresAt: Date | undefined;
-    if (expiresInDays) {
-      expiresAt = new Date();
-      expiresAt.setDate(expiresAt.getDate() + expiresInDays);
-    }
+    // Calculate expiration (default: 90 days)
+    const defaultExpirationDays = 90;
+    const days = expiresInDays ?? defaultExpirationDays;
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + days);
 
     const access = await this.accountantAccessesRepository.create({
       tenantId,
@@ -57,12 +61,12 @@ export class InviteAccountantUseCase {
       name,
       cpfCnpj,
       crc,
-      accessToken,
+      accessToken: hashedToken,
       expiresAt,
     });
 
-    const portalUrl = `/accountant/${accessToken}`;
+    const portalUrl = `/accountant/${rawToken}`;
 
-    return { access, portalUrl };
+    return { access, rawToken, portalUrl };
   }
 }

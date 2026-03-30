@@ -116,7 +116,7 @@ export class SplitPaymentUseCase {
 
       if (allocation.amount > remainingBalance + 0.01) {
         throw new BadRequestError(
-          `Allocation amount (${allocation.amount}) exceeds remaining balance (${remainingBalance}) for entry ${entry.code}`,
+          `Alocação excede o saldo restante do lançamento ${entry.code} (alocação: ${allocation.amount}, saldo: ${remainingBalance})`,
         );
       }
     }

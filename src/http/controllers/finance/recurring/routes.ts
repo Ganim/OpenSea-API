@@ -1,5 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
+import { rateLimitConfig } from '@/config/rate-limits';
+import rateLimit from '@fastify/rate-limit';
 
 import { createRecurringConfigController } from './v1-create-recurring-config.controller';
 import { listRecurringConfigsController } from './v1-list-recurring-configs.controller';
@@ -12,11 +14,26 @@ import { cancelRecurringController } from './v1-cancel-recurring.controller';
 export async function financeRecurringRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
 
-  app.register(createRecurringConfigController);
-  app.register(listRecurringConfigsController);
-  app.register(getRecurringConfigController);
-  app.register(updateRecurringConfigController);
-  app.register(pauseRecurringController);
-  app.register(resumeRecurringController);
-  app.register(cancelRecurringController);
+  // Query routes
+  app.register(
+    async (queryApp) => {
+      queryApp.register(rateLimit, rateLimitConfig.query);
+      queryApp.register(listRecurringConfigsController);
+      queryApp.register(getRecurringConfigController);
+    },
+    { prefix: '' },
+  );
+
+  // Mutation routes
+  app.register(
+    async (mutationApp) => {
+      mutationApp.register(rateLimit, rateLimitConfig.financeMutation);
+      mutationApp.register(createRecurringConfigController);
+      mutationApp.register(updateRecurringConfigController);
+      mutationApp.register(pauseRecurringController);
+      mutationApp.register(resumeRecurringController);
+      mutationApp.register(cancelRecurringController);
+    },
+    { prefix: '' },
+  );
 }

@@ -1,5 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
+import { rateLimitConfig } from '@/config/rate-limits';
+import rateLimit from '@fastify/rate-limit';
 
 import { importOfxReconciliationController } from './v1-import-ofx-reconciliation.controller';
 import { getReconciliationByIdController } from './v1-get-reconciliation-by-id.controller';
@@ -15,14 +17,37 @@ import { rejectReconciliationSuggestionController } from './v1-reject-reconcilia
 export async function reconciliationRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
 
-  app.register(importOfxReconciliationController);
-  app.register(getReconciliationByIdController);
-  app.register(listReconciliationsController);
-  app.register(manualMatchItemController);
-  app.register(ignoreReconciliationItemController);
-  app.register(createEntryFromItemController);
-  app.register(completeReconciliationController);
-  app.register(listReconciliationSuggestionsController);
-  app.register(acceptReconciliationSuggestionController);
-  app.register(rejectReconciliationSuggestionController);
+  // Query routes
+  app.register(
+    async (queryApp) => {
+      queryApp.register(rateLimit, rateLimitConfig.query);
+      queryApp.register(getReconciliationByIdController);
+      queryApp.register(listReconciliationsController);
+      queryApp.register(listReconciliationSuggestionsController);
+    },
+    { prefix: '' },
+  );
+
+  // Mutation routes
+  app.register(
+    async (mutationApp) => {
+      mutationApp.register(rateLimit, rateLimitConfig.financeMutation);
+      mutationApp.register(manualMatchItemController);
+      mutationApp.register(ignoreReconciliationItemController);
+      mutationApp.register(createEntryFromItemController);
+      mutationApp.register(completeReconciliationController);
+      mutationApp.register(acceptReconciliationSuggestionController);
+      mutationApp.register(rejectReconciliationSuggestionController);
+    },
+    { prefix: '' },
+  );
+
+  // Heavy operations — OFX import is file processing
+  app.register(
+    async (heavyApp) => {
+      heavyApp.register(rateLimit, rateLimitConfig.financeBulk);
+      heavyApp.register(importOfxReconciliationController);
+    },
+    { prefix: '' },
+  );
 }

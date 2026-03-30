@@ -86,8 +86,9 @@ export class GetConsolidatedDREUseCase {
       const { entries: companyEntries } = await this.entriesRepository.findMany(
         {
           tenantId,
-          dueDateFrom: startDate,
-          dueDateTo: endDate,
+          competenceDateFrom: startDate,
+          competenceDateTo: endDate,
+          competenceDateFallbackToIssueDate: true,
           companyId,
           status: undefined,
           limit: 100000,

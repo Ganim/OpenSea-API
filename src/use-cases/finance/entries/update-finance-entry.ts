@@ -68,6 +68,12 @@ export class UpdateFinanceEntryUseCase {
       throw new BadRequestError('Description cannot be empty');
     }
 
+    // If competenceDate is explicitly set to null, default to existing issueDate
+    let competenceDateToSet = request.competenceDate;
+    if (competenceDateToSet === null) {
+      competenceDateToSet = existingEntry.issueDate;
+    }
+
     const updated = await this.financeEntriesRepository.update({
       id: new UniqueEntityID(id),
       tenantId,
@@ -83,7 +89,7 @@ export class UpdateFinanceEntryUseCase {
       interest: request.interest,
       penalty: request.penalty,
       dueDate: request.dueDate,
-      competenceDate: request.competenceDate,
+      competenceDate: competenceDateToSet,
       boletoBarcode: request.boletoBarcode,
       boletoDigitLine: request.boletoDigitLine,
       beneficiaryName: request.beneficiaryName,

@@ -19,7 +19,13 @@ import type { FinanceCategoriesRepository } from '@/repositories/finance/finance
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 import type { FinanceEntryCostCentersRepository } from '@/repositories/finance/finance-entry-cost-centers-repository';
 import type { FinanceApprovalRulesRepository } from '@/repositories/finance/finance-approval-rules-repository';
+import type { FinanceEntryRetentionsRepository } from '@/repositories/finance/finance-entry-retentions-repository';
 import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
+import {
+  type RetentionConfig,
+  type RetentionSummary,
+  calculateAllRetentions,
+} from '@/services/finance/tax-calculation.service';
 import { calculateNextDate } from '@/utils/finance/calculate-next-date';
 
 interface CostCenterAllocation {
@@ -61,11 +67,14 @@ interface CreateFinanceEntryUseCaseRequest {
   pixKeyType?: string;
   tags?: string[];
   createdBy?: string;
+  applyRetentions?: boolean;
+  retentionConfig?: RetentionConfig;
 }
 
 interface CreateFinanceEntryUseCaseResponse {
   entry: FinanceEntryDTO;
   installments?: FinanceEntryDTO[];
+  retentionSummary?: RetentionSummary;
 }
 
 export class CreateFinanceEntryUseCase {
@@ -78,6 +87,7 @@ export class CreateFinanceEntryUseCase {
     private costCenterAllocationsRepository?: FinanceEntryCostCentersRepository,
     private approvalRulesRepository?: FinanceApprovalRulesRepository,
     private evaluateAutoApproval?: (entryId: string, tenantId: string, createdBy?: string) => Promise<void>,
+    private retentionsRepository?: FinanceEntryRetentionsRepository,
   ) {}
 
   async execute(
@@ -112,6 +122,18 @@ export class CreateFinanceEntryUseCase {
     );
     if (!category) {
       throw new BadRequestError('Category not found');
+    }
+
+    // Validate category type compatibility with entry type
+    if (category.type === 'REVENUE' && type === 'PAYABLE') {
+      throw new BadRequestError(
+        'Categoria do tipo RECEITA não pode ser usada em lançamentos a pagar',
+      );
+    }
+    if (category.type === 'EXPENSE' && type === 'RECEIVABLE') {
+      throw new BadRequestError(
+        'Categoria do tipo DESPESA não pode ser usada em lançamentos a receber',
+      );
     }
 
     // Validate cost center assignment: must have costCenterId XOR costCenterAllocations
@@ -153,9 +175,10 @@ export class CreateFinanceEntryUseCase {
         (acc, a) => acc + a.percentage,
         0,
       );
-      if (Math.abs(sum - 100) >= 0.01) {
+      const roundedSum = Math.round(sum * 100) / 100;
+      if (Math.abs(roundedSum - 100) > 0.001) {
         throw new BadRequestError(
-          'Cost center allocation percentages must sum to 100',
+          'Alocações de centro de custo devem somar exatamente 100%',
           ErrorCodes.FINANCE_RATEIO_INVALID_PERCENTAGE,
         );
       }
@@ -341,7 +364,42 @@ export class CreateFinanceEntryUseCase {
       ).catch(() => {});
     }
 
-    return { entry: financeEntryToDTO(entry) };
+    // Apply tax retentions if requested (opt-in)
+    let retentionSummary: RetentionSummary | undefined;
+    if (
+      request.applyRetentions &&
+      request.retentionConfig &&
+      this.retentionsRepository
+    ) {
+      const summary = calculateAllRetentions(
+        expectedAmount,
+        request.retentionConfig,
+      );
+
+      const toCreate = summary.retentions
+        .filter((r) => r.amount > 0)
+        .map((r) => ({
+          tenantId,
+          entryId: entry.id.toString(),
+          taxType: r.taxType,
+          grossAmount: r.grossAmount,
+          rate: r.rate,
+          amount: r.amount,
+          withheld: false,
+          description: r.description,
+        }));
+
+      if (toCreate.length > 0) {
+        await this.retentionsRepository.createMany(toCreate, tx);
+      }
+
+      retentionSummary = summary;
+    }
+
+    return {
+      entry: financeEntryToDTO(entry),
+      ...(retentionSummary && { retentionSummary }),
+    };
   }
 
   private calculateAllocations(

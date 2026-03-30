@@ -1,5 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
+import { rateLimitConfig } from '@/config/rate-limits';
+import rateLimit from '@fastify/rate-limit';
 
 import { createFinanceEntryController } from './v1-create-finance-entry.controller';
 import { updateFinanceEntryController } from './v1-update-finance-entry.controller';
@@ -37,36 +39,67 @@ import { splitPaymentController } from './v1-split-payment.controller';
 export async function financeEntriesRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
 
-  app.register(getFinanceEntryByIdController);
-  app.register(listFinanceEntriesController);
-  app.register(createFinanceEntryController);
-  app.register(createEntriesBatchController);
-  app.register(updateFinanceEntryController);
-  app.register(deleteFinanceEntryController);
-  app.register(registerPaymentController);
-  app.register(cancelFinanceEntryController);
-  app.register(bulkPayEntriesController);
-  app.register(bulkCancelEntriesController);
-  app.register(bulkDeleteEntriesController);
-  app.register(bulkCategorizeEntriesController);
-  app.register(createBoletoForEntryController);
-  app.register(createPixChargeController);
-  app.register(payViaPixController);
-  app.register(parseBoletoController);
-  app.register(parsePixController);
-  app.register(checkOverdueController);
-  app.register(importPayrollController);
-  app.register(ocrExtractDataController);
-  app.register(ocrUploadBatchController);
-  app.register(getLastSupplierEntryController);
-  app.register(emitNfeFromEntryController);
-  app.register(emailToEntryConfigController);
-  app.register(processEmailToEntryController);
-  app.register(calculateEntryRetentionsController);
-  app.register(applyEntryRetentionsController);
-  app.register(listEntryRetentionsController);
-  app.register(threeWayMatchController);
-  app.register(checkDuplicateController);
-  app.register(getSupplierSummaryController);
-  app.register(splitPaymentController);
+  // Query routes — rate limit de consulta
+  app.register(
+    async (queryApp) => {
+      queryApp.register(rateLimit, rateLimitConfig.query);
+      queryApp.register(getFinanceEntryByIdController);
+      queryApp.register(listFinanceEntriesController);
+      queryApp.register(getLastSupplierEntryController);
+      queryApp.register(listEntryRetentionsController);
+      queryApp.register(checkDuplicateController);
+      queryApp.register(getSupplierSummaryController);
+      queryApp.register(checkOverdueController);
+    },
+    { prefix: '' },
+  );
+
+  // Mutation routes — rate limit financeiro para operações individuais
+  app.register(
+    async (mutationApp) => {
+      mutationApp.register(rateLimit, rateLimitConfig.financeMutation);
+      mutationApp.register(createFinanceEntryController);
+      mutationApp.register(updateFinanceEntryController);
+      mutationApp.register(deleteFinanceEntryController);
+      mutationApp.register(registerPaymentController);
+      mutationApp.register(cancelFinanceEntryController);
+      mutationApp.register(splitPaymentController);
+      mutationApp.register(emailToEntryConfigController);
+      mutationApp.register(processEmailToEntryController);
+      mutationApp.register(calculateEntryRetentionsController);
+      mutationApp.register(applyEntryRetentionsController);
+      mutationApp.register(threeWayMatchController);
+    },
+    { prefix: '' },
+  );
+
+  // Bulk operations — rate limit restritivo para operações em lote
+  app.register(
+    async (bulkApp) => {
+      bulkApp.register(rateLimit, rateLimitConfig.financeBulk);
+      bulkApp.register(createEntriesBatchController);
+      bulkApp.register(bulkPayEntriesController);
+      bulkApp.register(bulkCancelEntriesController);
+      bulkApp.register(bulkDeleteEntriesController);
+      bulkApp.register(bulkCategorizeEntriesController);
+      bulkApp.register(importPayrollController);
+      bulkApp.register(ocrUploadBatchController);
+    },
+    { prefix: '' },
+  );
+
+  // Heavy/integration routes — rate limit para operações custosas e integrações
+  app.register(
+    async (heavyApp) => {
+      heavyApp.register(rateLimit, rateLimitConfig.financeWebhook);
+      heavyApp.register(parseBoletoController);
+      heavyApp.register(parsePixController);
+      heavyApp.register(ocrExtractDataController);
+      heavyApp.register(createBoletoForEntryController);
+      heavyApp.register(createPixChargeController);
+      heavyApp.register(payViaPixController);
+      heavyApp.register(emitNfeFromEntryController);
+    },
+    { prefix: '' },
+  );
 }

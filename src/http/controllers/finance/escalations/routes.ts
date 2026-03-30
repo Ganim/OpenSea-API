@@ -1,5 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
+import { rateLimitConfig } from '@/config/rate-limits';
+import rateLimit from '@fastify/rate-limit';
 
 import { createOverdueEscalationController } from './v1-create-overdue-escalation.controller';
 import { listOverdueEscalationsController } from './v1-list-overdue-escalations.controller';
@@ -14,13 +16,36 @@ import { getEscalationTimelineController } from './v1-get-escalation-timeline.co
 export async function financeEscalationsRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
 
-  app.register(createOverdueEscalationController);
-  app.register(listOverdueEscalationsController);
-  app.register(getOverdueEscalationByIdController);
-  app.register(updateOverdueEscalationController);
-  app.register(deleteOverdueEscalationController);
-  app.register(processOverdueEscalationsController);
-  app.register(getCustomerScoreController);
-  app.register(getEntryEscalationHistoryController);
-  app.register(getEscalationTimelineController);
+  // Query routes
+  app.register(
+    async (queryApp) => {
+      queryApp.register(rateLimit, rateLimitConfig.query);
+      queryApp.register(listOverdueEscalationsController);
+      queryApp.register(getOverdueEscalationByIdController);
+      queryApp.register(getCustomerScoreController);
+      queryApp.register(getEntryEscalationHistoryController);
+      queryApp.register(getEscalationTimelineController);
+    },
+    { prefix: '' },
+  );
+
+  // Mutation routes
+  app.register(
+    async (mutationApp) => {
+      mutationApp.register(rateLimit, rateLimitConfig.financeMutation);
+      mutationApp.register(createOverdueEscalationController);
+      mutationApp.register(updateOverdueEscalationController);
+      mutationApp.register(deleteOverdueEscalationController);
+    },
+    { prefix: '' },
+  );
+
+  // Heavy processing — escalation processing is a batch operation
+  app.register(
+    async (heavyApp) => {
+      heavyApp.register(rateLimit, rateLimitConfig.financeBulk);
+      heavyApp.register(processOverdueEscalationsController);
+    },
+    { prefix: '' },
+  );
 }

@@ -48,10 +48,18 @@ export class FinanceEntryPayment extends Entity<FinanceEntryPaymentProps> {
     return this.props.createdAt;
   }
 
+  private static validateAmount(amount: number): void {
+    if (amount <= 0) {
+      throw new Error('Payment amount must be positive');
+    }
+  }
+
   static create(
     props: Optional<FinanceEntryPaymentProps, 'id' | 'createdAt'>,
     id?: UniqueEntityID,
   ): FinanceEntryPayment {
+    FinanceEntryPayment.validateAmount(props.amount);
+
     return new FinanceEntryPayment(
       {
         ...props,

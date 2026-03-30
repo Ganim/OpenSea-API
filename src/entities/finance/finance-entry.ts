@@ -434,16 +434,17 @@ export class FinanceEntry extends Entity<FinanceEntryProps> {
   }
 
   get totalDue(): number {
-    return (
+    const result =
       this.props.expectedAmount -
       this.props.discount +
       this.props.interest +
-      this.props.penalty
-    );
+      this.props.penalty;
+    return Math.round(result * 100) / 100;
   }
 
   get remainingBalance(): number {
-    return this.totalDue - (this.props.actualAmount ?? 0);
+    const result = this.totalDue - (this.props.actualAmount ?? 0);
+    return Math.round(result * 100) / 100;
   }
 
   get isPayable(): boolean {
@@ -454,14 +455,14 @@ export class FinanceEntry extends Entity<FinanceEntryProps> {
   }
 
   markAsPaid(amount: number, paymentDate: Date): void {
-    this.props.actualAmount = (this.props.actualAmount ?? 0) + amount;
+    this.props.actualAmount = Math.round(((this.props.actualAmount ?? 0) + amount) * 100) / 100;
     this.props.paymentDate = paymentDate;
     this.props.status = this.isPayable ? 'PAID' : 'RECEIVED';
     this.touch();
   }
 
   markAsPartiallyPaid(amount: number): void {
-    this.props.actualAmount = (this.props.actualAmount ?? 0) + amount;
+    this.props.actualAmount = Math.round(((this.props.actualAmount ?? 0) + amount) * 100) / 100;
     this.props.status = 'PARTIALLY_PAID';
     this.touch();
   }

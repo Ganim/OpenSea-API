@@ -155,6 +155,11 @@ export class RegisterPaymentUseCase {
 
       const entryForPayment = refreshedEntry ?? entry;
 
+      // TODO: CONCURRENCY — This validation is NOT safe under concurrent requests.
+      // Two simultaneous payments can both read sumByEntryId=0 and both pass.
+      // Proper fix requires: PostgreSQL SELECT ... FOR UPDATE or serializable
+      // transaction isolation in the TransactionManager.
+      // See: financial-precision.spec.ts concurrency tests for reproduction.
       const existingPaymentsSum =
         await this.financeEntryPaymentsRepository.sumByEntryId(
           new UniqueEntityID(entryId),
@@ -164,7 +169,7 @@ export class RegisterPaymentUseCase {
       const newTotal = existingPaymentsSum + amount;
 
       if (newTotal > entryForPayment.totalDue) {
-        throw new BadRequestError('Payment amount exceeds remaining balance');
+        throw new BadRequestError('Valor do pagamento excede o saldo restante');
       }
 
       const payment = await this.financeEntryPaymentsRepository.create(

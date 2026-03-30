@@ -134,6 +134,39 @@ export const rateLimitConfig = {
     message:
       'Muitas tentativas de verificação de senha. Aguarde antes de tentar novamente.',
   },
+
+  /**
+   * Finance mutation endpoints (create, update, delete entries, payments, etc.)
+   * Limite adequado para operações financeiras que alteram dados.
+   */
+  financeMutation: {
+    max: 100, // 100 requisições por minuto
+    timeWindow: '1 minute',
+    message:
+      'Limite de operações financeiras atingido. Aguarde antes de continuar.',
+  },
+
+  /**
+   * Finance bulk operations (bulk-pay, bulk-cancel, bulk-delete, bulk-categorize, batch create)
+   * Limite restritivo para operações em lote que impactam muitos registros de uma vez.
+   */
+  financeBulk: {
+    max: 20, // 20 requisições por minuto
+    timeWindow: '1 minute',
+    message:
+      'Limite de operações em lote atingido. Aguarde antes de continuar.',
+  },
+
+  /**
+   * Finance webhook/integration endpoints (PIX callbacks, boleto webhooks, bank sync)
+   * Limite moderado para integrações externas que recebem notificações.
+   */
+  financeWebhook: {
+    max: 30, // 30 requisições por minuto
+    timeWindow: '1 minute',
+    message:
+      'Limite de webhooks financeiros atingido. Aguarde antes de continuar.',
+  },
 } as const;
 
 /**

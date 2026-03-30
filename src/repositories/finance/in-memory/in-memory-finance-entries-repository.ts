@@ -136,6 +136,20 @@ export class InMemoryFinanceEntriesRepository
       if (options.dueDateFrom && i.dueDate < options.dueDateFrom) return false;
       if (options.dueDateTo && i.dueDate > options.dueDateTo) return false;
 
+      if (options.competenceDateFrom || options.competenceDateTo) {
+        // Use competenceDate if available, fall back to issueDate when flag is set
+        const dateToCheck =
+          options.competenceDateFallbackToIssueDate && !i.competenceDate
+            ? i.issueDate
+            : i.competenceDate;
+
+        if (!dateToCheck) return false;
+        if (options.competenceDateFrom && dateToCheck < options.competenceDateFrom)
+          return false;
+        if (options.competenceDateTo && dateToCheck > options.competenceDateTo)
+          return false;
+      }
+
       if (options.isOverdue !== undefined) {
         const entryIsOverdue = i.isOverdue;
         if (options.isOverdue && !entryIsOverdue) return false;
@@ -182,6 +196,9 @@ export class InMemoryFinanceEntriesRepository
         return false;
 
       if (options.contractId && i.contractId !== options.contractId)
+        return false;
+
+      if (options.createdByUserId && i.createdBy !== options.createdByUserId)
         return false;
 
       if (options.search) {

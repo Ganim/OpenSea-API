@@ -137,6 +137,27 @@ export const createFinanceEntrySchema = z
             ]
           : undefined,
       ),
+    applyRetentions: z
+      .boolean()
+      .optional()
+      .default(false)
+      .describe('Aplicar retenções tributárias automaticamente ao criar'),
+    retentionConfig: z
+      .object({
+        applyIRRF: z.boolean().optional().describe('Reter IRRF'),
+        applyISS: z.boolean().optional().describe('Reter ISS'),
+        applyINSS: z.boolean().optional().describe('Reter INSS'),
+        applyPIS: z.boolean().optional().describe('Reter PIS'),
+        applyCOFINS: z.boolean().optional().describe('Reter COFINS'),
+        applyCSLL: z.boolean().optional().describe('Reter CSLL'),
+        issRate: z.number().min(0).max(0.05).optional().describe('Alíquota ISS customizada'),
+        taxRegime: z
+          .enum(['CUMULATIVO', 'NAO_CUMULATIVO'])
+          .optional()
+          .describe('Regime tributário para PIS/COFINS'),
+      })
+      .optional()
+      .describe('Configuração das retenções tributárias (requer applyRetentions=true)'),
   })
   .refine(
     (data) =>

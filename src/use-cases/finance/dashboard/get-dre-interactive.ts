@@ -48,20 +48,22 @@ export class GetInteractiveDREUseCase {
     // Get all categories for this tenant
     const allCategories = await this.categoriesRepository.findMany(tenantId);
 
-    // Get entries for current period
+    // Get entries for current period (accrual accounting: use competenceDate)
     const { entries: currentEntries } = await this.entriesRepository.findMany({
       tenantId,
-      dueDateFrom: startDate,
-      dueDateTo: endDate,
+      competenceDateFrom: startDate,
+      competenceDateTo: endDate,
+      competenceDateFallbackToIssueDate: true,
       status: undefined,
       limit: 100000,
     });
 
-    // Get entries for previous period
+    // Get entries for previous period (accrual accounting: use competenceDate)
     const { entries: previousEntries } = await this.entriesRepository.findMany({
       tenantId,
-      dueDateFrom: prevStart,
-      dueDateTo: prevEnd,
+      competenceDateFrom: prevStart,
+      competenceDateTo: prevEnd,
+      competenceDateFallbackToIssueDate: true,
       status: undefined,
       limit: 100000,
     });

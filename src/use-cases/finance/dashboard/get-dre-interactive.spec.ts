@@ -47,6 +47,7 @@ describe('GetInteractiveDREUseCase', () => {
     });
 
     // Create entries for current period (Jan 2026)
+    // competenceDate is set for accrual accounting (DRE now queries by competenceDate)
     await entriesRepository.create({
       tenantId: 'tenant-1',
       type: 'RECEIVABLE',
@@ -56,6 +57,7 @@ describe('GetInteractiveDREUseCase', () => {
       expectedAmount: 5000,
       issueDate: new Date('2026-01-01'),
       dueDate: new Date('2026-01-15'),
+      competenceDate: new Date('2026-01-01'),
       status: 'PAID',
     });
 
@@ -68,6 +70,7 @@ describe('GetInteractiveDREUseCase', () => {
       expectedAmount: 3000,
       issueDate: new Date('2026-01-10'),
       dueDate: new Date('2026-01-20'),
+      competenceDate: new Date('2026-01-10'),
       status: 'RECEIVED',
     });
 
@@ -80,10 +83,13 @@ describe('GetInteractiveDREUseCase', () => {
       expectedAmount: 2500,
       issueDate: new Date('2026-01-01'),
       dueDate: new Date('2026-01-10'),
+      competenceDate: new Date('2026-01-01'),
       status: 'PAID',
     });
 
     // Create entries for previous period (Dec 2025)
+    // Note: previous period is calculated as same-duration window before startDate.
+    // For Jan 1-31, prevStart ≈ Dec 2 and prevEnd = Dec 31 23:59:59.999
     await entriesRepository.create({
       tenantId: 'tenant-1',
       type: 'RECEIVABLE',
@@ -91,8 +97,9 @@ describe('GetInteractiveDREUseCase', () => {
       description: 'Venda Dez',
       categoryId: revChild.id.toString(),
       expectedAmount: 4000,
-      issueDate: new Date('2025-12-01'),
+      issueDate: new Date('2025-12-05'),
       dueDate: new Date('2025-12-15'),
+      competenceDate: new Date('2025-12-05'),
       status: 'RECEIVED',
     });
 
@@ -103,8 +110,9 @@ describe('GetInteractiveDREUseCase', () => {
       description: 'Aluguel Dez',
       categoryId: expChild.id.toString(),
       expectedAmount: 2500,
-      issueDate: new Date('2025-12-01'),
+      issueDate: new Date('2025-12-05'),
       dueDate: new Date('2025-12-10'),
+      competenceDate: new Date('2025-12-05'),
       status: 'PAID',
     });
   });

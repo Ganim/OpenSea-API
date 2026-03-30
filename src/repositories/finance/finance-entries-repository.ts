@@ -109,6 +109,9 @@ export interface FindManyFinanceEntriesOptions {
   bankAccountId?: string;
   dueDateFrom?: Date;
   dueDateTo?: Date;
+  competenceDateFrom?: Date;
+  competenceDateTo?: Date;
+  competenceDateFallbackToIssueDate?: boolean;
   isOverdue?: boolean;
   customerName?: string;
   supplierName?: string;
@@ -116,6 +119,7 @@ export interface FindManyFinanceEntriesOptions {
   parentEntryId?: string;
   contractId?: string;
   search?: string;
+  createdByUserId?: string;
 }
 
 export interface FindManyResult {

@@ -1,5 +1,6 @@
 import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
 import { PrismaAccountantAccessesRepository } from '@/repositories/finance/prisma/prisma-accountant-accesses-repository';
+import { hashToken } from '@/utils/security/hash-token';
 import type { FastifyRequest } from 'fastify';
 
 /**
@@ -8,8 +9,8 @@ import type { FastifyRequest } from 'fastify';
  * Validates the accountant access token from the Authorization header
  * and attaches accountant context to the request.
  *
- * Uses simple token-based auth (not JWT) — the token is the
- * AccountantAccess.accessToken stored in the database.
+ * Uses simple token-based auth (not JWT) — the incoming raw token is
+ * hashed with SHA-256 before lookup against the stored hash.
  */
 export async function verifyAccountant(request: FastifyRequest) {
   const authHeader = request.headers.authorization;
@@ -20,16 +21,17 @@ export async function verifyAccountant(request: FastifyRequest) {
     );
   }
 
-  const token = authHeader.slice(7); // Remove 'Bearer '
+  const rawToken = authHeader.slice(7); // Remove 'Bearer '
 
-  if (!token) {
+  if (!rawToken) {
     throw new UnauthorizedError(
       'Token de acesso do contador inválido.',
     );
   }
 
   const repository = new PrismaAccountantAccessesRepository();
-  const access = await repository.findByToken(token);
+  const hashedToken = hashToken(rawToken);
+  const access = await repository.findByToken(hashedToken);
 
   if (!access) {
     throw new UnauthorizedError('Token de acesso do contador inválido.');

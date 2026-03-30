@@ -27,6 +27,7 @@ interface ListFinanceEntriesUseCaseRequest {
   supplierName?: string;
   overdueRange?: string;
   search?: string;
+  createdByUserId?: string;
 }
 
 interface ListFinanceEntriesUseCaseResponse {
@@ -66,6 +67,7 @@ export class ListFinanceEntriesUseCase {
       supplierName: request.supplierName,
       overdueRange: request.overdueRange,
       search: request.search,
+      createdByUserId: request.createdByUserId,
     });
 
     return {

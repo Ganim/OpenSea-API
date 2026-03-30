@@ -1,5 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
+import { rateLimitConfig } from '@/config/rate-limits';
+import rateLimit from '@fastify/rate-limit';
 
 import { getFinanceDashboardController } from './v1-get-finance-dashboard.controller';
 import { getForecastController } from './v1-get-forecast.controller';
@@ -16,15 +18,30 @@ import { getFinancialHealthController } from './v1-get-financial-health.controll
 export async function financeDashboardRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
 
-  app.register(getFinanceDashboardController);
-  app.register(getForecastController);
-  app.register(getCashflowController);
-  app.register(getDREInteractiveController);
-  app.register(getDREConsolidatedController);
-  app.register(getFinanceOverviewController);
-  app.register(detectAnomaliesController);
-  app.register(getPredictiveCashflowController);
-  app.register(getPaymentTimingController);
-  app.register(getCashflowAccuracyController);
-  app.register(getFinancialHealthController);
+  // All dashboard routes are queries — some are heavy (analytics/AI)
+  app.register(
+    async (queryApp) => {
+      queryApp.register(rateLimit, rateLimitConfig.query);
+      queryApp.register(getFinanceDashboardController);
+      queryApp.register(getCashflowController);
+      queryApp.register(getFinanceOverviewController);
+    },
+    { prefix: '' },
+  );
+
+  // Heavy analytics/AI-powered routes
+  app.register(
+    async (heavyApp) => {
+      heavyApp.register(rateLimit, rateLimitConfig.heavy);
+      heavyApp.register(getForecastController);
+      heavyApp.register(getDREInteractiveController);
+      heavyApp.register(getDREConsolidatedController);
+      heavyApp.register(detectAnomaliesController);
+      heavyApp.register(getPredictiveCashflowController);
+      heavyApp.register(getPaymentTimingController);
+      heavyApp.register(getCashflowAccuracyController);
+      heavyApp.register(getFinancialHealthController);
+    },
+    { prefix: '' },
+  );
 }
