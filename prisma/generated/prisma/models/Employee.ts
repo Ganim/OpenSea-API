@@ -874,11 +874,16 @@ export type EmployeeWhereInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentListRelationFilter
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationListRelationFilter
   trainingEnrollments?: Prisma.TrainingEnrollmentListRelationFilter
+  performanceReviews?: Prisma.PerformanceReviewListRelationFilter
+  conductedPerformanceReviews?: Prisma.PerformanceReviewListRelationFilter
   managedDepartments?: Prisma.DepartmentListRelationFilter
   company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
   warnings?: Prisma.EmployeeWarningListRelationFilter
   issuedWarnings?: Prisma.EmployeeWarningListRelationFilter
   offboardingChecklists?: Prisma.OffboardingChecklistListRelationFilter
+  shiftAssignments?: Prisma.ShiftAssignmentListRelationFilter
+  delegationsGiven?: Prisma.ApprovalDelegationListRelationFilter
+  delegationsReceived?: Prisma.ApprovalDelegationListRelationFilter
 }
 
 export type EmployeeOrderByWithRelationInput = {
@@ -990,11 +995,16 @@ export type EmployeeOrderByWithRelationInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentOrderByRelationAggregateInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationOrderByRelationAggregateInput
   trainingEnrollments?: Prisma.TrainingEnrollmentOrderByRelationAggregateInput
+  performanceReviews?: Prisma.PerformanceReviewOrderByRelationAggregateInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewOrderByRelationAggregateInput
   managedDepartments?: Prisma.DepartmentOrderByRelationAggregateInput
   company?: Prisma.CompanyOrderByWithRelationInput
   warnings?: Prisma.EmployeeWarningOrderByRelationAggregateInput
   issuedWarnings?: Prisma.EmployeeWarningOrderByRelationAggregateInput
   offboardingChecklists?: Prisma.OffboardingChecklistOrderByRelationAggregateInput
+  shiftAssignments?: Prisma.ShiftAssignmentOrderByRelationAggregateInput
+  delegationsGiven?: Prisma.ApprovalDelegationOrderByRelationAggregateInput
+  delegationsReceived?: Prisma.ApprovalDelegationOrderByRelationAggregateInput
 }
 
 export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
@@ -1112,11 +1122,16 @@ export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
   benefitEnrollments?: Prisma.BenefitEnrollmentListRelationFilter
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationListRelationFilter
   trainingEnrollments?: Prisma.TrainingEnrollmentListRelationFilter
+  performanceReviews?: Prisma.PerformanceReviewListRelationFilter
+  conductedPerformanceReviews?: Prisma.PerformanceReviewListRelationFilter
   managedDepartments?: Prisma.DepartmentListRelationFilter
   company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
   warnings?: Prisma.EmployeeWarningListRelationFilter
   issuedWarnings?: Prisma.EmployeeWarningListRelationFilter
   offboardingChecklists?: Prisma.OffboardingChecklistListRelationFilter
+  shiftAssignments?: Prisma.ShiftAssignmentListRelationFilter
+  delegationsGiven?: Prisma.ApprovalDelegationListRelationFilter
+  delegationsReceived?: Prisma.ApprovalDelegationListRelationFilter
 }, "id" | "userId" | "employees_registration_tenant_unique_active" | "employees_cpf_tenant_unique_active" | "employees_pis_tenant_unique_active">
 
 export type EmployeeOrderByWithAggregationInput = {
@@ -1407,11 +1422,16 @@ export type EmployeeCreateInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateInput = {
@@ -1517,10 +1537,15 @@ export type EmployeeUncheckedCreateInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUpdateInput = {
@@ -1625,11 +1650,16 @@ export type EmployeeUpdateInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateInput = {
@@ -1735,10 +1765,15 @@ export type EmployeeUncheckedUpdateInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeCreateManyInput = {
@@ -2566,6 +2601,20 @@ export type EmployeeUpdateOneRequiredWithoutTimeEntriesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutTimeEntriesInput, Prisma.EmployeeUpdateWithoutTimeEntriesInput>, Prisma.EmployeeUncheckedUpdateWithoutTimeEntriesInput>
 }
 
+export type EmployeeCreateNestedOneWithoutShiftAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutShiftAssignmentsInput, Prisma.EmployeeUncheckedCreateWithoutShiftAssignmentsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutShiftAssignmentsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeUpdateOneRequiredWithoutShiftAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutShiftAssignmentsInput, Prisma.EmployeeUncheckedCreateWithoutShiftAssignmentsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutShiftAssignmentsInput
+  upsert?: Prisma.EmployeeUpsertWithoutShiftAssignmentsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutShiftAssignmentsInput, Prisma.EmployeeUpdateWithoutShiftAssignmentsInput>, Prisma.EmployeeUncheckedUpdateWithoutShiftAssignmentsInput>
+}
+
 export type EmployeeCreateNestedOneWithoutOvertimeInput = {
   create?: Prisma.XOR<Prisma.EmployeeCreateWithoutOvertimeInput, Prisma.EmployeeUncheckedCreateWithoutOvertimeInput>
   connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutOvertimeInput
@@ -2776,6 +2825,34 @@ export type EmployeeUpdateOneRequiredWithoutTrainingEnrollmentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutTrainingEnrollmentsInput, Prisma.EmployeeUpdateWithoutTrainingEnrollmentsInput>, Prisma.EmployeeUncheckedUpdateWithoutTrainingEnrollmentsInput>
 }
 
+export type EmployeeCreateNestedOneWithoutPerformanceReviewsInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutPerformanceReviewsInput, Prisma.EmployeeUncheckedCreateWithoutPerformanceReviewsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutPerformanceReviewsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeCreateNestedOneWithoutConductedPerformanceReviewsInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutConductedPerformanceReviewsInput, Prisma.EmployeeUncheckedCreateWithoutConductedPerformanceReviewsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutConductedPerformanceReviewsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeUpdateOneRequiredWithoutPerformanceReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutPerformanceReviewsInput, Prisma.EmployeeUncheckedCreateWithoutPerformanceReviewsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutPerformanceReviewsInput
+  upsert?: Prisma.EmployeeUpsertWithoutPerformanceReviewsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutPerformanceReviewsInput, Prisma.EmployeeUpdateWithoutPerformanceReviewsInput>, Prisma.EmployeeUncheckedUpdateWithoutPerformanceReviewsInput>
+}
+
+export type EmployeeUpdateOneRequiredWithoutConductedPerformanceReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutConductedPerformanceReviewsInput, Prisma.EmployeeUncheckedCreateWithoutConductedPerformanceReviewsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutConductedPerformanceReviewsInput
+  upsert?: Prisma.EmployeeUpsertWithoutConductedPerformanceReviewsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutConductedPerformanceReviewsInput, Prisma.EmployeeUpdateWithoutConductedPerformanceReviewsInput>, Prisma.EmployeeUncheckedUpdateWithoutConductedPerformanceReviewsInput>
+}
+
 export type EmployeeCreateNestedOneWithoutFlexBenefitAllocationsInput = {
   create?: Prisma.XOR<Prisma.EmployeeCreateWithoutFlexBenefitAllocationsInput, Prisma.EmployeeUncheckedCreateWithoutFlexBenefitAllocationsInput>
   connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutFlexBenefitAllocationsInput
@@ -2888,6 +2965,34 @@ export type EmployeeUpdateOneRequiredWithoutOffboardingChecklistsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutOffboardingChecklistsInput, Prisma.EmployeeUpdateWithoutOffboardingChecklistsInput>, Prisma.EmployeeUncheckedUpdateWithoutOffboardingChecklistsInput>
 }
 
+export type EmployeeCreateNestedOneWithoutDelegationsGivenInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutDelegationsGivenInput, Prisma.EmployeeUncheckedCreateWithoutDelegationsGivenInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutDelegationsGivenInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeCreateNestedOneWithoutDelegationsReceivedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutDelegationsReceivedInput, Prisma.EmployeeUncheckedCreateWithoutDelegationsReceivedInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutDelegationsReceivedInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeUpdateOneRequiredWithoutDelegationsGivenNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutDelegationsGivenInput, Prisma.EmployeeUncheckedCreateWithoutDelegationsGivenInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutDelegationsGivenInput
+  upsert?: Prisma.EmployeeUpsertWithoutDelegationsGivenInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutDelegationsGivenInput, Prisma.EmployeeUpdateWithoutDelegationsGivenInput>, Prisma.EmployeeUncheckedUpdateWithoutDelegationsGivenInput>
+}
+
+export type EmployeeUpdateOneRequiredWithoutDelegationsReceivedNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutDelegationsReceivedInput, Prisma.EmployeeUncheckedCreateWithoutDelegationsReceivedInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutDelegationsReceivedInput
+  upsert?: Prisma.EmployeeUpsertWithoutDelegationsReceivedInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutDelegationsReceivedInput, Prisma.EmployeeUpdateWithoutDelegationsReceivedInput>, Prisma.EmployeeUncheckedUpdateWithoutDelegationsReceivedInput>
+}
+
 export type EmployeeCreateWithoutUserInput = {
   id?: string
   registrationNumber: string
@@ -2989,11 +3094,16 @@ export type EmployeeCreateWithoutUserInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutUserInput = {
@@ -3098,10 +3208,15 @@ export type EmployeeUncheckedCreateWithoutUserInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutUserInput = {
@@ -3221,11 +3336,16 @@ export type EmployeeUpdateWithoutUserInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutUserInput = {
@@ -3330,10 +3450,15 @@ export type EmployeeUncheckedUpdateWithoutUserInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeCreateWithoutOrganizationInput = {
@@ -3437,11 +3562,16 @@ export type EmployeeCreateWithoutOrganizationInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutOrganizationInput = {
@@ -3546,10 +3676,15 @@ export type EmployeeUncheckedCreateWithoutOrganizationInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutOrganizationInput = {
@@ -3771,11 +3906,16 @@ export type EmployeeCreateWithoutSubordinatesInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutSubordinatesInput = {
@@ -3880,10 +4020,15 @@ export type EmployeeUncheckedCreateWithoutSubordinatesInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutSubordinatesInput = {
@@ -3992,11 +4137,16 @@ export type EmployeeCreateWithoutSupervisorInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutSupervisorInput = {
@@ -4101,10 +4251,15 @@ export type EmployeeUncheckedCreateWithoutSupervisorInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutSupervisorInput = {
@@ -4229,11 +4384,16 @@ export type EmployeeUpdateWithoutSubordinatesInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutSubordinatesInput = {
@@ -4338,10 +4498,15 @@ export type EmployeeUncheckedUpdateWithoutSubordinatesInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUpsertWithWhereUniqueWithoutSupervisorInput = {
@@ -4462,10 +4627,15 @@ export type EmployeeCreateWithoutManagedDepartmentsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutManagedDepartmentsInput = {
@@ -4571,9 +4741,14 @@ export type EmployeeUncheckedCreateWithoutManagedDepartmentsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutManagedDepartmentsInput = {
@@ -4682,11 +4857,16 @@ export type EmployeeCreateWithoutDepartmentInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutDepartmentInput = {
@@ -4791,10 +4971,15 @@ export type EmployeeUncheckedCreateWithoutDepartmentInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutDepartmentInput = {
@@ -4920,10 +5105,15 @@ export type EmployeeUpdateWithoutManagedDepartmentsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutManagedDepartmentsInput = {
@@ -5029,9 +5219,14 @@ export type EmployeeUncheckedUpdateWithoutManagedDepartmentsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUpsertWithWhereUniqueWithoutDepartmentInput = {
@@ -5151,11 +5346,16 @@ export type EmployeeCreateWithoutPositionInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutPositionInput = {
@@ -5260,10 +5460,15 @@ export type EmployeeUncheckedCreateWithoutPositionInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutPositionInput = {
@@ -5393,11 +5598,16 @@ export type EmployeeCreateWithoutTimeEntriesInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutTimeEntriesInput = {
@@ -5502,10 +5712,15 @@ export type EmployeeUncheckedCreateWithoutTimeEntriesInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutTimeEntriesInput = {
@@ -5625,11 +5840,16 @@ export type EmployeeUpdateWithoutTimeEntriesInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutTimeEntriesInput = {
@@ -5734,10 +5954,483 @@ export type EmployeeUncheckedUpdateWithoutTimeEntriesInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
+}
+
+export type EmployeeCreateWithoutShiftAssignmentsInput = {
+  id?: string
+  registrationNumber: string
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
+  user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
+  position?: Prisma.PositionCreateNestedOneWithoutEmployeesInput
+  supervisor?: Prisma.EmployeeCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.EmployeeCreateNestedManyWithoutSupervisorInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutEmployeesInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
+  warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
+  offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
+}
+
+export type EmployeeUncheckedCreateWithoutShiftAssignmentsInput = {
+  id?: string
+  tenantId: string
+  registrationNumber: string
+  userId?: string | null
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  departmentId?: string | null
+  positionId?: string | null
+  supervisorId?: string | null
+  organizationId?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  companyId?: string | null
+  subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+  warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
+}
+
+export type EmployeeCreateOrConnectWithoutShiftAssignmentsInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutShiftAssignmentsInput, Prisma.EmployeeUncheckedCreateWithoutShiftAssignmentsInput>
+}
+
+export type EmployeeUpsertWithoutShiftAssignmentsInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutShiftAssignmentsInput, Prisma.EmployeeUncheckedUpdateWithoutShiftAssignmentsInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutShiftAssignmentsInput, Prisma.EmployeeUncheckedCreateWithoutShiftAssignmentsInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutShiftAssignmentsInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutShiftAssignmentsInput, Prisma.EmployeeUncheckedUpdateWithoutShiftAssignmentsInput>
+}
+
+export type EmployeeUpdateWithoutShiftAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
+  user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutEmployeesNestedInput
+  supervisor?: Prisma.EmployeeUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.EmployeeUpdateManyWithoutSupervisorNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutEmployeesNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
+  warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutShiftAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supervisorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+  warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeCreateWithoutOvertimeInput = {
@@ -5841,11 +6534,16 @@ export type EmployeeCreateWithoutOvertimeInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutOvertimeInput = {
@@ -5950,10 +6648,15 @@ export type EmployeeUncheckedCreateWithoutOvertimeInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutOvertimeInput = {
@@ -6073,11 +6776,16 @@ export type EmployeeUpdateWithoutOvertimeInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutOvertimeInput = {
@@ -6182,10 +6890,15 @@ export type EmployeeUncheckedUpdateWithoutOvertimeInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeCreateWithoutTimeBanksInput = {
@@ -6289,11 +7002,16 @@ export type EmployeeCreateWithoutTimeBanksInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutTimeBanksInput = {
@@ -6398,10 +7116,15 @@ export type EmployeeUncheckedCreateWithoutTimeBanksInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutTimeBanksInput = {
@@ -6521,11 +7244,16 @@ export type EmployeeUpdateWithoutTimeBanksInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutTimeBanksInput = {
@@ -6630,10 +7358,15 @@ export type EmployeeUncheckedUpdateWithoutTimeBanksInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeCreateWithoutAbsencesInput = {
@@ -6737,11 +7470,16 @@ export type EmployeeCreateWithoutAbsencesInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutAbsencesInput = {
@@ -6846,10 +7584,15 @@ export type EmployeeUncheckedCreateWithoutAbsencesInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutAbsencesInput = {
@@ -6969,11 +7712,16 @@ export type EmployeeUpdateWithoutAbsencesInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutAbsencesInput = {
@@ -7078,10 +7826,15 @@ export type EmployeeUncheckedUpdateWithoutAbsencesInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeCreateWithoutVacationPeriodsInput = {
@@ -7185,11 +7938,16 @@ export type EmployeeCreateWithoutVacationPeriodsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutVacationPeriodsInput = {
@@ -7294,10 +8052,15 @@ export type EmployeeUncheckedCreateWithoutVacationPeriodsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutVacationPeriodsInput = {
@@ -7417,11 +8180,16 @@ export type EmployeeUpdateWithoutVacationPeriodsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutVacationPeriodsInput = {
@@ -7526,10 +8294,15 @@ export type EmployeeUncheckedUpdateWithoutVacationPeriodsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeCreateWithoutPayrollItemsInput = {
@@ -7633,11 +8406,16 @@ export type EmployeeCreateWithoutPayrollItemsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutPayrollItemsInput = {
@@ -7742,10 +8520,15 @@ export type EmployeeUncheckedCreateWithoutPayrollItemsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutPayrollItemsInput = {
@@ -7865,11 +8648,16 @@ export type EmployeeUpdateWithoutPayrollItemsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutPayrollItemsInput = {
@@ -7974,10 +8762,15 @@ export type EmployeeUncheckedUpdateWithoutPayrollItemsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeCreateWithoutBonusesInput = {
@@ -8081,11 +8874,16 @@ export type EmployeeCreateWithoutBonusesInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutBonusesInput = {
@@ -8190,10 +8988,15 @@ export type EmployeeUncheckedCreateWithoutBonusesInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutBonusesInput = {
@@ -8313,11 +9116,16 @@ export type EmployeeUpdateWithoutBonusesInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutBonusesInput = {
@@ -8422,10 +9230,15 @@ export type EmployeeUncheckedUpdateWithoutBonusesInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeCreateWithoutDeductionsInput = {
@@ -8529,11 +9342,16 @@ export type EmployeeCreateWithoutDeductionsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutDeductionsInput = {
@@ -8638,10 +9456,15 @@ export type EmployeeUncheckedCreateWithoutDeductionsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutDeductionsInput = {
@@ -8761,11 +9584,16 @@ export type EmployeeUpdateWithoutDeductionsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutDeductionsInput = {
@@ -8870,10 +9698,15 @@ export type EmployeeUncheckedUpdateWithoutDeductionsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeCreateWithoutWarningsInput = {
@@ -8978,10 +9811,15 @@ export type EmployeeCreateWithoutWarningsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutWarningsInput = {
@@ -9087,9 +9925,14 @@ export type EmployeeUncheckedCreateWithoutWarningsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutWarningsInput = {
@@ -9199,10 +10042,15 @@ export type EmployeeCreateWithoutIssuedWarningsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutIssuedWarningsInput = {
@@ -9308,9 +10156,14 @@ export type EmployeeUncheckedCreateWithoutIssuedWarningsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutIssuedWarningsInput = {
@@ -9431,10 +10284,15 @@ export type EmployeeUpdateWithoutWarningsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutWarningsInput = {
@@ -9540,9 +10398,14 @@ export type EmployeeUncheckedUpdateWithoutWarningsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUpsertWithoutIssuedWarningsInput = {
@@ -9658,10 +10521,15 @@ export type EmployeeUpdateWithoutIssuedWarningsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutIssuedWarningsInput = {
@@ -9767,9 +10635,14 @@ export type EmployeeUncheckedUpdateWithoutIssuedWarningsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeCreateWithoutDependantsInput = {
@@ -9873,11 +10746,16 @@ export type EmployeeCreateWithoutDependantsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutDependantsInput = {
@@ -9982,10 +10860,15 @@ export type EmployeeUncheckedCreateWithoutDependantsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutDependantsInput = {
@@ -10105,11 +10988,16 @@ export type EmployeeUpdateWithoutDependantsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutDependantsInput = {
@@ -10214,10 +11102,15 @@ export type EmployeeUncheckedUpdateWithoutDependantsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeCreateWithoutTerminationInput = {
@@ -10321,11 +11214,16 @@ export type EmployeeCreateWithoutTerminationInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutTerminationInput = {
@@ -10430,10 +11328,15 @@ export type EmployeeUncheckedCreateWithoutTerminationInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutTerminationInput = {
@@ -10553,11 +11456,16 @@ export type EmployeeUpdateWithoutTerminationInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutTerminationInput = {
@@ -10662,10 +11570,15 @@ export type EmployeeUncheckedUpdateWithoutTerminationInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeCreateWithoutMedicalExamsInput = {
@@ -10769,11 +11682,16 @@ export type EmployeeCreateWithoutMedicalExamsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutMedicalExamsInput = {
@@ -10878,10 +11796,15 @@ export type EmployeeUncheckedCreateWithoutMedicalExamsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutMedicalExamsInput = {
@@ -11001,11 +11924,16 @@ export type EmployeeUpdateWithoutMedicalExamsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutMedicalExamsInput = {
@@ -11110,10 +12038,15 @@ export type EmployeeUncheckedUpdateWithoutMedicalExamsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeCreateWithoutCipaMembersInput = {
@@ -11217,11 +12150,16 @@ export type EmployeeCreateWithoutCipaMembersInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutCipaMembersInput = {
@@ -11326,10 +12264,15 @@ export type EmployeeUncheckedCreateWithoutCipaMembersInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutCipaMembersInput = {
@@ -11449,11 +12392,16 @@ export type EmployeeUpdateWithoutCipaMembersInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutCipaMembersInput = {
@@ -11558,10 +12506,15 @@ export type EmployeeUncheckedUpdateWithoutCipaMembersInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeCreateWithoutBenefitEnrollmentsInput = {
@@ -11665,11 +12618,16 @@ export type EmployeeCreateWithoutBenefitEnrollmentsInput = {
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutBenefitEnrollmentsInput = {
@@ -11774,10 +12732,15 @@ export type EmployeeUncheckedCreateWithoutBenefitEnrollmentsInput = {
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutBenefitEnrollmentsInput = {
@@ -11897,11 +12860,16 @@ export type EmployeeUpdateWithoutBenefitEnrollmentsInput = {
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutBenefitEnrollmentsInput = {
@@ -12006,10 +12974,15 @@ export type EmployeeUncheckedUpdateWithoutBenefitEnrollmentsInput = {
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeCreateWithoutTrainingEnrollmentsInput = {
@@ -12113,11 +13086,16 @@ export type EmployeeCreateWithoutTrainingEnrollmentsInput = {
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutTrainingEnrollmentsInput = {
@@ -12222,10 +13200,15 @@ export type EmployeeUncheckedCreateWithoutTrainingEnrollmentsInput = {
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutTrainingEnrollmentsInput = {
@@ -12345,11 +13328,16 @@ export type EmployeeUpdateWithoutTrainingEnrollmentsInput = {
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutTrainingEnrollmentsInput = {
@@ -12454,10 +13442,951 @@ export type EmployeeUncheckedUpdateWithoutTrainingEnrollmentsInput = {
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
+}
+
+export type EmployeeCreateWithoutPerformanceReviewsInput = {
+  id?: string
+  registrationNumber: string
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
+  user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
+  position?: Prisma.PositionCreateNestedOneWithoutEmployeesInput
+  supervisor?: Prisma.EmployeeCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.EmployeeCreateNestedManyWithoutSupervisorInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutEmployeesInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
+  warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
+  offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
+}
+
+export type EmployeeUncheckedCreateWithoutPerformanceReviewsInput = {
+  id?: string
+  tenantId: string
+  registrationNumber: string
+  userId?: string | null
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  departmentId?: string | null
+  positionId?: string | null
+  supervisorId?: string | null
+  organizationId?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  companyId?: string | null
+  subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+  warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
+}
+
+export type EmployeeCreateOrConnectWithoutPerformanceReviewsInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutPerformanceReviewsInput, Prisma.EmployeeUncheckedCreateWithoutPerformanceReviewsInput>
+}
+
+export type EmployeeCreateWithoutConductedPerformanceReviewsInput = {
+  id?: string
+  registrationNumber: string
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
+  user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
+  position?: Prisma.PositionCreateNestedOneWithoutEmployeesInput
+  supervisor?: Prisma.EmployeeCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.EmployeeCreateNestedManyWithoutSupervisorInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutEmployeesInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
+  warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
+  offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
+}
+
+export type EmployeeUncheckedCreateWithoutConductedPerformanceReviewsInput = {
+  id?: string
+  tenantId: string
+  registrationNumber: string
+  userId?: string | null
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  departmentId?: string | null
+  positionId?: string | null
+  supervisorId?: string | null
+  organizationId?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  companyId?: string | null
+  subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+  warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
+}
+
+export type EmployeeCreateOrConnectWithoutConductedPerformanceReviewsInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutConductedPerformanceReviewsInput, Prisma.EmployeeUncheckedCreateWithoutConductedPerformanceReviewsInput>
+}
+
+export type EmployeeUpsertWithoutPerformanceReviewsInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutPerformanceReviewsInput, Prisma.EmployeeUncheckedUpdateWithoutPerformanceReviewsInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutPerformanceReviewsInput, Prisma.EmployeeUncheckedCreateWithoutPerformanceReviewsInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutPerformanceReviewsInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutPerformanceReviewsInput, Prisma.EmployeeUncheckedUpdateWithoutPerformanceReviewsInput>
+}
+
+export type EmployeeUpdateWithoutPerformanceReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
+  user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutEmployeesNestedInput
+  supervisor?: Prisma.EmployeeUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.EmployeeUpdateManyWithoutSupervisorNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutEmployeesNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
+  warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutPerformanceReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supervisorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+  warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
+}
+
+export type EmployeeUpsertWithoutConductedPerformanceReviewsInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutConductedPerformanceReviewsInput, Prisma.EmployeeUncheckedUpdateWithoutConductedPerformanceReviewsInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutConductedPerformanceReviewsInput, Prisma.EmployeeUncheckedCreateWithoutConductedPerformanceReviewsInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutConductedPerformanceReviewsInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutConductedPerformanceReviewsInput, Prisma.EmployeeUncheckedUpdateWithoutConductedPerformanceReviewsInput>
+}
+
+export type EmployeeUpdateWithoutConductedPerformanceReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
+  user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutEmployeesNestedInput
+  supervisor?: Prisma.EmployeeUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.EmployeeUpdateManyWithoutSupervisorNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutEmployeesNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
+  warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutConductedPerformanceReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supervisorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+  warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeCreateWithoutFlexBenefitAllocationsInput = {
@@ -12561,11 +14490,16 @@ export type EmployeeCreateWithoutFlexBenefitAllocationsInput = {
   cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutFlexBenefitAllocationsInput = {
@@ -12670,10 +14604,15 @@ export type EmployeeUncheckedCreateWithoutFlexBenefitAllocationsInput = {
   cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutFlexBenefitAllocationsInput = {
@@ -12793,11 +14732,16 @@ export type EmployeeUpdateWithoutFlexBenefitAllocationsInput = {
   cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutFlexBenefitAllocationsInput = {
@@ -12902,10 +14846,15 @@ export type EmployeeUncheckedUpdateWithoutFlexBenefitAllocationsInput = {
   cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeCreateWithoutCompanyInput = {
@@ -13010,10 +14959,15 @@ export type EmployeeCreateWithoutCompanyInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutCompanyInput = {
@@ -13118,10 +15072,15 @@ export type EmployeeUncheckedCreateWithoutCompanyInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutCompanyInput = {
@@ -13251,11 +15210,16 @@ export type EmployeeCreateWithoutTenantInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutTenantInput = {
@@ -13360,10 +15324,15 @@ export type EmployeeUncheckedCreateWithoutTenantInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutTenantInput = {
@@ -13494,10 +15463,15 @@ export type EmployeeCreateWithoutOffboardingChecklistsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
   company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
   warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeUncheckedCreateWithoutOffboardingChecklistsInput = {
@@ -13603,9 +15577,14 @@ export type EmployeeUncheckedCreateWithoutOffboardingChecklistsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
   managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
   warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
 }
 
 export type EmployeeCreateOrConnectWithoutOffboardingChecklistsInput = {
@@ -13726,10 +15705,15 @@ export type EmployeeUpdateWithoutOffboardingChecklistsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutOffboardingChecklistsInput = {
@@ -13835,9 +15819,950 @@ export type EmployeeUncheckedUpdateWithoutOffboardingChecklistsInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
+}
+
+export type EmployeeCreateWithoutDelegationsGivenInput = {
+  id?: string
+  registrationNumber: string
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
+  user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
+  position?: Prisma.PositionCreateNestedOneWithoutEmployeesInput
+  supervisor?: Prisma.EmployeeCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.EmployeeCreateNestedManyWithoutSupervisorInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutEmployeesInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
+  warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
+  offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
+}
+
+export type EmployeeUncheckedCreateWithoutDelegationsGivenInput = {
+  id?: string
+  tenantId: string
+  registrationNumber: string
+  userId?: string | null
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  departmentId?: string | null
+  positionId?: string | null
+  supervisorId?: string | null
+  organizationId?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  companyId?: string | null
+  subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+  warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
+}
+
+export type EmployeeCreateOrConnectWithoutDelegationsGivenInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutDelegationsGivenInput, Prisma.EmployeeUncheckedCreateWithoutDelegationsGivenInput>
+}
+
+export type EmployeeCreateWithoutDelegationsReceivedInput = {
+  id?: string
+  registrationNumber: string
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
+  user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
+  position?: Prisma.PositionCreateNestedOneWithoutEmployeesInput
+  supervisor?: Prisma.EmployeeCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.EmployeeCreateNestedManyWithoutSupervisorInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutEmployeesInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
+  warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
+  offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+}
+
+export type EmployeeUncheckedCreateWithoutDelegationsReceivedInput = {
+  id?: string
+  tenantId: string
+  registrationNumber: string
+  userId?: string | null
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  departmentId?: string | null
+  positionId?: string | null
+  supervisorId?: string | null
+  organizationId?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  companyId?: string | null
+  subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+  warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+}
+
+export type EmployeeCreateOrConnectWithoutDelegationsReceivedInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutDelegationsReceivedInput, Prisma.EmployeeUncheckedCreateWithoutDelegationsReceivedInput>
+}
+
+export type EmployeeUpsertWithoutDelegationsGivenInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutDelegationsGivenInput, Prisma.EmployeeUncheckedUpdateWithoutDelegationsGivenInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutDelegationsGivenInput, Prisma.EmployeeUncheckedCreateWithoutDelegationsGivenInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutDelegationsGivenInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutDelegationsGivenInput, Prisma.EmployeeUncheckedUpdateWithoutDelegationsGivenInput>
+}
+
+export type EmployeeUpdateWithoutDelegationsGivenInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
+  user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutEmployeesNestedInput
+  supervisor?: Prisma.EmployeeUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.EmployeeUpdateManyWithoutSupervisorNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutEmployeesNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
+  warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutDelegationsGivenInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supervisorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+  warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
+}
+
+export type EmployeeUpsertWithoutDelegationsReceivedInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutDelegationsReceivedInput, Prisma.EmployeeUncheckedUpdateWithoutDelegationsReceivedInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutDelegationsReceivedInput, Prisma.EmployeeUncheckedCreateWithoutDelegationsReceivedInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutDelegationsReceivedInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutDelegationsReceivedInput, Prisma.EmployeeUncheckedUpdateWithoutDelegationsReceivedInput>
+}
+
+export type EmployeeUpdateWithoutDelegationsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
+  user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutEmployeesNestedInput
+  supervisor?: Prisma.EmployeeUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.EmployeeUpdateManyWithoutSupervisorNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutEmployeesNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
+  warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutDelegationsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supervisorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+  warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
 }
 
 export type EmployeeCreateManyOrganizationInput = {
@@ -14029,11 +16954,16 @@ export type EmployeeUpdateWithoutOrganizationInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutOrganizationInput = {
@@ -14138,10 +17068,15 @@ export type EmployeeUncheckedUpdateWithoutOrganizationInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutOrganizationInput = {
@@ -14421,11 +17356,16 @@ export type EmployeeUpdateWithoutSupervisorInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutSupervisorInput = {
@@ -14530,10 +17470,15 @@ export type EmployeeUncheckedUpdateWithoutSupervisorInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutSupervisorInput = {
@@ -14813,11 +17758,16 @@ export type EmployeeUpdateWithoutDepartmentInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
@@ -14922,10 +17872,15 @@ export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutDepartmentInput = {
@@ -15205,11 +18160,16 @@ export type EmployeeUpdateWithoutPositionInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutPositionInput = {
@@ -15314,10 +18274,15 @@ export type EmployeeUncheckedUpdateWithoutPositionInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutPositionInput = {
@@ -15598,10 +18563,15 @@ export type EmployeeUpdateWithoutCompanyInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutCompanyInput = {
@@ -15706,10 +18676,15 @@ export type EmployeeUncheckedUpdateWithoutCompanyInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutCompanyInput = {
@@ -15989,11 +18964,16 @@ export type EmployeeUpdateWithoutTenantInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
   company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
   warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutTenantInput = {
@@ -16098,10 +19078,15 @@ export type EmployeeUncheckedUpdateWithoutTenantInput = {
   benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
   flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
   managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
   warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
   issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
   offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutTenantInput = {
@@ -16213,10 +19198,15 @@ export type EmployeeCountOutputType = {
   benefitEnrollments: number
   flexBenefitAllocations: number
   trainingEnrollments: number
+  performanceReviews: number
+  conductedPerformanceReviews: number
   managedDepartments: number
   warnings: number
   issuedWarnings: number
   offboardingChecklists: number
+  shiftAssignments: number
+  delegationsGiven: number
+  delegationsReceived: number
 }
 
 export type EmployeeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -16235,10 +19225,15 @@ export type EmployeeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   benefitEnrollments?: boolean | EmployeeCountOutputTypeCountBenefitEnrollmentsArgs
   flexBenefitAllocations?: boolean | EmployeeCountOutputTypeCountFlexBenefitAllocationsArgs
   trainingEnrollments?: boolean | EmployeeCountOutputTypeCountTrainingEnrollmentsArgs
+  performanceReviews?: boolean | EmployeeCountOutputTypeCountPerformanceReviewsArgs
+  conductedPerformanceReviews?: boolean | EmployeeCountOutputTypeCountConductedPerformanceReviewsArgs
   managedDepartments?: boolean | EmployeeCountOutputTypeCountManagedDepartmentsArgs
   warnings?: boolean | EmployeeCountOutputTypeCountWarningsArgs
   issuedWarnings?: boolean | EmployeeCountOutputTypeCountIssuedWarningsArgs
   offboardingChecklists?: boolean | EmployeeCountOutputTypeCountOffboardingChecklistsArgs
+  shiftAssignments?: boolean | EmployeeCountOutputTypeCountShiftAssignmentsArgs
+  delegationsGiven?: boolean | EmployeeCountOutputTypeCountDelegationsGivenArgs
+  delegationsReceived?: boolean | EmployeeCountOutputTypeCountDelegationsReceivedArgs
 }
 
 /**
@@ -16359,6 +19354,20 @@ export type EmployeeCountOutputTypeCountTrainingEnrollmentsArgs<ExtArgs extends 
 /**
  * EmployeeCountOutputType without action
  */
+export type EmployeeCountOutputTypeCountPerformanceReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PerformanceReviewWhereInput
+}
+
+/**
+ * EmployeeCountOutputType without action
+ */
+export type EmployeeCountOutputTypeCountConductedPerformanceReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PerformanceReviewWhereInput
+}
+
+/**
+ * EmployeeCountOutputType without action
+ */
 export type EmployeeCountOutputTypeCountManagedDepartmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DepartmentWhereInput
 }
@@ -16382,6 +19391,27 @@ export type EmployeeCountOutputTypeCountIssuedWarningsArgs<ExtArgs extends runti
  */
 export type EmployeeCountOutputTypeCountOffboardingChecklistsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.OffboardingChecklistWhereInput
+}
+
+/**
+ * EmployeeCountOutputType without action
+ */
+export type EmployeeCountOutputTypeCountShiftAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShiftAssignmentWhereInput
+}
+
+/**
+ * EmployeeCountOutputType without action
+ */
+export type EmployeeCountOutputTypeCountDelegationsGivenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ApprovalDelegationWhereInput
+}
+
+/**
+ * EmployeeCountOutputType without action
+ */
+export type EmployeeCountOutputTypeCountDelegationsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ApprovalDelegationWhereInput
 }
 
 
@@ -16494,11 +19524,16 @@ export type EmployeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   benefitEnrollments?: boolean | Prisma.Employee$benefitEnrollmentsArgs<ExtArgs>
   flexBenefitAllocations?: boolean | Prisma.Employee$flexBenefitAllocationsArgs<ExtArgs>
   trainingEnrollments?: boolean | Prisma.Employee$trainingEnrollmentsArgs<ExtArgs>
+  performanceReviews?: boolean | Prisma.Employee$performanceReviewsArgs<ExtArgs>
+  conductedPerformanceReviews?: boolean | Prisma.Employee$conductedPerformanceReviewsArgs<ExtArgs>
   managedDepartments?: boolean | Prisma.Employee$managedDepartmentsArgs<ExtArgs>
   company?: boolean | Prisma.Employee$companyArgs<ExtArgs>
   warnings?: boolean | Prisma.Employee$warningsArgs<ExtArgs>
   issuedWarnings?: boolean | Prisma.Employee$issuedWarningsArgs<ExtArgs>
   offboardingChecklists?: boolean | Prisma.Employee$offboardingChecklistsArgs<ExtArgs>
+  shiftAssignments?: boolean | Prisma.Employee$shiftAssignmentsArgs<ExtArgs>
+  delegationsGiven?: boolean | Prisma.Employee$delegationsGivenArgs<ExtArgs>
+  delegationsReceived?: boolean | Prisma.Employee$delegationsReceivedArgs<ExtArgs>
   _count?: boolean | Prisma.EmployeeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["employee"]>
 
@@ -16807,11 +19842,16 @@ export type EmployeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   benefitEnrollments?: boolean | Prisma.Employee$benefitEnrollmentsArgs<ExtArgs>
   flexBenefitAllocations?: boolean | Prisma.Employee$flexBenefitAllocationsArgs<ExtArgs>
   trainingEnrollments?: boolean | Prisma.Employee$trainingEnrollmentsArgs<ExtArgs>
+  performanceReviews?: boolean | Prisma.Employee$performanceReviewsArgs<ExtArgs>
+  conductedPerformanceReviews?: boolean | Prisma.Employee$conductedPerformanceReviewsArgs<ExtArgs>
   managedDepartments?: boolean | Prisma.Employee$managedDepartmentsArgs<ExtArgs>
   company?: boolean | Prisma.Employee$companyArgs<ExtArgs>
   warnings?: boolean | Prisma.Employee$warningsArgs<ExtArgs>
   issuedWarnings?: boolean | Prisma.Employee$issuedWarningsArgs<ExtArgs>
   offboardingChecklists?: boolean | Prisma.Employee$offboardingChecklistsArgs<ExtArgs>
+  shiftAssignments?: boolean | Prisma.Employee$shiftAssignmentsArgs<ExtArgs>
+  delegationsGiven?: boolean | Prisma.Employee$delegationsGivenArgs<ExtArgs>
+  delegationsReceived?: boolean | Prisma.Employee$delegationsReceivedArgs<ExtArgs>
   _count?: boolean | Prisma.EmployeeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EmployeeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -16858,11 +19898,16 @@ export type $EmployeePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     benefitEnrollments: Prisma.$BenefitEnrollmentPayload<ExtArgs>[]
     flexBenefitAllocations: Prisma.$FlexBenefitAllocationPayload<ExtArgs>[]
     trainingEnrollments: Prisma.$TrainingEnrollmentPayload<ExtArgs>[]
+    performanceReviews: Prisma.$PerformanceReviewPayload<ExtArgs>[]
+    conductedPerformanceReviews: Prisma.$PerformanceReviewPayload<ExtArgs>[]
     managedDepartments: Prisma.$DepartmentPayload<ExtArgs>[]
     company: Prisma.$CompanyPayload<ExtArgs> | null
     warnings: Prisma.$EmployeeWarningPayload<ExtArgs>[]
     issuedWarnings: Prisma.$EmployeeWarningPayload<ExtArgs>[]
     offboardingChecklists: Prisma.$OffboardingChecklistPayload<ExtArgs>[]
+    shiftAssignments: Prisma.$ShiftAssignmentPayload<ExtArgs>[]
+    delegationsGiven: Prisma.$ApprovalDelegationPayload<ExtArgs>[]
+    delegationsReceived: Prisma.$ApprovalDelegationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -17367,11 +20412,16 @@ export interface Prisma__EmployeeClient<T, Null = never, ExtArgs extends runtime
   benefitEnrollments<T extends Prisma.Employee$benefitEnrollmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$benefitEnrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BenefitEnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   flexBenefitAllocations<T extends Prisma.Employee$flexBenefitAllocationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$flexBenefitAllocationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FlexBenefitAllocationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   trainingEnrollments<T extends Prisma.Employee$trainingEnrollmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$trainingEnrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrainingEnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  performanceReviews<T extends Prisma.Employee$performanceReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$performanceReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PerformanceReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conductedPerformanceReviews<T extends Prisma.Employee$conductedPerformanceReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$conductedPerformanceReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PerformanceReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   managedDepartments<T extends Prisma.Employee$managedDepartmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$managedDepartmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   company<T extends Prisma.Employee$companyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$companyArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   warnings<T extends Prisma.Employee$warningsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$warningsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmployeeWarningPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   issuedWarnings<T extends Prisma.Employee$issuedWarningsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$issuedWarningsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmployeeWarningPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   offboardingChecklists<T extends Prisma.Employee$offboardingChecklistsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$offboardingChecklistsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OffboardingChecklistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shiftAssignments<T extends Prisma.Employee$shiftAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$shiftAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShiftAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  delegationsGiven<T extends Prisma.Employee$delegationsGivenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$delegationsGivenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApprovalDelegationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  delegationsReceived<T extends Prisma.Employee$delegationsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$delegationsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApprovalDelegationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -18357,6 +21407,54 @@ export type Employee$trainingEnrollmentsArgs<ExtArgs extends runtime.Types.Exten
 }
 
 /**
+ * Employee.performanceReviews
+ */
+export type Employee$performanceReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PerformanceReview
+   */
+  select?: Prisma.PerformanceReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PerformanceReview
+   */
+  omit?: Prisma.PerformanceReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PerformanceReviewInclude<ExtArgs> | null
+  where?: Prisma.PerformanceReviewWhereInput
+  orderBy?: Prisma.PerformanceReviewOrderByWithRelationInput | Prisma.PerformanceReviewOrderByWithRelationInput[]
+  cursor?: Prisma.PerformanceReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PerformanceReviewScalarFieldEnum | Prisma.PerformanceReviewScalarFieldEnum[]
+}
+
+/**
+ * Employee.conductedPerformanceReviews
+ */
+export type Employee$conductedPerformanceReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PerformanceReview
+   */
+  select?: Prisma.PerformanceReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PerformanceReview
+   */
+  omit?: Prisma.PerformanceReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PerformanceReviewInclude<ExtArgs> | null
+  where?: Prisma.PerformanceReviewWhereInput
+  orderBy?: Prisma.PerformanceReviewOrderByWithRelationInput | Prisma.PerformanceReviewOrderByWithRelationInput[]
+  cursor?: Prisma.PerformanceReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PerformanceReviewScalarFieldEnum | Prisma.PerformanceReviewScalarFieldEnum[]
+}
+
+/**
  * Employee.managedDepartments
  */
 export type Employee$managedDepartmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -18469,6 +21567,78 @@ export type Employee$offboardingChecklistsArgs<ExtArgs extends runtime.Types.Ext
   take?: number
   skip?: number
   distinct?: Prisma.OffboardingChecklistScalarFieldEnum | Prisma.OffboardingChecklistScalarFieldEnum[]
+}
+
+/**
+ * Employee.shiftAssignments
+ */
+export type Employee$shiftAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShiftAssignment
+   */
+  select?: Prisma.ShiftAssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShiftAssignment
+   */
+  omit?: Prisma.ShiftAssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShiftAssignmentInclude<ExtArgs> | null
+  where?: Prisma.ShiftAssignmentWhereInput
+  orderBy?: Prisma.ShiftAssignmentOrderByWithRelationInput | Prisma.ShiftAssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.ShiftAssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShiftAssignmentScalarFieldEnum | Prisma.ShiftAssignmentScalarFieldEnum[]
+}
+
+/**
+ * Employee.delegationsGiven
+ */
+export type Employee$delegationsGivenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ApprovalDelegation
+   */
+  select?: Prisma.ApprovalDelegationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ApprovalDelegation
+   */
+  omit?: Prisma.ApprovalDelegationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ApprovalDelegationInclude<ExtArgs> | null
+  where?: Prisma.ApprovalDelegationWhereInput
+  orderBy?: Prisma.ApprovalDelegationOrderByWithRelationInput | Prisma.ApprovalDelegationOrderByWithRelationInput[]
+  cursor?: Prisma.ApprovalDelegationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ApprovalDelegationScalarFieldEnum | Prisma.ApprovalDelegationScalarFieldEnum[]
+}
+
+/**
+ * Employee.delegationsReceived
+ */
+export type Employee$delegationsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ApprovalDelegation
+   */
+  select?: Prisma.ApprovalDelegationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ApprovalDelegation
+   */
+  omit?: Prisma.ApprovalDelegationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ApprovalDelegationInclude<ExtArgs> | null
+  where?: Prisma.ApprovalDelegationWhereInput
+  orderBy?: Prisma.ApprovalDelegationOrderByWithRelationInput | Prisma.ApprovalDelegationOrderByWithRelationInput[]
+  cursor?: Prisma.ApprovalDelegationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ApprovalDelegationScalarFieldEnum | Prisma.ApprovalDelegationScalarFieldEnum[]
 }
 
 /**

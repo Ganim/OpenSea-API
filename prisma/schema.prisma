@@ -4033,6 +4033,10 @@ model Employee {
   // Training
   trainingEnrollments TrainingEnrollment[]
 
+  // Performance Reviews
+  performanceReviews         PerformanceReview[] @relation("ReviewEmployee")
+  conductedPerformanceReviews PerformanceReview[] @relation("ReviewReviewer")
+
   // Management
   managedDepartments Department[] @relation("DepartmentManager")
   company            Company?     @relation(fields: [companyId], references: [id])
@@ -4042,6 +4046,13 @@ model Employee {
   warnings              EmployeeWarning[]
   issuedWarnings        EmployeeWarning[]      @relation("WarningIssuer")
   offboardingChecklists OffboardingChecklist[]
+
+  // Shifts
+  shiftAssignments ShiftAssignment[]
+
+  // Approval Delegations
+  delegationsGiven    ApprovalDelegation[] @relation("DelegationDelegator")
+  delegationsReceived ApprovalDelegation[] @relation("DelegationDelegate")
 
   @@unique([registrationNumber, tenantId, deletedAt], name: "employees_registration_tenant_unique_active")
   @@unique([cpfHash, tenantId, deletedAt], name: "employees_cpf_tenant_unique_active")
@@ -4129,9 +4140,10 @@ model Position {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
-  tenant     Tenant      @relation(fields: [tenantId], references: [id])
-  department Department? @relation(fields: [departmentId], references: [id])
-  employees  Employee[]
+  tenant                       Tenant                        @relation(fields: [tenantId], references: [id])
+  department                   Department?                   @relation(fields: [departmentId], references: [id])
+  employees                    Employee[]
+  occupationalExamRequirements OccupationalExamRequirement[]
 
   @@unique([code, tenantId], name: "positions_code_tenant_unique")
   @@index([tenantId])
@@ -4228,6 +4240,69 @@ model WorkSchedule {
 
   @@index([tenantId])
   @@map("work_schedules")
+}
+
+// ===============================================
+// SHIFTS (Turnos de Trabalho)
+// ===============================================
+
+model Shift {
+  id String @id @default(uuid())
+
+  // Multi-Tenant
+  tenantId String @map("tenant_id")
+
+  name         String  @db.VarChar(128)
+  code         String? @db.VarChar(32)
+  type         String  @db.VarChar(32) // FIXED, ROTATING, FLEXIBLE, ON_CALL
+  startTime    String  @map("start_time") @db.VarChar(5) // HH:MM format
+  endTime      String  @map("end_time") @db.VarChar(5)
+  breakMinutes Int     @default(60) @map("break_minutes")
+  isNightShift Boolean @default(false) @map("is_night_shift")
+  color        String? @db.VarChar(7)
+  isActive     Boolean @default(true) @map("is_active")
+
+  // Soft Delete
+  deletedAt DateTime? @map("deleted_at")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant      Tenant            @relation(fields: [tenantId], references: [id])
+  assignments ShiftAssignment[]
+
+  @@index([tenantId, deletedAt])
+  @@map("shifts")
+}
+
+model ShiftAssignment {
+  id String @id @default(uuid())
+
+  // Multi-Tenant
+  tenantId String @map("tenant_id")
+
+  shiftId    String    @map("shift_id")
+  employeeId String    @map("employee_id")
+  startDate  DateTime  @map("start_date")
+  endDate    DateTime? @map("end_date")
+  isActive   Boolean   @default(true) @map("is_active")
+  notes      String?   @db.Text
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  tenant   Tenant   @relation(fields: [tenantId], references: [id])
+  shift    Shift    @relation(fields: [shiftId], references: [id])
+  employee Employee @relation(fields: [employeeId], references: [id])
+
+  @@index([tenantId])
+  @@index([employeeId])
+  @@index([shiftId])
+  @@map("shift_assignments")
 }
 
 model Overtime {
@@ -4753,6 +4828,17 @@ model MedicalExam {
   observations   String?
   documentUrl    String?   @map("document_url")
 
+  // PCMSO / Occupational Health fields
+  examCategory   String?   @map("exam_category") @db.VarChar(32) // ADMISSIONAL, PERIODICO, RETORNO, MUDANCA_FUNCAO, DEMISSIONAL
+  validityMonths Int?      @map("validity_months")
+  clinicName     String?   @map("clinic_name") @db.VarChar(256)
+  clinicAddress  String?   @map("clinic_address") @db.VarChar(512)
+  physicianName  String?   @map("physician_name") @db.VarChar(256) // Coordinating physician (PCMSO)
+  physicianCRM   String?   @map("physician_crm") @db.VarChar(32)
+  aptitude       String?   @db.VarChar(32) // APTO, INAPTO, APTO_COM_RESTRICOES
+  restrictions   String?   @db.Text
+  nextExamDate   DateTime? @map("next_exam_date")
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -4763,7 +4849,35 @@ model MedicalExam {
   @@index([employeeId])
   @@index([type])
   @@index([examDate])
+  @@index([expirationDate])
+  @@index([aptitude])
   @@map("medical_exams")
+}
+
+// ===============================================
+// OCCUPATIONAL EXAM REQUIREMENTS (PCMSO)
+// ===============================================
+
+model OccupationalExamRequirement {
+  id              String  @id @default(uuid())
+  tenantId        String  @map("tenant_id")
+  positionId      String? @map("position_id")
+  examType        String  @map("exam_type") @db.VarChar(64) // AUDIOMETRIA, ESPIROMETRIA, ACUIDADE_VISUAL, HEMOGRAMA, etc.
+  examCategory    String  @map("exam_category") @db.VarChar(32) // ADMISSIONAL, PERIODICO, etc.
+  frequencyMonths Int     @map("frequency_months")
+  isMandatory     Boolean @default(true) @map("is_mandatory")
+  description     String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant   Tenant    @relation(fields: [tenantId], references: [id])
+  position Position? @relation(fields: [positionId], references: [id])
+
+  @@index([tenantId])
+  @@index([positionId])
+  @@index([examCategory])
+  @@map("occupational_exam_requirements")
 }
 
 // ===============================================
@@ -4982,6 +5096,67 @@ model TrainingEnrollment {
   @@index([tenantId, trainingProgramId])
   @@index([tenantId, status])
   @@map("training_enrollments")
+}
+
+// ===============================================
+// PERFORMANCE REVIEWS MODULE
+// ===============================================
+
+model ReviewCycle {
+  id          String    @id @default(cuid())
+  tenantId    String    @map("tenant_id")
+  name        String    @db.VarChar(128)
+  description String?   @db.VarChar(1000)
+  type        String    @db.VarChar(32) // ANNUAL, SEMI_ANNUAL, QUARTERLY, PROBATION, CUSTOM
+  startDate   DateTime  @map("start_date")
+  endDate     DateTime  @map("end_date")
+  status      String    @default("DRAFT") @db.VarChar(16) // DRAFT, OPEN, IN_REVIEW, CALIBRATION, CLOSED
+  isActive    Boolean   @default(true) @map("is_active")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at")
+
+  tenant  Tenant              @relation(fields: [tenantId], references: [id])
+  reviews PerformanceReview[]
+
+  @@index([tenantId, deletedAt])
+  @@index([tenantId, status])
+  @@index([tenantId, isActive])
+  @@map("review_cycles")
+}
+
+model PerformanceReview {
+  id                    String    @id @default(cuid())
+  tenantId              String    @map("tenant_id")
+  reviewCycleId         String    @map("review_cycle_id")
+  employeeId            String    @map("employee_id")
+  reviewerId            String    @map("reviewer_id")
+  status                String    @default("PENDING") @db.VarChar(32) // PENDING, SELF_ASSESSMENT, MANAGER_REVIEW, COMPLETED
+  selfScore             Float?    @map("self_score")
+  managerScore          Float?    @map("manager_score")
+  finalScore            Float?    @map("final_score")
+  selfComments          String?   @map("self_comments") @db.VarChar(2000)
+  managerComments       String?   @map("manager_comments") @db.VarChar(2000)
+  strengths             String?   @db.VarChar(2000)
+  improvements          String?   @db.VarChar(2000)
+  goals                 String?   @db.VarChar(2000)
+  employeeAcknowledged  Boolean   @default(false) @map("employee_acknowledged")
+  acknowledgedAt        DateTime? @map("acknowledged_at")
+  completedAt           DateTime? @map("completed_at")
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+
+  tenant      Tenant      @relation(fields: [tenantId], references: [id])
+  reviewCycle ReviewCycle @relation(fields: [reviewCycleId], references: [id])
+  employee    Employee    @relation("ReviewEmployee", fields: [employeeId], references: [id])
+  reviewer    Employee    @relation("ReviewReviewer", fields: [reviewerId], references: [id])
+
+  @@unique([reviewCycleId, employeeId])
+  @@index([tenantId])
+  @@index([tenantId, reviewCycleId])
+  @@index([tenantId, employeeId])
+  @@index([tenantId, status])
+  @@map("performance_reviews")
 }
 
 model FlexBenefitAllocation {
@@ -5608,6 +5783,8 @@ model Tenant {
   employees                 Employee[]
   timeEntries               TimeEntry[]
   workSchedules             WorkSchedule[]
+  shifts                    Shift[]
+  shiftAssignments          ShiftAssignment[]
   overtime                  Overtime[]
   timeBanks                 TimeBank[]
   absences                  Absence[]
@@ -5617,8 +5794,9 @@ model Tenant {
   deductions                Deduction[]
   employeeDependants        EmployeeDependant[]
   terminations              Termination[]
-  medicalExams              MedicalExam[]
-  safetyPrograms            SafetyProgram[]
+  medicalExams                    MedicalExam[]
+  occupationalExamRequirements    OccupationalExamRequirement[]
+  safetyPrograms                  SafetyProgram[]
   workplaceRisks            WorkplaceRisk[]
   cipaMandates              CipaMandate[]
   cipaMembers               CipaMember[]
@@ -5628,6 +5806,8 @@ model Tenant {
   flexBenefitAllocations    FlexBenefitAllocation[]
   trainingPrograms          TrainingProgram[]
   trainingEnrollments       TrainingEnrollment[]
+  reviewCycles              ReviewCycle[]
+  performanceReviews        PerformanceReview[]
   // Audit domain
   auditLogs                 AuditLog[]
   // Core domain
@@ -5836,6 +6016,9 @@ model Tenant {
 
   // Warnings / Disciplinary domain
   employeeWarnings EmployeeWarning[]
+
+  // Approval Delegations domain
+  approvalDelegations ApprovalDelegation[]
 
   // Auth domain
   authLinks        AuthLink[]
@@ -14063,4 +14246,33 @@ model MagicLinkToken {
 
   @@index([token])
   @@map("magic_link_tokens")
+}
+
+// ===============================================
+// HR — Approval Delegations
+// ===============================================
+
+model ApprovalDelegation {
+  id          String    @id @default(uuid())
+  tenantId    String    @map("tenant_id")
+  delegatorId String    @map("delegator_id")
+  delegateId  String    @map("delegate_id")
+  scope       String    @db.VarChar(30) // ALL, ABSENCES, VACATIONS, OVERTIME, REQUESTS
+  startDate   DateTime  @map("start_date")
+  endDate     DateTime? @map("end_date")
+  reason      String?   @db.Text
+  isActive    Boolean   @default(true) @map("is_active")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  delegator Employee @relation("DelegationDelegator", fields: [delegatorId], references: [id])
+  delegate  Employee @relation("DelegationDelegate", fields: [delegateId], references: [id])
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([delegatorId])
+  @@index([delegateId])
+  @@index([tenantId, delegatorId, isActive])
+  @@index([tenantId, delegateId, isActive])
+  @@map("approval_delegations")
 }

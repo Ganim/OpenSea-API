@@ -7,6 +7,8 @@ export interface ListMedicalExamsRequest {
   employeeId?: string;
   type?: string;
   result?: string;
+  aptitude?: string;
+  status?: 'VALID' | 'EXPIRING' | 'EXPIRED';
   page?: number;
   perPage?: number;
 }
@@ -21,12 +23,23 @@ export class ListMedicalExamsUseCase {
   async execute(
     request: ListMedicalExamsRequest,
   ): Promise<ListMedicalExamsResponse> {
-    const { tenantId, employeeId, type, result, page, perPage } = request;
+    const {
+      tenantId,
+      employeeId,
+      type,
+      result,
+      aptitude,
+      status,
+      page,
+      perPage,
+    } = request;
 
     const medicalExams = await this.medicalExamsRepository.findMany(tenantId, {
       employeeId: employeeId ? new UniqueEntityID(employeeId) : undefined,
       type,
       result,
+      aptitude,
+      status,
       page,
       perPage,
     });

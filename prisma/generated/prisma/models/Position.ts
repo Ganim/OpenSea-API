@@ -303,6 +303,7 @@ export type PositionWhereInput = {
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   department?: Prisma.XOR<Prisma.DepartmentNullableScalarRelationFilter, Prisma.DepartmentWhereInput> | null
   employees?: Prisma.EmployeeListRelationFilter
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementListRelationFilter
 }
 
 export type PositionOrderByWithRelationInput = {
@@ -323,6 +324,7 @@ export type PositionOrderByWithRelationInput = {
   tenant?: Prisma.TenantOrderByWithRelationInput
   department?: Prisma.DepartmentOrderByWithRelationInput
   employees?: Prisma.EmployeeOrderByRelationAggregateInput
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementOrderByRelationAggregateInput
 }
 
 export type PositionWhereUniqueInput = Prisma.AtLeast<{
@@ -347,6 +349,7 @@ export type PositionWhereUniqueInput = Prisma.AtLeast<{
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   department?: Prisma.XOR<Prisma.DepartmentNullableScalarRelationFilter, Prisma.DepartmentWhereInput> | null
   employees?: Prisma.EmployeeListRelationFilter
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementListRelationFilter
 }, "id" | "positions_code_tenant_unique">
 
 export type PositionOrderByWithAggregationInput = {
@@ -407,6 +410,7 @@ export type PositionCreateInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutPositionsInput
   department?: Prisma.DepartmentCreateNestedOneWithoutPositionsInput
   employees?: Prisma.EmployeeCreateNestedManyWithoutPositionInput
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementCreateNestedManyWithoutPositionInput
 }
 
 export type PositionUncheckedCreateInput = {
@@ -425,6 +429,7 @@ export type PositionUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutPositionInput
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedCreateNestedManyWithoutPositionInput
 }
 
 export type PositionUpdateInput = {
@@ -443,6 +448,7 @@ export type PositionUpdateInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPositionsNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutPositionsNestedInput
   employees?: Prisma.EmployeeUpdateManyWithoutPositionNestedInput
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionUncheckedUpdateInput = {
@@ -461,6 +467,7 @@ export type PositionUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutPositionNestedInput
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionCreateManyInput = {
@@ -655,6 +662,22 @@ export type PositionUncheckedUpdateManyWithoutDepartmentNestedInput = {
   deleteMany?: Prisma.PositionScalarWhereInput | Prisma.PositionScalarWhereInput[]
 }
 
+export type PositionCreateNestedOneWithoutOccupationalExamRequirementsInput = {
+  create?: Prisma.XOR<Prisma.PositionCreateWithoutOccupationalExamRequirementsInput, Prisma.PositionUncheckedCreateWithoutOccupationalExamRequirementsInput>
+  connectOrCreate?: Prisma.PositionCreateOrConnectWithoutOccupationalExamRequirementsInput
+  connect?: Prisma.PositionWhereUniqueInput
+}
+
+export type PositionUpdateOneWithoutOccupationalExamRequirementsNestedInput = {
+  create?: Prisma.XOR<Prisma.PositionCreateWithoutOccupationalExamRequirementsInput, Prisma.PositionUncheckedCreateWithoutOccupationalExamRequirementsInput>
+  connectOrCreate?: Prisma.PositionCreateOrConnectWithoutOccupationalExamRequirementsInput
+  upsert?: Prisma.PositionUpsertWithoutOccupationalExamRequirementsInput
+  disconnect?: Prisma.PositionWhereInput | boolean
+  delete?: Prisma.PositionWhereInput | boolean
+  connect?: Prisma.PositionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PositionUpdateToOneWithWhereWithoutOccupationalExamRequirementsInput, Prisma.PositionUpdateWithoutOccupationalExamRequirementsInput>, Prisma.PositionUncheckedUpdateWithoutOccupationalExamRequirementsInput>
+}
+
 export type PositionCreateNestedManyWithoutTenantInput = {
   create?: Prisma.XOR<Prisma.PositionCreateWithoutTenantInput, Prisma.PositionUncheckedCreateWithoutTenantInput> | Prisma.PositionCreateWithoutTenantInput[] | Prisma.PositionUncheckedCreateWithoutTenantInput[]
   connectOrCreate?: Prisma.PositionCreateOrConnectWithoutTenantInput | Prisma.PositionCreateOrConnectWithoutTenantInput[]
@@ -712,6 +735,7 @@ export type PositionCreateWithoutEmployeesInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPositionsInput
   department?: Prisma.DepartmentCreateNestedOneWithoutPositionsInput
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementCreateNestedManyWithoutPositionInput
 }
 
 export type PositionUncheckedCreateWithoutEmployeesInput = {
@@ -729,6 +753,7 @@ export type PositionUncheckedCreateWithoutEmployeesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedCreateNestedManyWithoutPositionInput
 }
 
 export type PositionCreateOrConnectWithoutEmployeesInput = {
@@ -762,6 +787,7 @@ export type PositionUpdateWithoutEmployeesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPositionsNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutPositionsNestedInput
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionUncheckedUpdateWithoutEmployeesInput = {
@@ -779,6 +805,7 @@ export type PositionUncheckedUpdateWithoutEmployeesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionCreateWithoutDepartmentInput = {
@@ -796,6 +823,7 @@ export type PositionCreateWithoutDepartmentInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPositionsInput
   employees?: Prisma.EmployeeCreateNestedManyWithoutPositionInput
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementCreateNestedManyWithoutPositionInput
 }
 
 export type PositionUncheckedCreateWithoutDepartmentInput = {
@@ -813,6 +841,7 @@ export type PositionUncheckedCreateWithoutDepartmentInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutPositionInput
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedCreateNestedManyWithoutPositionInput
 }
 
 export type PositionCreateOrConnectWithoutDepartmentInput = {
@@ -861,6 +890,94 @@ export type PositionScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Position"> | Date | string
 }
 
+export type PositionCreateWithoutOccupationalExamRequirementsInput = {
+  id?: string
+  name: string
+  code: string
+  description?: string | null
+  level?: number
+  minSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutPositionsInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutPositionsInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutPositionInput
+}
+
+export type PositionUncheckedCreateWithoutOccupationalExamRequirementsInput = {
+  id?: string
+  tenantId: string
+  name: string
+  code: string
+  description?: string | null
+  departmentId?: string | null
+  level?: number
+  minSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutPositionInput
+}
+
+export type PositionCreateOrConnectWithoutOccupationalExamRequirementsInput = {
+  where: Prisma.PositionWhereUniqueInput
+  create: Prisma.XOR<Prisma.PositionCreateWithoutOccupationalExamRequirementsInput, Prisma.PositionUncheckedCreateWithoutOccupationalExamRequirementsInput>
+}
+
+export type PositionUpsertWithoutOccupationalExamRequirementsInput = {
+  update: Prisma.XOR<Prisma.PositionUpdateWithoutOccupationalExamRequirementsInput, Prisma.PositionUncheckedUpdateWithoutOccupationalExamRequirementsInput>
+  create: Prisma.XOR<Prisma.PositionCreateWithoutOccupationalExamRequirementsInput, Prisma.PositionUncheckedCreateWithoutOccupationalExamRequirementsInput>
+  where?: Prisma.PositionWhereInput
+}
+
+export type PositionUpdateToOneWithWhereWithoutOccupationalExamRequirementsInput = {
+  where?: Prisma.PositionWhereInput
+  data: Prisma.XOR<Prisma.PositionUpdateWithoutOccupationalExamRequirementsInput, Prisma.PositionUncheckedUpdateWithoutOccupationalExamRequirementsInput>
+}
+
+export type PositionUpdateWithoutOccupationalExamRequirementsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  minSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutPositionsNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutPositionsNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutPositionNestedInput
+}
+
+export type PositionUncheckedUpdateWithoutOccupationalExamRequirementsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  minSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutPositionNestedInput
+}
+
 export type PositionCreateWithoutTenantInput = {
   id?: string
   name: string
@@ -876,6 +993,7 @@ export type PositionCreateWithoutTenantInput = {
   updatedAt?: Date | string
   department?: Prisma.DepartmentCreateNestedOneWithoutPositionsInput
   employees?: Prisma.EmployeeCreateNestedManyWithoutPositionInput
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementCreateNestedManyWithoutPositionInput
 }
 
 export type PositionUncheckedCreateWithoutTenantInput = {
@@ -893,6 +1011,7 @@ export type PositionUncheckedCreateWithoutTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutPositionInput
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedCreateNestedManyWithoutPositionInput
 }
 
 export type PositionCreateOrConnectWithoutTenantInput = {
@@ -952,6 +1071,7 @@ export type PositionUpdateWithoutDepartmentInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPositionsNestedInput
   employees?: Prisma.EmployeeUpdateManyWithoutPositionNestedInput
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionUncheckedUpdateWithoutDepartmentInput = {
@@ -969,6 +1089,7 @@ export type PositionUncheckedUpdateWithoutDepartmentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutPositionNestedInput
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionUncheckedUpdateManyWithoutDepartmentInput = {
@@ -1018,6 +1139,7 @@ export type PositionUpdateWithoutTenantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneWithoutPositionsNestedInput
   employees?: Prisma.EmployeeUpdateManyWithoutPositionNestedInput
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionUncheckedUpdateWithoutTenantInput = {
@@ -1035,6 +1157,7 @@ export type PositionUncheckedUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutPositionNestedInput
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionUncheckedUpdateManyWithoutTenantInput = {
@@ -1060,10 +1183,12 @@ export type PositionUncheckedUpdateManyWithoutTenantInput = {
 
 export type PositionCountOutputType = {
   employees: number
+  occupationalExamRequirements: number
 }
 
 export type PositionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   employees?: boolean | PositionCountOutputTypeCountEmployeesArgs
+  occupationalExamRequirements?: boolean | PositionCountOutputTypeCountOccupationalExamRequirementsArgs
 }
 
 /**
@@ -1081,6 +1206,13 @@ export type PositionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ext
  */
 export type PositionCountOutputTypeCountEmployeesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.EmployeeWhereInput
+}
+
+/**
+ * PositionCountOutputType without action
+ */
+export type PositionCountOutputTypeCountOccupationalExamRequirementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OccupationalExamRequirementWhereInput
 }
 
 
@@ -1102,6 +1234,7 @@ export type PositionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   department?: boolean | Prisma.Position$departmentArgs<ExtArgs>
   employees?: boolean | Prisma.Position$employeesArgs<ExtArgs>
+  occupationalExamRequirements?: boolean | Prisma.Position$occupationalExamRequirementsArgs<ExtArgs>
   _count?: boolean | Prisma.PositionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["position"]>
 
@@ -1165,6 +1298,7 @@ export type PositionInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   department?: boolean | Prisma.Position$departmentArgs<ExtArgs>
   employees?: boolean | Prisma.Position$employeesArgs<ExtArgs>
+  occupationalExamRequirements?: boolean | Prisma.Position$occupationalExamRequirementsArgs<ExtArgs>
   _count?: boolean | Prisma.PositionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PositionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1182,6 +1316,7 @@ export type $PositionPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     tenant: Prisma.$TenantPayload<ExtArgs>
     department: Prisma.$DepartmentPayload<ExtArgs> | null
     employees: Prisma.$EmployeePayload<ExtArgs>[]
+    occupationalExamRequirements: Prisma.$OccupationalExamRequirementPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1595,6 +1730,7 @@ export interface Prisma__PositionClient<T, Null = never, ExtArgs extends runtime
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   department<T extends Prisma.Position$departmentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Position$departmentArgs<ExtArgs>>): Prisma.Prisma__DepartmentClient<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   employees<T extends Prisma.Position$employeesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Position$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  occupationalExamRequirements<T extends Prisma.Position$occupationalExamRequirementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Position$occupationalExamRequirementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OccupationalExamRequirementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2074,6 +2210,30 @@ export type Position$employeesArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.EmployeeScalarFieldEnum | Prisma.EmployeeScalarFieldEnum[]
+}
+
+/**
+ * Position.occupationalExamRequirements
+ */
+export type Position$occupationalExamRequirementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OccupationalExamRequirement
+   */
+  select?: Prisma.OccupationalExamRequirementSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OccupationalExamRequirement
+   */
+  omit?: Prisma.OccupationalExamRequirementOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OccupationalExamRequirementInclude<ExtArgs> | null
+  where?: Prisma.OccupationalExamRequirementWhereInput
+  orderBy?: Prisma.OccupationalExamRequirementOrderByWithRelationInput | Prisma.OccupationalExamRequirementOrderByWithRelationInput[]
+  cursor?: Prisma.OccupationalExamRequirementWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OccupationalExamRequirementScalarFieldEnum | Prisma.OccupationalExamRequirementScalarFieldEnum[]
 }
 
 /**

@@ -599,6 +599,61 @@ export const HR_AUDIT_MESSAGES = {
   } satisfies AuditMessage,
 
   // ============================================================================
+  // SHIFTS - Turnos
+  // ============================================================================
+
+  /** Turno criado */
+  SHIFT_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.SHIFT,
+    module: AuditModule.HR,
+    description: '{{userName}} criou o turno {{shiftName}}',
+  } satisfies AuditMessage,
+
+  /** Turno atualizado */
+  SHIFT_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.SHIFT,
+    module: AuditModule.HR,
+    description: '{{userName}} atualizou o turno {{shiftName}}',
+  } satisfies AuditMessage,
+
+  /** Turno excluído */
+  SHIFT_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.SHIFT,
+    module: AuditModule.HR,
+    description: '{{userName}} excluiu o turno {{shiftName}}',
+  } satisfies AuditMessage,
+
+  /** Funcionário atribuído a turno */
+  SHIFT_ASSIGNMENT_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.SHIFT_ASSIGNMENT,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} atribuiu o funcionário {{employeeId}} ao turno {{shiftName}}',
+  } satisfies AuditMessage,
+
+  /** Funcionário removido de turno */
+  SHIFT_ASSIGNMENT_REMOVE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.SHIFT_ASSIGNMENT,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} removeu a atribuição do funcionário {{employeeId}} do turno',
+  } satisfies AuditMessage,
+
+  /** Funcionário transferido de turno */
+  SHIFT_ASSIGNMENT_TRANSFER: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.SHIFT_ASSIGNMENT,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} transferiu o funcionário {{employeeId}} para o turno {{shiftName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
   // COMPANIES - Empresas
   // ============================================================================
 
@@ -1154,6 +1209,108 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.TRAINING_ENROLLMENT,
     module: AuditModule.HR,
     description: '{{userName}} cancelou inscrição em treinamento',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // REVIEW CYCLES - Ciclos de Avaliação
+  // ============================================================================
+
+  /** Ciclo de avaliação criado */
+  REVIEW_CYCLE_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.REVIEW_CYCLE,
+    module: AuditModule.HR,
+    description: '{{userName}} criou o ciclo de avaliação {{cycleName}}',
+  } satisfies AuditMessage,
+
+  /** Ciclo de avaliação atualizado */
+  REVIEW_CYCLE_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.REVIEW_CYCLE,
+    module: AuditModule.HR,
+    description: '{{userName}} atualizou o ciclo de avaliação {{cycleName}}',
+  } satisfies AuditMessage,
+
+  /** Ciclo de avaliação excluído */
+  REVIEW_CYCLE_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.REVIEW_CYCLE,
+    module: AuditModule.HR,
+    description: '{{userName}} desativou o ciclo de avaliação {{cycleName}}',
+  } satisfies AuditMessage,
+
+  /** Ciclo de avaliação aberto */
+  REVIEW_CYCLE_OPEN: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.REVIEW_CYCLE,
+    module: AuditModule.HR,
+    description: '{{userName}} abriu o ciclo de avaliação {{cycleName}}',
+  } satisfies AuditMessage,
+
+  /** Ciclo de avaliação fechado */
+  REVIEW_CYCLE_CLOSE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.REVIEW_CYCLE,
+    module: AuditModule.HR,
+    description: '{{userName}} fechou o ciclo de avaliação {{cycleName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // PERFORMANCE REVIEWS - Avaliações de Desempenho
+  // ============================================================================
+
+  /** Avaliações de desempenho criadas em lote */
+  PERFORMANCE_REVIEW_BULK_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.PERFORMANCE_REVIEW,
+    module: AuditModule.HR,
+    description: '{{userName}} criou {{count}} avaliações para o ciclo {{cycleName}}',
+  } satisfies AuditMessage,
+
+  /** Autoavaliação submetida */
+  PERFORMANCE_REVIEW_SELF_ASSESSMENT: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PERFORMANCE_REVIEW,
+    module: AuditModule.HR,
+    description: '{{userName}} submeteu autoavaliação de desempenho',
+  } satisfies AuditMessage,
+
+  /** Avaliação do gestor submetida */
+  PERFORMANCE_REVIEW_MANAGER_REVIEW: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PERFORMANCE_REVIEW,
+    module: AuditModule.HR,
+    description: '{{userName}} submeteu avaliação de gestor para funcionário',
+  } satisfies AuditMessage,
+
+  /** Avaliação reconhecida pelo funcionário */
+  PERFORMANCE_REVIEW_ACKNOWLEDGE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PERFORMANCE_REVIEW,
+    module: AuditModule.HR,
+    description: '{{userName}} reconheceu a avaliação de desempenho',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // DELEGAÇÃO DE APROVAÇÃO
+  // ============================================================================
+
+  /** Delegação de aprovação criada */
+  DELEGATION_CREATE: {
+    action: AuditAction.DELEGATION_CREATE,
+    entity: AuditEntity.APPROVAL_DELEGATION,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} delegou autoridade de aprovação ({{scope}}) para {{delegateName}}',
+  } satisfies AuditMessage,
+
+  /** Delegação de aprovação revogada */
+  DELEGATION_REVOKE: {
+    action: AuditAction.DELEGATION_REVOKE,
+    entity: AuditEntity.APPROVAL_DELEGATION,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} revogou delegação de aprovação para {{delegateName}}',
   } satisfies AuditMessage,
 } as const;
 

@@ -3,3 +3,5 @@ export * from './make-update-medical-exam-use-case';
 export * from './make-get-medical-exam-use-case';
 export * from './make-list-medical-exams-use-case';
 export * from './make-delete-medical-exam-use-case';
+export * from './make-list-expiring-exams-use-case';
+export * from './make-list-overdue-exams-use-case';

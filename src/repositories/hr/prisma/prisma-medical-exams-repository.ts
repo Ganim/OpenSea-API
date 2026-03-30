@@ -23,6 +23,15 @@ export class PrismaMedicalExamsRepository implements MedicalExamsRepository {
         result: data.result,
         observations: data.observations,
         documentUrl: data.documentUrl,
+        examCategory: data.examCategory,
+        validityMonths: data.validityMonths,
+        clinicName: data.clinicName,
+        clinicAddress: data.clinicAddress,
+        physicianName: data.physicianName,
+        physicianCRM: data.physicianCRM,
+        aptitude: data.aptitude,
+        restrictions: data.restrictions,
+        nextExamDate: data.nextExamDate,
       },
     });
 
@@ -76,13 +85,32 @@ export class PrismaMedicalExamsRepository implements MedicalExamsRepository {
     const perPage = Math.min(filters?.perPage ?? 50, 100);
     const skip = (page - 1) * perPage;
 
+    const now = new Date();
+    const thirtyDaysFromNow = new Date(now);
+    thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const whereClause: Record<string, any> = {
+      tenantId,
+      employeeId: filters?.employeeId?.toString(),
+      type: filters?.type,
+      result: filters?.result,
+      aptitude: filters?.aptitude,
+    };
+
+    if (filters?.status === 'EXPIRED') {
+      whereClause.expirationDate = { lt: now };
+    } else if (filters?.status === 'EXPIRING') {
+      whereClause.expirationDate = { gte: now, lte: thirtyDaysFromNow };
+    } else if (filters?.status === 'VALID') {
+      whereClause.OR = [
+        { expirationDate: null },
+        { expirationDate: { gt: thirtyDaysFromNow } },
+      ];
+    }
+
     const records = await prisma.medicalExam.findMany({
-      where: {
-        tenantId,
-        employeeId: filters?.employeeId?.toString(),
-        type: filters?.type,
-        result: filters?.result,
-      },
+      where: whereClause,
       orderBy: { examDate: 'desc' },
       skip,
       take: perPage,
@@ -96,9 +124,50 @@ export class PrismaMedicalExamsRepository implements MedicalExamsRepository {
     );
   }
 
-  async update(
-    data: UpdateMedicalExamSchema,
-  ): Promise<MedicalExam | null> {
+  async findExpiring(
+    tenantId: string,
+    daysThreshold: number,
+  ): Promise<MedicalExam[]> {
+    const now = new Date();
+    const threshold = new Date(now);
+    threshold.setDate(threshold.getDate() + daysThreshold);
+
+    const records = await prisma.medicalExam.findMany({
+      where: {
+        tenantId,
+        expirationDate: { gt: now, lte: threshold },
+      },
+      orderBy: { expirationDate: 'asc' },
+    });
+
+    return records.map((record) =>
+      MedicalExam.create(
+        mapMedicalExamPrismaToDomain(record),
+        new UniqueEntityID(record.id),
+      ),
+    );
+  }
+
+  async findOverdue(tenantId: string): Promise<MedicalExam[]> {
+    const now = new Date();
+
+    const records = await prisma.medicalExam.findMany({
+      where: {
+        tenantId,
+        expirationDate: { lt: now },
+      },
+      orderBy: { expirationDate: 'asc' },
+    });
+
+    return records.map((record) =>
+      MedicalExam.create(
+        mapMedicalExamPrismaToDomain(record),
+        new UniqueEntityID(record.id),
+      ),
+    );
+  }
+
+  async update(data: UpdateMedicalExamSchema): Promise<MedicalExam | null> {
     const existing = await prisma.medicalExam.findUnique({
       where: { id: data.id.toString() },
     });
@@ -116,6 +185,15 @@ export class PrismaMedicalExamsRepository implements MedicalExamsRepository {
         result: data.result,
         observations: data.observations,
         documentUrl: data.documentUrl,
+        examCategory: data.examCategory,
+        validityMonths: data.validityMonths,
+        clinicName: data.clinicName,
+        clinicAddress: data.clinicAddress,
+        physicianName: data.physicianName,
+        physicianCRM: data.physicianCRM,
+        aptitude: data.aptitude,
+        restrictions: data.restrictions,
+        nextExamDate: data.nextExamDate,
       },
     });
 

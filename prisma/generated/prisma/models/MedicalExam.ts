@@ -20,8 +20,18 @@ export type MedicalExamModel = runtime.Types.Result.DefaultSelection<Prisma.$Med
 
 export type AggregateMedicalExam = {
   _count: MedicalExamCountAggregateOutputType | null
+  _avg: MedicalExamAvgAggregateOutputType | null
+  _sum: MedicalExamSumAggregateOutputType | null
   _min: MedicalExamMinAggregateOutputType | null
   _max: MedicalExamMaxAggregateOutputType | null
+}
+
+export type MedicalExamAvgAggregateOutputType = {
+  validityMonths: number | null
+}
+
+export type MedicalExamSumAggregateOutputType = {
+  validityMonths: number | null
 }
 
 export type MedicalExamMinAggregateOutputType = {
@@ -36,6 +46,15 @@ export type MedicalExamMinAggregateOutputType = {
   result: string | null
   observations: string | null
   documentUrl: string | null
+  examCategory: string | null
+  validityMonths: number | null
+  clinicName: string | null
+  clinicAddress: string | null
+  physicianName: string | null
+  physicianCRM: string | null
+  aptitude: string | null
+  restrictions: string | null
+  nextExamDate: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -52,6 +71,15 @@ export type MedicalExamMaxAggregateOutputType = {
   result: string | null
   observations: string | null
   documentUrl: string | null
+  examCategory: string | null
+  validityMonths: number | null
+  clinicName: string | null
+  clinicAddress: string | null
+  physicianName: string | null
+  physicianCRM: string | null
+  aptitude: string | null
+  restrictions: string | null
+  nextExamDate: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -68,11 +96,28 @@ export type MedicalExamCountAggregateOutputType = {
   result: number
   observations: number
   documentUrl: number
+  examCategory: number
+  validityMonths: number
+  clinicName: number
+  clinicAddress: number
+  physicianName: number
+  physicianCRM: number
+  aptitude: number
+  restrictions: number
+  nextExamDate: number
   createdAt: number
   updatedAt: number
   _all: number
 }
 
+
+export type MedicalExamAvgAggregateInputType = {
+  validityMonths?: true
+}
+
+export type MedicalExamSumAggregateInputType = {
+  validityMonths?: true
+}
 
 export type MedicalExamMinAggregateInputType = {
   id?: true
@@ -86,6 +131,15 @@ export type MedicalExamMinAggregateInputType = {
   result?: true
   observations?: true
   documentUrl?: true
+  examCategory?: true
+  validityMonths?: true
+  clinicName?: true
+  clinicAddress?: true
+  physicianName?: true
+  physicianCRM?: true
+  aptitude?: true
+  restrictions?: true
+  nextExamDate?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -102,6 +156,15 @@ export type MedicalExamMaxAggregateInputType = {
   result?: true
   observations?: true
   documentUrl?: true
+  examCategory?: true
+  validityMonths?: true
+  clinicName?: true
+  clinicAddress?: true
+  physicianName?: true
+  physicianCRM?: true
+  aptitude?: true
+  restrictions?: true
+  nextExamDate?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -118,6 +181,15 @@ export type MedicalExamCountAggregateInputType = {
   result?: true
   observations?: true
   documentUrl?: true
+  examCategory?: true
+  validityMonths?: true
+  clinicName?: true
+  clinicAddress?: true
+  physicianName?: true
+  physicianCRM?: true
+  aptitude?: true
+  restrictions?: true
+  nextExamDate?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -161,6 +233,18 @@ export type MedicalExamAggregateArgs<ExtArgs extends runtime.Types.Extensions.In
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: MedicalExamAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: MedicalExamSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: MedicalExamMinAggregateInputType
@@ -191,6 +275,8 @@ export type MedicalExamGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   _count?: MedicalExamCountAggregateInputType | true
+  _avg?: MedicalExamAvgAggregateInputType
+  _sum?: MedicalExamSumAggregateInputType
   _min?: MedicalExamMinAggregateInputType
   _max?: MedicalExamMaxAggregateInputType
 }
@@ -207,9 +293,20 @@ export type MedicalExamGroupByOutputType = {
   result: string
   observations: string | null
   documentUrl: string | null
+  examCategory: string | null
+  validityMonths: number | null
+  clinicName: string | null
+  clinicAddress: string | null
+  physicianName: string | null
+  physicianCRM: string | null
+  aptitude: string | null
+  restrictions: string | null
+  nextExamDate: Date | null
   createdAt: Date
   updatedAt: Date
   _count: MedicalExamCountAggregateOutputType | null
+  _avg: MedicalExamAvgAggregateOutputType | null
+  _sum: MedicalExamSumAggregateOutputType | null
   _min: MedicalExamMinAggregateOutputType | null
   _max: MedicalExamMaxAggregateOutputType | null
 }
@@ -244,6 +341,15 @@ export type MedicalExamWhereInput = {
   result?: Prisma.StringFilter<"MedicalExam"> | string
   observations?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
   documentUrl?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  examCategory?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  validityMonths?: Prisma.IntNullableFilter<"MedicalExam"> | number | null
+  clinicName?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  clinicAddress?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  physicianName?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  physicianCRM?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  aptitude?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  restrictions?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  nextExamDate?: Prisma.DateTimeNullableFilter<"MedicalExam"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"MedicalExam"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MedicalExam"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -262,6 +368,15 @@ export type MedicalExamOrderByWithRelationInput = {
   result?: Prisma.SortOrder
   observations?: Prisma.SortOrderInput | Prisma.SortOrder
   documentUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  examCategory?: Prisma.SortOrderInput | Prisma.SortOrder
+  validityMonths?: Prisma.SortOrderInput | Prisma.SortOrder
+  clinicName?: Prisma.SortOrderInput | Prisma.SortOrder
+  clinicAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  physicianName?: Prisma.SortOrderInput | Prisma.SortOrder
+  physicianCRM?: Prisma.SortOrderInput | Prisma.SortOrder
+  aptitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  restrictions?: Prisma.SortOrderInput | Prisma.SortOrder
+  nextExamDate?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
@@ -283,6 +398,15 @@ export type MedicalExamWhereUniqueInput = Prisma.AtLeast<{
   result?: Prisma.StringFilter<"MedicalExam"> | string
   observations?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
   documentUrl?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  examCategory?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  validityMonths?: Prisma.IntNullableFilter<"MedicalExam"> | number | null
+  clinicName?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  clinicAddress?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  physicianName?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  physicianCRM?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  aptitude?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  restrictions?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  nextExamDate?: Prisma.DateTimeNullableFilter<"MedicalExam"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"MedicalExam"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MedicalExam"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -301,11 +425,22 @@ export type MedicalExamOrderByWithAggregationInput = {
   result?: Prisma.SortOrder
   observations?: Prisma.SortOrderInput | Prisma.SortOrder
   documentUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  examCategory?: Prisma.SortOrderInput | Prisma.SortOrder
+  validityMonths?: Prisma.SortOrderInput | Prisma.SortOrder
+  clinicName?: Prisma.SortOrderInput | Prisma.SortOrder
+  clinicAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  physicianName?: Prisma.SortOrderInput | Prisma.SortOrder
+  physicianCRM?: Prisma.SortOrderInput | Prisma.SortOrder
+  aptitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  restrictions?: Prisma.SortOrderInput | Prisma.SortOrder
+  nextExamDate?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.MedicalExamCountOrderByAggregateInput
+  _avg?: Prisma.MedicalExamAvgOrderByAggregateInput
   _max?: Prisma.MedicalExamMaxOrderByAggregateInput
   _min?: Prisma.MedicalExamMinOrderByAggregateInput
+  _sum?: Prisma.MedicalExamSumOrderByAggregateInput
 }
 
 export type MedicalExamScalarWhereWithAggregatesInput = {
@@ -323,6 +458,15 @@ export type MedicalExamScalarWhereWithAggregatesInput = {
   result?: Prisma.StringWithAggregatesFilter<"MedicalExam"> | string
   observations?: Prisma.StringNullableWithAggregatesFilter<"MedicalExam"> | string | null
   documentUrl?: Prisma.StringNullableWithAggregatesFilter<"MedicalExam"> | string | null
+  examCategory?: Prisma.StringNullableWithAggregatesFilter<"MedicalExam"> | string | null
+  validityMonths?: Prisma.IntNullableWithAggregatesFilter<"MedicalExam"> | number | null
+  clinicName?: Prisma.StringNullableWithAggregatesFilter<"MedicalExam"> | string | null
+  clinicAddress?: Prisma.StringNullableWithAggregatesFilter<"MedicalExam"> | string | null
+  physicianName?: Prisma.StringNullableWithAggregatesFilter<"MedicalExam"> | string | null
+  physicianCRM?: Prisma.StringNullableWithAggregatesFilter<"MedicalExam"> | string | null
+  aptitude?: Prisma.StringNullableWithAggregatesFilter<"MedicalExam"> | string | null
+  restrictions?: Prisma.StringNullableWithAggregatesFilter<"MedicalExam"> | string | null
+  nextExamDate?: Prisma.DateTimeNullableWithAggregatesFilter<"MedicalExam"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"MedicalExam"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"MedicalExam"> | Date | string
 }
@@ -337,6 +481,15 @@ export type MedicalExamCreateInput = {
   result: string
   observations?: string | null
   documentUrl?: string | null
+  examCategory?: string | null
+  validityMonths?: number | null
+  clinicName?: string | null
+  clinicAddress?: string | null
+  physicianName?: string | null
+  physicianCRM?: string | null
+  aptitude?: string | null
+  restrictions?: string | null
+  nextExamDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutMedicalExamsInput
@@ -355,6 +508,15 @@ export type MedicalExamUncheckedCreateInput = {
   result: string
   observations?: string | null
   documentUrl?: string | null
+  examCategory?: string | null
+  validityMonths?: number | null
+  clinicName?: string | null
+  clinicAddress?: string | null
+  physicianName?: string | null
+  physicianCRM?: string | null
+  aptitude?: string | null
+  restrictions?: string | null
+  nextExamDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -369,6 +531,15 @@ export type MedicalExamUpdateInput = {
   result?: Prisma.StringFieldUpdateOperationsInput | string
   observations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  clinicName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clinicAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianCRM?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutMedicalExamsNestedInput
@@ -387,6 +558,15 @@ export type MedicalExamUncheckedUpdateInput = {
   result?: Prisma.StringFieldUpdateOperationsInput | string
   observations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  clinicName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clinicAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianCRM?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -403,6 +583,15 @@ export type MedicalExamCreateManyInput = {
   result: string
   observations?: string | null
   documentUrl?: string | null
+  examCategory?: string | null
+  validityMonths?: number | null
+  clinicName?: string | null
+  clinicAddress?: string | null
+  physicianName?: string | null
+  physicianCRM?: string | null
+  aptitude?: string | null
+  restrictions?: string | null
+  nextExamDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -417,6 +606,15 @@ export type MedicalExamUpdateManyMutationInput = {
   result?: Prisma.StringFieldUpdateOperationsInput | string
   observations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  clinicName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clinicAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianCRM?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -433,6 +631,15 @@ export type MedicalExamUncheckedUpdateManyInput = {
   result?: Prisma.StringFieldUpdateOperationsInput | string
   observations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  clinicName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clinicAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianCRM?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -459,8 +666,21 @@ export type MedicalExamCountOrderByAggregateInput = {
   result?: Prisma.SortOrder
   observations?: Prisma.SortOrder
   documentUrl?: Prisma.SortOrder
+  examCategory?: Prisma.SortOrder
+  validityMonths?: Prisma.SortOrder
+  clinicName?: Prisma.SortOrder
+  clinicAddress?: Prisma.SortOrder
+  physicianName?: Prisma.SortOrder
+  physicianCRM?: Prisma.SortOrder
+  aptitude?: Prisma.SortOrder
+  restrictions?: Prisma.SortOrder
+  nextExamDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type MedicalExamAvgOrderByAggregateInput = {
+  validityMonths?: Prisma.SortOrder
 }
 
 export type MedicalExamMaxOrderByAggregateInput = {
@@ -475,6 +695,15 @@ export type MedicalExamMaxOrderByAggregateInput = {
   result?: Prisma.SortOrder
   observations?: Prisma.SortOrder
   documentUrl?: Prisma.SortOrder
+  examCategory?: Prisma.SortOrder
+  validityMonths?: Prisma.SortOrder
+  clinicName?: Prisma.SortOrder
+  clinicAddress?: Prisma.SortOrder
+  physicianName?: Prisma.SortOrder
+  physicianCRM?: Prisma.SortOrder
+  aptitude?: Prisma.SortOrder
+  restrictions?: Prisma.SortOrder
+  nextExamDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -491,8 +720,21 @@ export type MedicalExamMinOrderByAggregateInput = {
   result?: Prisma.SortOrder
   observations?: Prisma.SortOrder
   documentUrl?: Prisma.SortOrder
+  examCategory?: Prisma.SortOrder
+  validityMonths?: Prisma.SortOrder
+  clinicName?: Prisma.SortOrder
+  clinicAddress?: Prisma.SortOrder
+  physicianName?: Prisma.SortOrder
+  physicianCRM?: Prisma.SortOrder
+  aptitude?: Prisma.SortOrder
+  restrictions?: Prisma.SortOrder
+  nextExamDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type MedicalExamSumOrderByAggregateInput = {
+  validityMonths?: Prisma.SortOrder
 }
 
 export type MedicalExamCreateNestedManyWithoutEmployeeInput = {
@@ -589,6 +831,15 @@ export type MedicalExamCreateWithoutEmployeeInput = {
   result: string
   observations?: string | null
   documentUrl?: string | null
+  examCategory?: string | null
+  validityMonths?: number | null
+  clinicName?: string | null
+  clinicAddress?: string | null
+  physicianName?: string | null
+  physicianCRM?: string | null
+  aptitude?: string | null
+  restrictions?: string | null
+  nextExamDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutMedicalExamsInput
@@ -605,6 +856,15 @@ export type MedicalExamUncheckedCreateWithoutEmployeeInput = {
   result: string
   observations?: string | null
   documentUrl?: string | null
+  examCategory?: string | null
+  validityMonths?: number | null
+  clinicName?: string | null
+  clinicAddress?: string | null
+  physicianName?: string | null
+  physicianCRM?: string | null
+  aptitude?: string | null
+  restrictions?: string | null
+  nextExamDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -650,6 +910,15 @@ export type MedicalExamScalarWhereInput = {
   result?: Prisma.StringFilter<"MedicalExam"> | string
   observations?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
   documentUrl?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  examCategory?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  validityMonths?: Prisma.IntNullableFilter<"MedicalExam"> | number | null
+  clinicName?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  clinicAddress?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  physicianName?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  physicianCRM?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  aptitude?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  restrictions?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  nextExamDate?: Prisma.DateTimeNullableFilter<"MedicalExam"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"MedicalExam"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MedicalExam"> | Date | string
 }
@@ -664,6 +933,15 @@ export type MedicalExamCreateWithoutTenantInput = {
   result: string
   observations?: string | null
   documentUrl?: string | null
+  examCategory?: string | null
+  validityMonths?: number | null
+  clinicName?: string | null
+  clinicAddress?: string | null
+  physicianName?: string | null
+  physicianCRM?: string | null
+  aptitude?: string | null
+  restrictions?: string | null
+  nextExamDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   employee: Prisma.EmployeeCreateNestedOneWithoutMedicalExamsInput
@@ -680,6 +958,15 @@ export type MedicalExamUncheckedCreateWithoutTenantInput = {
   result: string
   observations?: string | null
   documentUrl?: string | null
+  examCategory?: string | null
+  validityMonths?: number | null
+  clinicName?: string | null
+  clinicAddress?: string | null
+  physicianName?: string | null
+  physicianCRM?: string | null
+  aptitude?: string | null
+  restrictions?: string | null
+  nextExamDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -721,6 +1008,15 @@ export type MedicalExamCreateManyEmployeeInput = {
   result: string
   observations?: string | null
   documentUrl?: string | null
+  examCategory?: string | null
+  validityMonths?: number | null
+  clinicName?: string | null
+  clinicAddress?: string | null
+  physicianName?: string | null
+  physicianCRM?: string | null
+  aptitude?: string | null
+  restrictions?: string | null
+  nextExamDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -735,6 +1031,15 @@ export type MedicalExamUpdateWithoutEmployeeInput = {
   result?: Prisma.StringFieldUpdateOperationsInput | string
   observations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  clinicName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clinicAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianCRM?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutMedicalExamsNestedInput
@@ -751,6 +1056,15 @@ export type MedicalExamUncheckedUpdateWithoutEmployeeInput = {
   result?: Prisma.StringFieldUpdateOperationsInput | string
   observations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  clinicName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clinicAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianCRM?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -766,6 +1080,15 @@ export type MedicalExamUncheckedUpdateManyWithoutEmployeeInput = {
   result?: Prisma.StringFieldUpdateOperationsInput | string
   observations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  clinicName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clinicAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianCRM?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -781,6 +1104,15 @@ export type MedicalExamCreateManyTenantInput = {
   result: string
   observations?: string | null
   documentUrl?: string | null
+  examCategory?: string | null
+  validityMonths?: number | null
+  clinicName?: string | null
+  clinicAddress?: string | null
+  physicianName?: string | null
+  physicianCRM?: string | null
+  aptitude?: string | null
+  restrictions?: string | null
+  nextExamDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -795,6 +1127,15 @@ export type MedicalExamUpdateWithoutTenantInput = {
   result?: Prisma.StringFieldUpdateOperationsInput | string
   observations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  clinicName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clinicAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianCRM?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutMedicalExamsNestedInput
@@ -811,6 +1152,15 @@ export type MedicalExamUncheckedUpdateWithoutTenantInput = {
   result?: Prisma.StringFieldUpdateOperationsInput | string
   observations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  clinicName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clinicAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianCRM?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -826,6 +1176,15 @@ export type MedicalExamUncheckedUpdateManyWithoutTenantInput = {
   result?: Prisma.StringFieldUpdateOperationsInput | string
   observations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  examCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  clinicName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clinicAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  physicianCRM?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -844,6 +1203,15 @@ export type MedicalExamSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   result?: boolean
   observations?: boolean
   documentUrl?: boolean
+  examCategory?: boolean
+  validityMonths?: boolean
+  clinicName?: boolean
+  clinicAddress?: boolean
+  physicianName?: boolean
+  physicianCRM?: boolean
+  aptitude?: boolean
+  restrictions?: boolean
+  nextExamDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -862,6 +1230,15 @@ export type MedicalExamSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   result?: boolean
   observations?: boolean
   documentUrl?: boolean
+  examCategory?: boolean
+  validityMonths?: boolean
+  clinicName?: boolean
+  clinicAddress?: boolean
+  physicianName?: boolean
+  physicianCRM?: boolean
+  aptitude?: boolean
+  restrictions?: boolean
+  nextExamDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -880,6 +1257,15 @@ export type MedicalExamSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   result?: boolean
   observations?: boolean
   documentUrl?: boolean
+  examCategory?: boolean
+  validityMonths?: boolean
+  clinicName?: boolean
+  clinicAddress?: boolean
+  physicianName?: boolean
+  physicianCRM?: boolean
+  aptitude?: boolean
+  restrictions?: boolean
+  nextExamDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -898,11 +1284,20 @@ export type MedicalExamSelectScalar = {
   result?: boolean
   observations?: boolean
   documentUrl?: boolean
+  examCategory?: boolean
+  validityMonths?: boolean
+  clinicName?: boolean
+  clinicAddress?: boolean
+  physicianName?: boolean
+  physicianCRM?: boolean
+  aptitude?: boolean
+  restrictions?: boolean
+  nextExamDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type MedicalExamOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "type" | "examDate" | "expirationDate" | "doctorName" | "doctorCrm" | "result" | "observations" | "documentUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["medicalExam"]>
+export type MedicalExamOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "type" | "examDate" | "expirationDate" | "doctorName" | "doctorCrm" | "result" | "observations" | "documentUrl" | "examCategory" | "validityMonths" | "clinicName" | "clinicAddress" | "physicianName" | "physicianCRM" | "aptitude" | "restrictions" | "nextExamDate" | "createdAt" | "updatedAt", ExtArgs["result"]["medicalExam"]>
 export type MedicalExamInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
@@ -934,6 +1329,15 @@ export type $MedicalExamPayload<ExtArgs extends runtime.Types.Extensions.Interna
     result: string
     observations: string | null
     documentUrl: string | null
+    examCategory: string | null
+    validityMonths: number | null
+    clinicName: string | null
+    clinicAddress: string | null
+    physicianName: string | null
+    physicianCRM: string | null
+    aptitude: string | null
+    restrictions: string | null
+    nextExamDate: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["medicalExam"]>
@@ -1372,6 +1776,15 @@ export interface MedicalExamFieldRefs {
   readonly result: Prisma.FieldRef<"MedicalExam", 'String'>
   readonly observations: Prisma.FieldRef<"MedicalExam", 'String'>
   readonly documentUrl: Prisma.FieldRef<"MedicalExam", 'String'>
+  readonly examCategory: Prisma.FieldRef<"MedicalExam", 'String'>
+  readonly validityMonths: Prisma.FieldRef<"MedicalExam", 'Int'>
+  readonly clinicName: Prisma.FieldRef<"MedicalExam", 'String'>
+  readonly clinicAddress: Prisma.FieldRef<"MedicalExam", 'String'>
+  readonly physicianName: Prisma.FieldRef<"MedicalExam", 'String'>
+  readonly physicianCRM: Prisma.FieldRef<"MedicalExam", 'String'>
+  readonly aptitude: Prisma.FieldRef<"MedicalExam", 'String'>
+  readonly restrictions: Prisma.FieldRef<"MedicalExam", 'String'>
+  readonly nextExamDate: Prisma.FieldRef<"MedicalExam", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"MedicalExam", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"MedicalExam", 'DateTime'>
 }

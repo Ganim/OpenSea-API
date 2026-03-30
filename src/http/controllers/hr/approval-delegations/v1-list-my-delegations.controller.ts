@@ -1,0 +1,93 @@
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { approvalDelegationToDTO } from '@/mappers/hr/approval-delegation/approval-delegation-to-dto';
+import { PrismaEmployeesRepository } from '@/repositories/hr/prisma/prisma-employees-repository';
+import { makeListMyDelegationsUseCase } from '@/use-cases/hr/approval-delegations/factories/make-list-my-delegations-use-case';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
+import z from 'zod';
+
+export async function v1ListMyDelegationsController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'GET',
+    url: '/v1/hr/approval-delegations/outgoing',
+    preHandler: [verifyJwt, verifyTenant],
+    schema: {
+      tags: ['HR - Approval Delegations'],
+      summary: 'List my outgoing delegations',
+      description:
+        'Returns a paginated list of approval delegations created by the logged-in employee',
+      querystring: z.object({
+        page: z.coerce.number().int().positive().default(1),
+        limit: z.coerce.number().int().positive().max(100).default(20),
+      }),
+      response: {
+        200: z.object({
+          delegations: z.array(
+            z.object({
+              id: z.string(),
+              tenantId: z.string(),
+              delegatorId: z.string(),
+              delegateId: z.string(),
+              scope: z.string(),
+              startDate: z.date(),
+              endDate: z.date().nullable(),
+              reason: z.string().nullable(),
+              isActive: z.boolean(),
+              isEffective: z.boolean(),
+              createdAt: z.date(),
+              updatedAt: z.date(),
+            }),
+          ),
+          meta: z.object({
+            total: z.number(),
+            page: z.number(),
+            limit: z.number(),
+            pages: z.number(),
+          }),
+        }),
+        404: z.object({ message: z.string() }),
+      },
+      security: [{ bearerAuth: [] }],
+    },
+
+    handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
+      const { page, limit } = request.query;
+
+      const employeesRepository = new PrismaEmployeesRepository();
+      const employee = await employeesRepository.findByUserId(
+        new UniqueEntityID(userId),
+        tenantId,
+      );
+
+      if (!employee) {
+        return reply
+          .status(404)
+          .send({ message: 'No employee linked to this user' });
+      }
+
+      const listMyDelegationsUseCase = makeListMyDelegationsUseCase();
+      const { delegations, total } = await listMyDelegationsUseCase.execute({
+        tenantId,
+        delegatorId: employee.id.toString(),
+        page,
+        limit,
+      });
+
+      return reply.status(200).send({
+        delegations: delegations.map((delegation) =>
+          approvalDelegationToDTO(delegation),
+        ),
+        meta: {
+          total,
+          page,
+          limit,
+          pages: Math.ceil(total / limit),
+        },
+      });
+    },
+  });
+}

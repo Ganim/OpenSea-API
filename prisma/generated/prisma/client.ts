@@ -430,6 +430,16 @@ export type TimeEntry = Prisma.TimeEntryModel
  */
 export type WorkSchedule = Prisma.WorkScheduleModel
 /**
+ * Model Shift
+ * 
+ */
+export type Shift = Prisma.ShiftModel
+/**
+ * Model ShiftAssignment
+ * 
+ */
+export type ShiftAssignment = Prisma.ShiftAssignmentModel
+/**
  * Model Overtime
  * 
  */
@@ -495,6 +505,11 @@ export type Termination = Prisma.TerminationModel
  */
 export type MedicalExam = Prisma.MedicalExamModel
 /**
+ * Model OccupationalExamRequirement
+ * 
+ */
+export type OccupationalExamRequirement = Prisma.OccupationalExamRequirementModel
+/**
  * Model SafetyProgram
  * 
  */
@@ -534,6 +549,16 @@ export type TrainingProgram = Prisma.TrainingProgramModel
  * 
  */
 export type TrainingEnrollment = Prisma.TrainingEnrollmentModel
+/**
+ * Model ReviewCycle
+ * 
+ */
+export type ReviewCycle = Prisma.ReviewCycleModel
+/**
+ * Model PerformanceReview
+ * 
+ */
+export type PerformanceReview = Prisma.PerformanceReviewModel
 /**
  * Model FlexBenefitAllocation
  * 
@@ -1654,3 +1679,8 @@ export type TenantAuthConfig = Prisma.TenantAuthConfigModel
  * 
  */
 export type MagicLinkToken = Prisma.MagicLinkTokenModel
+/**
+ * Model ApprovalDelegation
+ * 
+ */
+export type ApprovalDelegation = Prisma.ApprovalDelegationModel

@@ -235,10 +235,14 @@ import { timeControlRoutes } from './controllers/hr/time-control/routes';
 import { hrReportsRoutes } from './controllers/hr/reports/routes';
 import { vacationPeriodsRoutes } from './controllers/hr/vacation-periods/routes';
 import { workSchedulesRoutes } from './controllers/hr/work-schedules/routes';
+import { shiftsRoutes } from './controllers/hr/shifts/routes';
 import { punchConfigRoutes } from './controllers/hr/punch-config/routes';
 import { geofenceZonesRoutes } from './controllers/hr/geofence-zones/routes';
 import { medicalExamsRoutes } from './controllers/hr/medical-exams/routes';
+import { examRequirementsRoutes } from './controllers/hr/exam-requirements/routes';
 import { safetyProgramsRoutes } from './controllers/hr/safety-programs/routes';
+import { ppeItemsRoutes } from './controllers/hr/ppe-items/routes';
+import { ppeAssignmentsRoutes } from './controllers/hr/ppe-assignments/routes';
 import { workplaceRisksRoutes } from './controllers/hr/workplace-risks/routes';
 import { cipaMandatesRoutes } from './controllers/hr/cipa-mandates/routes';
 import { cipaMembersRoutes } from './controllers/hr/cipa-members/routes';
@@ -248,6 +252,7 @@ import { esocialRoutes } from './controllers/hr/esocial/routes';
 import { employeeRequestsRoutes } from './controllers/hr/employee-requests/routes';
 import { hrAnnouncementsRoutes } from './controllers/hr/announcements/routes';
 import { kudosRoutes } from './controllers/hr/kudos/routes';
+import { approvalDelegationsRoutes } from './controllers/hr/approval-delegations/routes';
 import { onboardingRoutes } from './controllers/hr/onboarding/routes';
 import { offboardingRoutes } from './controllers/hr/offboarding/routes';
 import { benefitPlansRoutes } from './controllers/hr/benefit-plans/routes';
@@ -256,6 +261,8 @@ import { flexBenefitsRoutes } from './controllers/hr/flex-benefits/routes';
 import { benefitDeductionsRoutes } from './controllers/hr/benefit-deductions/routes';
 import { trainingProgramsRoutes } from './controllers/hr/training-programs/routes';
 import { trainingEnrollmentsRoutes } from './controllers/hr/training-enrollments/routes';
+import { reviewCyclesRoutes } from './controllers/hr/review-cycles/routes';
+import { performanceReviewsRoutes } from './controllers/hr/performance-reviews/routes';
 import { warningsRoutes } from './controllers/hr/warnings/routes';
 
 export async function registerRoutes(app: FastifyInstance) {
@@ -431,6 +438,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(positionsRoutes);
   await app.register(timeControlRoutes);
   await app.register(workSchedulesRoutes);
+  await app.register(shiftsRoutes);
   await app.register(overtimeRoutes);
   await app.register(timeBankRoutes);
   await app.register(absencesRoutes);
@@ -444,7 +452,10 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(punchConfigRoutes);
   await app.register(geofenceZonesRoutes);
   await app.register(medicalExamsRoutes);
+  await app.register(examRequirementsRoutes);
   await app.register(safetyProgramsRoutes);
+  await app.register(ppeItemsRoutes);
+  await app.register(ppeAssignmentsRoutes);
   await app.register(workplaceRisksRoutes);
   await app.register(cipaMandatesRoutes);
   await app.register(cipaMembersRoutes);
@@ -454,6 +465,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(employeeRequestsRoutes);
   await app.register(hrAnnouncementsRoutes);
   await app.register(kudosRoutes);
+  await app.register(approvalDelegationsRoutes);
   await app.register(onboardingRoutes);
   await app.register(offboardingRoutes);
   await app.register(benefitPlansRoutes);
@@ -462,6 +474,8 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(benefitDeductionsRoutes);
   await app.register(trainingProgramsRoutes);
   await app.register(trainingEnrollmentsRoutes);
+  await app.register(reviewCyclesRoutes);
+  await app.register(performanceReviewsRoutes);
   await app.register(warningsRoutes);
 
   // Tasks routes

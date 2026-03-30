@@ -129,6 +129,8 @@ export const ModelName = {
   Position: 'Position',
   TimeEntry: 'TimeEntry',
   WorkSchedule: 'WorkSchedule',
+  Shift: 'Shift',
+  ShiftAssignment: 'ShiftAssignment',
   Overtime: 'Overtime',
   TimeBank: 'TimeBank',
   Absence: 'Absence',
@@ -142,6 +144,7 @@ export const ModelName = {
   EmployeeDependant: 'EmployeeDependant',
   Termination: 'Termination',
   MedicalExam: 'MedicalExam',
+  OccupationalExamRequirement: 'OccupationalExamRequirement',
   SafetyProgram: 'SafetyProgram',
   WorkplaceRisk: 'WorkplaceRisk',
   CipaMandate: 'CipaMandate',
@@ -150,6 +153,8 @@ export const ModelName = {
   BenefitEnrollment: 'BenefitEnrollment',
   TrainingProgram: 'TrainingProgram',
   TrainingEnrollment: 'TrainingEnrollment',
+  ReviewCycle: 'ReviewCycle',
+  PerformanceReview: 'PerformanceReview',
   FlexBenefitAllocation: 'FlexBenefitAllocation',
   Company: 'Company',
   CompanyDocument: 'CompanyDocument',
@@ -373,7 +378,8 @@ export const ModelName = {
   DigitalSignature: 'DigitalSignature',
   AuthLink: 'AuthLink',
   TenantAuthConfig: 'TenantAuthConfig',
-  MagicLinkToken: 'MagicLinkToken'
+  MagicLinkToken: 'MagicLinkToken',
+  ApprovalDelegation: 'ApprovalDelegation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2003,6 +2009,42 @@ export const WorkScheduleScalarFieldEnum = {
 export type WorkScheduleScalarFieldEnum = (typeof WorkScheduleScalarFieldEnum)[keyof typeof WorkScheduleScalarFieldEnum]
 
 
+export const ShiftScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  code: 'code',
+  type: 'type',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  breakMinutes: 'breakMinutes',
+  isNightShift: 'isNightShift',
+  color: 'color',
+  isActive: 'isActive',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ShiftScalarFieldEnum = (typeof ShiftScalarFieldEnum)[keyof typeof ShiftScalarFieldEnum]
+
+
+export const ShiftAssignmentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  shiftId: 'shiftId',
+  employeeId: 'employeeId',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  isActive: 'isActive',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ShiftAssignmentScalarFieldEnum = (typeof ShiftAssignmentScalarFieldEnum)[keyof typeof ShiftAssignmentScalarFieldEnum]
+
+
 export const OvertimeScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -2276,11 +2318,36 @@ export const MedicalExamScalarFieldEnum = {
   result: 'result',
   observations: 'observations',
   documentUrl: 'documentUrl',
+  examCategory: 'examCategory',
+  validityMonths: 'validityMonths',
+  clinicName: 'clinicName',
+  clinicAddress: 'clinicAddress',
+  physicianName: 'physicianName',
+  physicianCRM: 'physicianCRM',
+  aptitude: 'aptitude',
+  restrictions: 'restrictions',
+  nextExamDate: 'nextExamDate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type MedicalExamScalarFieldEnum = (typeof MedicalExamScalarFieldEnum)[keyof typeof MedicalExamScalarFieldEnum]
+
+
+export const OccupationalExamRequirementScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  positionId: 'positionId',
+  examType: 'examType',
+  examCategory: 'examCategory',
+  frequencyMonths: 'frequencyMonths',
+  isMandatory: 'isMandatory',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OccupationalExamRequirementScalarFieldEnum = (typeof OccupationalExamRequirementScalarFieldEnum)[keyof typeof OccupationalExamRequirementScalarFieldEnum]
 
 
 export const SafetyProgramScalarFieldEnum = {
@@ -2427,6 +2494,49 @@ export const TrainingEnrollmentScalarFieldEnum = {
 } as const
 
 export type TrainingEnrollmentScalarFieldEnum = (typeof TrainingEnrollmentScalarFieldEnum)[keyof typeof TrainingEnrollmentScalarFieldEnum]
+
+
+export const ReviewCycleScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  type: 'type',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ReviewCycleScalarFieldEnum = (typeof ReviewCycleScalarFieldEnum)[keyof typeof ReviewCycleScalarFieldEnum]
+
+
+export const PerformanceReviewScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  reviewCycleId: 'reviewCycleId',
+  employeeId: 'employeeId',
+  reviewerId: 'reviewerId',
+  status: 'status',
+  selfScore: 'selfScore',
+  managerScore: 'managerScore',
+  finalScore: 'finalScore',
+  selfComments: 'selfComments',
+  managerComments: 'managerComments',
+  strengths: 'strengths',
+  improvements: 'improvements',
+  goals: 'goals',
+  employeeAcknowledged: 'employeeAcknowledged',
+  acknowledgedAt: 'acknowledgedAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PerformanceReviewScalarFieldEnum = (typeof PerformanceReviewScalarFieldEnum)[keyof typeof PerformanceReviewScalarFieldEnum]
 
 
 export const FlexBenefitAllocationScalarFieldEnum = {
@@ -6951,6 +7061,23 @@ export const MagicLinkTokenScalarFieldEnum = {
 } as const
 
 export type MagicLinkTokenScalarFieldEnum = (typeof MagicLinkTokenScalarFieldEnum)[keyof typeof MagicLinkTokenScalarFieldEnum]
+
+
+export const ApprovalDelegationScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  delegatorId: 'delegatorId',
+  delegateId: 'delegateId',
+  scope: 'scope',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  reason: 'reason',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ApprovalDelegationScalarFieldEnum = (typeof ApprovalDelegationScalarFieldEnum)[keyof typeof ApprovalDelegationScalarFieldEnum]
 
 
 export const SortOrder = {

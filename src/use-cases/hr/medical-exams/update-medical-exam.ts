@@ -14,6 +14,16 @@ export interface UpdateMedicalExamRequest {
   result?: string;
   observations?: string;
   documentUrl?: string;
+  // PCMSO fields
+  examCategory?: string;
+  validityMonths?: number;
+  clinicName?: string;
+  clinicAddress?: string;
+  physicianName?: string;
+  physicianCRM?: string;
+  aptitude?: string;
+  restrictions?: string;
+  nextExamDate?: Date;
 }
 
 export interface UpdateMedicalExamResponse {
@@ -47,6 +57,15 @@ export class UpdateMedicalExamUseCase {
       result: data.result,
       observations: data.observations?.trim(),
       documentUrl: data.documentUrl,
+      examCategory: data.examCategory,
+      validityMonths: data.validityMonths,
+      clinicName: data.clinicName?.trim(),
+      clinicAddress: data.clinicAddress?.trim(),
+      physicianName: data.physicianName?.trim(),
+      physicianCRM: data.physicianCRM?.trim(),
+      aptitude: data.aptitude,
+      restrictions: data.restrictions?.trim(),
+      nextExamDate: data.nextExamDate,
     });
 
     if (!medicalExam) {

@@ -1,6 +1,10 @@
 export { Absence } from './absence';
 export type { AbsenceProps } from './absence';
 
+export { ApprovalDelegation } from './approval-delegation';
+export type { ApprovalDelegationProps } from './approval-delegation';
+export type { DelegationScope } from './approval-delegation';
+
 export { Bonus } from './bonus';
 export type { BonusProps } from './bonus';
 
@@ -48,3 +52,9 @@ export type { BenefitEnrollmentProps } from './benefit-enrollment';
 
 export { FlexBenefitAllocation } from './flex-benefit-allocation';
 export type { FlexBenefitAllocationProps } from './flex-benefit-allocation';
+
+export { ReviewCycle } from './review-cycle';
+export type { ReviewCycleProps } from './review-cycle';
+
+export { PerformanceReview } from './performance-review';
+export type { PerformanceReviewProps } from './performance-review';

@@ -24,6 +24,15 @@ export class InMemoryMedicalExamsRepository implements MedicalExamsRepository {
         result: data.result as MedicalExam['result'],
         observations: data.observations,
         documentUrl: data.documentUrl,
+        examCategory: data.examCategory as MedicalExam['type'],
+        validityMonths: data.validityMonths,
+        clinicName: data.clinicName,
+        clinicAddress: data.clinicAddress,
+        physicianName: data.physicianName,
+        physicianCRM: data.physicianCRM,
+        aptitude: data.aptitude as MedicalExam['aptitude'],
+        restrictions: data.restrictions,
+        nextExamDate: data.nextExamDate,
       },
       id,
     );
@@ -79,11 +88,60 @@ export class InMemoryMedicalExamsRepository implements MedicalExamsRepository {
       );
     }
 
+    if (filters?.aptitude) {
+      filteredItems = filteredItems.filter(
+        (item) => item.aptitude === filters.aptitude,
+      );
+    }
+
+    if (filters?.status) {
+      const now = new Date();
+      const thirtyDaysFromNow = new Date(now);
+      thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
+
+      filteredItems = filteredItems.filter((item) => {
+        if (!item.expirationDate) return filters.status === 'VALID';
+        if (filters.status === 'EXPIRED') return item.expirationDate < now;
+        if (filters.status === 'EXPIRING')
+          return (
+            item.expirationDate >= now &&
+            item.expirationDate <= thirtyDaysFromNow
+          );
+        if (filters.status === 'VALID')
+          return item.expirationDate > thirtyDaysFromNow;
+        return true;
+      });
+    }
+
     const page = filters?.page ?? 1;
     const perPage = filters?.perPage ?? 20;
     const start = (page - 1) * perPage;
 
     return filteredItems.slice(start, start + perPage);
+  }
+
+  async findExpiring(
+    tenantId: string,
+    daysThreshold: number,
+  ): Promise<MedicalExam[]> {
+    const now = new Date();
+    const threshold = new Date(now);
+    threshold.setDate(threshold.getDate() + daysThreshold);
+
+    return this.items.filter((item) => {
+      if (item.tenantId.toString() !== tenantId) return false;
+      if (!item.expirationDate) return false;
+      return item.expirationDate > now && item.expirationDate <= threshold;
+    });
+  }
+
+  async findOverdue(tenantId: string): Promise<MedicalExam[]> {
+    const now = new Date();
+    return this.items.filter((item) => {
+      if (item.tenantId.toString() !== tenantId) return false;
+      if (!item.expirationDate) return false;
+      return item.expirationDate < now;
+    });
   }
 
   async update(data: UpdateMedicalExamSchema): Promise<MedicalExam | null> {
@@ -105,6 +163,17 @@ export class InMemoryMedicalExamsRepository implements MedicalExamsRepository {
         result: (data.result as MedicalExam['result']) ?? existing.result,
         observations: data.observations ?? existing.observations,
         documentUrl: data.documentUrl ?? existing.documentUrl,
+        examCategory:
+          (data.examCategory as MedicalExam['type']) ?? existing.examCategory,
+        validityMonths: data.validityMonths ?? existing.validityMonths,
+        clinicName: data.clinicName ?? existing.clinicName,
+        clinicAddress: data.clinicAddress ?? existing.clinicAddress,
+        physicianName: data.physicianName ?? existing.physicianName,
+        physicianCRM: data.physicianCRM ?? existing.physicianCRM,
+        aptitude:
+          (data.aptitude as MedicalExam['aptitude']) ?? existing.aptitude,
+        restrictions: data.restrictions ?? existing.restrictions,
+        nextExamDate: data.nextExamDate ?? existing.nextExamDate,
         createdAt: existing.createdAt,
       },
       existing.id,

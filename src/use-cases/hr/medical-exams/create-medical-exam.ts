@@ -16,6 +16,16 @@ export interface CreateMedicalExamRequest {
   result: string;
   observations?: string;
   documentUrl?: string;
+  // PCMSO fields
+  examCategory?: string;
+  validityMonths?: number;
+  clinicName?: string;
+  clinicAddress?: string;
+  physicianName?: string;
+  physicianCRM?: string;
+  aptitude?: string;
+  restrictions?: string;
+  nextExamDate?: Date;
 }
 
 export interface CreateMedicalExamResponse {
@@ -42,6 +52,15 @@ export class CreateMedicalExamUseCase {
       result,
       observations,
       documentUrl,
+      examCategory,
+      validityMonths,
+      clinicName,
+      clinicAddress,
+      physicianName,
+      physicianCRM,
+      aptitude,
+      restrictions,
+      nextExamDate,
     } = request;
 
     if (!doctorName || doctorName.trim().length === 0) {
@@ -73,16 +92,26 @@ export class CreateMedicalExamUseCase {
       result,
       observations: observations?.trim(),
       documentUrl,
+      examCategory,
+      validityMonths,
+      clinicName: clinicName?.trim(),
+      clinicAddress: clinicAddress?.trim(),
+      physicianName: physicianName?.trim(),
+      physicianCRM: physicianCRM?.trim(),
+      aptitude,
+      restrictions: restrictions?.trim(),
+      nextExamDate,
     });
 
     // Auto-generate eSocial S-2220 (Medical Exam / ASO) event — non-blocking
-    import('@/services/esocial/auto-generate').then(({ tryAutoGenerateEvent }) =>
-      tryAutoGenerateEvent({
-        tenantId,
-        eventType: 'S-2220',
-        referenceType: 'MEDICAL_EXAM',
-        referenceId: medicalExam.id.toString(),
-      }),
+    import('@/services/esocial/auto-generate').then(
+      ({ tryAutoGenerateEvent }) =>
+        tryAutoGenerateEvent({
+          tenantId,
+          eventType: 'S-2220',
+          referenceType: 'MEDICAL_EXAM',
+          referenceId: medicalExam.id.toString(),
+        }),
     );
 
     return { medicalExam };

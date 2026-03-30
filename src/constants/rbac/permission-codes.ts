@@ -211,6 +211,13 @@ export const PermissionCodes = {
       MODIFY: 'hr.work-schedules.modify' as const,
       REMOVE: 'hr.work-schedules.remove' as const,
     },
+    SHIFTS: {
+      ACCESS: 'hr.shifts.access' as const,
+      REGISTER: 'hr.shifts.register' as const,
+      MODIFY: 'hr.shifts.modify' as const,
+      REMOVE: 'hr.shifts.remove' as const,
+      ADMIN: 'hr.shifts.admin' as const,
+    },
     EMPLOYEES: {
       ACCESS: 'hr.employees.access' as const,
       REGISTER: 'hr.employees.register' as const,
@@ -283,12 +290,26 @@ export const PermissionCodes = {
       REMOVE: 'hr.safety.remove' as const,
       ADMIN: 'hr.safety.admin' as const,
     },
+    PPE: {
+      ACCESS: 'hr.ppe.access' as const,
+      REGISTER: 'hr.ppe.register' as const,
+      MODIFY: 'hr.ppe.modify' as const,
+      REMOVE: 'hr.ppe.remove' as const,
+      ADMIN: 'hr.ppe.admin' as const,
+    },
     TRAINING: {
       ACCESS: 'hr.training.access' as const,
       REGISTER: 'hr.training.register' as const,
       MODIFY: 'hr.training.modify' as const,
       REMOVE: 'hr.training.remove' as const,
       ADMIN: 'hr.training.admin' as const,
+    },
+    REVIEWS: {
+      ACCESS: 'hr.reviews.access' as const,
+      REGISTER: 'hr.reviews.register' as const,
+      MODIFY: 'hr.reviews.modify' as const,
+      REMOVE: 'hr.reviews.remove' as const,
+      ADMIN: 'hr.reviews.admin' as const,
     },
     BENEFITS: {
       ACCESS: 'hr.benefits.access' as const,
@@ -311,6 +332,11 @@ export const PermissionCodes = {
     KUDOS: {
       ACCESS: 'hr.kudos.access' as const,
       REGISTER: 'hr.kudos.register' as const,
+    },
+    DELEGATIONS: {
+      ACCESS: 'hr.delegations.access' as const,
+      REGISTER: 'hr.delegations.register' as const,
+      REMOVE: 'hr.delegations.remove' as const,
     },
     ONBOARDING: {
       ACCESS: 'hr.onboarding.access' as const,

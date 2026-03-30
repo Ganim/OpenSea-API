@@ -8,10 +8,9 @@ export type MedicalExamType =
   | 'RETORNO'
   | 'DEMISSIONAL';
 
-export type MedicalExamResult =
-  | 'APTO'
-  | 'INAPTO'
-  | 'APTO_COM_RESTRICOES';
+export type MedicalExamResult = 'APTO' | 'INAPTO' | 'APTO_COM_RESTRICOES';
+
+export type MedicalExamAptitude = 'APTO' | 'INAPTO' | 'APTO_COM_RESTRICOES';
 
 export interface MedicalExamProps {
   tenantId: UniqueEntityID;
@@ -24,6 +23,16 @@ export interface MedicalExamProps {
   result: MedicalExamResult;
   observations?: string;
   documentUrl?: string;
+  // PCMSO / Occupational Health fields
+  examCategory?: MedicalExamType;
+  validityMonths?: number;
+  clinicName?: string;
+  clinicAddress?: string;
+  physicianName?: string;
+  physicianCRM?: string;
+  aptitude?: MedicalExamAptitude;
+  restrictions?: string;
+  nextExamDate?: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -69,6 +78,42 @@ export class MedicalExam extends Entity<MedicalExamProps> {
     return this.props.documentUrl;
   }
 
+  get examCategory(): MedicalExamType | undefined {
+    return this.props.examCategory;
+  }
+
+  get validityMonths(): number | undefined {
+    return this.props.validityMonths;
+  }
+
+  get clinicName(): string | undefined {
+    return this.props.clinicName;
+  }
+
+  get clinicAddress(): string | undefined {
+    return this.props.clinicAddress;
+  }
+
+  get physicianName(): string | undefined {
+    return this.props.physicianName;
+  }
+
+  get physicianCRM(): string | undefined {
+    return this.props.physicianCRM;
+  }
+
+  get aptitude(): MedicalExamAptitude | undefined {
+    return this.props.aptitude;
+  }
+
+  get restrictions(): string | undefined {
+    return this.props.restrictions;
+  }
+
+  get nextExamDate(): Date | undefined {
+    return this.props.nextExamDate;
+  }
+
   get createdAt(): Date {
     return this.props.createdAt;
   }
@@ -105,6 +150,31 @@ export class MedicalExam extends Entity<MedicalExamProps> {
 
   hasDocument(): boolean {
     return !!this.documentUrl;
+  }
+
+  isExpiringSoon(daysThreshold = 30): boolean {
+    if (!this.expirationDate) return false;
+    const now = new Date();
+    const threshold = new Date(now);
+    threshold.setDate(threshold.getDate() + daysThreshold);
+    return this.expirationDate > now && this.expirationDate <= threshold;
+  }
+
+  isOverdue(): boolean {
+    if (!this.expirationDate) return false;
+    return new Date() > this.expirationDate;
+  }
+
+  isValid(): boolean {
+    if (!this.expirationDate) return true;
+    return new Date() <= this.expirationDate;
+  }
+
+  hasRestrictions(): boolean {
+    return (
+      this.aptitude === 'APTO_COM_RESTRICOES' ||
+      this.result === 'APTO_COM_RESTRICOES'
+    );
   }
 
   private constructor(props: MedicalExamProps, id?: UniqueEntityID) {

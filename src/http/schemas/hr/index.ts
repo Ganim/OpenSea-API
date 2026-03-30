@@ -12,3 +12,4 @@ export * from './admission';
 export * from './benefits';
 export * from './onboarding';
 export * from './warnings';
+export * from './reviews';

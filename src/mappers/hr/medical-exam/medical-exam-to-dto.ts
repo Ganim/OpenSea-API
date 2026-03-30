@@ -11,6 +11,16 @@ export interface MedicalExamDTO {
   result: string;
   observations: string | null;
   documentUrl: string | null;
+  // PCMSO fields
+  examCategory: string | null;
+  validityMonths: number | null;
+  clinicName: string | null;
+  clinicAddress: string | null;
+  physicianName: string | null;
+  physicianCRM: string | null;
+  aptitude: string | null;
+  restrictions: string | null;
+  nextExamDate: string | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -27,6 +37,16 @@ export function medicalExamToDTO(exam: MedicalExam): MedicalExamDTO {
     result: exam.result,
     observations: exam.observations ?? null,
     documentUrl: exam.documentUrl ?? null,
+    // PCMSO fields
+    examCategory: exam.examCategory ?? null,
+    validityMonths: exam.validityMonths ?? null,
+    clinicName: exam.clinicName ?? null,
+    clinicAddress: exam.clinicAddress ?? null,
+    physicianName: exam.physicianName ?? null,
+    physicianCRM: exam.physicianCRM ?? null,
+    aptitude: exam.aptitude ?? null,
+    restrictions: exam.restrictions ?? null,
+    nextExamDate: exam.nextExamDate?.toISOString() ?? null,
     createdAt: exam.createdAt.toISOString(),
     updatedAt: exam.updatedAt.toISOString(),
   };

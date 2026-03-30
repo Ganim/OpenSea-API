@@ -12,6 +12,16 @@ export interface CreateMedicalExamSchema {
   result: string;
   observations?: string;
   documentUrl?: string;
+  // PCMSO fields
+  examCategory?: string;
+  validityMonths?: number;
+  clinicName?: string;
+  clinicAddress?: string;
+  physicianName?: string;
+  physicianCRM?: string;
+  aptitude?: string;
+  restrictions?: string;
+  nextExamDate?: Date;
 }
 
 export interface UpdateMedicalExamSchema {
@@ -24,22 +34,31 @@ export interface UpdateMedicalExamSchema {
   result?: string;
   observations?: string;
   documentUrl?: string;
+  // PCMSO fields
+  examCategory?: string;
+  validityMonths?: number;
+  clinicName?: string;
+  clinicAddress?: string;
+  physicianName?: string;
+  physicianCRM?: string;
+  aptitude?: string;
+  restrictions?: string;
+  nextExamDate?: Date;
 }
 
 export interface FindMedicalExamFilters {
   employeeId?: UniqueEntityID;
   type?: string;
   result?: string;
+  aptitude?: string;
+  status?: 'VALID' | 'EXPIRING' | 'EXPIRED';
   page?: number;
   perPage?: number;
 }
 
 export interface MedicalExamsRepository {
   create(data: CreateMedicalExamSchema): Promise<MedicalExam>;
-  findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<MedicalExam | null>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<MedicalExam | null>;
   findByEmployeeId(
     employeeId: UniqueEntityID,
     tenantId: string,
@@ -48,6 +67,8 @@ export interface MedicalExamsRepository {
     tenantId: string,
     filters?: FindMedicalExamFilters,
   ): Promise<MedicalExam[]>;
+  findExpiring(tenantId: string, daysThreshold: number): Promise<MedicalExam[]>;
+  findOverdue(tenantId: string): Promise<MedicalExam[]>;
   update(data: UpdateMedicalExamSchema): Promise<MedicalExam | null>;
   delete(id: UniqueEntityID): Promise<void>;
 }
