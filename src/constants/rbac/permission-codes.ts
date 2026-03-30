@@ -370,6 +370,29 @@ export const PermissionCodes = {
       REMOVE: 'hr.admissions.remove' as const,
       ADMIN: 'hr.admissions.admin' as const,
     },
+    REPORTS: {
+      ACCESS: 'hr.reports.access' as const,
+      EXPORT: 'hr.reports.export' as const,
+    },
+    RECRUITMENT: {
+      ACCESS: 'hr.recruitment.access' as const,
+      REGISTER: 'hr.recruitment.register' as const,
+      MODIFY: 'hr.recruitment.modify' as const,
+      REMOVE: 'hr.recruitment.remove' as const,
+      ADMIN: 'hr.recruitment.admin' as const,
+    },
+    SURVEYS: {
+      ACCESS: 'hr.surveys.access' as const,
+      REGISTER: 'hr.surveys.register' as const,
+      MODIFY: 'hr.surveys.modify' as const,
+      REMOVE: 'hr.surveys.remove' as const,
+    },
+    OKRS: {
+      ACCESS: 'hr.okrs.access' as const,
+      REGISTER: 'hr.okrs.register' as const,
+      MODIFY: 'hr.okrs.modify' as const,
+      REMOVE: 'hr.okrs.remove' as const,
+    },
   },
 
   // ============================================================================

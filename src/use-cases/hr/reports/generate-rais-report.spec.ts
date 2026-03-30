@@ -39,7 +39,7 @@ describe('Generate RAIS Report Use Case', () => {
       registrationNumber: 'EMP001',
       fullName: 'Maria Silva',
       cpf: CPF.create('52998224725'),
-      pis: PIS.create('12345678901'),
+      pis: PIS.create('12345678900'),
       hireDate: new Date('2023-03-01'),
       birthDate: new Date('1990-05-15'),
       gender: 'F',
@@ -87,7 +87,7 @@ describe('Generate RAIS Report Use Case', () => {
     expect(empRecord.fullName).toBe('Maria Silva');
     expect(empRecord.registrationNumber).toBe('EMP001');
     expect(empRecord.cpf).toBe('52998224725');
-    expect(empRecord.pis).toBe('12345678901');
+    expect(empRecord.pis).toBe('12345678900');
     expect(empRecord.contractType).toBe('CLT');
     expect(empRecord.weeklyHours).toBe(44);
     expect(empRecord.baseSalary).toBe(5000);

@@ -265,7 +265,10 @@ import { trainingProgramsRoutes } from './controllers/hr/training-programs/route
 import { trainingEnrollmentsRoutes } from './controllers/hr/training-enrollments/routes';
 import { reviewCyclesRoutes } from './controllers/hr/review-cycles/routes';
 import { performanceReviewsRoutes } from './controllers/hr/performance-reviews/routes';
+import { recruitmentRoutes } from './controllers/hr/recruitment/routes';
 import { warningsRoutes } from './controllers/hr/warnings/routes';
+import { surveysRoutes } from './controllers/hr/surveys/routes';
+import { okrsRoutes } from './controllers/hr/okrs/routes';
 
 export async function registerRoutes(app: FastifyInstance) {
   // Core routes
@@ -481,6 +484,9 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(reviewCyclesRoutes);
   await app.register(performanceReviewsRoutes);
   await app.register(warningsRoutes);
+  await app.register(recruitmentRoutes);
+  await app.register(surveysRoutes);
+  await app.register(okrsRoutes);
 
   // Tasks routes
   await app.register(taskBoardsRoutes);
