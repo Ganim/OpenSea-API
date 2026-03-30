@@ -1645,6 +1645,16 @@ export type EmployeeKudos = Prisma.EmployeeKudosModel
  */
 export type OnboardingChecklist = Prisma.OnboardingChecklistModel
 /**
+ * Model PPEItem
+ * 
+ */
+export type PPEItem = Prisma.PPEItemModel
+/**
+ * Model PPEAssignment
+ * 
+ */
+export type PPEAssignment = Prisma.PPEAssignmentModel
+/**
  * Model OffboardingChecklist
  * 
  */

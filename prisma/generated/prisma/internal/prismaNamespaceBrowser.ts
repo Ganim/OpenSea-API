@@ -372,6 +372,8 @@ export const ModelName = {
   CompanyAnnouncement: 'CompanyAnnouncement',
   EmployeeKudos: 'EmployeeKudos',
   OnboardingChecklist: 'OnboardingChecklist',
+  PPEItem: 'PPEItem',
+  PPEAssignment: 'PPEAssignment',
   OffboardingChecklist: 'OffboardingChecklist',
   AdmissionInvite: 'AdmissionInvite',
   AdmissionDocument: 'AdmissionDocument',
@@ -6935,6 +6937,47 @@ export const OnboardingChecklistScalarFieldEnum = {
 } as const
 
 export type OnboardingChecklistScalarFieldEnum = (typeof OnboardingChecklistScalarFieldEnum)[keyof typeof OnboardingChecklistScalarFieldEnum]
+
+
+export const PPEItemScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  category: 'category',
+  caNumber: 'caNumber',
+  manufacturer: 'manufacturer',
+  model: 'model',
+  expirationMonths: 'expirationMonths',
+  minStock: 'minStock',
+  currentStock: 'currentStock',
+  isActive: 'isActive',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type PPEItemScalarFieldEnum = (typeof PPEItemScalarFieldEnum)[keyof typeof PPEItemScalarFieldEnum]
+
+
+export const PPEAssignmentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  ppeItemId: 'ppeItemId',
+  employeeId: 'employeeId',
+  assignedAt: 'assignedAt',
+  returnedAt: 'returnedAt',
+  expiresAt: 'expiresAt',
+  condition: 'condition',
+  returnCondition: 'returnCondition',
+  quantity: 'quantity',
+  notes: 'notes',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PPEAssignmentScalarFieldEnum = (typeof PPEAssignmentScalarFieldEnum)[keyof typeof PPEAssignmentScalarFieldEnum]
 
 
 export const OffboardingChecklistScalarFieldEnum = {
