@@ -59,9 +59,4 @@ export const onboardingChecklistResponseSchema = z.object({
   updatedAt: z.date(),
 });
 
-export const paginationMetaSchema = z.object({
-  total: z.number(),
-  page: z.number(),
-  perPage: z.number(),
-  totalPages: z.number(),
-});
+// paginationMetaSchema imported from employee.schema.ts to avoid barrel conflict

@@ -104,9 +104,9 @@ export const warningResponseSchema = z.object({
 });
 
 /**
- * Schema para paginação
+ * Schema para paginação (local — evita conflito com barrel export)
  */
-export const paginationMetaSchema = z.object({
+const warningPaginationMeta = z.object({
   total: z.number(),
   page: z.number(),
   perPage: z.number(),

@@ -5,8 +5,8 @@ import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   listOnboardingChecklistsQuerySchema,
   onboardingChecklistResponseSchema,
-  paginationMetaSchema,
 } from '@/http/schemas/hr/onboarding';
+import { paginationMetaSchema } from '@/http/schemas/hr/employees/employee.schema';
 import { onboardingChecklistToDTO } from '@/mappers/hr/onboarding-checklist';
 import { makeListOnboardingChecklistsUseCase } from '@/use-cases/hr/onboarding/factories/make-list-onboarding-checklists-use-case';
 import type { FastifyInstance } from 'fastify';

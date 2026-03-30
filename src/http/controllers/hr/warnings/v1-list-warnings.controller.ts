@@ -4,9 +4,9 @@ import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   listWarningsQuerySchema,
-  paginationMetaSchema,
   warningResponseSchema,
 } from '@/http/schemas/hr/warnings';
+import { paginationMetaSchema } from '@/http/schemas/hr/employees/employee.schema';
 import { employeeWarningToDTO } from '@/mappers/hr/employee-warning';
 import { makeListWarningsUseCase } from '@/use-cases/hr/warnings/factories/make-list-warnings-use-case';
 
