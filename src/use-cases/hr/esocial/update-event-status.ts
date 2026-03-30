@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { prisma } from '@/lib/prisma';
 
 export type EventStatusAction = 'review' | 'approve' | 'reject' | 'rectify';
@@ -64,17 +66,17 @@ export class UpdateEventStatusUseCase {
     });
 
     if (!event) {
-      throw new Error('Evento não encontrado.');
+      throw new ResourceNotFoundError('Evento não encontrado.');
     }
 
     const transitions = VALID_TRANSITIONS[event.status];
     if (!transitions) {
-      throw new Error(`Status ${event.status} não permite transições.`);
+      throw new BadRequestError(`Status ${event.status} não permite transições.`);
     }
 
     const newStatus = transitions[action];
     if (!newStatus) {
-      throw new Error(
+      throw new BadRequestError(
         `Ação "${action}" não é permitida para eventos com status "${event.status}".`,
       );
     }

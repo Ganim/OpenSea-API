@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { prisma } from '@/lib/prisma';
 import { XmlSigner } from '@/services/esocial/crypto/xml-signer';
 import { CertificateManager } from '@/services/esocial/crypto/certificate-manager';
@@ -35,7 +37,7 @@ export class TransmitBatchUseCase {
     });
 
     if (!config) {
-      throw new Error(
+      throw new ResourceNotFoundError(
         'Configuração do eSocial não encontrada. Configure o eSocial antes de transmitir.',
       );
     }
@@ -46,14 +48,14 @@ export class TransmitBatchUseCase {
     });
 
     if (!certificate) {
-      throw new Error(
+      throw new ResourceNotFoundError(
         'Certificado digital não encontrado. Faça o upload do certificado antes de transmitir.',
       );
     }
 
     // Check expiry
     if (this.certManager.isExpired(certificate.validUntil)) {
-      throw new Error(
+      throw new BadRequestError(
         'Certificado digital expirado. Faça o upload de um novo certificado.',
       );
     }
@@ -80,7 +82,7 @@ export class TransmitBatchUseCase {
     });
 
     if (approvedEvents.length === 0) {
-      throw new Error('Nenhum evento aprovado encontrado para transmissão.');
+      throw new BadRequestError('Nenhum evento aprovado encontrado para transmissão.');
     }
 
     // 5. Group into batches of max 50 events
