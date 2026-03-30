@@ -4078,6 +4078,17 @@ model Employee {
   delegationsGiven    ApprovalDelegation[] @relation("DelegationDelegator")
   delegationsReceived ApprovalDelegation[] @relation("DelegationDelegate")
 
+  // Surveys
+  createdSurveys    Survey[]         @relation("SurveyCreator")
+  surveyResponses   SurveyResponse[] @relation("SurveyResponseEmployee")
+
+  // OKRs
+  ownedObjectives   Objective[]      @relation("ObjectiveOwner")
+  okrCheckIns       OKRCheckIn[]     @relation("OKRCheckInEmployee")
+
+  // Recruitment
+  conductedInterviews Interview[] @relation("InterviewerInterviews")
+
   @@unique([registrationNumber, tenantId, deletedAt], name: "employees_registration_tenant_unique_active")
   @@unique([cpfHash, tenantId, deletedAt], name: "employees_cpf_tenant_unique_active")
   @@unique([pisHash, tenantId, deletedAt], name: "employees_pis_tenant_unique_active")
@@ -4126,8 +4137,9 @@ model Department {
   children  Department[] @relation("DepartmentHierarchy")
   manager   Employee?    @relation("DepartmentManager", fields: [managerId], references: [id])
   company   Company      @relation(fields: [companyId], references: [id])
-  positions Position[]
-  employees Employee[]   @relation("DepartmentEmployees")
+  positions   Position[]
+  employees   Employee[]    @relation("DepartmentEmployees")
+  jobPostings JobPosting[]
 
   @@unique([code, companyId, tenantId, deletedAt], name: "departments_code_company_tenant_unique_active")
   @@index([tenantId])
@@ -4168,6 +4180,7 @@ model Position {
   department                   Department?                   @relation(fields: [departmentId], references: [id])
   employees                    Employee[]
   occupationalExamRequirements OccupationalExamRequirement[]
+  jobPostings                  JobPosting[]
 
   @@unique([code, tenantId], name: "positions_code_tenant_unique")
   @@index([tenantId])
@@ -14614,4 +14627,200 @@ model ApprovalDelegation {
   @@index([tenantId, delegatorId, isActive])
   @@index([tenantId, delegateId, isActive])
   @@map("approval_delegations")
+}
+
+// ===============================================
+// HR — Recruitment / ATS (Applicant Tracking System)
+// ===============================================
+
+enum JobPostingStatus {
+  DRAFT
+  OPEN
+  CLOSED
+  FILLED
+}
+
+enum JobPostingType {
+  FULL_TIME
+  PART_TIME
+  INTERN
+  TEMPORARY
+}
+
+enum CandidateSource {
+  WEBSITE
+  LINKEDIN
+  REFERRAL
+  AGENCY
+  OTHER
+}
+
+enum ApplicationStatus {
+  APPLIED
+  SCREENING
+  INTERVIEW
+  ASSESSMENT
+  OFFER
+  HIRED
+  REJECTED
+  WITHDRAWN
+}
+
+enum InterviewStageType {
+  SCREENING
+  TECHNICAL
+  BEHAVIORAL
+  CULTURE_FIT
+  FINAL
+}
+
+enum InterviewStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum InterviewRecommendation {
+  ADVANCE
+  HOLD
+  REJECT
+}
+
+model JobPosting {
+  id            String           @id @default(cuid())
+  tenantId      String           @map("tenant_id")
+  title         String           @db.VarChar(256)
+  description   String?          @db.Text
+  departmentId  String?          @map("department_id")
+  positionId    String?          @map("position_id")
+  status        JobPostingStatus @default(DRAFT)
+  type          JobPostingType   @default(FULL_TIME)
+  location      String?          @db.VarChar(256)
+  salaryMin     Decimal?         @map("salary_min") @db.Decimal(10, 2)
+  salaryMax     Decimal?         @map("salary_max") @db.Decimal(10, 2)
+  requirements  Json?
+  benefits      String?          @db.Text
+  maxApplicants Int?             @map("max_applicants")
+  publishedAt   DateTime?        @map("published_at")
+  closedAt      DateTime?        @map("closed_at")
+  createdAt     DateTime         @default(now()) @map("created_at")
+  updatedAt     DateTime         @updatedAt @map("updated_at")
+  deletedAt     DateTime?        @map("deleted_at")
+
+  tenant          Tenant           @relation(fields: [tenantId], references: [id])
+  department      Department?      @relation(fields: [departmentId], references: [id])
+  position        Position?        @relation(fields: [positionId], references: [id])
+  applications    Application[]
+  interviewStages InterviewStage[]
+
+  @@index([tenantId, deletedAt])
+  @@index([tenantId, status])
+  @@index([tenantId, departmentId])
+  @@index([tenantId, positionId])
+  @@map("job_postings")
+}
+
+model Candidate {
+  id          String          @id @default(cuid())
+  tenantId    String          @map("tenant_id")
+  fullName    String          @map("full_name") @db.VarChar(256)
+  email       String          @db.VarChar(254)
+  phone       String?         @db.VarChar(20)
+  cpf         String?         @db.VarChar(14)
+  resumeUrl   String?         @map("resume_url") @db.VarChar(500)
+  linkedinUrl String?         @map("linkedin_url") @db.VarChar(500)
+  source      CandidateSource @default(OTHER)
+  notes       String?         @db.Text
+  tags        Json?
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime        @updatedAt @map("updated_at")
+  deletedAt   DateTime?       @map("deleted_at")
+
+  tenant       Tenant        @relation(fields: [tenantId], references: [id])
+  applications Application[]
+
+  @@unique([tenantId, email])
+  @@index([tenantId, deletedAt])
+  @@index([tenantId, source])
+  @@map("candidates")
+}
+
+model Application {
+  id              String            @id @default(cuid())
+  tenantId        String            @map("tenant_id")
+  jobPostingId    String            @map("job_posting_id")
+  candidateId     String            @map("candidate_id")
+  status          ApplicationStatus @default(APPLIED)
+  currentStageId  String?           @map("current_stage_id")
+  appliedAt       DateTime          @default(now()) @map("applied_at")
+  rejectedAt      DateTime?         @map("rejected_at")
+  rejectionReason String?           @map("rejection_reason") @db.Text
+  hiredAt         DateTime?         @map("hired_at")
+  rating          Int?
+  createdAt       DateTime          @default(now()) @map("created_at")
+  updatedAt       DateTime          @updatedAt @map("updated_at")
+
+  tenant       Tenant          @relation(fields: [tenantId], references: [id])
+  jobPosting   JobPosting      @relation(fields: [jobPostingId], references: [id])
+  candidate    Candidate       @relation(fields: [candidateId], references: [id])
+  currentStage InterviewStage? @relation(fields: [currentStageId], references: [id])
+  interviews   Interview[]
+
+  @@unique([tenantId, jobPostingId, candidateId])
+  @@index([tenantId, jobPostingId])
+  @@index([tenantId, candidateId])
+  @@index([tenantId, status])
+  @@map("applications")
+}
+
+model InterviewStage {
+  id           String             @id @default(cuid())
+  tenantId     String             @map("tenant_id")
+  jobPostingId String             @map("job_posting_id")
+  name         String             @db.VarChar(128)
+  order        Int
+  type         InterviewStageType @default(SCREENING)
+  description  String?            @db.Text
+  createdAt    DateTime           @default(now()) @map("created_at")
+  updatedAt    DateTime           @updatedAt @map("updated_at")
+
+  tenant       Tenant        @relation(fields: [tenantId], references: [id])
+  jobPosting   JobPosting    @relation(fields: [jobPostingId], references: [id])
+  applications Application[]
+  interviews   Interview[]
+
+  @@index([tenantId, jobPostingId])
+  @@index([tenantId, jobPostingId, order])
+  @@map("interview_stages")
+}
+
+model Interview {
+  id               String                   @id @default(cuid())
+  tenantId         String                   @map("tenant_id")
+  applicationId    String                   @map("application_id")
+  interviewStageId String                   @map("interview_stage_id")
+  interviewerId    String                   @map("interviewer_id")
+  scheduledAt      DateTime                 @map("scheduled_at")
+  duration         Int                      @default(60)
+  location         String?                  @db.VarChar(256)
+  meetingUrl       String?                  @map("meeting_url") @db.VarChar(500)
+  status           InterviewStatus          @default(SCHEDULED)
+  feedback         String?                  @db.Text
+  rating           Int?
+  recommendation   InterviewRecommendation?
+  completedAt      DateTime?                @map("completed_at")
+  createdAt        DateTime                 @default(now()) @map("created_at")
+  updatedAt        DateTime                 @updatedAt @map("updated_at")
+
+  tenant         Tenant         @relation(fields: [tenantId], references: [id])
+  application    Application    @relation(fields: [applicationId], references: [id])
+  interviewStage InterviewStage @relation(fields: [interviewStageId], references: [id])
+  interviewer    Employee       @relation("InterviewerInterviews", fields: [interviewerId], references: [id])
+
+  @@index([tenantId, applicationId])
+  @@index([tenantId, interviewStageId])
+  @@index([tenantId, interviewerId])
+  @@index([tenantId, status])
+  @@map("interviews")
 }

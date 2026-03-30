@@ -560,6 +560,41 @@ export type ReviewCycle = Prisma.ReviewCycleModel
  */
 export type PerformanceReview = Prisma.PerformanceReviewModel
 /**
+ * Model Survey
+ * 
+ */
+export type Survey = Prisma.SurveyModel
+/**
+ * Model SurveyQuestion
+ * 
+ */
+export type SurveyQuestion = Prisma.SurveyQuestionModel
+/**
+ * Model SurveyResponse
+ * 
+ */
+export type SurveyResponse = Prisma.SurveyResponseModel
+/**
+ * Model SurveyAnswer
+ * 
+ */
+export type SurveyAnswer = Prisma.SurveyAnswerModel
+/**
+ * Model Objective
+ * 
+ */
+export type Objective = Prisma.ObjectiveModel
+/**
+ * Model KeyResult
+ * 
+ */
+export type KeyResult = Prisma.KeyResultModel
+/**
+ * Model OKRCheckIn
+ * 
+ */
+export type OKRCheckIn = Prisma.OKRCheckInModel
+/**
  * Model FlexBenefitAllocation
  * 
  */
@@ -1704,3 +1739,28 @@ export type MagicLinkToken = Prisma.MagicLinkTokenModel
  * 
  */
 export type ApprovalDelegation = Prisma.ApprovalDelegationModel
+/**
+ * Model JobPosting
+ * 
+ */
+export type JobPosting = Prisma.JobPostingModel
+/**
+ * Model Candidate
+ * 
+ */
+export type Candidate = Prisma.CandidateModel
+/**
+ * Model Application
+ * 
+ */
+export type Application = Prisma.ApplicationModel
+/**
+ * Model InterviewStage
+ * 
+ */
+export type InterviewStage = Prisma.InterviewStageModel
+/**
+ * Model Interview
+ * 
+ */
+export type Interview = Prisma.InterviewModel

@@ -550,14 +550,6 @@ export type EnumPlanTierEnumFieldUpdateOperationsInput = {
   set?: $Enums.PlanTierEnum
 }
 
-export type FloatFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type PlanCreateNestedOneWithoutPlanModulesInput = {
   create?: Prisma.XOR<Prisma.PlanCreateWithoutPlanModulesInput, Prisma.PlanUncheckedCreateWithoutPlanModulesInput>
   connectOrCreate?: Prisma.PlanCreateOrConnectWithoutPlanModulesInput

@@ -1312,6 +1312,132 @@ export const HR_AUDIT_MESSAGES = {
     description:
       '{{userName}} revogou delegação de aprovação para {{delegateName}}',
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // RECRUITMENT / ATS - Recrutamento e Seleção
+  // ============================================================================
+
+  /** Vaga criada */
+  JOB_POSTING_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.JOB_POSTING,
+    module: AuditModule.HR,
+    description: '{{userName}} criou a vaga {{jobTitle}}',
+  } satisfies AuditMessage,
+
+  /** Vaga atualizada */
+  JOB_POSTING_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.JOB_POSTING,
+    module: AuditModule.HR,
+    description: '{{userName}} atualizou a vaga {{jobTitle}}',
+  } satisfies AuditMessage,
+
+  /** Vaga excluída */
+  JOB_POSTING_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.JOB_POSTING,
+    module: AuditModule.HR,
+    description: '{{userName}} excluiu a vaga {{jobTitle}}',
+  } satisfies AuditMessage,
+
+  /** Vaga publicada */
+  JOB_POSTING_PUBLISH: {
+    action: AuditAction.JOB_PUBLISH,
+    entity: AuditEntity.JOB_POSTING,
+    module: AuditModule.HR,
+    description: '{{userName}} publicou a vaga {{jobTitle}}',
+  } satisfies AuditMessage,
+
+  /** Vaga encerrada */
+  JOB_POSTING_CLOSE: {
+    action: AuditAction.JOB_CLOSE,
+    entity: AuditEntity.JOB_POSTING,
+    module: AuditModule.HR,
+    description: '{{userName}} encerrou a vaga {{jobTitle}}',
+  } satisfies AuditMessage,
+
+  /** Candidato criado */
+  CANDIDATE_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.CANDIDATE,
+    module: AuditModule.HR,
+    description: '{{userName}} cadastrou o candidato {{candidateName}}',
+  } satisfies AuditMessage,
+
+  /** Candidato atualizado */
+  CANDIDATE_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.CANDIDATE,
+    module: AuditModule.HR,
+    description: '{{userName}} atualizou o candidato {{candidateName}}',
+  } satisfies AuditMessage,
+
+  /** Candidato excluído */
+  CANDIDATE_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.CANDIDATE,
+    module: AuditModule.HR,
+    description: '{{userName}} excluiu o candidato {{candidateName}}',
+  } satisfies AuditMessage,
+
+  /** Candidatura criada */
+  APPLICATION_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.APPLICATION,
+    module: AuditModule.HR,
+    description: '{{userName}} registrou candidatura para a vaga {{jobTitle}}',
+  } satisfies AuditMessage,
+
+  /** Status da candidatura atualizado */
+  APPLICATION_STATUS_UPDATE: {
+    action: AuditAction.STATUS_CHANGE,
+    entity: AuditEntity.APPLICATION,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} alterou o status da candidatura para {{newStatus}}',
+  } satisfies AuditMessage,
+
+  /** Candidato contratado */
+  APPLICATION_HIRE: {
+    action: AuditAction.CANDIDATE_HIRE,
+    entity: AuditEntity.APPLICATION,
+    module: AuditModule.HR,
+    description: '{{userName}} contratou o candidato {{candidateName}}',
+  } satisfies AuditMessage,
+
+  /** Candidatura rejeitada */
+  APPLICATION_REJECT: {
+    action: AuditAction.CANDIDATE_REJECT,
+    entity: AuditEntity.APPLICATION,
+    module: AuditModule.HR,
+    description: '{{userName}} rejeitou a candidatura de {{candidateName}}',
+  } satisfies AuditMessage,
+
+  /** Entrevista agendada */
+  INTERVIEW_SCHEDULE: {
+    action: AuditAction.INTERVIEW_SCHEDULE,
+    entity: AuditEntity.INTERVIEW,
+    module: AuditModule.HR,
+    description: '{{userName}} agendou entrevista para {{scheduledAt}}',
+  } satisfies AuditMessage,
+
+  /** Entrevista concluída */
+  INTERVIEW_COMPLETE: {
+    action: AuditAction.INTERVIEW_COMPLETE,
+    entity: AuditEntity.INTERVIEW,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} concluiu entrevista com recomendação: {{recommendation}}',
+  } satisfies AuditMessage,
+
+  /** Entrevista cancelada */
+  INTERVIEW_CANCEL: {
+    action: AuditAction.INTERVIEW_CANCEL,
+    entity: AuditEntity.INTERVIEW,
+    module: AuditModule.HR,
+    description: '{{userName}} cancelou a entrevista',
+  } satisfies AuditMessage,
 } as const;
 
 export type HrAuditMessageKey = keyof typeof HR_AUDIT_MESSAGES;

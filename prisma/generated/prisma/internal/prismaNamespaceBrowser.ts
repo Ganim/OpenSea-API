@@ -155,6 +155,13 @@ export const ModelName = {
   TrainingEnrollment: 'TrainingEnrollment',
   ReviewCycle: 'ReviewCycle',
   PerformanceReview: 'PerformanceReview',
+  Survey: 'Survey',
+  SurveyQuestion: 'SurveyQuestion',
+  SurveyResponse: 'SurveyResponse',
+  SurveyAnswer: 'SurveyAnswer',
+  Objective: 'Objective',
+  KeyResult: 'KeyResult',
+  OKRCheckIn: 'OKRCheckIn',
   FlexBenefitAllocation: 'FlexBenefitAllocation',
   Company: 'Company',
   CompanyDocument: 'CompanyDocument',
@@ -383,7 +390,12 @@ export const ModelName = {
   AuthLink: 'AuthLink',
   TenantAuthConfig: 'TenantAuthConfig',
   MagicLinkToken: 'MagicLinkToken',
-  ApprovalDelegation: 'ApprovalDelegation'
+  ApprovalDelegation: 'ApprovalDelegation',
+  JobPosting: 'JobPosting',
+  Candidate: 'Candidate',
+  Application: 'Application',
+  InterviewStage: 'InterviewStage',
+  Interview: 'Interview'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2541,6 +2553,122 @@ export const PerformanceReviewScalarFieldEnum = {
 } as const
 
 export type PerformanceReviewScalarFieldEnum = (typeof PerformanceReviewScalarFieldEnum)[keyof typeof PerformanceReviewScalarFieldEnum]
+
+
+export const SurveyScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  description: 'description',
+  type: 'type',
+  status: 'status',
+  isAnonymous: 'isAnonymous',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SurveyScalarFieldEnum = (typeof SurveyScalarFieldEnum)[keyof typeof SurveyScalarFieldEnum]
+
+
+export const SurveyQuestionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  surveyId: 'surveyId',
+  text: 'text',
+  type: 'type',
+  options: 'options',
+  order: 'order',
+  isRequired: 'isRequired',
+  category: 'category',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SurveyQuestionScalarFieldEnum = (typeof SurveyQuestionScalarFieldEnum)[keyof typeof SurveyQuestionScalarFieldEnum]
+
+
+export const SurveyResponseScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  surveyId: 'surveyId',
+  employeeId: 'employeeId',
+  submittedAt: 'submittedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type SurveyResponseScalarFieldEnum = (typeof SurveyResponseScalarFieldEnum)[keyof typeof SurveyResponseScalarFieldEnum]
+
+
+export const SurveyAnswerScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  surveyResponseId: 'surveyResponseId',
+  questionId: 'questionId',
+  ratingValue: 'ratingValue',
+  textValue: 'textValue',
+  selectedOptions: 'selectedOptions',
+  createdAt: 'createdAt'
+} as const
+
+export type SurveyAnswerScalarFieldEnum = (typeof SurveyAnswerScalarFieldEnum)[keyof typeof SurveyAnswerScalarFieldEnum]
+
+
+export const ObjectiveScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  description: 'description',
+  ownerId: 'ownerId',
+  parentId: 'parentId',
+  level: 'level',
+  status: 'status',
+  period: 'period',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  progress: 'progress',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ObjectiveScalarFieldEnum = (typeof ObjectiveScalarFieldEnum)[keyof typeof ObjectiveScalarFieldEnum]
+
+
+export const KeyResultScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  objectiveId: 'objectiveId',
+  title: 'title',
+  description: 'description',
+  type: 'type',
+  startValue: 'startValue',
+  targetValue: 'targetValue',
+  currentValue: 'currentValue',
+  unit: 'unit',
+  status: 'status',
+  weight: 'weight',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type KeyResultScalarFieldEnum = (typeof KeyResultScalarFieldEnum)[keyof typeof KeyResultScalarFieldEnum]
+
+
+export const OKRCheckInScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  keyResultId: 'keyResultId',
+  employeeId: 'employeeId',
+  previousValue: 'previousValue',
+  newValue: 'newValue',
+  note: 'note',
+  confidence: 'confidence',
+  createdAt: 'createdAt'
+} as const
+
+export type OKRCheckInScalarFieldEnum = (typeof OKRCheckInScalarFieldEnum)[keyof typeof OKRCheckInScalarFieldEnum]
 
 
 export const FlexBenefitAllocationScalarFieldEnum = {
@@ -7162,6 +7290,107 @@ export const ApprovalDelegationScalarFieldEnum = {
 } as const
 
 export type ApprovalDelegationScalarFieldEnum = (typeof ApprovalDelegationScalarFieldEnum)[keyof typeof ApprovalDelegationScalarFieldEnum]
+
+
+export const JobPostingScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  description: 'description',
+  departmentId: 'departmentId',
+  positionId: 'positionId',
+  status: 'status',
+  type: 'type',
+  location: 'location',
+  salaryMin: 'salaryMin',
+  salaryMax: 'salaryMax',
+  requirements: 'requirements',
+  benefits: 'benefits',
+  maxApplicants: 'maxApplicants',
+  publishedAt: 'publishedAt',
+  closedAt: 'closedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type JobPostingScalarFieldEnum = (typeof JobPostingScalarFieldEnum)[keyof typeof JobPostingScalarFieldEnum]
+
+
+export const CandidateScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  fullName: 'fullName',
+  email: 'email',
+  phone: 'phone',
+  cpf: 'cpf',
+  resumeUrl: 'resumeUrl',
+  linkedinUrl: 'linkedinUrl',
+  source: 'source',
+  notes: 'notes',
+  tags: 'tags',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type CandidateScalarFieldEnum = (typeof CandidateScalarFieldEnum)[keyof typeof CandidateScalarFieldEnum]
+
+
+export const ApplicationScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  jobPostingId: 'jobPostingId',
+  candidateId: 'candidateId',
+  status: 'status',
+  currentStageId: 'currentStageId',
+  appliedAt: 'appliedAt',
+  rejectedAt: 'rejectedAt',
+  rejectionReason: 'rejectionReason',
+  hiredAt: 'hiredAt',
+  rating: 'rating',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ApplicationScalarFieldEnum = (typeof ApplicationScalarFieldEnum)[keyof typeof ApplicationScalarFieldEnum]
+
+
+export const InterviewStageScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  jobPostingId: 'jobPostingId',
+  name: 'name',
+  order: 'order',
+  type: 'type',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InterviewStageScalarFieldEnum = (typeof InterviewStageScalarFieldEnum)[keyof typeof InterviewStageScalarFieldEnum]
+
+
+export const InterviewScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  applicationId: 'applicationId',
+  interviewStageId: 'interviewStageId',
+  interviewerId: 'interviewerId',
+  scheduledAt: 'scheduledAt',
+  duration: 'duration',
+  location: 'location',
+  meetingUrl: 'meetingUrl',
+  status: 'status',
+  feedback: 'feedback',
+  rating: 'rating',
+  recommendation: 'recommendation',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InterviewScalarFieldEnum = (typeof InterviewScalarFieldEnum)[keyof typeof InterviewScalarFieldEnum]
 
 
 export const SortOrder = {

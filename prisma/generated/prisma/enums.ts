@@ -3379,3 +3379,78 @@ export const AuthLinkStatus = {
 } as const
 
 export type AuthLinkStatus = (typeof AuthLinkStatus)[keyof typeof AuthLinkStatus]
+
+
+export const JobPostingStatus = {
+  DRAFT: 'DRAFT',
+  OPEN: 'OPEN',
+  CLOSED: 'CLOSED',
+  FILLED: 'FILLED'
+} as const
+
+export type JobPostingStatus = (typeof JobPostingStatus)[keyof typeof JobPostingStatus]
+
+
+export const JobPostingType = {
+  FULL_TIME: 'FULL_TIME',
+  PART_TIME: 'PART_TIME',
+  INTERN: 'INTERN',
+  TEMPORARY: 'TEMPORARY'
+} as const
+
+export type JobPostingType = (typeof JobPostingType)[keyof typeof JobPostingType]
+
+
+export const CandidateSource = {
+  WEBSITE: 'WEBSITE',
+  LINKEDIN: 'LINKEDIN',
+  REFERRAL: 'REFERRAL',
+  AGENCY: 'AGENCY',
+  OTHER: 'OTHER'
+} as const
+
+export type CandidateSource = (typeof CandidateSource)[keyof typeof CandidateSource]
+
+
+export const ApplicationStatus = {
+  APPLIED: 'APPLIED',
+  SCREENING: 'SCREENING',
+  INTERVIEW: 'INTERVIEW',
+  ASSESSMENT: 'ASSESSMENT',
+  OFFER: 'OFFER',
+  HIRED: 'HIRED',
+  REJECTED: 'REJECTED',
+  WITHDRAWN: 'WITHDRAWN'
+} as const
+
+export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus]
+
+
+export const InterviewStageType = {
+  SCREENING: 'SCREENING',
+  TECHNICAL: 'TECHNICAL',
+  BEHAVIORAL: 'BEHAVIORAL',
+  CULTURE_FIT: 'CULTURE_FIT',
+  FINAL: 'FINAL'
+} as const
+
+export type InterviewStageType = (typeof InterviewStageType)[keyof typeof InterviewStageType]
+
+
+export const InterviewStatus = {
+  SCHEDULED: 'SCHEDULED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED',
+  NO_SHOW: 'NO_SHOW'
+} as const
+
+export type InterviewStatus = (typeof InterviewStatus)[keyof typeof InterviewStatus]
+
+
+export const InterviewRecommendation = {
+  ADVANCE: 'ADVANCE',
+  HOLD: 'HOLD',
+  REJECT: 'REJECT'
+} as const
+
+export type InterviewRecommendation = (typeof InterviewRecommendation)[keyof typeof InterviewRecommendation]

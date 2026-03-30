@@ -297,6 +297,15 @@ export enum AuditEntity {
   CADENCE_ENROLLMENT = 'CADENCE_ENROLLMENT',
 
   // ==========================================
+  // HR — Recruitment / ATS
+  // ==========================================
+  JOB_POSTING = 'JOB_POSTING',
+  CANDIDATE = 'CANDIDATE',
+  APPLICATION = 'APPLICATION',
+  INTERVIEW_STAGE = 'INTERVIEW_STAGE',
+  INTERVIEW = 'INTERVIEW',
+
+  // ==========================================
   // System
   // ==========================================
   OTHER = 'OTHER',

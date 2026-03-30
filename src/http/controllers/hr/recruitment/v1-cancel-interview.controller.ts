@@ -1,0 +1,44 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { interviewResponseSchema } from '@/http/schemas/hr/recruitment';
+import { idSchema } from '@/http/schemas/common.schema';
+import { interviewToDTO } from '@/mappers/hr/interview';
+import { makeCancelInterviewUseCase } from '@/use-cases/hr/interviews/factories';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
+import z from 'zod';
+
+export async function v1CancelInterviewController(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: 'PATCH',
+    url: '/v1/hr/recruitment/interviews/:interviewId/cancel',
+    preHandler: [verifyJwt, verifyTenant, createPermissionMiddleware({ permissionCode: PermissionCodes.HR.RECRUITMENT.MODIFY, resource: 'recruitment' })],
+    schema: {
+      tags: ['HR - Recruitment'],
+      summary: 'Cancel interview',
+      description: 'Cancels a scheduled interview',
+      params: z.object({ interviewId: idSchema }),
+      response: { 200: z.object({ interview: interviewResponseSchema }), 400: z.object({ message: z.string() }), 404: z.object({ message: z.string() }) },
+      security: [{ bearerAuth: [] }],
+    },
+    handler: async (request, reply) => {
+      const tenantId = request.user.tenantId!;
+      const { interviewId } = request.params;
+      try {
+        const useCase = makeCancelInterviewUseCase();
+        const { interview } = await useCase.execute({ tenantId, interviewId });
+        await logAudit(request, { message: AUDIT_MESSAGES.HR.INTERVIEW_CANCEL, entityId: interview.id.toString(), placeholders: { userName: request.user.sub } });
+        return reply.status(200).send({ interview: interviewToDTO(interview) });
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) return reply.status(404).send({ message: error.message });
+        if (error instanceof Error) return reply.status(400).send({ message: error.message });
+        throw error;
+      }
+    },
+  });
+}
