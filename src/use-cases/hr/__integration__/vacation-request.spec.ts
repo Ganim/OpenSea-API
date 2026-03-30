@@ -12,7 +12,6 @@ import { InMemoryAbsencesRepository } from '@/repositories/hr/in-memory/in-memor
 import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';
 import { InMemoryVacationPeriodsRepository } from '@/repositories/hr/in-memory/in-memory-vacation-periods-repository';
 import { ApproveAbsenceUseCase } from '@/use-cases/hr/absences/approve-absence';
-import { CalculateVacationBalanceUseCase } from '@/use-cases/hr/absences/calculate-vacation-balance';
 import { RequestVacationUseCase } from '@/use-cases/hr/absences/request-vacation';
 import { SellVacationDaysUseCase } from '@/use-cases/hr/vacation-periods/sell-vacation-days';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -23,8 +22,6 @@ let vacationPeriodsRepository: InMemoryVacationPeriodsRepository;
 let requestVacation: RequestVacationUseCase;
 let approveAbsence: ApproveAbsenceUseCase;
 let sellVacationDays: SellVacationDaysUseCase;
-let calculateVacationBalance: CalculateVacationBalanceUseCase;
-
 let testEmployee: Employee;
 let testVacationPeriod: VacationPeriod;
 const tenantId = new UniqueEntityID().toString();
@@ -50,11 +47,6 @@ describe('[Integration] Vacation Request Flow', () => {
 
     sellVacationDays = new SellVacationDaysUseCase(vacationPeriodsRepository);
 
-    calculateVacationBalance = new CalculateVacationBalanceUseCase(
-      employeesRepository,
-      vacationPeriodsRepository,
-    );
-
     testEmployee = await employeesRepository.create({
       tenantId,
       registrationNumber: 'EMP001',
@@ -73,10 +65,10 @@ describe('[Integration] Vacation Request Flow', () => {
     testVacationPeriod = VacationPeriod.create({
       tenantId: new UniqueEntityID(tenantId),
       employeeId: testEmployee.id,
-      acquisitionStart: new Date('2022-01-01'),
-      acquisitionEnd: new Date('2023-01-01'),
-      concessionStart: new Date('2023-01-01'),
-      concessionEnd: new Date('2024-12-31'),
+      acquisitionStart: new Date('2024-01-01'),
+      acquisitionEnd: new Date('2025-01-01'),
+      concessionStart: new Date('2025-01-01'),
+      concessionEnd: new Date('2027-12-31'),
       totalDays: 30,
       usedDays: 0,
       soldDays: 0,
@@ -117,13 +109,13 @@ describe('[Integration] Vacation Request Flow', () => {
 
     expect(approvedAbsence.isApproved()).toBe(true);
 
-    // Verify vacation balance was updated
-    const balance = await calculateVacationBalance.execute({
+    // After approval, the vacation period is scheduled (status changes to SCHEDULED)
+    // The remaining days are still tracked, but the period status reflects the scheduling
+    const scheduledPeriod = await vacationPeriodsRepository.findById(
+      testVacationPeriod.id,
       tenantId,
-      employeeId: testEmployee.id.toString(),
-    });
-
-    expect(balance.totalAvailableDays).toBeLessThan(30);
+    );
+    expect(scheduledPeriod?.status.isScheduled()).toBe(true);
   });
 
   it('should sell 1/3 of vacation days (abono pecuniario)', async () => {

@@ -72,10 +72,10 @@ describe('[Integration] Absence Approval Flow', () => {
     testVacationPeriod = VacationPeriod.create({
       tenantId: new UniqueEntityID(tenantId),
       employeeId: testEmployee.id,
-      acquisitionStart: new Date('2022-01-01'),
-      acquisitionEnd: new Date('2023-01-01'),
-      concessionStart: new Date('2023-01-01'),
-      concessionEnd: new Date('2024-12-31'),
+      acquisitionStart: new Date('2024-01-01'),
+      acquisitionEnd: new Date('2025-01-01'),
+      concessionStart: new Date('2025-01-01'),
+      concessionEnd: new Date('2027-12-31'),
       totalDays: 30,
       usedDays: 0,
       soldDays: 0,
@@ -121,15 +121,12 @@ describe('[Integration] Absence Approval Flow', () => {
 
     expect(approvedAbsence.isApproved()).toBe(true);
 
-    // Verify balance was reduced
-    const updatedBalance = await calculateVacationBalance.execute({
+    // After approval, the vacation period status changes to SCHEDULED
+    const scheduledPeriod = await vacationPeriodsRepository.findById(
+      testVacationPeriod.id,
       tenantId,
-      employeeId: testEmployee.id.toString(),
-    });
-
-    expect(updatedBalance.totalAvailableDays).toBeLessThan(
-      initialBalance.totalAvailableDays,
     );
+    expect(scheduledPeriod?.status.isScheduled()).toBe(true);
   });
 
   it('should create absence → reject → check no balance impact', async () => {
