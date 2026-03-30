@@ -7,7 +7,7 @@ import { v1UpdatePunchConfigController } from './v1-update-punch-config.controll
 import { v1GenerateQrPayloadController } from './v1-generate-qr-payload.controller';
 
 export async function punchConfigRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Query routes
   app.register(

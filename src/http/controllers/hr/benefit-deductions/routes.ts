@@ -5,7 +5,7 @@ import rateLimit from '@fastify/rate-limit';
 import { v1CalculateBenefitDeductionsController } from './v1-calculate-benefit-deductions.controller';
 
 export async function benefitDeductionsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes (calculate is POST)
   app.register(

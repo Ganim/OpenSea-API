@@ -9,7 +9,7 @@ import { v1ListPositionsController } from './v1-list-positions.controller';
 import { v1UpdatePositionController } from './v1-update-position.controller';
 
 export async function positionsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Manager routes with mutation rate limit
   app.register(

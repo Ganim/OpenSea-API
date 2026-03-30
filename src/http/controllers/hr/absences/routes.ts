@@ -13,7 +13,7 @@ import { v1RequestVacationController } from './v1-request-vacation.controller';
 import { v1UpdateAbsenceController } from './v1-update-absence.controller';
 
 export async function absencesRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

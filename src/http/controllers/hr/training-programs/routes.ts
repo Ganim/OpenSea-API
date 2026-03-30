@@ -9,7 +9,7 @@ import { v1ListTrainingProgramsController } from './v1-list-training-programs.co
 import { v1UpdateTrainingProgramController } from './v1-update-training-program.controller';
 
 export async function trainingProgramsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

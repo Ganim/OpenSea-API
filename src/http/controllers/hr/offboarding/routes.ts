@@ -11,7 +11,7 @@ import { v1ListOffboardingChecklistsController } from './v1-list-offboarding-che
 import { v1UpdateOffboardingChecklistController } from './v1-update-offboarding-checklist.controller';
 
 export async function offboardingRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

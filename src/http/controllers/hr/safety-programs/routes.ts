@@ -9,7 +9,7 @@ import { v1GetSafetyProgramController } from './v1-get-safety-program.controller
 import { v1ListSafetyProgramsController } from './v1-list-safety-programs.controller';
 
 export async function safetyProgramsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

@@ -23,7 +23,7 @@ import { v1DeleteEmployeePhotoController } from './v1-delete-employee-photo.cont
 import { v1GeneratePPPController } from './v1-generate-ppp.controller';
 
 export async function employeesRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Manager routes com rate limit de mutação
   app.register(

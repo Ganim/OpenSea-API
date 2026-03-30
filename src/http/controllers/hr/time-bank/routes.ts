@@ -9,7 +9,7 @@ import { v1GetTimeBankController } from './v1-get-time-bank.controller';
 import { v1ListTimeBanksController } from './v1-list-time-banks.controller';
 
 export async function timeBankRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Manager mutation routes
   app.register(

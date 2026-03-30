@@ -12,7 +12,7 @@ import { v1GenerateTimesheetPDFController } from './v1-generate-timesheet-pdf.co
 import { v1ListTimeEntriesController } from './v1-list-time-entries.controller';
 
 export async function timeControlRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes - clock in/out
   app.register(

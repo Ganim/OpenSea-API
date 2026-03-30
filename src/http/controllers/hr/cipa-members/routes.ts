@@ -7,7 +7,7 @@ import { v1RemoveCipaMemberController } from './v1-remove-cipa-member.controller
 import { v1ListCipaMembersController } from './v1-list-cipa-members.controller';
 
 export async function cipaMembersRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

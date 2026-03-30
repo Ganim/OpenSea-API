@@ -11,7 +11,7 @@ import { v1ApproveAdmissionController } from './v1-approve-admission.controller'
 import { v1RejectAdmissionController } from './v1-reject-admission.controller';
 
 export async function admissionsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes with rate limit
   app.register(

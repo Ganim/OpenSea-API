@@ -19,7 +19,7 @@ import { v1StartVacationController } from './v1-start-vacation.controller';
 import { v1UpdateVacationPeriodController } from './v1-update-vacation-period.controller';
 
 export async function vacationPeriodsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

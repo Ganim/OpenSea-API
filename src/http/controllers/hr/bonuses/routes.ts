@@ -9,7 +9,7 @@ import { v1ListBonusesController } from './v1-list-bonuses.controller';
 import { v1UpdateBonusController } from './v1-update-bonus.controller';
 
 export async function bonusesRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

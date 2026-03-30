@@ -8,7 +8,7 @@ import { v1ListSentKudosController } from './v1-list-sent-kudos.controller';
 import { v1ListKudosFeedController } from './v1-list-kudos-feed.controller';
 
 export async function kudosRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

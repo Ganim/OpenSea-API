@@ -8,7 +8,7 @@ import { v1CancelEnrollmentController } from './v1-cancel-enrollment.controller'
 import { v1ListTrainingEnrollmentsController } from './v1-list-training-enrollments.controller';
 
 export async function trainingEnrollmentsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

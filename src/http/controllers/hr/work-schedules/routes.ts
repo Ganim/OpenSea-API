@@ -9,7 +9,7 @@ import { v1ListWorkSchedulesController } from './v1-list-work-schedules.controll
 import { v1UpdateWorkScheduleController } from './v1-update-work-schedule.controller';
 
 export async function workSchedulesRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Manager routes com rate limit de mutação
   app.register(

@@ -11,7 +11,7 @@ import { v1RevokeWarningController } from './v1-revoke-warning.controller';
 import { v1AcknowledgeWarningController } from './v1-acknowledge-warning.controller';
 
 export async function warningsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

@@ -9,7 +9,7 @@ import { v1ListEnrollmentsController } from './v1-list-enrollments.controller';
 import { v1UpdateEnrollmentController } from './v1-update-enrollment.controller';
 
 export async function benefitEnrollmentsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

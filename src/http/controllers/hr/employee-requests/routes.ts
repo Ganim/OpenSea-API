@@ -11,7 +11,7 @@ import { v1ApproveRequestController } from './v1-approve-request.controller';
 import { v1RejectRequestController } from './v1-reject-request.controller';
 
 export async function employeeRequestsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes (create, cancel, approve, reject)
   app.register(

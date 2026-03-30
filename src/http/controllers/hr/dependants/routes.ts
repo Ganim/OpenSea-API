@@ -9,7 +9,7 @@ import { v1GetDependantController } from './v1-get-dependant.controller';
 import { v1ListDependantsController } from './v1-list-dependants.controller';
 
 export async function dependantsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

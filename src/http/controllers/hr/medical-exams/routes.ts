@@ -9,7 +9,7 @@ import { v1GetMedicalExamController } from './v1-get-medical-exam.controller';
 import { v1ListMedicalExamsController } from './v1-list-medical-exams.controller';
 
 export async function medicalExamsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

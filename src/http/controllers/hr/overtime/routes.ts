@@ -9,7 +9,7 @@ import { v1RejectOvertimeController } from './v1-reject-overtime.controller';
 import { v1RequestOvertimeController } from './v1-request-overtime.controller';
 
 export async function overtimeRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

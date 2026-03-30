@@ -9,7 +9,7 @@ import { v1GetWorkplaceRiskController } from './v1-get-workplace-risk.controller
 import { v1ListWorkplaceRisksController } from './v1-list-workplace-risks.controller';
 
 export async function workplaceRisksRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

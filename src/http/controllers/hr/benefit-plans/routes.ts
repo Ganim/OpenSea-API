@@ -9,7 +9,7 @@ import { v1ListBenefitPlansController } from './v1-list-benefit-plans.controller
 import { v1UpdateBenefitPlanController } from './v1-update-benefit-plan.controller';
 
 export async function benefitPlansRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

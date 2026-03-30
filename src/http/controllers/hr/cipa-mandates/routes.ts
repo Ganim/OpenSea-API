@@ -9,7 +9,7 @@ import { v1GetCipaMandateController } from './v1-get-cipa-mandate.controller';
 import { v1ListCipaMandatesController } from './v1-list-cipa-mandates.controller';
 
 export async function cipaMandatesRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

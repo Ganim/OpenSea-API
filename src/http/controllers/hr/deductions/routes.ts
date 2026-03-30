@@ -9,7 +9,7 @@ import { v1ListDeductionsController } from './v1-list-deductions.controller';
 import { v1UpdateDeductionController } from './v1-update-deduction.controller';
 
 export async function deductionsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

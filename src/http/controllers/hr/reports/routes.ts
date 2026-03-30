@@ -7,7 +7,7 @@ import { v1ExportAbsencesReportController } from './v1-export-absences-report.co
 import { v1ExportPayrollReportController } from './v1-export-payroll-report.controller';
 
 export async function hrReportsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   app.register(
     async (queryApp) => {

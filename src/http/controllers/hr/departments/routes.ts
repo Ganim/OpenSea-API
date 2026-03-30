@@ -9,7 +9,7 @@ import { v1ListDepartmentsController } from './v1-list-departments.controller';
 import { v1UpdateDepartmentController } from './v1-update-department.controller';
 
 export async function departmentsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Manager routes with mutation rate limit
   app.register(

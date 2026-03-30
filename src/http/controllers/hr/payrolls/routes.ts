@@ -12,7 +12,7 @@ import { v1GeneratePayslipPDFController } from './v1-generate-payslip-pdf.contro
 import { v1PayPayrollController } from './v1-pay-payroll.controller';
 
 export async function payrollsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

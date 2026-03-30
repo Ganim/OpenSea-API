@@ -8,7 +8,7 @@ import { v1UpdateAnnouncementController } from './v1-update-announcement.control
 import { v1DeleteAnnouncementController } from './v1-delete-announcement.controller';
 
 export async function hrAnnouncementsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

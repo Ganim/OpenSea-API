@@ -6,7 +6,7 @@ import { v1GetHrConfigController } from './v1-get-hr-config.controller';
 import { v1UpdateHrConfigController } from './v1-update-hr-config.controller';
 
 export async function hrConfigRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Query routes
   app.register(

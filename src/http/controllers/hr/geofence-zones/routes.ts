@@ -9,7 +9,7 @@ import { v1DeleteGeofenceZoneController } from './v1-delete-geofence-zone.contro
 import { v1ValidateGeofenceController } from './v1-validate-geofence.controller';
 
 export async function geofenceZonesRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Query routes
   app.register(

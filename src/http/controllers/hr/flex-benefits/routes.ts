@@ -7,7 +7,7 @@ import { v1GetMyAllocationController } from './v1-get-my-allocation.controller';
 import { v1ListAllocationHistoryController } from './v1-list-allocation-history.controller';
 
 export async function flexBenefitsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(

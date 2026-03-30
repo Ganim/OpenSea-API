@@ -23,7 +23,7 @@ import { v1RectifyEventController } from './v1-rectify-event.controller';
 import { v1DeleteEventController } from './v1-delete-event.controller';
 
 export async function esocialRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Query routes
   app.register(

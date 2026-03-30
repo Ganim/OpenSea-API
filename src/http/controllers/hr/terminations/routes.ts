@@ -10,7 +10,7 @@ import { v1GenerateTRCTPDFController } from './v1-generate-trct-pdf.controller';
 import { v1UpdateTerminationController } from './v1-update-termination.controller';
 
 export async function terminationsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', createModuleMiddleware('HR'));
+  app.addHook('preHandler', createModuleMiddleware('HR'));
 
   // Mutation routes
   app.register(
