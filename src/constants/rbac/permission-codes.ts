@@ -185,6 +185,18 @@ export const PermissionCodes = {
       ADMIN: 'finance.recurring.admin' as const,
       ONLYSELF: 'finance.recurring.onlyself' as const,
     },
+    PAYMENT_ORDERS: {
+      ACCESS: 'finance.payment-orders.access' as const,
+      REGISTER: 'finance.payment-orders.register' as const,
+      MODIFY: 'finance.payment-orders.modify' as const,
+      REMOVE: 'finance.payment-orders.remove' as const,
+      APPROVE: 'finance.payment-orders.approve' as const,
+      ADMIN: 'finance.payment-orders.admin' as const,
+    },
+    BOLETO: {
+      ACCESS: 'finance.boleto.access' as const,
+      REGISTER: 'finance.boleto.register' as const,
+    },
     BUDGETS: {
       ACCESS: 'finance.budgets.access' as const,
       REGISTER: 'finance.budgets.register' as const,

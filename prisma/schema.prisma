@@ -4137,9 +4137,10 @@ model Department {
   children  Department[] @relation("DepartmentHierarchy")
   manager   Employee?    @relation("DepartmentManager", fields: [managerId], references: [id])
   company   Company      @relation(fields: [companyId], references: [id])
-  positions   Position[]
-  employees   Employee[]    @relation("DepartmentEmployees")
-  jobPostings JobPosting[]
+  positions        Position[]
+  employees        Employee[]         @relation("DepartmentEmployees")
+  jobPostings      JobPosting[]
+  admissionInvites AdmissionInvite[]
 
   @@unique([code, companyId, tenantId, deletedAt], name: "departments_code_company_tenant_unique_active")
   @@index([tenantId])
@@ -4181,6 +4182,7 @@ model Position {
   employees                    Employee[]
   occupationalExamRequirements OccupationalExamRequirement[]
   jobPostings                  JobPosting[]
+  admissionInvites             AdmissionInvite[]
 
   @@unique([code, tenantId], name: "positions_code_tenant_unique")
   @@index([tenantId])
@@ -6055,6 +6057,8 @@ model Tenant {
   bankConnections           BankConnection[]
   paymentLinks              PaymentLink[]
   taxObligations            TaxObligation[]
+  bankWebhookEvents         BankWebhookEvent[]
+  paymentOrders             PaymentOrder[]
   // Storage domain
   storageFolders            StorageFolder[]
   storageFiles              StorageFile[]
@@ -6483,6 +6487,19 @@ model BankAccount {
   color     String? @db.VarChar(7)
   isDefault Boolean @default(false) @map("is_default")
 
+  // API Integration
+  apiProvider       String?   @map("api_provider") @db.VarChar(32)
+  apiClientId       String?   @map("api_client_id") @db.VarChar(256)
+  apiCertFileId     String?   @map("api_cert_file_id")
+  apiCertKeyFileId  String?   @map("api_cert_key_file_id")
+  apiScopes         String?   @map("api_scopes") @db.VarChar(512)
+  apiWebhookSecret  String?   @map("api_webhook_secret") @db.VarChar(256)
+  apiEnabled        Boolean   @default(false) @map("api_enabled")
+
+  // Billing config
+  autoEmitBoleto    Boolean   @default(false) @map("auto_emit_boleto")
+  autoLowThreshold  Decimal?  @map("auto_low_threshold") @db.Decimal(15, 2)
+
   deletedAt DateTime? @map("deleted_at")
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
@@ -6498,6 +6515,8 @@ model BankAccount {
   consortiumPayments ConsortiumPayment[]
   reconciliations    BankReconciliation[]
   bankConnections    BankConnection[]
+  paymentOrders      PaymentOrder[]
+  bankWebhookEvents  BankWebhookEvent[]
 
   @@unique([tenantId, bankCode, accountNumberHash, deletedAt], name: "bank_accounts_unique_active")
   @@index([tenantId])
@@ -6638,6 +6657,7 @@ model FinanceEntry {
   retentions                FinanceEntryRetention[]
   paymentLinks              PaymentLink[]
   taxObligations            TaxObligation[]
+  paymentOrders             PaymentOrder[]
 
   @@unique([code, tenantId, deletedAt], name: "finance_entries_code_tenant_unique_active")
   @@index([tenantId])
@@ -13430,6 +13450,85 @@ model BankConnection {
 }
 
 // ============================================================================
+// PAYMENT ORDERS (approval workflow for bank payments)
+// ============================================================================
+
+enum PaymentOrderStatus {
+  PENDING_APPROVAL
+  APPROVED
+  REJECTED
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum BankPaymentMethod {
+  PIX
+  TED
+  BOLETO
+}
+
+model PaymentOrder {
+  id              String              @id @default(uuid())
+  tenantId        String              @map("tenant_id")
+  entryId         String              @map("entry_id")
+  bankAccountId   String              @map("bank_account_id")
+  method          BankPaymentMethod
+  amount          Decimal             @db.Decimal(15, 2)
+  recipientData   Json                @map("recipient_data")
+  status          PaymentOrderStatus  @default(PENDING_APPROVAL)
+
+  requestedById   String              @map("requested_by_id")
+  approvedById    String?             @map("approved_by_id")
+  approvedAt      DateTime?           @map("approved_at")
+  rejectedReason  String?             @map("rejected_reason") @db.VarChar(500)
+
+  externalId      String?             @map("external_id") @db.VarChar(256)
+  receiptData     Json?               @map("receipt_data")
+  receiptFileId   String?             @map("receipt_file_id")
+  errorMessage    String?             @map("error_message") @db.VarChar(1000)
+
+  createdAt       DateTime            @default(now()) @map("created_at")
+  updatedAt       DateTime            @updatedAt @map("updated_at")
+
+  tenant          Tenant              @relation(fields: [tenantId], references: [id])
+  entry           FinanceEntry        @relation(fields: [entryId], references: [id])
+  bankAccount     BankAccount         @relation(fields: [bankAccountId], references: [id])
+
+  @@index([tenantId])
+  @@index([entryId])
+  @@index([status])
+  @@map("payment_orders")
+}
+
+// ============================================================================
+// BANK WEBHOOK EVENTS (incoming payment notifications)
+// ============================================================================
+
+model BankWebhookEvent {
+  id              String    @id @default(uuid())
+  tenantId        String    @map("tenant_id")
+  bankAccountId   String    @map("bank_account_id")
+  provider        String    @db.VarChar(32)
+  eventType       String    @map("event_type") @db.VarChar(64)
+  externalId      String    @map("external_id") @db.VarChar(256)
+  amount          Decimal   @db.Decimal(15, 2)
+  payload         Json
+  matchedEntryId  String?   @map("matched_entry_id")
+  autoSettled     Boolean   @default(false) @map("auto_settled")
+  processedAt     DateTime? @map("processed_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  tenant          Tenant       @relation(fields: [tenantId], references: [id])
+  bankAccount     BankAccount  @relation(fields: [bankAccountId], references: [id])
+
+  @@index([tenantId])
+  @@index([bankAccountId])
+  @@index([externalId])
+  @@map("bank_webhook_events")
+}
+
+// ============================================================================
 // PAYMENT LINKS
 // ============================================================================
 
@@ -14479,6 +14578,8 @@ model AdmissionInvite {
   updatedAt         DateTime  @updatedAt @map("updated_at")
 
   tenant     Tenant              @relation(fields: [tenantId], references: [id])
+  position   Position?           @relation(fields: [positionId], references: [id])
+  department Department?         @relation(fields: [departmentId], references: [id])
   documents  AdmissionDocument[]
   signatures DigitalSignature[]
 
