@@ -157,6 +157,10 @@ import { paymentLinksRoutes } from './controllers/finance/payment-links/routes';
 import { financeExchangeRatesRoutes } from './controllers/finance/exchange-rates/routes';
 import { financeCustomerPortalRoutes } from './controllers/finance/customer-portal/routes';
 import { financeComplianceRoutes } from './controllers/finance/compliance/routes';
+import { paymentOrdersRoutes } from './controllers/finance/payment-orders/routes';
+import { boletoRoutes } from './controllers/finance/boleto/routes';
+import { pixRoutes } from './controllers/finance/pix/routes';
+import { bankWebhookRoutes } from './controllers/finance/webhooks/routes';
 
 // Accountant Portal routes (token-based auth)
 import { accountantPortalRoutes } from './controllers/accountant/routes';
@@ -412,6 +416,10 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(financeExchangeRatesRoutes);
   await app.register(financeCustomerPortalRoutes);
   await app.register(financeComplianceRoutes);
+  await app.register(paymentOrdersRoutes);
+  await app.register(boletoRoutes);
+  await app.register(pixRoutes);
+  await app.register(bankWebhookRoutes);
 
   // Accountant Portal routes (token-based auth, no JWT)
   await app.register(accountantPortalRoutes);
