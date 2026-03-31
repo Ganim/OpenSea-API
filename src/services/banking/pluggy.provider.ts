@@ -1,5 +1,22 @@
+import { OperationNotSupportedError } from '@/@errors/use-cases/operation-not-supported';
 import type {
+  AccountBalance,
+  BankAccountData,
+  BankTransaction,
+  BoletoResult,
+  CreateBoletoInput,
+  CreatePixChargeInput,
+  ExecutePaymentInput,
+  ExecutePixPaymentInput,
+  PaymentReceipt,
+  PaymentStatus,
+  PixChargeResult,
+  ProviderCapability,
+  WebhookEvent,
+  WebhookResult,
   BankingProvider,
+} from './banking-provider.interface';
+import type {
   PluggyAccount,
   PluggyConnectToken,
   PluggyItem,
@@ -23,17 +40,151 @@ const PLUGGY_CLIENT_SECRET = process.env.PLUGGY_CLIENT_SECRET || '';
  * - GET  /items/{id}      — Get connection status
  * - GET  /accounts?itemId={id} — List accounts
  * - GET  /transactions?accountId={id}&from={date}&to={date} — List transactions
+ *
+ * Capabilities: READ only (Pluggy is an Open Finance aggregator, not a transactional bank API)
  */
 export class PluggyProvider implements BankingProvider {
   readonly providerName = 'PLUGGY';
+  readonly capabilities: ProviderCapability[] = ['READ'];
 
   private cachedApiKey: string | null = null;
   private apiKeyExpiration: Date = new Date(0);
 
-  async createConnectToken(
-    options?: { clientUserId?: string },
-  ): Promise<PluggyConnectToken> {
-    const apiKey = await this.authenticate();
+  // ─── BankingProvider: authenticate (no-op — Pluggy authenticates per-request) ───
+
+  async authenticate(): Promise<void> {
+    // Pluggy authenticates lazily per-request via client_id/client_secret.
+    // Pre-warm the cached API key so callers can await this as a health check.
+    await this.getApiKey();
+  }
+
+  // ─── BankingProvider: read operations ────────────────────────────────────────
+
+  /**
+   * Returns all accounts across all connected items.
+   * NOTE: Pluggy's API requires an itemId to list accounts.
+   * This method is a no-op stub for the generic interface — use
+   * `getAccountsByItem(itemId)` for Pluggy-specific usage.
+   */
+  async getAccounts(): Promise<BankAccountData[]> {
+    // The generic interface has no itemId concept.
+    // Callers that need Pluggy-specific item-scoped accounts should use getAccountsByItem().
+    return [];
+  }
+
+  async getBalance(accountId: string): Promise<AccountBalance> {
+    // Pluggy exposes balance as part of the account object.
+    // We fetch the account detail via the accounts endpoint filtered by id.
+    const apiKey = await this.getApiKey();
+    const response = await this.request(
+      apiKey,
+      'GET',
+      `/accounts/${accountId}`,
+    );
+
+    const account = response as Record<string, unknown>;
+    const balance = (account.balance as number) ?? 0;
+
+    return {
+      available: balance,
+      current: balance,
+      currency: (account.currencyCode as string) ?? 'BRL',
+      updatedAt: new Date().toISOString(),
+    };
+  }
+
+  async getTransactions(
+    accountId: string,
+    from: string,
+    to: string,
+  ): Promise<BankTransaction[]> {
+    const pluggyTransactions = await this.getPluggyTransactions(
+      accountId,
+      from,
+      to,
+    );
+
+    return pluggyTransactions.map((tx) => ({
+      id: tx.id,
+      date: tx.date,
+      description: tx.description,
+      amount: tx.amount,
+      type: tx.type,
+      category: tx.category,
+      providerCode: tx.providerCode,
+    }));
+  }
+
+  // ─── BankingProvider: write stubs (not supported by Pluggy) ──────────────────
+
+  async createBoleto(_data: CreateBoletoInput): Promise<BoletoResult> {
+    throw new OperationNotSupportedError(
+      'Pluggy does not support boleto creation',
+    );
+  }
+
+  async cancelBoleto(_nossoNumero: string): Promise<void> {
+    throw new OperationNotSupportedError(
+      'Pluggy does not support boleto cancellation',
+    );
+  }
+
+  async getBoleto(_nossoNumero: string): Promise<BoletoResult> {
+    throw new OperationNotSupportedError(
+      'Pluggy does not support boleto retrieval',
+    );
+  }
+
+  async createPixCharge(_data: CreatePixChargeInput): Promise<PixChargeResult> {
+    throw new OperationNotSupportedError(
+      'Pluggy does not support PIX charge creation',
+    );
+  }
+
+  async executePixPayment(
+    _data: ExecutePixPaymentInput,
+  ): Promise<PaymentReceipt> {
+    throw new OperationNotSupportedError(
+      'Pluggy does not support PIX payments',
+    );
+  }
+
+  async getPixCharge(_txId: string): Promise<PixChargeResult> {
+    throw new OperationNotSupportedError(
+      'Pluggy does not support PIX charge retrieval',
+    );
+  }
+
+  async executePayment(_data: ExecutePaymentInput): Promise<PaymentReceipt> {
+    throw new OperationNotSupportedError(
+      'Pluggy does not support payment execution',
+    );
+  }
+
+  async getPaymentStatus(_paymentId: string): Promise<PaymentStatus> {
+    throw new OperationNotSupportedError(
+      'Pluggy does not support payment status queries',
+    );
+  }
+
+  async registerWebhook(_url: string, _events: WebhookEvent[]): Promise<void> {
+    throw new OperationNotSupportedError(
+      'Pluggy does not support webhook registration via this interface',
+    );
+  }
+
+  async handleWebhookPayload(_payload: unknown): Promise<WebhookResult> {
+    throw new OperationNotSupportedError(
+      'Pluggy does not support webhook payload handling',
+    );
+  }
+
+  // ─── Pluggy-specific methods (kept for backward compatibility) ────────────────
+
+  async createConnectToken(options?: {
+    clientUserId?: string;
+  }): Promise<PluggyConnectToken> {
+    const apiKey = await this.getApiKey();
 
     const body: Record<string, unknown> = {};
     if (options?.clientUserId) {
@@ -48,7 +199,7 @@ export class PluggyProvider implements BankingProvider {
   }
 
   async getItem(itemId: string): Promise<PluggyItem> {
-    const apiKey = await this.authenticate();
+    const apiKey = await this.getApiKey();
     const response = await this.request(apiKey, 'GET', `/items/${itemId}`);
 
     return {
@@ -61,8 +212,8 @@ export class PluggyProvider implements BankingProvider {
     };
   }
 
-  async getAccounts(itemId: string): Promise<PluggyAccount[]> {
-    const apiKey = await this.authenticate();
+  async getAccountsByItem(itemId: string): Promise<PluggyAccount[]> {
+    const apiKey = await this.getApiKey();
     const response = await this.request(
       apiKey,
       'GET',
@@ -83,12 +234,12 @@ export class PluggyProvider implements BankingProvider {
     }));
   }
 
-  async getTransactions(
+  private async getPluggyTransactions(
     accountId: string,
     from: string,
     to: string,
   ): Promise<PluggyTransaction[]> {
-    const apiKey = await this.authenticate();
+    const apiKey = await this.getApiKey();
     const allTransactions: PluggyTransaction[] = [];
     let page = 1;
     let hasMore = true;
@@ -123,7 +274,9 @@ export class PluggyProvider implements BankingProvider {
     return allTransactions;
   }
 
-  private async authenticate(): Promise<string> {
+  // ─── Internal helpers ─────────────────────────────────────────────────────────
+
+  private async getApiKey(): Promise<string> {
     if (this.cachedApiKey && this.apiKeyExpiration > new Date()) {
       return this.cachedApiKey;
     }
