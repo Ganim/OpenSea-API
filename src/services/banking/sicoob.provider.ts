@@ -182,48 +182,224 @@ export class SicoobProvider implements BankingProvider {
     }));
   }
 
-  // ─── BankingProvider: write stubs (Tasks 4–5) ────────────────────────────
+  // ─── BankingProvider: boleto (Cobrança Bancária V3) ─────────────────────
 
-  async createBoleto(_data: CreateBoletoInput): Promise<BoletoResult> {
-    throw new Error('Not implemented yet');
+  async createBoleto(data: CreateBoletoInput): Promise<BoletoResult> {
+    const body = {
+      numeroCliente: this.config.accountNumber,
+      especieDocumento: 'DM',
+      dataVencimento: data.dueDate,
+      valor: data.amount,
+      pagador: {
+        numeroCpfCnpj: data.customerCpfCnpj,
+        nome: data.customerName,
+      },
+      mensagensInstrucao: { mensagem1: data.description },
+      gerarPdf: true,
+      hibrido: data.isHybrid ?? true,
+    };
+    const result = await this.request(
+      'POST',
+      '/cobranca-bancaria/v3/boletos',
+      body,
+    );
+    return {
+      nossoNumero: String(result.nossoNumero ?? ''),
+      barcode: String(result.codigoBarras ?? ''),
+      digitableLine: String(result.linhaDigitavel ?? ''),
+      pixCopyPaste: result.pixCopiaECola as string | undefined,
+      pdfUrl: result.pdfUrl as string | undefined,
+      status: 'REGISTERED',
+      dueDate: data.dueDate,
+      amount: data.amount,
+    };
   }
 
-  async cancelBoleto(_nossoNumero: string): Promise<void> {
-    throw new Error('Not implemented yet');
+  async cancelBoleto(nossoNumero: string): Promise<void> {
+    await this.request(
+      'PATCH',
+      `/cobranca-bancaria/v3/boletos/${nossoNumero}/baixar`,
+      {
+        motivo: 'SOLICITACAO_CEDENTE',
+      },
+    );
   }
 
-  async getBoleto(_nossoNumero: string): Promise<BoletoResult> {
-    throw new Error('Not implemented yet');
+  async getBoleto(nossoNumero: string): Promise<BoletoResult> {
+    const result = await this.request(
+      'GET',
+      `/cobranca-bancaria/v3/boletos/${nossoNumero}`,
+    );
+    return {
+      nossoNumero: String(result.nossoNumero ?? ''),
+      barcode: String(result.codigoBarras ?? ''),
+      digitableLine: String(result.linhaDigitavel ?? ''),
+      pixCopyPaste: result.pixCopiaECola as string | undefined,
+      pdfUrl: result.pdfUrl as string | undefined,
+      status: String(result.situacao ?? ''),
+      dueDate: String(result.dataVencimento ?? ''),
+      amount: Number(result.valor ?? 0),
+    };
   }
 
-  async createPixCharge(_data: CreatePixChargeInput): Promise<PixChargeResult> {
-    throw new Error('Not implemented yet');
+  // ─── BankingProvider: PIX (PIX V2) ───────────────────────────────────────
+
+  async createPixCharge(data: CreatePixChargeInput): Promise<PixChargeResult> {
+    const body: Record<string, unknown> = {
+      calendario: { expiracao: data.expiresInSeconds ?? 3600 },
+      valor: { original: data.amount.toFixed(2) },
+      chave: data.pixKey,
+      infoAdicionais: [{ nome: 'Descricao', valor: data.description }],
+    };
+    if (data.customerCpfCnpj) {
+      body.devedor = {
+        cpf:
+          data.customerCpfCnpj.length === 11 ? data.customerCpfCnpj : undefined,
+        cnpj:
+          data.customerCpfCnpj.length === 14 ? data.customerCpfCnpj : undefined,
+        nome: data.customerName ?? '',
+      };
+    }
+    const result = await this.request('POST', '/pix/v2/cob', body);
+    return {
+      txId: String(result.txid ?? ''),
+      status: String(result.status ?? ''),
+      pixCopyPaste: String(result.pixCopiaECola ?? ''),
+      qrCodeBase64: result.qrCodeBase64 as string | undefined,
+      amount: data.amount,
+      createdAt: String(
+        (result.calendario as Record<string, string>)?.criacao ??
+          new Date().toISOString(),
+      ),
+    };
+  }
+
+  async getPixCharge(txId: string): Promise<PixChargeResult> {
+    const result = await this.request('GET', `/pix/v2/cob/${txId}`);
+    const valor = result.valor as Record<string, string>;
+    const calendario = result.calendario as Record<string, string>;
+    return {
+      txId: String(result.txid ?? txId),
+      status: String(result.status ?? ''),
+      pixCopyPaste: String(result.pixCopiaECola ?? ''),
+      amount: parseFloat(valor?.original ?? '0'),
+      createdAt: calendario?.criacao ?? '',
+    };
   }
 
   async executePixPayment(
-    _data: ExecutePixPaymentInput,
+    data: ExecutePixPaymentInput,
   ): Promise<PaymentReceipt> {
-    throw new Error('Not implemented yet');
+    const body = {
+      valor: data.amount.toFixed(2),
+      pagador: { chave: data.recipientPixKey },
+      favorecido: {
+        nome: data.recipientName ?? '',
+        cpfCnpj: data.recipientCpfCnpj ?? '',
+      },
+      descricao: data.description ?? '',
+    };
+    const result = await this.request('POST', '/pix/v2/pagamentos/pix', body);
+    return {
+      externalId: String(result.endToEndId ?? result.idTransacao ?? ''),
+      method: 'PIX',
+      amount: data.amount,
+      status: String(result.status ?? 'PROCESSANDO'),
+      executedAt: new Date().toISOString(),
+      recipientName: data.recipientName,
+      receiptData: result,
+    };
   }
 
-  async getPixCharge(_txId: string): Promise<PixChargeResult> {
-    throw new Error('Not implemented yet');
+  // ─── BankingProvider: payments (TED + boleto payment) ────────────────────
+
+  async executePayment(data: ExecutePaymentInput): Promise<PaymentReceipt> {
+    if (data.method === 'TED') {
+      const body = {
+        valor: data.amount,
+        contaDestino: {
+          banco: data.recipientBankCode,
+          agencia: data.recipientAgency,
+          conta: data.recipientAccount,
+          nome: data.recipientName,
+          cpfCnpj: data.recipientCpfCnpj,
+        },
+      };
+      const result = await this.request(
+        'POST',
+        '/conta-corrente/v4/transferencias/ted',
+        body,
+      );
+      return {
+        externalId: String(result.idTransacao ?? ''),
+        method: 'TED',
+        amount: data.amount,
+        status: String(result.status ?? 'PROCESSANDO'),
+        executedAt: new Date().toISOString(),
+        recipientName: data.recipientName,
+        receiptData: result,
+      };
+    }
+    if (data.method === 'BOLETO' && data.barcode) {
+      const body = {
+        codigoBarras: data.barcode,
+        valor: data.amount,
+        dataVencimento: data.dueDate,
+      };
+      const result = await this.request('POST', '/pagamentos/v2/boletos', body);
+      return {
+        externalId: String(result.idPagamento ?? ''),
+        method: 'BOLETO',
+        amount: data.amount,
+        status: String(result.status ?? 'PROCESSANDO'),
+        executedAt: new Date().toISOString(),
+        receiptData: result,
+      };
+    }
+    throw new Error(`Unsupported payment method: ${data.method}`);
   }
 
-  async executePayment(_data: ExecutePaymentInput): Promise<PaymentReceipt> {
-    throw new Error('Not implemented yet');
+  async getPaymentStatus(paymentId: string): Promise<PaymentStatus> {
+    const result = await this.request('GET', `/pagamentos/v2/${paymentId}`);
+    const statusMap: Record<string, PaymentStatus['status']> = {
+      PROCESSANDO: 'PROCESSING',
+      REALIZADO: 'COMPLETED',
+      AGENDADO: 'PENDING',
+      REJEITADO: 'FAILED',
+      DEVOLVIDO: 'RETURNED',
+    };
+    return {
+      externalId: paymentId,
+      status: statusMap[String(result.status ?? '')] ?? 'PENDING',
+      amount: Number(result.valor ?? 0),
+      executedAt: result.dataExecucao as string | undefined,
+      errorMessage: result.mensagemErro as string | undefined,
+    };
   }
 
-  async getPaymentStatus(_paymentId: string): Promise<PaymentStatus> {
-    throw new Error('Not implemented yet');
+  // ─── BankingProvider: webhooks ────────────────────────────────────────────
+
+  async registerWebhook(url: string, _events: WebhookEvent[]): Promise<void> {
+    await this.request('PUT', `/pix/v2/webhook/${this.config.accountNumber}`, {
+      webhookUrl: url,
+    });
   }
 
-  async registerWebhook(_url: string, _events: WebhookEvent[]): Promise<void> {
-    throw new Error('Not implemented yet');
-  }
-
-  async handleWebhookPayload(_payload: unknown): Promise<WebhookResult> {
-    throw new Error('Not implemented yet');
+  async handleWebhookPayload(payload: unknown): Promise<WebhookResult> {
+    const data = payload as Record<string, unknown>;
+    const pix = (data.pix as Record<string, unknown>[])?.[0];
+    if (pix) {
+      return {
+        eventType: 'PIX_RECEIVED',
+        externalId: String(pix.txid ?? pix.endToEndId ?? ''),
+        amount: parseFloat(String(pix.valor ?? '0')),
+        paidAt: String(pix.horario ?? new Date().toISOString()),
+        payerName: (pix.pagador as Record<string, string>)?.nome,
+        payerCpfCnpj: (pix.pagador as Record<string, string>)?.cpf,
+        rawPayload: data,
+      };
+    }
+    throw new Error('Unknown webhook payload format');
   }
 
   // ─── Internal helpers ─────────────────────────────────────────────────────
@@ -280,5 +456,42 @@ export class SicoobProvider implements BankingProvider {
     );
 
     return new https.Agent({ cert, key });
+  }
+
+  /**
+   * Generic authenticated request helper.
+   * Handles token acquisition, mTLS agent setup, and error unwrapping.
+   */
+  private async request(
+    method: string,
+    path: string,
+    body?: unknown,
+  ): Promise<Record<string, unknown>> {
+    const token = await this.getAccessToken();
+    const agent = await this.buildAgent();
+
+    const response = await fetch(`${SICOOB_API_BASE}${path}`, {
+      method,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: body !== undefined ? JSON.stringify(body) : undefined,
+      // @ts-expect-error — Node.js fetch accepts agent for mTLS
+      agent,
+    });
+
+    if (!response.ok) {
+      const errorBody = await response.json().catch(() => ({}));
+      throw new Error(
+        `Sicoob API error ${method} ${path} (${response.status}): ${JSON.stringify(errorBody)}`,
+      );
+    }
+
+    // Some endpoints (e.g. PATCH baixar) return 204 No Content
+    const text = await response.text();
+    if (!text) return {};
+
+    return JSON.parse(text) as Record<string, unknown>;
   }
 }
