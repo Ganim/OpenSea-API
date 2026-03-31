@@ -124,6 +124,12 @@ export class PrismaPaymentOrdersRepository implements PaymentOrdersRepository {
     if (data.errorMessage !== undefined)
       updateData.errorMessage = data.errorMessage;
 
+    // Scope update by tenantId for multi-tenant safety
+    const exists = await prisma.paymentOrder.findFirst({
+      where: { id: data.id.toString(), tenantId: data.tenantId },
+    });
+    if (!exists) return null;
+
     const record = await prisma.paymentOrder.update({
       where: { id: data.id.toString() },
       data: updateData,
