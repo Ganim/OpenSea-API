@@ -29,6 +29,17 @@ const TOKEN_REFRESH_BUFFER_SECONDS = 30;
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 
+/** Injectable HTTP function for mTLS requests. Defaults to https.request. */
+export type HttpRequestFn = (
+  url: string,
+  options: {
+    method: string;
+    headers: Record<string, string>;
+    body?: string;
+    agent: https.Agent;
+  },
+) => Promise<{ status: number; body: string }>;
+
 export interface SicoobProviderConfig {
   clientId: string;
   certFileId: string;
@@ -36,6 +47,7 @@ export interface SicoobProviderConfig {
   scopes: string[];
   accountNumber: string;
   agency: string;
+  pixKey?: string;
   certLoader: {
     loadCertBuffers(
       certFileId: string,
@@ -45,22 +57,12 @@ export interface SicoobProviderConfig {
       key: Buffer;
     }>;
   };
+  /** Override HTTP transport (for testing). Defaults to https.request. */
+  httpRequest?: HttpRequestFn;
 }
 
 // ─── Provider ────────────────────────────────────────────────────────────────
 
-/**
- * Sicoob Conta Corrente V4 banking provider.
- *
- * Docs: https://developers.sicoob.com.br
- *
- * Auth: OAuth2 client_credentials grant with mTLS (certificate + key via Storage)
- *
- * Endpoints used (Task 3):
- * - POST {auth_url}                                               — Authenticate
- * - GET  /conta-corrente/v4/contas/{accountId}/saldo              — Balance
- * - GET  /conta-corrente/v4/contas/{accountId}/extrato?...        — Transactions
- */
 export class SicoobProvider implements BankingProvider {
   readonly providerName = 'SICOOB';
   readonly capabilities: ProviderCapability[] = [
@@ -72,17 +74,18 @@ export class SicoobProvider implements BankingProvider {
   ];
 
   private cachedToken: string | null = null;
-  private tokenExpiresAt = 0; // Unix ms
+  private tokenExpiresAt = 0;
+  private cachedAgent: https.Agent | null = null;
 
   constructor(private readonly config: SicoobProviderConfig) {}
 
-  // ─── BankingProvider: authenticate ───────────────────────────────────────
+  // ─── Auth ───────────────────────────────────────────────────────────────
 
   async authenticate(): Promise<void> {
     await this.getAccessToken();
   }
 
-  // ─── BankingProvider: read operations ────────────────────────────────────
+  // ─── Read ───────────────────────────────────────────────────────────────
 
   async getAccounts(): Promise<BankAccountData[]> {
     return [
@@ -98,39 +101,18 @@ export class SicoobProvider implements BankingProvider {
   }
 
   async getBalance(accountId: string): Promise<AccountBalance> {
-    const token = await this.getAccessToken();
-    const agent = await this.buildAgent();
-
-    const response = await fetch(
-      `${SICOOB_API_BASE}/conta-corrente/v4/contas/${accountId}/saldo`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        // @ts-expect-error — Node.js fetch accepts agent for mTLS
-        agent,
-      },
+    const data = await this.request(
+      'GET',
+      `/conta-corrente/v4/contas/${accountId}/saldo`,
     );
 
-    if (!response.ok) {
-      const errorBody = await response.json().catch(() => ({}));
-      throw new Error(
-        `Sicoob balance error (${response.status}): ${JSON.stringify(errorBody)}`,
-      );
-    }
-
-    const data = (await response.json()) as {
-      saldo: { disponivel: number; bloqueado: number };
-    };
-
-    const disponivel = data.saldo.disponivel;
-    const bloqueado = data.saldo.bloqueado;
+    const saldo = data.saldo as Record<string, number> | undefined;
+    const disponivel = saldo?.disponivel ?? 0;
+    const bloqueado = saldo?.bloqueado ?? 0;
 
     return {
       available: disponivel,
-      current: disponivel - bloqueado,
+      current: disponivel + bloqueado,
       currency: 'BRL',
       updatedAt: new Date().toISOString(),
     };
@@ -141,48 +123,28 @@ export class SicoobProvider implements BankingProvider {
     from: string,
     to: string,
   ): Promise<BankTransaction[]> {
-    const token = await this.getAccessToken();
-    const agent = await this.buildAgent();
+    const data = await this.request(
+      'GET',
+      `/conta-corrente/v4/contas/${accountId}/extrato?dataInicio=${from}&dataFim=${to}`,
+    );
 
-    const url = `${SICOOB_API_BASE}/conta-corrente/v4/contas/${accountId}/extrato?dataInicio=${from}&dataFim=${to}`;
+    const transacoes = (data.transacoes ?? []) as Array<{
+      id: string;
+      data: string;
+      descricao: string;
+      valor: number;
+    }>;
 
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      // @ts-expect-error — Node.js fetch accepts agent for mTLS
-      agent,
-    });
-
-    if (!response.ok) {
-      const errorBody = await response.json().catch(() => ({}));
-      throw new Error(
-        `Sicoob transactions error (${response.status}): ${JSON.stringify(errorBody)}`,
-      );
-    }
-
-    const data = (await response.json()) as {
-      transacoes: Array<{
-        id: string;
-        data: string;
-        descricao: string;
-        valor: number;
-        tipo: string;
-      }>;
-    };
-
-    return data.transacoes.map((tx) => ({
+    return transacoes.map((tx) => ({
       id: tx.id,
       date: tx.data,
       description: tx.descricao,
       amount: tx.valor,
-      type: tx.valor >= 0 ? 'CREDIT' : ('DEBIT' as BankTransaction['type']),
+      type: (tx.valor >= 0 ? 'CREDIT' : 'DEBIT') as BankTransaction['type'],
     }));
   }
 
-  // ─── BankingProvider: boleto (Cobrança Bancária V3) ─────────────────────
+  // ─── Boleto (Cobrança Bancária V3) ──────────────────────────────────────
 
   async createBoleto(data: CreateBoletoInput): Promise<BoletoResult> {
     const body = {
@@ -219,9 +181,7 @@ export class SicoobProvider implements BankingProvider {
     await this.request(
       'PATCH',
       `/cobranca-bancaria/v3/boletos/${nossoNumero}/baixar`,
-      {
-        motivo: 'SOLICITACAO_CEDENTE',
-      },
+      { motivo: 'SOLICITACAO_CEDENTE' },
     );
   }
 
@@ -242,7 +202,7 @@ export class SicoobProvider implements BankingProvider {
     };
   }
 
-  // ─── BankingProvider: PIX (PIX V2) ───────────────────────────────────────
+  // ─── PIX (V2) ───────────────────────────────────────────────────────────
 
   async createPixCharge(data: CreatePixChargeInput): Promise<PixChargeResult> {
     const body: Record<string, unknown> = {
@@ -254,9 +214,13 @@ export class SicoobProvider implements BankingProvider {
     if (data.customerCpfCnpj) {
       body.devedor = {
         cpf:
-          data.customerCpfCnpj.length === 11 ? data.customerCpfCnpj : undefined,
+          data.customerCpfCnpj.length === 11
+            ? data.customerCpfCnpj
+            : undefined,
         cnpj:
-          data.customerCpfCnpj.length === 14 ? data.customerCpfCnpj : undefined,
+          data.customerCpfCnpj.length === 14
+            ? data.customerCpfCnpj
+            : undefined,
         nome: data.customerName ?? '',
       };
     }
@@ -292,8 +256,8 @@ export class SicoobProvider implements BankingProvider {
   ): Promise<PaymentReceipt> {
     const body = {
       valor: data.amount.toFixed(2),
-      pagador: { chave: data.recipientPixKey },
       favorecido: {
+        chave: data.recipientPixKey,
         nome: data.recipientName ?? '',
         cpfCnpj: data.recipientCpfCnpj ?? '',
       },
@@ -311,7 +275,7 @@ export class SicoobProvider implements BankingProvider {
     };
   }
 
-  // ─── BankingProvider: payments (TED + boleto payment) ────────────────────
+  // ─── Payments (TED / Boleto) ────────────────────────────────────────────
 
   async executePayment(data: ExecutePaymentInput): Promise<PaymentReceipt> {
     if (data.method === 'TED') {
@@ -340,6 +304,7 @@ export class SicoobProvider implements BankingProvider {
         receiptData: result,
       };
     }
+
     if (data.method === 'BOLETO' && data.barcode) {
       const body = {
         codigoBarras: data.barcode,
@@ -356,6 +321,7 @@ export class SicoobProvider implements BankingProvider {
         receiptData: result,
       };
     }
+
     throw new Error(`Unsupported payment method: ${data.method}`);
   }
 
@@ -377,16 +343,22 @@ export class SicoobProvider implements BankingProvider {
     };
   }
 
-  // ─── BankingProvider: webhooks ────────────────────────────────────────────
+  // ─── Webhook ────────────────────────────────────────────────────────────
 
-  async registerWebhook(url: string, _events: WebhookEvent[]): Promise<void> {
-    await this.request('PUT', `/pix/v2/webhook/${this.config.accountNumber}`, {
+  async registerWebhook(
+    url: string,
+    _events: WebhookEvent[],
+  ): Promise<void> {
+    const pixKey = this.config.pixKey ?? this.config.accountNumber;
+    await this.request('PUT', `/pix/v2/webhook/${pixKey}`, {
       webhookUrl: url,
     });
   }
 
   async handleWebhookPayload(payload: unknown): Promise<WebhookResult> {
     const data = payload as Record<string, unknown>;
+
+    // PIX webhook
     const pix = (data.pix as Record<string, unknown>[])?.[0];
     if (pix) {
       return {
@@ -399,6 +371,21 @@ export class SicoobProvider implements BankingProvider {
         rawPayload: data,
       };
     }
+
+    // Boleto webhook (cobrança bancária)
+    const boleto = data.boleto as Record<string, unknown> | undefined;
+    if (boleto) {
+      return {
+        eventType: 'BOLETO_PAID',
+        externalId: String(boleto.nossoNumero ?? ''),
+        amount: Number(boleto.valorPago ?? boleto.valor ?? 0),
+        paidAt: String(boleto.dataPagamento ?? new Date().toISOString()),
+        payerName: (boleto.pagador as Record<string, string>)?.nome,
+        payerCpfCnpj: (boleto.pagador as Record<string, string>)?.cpf,
+        rawPayload: data,
+      };
+    }
+
     throw new Error('Unknown webhook payload format');
   }
 
@@ -414,34 +401,22 @@ export class SicoobProvider implements BankingProvider {
       return this.cachedToken;
     }
 
-    const agent = await this.buildAgent();
+    const agent = await this.getAgent();
     const body = new URLSearchParams({
       grant_type: 'client_credentials',
       client_id: this.config.clientId,
       scope: this.config.scopes.join(' '),
     });
 
-    const response = await fetch(SICOOB_AUTH_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: body.toString(),
-      // @ts-expect-error — Node.js fetch accepts agent for mTLS
-      agent,
-    });
-
-    if (!response.ok) {
-      const errorBody = await response.json().catch(() => ({}));
-      throw new Error(
-        `Sicoob auth failed (${response.status}): ${JSON.stringify(errorBody)}`,
-      );
-    }
-
-    const data = (await response.json()) as {
+    const data = await this.httpsRequest<{
       access_token: string;
       expires_in: number;
-    };
+    }>(SICOOB_AUTH_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body.toString(),
+      agent,
+    });
 
     this.cachedToken = data.access_token;
     this.tokenExpiresAt = nowMs + data.expires_in * 1000;
@@ -449,18 +424,38 @@ export class SicoobProvider implements BankingProvider {
     return this.cachedToken;
   }
 
-  private async buildAgent(): Promise<https.Agent> {
+  /**
+   * Cached https.Agent with mTLS certificates.
+   * Downloaded from Storage once and reused across all requests.
+   */
+  private async getAgent(): Promise<https.Agent> {
+    if (this.cachedAgent) return this.cachedAgent;
+
     const { cert, key } = await this.config.certLoader.loadCertBuffers(
       this.config.certFileId,
       this.config.keyFileId,
     );
 
-    return new https.Agent({ cert, key });
+    this.cachedAgent = new https.Agent({
+      cert,
+      key,
+      keepAlive: true,
+    });
+
+    return this.cachedAgent;
+  }
+
+  /** Invalidate cached agent (call when certificates are updated). */
+  invalidateAgent(): void {
+    if (this.cachedAgent) {
+      this.cachedAgent.destroy();
+      this.cachedAgent = null;
+    }
   }
 
   /**
-   * Generic authenticated request helper.
-   * Handles token acquisition, mTLS agent setup, and error unwrapping.
+   * Authenticated request to Sicoob API.
+   * Uses the shared `httpsRequest` helper with cached token + agent.
    */
   private async request(
     method: string,
@@ -468,30 +463,84 @@ export class SicoobProvider implements BankingProvider {
     body?: unknown,
   ): Promise<Record<string, unknown>> {
     const token = await this.getAccessToken();
-    const agent = await this.buildAgent();
+    const agent = await this.getAgent();
 
-    const response = await fetch(`${SICOOB_API_BASE}${path}`, {
+    return this.httpsRequest(`${SICOOB_API_BASE}${path}`, {
       method,
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
       body: body !== undefined ? JSON.stringify(body) : undefined,
-      // @ts-expect-error — Node.js fetch accepts agent for mTLS
       agent,
     });
+  }
 
-    if (!response.ok) {
-      const errorBody = await response.json().catch(() => ({}));
+  /**
+   * Low-level HTTPS request with mTLS support.
+   * Uses injectable httpRequest (defaults to https.request wrapper)
+   * because Node.js `fetch` (undici) does NOT support `https.Agent` for mTLS.
+   */
+  private async httpsRequest<T = Record<string, unknown>>(
+    url: string,
+    options: {
+      method: string;
+      headers: Record<string, string>;
+      body?: string;
+      agent: https.Agent;
+    },
+  ): Promise<T> {
+    const transport = this.config.httpRequest ?? defaultHttpsRequest;
+    const response = await transport(url, options);
+
+    if (response.status < 200 || response.status >= 300) {
+      const parsedUrl = new URL(url);
       throw new Error(
-        `Sicoob API error ${method} ${path} (${response.status}): ${JSON.stringify(errorBody)}`,
+        `Sicoob API error ${options.method} ${parsedUrl.pathname} (${response.status}): ${response.body}`,
       );
     }
 
-    // Some endpoints (e.g. PATCH baixar) return 204 No Content
-    const text = await response.text();
-    if (!text) return {};
+    if (!response.body || response.status === 204) {
+      return {} as T;
+    }
 
-    return JSON.parse(text) as Record<string, unknown>;
+    return JSON.parse(response.body) as T;
   }
 }
+
+// ─── Default HTTPS transport (mTLS via https.request) ──────────────────────
+
+const defaultHttpsRequest: HttpRequestFn = (url, options) => {
+  return new Promise((resolve, reject) => {
+    const parsedUrl = new URL(url);
+
+    const req = https.request(
+      {
+        hostname: parsedUrl.hostname,
+        port: Number(parsedUrl.port) || 443,
+        path: parsedUrl.pathname + parsedUrl.search,
+        method: options.method,
+        headers: options.headers,
+        agent: options.agent,
+      },
+      (res) => {
+        const chunks: Buffer[] = [];
+        res.on('data', (chunk: Buffer) => chunks.push(chunk));
+        res.on('end', () => {
+          resolve({
+            status: res.statusCode ?? 500,
+            body: Buffer.concat(chunks).toString('utf8'),
+          });
+        });
+      },
+    );
+
+    req.on('error', reject);
+
+    if (options.body) {
+      req.write(options.body);
+    }
+
+    req.end();
+  });
+};

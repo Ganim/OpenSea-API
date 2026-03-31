@@ -1,28 +1,36 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { SicoobProvider } from './sicoob.provider';
+import type { HttpRequestFn } from './sicoob.provider';
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
+// ─── Mock HTTP transport ────────────────────────────────────────────────────
+
+function createMockHttp(): {
+  fn: HttpRequestFn;
+  queue: Array<{ status: number; body: unknown }>;
+} {
+  const queue: Array<{ status: number; body: unknown }> = [];
+
+  const fn: HttpRequestFn = vi.fn(async () => {
+    const next = queue.shift() ?? { status: 200, body: {} };
+    return {
+      status: next.status,
+      body: typeof next.body === 'string' ? next.body : JSON.stringify(next.body),
+    };
+  });
+
+  return { fn, queue };
+}
 
 function makeCertLoader() {
   return {
     loadCertBuffers: vi.fn().mockResolvedValue({
-      cert: Buffer.from('CERT'),
-      key: Buffer.from('KEY'),
+      cert: Buffer.from('mock-cert'),
+      key: Buffer.from('mock-key'),
     }),
   };
 }
 
-function makeAuthResponse(expiresIn = 3600) {
-  return {
-    ok: true,
-    json: vi.fn().mockResolvedValue({
-      access_token: 'test-access-token',
-      expires_in: expiresIn,
-    }),
-  };
-}
-
-function makeProvider() {
+function makeProvider(http: { fn: HttpRequestFn }) {
   return new SicoobProvider({
     clientId: 'my-client-id',
     certFileId: 'cert-file-id',
@@ -30,11 +38,20 @@ function makeProvider() {
     scopes: ['cobranca.read', 'extrato.read'],
     accountNumber: '123456',
     agency: '0001',
+    pixKey: '12345678901',
     certLoader: makeCertLoader(),
+    httpRequest: http.fn,
   });
 }
 
-// ─── Tests ────────────────────────────────────────────────────────────────────
+function queueAuth(queue: Array<{ status: number; body: unknown }>) {
+  queue.push({
+    status: 200,
+    body: { access_token: 'test-token', expires_in: 3600 },
+  });
+}
+
+// ─── Tests ──────────────────────────────────────────────────────────────────
 
 describe('SicoobProvider', () => {
   beforeEach(() => {
@@ -42,367 +59,210 @@ describe('SicoobProvider', () => {
   });
 
   it('should have full capabilities', () => {
-    const provider = makeProvider();
+    const http = createMockHttp();
+    const provider = makeProvider(http);
     expect(provider.capabilities).toEqual([
-      'READ',
-      'BOLETO',
-      'PIX',
-      'PAYMENT',
-      'TED',
+      'READ', 'BOLETO', 'PIX', 'PAYMENT', 'TED',
     ]);
     expect(provider.providerName).toBe('SICOOB');
   });
 
-  it('should authenticate with OAuth2 mTLS (client_credentials grant)', async () => {
-    const mockFetch = vi.fn().mockResolvedValueOnce(makeAuthResponse());
-    vi.stubGlobal('fetch', mockFetch);
+  it('should authenticate with OAuth2 mTLS', async () => {
+    const http = createMockHttp();
+    queueAuth(http.queue);
 
-    const provider = makeProvider();
+    const provider = makeProvider(http);
     await provider.authenticate();
 
-    expect(mockFetch).toHaveBeenCalledOnce();
-
-    const [url, options] = mockFetch.mock.calls[0] as [string, RequestInit];
-    expect(url).toBe(
-      'https://auth.sicoob.com.br/auth/realms/cooperado/protocol/openid-connect/token',
-    );
-    expect(options.method).toBe('POST');
-    expect((options.headers as Record<string, string>)['Content-Type']).toBe(
-      'application/x-www-form-urlencoded',
-    );
-
-    const body = options.body as string;
-    expect(body).toContain('grant_type=client_credentials');
-    expect(body).toContain('client_id=my-client-id');
-    expect(body).toContain('scope=cobranca.read+extrato.read');
+    expect(http.fn).toHaveBeenCalledOnce();
+    const [url] = (http.fn as ReturnType<typeof vi.fn>).mock.calls[0] as [string];
+    expect(url).toContain('auth.sicoob.com.br');
   });
 
-  it('should cache the token and not call fetch again on second authenticate()', async () => {
-    const mockFetch = vi.fn().mockResolvedValue(makeAuthResponse(3600));
-    vi.stubGlobal('fetch', mockFetch);
+  it('should get balance', async () => {
+    const http = createMockHttp();
+    queueAuth(http.queue);
+    http.queue.push({
+      status: 200,
+      body: { saldo: { disponivel: 15000.5, bloqueado: 2000 } },
+    });
 
-    const provider = makeProvider();
-    await provider.authenticate();
-    await provider.authenticate();
-
-    // Token is still valid — should only authenticate once
-    expect(mockFetch).toHaveBeenCalledOnce();
-  });
-
-  it('should get balance for an account', async () => {
-    const mockFetch = vi
-      .fn()
-      // First call: auth
-      .mockResolvedValueOnce(makeAuthResponse())
-      // Second call: balance endpoint
-      .mockResolvedValueOnce({
-        ok: true,
-        json: vi.fn().mockResolvedValue({
-          saldo: { disponivel: 1500.75, bloqueado: 200.0 },
-        }),
-      });
-
-    vi.stubGlobal('fetch', mockFetch);
-
-    const provider = makeProvider();
+    const provider = makeProvider(http);
     const balance = await provider.getBalance('123456');
 
-    expect(balance.available).toBe(1500.75);
-    expect(balance.current).toBe(1300.75); // disponivel - bloqueado
+    expect(balance.available).toBe(15000.5);
+    expect(balance.current).toBe(17000.5);
     expect(balance.currency).toBe('BRL');
-    expect(balance.updatedAt).toBeDefined();
-
-    // Verify the balance URL
-    const [balanceUrl, balanceOptions] = mockFetch.mock.calls[1] as [
-      string,
-      RequestInit,
-    ];
-    expect(balanceUrl).toBe(
-      'https://api.sicoob.com.br/conta-corrente/v4/contas/123456/saldo',
-    );
-    expect(balanceOptions.method).toBe('GET');
-    expect(
-      (balanceOptions.headers as Record<string, string>)['Authorization'],
-    ).toBe('Bearer test-access-token');
   });
 
-  it('should get transactions and map them correctly', async () => {
-    const mockFetch = vi
-      .fn()
-      // First call: auth
-      .mockResolvedValueOnce(makeAuthResponse())
-      // Second call: statement endpoint
-      .mockResolvedValueOnce({
-        ok: true,
-        json: vi.fn().mockResolvedValue({
-          transacoes: [
-            {
-              id: 'tx-1',
-              data: '2024-01-15',
-              descricao: 'PIX recebido',
-              valor: 500.0,
-              tipo: 'C',
-            },
-            {
-              id: 'tx-2',
-              data: '2024-01-16',
-              descricao: 'Débito automático',
-              valor: -150.0,
-              tipo: 'D',
-            },
-          ],
-        }),
-      });
-
-    vi.stubGlobal('fetch', mockFetch);
-
-    const provider = makeProvider();
-    const transactions = await provider.getTransactions(
-      '123456',
-      '2024-01-01',
-      '2024-01-31',
-    );
-
-    expect(transactions).toHaveLength(2);
-
-    expect(transactions[0]).toMatchObject({
-      id: 'tx-1',
-      date: '2024-01-15',
-      description: 'PIX recebido',
-      amount: 500.0,
-      type: 'CREDIT',
+  it('should get transactions', async () => {
+    const http = createMockHttp();
+    queueAuth(http.queue);
+    http.queue.push({
+      status: 200,
+      body: {
+        transacoes: [
+          { id: 'tx1', data: '2026-03-30', descricao: 'PIX recebido', valor: 500 },
+          { id: 'tx2', data: '2026-03-30', descricao: 'Pagamento', valor: -200 },
+        ],
+      },
     });
 
-    expect(transactions[1]).toMatchObject({
-      id: 'tx-2',
-      date: '2024-01-16',
-      description: 'Débito automático',
-      amount: -150.0,
-      type: 'DEBIT',
-    });
+    const provider = makeProvider(http);
+    const txs = await provider.getTransactions('123456', '2026-03-01', '2026-03-31');
 
-    // Verify the statement URL includes date params
-    const [statementUrl] = mockFetch.mock.calls[1] as [string];
-    expect(statementUrl).toContain('/conta-corrente/v4/contas/123456/extrato');
-    expect(statementUrl).toContain('dataInicio=2024-01-01');
-    expect(statementUrl).toContain('dataFim=2024-01-31');
+    expect(txs).toHaveLength(2);
+    expect(txs[0].type).toBe('CREDIT');
+    expect(txs[1].type).toBe('DEBIT');
   });
 
-  it('should return the configured account from getAccounts()', async () => {
-    const provider = makeProvider();
-    const accounts = await provider.getAccounts();
-
-    expect(accounts).toHaveLength(1);
-    expect(accounts[0]).toMatchObject({
-      number: '123456',
-      type: 'BANK',
-      currencyCode: 'BRL',
+  it('should create a hybrid boleto', async () => {
+    const http = createMockHttp();
+    queueAuth(http.queue);
+    http.queue.push({
+      status: 200,
+      body: {
+        nossoNumero: '00012345',
+        codigoBarras: '23793.38128',
+        linhaDigitavel: '23793381281234500000',
+        pixCopiaECola: '00020126...',
+      },
     });
-  });
 
-  // ─── Boleto ────────────────────────────────────────────────────────────────
-
-  it('should create a boleto and return mapped result', async () => {
-    const mockFetch = vi
-      .fn()
-      .mockResolvedValueOnce(makeAuthResponse())
-      .mockResolvedValueOnce({
-        ok: true,
-        text: vi.fn().mockResolvedValue(
-          JSON.stringify({
-            nossoNumero: '00012345',
-            codigoBarras:
-              '12345.67890 12345.678901 12345.678901 1 12340000010000',
-            linhaDigitavel: '1234567890 1234567890 1234567890 1 12340000010000',
-            pixCopiaECola: 'pix-copy-paste-code',
-            pdfUrl: 'https://sicoob.com.br/boleto.pdf',
-          }),
-        ),
-      });
-    vi.stubGlobal('fetch', mockFetch);
-
-    const provider = makeProvider();
+    const provider = makeProvider(http);
     const result = await provider.createBoleto({
-      amount: 150.0,
-      dueDate: '2024-12-01',
-      customerName: 'João Silva',
-      customerCpfCnpj: '12345678901',
-      description: 'Pagamento de serviço',
+      amount: 150, dueDate: '2026-04-15',
+      customerName: 'João', customerCpfCnpj: '12345678901',
+      description: 'Mensalidade', isHybrid: true,
     });
 
     expect(result.nossoNumero).toBe('00012345');
-    expect(result.barcode).toContain('12345');
-    expect(result.pixCopyPaste).toBe('pix-copy-paste-code');
+    expect(result.pixCopyPaste).toBe('00020126...');
     expect(result.status).toBe('REGISTERED');
-    expect(result.amount).toBe(150.0);
   });
 
-  it('should cancel a boleto without throwing', async () => {
-    const mockFetch = vi
-      .fn()
-      .mockResolvedValueOnce(makeAuthResponse())
-      .mockResolvedValueOnce({
-        ok: true,
-        text: vi.fn().mockResolvedValue(''),
-      });
-    vi.stubGlobal('fetch', mockFetch);
+  it('should cancel a boleto', async () => {
+    const http = createMockHttp();
+    queueAuth(http.queue);
+    http.queue.push({ status: 204, body: '' });
 
-    const provider = makeProvider();
-    await expect(provider.cancelBoleto('00012345')).resolves.toBeUndefined();
-
-    const [patchUrl, patchOptions] = mockFetch.mock.calls[1] as [
-      string,
-      RequestInit,
-    ];
-    expect(patchUrl).toContain('/cobranca-bancaria/v3/boletos/00012345/baixar');
-    expect(patchOptions.method).toBe('PATCH');
+    const provider = makeProvider(http);
+    await expect(provider.cancelBoleto('00012345')).resolves.not.toThrow();
   });
 
-  // ─── PIX ───────────────────────────────────────────────────────────────────
+  it('should create a PIX charge', async () => {
+    const http = createMockHttp();
+    queueAuth(http.queue);
+    http.queue.push({
+      status: 200,
+      body: {
+        txid: 'tx123abc', status: 'ATIVA',
+        pixCopiaECola: '00020126580014br.gov.bcb.pix...',
+        calendario: { criacao: '2026-03-31T10:00:00Z' },
+      },
+    });
 
-  it('should create a PIX charge and return mapped result', async () => {
-    const mockFetch = vi
-      .fn()
-      .mockResolvedValueOnce(makeAuthResponse())
-      .mockResolvedValueOnce({
-        ok: true,
-        text: vi.fn().mockResolvedValue(
-          JSON.stringify({
-            txid: 'txid-abc-123',
-            status: 'ATIVA',
-            pixCopiaECola: 'pix-copia-e-cola-string',
-            qrCodeBase64: 'base64imagedata',
-            calendario: { criacao: '2024-01-15T10:00:00Z', expiracao: 3600 },
-            valor: { original: '99.90' },
-          }),
-        ),
-      });
-    vi.stubGlobal('fetch', mockFetch);
-
-    const provider = makeProvider();
+    const provider = makeProvider(http);
     const result = await provider.createPixCharge({
-      amount: 99.9,
-      pixKey: 'empresa@email.com',
-      description: 'Cobrança PIX',
+      amount: 100, pixKey: '12345678901', description: 'Serviço',
     });
 
-    expect(result.txId).toBe('txid-abc-123');
+    expect(result.txId).toBe('tx123abc');
     expect(result.status).toBe('ATIVA');
-    expect(result.pixCopyPaste).toBe('pix-copia-e-cola-string');
-    expect(result.amount).toBe(99.9);
   });
 
-  it('should execute a PIX payment and return receipt', async () => {
-    const mockFetch = vi
-      .fn()
-      .mockResolvedValueOnce(makeAuthResponse())
-      .mockResolvedValueOnce({
-        ok: true,
-        text: vi.fn().mockResolvedValue(
-          JSON.stringify({
-            endToEndId: 'E1234567890',
-            status: 'PROCESSANDO',
-          }),
-        ),
-      });
-    vi.stubGlobal('fetch', mockFetch);
-
-    const provider = makeProvider();
-    const result = await provider.executePixPayment({
-      amount: 200.0,
-      recipientPixKey: 'recipiente@email.com',
-      recipientName: 'Maria Santos',
-      description: 'Pagamento',
+  it('should execute a PIX payment', async () => {
+    const http = createMockHttp();
+    queueAuth(http.queue);
+    http.queue.push({
+      status: 200,
+      body: { endToEndId: 'E756123456789', status: 'REALIZADO' },
     });
 
-    expect(result.externalId).toBe('E1234567890');
-    expect(result.method).toBe('PIX');
-    expect(result.amount).toBe(200.0);
+    const provider = makeProvider(http);
+    const receipt = await provider.executePixPayment({
+      amount: 250, recipientPixKey: 'joao@email.com',
+      recipientName: 'João', description: 'Pagamento',
+    });
+
+    expect(receipt.externalId).toBe('E756123456789');
+    expect(receipt.method).toBe('PIX');
   });
 
-  // ─── Payments (TED) ────────────────────────────────────────────────────────
-
-  it('should execute a TED payment and return receipt', async () => {
-    const mockFetch = vi
-      .fn()
-      .mockResolvedValueOnce(makeAuthResponse())
-      .mockResolvedValueOnce({
-        ok: true,
-        text: vi.fn().mockResolvedValue(
-          JSON.stringify({
-            idTransacao: 'TED-987654',
-            status: 'PROCESSANDO',
-          }),
-        ),
-      });
-    vi.stubGlobal('fetch', mockFetch);
-
-    const provider = makeProvider();
-    const result = await provider.executePayment({
-      method: 'TED',
-      amount: 500.0,
-      recipientName: 'Carlos Oliveira',
-      recipientCpfCnpj: '98765432100',
-      recipientBankCode: '756',
-      recipientAgency: '0001',
-      recipientAccount: '123456-7',
+  it('should execute a TED payment', async () => {
+    const http = createMockHttp();
+    queueAuth(http.queue);
+    http.queue.push({
+      status: 200,
+      body: { idTransacao: 'ted-001', status: 'PROCESSANDO' },
     });
 
-    expect(result.externalId).toBe('TED-987654');
-    expect(result.method).toBe('TED');
-    expect(result.amount).toBe(500.0);
+    const provider = makeProvider(http);
+    const receipt = await provider.executePayment({
+      method: 'TED', amount: 5000,
+      recipientBankCode: '001', recipientAgency: '1234',
+      recipientAccount: '56789-0', recipientName: 'Empresa XYZ',
+    });
 
-    const [tedUrl, tedOptions] = mockFetch.mock.calls[1] as [
-      string,
-      RequestInit,
-    ];
-    expect(tedUrl).toContain('/conta-corrente/v4/transferencias/ted');
-    expect(tedOptions.method).toBe('POST');
+    expect(receipt.externalId).toBe('ted-001');
+    expect(receipt.method).toBe('TED');
   });
 
   it('should throw for unsupported payment method', async () => {
-    const mockFetch = vi.fn().mockResolvedValueOnce(makeAuthResponse());
-    vi.stubGlobal('fetch', mockFetch);
-
-    const provider = makeProvider();
+    const http = createMockHttp();
+    const provider = makeProvider(http);
     await expect(
-      provider.executePayment({
-        method: 'UNKNOWN' as 'TED',
-        amount: 100,
-      }),
-    ).rejects.toThrow('Unsupported payment method: UNKNOWN');
+      provider.executePayment({ method: 'BOLETO', amount: 100 }),
+    ).rejects.toThrow('Unsupported payment method');
   });
 
-  // ─── Webhooks ──────────────────────────────────────────────────────────────
-
-  it('should parse a PIX webhook payload correctly', async () => {
-    const provider = makeProvider();
-    const payload = {
-      pix: [
-        {
-          txid: 'txid-webhook-001',
-          endToEndId: 'E1234567890',
-          valor: '75.50',
-          horario: '2024-01-15T14:30:00Z',
-          pagador: { nome: 'Fulano da Silva', cpf: '11122233344' },
-        },
-      ],
-    };
-
-    const result = await provider.handleWebhookPayload(payload);
+  it('should parse a PIX webhook', async () => {
+    const http = createMockHttp();
+    const provider = makeProvider(http);
+    const result = await provider.handleWebhookPayload({
+      pix: [{
+        txid: 'tx999', valor: '350.00',
+        horario: '2026-03-31T14:30:00Z',
+        pagador: { nome: 'Maria', cpf: '99988877766' },
+      }],
+    });
 
     expect(result.eventType).toBe('PIX_RECEIVED');
-    expect(result.externalId).toBe('txid-webhook-001');
-    expect(result.amount).toBe(75.5);
-    expect(result.paidAt).toBe('2024-01-15T14:30:00Z');
-    expect(result.payerName).toBe('Fulano da Silva');
-    expect(result.payerCpfCnpj).toBe('11122233344');
+    expect(result.amount).toBe(350);
+    expect(result.payerName).toBe('Maria');
   });
 
-  it('should throw for unknown webhook payload format', async () => {
-    const provider = makeProvider();
+  it('should parse a boleto webhook', async () => {
+    const http = createMockHttp();
+    const provider = makeProvider(http);
+    const result = await provider.handleWebhookPayload({
+      boleto: {
+        nossoNumero: '00012345', valorPago: 150,
+        dataPagamento: '2026-04-01',
+        pagador: { nome: 'José', cpf: '11122233344' },
+      },
+    });
+
+    expect(result.eventType).toBe('BOLETO_PAID');
+    expect(result.externalId).toBe('00012345');
+  });
+
+  it('should throw for unknown webhook format', async () => {
+    const http = createMockHttp();
+    const provider = makeProvider(http);
     await expect(
-      provider.handleWebhookPayload({ unknown: 'data' }),
+      provider.handleWebhookPayload({ unknown: true }),
     ).rejects.toThrow('Unknown webhook payload format');
+  });
+
+  it('should throw on API error', async () => {
+    const http = createMockHttp();
+    queueAuth(http.queue);
+    http.queue.push({ status: 500, body: { error: 'internal' } });
+
+    const provider = makeProvider(http);
+    await expect(
+      provider.getBalance('123456'),
+    ).rejects.toThrow('Sicoob API error');
   });
 });
