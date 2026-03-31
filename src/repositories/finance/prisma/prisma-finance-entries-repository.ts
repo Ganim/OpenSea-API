@@ -183,7 +183,14 @@ export class PrismaFinanceEntriesRepository
     }
 
     if (options.status) {
-      where.status = options.status as FinanceEntryStatus;
+      const statuses = options.status.includes(',')
+        ? options.status.split(',')
+        : [options.status];
+      if (statuses.length === 1) {
+        where.status = statuses[0] as FinanceEntryStatus;
+      } else {
+        where.status = { in: statuses as FinanceEntryStatus[] };
+      }
     }
 
     if (options.categoryId) {

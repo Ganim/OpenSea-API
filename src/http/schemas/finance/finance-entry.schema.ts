@@ -511,17 +511,11 @@ export const listFinanceEntriesQuerySchema = z.object({
   sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
   type: z.enum(['PAYABLE', 'RECEIVABLE']).optional(),
   status: z
-    .enum([
-      'PENDING',
-      'OVERDUE',
-      'PAID',
-      'RECEIVED',
-      'PARTIALLY_PAID',
-      'CANCELLED',
-      'SCHEDULED',
-    ])
+    .string()
     .optional()
-    .describe('Status do lançamento'),
+    .describe(
+      'Status do lançamento (pode ser um valor ou comma-separated: PENDING,OVERDUE)'
+    ),
   categoryId: z.string().uuid().optional().describe('Filtrar por categoria'),
   costCenterId: z
     .string()
