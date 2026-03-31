@@ -1,4 +1,5 @@
 import { PluggyProvider } from './pluggy.provider';
+import { SicoobProvider } from './sicoob.provider';
 import type { BankingProvider } from './banking-provider.interface';
 
 interface BankAccountApiConfig {
@@ -30,8 +31,20 @@ export function createBankingProvider(
 
   switch (provider) {
     case 'SICOOB':
-      // SicoobProvider will be added in Task 3
-      throw new Error('SicoobProvider not yet implemented');
+      if (!config.apiClientId || !certFileId || !keyFileId) {
+        throw new Error(
+          'Sicoob requires apiClientId, certificate and key files',
+        );
+      }
+      return new SicoobProvider({
+        clientId: config.apiClientId,
+        certFileId,
+        keyFileId,
+        scopes: config.apiScopes?.split(',').map((s) => s.trim()) ?? [],
+        accountNumber: config.accountNumber,
+        agency: config.agency,
+        certLoader,
+      });
 
     case 'PLUGGY':
       return new PluggyProvider();
