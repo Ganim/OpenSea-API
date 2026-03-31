@@ -1,0 +1,70 @@
+import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type {
+  BankPaymentMethod,
+  PaymentOrderStatus,
+} from '@prisma/generated/prisma';
+
+export interface PaymentOrderRecord {
+  id: string;
+  tenantId: string;
+  entryId: string;
+  bankAccountId: string;
+  method: BankPaymentMethod;
+  amount: number;
+  recipientData: Record<string, unknown>;
+  status: PaymentOrderStatus;
+  requestedById: string;
+  approvedById: string | null;
+  approvedAt: Date | null;
+  rejectedReason: string | null;
+  externalId: string | null;
+  receiptData: Record<string, unknown> | null;
+  receiptFileId: string | null;
+  errorMessage: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface CreatePaymentOrderData {
+  tenantId: string;
+  entryId: string;
+  bankAccountId: string;
+  method: BankPaymentMethod;
+  amount: number;
+  recipientData: Record<string, unknown>;
+  requestedById: string;
+}
+
+export interface UpdatePaymentOrderData {
+  id: UniqueEntityID;
+  tenantId: string;
+  status?: PaymentOrderStatus;
+  approvedById?: string;
+  approvedAt?: Date;
+  rejectedReason?: string;
+  externalId?: string;
+  receiptData?: Record<string, unknown>;
+  receiptFileId?: string;
+  errorMessage?: string;
+}
+
+export interface PaymentOrdersRepository {
+  create(data: CreatePaymentOrderData): Promise<PaymentOrderRecord>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<PaymentOrderRecord | null>;
+  findByEntryId(
+    entryId: string,
+    tenantId: string,
+  ): Promise<PaymentOrderRecord[]>;
+  findMany(
+    tenantId: string,
+    options?: {
+      status?: PaymentOrderStatus;
+      page?: number;
+      limit?: number;
+    },
+  ): Promise<{ orders: PaymentOrderRecord[]; total: number }>;
+  update(data: UpdatePaymentOrderData): Promise<PaymentOrderRecord | null>;
+}
