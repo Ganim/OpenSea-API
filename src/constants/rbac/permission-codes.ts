@@ -208,6 +208,15 @@ export const PermissionCodes = {
       EXPORT: 'finance.compliance.export' as const,
       MODIFY: 'finance.compliance.modify' as const,
     },
+    JOURNAL_ENTRIES: {
+      ACCESS: 'finance.journal-entries.access' as const,
+      REGISTER: 'finance.journal-entries.register' as const,
+      MODIFY: 'finance.journal-entries.modify' as const,
+    },
+    REPORTS: {
+      ACCESS: 'finance.reports.access' as const,
+      EXPORT: 'finance.reports.export' as const,
+    },
   },
 
   // ============================================================================
