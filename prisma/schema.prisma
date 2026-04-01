@@ -176,6 +176,22 @@ enum FinanceAttachmentType {
   OTHER
 }
 
+enum JournalSourceType {
+  FINANCE_ENTRY
+  FINANCE_PAYMENT
+  MANUAL
+}
+
+enum JournalStatus {
+  POSTED
+  REVERSED
+}
+
+enum EntryLineType {
+  DEBIT
+  CREDIT
+}
+
 enum LoanType {
   PERSONAL
   BUSINESS
@@ -6256,6 +6272,7 @@ model Tenant {
   tenantAuthConfig TenantAuthConfig?
   // Chart of Accounts domain
   chartOfAccounts ChartOfAccount[]
+  journalEntries  JournalEntry[]
 
   @@index([status])
   @@index([deletedAt])
@@ -6450,6 +6467,11 @@ model ChartOfAccount {
   parent   ChartOfAccount?  @relation("AccountHierarchy", fields: [parentId], references: [id])
   children ChartOfAccount[] @relation("AccountHierarchy")
 
+  journalEntryLines JournalEntryLine[]
+  financeEntries    FinanceEntry[]
+  financeCategories FinanceCategory[]
+  bankAccounts      BankAccount[]
+
   @@unique([tenantId, code], name: "chart_of_accounts_tenant_code_unique")
   @@index([tenantId])
   @@index([parentId])
@@ -6457,6 +6479,47 @@ model ChartOfAccount {
   @@index([isActive])
   @@index([deletedAt])
   @@map("chart_of_accounts")
+}
+
+model JournalEntry {
+  id           String            @id @default(uuid())
+  tenantId     String            @map("tenant_id")
+  code         String            @db.VarChar(20)
+  date         DateTime          @db.Date
+  description  String            @db.VarChar(256)
+  sourceType   JournalSourceType @map("source_type")
+  sourceId     String?           @map("source_id")
+  status       JournalStatus     @default(POSTED)
+  reversedById String?           @unique @map("reversed_by_id")
+  createdBy    String?           @map("created_by")
+  createdAt    DateTime          @default(now()) @map("created_at")
+  updatedAt    DateTime          @updatedAt @map("updated_at")
+
+  tenant     Tenant        @relation(fields: [tenantId], references: [id])
+  reversedBy JournalEntry? @relation("JournalReversal", fields: [reversedById], references: [id])
+  reversalOf JournalEntry? @relation("JournalReversal")
+  lines      JournalEntryLine[]
+
+  @@unique([tenantId, code])
+  @@index([tenantId, date])
+  @@index([tenantId, sourceType, sourceId])
+  @@map("journal_entries")
+}
+
+model JournalEntryLine {
+  id               String        @id @default(uuid())
+  journalEntryId   String        @map("journal_entry_id")
+  chartOfAccountId String        @map("chart_of_account_id")
+  type             EntryLineType
+  amount           Decimal       @db.Decimal(18, 2)
+  description      String?       @db.VarChar(256)
+
+  journalEntry   JournalEntry   @relation(fields: [journalEntryId], references: [id], onDelete: Cascade)
+  chartOfAccount ChartOfAccount @relation(fields: [chartOfAccountId], references: [id])
+
+  @@index([journalEntryId])
+  @@index([chartOfAccountId])
+  @@map("journal_entry_lines")
 }
 
 model BankAccount {
@@ -6504,8 +6567,11 @@ model BankAccount {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
 
-  tenant  Tenant   @relation(fields: [tenantId], references: [id])
-  company Company? @relation(fields: [companyId], references: [id])
+  chartOfAccountId String?         @map("chart_of_account_id")
+
+  tenant         Tenant          @relation(fields: [tenantId], references: [id])
+  company        Company?        @relation(fields: [companyId], references: [id])
+  chartOfAccount ChartOfAccount? @relation(fields: [chartOfAccountId], references: [id])
 
   financeEntries     FinanceEntry[]
   financePayments    FinanceEntryPayment[]
@@ -6543,6 +6609,7 @@ model FinanceCategory {
   isActive     Boolean             @default(true) @map("is_active")
   isSystem     Boolean             @default(false) @map("is_system")
 
+  chartOfAccountId String?         @map("chart_of_account_id")
   interestRate Decimal? @map("interest_rate") @db.Decimal(5, 4)
   penaltyRate  Decimal? @map("penalty_rate") @db.Decimal(5, 4)
 
@@ -6550,7 +6617,8 @@ model FinanceCategory {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
 
-  tenant   Tenant            @relation(fields: [tenantId], references: [id])
+  tenant         Tenant            @relation(fields: [tenantId], references: [id])
+  chartOfAccount ChartOfAccount?   @relation(fields: [chartOfAccountId], references: [id])
   parent   FinanceCategory?  @relation("FinanceCategoryHierarchy", fields: [parentId], references: [id])
   children FinanceCategory[] @relation("FinanceCategoryHierarchy")
 
@@ -6576,7 +6644,8 @@ model FinanceEntry {
   description String  @db.VarChar(500)
   notes       String? @db.Text
 
-  categoryId    String  @map("category_id")
+  categoryId       String  @map("category_id")
+  chartOfAccountId String? @map("chart_of_account_id")
   companyId     String? @map("company_id")
   costCenterId  String? @map("cost_center_id")
   bankAccountId String? @map("bank_account_id")
@@ -6636,8 +6705,9 @@ model FinanceEntry {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
 
-  tenant       Tenant          @relation(fields: [tenantId], references: [id])
-  category     FinanceCategory @relation(fields: [categoryId], references: [id])
+  tenant           Tenant           @relation(fields: [tenantId], references: [id])
+  category         FinanceCategory  @relation(fields: [categoryId], references: [id])
+  chartOfAccount   ChartOfAccount?  @relation(fields: [chartOfAccountId], references: [id])
   company      Company?        @relation(fields: [companyId], references: [id])
   costCenter   CostCenter?     @relation(fields: [costCenterId], references: [id])
   bankAccount  BankAccount?    @relation(fields: [bankAccountId], references: [id])
