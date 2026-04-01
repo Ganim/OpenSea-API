@@ -1,6 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { verifyWebhookSignature } from '@/http/middlewares/finance/verify-webhook-signature';
 import { makeProcessBankWebhookUseCase } from '@/use-cases/finance/webhooks/factories/make-process-bank-webhook-use-case';
-import type { FastifyInstance } from 'fastify';
+import type { FastifyInstance, FastifyRequest } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
@@ -8,7 +9,8 @@ export async function sicoobWebhookController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/finance/webhooks/sicoob',
-    // No auth middleware — Sicoob calls this endpoint directly
+    // No JWT auth — Sicoob calls this endpoint directly.
+    // Authenticity is verified via HMAC-SHA256 webhook signature.
     schema: {
       tags: ['Finance - Webhooks'],
       summary: 'Receive Sicoob bank webhook events (PIX received, boleto paid)',
@@ -22,30 +24,23 @@ export async function sicoobWebhookController(app: FastifyInstance) {
           matched: z.boolean(),
           autoSettled: z.boolean(),
         }),
+        401: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },
     },
+    preHandler: [verifyWebhookSignature],
     handler: async (request, reply) => {
       const { bankAccountId } = request.query;
       const payload = request.body;
 
-      // tenantId must be resolved from the bank account in the use case
-      // We look up the bank account's tenantId by querying the repository
-      // For webhooks, we pass bankAccountId and resolve tenantId inside the use case factory
-      const { prisma } = await import('@/lib/prisma');
-      const bankAccount = await prisma.bankAccount.findUnique({
-        where: { id: bankAccountId },
-        select: { tenantId: true },
-      });
-
-      if (!bankAccount) {
-        return reply.status(404).send({ message: 'Bank account not found' });
-      }
+      // tenantId was resolved and attached by verifyWebhookSignature — no extra DB call needed
+      const tenantId = (request as FastifyRequest & { bankAccountTenantId: string })
+        .bankAccountTenantId;
 
       try {
         const useCase = makeProcessBankWebhookUseCase();
         const result = await useCase.execute({
-          tenantId: bankAccount.tenantId,
+          tenantId,
           bankAccountId,
           provider: 'SICOOB',
           payload,
