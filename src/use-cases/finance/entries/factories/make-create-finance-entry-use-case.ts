@@ -5,8 +5,11 @@ import { PrismaCostCentersRepository } from '@/repositories/finance/prisma/prism
 import { PrismaFinanceEntryCostCentersRepository } from '@/repositories/finance/prisma/prisma-finance-entry-cost-centers-repository';
 import { PrismaFinanceApprovalRulesRepository } from '@/repositories/finance/prisma/prisma-finance-approval-rules-repository';
 import { PrismaFinanceEntryRetentionsRepository } from '@/repositories/finance/prisma/prisma-finance-entry-retentions-repository';
+import { PrismaJournalEntriesRepository } from '@/repositories/finance/prisma/prisma-journal-entries-repository';
+import { PrismaChartOfAccountsRepository } from '@/repositories/finance/prisma/prisma-chart-of-accounts-repository';
 import { makeCalendarSyncService } from '@/services/calendar/make-calendar-sync-service';
 import { makeEvaluateAutoApprovalUseCase } from '@/use-cases/finance/approval-rules/factories/make-evaluate-auto-approval-use-case';
+import { AutoJournalFromEntryUseCase } from '@/use-cases/finance/journal-entries/auto-journal-from-entry';
 import { CreateFinanceEntryUseCase } from '../create-finance-entry';
 
 export function makeCreateFinanceEntryUseCase() {
@@ -33,6 +36,15 @@ export function makeCreateFinanceEntryUseCase() {
     await evaluateUseCase.execute({ entryId, tenantId, createdBy });
   };
 
+  const journalEntriesRepository = new PrismaJournalEntriesRepository();
+  const chartOfAccountsRepository = new PrismaChartOfAccountsRepository();
+  const autoJournalFromEntry = new AutoJournalFromEntryUseCase(
+    entriesRepository,
+    categoriesRepository,
+    chartOfAccountsRepository,
+    journalEntriesRepository,
+  );
+
   return new CreateFinanceEntryUseCase(
     entriesRepository,
     categoriesRepository,
@@ -43,5 +55,6 @@ export function makeCreateFinanceEntryUseCase() {
     approvalRulesRepository,
     evaluateAutoApproval,
     retentionsRepository,
+    autoJournalFromEntry,
   );
 }

@@ -68,6 +68,7 @@ export class PrismaFinanceEntriesRepository
         description: data.description,
         notes: data.notes,
         categoryId: data.categoryId,
+        chartOfAccountId: data.chartOfAccountId,
         companyId: data.companyId,
         costCenterId: data.costCenterId,
         bankAccountId: data.bankAccountId,

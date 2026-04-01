@@ -171,6 +171,9 @@ export class PrismaBankAccountsRepository implements BankAccountsRepository {
       }),
       ...(data.pixKeyType !== undefined && { pixKeyType: data.pixKeyType }),
       ...(data.pixKey !== undefined && { pixKey: data.pixKey }),
+      ...(data.chartOfAccountId !== undefined && {
+        chartOfAccountId: data.chartOfAccountId,
+      }),
       ...(data.color !== undefined && { color: data.color }),
       ...(data.isDefault !== undefined && { isDefault: data.isDefault }),
       ...hashes,

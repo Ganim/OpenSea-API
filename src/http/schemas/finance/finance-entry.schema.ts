@@ -21,6 +21,11 @@ export const createFinanceEntrySchema = z
       .describe('Descrição do lançamento financeiro'),
     notes: z.string().optional().describe('Observações adicionais'),
     categoryId: z.string().uuid().describe('ID da categoria financeira'),
+    chartOfAccountId: z
+      .string()
+      .uuid()
+      .optional()
+      .describe('ID da conta contábil (plano de contas)'),
     costCenterId: z
       .string()
       .uuid()
@@ -201,6 +206,7 @@ export const updateFinanceEntrySchema = z.object({
   description: z.string().min(1).max(500).optional(),
   notes: z.string().nullable().optional(),
   categoryId: z.string().uuid().optional(),
+  chartOfAccountId: z.string().uuid().nullable().optional(),
   costCenterId: z.string().uuid().optional(),
   bankAccountId: z.string().uuid().nullable().optional(),
   supplierName: z.string().max(256).nullable().optional(),
@@ -238,6 +244,12 @@ export const financeEntryResponseSchema = z.object({
   description: z.string().describe('Descrição do lançamento'),
   notes: z.string().optional().nullable().describe('Observações adicionais'),
   categoryId: z.string().uuid().describe('ID da categoria financeira'),
+  chartOfAccountId: z
+    .string()
+    .uuid()
+    .optional()
+    .nullable()
+    .describe('ID da conta contábil (plano de contas)'),
   costCenterId: z
     .string()
     .uuid()

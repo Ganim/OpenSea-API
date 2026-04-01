@@ -14,6 +14,7 @@ export interface CreateBankAccountSchema {
   accountType: string;
   pixKeyType?: string;
   pixKey?: string;
+  chartOfAccountId?: string;
   color?: string;
   isDefault?: boolean;
 }
@@ -31,6 +32,7 @@ export interface UpdateBankAccountSchema {
   status?: string;
   pixKeyType?: string;
   pixKey?: string;
+  chartOfAccountId?: string | null;
   color?: string;
   isDefault?: boolean;
 }

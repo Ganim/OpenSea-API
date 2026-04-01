@@ -39,6 +39,7 @@ interface CreateFinanceEntryUseCaseRequest {
   description: string;
   notes?: string;
   categoryId: string;
+  chartOfAccountId?: string;
   costCenterId?: string;
   costCenterAllocations?: CostCenterAllocation[];
   bankAccountId?: string;
@@ -88,6 +89,7 @@ export class CreateFinanceEntryUseCase {
     private approvalRulesRepository?: FinanceApprovalRulesRepository,
     private evaluateAutoApproval?: (entryId: string, tenantId: string, createdBy?: string) => Promise<void>,
     private retentionsRepository?: FinanceEntryRetentionsRepository,
+    private autoJournalFromEntry?: { execute(req: { tenantId: string; entryId: string; createdBy?: string }): Promise<unknown> },
   ) {}
 
   async execute(
@@ -272,6 +274,7 @@ export class CreateFinanceEntryUseCase {
         description: description.trim(),
         notes: request.notes,
         categoryId: request.categoryId,
+        chartOfAccountId: request.chartOfAccountId,
         costCenterId: entryCostCenterId,
         bankAccountId: request.bankAccountId,
         supplierName: request.supplierName,
@@ -394,6 +397,19 @@ export class CreateFinanceEntryUseCase {
       }
 
       retentionSummary = summary;
+    }
+
+    // Generate journal entry (non-blocking)
+    if (this.autoJournalFromEntry) {
+      try {
+        await this.autoJournalFromEntry.execute({
+          tenantId: request.tenantId,
+          entryId: entry.id.toString(),
+          createdBy: request.createdBy,
+        });
+      } catch {
+        // Don't fail entry creation if journal generation fails
+      }
     }
 
     return {

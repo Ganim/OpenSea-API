@@ -13,6 +13,7 @@ export function mapFinanceCategoryPrismaToDomain(data: PrismaFinanceCategory) {
     color: data.color ?? undefined,
     type: data.type,
     parentId: data.parentId ? new UniqueEntityID(data.parentId) : undefined,
+    chartOfAccountId: data.chartOfAccountId ?? undefined,
     displayOrder: data.displayOrder,
     isActive: data.isActive,
     isSystem: data.isSystem,

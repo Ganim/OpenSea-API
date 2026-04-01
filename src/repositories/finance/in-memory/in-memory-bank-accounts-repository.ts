@@ -66,6 +66,8 @@ export class InMemoryBankAccountsRepository implements BankAccountsRepository {
     if (data.status !== undefined) item.status = data.status;
     if (data.pixKeyType !== undefined) item.pixKeyType = data.pixKeyType;
     if (data.pixKey !== undefined) item.pixKey = data.pixKey;
+    if (data.chartOfAccountId !== undefined)
+      item.chartOfAccountId = data.chartOfAccountId ?? undefined;
     if (data.color !== undefined) item.color = data.color;
     if (data.isDefault !== undefined) item.isDefault = data.isDefault;
 

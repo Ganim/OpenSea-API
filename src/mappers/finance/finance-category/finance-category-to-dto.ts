@@ -9,6 +9,7 @@ export interface FinanceCategoryDTO {
   color?: string;
   type: string;
   parentId?: string;
+  chartOfAccountId?: string;
   displayOrder: number;
   isActive: boolean;
   isSystem: boolean;
@@ -31,6 +32,7 @@ export function financeCategoryToDTO(
     color: category.color,
     type: category.type,
     parentId: category.parentId?.toString(),
+    chartOfAccountId: category.chartOfAccountId,
     displayOrder: category.displayOrder,
     isActive: category.isActive,
     isSystem: category.isSystem,

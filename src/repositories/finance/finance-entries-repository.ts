@@ -15,6 +15,7 @@ export interface CreateFinanceEntrySchema {
   description: string;
   notes?: string;
   categoryId: string;
+  chartOfAccountId?: string;
   companyId?: string;
   costCenterId?: string;
   bankAccountId?: string;

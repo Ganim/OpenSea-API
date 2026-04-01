@@ -155,6 +155,9 @@ export class PrismaFinanceCategoriesRepository
           type: data.type as FinanceCategoryType,
         }),
         ...(data.parentId !== undefined && { parentId: data.parentId }),
+        ...(data.chartOfAccountId !== undefined && {
+          chartOfAccountId: data.chartOfAccountId,
+        }),
         ...(data.displayOrder !== undefined && {
           displayOrder: data.displayOrder,
         }),

@@ -22,6 +22,7 @@ export interface BankAccountDTO {
   pixKeyType?: string;
   pixKey?: string;
   maskedPixKey?: string | null;
+  chartOfAccountId?: string;
   currentBalance: number;
   balanceUpdatedAt?: Date;
   color?: string;
@@ -56,6 +57,7 @@ export function bankAccountToDTO(
     pixKeyType: bankAccount.pixKeyType,
     pixKey: shouldMask ? undefined : bankAccount.pixKey,
     maskedPixKey: maskPixKey(bankAccount.pixKey),
+    chartOfAccountId: bankAccount.chartOfAccountId,
     currentBalance: bankAccount.currentBalance,
     balanceUpdatedAt: bankAccount.balanceUpdatedAt,
     color: bankAccount.color,

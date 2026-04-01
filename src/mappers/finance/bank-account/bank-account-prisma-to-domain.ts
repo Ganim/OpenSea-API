@@ -18,6 +18,7 @@ export function mapBankAccountPrismaToDomain(data: PrismaBankAccount) {
     status: data.status,
     pixKeyType: data.pixKeyType ?? undefined,
     pixKey: data.pixKey ?? undefined,
+    chartOfAccountId: data.chartOfAccountId ?? undefined,
     currentBalance: Number(data.currentBalance.toString()),
     balanceUpdatedAt: data.balanceUpdatedAt ?? undefined,
     color: data.color ?? undefined,

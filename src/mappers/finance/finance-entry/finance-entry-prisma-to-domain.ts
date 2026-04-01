@@ -14,6 +14,7 @@ export function financeEntryPrismaToDomain(
       description: raw.description,
       notes: raw.notes ?? undefined,
       categoryId: new UniqueEntityID(raw.categoryId),
+      chartOfAccountId: raw.chartOfAccountId ?? undefined,
       companyId: raw.companyId ? new UniqueEntityID(raw.companyId) : undefined,
       costCenterId: raw.costCenterId
         ? new UniqueEntityID(raw.costCenterId)

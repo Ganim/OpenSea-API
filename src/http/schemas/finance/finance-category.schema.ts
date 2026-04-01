@@ -12,6 +12,7 @@ export const createFinanceCategorySchema = z.object({
   isActive: z.boolean().optional(),
   interestRate: z.number().min(0).max(1).optional(),
   penaltyRate: z.number().min(0).max(1).optional(),
+  chartOfAccountId: z.string().uuid().nullable().optional(),
 });
 
 export const financeCategoryResponseSchema = z.object({
@@ -23,6 +24,7 @@ export const financeCategoryResponseSchema = z.object({
   color: z.string().optional().nullable(),
   type: z.string(),
   parentId: z.string().uuid().optional().nullable(),
+  chartOfAccountId: z.string().uuid().optional().nullable(),
   displayOrder: z.number(),
   isActive: z.boolean(),
   isSystem: z.boolean(),

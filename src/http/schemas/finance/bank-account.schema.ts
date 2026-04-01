@@ -22,6 +22,7 @@ export const createBankAccountSchema = z.object({
   pixKey: z.string().max(128).optional(),
   color: z.string().max(7).optional(),
   isDefault: z.boolean().optional(),
+  chartOfAccountId: z.string().uuid().nullable().optional(),
 });
 
 export const bankAccountResponseSchema = z.object({
@@ -46,6 +47,7 @@ export const bankAccountResponseSchema = z.object({
     .optional()
     .nullable()
     .describe('Chave PIX mascarada'),
+  chartOfAccountId: z.string().uuid().optional().nullable(),
   currentBalance: z.number(),
   balanceUpdatedAt: z.coerce.date().optional().nullable(),
   color: z.string().optional().nullable(),

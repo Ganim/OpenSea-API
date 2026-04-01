@@ -6,6 +6,7 @@ import {
   financeEntryToDTO,
 } from '@/mappers/finance/finance-entry/finance-entry-to-dto';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
+import type { JournalEntriesRepository } from '@/repositories/finance/journal-entries-repository';
 import { queueAuditLog } from '@/workers/queues/audit.queue';
 
 interface CancelFinanceEntryUseCaseRequest {
@@ -19,7 +20,11 @@ interface CancelFinanceEntryUseCaseResponse {
 }
 
 export class CancelFinanceEntryUseCase {
-  constructor(private financeEntriesRepository: FinanceEntriesRepository) {}
+  constructor(
+    private financeEntriesRepository: FinanceEntriesRepository,
+    private journalEntriesRepository?: JournalEntriesRepository,
+    private reverseJournalEntry?: { execute(req: { tenantId: string; journalEntryId: string; createdBy?: string }): Promise<unknown> },
+  ) {}
 
   async execute({
     tenantId,
@@ -70,6 +75,26 @@ export class CancelFinanceEntryUseCase {
         expectedAmount: entry.expectedAmount,
       },
     }).catch(() => {});
+
+    // Reverse any posted journal entries linked to this finance entry (non-blocking)
+    if (this.journalEntriesRepository && this.reverseJournalEntry) {
+      try {
+        const journals = await this.journalEntriesRepository.findBySource(
+          tenantId, 'FINANCE_ENTRY', id,
+        );
+        for (const journal of journals) {
+          if (journal.status === 'POSTED') {
+            await this.reverseJournalEntry.execute({
+              tenantId,
+              journalEntryId: journal.id,
+              createdBy: userId,
+            });
+          }
+        }
+      } catch {
+        // Don't fail cancellation if reversal fails
+      }
+    }
 
     return { entry: financeEntryToDTO(cancelled) };
   }

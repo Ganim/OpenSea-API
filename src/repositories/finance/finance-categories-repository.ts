@@ -10,6 +10,7 @@ export interface CreateFinanceCategorySchema {
   color?: string;
   type: string;
   parentId?: string;
+  chartOfAccountId?: string;
   displayOrder?: number;
   isActive?: boolean;
   isSystem?: boolean;
@@ -26,6 +27,7 @@ export interface UpdateFinanceCategorySchema {
   color?: string;
   type?: string;
   parentId?: string;
+  chartOfAccountId?: string | null;
   displayOrder?: number;
   isActive?: boolean;
   interestRate?: number;

@@ -133,6 +133,8 @@ export class InMemoryFinanceCategoriesRepository
       item.parentId = data.parentId
         ? new UniqueEntityID(data.parentId)
         : undefined;
+    if (data.chartOfAccountId !== undefined)
+      item.chartOfAccountId = data.chartOfAccountId ?? undefined;
     if (data.displayOrder !== undefined) item.displayOrder = data.displayOrder;
     if (data.isActive !== undefined) item.isActive = data.isActive;
     if (data.interestRate !== undefined) item.interestRate = data.interestRate;

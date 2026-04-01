@@ -51,6 +51,7 @@ export class RegisterPaymentUseCase {
     private calendarSyncService?: CalendarSyncService,
     private categoriesRepository?: FinanceCategoriesRepository,
     private transactionManager?: TransactionManager,
+    private autoJournalFromPayment?: { execute(req: { tenantId: string; entryId: string; paymentId: string; bankAccountId: string; amount: number; paidAt: Date; createdBy?: string }): Promise<unknown> },
   ) {}
 
   async execute(
@@ -330,6 +331,23 @@ export class RegisterPaymentUseCase {
         isFullyPaid: result.isFullyPaid,
       },
     }).catch(() => {});
+
+    // Generate journal entry for payment (non-blocking)
+    if (this.autoJournalFromPayment && request.bankAccountId) {
+      try {
+        await this.autoJournalFromPayment.execute({
+          tenantId: request.tenantId,
+          entryId: request.entryId,
+          paymentId: result.payment.id.toString(),
+          bankAccountId: request.bankAccountId,
+          amount: request.amount,
+          paidAt: request.paidAt ?? new Date(),
+          createdBy: request.createdBy,
+        });
+      } catch {
+        // Don't fail payment if journal generation fails
+      }
+    }
 
     return {
       entry: financeEntryToDTO(result.updatedEntry),
