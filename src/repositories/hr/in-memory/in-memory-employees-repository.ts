@@ -230,6 +230,11 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
         item.companyId?.equals(filters.companyId!),
       );
     }
+    if (filters.userId) {
+      filtered = filtered.filter(
+        (item) => item.userId?.toString() === filters.userId,
+      );
+    }
     if (filters.search) {
       const searchLower = filters.search.toLowerCase();
       filtered = filtered.filter(

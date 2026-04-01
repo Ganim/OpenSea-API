@@ -450,7 +450,9 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
       companyId: filters.companyId?.toString(),
     };
 
-    if (filters.unlinked) {
+    if (filters.userId) {
+      whereClause.userId = filters.userId;
+    } else if (filters.unlinked) {
       whereClause.userId = null;
     }
 

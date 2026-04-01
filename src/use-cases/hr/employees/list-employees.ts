@@ -13,6 +13,7 @@ export interface ListEmployeesRequest {
   positionId?: string;
   supervisorId?: string;
   companyId?: string;
+  userId?: string;
   search?: string;
   unlinked?: boolean;
   includeDeleted?: boolean;
@@ -41,6 +42,7 @@ export class ListEmployeesUseCase {
       positionId,
       supervisorId,
       companyId,
+      userId,
       search,
       unlinked = false,
       includeDeleted = false,
@@ -58,6 +60,7 @@ export class ListEmployeesUseCase {
       positionId: positionId ? new UniqueEntityID(positionId) : undefined,
       supervisorId: supervisorId ? new UniqueEntityID(supervisorId) : undefined,
       companyId: companyId ? new UniqueEntityID(companyId) : undefined,
+      userId,
       search,
       unlinked,
       includeDeleted,

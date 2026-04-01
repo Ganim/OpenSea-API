@@ -1264,7 +1264,8 @@ export const HR_AUDIT_MESSAGES = {
     action: AuditAction.CREATE,
     entity: AuditEntity.PERFORMANCE_REVIEW,
     module: AuditModule.HR,
-    description: '{{userName}} criou {{count}} avaliações para o ciclo {{cycleName}}',
+    description:
+      '{{userName}} criou {{count}} avaliações para o ciclo {{cycleName}}',
   } satisfies AuditMessage,
 
   /** Autoavaliação submetida */
@@ -1437,6 +1438,23 @@ export const HR_AUDIT_MESSAGES = {
     entity: AuditEntity.INTERVIEW,
     module: AuditModule.HR,
     description: '{{userName}} cancelou a entrevista',
+  } satisfies AuditMessage,
+
+  /** Etapa de entrevista excluída */
+  INTERVIEW_STAGE_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.INTERVIEW_STAGE,
+    module: AuditModule.HR,
+    description: '{{userName}} excluiu a etapa de entrevista {{stageName}}',
+  } satisfies AuditMessage,
+
+  /** Etapas de entrevista reordenadas */
+  INTERVIEW_STAGE_REORDER: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.INTERVIEW_STAGE,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} reordenou as etapas de entrevista da vaga {{jobPostingId}}',
   } satisfies AuditMessage,
 } as const;
 

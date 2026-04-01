@@ -15,12 +15,19 @@ import { v1ListCandidatesController } from './v1-list-candidates.controller';
 import { v1GetCandidateController } from './v1-get-candidate.controller';
 import { v1CreateApplicationController } from './v1-create-application.controller';
 import { v1ListApplicationsController } from './v1-list-applications.controller';
+import { v1GetApplicationController } from './v1-get-application.controller';
+import { v1UpdateApplicationStatusController } from './v1-update-application-status.controller';
 import { v1HireApplicationController } from './v1-hire-application.controller';
 import { v1RejectApplicationController } from './v1-reject-application.controller';
+import { v1UpdateCandidateController } from './v1-update-candidate.controller';
+import { v1DeleteCandidateController } from './v1-delete-candidate.controller';
 import { v1CreateInterviewStageController } from './v1-create-interview-stage.controller';
 import { v1ListInterviewStagesController } from './v1-list-interview-stages.controller';
+import { v1DeleteInterviewStageController } from './v1-delete-interview-stage.controller';
+import { v1ReorderInterviewStagesController } from './v1-reorder-interview-stages.controller';
 import { v1ScheduleInterviewController } from './v1-schedule-interview.controller';
 import { v1ListInterviewsController } from './v1-list-interviews.controller';
+import { v1GetInterviewController } from './v1-get-interview.controller';
 import { v1CompleteInterviewController } from './v1-complete-interview.controller';
 import { v1CancelInterviewController } from './v1-cancel-interview.controller';
 
@@ -39,12 +46,17 @@ export async function recruitmentRoutes(app: FastifyInstance) {
       mutationApp.register(v1CloseJobPostingController);
       // Candidates
       mutationApp.register(v1CreateCandidateController);
+      mutationApp.register(v1UpdateCandidateController);
+      mutationApp.register(v1DeleteCandidateController);
       // Applications
       mutationApp.register(v1CreateApplicationController);
+      mutationApp.register(v1UpdateApplicationStatusController);
       mutationApp.register(v1HireApplicationController);
       mutationApp.register(v1RejectApplicationController);
       // Interview Stages
       mutationApp.register(v1CreateInterviewStageController);
+      mutationApp.register(v1DeleteInterviewStageController);
+      mutationApp.register(v1ReorderInterviewStagesController);
       // Interviews
       mutationApp.register(v1ScheduleInterviewController);
       mutationApp.register(v1CompleteInterviewController);
@@ -65,10 +77,12 @@ export async function recruitmentRoutes(app: FastifyInstance) {
       queryApp.register(v1GetCandidateController);
       // Applications
       queryApp.register(v1ListApplicationsController);
+      queryApp.register(v1GetApplicationController);
       // Interview Stages
       queryApp.register(v1ListInterviewStagesController);
       // Interviews
       queryApp.register(v1ListInterviewsController);
+      queryApp.register(v1GetInterviewController);
     },
     { prefix: '' },
   );

@@ -273,6 +273,7 @@ import { recruitmentRoutes } from './controllers/hr/recruitment/routes';
 import { warningsRoutes } from './controllers/hr/warnings/routes';
 import { surveysRoutes } from './controllers/hr/surveys/routes';
 import { okrsRoutes } from './controllers/hr/okrs/routes';
+import { hrAnalyticsRoutes } from './controllers/hr/analytics/routes';
 
 export async function registerRoutes(app: FastifyInstance) {
   // Core routes
@@ -495,6 +496,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(recruitmentRoutes);
   await app.register(surveysRoutes);
   await app.register(okrsRoutes);
+  await app.register(hrAnalyticsRoutes);
 
   // Tasks routes
   await app.register(taskBoardsRoutes);

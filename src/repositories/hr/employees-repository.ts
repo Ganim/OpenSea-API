@@ -158,6 +158,7 @@ export interface FindEmployeeFilters {
   positionId?: UniqueEntityID;
   supervisorId?: UniqueEntityID;
   companyId?: UniqueEntityID;
+  userId?: string;
   search?: string;
   unlinked?: boolean;
   includeDeleted?: boolean;
