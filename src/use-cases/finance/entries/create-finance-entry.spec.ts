@@ -89,11 +89,19 @@ describe('CreateFinanceEntryUseCase', () => {
   });
 
   it('should create a receivable entry', async () => {
+    const revenueCategory = await categoriesRepository.create({
+      tenantId: 'tenant-1',
+      name: 'Vendas',
+      slug: 'vendas',
+      type: 'REVENUE',
+      isActive: true,
+    });
+
     const result = await sut.execute({
       tenantId: 'tenant-1',
       type: 'RECEIVABLE',
       description: 'Venda de mercadoria',
-      categoryId: seededCategoryId,
+      categoryId: revenueCategory.id.toString(),
       costCenterId: seededCostCenterId,
       expectedAmount: 12000,
       issueDate: new Date('2026-02-01'),
@@ -105,6 +113,14 @@ describe('CreateFinanceEntryUseCase', () => {
   });
 
   it('should auto-generate code (PAG-001, REC-001)', async () => {
+    const revenueCategory = await categoriesRepository.create({
+      tenantId: 'tenant-1',
+      name: 'Receitas',
+      slug: 'receitas',
+      type: 'REVENUE',
+      isActive: true,
+    });
+
     const payableResult = await sut.execute({
       tenantId: 'tenant-1',
       type: 'PAYABLE',
@@ -122,7 +138,7 @@ describe('CreateFinanceEntryUseCase', () => {
       tenantId: 'tenant-1',
       type: 'RECEIVABLE',
       description: 'Servico prestado',
-      categoryId: seededCategoryId,
+      categoryId: revenueCategory.id.toString(),
       costCenterId: seededCostCenterId,
       expectedAmount: 8000,
       issueDate: new Date('2026-02-01'),

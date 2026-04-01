@@ -110,7 +110,7 @@ describe('ProcessOverdueEscalationsUseCase', () => {
     expect(actionsRepository.items[0].channel).toBe('EMAIL');
     expect(actionsRepository.items[0].status).toBe('PENDING'); // EMAIL is queued
     expect(actionsRepository.items[1].channel).toBe('SYSTEM_ALERT');
-    expect(actionsRepository.items[1].status).toBe('SENT'); // SYSTEM_ALERT is immediate
+    expect(actionsRepository.items[1].status).toBe('PENDING'); // SYSTEM_ALERT action stays PENDING; notification is created separately
 
     // Verify notification was created for SYSTEM_ALERT
     expect(notificationsRepository.items).toHaveLength(1);
