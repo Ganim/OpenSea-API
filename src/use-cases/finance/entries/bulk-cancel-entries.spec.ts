@@ -1,4 +1,5 @@
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
+import { InMemoryFinanceApprovalRulesRepository } from '@/repositories/finance/in-memory/in-memory-finance-approval-rules-repository';
 import type { TransactionManager } from '@/lib/transaction-manager';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { BulkCancelEntriesUseCase } from './bulk-cancel-entries';
@@ -116,6 +117,85 @@ describe('BulkCancelEntriesUseCase', () => {
     expect(result.succeeded).toBe(0);
     expect(result.failed).toBe(1);
     expect(result.errors[0].error).toBe('Entry not found');
+  });
+
+  it('should reject entries requiring approval when approval rule matches', async () => {
+    const approvalRulesRepository = new InMemoryFinanceApprovalRulesRepository();
+    const sutWithApproval = new BulkCancelEntriesUseCase(
+      entriesRepository,
+      fakeTransactionManager,
+      approvalRulesRepository,
+    );
+
+    await approvalRulesRepository.create({
+      tenantId: 'tenant-1',
+      name: 'Regra de aprovacao',
+      action: 'FLAG_REVIEW',
+      maxAmount: 10000,
+      isActive: true,
+      priority: 1,
+    });
+
+    const entry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAG-001',
+      description: 'Conta pendente sem aprovacao',
+      categoryId: 'category-1',
+      expectedAmount: 5000,
+      issueDate: new Date('2026-01-01'),
+      dueDate: new Date('2026-02-01'),
+    });
+
+    const result = await sutWithApproval.execute({
+      tenantId: 'tenant-1',
+      entryIds: [entry.id.toString()],
+    });
+
+    expect(result.failed).toBe(1);
+    expect(result.succeeded).toBe(0);
+    expect(result.errors[0].error).toContain('aprovacao');
+  });
+
+  it('should allow cancellation when entry has manually-approved tag', async () => {
+    const approvalRulesRepository = new InMemoryFinanceApprovalRulesRepository();
+    const sutWithApproval = new BulkCancelEntriesUseCase(
+      entriesRepository,
+      fakeTransactionManager,
+      approvalRulesRepository,
+    );
+
+    await approvalRulesRepository.create({
+      tenantId: 'tenant-1',
+      name: 'Regra de aprovacao',
+      action: 'FLAG_REVIEW',
+      maxAmount: 10000,
+      isActive: true,
+      priority: 1,
+    });
+
+    const entry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAG-002',
+      description: 'Conta aprovada manualmente',
+      categoryId: 'category-1',
+      expectedAmount: 5000,
+      issueDate: new Date('2026-01-01'),
+      dueDate: new Date('2026-02-01'),
+      tags: ['manually-approved'],
+    });
+
+    const result = await sutWithApproval.execute({
+      tenantId: 'tenant-1',
+      entryIds: [entry.id.toString()],
+    });
+
+    expect(result.succeeded).toBe(1);
+    expect(result.failed).toBe(0);
+
+    const updated = await entriesRepository.findById(entry.id, 'tenant-1');
+    expect(updated!.status).toBe('CANCELLED');
   });
 
   it('should handle mix of valid and invalid entries', async () => {

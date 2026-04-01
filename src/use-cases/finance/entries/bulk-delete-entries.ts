@@ -3,6 +3,7 @@ import type {
   TransactionClient,
   TransactionManager,
 } from '@/lib/transaction-manager';
+import type { FinanceApprovalRulesRepository } from '@/repositories/finance/finance-approval-rules-repository';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 import { queueAuditLog } from '@/workers/queues/audit.queue';
 
@@ -29,6 +30,7 @@ export class BulkDeleteEntriesUseCase {
   constructor(
     private financeEntriesRepository: FinanceEntriesRepository,
     private transactionManager: TransactionManager,
+    private approvalRulesRepository?: FinanceApprovalRulesRepository,
   ) {}
 
   async execute(
@@ -63,6 +65,30 @@ export class BulkDeleteEntriesUseCase {
               error: `Cannot delete entry with status ${entry.status}`,
             });
             continue;
+          }
+
+          // Check approval rules
+          if (this.approvalRulesRepository) {
+            const approvalRules =
+              await this.approvalRulesRepository.findActiveByTenant(tenantId);
+
+            const requiresApproval = approvalRules.some(
+              (rule) =>
+                rule.action === 'FLAG_REVIEW' &&
+                (!rule.maxAmount || entry.expectedAmount <= rule.maxAmount),
+            );
+
+            if (
+              requiresApproval &&
+              !entry.tags.includes('auto-approved') &&
+              !entry.tags.includes('manually-approved')
+            ) {
+              errors.push({
+                entryId,
+                error: 'Lancamento requer aprovacao antes da exclusao',
+              });
+              continue;
+            }
           }
 
           await this.financeEntriesRepository.delete(

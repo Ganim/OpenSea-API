@@ -4,6 +4,7 @@ import type {
   TransactionManager,
 } from '@/lib/transaction-manager';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
+import type { FinanceApprovalRulesRepository } from '@/repositories/finance/finance-approval-rules-repository';
 import { queueAuditLog } from '@/workers/queues/audit.queue';
 
 interface BulkCancelEntriesUseCaseRequest {
@@ -30,6 +31,7 @@ export class BulkCancelEntriesUseCase {
   constructor(
     private financeEntriesRepository: FinanceEntriesRepository,
     private transactionManager: TransactionManager,
+    private approvalRulesRepository?: FinanceApprovalRulesRepository,
   ) {}
 
   async execute(
@@ -64,6 +66,30 @@ export class BulkCancelEntriesUseCase {
               error: `Cannot cancel entry with status ${entry.status}`,
             });
             continue;
+          }
+
+          // Check approval rules
+          if (this.approvalRulesRepository) {
+            const approvalRules =
+              await this.approvalRulesRepository.findActiveByTenant(tenantId);
+
+            const requiresApproval = approvalRules.some(
+              (rule) =>
+                rule.action === 'FLAG_REVIEW' &&
+                (!rule.maxAmount || entry.expectedAmount <= rule.maxAmount),
+            );
+
+            if (
+              requiresApproval &&
+              !entry.tags.includes('auto-approved') &&
+              !entry.tags.includes('manually-approved')
+            ) {
+              errors.push({
+                entryId,
+                error: 'Lancamento requer aprovacao antes do cancelamento',
+              });
+              continue;
+            }
           }
 
           await this.financeEntriesRepository.update(

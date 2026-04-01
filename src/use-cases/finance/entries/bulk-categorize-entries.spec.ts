@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { InMemoryFinanceCategoriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-categories-repository';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
+import { InMemoryFinanceApprovalRulesRepository } from '@/repositories/finance/in-memory/in-memory-finance-approval-rules-repository';
 import type { TransactionManager } from '@/lib/transaction-manager';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { BulkCategorizeEntriesUseCase } from './bulk-categorize-entries';
@@ -172,5 +173,97 @@ describe('BulkCategorizeEntriesUseCase', () => {
     expect(result.succeeded).toBe(0);
     expect(result.failed).toBe(1);
     expect(result.errors[0].error).toBe('Entry not found');
+  });
+
+  it('should reject entries that require approval before categorization', async () => {
+    const approvalRulesRepository = new InMemoryFinanceApprovalRulesRepository();
+    const sutWithApproval = new BulkCategorizeEntriesUseCase(
+      entriesRepository,
+      categoriesRepository,
+      fakeTransactionManager,
+      approvalRulesRepository,
+    );
+
+    await approvalRulesRepository.create({
+      tenantId: 'tenant-1',
+      name: 'Regra de Aprovacao',
+      action: 'FLAG_REVIEW',
+      maxAmount: 10000,
+      isActive: true,
+    });
+
+    const category = await categoriesRepository.create({
+      tenantId: 'tenant-1',
+      name: 'Categoria',
+      slug: 'categoria',
+      type: 'EXPENSE',
+    });
+
+    const entry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAG-001',
+      description: 'Conta sem aprovacao',
+      categoryId: 'old-category',
+      expectedAmount: 5000,
+      issueDate: new Date('2026-01-01'),
+      dueDate: new Date('2026-02-01'),
+    });
+
+    const result = await sutWithApproval.execute({
+      tenantId: 'tenant-1',
+      entryIds: [entry.id.toString()],
+      categoryId: category.id.toString(),
+    });
+
+    expect(result.succeeded).toBe(0);
+    expect(result.failed).toBe(1);
+    expect(result.errors[0].error).toContain('aprovacao');
+  });
+
+  it('should allow categorization of entries with manually-approved tag', async () => {
+    const approvalRulesRepository = new InMemoryFinanceApprovalRulesRepository();
+    const sutWithApproval = new BulkCategorizeEntriesUseCase(
+      entriesRepository,
+      categoriesRepository,
+      fakeTransactionManager,
+      approvalRulesRepository,
+    );
+
+    await approvalRulesRepository.create({
+      tenantId: 'tenant-1',
+      name: 'Regra de Aprovacao',
+      action: 'FLAG_REVIEW',
+      maxAmount: 10000,
+      isActive: true,
+    });
+
+    const category = await categoriesRepository.create({
+      tenantId: 'tenant-1',
+      name: 'Categoria',
+      slug: 'categoria-aprovada',
+      type: 'EXPENSE',
+    });
+
+    const entry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAG-002',
+      description: 'Conta com aprovacao manual',
+      categoryId: 'old-category',
+      expectedAmount: 5000,
+      tags: ['manually-approved'],
+      issueDate: new Date('2026-01-01'),
+      dueDate: new Date('2026-02-01'),
+    });
+
+    const result = await sutWithApproval.execute({
+      tenantId: 'tenant-1',
+      entryIds: [entry.id.toString()],
+      categoryId: category.id.toString(),
+    });
+
+    expect(result.succeeded).toBe(1);
+    expect(result.failed).toBe(0);
   });
 });
