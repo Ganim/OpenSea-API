@@ -84,6 +84,6 @@ export class CreateBankAccountUseCase {
       isDefault: request.isDefault,
     });
 
-    return { bankAccount: bankAccountToDTO(bankAccount) };
+    return { bankAccount: bankAccountToDTO(bankAccount, { maskSensitiveData: false }) };
   }
 }

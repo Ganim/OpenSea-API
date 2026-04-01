@@ -1,6 +1,7 @@
 import type { BankAccount } from '@/entities/finance/bank-account';
 import {
   maskAccountNumber,
+  maskAgency,
   maskPixKey,
 } from '@/utils/finance/mask-sensitive-data';
 
@@ -11,6 +12,7 @@ export interface BankAccountDTO {
   bankCode: string;
   bankName?: string;
   agency: string;
+  maskedAgency: string;
   agencyDigit?: string;
   accountNumber: string;
   accountDigit?: string;
@@ -33,7 +35,7 @@ export function bankAccountToDTO(
   bankAccount: BankAccount,
   options?: { maskSensitiveData?: boolean },
 ): BankAccountDTO {
-  const shouldMask = options?.maskSensitiveData ?? false;
+  const shouldMask = options?.maskSensitiveData ?? true;
 
   return {
     id: bankAccount.id.toString(),
@@ -41,7 +43,8 @@ export function bankAccountToDTO(
     name: bankAccount.name,
     bankCode: bankAccount.bankCode,
     bankName: bankAccount.bankName,
-    agency: bankAccount.agency,
+    agency: shouldMask ? maskAgency(bankAccount.agency) : bankAccount.agency,
+    maskedAgency: maskAgency(bankAccount.agency),
     agencyDigit: bankAccount.agencyDigit,
     accountNumber: shouldMask
       ? maskAccountNumber(bankAccount.accountNumber)

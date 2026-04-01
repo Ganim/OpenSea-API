@@ -87,6 +87,6 @@ export class UpdateBankAccountUseCase {
       );
     }
 
-    return { bankAccount: bankAccountToDTO(updated) };
+    return { bankAccount: bankAccountToDTO(updated, { maskSensitiveData: false }) };
   }
 }

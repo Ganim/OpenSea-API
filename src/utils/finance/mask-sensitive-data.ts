@@ -10,6 +10,11 @@ export function maskAccountNumber(accountNumber: string): string {
   return '*'.repeat(accountNumber.length - 4) + accountNumber.slice(-4);
 }
 
+export function maskAgency(agency: string): string {
+  if (agency.length <= 2) return agency;
+  return '*'.repeat(agency.length - 2) + agency.slice(-2);
+}
+
 export function maskPixKey(pixKey: string | null | undefined): string | null {
   if (!pixKey) return null;
 
