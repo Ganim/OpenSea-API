@@ -6,6 +6,7 @@ import { makeSyncBankTransactionsUseCase } from '@/use-cases/finance/bank-connec
 import { PrismaCashflowSnapshotsRepository } from '@/repositories/finance/prisma/prisma-cashflow-snapshots-repository';
 import { makeGetPredictiveCashflowUseCase } from '@/use-cases/finance/dashboard/factories/make-get-predictive-cashflow-use-case';
 import { makeAutoReconcileUseCase } from '@/use-cases/finance/reconciliation/factories/make-auto-reconcile-use-case';
+import { getBankingProviderForAccount } from '@/services/banking/get-banking-provider';
 
 const LOG_PREFIX = '[FinanceScheduler]';
 
@@ -304,59 +305,138 @@ export class FinanceScheduler {
       },
     });
 
-    if (activeConnections.length === 0) {
-      logger.info(
-        `${LOG_PREFIX} [sync-bank-transactions] No active bank connections`,
-      );
-      return;
-    }
-
-    logger.info(
-      { connectionCount: activeConnections.length },
-      `${LOG_PREFIX} [sync-bank-transactions] Syncing connections`,
-    );
-
-    const useCase = makeSyncBankTransactionsUseCase();
     let synced = 0;
     let failed = 0;
 
-    for (const connection of activeConnections) {
-      try {
-        const result = await useCase.execute({
-          tenantId: connection.tenantId,
-          connectionId: connection.id,
-        });
+    if (activeConnections.length === 0) {
+      logger.info(
+        `${LOG_PREFIX} [sync-bank-transactions] No active Pluggy bank connections`,
+      );
+    } else {
+      logger.info(
+        { connectionCount: activeConnections.length },
+        `${LOG_PREFIX} [sync-bank-transactions] Syncing Pluggy connections`,
+      );
 
-        synced++;
+      const useCase = makeSyncBankTransactionsUseCase();
 
-        if (result.transactionsImported > 0) {
-          logger.info(
+      for (const connection of activeConnections) {
+        try {
+          const result = await useCase.execute({
+            tenantId: connection.tenantId,
+            connectionId: connection.id,
+          });
+
+          synced++;
+
+          if (result.transactionsImported > 0) {
+            logger.info(
+              {
+                tenantId: connection.tenantId,
+                connectionId: connection.id,
+                transactionsImported: result.transactionsImported,
+                matchedCount: result.matchedCount,
+              },
+              `${LOG_PREFIX} [sync-bank-transactions] Connection synced`,
+            );
+          }
+        } catch (syncError) {
+          failed++;
+          logger.error(
             {
               tenantId: connection.tenantId,
               connectionId: connection.id,
-              transactionsImported: result.transactionsImported,
-              matchedCount: result.matchedCount,
+              error: syncError,
             },
-            `${LOG_PREFIX} [sync-bank-transactions] Connection synced`,
+            `${LOG_PREFIX} [sync-bank-transactions] Connection sync failed`,
           );
         }
-      } catch (syncError) {
-        failed++;
-        logger.error(
-          {
-            tenantId: connection.tenantId,
-            connectionId: connection.id,
-            error: syncError,
-          },
-          `${LOG_PREFIX} [sync-bank-transactions] Connection sync failed`,
-        );
       }
+
+      logger.info(
+        { totalConnections: activeConnections.length, synced, failed },
+        `${LOG_PREFIX} [sync-bank-transactions] Pluggy batch complete`,
+      );
     }
 
-    logger.info(
-      { totalConnections: activeConnections.length, synced, failed },
-      `${LOG_PREFIX} [sync-bank-transactions] Batch complete`,
-    );
+    // --- Sicoob / Direct API sync ---
+    const apiAccounts = await prisma.bankAccount.findMany({
+      where: {
+        apiEnabled: true,
+        apiProvider: { not: null },
+        deletedAt: null,
+        tenant: { status: 'ACTIVE', deletedAt: null },
+      },
+      select: {
+        id: true,
+        tenantId: true,
+        accountNumber: true,
+        apiProvider: true,
+      },
+    });
+
+    if (apiAccounts.length > 0) {
+      logger.info(
+        { count: apiAccounts.length },
+        `${LOG_PREFIX} [sync-bank-transactions] Syncing direct API accounts`,
+      );
+
+      for (const account of apiAccounts) {
+        try {
+          const provider = await getBankingProviderForAccount(account.id);
+          await provider.authenticate();
+
+          const thirtyDaysAgo = new Date();
+          thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+          const today = new Date();
+
+          // getTransactions expects ISO date strings (YYYY-MM-DD)
+          const fromStr = thirtyDaysAgo.toISOString().split('T')[0];
+          const toStr = today.toISOString().split('T')[0];
+
+          const transactions = await provider.getTransactions(
+            account.accountNumber,
+            fromStr,
+            toStr,
+          );
+
+          if (transactions.length > 0) {
+            // TODO: Create BankReconciliationItem records for auto-matching
+            logger.info(
+              {
+                tenantId: account.tenantId,
+                bankAccountId: account.id,
+                provider: account.apiProvider,
+                transactionCount: transactions.length,
+              },
+              `${LOG_PREFIX} [sync-bank-transactions] API account synced`,
+            );
+          }
+
+          // Update current balance from provider
+          const balance = await provider.getBalance(account.accountNumber);
+          await prisma.bankAccount.update({
+            where: { id: account.id },
+            data: {
+              currentBalance: balance.available,
+              balanceUpdatedAt: new Date(),
+            },
+          });
+
+          synced++;
+        } catch (apiSyncError) {
+          failed++;
+          logger.error(
+            {
+              bankAccountId: account.id,
+              tenantId: account.tenantId,
+              error: apiSyncError,
+            },
+            `${LOG_PREFIX} [sync-bank-transactions] API account sync failed`,
+          );
+        }
+      }
+    }
 
     // After syncing, run auto-reconcile on active (non-completed) reconciliations
     await this.runAutoReconcile();
