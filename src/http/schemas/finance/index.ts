@@ -17,3 +17,4 @@ export * from './email-to-entry.schema';
 export * from './supplier-summary.schema';
 export * from './suggest-category.schema';
 export * from './cashflow-alerts.schema';
+export * from './journal-entry.schema';
