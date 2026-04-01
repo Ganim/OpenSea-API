@@ -28,6 +28,7 @@ export class InMemoryBankAccountsRepository implements BankAccountsRepository {
       chartOfAccountId: data.chartOfAccountId,
       color: data.color,
       isDefault: data.isDefault ?? false,
+      apiEnabled: data.apiEnabled ?? false,
     });
 
     this.items.push(bankAccount);

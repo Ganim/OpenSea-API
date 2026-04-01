@@ -22,6 +22,7 @@ export interface BankAccountProps {
   balanceUpdatedAt?: Date;
   color?: string;
   isDefault: boolean;
+  apiEnabled: boolean;
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date;
@@ -163,6 +164,14 @@ export class BankAccount extends Entity<BankAccountProps> {
     this.touch();
   }
 
+  get apiEnabled(): boolean {
+    return this.props.apiEnabled;
+  }
+  set apiEnabled(value: boolean) {
+    this.props.apiEnabled = value;
+    this.touch();
+  }
+
   get createdAt(): Date {
     return this.props.createdAt;
   }
@@ -222,6 +231,7 @@ export class BankAccount extends Entity<BankAccountProps> {
       | 'status'
       | 'currentBalance'
       | 'isDefault'
+      | 'apiEnabled'
     >,
     id?: UniqueEntityID,
   ): BankAccount {
@@ -232,6 +242,7 @@ export class BankAccount extends Entity<BankAccountProps> {
         status: props.status ?? 'ACTIVE',
         currentBalance: props.currentBalance ?? 0,
         isDefault: props.isDefault ?? false,
+        apiEnabled: props.apiEnabled ?? false,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt,
         deletedAt: props.deletedAt,

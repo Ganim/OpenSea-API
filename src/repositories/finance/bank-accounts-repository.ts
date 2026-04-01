@@ -17,6 +17,7 @@ export interface CreateBankAccountSchema {
   chartOfAccountId?: string;
   color?: string;
   isDefault?: boolean;
+  apiEnabled?: boolean;
 }
 
 export interface UpdateBankAccountSchema {

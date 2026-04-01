@@ -43,7 +43,7 @@ describe('CreatePaymentOrderUseCase', () => {
       status: 'PENDING',
     });
 
-    // Create a bank account
+    // Create a bank account with API enabled
     const bankAccount = await bankAccountsRepository.create({
       tenantId: 'tenant-1',
       name: 'Main Account',
@@ -51,6 +51,7 @@ describe('CreatePaymentOrderUseCase', () => {
       agency: '3001',
       accountNumber: '123456',
       accountType: 'CHECKING',
+      apiEnabled: true,
     });
 
     const result = await sut.execute({
@@ -93,6 +94,7 @@ describe('CreatePaymentOrderUseCase', () => {
       agency: '3001',
       accountNumber: '123456',
       accountType: 'CHECKING',
+      apiEnabled: true,
     });
 
     const result = await sut.execute({
@@ -117,6 +119,7 @@ describe('CreatePaymentOrderUseCase', () => {
       agency: '3001',
       accountNumber: '123456',
       accountType: 'CHECKING',
+      apiEnabled: true,
     });
 
     await expect(
@@ -152,6 +155,7 @@ describe('CreatePaymentOrderUseCase', () => {
       agency: '3001',
       accountNumber: '123456',
       accountType: 'CHECKING',
+      apiEnabled: true,
     });
 
     await expect(
@@ -187,6 +191,7 @@ describe('CreatePaymentOrderUseCase', () => {
       agency: '3001',
       accountNumber: '123456',
       accountType: 'CHECKING',
+      apiEnabled: true,
     });
 
     await expect(
@@ -228,6 +233,43 @@ describe('CreatePaymentOrderUseCase', () => {
     ).rejects.toThrow(ResourceNotFoundError);
   });
 
+  it('should reject if bank account has no API integration enabled', async () => {
+    const entry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAY-007',
+      description: 'Payment',
+      categoryId: 'category-1',
+      expectedAmount: 1000,
+      issueDate: new Date('2026-01-01'),
+      dueDate: new Date('2026-02-01'),
+      status: 'PENDING',
+    });
+
+    // Bank account with apiEnabled: false (default)
+    const bankAccount = await bankAccountsRepository.create({
+      tenantId: 'tenant-1',
+      name: 'Account Without API',
+      bankCode: '756',
+      agency: '3001',
+      accountNumber: '123456',
+      accountType: 'CHECKING',
+      apiEnabled: false,
+    });
+
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        entryId: entry.id.toString(),
+        bankAccountId: bankAccount.id.toString(),
+        method: 'PIX',
+        amount: 1000,
+        recipientData: {},
+        requestedById: 'user-1',
+      }),
+    ).rejects.toThrow(BadRequestError);
+  });
+
   it('should reject if bank account is inactive', async () => {
     const entry = await entriesRepository.create({
       tenantId: 'tenant-1',
@@ -248,6 +290,7 @@ describe('CreatePaymentOrderUseCase', () => {
       agency: '3001',
       accountNumber: '123456',
       accountType: 'CHECKING',
+      apiEnabled: true,
     });
 
     // Manually set to inactive

@@ -75,6 +75,13 @@ export class CreatePaymentOrderUseCase {
       throw new BadRequestError('Bank account is not active');
     }
 
+    // Validate bank account has API integration enabled
+    if (!bankAccount.apiEnabled) {
+      throw new BadRequestError(
+        'A conta bancária não possui integração bancária habilitada. Configure a API do banco antes de solicitar pagamentos.',
+      );
+    }
+
     // Create payment order with PENDING_APPROVAL status
     const order = await this.paymentOrdersRepository.create({
       tenantId,
