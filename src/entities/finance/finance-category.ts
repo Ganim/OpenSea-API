@@ -12,6 +12,7 @@ export interface FinanceCategoryProps {
   color?: string;
   type: string;
   parentId?: UniqueEntityID;
+  chartOfAccountId?: string;
   displayOrder: number;
   isActive: boolean;
   isSystem: boolean;
@@ -83,6 +84,14 @@ export class FinanceCategory extends Entity<FinanceCategoryProps> {
   }
   set parentId(value: UniqueEntityID | undefined) {
     this.props.parentId = value;
+    this.touch();
+  }
+
+  get chartOfAccountId(): string | undefined {
+    return this.props.chartOfAccountId;
+  }
+  set chartOfAccountId(value: string | undefined) {
+    this.props.chartOfAccountId = value;
     this.touch();
   }
 

@@ -17,6 +17,7 @@ export interface BankAccountProps {
   status: string;
   pixKeyType?: string;
   pixKey?: string;
+  chartOfAccountId?: string;
   currentBalance: number;
   balanceUpdatedAt?: Date;
   color?: string;
@@ -123,6 +124,14 @@ export class BankAccount extends Entity<BankAccountProps> {
   }
   set pixKey(value: string | undefined) {
     this.props.pixKey = value;
+    this.touch();
+  }
+
+  get chartOfAccountId(): string | undefined {
+    return this.props.chartOfAccountId;
+  }
+  set chartOfAccountId(value: string | undefined) {
+    this.props.chartOfAccountId = value;
     this.touch();
   }
 

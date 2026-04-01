@@ -31,6 +31,7 @@ export class InMemoryFinanceEntriesRepository
       description: data.description,
       notes: data.notes,
       categoryId: new UniqueEntityID(data.categoryId),
+      chartOfAccountId: data.chartOfAccountId,
       companyId: data.companyId
         ? new UniqueEntityID(data.companyId)
         : undefined,

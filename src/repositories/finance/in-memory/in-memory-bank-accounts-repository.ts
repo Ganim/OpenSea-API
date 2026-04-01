@@ -25,6 +25,7 @@ export class InMemoryBankAccountsRepository implements BankAccountsRepository {
       accountType: data.accountType,
       pixKeyType: data.pixKeyType,
       pixKey: data.pixKey,
+      chartOfAccountId: data.chartOfAccountId,
       color: data.color,
       isDefault: data.isDefault ?? false,
     });

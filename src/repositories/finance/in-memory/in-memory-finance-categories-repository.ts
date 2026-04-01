@@ -21,6 +21,7 @@ export class InMemoryFinanceCategoriesRepository
       color: data.color,
       type: data.type,
       parentId: data.parentId ? new UniqueEntityID(data.parentId) : undefined,
+      chartOfAccountId: data.chartOfAccountId,
       displayOrder: data.displayOrder ?? 0,
       isActive: data.isActive ?? true,
       isSystem: data.isSystem ?? false,
