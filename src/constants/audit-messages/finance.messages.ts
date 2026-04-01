@@ -79,6 +79,14 @@ export const FINANCE_AUDIT_MESSAGES = {
     description: '{{userName}} excluiu a conta bancária {{bankAccountName}}',
   } satisfies AuditMessage,
 
+  BANK_ACCOUNT_API_CONFIG_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.BANK_ACCOUNT,
+    module: AuditModule.FINANCE,
+    description:
+      '{{userName}} atualizou as credenciais de API da conta bancária {{bankAccountName}}',
+  } satisfies AuditMessage,
+
   // ============================================================================
   // FINANCE CATEGORIES - Categorias Financeiras
   // ============================================================================

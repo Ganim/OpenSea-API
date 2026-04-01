@@ -60,3 +60,13 @@ export const bankAccountResponseSchema = z.object({
 export const updateBankAccountSchema = createBankAccountSchema
   .omit({ companyId: true })
   .partial();
+
+export const updateBankAccountApiConfigSchema = z.object({
+  apiProvider: z.string().max(32),
+  apiClientId: z.string().max(256),
+  apiCertFileId: z.string().uuid().optional(),
+  apiCertKeyFileId: z.string().uuid().optional(),
+  apiScopes: z.string().max(512).optional(),
+  apiWebhookSecret: z.string().max(256).optional(),
+  apiEnabled: z.boolean(),
+});
