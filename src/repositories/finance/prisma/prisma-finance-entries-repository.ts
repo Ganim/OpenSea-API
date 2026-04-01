@@ -554,7 +554,7 @@ export class PrismaFinanceEntriesRepository
           : String(r.date),
       total:
         r.total !== null && r.total !== undefined
-          ? parseFloat(Number(r.total).toFixed(2))
+          ? Number(parseFloat(String(r.total)).toFixed(2))
           : 0,
     }));
   }
@@ -599,7 +599,7 @@ export class PrismaFinanceEntriesRepository
       categoryName: r.categoryName,
       total:
         r.total !== null && r.total !== undefined
-          ? parseFloat(Number(r.total).toFixed(2))
+          ? Number(parseFloat(String(r.total)).toFixed(2))
           : 0,
     }));
   }
@@ -644,7 +644,7 @@ export class PrismaFinanceEntriesRepository
       costCenterName: r.costCenterName,
       total:
         r.total !== null && r.total !== undefined
-          ? parseFloat(Number(r.total).toFixed(2))
+          ? Number(parseFloat(String(r.total)).toFixed(2))
           : 0,
     }));
   }
@@ -694,7 +694,7 @@ export class PrismaFinanceEntriesRepository
       total:
         result._sum.expectedAmount !== null &&
         result._sum.expectedAmount !== undefined
-          ? parseFloat(Number(result._sum.expectedAmount).toFixed(2))
+          ? Number(parseFloat(String(result._sum.expectedAmount)).toFixed(2))
           : 0,
       count: result._count.id,
     };
@@ -728,7 +728,7 @@ export class PrismaFinanceEntriesRepository
       name: r.name,
       total:
         r.total !== null && r.total !== undefined
-          ? parseFloat(Number(r.total).toFixed(2))
+          ? Number(parseFloat(String(r.total)).toFixed(2))
           : 0,
       count: Number(r.count),
       oldestDueDate: r.oldestDueDate,
@@ -763,7 +763,7 @@ export class PrismaFinanceEntriesRepository
       name: r.name,
       total:
         r.total !== null && r.total !== undefined
-          ? parseFloat(Number(r.total).toFixed(2))
+          ? Number(parseFloat(String(r.total)).toFixed(2))
           : 0,
       count: Number(r.count),
       oldestDueDate: r.oldestDueDate,
