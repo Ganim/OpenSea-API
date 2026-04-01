@@ -8,6 +8,7 @@ import { listPaymentOrdersController } from './v1-list-payment-orders.controller
 import { getPaymentOrderController } from './v1-get-payment-order.controller';
 import { approvePaymentOrderController } from './v1-approve-payment-order.controller';
 import { rejectPaymentOrderController } from './v1-reject-payment-order.controller';
+import { getPaymentReceiptController } from './v1-get-payment-receipt.controller';
 
 export async function paymentOrdersRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
@@ -18,6 +19,7 @@ export async function paymentOrdersRoutes(app: FastifyInstance) {
       queryApp.register(rateLimit, rateLimitConfig.query);
       queryApp.register(listPaymentOrdersController);
       queryApp.register(getPaymentOrderController);
+      queryApp.register(getPaymentReceiptController);
     },
     { prefix: '' },
   );

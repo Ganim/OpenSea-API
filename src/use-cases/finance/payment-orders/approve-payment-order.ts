@@ -10,6 +10,7 @@ import type {
   PaymentOrderRecord,
   PaymentOrdersRepository,
 } from '@/repositories/finance/payment-orders-repository';
+import type { GeneratePaymentReceiptUseCase } from './generate-payment-receipt';
 
 interface ApprovePaymentOrderRequest {
   orderId: string;
@@ -29,6 +30,7 @@ export class ApprovePaymentOrderUseCase {
       bankAccountId: string,
       tenantId: string,
     ) => Promise<BankingProvider>,
+    private generatePaymentReceipt?: GeneratePaymentReceiptUseCase,
   ) {}
 
   async execute(
@@ -144,6 +146,23 @@ export class ApprovePaymentOrderUseCase {
       actualAmount: order.amount,
       paymentDate: new Date(),
     });
+
+    // Generate receipt PDF (non-blocking — failure does not abort the approval)
+    if (this.generatePaymentReceipt) {
+      try {
+        const receiptResult = await this.generatePaymentReceipt.execute({
+          tenantId,
+          orderId,
+        });
+        await this.paymentOrdersRepository.update({
+          id: new UniqueEntityID(orderId),
+          tenantId,
+          receiptFileId: receiptResult.receiptFileId,
+        });
+      } catch {
+        // Don't fail the approval if receipt generation fails
+      }
+    }
 
     return { order: completedOrder! };
   }
