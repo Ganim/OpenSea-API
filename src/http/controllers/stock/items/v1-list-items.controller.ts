@@ -33,6 +33,8 @@ export async function listItemsController(app: FastifyInstance) {
         manufacturerId: z.uuid().optional(),
         zoneId: z.uuid().optional(),
         hideEmpty: z.coerce.boolean().optional(),
+        updatedFrom: z.coerce.date().optional(),
+        updatedTo: z.coerce.date().optional(),
         sortBy: z
           .enum([
             'name',
@@ -71,6 +73,8 @@ export async function listItemsController(app: FastifyInstance) {
         manufacturerId,
         zoneId,
         hideEmpty,
+        updatedFrom,
+        updatedTo,
         sortBy,
         sortOrder,
         page,
@@ -88,6 +92,8 @@ export async function listItemsController(app: FastifyInstance) {
         manufacturerId,
         zoneId,
         hideEmpty,
+        updatedFrom,
+        updatedTo,
         sortBy,
         sortOrder,
         page,

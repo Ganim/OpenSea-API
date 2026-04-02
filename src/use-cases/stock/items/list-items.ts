@@ -18,6 +18,8 @@ interface ListItemsUseCaseRequest {
   manufacturerId?: string;
   zoneId?: string;
   hideEmpty?: boolean;
+  updatedFrom?: Date;
+  updatedTo?: Date;
   sortBy?: string;
   sortOrder?: 'asc' | 'desc';
   page?: number;
@@ -113,6 +115,8 @@ export class ListItemsUseCase {
     if (input.zoneId) filters.zoneId = input.zoneId;
     if (input.status) filters.status = input.status;
     if (input.hideEmpty) filters.hideEmpty = input.hideEmpty;
+    if (input.updatedFrom) filters.updatedFrom = input.updatedFrom;
+    if (input.updatedTo) filters.updatedTo = input.updatedTo;
     if (input.sortBy) filters.sortBy = input.sortBy;
     if (input.sortOrder) filters.sortOrder = input.sortOrder;
 

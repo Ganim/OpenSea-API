@@ -35,8 +35,12 @@ export interface ItemDTO {
   productAttributes?: Record<string, unknown>;
   variantAttributes?: Record<string, unknown>;
   variantColorHex?: string;
+  variantReference?: string;
   manufacturerName?: string;
   productId?: string;
+  templateProductAttributes?: Record<string, unknown>;
+  templateVariantAttributes?: Record<string, unknown>;
+  templateItemAttributes?: Record<string, unknown>;
   bin?: {
     id: string;
     address: string;
@@ -84,8 +88,12 @@ export function itemToDTO(item: Item, relatedData?: ItemRelatedData): ItemDTO {
     productAttributes: relatedData?.productAttributes,
     variantAttributes: relatedData?.variantAttributes,
     variantColorHex: relatedData?.variantColorHex,
+    variantReference: relatedData?.variantReference ?? undefined,
     manufacturerName: relatedData?.manufacturerName,
     productId: relatedData?.productId,
+    templateProductAttributes: relatedData?.templateProductAttributes,
+    templateVariantAttributes: relatedData?.templateVariantAttributes,
+    templateItemAttributes: relatedData?.templateItemAttributes,
     bin:
       relatedData?.binId &&
       relatedData?.binAddress &&

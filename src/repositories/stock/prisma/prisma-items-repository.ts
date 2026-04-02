@@ -65,6 +65,9 @@ export interface ItemWithRelations {
       template: {
         name: string;
         unitOfMeasure: string;
+        productAttributes: object;
+        variantAttributes: object;
+        itemAttributes: object;
       } | null;
       manufacturer: {
         name: string;
@@ -112,6 +115,9 @@ export class PrismaItemsRepository implements ItemsRepository {
       variantPattern: itemData.variant.pattern ?? undefined,
       manufacturerName: itemData.variant.product.manufacturer?.name,
       productId: itemData.variant.product.id,
+      templateProductAttributes: itemData.variant.product.template?.productAttributes as Record<string, unknown> | undefined,
+      templateVariantAttributes: itemData.variant.product.template?.variantAttributes as Record<string, unknown> | undefined,
+      templateItemAttributes: itemData.variant.product.template?.itemAttributes as Record<string, unknown> | undefined,
     };
   }
 
@@ -240,6 +246,13 @@ export class PrismaItemsRepository implements ItemsRepository {
         zone: {
           id: filters.zoneId,
         },
+      };
+    }
+
+    if (filters?.updatedFrom || filters?.updatedTo) {
+      where.updatedAt = {
+        ...(filters.updatedFrom ? { gte: filters.updatedFrom } : {}),
+        ...(filters.updatedTo ? { lte: filters.updatedTo } : {}),
       };
     }
 

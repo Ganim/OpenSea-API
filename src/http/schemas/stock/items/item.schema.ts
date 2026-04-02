@@ -66,8 +66,12 @@ export const itemResponseSchema = z.object({
   productAttributes: z.record(z.string(), z.unknown()).optional(),
   variantAttributes: z.record(z.string(), z.unknown()).optional(),
   variantColorHex: z.string().optional(),
+  variantReference: z.string().optional(),
   manufacturerName: z.string().optional(),
   productId: z.string().uuid().optional(),
+  templateProductAttributes: z.record(z.string(), z.unknown()).optional(),
+  templateVariantAttributes: z.record(z.string(), z.unknown()).optional(),
+  templateItemAttributes: z.record(z.string(), z.unknown()).optional(),
   bin: z
     .object({
       id: z.string(),

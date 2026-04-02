@@ -26,6 +26,9 @@ export interface ItemRelatedData {
   variantPattern?: string;
   manufacturerName?: string;
   productId?: string;
+  templateProductAttributes?: Record<string, unknown>;
+  templateVariantAttributes?: Record<string, unknown>;
+  templateItemAttributes?: Record<string, unknown>;
 }
 
 export interface ItemWithRelationsDTO {
@@ -74,6 +77,8 @@ export interface ItemListFilters {
   zoneId?: string;
   status?: string;
   hideEmpty?: boolean;
+  updatedFrom?: Date;
+  updatedTo?: Date;
   sortBy?: string;
   sortOrder?: 'asc' | 'desc';
 }
