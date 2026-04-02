@@ -35,7 +35,10 @@ export class InMemoryWorkflowsRepository implements WorkflowsRepository {
     return workflow;
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<Workflow | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Workflow | null> {
     const workflow = this.items.find(
       (item) =>
         !item.deletedAt &&
@@ -45,7 +48,10 @@ export class InMemoryWorkflowsRepository implements WorkflowsRepository {
     return workflow ?? null;
   }
 
-  async findByTrigger(trigger: WorkflowTriggerType, tenantId: string): Promise<Workflow[]> {
+  async findByTrigger(
+    trigger: WorkflowTriggerType,
+    tenantId: string,
+  ): Promise<Workflow[]> {
     return this.items.filter(
       (item) =>
         !item.deletedAt &&
@@ -55,10 +61,16 @@ export class InMemoryWorkflowsRepository implements WorkflowsRepository {
     );
   }
 
-  async findMany(page: number, perPage: number, tenantId: string): Promise<Workflow[]> {
+  async findMany(
+    page: number,
+    perPage: number,
+    tenantId: string,
+  ): Promise<Workflow[]> {
     const start = (page - 1) * perPage;
     return this.items
-      .filter((item) => !item.deletedAt && item.tenantId.toString() === tenantId)
+      .filter(
+        (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
+      )
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
       .slice(start, start + perPage);
   }

@@ -1,6 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { FinanceApprovalRule } from '@/entities/finance/finance-approval-rule';
 import { InMemoryFinanceApprovalRulesRepository } from '@/repositories/finance/in-memory/in-memory-finance-approval-rules-repository';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
 import { EvaluateAutoApprovalUseCase } from './evaluate-auto-approval';
@@ -314,10 +313,7 @@ describe('EvaluateAutoApprovalUseCase', () => {
       tenantId: TENANT_ID,
     });
 
-    const updated = await approvalRulesRepo.findById(
-      rule.id,
-      TENANT_ID,
-    );
+    const updated = await approvalRulesRepo.findById(rule.id, TENANT_ID);
     expect(updated?.appliedCount).toBe(1);
   });
 });

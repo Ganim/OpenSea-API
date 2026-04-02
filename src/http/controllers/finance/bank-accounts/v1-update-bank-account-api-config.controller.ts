@@ -16,7 +16,9 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-export async function updateBankAccountApiConfigController(app: FastifyInstance) {
+export async function updateBankAccountApiConfigController(
+  app: FastifyInstance,
+) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
     url: '/v1/finance/bank-accounts/:id/api-config',
@@ -46,10 +48,11 @@ export async function updateBankAccountApiConfigController(app: FastifyInstance)
       const { id } = request.params as { id: string };
 
       try {
-        const { bankAccount: oldBankAccount } = await makeGetBankAccountByIdUseCase().execute({
-          tenantId,
-          id,
-        });
+        const { bankAccount: oldBankAccount } =
+          await makeGetBankAccountByIdUseCase().execute({
+            tenantId,
+            id,
+          });
 
         const useCase = makeUpdateBankAccountApiConfigUseCase();
         const result = await useCase.execute({
@@ -62,7 +65,10 @@ export async function updateBankAccountApiConfigController(app: FastifyInstance)
         await logAudit(request, {
           message: AUDIT_MESSAGES.FINANCE.BANK_ACCOUNT_API_CONFIG_UPDATE,
           entityId: id,
-          placeholders: { userName: userId, bankAccountName: result.bankAccount.name },
+          placeholders: {
+            userName: userId,
+            bankAccountName: result.bankAccount.name,
+          },
           oldData: { apiProvider: oldBankAccount.name },
           newData: {
             apiProvider: request.body.apiProvider,

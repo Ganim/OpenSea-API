@@ -48,12 +48,19 @@ export async function previewMsgTemplateController(app: FastifyInstance) {
 
       try {
         const useCase = makePreviewMessageTemplateUseCase();
-        const previewResult = await useCase.execute({ tenantId, id, sampleData });
+        const previewResult = await useCase.execute({
+          tenantId,
+          id,
+          sampleData,
+        });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.MESSAGE_TEMPLATE_PREVIEW,
           entityId: id,
-          placeholders: { templateName: previewResult.templateName, userName: request.user.sub },
+          placeholders: {
+            templateName: previewResult.templateName,
+            userName: request.user.sub,
+          },
         });
 
         return reply.status(200).send(previewResult);

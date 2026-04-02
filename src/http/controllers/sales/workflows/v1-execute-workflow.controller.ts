@@ -46,7 +46,11 @@ export async function executeWorkflowController(app: FastifyInstance) {
 
       try {
         const useCase = makeExecuteWorkflowUseCase();
-        const executionResult = await useCase.execute({ tenantId, trigger, context });
+        const executionResult = await useCase.execute({
+          tenantId,
+          trigger,
+          context,
+        });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.WORKFLOW_EXECUTE,
@@ -56,10 +60,13 @@ export async function executeWorkflowController(app: FastifyInstance) {
             userName: request.user.sub,
             trigger,
           },
-          newData: { trigger, totalExecuted: executionResult.totalWorkflowsExecuted },
+          newData: {
+            trigger,
+            totalExecuted: executionResult.totalWorkflowsExecuted,
+          },
         });
 
-        return reply.status(200).send(executionResult as any);
+        return reply.status(200).send(executionResult as unknown);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

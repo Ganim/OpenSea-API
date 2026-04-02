@@ -21,10 +21,7 @@ export interface CreateEsocialBatchData {
 
 export interface EsocialBatchesRepository {
   create(data: CreateEsocialBatchData): Promise<EsocialBatch>;
-  findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<EsocialBatch | null>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<EsocialBatch | null>;
   findMany(
     params: FindManyEsocialBatchesParams,
   ): Promise<FindManyEsocialBatchesResult>;

@@ -53,7 +53,7 @@ export async function batchPredictController(app: FastifyInstance) {
         },
       });
 
-      return reply.status(200).send(result as any);
+      return reply.status(200).send(result as unknown);
     },
   });
 }

@@ -28,6 +28,7 @@ import { compressFilesController } from './v1-compress-files.controller';
 import { decompressFileController } from './v1-decompress-file.controller';
 import { createServeTokenController } from './v1-create-serve-token.controller';
 import { serveFileController } from './v1-serve-file.controller';
+import { previewFileProtectedController } from './v1-preview-file-protected.controller';
 
 export async function storageFilesRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('STORAGE'));
@@ -92,6 +93,7 @@ export async function storageFilesRoutes(app: FastifyInstance) {
       queryApp.register(getStorageStatsController);
       queryApp.register(searchStorageController);
       queryApp.register(serveFileController);
+      queryApp.register(previewFileProtectedController);
     },
     { prefix: '' },
   );

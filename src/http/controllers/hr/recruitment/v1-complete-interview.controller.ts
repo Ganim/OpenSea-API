@@ -5,8 +5,11 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { completeInterviewSchema, interviewResponseSchema } from '@/http/schemas/hr/recruitment';
-import { idSchema } from '@/http/schemas/common.schema';
+import {
+  completeInterviewSchema,
+  interviewResponseSchema,
+} from '@/http/schemas/hr/recruitment';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { interviewToDTO } from '@/mappers/hr/interview';
 import { makeCompleteInterviewUseCase } from '@/use-cases/hr/interviews/factories';
 import type { FastifyInstance } from 'fastify';
@@ -17,14 +20,26 @@ export async function v1CompleteInterviewController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
     url: '/v1/hr/recruitment/interviews/:interviewId/complete',
-    preHandler: [verifyJwt, verifyTenant, createPermissionMiddleware({ permissionCode: PermissionCodes.HR.RECRUITMENT.MODIFY, resource: 'recruitment' })],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.RECRUITMENT.MODIFY,
+        resource: 'recruitment',
+      }),
+    ],
     schema: {
       tags: ['HR - Recruitment'],
       summary: 'Complete interview',
-      description: 'Completes an interview with feedback, rating, and recommendation',
-      params: z.object({ interviewId: idSchema }),
+      description:
+        'Completes an interview with feedback, rating, and recommendation',
+      params: z.object({ interviewId: cuidSchema }),
       body: completeInterviewSchema,
-      response: { 200: z.object({ interview: interviewResponseSchema }), 400: z.object({ message: z.string() }), 404: z.object({ message: z.string() }) },
+      response: {
+        200: z.object({ interview: interviewResponseSchema }),
+        400: z.object({ message: z.string() }),
+        404: z.object({ message: z.string() }),
+      },
       security: [{ bearerAuth: [] }],
     },
     handler: async (request, reply) => {
@@ -33,12 +48,26 @@ export async function v1CompleteInterviewController(app: FastifyInstance) {
       const data = request.body;
       try {
         const useCase = makeCompleteInterviewUseCase();
-        const { interview } = await useCase.execute({ tenantId, interviewId, ...data });
-        await logAudit(request, { message: AUDIT_MESSAGES.HR.INTERVIEW_COMPLETE, entityId: interview.id.toString(), placeholders: { userName: request.user.sub, recommendation: interview.recommendation ?? '' }, newData: data as Record<string, unknown> });
+        const { interview } = await useCase.execute({
+          tenantId,
+          interviewId,
+          ...data,
+        });
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.HR.INTERVIEW_COMPLETE,
+          entityId: interview.id.toString(),
+          placeholders: {
+            userName: request.user.sub,
+            recommendation: interview.recommendation ?? '',
+          },
+          newData: data as Record<string, unknown>,
+        });
         return reply.status(200).send({ interview: interviewToDTO(interview) });
       } catch (error) {
-        if (error instanceof ResourceNotFoundError) return reply.status(404).send({ message: error.message });
-        if (error instanceof Error) return reply.status(400).send({ message: error.message });
+        if (error instanceof ResourceNotFoundError)
+          return reply.status(404).send({ message: error.message });
+        if (error instanceof Error)
+          return reply.status(400).send({ message: error.message });
         throw error;
       }
     },

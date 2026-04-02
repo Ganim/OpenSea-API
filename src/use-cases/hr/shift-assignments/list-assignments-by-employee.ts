@@ -11,9 +11,7 @@ export interface ListAssignmentsByEmployeeResponse {
 }
 
 export class ListAssignmentsByEmployeeUseCase {
-  constructor(
-    private shiftAssignmentsRepository: ShiftAssignmentsRepository,
-  ) {}
+  constructor(private shiftAssignmentsRepository: ShiftAssignmentsRepository) {}
 
   async execute(
     request: ListAssignmentsByEmployeeRequest,

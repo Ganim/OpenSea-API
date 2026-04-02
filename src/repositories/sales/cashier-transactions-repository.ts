@@ -13,6 +13,10 @@ export interface CreateCashierTransactionSchema {
 export interface CashierTransactionsRepository {
   create(data: CreateCashierTransactionSchema): Promise<CashierTransaction>;
   findBySessionId(sessionId: UniqueEntityID): Promise<CashierTransaction[]>;
-  findMany(page: number, perPage: number, sessionId: UniqueEntityID): Promise<CashierTransaction[]>;
+  findMany(
+    page: number,
+    perPage: number,
+    sessionId: UniqueEntityID,
+  ): Promise<CashierTransaction[]>;
   countBySessionId(sessionId: UniqueEntityID): Promise<number>;
 }

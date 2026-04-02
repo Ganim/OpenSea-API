@@ -21,9 +21,7 @@ export interface CreateRubricaResponse {
 export class CreateRubricaUseCase {
   constructor(private rubricasRepository: EsocialRubricasRepository) {}
 
-  async execute(
-    request: CreateRubricaRequest,
-  ): Promise<CreateRubricaResponse> {
+  async execute(request: CreateRubricaRequest): Promise<CreateRubricaResponse> {
     // Validate type
     if (![1, 2, 3].includes(request.type)) {
       throw new BadRequestError(

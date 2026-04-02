@@ -16,17 +16,13 @@ export async function verifyAccountant(request: FastifyRequest) {
   const authHeader = request.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    throw new UnauthorizedError(
-      'Token de acesso do contador não fornecido.',
-    );
+    throw new UnauthorizedError('Token de acesso do contador não fornecido.');
   }
 
   const rawToken = authHeader.slice(7); // Remove 'Bearer '
 
   if (!rawToken) {
-    throw new UnauthorizedError(
-      'Token de acesso do contador inválido.',
-    );
+    throw new UnauthorizedError('Token de acesso do contador inválido.');
   }
 
   const repository = new PrismaAccountantAccessesRepository();

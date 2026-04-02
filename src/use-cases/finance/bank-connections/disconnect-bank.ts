@@ -9,9 +9,7 @@ interface DisconnectBankUseCaseRequest {
 }
 
 export class DisconnectBankUseCase {
-  constructor(
-    private bankConnectionsRepository: BankConnectionsRepository,
-  ) {}
+  constructor(private bankConnectionsRepository: BankConnectionsRepository) {}
 
   async execute(request: DisconnectBankUseCaseRequest): Promise<void> {
     const { tenantId, connectionId } = request;

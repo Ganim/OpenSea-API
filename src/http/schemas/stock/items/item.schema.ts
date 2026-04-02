@@ -52,6 +52,7 @@ export const itemResponseSchema = z.object({
   batchNumber: z.string().optional(),
   manufacturingDate: z.coerce.date().optional(),
   expiryDate: z.coerce.date().optional(),
+  exitMovementType: z.string().nullable().optional(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date().optional(),
   deletedAt: z.coerce.date().optional(),

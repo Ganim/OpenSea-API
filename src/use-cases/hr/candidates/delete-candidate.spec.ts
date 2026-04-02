@@ -26,10 +26,7 @@ describe('Delete Candidate Use Case', () => {
       candidateId: created.id.toString(),
     });
 
-    const found = await candidatesRepository.findById(
-      created.id,
-      tenantId,
-    );
+    const found = await candidatesRepository.findById(created.id, tenantId);
     expect(found).toBeNull();
   });
 });

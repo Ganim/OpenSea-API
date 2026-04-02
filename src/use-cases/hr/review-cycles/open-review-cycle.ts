@@ -31,9 +31,7 @@ export class OpenReviewCycleUseCase {
     }
 
     if (reviewCycle.status !== 'DRAFT') {
-      throw new BadRequestError(
-        'Apenas ciclos em rascunho podem ser abertos',
-      );
+      throw new BadRequestError('Apenas ciclos em rascunho podem ser abertos');
     }
 
     const updatedCycle = await this.reviewCyclesRepository.update({

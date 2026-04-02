@@ -10,7 +10,7 @@ import {
   performanceReviewResponseSchema,
   submitSelfAssessmentSchema,
 } from '@/http/schemas/hr/reviews';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { performanceReviewToDTO } from '@/mappers/hr/performance-review';
 import { makeSubmitSelfAssessmentUseCase } from '@/use-cases/hr/performance-reviews/factories/make-submit-self-assessment-use-case';
 
@@ -34,7 +34,7 @@ export async function v1SubmitSelfAssessmentController(app: FastifyInstance) {
       tags: ['HR - Reviews'],
       summary: 'Submit self assessment',
       description: 'Submits an employee self assessment',
-      params: z.object({ performanceReviewId: idSchema }),
+      params: z.object({ performanceReviewId: cuidSchema }),
       body: submitSelfAssessmentSchema,
       response: {
         200: z.object({ review: performanceReviewResponseSchema }),

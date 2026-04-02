@@ -89,7 +89,7 @@ export async function validateCouponController(app: FastifyInstance) {
               isActive: coupon.isActive,
               campaignId: null,
               aiGenerated: false,
-            aiReason: null,
+              aiReason: null,
               customerId: null,
               targetIds: [],
               createdAt: coupon.createdAt,

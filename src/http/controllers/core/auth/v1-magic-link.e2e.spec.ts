@@ -51,7 +51,9 @@ describe('Magic Link (E2E)', () => {
       password: 'Pass@123',
     });
 
-    const user = await prisma.user.findFirst({ where: { email, deletedAt: null } });
+    const user = await prisma.user.findFirst({
+      where: { email, deletedAt: null },
+    });
     expect(user).toBeTruthy();
 
     // Generate a raw token and its hash
@@ -92,7 +94,9 @@ describe('Magic Link (E2E)', () => {
       password: 'Pass@123',
     });
 
-    const user = await prisma.user.findFirst({ where: { email, deletedAt: null } });
+    const user = await prisma.user.findFirst({
+      where: { email, deletedAt: null },
+    });
     expect(user).toBeTruthy();
 
     // Create expired token
@@ -128,7 +132,9 @@ describe('Magic Link (E2E)', () => {
       password: 'Pass@123',
     });
 
-    const user = await prisma.user.findFirst({ where: { email, deletedAt: null } });
+    const user = await prisma.user.findFirst({
+      where: { email, deletedAt: null },
+    });
     expect(user).toBeTruthy();
 
     // Create already-used token

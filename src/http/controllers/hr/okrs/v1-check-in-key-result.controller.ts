@@ -4,7 +4,7 @@ import {
   checkInKeyResultSchema,
   okrCheckInResponseSchema,
 } from '@/http/schemas/hr/okrs';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { okrCheckInToDTO } from '@/mappers/hr/okr-check-in';
 import { makeCheckInKeyResultUseCase } from '@/use-cases/hr/okrs/factories';
 
@@ -22,7 +22,7 @@ export async function v1CheckInKeyResultController(app: FastifyInstance) {
       summary: 'Check-in on a key result',
       description:
         'Creates a check-in, updates the current value, and recalculates objective progress',
-      params: z.object({ keyResultId: idSchema }),
+      params: z.object({ keyResultId: cuidSchema }),
       body: checkInKeyResultSchema,
       response: {
         201: okrCheckInResponseSchema,

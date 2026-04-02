@@ -30,9 +30,7 @@ export class UnpublishFormUseCase {
     }
 
     if (form.status !== 'PUBLISHED') {
-      throw new BadRequestError(
-        'Only published forms can be unpublished.',
-      );
+      throw new BadRequestError('Only published forms can be unpublished.');
     }
 
     form.unpublish();

@@ -3,7 +3,11 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema, queryBooleanSchema } from '../../common.schema';
+import {
+  cuidSchema,
+  dateSchema,
+  queryBooleanSchema,
+} from '../../common.schema';
 
 const trainingCategoryEnum = z.enum([
   'ONBOARDING',
@@ -64,7 +68,7 @@ export const listTrainingProgramsQuerySchema = z.object({
  * Schema para resposta de programa de treinamento
  */
 export const trainingProgramResponseSchema = z.object({
-  id: idSchema,
+  id: cuidSchema,
   name: z.string(),
   description: z.string().nullable(),
   category: z.string(),

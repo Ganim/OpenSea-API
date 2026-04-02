@@ -22,18 +22,19 @@ export class ListReviewCyclesUseCase {
   async execute(
     request: ListReviewCyclesRequest,
   ): Promise<ListReviewCyclesResponse> {
-    const { tenantId, type, status, isActive, search, page, perPage } =
-      request;
+    const { tenantId, type, status, isActive, search, page, perPage } = request;
 
-    const { reviewCycles, total } =
-      await this.reviewCyclesRepository.findMany(tenantId, {
+    const { reviewCycles, total } = await this.reviewCyclesRepository.findMany(
+      tenantId,
+      {
         type,
         status,
         isActive,
         search,
         page,
         perPage,
-      });
+      },
+    );
 
     return { reviewCycles, total };
   }

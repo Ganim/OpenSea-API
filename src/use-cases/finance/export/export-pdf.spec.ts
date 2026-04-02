@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 // Mock pdfkit — simulate stream events without actually rendering PDF
 vi.mock('pdfkit', () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const EventEmitter = require('node:events');
 
   class MockPDFDocument extends EventEmitter {

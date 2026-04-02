@@ -1,6 +1,9 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
-import { MessageTemplate, type MessageChannelType } from '@/entities/sales/message-template';
+import {
+  MessageTemplate,
+  type MessageChannelType,
+} from '@/entities/sales/message-template';
 import { prisma } from '@/lib/prisma';
 import type { MessageChannel } from '@prisma/generated/client.js';
 import type {
@@ -32,9 +35,12 @@ function mapToDomain(data: Record<string, unknown>): MessageTemplate {
   );
 }
 
-export class PrismaMessageTemplatesRepository implements MessageTemplatesRepository {
+export class PrismaMessageTemplatesRepository
+  implements MessageTemplatesRepository
+{
   async create(data: CreateMessageTemplateSchema): Promise<MessageTemplate> {
-    const variables = data.variables ?? MessageTemplate.extractVariables(data.body);
+    const variables =
+      data.variables ?? MessageTemplate.extractVariables(data.body);
 
     const templateData = await prisma.messageTemplate.create({
       data: {
@@ -52,7 +58,10 @@ export class PrismaMessageTemplatesRepository implements MessageTemplatesReposit
     return mapToDomain(templateData as unknown as Record<string, unknown>);
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<MessageTemplate | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<MessageTemplate | null> {
     const templateData = await prisma.messageTemplate.findFirst({
       where: { id: id.toString(), tenantId, deletedAt: null },
     });
@@ -61,7 +70,10 @@ export class PrismaMessageTemplatesRepository implements MessageTemplatesReposit
     return mapToDomain(templateData as unknown as Record<string, unknown>);
   }
 
-  async findByName(name: string, tenantId: string): Promise<MessageTemplate | null> {
+  async findByName(
+    name: string,
+    tenantId: string,
+  ): Promise<MessageTemplate | null> {
     const templateData = await prisma.messageTemplate.findFirst({
       where: { name, tenantId, deletedAt: null },
     });
@@ -70,7 +82,11 @@ export class PrismaMessageTemplatesRepository implements MessageTemplatesReposit
     return mapToDomain(templateData as unknown as Record<string, unknown>);
   }
 
-  async findMany(page: number, perPage: number, tenantId: string): Promise<MessageTemplate[]> {
+  async findMany(
+    page: number,
+    perPage: number,
+    tenantId: string,
+  ): Promise<MessageTemplate[]> {
     const templatesData = await prisma.messageTemplate.findMany({
       where: { tenantId, deletedAt: null },
       skip: (page - 1) * perPage,

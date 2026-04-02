@@ -1,6 +1,9 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { candidateResponseSchema, listCandidatesQuerySchema } from '@/http/schemas/hr/recruitment';
+import {
+  candidateResponseSchema,
+  listCandidatesQuerySchema,
+} from '@/http/schemas/hr/recruitment';
 import { candidateToDTO } from '@/mappers/hr/candidate';
 import { makeListCandidatesUseCase } from '@/use-cases/hr/candidates/factories';
 import type { FastifyInstance } from 'fastify';
@@ -17,16 +20,29 @@ export async function v1ListCandidatesController(app: FastifyInstance) {
       summary: 'List candidates',
       description: 'Lists all candidates with optional filters',
       querystring: listCandidatesQuerySchema,
-      response: { 200: z.object({ candidates: z.array(candidateResponseSchema), total: z.number() }) },
+      response: {
+        200: z.object({
+          candidates: z.array(candidateResponseSchema),
+          total: z.number(),
+        }),
+      },
       security: [{ bearerAuth: [] }],
     },
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const { tags: tagsString, ...filters } = request.query;
-      const tags = tagsString ? tagsString.split(',').map((t) => t.trim()) : undefined;
+      const tags = tagsString
+        ? tagsString.split(',').map((t) => t.trim())
+        : undefined;
       const useCase = makeListCandidatesUseCase();
-      const { candidates, total } = await useCase.execute({ tenantId, tags, ...filters });
-      return reply.status(200).send({ candidates: candidates.map(candidateToDTO), total });
+      const { candidates, total } = await useCase.execute({
+        tenantId,
+        tags,
+        ...filters,
+      });
+      return reply
+        .status(200)
+        .send({ candidates: candidates.map(candidateToDTO), total });
     },
   });
 }

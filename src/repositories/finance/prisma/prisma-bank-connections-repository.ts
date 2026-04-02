@@ -25,7 +25,9 @@ function toPersisted(raw: Record<string, unknown>): BankConnectionRecord {
 export class PrismaBankConnectionsRepository
   implements BankConnectionsRepository
 {
-  async create(data: CreateBankConnectionSchema): Promise<BankConnectionRecord> {
+  async create(
+    data: CreateBankConnectionSchema,
+  ): Promise<BankConnectionRecord> {
     const record = await prisma.bankConnection.create({
       data: {
         tenantId: data.tenantId,
@@ -85,7 +87,8 @@ export class PrismaBankConnectionsRepository
   ): Promise<BankConnectionRecord | null> {
     const updateData: Record<string, unknown> = {};
     if (data.status !== undefined) updateData.status = data.status;
-    if (data.accessToken !== undefined) updateData.accessToken = data.accessToken;
+    if (data.accessToken !== undefined)
+      updateData.accessToken = data.accessToken;
     if (data.lastSyncAt !== undefined) updateData.lastSyncAt = data.lastSyncAt;
 
     const record = await prisma.bankConnection.update({

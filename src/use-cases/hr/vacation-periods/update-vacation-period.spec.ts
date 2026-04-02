@@ -1,6 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Employee } from '@/entities/hr/employee';
-import { VacationPeriod } from '@/entities/hr/vacation-period';
 import {
   ContractType,
   CPF,

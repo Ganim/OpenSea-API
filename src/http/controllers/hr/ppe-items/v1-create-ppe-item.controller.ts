@@ -29,7 +29,8 @@ export async function v1CreatePPEItemController(app: FastifyInstance) {
     schema: {
       tags: ['HR - PPE (EPI)'],
       summary: 'Create PPE item',
-      description: 'Creates a new PPE item (Equipamento de Proteção Individual)',
+      description:
+        'Creates a new PPE item (Equipamento de Proteção Individual)',
       body: createPPEItemSchema,
       response: {
         201: z.object({

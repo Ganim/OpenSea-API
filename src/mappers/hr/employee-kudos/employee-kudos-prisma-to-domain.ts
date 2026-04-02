@@ -1,9 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { KudosCategory } from '@/entities/hr/employee-kudos';
 
-export function mapEmployeeKudosPrismaToDomain(
-  raw: Record<string, unknown>,
-) {
+export function mapEmployeeKudosPrismaToDomain(raw: Record<string, unknown>) {
   return {
     tenantId: new UniqueEntityID(raw.tenantId as string),
     fromEmployeeId: new UniqueEntityID(raw.fromEmployeeId as string),

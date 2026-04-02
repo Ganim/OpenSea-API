@@ -1,4 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { ApprovalDelegation } from '@/entities/hr/approval-delegation';
@@ -15,8 +14,7 @@ const DELEGATE_ID = new UniqueEntityID();
 
 describe('RevokeDelegationUseCase', () => {
   beforeEach(() => {
-    approvalDelegationsRepository =
-      new InMemoryApprovalDelegationsRepository();
+    approvalDelegationsRepository = new InMemoryApprovalDelegationsRepository();
     revokeDelegationUseCase = new RevokeDelegationUseCase(
       approvalDelegationsRepository,
     );

@@ -28,10 +28,7 @@ describe('Delete Review Cycle Use Case', () => {
       reviewCycleId: created.id.toString(),
     });
 
-    const found = await reviewCyclesRepository.findById(
-      created.id,
-      tenantId,
-    );
+    const found = await reviewCyclesRepository.findById(created.id, tenantId);
     expect(found).toBeNull();
   });
 

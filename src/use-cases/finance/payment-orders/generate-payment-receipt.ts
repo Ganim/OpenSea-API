@@ -196,7 +196,11 @@ export class GeneratePaymentReceiptUseCase {
     drawHorizontalLine(doc, y, { color: '#cbd5e1', lineWidth: 0.5 });
     y += 8;
 
-    doc.font('Helvetica-Bold').fontSize(9).fillColor('#475569').text('PAGADOR', labelX, y);
+    doc
+      .font('Helvetica-Bold')
+      .fontSize(9)
+      .fillColor('#475569')
+      .text('PAGADOR', labelX, y);
     y += 14;
 
     doc.font('Helvetica').fontSize(9).fillColor('#1e293b');
@@ -230,9 +234,11 @@ export class GeneratePaymentReceiptUseCase {
       });
       y += lineH;
     } else {
-      doc.font('Helvetica').text('Informações bancárias não disponíveis', labelX, y, {
-        width: contentWidth,
-      });
+      doc
+        .font('Helvetica')
+        .text('Informações bancárias não disponíveis', labelX, y, {
+          width: contentWidth,
+        });
       y += lineH;
     }
 
@@ -242,13 +248,18 @@ export class GeneratePaymentReceiptUseCase {
     drawHorizontalLine(doc, y, { color: '#cbd5e1', lineWidth: 0.5 });
     y += 8;
 
-    doc.font('Helvetica-Bold').fontSize(9).fillColor('#475569').text('BENEFICIÁRIO', labelX, y);
+    doc
+      .font('Helvetica-Bold')
+      .fontSize(9)
+      .fillColor('#475569')
+      .text('BENEFICIÁRIO', labelX, y);
     y += 14;
 
     doc.font('Helvetica').fontSize(9).fillColor('#1e293b');
 
     const recipientName = (order.recipientData.recipientName as string) ?? '';
-    const recipientCpfCnpj = (order.recipientData.recipientCpfCnpj as string) ?? '';
+    const recipientCpfCnpj =
+      (order.recipientData.recipientCpfCnpj as string) ?? '';
     const pixKey = (order.recipientData.pixKey as string) ?? '';
 
     if (recipientName) {
@@ -281,10 +292,18 @@ export class GeneratePaymentReceiptUseCase {
     drawHorizontalLine(doc, y, { color: '#cbd5e1', lineWidth: 0.5 });
     y += 8;
 
-    doc.font('Helvetica-Bold').fontSize(9).fillColor('#475569').text('VALORES', labelX, y);
+    doc
+      .font('Helvetica-Bold')
+      .fontSize(9)
+      .fillColor('#475569')
+      .text('VALORES', labelX, y);
     y += 14;
 
-    doc.font('Helvetica-Bold').fontSize(11).fillColor('#1e293b').text('Valor:', labelX, y);
+    doc
+      .font('Helvetica-Bold')
+      .fontSize(11)
+      .fillColor('#1e293b')
+      .text('Valor:', labelX, y);
     doc
       .font('Helvetica-Bold')
       .fontSize(11)
@@ -296,7 +315,11 @@ export class GeneratePaymentReceiptUseCase {
     drawHorizontalLine(doc, y, { color: '#cbd5e1', lineWidth: 0.5 });
     y += 8;
 
-    doc.font('Helvetica-Bold').fontSize(9).fillColor('#475569').text('IDENTIFICAÇÃO', labelX, y);
+    doc
+      .font('Helvetica-Bold')
+      .fontSize(9)
+      .fillColor('#475569')
+      .text('IDENTIFICAÇÃO', labelX, y);
     y += 14;
 
     doc.font('Helvetica').fontSize(9).fillColor('#1e293b');
@@ -329,7 +352,11 @@ export class GeneratePaymentReceiptUseCase {
     drawHorizontalLine(doc, y, { color: '#cbd5e1', lineWidth: 0.5 });
     y += 8;
 
-    doc.font('Helvetica-Bold').fontSize(9).fillColor('#475569').text('APROVAÇÃO', labelX, y);
+    doc
+      .font('Helvetica-Bold')
+      .fontSize(9)
+      .fillColor('#475569')
+      .text('APROVAÇÃO', labelX, y);
     y += 14;
 
     doc.font('Helvetica').fontSize(9).fillColor('#1e293b');

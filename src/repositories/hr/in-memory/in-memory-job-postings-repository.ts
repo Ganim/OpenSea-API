@@ -64,20 +64,16 @@ export class InMemoryJobPostingsRepository implements JobPostingsRepository {
       );
     }
     if (filters?.type) {
-      filtered = filtered.filter(
-        (posting) => posting.type === filters.type,
-      );
+      filtered = filtered.filter((posting) => posting.type === filters.type);
     }
     if (filters?.departmentId) {
       filtered = filtered.filter(
-        (posting) =>
-          posting.departmentId?.toString() === filters.departmentId,
+        (posting) => posting.departmentId?.toString() === filters.departmentId,
       );
     }
     if (filters?.positionId) {
       filtered = filtered.filter(
-        (posting) =>
-          posting.positionId?.toString() === filters.positionId,
+        (posting) => posting.positionId?.toString() === filters.positionId,
       );
     }
     if (filters?.search) {
@@ -101,9 +97,7 @@ export class InMemoryJobPostingsRepository implements JobPostingsRepository {
   }
 
   async update(data: UpdateJobPostingSchema): Promise<JobPosting | null> {
-    const index = this.items.findIndex((posting) =>
-      posting.id.equals(data.id),
-    );
+    const index = this.items.findIndex((posting) => posting.id.equals(data.id));
     if (index === -1) return null;
 
     const posting = this.items[index];

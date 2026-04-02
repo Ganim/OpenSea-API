@@ -5,7 +5,9 @@ import type {
   MessageTemplatesRepository,
 } from '../message-templates-repository';
 
-export class InMemoryMessageTemplatesRepository implements MessageTemplatesRepository {
+export class InMemoryMessageTemplatesRepository
+  implements MessageTemplatesRepository
+{
   public items: MessageTemplate[] = [];
 
   async create(data: CreateMessageTemplateSchema): Promise<MessageTemplate> {
@@ -24,7 +26,10 @@ export class InMemoryMessageTemplatesRepository implements MessageTemplatesRepos
     return template;
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<MessageTemplate | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<MessageTemplate | null> {
     const template = this.items.find(
       (item) =>
         !item.deletedAt &&
@@ -34,7 +39,10 @@ export class InMemoryMessageTemplatesRepository implements MessageTemplatesRepos
     return template ?? null;
   }
 
-  async findByName(name: string, tenantId: string): Promise<MessageTemplate | null> {
+  async findByName(
+    name: string,
+    tenantId: string,
+  ): Promise<MessageTemplate | null> {
     const template = this.items.find(
       (item) =>
         !item.deletedAt &&
@@ -44,10 +52,16 @@ export class InMemoryMessageTemplatesRepository implements MessageTemplatesRepos
     return template ?? null;
   }
 
-  async findMany(page: number, perPage: number, tenantId: string): Promise<MessageTemplate[]> {
+  async findMany(
+    page: number,
+    perPage: number,
+    tenantId: string,
+  ): Promise<MessageTemplate[]> {
     const start = (page - 1) * perPage;
     return this.items
-      .filter((item) => !item.deletedAt && item.tenantId.toString() === tenantId)
+      .filter(
+        (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
+      )
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
       .slice(start, start + perPage);
   }

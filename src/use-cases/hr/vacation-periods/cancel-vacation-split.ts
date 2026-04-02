@@ -13,9 +13,7 @@ export interface CancelVacationSplitResponse {
 }
 
 export class CancelVacationSplitUseCase {
-  constructor(
-    private vacationSplitsRepository: VacationSplitsRepository,
-  ) {}
+  constructor(private vacationSplitsRepository: VacationSplitsRepository) {}
 
   async execute(
     request: CancelVacationSplitRequest,

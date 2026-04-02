@@ -1,6 +1,6 @@
 import { verifyAccountant } from '@/http/middlewares/finance/verify-accountant';
 import { PrismaFinanceCategoriesRepository } from '@/repositories/finance/prisma/prisma-finance-categories-repository';
-import type { FastifyInstance, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
 
 interface AccountantContext {
   id: string;
@@ -20,8 +20,9 @@ export async function getAccountantCategoriesController(app: FastifyInstance) {
       security: [{ bearerAuth: [] }],
     },
     handler: async (request, reply) => {
-      const accountant = (request as unknown as { accountant: AccountantContext })
-        .accountant;
+      const accountant = (
+        request as unknown as { accountant: AccountantContext }
+      ).accountant;
 
       const categoriesRepo = new PrismaFinanceCategoriesRepository();
       const categories = await categoriesRepo.findMany(accountant.tenantId);

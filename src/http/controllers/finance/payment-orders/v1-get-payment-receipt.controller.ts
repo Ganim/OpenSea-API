@@ -23,7 +23,8 @@ export async function getPaymentReceiptController(app: FastifyInstance) {
     ],
     schema: {
       tags: ['Finance - Payment Orders'],
-      summary: 'Generate or retrieve the PDF receipt for a completed payment order',
+      summary:
+        'Generate or retrieve the PDF receipt for a completed payment order',
       security: [{ bearerAuth: [] }],
       params: z.object({ id: z.string().uuid() }),
       response: {

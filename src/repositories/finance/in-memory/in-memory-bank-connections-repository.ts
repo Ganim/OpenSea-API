@@ -12,7 +12,9 @@ export class InMemoryBankConnectionsRepository
 {
   public items: BankConnectionRecord[] = [];
 
-  async create(data: CreateBankConnectionSchema): Promise<BankConnectionRecord> {
+  async create(
+    data: CreateBankConnectionSchema,
+  ): Promise<BankConnectionRecord> {
     const record: BankConnectionRecord = {
       id: randomUUID(),
       tenantId: data.tenantId,

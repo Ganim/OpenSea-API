@@ -20,9 +20,6 @@ export class DeleteConversationUseCase {
       throw new ResourceNotFoundError('Conversation not found.');
     }
 
-    await this.conversationsRepository.delete(
-      conversation.id,
-      input.tenantId,
-    );
+    await this.conversationsRepository.delete(conversation.id, input.tenantId);
   }
 }

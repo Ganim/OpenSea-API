@@ -25,9 +25,7 @@ export interface InterviewStagesRepository {
     jobPostingId: string,
     tenantId: string,
   ): Promise<InterviewStage[]>;
-  updateOrder(
-    stages: UpdateInterviewStageOrderSchema[],
-  ): Promise<void>;
+  updateOrder(stages: UpdateInterviewStageOrderSchema[]): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;
   getMaxOrder(jobPostingId: string, tenantId: string): Promise<number>;
 }

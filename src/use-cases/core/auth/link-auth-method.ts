@@ -72,9 +72,7 @@ export class LinkAuthMethodUseCase {
       await this.authLinksRepository.findByUserIdAndProvider(userId, provider);
 
     if (userProviderLink) {
-      throw new ConflictError(
-        'Você já possui um vínculo com este método.',
-      );
+      throw new ConflictError('Você já possui um vínculo com este método.');
     }
 
     // 6. Determine credential

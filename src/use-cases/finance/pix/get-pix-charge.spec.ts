@@ -1,4 +1,7 @@
-import type { BankingProvider, PixChargeResult } from '@/services/banking/banking-provider.interface';
+import type {
+  BankingProvider,
+  PixChargeResult,
+} from '@/services/banking/banking-provider.interface';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { GetPixChargeUseCase } from './get-pix-charge';
 

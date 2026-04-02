@@ -23,9 +23,15 @@ export {
  * Starts all marketplace queue workers.
  */
 export async function startMarketplaceWorkers(): Promise<void> {
-  const { startSyncProductsWorker: startProducts } = await import('./sync-products.job');
-  const { startImportOrdersWorker: startOrders } = await import('./import-orders.job');
-  const { startSyncInventoryWorker: startInventory } = await import('./sync-inventory.job');
+  const { startSyncProductsWorker: startProducts } = await import(
+    './sync-products.job'
+  );
+  const { startImportOrdersWorker: startOrders } = await import(
+    './import-orders.job'
+  );
+  const { startSyncInventoryWorker: startInventory } = await import(
+    './sync-inventory.job'
+  );
 
   startProducts();
   startOrders();

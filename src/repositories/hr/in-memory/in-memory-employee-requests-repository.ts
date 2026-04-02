@@ -20,8 +20,7 @@ export class InMemoryEmployeeRequestsRepository
   ): Promise<EmployeeRequest | null> {
     return (
       this.items.find(
-        (item) =>
-          item.id.equals(id) && item.tenantId.toString() === tenantId,
+        (item) => item.id.equals(id) && item.tenantId.toString() === tenantId,
       ) ?? null
     );
   }
@@ -54,8 +53,7 @@ export class InMemoryEmployeeRequestsRepository
     // to a department managed by the approver. For in-memory, we filter by
     // status=PENDING and the employee being in the approver list scope.
     const filtered = this.items.filter(
-      (item) =>
-        item.tenantId.toString() === tenantId && item.isPending(),
+      (item) => item.tenantId.toString() === tenantId && item.isPending(),
     );
 
     return {
@@ -73,8 +71,7 @@ export class InMemoryEmployeeRequestsRepository
 
   async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
     this.items = this.items.filter(
-      (item) =>
-        !(item.id.equals(id) && item.tenantId.toString() === tenantId),
+      (item) => !(item.id.equals(id) && item.tenantId.toString() === tenantId),
     );
   }
 }

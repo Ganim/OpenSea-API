@@ -14,18 +14,15 @@ export interface GetRequestOutput {
 }
 
 export class GetRequestUseCase {
-  constructor(
-    private employeeRequestsRepository: EmployeeRequestsRepository,
-  ) {}
+  constructor(private employeeRequestsRepository: EmployeeRequestsRepository) {}
 
   async execute(input: GetRequestInput): Promise<GetRequestOutput> {
     const { tenantId, requestId, employeeId } = input;
 
-    const employeeRequest =
-      await this.employeeRequestsRepository.findById(
-        new UniqueEntityID(requestId),
-        tenantId,
-      );
+    const employeeRequest = await this.employeeRequestsRepository.findById(
+      new UniqueEntityID(requestId),
+      tenantId,
+    );
 
     if (!employeeRequest) {
       throw new ResourceNotFoundError('Employee request not found');

@@ -20,10 +20,14 @@ import { AssignGroupToUserUseCase } from '@/use-cases/rbac/associations/assign-g
 export interface CreateEmployeeWithUserRequest {
   tenantId: string;
   // User data
-  userEmail: string;
+  userEmail?: string;
   userPassword: string;
   username?: string;
   permissionGroupId?: string;
+  // Login method flags
+  enableEmailLogin?: boolean;
+  enableCpfLogin?: boolean;
+  enableEnrollmentLogin?: boolean;
 
   // Employee data
   registrationNumber: string;
@@ -38,6 +42,7 @@ export interface CreateEmployeeWithUserRequest {
   emergencyContactInfo?: {
     name?: string;
     phone?: string;
+    alternativePhone?: string;
     relationship?: string;
   };
   healthConditions?: Array<{ description: string; requiresAttention: boolean }>;
@@ -110,6 +115,10 @@ export class CreateEmployeeWithUserUseCase {
       userPassword,
       username,
       permissionGroupId,
+      // Login method flags
+      enableEmailLogin = !!userEmail,
+      enableCpfLogin = true,
+      enableEnrollmentLogin = false,
 
       // Employee data
       registrationNumber,
@@ -220,11 +229,15 @@ export class CreateEmployeeWithUserUseCase {
     const workRegimeVO = this.mapWorkRegime(workRegime);
     const pisVO = pis ? PIS.create(pis) : undefined;
 
+    // Generate a placeholder email when no email is provided (CPF-only or enrollment-only login)
+    const effectiveEmail =
+      userEmail || `${cpf.replace(/[.\-/]/g, '')}@internal.opensea.local`;
+
     const createAllSteps =
       async (): Promise<CreateEmployeeWithUserResponse> => {
         // Step 1: Create user account
         const { user } = await this.createUserUseCase.execute({
-          email: userEmail,
+          email: effectiveEmail,
           password: userPassword,
           username: username,
           profile: {
@@ -234,6 +247,18 @@ export class CreateEmployeeWithUserUseCase {
             birthday: birthDate,
           },
         });
+
+        // Step 1b: Remove EMAIL AuthLink if email login is not enabled (placeholder email)
+        if (!enableEmailLogin && this.authLinksRepository) {
+          const emailAuthLink =
+            await this.authLinksRepository.findByUserIdAndProvider(
+              new UniqueEntityID(user.id),
+              'EMAIL',
+            );
+          if (emailAuthLink) {
+            await this.authLinksRepository.delete(emailAuthLink.id);
+          }
+        }
 
         // Step 2: Set forced password reset for new user
         await this.usersRepository.setForcePasswordReset(
@@ -313,7 +338,7 @@ export class CreateEmployeeWithUserUseCase {
           pendingIssues,
         });
 
-        // Step 5: Create CPF and ENROLLMENT AuthLinks
+        // Step 5: Create AuthLinks based on enabled login methods
         if (this.authLinksRepository) {
           // Get user's password hash for credential-based AuthLinks
           const fullUser = await this.usersRepository.findById(
@@ -321,9 +346,9 @@ export class CreateEmployeeWithUserUseCase {
           );
           const passwordHash = fullUser?.password.toString();
 
-          // CPF AuthLink
-          if (cpf && passwordHash) {
-            const cpfClean = cpf.replace(/[\.\-\/]/g, '');
+          // CPF AuthLink (only if CPF login is enabled)
+          if (enableCpfLogin && cpf && passwordHash) {
+            const cpfClean = cpf.replace(/[.\-/]/g, '');
             await this.authLinksRepository.create({
               userId: new UniqueEntityID(user.id),
               provider: 'CPF',
@@ -332,8 +357,8 @@ export class CreateEmployeeWithUserUseCase {
             });
           }
 
-          // ENROLLMENT AuthLink (matrícula is tenant-scoped)
-          if (registrationNumber && passwordHash) {
+          // ENROLLMENT AuthLink (only if enrollment login is enabled, matrícula is tenant-scoped)
+          if (enableEnrollmentLogin && registrationNumber && passwordHash) {
             await this.authLinksRepository.create({
               userId: new UniqueEntityID(user.id),
               tenantId: new UniqueEntityID(tenantId),
@@ -417,6 +442,7 @@ export class CreateEmployeeWithUserUseCase {
     emergencyContactInfo?: {
       name?: string;
       phone?: string;
+      alternativePhone?: string;
       relationship?: string;
     };
   }): string[] {

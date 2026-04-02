@@ -1,3 +1,19 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+// Mock fire-and-forget dynamic imports that cause unhandled rejections after teardown
+vi.mock('@/services/esocial/auto-generate', () => ({
+  tryAutoGenerateEvent: vi.fn().mockResolvedValue(undefined),
+}));
+
+vi.mock(
+  '@/use-cases/hr/offboarding/factories/make-create-offboarding-checklist-use-case',
+  () => ({
+    makeCreateOffboardingChecklistUseCase: () => ({
+      execute: vi.fn().mockResolvedValue({}),
+    }),
+  }),
+);
+
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Employee } from '@/entities/hr/employee';
 import { NoticeType, TerminationType } from '@/entities/hr/termination';
@@ -11,7 +27,6 @@ import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memo
 import { InMemoryTerminationsRepository } from '@/repositories/hr/in-memory/in-memory-terminations-repository';
 import { CalculateTerminationPaymentUseCase } from '@/use-cases/hr/terminations/calculate-termination-payment';
 import { CreateTerminationUseCase } from '@/use-cases/hr/terminations/create-termination';
-import { beforeEach, describe, expect, it } from 'vitest';
 
 let employeesRepository: InMemoryEmployeesRepository;
 let terminationsRepository: InMemoryTerminationsRepository;

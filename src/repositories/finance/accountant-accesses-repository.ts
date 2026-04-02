@@ -25,7 +25,10 @@ export interface AccountantAccessRecord {
 
 export interface AccountantAccessesRepository {
   create(data: CreateAccountantAccessSchema): Promise<AccountantAccessRecord>;
-  findById(id: string, tenantId: string): Promise<AccountantAccessRecord | null>;
+  findById(
+    id: string,
+    tenantId: string,
+  ): Promise<AccountantAccessRecord | null>;
   findByToken(token: string): Promise<AccountantAccessRecord | null>;
   findByEmail(
     tenantId: string,

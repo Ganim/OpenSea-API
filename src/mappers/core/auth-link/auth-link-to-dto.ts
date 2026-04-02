@@ -15,7 +15,10 @@ export interface AuthLinkDTO {
   createdAt: string;
 }
 
-function maskIdentifier(provider: AuthLinkProvider, identifier: string): string {
+function maskIdentifier(
+  provider: AuthLinkProvider,
+  identifier: string,
+): string {
   switch (provider) {
     case 'CPF': {
       // Show last 5 digits: ***.***.XXX-XX
@@ -62,9 +65,7 @@ export function authLinkToDTO(authLink: AuthLink): AuthLinkDTO {
     status: authLink.status,
     linkedAt: authLink.linkedAt.toISOString(),
     unlinkedAt: authLink.unlinkedAt ? authLink.unlinkedAt.toISOString() : null,
-    lastUsedAt: authLink.lastUsedAt
-      ? authLink.lastUsedAt.toISOString()
-      : null,
+    lastUsedAt: authLink.lastUsedAt ? authLink.lastUsedAt.toISOString() : null,
     createdAt: authLink.createdAt.toISOString(),
   };
 }

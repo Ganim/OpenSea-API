@@ -30,9 +30,7 @@ export class ArchiveConversationUseCase {
     }
 
     if (conversation.status !== 'CLOSED') {
-      throw new BadRequestError(
-        'Only closed conversations can be archived.',
-      );
+      throw new BadRequestError('Only closed conversations can be archived.');
     }
 
     conversation.archive();

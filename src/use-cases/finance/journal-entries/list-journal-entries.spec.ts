@@ -88,7 +88,11 @@ describe('ListJournalEntriesUseCase', () => {
       });
     }
 
-    const result = await listSut.execute({ tenantId: 'tenant-1', page: 2, limit: 2 });
+    const result = await listSut.execute({
+      tenantId: 'tenant-1',
+      page: 2,
+      limit: 2,
+    });
 
     expect(result.entries).toHaveLength(2);
     expect(result.meta.total).toBe(5);

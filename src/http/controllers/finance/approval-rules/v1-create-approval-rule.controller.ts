@@ -8,12 +8,14 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-const conditionsSchema = z.object({
-  categoryIds: z.array(z.string().uuid()).optional(),
-  supplierNames: z.array(z.string()).optional(),
-  entryType: z.enum(['PAYABLE', 'RECEIVABLE']).optional(),
-  minRecurrence: z.number().int().min(1).optional(),
-}).optional();
+const conditionsSchema = z
+  .object({
+    categoryIds: z.array(z.string().uuid()).optional(),
+    supplierNames: z.array(z.string()).optional(),
+    entryType: z.enum(['PAYABLE', 'RECEIVABLE']).optional(),
+    minRecurrence: z.number().int().min(1).optional(),
+  })
+  .optional();
 
 export async function createApprovalRuleController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({

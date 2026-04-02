@@ -48,7 +48,10 @@ export async function deleteWorkflowController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.WORKFLOW_DELETE,
           entityId: id,
-          placeholders: { workflowName: workflow.name, userName: request.user.sub },
+          placeholders: {
+            workflowName: workflow.name,
+            userName: request.user.sub,
+          },
           oldData: { id: workflow.id, name: workflow.name },
         });
 

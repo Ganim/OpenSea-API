@@ -21,6 +21,7 @@ export interface ItemDTO {
   batchNumber?: string;
   manufacturingDate?: Date;
   expiryDate?: Date;
+  exitMovementType?: string;
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date;
@@ -69,6 +70,7 @@ export function itemToDTO(item: Item, relatedData?: ItemRelatedData): ItemDTO {
     batchNumber: item.batchNumber,
     manufacturingDate: item.manufacturingDate,
     expiryDate: item.expiryDate,
+    exitMovementType: item.exitMovementType,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     deletedAt: item.deletedAt,

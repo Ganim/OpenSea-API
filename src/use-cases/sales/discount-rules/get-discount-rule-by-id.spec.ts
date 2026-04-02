@@ -12,7 +12,9 @@ describe('GetDiscountRuleByIdUseCase', () => {
   beforeEach(() => {
     discountRulesRepository = new InMemoryDiscountRulesRepository();
     createDiscountRule = new CreateDiscountRuleUseCase(discountRulesRepository);
-    getDiscountRuleById = new GetDiscountRuleByIdUseCase(discountRulesRepository);
+    getDiscountRuleById = new GetDiscountRuleByIdUseCase(
+      discountRulesRepository,
+    );
   });
 
   it('should return a discount rule by id', async () => {

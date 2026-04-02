@@ -1,5 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import type { WorkflowStepTypeValue, WorkflowTriggerType } from '@/entities/sales/workflow';
+import type {
+  WorkflowStepTypeValue,
+  WorkflowTriggerType,
+} from '@/entities/sales/workflow';
 import type { WorkflowDTO } from '@/mappers/sales/workflow/workflow-to-dto';
 import { workflowToDTO } from '@/mappers/sales/workflow/workflow-to-dto';
 import { WorkflowsRepository } from '@/repositories/sales/workflows-repository';
@@ -24,12 +27,20 @@ interface CreateWorkflowUseCaseResponse {
 }
 
 const VALID_TRIGGERS: WorkflowTriggerType[] = [
-  'ORDER_CREATED', 'ORDER_CONFIRMED', 'DEAL_WON', 'DEAL_LOST',
-  'CUSTOMER_CREATED', 'QUOTE_SENT', 'QUOTE_ACCEPTED',
+  'ORDER_CREATED',
+  'ORDER_CONFIRMED',
+  'DEAL_WON',
+  'DEAL_LOST',
+  'CUSTOMER_CREATED',
+  'QUOTE_SENT',
+  'QUOTE_ACCEPTED',
 ];
 
 const VALID_STEP_TYPES: WorkflowStepTypeValue[] = [
-  'SEND_EMAIL', 'SEND_NOTIFICATION', 'UPDATE_STATUS', 'CREATE_TASK',
+  'SEND_EMAIL',
+  'SEND_NOTIFICATION',
+  'UPDATE_STATUS',
+  'CREATE_TASK',
 ];
 
 export class CreateWorkflowUseCase {

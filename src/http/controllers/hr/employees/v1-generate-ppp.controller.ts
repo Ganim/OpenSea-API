@@ -55,7 +55,10 @@ export async function v1GeneratePPPController(app: FastifyInstance) {
           .header('Content-Disposition', `attachment; filename="${filename}"`)
           .send(buffer);
       } catch (error) {
-        if (error instanceof Error && error.message.includes('não encontrado')) {
+        if (
+          error instanceof Error &&
+          error.message.includes('não encontrado')
+        ) {
           return reply.status(404).send({ message: error.message });
         }
         if (error instanceof Error) {

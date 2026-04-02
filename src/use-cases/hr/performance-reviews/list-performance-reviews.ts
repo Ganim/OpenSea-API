@@ -35,21 +35,19 @@ export class ListPerformanceReviewsUseCase {
       perPage,
     } = request;
 
-    const { reviews, total } =
-      await this.performanceReviewsRepository.findMany(tenantId, {
+    const { reviews, total } = await this.performanceReviewsRepository.findMany(
+      tenantId,
+      {
         reviewCycleId: reviewCycleId
           ? new UniqueEntityID(reviewCycleId)
           : undefined,
-        employeeId: employeeId
-          ? new UniqueEntityID(employeeId)
-          : undefined,
-        reviewerId: reviewerId
-          ? new UniqueEntityID(reviewerId)
-          : undefined,
+        employeeId: employeeId ? new UniqueEntityID(employeeId) : undefined,
+        reviewerId: reviewerId ? new UniqueEntityID(reviewerId) : undefined,
         status,
         page,
         perPage,
-      });
+      },
+    );
 
     return { reviews, total };
   }

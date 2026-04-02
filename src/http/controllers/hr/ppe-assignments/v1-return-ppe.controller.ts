@@ -8,7 +8,7 @@ import {
   returnPPESchema,
   ppeAssignmentResponseSchema,
 } from '@/http/schemas/hr/safety';
-import { idSchema } from '@/http/schemas';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { ppeAssignmentToDTO } from '@/mappers/hr/ppe-assignment';
 import { makeReturnPPEUseCase } from '@/use-cases/hr/ppe-assignments/factories/make-return-ppe-use-case';
 
@@ -31,9 +31,10 @@ export async function v1ReturnPPEController(app: FastifyInstance) {
     schema: {
       tags: ['HR - PPE (EPI)'],
       summary: 'Return PPE assignment',
-      description: 'Marks a PPE assignment as returned, optionally restoring stock if not damaged',
+      description:
+        'Marks a PPE assignment as returned, optionally restoring stock if not damaged',
       params: z.object({
-        assignmentId: idSchema,
+        assignmentId: cuidSchema,
       }),
       body: returnPPESchema,
       response: {

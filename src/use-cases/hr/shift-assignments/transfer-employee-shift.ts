@@ -51,9 +51,7 @@ export class TransferEmployeeShiftUseCase {
 
     if (currentAssignment) {
       if (currentAssignment.shiftId.toString() === newShiftId) {
-        throw new ConflictError(
-          'Employee is already assigned to this shift',
-        );
+        throw new ConflictError('Employee is already assigned to this shift');
       }
       await this.shiftAssignmentsRepository.deactivate(currentAssignment.id);
     }

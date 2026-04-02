@@ -102,8 +102,7 @@ export class InMemoryPPEItemsRepository implements PPEItemsRepository {
       {
         tenantId: existing.tenantId,
         name: data.name ?? existing.name,
-        category:
-          (data.category as PPEItem['category']) ?? existing.category,
+        category: (data.category as PPEItem['category']) ?? existing.category,
         caNumber:
           data.caNumber === null
             ? undefined
@@ -112,8 +111,7 @@ export class InMemoryPPEItemsRepository implements PPEItemsRepository {
           data.manufacturer === null
             ? undefined
             : (data.manufacturer ?? existing.manufacturer),
-        model:
-          data.model === null ? undefined : (data.model ?? existing.model),
+        model: data.model === null ? undefined : (data.model ?? existing.model),
         expirationMonths:
           data.expirationMonths === null
             ? undefined
@@ -121,8 +119,7 @@ export class InMemoryPPEItemsRepository implements PPEItemsRepository {
         minStock: data.minStock ?? existing.minStock,
         currentStock: existing.currentStock,
         isActive: data.isActive ?? existing.isActive,
-        notes:
-          data.notes === null ? undefined : (data.notes ?? existing.notes),
+        notes: data.notes === null ? undefined : (data.notes ?? existing.notes),
         createdAt: existing.createdAt,
         deletedAt: existing.deletedAt,
       },
@@ -133,9 +130,7 @@ export class InMemoryPPEItemsRepository implements PPEItemsRepository {
     return updatedItem;
   }
 
-  async adjustStock(
-    data: AdjustPPEItemStockSchema,
-  ): Promise<PPEItem | null> {
+  async adjustStock(data: AdjustPPEItemStockSchema): Promise<PPEItem | null> {
     const index = this.items.findIndex((item) => item.id.equals(data.id));
     if (index === -1) return null;
 

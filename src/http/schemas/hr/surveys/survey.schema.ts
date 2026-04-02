@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { cuidSchema, dateSchema, idSchema } from '../../common.schema';
 
 const surveyTypeEnum = z.enum([
   'ENGAGEMENT',
@@ -58,7 +58,7 @@ export const listSurveysQuerySchema = z.object({
 });
 
 export const surveyResponseSchema = z.object({
-  id: idSchema,
+  id: cuidSchema,
   title: z.string(),
   description: z.string().nullable(),
   type: z.string(),
@@ -66,7 +66,7 @@ export const surveyResponseSchema = z.object({
   isAnonymous: z.boolean(),
   startDate: dateSchema,
   endDate: dateSchema,
-  createdBy: idSchema,
+  createdBy: z.string(),
   createdAt: dateSchema,
   updatedAt: dateSchema,
 });
@@ -83,8 +83,8 @@ export const createSurveyQuestionSchema = z.object({
 });
 
 export const surveyQuestionResponseSchema = z.object({
-  id: idSchema,
-  surveyId: idSchema,
+  id: cuidSchema,
+  surveyId: cuidSchema,
   text: z.string(),
   type: z.string(),
   options: z.unknown().nullable(),
@@ -101,7 +101,7 @@ export const submitSurveyResponseSchema = z.object({
   employeeId: idSchema.optional(),
   answers: z.array(
     z.object({
-      questionId: idSchema,
+      questionId: cuidSchema,
       ratingValue: z.number().int().optional(),
       textValue: z.string().max(2000).optional(),
       selectedOptions: z.array(z.string()).optional(),
@@ -110,8 +110,8 @@ export const submitSurveyResponseSchema = z.object({
 });
 
 export const surveyResponseItemSchema = z.object({
-  id: idSchema,
-  surveyId: idSchema,
+  id: cuidSchema,
+  surveyId: cuidSchema,
   employeeId: idSchema.nullable(),
   submittedAt: dateSchema,
   createdAt: dateSchema,

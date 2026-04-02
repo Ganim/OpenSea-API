@@ -3,7 +3,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { idSchema } from '@/http/schemas';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { offboardingChecklistResponseSchema } from '@/http/schemas/hr/offboarding';
 import { offboardingChecklistToDTO } from '@/mappers/hr/offboarding-checklist';
 import { makeGetOffboardingChecklistUseCase } from '@/use-cases/hr/offboarding/factories/make-get-offboarding-checklist-use-case';
@@ -30,7 +30,7 @@ export async function v1GetOffboardingChecklistController(
       summary: 'Get offboarding checklist by ID',
       description: 'Returns a single offboarding checklist by its ID',
       params: z.object({
-        id: idSchema,
+        id: cuidSchema,
       }),
       response: {
         200: z.object({

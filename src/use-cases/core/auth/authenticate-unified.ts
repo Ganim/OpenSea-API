@@ -49,11 +49,10 @@ export class AuthenticateUnifiedUseCase {
     const provider = detectIdentifierType(identifier);
     const normalized = normalizeIdentifier(provider, identifier);
 
-    const authLink =
-      await this.authLinksRepository.findByProviderAndIdentifier(
-        provider,
-        normalized,
-      );
+    const authLink = await this.authLinksRepository.findByProviderAndIdentifier(
+      provider,
+      normalized,
+    );
 
     if (!authLink) {
       throw new BadRequestError('Credenciais inválidas.');
@@ -144,10 +143,7 @@ export class AuthenticateUnifiedUseCase {
       existingUser.lastLoginAt,
     );
 
-    await this.authLinksRepository.updateLastUsedAt(
-      authLink.id,
-      new Date(),
-    );
+    await this.authLinksRepository.updateLastUsedAt(authLink.id, new Date());
 
     const loginMethod = provider.toLowerCase() as LoginMethod;
 

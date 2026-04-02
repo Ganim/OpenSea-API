@@ -22,11 +22,10 @@ export class RejectApplicationUseCase {
   ): Promise<RejectApplicationResponse> {
     const { tenantId, applicationId, rejectionReason } = request;
 
-    const existingApplication =
-      await this.applicationsRepository.findById(
-        new UniqueEntityID(applicationId),
-        tenantId,
-      );
+    const existingApplication = await this.applicationsRepository.findById(
+      new UniqueEntityID(applicationId),
+      tenantId,
+    );
 
     if (!existingApplication) {
       throw new ResourceNotFoundError('Candidatura não encontrada');
@@ -36,9 +35,7 @@ export class RejectApplicationUseCase {
       existingApplication.status === 'HIRED' ||
       existingApplication.status === 'REJECTED'
     ) {
-      throw new BadRequestError(
-        'Esta candidatura já foi finalizada',
-      );
+      throw new BadRequestError('Esta candidatura já foi finalizada');
     }
 
     const updatedApplication = await this.applicationsRepository.update({

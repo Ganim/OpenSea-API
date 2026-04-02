@@ -13,11 +13,7 @@ export const createPixChargeSchema = z.object({
     .max(14)
     .optional()
     .describe('CPF ou CNPJ do pagador'),
-  payerName: z
-    .string()
-    .max(256)
-    .optional()
-    .describe('Nome do pagador'),
+  payerName: z.string().max(256).optional().describe('Nome do pagador'),
 });
 
 export const createPixChargeResponseSchema = z.object({
@@ -40,11 +36,7 @@ export const payViaPixSchema = z.object({
     .uuid()
     .optional()
     .describe('ID da conta bancária para o débito'),
-  reference: z
-    .string()
-    .max(128)
-    .optional()
-    .describe('Referência do pagamento'),
+  reference: z.string().max(128).optional().describe('Referência do pagamento'),
   notes: z
     .string()
     .max(500)

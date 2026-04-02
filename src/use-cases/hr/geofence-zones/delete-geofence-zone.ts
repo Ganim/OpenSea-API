@@ -22,9 +22,6 @@ export class DeleteGeofenceZoneUseCase {
       throw new ResourceNotFoundError('Geofence zone not found');
     }
 
-    await this.geofenceZonesRepository.delete(
-      new UniqueEntityID(id),
-      tenantId,
-    );
+    await this.geofenceZonesRepository.delete(new UniqueEntityID(id), tenantId);
   }
 }

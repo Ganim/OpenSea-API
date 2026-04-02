@@ -62,9 +62,7 @@ export class InMemoryAccountantAccessesRepository
   }
 
   async deactivate(id: string, tenantId: string): Promise<void> {
-    const item = this.items.find(
-      (i) => i.id === id && i.tenantId === tenantId,
-    );
+    const item = this.items.find((i) => i.id === id && i.tenantId === tenantId);
     if (item) {
       item.isActive = false;
       item.updatedAt = new Date();

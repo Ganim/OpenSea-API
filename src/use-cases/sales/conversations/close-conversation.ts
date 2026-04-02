@@ -30,9 +30,7 @@ export class CloseConversationUseCase {
     }
 
     if (conversation.status !== 'OPEN') {
-      throw new BadRequestError(
-        'Only open conversations can be closed.',
-      );
+      throw new BadRequestError('Only open conversations can be closed.');
     }
 
     conversation.close();

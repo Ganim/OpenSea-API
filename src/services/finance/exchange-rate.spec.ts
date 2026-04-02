@@ -59,7 +59,7 @@ describe('ExchangeRateService', () => {
       json: async () => ({
         value: [
           {
-            cotacaoCompra: 5.40,
+            cotacaoCompra: 5.4,
             cotacaoVenda: 5.42,
             dataHoraCotacao: '2026-03-25 13:00:00.000',
           },
@@ -126,7 +126,13 @@ describe('ExchangeRateService', () => {
       return {
         ok: true,
         json: async () => ({
-          value: [{ cotacaoCompra: 5.3, cotacaoVenda: 5.35, dataHoraCotacao: '2026-03-21' }],
+          value: [
+            {
+              cotacaoCompra: 5.3,
+              cotacaoVenda: 5.35,
+              dataHoraCotacao: '2026-03-21',
+            },
+          ],
         }),
       };
     });

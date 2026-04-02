@@ -104,8 +104,13 @@ export class ApprovalDelegation extends Entity<ApprovalDelegationProps> {
   }
 
   static create(
-    props: Omit<ApprovalDelegationProps, 'createdAt' | 'updatedAt' | 'isActive'> & {
+    props: Omit<
+      ApprovalDelegationProps,
+      'createdAt' | 'updatedAt' | 'isActive'
+    > & {
       isActive?: boolean;
+      createdAt?: Date;
+      updatedAt?: Date;
     },
     id?: UniqueEntityID,
   ): ApprovalDelegation {
@@ -114,8 +119,8 @@ export class ApprovalDelegation extends Entity<ApprovalDelegationProps> {
       {
         ...props,
         isActive: props.isActive ?? true,
-        createdAt: now,
-        updatedAt: now,
+        createdAt: props.createdAt ?? now,
+        updatedAt: props.updatedAt ?? now,
       },
       id,
     );

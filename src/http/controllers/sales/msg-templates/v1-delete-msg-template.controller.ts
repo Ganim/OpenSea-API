@@ -48,7 +48,10 @@ export async function deleteMsgTemplateController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.MESSAGE_TEMPLATE_DELETE,
           entityId: id,
-          placeholders: { templateName: messageTemplate.name, userName: request.user.sub },
+          placeholders: {
+            templateName: messageTemplate.name,
+            userName: request.user.sub,
+          },
           oldData: { id: messageTemplate.id, name: messageTemplate.name },
         });
 

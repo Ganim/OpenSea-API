@@ -9,9 +9,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-export async function listCashierTransactionsController(
-  app: FastifyInstance,
-) {
+export async function listCashierTransactionsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/sales/cashier/sessions/:id/transactions',
@@ -57,7 +55,7 @@ export async function listCashierTransactionsController(
           ...query,
         });
 
-        return reply.status(200).send(result as any);
+        return reply.status(200).send(result as unknown);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

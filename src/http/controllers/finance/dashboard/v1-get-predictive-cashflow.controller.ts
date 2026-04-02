@@ -24,7 +24,8 @@ export async function getPredictiveCashflowController(app: FastifyInstance) {
     ],
     schema: {
       tags: ['Finance - Analytics'],
-      summary: 'Get predictive cashflow with seasonal patterns and danger zone detection',
+      summary:
+        'Get predictive cashflow with seasonal patterns and danger zone detection',
       security: [{ bearerAuth: [] }],
       querystring: predictiveCashflowQuerySchema,
       response: {

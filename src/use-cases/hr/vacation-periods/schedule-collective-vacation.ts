@@ -1,6 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { VacationSplit } from '@/entities/hr/vacation-split';
 import type { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import type { VacationPeriodsRepository } from '@/repositories/hr/vacation-periods-repository';
 import type { VacationSplitsRepository } from '@/repositories/hr/vacation-splits-repository';
@@ -46,9 +45,10 @@ export class ScheduleCollectiveVacationUseCase {
     }
 
     // Calcula dias
-    const days = Math.ceil(
-      (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
-    ) + 1;
+    const days =
+      Math.ceil(
+        (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
+      ) + 1;
 
     // CLT Art. 139: Mínimo 10 dias por período de férias coletivas
     if (days < 10) {
@@ -58,9 +58,7 @@ export class ScheduleCollectiveVacationUseCase {
     }
 
     if (employeeIds.length === 0) {
-      throw new BadRequestError(
-        'É necessário informar ao menos um empregado',
-      );
+      throw new BadRequestError('É necessário informar ao menos um empregado');
     }
 
     const results: CollectiveVacationResult[] = [];
@@ -158,12 +156,8 @@ export class ScheduleCollectiveVacationUseCase {
         }
 
         // Calcula dias disponíveis
-        const usedSplitDays = activeSplits.reduce(
-          (sum, s) => sum + s.days,
-          0,
-        );
-        const maxAvailable =
-          period.totalDays - period.soldDays - usedSplitDays;
+        const usedSplitDays = activeSplits.reduce((sum, s) => sum + s.days, 0);
+        const maxAvailable = period.totalDays - period.soldDays - usedSplitDays;
 
         // Para férias coletivas, usa o mínimo entre dias solicitados e disponíveis
         const effectiveDays = Math.min(days, maxAvailable);
@@ -220,10 +214,7 @@ export class ScheduleCollectiveVacationUseCase {
           employeeId,
           employeeName: employeeId,
           success: false,
-          error:
-            error instanceof Error
-              ? error.message
-              : 'Erro desconhecido',
+          error: error instanceof Error ? error.message : 'Erro desconhecido',
         });
         totalFailed++;
       }

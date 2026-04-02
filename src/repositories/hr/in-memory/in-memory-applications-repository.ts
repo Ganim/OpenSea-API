@@ -7,9 +7,7 @@ import type {
   UpdateApplicationSchema,
 } from '../applications-repository';
 
-export class InMemoryApplicationsRepository
-  implements ApplicationsRepository
-{
+export class InMemoryApplicationsRepository implements ApplicationsRepository {
   public items: Application[] = [];
 
   async create(data: CreateApplicationSchema): Promise<Application> {

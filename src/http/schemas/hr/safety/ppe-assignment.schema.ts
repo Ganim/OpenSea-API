@@ -3,7 +3,7 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { cuidSchema, dateSchema, idSchema } from '../../common.schema';
 
 export const ppeConditionEnum = z.enum(['NEW', 'GOOD', 'WORN', 'DAMAGED']);
 
@@ -18,7 +18,7 @@ export const ppeAssignmentStatusEnum = z.enum([
  * Schema para atribuição de EPI a funcionário
  */
 export const assignPPESchema = z.object({
-  ppeItemId: idSchema,
+  ppeItemId: cuidSchema,
   employeeId: idSchema,
   expiresAt: z.coerce.date().optional(),
   condition: ppeConditionEnum.optional().default('NEW'),
@@ -39,7 +39,7 @@ export const returnPPESchema = z.object({
  */
 export const listPPEAssignmentsQuerySchema = z.object({
   employeeId: idSchema.optional(),
-  ppeItemId: idSchema.optional(),
+  ppeItemId: cuidSchema.optional(),
   status: ppeAssignmentStatusEnum.optional(),
   page: z.coerce.number().int().positive().optional().default(1),
   perPage: z.coerce.number().int().positive().max(100).optional().default(20),
@@ -58,7 +58,7 @@ export const listExpiringAssignmentsQuerySchema = z.object({
  * Schema de resposta de atribuição de EPI
  */
 export const ppeAssignmentResponseSchema = z.object({
-  id: idSchema,
+  id: cuidSchema,
   ppeItemId: z.string(),
   employeeId: z.string(),
   assignedAt: dateSchema,

@@ -29,9 +29,9 @@ describe('GetPaymentLinkPublicUseCase', () => {
   });
 
   it('should throw when slug not found', async () => {
-    await expect(
-      sut.execute({ slug: 'non-existent' }),
-    ).rejects.toThrow(ResourceNotFoundError);
+    await expect(sut.execute({ slug: 'non-existent' })).rejects.toThrow(
+      ResourceNotFoundError,
+    );
   });
 
   it('should mark expired links', async () => {

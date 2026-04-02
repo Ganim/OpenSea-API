@@ -19,9 +19,7 @@ export interface UploadCertificateResponse {
  * Replaces any existing certificate for the tenant.
  */
 export class UploadCertificateUseCase {
-  constructor(
-    private certificatesRepository: EsocialCertificatesRepository,
-  ) {}
+  constructor(private certificatesRepository: EsocialCertificatesRepository) {}
 
   async execute(
     request: UploadCertificateRequest,
@@ -30,9 +28,7 @@ export class UploadCertificateUseCase {
 
     // Validate certificate type
     if (!['E_CNPJ', 'E_CPF'].includes(type)) {
-      throw new BadRequestError(
-        'Certificate type must be E_CNPJ or E_CPF',
-      );
+      throw new BadRequestError('Certificate type must be E_CNPJ or E_CPF');
     }
 
     // Validate PFX data exists

@@ -5,5 +5,8 @@ import { CancelBoletoUseCase } from '../cancel-boleto';
 export function makeCancelBoletoUseCase() {
   const financeEntriesRepository = new PrismaFinanceEntriesRepository();
 
-  return new CancelBoletoUseCase(financeEntriesRepository, getBankingProviderForAccount);
+  return new CancelBoletoUseCase(
+    financeEntriesRepository,
+    getBankingProviderForAccount,
+  );
 }

@@ -162,9 +162,7 @@ export class PrismaPPEItemsRepository implements PPEItemsRepository {
     );
   }
 
-  async adjustStock(
-    data: AdjustPPEItemStockSchema,
-  ): Promise<PPEItem | null> {
+  async adjustStock(data: AdjustPPEItemStockSchema): Promise<PPEItem | null> {
     const existing = await prisma.pPEItem.findFirst({
       where: { id: data.id.toString(), deletedAt: null },
     });

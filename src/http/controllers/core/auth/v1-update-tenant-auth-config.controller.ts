@@ -62,8 +62,12 @@ export async function updateTenantAuthConfigController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { allowedMethods, magicLinkEnabled, magicLinkExpiresIn, defaultMethod } =
-        request.body;
+      const {
+        allowedMethods,
+        magicLinkEnabled,
+        magicLinkExpiresIn,
+        defaultMethod,
+      } = request.body;
 
       const useCase = makeUpdateTenantAuthConfigUseCase();
       const { config } = await useCase.execute({

@@ -9,9 +9,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-export async function v1CancelVacationSplitController(
-  app: FastifyInstance,
-) {
+export async function v1CancelVacationSplitController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
     url: '/v1/hr/vacation-periods/splits/:splitId/cancel',

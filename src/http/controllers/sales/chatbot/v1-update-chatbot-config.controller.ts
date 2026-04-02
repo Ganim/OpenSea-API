@@ -63,7 +63,7 @@ export async function updateChatbotConfigController(app: FastifyInstance) {
           newData: body as Record<string, unknown>,
         });
 
-        return reply.status(200).send({ chatbotConfig } as any);
+        return reply.status(200).send({ chatbotConfig } as unknown);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

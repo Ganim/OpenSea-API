@@ -121,10 +121,14 @@ export class S1000Builder extends EsocialXmlBuilder<S1000Input> {
     content += this.tag('nmRazao', input.nmRazao);
     content += this.tag('classTrib', input.classTrib);
     if (input.natJurid) content += this.tag('natJurid', input.natJurid);
-    if (input.indCoop !== undefined) content += this.tag('indCoop', input.indCoop);
-    if (input.indConstr !== undefined) content += this.tag('indConstr', input.indConstr);
-    if (input.indDesFolha !== undefined) content += this.tag('indDesFolha', input.indDesFolha);
-    if (input.indOptRegEletron !== undefined) content += this.tag('indOptRegEletron', input.indOptRegEletron);
+    if (input.indCoop !== undefined)
+      content += this.tag('indCoop', input.indCoop);
+    if (input.indConstr !== undefined)
+      content += this.tag('indConstr', input.indConstr);
+    if (input.indDesFolha !== undefined)
+      content += this.tag('indDesFolha', input.indDesFolha);
+    if (input.indOptRegEletron !== undefined)
+      content += this.tag('indOptRegEletron', input.indOptRegEletron);
     if (input.cnaePrep) content += this.tag('cnaePrep', input.cnaePrep);
 
     if (input.contato) {
@@ -141,8 +145,10 @@ export class S1000Builder extends EsocialXmlBuilder<S1000Input> {
   private buildContato(contato: S1000Contato): string {
     let content = '';
     content += this.tag('fonePrinc', contato.fonePrinc);
-    if (contato.foneAlternat) content += this.tag('foneAlternat', contato.foneAlternat);
-    if (contato.emailPrinc) content += this.tag('emailPrinc', contato.emailPrinc);
+    if (contato.foneAlternat)
+      content += this.tag('foneAlternat', contato.foneAlternat);
+    if (contato.emailPrinc)
+      content += this.tag('emailPrinc', contato.emailPrinc);
     return this.tagGroup('contato', content);
   }
 

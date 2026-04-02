@@ -93,8 +93,7 @@ export function checkEmploymentStability(
     if (now < stableUntil) {
       return {
         isStable: true,
-        reason:
-          'Estabilidade CIPA — mandato + 1 ano (ADCT Art. 10, II, a)',
+        reason: 'Estabilidade CIPA — mandato + 1 ano (ADCT Art. 10, II, a)',
         stableUntil,
       };
     }

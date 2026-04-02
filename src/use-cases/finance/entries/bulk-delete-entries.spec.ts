@@ -143,7 +143,8 @@ describe('BulkDeleteEntriesUseCase', () => {
   });
 
   it('should reject deletion when entry requires approval', async () => {
-    const approvalRulesRepository = new InMemoryFinanceApprovalRulesRepository();
+    const approvalRulesRepository =
+      new InMemoryFinanceApprovalRulesRepository();
     const sutWithApproval = new BulkDeleteEntriesUseCase(
       entriesRepository,
       fakeTransactionManager,
@@ -182,7 +183,8 @@ describe('BulkDeleteEntriesUseCase', () => {
   });
 
   it('should allow deletion when entry has manually-approved tag', async () => {
-    const approvalRulesRepository = new InMemoryFinanceApprovalRulesRepository();
+    const approvalRulesRepository =
+      new InMemoryFinanceApprovalRulesRepository();
     const sutWithApproval = new BulkDeleteEntriesUseCase(
       entriesRepository,
       fakeTransactionManager,

@@ -36,9 +36,12 @@ export class PreviewMessageTemplateUseCase {
     // Also render subject if present
     let renderedSubject: string | undefined;
     if (template.subject) {
-      renderedSubject = template.subject.replace(/\{\{(\w+)\}\}/g, (match, key) => {
-        return input.sampleData[key] ?? match;
-      });
+      renderedSubject = template.subject.replace(
+        /\{\{(\w+)\}\}/g,
+        (match, key) => {
+          return input.sampleData[key] ?? match;
+        },
+      );
     }
 
     return {

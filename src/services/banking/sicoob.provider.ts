@@ -107,8 +107,7 @@ export class SicoobProvider implements BankingProvider {
       await this.getAccessToken();
       checks.auth.ok = true;
     } catch (err) {
-      checks.auth.error =
-        err instanceof Error ? err.message : 'Auth failed';
+      checks.auth.error = err instanceof Error ? err.message : 'Auth failed';
     }
 
     // Check 2: Balance query (validates API connectivity)
@@ -266,13 +265,9 @@ export class SicoobProvider implements BankingProvider {
     if (data.customerCpfCnpj) {
       body.devedor = {
         cpf:
-          data.customerCpfCnpj.length === 11
-            ? data.customerCpfCnpj
-            : undefined,
+          data.customerCpfCnpj.length === 11 ? data.customerCpfCnpj : undefined,
         cnpj:
-          data.customerCpfCnpj.length === 14
-            ? data.customerCpfCnpj
-            : undefined,
+          data.customerCpfCnpj.length === 14 ? data.customerCpfCnpj : undefined,
         nome: data.customerName ?? '',
       };
     }
@@ -397,10 +392,7 @@ export class SicoobProvider implements BankingProvider {
 
   // ─── Webhook ────────────────────────────────────────────────────────────
 
-  async registerWebhook(
-    url: string,
-    _events: WebhookEvent[],
-  ): Promise<void> {
+  async registerWebhook(url: string, _events: WebhookEvent[]): Promise<void> {
     const pixKey = this.config.pixKey ?? this.config.accountNumber;
     await this.request('PUT', `/pix/v2/webhook/${pixKey}`, {
       webhookUrl: url,

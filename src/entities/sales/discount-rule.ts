@@ -198,7 +198,10 @@ export class DiscountRule extends Entity<DiscountRuleProps> {
   }
 
   static create(
-    props: Optional<DiscountRuleProps, 'id' | 'isActive' | 'priority' | 'isStackable' | 'createdAt'>,
+    props: Optional<
+      DiscountRuleProps,
+      'id' | 'isActive' | 'priority' | 'isStackable' | 'createdAt'
+    >,
     id?: UniqueEntityID,
   ): DiscountRule {
     return new DiscountRule(

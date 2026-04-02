@@ -52,6 +52,7 @@ export async function listProposalsController(app: FastifyInstance) {
         tenantId,
         page,
         perPage: limit,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Zod enum type mismatch
         status: status as any,
         customerId,
       });
@@ -64,7 +65,7 @@ export async function listProposalsController(app: FastifyInstance) {
           limit,
           pages: totalPages,
         },
-      } as any);
+      } as unknown);
     },
   });
 }

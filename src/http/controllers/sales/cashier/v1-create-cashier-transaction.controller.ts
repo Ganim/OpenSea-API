@@ -16,9 +16,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-export async function createCashierTransactionController(
-  app: FastifyInstance,
-) {
+export async function createCashierTransactionController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/sales/cashier/sessions/:id/transactions',
@@ -74,7 +72,7 @@ export async function createCashierTransactionController(
           },
         });
 
-        return reply.status(201).send({ transaction } as any);
+        return reply.status(201).send({ transaction } as unknown);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

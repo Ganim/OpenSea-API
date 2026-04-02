@@ -131,7 +131,8 @@ export class EfiBoletoProvider {
       status: (data.status as string) || 'unknown',
       barcodeNumber: data.barcode as string | undefined,
       digitableLine: data.line as string | undefined,
-      pdfUrl: ((data.pdf as Record<string, unknown>)?.charge as string) || undefined,
+      pdfUrl:
+        ((data.pdf as Record<string, unknown>)?.charge as string) || undefined,
     };
   }
 

@@ -39,15 +39,11 @@ export class CreateFormUseCase {
     }
 
     if (input.title.length > 255) {
-      throw new BadRequestError(
-        'Form title cannot exceed 255 characters.',
-      );
+      throw new BadRequestError('Form title cannot exceed 255 characters.');
     }
 
     if (!input.fields || input.fields.length === 0) {
-      throw new BadRequestError(
-        'Form must have at least one field.',
-      );
+      throw new BadRequestError('Form must have at least one field.');
     }
 
     const form = await this.formsRepository.create({

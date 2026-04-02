@@ -71,9 +71,7 @@ export class ScheduleInterviewUseCase {
     }
 
     if (scheduledAt < new Date()) {
-      throw new BadRequestError(
-        'A data da entrevista não pode ser no passado',
-      );
+      throw new BadRequestError('A data da entrevista não pode ser no passado');
     }
 
     const interview = await this.interviewsRepository.create({

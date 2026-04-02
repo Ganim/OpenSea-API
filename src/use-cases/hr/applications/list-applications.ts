@@ -23,8 +23,10 @@ export class ListApplicationsUseCase {
   ): Promise<ListApplicationsResponse> {
     const { tenantId, ...filters } = request;
 
-    const { applications, total } =
-      await this.applicationsRepository.findMany(tenantId, filters);
+    const { applications, total } = await this.applicationsRepository.findMany(
+      tenantId,
+      filters,
+    );
 
     return { applications, total };
   }

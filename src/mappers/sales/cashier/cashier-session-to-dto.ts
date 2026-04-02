@@ -34,8 +34,10 @@ export function cashierSessionToDTO(
 
   if (session.posTerminalId) dto.posTerminalId = session.posTerminalId;
   if (session.closedAt) dto.closedAt = session.closedAt;
-  if (session.closingBalance !== undefined) dto.closingBalance = session.closingBalance;
-  if (session.expectedBalance !== undefined) dto.expectedBalance = session.expectedBalance;
+  if (session.closingBalance !== undefined)
+    dto.closingBalance = session.closingBalance;
+  if (session.expectedBalance !== undefined)
+    dto.expectedBalance = session.expectedBalance;
   if (session.difference !== undefined) dto.difference = session.difference;
   if (session.notes) dto.notes = session.notes;
   if (transactions) dto.transactions = transactions;

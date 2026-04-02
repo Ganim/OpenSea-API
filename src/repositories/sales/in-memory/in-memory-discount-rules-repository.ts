@@ -5,7 +5,9 @@ import type {
   DiscountRulesRepository,
 } from '../discount-rules-repository';
 
-export class InMemoryDiscountRulesRepository implements DiscountRulesRepository {
+export class InMemoryDiscountRulesRepository
+  implements DiscountRulesRepository
+{
   public items: DiscountRule[] = [];
 
   async create(data: CreateDiscountRuleSchema): Promise<DiscountRule> {
@@ -31,7 +33,10 @@ export class InMemoryDiscountRulesRepository implements DiscountRulesRepository 
     return discountRule;
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<DiscountRule | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<DiscountRule | null> {
     const discountRule = this.items.find(
       (item) =>
         !item.deletedAt &&
@@ -41,10 +46,16 @@ export class InMemoryDiscountRulesRepository implements DiscountRulesRepository 
     return discountRule ?? null;
   }
 
-  async findMany(page: number, perPage: number, tenantId: string): Promise<DiscountRule[]> {
+  async findMany(
+    page: number,
+    perPage: number,
+    tenantId: string,
+  ): Promise<DiscountRule[]> {
     const start = (page - 1) * perPage;
     return this.items
-      .filter((item) => !item.deletedAt && item.tenantId.toString() === tenantId)
+      .filter(
+        (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
+      )
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
       .slice(start, start + perPage);
   }
@@ -68,7 +79,9 @@ export class InMemoryDiscountRulesRepository implements DiscountRulesRepository 
   }
 
   async save(discountRule: DiscountRule): Promise<void> {
-    const index = this.items.findIndex((item) => item.id.equals(discountRule.id));
+    const index = this.items.findIndex((item) =>
+      item.id.equals(discountRule.id),
+    );
     if (index >= 0) {
       this.items[index] = discountRule;
     } else {

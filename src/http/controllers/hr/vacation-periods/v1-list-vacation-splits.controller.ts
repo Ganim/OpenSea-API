@@ -22,9 +22,7 @@ const vacationSplitResponseSchema = z.object({
   updatedAt: z.coerce.date(),
 });
 
-export async function v1ListVacationSplitsController(
-  app: FastifyInstance,
-) {
+export async function v1ListVacationSplitsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/vacation-periods/:vacationPeriodId/splits',
@@ -39,8 +37,7 @@ export async function v1ListVacationSplitsController(
     schema: {
       tags: ['HR - Vacation Periods'],
       summary: 'List vacation splits',
-      description:
-        'Lists all splits (parcelas) for a given vacation period',
+      description: 'Lists all splits (parcelas) for a given vacation period',
       params: z.object({
         vacationPeriodId: z.string().uuid(),
       }),

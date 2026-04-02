@@ -8,9 +8,7 @@ export interface UnassignEmployeeFromShiftRequest {
 }
 
 export class UnassignEmployeeFromShiftUseCase {
-  constructor(
-    private shiftAssignmentsRepository: ShiftAssignmentsRepository,
-  ) {}
+  constructor(private shiftAssignmentsRepository: ShiftAssignmentsRepository) {}
 
   async execute(request: UnassignEmployeeFromShiftRequest): Promise<void> {
     const { assignmentId, tenantId } = request;

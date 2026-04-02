@@ -22,8 +22,14 @@ import { prisma } from '@/lib/prisma';
 import { ThreeWayMatchUseCase } from './three-way-match';
 
 const mockPrisma = prisma as unknown as {
-  financeEntry: { findFirst: ReturnType<typeof vi.fn>; findMany: ReturnType<typeof vi.fn> };
-  fiscalDocument: { findUnique: ReturnType<typeof vi.fn>; findMany: ReturnType<typeof vi.fn> };
+  financeEntry: {
+    findFirst: ReturnType<typeof vi.fn>;
+    findMany: ReturnType<typeof vi.fn>;
+  };
+  fiscalDocument: {
+    findUnique: ReturnType<typeof vi.fn>;
+    findMany: ReturnType<typeof vi.fn>;
+  };
   itemMovement: { findMany: ReturnType<typeof vi.fn> };
 };
 
@@ -85,13 +91,18 @@ describe('ThreeWayMatchUseCase', () => {
   it('should return FULL_MATCH when all three documents are found', async () => {
     const entry = makeEntry({ fiscalDocumentId: 'doc-1' });
     mockPrisma.financeEntry.findFirst.mockResolvedValue(entry);
-    mockPrisma.fiscalDocument.findUnique.mockResolvedValue(makeFiscalDocument());
+    mockPrisma.fiscalDocument.findUnique.mockResolvedValue(
+      makeFiscalDocument(),
+    );
     mockPrisma.financeEntry.findMany.mockResolvedValue([
       makeEntry({ id: 'entry-2', code: 'PAG-002' }),
     ]);
     mockPrisma.itemMovement.findMany.mockResolvedValue([makeMovement()]);
 
-    const result = await sut.execute({ tenantId: TENANT_ID, entryId: ENTRY_ID });
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+      entryId: ENTRY_ID,
+    });
 
     expect(result.matchStatus).toBe('FULL_MATCH');
     expect(result.invoice).toBeDefined();
@@ -104,13 +115,18 @@ describe('ThreeWayMatchUseCase', () => {
   it('should return PARTIAL_MATCH when goods receipt is missing', async () => {
     const entry = makeEntry({ fiscalDocumentId: 'doc-1' });
     mockPrisma.financeEntry.findFirst.mockResolvedValue(entry);
-    mockPrisma.fiscalDocument.findUnique.mockResolvedValue(makeFiscalDocument());
+    mockPrisma.fiscalDocument.findUnique.mockResolvedValue(
+      makeFiscalDocument(),
+    );
     mockPrisma.financeEntry.findMany.mockResolvedValue([
       makeEntry({ id: 'entry-2', code: 'PAG-002' }),
     ]);
     mockPrisma.itemMovement.findMany.mockResolvedValue([]);
 
-    const result = await sut.execute({ tenantId: TENANT_ID, entryId: ENTRY_ID });
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+      entryId: ENTRY_ID,
+    });
 
     expect(result.matchStatus).toBe('PARTIAL_MATCH');
     expect(result.invoice).toBeDefined();
@@ -123,7 +139,10 @@ describe('ThreeWayMatchUseCase', () => {
     const entry = makeEntry({ supplierName: null });
     mockPrisma.financeEntry.findFirst.mockResolvedValue(entry);
 
-    const result = await sut.execute({ tenantId: TENANT_ID, entryId: ENTRY_ID });
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+      entryId: ENTRY_ID,
+    });
 
     expect(result.matchStatus).toBe('NO_MATCH');
     expect(result.invoice).toBeUndefined();
@@ -143,7 +162,10 @@ describe('ThreeWayMatchUseCase', () => {
     ]);
     mockPrisma.itemMovement.findMany.mockResolvedValue([makeMovement()]);
 
-    const result = await sut.execute({ tenantId: TENANT_ID, entryId: ENTRY_ID });
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+      entryId: ENTRY_ID,
+    });
 
     expect(result.matchStatus).toBe('PARTIAL_MATCH');
     expect(result.discrepancies).toHaveLength(1);

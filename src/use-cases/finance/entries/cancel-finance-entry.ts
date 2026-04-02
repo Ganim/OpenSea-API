@@ -23,7 +23,13 @@ export class CancelFinanceEntryUseCase {
   constructor(
     private financeEntriesRepository: FinanceEntriesRepository,
     private journalEntriesRepository?: JournalEntriesRepository,
-    private reverseJournalEntry?: { execute(req: { tenantId: string; journalEntryId: string; createdBy?: string }): Promise<unknown> },
+    private reverseJournalEntry?: {
+      execute(req: {
+        tenantId: string;
+        journalEntryId: string;
+        createdBy?: string;
+      }): Promise<unknown>;
+    },
   ) {}
 
   async execute({
@@ -80,7 +86,9 @@ export class CancelFinanceEntryUseCase {
     if (this.journalEntriesRepository && this.reverseJournalEntry) {
       try {
         const journals = await this.journalEntriesRepository.findBySource(
-          tenantId, 'FINANCE_ENTRY', id,
+          tenantId,
+          'FINANCE_ENTRY',
+          id,
         );
         for (const journal of journals) {
           if (journal.status === 'POSTED') {

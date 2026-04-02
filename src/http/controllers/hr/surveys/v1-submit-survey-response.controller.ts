@@ -4,7 +4,7 @@ import {
   submitSurveyResponseSchema,
   surveyResponseItemSchema,
 } from '@/http/schemas/hr/surveys';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { surveyResponseToDTO } from '@/mappers/hr/survey-response';
 import { makeSubmitSurveyResponseUseCase } from '@/use-cases/hr/surveys/factories';
 
@@ -21,7 +21,7 @@ export async function v1SubmitSurveyResponseController(app: FastifyInstance) {
       tags: ['HR - Surveys'],
       summary: 'Submit a survey response',
       description: 'Submits a response with answers to an active survey',
-      params: z.object({ surveyId: idSchema }),
+      params: z.object({ surveyId: cuidSchema }),
       body: submitSurveyResponseSchema,
       response: {
         201: surveyResponseItemSchema,

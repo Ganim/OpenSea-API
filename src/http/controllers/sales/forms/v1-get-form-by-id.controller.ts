@@ -40,7 +40,7 @@ export async function getFormByIdController(app: FastifyInstance) {
         const useCase = makeGetFormByIdUseCase();
         const { form } = await useCase.execute({ tenantId, formId: id });
 
-        return reply.status(200).send({ form } as any);
+        return reply.status(200).send({ form } as unknown);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

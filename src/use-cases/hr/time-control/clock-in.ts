@@ -109,8 +109,7 @@ export class ClockInUseCase {
     }
 
     // Auto-generate NSR number
-    const maxNsr =
-      await this.timeEntriesRepository.findMaxNsrNumber(tenantId);
+    const maxNsr = await this.timeEntriesRepository.findMaxNsrNumber(tenantId);
     const nsrNumber = maxNsr + 1;
 
     // Create clock in entry

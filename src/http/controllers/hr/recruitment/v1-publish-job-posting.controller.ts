@@ -6,7 +6,7 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { jobPostingResponseSchema } from '@/http/schemas/hr/recruitment';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { jobPostingToDTO } from '@/mappers/hr/job-posting';
 import { makePublishJobPostingUseCase } from '@/use-cases/hr/job-postings/factories';
 
@@ -29,8 +29,9 @@ export async function v1PublishJobPostingController(app: FastifyInstance) {
     schema: {
       tags: ['HR - Recruitment'],
       summary: 'Publish job posting',
-      description: 'Publishes a draft job posting, making it open for applications',
-      params: z.object({ jobPostingId: idSchema }),
+      description:
+        'Publishes a draft job posting, making it open for applications',
+      params: z.object({ jobPostingId: cuidSchema }),
       response: {
         200: z.object({ jobPosting: jobPostingResponseSchema }),
         400: z.object({ message: z.string() }),

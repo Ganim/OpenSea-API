@@ -10,7 +10,7 @@ import {
   performanceReviewResponseSchema,
   submitManagerReviewSchema,
 } from '@/http/schemas/hr/reviews';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { performanceReviewToDTO } from '@/mappers/hr/performance-review';
 import { makeSubmitManagerReviewUseCase } from '@/use-cases/hr/performance-reviews/factories/make-submit-manager-review-use-case';
 
@@ -34,7 +34,7 @@ export async function v1SubmitManagerReviewController(app: FastifyInstance) {
       tags: ['HR - Reviews'],
       summary: 'Submit manager review',
       description: 'Submits a manager review for an employee',
-      params: z.object({ performanceReviewId: idSchema }),
+      params: z.object({ performanceReviewId: cuidSchema }),
       body: submitManagerReviewSchema,
       response: {
         200: z.object({ review: performanceReviewResponseSchema }),

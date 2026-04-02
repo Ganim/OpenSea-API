@@ -12,9 +12,7 @@ export interface DeleteInterviewStageResponse {
 }
 
 export class DeleteInterviewStageUseCase {
-  constructor(
-    private interviewStagesRepository: InterviewStagesRepository,
-  ) {}
+  constructor(private interviewStagesRepository: InterviewStagesRepository) {}
 
   async execute(
     request: DeleteInterviewStageRequest,

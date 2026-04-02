@@ -19,8 +19,7 @@ export class ListAccountantAccessesUseCase {
   async execute({
     tenantId,
   }: ListAccountantAccessesRequest): Promise<ListAccountantAccessesResponse> {
-    const accesses =
-      await this.accountantAccessesRepository.findMany(tenantId);
+    const accesses = await this.accountantAccessesRepository.findMany(tenantId);
 
     return { accesses };
   }

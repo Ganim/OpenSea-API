@@ -1,7 +1,11 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
-import type { BoletoResult, CreateBoletoParams, EfiBoletoProvider } from '@/services/cashier/efi-boleto.provider';
+import type {
+  BoletoResult,
+  CreateBoletoParams,
+  EfiBoletoProvider,
+} from '@/services/cashier/efi-boleto.provider';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { CreateBoletoForEntryUseCase } from './create-boleto-for-entry';
 
@@ -133,7 +137,8 @@ describe('CreateBoletoForEntryUseCase', () => {
       dueDate: new Date('2026-03-01'),
       boletoChargeId: 99999,
       boletoBarcodeNumber: '12345678901234567890123456789012345678901234',
-      boletoDigitableLine: '12345.12345 12345.123456 12345.123456 1 12340000010000',
+      boletoDigitableLine:
+        '12345.12345 12345.123456 12345.123456 1 12340000010000',
       boletoPdfUrl: 'https://example.com/pdf/99999',
     });
 

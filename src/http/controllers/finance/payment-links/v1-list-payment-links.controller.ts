@@ -26,9 +26,7 @@ export async function listPaymentLinksController(app: FastifyInstance) {
       querystring: z.object({
         page: z.coerce.number().min(1).default(1),
         limit: z.coerce.number().min(1).max(100).default(20),
-        status: z
-          .enum(['ACTIVE', 'PAID', 'EXPIRED', 'CANCELLED'])
-          .optional(),
+        status: z.enum(['ACTIVE', 'PAID', 'EXPIRED', 'CANCELLED']).optional(),
       }),
       response: {
         200: z.object({

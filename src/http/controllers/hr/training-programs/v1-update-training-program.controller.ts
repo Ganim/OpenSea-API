@@ -9,7 +9,7 @@ import {
   trainingProgramResponseSchema,
   updateTrainingProgramSchema,
 } from '@/http/schemas/hr/training';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { trainingProgramToDTO } from '@/mappers/hr/training-program';
 import { makeUpdateTrainingProgramUseCase } from '@/use-cases/hr/training-programs/factories/make-update-training-program-use-case';
 
@@ -33,7 +33,7 @@ export async function v1UpdateTrainingProgramController(app: FastifyInstance) {
       tags: ['HR - Training'],
       summary: 'Update training program',
       description: 'Updates an existing training program',
-      params: z.object({ trainingProgramId: idSchema }),
+      params: z.object({ trainingProgramId: cuidSchema }),
       body: updateTrainingProgramSchema,
       response: {
         200: z.object({ trainingProgram: trainingProgramResponseSchema }),

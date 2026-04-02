@@ -69,7 +69,7 @@ export class CreatePixChargeUseCase {
       );
     }
 
-    const dueDate = entry.dueDate.toISOString().split('T')[0];
+    const _dueDate = entry.dueDate.toISOString().split('T')[0];
 
     // Get provider, authenticate and create PIX charge
     const provider = await this.getProvider(bankAccountId);

@@ -9,7 +9,7 @@ import {
   jobPostingResponseSchema,
   updateJobPostingSchema,
 } from '@/http/schemas/hr/recruitment';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { jobPostingToDTO } from '@/mappers/hr/job-posting';
 import { makeUpdateJobPostingUseCase } from '@/use-cases/hr/job-postings/factories';
 
@@ -33,7 +33,7 @@ export async function v1UpdateJobPostingController(app: FastifyInstance) {
       tags: ['HR - Recruitment'],
       summary: 'Update job posting',
       description: 'Updates an existing job posting',
-      params: z.object({ jobPostingId: idSchema }),
+      params: z.object({ jobPostingId: cuidSchema }),
       body: updateJobPostingSchema,
       response: {
         200: z.object({ jobPosting: jobPostingResponseSchema }),

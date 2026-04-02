@@ -341,6 +341,8 @@ export type AdmissionInviteWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"AdmissionInvite"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AdmissionInvite"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  position?: Prisma.XOR<Prisma.PositionNullableScalarRelationFilter, Prisma.PositionWhereInput> | null
+  department?: Prisma.XOR<Prisma.DepartmentNullableScalarRelationFilter, Prisma.DepartmentWhereInput> | null
   documents?: Prisma.AdmissionDocumentListRelationFilter
   signatures?: Prisma.DigitalSignatureListRelationFilter
 }
@@ -368,6 +370,8 @@ export type AdmissionInviteOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
+  position?: Prisma.PositionOrderByWithRelationInput
+  department?: Prisma.DepartmentOrderByWithRelationInput
   documents?: Prisma.AdmissionDocumentOrderByRelationAggregateInput
   signatures?: Prisma.DigitalSignatureOrderByRelationAggregateInput
 }
@@ -398,6 +402,8 @@ export type AdmissionInviteWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"AdmissionInvite"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AdmissionInvite"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  position?: Prisma.XOR<Prisma.PositionNullableScalarRelationFilter, Prisma.PositionWhereInput> | null
+  department?: Prisma.XOR<Prisma.DepartmentNullableScalarRelationFilter, Prisma.DepartmentWhereInput> | null
   documents?: Prisma.AdmissionDocumentListRelationFilter
   signatures?: Prisma.DigitalSignatureListRelationFilter
 }, "id" | "token">
@@ -464,8 +470,6 @@ export type AdmissionInviteCreateInput = {
   email?: string | null
   phone?: string | null
   fullName: string
-  positionId?: string | null
-  departmentId?: string | null
   companyId?: string | null
   expectedStartDate?: Date | string | null
   salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -480,6 +484,8 @@ export type AdmissionInviteCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutAdmissionInvitesInput
+  position?: Prisma.PositionCreateNestedOneWithoutAdmissionInvitesInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutAdmissionInvitesInput
   documents?: Prisma.AdmissionDocumentCreateNestedManyWithoutAdmissionInviteInput
   signatures?: Prisma.DigitalSignatureCreateNestedManyWithoutAdmissionInviteInput
 }
@@ -516,8 +522,6 @@ export type AdmissionInviteUpdateInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -532,6 +536,8 @@ export type AdmissionInviteUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutAdmissionInvitesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutAdmissionInvitesNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutAdmissionInvitesNestedInput
   documents?: Prisma.AdmissionDocumentUpdateManyWithoutAdmissionInviteNestedInput
   signatures?: Prisma.DigitalSignatureUpdateManyWithoutAdmissionInviteNestedInput
 }
@@ -592,8 +598,6 @@ export type AdmissionInviteUpdateManyMutationInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -731,6 +735,90 @@ export type AdmissionInviteNullableScalarRelationFilter = {
   isNot?: Prisma.AdmissionInviteWhereInput | null
 }
 
+export type AdmissionInviteCreateNestedManyWithoutDepartmentInput = {
+  create?: Prisma.XOR<Prisma.AdmissionInviteCreateWithoutDepartmentInput, Prisma.AdmissionInviteUncheckedCreateWithoutDepartmentInput> | Prisma.AdmissionInviteCreateWithoutDepartmentInput[] | Prisma.AdmissionInviteUncheckedCreateWithoutDepartmentInput[]
+  connectOrCreate?: Prisma.AdmissionInviteCreateOrConnectWithoutDepartmentInput | Prisma.AdmissionInviteCreateOrConnectWithoutDepartmentInput[]
+  createMany?: Prisma.AdmissionInviteCreateManyDepartmentInputEnvelope
+  connect?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+}
+
+export type AdmissionInviteUncheckedCreateNestedManyWithoutDepartmentInput = {
+  create?: Prisma.XOR<Prisma.AdmissionInviteCreateWithoutDepartmentInput, Prisma.AdmissionInviteUncheckedCreateWithoutDepartmentInput> | Prisma.AdmissionInviteCreateWithoutDepartmentInput[] | Prisma.AdmissionInviteUncheckedCreateWithoutDepartmentInput[]
+  connectOrCreate?: Prisma.AdmissionInviteCreateOrConnectWithoutDepartmentInput | Prisma.AdmissionInviteCreateOrConnectWithoutDepartmentInput[]
+  createMany?: Prisma.AdmissionInviteCreateManyDepartmentInputEnvelope
+  connect?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+}
+
+export type AdmissionInviteUpdateManyWithoutDepartmentNestedInput = {
+  create?: Prisma.XOR<Prisma.AdmissionInviteCreateWithoutDepartmentInput, Prisma.AdmissionInviteUncheckedCreateWithoutDepartmentInput> | Prisma.AdmissionInviteCreateWithoutDepartmentInput[] | Prisma.AdmissionInviteUncheckedCreateWithoutDepartmentInput[]
+  connectOrCreate?: Prisma.AdmissionInviteCreateOrConnectWithoutDepartmentInput | Prisma.AdmissionInviteCreateOrConnectWithoutDepartmentInput[]
+  upsert?: Prisma.AdmissionInviteUpsertWithWhereUniqueWithoutDepartmentInput | Prisma.AdmissionInviteUpsertWithWhereUniqueWithoutDepartmentInput[]
+  createMany?: Prisma.AdmissionInviteCreateManyDepartmentInputEnvelope
+  set?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+  disconnect?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+  delete?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+  connect?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+  update?: Prisma.AdmissionInviteUpdateWithWhereUniqueWithoutDepartmentInput | Prisma.AdmissionInviteUpdateWithWhereUniqueWithoutDepartmentInput[]
+  updateMany?: Prisma.AdmissionInviteUpdateManyWithWhereWithoutDepartmentInput | Prisma.AdmissionInviteUpdateManyWithWhereWithoutDepartmentInput[]
+  deleteMany?: Prisma.AdmissionInviteScalarWhereInput | Prisma.AdmissionInviteScalarWhereInput[]
+}
+
+export type AdmissionInviteUncheckedUpdateManyWithoutDepartmentNestedInput = {
+  create?: Prisma.XOR<Prisma.AdmissionInviteCreateWithoutDepartmentInput, Prisma.AdmissionInviteUncheckedCreateWithoutDepartmentInput> | Prisma.AdmissionInviteCreateWithoutDepartmentInput[] | Prisma.AdmissionInviteUncheckedCreateWithoutDepartmentInput[]
+  connectOrCreate?: Prisma.AdmissionInviteCreateOrConnectWithoutDepartmentInput | Prisma.AdmissionInviteCreateOrConnectWithoutDepartmentInput[]
+  upsert?: Prisma.AdmissionInviteUpsertWithWhereUniqueWithoutDepartmentInput | Prisma.AdmissionInviteUpsertWithWhereUniqueWithoutDepartmentInput[]
+  createMany?: Prisma.AdmissionInviteCreateManyDepartmentInputEnvelope
+  set?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+  disconnect?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+  delete?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+  connect?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+  update?: Prisma.AdmissionInviteUpdateWithWhereUniqueWithoutDepartmentInput | Prisma.AdmissionInviteUpdateWithWhereUniqueWithoutDepartmentInput[]
+  updateMany?: Prisma.AdmissionInviteUpdateManyWithWhereWithoutDepartmentInput | Prisma.AdmissionInviteUpdateManyWithWhereWithoutDepartmentInput[]
+  deleteMany?: Prisma.AdmissionInviteScalarWhereInput | Prisma.AdmissionInviteScalarWhereInput[]
+}
+
+export type AdmissionInviteCreateNestedManyWithoutPositionInput = {
+  create?: Prisma.XOR<Prisma.AdmissionInviteCreateWithoutPositionInput, Prisma.AdmissionInviteUncheckedCreateWithoutPositionInput> | Prisma.AdmissionInviteCreateWithoutPositionInput[] | Prisma.AdmissionInviteUncheckedCreateWithoutPositionInput[]
+  connectOrCreate?: Prisma.AdmissionInviteCreateOrConnectWithoutPositionInput | Prisma.AdmissionInviteCreateOrConnectWithoutPositionInput[]
+  createMany?: Prisma.AdmissionInviteCreateManyPositionInputEnvelope
+  connect?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+}
+
+export type AdmissionInviteUncheckedCreateNestedManyWithoutPositionInput = {
+  create?: Prisma.XOR<Prisma.AdmissionInviteCreateWithoutPositionInput, Prisma.AdmissionInviteUncheckedCreateWithoutPositionInput> | Prisma.AdmissionInviteCreateWithoutPositionInput[] | Prisma.AdmissionInviteUncheckedCreateWithoutPositionInput[]
+  connectOrCreate?: Prisma.AdmissionInviteCreateOrConnectWithoutPositionInput | Prisma.AdmissionInviteCreateOrConnectWithoutPositionInput[]
+  createMany?: Prisma.AdmissionInviteCreateManyPositionInputEnvelope
+  connect?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+}
+
+export type AdmissionInviteUpdateManyWithoutPositionNestedInput = {
+  create?: Prisma.XOR<Prisma.AdmissionInviteCreateWithoutPositionInput, Prisma.AdmissionInviteUncheckedCreateWithoutPositionInput> | Prisma.AdmissionInviteCreateWithoutPositionInput[] | Prisma.AdmissionInviteUncheckedCreateWithoutPositionInput[]
+  connectOrCreate?: Prisma.AdmissionInviteCreateOrConnectWithoutPositionInput | Prisma.AdmissionInviteCreateOrConnectWithoutPositionInput[]
+  upsert?: Prisma.AdmissionInviteUpsertWithWhereUniqueWithoutPositionInput | Prisma.AdmissionInviteUpsertWithWhereUniqueWithoutPositionInput[]
+  createMany?: Prisma.AdmissionInviteCreateManyPositionInputEnvelope
+  set?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+  disconnect?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+  delete?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+  connect?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+  update?: Prisma.AdmissionInviteUpdateWithWhereUniqueWithoutPositionInput | Prisma.AdmissionInviteUpdateWithWhereUniqueWithoutPositionInput[]
+  updateMany?: Prisma.AdmissionInviteUpdateManyWithWhereWithoutPositionInput | Prisma.AdmissionInviteUpdateManyWithWhereWithoutPositionInput[]
+  deleteMany?: Prisma.AdmissionInviteScalarWhereInput | Prisma.AdmissionInviteScalarWhereInput[]
+}
+
+export type AdmissionInviteUncheckedUpdateManyWithoutPositionNestedInput = {
+  create?: Prisma.XOR<Prisma.AdmissionInviteCreateWithoutPositionInput, Prisma.AdmissionInviteUncheckedCreateWithoutPositionInput> | Prisma.AdmissionInviteCreateWithoutPositionInput[] | Prisma.AdmissionInviteUncheckedCreateWithoutPositionInput[]
+  connectOrCreate?: Prisma.AdmissionInviteCreateOrConnectWithoutPositionInput | Prisma.AdmissionInviteCreateOrConnectWithoutPositionInput[]
+  upsert?: Prisma.AdmissionInviteUpsertWithWhereUniqueWithoutPositionInput | Prisma.AdmissionInviteUpsertWithWhereUniqueWithoutPositionInput[]
+  createMany?: Prisma.AdmissionInviteCreateManyPositionInputEnvelope
+  set?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+  disconnect?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+  delete?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+  connect?: Prisma.AdmissionInviteWhereUniqueInput | Prisma.AdmissionInviteWhereUniqueInput[]
+  update?: Prisma.AdmissionInviteUpdateWithWhereUniqueWithoutPositionInput | Prisma.AdmissionInviteUpdateWithWhereUniqueWithoutPositionInput[]
+  updateMany?: Prisma.AdmissionInviteUpdateManyWithWhereWithoutPositionInput | Prisma.AdmissionInviteUpdateManyWithWhereWithoutPositionInput[]
+  deleteMany?: Prisma.AdmissionInviteScalarWhereInput | Prisma.AdmissionInviteScalarWhereInput[]
+}
+
 export type AdmissionInviteCreateNestedManyWithoutTenantInput = {
   create?: Prisma.XOR<Prisma.AdmissionInviteCreateWithoutTenantInput, Prisma.AdmissionInviteUncheckedCreateWithoutTenantInput> | Prisma.AdmissionInviteCreateWithoutTenantInput[] | Prisma.AdmissionInviteUncheckedCreateWithoutTenantInput[]
   connectOrCreate?: Prisma.AdmissionInviteCreateOrConnectWithoutTenantInput | Prisma.AdmissionInviteCreateOrConnectWithoutTenantInput[]
@@ -803,13 +891,141 @@ export type AdmissionInviteUpdateOneWithoutSignaturesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AdmissionInviteUpdateToOneWithWhereWithoutSignaturesInput, Prisma.AdmissionInviteUpdateWithoutSignaturesInput>, Prisma.AdmissionInviteUncheckedUpdateWithoutSignaturesInput>
 }
 
-export type AdmissionInviteCreateWithoutTenantInput = {
+export type AdmissionInviteCreateWithoutDepartmentInput = {
   id?: string
   token?: string
   email?: string | null
   phone?: string | null
   fullName: string
+  companyId?: string | null
+  expectedStartDate?: Date | string | null
+  salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: string | null
+  workRegime?: string | null
+  status?: string
+  candidateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  expiresAt?: Date | string | null
+  completedAt?: Date | string | null
+  employeeId?: string | null
+  createdBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutAdmissionInvitesInput
+  position?: Prisma.PositionCreateNestedOneWithoutAdmissionInvitesInput
+  documents?: Prisma.AdmissionDocumentCreateNestedManyWithoutAdmissionInviteInput
+  signatures?: Prisma.DigitalSignatureCreateNestedManyWithoutAdmissionInviteInput
+}
+
+export type AdmissionInviteUncheckedCreateWithoutDepartmentInput = {
+  id?: string
+  tenantId: string
+  token?: string
+  email?: string | null
+  phone?: string | null
+  fullName: string
   positionId?: string | null
+  companyId?: string | null
+  expectedStartDate?: Date | string | null
+  salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: string | null
+  workRegime?: string | null
+  status?: string
+  candidateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  expiresAt?: Date | string | null
+  completedAt?: Date | string | null
+  employeeId?: string | null
+  createdBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  documents?: Prisma.AdmissionDocumentUncheckedCreateNestedManyWithoutAdmissionInviteInput
+  signatures?: Prisma.DigitalSignatureUncheckedCreateNestedManyWithoutAdmissionInviteInput
+}
+
+export type AdmissionInviteCreateOrConnectWithoutDepartmentInput = {
+  where: Prisma.AdmissionInviteWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdmissionInviteCreateWithoutDepartmentInput, Prisma.AdmissionInviteUncheckedCreateWithoutDepartmentInput>
+}
+
+export type AdmissionInviteCreateManyDepartmentInputEnvelope = {
+  data: Prisma.AdmissionInviteCreateManyDepartmentInput | Prisma.AdmissionInviteCreateManyDepartmentInput[]
+  skipDuplicates?: boolean
+}
+
+export type AdmissionInviteUpsertWithWhereUniqueWithoutDepartmentInput = {
+  where: Prisma.AdmissionInviteWhereUniqueInput
+  update: Prisma.XOR<Prisma.AdmissionInviteUpdateWithoutDepartmentInput, Prisma.AdmissionInviteUncheckedUpdateWithoutDepartmentInput>
+  create: Prisma.XOR<Prisma.AdmissionInviteCreateWithoutDepartmentInput, Prisma.AdmissionInviteUncheckedCreateWithoutDepartmentInput>
+}
+
+export type AdmissionInviteUpdateWithWhereUniqueWithoutDepartmentInput = {
+  where: Prisma.AdmissionInviteWhereUniqueInput
+  data: Prisma.XOR<Prisma.AdmissionInviteUpdateWithoutDepartmentInput, Prisma.AdmissionInviteUncheckedUpdateWithoutDepartmentInput>
+}
+
+export type AdmissionInviteUpdateManyWithWhereWithoutDepartmentInput = {
+  where: Prisma.AdmissionInviteScalarWhereInput
+  data: Prisma.XOR<Prisma.AdmissionInviteUpdateManyMutationInput, Prisma.AdmissionInviteUncheckedUpdateManyWithoutDepartmentInput>
+}
+
+export type AdmissionInviteScalarWhereInput = {
+  AND?: Prisma.AdmissionInviteScalarWhereInput | Prisma.AdmissionInviteScalarWhereInput[]
+  OR?: Prisma.AdmissionInviteScalarWhereInput[]
+  NOT?: Prisma.AdmissionInviteScalarWhereInput | Prisma.AdmissionInviteScalarWhereInput[]
+  id?: Prisma.StringFilter<"AdmissionInvite"> | string
+  tenantId?: Prisma.StringFilter<"AdmissionInvite"> | string
+  token?: Prisma.StringFilter<"AdmissionInvite"> | string
+  email?: Prisma.StringNullableFilter<"AdmissionInvite"> | string | null
+  phone?: Prisma.StringNullableFilter<"AdmissionInvite"> | string | null
+  fullName?: Prisma.StringFilter<"AdmissionInvite"> | string
+  positionId?: Prisma.StringNullableFilter<"AdmissionInvite"> | string | null
+  departmentId?: Prisma.StringNullableFilter<"AdmissionInvite"> | string | null
+  companyId?: Prisma.StringNullableFilter<"AdmissionInvite"> | string | null
+  expectedStartDate?: Prisma.DateTimeNullableFilter<"AdmissionInvite"> | Date | string | null
+  salary?: Prisma.DecimalNullableFilter<"AdmissionInvite"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.StringNullableFilter<"AdmissionInvite"> | string | null
+  workRegime?: Prisma.StringNullableFilter<"AdmissionInvite"> | string | null
+  status?: Prisma.StringFilter<"AdmissionInvite"> | string
+  candidateData?: Prisma.JsonNullableFilter<"AdmissionInvite">
+  expiresAt?: Prisma.DateTimeNullableFilter<"AdmissionInvite"> | Date | string | null
+  completedAt?: Prisma.DateTimeNullableFilter<"AdmissionInvite"> | Date | string | null
+  employeeId?: Prisma.StringNullableFilter<"AdmissionInvite"> | string | null
+  createdBy?: Prisma.StringNullableFilter<"AdmissionInvite"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"AdmissionInvite"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"AdmissionInvite"> | Date | string
+}
+
+export type AdmissionInviteCreateWithoutPositionInput = {
+  id?: string
+  token?: string
+  email?: string | null
+  phone?: string | null
+  fullName: string
+  companyId?: string | null
+  expectedStartDate?: Date | string | null
+  salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: string | null
+  workRegime?: string | null
+  status?: string
+  candidateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  expiresAt?: Date | string | null
+  completedAt?: Date | string | null
+  employeeId?: string | null
+  createdBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutAdmissionInvitesInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutAdmissionInvitesInput
+  documents?: Prisma.AdmissionDocumentCreateNestedManyWithoutAdmissionInviteInput
+  signatures?: Prisma.DigitalSignatureCreateNestedManyWithoutAdmissionInviteInput
+}
+
+export type AdmissionInviteUncheckedCreateWithoutPositionInput = {
+  id?: string
+  tenantId: string
+  token?: string
+  email?: string | null
+  phone?: string | null
+  fullName: string
   departmentId?: string | null
   companyId?: string | null
   expectedStartDate?: Date | string | null
@@ -824,6 +1040,57 @@ export type AdmissionInviteCreateWithoutTenantInput = {
   createdBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  documents?: Prisma.AdmissionDocumentUncheckedCreateNestedManyWithoutAdmissionInviteInput
+  signatures?: Prisma.DigitalSignatureUncheckedCreateNestedManyWithoutAdmissionInviteInput
+}
+
+export type AdmissionInviteCreateOrConnectWithoutPositionInput = {
+  where: Prisma.AdmissionInviteWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdmissionInviteCreateWithoutPositionInput, Prisma.AdmissionInviteUncheckedCreateWithoutPositionInput>
+}
+
+export type AdmissionInviteCreateManyPositionInputEnvelope = {
+  data: Prisma.AdmissionInviteCreateManyPositionInput | Prisma.AdmissionInviteCreateManyPositionInput[]
+  skipDuplicates?: boolean
+}
+
+export type AdmissionInviteUpsertWithWhereUniqueWithoutPositionInput = {
+  where: Prisma.AdmissionInviteWhereUniqueInput
+  update: Prisma.XOR<Prisma.AdmissionInviteUpdateWithoutPositionInput, Prisma.AdmissionInviteUncheckedUpdateWithoutPositionInput>
+  create: Prisma.XOR<Prisma.AdmissionInviteCreateWithoutPositionInput, Prisma.AdmissionInviteUncheckedCreateWithoutPositionInput>
+}
+
+export type AdmissionInviteUpdateWithWhereUniqueWithoutPositionInput = {
+  where: Prisma.AdmissionInviteWhereUniqueInput
+  data: Prisma.XOR<Prisma.AdmissionInviteUpdateWithoutPositionInput, Prisma.AdmissionInviteUncheckedUpdateWithoutPositionInput>
+}
+
+export type AdmissionInviteUpdateManyWithWhereWithoutPositionInput = {
+  where: Prisma.AdmissionInviteScalarWhereInput
+  data: Prisma.XOR<Prisma.AdmissionInviteUpdateManyMutationInput, Prisma.AdmissionInviteUncheckedUpdateManyWithoutPositionInput>
+}
+
+export type AdmissionInviteCreateWithoutTenantInput = {
+  id?: string
+  token?: string
+  email?: string | null
+  phone?: string | null
+  fullName: string
+  companyId?: string | null
+  expectedStartDate?: Date | string | null
+  salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: string | null
+  workRegime?: string | null
+  status?: string
+  candidateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  expiresAt?: Date | string | null
+  completedAt?: Date | string | null
+  employeeId?: string | null
+  createdBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  position?: Prisma.PositionCreateNestedOneWithoutAdmissionInvitesInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutAdmissionInvitesInput
   documents?: Prisma.AdmissionDocumentCreateNestedManyWithoutAdmissionInviteInput
   signatures?: Prisma.DigitalSignatureCreateNestedManyWithoutAdmissionInviteInput
 }
@@ -879,41 +1146,12 @@ export type AdmissionInviteUpdateManyWithWhereWithoutTenantInput = {
   data: Prisma.XOR<Prisma.AdmissionInviteUpdateManyMutationInput, Prisma.AdmissionInviteUncheckedUpdateManyWithoutTenantInput>
 }
 
-export type AdmissionInviteScalarWhereInput = {
-  AND?: Prisma.AdmissionInviteScalarWhereInput | Prisma.AdmissionInviteScalarWhereInput[]
-  OR?: Prisma.AdmissionInviteScalarWhereInput[]
-  NOT?: Prisma.AdmissionInviteScalarWhereInput | Prisma.AdmissionInviteScalarWhereInput[]
-  id?: Prisma.StringFilter<"AdmissionInvite"> | string
-  tenantId?: Prisma.StringFilter<"AdmissionInvite"> | string
-  token?: Prisma.StringFilter<"AdmissionInvite"> | string
-  email?: Prisma.StringNullableFilter<"AdmissionInvite"> | string | null
-  phone?: Prisma.StringNullableFilter<"AdmissionInvite"> | string | null
-  fullName?: Prisma.StringFilter<"AdmissionInvite"> | string
-  positionId?: Prisma.StringNullableFilter<"AdmissionInvite"> | string | null
-  departmentId?: Prisma.StringNullableFilter<"AdmissionInvite"> | string | null
-  companyId?: Prisma.StringNullableFilter<"AdmissionInvite"> | string | null
-  expectedStartDate?: Prisma.DateTimeNullableFilter<"AdmissionInvite"> | Date | string | null
-  salary?: Prisma.DecimalNullableFilter<"AdmissionInvite"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  contractType?: Prisma.StringNullableFilter<"AdmissionInvite"> | string | null
-  workRegime?: Prisma.StringNullableFilter<"AdmissionInvite"> | string | null
-  status?: Prisma.StringFilter<"AdmissionInvite"> | string
-  candidateData?: Prisma.JsonNullableFilter<"AdmissionInvite">
-  expiresAt?: Prisma.DateTimeNullableFilter<"AdmissionInvite"> | Date | string | null
-  completedAt?: Prisma.DateTimeNullableFilter<"AdmissionInvite"> | Date | string | null
-  employeeId?: Prisma.StringNullableFilter<"AdmissionInvite"> | string | null
-  createdBy?: Prisma.StringNullableFilter<"AdmissionInvite"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"AdmissionInvite"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"AdmissionInvite"> | Date | string
-}
-
 export type AdmissionInviteCreateWithoutDocumentsInput = {
   id?: string
   token?: string
   email?: string | null
   phone?: string | null
   fullName: string
-  positionId?: string | null
-  departmentId?: string | null
   companyId?: string | null
   expectedStartDate?: Date | string | null
   salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -928,6 +1166,8 @@ export type AdmissionInviteCreateWithoutDocumentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutAdmissionInvitesInput
+  position?: Prisma.PositionCreateNestedOneWithoutAdmissionInvitesInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutAdmissionInvitesInput
   signatures?: Prisma.DigitalSignatureCreateNestedManyWithoutAdmissionInviteInput
 }
 
@@ -978,8 +1218,6 @@ export type AdmissionInviteUpdateWithoutDocumentsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -994,6 +1232,8 @@ export type AdmissionInviteUpdateWithoutDocumentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutAdmissionInvitesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutAdmissionInvitesNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutAdmissionInvitesNestedInput
   signatures?: Prisma.DigitalSignatureUpdateManyWithoutAdmissionInviteNestedInput
 }
 
@@ -1028,8 +1268,6 @@ export type AdmissionInviteCreateWithoutSignaturesInput = {
   email?: string | null
   phone?: string | null
   fullName: string
-  positionId?: string | null
-  departmentId?: string | null
   companyId?: string | null
   expectedStartDate?: Date | string | null
   salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1044,6 +1282,8 @@ export type AdmissionInviteCreateWithoutSignaturesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutAdmissionInvitesInput
+  position?: Prisma.PositionCreateNestedOneWithoutAdmissionInvitesInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutAdmissionInvitesInput
   documents?: Prisma.AdmissionDocumentCreateNestedManyWithoutAdmissionInviteInput
 }
 
@@ -1094,8 +1334,6 @@ export type AdmissionInviteUpdateWithoutSignaturesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1110,6 +1348,8 @@ export type AdmissionInviteUpdateWithoutSignaturesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutAdmissionInvitesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutAdmissionInvitesNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutAdmissionInvitesNestedInput
   documents?: Prisma.AdmissionDocumentUpdateManyWithoutAdmissionInviteNestedInput
 }
 
@@ -1136,6 +1376,198 @@ export type AdmissionInviteUncheckedUpdateWithoutSignaturesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   documents?: Prisma.AdmissionDocumentUncheckedUpdateManyWithoutAdmissionInviteNestedInput
+}
+
+export type AdmissionInviteCreateManyDepartmentInput = {
+  id?: string
+  tenantId: string
+  token?: string
+  email?: string | null
+  phone?: string | null
+  fullName: string
+  positionId?: string | null
+  companyId?: string | null
+  expectedStartDate?: Date | string | null
+  salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: string | null
+  workRegime?: string | null
+  status?: string
+  candidateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  expiresAt?: Date | string | null
+  completedAt?: Date | string | null
+  employeeId?: string | null
+  createdBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AdmissionInviteUpdateWithoutDepartmentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expectedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workRegime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  employeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutAdmissionInvitesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutAdmissionInvitesNestedInput
+  documents?: Prisma.AdmissionDocumentUpdateManyWithoutAdmissionInviteNestedInput
+  signatures?: Prisma.DigitalSignatureUpdateManyWithoutAdmissionInviteNestedInput
+}
+
+export type AdmissionInviteUncheckedUpdateWithoutDepartmentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expectedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workRegime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  employeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  documents?: Prisma.AdmissionDocumentUncheckedUpdateManyWithoutAdmissionInviteNestedInput
+  signatures?: Prisma.DigitalSignatureUncheckedUpdateManyWithoutAdmissionInviteNestedInput
+}
+
+export type AdmissionInviteUncheckedUpdateManyWithoutDepartmentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expectedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workRegime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  employeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AdmissionInviteCreateManyPositionInput = {
+  id?: string
+  tenantId: string
+  token?: string
+  email?: string | null
+  phone?: string | null
+  fullName: string
+  departmentId?: string | null
+  companyId?: string | null
+  expectedStartDate?: Date | string | null
+  salary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: string | null
+  workRegime?: string | null
+  status?: string
+  candidateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  expiresAt?: Date | string | null
+  completedAt?: Date | string | null
+  employeeId?: string | null
+  createdBy?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AdmissionInviteUpdateWithoutPositionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expectedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workRegime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  employeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutAdmissionInvitesNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutAdmissionInvitesNestedInput
+  documents?: Prisma.AdmissionDocumentUpdateManyWithoutAdmissionInviteNestedInput
+  signatures?: Prisma.DigitalSignatureUpdateManyWithoutAdmissionInviteNestedInput
+}
+
+export type AdmissionInviteUncheckedUpdateWithoutPositionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expectedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workRegime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  employeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  documents?: Prisma.AdmissionDocumentUncheckedUpdateManyWithoutAdmissionInviteNestedInput
+  signatures?: Prisma.DigitalSignatureUncheckedUpdateManyWithoutAdmissionInviteNestedInput
+}
+
+export type AdmissionInviteUncheckedUpdateManyWithoutPositionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expectedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workRegime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  employeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AdmissionInviteCreateManyTenantInput = {
@@ -1167,8 +1599,6 @@ export type AdmissionInviteUpdateWithoutTenantInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   salary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1182,6 +1612,8 @@ export type AdmissionInviteUpdateWithoutTenantInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  position?: Prisma.PositionUpdateOneWithoutAdmissionInvitesNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutAdmissionInvitesNestedInput
   documents?: Prisma.AdmissionDocumentUpdateManyWithoutAdmissionInviteNestedInput
   signatures?: Prisma.DigitalSignatureUpdateManyWithoutAdmissionInviteNestedInput
 }
@@ -1297,6 +1729,8 @@ export type AdmissionInviteSelect<ExtArgs extends runtime.Types.Extensions.Inter
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  position?: boolean | Prisma.AdmissionInvite$positionArgs<ExtArgs>
+  department?: boolean | Prisma.AdmissionInvite$departmentArgs<ExtArgs>
   documents?: boolean | Prisma.AdmissionInvite$documentsArgs<ExtArgs>
   signatures?: boolean | Prisma.AdmissionInvite$signaturesArgs<ExtArgs>
   _count?: boolean | Prisma.AdmissionInviteCountOutputTypeDefaultArgs<ExtArgs>
@@ -1325,6 +1759,8 @@ export type AdmissionInviteSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  position?: boolean | Prisma.AdmissionInvite$positionArgs<ExtArgs>
+  department?: boolean | Prisma.AdmissionInvite$departmentArgs<ExtArgs>
 }, ExtArgs["result"]["admissionInvite"]>
 
 export type AdmissionInviteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1350,6 +1786,8 @@ export type AdmissionInviteSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  position?: boolean | Prisma.AdmissionInvite$positionArgs<ExtArgs>
+  department?: boolean | Prisma.AdmissionInvite$departmentArgs<ExtArgs>
 }, ExtArgs["result"]["admissionInvite"]>
 
 export type AdmissionInviteSelectScalar = {
@@ -1379,21 +1817,29 @@ export type AdmissionInviteSelectScalar = {
 export type AdmissionInviteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "token" | "email" | "phone" | "fullName" | "positionId" | "departmentId" | "companyId" | "expectedStartDate" | "salary" | "contractType" | "workRegime" | "status" | "candidateData" | "expiresAt" | "completedAt" | "employeeId" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["admissionInvite"]>
 export type AdmissionInviteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  position?: boolean | Prisma.AdmissionInvite$positionArgs<ExtArgs>
+  department?: boolean | Prisma.AdmissionInvite$departmentArgs<ExtArgs>
   documents?: boolean | Prisma.AdmissionInvite$documentsArgs<ExtArgs>
   signatures?: boolean | Prisma.AdmissionInvite$signaturesArgs<ExtArgs>
   _count?: boolean | Prisma.AdmissionInviteCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AdmissionInviteIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  position?: boolean | Prisma.AdmissionInvite$positionArgs<ExtArgs>
+  department?: boolean | Prisma.AdmissionInvite$departmentArgs<ExtArgs>
 }
 export type AdmissionInviteIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  position?: boolean | Prisma.AdmissionInvite$positionArgs<ExtArgs>
+  department?: boolean | Prisma.AdmissionInvite$departmentArgs<ExtArgs>
 }
 
 export type $AdmissionInvitePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "AdmissionInvite"
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
+    position: Prisma.$PositionPayload<ExtArgs> | null
+    department: Prisma.$DepartmentPayload<ExtArgs> | null
     documents: Prisma.$AdmissionDocumentPayload<ExtArgs>[]
     signatures: Prisma.$DigitalSignaturePayload<ExtArgs>[]
   }
@@ -1814,6 +2260,8 @@ readonly fields: AdmissionInviteFieldRefs;
 export interface Prisma__AdmissionInviteClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  position<T extends Prisma.AdmissionInvite$positionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AdmissionInvite$positionArgs<ExtArgs>>): Prisma.Prisma__PositionClient<runtime.Types.Result.GetResult<Prisma.$PositionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  department<T extends Prisma.AdmissionInvite$departmentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AdmissionInvite$departmentArgs<ExtArgs>>): Prisma.Prisma__DepartmentClient<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   documents<T extends Prisma.AdmissionInvite$documentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AdmissionInvite$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdmissionDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   signatures<T extends Prisma.AdmissionInvite$signaturesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AdmissionInvite$signaturesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DigitalSignaturePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -2259,6 +2707,44 @@ export type AdmissionInviteDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many AdmissionInvites to delete.
    */
   limit?: number
+}
+
+/**
+ * AdmissionInvite.position
+ */
+export type AdmissionInvite$positionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Position
+   */
+  select?: Prisma.PositionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Position
+   */
+  omit?: Prisma.PositionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PositionInclude<ExtArgs> | null
+  where?: Prisma.PositionWhereInput
+}
+
+/**
+ * AdmissionInvite.department
+ */
+export type AdmissionInvite$departmentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Department
+   */
+  select?: Prisma.DepartmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Department
+   */
+  omit?: Prisma.DepartmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DepartmentInclude<ExtArgs> | null
+  where?: Prisma.DepartmentWhereInput
 }
 
 /**

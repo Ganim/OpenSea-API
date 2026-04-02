@@ -43,7 +43,7 @@ describe('AddReactionUseCase', () => {
     expect(commentReactionsRepository.items).toHaveLength(1);
   });
 
-  it('should reject duplicate reaction from same user with same emoji', async () => {
+  it('should toggle (remove) reaction when same user reacts with same emoji', async () => {
     await sut.execute({
       tenantId: 'tenant-1',
       userId: 'user-2',
@@ -52,17 +52,19 @@ describe('AddReactionUseCase', () => {
       emoji: '👍',
     });
 
-    await expect(
-      sut.execute({
-        tenantId: 'tenant-1',
-        userId: 'user-2',
-        commentId,
-        cardId,
-        emoji: '👍',
-      }),
-    ).rejects.toThrow(
-      'You have already reacted with this emoji on this comment',
-    );
+    expect(commentReactionsRepository.items).toHaveLength(1);
+
+    const { reaction, removed } = await sut.execute({
+      tenantId: 'tenant-1',
+      userId: 'user-2',
+      commentId,
+      cardId,
+      emoji: '👍',
+    });
+
+    expect(removed).toBe(true);
+    expect(reaction.emoji).toBe('👍');
+    expect(commentReactionsRepository.items).toHaveLength(0);
   });
 
   it('should allow same emoji from different users', async () => {

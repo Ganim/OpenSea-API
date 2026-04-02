@@ -41,14 +41,16 @@ export const updateDiscountRuleSchema = createDiscountRuleSchema.partial();
 
 export const validateDiscountSchema = z.object({
   customerId: z.string().uuid().optional(),
-  cartItems: z.array(
-    z.object({
-      productId: z.string().uuid(),
-      categoryId: z.string().uuid().optional(),
-      quantity: z.number().int().positive(),
-      unitPrice: z.number().positive(),
-    }),
-  ).min(1),
+  cartItems: z
+    .array(
+      z.object({
+        productId: z.string().uuid(),
+        categoryId: z.string().uuid().optional(),
+        quantity: z.number().int().positive(),
+        unitPrice: z.number().positive(),
+      }),
+    )
+    .min(1),
 });
 
 export const applicableDiscountSchema = z.object({

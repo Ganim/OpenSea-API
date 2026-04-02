@@ -48,7 +48,9 @@ export class UpdateDiscountRuleUseCase {
         throw new BadRequestError('Discount rule name cannot be empty.');
       }
       if (input.name.length > 255) {
-        throw new BadRequestError('Discount rule name cannot exceed 255 characters.');
+        throw new BadRequestError(
+          'Discount rule name cannot exceed 255 characters.',
+        );
       }
       discountRule.name = input.name.trim();
     }

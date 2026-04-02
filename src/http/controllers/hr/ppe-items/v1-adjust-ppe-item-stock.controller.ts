@@ -8,7 +8,7 @@ import {
   adjustPPEItemStockSchema,
   ppeItemResponseSchema,
 } from '@/http/schemas/hr/safety';
-import { idSchema } from '@/http/schemas';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { ppeItemToDTO } from '@/mappers/hr/ppe-item';
 import { makeAdjustPPEItemStockUseCase } from '@/use-cases/hr/ppe-items/factories/make-adjust-ppe-item-stock-use-case';
 
@@ -31,9 +31,10 @@ export async function v1AdjustPPEItemStockController(app: FastifyInstance) {
     schema: {
       tags: ['HR - PPE (EPI)'],
       summary: 'Adjust PPE item stock',
-      description: 'Adjusts the current stock of a PPE item (positive to add, negative to subtract)',
+      description:
+        'Adjusts the current stock of a PPE item (positive to add, negative to subtract)',
       params: z.object({
-        ppeItemId: idSchema,
+        ppeItemId: cuidSchema,
       }),
       body: adjustPPEItemStockSchema,
       response: {

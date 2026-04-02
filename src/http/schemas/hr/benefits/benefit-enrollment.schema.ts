@@ -3,14 +3,14 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { cuidSchema, dateSchema, idSchema } from '../../common.schema';
 
 /**
  * Schema para inscrição de funcionário em benefício
  */
 export const enrollEmployeeSchema = z.object({
   employeeId: idSchema,
-  benefitPlanId: idSchema,
+  benefitPlanId: cuidSchema,
   startDate: z.coerce.date(),
   endDate: z.coerce.date().optional(),
   employeeContribution: z.number().nonnegative().optional().default(0),
@@ -23,7 +23,7 @@ export const enrollEmployeeSchema = z.object({
  * Schema para inscrição em massa
  */
 export const bulkEnrollSchema = z.object({
-  benefitPlanId: idSchema,
+  benefitPlanId: cuidSchema,
   employeeIds: z.array(idSchema).min(1),
   startDate: z.coerce.date(),
   endDate: z.coerce.date().optional(),
@@ -48,7 +48,7 @@ export const updateEnrollmentSchema = z.object({
  */
 export const listEnrollmentsQuerySchema = z.object({
   employeeId: idSchema.optional(),
-  benefitPlanId: idSchema.optional(),
+  benefitPlanId: cuidSchema.optional(),
   status: z.enum(['ACTIVE', 'SUSPENDED', 'CANCELLED']).optional(),
   page: z.coerce.number().int().positive().optional().default(1),
   perPage: z.coerce.number().int().positive().max(100).optional().default(20),
@@ -58,9 +58,9 @@ export const listEnrollmentsQuerySchema = z.object({
  * Schema para resposta de inscrição de benefício
  */
 export const benefitEnrollmentResponseSchema = z.object({
-  id: idSchema,
+  id: cuidSchema,
   employeeId: idSchema,
-  benefitPlanId: idSchema,
+  benefitPlanId: cuidSchema,
   startDate: dateSchema,
   endDate: dateSchema.nullable(),
   status: z.string(),

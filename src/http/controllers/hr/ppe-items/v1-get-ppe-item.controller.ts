@@ -2,7 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { ppeItemResponseSchema } from '@/http/schemas/hr/safety';
-import { idSchema } from '@/http/schemas';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { ppeItemToDTO } from '@/mappers/hr/ppe-item';
 import { makeGetPPEItemUseCase } from '@/use-cases/hr/ppe-items/factories/make-get-ppe-item-use-case';
 
@@ -20,7 +20,7 @@ export async function v1GetPPEItemController(app: FastifyInstance) {
       summary: 'Get PPE item',
       description: 'Gets a PPE item by ID',
       params: z.object({
-        ppeItemId: idSchema,
+        ppeItemId: cuidSchema,
       }),
       response: {
         200: z.object({

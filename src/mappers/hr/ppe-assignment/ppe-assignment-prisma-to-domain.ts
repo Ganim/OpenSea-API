@@ -1,5 +1,8 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { PPEAssignmentStatus, PPECondition } from '@/entities/hr/ppe-assignment';
+import type {
+  PPEAssignmentStatus,
+  PPECondition,
+} from '@/entities/hr/ppe-assignment';
 import type { PPEAssignment as PrismaPPEAssignment } from '@prisma/generated/client.js';
 
 export function mapPPEAssignmentPrismaToDomain(record: PrismaPPEAssignment) {

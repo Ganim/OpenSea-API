@@ -24,9 +24,7 @@ describe('ValidateDiscountUseCase', () => {
 
     const result = await validateDiscount.execute({
       tenantId: 'tenant-1',
-      cartItems: [
-        { productId: 'prod-1', quantity: 2, unitPrice: 50 },
-      ],
+      cartItems: [{ productId: 'prod-1', quantity: 2, unitPrice: 50 }],
     });
 
     expect(result.applicableDiscounts).toHaveLength(1);
@@ -47,9 +45,7 @@ describe('ValidateDiscountUseCase', () => {
 
     const result = await validateDiscount.execute({
       tenantId: 'tenant-1',
-      cartItems: [
-        { productId: 'prod-1', quantity: 1, unitPrice: 100 },
-      ],
+      cartItems: [{ productId: 'prod-1', quantity: 1, unitPrice: 100 }],
     });
 
     expect(result.applicableDiscounts).toHaveLength(1);
@@ -164,7 +160,9 @@ describe('ValidateDiscountUseCase', () => {
 
     // Only the highest priority non-stackable should apply
     expect(result.applicableDiscounts).toHaveLength(1);
-    expect(result.applicableDiscounts[0].ruleName).toBe('High Priority Non-Stackable');
+    expect(result.applicableDiscounts[0].ruleName).toBe(
+      'High Priority Non-Stackable',
+    );
   });
 
   it('should return empty when no active rules exist', async () => {

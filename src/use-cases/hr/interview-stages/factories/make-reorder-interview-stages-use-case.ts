@@ -5,5 +5,8 @@ import { ReorderInterviewStagesUseCase } from '../reorder-interview-stages';
 export function makeReorderInterviewStagesUseCase() {
   const interviewStagesRepository = new PrismaInterviewStagesRepository();
   const jobPostingsRepository = new PrismaJobPostingsRepository();
-  return new ReorderInterviewStagesUseCase(interviewStagesRepository, jobPostingsRepository);
+  return new ReorderInterviewStagesUseCase(
+    interviewStagesRepository,
+    jobPostingsRepository,
+  );
 }

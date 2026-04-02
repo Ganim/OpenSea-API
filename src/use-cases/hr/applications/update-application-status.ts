@@ -33,19 +33,16 @@ export class UpdateApplicationStatusUseCase {
   ): Promise<UpdateApplicationStatusResponse> {
     const { tenantId, applicationId, status } = request;
 
-    if (
-      !VALID_STATUSES.includes(status as (typeof VALID_STATUSES)[number])
-    ) {
+    if (!VALID_STATUSES.includes(status as (typeof VALID_STATUSES)[number])) {
       throw new BadRequestError(
         `Status inválido. Status válidos: ${VALID_STATUSES.join(', ')}`,
       );
     }
 
-    const existingApplication =
-      await this.applicationsRepository.findById(
-        new UniqueEntityID(applicationId),
-        tenantId,
-      );
+    const existingApplication = await this.applicationsRepository.findById(
+      new UniqueEntityID(applicationId),
+      tenantId,
+    );
 
     if (!existingApplication) {
       throw new ResourceNotFoundError('Candidatura não encontrada');

@@ -101,6 +101,10 @@ export class PrismaApprovalDelegationsRepository
         skip,
         take,
         orderBy: { createdAt: 'desc' },
+        include: {
+          delegator: { select: { id: true, fullName: true } },
+          delegate: { select: { id: true, fullName: true } },
+        },
       }),
       prisma.approvalDelegation.count({ where }),
     ]);
@@ -109,7 +113,16 @@ export class PrismaApprovalDelegationsRepository
       const domainProps = mapApprovalDelegationPrismaToDomain(
         raw as unknown as Record<string, unknown>,
       );
-      return ApprovalDelegation.create(domainProps, new UniqueEntityID(raw.id));
+      const delegation = ApprovalDelegation.create(
+        domainProps,
+        new UniqueEntityID(raw.id),
+      );
+      // Attach employee names for DTO enrichment
+      (delegation as unknown as Record<string, unknown>)._delegatorName =
+        raw.delegator?.fullName;
+      (delegation as unknown as Record<string, unknown>)._delegateName =
+        raw.delegate?.fullName;
+      return delegation;
     });
 
     return { delegations, total };
@@ -132,6 +145,10 @@ export class PrismaApprovalDelegationsRepository
         skip,
         take,
         orderBy: { createdAt: 'desc' },
+        include: {
+          delegator: { select: { id: true, fullName: true } },
+          delegate: { select: { id: true, fullName: true } },
+        },
       }),
       prisma.approvalDelegation.count({ where }),
     ]);
@@ -140,7 +157,16 @@ export class PrismaApprovalDelegationsRepository
       const domainProps = mapApprovalDelegationPrismaToDomain(
         raw as unknown as Record<string, unknown>,
       );
-      return ApprovalDelegation.create(domainProps, new UniqueEntityID(raw.id));
+      const delegation = ApprovalDelegation.create(
+        domainProps,
+        new UniqueEntityID(raw.id),
+      );
+      // Attach employee names for DTO enrichment
+      (delegation as unknown as Record<string, unknown>)._delegatorName =
+        raw.delegator?.fullName;
+      (delegation as unknown as Record<string, unknown>)._delegateName =
+        raw.delegate?.fullName;
+      return delegation;
     });
 
     return { delegations, total };

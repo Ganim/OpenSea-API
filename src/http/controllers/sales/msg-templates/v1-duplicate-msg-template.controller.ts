@@ -49,11 +49,14 @@ export async function duplicateMsgTemplateController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.MESSAGE_TEMPLATE_DUPLICATE,
           entityId: messageTemplate.id,
-          placeholders: { templateName: messageTemplate.name, userName: request.user.sub },
+          placeholders: {
+            templateName: messageTemplate.name,
+            userName: request.user.sub,
+          },
           newData: { sourceId: id, duplicatedName: messageTemplate.name },
         });
 
-        return reply.status(201).send({ messageTemplate } as any);
+        return reply.status(201).send({ messageTemplate } as unknown);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

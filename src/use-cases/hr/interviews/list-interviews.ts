@@ -23,8 +23,10 @@ export class ListInterviewsUseCase {
   ): Promise<ListInterviewsResponse> {
     const { tenantId, ...filters } = request;
 
-    const { interviews, total } =
-      await this.interviewsRepository.findMany(tenantId, filters);
+    const { interviews, total } = await this.interviewsRepository.findMany(
+      tenantId,
+      filters,
+    );
 
     return { interviews, total };
   }

@@ -93,8 +93,9 @@ export function calculateNightShift(
 
   // Total amount = reduced hours × hourly rate × 1.20
   const totalAmount =
-    Math.round(nightHourReduced * hourlyRate * (1 + NIGHT_SHIFT_PREMIUM) * 100) /
-    100;
+    Math.round(
+      nightHourReduced * hourlyRate * (1 + NIGHT_SHIFT_PREMIUM) * 100,
+    ) / 100;
 
   return {
     nightHours,

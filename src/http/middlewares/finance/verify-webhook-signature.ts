@@ -30,8 +30,9 @@ export async function verifyWebhookSignature(
   }
 
   // Attach tenantId so the handler does not need a second DB round-trip
-  (request as FastifyRequest & { bankAccountTenantId: string }).bankAccountTenantId =
-    bankAccount.tenantId;
+  (
+    request as FastifyRequest & { bankAccountTenantId: string }
+  ).bankAccountTenantId = bankAccount.tenantId;
 
   const secret = bankAccount.apiWebhookSecret;
 
@@ -47,12 +48,16 @@ export async function verifyWebhookSignature(
     (request.headers['webhook-signature'] as string | undefined);
 
   if (!signature) {
-    return reply.status(401).send({ message: 'Missing webhook signature header' });
+    return reply
+      .status(401)
+      .send({ message: 'Missing webhook signature header' });
   }
 
   // Compute expected HMAC-SHA256 over the raw JSON body
   const rawBody = JSON.stringify(request.body);
-  const expectedSignature = createHmac('sha256', secret).update(rawBody).digest('hex');
+  const expectedSignature = createHmac('sha256', secret)
+    .update(rawBody)
+    .digest('hex');
 
   // Timing-safe comparison to prevent timing-based attacks
   let sigBuffer: Buffer;

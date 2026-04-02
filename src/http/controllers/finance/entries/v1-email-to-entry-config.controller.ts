@@ -57,7 +57,8 @@ export async function emailToEntryConfigController(app: FastifyInstance) {
     ],
     schema: {
       tags: ['Finance - Email to Entry'],
-      summary: 'Criar ou atualizar configuração de importação automática de e-mails',
+      summary:
+        'Criar ou atualizar configuração de importação automática de e-mails',
       security: [{ bearerAuth: [] }],
       body: upsertEmailToEntryConfigSchema,
       response: {
@@ -75,7 +76,9 @@ export async function emailToEntryConfigController(app: FastifyInstance) {
       });
 
       if (!account) {
-        return reply.status(400).send({ message: 'Conta de e-mail não encontrada.' });
+        return reply
+          .status(400)
+          .send({ message: 'Conta de e-mail não encontrada.' });
       }
 
       // Validate category if provided
@@ -85,7 +88,9 @@ export async function emailToEntryConfigController(app: FastifyInstance) {
         });
 
         if (!category) {
-          return reply.status(400).send({ message: 'Categoria financeira não encontrada.' });
+          return reply
+            .status(400)
+            .send({ message: 'Categoria financeira não encontrada.' });
         }
       }
 

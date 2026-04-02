@@ -40,8 +40,15 @@ export async function listCombosController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { page, limit, search, type, isActive, sortBy, sortOrder } =
-        request.query;
+      const {
+        page,
+        limit,
+        search,
+        type,
+        isActive,
+        sortBy: _sortBy,
+        sortOrder: _sortOrder,
+      } = request.query;
 
       const useCase = makeListCombosUseCase();
       const { combos } = await useCase.execute({

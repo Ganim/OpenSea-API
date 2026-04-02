@@ -42,6 +42,8 @@ function mapPrismaToRecord(
     signatures: Array.isArray(raw.signatures)
       ? (raw.signatures as AdmissionInviteRecord['signatures'])
       : undefined,
+    position: (raw.position as AdmissionInviteRecord['position']) ?? null,
+    department: (raw.department as AdmissionInviteRecord['department']) ?? null,
   };
 }
 
@@ -83,6 +85,8 @@ export class PrismaAdmissionsRepository implements AdmissionsRepository {
       include: {
         documents: true,
         signatures: true,
+        position: { select: { id: true, name: true } },
+        department: { select: { id: true, name: true } },
       },
     });
 

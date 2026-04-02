@@ -5,7 +5,6 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { makeLinkAuthMethodUseCase } from '@/use-cases/core/auth/factories/make-link-auth-method-use-case';
 
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -75,11 +74,6 @@ export async function adminLinkAuthMethodController(app: FastifyInstance) {
       const { provider, identifier } = request.body;
 
       try {
-        // Admin bypass: use a dummy password to skip password verification
-        // The use case will handle admin flow via the isAdmin-like logic
-        // We pass an empty currentPassword and rely on the admin-level factory
-        const useCase = makeLinkAuthMethodUseCase();
-
         // For admin linking, we need to create the link directly
         // The LinkAuthMethodUseCase requires currentPassword for self-service
         // So we'll use a direct repository approach for admin
@@ -134,9 +128,7 @@ export async function adminLinkAuthMethodController(app: FastifyInstance) {
           credential: null,
         });
 
-        return reply
-          .status(201)
-          .send({ authLink: authLinkToDTO(authLink) });
+        return reply.status(201).send({ authLink: authLinkToDTO(authLink) });
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

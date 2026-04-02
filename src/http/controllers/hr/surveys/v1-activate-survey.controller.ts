@@ -1,7 +1,7 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { surveyResponseSchema } from '@/http/schemas/hr/surveys';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { surveyToDTO } from '@/mappers/hr/survey';
 import { makeActivateSurveyUseCase } from '@/use-cases/hr/surveys/factories';
 
@@ -18,7 +18,7 @@ export async function v1ActivateSurveyController(app: FastifyInstance) {
       tags: ['HR - Surveys'],
       summary: 'Activate a survey',
       description: 'Activates a draft survey (must have at least one question)',
-      params: z.object({ surveyId: idSchema }),
+      params: z.object({ surveyId: cuidSchema }),
       response: {
         200: surveyResponseSchema,
       },

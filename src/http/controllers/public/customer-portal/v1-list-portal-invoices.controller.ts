@@ -31,7 +31,13 @@ export async function listPortalInvoicesController(app: FastifyInstance) {
       querystring: z.object({
         status: z.enum(['pending', 'paid', 'all']).optional().default('all'),
         page: z.coerce.number().int().positive().optional().default(1),
-        limit: z.coerce.number().int().positive().max(100).optional().default(20),
+        limit: z.coerce
+          .number()
+          .int()
+          .positive()
+          .max(100)
+          .optional()
+          .default(20),
       }),
       response: {
         200: z.object({

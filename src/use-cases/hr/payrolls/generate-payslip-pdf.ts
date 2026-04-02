@@ -191,11 +191,9 @@ export class GeneratePayslipPDFUseCase {
     doc.font('Helvetica-Bold').text(employee.fullName);
     y += 14;
 
-    doc
-      .font('Helvetica')
-      .text(`CPF: ${cpfFormatted}`, margins.left, y, {
-        width: contentWidth / 2,
-      });
+    doc.font('Helvetica').text(`CPF: ${cpfFormatted}`, margins.left, y, {
+      width: contentWidth / 2,
+    });
     doc.text(
       `Admissão: ${formatDateBR(employee.hireDate)}`,
       margins.left + contentWidth / 2,
@@ -223,7 +221,7 @@ export class GeneratePayslipPDFUseCase {
     y += 6;
 
     // ─── Table: Items ───
-    const columns: TableColumn[] = [
+    const _columns: TableColumn[] = [
       { header: 'Código', width: 80, align: 'left' },
       { header: 'Descrição', width: contentWidth - 240, align: 'left' },
       { header: 'Ref.', width: 60, align: 'center' },

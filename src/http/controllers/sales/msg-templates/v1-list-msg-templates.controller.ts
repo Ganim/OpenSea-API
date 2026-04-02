@@ -46,7 +46,7 @@ export async function listMsgTemplatesController(app: FastifyInstance) {
       const useCase = makeListMessageTemplatesUseCase();
       const listResult = await useCase.execute({ tenantId, ...query });
 
-      return reply.status(200).send(listResult as any);
+      return reply.status(200).send(listResult as unknown);
     },
   });
 }

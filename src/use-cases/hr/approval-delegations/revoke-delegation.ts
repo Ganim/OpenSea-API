@@ -19,9 +19,7 @@ export class RevokeDelegationUseCase {
     private approvalDelegationsRepository: ApprovalDelegationsRepository,
   ) {}
 
-  async execute(
-    input: RevokeDelegationInput,
-  ): Promise<RevokeDelegationOutput> {
+  async execute(input: RevokeDelegationInput): Promise<RevokeDelegationOutput> {
     const { tenantId, delegationId, revokedBy } = input;
 
     const delegation = await this.approvalDelegationsRepository.findById(

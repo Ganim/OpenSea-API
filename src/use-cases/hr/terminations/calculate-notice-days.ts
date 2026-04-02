@@ -31,9 +31,7 @@ export function calculateNoticeDays(
   terminationDate: Date,
 ): number {
   if (terminationDate < hireDate) {
-    throw new BadRequestError(
-      'Termination date cannot be before hire date',
-    );
+    throw new BadRequestError('Termination date cannot be before hire date');
   }
 
   const years = differenceInFullYears(hireDate, terminationDate);

@@ -15,9 +15,7 @@ export interface GetCandidateResponse {
 export class GetCandidateUseCase {
   constructor(private candidatesRepository: CandidatesRepository) {}
 
-  async execute(
-    request: GetCandidateRequest,
-  ): Promise<GetCandidateResponse> {
+  async execute(request: GetCandidateRequest): Promise<GetCandidateResponse> {
     const { tenantId, candidateId } = request;
 
     const candidate = await this.candidatesRepository.findById(

@@ -61,9 +61,7 @@ describe('S2240Builder', () => {
 
     expect(xml).toContain('<infoAmb>');
     expect(xml).toContain('<codAmb>PROD-01</codAmb>');
-    expect(xml).toContain(
-      '<dscSetor>Linha de Produ',
-    );
+    expect(xml).toContain('<dscSetor>Linha de Produ');
   });
 
   it('should include fatRisco with all fields', () => {

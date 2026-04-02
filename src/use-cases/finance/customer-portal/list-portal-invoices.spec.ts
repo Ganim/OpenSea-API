@@ -1,7 +1,6 @@
 import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
 import { InMemoryCustomerPortalAccessesRepository } from '@/repositories/finance/in-memory/in-memory-customer-portal-accesses-repository';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ListPortalInvoicesUseCase } from './list-portal-invoices';
 

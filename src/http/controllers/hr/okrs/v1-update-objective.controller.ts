@@ -4,7 +4,7 @@ import {
   updateObjectiveSchema,
   objectiveResponseSchema,
 } from '@/http/schemas/hr/okrs';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { objectiveToDTO } from '@/mappers/hr/objective';
 import { makeUpdateObjectiveUseCase } from '@/use-cases/hr/okrs/factories';
 
@@ -21,7 +21,7 @@ export async function v1UpdateObjectiveController(app: FastifyInstance) {
       tags: ['HR - OKRs'],
       summary: 'Update an objective',
       description: 'Updates an OKR objective',
-      params: z.object({ objectiveId: idSchema }),
+      params: z.object({ objectiveId: cuidSchema }),
       body: updateObjectiveSchema,
       response: {
         200: objectiveResponseSchema,

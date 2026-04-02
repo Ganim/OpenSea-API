@@ -51,10 +51,7 @@ export async function v1GenerateAFDController(app: FastifyInstance) {
         return reply
           .status(200)
           .header('Content-Type', 'text/plain; charset=utf-8')
-          .header(
-            'Content-Disposition',
-            `attachment; filename="${filename}"`,
-          )
+          .header('Content-Disposition', `attachment; filename="${filename}"`)
           .send(content);
       } catch (error) {
         if (error instanceof BadRequestError) {

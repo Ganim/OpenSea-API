@@ -15,9 +15,7 @@ interface GetJournalEntryByIdUseCaseResponse {
 }
 
 export class GetJournalEntryByIdUseCase {
-  constructor(
-    private journalEntriesRepository: JournalEntriesRepository,
-  ) {}
+  constructor(private journalEntriesRepository: JournalEntriesRepository) {}
 
   async execute(
     request: GetJournalEntryByIdUseCaseRequest,

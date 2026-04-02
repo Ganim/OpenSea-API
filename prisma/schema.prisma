@@ -2401,6 +2401,9 @@ model Item {
   manufacturingDate DateTime? @map("manufacturing_date") @db.Date
   expiryDate        DateTime? @map("expiry_date") @db.Date
 
+  // Tipo de saída (preenchido quando item sai do estoque - quantity chega a 0)
+  exitMovementType MovementType? @map("exit_movement_type")
+
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")

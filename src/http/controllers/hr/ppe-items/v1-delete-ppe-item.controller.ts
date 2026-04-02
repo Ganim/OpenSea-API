@@ -3,7 +3,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { idSchema } from '@/http/schemas';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { makeDeletePPEItemUseCase } from '@/use-cases/hr/ppe-items/factories/make-delete-ppe-item-use-case';
 
 import type { FastifyInstance } from 'fastify';
@@ -27,7 +27,7 @@ export async function v1DeletePPEItemController(app: FastifyInstance) {
       summary: 'Delete PPE item',
       description: 'Soft-deletes a PPE item',
       params: z.object({
-        ppeItemId: idSchema,
+        ppeItemId: cuidSchema,
       }),
       response: {
         204: z.null(),

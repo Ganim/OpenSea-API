@@ -5,5 +5,8 @@ import { CreateInterviewStageUseCase } from '../create-interview-stage';
 export function makeCreateInterviewStageUseCase() {
   const interviewStagesRepository = new PrismaInterviewStagesRepository();
   const jobPostingsRepository = new PrismaJobPostingsRepository();
-  return new CreateInterviewStageUseCase(interviewStagesRepository, jobPostingsRepository);
+  return new CreateInterviewStageUseCase(
+    interviewStagesRepository,
+    jobPostingsRepository,
+  );
 }

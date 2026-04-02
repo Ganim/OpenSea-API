@@ -90,15 +90,10 @@ export class WebmaniaBRProvider implements FiscalProvider {
     correctionText: string,
     config: FiscalConfig,
   ): Promise<EventResult> {
-    const responseBody = await this.request(
-      config,
-      'PUT',
-      '/cartacorrecao/',
-      {
-        chave: accessKey,
-        correcao: correctionText,
-      },
-    );
+    const responseBody = await this.request(config, 'PUT', '/cartacorrecao/', {
+      chave: accessKey,
+      correcao: correctionText,
+    });
 
     return this.mapEventResponse(responseBody);
   }
@@ -303,9 +298,8 @@ export class WebmaniaBRProvider implements FiscalProvider {
       return {
         success: true,
         accessKey: responseBody.chave as string | undefined,
-        protocolNumber:
-          responseBody.recibo as string | undefined,
-        protocolDate: responseBody.data as string
+        protocolNumber: responseBody.recibo as string | undefined,
+        protocolDate: (responseBody.data as string)
           ? new Date(responseBody.data as string)
           : undefined,
         xmlAuthorized: responseBody.xml as string | undefined,
@@ -323,9 +317,7 @@ export class WebmaniaBRProvider implements FiscalProvider {
     };
   }
 
-  private mapEventResponse(
-    responseBody: Record<string, unknown>,
-  ): EventResult {
+  private mapEventResponse(responseBody: Record<string, unknown>): EventResult {
     const webmaniaStatus = responseBody.status as string | undefined;
     const eventSucceeded =
       webmaniaStatus === 'aprovado' || webmaniaStatus === 'cancelado';
@@ -339,7 +331,7 @@ export class WebmaniaBRProvider implements FiscalProvider {
         : (responseBody.error as string | undefined),
       errorMessage: eventSucceeded
         ? undefined
-        : ((responseBody.log?.toString() as string) || undefined),
+        : (responseBody.log?.toString() as string) || undefined,
     };
   }
 

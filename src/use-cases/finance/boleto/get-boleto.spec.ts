@@ -1,6 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { GetBoletoUseCase } from './get-boleto';
-import type { BankingProvider, BoletoResult } from '@/services/banking/banking-provider.interface';
+import type {
+  BankingProvider,
+  BoletoResult,
+} from '@/services/banking/banking-provider.interface';
 
 function makeBoletoResult(overrides: Partial<BoletoResult> = {}): BoletoResult {
   return {
@@ -66,8 +69,10 @@ describe('GetBoletoUseCase', () => {
       bankAccountId: 'bank-account-1',
     });
 
-    const authenticateCallOrder = vi.mocked(bankingProvider.authenticate).mock.invocationCallOrder[0];
-    const getBoletoCallOrder = vi.mocked(bankingProvider.getBoleto).mock.invocationCallOrder[0];
+    const authenticateCallOrder = vi.mocked(bankingProvider.authenticate).mock
+      .invocationCallOrder[0];
+    const getBoletoCallOrder = vi.mocked(bankingProvider.getBoleto).mock
+      .invocationCallOrder[0];
 
     expect(authenticateCallOrder).toBeLessThan(getBoletoCallOrder);
   });

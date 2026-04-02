@@ -17,10 +17,7 @@ describe('Register Payment - Concurrency', () => {
   beforeEach(() => {
     entriesRepository = new InMemoryFinanceEntriesRepository();
     paymentsRepository = new InMemoryFinanceEntryPaymentsRepository();
-    sut = new RegisterPaymentUseCase(
-      entriesRepository,
-      paymentsRepository,
-    );
+    sut = new RegisterPaymentUseCase(entriesRepository, paymentsRepository);
   });
 
   it('should allow double-payment in-memory (documents lack of DB-level locking)', async () => {

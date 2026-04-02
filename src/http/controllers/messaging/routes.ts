@@ -262,7 +262,9 @@ export async function messagingRoutes(app: FastifyInstance) {
           mediaType: body.mediaType,
           fileName: body.fileName,
           templateName: body.templateName,
-          templateParams: body.templateParams as Record<string, string> | undefined,
+          templateParams: body.templateParams as
+            | Record<string, string>
+            | undefined,
           replyToMessageId: body.replyToMessageId,
         });
 

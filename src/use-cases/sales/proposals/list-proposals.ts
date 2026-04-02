@@ -33,12 +33,7 @@ export class ListProposalsUseCase {
     };
 
     const [proposals, total] = await Promise.all([
-      this.proposalsRepository.findMany(
-        page,
-        perPage,
-        input.tenantId,
-        filters,
-      ),
+      this.proposalsRepository.findMany(page, perPage, input.tenantId, filters),
       this.proposalsRepository.countMany(input.tenantId, filters),
     ]);
 

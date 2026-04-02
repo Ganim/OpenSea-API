@@ -34,10 +34,7 @@ export interface FindReviewCycleFilters {
 
 export interface ReviewCyclesRepository {
   create(data: CreateReviewCycleSchema): Promise<ReviewCycle>;
-  findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<ReviewCycle | null>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<ReviewCycle | null>;
   findMany(
     tenantId: string,
     filters?: FindReviewCycleFilters,

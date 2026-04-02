@@ -25,8 +25,9 @@ export async function getAccountantDreController(app: FastifyInstance) {
       }),
     },
     handler: async (request, reply) => {
-      const accountant = (request as unknown as { accountant: AccountantContext })
-        .accountant;
+      const accountant = (
+        request as unknown as { accountant: AccountantContext }
+      ).accountant;
       const { year } = request.query as { year: number };
 
       const startDate = new Date(year, 0, 1);
@@ -44,16 +45,12 @@ export async function getAccountantDreController(app: FastifyInstance) {
 
       const revenue = entries
         .filter(
-          (e) =>
-            e.type === 'RECEIVABLE' && paidStatuses.includes(e.status),
+          (e) => e.type === 'RECEIVABLE' && paidStatuses.includes(e.status),
         )
         .reduce((sum, e) => sum + (e.actualAmount ?? e.expectedAmount), 0);
 
       const expenses = entries
-        .filter(
-          (e) =>
-            e.type === 'PAYABLE' && paidStatuses.includes(e.status),
-        )
+        .filter((e) => e.type === 'PAYABLE' && paidStatuses.includes(e.status))
         .reduce((sum, e) => sum + (e.actualAmount ?? e.expectedAmount), 0);
 
       const netResult = revenue - expenses;

@@ -53,9 +53,10 @@ describe('CancelBoletoUseCase', () => {
       expectedAmount: 1500,
       issueDate: new Date('2025-01-01'),
       dueDate: new Date('2025-01-31'),
-      boletoBarcodeNumber: overrides.boletoBarcodeNumber !== undefined
-        ? overrides.boletoBarcodeNumber
-        : '12345678901234',
+      boletoBarcodeNumber:
+        overrides.boletoBarcodeNumber !== undefined
+          ? overrides.boletoBarcodeNumber
+          : '12345678901234',
     });
   }
 

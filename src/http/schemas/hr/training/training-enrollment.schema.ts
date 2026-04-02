@@ -3,13 +3,13 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { cuidSchema, dateSchema, idSchema } from '../../common.schema';
 
 /**
  * Schema para inscrição de funcionário em treinamento
  */
 export const enrollEmployeeInTrainingSchema = z.object({
-  trainingProgramId: idSchema,
+  trainingProgramId: cuidSchema,
   employeeId: idSchema,
   notes: z.string().max(1000).optional(),
 });
@@ -26,7 +26,7 @@ export const completeTrainingEnrollmentSchema = z.object({
  * Schema para filtros de listagem de inscrições em treinamento
  */
 export const listTrainingEnrollmentsQuerySchema = z.object({
-  trainingProgramId: idSchema.optional(),
+  trainingProgramId: cuidSchema.optional(),
   employeeId: idSchema.optional(),
   status: z
     .enum(['ENROLLED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED', 'FAILED'])
@@ -39,8 +39,8 @@ export const listTrainingEnrollmentsQuerySchema = z.object({
  * Schema para resposta de inscrição em treinamento
  */
 export const trainingEnrollmentResponseSchema = z.object({
-  id: idSchema,
-  trainingProgramId: idSchema,
+  id: cuidSchema,
+  trainingProgramId: cuidSchema,
   employeeId: idSchema,
   status: z.string(),
   enrolledAt: dateSchema,

@@ -65,9 +65,7 @@ describe('Close Review Cycle Use Case', () => {
         tenantId,
         reviewCycleId: created.id.toString(),
       }),
-    ).rejects.toThrow(
-      'Não é possível fechar um ciclo em rascunho',
-    );
+    ).rejects.toThrow('Não é possível fechar um ciclo em rascunho');
   });
 
   it('should throw error for non-existent cycle', async () => {

@@ -26,10 +26,7 @@ describe('Delete Job Posting Use Case', () => {
       jobPostingId: created.id.toString(),
     });
 
-    const found = await jobPostingsRepository.findById(
-      created.id,
-      tenantId,
-    );
+    const found = await jobPostingsRepository.findById(created.id, tenantId);
     expect(found).toBeNull();
   });
 

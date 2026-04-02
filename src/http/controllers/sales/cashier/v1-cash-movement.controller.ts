@@ -70,7 +70,7 @@ export async function cashMovementController(app: FastifyInstance) {
           newData: { type: body.type, amount: body.amount },
         });
 
-        return reply.status(201).send({ transaction } as any);
+        return reply.status(201).send({ transaction } as unknown);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

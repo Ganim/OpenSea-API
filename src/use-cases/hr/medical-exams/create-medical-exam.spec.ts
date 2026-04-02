@@ -1,5 +1,10 @@
+import { vi } from 'vitest';
+
+vi.mock('@/services/esocial/auto-generate', () => ({
+  tryAutoGenerateEvent: vi.fn().mockResolvedValue(undefined),
+}));
+
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { Employee } from '@/entities/hr/employee';
 import {
   ContractType,
   CPF,
@@ -8,7 +13,7 @@ import {
 } from '@/entities/hr/value-objects';
 import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';
 import { InMemoryMedicalExamsRepository } from '@/repositories/hr/in-memory/in-memory-medical-exams-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest'; // vi already imported above
 import { CreateMedicalExamUseCase } from './create-medical-exam';
 
 let medicalExamsRepository: InMemoryMedicalExamsRepository;

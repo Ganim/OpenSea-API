@@ -1,5 +1,8 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { FinanceApprovalRule, FinanceApprovalAction } from '@/entities/finance/finance-approval-rule';
+import type {
+  FinanceApprovalRule,
+  FinanceApprovalAction,
+} from '@/entities/finance/finance-approval-rule';
 import type { TransactionClient } from '@/lib/transaction-manager';
 
 export interface CreateFinanceApprovalRuleSchema {

@@ -55,7 +55,9 @@ describe('Authenticate Unified (E2E)', () => {
     });
 
     // Find the user to get their ID and password hash
-    const user = await prisma.user.findFirst({ where: { email, deletedAt: null } });
+    const user = await prisma.user.findFirst({
+      where: { email, deletedAt: null },
+    });
     expect(user).toBeTruthy();
 
     // Create a CPF AuthLink manually

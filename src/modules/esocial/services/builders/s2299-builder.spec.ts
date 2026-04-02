@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { S2299Builder, TERMINATION_TYPE_TO_ESOCIAL_MOTIVO } from './s2299-builder';
+import {
+  S2299Builder,
+  TERMINATION_TYPE_TO_ESOCIAL_MOTIVO,
+} from './s2299-builder';
 import type { S2299Input } from './s2299-builder';
 import { TerminationType } from '@/entities/hr/termination';
 
@@ -135,17 +138,13 @@ describe('S2299Builder', () => {
 
     it('should map CONTRATO_TEMPORARIO to 04', () => {
       expect(
-        TERMINATION_TYPE_TO_ESOCIAL_MOTIVO[
-          TerminationType.CONTRATO_TEMPORARIO
-        ],
+        TERMINATION_TYPE_TO_ESOCIAL_MOTIVO[TerminationType.CONTRATO_TEMPORARIO],
       ).toBe('04');
     });
 
     it('should map RESCISAO_INDIRETA to 07', () => {
       expect(
-        TERMINATION_TYPE_TO_ESOCIAL_MOTIVO[
-          TerminationType.RESCISAO_INDIRETA
-        ],
+        TERMINATION_TYPE_TO_ESOCIAL_MOTIVO[TerminationType.RESCISAO_INDIRETA],
       ).toBe('07');
     });
 
@@ -158,9 +157,9 @@ describe('S2299Builder', () => {
 
   describe('static helpers', () => {
     it('getEsocialMotivo should return correct code', () => {
-      expect(
-        S2299Builder.getEsocialMotivo(TerminationType.ACORDO_MUTUO),
-      ).toBe('33');
+      expect(S2299Builder.getEsocialMotivo(TerminationType.ACORDO_MUTUO)).toBe(
+        '33',
+      );
     });
   });
 });

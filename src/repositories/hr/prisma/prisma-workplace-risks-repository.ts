@@ -79,9 +79,7 @@ export class PrismaWorkplaceRisksRepository
     );
   }
 
-  async update(
-    data: UpdateWorkplaceRiskSchema,
-  ): Promise<WorkplaceRisk | null> {
+  async update(data: UpdateWorkplaceRiskSchema): Promise<WorkplaceRisk | null> {
     const existing = await prisma.workplaceRisk.findUnique({
       where: { id: data.id.toString() },
     });

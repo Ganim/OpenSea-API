@@ -103,7 +103,8 @@ export class S1070Builder extends EsocialXmlBuilder<S1070Input> {
 
     let idePeriodoContent = '';
     idePeriodoContent += this.tag('iniValid', input.iniValid);
-    if (input.fimValid) idePeriodoContent += this.tag('fimValid', input.fimValid);
+    if (input.fimValid)
+      idePeriodoContent += this.tag('fimValid', input.fimValid);
     content += this.tagGroup('idePeriodo', idePeriodoContent);
 
     return this.tagGroup('ideProcesso', content);

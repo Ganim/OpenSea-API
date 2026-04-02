@@ -27,7 +27,12 @@ export class ListFormsUseCase {
     const perPage = input.perPage ?? 20;
 
     const [forms, total] = await Promise.all([
-      this.formsRepository.findMany(page, perPage, input.tenantId, input.status),
+      this.formsRepository.findMany(
+        page,
+        perPage,
+        input.tenantId,
+        input.status,
+      ),
       this.formsRepository.countByTenant(input.tenantId, input.status),
     ]);
 

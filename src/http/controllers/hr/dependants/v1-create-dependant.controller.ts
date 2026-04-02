@@ -3,10 +3,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import {
-  createDependantSchema,
-  dependantResponseSchema,
-} from '@/http/schemas';
+import { createDependantSchema, dependantResponseSchema } from '@/http/schemas';
 import { idSchema } from '@/http/schemas';
 import { dependantToDTO } from '@/mappers/hr/dependant';
 import { makeCreateDependantUseCase } from '@/use-cases/hr/dependants/factories/make-create-dependant-use-case';

@@ -31,10 +31,7 @@ export interface FindInterviewFilters {
 
 export interface InterviewsRepository {
   create(data: CreateInterviewSchema): Promise<Interview>;
-  findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<Interview | null>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<Interview | null>;
   findManyByApplication(
     applicationId: string,
     tenantId: string,

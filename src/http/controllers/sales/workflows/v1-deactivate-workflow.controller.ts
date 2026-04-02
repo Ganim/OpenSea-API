@@ -47,7 +47,10 @@ export async function deactivateWorkflowController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.WORKFLOW_DEACTIVATE,
           entityId: id,
-          placeholders: { workflowName: workflow.name, userName: request.user.sub },
+          placeholders: {
+            workflowName: workflow.name,
+            userName: request.user.sub,
+          },
           newData: { isActive: false },
         });
 

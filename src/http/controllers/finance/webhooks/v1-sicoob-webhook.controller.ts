@@ -34,8 +34,9 @@ export async function sicoobWebhookController(app: FastifyInstance) {
       const payload = request.body;
 
       // tenantId was resolved and attached by verifyWebhookSignature — no extra DB call needed
-      const tenantId = (request as FastifyRequest & { bankAccountTenantId: string })
-        .bankAccountTenantId;
+      const tenantId = (
+        request as FastifyRequest & { bankAccountTenantId: string }
+      ).bankAccountTenantId;
 
       try {
         const useCase = makeProcessBankWebhookUseCase();

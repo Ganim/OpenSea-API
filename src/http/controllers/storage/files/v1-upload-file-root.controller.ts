@@ -61,6 +61,14 @@ export async function uploadFileRootController(app: FastifyInstance) {
 
         const fileBuffer = await multipartFile.toBuffer();
 
+        // Extract optional entityType/entityId from multipart fields
+        const entityType =
+          (multipartFile.fields.entityType as { value?: string })?.value ||
+          undefined;
+        const entityId =
+          (multipartFile.fields.entityId as { value?: string })?.value ||
+          undefined;
+
         // Validate against user's permission group storage settings
         const groupSettings = await resolveUserStorageSettings(userId);
         if (groupSettings) {
@@ -91,6 +99,8 @@ export async function uploadFileRootController(app: FastifyInstance) {
             filename: multipartFile.filename,
             mimetype: multipartFile.mimetype,
           },
+          entityType,
+          entityId,
           uploadedBy: userId,
           maxStorageBytes,
         });

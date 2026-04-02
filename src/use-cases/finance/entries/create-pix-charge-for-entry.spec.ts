@@ -44,7 +44,7 @@ describe('CreatePixChargeForEntryUseCase', () => {
       description: 'Venda de produto',
       categoryId: 'category-1',
       costCenterId: 'cost-center-1',
-      expectedAmount: 150.50,
+      expectedAmount: 150.5,
       issueDate: new Date('2026-01-01'),
       dueDate: new Date('2026-02-01'),
       customerName: 'Cliente Teste',
@@ -57,7 +57,7 @@ describe('CreatePixChargeForEntryUseCase', () => {
 
     expect(result.txId).toBe('test-tx-id-123');
     expect(result.pixCopiaECola).toBeDefined();
-    expect(result.amount).toBe(150.50);
+    expect(result.amount).toBe(150.5);
     expect(result.entry.pixChargeId).toBeDefined();
     expect(pixChargesRepository.items).toHaveLength(1);
   });

@@ -1,8 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  S2230Builder,
-  ABSENCE_TYPE_TO_ESOCIAL_MOTIVO,
-} from './s2230-builder';
+import { S2230Builder, ABSENCE_TYPE_TO_ESOCIAL_MOTIVO } from './s2230-builder';
 import type { S2230Input } from './s2230-builder';
 
 describe('S2230Builder', () => {
@@ -116,9 +113,7 @@ describe('S2230Builder', () => {
     });
 
     it('isReportableAbsence should return false for non-reportable types', () => {
-      expect(S2230Builder.isReportableAbsence('BEREAVEMENT_LEAVE')).toBe(
-        false,
-      );
+      expect(S2230Builder.isReportableAbsence('BEREAVEMENT_LEAVE')).toBe(false);
       expect(S2230Builder.isReportableAbsence('WEDDING_LEAVE')).toBe(false);
     });
   });

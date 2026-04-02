@@ -59,9 +59,9 @@ export async function v1GetActiveDelegationsController(app: FastifyInstance) {
       );
 
       if (!employee) {
-        return reply
-          .status(404)
-          .send({ message: 'No employee linked to this user' });
+        return reply.status(200).send({
+          delegations: [],
+        });
       }
 
       const getActiveDelegationUseCase = makeGetActiveDelegationUseCase();

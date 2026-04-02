@@ -3,7 +3,7 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { cuidSchema, dateSchema, idSchema } from '../../common.schema';
 
 const performanceReviewStatusEnum = z.enum([
   'PENDING',
@@ -16,7 +16,7 @@ const performanceReviewStatusEnum = z.enum([
  * Schema para criação em lote de avaliações de desempenho
  */
 export const createBulkReviewsSchema = z.object({
-  reviewCycleId: idSchema,
+  reviewCycleId: cuidSchema,
   assignments: z
     .array(
       z.object({
@@ -53,7 +53,7 @@ export const submitManagerReviewSchema = z.object({
  * Schema para filtros de listagem de avaliações de desempenho
  */
 export const listPerformanceReviewsQuerySchema = z.object({
-  reviewCycleId: idSchema.optional(),
+  reviewCycleId: cuidSchema.optional(),
   employeeId: idSchema.optional(),
   reviewerId: idSchema.optional(),
   status: performanceReviewStatusEnum.optional(),
@@ -65,8 +65,8 @@ export const listPerformanceReviewsQuerySchema = z.object({
  * Schema para resposta de avaliação de desempenho
  */
 export const performanceReviewResponseSchema = z.object({
-  id: idSchema,
-  reviewCycleId: idSchema,
+  id: cuidSchema,
+  reviewCycleId: cuidSchema,
   employeeId: idSchema,
   reviewerId: idSchema,
   status: z.string(),

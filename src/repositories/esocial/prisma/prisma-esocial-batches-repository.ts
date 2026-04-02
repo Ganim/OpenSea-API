@@ -11,6 +11,7 @@ import type {
   FindManyEsocialBatchesResult,
 } from '../esocial-batches-repository';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Prisma result type mapping
 function mapToDomain(data: any): EsocialBatch {
   return EsocialBatch.create(
     {
@@ -37,6 +38,7 @@ export class PrismaEsocialBatchesRepository
       data: {
         tenantId: data.tenantId,
         totalEvents: data.eventCount,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Prisma enum cast
         status: statusValue as any,
         environment: 'HOMOLOGACAO',
       },
@@ -66,7 +68,7 @@ export class PrismaEsocialBatchesRepository
   ): Promise<FindManyEsocialBatchesResult> {
     const { tenantId, page = 1, perPage = 20 } = params;
 
-    const where: any = { tenantId };
+    const where: Record<string, unknown> = { tenantId };
 
     if (params.status) {
       where.status = params.status;
@@ -92,6 +94,7 @@ export class PrismaEsocialBatchesRepository
     await prisma.esocialBatch.update({
       where: { id: batch.id.toString() },
       data: {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Prisma enum cast
         status: batch.status as any,
         protocol: batch.protocol,
         transmittedAt: batch.transmittedAt,

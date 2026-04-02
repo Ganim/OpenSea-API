@@ -33,8 +33,9 @@ describe('GetConnectTokenUseCase', () => {
   });
 
   it('should propagate provider errors', async () => {
-    (mockBankingProvider.createConnectToken as ReturnType<typeof vi.fn>)
-      .mockRejectedValue(new Error('Provider unavailable'));
+    (
+      mockBankingProvider.createConnectToken as ReturnType<typeof vi.fn>
+    ).mockRejectedValue(new Error('Provider unavailable'));
 
     await expect(
       sut.execute({ tenantId: 'tenant-1', userId: 'user-1' }),

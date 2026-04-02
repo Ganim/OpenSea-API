@@ -160,7 +160,11 @@ describe('S1200Builder', () => {
                 remunPerApur: [
                   {
                     itensRemun: [
-                      { codRubr: 'RUB-SAL', ideTabRubr: 'TAB001', vrRubr: 5000 },
+                      {
+                        codRubr: 'RUB-SAL',
+                        ideTabRubr: 'TAB001',
+                        vrRubr: 5000,
+                      },
                     ],
                   },
                 ],
@@ -180,7 +184,11 @@ describe('S1200Builder', () => {
                 remunPerApur: [
                   {
                     itensRemun: [
-                      { codRubr: 'RUB-13S', ideTabRubr: 'TAB001', vrRubr: 2500 },
+                      {
+                        codRubr: 'RUB-13S',
+                        ideTabRubr: 'TAB001',
+                        vrRubr: 2500,
+                      },
                     ],
                   },
                 ],
@@ -215,7 +223,11 @@ describe('S1200Builder', () => {
                 remunPerApur: [
                   {
                     itensRemun: [
-                      { codRubr: 'RUB-SAL', ideTabRubr: 'TAB001', vrRubr: 3000 },
+                      {
+                        codRubr: 'RUB-SAL',
+                        ideTabRubr: 'TAB001',
+                        vrRubr: 3000,
+                      },
                     ],
                   },
                 ],
@@ -227,7 +239,11 @@ describe('S1200Builder', () => {
                 remunPerApur: [
                   {
                     itensRemun: [
-                      { codRubr: 'RUB-SAL', ideTabRubr: 'TAB001', vrRubr: 2000 },
+                      {
+                        codRubr: 'RUB-SAL',
+                        ideTabRubr: 'TAB001',
+                        vrRubr: 2000,
+                      },
                     ],
                   },
                 ],
@@ -279,7 +295,11 @@ describe('S1200Builder', () => {
                 remunPerApur: [
                   {
                     itensRemun: [
-                      { codRubr: 'RUB-SAL', ideTabRubr: 'TAB001', vrRubr: 1234 },
+                      {
+                        codRubr: 'RUB-SAL',
+                        ideTabRubr: 'TAB001',
+                        vrRubr: 1234,
+                      },
                     ],
                   },
                 ],

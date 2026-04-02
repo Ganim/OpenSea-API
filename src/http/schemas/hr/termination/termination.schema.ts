@@ -15,17 +15,9 @@ const terminationTypeEnum = z.enum([
   'FALECIMENTO',
 ]);
 
-const noticeTypeEnum = z.enum([
-  'TRABALHADO',
-  'INDENIZADO',
-  'DISPENSADO',
-]);
+const noticeTypeEnum = z.enum(['TRABALHADO', 'INDENIZADO', 'DISPENSADO']);
 
-const terminationStatusEnum = z.enum([
-  'PENDING',
-  'CALCULATED',
-  'PAID',
-]);
+const terminationStatusEnum = z.enum(['PENDING', 'CALCULATED', 'PAID']);
 
 /**
  * Schema para criação de rescisão

@@ -117,7 +117,9 @@ export class MessageTemplate extends Entity<MessageTemplateProps> {
   static extractVariables(bodyText: string): string[] {
     const matches = bodyText.match(/\{\{(\w+)\}\}/g);
     if (!matches) return [];
-    const variableNames = matches.map((match) => match.replace(/\{\{|\}\}/g, ''));
+    const variableNames = matches.map((match) =>
+      match.replace(/\{\{|\}\}/g, ''),
+    );
     return [...new Set(variableNames)];
   }
 
@@ -128,10 +130,14 @@ export class MessageTemplate extends Entity<MessageTemplateProps> {
   }
 
   static create(
-    props: Optional<MessageTemplateProps, 'id' | 'isActive' | 'variables' | 'createdAt'>,
+    props: Optional<
+      MessageTemplateProps,
+      'id' | 'isActive' | 'variables' | 'createdAt'
+    >,
     id?: UniqueEntityID,
   ): MessageTemplate {
-    const variables = props.variables ?? MessageTemplate.extractVariables(props.body);
+    const variables =
+      props.variables ?? MessageTemplate.extractVariables(props.body);
 
     return new MessageTemplate(
       {

@@ -13,9 +13,7 @@ interface GetAvailableAuthMethodsUseCaseResponse {
 }
 
 export class GetAvailableAuthMethodsUseCase {
-  constructor(
-    private tenantAuthConfigRepository: TenantAuthConfigRepository,
-  ) {}
+  constructor(private tenantAuthConfigRepository: TenantAuthConfigRepository) {}
 
   async execute({
     tenantId,

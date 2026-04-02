@@ -3,7 +3,11 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema, queryBooleanSchema } from '../../common.schema';
+import {
+  cuidSchema,
+  dateSchema,
+  queryBooleanSchema,
+} from '../../common.schema';
 
 const reviewCycleTypeEnum = z.enum([
   'ANNUAL',
@@ -61,7 +65,7 @@ export const listReviewCyclesQuerySchema = z.object({
  * Schema para resposta de ciclo de avaliação
  */
 export const reviewCycleResponseSchema = z.object({
-  id: idSchema,
+  id: cuidSchema,
   name: z.string(),
   description: z.string().nullable(),
   type: z.string(),

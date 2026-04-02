@@ -15,9 +15,7 @@ export interface GetJobPostingResponse {
 export class GetJobPostingUseCase {
   constructor(private jobPostingsRepository: JobPostingsRepository) {}
 
-  async execute(
-    request: GetJobPostingRequest,
-  ): Promise<GetJobPostingResponse> {
+  async execute(request: GetJobPostingRequest): Promise<GetJobPostingResponse> {
     const { tenantId, jobPostingId } = request;
 
     const jobPosting = await this.jobPostingsRepository.findById(

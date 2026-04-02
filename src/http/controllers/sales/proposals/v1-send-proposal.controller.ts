@@ -51,7 +51,7 @@ export async function sendProposalController(app: FastifyInstance) {
           placeholders: { userName: userId, proposalTitle: proposal.title },
         });
 
-        return reply.status(200).send({ proposal } as any);
+        return reply.status(200).send({ proposal } as unknown);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

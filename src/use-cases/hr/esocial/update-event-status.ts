@@ -71,7 +71,9 @@ export class UpdateEventStatusUseCase {
 
     const transitions = VALID_TRANSITIONS[event.status];
     if (!transitions) {
-      throw new BadRequestError(`Status ${event.status} não permite transições.`);
+      throw new BadRequestError(
+        `Status ${event.status} não permite transições.`,
+      );
     }
 
     const newStatus = transitions[action];

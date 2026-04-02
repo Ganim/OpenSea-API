@@ -23,6 +23,7 @@ interface UpdateBankAccountUseCaseRequest {
   pixKey?: string;
   color?: string;
   isDefault?: boolean;
+  chartOfAccountId?: string | null;
 }
 
 interface UpdateBankAccountUseCaseResponse {
@@ -78,6 +79,7 @@ export class UpdateBankAccountUseCase {
       pixKey: request.pixKey,
       color: request.color,
       isDefault: request.isDefault,
+      chartOfAccountId: request.chartOfAccountId,
     });
 
     if (!updated) {
@@ -87,6 +89,8 @@ export class UpdateBankAccountUseCase {
       );
     }
 
-    return { bankAccount: bankAccountToDTO(updated, { maskSensitiveData: false }) };
+    return {
+      bankAccount: bankAccountToDTO(updated, { maskSensitiveData: false }),
+    };
   }
 }

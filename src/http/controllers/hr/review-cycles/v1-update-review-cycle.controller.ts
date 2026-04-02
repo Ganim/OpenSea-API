@@ -9,7 +9,7 @@ import {
   reviewCycleResponseSchema,
   updateReviewCycleSchema,
 } from '@/http/schemas/hr/reviews';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { reviewCycleToDTO } from '@/mappers/hr/review-cycle';
 import { makeUpdateReviewCycleUseCase } from '@/use-cases/hr/review-cycles/factories/make-update-review-cycle-use-case';
 
@@ -33,7 +33,7 @@ export async function v1UpdateReviewCycleController(app: FastifyInstance) {
       tags: ['HR - Reviews'],
       summary: 'Update review cycle',
       description: 'Updates an existing review cycle',
-      params: z.object({ reviewCycleId: idSchema }),
+      params: z.object({ reviewCycleId: cuidSchema }),
       body: updateReviewCycleSchema,
       response: {
         200: z.object({ reviewCycle: reviewCycleResponseSchema }),

@@ -9,8 +9,7 @@ import { SendEscalationMessageUseCase } from '../send-escalation-message';
 
 export function makeSendEscalationMessageUseCase() {
   const actionsRepository = new PrismaOverdueActionsRepository();
-  const messagingAccountsRepository =
-    new PrismaMessagingAccountsRepository();
+  const messagingAccountsRepository = new PrismaMessagingAccountsRepository();
   const emailAccountsRepository = new PrismaEmailAccountsRepository();
   const customersRepository = new PrismaCustomersRepository();
   const notificationsRepository = new PrismaNotificationsRepository();

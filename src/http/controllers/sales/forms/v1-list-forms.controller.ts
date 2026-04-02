@@ -47,7 +47,7 @@ export async function listFormsController(app: FastifyInstance) {
       const useCase = makeListFormsUseCase();
       const result = await useCase.execute({ tenantId, ...query });
 
-      return reply.status(200).send(result as any);
+      return reply.status(200).send(result as unknown);
     },
   });
 }

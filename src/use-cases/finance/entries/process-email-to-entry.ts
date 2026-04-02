@@ -2,7 +2,10 @@ import { logger } from '@/lib/logger';
 import { prisma } from '@/lib/prisma';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import { getImapConnectionPool } from '@/services/email/imap-connection-pool';
-import type { OcrExtractDataUseCase, OcrExtractResult } from './ocr-extract-data';
+import type {
+  OcrExtractDataUseCase,
+  OcrExtractResult,
+} from './ocr-extract-data';
 import type { CreateFinanceEntryUseCase } from './create-finance-entry';
 
 // ============================================================================
@@ -136,16 +139,20 @@ export class ProcessEmailToEntryUseCase {
           bodyStructure: unknown;
         }> = [];
 
-        for await (const msg of client.fetch('1:*', {
-          uid: true,
-          envelope: true,
-          bodyStructure: true,
-          flags: true,
-        }, { uid: true })) {
+        for await (const msg of client.fetch(
+          '1:*',
+          {
+            uid: true,
+            envelope: true,
+            bodyStructure: true,
+            flags: true,
+          },
+          { uid: true },
+        )) {
           // Only process unseen messages
           const flags = (msg as unknown as { flags: Set<string> }).flags;
           if (flags && !flags.has('\\Seen')) {
-            messages.push(msg as unknown as typeof messages[0]);
+            messages.push(msg as unknown as (typeof messages)[0]);
           }
         }
 
@@ -175,10 +182,16 @@ export class ProcessEmailToEntryUseCase {
 
             try {
               // Download attachment
-              const downloaded = await client.download(String(msg.uid), part.partId, { uid: true });
+              const downloaded = await client.download(
+                String(msg.uid),
+                part.partId,
+                { uid: true },
+              );
               const chunks: Buffer[] = [];
               for await (const chunk of downloaded.content) {
-                chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+                chunks.push(
+                  Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk),
+                );
               }
               const buffer = Buffer.concat(chunks);
 
@@ -188,17 +201,26 @@ export class ProcessEmailToEntryUseCase {
                 mimeType: part.mimeType,
                 tenantId,
               });
-            } catch (ocrError) {
+            } catch (_ocrError) {
               // OCR failed - try to extract from subject/filename
-              ocrResult = await this.extractFromMetadata(subject, part.filename, tenantId);
+              ocrResult = await this.extractFromMetadata(
+                subject,
+                part.filename,
+                tenantId,
+              );
             }
 
             // Extract data
             const data = ocrResult?.extractedData;
             const amount = data?.valor;
             const dueDateStr = data?.vencimento;
-            const supplierName = data?.beneficiario ?? this.extractSupplierFromSubject(subject);
-            const description = this.buildDescription(subject, supplierName, part.filename);
+            const supplierName =
+              data?.beneficiario ?? this.extractSupplierFromSubject(subject);
+            const description = this.buildDescription(
+              subject,
+              supplierName,
+              part.filename,
+            );
 
             if (!amount || amount <= 0) {
               // Cannot create entry without amount
@@ -225,7 +247,8 @@ export class ProcessEmailToEntryUseCase {
             }
 
             // Create the finance entry
-            const entryType = config.defaultType === 'RECEIVABLE' ? 'RECEIVABLE' : 'PAYABLE';
+            const entryType =
+              config.defaultType === 'RECEIVABLE' ? 'RECEIVABLE' : 'PAYABLE';
 
             // We need a category - use default or skip
             if (!config.defaultCategoryId) {
@@ -274,7 +297,9 @@ export class ProcessEmailToEntryUseCase {
 
             // Mark message as read
             try {
-              await client.messageFlagsAdd(String(msg.uid), ['\\Seen'], { uid: true });
+              await client.messageFlagsAdd(String(msg.uid), ['\\Seen'], {
+                uid: true,
+              });
             } catch {
               // Non-critical
             }
@@ -288,7 +313,8 @@ export class ProcessEmailToEntryUseCase {
             });
           } catch (msgError) {
             failed++;
-            const errorMsg = msgError instanceof Error ? msgError.message : String(msgError);
+            const errorMsg =
+              msgError instanceof Error ? msgError.message : String(msgError);
             logger.error(
               { err: msgError, tenantId, messageId },
               'Email-to-entry: failed to process message',
@@ -334,9 +360,11 @@ export class ProcessEmailToEntryUseCase {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private findAttachmentParts(bodyStructure: any): Array<{ partId: string; mimeType: string; filename: string }> {
-    const parts: Array<{ partId: string; mimeType: string; filename: string }> = [];
+  private findAttachmentParts(
+    bodyStructure: Record<string, unknown>,
+  ): Array<{ partId: string; mimeType: string; filename: string }> {
+    const parts: Array<{ partId: string; mimeType: string; filename: string }> =
+      [];
     const allowedTypes = [
       'application/pdf',
       'image/jpeg',
@@ -352,14 +380,26 @@ export class ProcessEmailToEntryUseCase {
       const mimeType = `${type}/${subtype}`;
 
       if (allowedTypes.includes(mimeType)) {
-        const disposition = node.disposition as Record<string, unknown> | undefined;
-        const params = (node.parameters ?? disposition?.params ?? {}) as Record<string, string>;
-        const filename = params.name ?? params.filename ?? `attachment.${subtype}`;
+        const disposition = node.disposition as
+          | Record<string, unknown>
+          | undefined;
+        const params = (node.parameters ?? disposition?.params ?? {}) as Record<
+          string,
+          string
+        >;
+        const filename =
+          params.name ?? params.filename ?? `attachment.${subtype}`;
 
-        parts.push({ partId: String(node.part ?? partId), mimeType, filename: String(filename) });
+        parts.push({
+          partId: String(node.part ?? partId),
+          mimeType,
+          filename: String(filename),
+        });
       }
 
-      const childNodes = node.childNodes as Array<Record<string, unknown>> | undefined;
+      const childNodes = node.childNodes as
+        | Array<Record<string, unknown>>
+        | undefined;
       if (Array.isArray(childNodes)) {
         childNodes.forEach((child, i) => {
           walk(child, `${partId}.${i + 1}`);
@@ -381,7 +421,10 @@ export class ProcessEmailToEntryUseCase {
     for (const pattern of patterns) {
       const match = subject.match(pattern);
       if (match) {
-        const name = match[1].trim().split(/\s*[-–|]\s*/)[0].trim();
+        const name = match[1]
+          .trim()
+          .split(/\s*[-–|]\s*/)[0]
+          .trim();
         if (name.length > 2 && name.length <= 256) return name;
       }
     }
@@ -389,7 +432,11 @@ export class ProcessEmailToEntryUseCase {
     return null;
   }
 
-  private buildDescription(subject: string, supplierName: string | null, filename: string): string {
+  private buildDescription(
+    subject: string,
+    supplierName: string | null,
+    _filename: string,
+  ): string {
     if (supplierName) {
       return `[E-mail] ${subject} - ${supplierName}`.substring(0, 500);
     }

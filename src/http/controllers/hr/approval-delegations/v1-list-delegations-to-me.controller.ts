@@ -38,6 +38,8 @@ export async function v1ListDelegationsToMeController(app: FastifyInstance) {
               isEffective: z.boolean(),
               createdAt: z.date(),
               updatedAt: z.date(),
+              delegatorName: z.string().optional(),
+              delegateName: z.string().optional(),
             }),
           ),
           meta: z.object({
@@ -64,24 +66,29 @@ export async function v1ListDelegationsToMeController(app: FastifyInstance) {
       );
 
       if (!employee) {
-        return reply
-          .status(404)
-          .send({ message: 'No employee linked to this user' });
+        return reply.status(200).send({
+          delegations: [],
+          meta: { total: 0, page, limit, pages: 0 },
+        });
       }
 
       const listDelegationsToMeUseCase = makeListDelegationsToMeUseCase();
-      const { delegations, total } =
-        await listDelegationsToMeUseCase.execute({
-          tenantId,
-          delegateId: employee.id.toString(),
-          page,
-          limit,
-        });
+      const { delegations, total } = await listDelegationsToMeUseCase.execute({
+        tenantId,
+        delegateId: employee.id.toString(),
+        page,
+        limit,
+      });
 
       return reply.status(200).send({
-        delegations: delegations.map((delegation) =>
-          approvalDelegationToDTO(delegation),
-        ),
+        delegations: delegations.map((delegation) => {
+          const extra = delegation as unknown as Record<string, unknown>;
+          return approvalDelegationToDTO(
+            delegation,
+            extra._delegatorName as string | undefined,
+            extra._delegateName as string | undefined,
+          );
+        }),
         meta: {
           total,
           page,

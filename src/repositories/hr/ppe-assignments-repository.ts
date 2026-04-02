@@ -34,10 +34,7 @@ export interface FindExpiringAssignmentFilters {
 
 export interface PPEAssignmentsRepository {
   create(data: CreatePPEAssignmentSchema): Promise<PPEAssignment>;
-  findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<PPEAssignment | null>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<PPEAssignment | null>;
   findMany(
     tenantId: string,
     filters?: FindPPEAssignmentFilters,

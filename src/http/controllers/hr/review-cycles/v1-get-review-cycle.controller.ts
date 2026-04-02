@@ -2,7 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { reviewCycleResponseSchema } from '@/http/schemas/hr/reviews';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { reviewCycleToDTO } from '@/mappers/hr/review-cycle';
 import { makeGetReviewCycleUseCase } from '@/use-cases/hr/review-cycles/factories/make-get-review-cycle-use-case';
 
@@ -19,7 +19,7 @@ export async function v1GetReviewCycleController(app: FastifyInstance) {
       tags: ['HR - Reviews'],
       summary: 'Get review cycle',
       description: 'Gets a review cycle by ID',
-      params: z.object({ reviewCycleId: idSchema }),
+      params: z.object({ reviewCycleId: cuidSchema }),
       response: {
         200: z.object({ reviewCycle: reviewCycleResponseSchema }),
         404: z.object({ message: z.string() }),

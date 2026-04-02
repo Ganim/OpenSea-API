@@ -4,10 +4,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import {
-  addCipaMemberSchema,
-  cipaMemberResponseSchema,
-} from '@/http/schemas';
+import { addCipaMemberSchema, cipaMemberResponseSchema } from '@/http/schemas';
 import { idSchema } from '@/http/schemas';
 import { cipaMemberToDTO } from '@/mappers/hr/cipa-member';
 import { makeAddCipaMemberUseCase } from '@/use-cases/hr/cipa-members/factories/make-add-cipa-member-use-case';

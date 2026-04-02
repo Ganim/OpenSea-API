@@ -29,7 +29,10 @@ class TestBuilder extends EsocialXmlBuilder<{ value: string }> {
   public _formatCEP(s: string) {
     return this.formatCEP(s);
   }
-  public _tag(name: string, value: string | number | boolean | null | undefined) {
+  public _tag(
+    name: string,
+    value: string | number | boolean | null | undefined,
+  ) {
     return this.tag(name, value);
   }
   public _tagGroup(name: string, content: string) {
@@ -89,9 +92,7 @@ describe('EsocialXmlBuilder (base)', () => {
 
   describe('formatCNPJ', () => {
     it('should strip non-digits and pad to 14', () => {
-      expect(builder._formatCNPJ('12.345.678/0001-95')).toBe(
-        '12345678000195',
-      );
+      expect(builder._formatCNPJ('12.345.678/0001-95')).toBe('12345678000195');
     });
   });
 

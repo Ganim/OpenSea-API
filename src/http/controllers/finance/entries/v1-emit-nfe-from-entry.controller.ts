@@ -27,11 +27,7 @@ const emitNfeBodySchema = z.object({
     )
     .min(1)
     .describe('Itens do documento fiscal'),
-  notes: z
-    .string()
-    .max(2000)
-    .optional()
-    .describe('Informações adicionais'),
+  notes: z.string().max(2000).optional().describe('Informações adicionais'),
 });
 
 const fiscalDocumentResultSchema = z.object({

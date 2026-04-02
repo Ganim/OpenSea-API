@@ -127,9 +127,8 @@ export class GenerateAFDTUseCase {
         .replace(/\D/g, '')
         .padEnd(14, ' ')
         .substring(0, 14);
-      const justification = (hasAdjustment
-        ? (entry.notes?.replace('[AJUSTE]', '').trim() ?? '')
-        : ''
+      const justification = (
+        hasAdjustment ? (entry.notes?.replace('[AJUSTE]', '').trim() ?? '') : ''
       )
         .padEnd(40, ' ')
         .substring(0, 40);

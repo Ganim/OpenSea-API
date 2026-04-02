@@ -36,10 +36,7 @@ describe('SubmitFormUseCase', () => {
       email: 'john@example.com',
     });
 
-    const updatedForm = await formsRepository.findById(
-      form.id,
-      'tenant-1',
-    );
+    const updatedForm = await formsRepository.findById(form.id, 'tenant-1');
     expect(updatedForm?.submissionCount).toBe(1);
   });
 

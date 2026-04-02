@@ -11,9 +11,7 @@ export interface ListInterviewStagesResponse {
 }
 
 export class ListInterviewStagesUseCase {
-  constructor(
-    private interviewStagesRepository: InterviewStagesRepository,
-  ) {}
+  constructor(private interviewStagesRepository: InterviewStagesRepository) {}
 
   async execute(
     request: ListInterviewStagesRequest,

@@ -44,10 +44,7 @@ describe('Return PPE Use Case', () => {
     expect(assignment.returnedAt).toBeDefined();
 
     // Stock should be restored
-    const updatedItem = await ppeItemsRepository.findById(
-      ppeItem.id,
-      tenantId,
-    );
+    const updatedItem = await ppeItemsRepository.findById(ppeItem.id, tenantId);
     expect(updatedItem!.currentStock).toBe(10);
   });
 
@@ -74,10 +71,7 @@ describe('Return PPE Use Case', () => {
     });
 
     // Stock should NOT be restored
-    const updatedItem = await ppeItemsRepository.findById(
-      ppeItem.id,
-      tenantId,
-    );
+    const updatedItem = await ppeItemsRepository.findById(ppeItem.id, tenantId);
     expect(updatedItem!.currentStock).toBe(9);
   });
 

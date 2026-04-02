@@ -23,8 +23,7 @@ export async function v1DeleteCertificateController(app: FastifyInstance) {
     schema: {
       tags: ['eSocial - Certificates'],
       summary: 'Delete certificate',
-      description:
-        'Delete the current eSocial certificate for the tenant.',
+      description: 'Delete the current eSocial certificate for the tenant.',
       response: {
         204: z.null(),
         404: z.object({ message: z.string() }),

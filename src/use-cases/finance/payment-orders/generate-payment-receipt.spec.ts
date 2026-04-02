@@ -4,7 +4,10 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
 import { InMemoryPaymentOrdersRepository } from '@/repositories/finance/in-memory/in-memory-payment-orders-repository';
 import type { BankAccountsRepository } from '@/repositories/finance/bank-accounts-repository';
-import type { FileUploadService, UploadResult } from '@/services/storage/file-upload-service';
+import type {
+  FileUploadService,
+  UploadResult,
+} from '@/services/storage/file-upload-service';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { GeneratePaymentReceiptUseCase } from './generate-payment-receipt';
 
@@ -147,7 +150,9 @@ describe('GeneratePaymentReceiptUseCase', () => {
     paymentOrdersRepository.items[idx].status = 'COMPLETED';
     paymentOrdersRepository.items[idx].externalId = 'ext-pix-123456';
     paymentOrdersRepository.items[idx].approvedById = 'user-approver';
-    paymentOrdersRepository.items[idx].approvedAt = new Date('2026-04-01T10:30:00');
+    paymentOrdersRepository.items[idx].approvedAt = new Date(
+      '2026-04-01T10:30:00',
+    );
 
     return { order: paymentOrdersRepository.items[idx], entry };
   }

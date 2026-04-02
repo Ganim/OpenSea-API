@@ -6,7 +6,9 @@ import type {
   UpdateGeofenceZoneData,
 } from '../geofence-zones-repository';
 
-export class InMemoryGeofenceZonesRepository implements GeofenceZonesRepository {
+export class InMemoryGeofenceZonesRepository
+  implements GeofenceZonesRepository
+{
   private items: GeofenceZone[] = [];
 
   async create(data: CreateGeofenceZoneData): Promise<GeofenceZone> {

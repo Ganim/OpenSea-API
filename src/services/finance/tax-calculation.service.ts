@@ -104,10 +104,7 @@ export function calculateIRRF(grossAmount: number): TaxResult {
 // ISS — Alíquota fixa
 // ============================================================================
 
-export function calculateISS(
-  serviceAmount: number,
-  rate?: number,
-): TaxResult {
+export function calculateISS(serviceAmount: number, rate?: number): TaxResult {
   const effectiveRate = rate ?? ISS_DEFAULT_RATE;
 
   if (serviceAmount <= 0 || effectiveRate <= 0) {
@@ -193,7 +190,8 @@ export function calculatePIS(
     };
   }
 
-  const rate = regime === 'NAO_CUMULATIVO' ? PIS_NAO_CUMULATIVO : PIS_CUMULATIVO;
+  const rate =
+    regime === 'NAO_CUMULATIVO' ? PIS_NAO_CUMULATIVO : PIS_CUMULATIVO;
   const taxAmount = round2(amount * rate);
 
   return {

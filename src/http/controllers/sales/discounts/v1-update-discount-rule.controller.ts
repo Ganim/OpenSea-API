@@ -47,12 +47,19 @@ export async function updateDiscountRuleController(app: FastifyInstance) {
 
       try {
         const useCase = makeUpdateDiscountRuleUseCase();
-        const { discountRule } = await useCase.execute({ tenantId, id, ...body });
+        const { discountRule } = await useCase.execute({
+          tenantId,
+          id,
+          ...body,
+        });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.DISCOUNT_RULE_UPDATE,
           entityId: id,
-          placeholders: { ruleName: discountRule.name, userName: request.user.sub },
+          placeholders: {
+            ruleName: discountRule.name,
+            userName: request.user.sub,
+          },
           newData: body,
         });
 

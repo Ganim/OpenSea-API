@@ -12,9 +12,7 @@ interface GetTenantAuthConfigUseCaseResponse {
 }
 
 export class GetTenantAuthConfigUseCase {
-  constructor(
-    private tenantAuthConfigRepository: TenantAuthConfigRepository,
-  ) {}
+  constructor(private tenantAuthConfigRepository: TenantAuthConfigRepository) {}
 
   async execute({
     tenantId,

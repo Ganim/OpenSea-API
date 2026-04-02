@@ -1,6 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
-import { PermissionCodes } from '@/constants/rbac/permission-codes';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';

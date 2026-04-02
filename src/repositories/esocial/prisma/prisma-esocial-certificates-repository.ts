@@ -52,8 +52,10 @@ export class PrismaEsocialCertificatesRepository
         validFrom: data.validFrom,
         validUntil: data.validUntil,
         encryptedPfx: data.pfxData,
-        encryptionIv: (data as any).encryptionIv ?? '',
-        encryptionTag: (data as any).encryptionTag ?? '',
+        encryptionIv:
+          (data as unknown as Record<string, string>).encryptionIv ?? '',
+        encryptionTag:
+          (data as unknown as Record<string, string>).encryptionTag ?? '',
       },
     });
 

@@ -29,6 +29,7 @@ export interface ItemProps {
   batchNumber?: string;
   manufacturingDate?: Date;
   expiryDate?: Date;
+  exitMovementType?: string;
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date;
@@ -191,6 +192,15 @@ export class Item extends Entity<ItemProps> {
 
   set expiryDate(date: Date | undefined) {
     this.props.expiryDate = date;
+    this.touch();
+  }
+
+  get exitMovementType(): string | undefined {
+    return this.props.exitMovementType;
+  }
+
+  set exitMovementType(type: string | undefined) {
+    this.props.exitMovementType = type;
     this.touch();
   }
 

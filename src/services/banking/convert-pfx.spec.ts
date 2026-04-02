@@ -10,9 +10,7 @@ function createTestPfx(password: string): Buffer {
   cert.serialNumber = '01';
   cert.validity.notBefore = new Date();
   cert.validity.notAfter = new Date();
-  cert.validity.notAfter.setFullYear(
-    cert.validity.notAfter.getFullYear() + 1,
-  );
+  cert.validity.notAfter.setFullYear(cert.validity.notAfter.getFullYear() + 1);
 
   const attrs = [{ name: 'commonName', value: 'Test Cert' }];
   cert.setSubject(attrs);
@@ -30,8 +28,12 @@ describe('convertPfxToPem', () => {
     const pfx = createTestPfx('test123');
     const result = convertPfxToPem(pfx, 'test123');
 
-    expect(result.cert.toString('utf-8')).toContain('-----BEGIN CERTIFICATE-----');
-    expect(result.key.toString('utf-8')).toContain('-----BEGIN RSA PRIVATE KEY-----');
+    expect(result.cert.toString('utf-8')).toContain(
+      '-----BEGIN CERTIFICATE-----',
+    );
+    expect(result.key.toString('utf-8')).toContain(
+      '-----BEGIN RSA PRIVATE KEY-----',
+    );
   });
 
   it('should throw on wrong password', () => {

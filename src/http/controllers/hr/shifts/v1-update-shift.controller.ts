@@ -7,7 +7,11 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { idSchema, shiftResponseSchema, updateShiftSchema } from '@/http/schemas';
+import {
+  idSchema,
+  shiftResponseSchema,
+  updateShiftSchema,
+} from '@/http/schemas';
 import { shiftToDTO } from '@/mappers/hr/shift/shift-to-dto';
 import { makeUpdateShiftUseCase } from '@/use-cases/hr/shifts/factories/make-update-shift-use-case';
 import type { FastifyInstance } from 'fastify';

@@ -1,3 +1,9 @@
+import { vi } from 'vitest';
+
+vi.mock('@/lib/logger', () => ({
+  logger: { warn: vi.fn(), info: vi.fn(), error: vi.fn() },
+}));
+
 import { InMemoryOverdueActionsRepository } from '@/repositories/finance/in-memory/in-memory-overdue-actions-repository';
 import { InMemoryMessagingAccountsRepository } from '@/repositories/messaging/in-memory/in-memory-messaging-accounts-repository';
 import { InMemoryEmailAccountsRepository } from '@/repositories/email/in-memory/in-memory-email-accounts-repository';
@@ -13,7 +19,7 @@ import { EmailAccount } from '@/entities/email/email-account';
 import { MessagingAccount } from '@/entities/messaging/messaging-account';
 import type { MessagingGateway } from '@/services/messaging/messaging-gateway.interface';
 import type { SmtpClientService } from '@/services/email/smtp-client.service';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { SendEscalationMessageUseCase } from './send-escalation-message';
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -101,7 +107,9 @@ describe('SendEscalationMessageUseCase', () => {
 
     mockWhatsAppGateway = {
       channel: 'WHATSAPP',
-      sendMessage: vi.fn().mockResolvedValue({ externalId: 'ext-1', status: 'sent' }),
+      sendMessage: vi
+        .fn()
+        .mockResolvedValue({ externalId: 'ext-1', status: 'sent' }),
       parseWebhook: vi.fn().mockResolvedValue([]),
       verifyWebhook: vi.fn().mockReturnValue(true),
     };
@@ -314,9 +322,9 @@ describe('SendEscalationMessageUseCase', () => {
     );
     messagingAccountsRepository.items.push(waAccount);
 
-    (mockWhatsAppGateway.sendMessage as ReturnType<typeof vi.fn>).mockRejectedValueOnce(
-      new Error('Evolution API error (500)'),
-    );
+    (
+      mockWhatsAppGateway.sendMessage as ReturnType<typeof vi.fn>
+    ).mockRejectedValueOnce(new Error('Evolution API error (500)'));
 
     const action = makeAction('WHATSAPP');
     actionsRepository.items.push(action);

@@ -56,13 +56,8 @@ export class InMemoryEmployeeKudosRepository
     take: number,
   ): Promise<PaginatedKudosResult> {
     const filtered = this.items
-      .filter(
-        (item) =>
-          item.tenantId.toString() === tenantId && item.isPublic,
-      )
-      .sort(
-        (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
-      );
+      .filter((item) => item.tenantId.toString() === tenantId && item.isPublic)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 
     return {
       kudos: filtered.slice(skip, skip + take),

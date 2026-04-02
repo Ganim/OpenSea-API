@@ -42,7 +42,9 @@ export class AssignPPEUseCase {
     }
 
     if (!ppeItem.isActive) {
-      throw new BadRequestError('Este EPI está inativo e não pode ser atribuído');
+      throw new BadRequestError(
+        'Este EPI está inativo e não pode ser atribuído',
+      );
     }
 
     if (ppeItem.currentStock < quantity) {

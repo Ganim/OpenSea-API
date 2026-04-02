@@ -2,10 +2,7 @@ import type { AiWorkflowsRepository } from '@/repositories/ai/ai-workflows-repos
 import type { AiWorkflowExecutionsRepository } from '@/repositories/ai/ai-workflow-executions-repository';
 import type { ToolExecutor } from '@/services/ai-tools/tool-executor';
 import type { ToolExecutionContext } from '@/services/ai-tools/tool-types';
-import type {
-  AiWorkflowAction,
-  AiWorkflowCondition,
-} from '@/entities/ai/ai-workflow';
+import type { AiWorkflowCondition } from '@/entities/ai/ai-workflow';
 
 interface ExecuteWorkflowRequest {
   workflowId: string;

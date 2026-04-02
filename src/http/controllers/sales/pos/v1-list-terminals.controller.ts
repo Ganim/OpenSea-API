@@ -91,7 +91,7 @@ export async function listTerminalsController(app: FastifyInstance) {
       return reply.status(200).send({
         terminals: terminalResponses,
         meta: { total, page, limit, pages: totalPages },
-      } as any);
+      } as unknown);
     },
   });
 }

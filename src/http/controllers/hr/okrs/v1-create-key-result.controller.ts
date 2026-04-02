@@ -4,7 +4,7 @@ import {
   createKeyResultSchema,
   keyResultResponseSchema,
 } from '@/http/schemas/hr/okrs';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { keyResultToDTO } from '@/mappers/hr/key-result';
 import { makeCreateKeyResultUseCase } from '@/use-cases/hr/okrs/factories';
 
@@ -21,7 +21,7 @@ export async function v1CreateKeyResultController(app: FastifyInstance) {
       tags: ['HR - OKRs'],
       summary: 'Create a key result',
       description: 'Creates a new key result for an objective',
-      params: z.object({ objectiveId: idSchema }),
+      params: z.object({ objectiveId: cuidSchema }),
       body: createKeyResultSchema,
       response: {
         201: keyResultResponseSchema,

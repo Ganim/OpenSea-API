@@ -28,9 +28,7 @@ export class InMemoryCashierSessionsRepository
     tenantId: string,
   ): Promise<CashierSession | null> {
     const session = this.items.find(
-      (item) =>
-        item.id.equals(id) &&
-        item.tenantId.toString() === tenantId,
+      (item) => item.id.equals(id) && item.tenantId.toString() === tenantId,
     );
     return session ?? null;
   }
@@ -74,9 +72,7 @@ export class InMemoryCashierSessionsRepository
   }
 
   async save(session: CashierSession): Promise<void> {
-    const index = this.items.findIndex((item) =>
-      item.id.equals(session.id),
-    );
+    const index = this.items.findIndex((item) => item.id.equals(session.id));
 
     if (index >= 0) {
       this.items[index] = session;

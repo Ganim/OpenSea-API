@@ -5,6 +5,14 @@ import { AuditEntity } from '@/entities/audit/audit-entity.enum';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { AuditLogsRepository } from '@/repositories/audit/audit-logs-repository';
 
+type DynamicPrismaModel = Record<
+  string,
+  {
+    findUnique: (...args: unknown[]) => Promise<unknown>;
+    update: (...args: unknown[]) => Promise<unknown>;
+  }
+>;
+
 // ── Entity type mapping (AI tool entity type -> AuditEntity enum) ─────
 
 const ENTITY_TYPE_TO_AUDIT_ENTITY: Record<string, AuditEntity> = {
@@ -299,12 +307,16 @@ export class UndoActionUseCase {
     return restoreData;
   }
 
+  private getModel(modelName: string) {
+    return (prisma as unknown as DynamicPrismaModel)[modelName];
+  }
+
   private async entityExists(
     modelName: string,
     entityId: string,
   ): Promise<boolean> {
     try {
-      const result = await (prisma as any)[modelName].findUnique({
+      const result = await this.getModel(modelName).findUnique({
         where: { id: entityId },
         select: { id: true },
       });
@@ -319,7 +331,7 @@ export class UndoActionUseCase {
     entityId: string,
   ): Promise<void> {
     try {
-      await (prisma as any)[modelName].update({
+      await this.getModel(modelName).update({
         where: { id: entityId },
         data: { deletedAt: new Date() },
       });
@@ -336,7 +348,7 @@ export class UndoActionUseCase {
     data: Record<string, unknown>,
   ): Promise<void> {
     try {
-      await (prisma as any)[modelName].update({
+      await this.getModel(modelName).update({
         where: { id: entityId },
         data,
       });
@@ -352,7 +364,7 @@ export class UndoActionUseCase {
     entityId: string,
   ): Promise<void> {
     try {
-      await (prisma as any)[modelName].update({
+      await this.getModel(modelName).update({
         where: { id: entityId },
         data: { deletedAt: null },
       });
@@ -363,8 +375,9 @@ export class UndoActionUseCase {
     }
   }
 
-  private getModuleFromEntity(entity: AuditEntity): any {
+  private getModuleFromEntity(entity: AuditEntity): unknown {
     // Import dynamically to avoid circular deps
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { AuditModule } = require('@/entities/audit/audit-module.enum');
 
     const stockEntities = [

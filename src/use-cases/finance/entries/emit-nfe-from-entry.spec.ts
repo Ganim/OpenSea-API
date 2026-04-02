@@ -7,7 +7,6 @@ import { InMemoryFiscalDocumentsRepository } from '@/repositories/fiscal/in-memo
 import type {
   EmissionResult,
   FiscalProvider,
-  NFeData,
 } from '@/services/fiscal/fiscal-provider.interface';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { EmitNfeFromEntryUseCase } from './emit-nfe-from-entry';

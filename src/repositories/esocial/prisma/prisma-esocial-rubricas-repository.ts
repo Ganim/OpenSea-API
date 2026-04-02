@@ -35,6 +35,7 @@ function typeStringToNumber(type: string): number {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Prisma result type mapping
 function mapToDomain(data: any): EsocialRubrica {
   const incidence =
     typeof data.incidence === 'object' && data.incidence !== null
@@ -117,7 +118,7 @@ export class PrismaEsocialRubricasRepository
   ): Promise<FindManyEsocialRubricasResult> {
     const { tenantId, page = 1, perPage = 20 } = params;
 
-    const where: any = { tenantId };
+    const where: Record<string, unknown> = { tenantId };
 
     if (params.type !== undefined) {
       where.type = typeNumberToString(params.type);
@@ -152,7 +153,7 @@ export class PrismaEsocialRubricasRepository
     id: UniqueEntityID,
     data: UpdateEsocialRubricaData,
   ): Promise<EsocialRubrica | null> {
-    const updateData: any = {};
+    const updateData: Record<string, unknown> = {};
 
     if (data.description !== undefined)
       updateData.description = data.description;

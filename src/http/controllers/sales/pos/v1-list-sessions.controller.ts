@@ -91,7 +91,7 @@ export async function listSessionsController(app: FastifyInstance) {
       return reply.status(200).send({
         sessions: sessionResponses,
         meta: { total, page, limit, pages: totalPages },
-      } as any);
+      } as unknown);
     },
   });
 }

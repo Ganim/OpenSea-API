@@ -34,7 +34,9 @@ export function calculateVacationDays(unjustifiedAbsences: number): number {
  * Get the absence range description for the given absence count.
  * Useful for displaying in the UI.
  */
-export function getVacationDaysDescription(unjustifiedAbsences: number): string {
+export function getVacationDaysDescription(
+  unjustifiedAbsences: number,
+): string {
   const days = calculateVacationDays(unjustifiedAbsences);
 
   if (days === 0) {

@@ -5,7 +5,7 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { idSchema } from '@/http/schemas';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { makeGetOnboardingChecklistUseCase } from '@/use-cases/hr/onboarding/factories/make-get-onboarding-checklist-use-case';
 import { makeDeleteOnboardingChecklistUseCase } from '@/use-cases/hr/onboarding/factories/make-delete-onboarding-checklist-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -31,7 +31,7 @@ export async function v1DeleteOnboardingChecklistController(
       summary: 'Delete onboarding checklist',
       description: 'Soft deletes an onboarding checklist',
       params: z.object({
-        id: idSchema,
+        id: cuidSchema,
       }),
       response: {
         204: z.null(),

@@ -15,9 +15,7 @@ export interface GetInterviewResponse {
 export class GetInterviewUseCase {
   constructor(private interviewsRepository: InterviewsRepository) {}
 
-  async execute(
-    request: GetInterviewRequest,
-  ): Promise<GetInterviewResponse> {
+  async execute(request: GetInterviewRequest): Promise<GetInterviewResponse> {
     const { tenantId, interviewId } = request;
 
     const interview = await this.interviewsRepository.findById(

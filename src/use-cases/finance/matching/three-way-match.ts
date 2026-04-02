@@ -195,7 +195,9 @@ export class ThreeWayMatchUseCase {
     }
 
     // 5. Score match
-    const matches = [invoice, purchaseOrder, goodsReceipt].filter(Boolean).length;
+    const matches = [invoice, purchaseOrder, goodsReceipt].filter(
+      Boolean,
+    ).length;
     let matchStatus: ThreeWayMatchResult['matchStatus'];
 
     if (matches >= 3 && discrepancies.length === 0) {

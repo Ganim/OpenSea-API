@@ -15,9 +15,7 @@ interface ReconcileSessionUseCaseResponse {
 }
 
 export class ReconcileSessionUseCase {
-  constructor(
-    private cashierSessionsRepository: CashierSessionsRepository,
-  ) {}
+  constructor(private cashierSessionsRepository: CashierSessionsRepository) {}
 
   async execute(
     input: ReconcileSessionUseCaseRequest,
@@ -32,9 +30,7 @@ export class ReconcileSessionUseCase {
     }
 
     if (session.status !== 'CLOSED') {
-      throw new BadRequestError(
-        'Only closed sessions can be reconciled.',
-      );
+      throw new BadRequestError('Only closed sessions can be reconciled.');
     }
 
     session.reconcile();

@@ -3,7 +3,7 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { cuidSchema, dateSchema, idSchema } from '../../common.schema';
 
 const interviewStatusEnum = z.enum([
   'SCHEDULED',
@@ -14,9 +14,9 @@ const interviewStatusEnum = z.enum([
 const interviewRecommendationEnum = z.enum(['ADVANCE', 'HOLD', 'REJECT']);
 
 export const scheduleInterviewSchema = z.object({
-  applicationId: z.string().uuid(),
-  interviewStageId: z.string().uuid(),
-  interviewerId: z.string().uuid(),
+  applicationId: cuidSchema,
+  interviewStageId: cuidSchema,
+  interviewerId: idSchema,
   scheduledAt: z.coerce.date(),
   duration: z.number().int().positive().optional().default(60),
   location: z.string().max(256).optional(),
@@ -30,15 +30,15 @@ export const completeInterviewSchema = z.object({
 });
 
 export const listInterviewsQuerySchema = z.object({
-  applicationId: z.string().uuid().optional(),
-  interviewerId: z.string().uuid().optional(),
+  applicationId: cuidSchema.optional(),
+  interviewerId: idSchema.optional(),
   status: interviewStatusEnum.optional(),
   page: z.coerce.number().int().positive().optional().default(1),
   perPage: z.coerce.number().int().positive().max(100).optional().default(20),
 });
 
 export const interviewResponseSchema = z.object({
-  id: idSchema,
+  id: cuidSchema,
   applicationId: z.string(),
   interviewStageId: z.string(),
   interviewerId: z.string(),

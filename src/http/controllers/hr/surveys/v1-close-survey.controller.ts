@@ -1,7 +1,7 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { surveyResponseSchema } from '@/http/schemas/hr/surveys';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { surveyToDTO } from '@/mappers/hr/survey';
 import { makeCloseSurveyUseCase } from '@/use-cases/hr/surveys/factories';
 
@@ -18,7 +18,7 @@ export async function v1CloseSurveyController(app: FastifyInstance) {
       tags: ['HR - Surveys'],
       summary: 'Close a survey',
       description: 'Closes an active survey',
-      params: z.object({ surveyId: idSchema }),
+      params: z.object({ surveyId: cuidSchema }),
       response: {
         200: surveyResponseSchema,
       },

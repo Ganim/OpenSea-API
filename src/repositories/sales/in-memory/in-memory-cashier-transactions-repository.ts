@@ -47,8 +47,6 @@ export class InMemoryCashierTransactionsRepository
   }
 
   async countBySessionId(sessionId: UniqueEntityID): Promise<number> {
-    return this.items.filter((item) =>
-      item.sessionId.equals(sessionId),
-    ).length;
+    return this.items.filter((item) => item.sessionId.equals(sessionId)).length;
   }
 }

@@ -35,8 +35,10 @@ export function discountRuleToDTO(discountRule: DiscountRule): DiscountRuleDTO {
   };
 
   if (discountRule.description) dto.description = discountRule.description;
-  if (discountRule.minOrderValue !== undefined) dto.minOrderValue = discountRule.minOrderValue;
-  if (discountRule.minQuantity !== undefined) dto.minQuantity = discountRule.minQuantity;
+  if (discountRule.minOrderValue !== undefined)
+    dto.minOrderValue = discountRule.minOrderValue;
+  if (discountRule.minQuantity !== undefined)
+    dto.minQuantity = discountRule.minQuantity;
   if (discountRule.categoryId) dto.categoryId = discountRule.categoryId;
   if (discountRule.productId) dto.productId = discountRule.productId;
   if (discountRule.customerId) dto.customerId = discountRule.customerId;

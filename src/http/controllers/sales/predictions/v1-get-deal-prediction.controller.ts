@@ -41,7 +41,7 @@ export async function getDealPredictionController(app: FastifyInstance) {
       const useCase = makeGetDealPredictionUseCase();
       const { prediction } = await useCase.execute({ tenantId, dealId });
 
-      return reply.status(200).send({ prediction } as any);
+      return reply.status(200).send({ prediction } as unknown);
     },
   });
 }

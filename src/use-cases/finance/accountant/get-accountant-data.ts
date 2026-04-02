@@ -81,9 +81,8 @@ export class GetAccountantDataUseCase {
     const startDate = new Date(year, month - 1, 1);
     const endDate = new Date(year, month, 0);
 
-    const categories = await this.financeCategoriesRepository.findMany(
-      tenantId,
-    );
+    const categories =
+      await this.financeCategoriesRepository.findMany(tenantId);
 
     const { entries } = await this.financeEntriesRepository.findMany({
       tenantId,
@@ -116,9 +115,7 @@ export class GetAccountantDataUseCase {
     // Calculate summary
     const paidStatuses = ['PAID', 'RECEIVED', 'PARTIALLY_PAID'];
     const totalRevenue = entries
-      .filter(
-        (e) => e.type === 'RECEIVABLE' && paidStatuses.includes(e.status),
-      )
+      .filter((e) => e.type === 'RECEIVABLE' && paidStatuses.includes(e.status))
       .reduce((sum, e) => sum + (e.actualAmount ?? e.expectedAmount), 0);
 
     const totalExpenses = entries

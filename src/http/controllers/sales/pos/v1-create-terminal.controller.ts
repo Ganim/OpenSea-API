@@ -105,7 +105,9 @@ export async function createTerminalController(app: FastifyInstance) {
           },
         });
 
-        return reply.status(201).send({ terminal: terminalResponse } as any);
+        return reply
+          .status(201)
+          .send({ terminal: terminalResponse } as unknown);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

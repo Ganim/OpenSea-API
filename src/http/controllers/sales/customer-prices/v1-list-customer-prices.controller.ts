@@ -43,8 +43,14 @@ export async function listCustomerPricesController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { page, limit, customerId, variantId, sortBy, sortOrder } =
-        request.query;
+      const {
+        page,
+        limit,
+        customerId,
+        variantId: _variantId,
+        sortBy,
+        sortOrder,
+      } = request.query;
 
       const useCase = makeListCustomerPricesUseCase();
       const result = await useCase.execute({

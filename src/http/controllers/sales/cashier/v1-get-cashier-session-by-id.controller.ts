@@ -43,7 +43,7 @@ export async function getCashierSessionByIdController(app: FastifyInstance) {
           sessionId: id,
         });
 
-        return reply.status(200).send({ cashierSession } as any);
+        return reply.status(200).send({ cashierSession } as unknown);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

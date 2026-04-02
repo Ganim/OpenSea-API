@@ -26,9 +26,10 @@ export async function listApprovalRulesController(app: FastifyInstance) {
       querystring: z.object({
         page: z.coerce.number().int().min(1).optional().default(1),
         limit: z.coerce.number().int().min(1).max(100).optional().default(20),
-        isActive: z.enum(['true', 'false']).optional().transform((v) =>
-          v === undefined ? undefined : v === 'true'
-        ),
+        isActive: z
+          .enum(['true', 'false'])
+          .optional()
+          .transform((v) => (v === undefined ? undefined : v === 'true')),
         action: z.enum(['AUTO_PAY', 'AUTO_APPROVE', 'FLAG_REVIEW']).optional(),
       }),
       response: {

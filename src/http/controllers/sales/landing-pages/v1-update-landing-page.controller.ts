@@ -68,7 +68,7 @@ export async function updateLandingPageController(app: FastifyInstance) {
           newData: body as Record<string, unknown>,
         });
 
-        return reply.status(200).send({ landingPage } as any);
+        return reply.status(200).send({ landingPage } as unknown);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

@@ -2,7 +2,6 @@ import { PrismaPerformanceReviewsRepository } from '@/repositories/hr/prisma/pri
 import { SubmitManagerReviewUseCase } from '../submit-manager-review';
 
 export function makeSubmitManagerReviewUseCase() {
-  const performanceReviewsRepository =
-    new PrismaPerformanceReviewsRepository();
+  const performanceReviewsRepository = new PrismaPerformanceReviewsRepository();
   return new SubmitManagerReviewUseCase(performanceReviewsRepository);
 }

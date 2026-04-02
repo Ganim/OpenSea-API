@@ -37,14 +37,8 @@ export interface FindCandidateFilters {
 
 export interface CandidatesRepository {
   create(data: CreateCandidateSchema): Promise<Candidate>;
-  findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<Candidate | null>;
-  findByEmail(
-    email: string,
-    tenantId: string,
-  ): Promise<Candidate | null>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<Candidate | null>;
+  findByEmail(email: string, tenantId: string): Promise<Candidate | null>;
   findMany(
     tenantId: string,
     filters?: FindCandidateFilters,

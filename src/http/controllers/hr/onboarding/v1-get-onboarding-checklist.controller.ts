@@ -3,7 +3,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { idSchema } from '@/http/schemas';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { onboardingChecklistResponseSchema } from '@/http/schemas/hr/onboarding';
 import { onboardingChecklistToDTO } from '@/mappers/hr/onboarding-checklist';
 import { makeGetOnboardingChecklistUseCase } from '@/use-cases/hr/onboarding/factories/make-get-onboarding-checklist-use-case';
@@ -28,7 +28,7 @@ export async function v1GetOnboardingChecklistController(app: FastifyInstance) {
       summary: 'Get onboarding checklist by ID',
       description: 'Returns a single onboarding checklist by its ID',
       params: z.object({
-        id: idSchema,
+        id: cuidSchema,
       }),
       response: {
         200: z.object({

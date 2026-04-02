@@ -52,7 +52,10 @@ export async function updateWorkflowController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.WORKFLOW_UPDATE,
           entityId: id,
-          placeholders: { workflowName: workflow.name, userName: request.user.sub },
+          placeholders: {
+            workflowName: workflow.name,
+            userName: request.user.sub,
+          },
           newData: body,
         });
 

@@ -14,9 +14,7 @@ export interface ListExpiringAssignmentsResponse {
 }
 
 export class ListExpiringAssignmentsUseCase {
-  constructor(
-    private ppeAssignmentsRepository: PPEAssignmentsRepository,
-  ) {}
+  constructor(private ppeAssignmentsRepository: PPEAssignmentsRepository) {}
 
   async execute(
     request: ListExpiringAssignmentsRequest,

@@ -11,8 +11,12 @@ let deleteMessageTemplate: DeleteMessageTemplateUseCase;
 describe('DeleteMessageTemplateUseCase', () => {
   beforeEach(() => {
     messageTemplatesRepository = new InMemoryMessageTemplatesRepository();
-    createMessageTemplate = new CreateMessageTemplateUseCase(messageTemplatesRepository);
-    deleteMessageTemplate = new DeleteMessageTemplateUseCase(messageTemplatesRepository);
+    createMessageTemplate = new CreateMessageTemplateUseCase(
+      messageTemplatesRepository,
+    );
+    deleteMessageTemplate = new DeleteMessageTemplateUseCase(
+      messageTemplatesRepository,
+    );
   });
 
   it('should soft delete a message template', async () => {

@@ -82,10 +82,7 @@ describe('Financial Precision', () => {
     expect(result.entry.actualAmount).toBe(1234567.89);
 
     // Verify remaining balance is exactly 0
-    const updatedEntry = await entriesRepository.findById(
-      entry.id,
-      'tenant-1',
-    );
+    const updatedEntry = await entriesRepository.findById(entry.id, 'tenant-1');
     expect(updatedEntry!.remainingBalance).toBe(0);
   });
 
@@ -143,10 +140,7 @@ describe('Financial Precision', () => {
     const totalPaid = await paymentsRepository.sumByEntryId(entry.id);
     expect(totalPaid).toBe(100);
 
-    const updatedEntry = await entriesRepository.findById(
-      entry.id,
-      'tenant-1',
-    );
+    const updatedEntry = await entriesRepository.findById(entry.id, 'tenant-1');
     expect(updatedEntry!.status).toBe('PAID');
     expect(updatedEntry!.remainingBalance).toBe(0);
   });
@@ -180,10 +174,7 @@ describe('Financial Precision', () => {
     // This test documents whether the system handles IEEE 754 edge cases
     // The sum of 10 payments of 0.1 in JavaScript is 0.9999999999999999
     // If the system uses raw floats, this may cause the entry to remain PARTIALLY_PAID
-    const updatedEntry = await entriesRepository.findById(
-      entry.id,
-      'tenant-1',
-    );
+    const updatedEntry = await entriesRepository.findById(entry.id, 'tenant-1');
 
     // Document the actual behavior — the totalPaid should be very close to 1.0
     expect(totalPaid).toBeCloseTo(1.0, 10);
@@ -345,7 +336,9 @@ describe('Financial Precision', () => {
           { costCenterId: cc2.id.toString(), percentage: 49.99 },
         ],
       }),
-    ).rejects.toThrow('Alocações de centro de custo devem somar exatamente 100%');
+    ).rejects.toThrow(
+      'Alocações de centro de custo devem somar exatamente 100%',
+    );
   });
 
   it('should reject rateio allocations clearly not summing to 100%', async () => {
@@ -568,10 +561,7 @@ describe('Financial Precision', () => {
       });
     }
 
-    const updatedEntry = await entriesRepository.findById(
-      entry.id,
-      'tenant-1',
-    );
+    const updatedEntry = await entriesRepository.findById(entry.id, 'tenant-1');
     expect(updatedEntry!.status).toBe('PAID');
     expect(updatedEntry!.actualAmount).toBe(975);
     expect(updatedEntry!.remainingBalance).toBe(0);

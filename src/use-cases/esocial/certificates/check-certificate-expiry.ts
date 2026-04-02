@@ -17,9 +17,7 @@ export interface CheckCertificateExpiryResponse {
  * Check the expiry status of a tenant's eSocial certificate.
  */
 export class CheckCertificateExpiryUseCase {
-  constructor(
-    private certificatesRepository: EsocialCertificatesRepository,
-  ) {}
+  constructor(private certificatesRepository: EsocialCertificatesRepository) {}
 
   async execute(
     request: CheckCertificateExpiryRequest,

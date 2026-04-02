@@ -5,7 +5,7 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { performanceReviewResponseSchema } from '@/http/schemas/hr/reviews';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { performanceReviewToDTO } from '@/mappers/hr/performance-review';
 import { makeAcknowledgeReviewUseCase } from '@/use-cases/hr/performance-reviews/factories/make-acknowledge-review-use-case';
 
@@ -22,7 +22,7 @@ export async function v1AcknowledgeReviewController(app: FastifyInstance) {
       tags: ['HR - Reviews'],
       summary: 'Acknowledge review',
       description: 'Employee acknowledges a completed performance review',
-      params: z.object({ performanceReviewId: idSchema }),
+      params: z.object({ performanceReviewId: cuidSchema }),
       response: {
         200: z.object({ review: performanceReviewResponseSchema }),
         400: z.object({ message: z.string() }),

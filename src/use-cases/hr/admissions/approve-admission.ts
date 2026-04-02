@@ -12,35 +12,43 @@ import type { Employee } from '@/entities/hr/employee';
 const DEFAULT_ADMISSION_ONBOARDING_ITEMS = [
   {
     title: 'Assinar contrato de trabalho',
-    description: 'Leia e assine o contrato de trabalho junto ao departamento pessoal',
+    description:
+      'Leia e assine o contrato de trabalho junto ao departamento pessoal',
   },
   {
     title: 'Entregar documentos pessoais',
-    description: 'Apresente os documentos originais para conferência (RG, CPF, CTPS, etc.)',
+    description:
+      'Apresente os documentos originais para conferência (RG, CPF, CTPS, etc.)',
   },
   {
     title: 'Realizar exame admissional (ASO)',
-    description: 'Agende e realize o exame médico admissional na clínica indicada',
+    description:
+      'Agende e realize o exame médico admissional na clínica indicada',
   },
   {
     title: 'Receber crachá e credenciais de acesso',
-    description: 'Retire seu crachá e credenciais de acesso às dependências da empresa',
+    description:
+      'Retire seu crachá e credenciais de acesso às dependências da empresa',
   },
   {
     title: 'Configurar e-mail corporativo',
-    description: 'Configure seu e-mail corporativo e demais ferramentas de comunicação',
+    description:
+      'Configure seu e-mail corporativo e demais ferramentas de comunicação',
   },
   {
     title: 'Receber equipamentos de trabalho',
-    description: 'Retire e confira os equipamentos necessários para suas atividades',
+    description:
+      'Retire e confira os equipamentos necessários para suas atividades',
   },
   {
     title: 'Participar da integração com a equipe',
-    description: 'Conheça seus colegas de equipe e participe da dinâmica de boas-vindas',
+    description:
+      'Conheça seus colegas de equipe e participe da dinâmica de boas-vindas',
   },
   {
     title: 'Conhecer as instalações da empresa',
-    description: 'Faça o tour pelas instalações da empresa com o responsável designado',
+    description:
+      'Faça o tour pelas instalações da empresa com o responsável designado',
   },
   {
     title: 'Ler e assinar o manual do colaborador',
@@ -48,15 +56,18 @@ const DEFAULT_ADMISSION_ONBOARDING_ITEMS = [
   },
   {
     title: 'Configurar acesso aos sistemas internos',
-    description: 'Solicite e configure os acessos aos sistemas e plataformas internas',
+    description:
+      'Solicite e configure os acessos aos sistemas e plataformas internas',
   },
   {
     title: 'Reunião com gestor direto',
-    description: 'Agende uma reunião inicial com seu gestor para alinhamento de expectativas',
+    description:
+      'Agende uma reunião inicial com seu gestor para alinhamento de expectativas',
   },
   {
     title: 'Treinamento de segurança do trabalho',
-    description: 'Participe do treinamento obrigatório de segurança do trabalho',
+    description:
+      'Participe do treinamento obrigatório de segurança do trabalho',
   },
 ];
 
@@ -182,13 +193,14 @@ export class ApproveAdmissionUseCase {
     }
 
     // Auto-generate eSocial S-2200 (Admission) event — non-blocking
-    import('@/services/esocial/auto-generate').then(({ tryAutoGenerateEvent }) =>
-      tryAutoGenerateEvent({
-        tenantId,
-        eventType: 'S-2200',
-        referenceType: 'EMPLOYEE',
-        referenceId: employee.id.toString(),
-      }),
+    import('@/services/esocial/auto-generate').then(
+      ({ tryAutoGenerateEvent }) =>
+        tryAutoGenerateEvent({
+          tenantId,
+          eventType: 'S-2200',
+          referenceType: 'EMPLOYEE',
+          referenceId: employee.id.toString(),
+        }),
     );
 
     // Auto-create onboarding checklist for the new employee — non-blocking

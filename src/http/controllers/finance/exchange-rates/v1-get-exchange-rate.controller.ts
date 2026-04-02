@@ -50,7 +50,8 @@ export async function getExchangeRateController(app: FastifyInstance) {
         });
       } catch (error) {
         return reply.status(400).send({
-          message: error instanceof Error ? error.message : 'Erro ao buscar cotação',
+          message:
+            error instanceof Error ? error.message : 'Erro ao buscar cotação',
         });
       }
     },

@@ -28,6 +28,7 @@ export interface UpdateEmployeeRequest {
   emergencyContactInfo?: {
     name?: string;
     phone?: string;
+    alternativePhone?: string;
     relationship?: string;
   } | null;
   healthConditions?: Array<{
@@ -489,6 +490,7 @@ export class UpdateEmployeeUseCase {
     emergencyContactInfo?: {
       name?: string;
       phone?: string;
+      alternativePhone?: string;
       relationship?: string;
     } | null;
   }): string[] {

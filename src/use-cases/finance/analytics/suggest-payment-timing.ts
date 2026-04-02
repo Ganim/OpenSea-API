@@ -39,7 +39,10 @@ export class SuggestPaymentTimingUseCase {
     tenantId,
     daysAhead,
   }: SuggestPaymentTimingRequest): Promise<SuggestPaymentTimingResponse> {
-    const days = Math.min(Math.max(1, daysAhead ?? DEFAULT_DAYS_AHEAD), MAX_DAYS_AHEAD);
+    const days = Math.min(
+      Math.max(1, daysAhead ?? DEFAULT_DAYS_AHEAD),
+      MAX_DAYS_AHEAD,
+    );
     const now = new Date();
     const endDate = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
 
@@ -98,7 +101,8 @@ export class SuggestPaymentTimingUseCase {
       // Case 2: Overdue with penalty
       if (daysUntilDue < 0 && (penalty > 0 || interest > 0)) {
         const daysLate = Math.abs(daysUntilDue);
-        const dailyInterest = interest > 0 ? (interest / 100) * amount / 30 : 0;
+        const dailyInterest =
+          interest > 0 ? ((interest / 100) * amount) / 30 : 0;
         const totalPenaltyCost = penalty + dailyInterest * daysLate;
         const projectedExtraCost = dailyInterest * 7; // projected cost if delayed 7 more days
 
@@ -117,10 +121,18 @@ export class SuggestPaymentTimingUseCase {
       }
 
       // Case 3: No penalty for slight delay — safe to postpone
-      if (daysUntilDue > 0 && daysUntilDue <= 10 && penalty === 0 && interest === 0 && discount === 0) {
+      if (
+        daysUntilDue > 0 &&
+        daysUntilDue <= 10 &&
+        penalty === 0 &&
+        interest === 0 &&
+        discount === 0
+      ) {
         const safeDelayDays = 7;
         const opportunitySaved = amount * CDI_DAILY_RATE * safeDelayDays;
-        const suggestedDate = new Date(dueDate.getTime() + safeDelayDays * 24 * 60 * 60 * 1000);
+        const suggestedDate = new Date(
+          dueDate.getTime() + safeDelayDays * 24 * 60 * 60 * 1000,
+        );
 
         if (opportunitySaved > 1) {
           suggestions.push({
@@ -140,7 +152,9 @@ export class SuggestPaymentTimingUseCase {
 
     // Sort by priority: HIGH first, then MEDIUM, then LOW
     const priorityOrder = { HIGH: 0, MEDIUM: 1, LOW: 2 };
-    suggestions.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+    suggestions.sort(
+      (a, b) => priorityOrder[a.priority] - priorityOrder[b.priority],
+    );
 
     const totalPotentialSavings = suggestions.reduce(
       (sum, s) => sum + s.savingsAmount,

@@ -35,11 +35,7 @@ async function createEntry(
   });
 }
 
-async function createCategory(
-  id: string,
-  name: string,
-  tenantId = 'tenant-1',
-) {
+async function createCategory(id: string, name: string, tenantId = 'tenant-1') {
   return categoriesRepository.create({
     tenantId,
     name,
@@ -156,9 +152,7 @@ describe('DetectAnomaliesUseCase', () => {
     const result = await sut.execute({ tenantId: 'tenant-1', months: 6 });
 
     const spikes = result.anomalies.filter((a) => a.type === 'EXPENSE_SPIKE');
-    const critical = spikes.find(
-      (a) => a.severity === 'CRITICAL',
-    );
+    const critical = spikes.find((a) => a.severity === 'CRITICAL');
     expect(critical).toBeDefined();
     expect(critical!.currentValue).toBe(2500);
   });
@@ -325,9 +319,7 @@ describe('DetectAnomaliesUseCase', () => {
     const result = await sut.execute({ tenantId: 'tenant-1', months: 6 });
 
     // Should only analyze tenant-1 entries
-    const hasT2Anomaly = result.anomalies.some(
-      (a) => a.currentValue === 50000,
-    );
+    const hasT2Anomaly = result.anomalies.some((a) => a.currentValue === 50000);
     expect(hasT2Anomaly).toBe(false);
   });
 
@@ -360,4 +352,3 @@ describe('DetectAnomaliesUseCase', () => {
     }
   });
 });
-

@@ -22,7 +22,12 @@ describe('ConnectBankUseCase', () => {
         id: 'item-123',
         status: 'UPDATED',
         executionStatus: 'SUCCESS',
-        connector: { id: 1, name: 'Banco do Brasil', institutionUrl: '', imageUrl: '' },
+        connector: {
+          id: 1,
+          name: 'Banco do Brasil',
+          institutionUrl: '',
+          imageUrl: '',
+        },
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       }),
@@ -104,14 +109,21 @@ describe('ConnectBankUseCase', () => {
       accountType: 'CHECKING',
     });
 
-    (mockBankingProvider.getItem as ReturnType<typeof vi.fn>).mockResolvedValue({
-      id: 'item-123',
-      status: 'LOGIN_ERROR',
-      executionStatus: 'ERROR',
-      connector: { id: 1, name: 'Banco do Brasil', institutionUrl: '', imageUrl: '' },
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    });
+    (mockBankingProvider.getItem as ReturnType<typeof vi.fn>).mockResolvedValue(
+      {
+        id: 'item-123',
+        status: 'LOGIN_ERROR',
+        executionStatus: 'ERROR',
+        connector: {
+          id: 1,
+          name: 'Banco do Brasil',
+          institutionUrl: '',
+          imageUrl: '',
+        },
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
+    );
 
     await expect(
       sut.execute({

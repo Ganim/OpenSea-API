@@ -7,7 +7,7 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { reviewCycleResponseSchema } from '@/http/schemas/hr/reviews';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { reviewCycleToDTO } from '@/mappers/hr/review-cycle';
 import { makeCloseReviewCycleUseCase } from '@/use-cases/hr/review-cycles/factories/make-close-review-cycle-use-case';
 
@@ -31,7 +31,7 @@ export async function v1CloseReviewCycleController(app: FastifyInstance) {
       tags: ['HR - Reviews'],
       summary: 'Close review cycle',
       description: 'Closes a review cycle',
-      params: z.object({ reviewCycleId: idSchema }),
+      params: z.object({ reviewCycleId: cuidSchema }),
       response: {
         200: z.object({ reviewCycle: reviewCycleResponseSchema }),
         400: z.object({ message: z.string() }),

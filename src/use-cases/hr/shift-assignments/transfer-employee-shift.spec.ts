@@ -61,11 +61,10 @@ describe('Transfer Employee Shift Use Case', () => {
     expect(newAssignment.notes).toBe('Transferring to night shift');
 
     // Old assignment should be deactivated
-    const oldAssignment =
-      await shiftAssignmentsRepository.findActiveByEmployee(
-        EMPLOYEE_ID,
-        TENANT_ID,
-      );
+    const oldAssignment = await shiftAssignmentsRepository.findActiveByEmployee(
+      EMPLOYEE_ID,
+      TENANT_ID,
+    );
     expect(oldAssignment?.shiftId.toString()).toBe(nightShift.id.toString());
   });
 

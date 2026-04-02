@@ -37,7 +37,7 @@ export async function getChatbotConfigController(app: FastifyInstance) {
       const useCase = makeGetChatbotConfigUseCase();
       const { chatbotConfig } = await useCase.execute({ tenantId });
 
-      return reply.status(200).send({ chatbotConfig } as any);
+      return reply.status(200).send({ chatbotConfig } as unknown);
     },
   });
 }

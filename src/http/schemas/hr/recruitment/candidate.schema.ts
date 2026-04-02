@@ -3,7 +3,7 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { cuidSchema, dateSchema } from '../../common.schema';
 
 const candidateSourceEnum = z.enum([
   'WEBSITE',
@@ -46,7 +46,7 @@ export const listCandidatesQuerySchema = z.object({
 });
 
 export const candidateResponseSchema = z.object({
-  id: idSchema,
+  id: cuidSchema,
   fullName: z.string(),
   email: z.string(),
   phone: z.string().nullable(),

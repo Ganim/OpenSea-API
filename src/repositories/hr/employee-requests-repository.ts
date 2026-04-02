@@ -1,5 +1,9 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { EmployeeRequest, EmployeeRequestStatus, EmployeeRequestType } from '@/entities/hr/employee-request';
+import type {
+  EmployeeRequest,
+  EmployeeRequestStatus,
+  EmployeeRequestType,
+} from '@/entities/hr/employee-request';
 
 export interface FindEmployeeRequestFilters {
   employeeId?: UniqueEntityID;
@@ -14,7 +18,10 @@ export interface PaginatedEmployeeRequestsResult {
 
 export interface EmployeeRequestsRepository {
   create(request: EmployeeRequest): Promise<void>;
-  findById(id: UniqueEntityID, tenantId: string): Promise<EmployeeRequest | null>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<EmployeeRequest | null>;
   findManyByEmployee(
     employeeId: UniqueEntityID,
     tenantId: string,

@@ -32,8 +32,7 @@ export class InMemoryInterviewStagesRepository
     return (
       this.items.find(
         (stage) =>
-          stage.id.equals(id) &&
-          stage.tenantId.toString() === tenantId,
+          stage.id.equals(id) && stage.tenantId.toString() === tenantId,
       ) ?? null
     );
   }
@@ -51,9 +50,7 @@ export class InMemoryInterviewStagesRepository
       .sort((a, b) => a.order - b.order);
   }
 
-  async updateOrder(
-    stages: UpdateInterviewStageOrderSchema[],
-  ): Promise<void> {
+  async updateOrder(stages: UpdateInterviewStageOrderSchema[]): Promise<void> {
     for (const stageUpdate of stages) {
       const index = this.items.findIndex((stage) =>
         stage.id.equals(stageUpdate.id),
@@ -71,10 +68,7 @@ export class InMemoryInterviewStagesRepository
     }
   }
 
-  async getMaxOrder(
-    jobPostingId: string,
-    tenantId: string,
-  ): Promise<number> {
+  async getMaxOrder(jobPostingId: string, tenantId: string): Promise<number> {
     const stages = this.items.filter(
       (stage) =>
         stage.jobPostingId.toString() === jobPostingId &&

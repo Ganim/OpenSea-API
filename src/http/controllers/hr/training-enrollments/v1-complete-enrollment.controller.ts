@@ -9,7 +9,7 @@ import {
   completeTrainingEnrollmentSchema,
   trainingEnrollmentResponseSchema,
 } from '@/http/schemas/hr/training';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { trainingEnrollmentToDTO } from '@/mappers/hr/training-enrollment';
 import { makeCompleteEnrollmentUseCase } from '@/use-cases/hr/training-enrollments/factories/make-complete-enrollment-use-case';
 
@@ -34,7 +34,7 @@ export async function v1CompleteEnrollmentController(app: FastifyInstance) {
       summary: 'Complete training enrollment',
       description:
         'Marks a training enrollment as completed with optional score',
-      params: z.object({ enrollmentId: idSchema }),
+      params: z.object({ enrollmentId: cuidSchema }),
       body: completeTrainingEnrollmentSchema,
       response: {
         200: z.object({ enrollment: trainingEnrollmentResponseSchema }),

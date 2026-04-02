@@ -62,9 +62,10 @@ export async function v1ListMyRequestsController(app: FastifyInstance) {
       );
 
       if (!employee) {
-        return reply
-          .status(404)
-          .send({ message: 'No employee linked to this user' });
+        return reply.status(200).send({
+          employeeRequests: [],
+          meta: { total: 0, page, limit, pages: 0 },
+        });
       }
 
       const listMyRequestsUseCase = makeListMyRequestsUseCase();

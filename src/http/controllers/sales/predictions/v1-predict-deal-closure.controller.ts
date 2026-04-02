@@ -62,7 +62,7 @@ export async function predictDealClosureController(app: FastifyInstance) {
           },
         });
 
-        return reply.status(201).send({ prediction } as any);
+        return reply.status(201).send({ prediction } as unknown);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

@@ -16,9 +16,12 @@ vi.mock('@/lib/prisma', () => ({
   },
 }));
 
-vi.mock('@/mappers/finance/finance-entry/finance-entry-prisma-to-domain', () => ({
-  financeEntryPrismaToDomain: vi.fn(),
-}));
+vi.mock(
+  '@/mappers/finance/finance-entry/finance-entry-prisma-to-domain',
+  () => ({
+    financeEntryPrismaToDomain: vi.fn(),
+  }),
+);
 
 let entriesRepository: InMemoryFinanceEntriesRepository;
 let paymentsRepository: InMemoryFinanceEntryPaymentsRepository;

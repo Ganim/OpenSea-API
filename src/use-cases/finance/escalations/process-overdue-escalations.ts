@@ -51,7 +51,13 @@ export class ProcessOverdueEscalationsUseCase {
         { tenantId },
         '[process-escalations] no default escalation template found, skipping',
       );
-      return { processed: 0, actionsCreated: 0, messagesSent: 0, messagesFailed: 0, errors: [] };
+      return {
+        processed: 0,
+        actionsCreated: 0,
+        messagesSent: 0,
+        messagesFailed: 0,
+        errors: [],
+      };
     }
 
     const activeSteps = escalation.steps.filter((step) => step.isActive);
@@ -60,7 +66,13 @@ export class ProcessOverdueEscalationsUseCase {
         { tenantId },
         '[process-escalations] default escalation has no active steps',
       );
-      return { processed: 0, actionsCreated: 0, messagesSent: 0, messagesFailed: 0, errors: [] };
+      return {
+        processed: 0,
+        actionsCreated: 0,
+        messagesSent: 0,
+        messagesFailed: 0,
+        errors: [],
+      };
     }
 
     // Fetch all OVERDUE entries for this tenant
@@ -118,14 +130,13 @@ export class ProcessOverdueEscalationsUseCase {
 
           // Attempt to send the message via the real gateway
           if (this.sendEscalationMessageUseCase) {
-            const sendResult =
-              await this.sendEscalationMessageUseCase.execute({
-                tenantId,
-                action,
-                step,
-                entry,
-                createdBy,
-              });
+            const sendResult = await this.sendEscalationMessageUseCase.execute({
+              tenantId,
+              action,
+              step,
+              entry,
+              createdBy,
+            });
 
             if (sendResult.success) {
               messagesSent++;

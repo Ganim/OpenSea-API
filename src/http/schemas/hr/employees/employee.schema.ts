@@ -46,6 +46,7 @@ export const createEmployeeSchema = z.object({
     .object({
       name: z.string().max(128).optional(),
       phone: hrPhoneSchema.optional(),
+      alternativePhone: hrPhoneSchema.optional(),
       relationship: z.string().max(64).optional(),
     })
     .optional(),
@@ -118,11 +119,15 @@ export const createEmployeeWithUserSchema = createEmployeeSchema
   })
   .extend({
     // Dados do usuário
-    userEmail: z.string().email(),
+    userEmail: z.string().email().optional(),
     userPassword: z.string().min(8).max(128),
     username: z.string().min(3).max(32).optional(),
     // Grupo de permissões para o novo usuário
     permissionGroupId: idSchema.optional(),
+    // Login methods — which AuthLinks to create
+    enableEmailLogin: z.boolean().optional().default(false),
+    enableCpfLogin: z.boolean().optional().default(true),
+    enableEnrollmentLogin: z.boolean().optional().default(false),
   });
 
 /**
@@ -244,6 +249,7 @@ export const employeeResponseSchema = z.object({
     .object({
       name: z.string().max(128).optional(),
       phone: z.string().optional(),
+      alternativePhone: z.string().optional(),
       relationship: z.string().max(64).optional(),
     })
     .optional()

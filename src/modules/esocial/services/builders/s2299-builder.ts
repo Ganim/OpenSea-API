@@ -91,8 +91,7 @@ export class S2299Builder extends EsocialXmlBuilder<S2299Input> {
     const ideVinculo = this.buildIdeVinculo(input);
     const infoDeslig = this.buildInfoDeslig(input);
 
-    const evtContent =
-      ideEvento + ideEmpregador + ideVinculo + infoDeslig;
+    const evtContent = ideEvento + ideEmpregador + ideVinculo + infoDeslig;
     const evtDeslig = `<evtDeslig Id="${eventId}">${evtContent}</evtDeslig>`;
 
     const xmlns = `http://www.esocial.gov.br/schema/evt/evtDeslig/${this.version}`;
@@ -115,10 +114,7 @@ export class S2299Builder extends EsocialXmlBuilder<S2299Input> {
     if (input.indPagtoAPI !== undefined)
       content += this.tag('indPagtoAPI', input.indPagtoAPI);
     if (input.dtProjFimAPI)
-      content += this.tag(
-        'dtProjFimAPI',
-        this.formatDate(input.dtProjFimAPI),
-      );
+      content += this.tag('dtProjFimAPI', this.formatDate(input.dtProjFimAPI));
     if (input.pensAlim) content += this.tag('pensAlim', input.pensAlim);
     if (input.percAliment !== undefined)
       content += this.tag('percAliment', this.formatMoney(input.percAliment));
@@ -131,10 +127,7 @@ export class S2299Builder extends EsocialXmlBuilder<S2299Input> {
     return this.tagGroup('infoDeslig', content);
   }
 
-  private buildVerbasResc(
-    rubricas: S2299Rubrica[],
-    nrInsc: string,
-  ): string {
+  private buildVerbasResc(rubricas: S2299Rubrica[], nrInsc: string): string {
     // Build individual rubrica tags
     let detVerbasContent = '';
     for (const r of rubricas) {
@@ -157,7 +150,10 @@ export class S2299Builder extends EsocialXmlBuilder<S2299Input> {
     const ideEstabLot = this.tagGroup('ideEstabLot', ideEstabLotContent);
 
     const infoPerApur = this.tagGroup('infoPerApur', ideEstabLot);
-    const dmDev = this.tagGroup('dmDev', this.tag('ideDmDev', '1') + infoPerApur);
+    const dmDev = this.tagGroup(
+      'dmDev',
+      this.tag('ideDmDev', '1') + infoPerApur,
+    );
     return this.tagGroup('verbasResc', dmDev);
   }
 

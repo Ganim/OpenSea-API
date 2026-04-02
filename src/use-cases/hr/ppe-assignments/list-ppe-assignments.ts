@@ -16,17 +16,17 @@ export interface ListPPEAssignmentsResponse {
 }
 
 export class ListPPEAssignmentsUseCase {
-  constructor(
-    private ppeAssignmentsRepository: PPEAssignmentsRepository,
-  ) {}
+  constructor(private ppeAssignmentsRepository: PPEAssignmentsRepository) {}
 
   async execute(
     request: ListPPEAssignmentsRequest,
   ): Promise<ListPPEAssignmentsResponse> {
     const { tenantId, ...filters } = request;
 
-    const { assignments, total } =
-      await this.ppeAssignmentsRepository.findMany(tenantId, filters);
+    const { assignments, total } = await this.ppeAssignmentsRepository.findMany(
+      tenantId,
+      filters,
+    );
 
     return { assignments, total };
   }

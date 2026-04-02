@@ -51,7 +51,17 @@ export class RegisterPaymentUseCase {
     private calendarSyncService?: CalendarSyncService,
     private categoriesRepository?: FinanceCategoriesRepository,
     private transactionManager?: TransactionManager,
-    private autoJournalFromPayment?: { execute(req: { tenantId: string; entryId: string; paymentId: string; bankAccountId: string; amount: number; paidAt: Date; createdBy?: string }): Promise<unknown> },
+    private autoJournalFromPayment?: {
+      execute(req: {
+        tenantId: string;
+        entryId: string;
+        paymentId: string;
+        bankAccountId: string;
+        amount: number;
+        paidAt: Date;
+        createdBy?: string;
+      }): Promise<unknown>;
+    },
   ) {}
 
   async execute(

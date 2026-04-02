@@ -44,8 +44,15 @@ export async function listCampaignsController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { page, limit, search, type, status, sortBy, sortOrder } =
-        request.query;
+      const {
+        page,
+        limit,
+        search,
+        type: _type,
+        status,
+        sortBy: _sortBy,
+        sortOrder: _sortOrder,
+      } = request.query;
 
       const useCase = makeListCampaignsUseCase();
       const { campaigns } = await useCase.execute({

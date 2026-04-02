@@ -69,31 +69,32 @@ export class CalculateThirteenthSalaryUseCase {
 
     payroll.startProcessing(new UniqueEntityID(processedBy));
 
-    const calculateAll = async (): Promise<CalculateThirteenthSalaryResponse> => {
-      const employees =
-        await this.employeesRepository.findManyActive(tenantId);
+    const calculateAll =
+      async (): Promise<CalculateThirteenthSalaryResponse> => {
+        const employees =
+          await this.employeesRepository.findManyActive(tenantId);
 
-      const createdItems: PayrollItem[] = [];
+        const createdItems: PayrollItem[] = [];
 
-      for (const employee of employees) {
-        const employeeItems = await this.calculateEmployee13th(
-          payroll,
-          employee,
-          installment,
-          referenceYear,
-          irrfDependantsByEmployee?.get(employee.id.toString()) ?? 0,
-        );
-        createdItems.push(...employeeItems);
-      }
+        for (const employee of employees) {
+          const employeeItems = await this.calculateEmployee13th(
+            payroll,
+            employee,
+            installment,
+            referenceYear,
+            irrfDependantsByEmployee?.get(employee.id.toString()) ?? 0,
+          );
+          createdItems.push(...employeeItems);
+        }
 
-      const { totalGross, totalDeductions } =
-        await this.payrollItemsRepository.sumByPayroll(payroll.id);
+        const { totalGross, totalDeductions } =
+          await this.payrollItemsRepository.sumByPayroll(payroll.id);
 
-      payroll.finishCalculation(totalGross, totalDeductions);
-      await this.payrollsRepository.save(payroll);
+        payroll.finishCalculation(totalGross, totalDeductions);
+        await this.payrollsRepository.save(payroll);
 
-      return { payroll, items: createdItems };
-    };
+        return { payroll, items: createdItems };
+      };
 
     if (this.transactionManager) {
       return this.transactionManager.run(async () => calculateAll());
@@ -168,8 +169,7 @@ export class CalculateThirteenthSalaryUseCase {
 
     if (installment === 1) {
       // 1st installment (November): 50% of base salary, no deductions
-      const firstInstallment =
-        Math.round((fullThirteenth / 2) * 100) / 100;
+      const firstInstallment = Math.round((fullThirteenth / 2) * 100) / 100;
 
       const item = await this.payrollItemsRepository.create({
         payrollId: payroll.id,
@@ -182,8 +182,7 @@ export class CalculateThirteenthSalaryUseCase {
       items.push(item);
     } else {
       // 2nd installment (December): remaining 50% + averages, with INSS + IRRF
-      const secondInstallment =
-        Math.round((fullThirteenth / 2) * 100) / 100;
+      const secondInstallment = Math.round((fullThirteenth / 2) * 100) / 100;
 
       const salaryItem = await this.payrollItemsRepository.create({
         payrollId: payroll.id,
@@ -196,10 +195,7 @@ export class CalculateThirteenthSalaryUseCase {
       items.push(salaryItem);
 
       // INSS on full 13th salary
-      const inssAmount = this.calculateINSS(
-        fullThirteenth,
-        referenceYear,
-      );
+      const inssAmount = this.calculateINSS(fullThirteenth, referenceYear);
       if (inssAmount > 0) {
         const inssItem = await this.payrollItemsRepository.create({
           payrollId: payroll.id,
@@ -231,8 +227,7 @@ export class CalculateThirteenthSalaryUseCase {
       }
 
       // FGTS on full 13th salary (employer contribution)
-      const fgtsAmount =
-        Math.round(fullThirteenth * 0.08 * 100) / 100;
+      const fgtsAmount = Math.round(fullThirteenth * 0.08 * 100) / 100;
       if (fgtsAmount > 0) {
         const fgtsItem = await this.payrollItemsRepository.create({
           payrollId: payroll.id,

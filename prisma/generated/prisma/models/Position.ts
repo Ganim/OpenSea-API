@@ -305,6 +305,7 @@ export type PositionWhereInput = {
   employees?: Prisma.EmployeeListRelationFilter
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementListRelationFilter
   jobPostings?: Prisma.JobPostingListRelationFilter
+  admissionInvites?: Prisma.AdmissionInviteListRelationFilter
 }
 
 export type PositionOrderByWithRelationInput = {
@@ -327,6 +328,7 @@ export type PositionOrderByWithRelationInput = {
   employees?: Prisma.EmployeeOrderByRelationAggregateInput
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementOrderByRelationAggregateInput
   jobPostings?: Prisma.JobPostingOrderByRelationAggregateInput
+  admissionInvites?: Prisma.AdmissionInviteOrderByRelationAggregateInput
 }
 
 export type PositionWhereUniqueInput = Prisma.AtLeast<{
@@ -353,6 +355,7 @@ export type PositionWhereUniqueInput = Prisma.AtLeast<{
   employees?: Prisma.EmployeeListRelationFilter
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementListRelationFilter
   jobPostings?: Prisma.JobPostingListRelationFilter
+  admissionInvites?: Prisma.AdmissionInviteListRelationFilter
 }, "id" | "positions_code_tenant_unique">
 
 export type PositionOrderByWithAggregationInput = {
@@ -415,6 +418,7 @@ export type PositionCreateInput = {
   employees?: Prisma.EmployeeCreateNestedManyWithoutPositionInput
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementCreateNestedManyWithoutPositionInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPositionInput
+  admissionInvites?: Prisma.AdmissionInviteCreateNestedManyWithoutPositionInput
 }
 
 export type PositionUncheckedCreateInput = {
@@ -435,6 +439,7 @@ export type PositionUncheckedCreateInput = {
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutPositionInput
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedCreateNestedManyWithoutPositionInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPositionInput
+  admissionInvites?: Prisma.AdmissionInviteUncheckedCreateNestedManyWithoutPositionInput
 }
 
 export type PositionUpdateInput = {
@@ -455,6 +460,7 @@ export type PositionUpdateInput = {
   employees?: Prisma.EmployeeUpdateManyWithoutPositionNestedInput
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementUpdateManyWithoutPositionNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutPositionNestedInput
+  admissionInvites?: Prisma.AdmissionInviteUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionUncheckedUpdateInput = {
@@ -475,6 +481,7 @@ export type PositionUncheckedUpdateInput = {
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutPositionNestedInput
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedUpdateManyWithoutPositionNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPositionNestedInput
+  admissionInvites?: Prisma.AdmissionInviteUncheckedUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionCreateManyInput = {
@@ -727,6 +734,22 @@ export type PositionUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.PositionScalarWhereInput | Prisma.PositionScalarWhereInput[]
 }
 
+export type PositionCreateNestedOneWithoutAdmissionInvitesInput = {
+  create?: Prisma.XOR<Prisma.PositionCreateWithoutAdmissionInvitesInput, Prisma.PositionUncheckedCreateWithoutAdmissionInvitesInput>
+  connectOrCreate?: Prisma.PositionCreateOrConnectWithoutAdmissionInvitesInput
+  connect?: Prisma.PositionWhereUniqueInput
+}
+
+export type PositionUpdateOneWithoutAdmissionInvitesNestedInput = {
+  create?: Prisma.XOR<Prisma.PositionCreateWithoutAdmissionInvitesInput, Prisma.PositionUncheckedCreateWithoutAdmissionInvitesInput>
+  connectOrCreate?: Prisma.PositionCreateOrConnectWithoutAdmissionInvitesInput
+  upsert?: Prisma.PositionUpsertWithoutAdmissionInvitesInput
+  disconnect?: Prisma.PositionWhereInput | boolean
+  delete?: Prisma.PositionWhereInput | boolean
+  connect?: Prisma.PositionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PositionUpdateToOneWithWhereWithoutAdmissionInvitesInput, Prisma.PositionUpdateWithoutAdmissionInvitesInput>, Prisma.PositionUncheckedUpdateWithoutAdmissionInvitesInput>
+}
+
 export type PositionCreateNestedOneWithoutJobPostingsInput = {
   create?: Prisma.XOR<Prisma.PositionCreateWithoutJobPostingsInput, Prisma.PositionUncheckedCreateWithoutJobPostingsInput>
   connectOrCreate?: Prisma.PositionCreateOrConnectWithoutJobPostingsInput
@@ -760,6 +783,7 @@ export type PositionCreateWithoutEmployeesInput = {
   department?: Prisma.DepartmentCreateNestedOneWithoutPositionsInput
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementCreateNestedManyWithoutPositionInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPositionInput
+  admissionInvites?: Prisma.AdmissionInviteCreateNestedManyWithoutPositionInput
 }
 
 export type PositionUncheckedCreateWithoutEmployeesInput = {
@@ -779,6 +803,7 @@ export type PositionUncheckedCreateWithoutEmployeesInput = {
   updatedAt?: Date | string
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedCreateNestedManyWithoutPositionInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPositionInput
+  admissionInvites?: Prisma.AdmissionInviteUncheckedCreateNestedManyWithoutPositionInput
 }
 
 export type PositionCreateOrConnectWithoutEmployeesInput = {
@@ -814,6 +839,7 @@ export type PositionUpdateWithoutEmployeesInput = {
   department?: Prisma.DepartmentUpdateOneWithoutPositionsNestedInput
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementUpdateManyWithoutPositionNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutPositionNestedInput
+  admissionInvites?: Prisma.AdmissionInviteUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionUncheckedUpdateWithoutEmployeesInput = {
@@ -833,6 +859,7 @@ export type PositionUncheckedUpdateWithoutEmployeesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedUpdateManyWithoutPositionNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPositionNestedInput
+  admissionInvites?: Prisma.AdmissionInviteUncheckedUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionCreateWithoutDepartmentInput = {
@@ -852,6 +879,7 @@ export type PositionCreateWithoutDepartmentInput = {
   employees?: Prisma.EmployeeCreateNestedManyWithoutPositionInput
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementCreateNestedManyWithoutPositionInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPositionInput
+  admissionInvites?: Prisma.AdmissionInviteCreateNestedManyWithoutPositionInput
 }
 
 export type PositionUncheckedCreateWithoutDepartmentInput = {
@@ -871,6 +899,7 @@ export type PositionUncheckedCreateWithoutDepartmentInput = {
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutPositionInput
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedCreateNestedManyWithoutPositionInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPositionInput
+  admissionInvites?: Prisma.AdmissionInviteUncheckedCreateNestedManyWithoutPositionInput
 }
 
 export type PositionCreateOrConnectWithoutDepartmentInput = {
@@ -936,6 +965,7 @@ export type PositionCreateWithoutOccupationalExamRequirementsInput = {
   department?: Prisma.DepartmentCreateNestedOneWithoutPositionsInput
   employees?: Prisma.EmployeeCreateNestedManyWithoutPositionInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPositionInput
+  admissionInvites?: Prisma.AdmissionInviteCreateNestedManyWithoutPositionInput
 }
 
 export type PositionUncheckedCreateWithoutOccupationalExamRequirementsInput = {
@@ -955,6 +985,7 @@ export type PositionUncheckedCreateWithoutOccupationalExamRequirementsInput = {
   updatedAt?: Date | string
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutPositionInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPositionInput
+  admissionInvites?: Prisma.AdmissionInviteUncheckedCreateNestedManyWithoutPositionInput
 }
 
 export type PositionCreateOrConnectWithoutOccupationalExamRequirementsInput = {
@@ -990,6 +1021,7 @@ export type PositionUpdateWithoutOccupationalExamRequirementsInput = {
   department?: Prisma.DepartmentUpdateOneWithoutPositionsNestedInput
   employees?: Prisma.EmployeeUpdateManyWithoutPositionNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutPositionNestedInput
+  admissionInvites?: Prisma.AdmissionInviteUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionUncheckedUpdateWithoutOccupationalExamRequirementsInput = {
@@ -1009,6 +1041,7 @@ export type PositionUncheckedUpdateWithoutOccupationalExamRequirementsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutPositionNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPositionNestedInput
+  admissionInvites?: Prisma.AdmissionInviteUncheckedUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionCreateWithoutTenantInput = {
@@ -1028,6 +1061,7 @@ export type PositionCreateWithoutTenantInput = {
   employees?: Prisma.EmployeeCreateNestedManyWithoutPositionInput
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementCreateNestedManyWithoutPositionInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPositionInput
+  admissionInvites?: Prisma.AdmissionInviteCreateNestedManyWithoutPositionInput
 }
 
 export type PositionUncheckedCreateWithoutTenantInput = {
@@ -1047,6 +1081,7 @@ export type PositionUncheckedCreateWithoutTenantInput = {
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutPositionInput
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedCreateNestedManyWithoutPositionInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPositionInput
+  admissionInvites?: Prisma.AdmissionInviteUncheckedCreateNestedManyWithoutPositionInput
 }
 
 export type PositionCreateOrConnectWithoutTenantInput = {
@@ -1075,6 +1110,102 @@ export type PositionUpdateManyWithWhereWithoutTenantInput = {
   data: Prisma.XOR<Prisma.PositionUpdateManyMutationInput, Prisma.PositionUncheckedUpdateManyWithoutTenantInput>
 }
 
+export type PositionCreateWithoutAdmissionInvitesInput = {
+  id?: string
+  name: string
+  code: string
+  description?: string | null
+  level?: number
+  minSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutPositionsInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutPositionsInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutPositionInput
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementCreateNestedManyWithoutPositionInput
+  jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPositionInput
+}
+
+export type PositionUncheckedCreateWithoutAdmissionInvitesInput = {
+  id?: string
+  tenantId: string
+  name: string
+  code: string
+  description?: string | null
+  departmentId?: string | null
+  level?: number
+  minSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutPositionInput
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedCreateNestedManyWithoutPositionInput
+  jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPositionInput
+}
+
+export type PositionCreateOrConnectWithoutAdmissionInvitesInput = {
+  where: Prisma.PositionWhereUniqueInput
+  create: Prisma.XOR<Prisma.PositionCreateWithoutAdmissionInvitesInput, Prisma.PositionUncheckedCreateWithoutAdmissionInvitesInput>
+}
+
+export type PositionUpsertWithoutAdmissionInvitesInput = {
+  update: Prisma.XOR<Prisma.PositionUpdateWithoutAdmissionInvitesInput, Prisma.PositionUncheckedUpdateWithoutAdmissionInvitesInput>
+  create: Prisma.XOR<Prisma.PositionCreateWithoutAdmissionInvitesInput, Prisma.PositionUncheckedCreateWithoutAdmissionInvitesInput>
+  where?: Prisma.PositionWhereInput
+}
+
+export type PositionUpdateToOneWithWhereWithoutAdmissionInvitesInput = {
+  where?: Prisma.PositionWhereInput
+  data: Prisma.XOR<Prisma.PositionUpdateWithoutAdmissionInvitesInput, Prisma.PositionUncheckedUpdateWithoutAdmissionInvitesInput>
+}
+
+export type PositionUpdateWithoutAdmissionInvitesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  minSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutPositionsNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutPositionsNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutPositionNestedInput
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementUpdateManyWithoutPositionNestedInput
+  jobPostings?: Prisma.JobPostingUpdateManyWithoutPositionNestedInput
+}
+
+export type PositionUncheckedUpdateWithoutAdmissionInvitesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  minSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutPositionNestedInput
+  occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedUpdateManyWithoutPositionNestedInput
+  jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPositionNestedInput
+}
+
 export type PositionCreateWithoutJobPostingsInput = {
   id?: string
   name: string
@@ -1092,6 +1223,7 @@ export type PositionCreateWithoutJobPostingsInput = {
   department?: Prisma.DepartmentCreateNestedOneWithoutPositionsInput
   employees?: Prisma.EmployeeCreateNestedManyWithoutPositionInput
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementCreateNestedManyWithoutPositionInput
+  admissionInvites?: Prisma.AdmissionInviteCreateNestedManyWithoutPositionInput
 }
 
 export type PositionUncheckedCreateWithoutJobPostingsInput = {
@@ -1111,6 +1243,7 @@ export type PositionUncheckedCreateWithoutJobPostingsInput = {
   updatedAt?: Date | string
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutPositionInput
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedCreateNestedManyWithoutPositionInput
+  admissionInvites?: Prisma.AdmissionInviteUncheckedCreateNestedManyWithoutPositionInput
 }
 
 export type PositionCreateOrConnectWithoutJobPostingsInput = {
@@ -1146,6 +1279,7 @@ export type PositionUpdateWithoutJobPostingsInput = {
   department?: Prisma.DepartmentUpdateOneWithoutPositionsNestedInput
   employees?: Prisma.EmployeeUpdateManyWithoutPositionNestedInput
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementUpdateManyWithoutPositionNestedInput
+  admissionInvites?: Prisma.AdmissionInviteUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionUncheckedUpdateWithoutJobPostingsInput = {
@@ -1165,6 +1299,7 @@ export type PositionUncheckedUpdateWithoutJobPostingsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutPositionNestedInput
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedUpdateManyWithoutPositionNestedInput
+  admissionInvites?: Prisma.AdmissionInviteUncheckedUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionCreateManyDepartmentInput = {
@@ -1200,6 +1335,7 @@ export type PositionUpdateWithoutDepartmentInput = {
   employees?: Prisma.EmployeeUpdateManyWithoutPositionNestedInput
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementUpdateManyWithoutPositionNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutPositionNestedInput
+  admissionInvites?: Prisma.AdmissionInviteUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionUncheckedUpdateWithoutDepartmentInput = {
@@ -1219,6 +1355,7 @@ export type PositionUncheckedUpdateWithoutDepartmentInput = {
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutPositionNestedInput
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedUpdateManyWithoutPositionNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPositionNestedInput
+  admissionInvites?: Prisma.AdmissionInviteUncheckedUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionUncheckedUpdateManyWithoutDepartmentInput = {
@@ -1270,6 +1407,7 @@ export type PositionUpdateWithoutTenantInput = {
   employees?: Prisma.EmployeeUpdateManyWithoutPositionNestedInput
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementUpdateManyWithoutPositionNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutPositionNestedInput
+  admissionInvites?: Prisma.AdmissionInviteUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionUncheckedUpdateWithoutTenantInput = {
@@ -1289,6 +1427,7 @@ export type PositionUncheckedUpdateWithoutTenantInput = {
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutPositionNestedInput
   occupationalExamRequirements?: Prisma.OccupationalExamRequirementUncheckedUpdateManyWithoutPositionNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPositionNestedInput
+  admissionInvites?: Prisma.AdmissionInviteUncheckedUpdateManyWithoutPositionNestedInput
 }
 
 export type PositionUncheckedUpdateManyWithoutTenantInput = {
@@ -1316,12 +1455,14 @@ export type PositionCountOutputType = {
   employees: number
   occupationalExamRequirements: number
   jobPostings: number
+  admissionInvites: number
 }
 
 export type PositionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   employees?: boolean | PositionCountOutputTypeCountEmployeesArgs
   occupationalExamRequirements?: boolean | PositionCountOutputTypeCountOccupationalExamRequirementsArgs
   jobPostings?: boolean | PositionCountOutputTypeCountJobPostingsArgs
+  admissionInvites?: boolean | PositionCountOutputTypeCountAdmissionInvitesArgs
 }
 
 /**
@@ -1355,6 +1496,13 @@ export type PositionCountOutputTypeCountJobPostingsArgs<ExtArgs extends runtime.
   where?: Prisma.JobPostingWhereInput
 }
 
+/**
+ * PositionCountOutputType without action
+ */
+export type PositionCountOutputTypeCountAdmissionInvitesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AdmissionInviteWhereInput
+}
+
 
 export type PositionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1376,6 +1524,7 @@ export type PositionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   employees?: boolean | Prisma.Position$employeesArgs<ExtArgs>
   occupationalExamRequirements?: boolean | Prisma.Position$occupationalExamRequirementsArgs<ExtArgs>
   jobPostings?: boolean | Prisma.Position$jobPostingsArgs<ExtArgs>
+  admissionInvites?: boolean | Prisma.Position$admissionInvitesArgs<ExtArgs>
   _count?: boolean | Prisma.PositionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["position"]>
 
@@ -1441,6 +1590,7 @@ export type PositionInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   employees?: boolean | Prisma.Position$employeesArgs<ExtArgs>
   occupationalExamRequirements?: boolean | Prisma.Position$occupationalExamRequirementsArgs<ExtArgs>
   jobPostings?: boolean | Prisma.Position$jobPostingsArgs<ExtArgs>
+  admissionInvites?: boolean | Prisma.Position$admissionInvitesArgs<ExtArgs>
   _count?: boolean | Prisma.PositionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PositionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1460,6 +1610,7 @@ export type $PositionPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     employees: Prisma.$EmployeePayload<ExtArgs>[]
     occupationalExamRequirements: Prisma.$OccupationalExamRequirementPayload<ExtArgs>[]
     jobPostings: Prisma.$JobPostingPayload<ExtArgs>[]
+    admissionInvites: Prisma.$AdmissionInvitePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1875,6 +2026,7 @@ export interface Prisma__PositionClient<T, Null = never, ExtArgs extends runtime
   employees<T extends Prisma.Position$employeesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Position$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   occupationalExamRequirements<T extends Prisma.Position$occupationalExamRequirementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Position$occupationalExamRequirementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OccupationalExamRequirementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   jobPostings<T extends Prisma.Position$jobPostingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Position$jobPostingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobPostingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  admissionInvites<T extends Prisma.Position$admissionInvitesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Position$admissionInvitesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdmissionInvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2402,6 +2554,30 @@ export type Position$jobPostingsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.JobPostingScalarFieldEnum | Prisma.JobPostingScalarFieldEnum[]
+}
+
+/**
+ * Position.admissionInvites
+ */
+export type Position$admissionInvitesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AdmissionInvite
+   */
+  select?: Prisma.AdmissionInviteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AdmissionInvite
+   */
+  omit?: Prisma.AdmissionInviteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdmissionInviteInclude<ExtArgs> | null
+  where?: Prisma.AdmissionInviteWhereInput
+  orderBy?: Prisma.AdmissionInviteOrderByWithRelationInput | Prisma.AdmissionInviteOrderByWithRelationInput[]
+  cursor?: Prisma.AdmissionInviteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AdmissionInviteScalarFieldEnum | Prisma.AdmissionInviteScalarFieldEnum[]
 }
 
 /**

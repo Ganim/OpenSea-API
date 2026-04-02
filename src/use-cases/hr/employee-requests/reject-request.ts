@@ -16,18 +16,15 @@ export interface RejectRequestOutput {
 }
 
 export class RejectRequestUseCase {
-  constructor(
-    private employeeRequestsRepository: EmployeeRequestsRepository,
-  ) {}
+  constructor(private employeeRequestsRepository: EmployeeRequestsRepository) {}
 
   async execute(input: RejectRequestInput): Promise<RejectRequestOutput> {
     const { tenantId, requestId, approverEmployeeId, rejectionReason } = input;
 
-    const employeeRequest =
-      await this.employeeRequestsRepository.findById(
-        new UniqueEntityID(requestId),
-        tenantId,
-      );
+    const employeeRequest = await this.employeeRequestsRepository.findById(
+      new UniqueEntityID(requestId),
+      tenantId,
+    );
 
     if (!employeeRequest) {
       throw new ResourceNotFoundError('Employee request not found');

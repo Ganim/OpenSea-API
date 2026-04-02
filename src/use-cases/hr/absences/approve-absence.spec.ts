@@ -1,3 +1,9 @@
+import { vi } from 'vitest';
+
+vi.mock('@/services/esocial/auto-generate', () => ({
+  tryAutoGenerateEvent: vi.fn().mockResolvedValue(undefined),
+}));
+
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Absence } from '@/entities/hr/absence';
 import { VacationPeriod } from '@/entities/hr/vacation-period';
@@ -5,7 +11,7 @@ import { AbsenceStatus, AbsenceType } from '@/entities/hr/value-objects';
 import { InMemoryAbsencesRepository } from '@/repositories/hr/in-memory/in-memory-absences-repository';
 import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';
 import { InMemoryVacationPeriodsRepository } from '@/repositories/hr/in-memory/in-memory-vacation-periods-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest'; // vi already imported above
 import { ApproveAbsenceUseCase } from './approve-absence';
 
 let absencesRepository: InMemoryAbsencesRepository;

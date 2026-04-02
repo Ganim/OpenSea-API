@@ -16,7 +16,9 @@ function mapToDomain(data: Record<string, unknown>): DiscountRule {
       description: (data.description as string) ?? undefined,
       type: data.type as 'PERCENTAGE' | 'FIXED_AMOUNT',
       value: Number(data.value),
-      minOrderValue: data.minOrderValue ? Number(data.minOrderValue) : undefined,
+      minOrderValue: data.minOrderValue
+        ? Number(data.minOrderValue)
+        : undefined,
       minQuantity: (data.minQuantity as number) ?? undefined,
       categoryId: (data.categoryId as string) ?? undefined,
       productId: (data.productId as string) ?? undefined,
@@ -59,7 +61,10 @@ export class PrismaDiscountRulesRepository implements DiscountRulesRepository {
     return mapToDomain(discountRuleData as unknown as Record<string, unknown>);
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<DiscountRule | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<DiscountRule | null> {
     const discountRuleData = await prisma.discountRule.findFirst({
       where: { id: id.toString(), tenantId, deletedAt: null },
     });
@@ -68,7 +73,11 @@ export class PrismaDiscountRulesRepository implements DiscountRulesRepository {
     return mapToDomain(discountRuleData as unknown as Record<string, unknown>);
   }
 
-  async findMany(page: number, perPage: number, tenantId: string): Promise<DiscountRule[]> {
+  async findMany(
+    page: number,
+    perPage: number,
+    tenantId: string,
+  ): Promise<DiscountRule[]> {
     const discountRulesData = await prisma.discountRule.findMany({
       where: { tenantId, deletedAt: null },
       skip: (page - 1) * perPage,

@@ -15,9 +15,7 @@ export interface GetDependantResponse {
 export class GetDependantUseCase {
   constructor(private dependantsRepository: DependantsRepository) {}
 
-  async execute(
-    request: GetDependantRequest,
-  ): Promise<GetDependantResponse> {
+  async execute(request: GetDependantRequest): Promise<GetDependantResponse> {
     const { tenantId, dependantId } = request;
 
     const dependant = await this.dependantsRepository.findById(

@@ -126,7 +126,7 @@ describe('Request Magic Link Use Case', () => {
     expect(storedTokens[0].token).toMatch(/^[a-f0-9]{64}$/);
 
     // The raw token sent via email should NOT match the stored hash
-    const sentRawToken = (emailService.sendMagicLinkEmail as any).mock
+    const sentRawToken = vi.mocked(emailService.sendMagicLinkEmail).mock
       .calls[0][1];
     const expectedHash = crypto
       .createHash('sha256')

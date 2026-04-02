@@ -69,7 +69,7 @@ describe('Calculate Vacation Payment', () => {
       const result = calculateVacationPayment(highSalaryRequest);
 
       // Taxable base should be vacationBase + constitutionalThird only
-      const taxableGross = result.vacationBase + result.constitutionalThird;
+      const _taxableGross = result.vacationBase + result.constitutionalThird;
       // INSS should be calculated over taxable gross, not the full amount
       expect(result.inssDeduction).toBeGreaterThan(0);
       // Net = gross - INSS - IRRF

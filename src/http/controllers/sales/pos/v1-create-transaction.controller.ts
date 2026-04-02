@@ -108,6 +108,7 @@ export async function createTransactionController(app: FastifyInstance) {
           customerId: body.customerId,
           customerName: body.customerName,
           customerDocument: body.customerDocument,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Zod inferred type mismatch with use case
           payments: body.payments as any,
         });
 
@@ -142,7 +143,7 @@ export async function createTransactionController(app: FastifyInstance) {
 
         return reply
           .status(201)
-          .send({ transaction: transactionResponse } as any);
+          .send({ transaction: transactionResponse } as unknown);
       } catch (error) {
         if (
           error instanceof BadRequestError ||

@@ -57,7 +57,11 @@ export class UpdateApprovalRuleUseCase {
       }
     }
 
-    if (request.maxAmount !== undefined && request.maxAmount !== null && request.maxAmount <= 0) {
+    if (
+      request.maxAmount !== undefined &&
+      request.maxAmount !== null &&
+      request.maxAmount <= 0
+    ) {
       throw new BadRequestError('Max amount must be positive');
     }
 

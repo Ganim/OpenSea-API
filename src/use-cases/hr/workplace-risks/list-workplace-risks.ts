@@ -22,12 +22,22 @@ export class ListWorkplaceRisksUseCase {
   async execute(
     request: ListWorkplaceRisksRequest,
   ): Promise<ListWorkplaceRisksResponse> {
-    const { tenantId, safetyProgramId, category, severity, isActive, page, perPage } = request;
+    const {
+      tenantId,
+      safetyProgramId,
+      category,
+      severity,
+      isActive,
+      page,
+      perPage,
+    } = request;
 
     const workplaceRisks = await this.workplaceRisksRepository.findMany(
       tenantId,
       {
-        safetyProgramId: safetyProgramId ? new UniqueEntityID(safetyProgramId) : undefined,
+        safetyProgramId: safetyProgramId
+          ? new UniqueEntityID(safetyProgramId)
+          : undefined,
         category,
         severity,
         isActive,

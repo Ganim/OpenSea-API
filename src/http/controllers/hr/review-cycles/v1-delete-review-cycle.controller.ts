@@ -5,7 +5,7 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { makeDeleteReviewCycleUseCase } from '@/use-cases/hr/review-cycles/factories/make-delete-review-cycle-use-case';
 
 import type { FastifyInstance } from 'fastify';
@@ -28,7 +28,7 @@ export async function v1DeleteReviewCycleController(app: FastifyInstance) {
       tags: ['HR - Reviews'],
       summary: 'Delete review cycle',
       description: 'Deactivates a review cycle (soft delete)',
-      params: z.object({ reviewCycleId: idSchema }),
+      params: z.object({ reviewCycleId: cuidSchema }),
       response: {
         204: z.null(),
         404: z.object({ message: z.string() }),

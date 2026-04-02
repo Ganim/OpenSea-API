@@ -3,7 +3,7 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { cuidSchema, dateSchema } from '../../common.schema';
 
 const applicationStatusEnum = z.enum([
   'APPLIED',
@@ -17,8 +17,8 @@ const applicationStatusEnum = z.enum([
 ]);
 
 export const createApplicationSchema = z.object({
-  jobPostingId: z.string().uuid(),
-  candidateId: z.string().uuid(),
+  jobPostingId: cuidSchema,
+  candidateId: cuidSchema,
 });
 
 export const updateApplicationStatusSchema = z.object({
@@ -30,15 +30,15 @@ export const rejectApplicationSchema = z.object({
 });
 
 export const listApplicationsQuerySchema = z.object({
-  jobPostingId: z.string().uuid().optional(),
-  candidateId: z.string().uuid().optional(),
+  jobPostingId: cuidSchema.optional(),
+  candidateId: cuidSchema.optional(),
   status: applicationStatusEnum.optional(),
   page: z.coerce.number().int().positive().optional().default(1),
   perPage: z.coerce.number().int().positive().max(100).optional().default(20),
 });
 
 export const applicationResponseSchema = z.object({
-  id: idSchema,
+  id: cuidSchema,
   jobPostingId: z.string(),
   candidateId: z.string(),
   status: z.string(),

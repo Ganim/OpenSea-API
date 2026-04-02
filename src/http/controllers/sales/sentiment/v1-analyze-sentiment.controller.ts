@@ -61,7 +61,7 @@ export async function analyzeSentimentController(app: FastifyInstance) {
           },
         });
 
-        return reply.status(200).send(result as any);
+        return reply.status(200).send(result as unknown);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

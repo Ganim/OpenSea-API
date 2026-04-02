@@ -43,7 +43,7 @@ describe('Authenticate Unified Use Case', () => {
   });
 
   it('should authenticate with email + password via AuthLink', async () => {
-    const { user } = await makeUser({
+    const { user: _user } = await makeUser({
       email: 'johndoe@example.com',
       password: 'Pass@123',
       usersRepository,
@@ -73,7 +73,7 @@ describe('Authenticate Unified Use Case', () => {
   });
 
   it('should authenticate with CPF + password via AuthLink', async () => {
-    const { user } = await makeUser({
+    const { user: _user } = await makeUser({
       email: 'cpfuser@example.com',
       password: 'Pass@123',
       usersRepository,
@@ -266,7 +266,8 @@ describe('Authenticate Unified Use Case', () => {
       return (
         error instanceof ForbiddenError &&
         'code' in error &&
-        (error as any).code === 'PASSWORD_RESET_REQUIRED'
+        (error as unknown as { code: string }).code ===
+          'PASSWORD_RESET_REQUIRED'
       );
     });
   });

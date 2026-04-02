@@ -78,7 +78,7 @@ export async function cancelTransactionController(app: FastifyInstance) {
 
         return reply
           .status(200)
-          .send({ transaction: transactionResponse } as any);
+          .send({ transaction: transactionResponse } as unknown);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

@@ -4,7 +4,7 @@ import {
   createSurveyQuestionSchema,
   surveyQuestionResponseSchema,
 } from '@/http/schemas/hr/surveys';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { surveyQuestionToDTO } from '@/mappers/hr/survey-question';
 import { makeCreateSurveyQuestionUseCase } from '@/use-cases/hr/surveys/factories';
 
@@ -21,7 +21,7 @@ export async function v1CreateSurveyQuestionController(app: FastifyInstance) {
       tags: ['HR - Surveys'],
       summary: 'Add a question to a survey',
       description: 'Creates a new question for a draft survey',
-      params: z.object({ surveyId: idSchema }),
+      params: z.object({ surveyId: cuidSchema }),
       body: createSurveyQuestionSchema,
       response: {
         201: surveyQuestionResponseSchema,

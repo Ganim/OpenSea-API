@@ -61,7 +61,7 @@ export async function closeConversationController(app: FastifyInstance) {
           placeholders: { userName, conversationSubject: conversation.subject },
         });
 
-        return reply.status(200).send({ conversation } as any);
+        return reply.status(200).send({ conversation } as unknown);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

@@ -28,9 +28,7 @@ describe('S3000Builder', () => {
 
     expect(xml).toContain('<infoExclusao>');
     expect(xml).toContain('<tpEvento>S-2200</tpEvento>');
-    expect(xml).toContain(
-      '<nrRecEvt>1.2.0000000000000000001</nrRecEvt>',
-    );
+    expect(xml).toContain('<nrRecEvt>1.2.0000000000000000001</nrRecEvt>');
   });
 
   it('should include ideTrabalhador when cpfTrab is provided', () => {

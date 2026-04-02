@@ -11,7 +11,9 @@ export interface CreateConversationMessageSchema {
 
 export interface ConversationMessagesRepository {
   create(data: CreateConversationMessageSchema): Promise<ConversationMessage>;
-  findByConversationId(conversationId: UniqueEntityID): Promise<ConversationMessage[]>;
+  findByConversationId(
+    conversationId: UniqueEntityID,
+  ): Promise<ConversationMessage[]>;
   markAsRead(conversationId: UniqueEntityID): Promise<void>;
   save(message: ConversationMessage): Promise<void>;
 }

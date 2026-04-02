@@ -15,18 +15,15 @@ export interface ApproveRequestOutput {
 }
 
 export class ApproveRequestUseCase {
-  constructor(
-    private employeeRequestsRepository: EmployeeRequestsRepository,
-  ) {}
+  constructor(private employeeRequestsRepository: EmployeeRequestsRepository) {}
 
   async execute(input: ApproveRequestInput): Promise<ApproveRequestOutput> {
     const { tenantId, requestId, approverEmployeeId } = input;
 
-    const employeeRequest =
-      await this.employeeRequestsRepository.findById(
-        new UniqueEntityID(requestId),
-        tenantId,
-      );
+    const employeeRequest = await this.employeeRequestsRepository.findById(
+      new UniqueEntityID(requestId),
+      tenantId,
+    );
 
     if (!employeeRequest) {
       throw new ResourceNotFoundError('Employee request not found');

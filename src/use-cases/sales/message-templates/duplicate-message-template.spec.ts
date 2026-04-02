@@ -11,8 +11,12 @@ let duplicateMessageTemplate: DuplicateMessageTemplateUseCase;
 describe('DuplicateMessageTemplateUseCase', () => {
   beforeEach(() => {
     messageTemplatesRepository = new InMemoryMessageTemplatesRepository();
-    createMessageTemplate = new CreateMessageTemplateUseCase(messageTemplatesRepository);
-    duplicateMessageTemplate = new DuplicateMessageTemplateUseCase(messageTemplatesRepository);
+    createMessageTemplate = new CreateMessageTemplateUseCase(
+      messageTemplatesRepository,
+    );
+    duplicateMessageTemplate = new DuplicateMessageTemplateUseCase(
+      messageTemplatesRepository,
+    );
   });
 
   it('should duplicate a message template', async () => {
@@ -32,7 +36,9 @@ describe('DuplicateMessageTemplateUseCase', () => {
     });
 
     expect(result.messageTemplate.name).toBe('Original Template (copy)');
-    expect(result.messageTemplate.body).toBe('Welcome {{name}} to our platform!');
+    expect(result.messageTemplate.body).toBe(
+      'Welcome {{name}} to our platform!',
+    );
     expect(result.messageTemplate.channel).toBe('EMAIL');
     expect(result.messageTemplate.isActive).toBe(false);
     expect(result.messageTemplate.createdBy).toBe('user-2');

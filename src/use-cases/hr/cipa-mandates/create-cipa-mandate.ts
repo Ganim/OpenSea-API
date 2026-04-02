@@ -17,9 +17,7 @@ export interface CreateCipaMandateResponse {
 }
 
 export class CreateCipaMandateUseCase {
-  constructor(
-    private cipaMandatesRepository: CipaMandatesRepository,
-  ) {}
+  constructor(private cipaMandatesRepository: CipaMandatesRepository) {}
 
   async execute(
     request: CreateCipaMandateRequest,

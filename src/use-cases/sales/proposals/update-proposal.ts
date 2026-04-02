@@ -82,9 +82,7 @@ export class UpdateProposalUseCase {
 
       const calculatedItems = input.items.map((proposalItem) => {
         if (proposalItem.quantity <= 0) {
-          throw new BadRequestError(
-            'Item quantity must be greater than zero.',
-          );
+          throw new BadRequestError('Item quantity must be greater than zero.');
         }
         if (proposalItem.unitPrice < 0) {
           throw new BadRequestError('Item unit price cannot be negative.');

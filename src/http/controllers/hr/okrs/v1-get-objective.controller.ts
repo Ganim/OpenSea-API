@@ -1,7 +1,7 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { objectiveResponseSchema } from '@/http/schemas/hr/okrs';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { objectiveToDTO } from '@/mappers/hr/objective';
 import { makeGetObjectiveUseCase } from '@/use-cases/hr/okrs/factories';
 
@@ -18,7 +18,7 @@ export async function v1GetObjectiveController(app: FastifyInstance) {
       tags: ['HR - OKRs'],
       summary: 'Get an objective',
       description: 'Gets an OKR objective by ID',
-      params: z.object({ objectiveId: idSchema }),
+      params: z.object({ objectiveId: cuidSchema }),
       response: {
         200: objectiveResponseSchema,
       },

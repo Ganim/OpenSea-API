@@ -36,10 +36,7 @@ export interface FindSafetyProgramFilters {
 
 export interface SafetyProgramsRepository {
   create(data: CreateSafetyProgramSchema): Promise<SafetyProgram>;
-  findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<SafetyProgram | null>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<SafetyProgram | null>;
   findMany(
     tenantId: string,
     filters?: FindSafetyProgramFilters,

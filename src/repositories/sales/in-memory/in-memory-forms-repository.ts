@@ -1,9 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Form } from '@/entities/sales/form';
-import type {
-  CreateFormSchema,
-  FormsRepository,
-} from '../forms-repository';
+import type { CreateFormSchema, FormsRepository } from '../forms-repository';
 
 export class InMemoryFormsRepository implements FormsRepository {
   public items: Form[] = [];
@@ -21,10 +18,7 @@ export class InMemoryFormsRepository implements FormsRepository {
     return form;
   }
 
-  async findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<Form | null> {
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Form | null> {
     const form = this.items.find(
       (item) =>
         !item.deletedAt &&

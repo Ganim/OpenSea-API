@@ -9,6 +9,10 @@ export interface CreateFormSubmissionSchema {
 
 export interface FormSubmissionsRepository {
   create(data: CreateFormSubmissionSchema): Promise<FormSubmission>;
-  findByFormId(formId: UniqueEntityID, page: number, perPage: number): Promise<FormSubmission[]>;
+  findByFormId(
+    formId: UniqueEntityID,
+    page: number,
+    perPage: number,
+  ): Promise<FormSubmission[]>;
   countByFormId(formId: UniqueEntityID): Promise<number>;
 }

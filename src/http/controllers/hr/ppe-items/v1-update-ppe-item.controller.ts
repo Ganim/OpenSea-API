@@ -8,7 +8,7 @@ import {
   updatePPEItemSchema,
   ppeItemResponseSchema,
 } from '@/http/schemas/hr/safety';
-import { idSchema } from '@/http/schemas';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { ppeItemToDTO } from '@/mappers/hr/ppe-item';
 import { makeUpdatePPEItemUseCase } from '@/use-cases/hr/ppe-items/factories/make-update-ppe-item-use-case';
 
@@ -33,7 +33,7 @@ export async function v1UpdatePPEItemController(app: FastifyInstance) {
       summary: 'Update PPE item',
       description: 'Updates an existing PPE item',
       params: z.object({
-        ppeItemId: idSchema,
+        ppeItemId: cuidSchema,
       }),
       body: updatePPEItemSchema,
       response: {

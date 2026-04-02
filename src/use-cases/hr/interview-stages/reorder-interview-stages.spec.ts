@@ -47,11 +47,10 @@ describe('Reorder Interview Stages Use Case', () => {
 
     expect(result.success).toBe(true);
 
-    const stages =
-      await interviewStagesRepository.findManyByJobPosting(
-        jobPosting.id.toString(),
-        tenantId,
-      );
+    const stages = await interviewStagesRepository.findManyByJobPosting(
+      jobPosting.id.toString(),
+      tenantId,
+    );
     expect(stages[0].name).toBe('Stage 2');
     expect(stages[1].name).toBe('Stage 1');
   });

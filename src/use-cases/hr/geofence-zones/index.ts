@@ -8,7 +8,10 @@ export {
   UpdateGeofenceZoneResponse,
   UpdateGeofenceZoneUseCase,
 } from './update-geofence-zone';
-export { DeleteGeofenceZoneRequest, DeleteGeofenceZoneUseCase } from './delete-geofence-zone';
+export {
+  DeleteGeofenceZoneRequest,
+  DeleteGeofenceZoneUseCase,
+} from './delete-geofence-zone';
 export {
   ListGeofenceZonesRequest,
   ListGeofenceZonesResponse,

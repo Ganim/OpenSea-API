@@ -1,5 +1,4 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { BankReconciliation } from '@/entities/finance/bank-reconciliation';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { InMemoryBankReconciliationsRepository } from '@/repositories/finance/in-memory/in-memory-bank-reconciliations-repository';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
@@ -119,8 +118,12 @@ describe('AutoReconcileUseCase', () => {
     // Amount exact (+40) + Date exact (+25) + Type match (+10) + Supplier name (+10) = 85
     // Plus description similarity contribution (description "Pagamento fornecedor" vs "Fornecedor ABC pagamento")
     // Score should be >= 70 (suggestion threshold) but we check the outcome
-    expect(result.autoReconciled + result.suggestionsCreated).toBeGreaterThan(0);
-    expect(result.autoReconciled + result.suggestionsCreated + result.skipped).toBe(1);
+    expect(result.autoReconciled + result.suggestionsCreated).toBeGreaterThan(
+      0,
+    );
+    expect(
+      result.autoReconciled + result.suggestionsCreated + result.skipped,
+    ).toBe(1);
   });
 
   it('should create suggestion for items with score between 70 and 89', async () => {
@@ -165,7 +168,9 @@ describe('AutoReconcileUseCase', () => {
 
     // Amount exact (+40) + Date within 3 days (+15) + Type match (+10) + Description high similarity (+25) = 90
     // The exact score depends on description similarity, but result is deterministic
-    expect(result.autoReconciled + result.suggestionsCreated).toBeGreaterThanOrEqual(0);
+    expect(
+      result.autoReconciled + result.suggestionsCreated,
+    ).toBeGreaterThanOrEqual(0);
   });
 
   it('should skip items with no matching entries (below 70 score)', async () => {

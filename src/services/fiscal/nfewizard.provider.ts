@@ -177,10 +177,7 @@ export class NFeWizardProvider implements FiscalProvider {
       const contentType = httpResponse.headers.get('content-type') || '';
 
       if (contentType.includes('application/json')) {
-        const jsonBody = (await httpResponse.json()) as Record<
-          string,
-          unknown
-        >;
+        const jsonBody = (await httpResponse.json()) as Record<string, unknown>;
         const pdfUrl = jsonBody.url as string | undefined;
 
         if (pdfUrl) {
@@ -347,8 +344,7 @@ export class NFeWizardProvider implements FiscalProvider {
       return {
         success: true,
         accessKey: responseBody.chave_acesso as string | undefined,
-        protocolNumber:
-          responseBody.protocolo as string | undefined,
+        protocolNumber: responseBody.protocolo as string | undefined,
         protocolDate: responseBody.data_autorizacao
           ? new Date(responseBody.data_autorizacao as string)
           : undefined,
@@ -367,9 +363,7 @@ export class NFeWizardProvider implements FiscalProvider {
     };
   }
 
-  private mapEventResponse(
-    responseBody: Record<string, unknown>,
-  ): EventResult {
+  private mapEventResponse(responseBody: Record<string, unknown>): EventResult {
     const wizardStatus = responseBody.status as string | undefined;
     const eventSucceeded =
       wizardStatus === 'sucesso' ||

@@ -51,7 +51,11 @@ export function countBusinessDays(
 
   let count = 0;
 
-  for (let day = new Date(firstDay); day <= lastDay; day.setDate(day.getDate() + 1)) {
+  for (
+    let day = new Date(firstDay);
+    day <= lastDay;
+    day.setDate(day.getDate() + 1)
+  ) {
     const dayOfWeek = day.getDay();
     const dateKey = `${day.getFullYear()}-${day.getMonth()}-${day.getDate()}`;
 
@@ -87,7 +91,11 @@ export function countSundaysAndHolidays(
   let sundays = 0;
   let nonSundayHolidays = 0;
 
-  for (let day = new Date(firstDay); day <= lastDay; day.setDate(day.getDate() + 1)) {
+  for (
+    let day = new Date(firstDay);
+    day <= lastDay;
+    day.setDate(day.getDate() + 1)
+  ) {
     const dayOfWeek = day.getDay();
     const dateKey = `${day.getFullYear()}-${day.getMonth()}-${day.getDate()}`;
 

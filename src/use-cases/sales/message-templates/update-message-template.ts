@@ -1,7 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { MessageTemplate, type MessageChannelType } from '@/entities/sales/message-template';
+import { type MessageChannelType } from '@/entities/sales/message-template';
 import type { MessageTemplateDTO } from '@/mappers/sales/message-template/message-template-to-dto';
 import { messageTemplateToDTO } from '@/mappers/sales/message-template/message-template-to-dto';
 import { MessageTemplatesRepository } from '@/repositories/sales/message-templates-repository';
@@ -20,7 +20,12 @@ interface UpdateMessageTemplateUseCaseResponse {
   messageTemplate: MessageTemplateDTO;
 }
 
-const VALID_CHANNELS: MessageChannelType[] = ['EMAIL', 'WHATSAPP', 'SMS', 'NOTIFICATION'];
+const VALID_CHANNELS: MessageChannelType[] = [
+  'EMAIL',
+  'WHATSAPP',
+  'SMS',
+  'NOTIFICATION',
+];
 
 export class UpdateMessageTemplateUseCase {
   constructor(private messageTemplatesRepository: MessageTemplatesRepository) {}
@@ -42,7 +47,9 @@ export class UpdateMessageTemplateUseCase {
         throw new BadRequestError('Template name cannot be empty.');
       }
       if (input.name.length > 255) {
-        throw new BadRequestError('Template name cannot exceed 255 characters.');
+        throw new BadRequestError(
+          'Template name cannot exceed 255 characters.',
+        );
       }
 
       // Check for duplicate name (excluding self)

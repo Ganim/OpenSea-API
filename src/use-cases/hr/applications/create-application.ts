@@ -67,11 +67,10 @@ export class CreateApplicationUseCase {
     }
 
     if (jobPosting.maxApplicants) {
-      const currentCount =
-        await this.applicationsRepository.countByJobPosting(
-          jobPostingId,
-          tenantId,
-        );
+      const currentCount = await this.applicationsRepository.countByJobPosting(
+        jobPostingId,
+        tenantId,
+      );
 
       if (currentCount >= jobPosting.maxApplicants) {
         throw new BadRequestError(

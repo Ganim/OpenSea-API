@@ -22,6 +22,8 @@ export interface AdmissionInviteRecord {
   updatedAt: Date;
   documents?: AdmissionDocumentRecord[];
   signatures?: DigitalSignatureRecord[];
+  position?: { id: string; name: string } | null;
+  department?: { id: string; name: string } | null;
 }
 
 export interface AdmissionDocumentRecord {

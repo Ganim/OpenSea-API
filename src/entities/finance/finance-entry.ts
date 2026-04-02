@@ -464,14 +464,16 @@ export class FinanceEntry extends Entity<FinanceEntryProps> {
   }
 
   markAsPaid(amount: number, paymentDate: Date): void {
-    this.props.actualAmount = Math.round(((this.props.actualAmount ?? 0) + amount) * 100) / 100;
+    this.props.actualAmount =
+      Math.round(((this.props.actualAmount ?? 0) + amount) * 100) / 100;
     this.props.paymentDate = paymentDate;
     this.props.status = this.isPayable ? 'PAID' : 'RECEIVED';
     this.touch();
   }
 
   markAsPartiallyPaid(amount: number): void {
-    this.props.actualAmount = Math.round(((this.props.actualAmount ?? 0) + amount) * 100) / 100;
+    this.props.actualAmount =
+      Math.round(((this.props.actualAmount ?? 0) + amount) * 100) / 100;
     this.props.status = 'PARTIALLY_PAID';
     this.touch();
   }

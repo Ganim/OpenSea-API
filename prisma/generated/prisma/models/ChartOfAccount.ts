@@ -249,6 +249,10 @@ export type ChartOfAccountWhereInput = {
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   parent?: Prisma.XOR<Prisma.ChartOfAccountNullableScalarRelationFilter, Prisma.ChartOfAccountWhereInput> | null
   children?: Prisma.ChartOfAccountListRelationFilter
+  journalEntryLines?: Prisma.JournalEntryLineListRelationFilter
+  financeEntries?: Prisma.FinanceEntryListRelationFilter
+  financeCategories?: Prisma.FinanceCategoryListRelationFilter
+  bankAccounts?: Prisma.BankAccountListRelationFilter
 }
 
 export type ChartOfAccountOrderByWithRelationInput = {
@@ -268,6 +272,10 @@ export type ChartOfAccountOrderByWithRelationInput = {
   tenant?: Prisma.TenantOrderByWithRelationInput
   parent?: Prisma.ChartOfAccountOrderByWithRelationInput
   children?: Prisma.ChartOfAccountOrderByRelationAggregateInput
+  journalEntryLines?: Prisma.JournalEntryLineOrderByRelationAggregateInput
+  financeEntries?: Prisma.FinanceEntryOrderByRelationAggregateInput
+  financeCategories?: Prisma.FinanceCategoryOrderByRelationAggregateInput
+  bankAccounts?: Prisma.BankAccountOrderByRelationAggregateInput
 }
 
 export type ChartOfAccountWhereUniqueInput = Prisma.AtLeast<{
@@ -291,6 +299,10 @@ export type ChartOfAccountWhereUniqueInput = Prisma.AtLeast<{
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   parent?: Prisma.XOR<Prisma.ChartOfAccountNullableScalarRelationFilter, Prisma.ChartOfAccountWhereInput> | null
   children?: Prisma.ChartOfAccountListRelationFilter
+  journalEntryLines?: Prisma.JournalEntryLineListRelationFilter
+  financeEntries?: Prisma.FinanceEntryListRelationFilter
+  financeCategories?: Prisma.FinanceCategoryListRelationFilter
+  bankAccounts?: Prisma.BankAccountListRelationFilter
 }, "id" | "chart_of_accounts_tenant_code_unique">
 
 export type ChartOfAccountOrderByWithAggregationInput = {
@@ -346,6 +358,10 @@ export type ChartOfAccountCreateInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutChartOfAccountsInput
   parent?: Prisma.ChartOfAccountCreateNestedOneWithoutChildrenInput
   children?: Prisma.ChartOfAccountCreateNestedManyWithoutParentInput
+  journalEntryLines?: Prisma.JournalEntryLineCreateNestedManyWithoutChartOfAccountInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutChartOfAccountInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutChartOfAccountInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutChartOfAccountInput
 }
 
 export type ChartOfAccountUncheckedCreateInput = {
@@ -363,6 +379,10 @@ export type ChartOfAccountUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.ChartOfAccountUncheckedCreateNestedManyWithoutParentInput
+  journalEntryLines?: Prisma.JournalEntryLineUncheckedCreateNestedManyWithoutChartOfAccountInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutChartOfAccountInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutChartOfAccountInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutChartOfAccountInput
 }
 
 export type ChartOfAccountUpdateInput = {
@@ -380,6 +400,10 @@ export type ChartOfAccountUpdateInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutChartOfAccountsNestedInput
   parent?: Prisma.ChartOfAccountUpdateOneWithoutChildrenNestedInput
   children?: Prisma.ChartOfAccountUpdateManyWithoutParentNestedInput
+  journalEntryLines?: Prisma.JournalEntryLineUpdateManyWithoutChartOfAccountNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutChartOfAccountNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutChartOfAccountNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutChartOfAccountNestedInput
 }
 
 export type ChartOfAccountUncheckedUpdateInput = {
@@ -397,6 +421,10 @@ export type ChartOfAccountUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.ChartOfAccountUncheckedUpdateManyWithoutParentNestedInput
+  journalEntryLines?: Prisma.JournalEntryLineUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutChartOfAccountNestedInput
 }
 
 export type ChartOfAccountCreateManyInput = {
@@ -513,6 +541,11 @@ export type ChartOfAccountMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type ChartOfAccountScalarRelationFilter = {
+  is?: Prisma.ChartOfAccountWhereInput
+  isNot?: Prisma.ChartOfAccountWhereInput
+}
+
 export type ChartOfAccountCreateNestedManyWithoutTenantInput = {
   create?: Prisma.XOR<Prisma.ChartOfAccountCreateWithoutTenantInput, Prisma.ChartOfAccountUncheckedCreateWithoutTenantInput> | Prisma.ChartOfAccountCreateWithoutTenantInput[] | Prisma.ChartOfAccountUncheckedCreateWithoutTenantInput[]
   connectOrCreate?: Prisma.ChartOfAccountCreateOrConnectWithoutTenantInput | Prisma.ChartOfAccountCreateOrConnectWithoutTenantInput[]
@@ -625,6 +658,68 @@ export type ChartOfAccountUncheckedUpdateManyWithoutParentNestedInput = {
   deleteMany?: Prisma.ChartOfAccountScalarWhereInput | Prisma.ChartOfAccountScalarWhereInput[]
 }
 
+export type ChartOfAccountCreateNestedOneWithoutJournalEntryLinesInput = {
+  create?: Prisma.XOR<Prisma.ChartOfAccountCreateWithoutJournalEntryLinesInput, Prisma.ChartOfAccountUncheckedCreateWithoutJournalEntryLinesInput>
+  connectOrCreate?: Prisma.ChartOfAccountCreateOrConnectWithoutJournalEntryLinesInput
+  connect?: Prisma.ChartOfAccountWhereUniqueInput
+}
+
+export type ChartOfAccountUpdateOneRequiredWithoutJournalEntryLinesNestedInput = {
+  create?: Prisma.XOR<Prisma.ChartOfAccountCreateWithoutJournalEntryLinesInput, Prisma.ChartOfAccountUncheckedCreateWithoutJournalEntryLinesInput>
+  connectOrCreate?: Prisma.ChartOfAccountCreateOrConnectWithoutJournalEntryLinesInput
+  upsert?: Prisma.ChartOfAccountUpsertWithoutJournalEntryLinesInput
+  connect?: Prisma.ChartOfAccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ChartOfAccountUpdateToOneWithWhereWithoutJournalEntryLinesInput, Prisma.ChartOfAccountUpdateWithoutJournalEntryLinesInput>, Prisma.ChartOfAccountUncheckedUpdateWithoutJournalEntryLinesInput>
+}
+
+export type ChartOfAccountCreateNestedOneWithoutBankAccountsInput = {
+  create?: Prisma.XOR<Prisma.ChartOfAccountCreateWithoutBankAccountsInput, Prisma.ChartOfAccountUncheckedCreateWithoutBankAccountsInput>
+  connectOrCreate?: Prisma.ChartOfAccountCreateOrConnectWithoutBankAccountsInput
+  connect?: Prisma.ChartOfAccountWhereUniqueInput
+}
+
+export type ChartOfAccountUpdateOneWithoutBankAccountsNestedInput = {
+  create?: Prisma.XOR<Prisma.ChartOfAccountCreateWithoutBankAccountsInput, Prisma.ChartOfAccountUncheckedCreateWithoutBankAccountsInput>
+  connectOrCreate?: Prisma.ChartOfAccountCreateOrConnectWithoutBankAccountsInput
+  upsert?: Prisma.ChartOfAccountUpsertWithoutBankAccountsInput
+  disconnect?: Prisma.ChartOfAccountWhereInput | boolean
+  delete?: Prisma.ChartOfAccountWhereInput | boolean
+  connect?: Prisma.ChartOfAccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ChartOfAccountUpdateToOneWithWhereWithoutBankAccountsInput, Prisma.ChartOfAccountUpdateWithoutBankAccountsInput>, Prisma.ChartOfAccountUncheckedUpdateWithoutBankAccountsInput>
+}
+
+export type ChartOfAccountCreateNestedOneWithoutFinanceCategoriesInput = {
+  create?: Prisma.XOR<Prisma.ChartOfAccountCreateWithoutFinanceCategoriesInput, Prisma.ChartOfAccountUncheckedCreateWithoutFinanceCategoriesInput>
+  connectOrCreate?: Prisma.ChartOfAccountCreateOrConnectWithoutFinanceCategoriesInput
+  connect?: Prisma.ChartOfAccountWhereUniqueInput
+}
+
+export type ChartOfAccountUpdateOneWithoutFinanceCategoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.ChartOfAccountCreateWithoutFinanceCategoriesInput, Prisma.ChartOfAccountUncheckedCreateWithoutFinanceCategoriesInput>
+  connectOrCreate?: Prisma.ChartOfAccountCreateOrConnectWithoutFinanceCategoriesInput
+  upsert?: Prisma.ChartOfAccountUpsertWithoutFinanceCategoriesInput
+  disconnect?: Prisma.ChartOfAccountWhereInput | boolean
+  delete?: Prisma.ChartOfAccountWhereInput | boolean
+  connect?: Prisma.ChartOfAccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ChartOfAccountUpdateToOneWithWhereWithoutFinanceCategoriesInput, Prisma.ChartOfAccountUpdateWithoutFinanceCategoriesInput>, Prisma.ChartOfAccountUncheckedUpdateWithoutFinanceCategoriesInput>
+}
+
+export type ChartOfAccountCreateNestedOneWithoutFinanceEntriesInput = {
+  create?: Prisma.XOR<Prisma.ChartOfAccountCreateWithoutFinanceEntriesInput, Prisma.ChartOfAccountUncheckedCreateWithoutFinanceEntriesInput>
+  connectOrCreate?: Prisma.ChartOfAccountCreateOrConnectWithoutFinanceEntriesInput
+  connect?: Prisma.ChartOfAccountWhereUniqueInput
+}
+
+export type ChartOfAccountUpdateOneWithoutFinanceEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.ChartOfAccountCreateWithoutFinanceEntriesInput, Prisma.ChartOfAccountUncheckedCreateWithoutFinanceEntriesInput>
+  connectOrCreate?: Prisma.ChartOfAccountCreateOrConnectWithoutFinanceEntriesInput
+  upsert?: Prisma.ChartOfAccountUpsertWithoutFinanceEntriesInput
+  disconnect?: Prisma.ChartOfAccountWhereInput | boolean
+  delete?: Prisma.ChartOfAccountWhereInput | boolean
+  connect?: Prisma.ChartOfAccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ChartOfAccountUpdateToOneWithWhereWithoutFinanceEntriesInput, Prisma.ChartOfAccountUpdateWithoutFinanceEntriesInput>, Prisma.ChartOfAccountUncheckedUpdateWithoutFinanceEntriesInput>
+}
+
 export type ChartOfAccountCreateWithoutTenantInput = {
   id?: string
   code: string
@@ -639,6 +734,10 @@ export type ChartOfAccountCreateWithoutTenantInput = {
   updatedAt?: Date | string
   parent?: Prisma.ChartOfAccountCreateNestedOneWithoutChildrenInput
   children?: Prisma.ChartOfAccountCreateNestedManyWithoutParentInput
+  journalEntryLines?: Prisma.JournalEntryLineCreateNestedManyWithoutChartOfAccountInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutChartOfAccountInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutChartOfAccountInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutChartOfAccountInput
 }
 
 export type ChartOfAccountUncheckedCreateWithoutTenantInput = {
@@ -655,6 +754,10 @@ export type ChartOfAccountUncheckedCreateWithoutTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.ChartOfAccountUncheckedCreateNestedManyWithoutParentInput
+  journalEntryLines?: Prisma.JournalEntryLineUncheckedCreateNestedManyWithoutChartOfAccountInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutChartOfAccountInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutChartOfAccountInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutChartOfAccountInput
 }
 
 export type ChartOfAccountCreateOrConnectWithoutTenantInput = {
@@ -716,6 +819,10 @@ export type ChartOfAccountCreateWithoutChildrenInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutChartOfAccountsInput
   parent?: Prisma.ChartOfAccountCreateNestedOneWithoutChildrenInput
+  journalEntryLines?: Prisma.JournalEntryLineCreateNestedManyWithoutChartOfAccountInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutChartOfAccountInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutChartOfAccountInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutChartOfAccountInput
 }
 
 export type ChartOfAccountUncheckedCreateWithoutChildrenInput = {
@@ -732,6 +839,10 @@ export type ChartOfAccountUncheckedCreateWithoutChildrenInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  journalEntryLines?: Prisma.JournalEntryLineUncheckedCreateNestedManyWithoutChartOfAccountInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutChartOfAccountInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutChartOfAccountInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutChartOfAccountInput
 }
 
 export type ChartOfAccountCreateOrConnectWithoutChildrenInput = {
@@ -753,6 +864,10 @@ export type ChartOfAccountCreateWithoutParentInput = {
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutChartOfAccountsInput
   children?: Prisma.ChartOfAccountCreateNestedManyWithoutParentInput
+  journalEntryLines?: Prisma.JournalEntryLineCreateNestedManyWithoutChartOfAccountInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutChartOfAccountInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutChartOfAccountInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutChartOfAccountInput
 }
 
 export type ChartOfAccountUncheckedCreateWithoutParentInput = {
@@ -769,6 +884,10 @@ export type ChartOfAccountUncheckedCreateWithoutParentInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   children?: Prisma.ChartOfAccountUncheckedCreateNestedManyWithoutParentInput
+  journalEntryLines?: Prisma.JournalEntryLineUncheckedCreateNestedManyWithoutChartOfAccountInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutChartOfAccountInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutChartOfAccountInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutChartOfAccountInput
 }
 
 export type ChartOfAccountCreateOrConnectWithoutParentInput = {
@@ -806,6 +925,10 @@ export type ChartOfAccountUpdateWithoutChildrenInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutChartOfAccountsNestedInput
   parent?: Prisma.ChartOfAccountUpdateOneWithoutChildrenNestedInput
+  journalEntryLines?: Prisma.JournalEntryLineUpdateManyWithoutChartOfAccountNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutChartOfAccountNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutChartOfAccountNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutChartOfAccountNestedInput
 }
 
 export type ChartOfAccountUncheckedUpdateWithoutChildrenInput = {
@@ -822,6 +945,10 @@ export type ChartOfAccountUncheckedUpdateWithoutChildrenInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  journalEntryLines?: Prisma.JournalEntryLineUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutChartOfAccountNestedInput
 }
 
 export type ChartOfAccountUpsertWithWhereUniqueWithoutParentInput = {
@@ -838,6 +965,390 @@ export type ChartOfAccountUpdateWithWhereUniqueWithoutParentInput = {
 export type ChartOfAccountUpdateManyWithWhereWithoutParentInput = {
   where: Prisma.ChartOfAccountScalarWhereInput
   data: Prisma.XOR<Prisma.ChartOfAccountUpdateManyMutationInput, Prisma.ChartOfAccountUncheckedUpdateManyWithoutParentInput>
+}
+
+export type ChartOfAccountCreateWithoutJournalEntryLinesInput = {
+  id?: string
+  code: string
+  name: string
+  type: $Enums.AccountType
+  class: $Enums.AccountClass
+  nature: $Enums.AccountNature
+  isActive?: boolean
+  isSystem?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutChartOfAccountsInput
+  parent?: Prisma.ChartOfAccountCreateNestedOneWithoutChildrenInput
+  children?: Prisma.ChartOfAccountCreateNestedManyWithoutParentInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutChartOfAccountInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutChartOfAccountInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutChartOfAccountInput
+}
+
+export type ChartOfAccountUncheckedCreateWithoutJournalEntryLinesInput = {
+  id?: string
+  tenantId: string
+  code: string
+  name: string
+  type: $Enums.AccountType
+  class: $Enums.AccountClass
+  nature: $Enums.AccountNature
+  parentId?: string | null
+  isActive?: boolean
+  isSystem?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  children?: Prisma.ChartOfAccountUncheckedCreateNestedManyWithoutParentInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutChartOfAccountInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutChartOfAccountInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutChartOfAccountInput
+}
+
+export type ChartOfAccountCreateOrConnectWithoutJournalEntryLinesInput = {
+  where: Prisma.ChartOfAccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.ChartOfAccountCreateWithoutJournalEntryLinesInput, Prisma.ChartOfAccountUncheckedCreateWithoutJournalEntryLinesInput>
+}
+
+export type ChartOfAccountUpsertWithoutJournalEntryLinesInput = {
+  update: Prisma.XOR<Prisma.ChartOfAccountUpdateWithoutJournalEntryLinesInput, Prisma.ChartOfAccountUncheckedUpdateWithoutJournalEntryLinesInput>
+  create: Prisma.XOR<Prisma.ChartOfAccountCreateWithoutJournalEntryLinesInput, Prisma.ChartOfAccountUncheckedCreateWithoutJournalEntryLinesInput>
+  where?: Prisma.ChartOfAccountWhereInput
+}
+
+export type ChartOfAccountUpdateToOneWithWhereWithoutJournalEntryLinesInput = {
+  where?: Prisma.ChartOfAccountWhereInput
+  data: Prisma.XOR<Prisma.ChartOfAccountUpdateWithoutJournalEntryLinesInput, Prisma.ChartOfAccountUncheckedUpdateWithoutJournalEntryLinesInput>
+}
+
+export type ChartOfAccountUpdateWithoutJournalEntryLinesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+  class?: Prisma.EnumAccountClassFieldUpdateOperationsInput | $Enums.AccountClass
+  nature?: Prisma.EnumAccountNatureFieldUpdateOperationsInput | $Enums.AccountNature
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutChartOfAccountsNestedInput
+  parent?: Prisma.ChartOfAccountUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.ChartOfAccountUpdateManyWithoutParentNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutChartOfAccountNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutChartOfAccountNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutChartOfAccountNestedInput
+}
+
+export type ChartOfAccountUncheckedUpdateWithoutJournalEntryLinesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+  class?: Prisma.EnumAccountClassFieldUpdateOperationsInput | $Enums.AccountClass
+  nature?: Prisma.EnumAccountNatureFieldUpdateOperationsInput | $Enums.AccountNature
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  children?: Prisma.ChartOfAccountUncheckedUpdateManyWithoutParentNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutChartOfAccountNestedInput
+}
+
+export type ChartOfAccountCreateWithoutBankAccountsInput = {
+  id?: string
+  code: string
+  name: string
+  type: $Enums.AccountType
+  class: $Enums.AccountClass
+  nature: $Enums.AccountNature
+  isActive?: boolean
+  isSystem?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutChartOfAccountsInput
+  parent?: Prisma.ChartOfAccountCreateNestedOneWithoutChildrenInput
+  children?: Prisma.ChartOfAccountCreateNestedManyWithoutParentInput
+  journalEntryLines?: Prisma.JournalEntryLineCreateNestedManyWithoutChartOfAccountInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutChartOfAccountInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutChartOfAccountInput
+}
+
+export type ChartOfAccountUncheckedCreateWithoutBankAccountsInput = {
+  id?: string
+  tenantId: string
+  code: string
+  name: string
+  type: $Enums.AccountType
+  class: $Enums.AccountClass
+  nature: $Enums.AccountNature
+  parentId?: string | null
+  isActive?: boolean
+  isSystem?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  children?: Prisma.ChartOfAccountUncheckedCreateNestedManyWithoutParentInput
+  journalEntryLines?: Prisma.JournalEntryLineUncheckedCreateNestedManyWithoutChartOfAccountInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutChartOfAccountInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutChartOfAccountInput
+}
+
+export type ChartOfAccountCreateOrConnectWithoutBankAccountsInput = {
+  where: Prisma.ChartOfAccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.ChartOfAccountCreateWithoutBankAccountsInput, Prisma.ChartOfAccountUncheckedCreateWithoutBankAccountsInput>
+}
+
+export type ChartOfAccountUpsertWithoutBankAccountsInput = {
+  update: Prisma.XOR<Prisma.ChartOfAccountUpdateWithoutBankAccountsInput, Prisma.ChartOfAccountUncheckedUpdateWithoutBankAccountsInput>
+  create: Prisma.XOR<Prisma.ChartOfAccountCreateWithoutBankAccountsInput, Prisma.ChartOfAccountUncheckedCreateWithoutBankAccountsInput>
+  where?: Prisma.ChartOfAccountWhereInput
+}
+
+export type ChartOfAccountUpdateToOneWithWhereWithoutBankAccountsInput = {
+  where?: Prisma.ChartOfAccountWhereInput
+  data: Prisma.XOR<Prisma.ChartOfAccountUpdateWithoutBankAccountsInput, Prisma.ChartOfAccountUncheckedUpdateWithoutBankAccountsInput>
+}
+
+export type ChartOfAccountUpdateWithoutBankAccountsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+  class?: Prisma.EnumAccountClassFieldUpdateOperationsInput | $Enums.AccountClass
+  nature?: Prisma.EnumAccountNatureFieldUpdateOperationsInput | $Enums.AccountNature
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutChartOfAccountsNestedInput
+  parent?: Prisma.ChartOfAccountUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.ChartOfAccountUpdateManyWithoutParentNestedInput
+  journalEntryLines?: Prisma.JournalEntryLineUpdateManyWithoutChartOfAccountNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutChartOfAccountNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutChartOfAccountNestedInput
+}
+
+export type ChartOfAccountUncheckedUpdateWithoutBankAccountsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+  class?: Prisma.EnumAccountClassFieldUpdateOperationsInput | $Enums.AccountClass
+  nature?: Prisma.EnumAccountNatureFieldUpdateOperationsInput | $Enums.AccountNature
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  children?: Prisma.ChartOfAccountUncheckedUpdateManyWithoutParentNestedInput
+  journalEntryLines?: Prisma.JournalEntryLineUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutChartOfAccountNestedInput
+}
+
+export type ChartOfAccountCreateWithoutFinanceCategoriesInput = {
+  id?: string
+  code: string
+  name: string
+  type: $Enums.AccountType
+  class: $Enums.AccountClass
+  nature: $Enums.AccountNature
+  isActive?: boolean
+  isSystem?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutChartOfAccountsInput
+  parent?: Prisma.ChartOfAccountCreateNestedOneWithoutChildrenInput
+  children?: Prisma.ChartOfAccountCreateNestedManyWithoutParentInput
+  journalEntryLines?: Prisma.JournalEntryLineCreateNestedManyWithoutChartOfAccountInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutChartOfAccountInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutChartOfAccountInput
+}
+
+export type ChartOfAccountUncheckedCreateWithoutFinanceCategoriesInput = {
+  id?: string
+  tenantId: string
+  code: string
+  name: string
+  type: $Enums.AccountType
+  class: $Enums.AccountClass
+  nature: $Enums.AccountNature
+  parentId?: string | null
+  isActive?: boolean
+  isSystem?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  children?: Prisma.ChartOfAccountUncheckedCreateNestedManyWithoutParentInput
+  journalEntryLines?: Prisma.JournalEntryLineUncheckedCreateNestedManyWithoutChartOfAccountInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutChartOfAccountInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutChartOfAccountInput
+}
+
+export type ChartOfAccountCreateOrConnectWithoutFinanceCategoriesInput = {
+  where: Prisma.ChartOfAccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.ChartOfAccountCreateWithoutFinanceCategoriesInput, Prisma.ChartOfAccountUncheckedCreateWithoutFinanceCategoriesInput>
+}
+
+export type ChartOfAccountUpsertWithoutFinanceCategoriesInput = {
+  update: Prisma.XOR<Prisma.ChartOfAccountUpdateWithoutFinanceCategoriesInput, Prisma.ChartOfAccountUncheckedUpdateWithoutFinanceCategoriesInput>
+  create: Prisma.XOR<Prisma.ChartOfAccountCreateWithoutFinanceCategoriesInput, Prisma.ChartOfAccountUncheckedCreateWithoutFinanceCategoriesInput>
+  where?: Prisma.ChartOfAccountWhereInput
+}
+
+export type ChartOfAccountUpdateToOneWithWhereWithoutFinanceCategoriesInput = {
+  where?: Prisma.ChartOfAccountWhereInput
+  data: Prisma.XOR<Prisma.ChartOfAccountUpdateWithoutFinanceCategoriesInput, Prisma.ChartOfAccountUncheckedUpdateWithoutFinanceCategoriesInput>
+}
+
+export type ChartOfAccountUpdateWithoutFinanceCategoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+  class?: Prisma.EnumAccountClassFieldUpdateOperationsInput | $Enums.AccountClass
+  nature?: Prisma.EnumAccountNatureFieldUpdateOperationsInput | $Enums.AccountNature
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutChartOfAccountsNestedInput
+  parent?: Prisma.ChartOfAccountUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.ChartOfAccountUpdateManyWithoutParentNestedInput
+  journalEntryLines?: Prisma.JournalEntryLineUpdateManyWithoutChartOfAccountNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutChartOfAccountNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutChartOfAccountNestedInput
+}
+
+export type ChartOfAccountUncheckedUpdateWithoutFinanceCategoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+  class?: Prisma.EnumAccountClassFieldUpdateOperationsInput | $Enums.AccountClass
+  nature?: Prisma.EnumAccountNatureFieldUpdateOperationsInput | $Enums.AccountNature
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  children?: Prisma.ChartOfAccountUncheckedUpdateManyWithoutParentNestedInput
+  journalEntryLines?: Prisma.JournalEntryLineUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutChartOfAccountNestedInput
+}
+
+export type ChartOfAccountCreateWithoutFinanceEntriesInput = {
+  id?: string
+  code: string
+  name: string
+  type: $Enums.AccountType
+  class: $Enums.AccountClass
+  nature: $Enums.AccountNature
+  isActive?: boolean
+  isSystem?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutChartOfAccountsInput
+  parent?: Prisma.ChartOfAccountCreateNestedOneWithoutChildrenInput
+  children?: Prisma.ChartOfAccountCreateNestedManyWithoutParentInput
+  journalEntryLines?: Prisma.JournalEntryLineCreateNestedManyWithoutChartOfAccountInput
+  financeCategories?: Prisma.FinanceCategoryCreateNestedManyWithoutChartOfAccountInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutChartOfAccountInput
+}
+
+export type ChartOfAccountUncheckedCreateWithoutFinanceEntriesInput = {
+  id?: string
+  tenantId: string
+  code: string
+  name: string
+  type: $Enums.AccountType
+  class: $Enums.AccountClass
+  nature: $Enums.AccountNature
+  parentId?: string | null
+  isActive?: boolean
+  isSystem?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  children?: Prisma.ChartOfAccountUncheckedCreateNestedManyWithoutParentInput
+  journalEntryLines?: Prisma.JournalEntryLineUncheckedCreateNestedManyWithoutChartOfAccountInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutChartOfAccountInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutChartOfAccountInput
+}
+
+export type ChartOfAccountCreateOrConnectWithoutFinanceEntriesInput = {
+  where: Prisma.ChartOfAccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.ChartOfAccountCreateWithoutFinanceEntriesInput, Prisma.ChartOfAccountUncheckedCreateWithoutFinanceEntriesInput>
+}
+
+export type ChartOfAccountUpsertWithoutFinanceEntriesInput = {
+  update: Prisma.XOR<Prisma.ChartOfAccountUpdateWithoutFinanceEntriesInput, Prisma.ChartOfAccountUncheckedUpdateWithoutFinanceEntriesInput>
+  create: Prisma.XOR<Prisma.ChartOfAccountCreateWithoutFinanceEntriesInput, Prisma.ChartOfAccountUncheckedCreateWithoutFinanceEntriesInput>
+  where?: Prisma.ChartOfAccountWhereInput
+}
+
+export type ChartOfAccountUpdateToOneWithWhereWithoutFinanceEntriesInput = {
+  where?: Prisma.ChartOfAccountWhereInput
+  data: Prisma.XOR<Prisma.ChartOfAccountUpdateWithoutFinanceEntriesInput, Prisma.ChartOfAccountUncheckedUpdateWithoutFinanceEntriesInput>
+}
+
+export type ChartOfAccountUpdateWithoutFinanceEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+  class?: Prisma.EnumAccountClassFieldUpdateOperationsInput | $Enums.AccountClass
+  nature?: Prisma.EnumAccountNatureFieldUpdateOperationsInput | $Enums.AccountNature
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutChartOfAccountsNestedInput
+  parent?: Prisma.ChartOfAccountUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.ChartOfAccountUpdateManyWithoutParentNestedInput
+  journalEntryLines?: Prisma.JournalEntryLineUpdateManyWithoutChartOfAccountNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutChartOfAccountNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutChartOfAccountNestedInput
+}
+
+export type ChartOfAccountUncheckedUpdateWithoutFinanceEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+  class?: Prisma.EnumAccountClassFieldUpdateOperationsInput | $Enums.AccountClass
+  nature?: Prisma.EnumAccountNatureFieldUpdateOperationsInput | $Enums.AccountNature
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  children?: Prisma.ChartOfAccountUncheckedUpdateManyWithoutParentNestedInput
+  journalEntryLines?: Prisma.JournalEntryLineUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutChartOfAccountNestedInput
 }
 
 export type ChartOfAccountCreateManyTenantInput = {
@@ -869,6 +1380,10 @@ export type ChartOfAccountUpdateWithoutTenantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   parent?: Prisma.ChartOfAccountUpdateOneWithoutChildrenNestedInput
   children?: Prisma.ChartOfAccountUpdateManyWithoutParentNestedInput
+  journalEntryLines?: Prisma.JournalEntryLineUpdateManyWithoutChartOfAccountNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutChartOfAccountNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutChartOfAccountNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutChartOfAccountNestedInput
 }
 
 export type ChartOfAccountUncheckedUpdateWithoutTenantInput = {
@@ -885,6 +1400,10 @@ export type ChartOfAccountUncheckedUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.ChartOfAccountUncheckedUpdateManyWithoutParentNestedInput
+  journalEntryLines?: Prisma.JournalEntryLineUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutChartOfAccountNestedInput
 }
 
 export type ChartOfAccountUncheckedUpdateManyWithoutTenantInput = {
@@ -931,6 +1450,10 @@ export type ChartOfAccountUpdateWithoutParentInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutChartOfAccountsNestedInput
   children?: Prisma.ChartOfAccountUpdateManyWithoutParentNestedInput
+  journalEntryLines?: Prisma.JournalEntryLineUpdateManyWithoutChartOfAccountNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutChartOfAccountNestedInput
+  financeCategories?: Prisma.FinanceCategoryUpdateManyWithoutChartOfAccountNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutChartOfAccountNestedInput
 }
 
 export type ChartOfAccountUncheckedUpdateWithoutParentInput = {
@@ -947,6 +1470,10 @@ export type ChartOfAccountUncheckedUpdateWithoutParentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.ChartOfAccountUncheckedUpdateManyWithoutParentNestedInput
+  journalEntryLines?: Prisma.JournalEntryLineUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  financeCategories?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutChartOfAccountNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutChartOfAccountNestedInput
 }
 
 export type ChartOfAccountUncheckedUpdateManyWithoutParentInput = {
@@ -971,10 +1498,18 @@ export type ChartOfAccountUncheckedUpdateManyWithoutParentInput = {
 
 export type ChartOfAccountCountOutputType = {
   children: number
+  journalEntryLines: number
+  financeEntries: number
+  financeCategories: number
+  bankAccounts: number
 }
 
 export type ChartOfAccountCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   children?: boolean | ChartOfAccountCountOutputTypeCountChildrenArgs
+  journalEntryLines?: boolean | ChartOfAccountCountOutputTypeCountJournalEntryLinesArgs
+  financeEntries?: boolean | ChartOfAccountCountOutputTypeCountFinanceEntriesArgs
+  financeCategories?: boolean | ChartOfAccountCountOutputTypeCountFinanceCategoriesArgs
+  bankAccounts?: boolean | ChartOfAccountCountOutputTypeCountBankAccountsArgs
 }
 
 /**
@@ -992,6 +1527,34 @@ export type ChartOfAccountCountOutputTypeDefaultArgs<ExtArgs extends runtime.Typ
  */
 export type ChartOfAccountCountOutputTypeCountChildrenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ChartOfAccountWhereInput
+}
+
+/**
+ * ChartOfAccountCountOutputType without action
+ */
+export type ChartOfAccountCountOutputTypeCountJournalEntryLinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JournalEntryLineWhereInput
+}
+
+/**
+ * ChartOfAccountCountOutputType without action
+ */
+export type ChartOfAccountCountOutputTypeCountFinanceEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FinanceEntryWhereInput
+}
+
+/**
+ * ChartOfAccountCountOutputType without action
+ */
+export type ChartOfAccountCountOutputTypeCountFinanceCategoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FinanceCategoryWhereInput
+}
+
+/**
+ * ChartOfAccountCountOutputType without action
+ */
+export type ChartOfAccountCountOutputTypeCountBankAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BankAccountWhereInput
 }
 
 
@@ -1012,6 +1575,10 @@ export type ChartOfAccountSelect<ExtArgs extends runtime.Types.Extensions.Intern
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   parent?: boolean | Prisma.ChartOfAccount$parentArgs<ExtArgs>
   children?: boolean | Prisma.ChartOfAccount$childrenArgs<ExtArgs>
+  journalEntryLines?: boolean | Prisma.ChartOfAccount$journalEntryLinesArgs<ExtArgs>
+  financeEntries?: boolean | Prisma.ChartOfAccount$financeEntriesArgs<ExtArgs>
+  financeCategories?: boolean | Prisma.ChartOfAccount$financeCategoriesArgs<ExtArgs>
+  bankAccounts?: boolean | Prisma.ChartOfAccount$bankAccountsArgs<ExtArgs>
   _count?: boolean | Prisma.ChartOfAccountCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["chartOfAccount"]>
 
@@ -1072,6 +1639,10 @@ export type ChartOfAccountInclude<ExtArgs extends runtime.Types.Extensions.Inter
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   parent?: boolean | Prisma.ChartOfAccount$parentArgs<ExtArgs>
   children?: boolean | Prisma.ChartOfAccount$childrenArgs<ExtArgs>
+  journalEntryLines?: boolean | Prisma.ChartOfAccount$journalEntryLinesArgs<ExtArgs>
+  financeEntries?: boolean | Prisma.ChartOfAccount$financeEntriesArgs<ExtArgs>
+  financeCategories?: boolean | Prisma.ChartOfAccount$financeCategoriesArgs<ExtArgs>
+  bankAccounts?: boolean | Prisma.ChartOfAccount$bankAccountsArgs<ExtArgs>
   _count?: boolean | Prisma.ChartOfAccountCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ChartOfAccountIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1089,6 +1660,10 @@ export type $ChartOfAccountPayload<ExtArgs extends runtime.Types.Extensions.Inte
     tenant: Prisma.$TenantPayload<ExtArgs>
     parent: Prisma.$ChartOfAccountPayload<ExtArgs> | null
     children: Prisma.$ChartOfAccountPayload<ExtArgs>[]
+    journalEntryLines: Prisma.$JournalEntryLinePayload<ExtArgs>[]
+    financeEntries: Prisma.$FinanceEntryPayload<ExtArgs>[]
+    financeCategories: Prisma.$FinanceCategoryPayload<ExtArgs>[]
+    bankAccounts: Prisma.$BankAccountPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1501,6 +2076,10 @@ export interface Prisma__ChartOfAccountClient<T, Null = never, ExtArgs extends r
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   parent<T extends Prisma.ChartOfAccount$parentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChartOfAccount$parentArgs<ExtArgs>>): Prisma.Prisma__ChartOfAccountClient<runtime.Types.Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   children<T extends Prisma.ChartOfAccount$childrenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChartOfAccount$childrenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  journalEntryLines<T extends Prisma.ChartOfAccount$journalEntryLinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChartOfAccount$journalEntryLinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JournalEntryLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  financeEntries<T extends Prisma.ChartOfAccount$financeEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChartOfAccount$financeEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  financeCategories<T extends Prisma.ChartOfAccount$financeCategoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChartOfAccount$financeCategoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bankAccounts<T extends Prisma.ChartOfAccount$bankAccountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChartOfAccount$bankAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1979,6 +2558,102 @@ export type ChartOfAccount$childrenArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.ChartOfAccountScalarFieldEnum | Prisma.ChartOfAccountScalarFieldEnum[]
+}
+
+/**
+ * ChartOfAccount.journalEntryLines
+ */
+export type ChartOfAccount$journalEntryLinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JournalEntryLine
+   */
+  select?: Prisma.JournalEntryLineSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JournalEntryLine
+   */
+  omit?: Prisma.JournalEntryLineOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JournalEntryLineInclude<ExtArgs> | null
+  where?: Prisma.JournalEntryLineWhereInput
+  orderBy?: Prisma.JournalEntryLineOrderByWithRelationInput | Prisma.JournalEntryLineOrderByWithRelationInput[]
+  cursor?: Prisma.JournalEntryLineWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.JournalEntryLineScalarFieldEnum | Prisma.JournalEntryLineScalarFieldEnum[]
+}
+
+/**
+ * ChartOfAccount.financeEntries
+ */
+export type ChartOfAccount$financeEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FinanceEntry
+   */
+  select?: Prisma.FinanceEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FinanceEntry
+   */
+  omit?: Prisma.FinanceEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FinanceEntryInclude<ExtArgs> | null
+  where?: Prisma.FinanceEntryWhereInput
+  orderBy?: Prisma.FinanceEntryOrderByWithRelationInput | Prisma.FinanceEntryOrderByWithRelationInput[]
+  cursor?: Prisma.FinanceEntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FinanceEntryScalarFieldEnum | Prisma.FinanceEntryScalarFieldEnum[]
+}
+
+/**
+ * ChartOfAccount.financeCategories
+ */
+export type ChartOfAccount$financeCategoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FinanceCategory
+   */
+  select?: Prisma.FinanceCategorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FinanceCategory
+   */
+  omit?: Prisma.FinanceCategoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FinanceCategoryInclude<ExtArgs> | null
+  where?: Prisma.FinanceCategoryWhereInput
+  orderBy?: Prisma.FinanceCategoryOrderByWithRelationInput | Prisma.FinanceCategoryOrderByWithRelationInput[]
+  cursor?: Prisma.FinanceCategoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FinanceCategoryScalarFieldEnum | Prisma.FinanceCategoryScalarFieldEnum[]
+}
+
+/**
+ * ChartOfAccount.bankAccounts
+ */
+export type ChartOfAccount$bankAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BankAccount
+   */
+  select?: Prisma.BankAccountSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BankAccount
+   */
+  omit?: Prisma.BankAccountOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BankAccountInclude<ExtArgs> | null
+  where?: Prisma.BankAccountWhereInput
+  orderBy?: Prisma.BankAccountOrderByWithRelationInput | Prisma.BankAccountOrderByWithRelationInput[]
+  cursor?: Prisma.BankAccountWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BankAccountScalarFieldEnum | Prisma.BankAccountScalarFieldEnum[]
 }
 
 /**

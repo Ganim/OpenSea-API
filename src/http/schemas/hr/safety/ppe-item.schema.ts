@@ -3,7 +3,7 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { cuidSchema, dateSchema } from '../../common.schema';
 
 export const ppeCategoryEnum = z.enum([
   'HEAD',
@@ -51,9 +51,12 @@ export const updatePPEItemSchema = z.object({
  * Schema para ajuste de estoque
  */
 export const adjustPPEItemStockSchema = z.object({
-  adjustment: z.coerce.number().int().refine((val) => val !== 0, {
-    message: 'Adjustment cannot be zero',
-  }),
+  adjustment: z.coerce
+    .number()
+    .int()
+    .refine((val) => val !== 0, {
+      message: 'Adjustment cannot be zero',
+    }),
 });
 
 /**
@@ -78,7 +81,7 @@ export const listPPEItemsQuerySchema = z.object({
  * Schema de resposta de item EPI
  */
 export const ppeItemResponseSchema = z.object({
-  id: idSchema,
+  id: cuidSchema,
   name: z.string(),
   category: z.string(),
   caNumber: z.string().nullable(),

@@ -42,21 +42,16 @@ export async function v1UploadCertificateController(app: FastifyInstance) {
         const data = await request.file();
 
         if (!data) {
-          return reply
-            .status(400)
-            .send({ message: 'PFX file is required' });
+          return reply.status(400).send({ message: 'PFX file is required' });
         }
 
         const pfxBuffer = await data.toBuffer();
-        const type =
-          (data.fields as any)?.type?.value ?? 'E_CNPJ';
-        const passphrase =
-          (data.fields as any)?.passphrase?.value ?? '';
+        const fields = data.fields as Record<string, { value?: string }>;
+        const type = fields?.type?.value ?? 'E_CNPJ';
+        const passphrase = fields?.passphrase?.value ?? '';
 
         if (!passphrase) {
-          return reply
-            .status(400)
-            .send({ message: 'Passphrase is required' });
+          return reply.status(400).send({ message: 'Passphrase is required' });
         }
 
         const useCase = makeUploadCertificateUseCase();

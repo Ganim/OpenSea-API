@@ -11,6 +11,7 @@ import {
 export interface EmergencyContactInfo {
   name?: string;
   phone?: string;
+  alternativePhone?: string;
   relationship?: string;
 }
 

@@ -66,7 +66,7 @@ export async function createLandingPageController(app: FastifyInstance) {
           },
         });
 
-        return reply.status(201).send({ landingPage } as any);
+        return reply.status(201).send({ landingPage } as unknown);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

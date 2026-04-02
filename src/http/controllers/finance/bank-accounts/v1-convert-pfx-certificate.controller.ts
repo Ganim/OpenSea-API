@@ -1,7 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac/permission-codes';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyTenant } from '@/http/middlewares/verify-tenant';
-import { createPermissionMiddleware } from '@/http/middlewares/verify-permission';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac/verify-permission';
 import { makeConvertPfxCertificateUseCase } from '@/use-cases/finance/bank-accounts/factories/make-convert-pfx-certificate-use-case';
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
@@ -36,13 +36,14 @@ export async function convertPfxCertificateController(app: FastifyInstance) {
       const data = await request.file();
 
       if (!data) {
-        return reply
-          .status(400)
-          .send({ message: 'Nenhum arquivo enviado. Envie o .pfx como multipart.' });
+        return reply.status(400).send({
+          message: 'Nenhum arquivo enviado. Envie o .pfx como multipart.',
+        });
       }
 
       const pfxBuffer = await data.toBuffer();
-      const password = (data.fields.password as { value?: string })?.value ?? '';
+      const password =
+        (data.fields.password as { value?: string })?.value ?? '';
 
       if (!password) {
         return reply

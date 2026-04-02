@@ -25,8 +25,10 @@ export class ListJobPostingsUseCase {
   ): Promise<ListJobPostingsResponse> {
     const { tenantId, ...filters } = request;
 
-    const { jobPostings, total } =
-      await this.jobPostingsRepository.findMany(tenantId, filters);
+    const { jobPostings, total } = await this.jobPostingsRepository.findMany(
+      tenantId,
+      filters,
+    );
 
     return { jobPostings, total };
   }

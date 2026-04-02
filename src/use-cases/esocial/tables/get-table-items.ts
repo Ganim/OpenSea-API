@@ -1,5 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { prisma } from '@/lib/prisma';
+import type { Prisma } from '@prisma/client';
 
 export interface GetTableItemsRequest {
   tableCode: string;
@@ -23,10 +24,8 @@ export interface GetTableItemsResponse {
  * Get all items from a specific eSocial reference table.
  */
 export class GetTableItemsUseCase {
-  async execute(
-    request: GetTableItemsRequest,
-  ): Promise<GetTableItemsResponse> {
-    const where: any = {
+  async execute(request: GetTableItemsRequest): Promise<GetTableItemsResponse> {
+    const where: Prisma.EsocialTableWhereInput = {
       tableCode: request.tableCode,
       isActive: true,
     };

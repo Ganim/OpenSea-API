@@ -1,6 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ProcessEmailToEntryUseCase } from './process-email-to-entry';
-import type { OcrExtractDataUseCase, OcrExtractResult } from './ocr-extract-data';
+import type {
+  OcrExtractDataUseCase,
+  OcrExtractResult,
+} from './ocr-extract-data';
 import type { CreateFinanceEntryUseCase } from './create-finance-entry';
 import type { CredentialCipherService } from '@/services/email/credential-cipher.service';
 
@@ -25,14 +28,18 @@ const mockPrismaCostCenter = {
 vi.mock('@/lib/prisma', () => ({
   prisma: {
     emailToEntryConfig: {
-      findUnique: (...args: unknown[]) => mockPrismaEmailToEntryConfig.findUnique(...args),
-      update: (...args: unknown[]) => mockPrismaEmailToEntryConfig.update(...args),
+      findUnique: (...args: unknown[]) =>
+        mockPrismaEmailToEntryConfig.findUnique(...args),
+      update: (...args: unknown[]) =>
+        mockPrismaEmailToEntryConfig.update(...args),
     },
     emailAccount: {
-      findFirst: (...args: unknown[]) => mockPrismaEmailAccount.findFirst(...args),
+      findFirst: (...args: unknown[]) =>
+        mockPrismaEmailAccount.findFirst(...args),
     },
     costCenter: {
-      findFirst: (...args: unknown[]) => mockPrismaCostCenter.findFirst(...args),
+      findFirst: (...args: unknown[]) =>
+        mockPrismaCostCenter.findFirst(...args),
     },
   },
 }));
@@ -96,7 +103,9 @@ function makeAccount() {
   };
 }
 
-function makeMockOcrUseCase(result?: Partial<OcrExtractResult>): OcrExtractDataUseCase {
+function makeMockOcrUseCase(
+  result?: Partial<OcrExtractResult>,
+): OcrExtractDataUseCase {
   return {
     execute: vi.fn().mockResolvedValue({
       rawText: 'test text',
@@ -146,7 +155,11 @@ describe('ProcessEmailToEntryUseCase', () => {
     ocrUseCase = makeMockOcrUseCase();
     createEntryUseCase = makeMockCreateEntryUseCase();
     credentialCipher = makeMockCredentialCipher();
-    sut = new ProcessEmailToEntryUseCase(ocrUseCase, createEntryUseCase, credentialCipher);
+    sut = new ProcessEmailToEntryUseCase(
+      ocrUseCase,
+      createEntryUseCase,
+      credentialCipher,
+    );
   });
 
   it('should return empty results when no config exists', async () => {
@@ -185,7 +198,10 @@ describe('ProcessEmailToEntryUseCase', () => {
   it('should process email with PDF attachment and create entry', async () => {
     mockPrismaEmailToEntryConfig.findUnique.mockResolvedValue(makeConfig());
     mockPrismaEmailAccount.findFirst.mockResolvedValue(makeAccount());
-    mockPrismaCostCenter.findFirst.mockResolvedValue({ id: 'cc-1', isActive: true });
+    mockPrismaCostCenter.findFirst.mockResolvedValue({
+      id: 'cc-1',
+      isActive: true,
+    });
 
     const mockLock = { release: vi.fn() };
     mockImapClient.getMailboxLock.mockResolvedValue(mockLock);
@@ -284,7 +300,10 @@ describe('ProcessEmailToEntryUseCase', () => {
   it('should handle OCR failure gracefully and use metadata fallback', async () => {
     mockPrismaEmailToEntryConfig.findUnique.mockResolvedValue(makeConfig());
     mockPrismaEmailAccount.findFirst.mockResolvedValue(makeAccount());
-    mockPrismaCostCenter.findFirst.mockResolvedValue({ id: 'cc-1', isActive: true });
+    mockPrismaCostCenter.findFirst.mockResolvedValue({
+      id: 'cc-1',
+      isActive: true,
+    });
 
     const mockLock = { release: vi.fn() };
     mockImapClient.getMailboxLock.mockResolvedValue(mockLock);
@@ -318,18 +337,20 @@ describe('ProcessEmailToEntryUseCase', () => {
 
     // First call (buffer mode) throws, second call (text mode) works
     let callCount = 0;
-    (ocrUseCase.execute as ReturnType<typeof vi.fn>).mockImplementation(async () => {
-      callCount++;
-      if (callCount === 1) {
-        throw new Error('OCR failed');
-      }
-      // Fallback text extraction from subject
-      return {
-        rawText: 'Boleto R$ 500,00 vencimento 15/04/2026',
-        extractedData: { valor: 500, vencimento: '2026-04-15' },
-        confidence: 1.0,
-      };
-    });
+    (ocrUseCase.execute as ReturnType<typeof vi.fn>).mockImplementation(
+      async () => {
+        callCount++;
+        if (callCount === 1) {
+          throw new Error('OCR failed');
+        }
+        // Fallback text extraction from subject
+        return {
+          rawText: 'Boleto R$ 500,00 vencimento 15/04/2026',
+          extractedData: { valor: 500, vencimento: '2026-04-15' },
+          confidence: 1.0,
+        };
+      },
+    );
 
     mockImapClient.download.mockResolvedValue({
       content: {

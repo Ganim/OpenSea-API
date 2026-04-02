@@ -43,13 +43,14 @@ export class ApprovePayrollUseCase {
     await this.payrollsRepository.save(payroll);
 
     // Auto-generate eSocial S-1200 (Remuneration) event — non-blocking
-    import('@/services/esocial/auto-generate').then(({ tryAutoGenerateEvent }) =>
-      tryAutoGenerateEvent({
-        tenantId,
-        eventType: 'S-1200',
-        referenceType: 'PAYROLL',
-        referenceId: payroll.id.toString(),
-      }),
+    import('@/services/esocial/auto-generate').then(
+      ({ tryAutoGenerateEvent }) =>
+        tryAutoGenerateEvent({
+          tenantId,
+          eventType: 'S-1200',
+          referenceType: 'PAYROLL',
+          referenceId: payroll.id.toString(),
+        }),
     );
 
     return {

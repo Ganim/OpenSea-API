@@ -41,10 +41,7 @@ export interface EsocialRubricasRepository {
     id: UniqueEntityID,
     tenantId: string,
   ): Promise<EsocialRubrica | null>;
-  findByCode(
-    code: string,
-    tenantId: string,
-  ): Promise<EsocialRubrica | null>;
+  findByCode(code: string, tenantId: string): Promise<EsocialRubrica | null>;
   findMany(
     params: FindManyEsocialRubricasParams,
   ): Promise<FindManyEsocialRubricasResult>;

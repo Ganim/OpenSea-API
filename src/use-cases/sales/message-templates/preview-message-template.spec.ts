@@ -11,8 +11,12 @@ let previewMessageTemplate: PreviewMessageTemplateUseCase;
 describe('PreviewMessageTemplateUseCase', () => {
   beforeEach(() => {
     messageTemplatesRepository = new InMemoryMessageTemplatesRepository();
-    createMessageTemplate = new CreateMessageTemplateUseCase(messageTemplatesRepository);
-    previewMessageTemplate = new PreviewMessageTemplateUseCase(messageTemplatesRepository);
+    createMessageTemplate = new CreateMessageTemplateUseCase(
+      messageTemplatesRepository,
+    );
+    previewMessageTemplate = new PreviewMessageTemplateUseCase(
+      messageTemplatesRepository,
+    );
   });
 
   it('should render template with sample data', async () => {
@@ -35,7 +39,9 @@ describe('PreviewMessageTemplateUseCase', () => {
       },
     });
 
-    expect(result.renderedBody).toBe('Dear John Doe, your order #12345 is confirmed.');
+    expect(result.renderedBody).toBe(
+      'Dear John Doe, your order #12345 is confirmed.',
+    );
     expect(result.subject).toBe('Hello John Doe');
     expect(result.variables).toEqual(['customerName', 'orderNumber', 'status']);
   });

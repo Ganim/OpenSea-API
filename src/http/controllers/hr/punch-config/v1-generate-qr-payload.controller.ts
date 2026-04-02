@@ -1,10 +1,12 @@
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { PermissionCodes } from '@/constants/rbac';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { generateQrPayloadBodySchema, qrPayloadResponseSchema } from '@/http/schemas';
+import {
+  generateQrPayloadBodySchema,
+  qrPayloadResponseSchema,
+} from '@/http/schemas';
 import { PrismaEmployeesRepository } from '@/repositories/hr/prisma/prisma-employees-repository';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

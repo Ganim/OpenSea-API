@@ -9,7 +9,7 @@ import {
   benefitPlanResponseSchema,
   updateBenefitPlanSchema,
 } from '@/http/schemas/hr/benefits';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { benefitPlanToDTO } from '@/mappers/hr/benefit-plan';
 import { makeUpdateBenefitPlanUseCase } from '@/use-cases/hr/benefit-plans/factories/make-update-benefit-plan-use-case';
 
@@ -33,7 +33,7 @@ export async function v1UpdateBenefitPlanController(app: FastifyInstance) {
       tags: ['HR - Benefits'],
       summary: 'Update benefit plan',
       description: 'Updates an existing benefit plan',
-      params: z.object({ benefitPlanId: idSchema }),
+      params: z.object({ benefitPlanId: cuidSchema }),
       body: updateBenefitPlanSchema,
       response: {
         200: z.object({ benefitPlan: benefitPlanResponseSchema }),

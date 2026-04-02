@@ -153,7 +153,10 @@ export class Workflow extends Entity<WorkflowProps> {
   }
 
   static create(
-    props: Optional<WorkflowProps, 'id' | 'isActive' | 'executionCount' | 'createdAt' | 'steps'>,
+    props: Optional<
+      WorkflowProps,
+      'id' | 'isActive' | 'executionCount' | 'createdAt' | 'steps'
+    >,
     id?: UniqueEntityID,
   ): Workflow {
     return new Workflow(

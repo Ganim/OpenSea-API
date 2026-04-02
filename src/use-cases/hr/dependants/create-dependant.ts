@@ -31,8 +31,15 @@ export class CreateDependantUseCase {
   async execute(
     request: CreateDependantRequest,
   ): Promise<CreateDependantResponse> {
-    const { tenantId, employeeId, name, cpf, cpfHash, birthDate, relationship } =
-      request;
+    const {
+      tenantId,
+      employeeId,
+      name,
+      cpf,
+      cpfHash,
+      birthDate,
+      relationship,
+    } = request;
 
     if (!name || name.trim().length === 0) {
       throw new BadRequestError('O nome do dependente é obrigatório');

@@ -22,8 +22,7 @@ export class InMemoryPPEAssignmentsRepository
         employeeId: new UniqueEntityID(data.employeeId),
         assignedAt: data.assignedAt,
         expiresAt: data.expiresAt,
-        condition:
-          (data.condition as PPEAssignment['condition']) ?? 'NEW',
+        condition: (data.condition as PPEAssignment['condition']) ?? 'NEW',
         quantity: data.quantity,
         notes: data.notes,
         status: 'ACTIVE',
@@ -40,8 +39,7 @@ export class InMemoryPPEAssignmentsRepository
     tenantId: string,
   ): Promise<PPEAssignment | null> {
     const assignment = this.items.find(
-      (item) =>
-        item.id.equals(id) && item.tenantId.toString() === tenantId,
+      (item) => item.id.equals(id) && item.tenantId.toString() === tenantId,
     );
     return assignment || null;
   }
@@ -90,7 +88,7 @@ export class InMemoryPPEAssignmentsRepository
     const futureDate = new Date();
     futureDate.setDate(futureDate.getDate() + filters.daysAhead);
 
-    let filteredItems = this.items.filter(
+    const filteredItems = this.items.filter(
       (item) =>
         item.tenantId.toString() === tenantId &&
         item.status === 'ACTIVE' &&
@@ -126,8 +124,7 @@ export class InMemoryPPEAssignmentsRepository
         returnedAt: new Date(),
         expiresAt: existing.expiresAt,
         condition: existing.condition,
-        returnCondition:
-          data.returnCondition as PPEAssignment['condition'],
+        returnCondition: data.returnCondition as PPEAssignment['condition'],
         quantity: existing.quantity,
         notes: data.notes ?? existing.notes,
         status: 'RETURNED',

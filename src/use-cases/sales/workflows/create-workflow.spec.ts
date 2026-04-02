@@ -32,8 +32,16 @@ describe('CreateWorkflowUseCase', () => {
       name: 'Order Confirmation',
       trigger: 'ORDER_CONFIRMED',
       steps: [
-        { order: 1, type: 'SEND_EMAIL', config: { template: 'order-confirmed' } },
-        { order: 2, type: 'SEND_NOTIFICATION', config: { message: 'Order confirmed!' } },
+        {
+          order: 1,
+          type: 'SEND_EMAIL',
+          config: { template: 'order-confirmed' },
+        },
+        {
+          order: 2,
+          type: 'SEND_NOTIFICATION',
+          config: { message: 'Order confirmed!' },
+        },
       ],
     });
 
@@ -68,9 +76,7 @@ describe('CreateWorkflowUseCase', () => {
         tenantId: 'tenant-1',
         name: 'Bad Steps',
         trigger: 'ORDER_CREATED',
-        steps: [
-          { order: 1, type: 'INVALID_TYPE' as never, config: {} },
-        ],
+        steps: [{ order: 1, type: 'INVALID_TYPE' as never, config: {} }],
       }),
     ).rejects.toThrow(BadRequestError);
   });

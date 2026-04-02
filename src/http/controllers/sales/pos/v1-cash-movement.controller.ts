@@ -96,7 +96,9 @@ export async function cashMovementController(app: FastifyInstance) {
           },
         });
 
-        return reply.status(201).send({ movement: movementResponse } as any);
+        return reply
+          .status(201)
+          .send({ movement: movementResponse } as unknown);
       } catch (error) {
         if (
           error instanceof BadRequestError ||

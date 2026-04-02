@@ -40,8 +40,9 @@ describe('Get Cashflow Accuracy (E2E)', () => {
   });
 
   it('should return 401 without auth', async () => {
-    const response = await request(app.server)
-      .get('/v1/finance/dashboard/cashflow-accuracy');
+    const response = await request(app.server).get(
+      '/v1/finance/dashboard/cashflow-accuracy',
+    );
 
     expect(response.status).toBe(401);
   });

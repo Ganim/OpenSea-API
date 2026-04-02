@@ -178,6 +178,8 @@ export const ModelName = {
   TenantFeatureFlag: 'TenantFeatureFlag',
   CostCenter: 'CostCenter',
   ChartOfAccount: 'ChartOfAccount',
+  JournalEntry: 'JournalEntry',
+  JournalEntryLine: 'JournalEntryLine',
   BankAccount: 'BankAccount',
   FinanceCategory: 'FinanceCategory',
   FinanceEntry: 'FinanceEntry',
@@ -347,6 +349,8 @@ export const ModelName = {
   FinanceApprovalRule: 'FinanceApprovalRule',
   TaxObligation: 'TaxObligation',
   BankConnection: 'BankConnection',
+  PaymentOrder: 'PaymentOrder',
+  BankWebhookEvent: 'BankWebhookEvent',
   PaymentLink: 'PaymentLink',
   CashflowSnapshot: 'CashflowSnapshot',
   AccountantAccess: 'AccountantAccess',
@@ -987,6 +991,7 @@ export const ItemScalarFieldEnum = {
   batchNumber: 'batchNumber',
   manufacturingDate: 'manufacturingDate',
   expiryDate: 'expiryDate',
+  exitMovementType: 'exitMovementType',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',
@@ -2972,6 +2977,36 @@ export const ChartOfAccountScalarFieldEnum = {
 export type ChartOfAccountScalarFieldEnum = (typeof ChartOfAccountScalarFieldEnum)[keyof typeof ChartOfAccountScalarFieldEnum]
 
 
+export const JournalEntryScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  code: 'code',
+  date: 'date',
+  description: 'description',
+  sourceType: 'sourceType',
+  sourceId: 'sourceId',
+  status: 'status',
+  reversedById: 'reversedById',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JournalEntryScalarFieldEnum = (typeof JournalEntryScalarFieldEnum)[keyof typeof JournalEntryScalarFieldEnum]
+
+
+export const JournalEntryLineScalarFieldEnum = {
+  id: 'id',
+  journalEntryId: 'journalEntryId',
+  chartOfAccountId: 'chartOfAccountId',
+  type: 'type',
+  amount: 'amount',
+  description: 'description'
+} as const
+
+export type JournalEntryLineScalarFieldEnum = (typeof JournalEntryLineScalarFieldEnum)[keyof typeof JournalEntryLineScalarFieldEnum]
+
+
 export const BankAccountScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -2993,9 +3028,19 @@ export const BankAccountScalarFieldEnum = {
   balanceUpdatedAt: 'balanceUpdatedAt',
   color: 'color',
   isDefault: 'isDefault',
+  apiProvider: 'apiProvider',
+  apiClientId: 'apiClientId',
+  apiCertFileId: 'apiCertFileId',
+  apiCertKeyFileId: 'apiCertKeyFileId',
+  apiScopes: 'apiScopes',
+  apiWebhookSecret: 'apiWebhookSecret',
+  apiEnabled: 'apiEnabled',
+  autoEmitBoleto: 'autoEmitBoleto',
+  autoLowThreshold: 'autoLowThreshold',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  chartOfAccountId: 'chartOfAccountId'
 } as const
 
 export type BankAccountScalarFieldEnum = (typeof BankAccountScalarFieldEnum)[keyof typeof BankAccountScalarFieldEnum]
@@ -3014,6 +3059,7 @@ export const FinanceCategoryScalarFieldEnum = {
   displayOrder: 'displayOrder',
   isActive: 'isActive',
   isSystem: 'isSystem',
+  chartOfAccountId: 'chartOfAccountId',
   interestRate: 'interestRate',
   penaltyRate: 'penaltyRate',
   deletedAt: 'deletedAt',
@@ -3032,6 +3078,7 @@ export const FinanceEntryScalarFieldEnum = {
   description: 'description',
   notes: 'notes',
   categoryId: 'categoryId',
+  chartOfAccountId: 'chartOfAccountId',
   companyId: 'companyId',
   costCenterId: 'costCenterId',
   bankAccountId: 'bankAccountId',
@@ -6536,6 +6583,48 @@ export const BankConnectionScalarFieldEnum = {
 } as const
 
 export type BankConnectionScalarFieldEnum = (typeof BankConnectionScalarFieldEnum)[keyof typeof BankConnectionScalarFieldEnum]
+
+
+export const PaymentOrderScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  entryId: 'entryId',
+  bankAccountId: 'bankAccountId',
+  method: 'method',
+  amount: 'amount',
+  recipientData: 'recipientData',
+  status: 'status',
+  requestedById: 'requestedById',
+  approvedById: 'approvedById',
+  approvedAt: 'approvedAt',
+  rejectedReason: 'rejectedReason',
+  externalId: 'externalId',
+  receiptData: 'receiptData',
+  receiptFileId: 'receiptFileId',
+  errorMessage: 'errorMessage',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PaymentOrderScalarFieldEnum = (typeof PaymentOrderScalarFieldEnum)[keyof typeof PaymentOrderScalarFieldEnum]
+
+
+export const BankWebhookEventScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  bankAccountId: 'bankAccountId',
+  provider: 'provider',
+  eventType: 'eventType',
+  externalId: 'externalId',
+  amount: 'amount',
+  payload: 'payload',
+  matchedEntryId: 'matchedEntryId',
+  autoSettled: 'autoSettled',
+  processedAt: 'processedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type BankWebhookEventScalarFieldEnum = (typeof BankWebhookEventScalarFieldEnum)[keyof typeof BankWebhookEventScalarFieldEnum]
 
 
 export const PaymentLinkScalarFieldEnum = {

@@ -25,14 +25,13 @@ interface ListJournalEntriesUseCaseResponse {
 }
 
 export class ListJournalEntriesUseCase {
-  constructor(
-    private journalEntriesRepository: JournalEntriesRepository,
-  ) {}
+  constructor(private journalEntriesRepository: JournalEntriesRepository) {}
 
   async execute(
     request: ListJournalEntriesUseCaseRequest,
   ): Promise<ListJournalEntriesUseCaseResponse> {
-    const { tenantId, chartOfAccountId, sourceType, dateFrom, dateTo } = request;
+    const { tenantId, chartOfAccountId, sourceType, dateFrom, dateTo } =
+      request;
     const page = request.page ?? 1;
     const limit = Math.min(request.limit ?? 20, 100);
 

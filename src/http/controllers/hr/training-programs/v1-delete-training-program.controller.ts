@@ -5,7 +5,7 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { makeDeleteTrainingProgramUseCase } from '@/use-cases/hr/training-programs/factories/make-delete-training-program-use-case';
 
 import type { FastifyInstance } from 'fastify';
@@ -28,7 +28,7 @@ export async function v1DeleteTrainingProgramController(app: FastifyInstance) {
       tags: ['HR - Training'],
       summary: 'Delete training program',
       description: 'Deactivates a training program (soft delete)',
-      params: z.object({ trainingProgramId: idSchema }),
+      params: z.object({ trainingProgramId: cuidSchema }),
       response: {
         204: z.null(),
         404: z.object({ message: z.string() }),

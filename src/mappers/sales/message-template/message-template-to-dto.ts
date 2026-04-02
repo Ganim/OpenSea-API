@@ -13,7 +13,9 @@ export interface MessageTemplateDTO {
   updatedAt?: Date;
 }
 
-export function messageTemplateToDTO(template: MessageTemplate): MessageTemplateDTO {
+export function messageTemplateToDTO(
+  template: MessageTemplate,
+): MessageTemplateDTO {
   const dto: MessageTemplateDTO = {
     id: template.id.toString(),
     name: template.name,

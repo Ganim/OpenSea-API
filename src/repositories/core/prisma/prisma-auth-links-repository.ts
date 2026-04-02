@@ -1,5 +1,8 @@
 import { AuthLink } from '@/entities/core/auth-link';
-import type { AuthLinkProvider, AuthLinkStatus } from '@/entities/core/auth-link';
+import type {
+  AuthLinkProvider,
+  AuthLinkStatus,
+} from '@/entities/core/auth-link';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { prisma, Prisma } from '@/lib/prisma';
 import type { TransactionClient } from '@/lib/transaction-manager';

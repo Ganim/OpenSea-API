@@ -108,7 +108,7 @@ export async function closeSessionController(app: FastifyInstance) {
           },
         });
 
-        return reply.status(200).send({ session: sessionResponse } as any);
+        return reply.status(200).send({ session: sessionResponse } as unknown);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

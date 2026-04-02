@@ -1,4 +1,3 @@
-import { InMemoryBankAccountsRepository } from '@/repositories/finance/in-memory/in-memory-bank-accounts-repository';
 import { InMemoryChartOfAccountsRepository } from '@/repositories/finance/in-memory/in-memory-chart-of-accounts-repository';
 import { InMemoryFinanceCategoriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-categories-repository';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
@@ -227,7 +226,9 @@ describe('AutoJournalFromEntryUseCase', () => {
     });
 
     expect(result).not.toBeNull();
-    const debitLine = result!.journalEntry.lines.find((l) => l.type === 'DEBIT');
+    const debitLine = result!.journalEntry.lines.find(
+      (l) => l.type === 'DEBIT',
+    );
     // Should use the override account, not the category's account
     expect(debitLine?.chartOfAccountId).toBe(overrideAccountId);
   });
@@ -251,7 +252,9 @@ describe('AutoJournalFromEntryUseCase', () => {
     });
 
     expect(result).not.toBeNull();
-    const debitLine = result!.journalEntry.lines.find((l) => l.type === 'DEBIT');
+    const debitLine = result!.journalEntry.lines.find(
+      (l) => l.type === 'DEBIT',
+    );
     // Should fall back to category's chartOfAccountId (expenseAccountId)
     expect(debitLine?.chartOfAccountId).toBe(expenseAccountId);
   });

@@ -46,9 +46,7 @@ export class UpdateFormUseCase {
     }
 
     if (form.status !== 'DRAFT') {
-      throw new BadRequestError(
-        'Only draft forms can be updated.',
-      );
+      throw new BadRequestError('Only draft forms can be updated.');
     }
 
     if (input.title !== undefined) {
@@ -56,9 +54,7 @@ export class UpdateFormUseCase {
         throw new BadRequestError('Form title is required.');
       }
       if (input.title.length > 255) {
-        throw new BadRequestError(
-          'Form title cannot exceed 255 characters.',
-        );
+        throw new BadRequestError('Form title cannot exceed 255 characters.');
       }
       form.title = input.title.trim();
     }

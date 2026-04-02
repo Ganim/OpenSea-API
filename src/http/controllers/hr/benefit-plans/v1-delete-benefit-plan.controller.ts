@@ -5,7 +5,7 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { makeDeleteBenefitPlanUseCase } from '@/use-cases/hr/benefit-plans/factories/make-delete-benefit-plan-use-case';
 
 import type { FastifyInstance } from 'fastify';
@@ -28,7 +28,7 @@ export async function v1DeleteBenefitPlanController(app: FastifyInstance) {
       tags: ['HR - Benefits'],
       summary: 'Delete benefit plan',
       description: 'Deactivates a benefit plan (soft delete)',
-      params: z.object({ benefitPlanId: idSchema }),
+      params: z.object({ benefitPlanId: cuidSchema }),
       response: {
         204: z.null(),
         404: z.object({ message: z.string() }),

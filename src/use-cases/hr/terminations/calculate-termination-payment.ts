@@ -96,7 +96,7 @@ export class CalculateTerminationPaymentUseCase {
       if (terminationType === TerminationType.SEM_JUSTA_CAUSA) {
         avisoIndenizado = round((baseSalary / 30) * noticeDays);
       } else if (terminationType === TerminationType.ACORDO_MUTUO) {
-        avisoIndenizado = round(((baseSalary / 30) * noticeDays) * 0.5);
+        avisoIndenizado = round((baseSalary / 30) * noticeDays * 0.5);
       } else if (terminationType === TerminationType.RESCISAO_INDIRETA) {
         avisoIndenizado = round((baseSalary / 30) * noticeDays);
       }
@@ -129,21 +129,20 @@ export class CalculateTerminationPaymentUseCase {
     // 5. Férias proporcionais + 1/3
     let feriasProporcional = 0;
     let feriasProporcionalTerco = 0;
-    if (
-      terminationType !== TerminationType.JUSTA_CAUSA &&
-      proporcionais > 0
-    ) {
+    if (terminationType !== TerminationType.JUSTA_CAUSA && proporcionais > 0) {
       feriasProporcional = round((baseSalary * proporcionais) / 12);
       feriasProporcionalTerco = round(feriasProporcional / 3);
     }
 
     // 6. Multa FGTS
     let multaFgts = 0;
-    if (terminationType === TerminationType.SEM_JUSTA_CAUSA ||
-        terminationType === TerminationType.RESCISAO_INDIRETA) {
-      multaFgts = round(totalFgtsBalance * 0.40);
+    if (
+      terminationType === TerminationType.SEM_JUSTA_CAUSA ||
+      terminationType === TerminationType.RESCISAO_INDIRETA
+    ) {
+      multaFgts = round(totalFgtsBalance * 0.4);
     } else if (terminationType === TerminationType.ACORDO_MUTUO) {
-      multaFgts = round(totalFgtsBalance * 0.20);
+      multaFgts = round(totalFgtsBalance * 0.2);
     }
     // JUSTA_CAUSA, PEDIDO_DEMISSAO, CONTRATO_TEMPORARIO, FALECIMENTO: 0
 

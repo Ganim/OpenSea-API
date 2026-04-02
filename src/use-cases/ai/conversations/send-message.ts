@@ -220,7 +220,9 @@ export class SendMessageUseCase {
     // Fetch business snapshot (cached, fast)
     let filteredSnapshot = undefined;
     try {
-      const snapshot = await this.snapshotService.getOrGenerate(request.tenantId);
+      const snapshot = await this.snapshotService.getOrGenerate(
+        request.tenantId,
+      );
       filteredSnapshot = this.snapshotService.filterByPermissions(
         snapshot,
         request.userPermissions ?? [],

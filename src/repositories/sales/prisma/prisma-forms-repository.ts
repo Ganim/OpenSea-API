@@ -3,10 +3,7 @@ import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Form } from '@/entities/sales/form';
 import { prisma } from '@/lib/prisma';
 import type { FormStatus } from '@prisma/generated/client.js';
-import type {
-  CreateFormSchema,
-  FormsRepository,
-} from '../forms-repository';
+import type { CreateFormSchema, FormsRepository } from '../forms-repository';
 
 function mapToDomain(data: Record<string, unknown>): Form {
   return Form.create(
@@ -41,10 +38,7 @@ export class PrismaFormsRepository implements FormsRepository {
     return mapToDomain(formData as unknown as Record<string, unknown>);
   }
 
-  async findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<Form | null> {
+  async findById(id: UniqueEntityID, tenantId: string): Promise<Form | null> {
     const formData = await prisma.form.findFirst({
       where: { id: id.toString(), tenantId, deletedAt: null },
     });

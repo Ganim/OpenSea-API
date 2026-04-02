@@ -30,9 +30,7 @@ export class SendProposalUseCase {
     }
 
     if (proposal.status !== 'DRAFT') {
-      throw new BadRequestError(
-        'Only proposals in DRAFT status can be sent.',
-      );
+      throw new BadRequestError('Only proposals in DRAFT status can be sent.');
     }
 
     proposal.status = 'SENT';

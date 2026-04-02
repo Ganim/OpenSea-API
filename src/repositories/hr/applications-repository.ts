@@ -29,10 +29,7 @@ export interface FindApplicationFilters {
 
 export interface ApplicationsRepository {
   create(data: CreateApplicationSchema): Promise<Application>;
-  findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<Application | null>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<Application | null>;
   findByJobAndCandidate(
     jobPostingId: string,
     candidateId: string,

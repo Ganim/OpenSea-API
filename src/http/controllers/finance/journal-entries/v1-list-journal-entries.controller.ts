@@ -2,7 +2,10 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { journalEntryResponseSchema, listJournalEntriesSchema } from '@/http/schemas/finance';
+import {
+  journalEntryResponseSchema,
+  listJournalEntriesSchema,
+} from '@/http/schemas/finance';
 import { makeListJournalEntriesUseCase } from '@/use-cases/finance/journal-entries/factories/make-list-journal-entries-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -39,7 +42,8 @@ export async function listJournalEntriesController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { page, limit, chartOfAccountId, sourceType, dateFrom, dateTo } = request.query;
+      const { page, limit, chartOfAccountId, sourceType, dateFrom, dateTo } =
+        request.query;
 
       const useCase = makeListJournalEntriesUseCase();
       const result = await useCase.execute({

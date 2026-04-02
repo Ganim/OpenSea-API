@@ -33,9 +33,7 @@ export class UpdateEsocialConfigUseCase {
       request.environment &&
       !['PRODUCAO', 'HOMOLOGACAO'].includes(request.environment)
     ) {
-      throw new BadRequestError(
-        'Environment must be PRODUCAO or HOMOLOGACAO',
-      );
+      throw new BadRequestError('Environment must be PRODUCAO or HOMOLOGACAO');
     }
 
     // Validate tpInsc
@@ -55,7 +53,8 @@ export class UpdateEsocialConfigUseCase {
     }
 
     const data: UpdateEsocialConfigData = {};
-    if (request.environment !== undefined) data.environment = request.environment;
+    if (request.environment !== undefined)
+      data.environment = request.environment;
     if (request.version !== undefined) data.version = request.version;
     if (request.tpInsc !== undefined) data.tpInsc = request.tpInsc;
     if (request.nrInsc !== undefined) data.nrInsc = request.nrInsc;
@@ -70,10 +69,7 @@ export class UpdateEsocialConfigUseCase {
     if (request.requireApproval !== undefined)
       data.requireApproval = request.requireApproval;
 
-    const config = await this.configRepository.upsert(
-      request.tenantId,
-      data,
-    );
+    const config = await this.configRepository.upsert(request.tenantId, data);
 
     return { config };
   }

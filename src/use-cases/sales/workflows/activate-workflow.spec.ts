@@ -21,9 +21,7 @@ describe('ActivateWorkflowUseCase', () => {
       tenantId: 'tenant-1',
       name: 'Activate Me',
       trigger: 'ORDER_CREATED',
-      steps: [
-        { order: 1, type: 'SEND_EMAIL', config: {} },
-      ],
+      steps: [{ order: 1, type: 'SEND_EMAIL', config: {} }],
     });
 
     const result = await activateWorkflow.execute({
@@ -40,9 +38,7 @@ describe('ActivateWorkflowUseCase', () => {
       name: 'Already Active',
       trigger: 'ORDER_CREATED',
       isActive: true,
-      steps: [
-        { order: 1, type: 'SEND_EMAIL', config: {} },
-      ],
+      steps: [{ order: 1, type: 'SEND_EMAIL', config: {} }],
     });
 
     await expect(() =>

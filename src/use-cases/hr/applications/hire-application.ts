@@ -21,11 +21,10 @@ export class HireApplicationUseCase {
   ): Promise<HireApplicationResponse> {
     const { tenantId, applicationId } = request;
 
-    const existingApplication =
-      await this.applicationsRepository.findById(
-        new UniqueEntityID(applicationId),
-        tenantId,
-      );
+    const existingApplication = await this.applicationsRepository.findById(
+      new UniqueEntityID(applicationId),
+      tenantId,
+    );
 
     if (!existingApplication) {
       throw new ResourceNotFoundError('Candidatura não encontrada');

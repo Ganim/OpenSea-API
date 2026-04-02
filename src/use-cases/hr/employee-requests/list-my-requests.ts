@@ -15,9 +15,7 @@ export interface ListMyRequestsOutput {
 }
 
 export class ListMyRequestsUseCase {
-  constructor(
-    private employeeRequestsRepository: EmployeeRequestsRepository,
-  ) {}
+  constructor(private employeeRequestsRepository: EmployeeRequestsRepository) {}
 
   async execute(input: ListMyRequestsInput): Promise<ListMyRequestsOutput> {
     const { tenantId, employeeId, page, limit } = input;

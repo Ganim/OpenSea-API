@@ -42,7 +42,7 @@ export async function getConversationSentimentController(app: FastifyInstance) {
         const useCase = makeGetConversationSentimentUseCase();
         const result = await useCase.execute({ tenantId, conversationId });
 
-        return reply.status(200).send(result as any);
+        return reply.status(200).send(result as unknown);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

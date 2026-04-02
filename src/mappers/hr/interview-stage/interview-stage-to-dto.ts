@@ -11,9 +11,7 @@ export interface InterviewStageDTO {
   updatedAt: string;
 }
 
-export function interviewStageToDTO(
-  stage: InterviewStage,
-): InterviewStageDTO {
+export function interviewStageToDTO(stage: InterviewStage): InterviewStageDTO {
   return {
     id: stage.id.toString(),
     jobPostingId: stage.jobPostingId.toString(),

@@ -32,9 +32,7 @@ export class CashMovementUseCase {
     }
 
     if (input.type !== 'CASH_IN' && input.type !== 'CASH_OUT') {
-      throw new BadRequestError(
-        'Movement type must be CASH_IN or CASH_OUT.',
-      );
+      throw new BadRequestError('Movement type must be CASH_IN or CASH_OUT.');
     }
 
     const session = await this.cashierSessionsRepository.findById(

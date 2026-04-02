@@ -37,10 +37,7 @@ export interface FindWorkplaceRiskFilters {
 
 export interface WorkplaceRisksRepository {
   create(data: CreateWorkplaceRiskSchema): Promise<WorkplaceRisk>;
-  findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<WorkplaceRisk | null>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<WorkplaceRisk | null>;
   findMany(
     tenantId: string,
     filters?: FindWorkplaceRiskFilters,

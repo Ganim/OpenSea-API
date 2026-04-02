@@ -77,9 +77,7 @@ export class PrismaSafetyProgramsRepository
     );
   }
 
-  async update(
-    data: UpdateSafetyProgramSchema,
-  ): Promise<SafetyProgram | null> {
+  async update(data: UpdateSafetyProgramSchema): Promise<SafetyProgram | null> {
     const existing = await prisma.safetyProgram.findUnique({
       where: { id: data.id.toString() },
     });

@@ -47,7 +47,10 @@ export async function activateWorkflowController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.WORKFLOW_ACTIVATE,
           entityId: id,
-          placeholders: { workflowName: workflow.name, userName: request.user.sub },
+          placeholders: {
+            workflowName: workflow.name,
+            userName: request.user.sub,
+          },
           newData: { isActive: true },
         });
 

@@ -9,7 +9,6 @@ import {
 import { makeValidateGeofenceUseCase } from '@/use-cases/hr/geofence-zones/factories/make-validate-geofence-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
-import z from 'zod';
 import { geofenceZoneToDTO } from './helpers';
 
 export async function v1ValidateGeofenceController(app: FastifyInstance) {

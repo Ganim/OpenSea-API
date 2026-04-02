@@ -9,9 +9,7 @@ export interface DeleteCertificateRequest {
  * Delete the eSocial certificate for a tenant.
  */
 export class DeleteCertificateUseCase {
-  constructor(
-    private certificatesRepository: EsocialCertificatesRepository,
-  ) {}
+  constructor(private certificatesRepository: EsocialCertificatesRepository) {}
 
   async execute(request: DeleteCertificateRequest): Promise<void> {
     const existing = await this.certificatesRepository.findByTenantId(

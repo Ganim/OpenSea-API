@@ -102,7 +102,8 @@ export class S1020Builder extends EsocialXmlBuilder<S1020Input> {
 
     let idePeriodoContent = '';
     idePeriodoContent += this.tag('iniValid', input.iniValid);
-    if (input.fimValid) idePeriodoContent += this.tag('fimValid', input.fimValid);
+    if (input.fimValid)
+      idePeriodoContent += this.tag('fimValid', input.fimValid);
     content += this.tagGroup('idePeriodo', idePeriodoContent);
 
     return this.tagGroup('ideLotacao', content);
@@ -111,7 +112,8 @@ export class S1020Builder extends EsocialXmlBuilder<S1020Input> {
   private buildDadosLotacao(input: S1020Input): string {
     let content = '';
     content += this.tag('tpLotacao', input.tpLotacao);
-    if (input.tpInscLot !== undefined) content += this.tag('tpInsc', input.tpInscLot);
+    if (input.tpInscLot !== undefined)
+      content += this.tag('tpInsc', input.tpInscLot);
     if (input.nrInscLot) content += this.tag('nrInsc', input.nrInscLot);
 
     // fpasLotacao
@@ -129,7 +131,8 @@ export class S1020Builder extends EsocialXmlBuilder<S1020Input> {
     let content = '';
     content += this.tag('fpas', input.fpas);
     content += this.tag('codTercs', input.codTercs);
-    if (input.codTercsSusp) content += this.tag('codTercsSusp', input.codTercsSusp);
+    if (input.codTercsSusp)
+      content += this.tag('codTercsSusp', input.codTercsSusp);
     return this.tagGroup('fpasLotacao', content);
   }
 

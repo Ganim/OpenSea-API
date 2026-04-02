@@ -87,9 +87,19 @@ export class CreateFinanceEntryUseCase {
     private transactionManager?: TransactionManager,
     private costCenterAllocationsRepository?: FinanceEntryCostCentersRepository,
     private approvalRulesRepository?: FinanceApprovalRulesRepository,
-    private evaluateAutoApproval?: (entryId: string, tenantId: string, createdBy?: string) => Promise<void>,
+    private evaluateAutoApproval?: (
+      entryId: string,
+      tenantId: string,
+      createdBy?: string,
+    ) => Promise<void>,
     private retentionsRepository?: FinanceEntryRetentionsRepository,
-    private autoJournalFromEntry?: { execute(req: { tenantId: string; entryId: string; createdBy?: string }): Promise<unknown> },
+    private autoJournalFromEntry?: {
+      execute(req: {
+        tenantId: string;
+        entryId: string;
+        createdBy?: string;
+      }): Promise<unknown>;
+    },
   ) {}
 
   async execute(

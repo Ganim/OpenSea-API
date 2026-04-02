@@ -31,7 +31,8 @@ export async function authenticateUnifiedController(app: FastifyInstance) {
     url: '/v1/auth/login/unified',
     schema: {
       tags: ['Auth'],
-      summary: 'Authenticate user with unified login (email, CPF, or enrollment)',
+      summary:
+        'Authenticate user with unified login (email, CPF, or enrollment)',
       body: bodySchema,
       response: {
         200: authResponseSchema,

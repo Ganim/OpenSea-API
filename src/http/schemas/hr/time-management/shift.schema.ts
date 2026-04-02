@@ -8,7 +8,12 @@ import { dateSchema, idSchema, queryBooleanSchema } from '../../common.schema';
 /**
  * Schema para tipo de turno
  */
-export const shiftTypeSchema = z.enum(['FIXED', 'ROTATING', 'FLEXIBLE', 'ON_CALL']);
+export const shiftTypeSchema = z.enum([
+  'FIXED',
+  'ROTATING',
+  'FLEXIBLE',
+  'ON_CALL',
+]);
 
 /**
  * Schema para formato de hora (HH:MM)

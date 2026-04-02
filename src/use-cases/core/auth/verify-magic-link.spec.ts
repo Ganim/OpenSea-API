@@ -1,4 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { InMemoryMagicLinkTokensRepository } from '@/repositories/core/in-memory/in-memory-magic-link-tokens-repository';
 import { InMemoryRefreshTokensRepository } from '@/repositories/core/in-memory/in-memory-refresh-tokens-repository';
 import { InMemorySessionsRepository } from '@/repositories/core/in-memory/in-memory-sessions-repository';
@@ -39,7 +38,11 @@ describe('Verify Magic Link Use Case', () => {
     );
   });
 
-  async function createTokenForUser(userId: any, rawToken: string, options?: { expiresAt?: Date; usedAt?: Date }) {
+  async function createTokenForUser(
+    userId: unknown,
+    rawToken: string,
+    options?: { expiresAt?: Date; usedAt?: Date },
+  ) {
     const hashedToken = crypto
       .createHash('sha256')
       .update(rawToken)

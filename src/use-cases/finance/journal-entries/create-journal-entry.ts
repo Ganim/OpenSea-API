@@ -26,15 +26,20 @@ interface CreateJournalEntryUseCaseResponse {
 }
 
 export class CreateJournalEntryUseCase {
-  constructor(
-    private journalEntriesRepository: JournalEntriesRepository,
-  ) {}
+  constructor(private journalEntriesRepository: JournalEntriesRepository) {}
 
   async execute(
     request: CreateJournalEntryUseCaseRequest,
   ): Promise<CreateJournalEntryUseCaseResponse> {
-    const { tenantId, date, description, sourceType, sourceId, lines, createdBy } =
-      request;
+    const {
+      tenantId,
+      date,
+      description,
+      sourceType,
+      sourceId,
+      lines,
+      createdBy,
+    } = request;
 
     if (!lines || lines.length < 2) {
       throw new BadRequestError(
@@ -75,7 +80,10 @@ export class CreateJournalEntryUseCase {
       entity: 'JournalEntry',
       entityId: journalEntry.id,
       module: 'finance',
-      newData: { code: journalEntry.code, description: journalEntry.description },
+      newData: {
+        code: journalEntry.code,
+        description: journalEntry.description,
+      },
     });
 
     return { journalEntry };

@@ -5,7 +5,7 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { makeCancelEnrollmentUseCase } from '@/use-cases/hr/training-enrollments/factories/make-cancel-enrollment-use-case';
 
 import type { FastifyInstance } from 'fastify';
@@ -28,7 +28,7 @@ export async function v1CancelEnrollmentController(app: FastifyInstance) {
       tags: ['HR - Training'],
       summary: 'Cancel training enrollment',
       description: 'Cancels a training enrollment',
-      params: z.object({ enrollmentId: idSchema }),
+      params: z.object({ enrollmentId: cuidSchema }),
       response: {
         204: z.null(),
         400: z.object({ message: z.string() }),

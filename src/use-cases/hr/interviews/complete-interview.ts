@@ -24,8 +24,7 @@ export class CompleteInterviewUseCase {
   async execute(
     request: CompleteInterviewRequest,
   ): Promise<CompleteInterviewResponse> {
-    const { tenantId, interviewId, feedback, rating, recommendation } =
-      request;
+    const { tenantId, interviewId, feedback, rating, recommendation } = request;
 
     const interview = await this.interviewsRepository.findById(
       new UniqueEntityID(interviewId),

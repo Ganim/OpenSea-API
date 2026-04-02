@@ -51,7 +51,6 @@ let bankAccountsRepository: InMemoryBankAccountsRepository;
 let sut: TestProcessBankWebhookUseCase;
 
 const TENANT_ID = 'tenant-1';
-const BANK_ACCOUNT_ID = 'bank-account-1';
 
 async function setupBankAccount() {
   return bankAccountsRepository.create({

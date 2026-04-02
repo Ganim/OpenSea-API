@@ -33,11 +33,10 @@ export class ReorderInterviewStagesUseCase {
       throw new ResourceNotFoundError('Vaga não encontrada');
     }
 
-    const stages =
-      await this.interviewStagesRepository.findManyByJobPosting(
-        jobPostingId,
-        tenantId,
-      );
+    const stages = await this.interviewStagesRepository.findManyByJobPosting(
+      jobPostingId,
+      tenantId,
+    );
 
     const existingIds = new Set(stages.map((stage) => stage.id.toString()));
     for (const stageId of stageIds) {

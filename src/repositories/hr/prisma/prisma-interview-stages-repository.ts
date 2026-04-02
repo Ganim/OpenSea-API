@@ -62,9 +62,7 @@ export class PrismaInterviewStagesRepository
     );
   }
 
-  async updateOrder(
-    stages: UpdateInterviewStageOrderSchema[],
-  ): Promise<void> {
+  async updateOrder(stages: UpdateInterviewStageOrderSchema[]): Promise<void> {
     await prisma.$transaction(
       stages.map((stage) =>
         prisma.interviewStage.update({
@@ -81,10 +79,7 @@ export class PrismaInterviewStagesRepository
     });
   }
 
-  async getMaxOrder(
-    jobPostingId: string,
-    tenantId: string,
-  ): Promise<number> {
+  async getMaxOrder(jobPostingId: string, tenantId: string): Promise<number> {
     const result = await prisma.interviewStage.aggregate({
       where: { jobPostingId, tenantId },
       _max: { order: true },

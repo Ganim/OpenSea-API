@@ -34,14 +34,18 @@ describe('CreateTenantAdminUseCase', () => {
       permissionsRepository,
     );
 
-    // Seed some permissions for testing
+    // Seed permissions — include some from DEFAULT_USER_PERMISSIONS and extras
     const testPermissions = [
-      'self.profile.read',
-      'self.profile.update',
-      'self.sessions.list',
-      'stock.products.create',
-      'stock.products.read.all',
-      'sales.orders.create',
+      // DEFAULT_USER_PERMISSIONS entries
+      'system.self.access',
+      'system.self.modify',
+      'system.self.admin',
+      'system.label-templates.access',
+      'tools.email.accounts.access',
+      // Extra permissions (not in DEFAULT_USER_PERMISSIONS)
+      'stock.products.register',
+      'stock.products.access',
+      'sales.orders.register',
     ];
 
     for (const code of testPermissions) {

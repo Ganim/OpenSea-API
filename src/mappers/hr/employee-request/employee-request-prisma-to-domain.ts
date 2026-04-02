@@ -4,9 +4,7 @@ import type {
   EmployeeRequestType,
 } from '@/entities/hr/employee-request';
 
-export function mapEmployeeRequestPrismaToDomain(
-  raw: Record<string, unknown>,
-) {
+export function mapEmployeeRequestPrismaToDomain(raw: Record<string, unknown>) {
   return {
     tenantId: new UniqueEntityID(raw.tenantId as string),
     employeeId: new UniqueEntityID(raw.employeeId as string),

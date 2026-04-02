@@ -47,16 +47,23 @@ export async function updateMsgTemplateController(app: FastifyInstance) {
 
       try {
         const useCase = makeUpdateMessageTemplateUseCase();
-        const { messageTemplate } = await useCase.execute({ tenantId, id, ...body });
+        const { messageTemplate } = await useCase.execute({
+          tenantId,
+          id,
+          ...body,
+        });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.MESSAGE_TEMPLATE_UPDATE,
           entityId: id,
-          placeholders: { templateName: messageTemplate.name, userName: request.user.sub },
+          placeholders: {
+            templateName: messageTemplate.name,
+            userName: request.user.sub,
+          },
           newData: body,
         });
 
-        return reply.status(200).send({ messageTemplate } as any);
+        return reply.status(200).send({ messageTemplate } as unknown);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

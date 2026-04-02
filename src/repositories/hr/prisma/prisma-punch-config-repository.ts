@@ -6,27 +6,25 @@ import type {
   UpdatePunchConfigData,
 } from '../punch-config-repository';
 
-function mapPrismaToDomain(
-  data: {
-    id: string;
-    tenantId: string;
-    selfieRequired: boolean;
-    gpsRequired: boolean;
-    geofenceEnabled: boolean;
-    qrCodeEnabled: boolean;
-    directLoginEnabled: boolean;
-    kioskModeEnabled: boolean;
-    pwaEnabled: boolean;
-    offlineAllowed: boolean;
-    maxOfflineHours: number;
-    toleranceMinutes: number;
-    autoClockOutHours: number | null;
-    pdfReceiptEnabled: boolean;
-    defaultRadiusMeters: number;
-    createdAt: Date;
-    updatedAt: Date;
-  },
-): PunchConfiguration {
+function mapPrismaToDomain(data: {
+  id: string;
+  tenantId: string;
+  selfieRequired: boolean;
+  gpsRequired: boolean;
+  geofenceEnabled: boolean;
+  qrCodeEnabled: boolean;
+  directLoginEnabled: boolean;
+  kioskModeEnabled: boolean;
+  pwaEnabled: boolean;
+  offlineAllowed: boolean;
+  maxOfflineHours: number;
+  toleranceMinutes: number;
+  autoClockOutHours: number | null;
+  pdfReceiptEnabled: boolean;
+  defaultRadiusMeters: number;
+  createdAt: Date;
+  updatedAt: Date;
+}): PunchConfiguration {
   return PunchConfiguration.create(
     {
       tenantId: data.tenantId,

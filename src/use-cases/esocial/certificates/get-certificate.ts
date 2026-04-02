@@ -14,9 +14,7 @@ export interface GetCertificateResponse {
  * Returns null if no certificate has been uploaded.
  */
 export class GetCertificateUseCase {
-  constructor(
-    private certificatesRepository: EsocialCertificatesRepository,
-  ) {}
+  constructor(private certificatesRepository: EsocialCertificatesRepository) {}
 
   async execute(
     request: GetCertificateRequest,

@@ -40,13 +40,17 @@ export async function verifyMagicLinkController(app: FastifyInstance) {
       try {
         const verifyUseCase = makeVerifyMagicLinkUseCase();
 
-        const { user, sessionId, token: authToken, refreshToken } =
-          await verifyUseCase.execute({
-            token,
-            ip,
-            userAgent,
-            reply,
-          });
+        const {
+          user,
+          sessionId,
+          token: authToken,
+          refreshToken,
+        } = await verifyUseCase.execute({
+          token,
+          ip,
+          userAgent,
+          reply,
+        });
 
         // Auditoria de login via magic link
         await logAudit(request, {

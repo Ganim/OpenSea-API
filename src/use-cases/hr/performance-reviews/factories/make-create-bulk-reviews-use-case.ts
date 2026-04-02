@@ -3,8 +3,7 @@ import { PrismaReviewCyclesRepository } from '@/repositories/hr/prisma/prisma-re
 import { CreateBulkReviewsUseCase } from '../create-bulk-reviews';
 
 export function makeCreateBulkReviewsUseCase() {
-  const performanceReviewsRepository =
-    new PrismaPerformanceReviewsRepository();
+  const performanceReviewsRepository = new PrismaPerformanceReviewsRepository();
   const reviewCyclesRepository = new PrismaReviewCyclesRepository();
   return new CreateBulkReviewsUseCase(
     performanceReviewsRepository,

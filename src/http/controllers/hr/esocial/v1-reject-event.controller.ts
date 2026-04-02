@@ -18,7 +18,8 @@ export async function v1RejectEventController(app: FastifyInstance) {
     schema: {
       tags: ['HR - eSocial'],
       summary: 'Reject event back to draft',
-      description: 'Rejects an event (from REVIEWED or VALIDATED) back to DRAFT with a reason',
+      description:
+        'Rejects an event (from REVIEWED or VALIDATED) back to DRAFT with a reason',
       params: eventIdParamSchema,
       body: rejectEventBodySchema,
       response: {

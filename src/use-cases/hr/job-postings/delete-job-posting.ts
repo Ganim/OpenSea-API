@@ -31,9 +31,7 @@ export class DeleteJobPostingUseCase {
 
     jobPosting.softDelete();
 
-    await this.jobPostingsRepository.delete(
-      new UniqueEntityID(jobPostingId),
-    );
+    await this.jobPostingsRepository.delete(new UniqueEntityID(jobPostingId));
 
     return { jobPosting };
   }

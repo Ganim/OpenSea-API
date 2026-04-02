@@ -143,9 +143,7 @@ describe('S1299Builder', () => {
     };
     const xml = builder.build(specialNameInput);
 
-    expect(xml).toContain(
-      '<nmResp>José D&apos;Angelo &amp; Cia</nmResp>',
-    );
+    expect(xml).toContain('<nmResp>José D&apos;Angelo &amp; Cia</nmResp>');
   });
 
   it('should use production environment when tpAmb is 1', () => {

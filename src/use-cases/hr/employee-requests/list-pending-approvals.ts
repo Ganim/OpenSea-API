@@ -14,9 +14,7 @@ export interface ListPendingApprovalsOutput {
 }
 
 export class ListPendingApprovalsUseCase {
-  constructor(
-    private employeeRequestsRepository: EmployeeRequestsRepository,
-  ) {}
+  constructor(private employeeRequestsRepository: EmployeeRequestsRepository) {}
 
   async execute(
     input: ListPendingApprovalsInput,

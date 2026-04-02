@@ -217,9 +217,7 @@ describe('S2200Builder', () => {
     const xml = builder.build(baseInput);
 
     expect(xml).toContain('<infoContrato>');
-    expect(xml).toContain(
-      '<nmCargo>Analista de Sistemas</nmCargo>',
-    );
+    expect(xml).toContain('<nmCargo>Analista de Sistemas</nmCargo>');
     expect(xml).toContain('<CBOCargo>212405</CBOCargo>');
     expect(xml).toContain('<vrSalFx>8000.00</vrSalFx>');
     expect(xml).toContain('<undSalFixo>5</undSalFixo>');
@@ -271,9 +269,7 @@ describe('S2200Builder', () => {
     // The localTrabalho should use the branch CNPJ, not the employer one
     expect(xml).toContain('<localTrabGeral>');
     // Check the nrInsc inside localTrabGeral (last one in the XML)
-    const localMatch = xml.match(
-      /<localTrabGeral>.*?<nrInsc>(\d+)<\/nrInsc>/s,
-    );
+    const localMatch = xml.match(/<localTrabGeral>.*?<nrInsc>(\d+)<\/nrInsc>/s);
     expect(localMatch).not.toBeNull();
     expect(localMatch![1]).toBe('99887766000100');
   });
@@ -290,12 +286,10 @@ describe('S2200Builder', () => {
   it('should escape special characters in names', () => {
     const input: S2200Input = {
       ...baseInput,
-      nmTrab: 'José D\'Angelo & Cia',
+      nmTrab: "José D'Angelo & Cia",
     };
     const xml = builder.build(input);
-    expect(xml).toContain(
-      '<nmTrab>José D&apos;Angelo &amp; Cia</nmTrab>',
-    );
+    expect(xml).toContain('<nmTrab>José D&apos;Angelo &amp; Cia</nmTrab>');
   });
 
   it('should support retificacao with nrRecibo', () => {

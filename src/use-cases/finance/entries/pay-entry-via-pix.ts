@@ -81,9 +81,8 @@ export class PayEntryViaPixUseCase {
     }
 
     // Calculate payment amount = remaining balance
-    const paymentAmount = entry.remainingBalance > 0
-      ? entry.remainingBalance
-      : entry.totalDue;
+    const paymentAmount =
+      entry.remainingBalance > 0 ? entry.remainingBalance : entry.totalDue;
 
     if (paymentAmount <= 0) {
       throw new BadRequestError(

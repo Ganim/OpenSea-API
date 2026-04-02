@@ -83,8 +83,7 @@ export class InMemoryTerminationsRepository implements TerminationsRepository {
     }
 
     const sorted = filtered.sort(
-      (a, b) =>
-        b.terminationDate.getTime() - a.terminationDate.getTime(),
+      (a, b) => b.terminationDate.getTime() - a.terminationDate.getTime(),
     );
 
     const page = filters?.page ?? 1;

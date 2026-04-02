@@ -2,7 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { performanceReviewResponseSchema } from '@/http/schemas/hr/reviews';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { performanceReviewToDTO } from '@/mappers/hr/performance-review';
 import { makeGetPerformanceReviewUseCase } from '@/use-cases/hr/performance-reviews/factories/make-get-performance-review-use-case';
 
@@ -19,7 +19,7 @@ export async function v1GetPerformanceReviewController(app: FastifyInstance) {
       tags: ['HR - Reviews'],
       summary: 'Get performance review',
       description: 'Gets a performance review by ID',
-      params: z.object({ performanceReviewId: idSchema }),
+      params: z.object({ performanceReviewId: cuidSchema }),
       response: {
         200: z.object({ review: performanceReviewResponseSchema }),
         404: z.object({ message: z.string() }),

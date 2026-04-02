@@ -150,6 +150,8 @@ describe('S1000Builder', () => {
     };
     const xml = builder.build(input);
 
-    expect(xml).toContain('<nmRazao>Empresa &amp; Filhos &lt;Ltda&gt;</nmRazao>');
+    expect(xml).toContain(
+      '<nmRazao>Empresa &amp; Filhos &lt;Ltda&gt;</nmRazao>',
+    );
   });
 });

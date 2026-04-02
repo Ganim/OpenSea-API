@@ -3,7 +3,7 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { cuidSchema, dateSchema } from '../../common.schema';
 
 const interviewStageTypeEnum = z.enum([
   'SCREENING',
@@ -14,18 +14,18 @@ const interviewStageTypeEnum = z.enum([
 ]);
 
 export const createInterviewStageSchema = z.object({
-  jobPostingId: z.string().uuid(),
+  jobPostingId: cuidSchema,
   name: z.string().min(1).max(128),
   type: interviewStageTypeEnum.optional().default('SCREENING'),
   description: z.string().max(2000).optional(),
 });
 
 export const reorderInterviewStagesSchema = z.object({
-  stageIds: z.array(z.string().uuid()).min(1),
+  stageIds: z.array(cuidSchema).min(1),
 });
 
 export const interviewStageResponseSchema = z.object({
-  id: idSchema,
+  id: cuidSchema,
   jobPostingId: z.string(),
   name: z.string(),
   order: z.number(),

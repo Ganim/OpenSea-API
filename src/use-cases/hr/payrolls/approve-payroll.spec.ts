@@ -1,6 +1,11 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('@/services/esocial/auto-generate', () => ({
+  tryAutoGenerateEvent: vi.fn().mockResolvedValue(undefined),
+}));
+
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryPayrollsRepository } from '@/repositories/hr/in-memory/in-memory-payrolls-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
 import { ApprovePayrollUseCase } from './approve-payroll';
 
 let payrollsRepository: InMemoryPayrollsRepository;

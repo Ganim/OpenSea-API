@@ -3,7 +3,7 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { cuidSchema, dateSchema, idSchema } from '../../common.schema';
 
 /**
  * Schema para alocação de benefícios flexíveis
@@ -41,7 +41,7 @@ export const getMyAllocationQuerySchema = z.object({
  * Schema para resposta de alocação flexível
  */
 export const flexBenefitAllocationResponseSchema = z.object({
-  id: idSchema,
+  id: cuidSchema,
   employeeId: idSchema,
   month: z.number(),
   year: z.number(),
@@ -66,7 +66,7 @@ export const calculateBenefitDeductionsSchema = z.object({
  * Schema para resposta de item de dedução de benefício
  */
 export const benefitDeductionItemSchema = z.object({
-  benefitPlanId: idSchema,
+  benefitPlanId: cuidSchema,
   benefitPlanName: z.string(),
   benefitType: z.string(),
   employeeContribution: z.number(),

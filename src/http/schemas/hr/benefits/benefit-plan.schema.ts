@@ -3,7 +3,11 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema, queryBooleanSchema } from '../../common.schema';
+import {
+  cuidSchema,
+  dateSchema,
+  queryBooleanSchema,
+} from '../../common.schema';
 
 const benefitTypeEnum = z.enum([
   'VT',
@@ -60,7 +64,7 @@ export const listBenefitPlansQuerySchema = z.object({
  * Schema para resposta de plano de benefício
  */
 export const benefitPlanResponseSchema = z.object({
-  id: idSchema,
+  id: cuidSchema,
   name: z.string(),
   type: z.string(),
   provider: z.string().nullable(),

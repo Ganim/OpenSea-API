@@ -7,9 +7,7 @@ import type {
   PaginatedKudosResult,
 } from '../employee-kudos-repository';
 
-export class PrismaEmployeeKudosRepository
-  implements EmployeeKudosRepository
-{
+export class PrismaEmployeeKudosRepository implements EmployeeKudosRepository {
   async create(kudos: EmployeeKudos): Promise<void> {
     await prisma.employeeKudos.create({
       data: {

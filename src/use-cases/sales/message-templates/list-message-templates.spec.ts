@@ -10,8 +10,12 @@ let listMessageTemplates: ListMessageTemplatesUseCase;
 describe('ListMessageTemplatesUseCase', () => {
   beforeEach(() => {
     messageTemplatesRepository = new InMemoryMessageTemplatesRepository();
-    createMessageTemplate = new CreateMessageTemplateUseCase(messageTemplatesRepository);
-    listMessageTemplates = new ListMessageTemplatesUseCase(messageTemplatesRepository);
+    createMessageTemplate = new CreateMessageTemplateUseCase(
+      messageTemplatesRepository,
+    );
+    listMessageTemplates = new ListMessageTemplatesUseCase(
+      messageTemplatesRepository,
+    );
   });
 
   it('should list message templates with pagination', async () => {

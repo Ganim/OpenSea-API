@@ -18,9 +18,7 @@ interface ReverseJournalEntryUseCaseResponse {
 }
 
 export class ReverseJournalEntryUseCase {
-  constructor(
-    private journalEntriesRepository: JournalEntriesRepository,
-  ) {}
+  constructor(private journalEntriesRepository: JournalEntriesRepository) {}
 
   async execute(
     request: ReverseJournalEntryUseCaseRequest,
@@ -72,7 +70,10 @@ export class ReverseJournalEntryUseCase {
       entity: 'JournalEntry',
       entityId: journalEntryId,
       module: 'finance',
-      newData: { reversalEntryId: reversalEntry.id, reversalCode: reversalEntry.code },
+      newData: {
+        reversalEntryId: reversalEntry.id,
+        reversalCode: reversalEntry.code,
+      },
     });
 
     return { reversalEntry };

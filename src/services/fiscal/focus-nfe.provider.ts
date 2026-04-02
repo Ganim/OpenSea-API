@@ -299,8 +299,7 @@ export class FocusNFeProvider implements FiscalProvider {
       return {
         success: true,
         accessKey: responseBody.chave_nfe as string | undefined,
-        protocolNumber:
-          responseBody.numero_protocolo as string | undefined,
+        protocolNumber: responseBody.numero_protocolo as string | undefined,
         protocolDate: responseBody.data_protocolo
           ? new Date(responseBody.data_protocolo as string)
           : undefined,
@@ -319,9 +318,7 @@ export class FocusNFeProvider implements FiscalProvider {
     };
   }
 
-  private mapEventResponse(
-    responseBody: Record<string, unknown>,
-  ): EventResult {
+  private mapEventResponse(responseBody: Record<string, unknown>): EventResult {
     const focusStatus = responseBody.status as string | undefined;
     const eventSucceeded =
       focusStatus === 'cancelado' ||

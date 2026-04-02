@@ -39,7 +39,9 @@ export class ExecuteWorkflowUseCase {
     );
 
     if (activeWorkflows.length === 0) {
-      throw new ResourceNotFoundError(`No active workflows found for trigger: ${input.trigger}.`);
+      throw new ResourceNotFoundError(
+        `No active workflows found for trigger: ${input.trigger}.`,
+      );
     }
 
     const executionLogs: WorkflowExecutionLog[] = [];

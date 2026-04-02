@@ -22,6 +22,7 @@ interface UpdateFinanceCategoryUseCaseRequest {
   isActive?: boolean;
   interestRate?: number;
   penaltyRate?: number;
+  chartOfAccountId?: string | null;
 }
 
 interface UpdateFinanceCategoryUseCaseResponse {
@@ -98,6 +99,7 @@ export class UpdateFinanceCategoryUseCase {
       isActive: request.isActive,
       interestRate: request.interestRate,
       penaltyRate: request.penaltyRate,
+      chartOfAccountId: request.chartOfAccountId,
     });
 
     if (!updated) {

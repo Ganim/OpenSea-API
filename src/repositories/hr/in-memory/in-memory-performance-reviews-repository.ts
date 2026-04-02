@@ -48,8 +48,7 @@ export class InMemoryPerformanceReviewsRepository
     return (
       this.items.find(
         (review) =>
-          review.id.equals(id) &&
-          review.tenantId.toString() === tenantId,
+          review.id.equals(id) && review.tenantId.toString() === tenantId,
       ) ?? null
     );
   }
@@ -78,9 +77,7 @@ export class InMemoryPerformanceReviewsRepository
       );
     }
     if (filters?.status) {
-      filtered = filtered.filter(
-        (review) => review.status === filters.status,
-      );
+      filtered = filtered.filter((review) => review.status === filters.status);
     }
 
     const total = filtered.length;
@@ -114,9 +111,7 @@ export class InMemoryPerformanceReviewsRepository
   async update(
     data: UpdatePerformanceReviewSchema,
   ): Promise<PerformanceReview | null> {
-    const index = this.items.findIndex((review) =>
-      review.id.equals(data.id),
-    );
+    const index = this.items.findIndex((review) => review.id.equals(data.id));
     if (index === -1) return null;
 
     const review = this.items[index];

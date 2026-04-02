@@ -1,6 +1,21 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+// Mock fire-and-forget dynamic imports that cause unhandled rejections after teardown
+vi.mock('@/services/esocial/auto-generate', () => ({
+  tryAutoGenerateEvent: vi.fn().mockResolvedValue(undefined),
+}));
+
+vi.mock(
+  '@/use-cases/hr/onboarding/factories/make-create-onboarding-checklist-use-case',
+  () => ({
+    makeCreateOnboardingChecklistUseCase: () => ({
+      execute: vi.fn().mockResolvedValue({}),
+    }),
+  }),
+);
+
 import { InMemoryAdmissionsRepository } from '@/repositories/hr/in-memory/in-memory-admissions-repository';
 import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
 import { ApproveAdmissionUseCase } from './approve-admission';
 
 let admissionsRepository: InMemoryAdmissionsRepository;

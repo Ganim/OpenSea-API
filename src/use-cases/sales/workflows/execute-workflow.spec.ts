@@ -34,8 +34,12 @@ describe('ExecuteWorkflowUseCase', () => {
 
     expect(result.totalWorkflowsExecuted).toBe(1);
     expect(result.executionLogs[0].stepsExecuted).toHaveLength(2);
-    expect(result.executionLogs[0].stepsExecuted[0].stepType).toBe('SEND_EMAIL');
-    expect(result.executionLogs[0].stepsExecuted[1].stepType).toBe('CREATE_TASK');
+    expect(result.executionLogs[0].stepsExecuted[0].stepType).toBe(
+      'SEND_EMAIL',
+    );
+    expect(result.executionLogs[0].stepsExecuted[1].stepType).toBe(
+      'CREATE_TASK',
+    );
   });
 
   it('should increment execution count after execution', async () => {
@@ -44,9 +48,7 @@ describe('ExecuteWorkflowUseCase', () => {
       name: 'Counter Flow',
       trigger: 'ORDER_CREATED',
       isActive: true,
-      steps: [
-        { order: 1, type: 'SEND_NOTIFICATION', config: {} },
-      ],
+      steps: [{ order: 1, type: 'SEND_NOTIFICATION', config: {} }],
     });
 
     await executeWorkflow.execute({

@@ -4,7 +4,9 @@ import type {
   UpdateHrTenantConfigData,
 } from '../hr-tenant-config-repository';
 
-export class InMemoryHrTenantConfigRepository implements HrTenantConfigRepository {
+export class InMemoryHrTenantConfigRepository
+  implements HrTenantConfigRepository
+{
   public items: HrTenantConfig[] = [];
 
   async findByTenantId(tenantId: string): Promise<HrTenantConfig | null> {

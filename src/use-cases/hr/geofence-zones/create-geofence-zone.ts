@@ -22,7 +22,15 @@ export class CreateGeofenceZoneUseCase {
   async execute(
     request: CreateGeofenceZoneRequest,
   ): Promise<CreateGeofenceZoneResponse> {
-    const { tenantId, name, latitude, longitude, radiusMeters, isActive, address } = request;
+    const {
+      tenantId,
+      name,
+      latitude,
+      longitude,
+      radiusMeters,
+      isActive,
+      address,
+    } = request;
 
     if (!name || name.trim().length === 0) {
       throw new BadRequestError('Geofence zone name is required');

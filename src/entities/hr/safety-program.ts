@@ -98,7 +98,10 @@ export class SafetyProgram extends Entity<SafetyProgramProps> {
       throw new Error('Nome do responsável é obrigatório');
     }
 
-    if (!props.responsibleRegistration || props.responsibleRegistration.trim().length === 0) {
+    if (
+      !props.responsibleRegistration ||
+      props.responsibleRegistration.trim().length === 0
+    ) {
       throw new Error('Registro profissional do responsável é obrigatório');
     }
 

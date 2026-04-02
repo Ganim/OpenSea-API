@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { dateSchema, idSchema } from '../../common.schema';
+import { cuidSchema, dateSchema, idSchema } from '../../common.schema';
 
 const objectiveLevelEnum = z.enum([
   'COMPANY',
@@ -22,7 +22,7 @@ const keyResultTypeEnum = z.enum([
   'BINARY',
 ]);
 
-const keyResultStatusEnum = z.enum([
+const _keyResultStatusEnum = z.enum([
   'ON_TRACK',
   'AT_RISK',
   'BEHIND',
@@ -37,7 +37,7 @@ export const createObjectiveSchema = z.object({
   title: z.string().min(1).max(256),
   description: z.string().max(2000).optional(),
   ownerId: idSchema,
-  parentId: idSchema.optional(),
+  parentId: cuidSchema.optional(),
   level: objectiveLevelEnum,
   period: z.string().min(1).max(16),
   startDate: dateSchema,
@@ -57,7 +57,7 @@ export const updateObjectiveSchema = z.object({
 
 export const listObjectivesQuerySchema = z.object({
   ownerId: idSchema.optional(),
-  parentId: idSchema.optional(),
+  parentId: cuidSchema.optional(),
   level: objectiveLevelEnum.optional(),
   status: objectiveStatusEnum.optional(),
   period: z.string().optional(),
@@ -66,11 +66,11 @@ export const listObjectivesQuerySchema = z.object({
 });
 
 export const objectiveResponseSchema = z.object({
-  id: idSchema,
+  id: cuidSchema,
   title: z.string(),
   description: z.string().nullable(),
   ownerId: idSchema,
-  parentId: idSchema.nullable(),
+  parentId: cuidSchema.nullable(),
   level: z.string(),
   status: z.string(),
   period: z.string(),
@@ -94,8 +94,8 @@ export const createKeyResultSchema = z.object({
 });
 
 export const keyResultResponseSchema = z.object({
-  id: idSchema,
-  objectiveId: idSchema,
+  id: cuidSchema,
+  objectiveId: cuidSchema,
   title: z.string(),
   description: z.string().nullable(),
   type: z.string(),
@@ -119,8 +119,8 @@ export const checkInKeyResultSchema = z.object({
 });
 
 export const okrCheckInResponseSchema = z.object({
-  id: idSchema,
-  keyResultId: idSchema,
+  id: cuidSchema,
+  keyResultId: cuidSchema,
   employeeId: idSchema,
   previousValue: z.number(),
   newValue: z.number(),

@@ -63,25 +63,15 @@ async function seedTable(
 export async function seedEsocialTables(prisma: PrismaLike): Promise<void> {
   console.log('  Seeding eSocial reference tables...');
 
-  const table01Count = await seedTable(
-    prisma,
-    '01',
-    CATEGORIAS_TRABALHADOR,
+  const table01Count = await seedTable(prisma, '01', CATEGORIAS_TRABALHADOR);
+  console.log(
+    `    Table 01 (Categorias de Trabalhador): ${table01Count} entries`,
   );
-  console.log(`    Table 01 (Categorias de Trabalhador): ${table01Count} entries`);
 
-  const table03Count = await seedTable(
-    prisma,
-    '03',
-    NATUREZAS_RUBRICA,
-  );
+  const table03Count = await seedTable(prisma, '03', NATUREZAS_RUBRICA);
   console.log(`    Table 03 (Naturezas de Rubrica): ${table03Count} entries`);
 
-  const table18Count = await seedTable(
-    prisma,
-    '18',
-    MOTIVOS_AFASTAMENTO,
-  );
+  const table18Count = await seedTable(prisma, '18', MOTIVOS_AFASTAMENTO);
   console.log(`    Table 18 (Motivos de Afastamento): ${table18Count} entries`);
 
   console.log(

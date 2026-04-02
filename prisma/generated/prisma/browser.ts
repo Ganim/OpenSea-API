@@ -653,6 +653,16 @@ export type CostCenter = Prisma.CostCenterModel
  */
 export type ChartOfAccount = Prisma.ChartOfAccountModel
 /**
+ * Model JournalEntry
+ * 
+ */
+export type JournalEntry = Prisma.JournalEntryModel
+/**
+ * Model JournalEntryLine
+ * 
+ */
+export type JournalEntryLine = Prisma.JournalEntryLineModel
+/**
  * Model BankAccount
  * 
  */
@@ -1497,6 +1507,16 @@ export type TaxObligation = Prisma.TaxObligationModel
  * 
  */
 export type BankConnection = Prisma.BankConnectionModel
+/**
+ * Model PaymentOrder
+ * 
+ */
+export type PaymentOrder = Prisma.PaymentOrderModel
+/**
+ * Model BankWebhookEvent
+ * 
+ */
+export type BankWebhookEvent = Prisma.BankWebhookEventModel
 /**
  * Model PaymentLink
  * 

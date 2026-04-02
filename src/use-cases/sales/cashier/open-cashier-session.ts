@@ -16,9 +16,7 @@ interface OpenCashierSessionUseCaseResponse {
 }
 
 export class OpenCashierSessionUseCase {
-  constructor(
-    private cashierSessionsRepository: CashierSessionsRepository,
-  ) {}
+  constructor(private cashierSessionsRepository: CashierSessionsRepository) {}
 
   async execute(
     input: OpenCashierSessionUseCaseRequest,

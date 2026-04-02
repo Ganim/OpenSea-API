@@ -1,6 +1,9 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { AnnouncementPriority, CompanyAnnouncement } from '@/entities/hr/company-announcement';
+import type {
+  AnnouncementPriority,
+  CompanyAnnouncement,
+} from '@/entities/hr/company-announcement';
 import type { CompanyAnnouncementsRepository } from '@/repositories/hr/company-announcements-repository';
 
 export interface UpdateAnnouncementInput {
@@ -27,11 +30,10 @@ export class UpdateAnnouncementUseCase {
   ): Promise<UpdateAnnouncementOutput> {
     const { tenantId, announcementId, ...updateData } = input;
 
-    const announcement =
-      await this.companyAnnouncementsRepository.findById(
-        new UniqueEntityID(announcementId),
-        tenantId,
-      );
+    const announcement = await this.companyAnnouncementsRepository.findById(
+      new UniqueEntityID(announcementId),
+      tenantId,
+    );
 
     if (!announcement) {
       throw new ResourceNotFoundError('Announcement not found');

@@ -28,6 +28,7 @@ export function makeProcessBankWebhookUseCase() {
     webhookEventsRepository,
     financeEntriesRepository,
     bankAccountsRepository,
-    (bankAccountId, _providerName) => getBankingProviderForAccount(bankAccountId),
+    (bankAccountId, _providerName) =>
+      getBankingProviderForAccount(bankAccountId),
   );
 }

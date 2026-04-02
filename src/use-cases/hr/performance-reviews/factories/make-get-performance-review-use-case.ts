@@ -2,7 +2,6 @@ import { PrismaPerformanceReviewsRepository } from '@/repositories/hr/prisma/pri
 import { GetPerformanceReviewUseCase } from '../get-performance-review';
 
 export function makeGetPerformanceReviewUseCase() {
-  const performanceReviewsRepository =
-    new PrismaPerformanceReviewsRepository();
+  const performanceReviewsRepository = new PrismaPerformanceReviewsRepository();
   return new GetPerformanceReviewUseCase(performanceReviewsRepository);
 }

@@ -51,6 +51,7 @@ export type FinanceCategoryMinAggregateOutputType = {
   displayOrder: number | null
   isActive: boolean | null
   isSystem: boolean | null
+  chartOfAccountId: string | null
   interestRate: runtime.Decimal | null
   penaltyRate: runtime.Decimal | null
   deletedAt: Date | null
@@ -71,6 +72,7 @@ export type FinanceCategoryMaxAggregateOutputType = {
   displayOrder: number | null
   isActive: boolean | null
   isSystem: boolean | null
+  chartOfAccountId: string | null
   interestRate: runtime.Decimal | null
   penaltyRate: runtime.Decimal | null
   deletedAt: Date | null
@@ -91,6 +93,7 @@ export type FinanceCategoryCountAggregateOutputType = {
   displayOrder: number
   isActive: number
   isSystem: number
+  chartOfAccountId: number
   interestRate: number
   penaltyRate: number
   deletedAt: number
@@ -125,6 +128,7 @@ export type FinanceCategoryMinAggregateInputType = {
   displayOrder?: true
   isActive?: true
   isSystem?: true
+  chartOfAccountId?: true
   interestRate?: true
   penaltyRate?: true
   deletedAt?: true
@@ -145,6 +149,7 @@ export type FinanceCategoryMaxAggregateInputType = {
   displayOrder?: true
   isActive?: true
   isSystem?: true
+  chartOfAccountId?: true
   interestRate?: true
   penaltyRate?: true
   deletedAt?: true
@@ -165,6 +170,7 @@ export type FinanceCategoryCountAggregateInputType = {
   displayOrder?: true
   isActive?: true
   isSystem?: true
+  chartOfAccountId?: true
   interestRate?: true
   penaltyRate?: true
   deletedAt?: true
@@ -272,6 +278,7 @@ export type FinanceCategoryGroupByOutputType = {
   displayOrder: number
   isActive: boolean
   isSystem: boolean
+  chartOfAccountId: string | null
   interestRate: runtime.Decimal | null
   penaltyRate: runtime.Decimal | null
   deletedAt: Date | null
@@ -315,12 +322,14 @@ export type FinanceCategoryWhereInput = {
   displayOrder?: Prisma.IntFilter<"FinanceCategory"> | number
   isActive?: Prisma.BoolFilter<"FinanceCategory"> | boolean
   isSystem?: Prisma.BoolFilter<"FinanceCategory"> | boolean
+  chartOfAccountId?: Prisma.StringNullableFilter<"FinanceCategory"> | string | null
   interestRate?: Prisma.DecimalNullableFilter<"FinanceCategory"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.DecimalNullableFilter<"FinanceCategory"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"FinanceCategory"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"FinanceCategory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FinanceCategory"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  chartOfAccount?: Prisma.XOR<Prisma.ChartOfAccountNullableScalarRelationFilter, Prisma.ChartOfAccountWhereInput> | null
   parent?: Prisma.XOR<Prisma.FinanceCategoryNullableScalarRelationFilter, Prisma.FinanceCategoryWhereInput> | null
   children?: Prisma.FinanceCategoryListRelationFilter
   financeEntries?: Prisma.FinanceEntryListRelationFilter
@@ -340,12 +349,14 @@ export type FinanceCategoryOrderByWithRelationInput = {
   displayOrder?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isSystem?: Prisma.SortOrder
+  chartOfAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
   interestRate?: Prisma.SortOrderInput | Prisma.SortOrder
   penaltyRate?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
+  chartOfAccount?: Prisma.ChartOfAccountOrderByWithRelationInput
   parent?: Prisma.FinanceCategoryOrderByWithRelationInput
   children?: Prisma.FinanceCategoryOrderByRelationAggregateInput
   financeEntries?: Prisma.FinanceEntryOrderByRelationAggregateInput
@@ -369,12 +380,14 @@ export type FinanceCategoryWhereUniqueInput = Prisma.AtLeast<{
   displayOrder?: Prisma.IntFilter<"FinanceCategory"> | number
   isActive?: Prisma.BoolFilter<"FinanceCategory"> | boolean
   isSystem?: Prisma.BoolFilter<"FinanceCategory"> | boolean
+  chartOfAccountId?: Prisma.StringNullableFilter<"FinanceCategory"> | string | null
   interestRate?: Prisma.DecimalNullableFilter<"FinanceCategory"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.DecimalNullableFilter<"FinanceCategory"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"FinanceCategory"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"FinanceCategory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FinanceCategory"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  chartOfAccount?: Prisma.XOR<Prisma.ChartOfAccountNullableScalarRelationFilter, Prisma.ChartOfAccountWhereInput> | null
   parent?: Prisma.XOR<Prisma.FinanceCategoryNullableScalarRelationFilter, Prisma.FinanceCategoryWhereInput> | null
   children?: Prisma.FinanceCategoryListRelationFilter
   financeEntries?: Prisma.FinanceEntryListRelationFilter
@@ -394,6 +407,7 @@ export type FinanceCategoryOrderByWithAggregationInput = {
   displayOrder?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isSystem?: Prisma.SortOrder
+  chartOfAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
   interestRate?: Prisma.SortOrderInput | Prisma.SortOrder
   penaltyRate?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -422,6 +436,7 @@ export type FinanceCategoryScalarWhereWithAggregatesInput = {
   displayOrder?: Prisma.IntWithAggregatesFilter<"FinanceCategory"> | number
   isActive?: Prisma.BoolWithAggregatesFilter<"FinanceCategory"> | boolean
   isSystem?: Prisma.BoolWithAggregatesFilter<"FinanceCategory"> | boolean
+  chartOfAccountId?: Prisma.StringNullableWithAggregatesFilter<"FinanceCategory"> | string | null
   interestRate?: Prisma.DecimalNullableWithAggregatesFilter<"FinanceCategory"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.DecimalNullableWithAggregatesFilter<"FinanceCategory"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"FinanceCategory"> | Date | string | null
@@ -446,6 +461,7 @@ export type FinanceCategoryCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceCategoriesInput
+  chartOfAccount?: Prisma.ChartOfAccountCreateNestedOneWithoutFinanceCategoriesInput
   parent?: Prisma.FinanceCategoryCreateNestedOneWithoutChildrenInput
   children?: Prisma.FinanceCategoryCreateNestedManyWithoutParentInput
   financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCategoryInput
@@ -465,6 +481,7 @@ export type FinanceCategoryUncheckedCreateInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  chartOfAccountId?: string | null
   interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
@@ -492,6 +509,7 @@ export type FinanceCategoryUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceCategoriesNestedInput
+  chartOfAccount?: Prisma.ChartOfAccountUpdateOneWithoutFinanceCategoriesNestedInput
   parent?: Prisma.FinanceCategoryUpdateOneWithoutChildrenNestedInput
   children?: Prisma.FinanceCategoryUpdateManyWithoutParentNestedInput
   financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCategoryNestedInput
@@ -511,6 +529,7 @@ export type FinanceCategoryUncheckedUpdateInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -534,6 +553,7 @@ export type FinanceCategoryCreateManyInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  chartOfAccountId?: string | null
   interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
@@ -572,6 +592,7 @@ export type FinanceCategoryUncheckedUpdateManyInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -613,6 +634,7 @@ export type FinanceCategoryCountOrderByAggregateInput = {
   displayOrder?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isSystem?: Prisma.SortOrder
+  chartOfAccountId?: Prisma.SortOrder
   interestRate?: Prisma.SortOrder
   penaltyRate?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -639,6 +661,7 @@ export type FinanceCategoryMaxOrderByAggregateInput = {
   displayOrder?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isSystem?: Prisma.SortOrder
+  chartOfAccountId?: Prisma.SortOrder
   interestRate?: Prisma.SortOrder
   penaltyRate?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -659,6 +682,7 @@ export type FinanceCategoryMinOrderByAggregateInput = {
   displayOrder?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isSystem?: Prisma.SortOrder
+  chartOfAccountId?: Prisma.SortOrder
   interestRate?: Prisma.SortOrder
   penaltyRate?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -716,6 +740,48 @@ export type FinanceCategoryUncheckedUpdateManyWithoutTenantNestedInput = {
   connect?: Prisma.FinanceCategoryWhereUniqueInput | Prisma.FinanceCategoryWhereUniqueInput[]
   update?: Prisma.FinanceCategoryUpdateWithWhereUniqueWithoutTenantInput | Prisma.FinanceCategoryUpdateWithWhereUniqueWithoutTenantInput[]
   updateMany?: Prisma.FinanceCategoryUpdateManyWithWhereWithoutTenantInput | Prisma.FinanceCategoryUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.FinanceCategoryScalarWhereInput | Prisma.FinanceCategoryScalarWhereInput[]
+}
+
+export type FinanceCategoryCreateNestedManyWithoutChartOfAccountInput = {
+  create?: Prisma.XOR<Prisma.FinanceCategoryCreateWithoutChartOfAccountInput, Prisma.FinanceCategoryUncheckedCreateWithoutChartOfAccountInput> | Prisma.FinanceCategoryCreateWithoutChartOfAccountInput[] | Prisma.FinanceCategoryUncheckedCreateWithoutChartOfAccountInput[]
+  connectOrCreate?: Prisma.FinanceCategoryCreateOrConnectWithoutChartOfAccountInput | Prisma.FinanceCategoryCreateOrConnectWithoutChartOfAccountInput[]
+  createMany?: Prisma.FinanceCategoryCreateManyChartOfAccountInputEnvelope
+  connect?: Prisma.FinanceCategoryWhereUniqueInput | Prisma.FinanceCategoryWhereUniqueInput[]
+}
+
+export type FinanceCategoryUncheckedCreateNestedManyWithoutChartOfAccountInput = {
+  create?: Prisma.XOR<Prisma.FinanceCategoryCreateWithoutChartOfAccountInput, Prisma.FinanceCategoryUncheckedCreateWithoutChartOfAccountInput> | Prisma.FinanceCategoryCreateWithoutChartOfAccountInput[] | Prisma.FinanceCategoryUncheckedCreateWithoutChartOfAccountInput[]
+  connectOrCreate?: Prisma.FinanceCategoryCreateOrConnectWithoutChartOfAccountInput | Prisma.FinanceCategoryCreateOrConnectWithoutChartOfAccountInput[]
+  createMany?: Prisma.FinanceCategoryCreateManyChartOfAccountInputEnvelope
+  connect?: Prisma.FinanceCategoryWhereUniqueInput | Prisma.FinanceCategoryWhereUniqueInput[]
+}
+
+export type FinanceCategoryUpdateManyWithoutChartOfAccountNestedInput = {
+  create?: Prisma.XOR<Prisma.FinanceCategoryCreateWithoutChartOfAccountInput, Prisma.FinanceCategoryUncheckedCreateWithoutChartOfAccountInput> | Prisma.FinanceCategoryCreateWithoutChartOfAccountInput[] | Prisma.FinanceCategoryUncheckedCreateWithoutChartOfAccountInput[]
+  connectOrCreate?: Prisma.FinanceCategoryCreateOrConnectWithoutChartOfAccountInput | Prisma.FinanceCategoryCreateOrConnectWithoutChartOfAccountInput[]
+  upsert?: Prisma.FinanceCategoryUpsertWithWhereUniqueWithoutChartOfAccountInput | Prisma.FinanceCategoryUpsertWithWhereUniqueWithoutChartOfAccountInput[]
+  createMany?: Prisma.FinanceCategoryCreateManyChartOfAccountInputEnvelope
+  set?: Prisma.FinanceCategoryWhereUniqueInput | Prisma.FinanceCategoryWhereUniqueInput[]
+  disconnect?: Prisma.FinanceCategoryWhereUniqueInput | Prisma.FinanceCategoryWhereUniqueInput[]
+  delete?: Prisma.FinanceCategoryWhereUniqueInput | Prisma.FinanceCategoryWhereUniqueInput[]
+  connect?: Prisma.FinanceCategoryWhereUniqueInput | Prisma.FinanceCategoryWhereUniqueInput[]
+  update?: Prisma.FinanceCategoryUpdateWithWhereUniqueWithoutChartOfAccountInput | Prisma.FinanceCategoryUpdateWithWhereUniqueWithoutChartOfAccountInput[]
+  updateMany?: Prisma.FinanceCategoryUpdateManyWithWhereWithoutChartOfAccountInput | Prisma.FinanceCategoryUpdateManyWithWhereWithoutChartOfAccountInput[]
+  deleteMany?: Prisma.FinanceCategoryScalarWhereInput | Prisma.FinanceCategoryScalarWhereInput[]
+}
+
+export type FinanceCategoryUncheckedUpdateManyWithoutChartOfAccountNestedInput = {
+  create?: Prisma.XOR<Prisma.FinanceCategoryCreateWithoutChartOfAccountInput, Prisma.FinanceCategoryUncheckedCreateWithoutChartOfAccountInput> | Prisma.FinanceCategoryCreateWithoutChartOfAccountInput[] | Prisma.FinanceCategoryUncheckedCreateWithoutChartOfAccountInput[]
+  connectOrCreate?: Prisma.FinanceCategoryCreateOrConnectWithoutChartOfAccountInput | Prisma.FinanceCategoryCreateOrConnectWithoutChartOfAccountInput[]
+  upsert?: Prisma.FinanceCategoryUpsertWithWhereUniqueWithoutChartOfAccountInput | Prisma.FinanceCategoryUpsertWithWhereUniqueWithoutChartOfAccountInput[]
+  createMany?: Prisma.FinanceCategoryCreateManyChartOfAccountInputEnvelope
+  set?: Prisma.FinanceCategoryWhereUniqueInput | Prisma.FinanceCategoryWhereUniqueInput[]
+  disconnect?: Prisma.FinanceCategoryWhereUniqueInput | Prisma.FinanceCategoryWhereUniqueInput[]
+  delete?: Prisma.FinanceCategoryWhereUniqueInput | Prisma.FinanceCategoryWhereUniqueInput[]
+  connect?: Prisma.FinanceCategoryWhereUniqueInput | Prisma.FinanceCategoryWhereUniqueInput[]
+  update?: Prisma.FinanceCategoryUpdateWithWhereUniqueWithoutChartOfAccountInput | Prisma.FinanceCategoryUpdateWithWhereUniqueWithoutChartOfAccountInput[]
+  updateMany?: Prisma.FinanceCategoryUpdateManyWithWhereWithoutChartOfAccountInput | Prisma.FinanceCategoryUpdateManyWithWhereWithoutChartOfAccountInput[]
   deleteMany?: Prisma.FinanceCategoryScalarWhereInput | Prisma.FinanceCategoryScalarWhereInput[]
 }
 
@@ -825,6 +891,7 @@ export type FinanceCategoryCreateWithoutTenantInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  chartOfAccount?: Prisma.ChartOfAccountCreateNestedOneWithoutFinanceCategoriesInput
   parent?: Prisma.FinanceCategoryCreateNestedOneWithoutChildrenInput
   children?: Prisma.FinanceCategoryCreateNestedManyWithoutParentInput
   financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCategoryInput
@@ -843,6 +910,7 @@ export type FinanceCategoryUncheckedCreateWithoutTenantInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  chartOfAccountId?: string | null
   interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
@@ -895,11 +963,84 @@ export type FinanceCategoryScalarWhereInput = {
   displayOrder?: Prisma.IntFilter<"FinanceCategory"> | number
   isActive?: Prisma.BoolFilter<"FinanceCategory"> | boolean
   isSystem?: Prisma.BoolFilter<"FinanceCategory"> | boolean
+  chartOfAccountId?: Prisma.StringNullableFilter<"FinanceCategory"> | string | null
   interestRate?: Prisma.DecimalNullableFilter<"FinanceCategory"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.DecimalNullableFilter<"FinanceCategory"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"FinanceCategory"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"FinanceCategory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FinanceCategory"> | Date | string
+}
+
+export type FinanceCategoryCreateWithoutChartOfAccountInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  iconUrl?: string | null
+  color?: string | null
+  type: $Enums.FinanceCategoryType
+  displayOrder?: number
+  isActive?: boolean
+  isSystem?: boolean
+  interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutFinanceCategoriesInput
+  parent?: Prisma.FinanceCategoryCreateNestedOneWithoutChildrenInput
+  children?: Prisma.FinanceCategoryCreateNestedManyWithoutParentInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCategoryInput
+  financeBudgets?: Prisma.FinanceBudgetCreateNestedManyWithoutCategoryInput
+}
+
+export type FinanceCategoryUncheckedCreateWithoutChartOfAccountInput = {
+  id?: string
+  tenantId: string
+  name: string
+  slug: string
+  description?: string | null
+  iconUrl?: string | null
+  color?: string | null
+  type: $Enums.FinanceCategoryType
+  parentId?: string | null
+  displayOrder?: number
+  isActive?: boolean
+  isSystem?: boolean
+  interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  children?: Prisma.FinanceCategoryUncheckedCreateNestedManyWithoutParentInput
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutCategoryInput
+  financeBudgets?: Prisma.FinanceBudgetUncheckedCreateNestedManyWithoutCategoryInput
+}
+
+export type FinanceCategoryCreateOrConnectWithoutChartOfAccountInput = {
+  where: Prisma.FinanceCategoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.FinanceCategoryCreateWithoutChartOfAccountInput, Prisma.FinanceCategoryUncheckedCreateWithoutChartOfAccountInput>
+}
+
+export type FinanceCategoryCreateManyChartOfAccountInputEnvelope = {
+  data: Prisma.FinanceCategoryCreateManyChartOfAccountInput | Prisma.FinanceCategoryCreateManyChartOfAccountInput[]
+  skipDuplicates?: boolean
+}
+
+export type FinanceCategoryUpsertWithWhereUniqueWithoutChartOfAccountInput = {
+  where: Prisma.FinanceCategoryWhereUniqueInput
+  update: Prisma.XOR<Prisma.FinanceCategoryUpdateWithoutChartOfAccountInput, Prisma.FinanceCategoryUncheckedUpdateWithoutChartOfAccountInput>
+  create: Prisma.XOR<Prisma.FinanceCategoryCreateWithoutChartOfAccountInput, Prisma.FinanceCategoryUncheckedCreateWithoutChartOfAccountInput>
+}
+
+export type FinanceCategoryUpdateWithWhereUniqueWithoutChartOfAccountInput = {
+  where: Prisma.FinanceCategoryWhereUniqueInput
+  data: Prisma.XOR<Prisma.FinanceCategoryUpdateWithoutChartOfAccountInput, Prisma.FinanceCategoryUncheckedUpdateWithoutChartOfAccountInput>
+}
+
+export type FinanceCategoryUpdateManyWithWhereWithoutChartOfAccountInput = {
+  where: Prisma.FinanceCategoryScalarWhereInput
+  data: Prisma.XOR<Prisma.FinanceCategoryUpdateManyMutationInput, Prisma.FinanceCategoryUncheckedUpdateManyWithoutChartOfAccountInput>
 }
 
 export type FinanceCategoryCreateWithoutChildrenInput = {
@@ -919,6 +1060,7 @@ export type FinanceCategoryCreateWithoutChildrenInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceCategoriesInput
+  chartOfAccount?: Prisma.ChartOfAccountCreateNestedOneWithoutFinanceCategoriesInput
   parent?: Prisma.FinanceCategoryCreateNestedOneWithoutChildrenInput
   financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCategoryInput
   financeBudgets?: Prisma.FinanceBudgetCreateNestedManyWithoutCategoryInput
@@ -937,6 +1079,7 @@ export type FinanceCategoryUncheckedCreateWithoutChildrenInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  chartOfAccountId?: string | null
   interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
@@ -968,6 +1111,7 @@ export type FinanceCategoryCreateWithoutParentInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceCategoriesInput
+  chartOfAccount?: Prisma.ChartOfAccountCreateNestedOneWithoutFinanceCategoriesInput
   children?: Prisma.FinanceCategoryCreateNestedManyWithoutParentInput
   financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCategoryInput
   financeBudgets?: Prisma.FinanceBudgetCreateNestedManyWithoutCategoryInput
@@ -985,6 +1129,7 @@ export type FinanceCategoryUncheckedCreateWithoutParentInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  chartOfAccountId?: string | null
   interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
@@ -1033,6 +1178,7 @@ export type FinanceCategoryUpdateWithoutChildrenInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceCategoriesNestedInput
+  chartOfAccount?: Prisma.ChartOfAccountUpdateOneWithoutFinanceCategoriesNestedInput
   parent?: Prisma.FinanceCategoryUpdateOneWithoutChildrenNestedInput
   financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCategoryNestedInput
   financeBudgets?: Prisma.FinanceBudgetUpdateManyWithoutCategoryNestedInput
@@ -1051,6 +1197,7 @@ export type FinanceCategoryUncheckedUpdateWithoutChildrenInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1093,6 +1240,7 @@ export type FinanceCategoryCreateWithoutFinanceEntriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceCategoriesInput
+  chartOfAccount?: Prisma.ChartOfAccountCreateNestedOneWithoutFinanceCategoriesInput
   parent?: Prisma.FinanceCategoryCreateNestedOneWithoutChildrenInput
   children?: Prisma.FinanceCategoryCreateNestedManyWithoutParentInput
   financeBudgets?: Prisma.FinanceBudgetCreateNestedManyWithoutCategoryInput
@@ -1111,6 +1259,7 @@ export type FinanceCategoryUncheckedCreateWithoutFinanceEntriesInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  chartOfAccountId?: string | null
   interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
@@ -1153,6 +1302,7 @@ export type FinanceCategoryUpdateWithoutFinanceEntriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceCategoriesNestedInput
+  chartOfAccount?: Prisma.ChartOfAccountUpdateOneWithoutFinanceCategoriesNestedInput
   parent?: Prisma.FinanceCategoryUpdateOneWithoutChildrenNestedInput
   children?: Prisma.FinanceCategoryUpdateManyWithoutParentNestedInput
   financeBudgets?: Prisma.FinanceBudgetUpdateManyWithoutCategoryNestedInput
@@ -1171,6 +1321,7 @@ export type FinanceCategoryUncheckedUpdateWithoutFinanceEntriesInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1197,6 +1348,7 @@ export type FinanceCategoryCreateWithoutFinanceBudgetsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutFinanceCategoriesInput
+  chartOfAccount?: Prisma.ChartOfAccountCreateNestedOneWithoutFinanceCategoriesInput
   parent?: Prisma.FinanceCategoryCreateNestedOneWithoutChildrenInput
   children?: Prisma.FinanceCategoryCreateNestedManyWithoutParentInput
   financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutCategoryInput
@@ -1215,6 +1367,7 @@ export type FinanceCategoryUncheckedCreateWithoutFinanceBudgetsInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  chartOfAccountId?: string | null
   interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
@@ -1257,6 +1410,7 @@ export type FinanceCategoryUpdateWithoutFinanceBudgetsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceCategoriesNestedInput
+  chartOfAccount?: Prisma.ChartOfAccountUpdateOneWithoutFinanceCategoriesNestedInput
   parent?: Prisma.FinanceCategoryUpdateOneWithoutChildrenNestedInput
   children?: Prisma.FinanceCategoryUpdateManyWithoutParentNestedInput
   financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCategoryNestedInput
@@ -1275,6 +1429,7 @@ export type FinanceCategoryUncheckedUpdateWithoutFinanceBudgetsInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1296,6 +1451,7 @@ export type FinanceCategoryCreateManyTenantInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  chartOfAccountId?: string | null
   interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
@@ -1319,6 +1475,7 @@ export type FinanceCategoryUpdateWithoutTenantInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chartOfAccount?: Prisma.ChartOfAccountUpdateOneWithoutFinanceCategoriesNestedInput
   parent?: Prisma.FinanceCategoryUpdateOneWithoutChildrenNestedInput
   children?: Prisma.FinanceCategoryUpdateManyWithoutParentNestedInput
   financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCategoryNestedInput
@@ -1327,6 +1484,93 @@ export type FinanceCategoryUpdateWithoutTenantInput = {
 
 export type FinanceCategoryUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumFinanceCategoryTypeFieldUpdateOperationsInput | $Enums.FinanceCategoryType
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  children?: Prisma.FinanceCategoryUncheckedUpdateManyWithoutParentNestedInput
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutCategoryNestedInput
+  financeBudgets?: Prisma.FinanceBudgetUncheckedUpdateManyWithoutCategoryNestedInput
+}
+
+export type FinanceCategoryUncheckedUpdateManyWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumFinanceCategoryTypeFieldUpdateOperationsInput | $Enums.FinanceCategoryType
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type FinanceCategoryCreateManyChartOfAccountInput = {
+  id?: string
+  tenantId: string
+  name: string
+  slug: string
+  description?: string | null
+  iconUrl?: string | null
+  color?: string | null
+  type: $Enums.FinanceCategoryType
+  parentId?: string | null
+  displayOrder?: number
+  isActive?: boolean
+  isSystem?: boolean
+  interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type FinanceCategoryUpdateWithoutChartOfAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iconUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumFinanceCategoryTypeFieldUpdateOperationsInput | $Enums.FinanceCategoryType
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceCategoriesNestedInput
+  parent?: Prisma.FinanceCategoryUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.FinanceCategoryUpdateManyWithoutParentNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCategoryNestedInput
+  financeBudgets?: Prisma.FinanceBudgetUpdateManyWithoutCategoryNestedInput
+}
+
+export type FinanceCategoryUncheckedUpdateWithoutChartOfAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1347,8 +1591,9 @@ export type FinanceCategoryUncheckedUpdateWithoutTenantInput = {
   financeBudgets?: Prisma.FinanceBudgetUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
-export type FinanceCategoryUncheckedUpdateManyWithoutTenantInput = {
+export type FinanceCategoryUncheckedUpdateManyWithoutChartOfAccountInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1378,6 +1623,7 @@ export type FinanceCategoryCreateManyParentInput = {
   displayOrder?: number
   isActive?: boolean
   isSystem?: boolean
+  chartOfAccountId?: string | null
   interestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
@@ -1402,6 +1648,7 @@ export type FinanceCategoryUpdateWithoutParentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutFinanceCategoriesNestedInput
+  chartOfAccount?: Prisma.ChartOfAccountUpdateOneWithoutFinanceCategoriesNestedInput
   children?: Prisma.FinanceCategoryUpdateManyWithoutParentNestedInput
   financeEntries?: Prisma.FinanceEntryUpdateManyWithoutCategoryNestedInput
   financeBudgets?: Prisma.FinanceBudgetUpdateManyWithoutCategoryNestedInput
@@ -1419,6 +1666,7 @@ export type FinanceCategoryUncheckedUpdateWithoutParentInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1441,6 +1689,7 @@ export type FinanceCategoryUncheckedUpdateManyWithoutParentInput = {
   displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   penaltyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1510,12 +1759,14 @@ export type FinanceCategorySelect<ExtArgs extends runtime.Types.Extensions.Inter
   displayOrder?: boolean
   isActive?: boolean
   isSystem?: boolean
+  chartOfAccountId?: boolean
   interestRate?: boolean
   penaltyRate?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  chartOfAccount?: boolean | Prisma.FinanceCategory$chartOfAccountArgs<ExtArgs>
   parent?: boolean | Prisma.FinanceCategory$parentArgs<ExtArgs>
   children?: boolean | Prisma.FinanceCategory$childrenArgs<ExtArgs>
   financeEntries?: boolean | Prisma.FinanceCategory$financeEntriesArgs<ExtArgs>
@@ -1536,12 +1787,14 @@ export type FinanceCategorySelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   displayOrder?: boolean
   isActive?: boolean
   isSystem?: boolean
+  chartOfAccountId?: boolean
   interestRate?: boolean
   penaltyRate?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  chartOfAccount?: boolean | Prisma.FinanceCategory$chartOfAccountArgs<ExtArgs>
   parent?: boolean | Prisma.FinanceCategory$parentArgs<ExtArgs>
 }, ExtArgs["result"]["financeCategory"]>
 
@@ -1558,12 +1811,14 @@ export type FinanceCategorySelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   displayOrder?: boolean
   isActive?: boolean
   isSystem?: boolean
+  chartOfAccountId?: boolean
   interestRate?: boolean
   penaltyRate?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  chartOfAccount?: boolean | Prisma.FinanceCategory$chartOfAccountArgs<ExtArgs>
   parent?: boolean | Prisma.FinanceCategory$parentArgs<ExtArgs>
 }, ExtArgs["result"]["financeCategory"]>
 
@@ -1580,6 +1835,7 @@ export type FinanceCategorySelectScalar = {
   displayOrder?: boolean
   isActive?: boolean
   isSystem?: boolean
+  chartOfAccountId?: boolean
   interestRate?: boolean
   penaltyRate?: boolean
   deletedAt?: boolean
@@ -1587,9 +1843,10 @@ export type FinanceCategorySelectScalar = {
   updatedAt?: boolean
 }
 
-export type FinanceCategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "slug" | "description" | "iconUrl" | "color" | "type" | "parentId" | "displayOrder" | "isActive" | "isSystem" | "interestRate" | "penaltyRate" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["financeCategory"]>
+export type FinanceCategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "slug" | "description" | "iconUrl" | "color" | "type" | "parentId" | "displayOrder" | "isActive" | "isSystem" | "chartOfAccountId" | "interestRate" | "penaltyRate" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["financeCategory"]>
 export type FinanceCategoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  chartOfAccount?: boolean | Prisma.FinanceCategory$chartOfAccountArgs<ExtArgs>
   parent?: boolean | Prisma.FinanceCategory$parentArgs<ExtArgs>
   children?: boolean | Prisma.FinanceCategory$childrenArgs<ExtArgs>
   financeEntries?: boolean | Prisma.FinanceCategory$financeEntriesArgs<ExtArgs>
@@ -1598,10 +1855,12 @@ export type FinanceCategoryInclude<ExtArgs extends runtime.Types.Extensions.Inte
 }
 export type FinanceCategoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  chartOfAccount?: boolean | Prisma.FinanceCategory$chartOfAccountArgs<ExtArgs>
   parent?: boolean | Prisma.FinanceCategory$parentArgs<ExtArgs>
 }
 export type FinanceCategoryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  chartOfAccount?: boolean | Prisma.FinanceCategory$chartOfAccountArgs<ExtArgs>
   parent?: boolean | Prisma.FinanceCategory$parentArgs<ExtArgs>
 }
 
@@ -1609,6 +1868,7 @@ export type $FinanceCategoryPayload<ExtArgs extends runtime.Types.Extensions.Int
   name: "FinanceCategory"
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
+    chartOfAccount: Prisma.$ChartOfAccountPayload<ExtArgs> | null
     parent: Prisma.$FinanceCategoryPayload<ExtArgs> | null
     children: Prisma.$FinanceCategoryPayload<ExtArgs>[]
     financeEntries: Prisma.$FinanceEntryPayload<ExtArgs>[]
@@ -1627,6 +1887,7 @@ export type $FinanceCategoryPayload<ExtArgs extends runtime.Types.Extensions.Int
     displayOrder: number
     isActive: boolean
     isSystem: boolean
+    chartOfAccountId: string | null
     interestRate: runtime.Decimal | null
     penaltyRate: runtime.Decimal | null
     deletedAt: Date | null
@@ -2027,6 +2288,7 @@ readonly fields: FinanceCategoryFieldRefs;
 export interface Prisma__FinanceCategoryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  chartOfAccount<T extends Prisma.FinanceCategory$chartOfAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceCategory$chartOfAccountArgs<ExtArgs>>): Prisma.Prisma__ChartOfAccountClient<runtime.Types.Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   parent<T extends Prisma.FinanceCategory$parentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceCategory$parentArgs<ExtArgs>>): Prisma.Prisma__FinanceCategoryClient<runtime.Types.Result.GetResult<Prisma.$FinanceCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   children<T extends Prisma.FinanceCategory$childrenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceCategory$childrenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   financeEntries<T extends Prisma.FinanceCategory$financeEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinanceCategory$financeEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2072,6 +2334,7 @@ export interface FinanceCategoryFieldRefs {
   readonly displayOrder: Prisma.FieldRef<"FinanceCategory", 'Int'>
   readonly isActive: Prisma.FieldRef<"FinanceCategory", 'Boolean'>
   readonly isSystem: Prisma.FieldRef<"FinanceCategory", 'Boolean'>
+  readonly chartOfAccountId: Prisma.FieldRef<"FinanceCategory", 'String'>
   readonly interestRate: Prisma.FieldRef<"FinanceCategory", 'Decimal'>
   readonly penaltyRate: Prisma.FieldRef<"FinanceCategory", 'Decimal'>
   readonly deletedAt: Prisma.FieldRef<"FinanceCategory", 'DateTime'>
@@ -2470,6 +2733,25 @@ export type FinanceCategoryDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many FinanceCategories to delete.
    */
   limit?: number
+}
+
+/**
+ * FinanceCategory.chartOfAccount
+ */
+export type FinanceCategory$chartOfAccountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ChartOfAccount
+   */
+  select?: Prisma.ChartOfAccountSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ChartOfAccount
+   */
+  omit?: Prisma.ChartOfAccountOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChartOfAccountInclude<ExtArgs> | null
+  where?: Prisma.ChartOfAccountWhereInput
 }
 
 /**

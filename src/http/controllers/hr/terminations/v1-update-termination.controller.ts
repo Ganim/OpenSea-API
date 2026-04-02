@@ -32,8 +32,7 @@ export async function v1UpdateTerminationController(app: FastifyInstance) {
     schema: {
       tags: ['HR - Terminations'],
       summary: 'Update termination (mark as paid)',
-      description:
-        'Updates a termination record, primarily to mark it as paid',
+      description: 'Updates a termination record, primarily to mark it as paid',
       params: z.object({
         id: z.string().uuid(),
       }),

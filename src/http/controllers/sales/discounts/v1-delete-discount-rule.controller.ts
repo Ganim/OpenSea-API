@@ -48,7 +48,10 @@ export async function deleteDiscountRuleController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.DISCOUNT_RULE_DELETE,
           entityId: id,
-          placeholders: { ruleName: discountRule.name, userName: request.user.sub },
+          placeholders: {
+            ruleName: discountRule.name,
+            userName: request.user.sub,
+          },
           oldData: { id: discountRule.id, name: discountRule.name },
         });
 

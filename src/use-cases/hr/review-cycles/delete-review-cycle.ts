@@ -31,9 +31,7 @@ export class DeleteReviewCycleUseCase {
 
     reviewCycle.softDelete();
 
-    await this.reviewCyclesRepository.delete(
-      new UniqueEntityID(reviewCycleId),
-    );
+    await this.reviewCyclesRepository.delete(new UniqueEntityID(reviewCycleId));
 
     return { reviewCycle };
   }

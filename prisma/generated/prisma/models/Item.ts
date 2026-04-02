@@ -58,6 +58,7 @@ export type ItemMinAggregateOutputType = {
   batchNumber: string | null
   manufacturingDate: Date | null
   expiryDate: Date | null
+  exitMovementType: $Enums.MovementType | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -85,6 +86,7 @@ export type ItemMaxAggregateOutputType = {
   batchNumber: string | null
   manufacturingDate: Date | null
   expiryDate: Date | null
+  exitMovementType: $Enums.MovementType | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -113,6 +115,7 @@ export type ItemCountAggregateOutputType = {
   batchNumber: number
   manufacturingDate: number
   expiryDate: number
+  exitMovementType: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -156,6 +159,7 @@ export type ItemMinAggregateInputType = {
   batchNumber?: true
   manufacturingDate?: true
   expiryDate?: true
+  exitMovementType?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -183,6 +187,7 @@ export type ItemMaxAggregateInputType = {
   batchNumber?: true
   manufacturingDate?: true
   expiryDate?: true
+  exitMovementType?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -211,6 +216,7 @@ export type ItemCountAggregateInputType = {
   batchNumber?: true
   manufacturingDate?: true
   expiryDate?: true
+  exitMovementType?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -326,6 +332,7 @@ export type ItemGroupByOutputType = {
   batchNumber: string | null
   manufacturingDate: Date | null
   expiryDate: Date | null
+  exitMovementType: $Enums.MovementType | null
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -377,6 +384,7 @@ export type ItemWhereInput = {
   batchNumber?: Prisma.StringNullableFilter<"Item"> | string | null
   manufacturingDate?: Prisma.DateTimeNullableFilter<"Item"> | Date | string | null
   expiryDate?: Prisma.DateTimeNullableFilter<"Item"> | Date | string | null
+  exitMovementType?: Prisma.EnumMovementTypeNullableFilter<"Item"> | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFilter<"Item"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Item"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Item"> | Date | string | null
@@ -412,6 +420,7 @@ export type ItemOrderByWithRelationInput = {
   batchNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   manufacturingDate?: Prisma.SortOrderInput | Prisma.SortOrder
   expiryDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  exitMovementType?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -452,6 +461,7 @@ export type ItemWhereUniqueInput = Prisma.AtLeast<{
   batchNumber?: Prisma.StringNullableFilter<"Item"> | string | null
   manufacturingDate?: Prisma.DateTimeNullableFilter<"Item"> | Date | string | null
   expiryDate?: Prisma.DateTimeNullableFilter<"Item"> | Date | string | null
+  exitMovementType?: Prisma.EnumMovementTypeNullableFilter<"Item"> | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFilter<"Item"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Item"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Item"> | Date | string | null
@@ -487,6 +497,7 @@ export type ItemOrderByWithAggregationInput = {
   batchNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   manufacturingDate?: Prisma.SortOrderInput | Prisma.SortOrder
   expiryDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  exitMovementType?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -523,6 +534,7 @@ export type ItemScalarWhereWithAggregatesInput = {
   batchNumber?: Prisma.StringNullableWithAggregatesFilter<"Item"> | string | null
   manufacturingDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Item"> | Date | string | null
   expiryDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Item"> | Date | string | null
+  exitMovementType?: Prisma.EnumMovementTypeNullableWithAggregatesFilter<"Item"> | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Item"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Item"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Item"> | Date | string | null
@@ -551,6 +563,7 @@ export type ItemCreateInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -583,6 +596,7 @@ export type ItemUncheckedCreateInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -615,6 +629,7 @@ export type ItemUpdateInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -647,6 +662,7 @@ export type ItemUncheckedUpdateInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -679,6 +695,7 @@ export type ItemCreateManyInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -707,6 +724,7 @@ export type ItemUpdateManyMutationInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -732,6 +750,7 @@ export type ItemUncheckedUpdateManyInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -787,6 +806,7 @@ export type ItemCountOrderByAggregateInput = {
   batchNumber?: Prisma.SortOrder
   manufacturingDate?: Prisma.SortOrder
   expiryDate?: Prisma.SortOrder
+  exitMovementType?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -821,6 +841,7 @@ export type ItemMaxOrderByAggregateInput = {
   batchNumber?: Prisma.SortOrder
   manufacturingDate?: Prisma.SortOrder
   expiryDate?: Prisma.SortOrder
+  exitMovementType?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -848,6 +869,7 @@ export type ItemMinOrderByAggregateInput = {
   batchNumber?: Prisma.SortOrder
   manufacturingDate?: Prisma.SortOrder
   expiryDate?: Prisma.SortOrder
+  exitMovementType?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -966,6 +988,10 @@ export type EnumItemStatusFieldUpdateOperationsInput = {
   set?: $Enums.ItemStatus
 }
 
+export type NullableEnumMovementTypeFieldUpdateOperationsInput = {
+  set?: $Enums.MovementType | null
+}
+
 export type ItemCreateNestedOneWithoutMovementsInput = {
   create?: Prisma.XOR<Prisma.ItemCreateWithoutMovementsInput, Prisma.ItemUncheckedCreateWithoutMovementsInput>
   connectOrCreate?: Prisma.ItemCreateOrConnectWithoutMovementsInput
@@ -1069,6 +1095,7 @@ export type ItemCreateWithoutBinInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1100,6 +1127,7 @@ export type ItemUncheckedCreateWithoutBinInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1160,6 +1188,7 @@ export type ItemScalarWhereInput = {
   batchNumber?: Prisma.StringNullableFilter<"Item"> | string | null
   manufacturingDate?: Prisma.DateTimeNullableFilter<"Item"> | Date | string | null
   expiryDate?: Prisma.DateTimeNullableFilter<"Item"> | Date | string | null
+  exitMovementType?: Prisma.EnumMovementTypeNullableFilter<"Item"> | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFilter<"Item"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Item"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Item"> | Date | string | null
@@ -1188,6 +1217,7 @@ export type ItemCreateWithoutVolumeItemsInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1219,6 +1249,7 @@ export type ItemUncheckedCreateWithoutVolumeItemsInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1266,6 +1297,7 @@ export type ItemUpdateWithoutVolumeItemsInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1297,6 +1329,7 @@ export type ItemUncheckedUpdateWithoutVolumeItemsInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1328,6 +1361,7 @@ export type ItemCreateWithoutVariantInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1359,6 +1393,7 @@ export type ItemUncheckedCreateWithoutVariantInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1416,6 +1451,7 @@ export type ItemCreateWithoutMovementsInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1447,6 +1483,7 @@ export type ItemUncheckedCreateWithoutMovementsInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1494,6 +1531,7 @@ export type ItemUpdateWithoutMovementsInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1525,6 +1563,7 @@ export type ItemUncheckedUpdateWithoutMovementsInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1556,6 +1595,7 @@ export type ItemCreateWithoutInventorySessionItemsInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1587,6 +1627,7 @@ export type ItemUncheckedCreateWithoutInventorySessionItemsInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1634,6 +1675,7 @@ export type ItemUpdateWithoutInventorySessionItemsInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1665,6 +1707,7 @@ export type ItemUncheckedUpdateWithoutInventorySessionItemsInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1696,6 +1739,7 @@ export type ItemCreateWithoutReservationsInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1727,6 +1771,7 @@ export type ItemUncheckedCreateWithoutReservationsInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1774,6 +1819,7 @@ export type ItemUpdateWithoutReservationsInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1805,6 +1851,7 @@ export type ItemUncheckedUpdateWithoutReservationsInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1836,6 +1883,7 @@ export type ItemCreateWithoutTenantInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1867,6 +1915,7 @@ export type ItemUncheckedCreateWithoutTenantInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1924,6 +1973,7 @@ export type ItemCreateManyBinInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1951,6 +2001,7 @@ export type ItemUpdateWithoutBinInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1982,6 +2033,7 @@ export type ItemUncheckedUpdateWithoutBinInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2013,6 +2065,7 @@ export type ItemUncheckedUpdateManyWithoutBinInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2040,6 +2093,7 @@ export type ItemCreateManyVariantInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2067,6 +2121,7 @@ export type ItemUpdateWithoutVariantInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2098,6 +2153,7 @@ export type ItemUncheckedUpdateWithoutVariantInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2129,6 +2185,7 @@ export type ItemUncheckedUpdateManyWithoutVariantInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2156,6 +2213,7 @@ export type ItemCreateManyTenantInput = {
   batchNumber?: string | null
   manufacturingDate?: Date | string | null
   expiryDate?: Date | string | null
+  exitMovementType?: $Enums.MovementType | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2183,6 +2241,7 @@ export type ItemUpdateWithoutTenantInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2214,6 +2273,7 @@ export type ItemUncheckedUpdateWithoutTenantInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2245,6 +2305,7 @@ export type ItemUncheckedUpdateManyWithoutTenantInput = {
   batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   manufacturingDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitMovementType?: Prisma.NullableEnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2330,6 +2391,7 @@ export type ItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   batchNumber?: boolean
   manufacturingDate?: boolean
   expiryDate?: boolean
+  exitMovementType?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -2366,6 +2428,7 @@ export type ItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   batchNumber?: boolean
   manufacturingDate?: boolean
   expiryDate?: boolean
+  exitMovementType?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -2397,6 +2460,7 @@ export type ItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   batchNumber?: boolean
   manufacturingDate?: boolean
   expiryDate?: boolean
+  exitMovementType?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -2428,6 +2492,7 @@ export type ItemSelectScalar = {
   batchNumber?: boolean
   manufacturingDate?: boolean
   expiryDate?: boolean
+  exitMovementType?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -2437,7 +2502,7 @@ export type ItemSelectScalar = {
   tenantId?: boolean
 }
 
-export type ItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "uniqueCode" | "slug" | "fullCode" | "sequentialCode" | "initialQuantity" | "currentQuantity" | "unitCost" | "status" | "entryDate" | "attributes" | "barcode" | "eanCode" | "upcCode" | "qrCode" | "batchNumber" | "manufacturingDate" | "expiryDate" | "createdAt" | "updatedAt" | "deletedAt" | "variantId" | "binId" | "lastKnownAddress" | "tenantId", ExtArgs["result"]["item"]>
+export type ItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "uniqueCode" | "slug" | "fullCode" | "sequentialCode" | "initialQuantity" | "currentQuantity" | "unitCost" | "status" | "entryDate" | "attributes" | "barcode" | "eanCode" | "upcCode" | "qrCode" | "batchNumber" | "manufacturingDate" | "expiryDate" | "exitMovementType" | "createdAt" | "updatedAt" | "deletedAt" | "variantId" | "binId" | "lastKnownAddress" | "tenantId", ExtArgs["result"]["item"]>
 export type ItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   variant?: boolean | Prisma.VariantDefaultArgs<ExtArgs>
@@ -2489,6 +2554,7 @@ export type $ItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     batchNumber: string | null
     manufacturingDate: Date | null
     expiryDate: Date | null
+    exitMovementType: $Enums.MovementType | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -2944,6 +3010,7 @@ export interface ItemFieldRefs {
   readonly batchNumber: Prisma.FieldRef<"Item", 'String'>
   readonly manufacturingDate: Prisma.FieldRef<"Item", 'DateTime'>
   readonly expiryDate: Prisma.FieldRef<"Item", 'DateTime'>
+  readonly exitMovementType: Prisma.FieldRef<"Item", 'MovementType'>
   readonly createdAt: Prisma.FieldRef<"Item", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Item", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Item", 'DateTime'>

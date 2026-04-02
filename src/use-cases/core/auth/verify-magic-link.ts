@@ -34,10 +34,7 @@ export class VerifyMagicLinkUseCase {
     reply,
   }: VerifyMagicLinkUseCaseRequest): Promise<VerifyMagicLinkUseCaseResponse> {
     // Hash the incoming token to look it up
-    const hashedToken = crypto
-      .createHash('sha256')
-      .update(token)
-      .digest('hex');
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
 
     const magicLinkToken =
       await this.magicLinkTokensRepository.findByToken(hashedToken);
@@ -69,14 +66,17 @@ export class VerifyMagicLinkUseCase {
     await this.usersRepository.updateLastLoginAt(user.id, user.lastLoginAt);
 
     // Create session with magic_link login method
-    const { session, token: jwtToken, refreshToken } =
-      await this.createSessionUseCase.execute({
-        userId: user.id.toString(),
-        ip,
-        userAgent,
-        loginMethod: 'magic_link',
-        reply,
-      });
+    const {
+      session,
+      token: jwtToken,
+      refreshToken,
+    } = await this.createSessionUseCase.execute({
+      userId: user.id.toString(),
+      ip,
+      userAgent,
+      loginMethod: 'magic_link',
+      reply,
+    });
 
     const userDto = userToDTO(user);
 

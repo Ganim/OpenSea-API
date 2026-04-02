@@ -12,7 +12,12 @@ export interface CreateConversationSchema {
 export interface ConversationsRepository {
   create(data: CreateConversationSchema): Promise<Conversation>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Conversation | null>;
-  findMany(page: number, perPage: number, tenantId: string, status?: string): Promise<Conversation[]>;
+  findMany(
+    page: number,
+    perPage: number,
+    tenantId: string,
+    status?: string,
+  ): Promise<Conversation[]>;
   countByTenant(tenantId: string, status?: string): Promise<number>;
   save(conversation: Conversation): Promise<void>;
   delete(id: UniqueEntityID, tenantId: string): Promise<void>;

@@ -42,7 +42,7 @@ export async function getLandingPageByIdController(app: FastifyInstance) {
         const useCase = makeGetLandingPageByIdUseCase();
         const result = await useCase.execute({ tenantId, landingPageId });
 
-        return reply.status(200).send(result as any);
+        return reply.status(200).send(result as unknown);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

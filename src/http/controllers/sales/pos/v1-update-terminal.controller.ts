@@ -107,7 +107,9 @@ export async function updateTerminalController(app: FastifyInstance) {
           newData: body,
         });
 
-        return reply.status(200).send({ terminal: terminalResponse } as any);
+        return reply
+          .status(200)
+          .send({ terminal: terminalResponse } as unknown);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

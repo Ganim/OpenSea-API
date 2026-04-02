@@ -8,5 +8,9 @@ export function makeBulkDeleteEntriesUseCase() {
   const transactionManager = new PrismaTransactionManager();
   const approvalRulesRepository = new PrismaFinanceApprovalRulesRepository();
 
-  return new BulkDeleteEntriesUseCase(entriesRepository, transactionManager, approvalRulesRepository);
+  return new BulkDeleteEntriesUseCase(
+    entriesRepository,
+    transactionManager,
+    approvalRulesRepository,
+  );
 }

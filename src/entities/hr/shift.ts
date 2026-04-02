@@ -80,7 +80,7 @@ export class Shift extends Entity<ShiftProps> {
     const [startHour, startMin] = this.startTime.split(':').map(Number);
     const [endHour, endMin] = this.endTime.split(':').map(Number);
 
-    let startMinutes = startHour * 60 + startMin;
+    const startMinutes = startHour * 60 + startMin;
     let endMinutes = endHour * 60 + endMin;
 
     // Handle overnight shifts

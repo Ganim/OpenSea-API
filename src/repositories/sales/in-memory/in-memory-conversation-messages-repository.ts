@@ -36,16 +36,13 @@ export class InMemoryConversationMessagesRepository
   async markAsRead(conversationId: UniqueEntityID): Promise<void> {
     this.items
       .filter(
-        (item) =>
-          item.conversationId.equals(conversationId) && !item.readAt,
+        (item) => item.conversationId.equals(conversationId) && !item.readAt,
       )
       .forEach((item) => item.markAsRead());
   }
 
   async save(message: ConversationMessage): Promise<void> {
-    const index = this.items.findIndex((item) =>
-      item.id.equals(message.id),
-    );
+    const index = this.items.findIndex((item) => item.id.equals(message.id));
 
     if (index >= 0) {
       this.items[index] = message;

@@ -7,7 +7,9 @@ import type {
   UpdateSafetyProgramSchema,
 } from '../safety-programs-repository';
 
-export class InMemorySafetyProgramsRepository implements SafetyProgramsRepository {
+export class InMemorySafetyProgramsRepository
+  implements SafetyProgramsRepository
+{
   private items: SafetyProgram[] = [];
 
   async create(data: CreateSafetyProgramSchema): Promise<SafetyProgram> {

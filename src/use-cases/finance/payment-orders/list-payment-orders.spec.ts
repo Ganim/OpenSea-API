@@ -110,8 +110,16 @@ describe('ListPaymentOrdersUseCase', () => {
       });
     }
 
-    const page1 = await sut.execute({ tenantId: 'tenant-1', page: 1, limit: 3 });
-    const page2 = await sut.execute({ tenantId: 'tenant-1', page: 2, limit: 3 });
+    const page1 = await sut.execute({
+      tenantId: 'tenant-1',
+      page: 1,
+      limit: 3,
+    });
+    const page2 = await sut.execute({
+      tenantId: 'tenant-1',
+      page: 2,
+      limit: 3,
+    });
 
     expect(page1.total).toBe(5);
     expect(page1.orders).toHaveLength(3);

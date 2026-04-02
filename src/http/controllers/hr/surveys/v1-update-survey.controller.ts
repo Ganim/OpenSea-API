@@ -4,7 +4,7 @@ import {
   updateSurveySchema,
   surveyResponseSchema,
 } from '@/http/schemas/hr/surveys';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { surveyToDTO } from '@/mappers/hr/survey';
 import { makeUpdateSurveyUseCase } from '@/use-cases/hr/surveys/factories';
 
@@ -21,7 +21,7 @@ export async function v1UpdateSurveyController(app: FastifyInstance) {
       tags: ['HR - Surveys'],
       summary: 'Update a survey',
       description: 'Updates a draft survey',
-      params: z.object({ surveyId: idSchema }),
+      params: z.object({ surveyId: cuidSchema }),
       body: updateSurveySchema,
       response: {
         200: surveyResponseSchema,

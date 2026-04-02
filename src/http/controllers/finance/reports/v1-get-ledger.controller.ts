@@ -65,7 +65,12 @@ export async function getLedgerController(app: FastifyInstance) {
 
       try {
         const useCase = makeGetLedgerUseCase();
-        const result = await useCase.execute({ tenantId, chartOfAccountId, from, to });
+        const result = await useCase.execute({
+          tenantId,
+          chartOfAccountId,
+          from,
+          to,
+        });
 
         return reply.status(200).send(result);
       } catch (error) {

@@ -28,10 +28,12 @@ export type AggregateBankAccount = {
 
 export type BankAccountAvgAggregateOutputType = {
   currentBalance: runtime.Decimal | null
+  autoLowThreshold: runtime.Decimal | null
 }
 
 export type BankAccountSumAggregateOutputType = {
   currentBalance: runtime.Decimal | null
+  autoLowThreshold: runtime.Decimal | null
 }
 
 export type BankAccountMinAggregateOutputType = {
@@ -55,9 +57,19 @@ export type BankAccountMinAggregateOutputType = {
   balanceUpdatedAt: Date | null
   color: string | null
   isDefault: boolean | null
+  apiProvider: string | null
+  apiClientId: string | null
+  apiCertFileId: string | null
+  apiCertKeyFileId: string | null
+  apiScopes: string | null
+  apiWebhookSecret: string | null
+  apiEnabled: boolean | null
+  autoEmitBoleto: boolean | null
+  autoLowThreshold: runtime.Decimal | null
   deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  chartOfAccountId: string | null
 }
 
 export type BankAccountMaxAggregateOutputType = {
@@ -81,9 +93,19 @@ export type BankAccountMaxAggregateOutputType = {
   balanceUpdatedAt: Date | null
   color: string | null
   isDefault: boolean | null
+  apiProvider: string | null
+  apiClientId: string | null
+  apiCertFileId: string | null
+  apiCertKeyFileId: string | null
+  apiScopes: string | null
+  apiWebhookSecret: string | null
+  apiEnabled: boolean | null
+  autoEmitBoleto: boolean | null
+  autoLowThreshold: runtime.Decimal | null
   deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  chartOfAccountId: string | null
 }
 
 export type BankAccountCountAggregateOutputType = {
@@ -107,19 +129,31 @@ export type BankAccountCountAggregateOutputType = {
   balanceUpdatedAt: number
   color: number
   isDefault: number
+  apiProvider: number
+  apiClientId: number
+  apiCertFileId: number
+  apiCertKeyFileId: number
+  apiScopes: number
+  apiWebhookSecret: number
+  apiEnabled: number
+  autoEmitBoleto: number
+  autoLowThreshold: number
   deletedAt: number
   createdAt: number
   updatedAt: number
+  chartOfAccountId: number
   _all: number
 }
 
 
 export type BankAccountAvgAggregateInputType = {
   currentBalance?: true
+  autoLowThreshold?: true
 }
 
 export type BankAccountSumAggregateInputType = {
   currentBalance?: true
+  autoLowThreshold?: true
 }
 
 export type BankAccountMinAggregateInputType = {
@@ -143,9 +177,19 @@ export type BankAccountMinAggregateInputType = {
   balanceUpdatedAt?: true
   color?: true
   isDefault?: true
+  apiProvider?: true
+  apiClientId?: true
+  apiCertFileId?: true
+  apiCertKeyFileId?: true
+  apiScopes?: true
+  apiWebhookSecret?: true
+  apiEnabled?: true
+  autoEmitBoleto?: true
+  autoLowThreshold?: true
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
+  chartOfAccountId?: true
 }
 
 export type BankAccountMaxAggregateInputType = {
@@ -169,9 +213,19 @@ export type BankAccountMaxAggregateInputType = {
   balanceUpdatedAt?: true
   color?: true
   isDefault?: true
+  apiProvider?: true
+  apiClientId?: true
+  apiCertFileId?: true
+  apiCertKeyFileId?: true
+  apiScopes?: true
+  apiWebhookSecret?: true
+  apiEnabled?: true
+  autoEmitBoleto?: true
+  autoLowThreshold?: true
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
+  chartOfAccountId?: true
 }
 
 export type BankAccountCountAggregateInputType = {
@@ -195,9 +249,19 @@ export type BankAccountCountAggregateInputType = {
   balanceUpdatedAt?: true
   color?: true
   isDefault?: true
+  apiProvider?: true
+  apiClientId?: true
+  apiCertFileId?: true
+  apiCertKeyFileId?: true
+  apiScopes?: true
+  apiWebhookSecret?: true
+  apiEnabled?: true
+  autoEmitBoleto?: true
+  autoLowThreshold?: true
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
+  chartOfAccountId?: true
   _all?: true
 }
 
@@ -308,9 +372,19 @@ export type BankAccountGroupByOutputType = {
   balanceUpdatedAt: Date | null
   color: string | null
   isDefault: boolean
+  apiProvider: string | null
+  apiClientId: string | null
+  apiCertFileId: string | null
+  apiCertKeyFileId: string | null
+  apiScopes: string | null
+  apiWebhookSecret: string | null
+  apiEnabled: boolean
+  autoEmitBoleto: boolean
+  autoLowThreshold: runtime.Decimal | null
   deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
+  chartOfAccountId: string | null
   _count: BankAccountCountAggregateOutputType | null
   _avg: BankAccountAvgAggregateOutputType | null
   _sum: BankAccountSumAggregateOutputType | null
@@ -357,11 +431,22 @@ export type BankAccountWhereInput = {
   balanceUpdatedAt?: Prisma.DateTimeNullableFilter<"BankAccount"> | Date | string | null
   color?: Prisma.StringNullableFilter<"BankAccount"> | string | null
   isDefault?: Prisma.BoolFilter<"BankAccount"> | boolean
+  apiProvider?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  apiClientId?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  apiCertFileId?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  apiCertKeyFileId?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  apiScopes?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  apiWebhookSecret?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  apiEnabled?: Prisma.BoolFilter<"BankAccount"> | boolean
+  autoEmitBoleto?: Prisma.BoolFilter<"BankAccount"> | boolean
+  autoLowThreshold?: Prisma.DecimalNullableFilter<"BankAccount"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"BankAccount"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"BankAccount"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"BankAccount"> | Date | string
+  chartOfAccountId?: Prisma.StringNullableFilter<"BankAccount"> | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
+  chartOfAccount?: Prisma.XOR<Prisma.ChartOfAccountNullableScalarRelationFilter, Prisma.ChartOfAccountWhereInput> | null
   financeEntries?: Prisma.FinanceEntryListRelationFilter
   financePayments?: Prisma.FinanceEntryPaymentListRelationFilter
   loans?: Prisma.LoanListRelationFilter
@@ -370,6 +455,8 @@ export type BankAccountWhereInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentListRelationFilter
   reconciliations?: Prisma.BankReconciliationListRelationFilter
   bankConnections?: Prisma.BankConnectionListRelationFilter
+  paymentOrders?: Prisma.PaymentOrderListRelationFilter
+  bankWebhookEvents?: Prisma.BankWebhookEventListRelationFilter
 }
 
 export type BankAccountOrderByWithRelationInput = {
@@ -393,11 +480,22 @@ export type BankAccountOrderByWithRelationInput = {
   balanceUpdatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   color?: Prisma.SortOrderInput | Prisma.SortOrder
   isDefault?: Prisma.SortOrder
+  apiProvider?: Prisma.SortOrderInput | Prisma.SortOrder
+  apiClientId?: Prisma.SortOrderInput | Prisma.SortOrder
+  apiCertFileId?: Prisma.SortOrderInput | Prisma.SortOrder
+  apiCertKeyFileId?: Prisma.SortOrderInput | Prisma.SortOrder
+  apiScopes?: Prisma.SortOrderInput | Prisma.SortOrder
+  apiWebhookSecret?: Prisma.SortOrderInput | Prisma.SortOrder
+  apiEnabled?: Prisma.SortOrder
+  autoEmitBoleto?: Prisma.SortOrder
+  autoLowThreshold?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  chartOfAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   company?: Prisma.CompanyOrderByWithRelationInput
+  chartOfAccount?: Prisma.ChartOfAccountOrderByWithRelationInput
   financeEntries?: Prisma.FinanceEntryOrderByRelationAggregateInput
   financePayments?: Prisma.FinanceEntryPaymentOrderByRelationAggregateInput
   loans?: Prisma.LoanOrderByRelationAggregateInput
@@ -406,6 +504,8 @@ export type BankAccountOrderByWithRelationInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentOrderByRelationAggregateInput
   reconciliations?: Prisma.BankReconciliationOrderByRelationAggregateInput
   bankConnections?: Prisma.BankConnectionOrderByRelationAggregateInput
+  paymentOrders?: Prisma.PaymentOrderOrderByRelationAggregateInput
+  bankWebhookEvents?: Prisma.BankWebhookEventOrderByRelationAggregateInput
 }
 
 export type BankAccountWhereUniqueInput = Prisma.AtLeast<{
@@ -433,11 +533,22 @@ export type BankAccountWhereUniqueInput = Prisma.AtLeast<{
   balanceUpdatedAt?: Prisma.DateTimeNullableFilter<"BankAccount"> | Date | string | null
   color?: Prisma.StringNullableFilter<"BankAccount"> | string | null
   isDefault?: Prisma.BoolFilter<"BankAccount"> | boolean
+  apiProvider?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  apiClientId?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  apiCertFileId?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  apiCertKeyFileId?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  apiScopes?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  apiWebhookSecret?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  apiEnabled?: Prisma.BoolFilter<"BankAccount"> | boolean
+  autoEmitBoleto?: Prisma.BoolFilter<"BankAccount"> | boolean
+  autoLowThreshold?: Prisma.DecimalNullableFilter<"BankAccount"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"BankAccount"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"BankAccount"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"BankAccount"> | Date | string
+  chartOfAccountId?: Prisma.StringNullableFilter<"BankAccount"> | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
+  chartOfAccount?: Prisma.XOR<Prisma.ChartOfAccountNullableScalarRelationFilter, Prisma.ChartOfAccountWhereInput> | null
   financeEntries?: Prisma.FinanceEntryListRelationFilter
   financePayments?: Prisma.FinanceEntryPaymentListRelationFilter
   loans?: Prisma.LoanListRelationFilter
@@ -446,6 +557,8 @@ export type BankAccountWhereUniqueInput = Prisma.AtLeast<{
   consortiumPayments?: Prisma.ConsortiumPaymentListRelationFilter
   reconciliations?: Prisma.BankReconciliationListRelationFilter
   bankConnections?: Prisma.BankConnectionListRelationFilter
+  paymentOrders?: Prisma.PaymentOrderListRelationFilter
+  bankWebhookEvents?: Prisma.BankWebhookEventListRelationFilter
 }, "id" | "bank_accounts_unique_active">
 
 export type BankAccountOrderByWithAggregationInput = {
@@ -469,9 +582,19 @@ export type BankAccountOrderByWithAggregationInput = {
   balanceUpdatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   color?: Prisma.SortOrderInput | Prisma.SortOrder
   isDefault?: Prisma.SortOrder
+  apiProvider?: Prisma.SortOrderInput | Prisma.SortOrder
+  apiClientId?: Prisma.SortOrderInput | Prisma.SortOrder
+  apiCertFileId?: Prisma.SortOrderInput | Prisma.SortOrder
+  apiCertKeyFileId?: Prisma.SortOrderInput | Prisma.SortOrder
+  apiScopes?: Prisma.SortOrderInput | Prisma.SortOrder
+  apiWebhookSecret?: Prisma.SortOrderInput | Prisma.SortOrder
+  apiEnabled?: Prisma.SortOrder
+  autoEmitBoleto?: Prisma.SortOrder
+  autoLowThreshold?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  chartOfAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.BankAccountCountOrderByAggregateInput
   _avg?: Prisma.BankAccountAvgOrderByAggregateInput
   _max?: Prisma.BankAccountMaxOrderByAggregateInput
@@ -503,9 +626,19 @@ export type BankAccountScalarWhereWithAggregatesInput = {
   balanceUpdatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"BankAccount"> | Date | string | null
   color?: Prisma.StringNullableWithAggregatesFilter<"BankAccount"> | string | null
   isDefault?: Prisma.BoolWithAggregatesFilter<"BankAccount"> | boolean
+  apiProvider?: Prisma.StringNullableWithAggregatesFilter<"BankAccount"> | string | null
+  apiClientId?: Prisma.StringNullableWithAggregatesFilter<"BankAccount"> | string | null
+  apiCertFileId?: Prisma.StringNullableWithAggregatesFilter<"BankAccount"> | string | null
+  apiCertKeyFileId?: Prisma.StringNullableWithAggregatesFilter<"BankAccount"> | string | null
+  apiScopes?: Prisma.StringNullableWithAggregatesFilter<"BankAccount"> | string | null
+  apiWebhookSecret?: Prisma.StringNullableWithAggregatesFilter<"BankAccount"> | string | null
+  apiEnabled?: Prisma.BoolWithAggregatesFilter<"BankAccount"> | boolean
+  autoEmitBoleto?: Prisma.BoolWithAggregatesFilter<"BankAccount"> | boolean
+  autoLowThreshold?: Prisma.DecimalNullableWithAggregatesFilter<"BankAccount"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"BankAccount"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"BankAccount"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"BankAccount"> | Date | string
+  chartOfAccountId?: Prisma.StringNullableWithAggregatesFilter<"BankAccount"> | string | null
 }
 
 export type BankAccountCreateInput = {
@@ -527,11 +660,21 @@ export type BankAccountCreateInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutBankAccountsInput
   company?: Prisma.CompanyCreateNestedOneWithoutBankAccountsInput
+  chartOfAccount?: Prisma.ChartOfAccountCreateNestedOneWithoutBankAccountsInput
   financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutBankAccountInput
   financePayments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanCreateNestedManyWithoutBankAccountInput
@@ -540,6 +683,8 @@ export type BankAccountCreateInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateInput = {
@@ -563,9 +708,19 @@ export type BankAccountUncheckedCreateInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  chartOfAccountId?: string | null
   financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutBankAccountInput
   financePayments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutBankAccountInput
@@ -574,6 +729,8 @@ export type BankAccountUncheckedCreateInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionUncheckedCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUpdateInput = {
@@ -595,11 +752,21 @@ export type BankAccountUpdateInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutBankAccountsNestedInput
   company?: Prisma.CompanyUpdateOneWithoutBankAccountsNestedInput
+  chartOfAccount?: Prisma.ChartOfAccountUpdateOneWithoutBankAccountsNestedInput
   financeEntries?: Prisma.FinanceEntryUpdateManyWithoutBankAccountNestedInput
   financePayments?: Prisma.FinanceEntryPaymentUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUpdateManyWithoutBankAccountNestedInput
@@ -608,6 +775,8 @@ export type BankAccountUpdateInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateInput = {
@@ -631,9 +800,19 @@ export type BankAccountUncheckedUpdateInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutBankAccountNestedInput
   financePayments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutBankAccountNestedInput
@@ -642,6 +821,8 @@ export type BankAccountUncheckedUpdateInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUncheckedUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountCreateManyInput = {
@@ -665,9 +846,19 @@ export type BankAccountCreateManyInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  chartOfAccountId?: string | null
 }
 
 export type BankAccountUpdateManyMutationInput = {
@@ -689,6 +880,15 @@ export type BankAccountUpdateManyMutationInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -715,9 +915,19 @@ export type BankAccountUncheckedUpdateManyInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type BankAccountListRelationFilter = {
@@ -758,13 +968,24 @@ export type BankAccountCountOrderByAggregateInput = {
   balanceUpdatedAt?: Prisma.SortOrder
   color?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
+  apiProvider?: Prisma.SortOrder
+  apiClientId?: Prisma.SortOrder
+  apiCertFileId?: Prisma.SortOrder
+  apiCertKeyFileId?: Prisma.SortOrder
+  apiScopes?: Prisma.SortOrder
+  apiWebhookSecret?: Prisma.SortOrder
+  apiEnabled?: Prisma.SortOrder
+  autoEmitBoleto?: Prisma.SortOrder
+  autoLowThreshold?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  chartOfAccountId?: Prisma.SortOrder
 }
 
 export type BankAccountAvgOrderByAggregateInput = {
   currentBalance?: Prisma.SortOrder
+  autoLowThreshold?: Prisma.SortOrder
 }
 
 export type BankAccountMaxOrderByAggregateInput = {
@@ -788,9 +1009,19 @@ export type BankAccountMaxOrderByAggregateInput = {
   balanceUpdatedAt?: Prisma.SortOrder
   color?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
+  apiProvider?: Prisma.SortOrder
+  apiClientId?: Prisma.SortOrder
+  apiCertFileId?: Prisma.SortOrder
+  apiCertKeyFileId?: Prisma.SortOrder
+  apiScopes?: Prisma.SortOrder
+  apiWebhookSecret?: Prisma.SortOrder
+  apiEnabled?: Prisma.SortOrder
+  autoEmitBoleto?: Prisma.SortOrder
+  autoLowThreshold?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  chartOfAccountId?: Prisma.SortOrder
 }
 
 export type BankAccountMinOrderByAggregateInput = {
@@ -814,13 +1045,24 @@ export type BankAccountMinOrderByAggregateInput = {
   balanceUpdatedAt?: Prisma.SortOrder
   color?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
+  apiProvider?: Prisma.SortOrder
+  apiClientId?: Prisma.SortOrder
+  apiCertFileId?: Prisma.SortOrder
+  apiCertKeyFileId?: Prisma.SortOrder
+  apiScopes?: Prisma.SortOrder
+  apiWebhookSecret?: Prisma.SortOrder
+  apiEnabled?: Prisma.SortOrder
+  autoEmitBoleto?: Prisma.SortOrder
+  autoLowThreshold?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  chartOfAccountId?: Prisma.SortOrder
 }
 
 export type BankAccountSumOrderByAggregateInput = {
   currentBalance?: Prisma.SortOrder
+  autoLowThreshold?: Prisma.SortOrder
 }
 
 export type BankAccountNullableScalarRelationFilter = {
@@ -914,6 +1156,48 @@ export type BankAccountUncheckedUpdateManyWithoutTenantNestedInput = {
   connect?: Prisma.BankAccountWhereUniqueInput | Prisma.BankAccountWhereUniqueInput[]
   update?: Prisma.BankAccountUpdateWithWhereUniqueWithoutTenantInput | Prisma.BankAccountUpdateWithWhereUniqueWithoutTenantInput[]
   updateMany?: Prisma.BankAccountUpdateManyWithWhereWithoutTenantInput | Prisma.BankAccountUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.BankAccountScalarWhereInput | Prisma.BankAccountScalarWhereInput[]
+}
+
+export type BankAccountCreateNestedManyWithoutChartOfAccountInput = {
+  create?: Prisma.XOR<Prisma.BankAccountCreateWithoutChartOfAccountInput, Prisma.BankAccountUncheckedCreateWithoutChartOfAccountInput> | Prisma.BankAccountCreateWithoutChartOfAccountInput[] | Prisma.BankAccountUncheckedCreateWithoutChartOfAccountInput[]
+  connectOrCreate?: Prisma.BankAccountCreateOrConnectWithoutChartOfAccountInput | Prisma.BankAccountCreateOrConnectWithoutChartOfAccountInput[]
+  createMany?: Prisma.BankAccountCreateManyChartOfAccountInputEnvelope
+  connect?: Prisma.BankAccountWhereUniqueInput | Prisma.BankAccountWhereUniqueInput[]
+}
+
+export type BankAccountUncheckedCreateNestedManyWithoutChartOfAccountInput = {
+  create?: Prisma.XOR<Prisma.BankAccountCreateWithoutChartOfAccountInput, Prisma.BankAccountUncheckedCreateWithoutChartOfAccountInput> | Prisma.BankAccountCreateWithoutChartOfAccountInput[] | Prisma.BankAccountUncheckedCreateWithoutChartOfAccountInput[]
+  connectOrCreate?: Prisma.BankAccountCreateOrConnectWithoutChartOfAccountInput | Prisma.BankAccountCreateOrConnectWithoutChartOfAccountInput[]
+  createMany?: Prisma.BankAccountCreateManyChartOfAccountInputEnvelope
+  connect?: Prisma.BankAccountWhereUniqueInput | Prisma.BankAccountWhereUniqueInput[]
+}
+
+export type BankAccountUpdateManyWithoutChartOfAccountNestedInput = {
+  create?: Prisma.XOR<Prisma.BankAccountCreateWithoutChartOfAccountInput, Prisma.BankAccountUncheckedCreateWithoutChartOfAccountInput> | Prisma.BankAccountCreateWithoutChartOfAccountInput[] | Prisma.BankAccountUncheckedCreateWithoutChartOfAccountInput[]
+  connectOrCreate?: Prisma.BankAccountCreateOrConnectWithoutChartOfAccountInput | Prisma.BankAccountCreateOrConnectWithoutChartOfAccountInput[]
+  upsert?: Prisma.BankAccountUpsertWithWhereUniqueWithoutChartOfAccountInput | Prisma.BankAccountUpsertWithWhereUniqueWithoutChartOfAccountInput[]
+  createMany?: Prisma.BankAccountCreateManyChartOfAccountInputEnvelope
+  set?: Prisma.BankAccountWhereUniqueInput | Prisma.BankAccountWhereUniqueInput[]
+  disconnect?: Prisma.BankAccountWhereUniqueInput | Prisma.BankAccountWhereUniqueInput[]
+  delete?: Prisma.BankAccountWhereUniqueInput | Prisma.BankAccountWhereUniqueInput[]
+  connect?: Prisma.BankAccountWhereUniqueInput | Prisma.BankAccountWhereUniqueInput[]
+  update?: Prisma.BankAccountUpdateWithWhereUniqueWithoutChartOfAccountInput | Prisma.BankAccountUpdateWithWhereUniqueWithoutChartOfAccountInput[]
+  updateMany?: Prisma.BankAccountUpdateManyWithWhereWithoutChartOfAccountInput | Prisma.BankAccountUpdateManyWithWhereWithoutChartOfAccountInput[]
+  deleteMany?: Prisma.BankAccountScalarWhereInput | Prisma.BankAccountScalarWhereInput[]
+}
+
+export type BankAccountUncheckedUpdateManyWithoutChartOfAccountNestedInput = {
+  create?: Prisma.XOR<Prisma.BankAccountCreateWithoutChartOfAccountInput, Prisma.BankAccountUncheckedCreateWithoutChartOfAccountInput> | Prisma.BankAccountCreateWithoutChartOfAccountInput[] | Prisma.BankAccountUncheckedCreateWithoutChartOfAccountInput[]
+  connectOrCreate?: Prisma.BankAccountCreateOrConnectWithoutChartOfAccountInput | Prisma.BankAccountCreateOrConnectWithoutChartOfAccountInput[]
+  upsert?: Prisma.BankAccountUpsertWithWhereUniqueWithoutChartOfAccountInput | Prisma.BankAccountUpsertWithWhereUniqueWithoutChartOfAccountInput[]
+  createMany?: Prisma.BankAccountCreateManyChartOfAccountInputEnvelope
+  set?: Prisma.BankAccountWhereUniqueInput | Prisma.BankAccountWhereUniqueInput[]
+  disconnect?: Prisma.BankAccountWhereUniqueInput | Prisma.BankAccountWhereUniqueInput[]
+  delete?: Prisma.BankAccountWhereUniqueInput | Prisma.BankAccountWhereUniqueInput[]
+  connect?: Prisma.BankAccountWhereUniqueInput | Prisma.BankAccountWhereUniqueInput[]
+  update?: Prisma.BankAccountUpdateWithWhereUniqueWithoutChartOfAccountInput | Prisma.BankAccountUpdateWithWhereUniqueWithoutChartOfAccountInput[]
+  updateMany?: Prisma.BankAccountUpdateManyWithWhereWithoutChartOfAccountInput | Prisma.BankAccountUpdateManyWithWhereWithoutChartOfAccountInput[]
   deleteMany?: Prisma.BankAccountScalarWhereInput | Prisma.BankAccountScalarWhereInput[]
 }
 
@@ -1045,6 +1329,34 @@ export type BankAccountUpdateOneRequiredWithoutBankConnectionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BankAccountUpdateToOneWithWhereWithoutBankConnectionsInput, Prisma.BankAccountUpdateWithoutBankConnectionsInput>, Prisma.BankAccountUncheckedUpdateWithoutBankConnectionsInput>
 }
 
+export type BankAccountCreateNestedOneWithoutPaymentOrdersInput = {
+  create?: Prisma.XOR<Prisma.BankAccountCreateWithoutPaymentOrdersInput, Prisma.BankAccountUncheckedCreateWithoutPaymentOrdersInput>
+  connectOrCreate?: Prisma.BankAccountCreateOrConnectWithoutPaymentOrdersInput
+  connect?: Prisma.BankAccountWhereUniqueInput
+}
+
+export type BankAccountUpdateOneRequiredWithoutPaymentOrdersNestedInput = {
+  create?: Prisma.XOR<Prisma.BankAccountCreateWithoutPaymentOrdersInput, Prisma.BankAccountUncheckedCreateWithoutPaymentOrdersInput>
+  connectOrCreate?: Prisma.BankAccountCreateOrConnectWithoutPaymentOrdersInput
+  upsert?: Prisma.BankAccountUpsertWithoutPaymentOrdersInput
+  connect?: Prisma.BankAccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BankAccountUpdateToOneWithWhereWithoutPaymentOrdersInput, Prisma.BankAccountUpdateWithoutPaymentOrdersInput>, Prisma.BankAccountUncheckedUpdateWithoutPaymentOrdersInput>
+}
+
+export type BankAccountCreateNestedOneWithoutBankWebhookEventsInput = {
+  create?: Prisma.XOR<Prisma.BankAccountCreateWithoutBankWebhookEventsInput, Prisma.BankAccountUncheckedCreateWithoutBankWebhookEventsInput>
+  connectOrCreate?: Prisma.BankAccountCreateOrConnectWithoutBankWebhookEventsInput
+  connect?: Prisma.BankAccountWhereUniqueInput
+}
+
+export type BankAccountUpdateOneRequiredWithoutBankWebhookEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.BankAccountCreateWithoutBankWebhookEventsInput, Prisma.BankAccountUncheckedCreateWithoutBankWebhookEventsInput>
+  connectOrCreate?: Prisma.BankAccountCreateOrConnectWithoutBankWebhookEventsInput
+  upsert?: Prisma.BankAccountUpsertWithoutBankWebhookEventsInput
+  connect?: Prisma.BankAccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BankAccountUpdateToOneWithWhereWithoutBankWebhookEventsInput, Prisma.BankAccountUpdateWithoutBankWebhookEventsInput>, Prisma.BankAccountUncheckedUpdateWithoutBankWebhookEventsInput>
+}
+
 export type BankAccountCreateWithoutCompanyInput = {
   id?: string
   name: string
@@ -1064,10 +1376,20 @@ export type BankAccountCreateWithoutCompanyInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutBankAccountsInput
+  chartOfAccount?: Prisma.ChartOfAccountCreateNestedOneWithoutBankAccountsInput
   financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutBankAccountInput
   financePayments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanCreateNestedManyWithoutBankAccountInput
@@ -1076,6 +1398,8 @@ export type BankAccountCreateWithoutCompanyInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateWithoutCompanyInput = {
@@ -1098,9 +1422,19 @@ export type BankAccountUncheckedCreateWithoutCompanyInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  chartOfAccountId?: string | null
   financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutBankAccountInput
   financePayments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutBankAccountInput
@@ -1109,6 +1443,8 @@ export type BankAccountUncheckedCreateWithoutCompanyInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionUncheckedCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountCreateOrConnectWithoutCompanyInput = {
@@ -1161,9 +1497,19 @@ export type BankAccountScalarWhereInput = {
   balanceUpdatedAt?: Prisma.DateTimeNullableFilter<"BankAccount"> | Date | string | null
   color?: Prisma.StringNullableFilter<"BankAccount"> | string | null
   isDefault?: Prisma.BoolFilter<"BankAccount"> | boolean
+  apiProvider?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  apiClientId?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  apiCertFileId?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  apiCertKeyFileId?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  apiScopes?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  apiWebhookSecret?: Prisma.StringNullableFilter<"BankAccount"> | string | null
+  apiEnabled?: Prisma.BoolFilter<"BankAccount"> | boolean
+  autoEmitBoleto?: Prisma.BoolFilter<"BankAccount"> | boolean
+  autoLowThreshold?: Prisma.DecimalNullableFilter<"BankAccount"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"BankAccount"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"BankAccount"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"BankAccount"> | Date | string
+  chartOfAccountId?: Prisma.StringNullableFilter<"BankAccount"> | string | null
 }
 
 export type BankAccountCreateWithoutTenantInput = {
@@ -1185,10 +1531,20 @@ export type BankAccountCreateWithoutTenantInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   company?: Prisma.CompanyCreateNestedOneWithoutBankAccountsInput
+  chartOfAccount?: Prisma.ChartOfAccountCreateNestedOneWithoutBankAccountsInput
   financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutBankAccountInput
   financePayments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanCreateNestedManyWithoutBankAccountInput
@@ -1197,6 +1553,8 @@ export type BankAccountCreateWithoutTenantInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateWithoutTenantInput = {
@@ -1219,9 +1577,19 @@ export type BankAccountUncheckedCreateWithoutTenantInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  chartOfAccountId?: string | null
   financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutBankAccountInput
   financePayments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutBankAccountInput
@@ -1230,6 +1598,8 @@ export type BankAccountUncheckedCreateWithoutTenantInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionUncheckedCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountCreateOrConnectWithoutTenantInput = {
@@ -1258,6 +1628,122 @@ export type BankAccountUpdateManyWithWhereWithoutTenantInput = {
   data: Prisma.XOR<Prisma.BankAccountUpdateManyMutationInput, Prisma.BankAccountUncheckedUpdateManyWithoutTenantInput>
 }
 
+export type BankAccountCreateWithoutChartOfAccountInput = {
+  id?: string
+  name: string
+  bankCode: string
+  bankName?: string | null
+  agency: string
+  agencyDigit?: string | null
+  accountNumber: string
+  accountDigit?: string | null
+  accountType: $Enums.BankAccountType
+  status?: $Enums.BankAccountStatus
+  pixKeyType?: string | null
+  pixKey?: string | null
+  currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
+  balanceUpdatedAt?: Date | string | null
+  color?: string | null
+  isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutBankAccountsInput
+  company?: Prisma.CompanyCreateNestedOneWithoutBankAccountsInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutBankAccountInput
+  financePayments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutBankAccountInput
+  loans?: Prisma.LoanCreateNestedManyWithoutBankAccountInput
+  loanInstallments?: Prisma.LoanInstallmentCreateNestedManyWithoutBankAccountInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutBankAccountInput
+  consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
+  bankConnections?: Prisma.BankConnectionCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventCreateNestedManyWithoutBankAccountInput
+}
+
+export type BankAccountUncheckedCreateWithoutChartOfAccountInput = {
+  id?: string
+  tenantId: string
+  companyId?: string | null
+  name: string
+  bankCode: string
+  bankName?: string | null
+  agency: string
+  agencyDigit?: string | null
+  accountNumber: string
+  accountDigit?: string | null
+  accountType: $Enums.BankAccountType
+  status?: $Enums.BankAccountStatus
+  pixKeyType?: string | null
+  pixKey?: string | null
+  currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
+  balanceUpdatedAt?: Date | string | null
+  color?: string | null
+  isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutBankAccountInput
+  financePayments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutBankAccountInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutBankAccountInput
+  loanInstallments?: Prisma.LoanInstallmentUncheckedCreateNestedManyWithoutBankAccountInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutBankAccountInput
+  consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
+  bankConnections?: Prisma.BankConnectionUncheckedCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedCreateNestedManyWithoutBankAccountInput
+}
+
+export type BankAccountCreateOrConnectWithoutChartOfAccountInput = {
+  where: Prisma.BankAccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.BankAccountCreateWithoutChartOfAccountInput, Prisma.BankAccountUncheckedCreateWithoutChartOfAccountInput>
+}
+
+export type BankAccountCreateManyChartOfAccountInputEnvelope = {
+  data: Prisma.BankAccountCreateManyChartOfAccountInput | Prisma.BankAccountCreateManyChartOfAccountInput[]
+  skipDuplicates?: boolean
+}
+
+export type BankAccountUpsertWithWhereUniqueWithoutChartOfAccountInput = {
+  where: Prisma.BankAccountWhereUniqueInput
+  update: Prisma.XOR<Prisma.BankAccountUpdateWithoutChartOfAccountInput, Prisma.BankAccountUncheckedUpdateWithoutChartOfAccountInput>
+  create: Prisma.XOR<Prisma.BankAccountCreateWithoutChartOfAccountInput, Prisma.BankAccountUncheckedCreateWithoutChartOfAccountInput>
+}
+
+export type BankAccountUpdateWithWhereUniqueWithoutChartOfAccountInput = {
+  where: Prisma.BankAccountWhereUniqueInput
+  data: Prisma.XOR<Prisma.BankAccountUpdateWithoutChartOfAccountInput, Prisma.BankAccountUncheckedUpdateWithoutChartOfAccountInput>
+}
+
+export type BankAccountUpdateManyWithWhereWithoutChartOfAccountInput = {
+  where: Prisma.BankAccountScalarWhereInput
+  data: Prisma.XOR<Prisma.BankAccountUpdateManyMutationInput, Prisma.BankAccountUncheckedUpdateManyWithoutChartOfAccountInput>
+}
+
 export type BankAccountCreateWithoutFinanceEntriesInput = {
   id?: string
   name: string
@@ -1277,11 +1763,21 @@ export type BankAccountCreateWithoutFinanceEntriesInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutBankAccountsInput
   company?: Prisma.CompanyCreateNestedOneWithoutBankAccountsInput
+  chartOfAccount?: Prisma.ChartOfAccountCreateNestedOneWithoutBankAccountsInput
   financePayments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanCreateNestedManyWithoutBankAccountInput
   loanInstallments?: Prisma.LoanInstallmentCreateNestedManyWithoutBankAccountInput
@@ -1289,6 +1785,8 @@ export type BankAccountCreateWithoutFinanceEntriesInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateWithoutFinanceEntriesInput = {
@@ -1312,9 +1810,19 @@ export type BankAccountUncheckedCreateWithoutFinanceEntriesInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  chartOfAccountId?: string | null
   financePayments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutBankAccountInput
   loanInstallments?: Prisma.LoanInstallmentUncheckedCreateNestedManyWithoutBankAccountInput
@@ -1322,6 +1830,8 @@ export type BankAccountUncheckedCreateWithoutFinanceEntriesInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionUncheckedCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountCreateOrConnectWithoutFinanceEntriesInput = {
@@ -1359,11 +1869,21 @@ export type BankAccountUpdateWithoutFinanceEntriesInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutBankAccountsNestedInput
   company?: Prisma.CompanyUpdateOneWithoutBankAccountsNestedInput
+  chartOfAccount?: Prisma.ChartOfAccountUpdateOneWithoutBankAccountsNestedInput
   financePayments?: Prisma.FinanceEntryPaymentUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUpdateManyWithoutBankAccountNestedInput
   loanInstallments?: Prisma.LoanInstallmentUpdateManyWithoutBankAccountNestedInput
@@ -1371,6 +1891,8 @@ export type BankAccountUpdateWithoutFinanceEntriesInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateWithoutFinanceEntriesInput = {
@@ -1394,9 +1916,19 @@ export type BankAccountUncheckedUpdateWithoutFinanceEntriesInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   financePayments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutBankAccountNestedInput
   loanInstallments?: Prisma.LoanInstallmentUncheckedUpdateManyWithoutBankAccountNestedInput
@@ -1404,6 +1936,8 @@ export type BankAccountUncheckedUpdateWithoutFinanceEntriesInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUncheckedUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountCreateWithoutFinancePaymentsInput = {
@@ -1425,11 +1959,21 @@ export type BankAccountCreateWithoutFinancePaymentsInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutBankAccountsInput
   company?: Prisma.CompanyCreateNestedOneWithoutBankAccountsInput
+  chartOfAccount?: Prisma.ChartOfAccountCreateNestedOneWithoutBankAccountsInput
   financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanCreateNestedManyWithoutBankAccountInput
   loanInstallments?: Prisma.LoanInstallmentCreateNestedManyWithoutBankAccountInput
@@ -1437,6 +1981,8 @@ export type BankAccountCreateWithoutFinancePaymentsInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateWithoutFinancePaymentsInput = {
@@ -1460,9 +2006,19 @@ export type BankAccountUncheckedCreateWithoutFinancePaymentsInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  chartOfAccountId?: string | null
   financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutBankAccountInput
   loanInstallments?: Prisma.LoanInstallmentUncheckedCreateNestedManyWithoutBankAccountInput
@@ -1470,6 +2026,8 @@ export type BankAccountUncheckedCreateWithoutFinancePaymentsInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionUncheckedCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountCreateOrConnectWithoutFinancePaymentsInput = {
@@ -1507,11 +2065,21 @@ export type BankAccountUpdateWithoutFinancePaymentsInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutBankAccountsNestedInput
   company?: Prisma.CompanyUpdateOneWithoutBankAccountsNestedInput
+  chartOfAccount?: Prisma.ChartOfAccountUpdateOneWithoutBankAccountsNestedInput
   financeEntries?: Prisma.FinanceEntryUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUpdateManyWithoutBankAccountNestedInput
   loanInstallments?: Prisma.LoanInstallmentUpdateManyWithoutBankAccountNestedInput
@@ -1519,6 +2087,8 @@ export type BankAccountUpdateWithoutFinancePaymentsInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateWithoutFinancePaymentsInput = {
@@ -1542,9 +2112,19 @@ export type BankAccountUncheckedUpdateWithoutFinancePaymentsInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutBankAccountNestedInput
   loanInstallments?: Prisma.LoanInstallmentUncheckedUpdateManyWithoutBankAccountNestedInput
@@ -1552,6 +2132,8 @@ export type BankAccountUncheckedUpdateWithoutFinancePaymentsInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUncheckedUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountCreateWithoutReconciliationsInput = {
@@ -1573,11 +2155,21 @@ export type BankAccountCreateWithoutReconciliationsInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutBankAccountsInput
   company?: Prisma.CompanyCreateNestedOneWithoutBankAccountsInput
+  chartOfAccount?: Prisma.ChartOfAccountCreateNestedOneWithoutBankAccountsInput
   financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutBankAccountInput
   financePayments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanCreateNestedManyWithoutBankAccountInput
@@ -1585,6 +2177,8 @@ export type BankAccountCreateWithoutReconciliationsInput = {
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateWithoutReconciliationsInput = {
@@ -1608,9 +2202,19 @@ export type BankAccountUncheckedCreateWithoutReconciliationsInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  chartOfAccountId?: string | null
   financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutBankAccountInput
   financePayments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutBankAccountInput
@@ -1618,6 +2222,8 @@ export type BankAccountUncheckedCreateWithoutReconciliationsInput = {
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionUncheckedCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountCreateOrConnectWithoutReconciliationsInput = {
@@ -1655,11 +2261,21 @@ export type BankAccountUpdateWithoutReconciliationsInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutBankAccountsNestedInput
   company?: Prisma.CompanyUpdateOneWithoutBankAccountsNestedInput
+  chartOfAccount?: Prisma.ChartOfAccountUpdateOneWithoutBankAccountsNestedInput
   financeEntries?: Prisma.FinanceEntryUpdateManyWithoutBankAccountNestedInput
   financePayments?: Prisma.FinanceEntryPaymentUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUpdateManyWithoutBankAccountNestedInput
@@ -1667,6 +2283,8 @@ export type BankAccountUpdateWithoutReconciliationsInput = {
   consortia?: Prisma.ConsortiumUpdateManyWithoutBankAccountNestedInput
   consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateWithoutReconciliationsInput = {
@@ -1690,9 +2308,19 @@ export type BankAccountUncheckedUpdateWithoutReconciliationsInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutBankAccountNestedInput
   financePayments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutBankAccountNestedInput
@@ -1700,6 +2328,8 @@ export type BankAccountUncheckedUpdateWithoutReconciliationsInput = {
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutBankAccountNestedInput
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUncheckedUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountCreateWithoutLoansInput = {
@@ -1721,11 +2351,21 @@ export type BankAccountCreateWithoutLoansInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutBankAccountsInput
   company?: Prisma.CompanyCreateNestedOneWithoutBankAccountsInput
+  chartOfAccount?: Prisma.ChartOfAccountCreateNestedOneWithoutBankAccountsInput
   financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutBankAccountInput
   financePayments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutBankAccountInput
   loanInstallments?: Prisma.LoanInstallmentCreateNestedManyWithoutBankAccountInput
@@ -1733,6 +2373,8 @@ export type BankAccountCreateWithoutLoansInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateWithoutLoansInput = {
@@ -1756,9 +2398,19 @@ export type BankAccountUncheckedCreateWithoutLoansInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  chartOfAccountId?: string | null
   financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutBankAccountInput
   financePayments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   loanInstallments?: Prisma.LoanInstallmentUncheckedCreateNestedManyWithoutBankAccountInput
@@ -1766,6 +2418,8 @@ export type BankAccountUncheckedCreateWithoutLoansInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionUncheckedCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountCreateOrConnectWithoutLoansInput = {
@@ -1803,11 +2457,21 @@ export type BankAccountUpdateWithoutLoansInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutBankAccountsNestedInput
   company?: Prisma.CompanyUpdateOneWithoutBankAccountsNestedInput
+  chartOfAccount?: Prisma.ChartOfAccountUpdateOneWithoutBankAccountsNestedInput
   financeEntries?: Prisma.FinanceEntryUpdateManyWithoutBankAccountNestedInput
   financePayments?: Prisma.FinanceEntryPaymentUpdateManyWithoutBankAccountNestedInput
   loanInstallments?: Prisma.LoanInstallmentUpdateManyWithoutBankAccountNestedInput
@@ -1815,6 +2479,8 @@ export type BankAccountUpdateWithoutLoansInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateWithoutLoansInput = {
@@ -1838,9 +2504,19 @@ export type BankAccountUncheckedUpdateWithoutLoansInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutBankAccountNestedInput
   financePayments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   loanInstallments?: Prisma.LoanInstallmentUncheckedUpdateManyWithoutBankAccountNestedInput
@@ -1848,6 +2524,8 @@ export type BankAccountUncheckedUpdateWithoutLoansInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUncheckedUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountCreateWithoutLoanInstallmentsInput = {
@@ -1869,11 +2547,21 @@ export type BankAccountCreateWithoutLoanInstallmentsInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutBankAccountsInput
   company?: Prisma.CompanyCreateNestedOneWithoutBankAccountsInput
+  chartOfAccount?: Prisma.ChartOfAccountCreateNestedOneWithoutBankAccountsInput
   financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutBankAccountInput
   financePayments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanCreateNestedManyWithoutBankAccountInput
@@ -1881,6 +2569,8 @@ export type BankAccountCreateWithoutLoanInstallmentsInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateWithoutLoanInstallmentsInput = {
@@ -1904,9 +2594,19 @@ export type BankAccountUncheckedCreateWithoutLoanInstallmentsInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  chartOfAccountId?: string | null
   financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutBankAccountInput
   financePayments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutBankAccountInput
@@ -1914,6 +2614,8 @@ export type BankAccountUncheckedCreateWithoutLoanInstallmentsInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionUncheckedCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountCreateOrConnectWithoutLoanInstallmentsInput = {
@@ -1951,11 +2653,21 @@ export type BankAccountUpdateWithoutLoanInstallmentsInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutBankAccountsNestedInput
   company?: Prisma.CompanyUpdateOneWithoutBankAccountsNestedInput
+  chartOfAccount?: Prisma.ChartOfAccountUpdateOneWithoutBankAccountsNestedInput
   financeEntries?: Prisma.FinanceEntryUpdateManyWithoutBankAccountNestedInput
   financePayments?: Prisma.FinanceEntryPaymentUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUpdateManyWithoutBankAccountNestedInput
@@ -1963,6 +2675,8 @@ export type BankAccountUpdateWithoutLoanInstallmentsInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateWithoutLoanInstallmentsInput = {
@@ -1986,9 +2700,19 @@ export type BankAccountUncheckedUpdateWithoutLoanInstallmentsInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutBankAccountNestedInput
   financePayments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutBankAccountNestedInput
@@ -1996,6 +2720,8 @@ export type BankAccountUncheckedUpdateWithoutLoanInstallmentsInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUncheckedUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountCreateWithoutConsortiaInput = {
@@ -2017,11 +2743,21 @@ export type BankAccountCreateWithoutConsortiaInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutBankAccountsInput
   company?: Prisma.CompanyCreateNestedOneWithoutBankAccountsInput
+  chartOfAccount?: Prisma.ChartOfAccountCreateNestedOneWithoutBankAccountsInput
   financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutBankAccountInput
   financePayments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanCreateNestedManyWithoutBankAccountInput
@@ -2029,6 +2765,8 @@ export type BankAccountCreateWithoutConsortiaInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateWithoutConsortiaInput = {
@@ -2052,9 +2790,19 @@ export type BankAccountUncheckedCreateWithoutConsortiaInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  chartOfAccountId?: string | null
   financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutBankAccountInput
   financePayments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutBankAccountInput
@@ -2062,6 +2810,8 @@ export type BankAccountUncheckedCreateWithoutConsortiaInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionUncheckedCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountCreateOrConnectWithoutConsortiaInput = {
@@ -2099,11 +2849,21 @@ export type BankAccountUpdateWithoutConsortiaInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutBankAccountsNestedInput
   company?: Prisma.CompanyUpdateOneWithoutBankAccountsNestedInput
+  chartOfAccount?: Prisma.ChartOfAccountUpdateOneWithoutBankAccountsNestedInput
   financeEntries?: Prisma.FinanceEntryUpdateManyWithoutBankAccountNestedInput
   financePayments?: Prisma.FinanceEntryPaymentUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUpdateManyWithoutBankAccountNestedInput
@@ -2111,6 +2871,8 @@ export type BankAccountUpdateWithoutConsortiaInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateWithoutConsortiaInput = {
@@ -2134,9 +2896,19 @@ export type BankAccountUncheckedUpdateWithoutConsortiaInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutBankAccountNestedInput
   financePayments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutBankAccountNestedInput
@@ -2144,6 +2916,8 @@ export type BankAccountUncheckedUpdateWithoutConsortiaInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUncheckedUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountCreateWithoutConsortiumPaymentsInput = {
@@ -2165,11 +2939,21 @@ export type BankAccountCreateWithoutConsortiumPaymentsInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutBankAccountsInput
   company?: Prisma.CompanyCreateNestedOneWithoutBankAccountsInput
+  chartOfAccount?: Prisma.ChartOfAccountCreateNestedOneWithoutBankAccountsInput
   financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutBankAccountInput
   financePayments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanCreateNestedManyWithoutBankAccountInput
@@ -2177,6 +2961,8 @@ export type BankAccountCreateWithoutConsortiumPaymentsInput = {
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateWithoutConsortiumPaymentsInput = {
@@ -2200,9 +2986,19 @@ export type BankAccountUncheckedCreateWithoutConsortiumPaymentsInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  chartOfAccountId?: string | null
   financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutBankAccountInput
   financePayments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutBankAccountInput
@@ -2210,6 +3006,8 @@ export type BankAccountUncheckedCreateWithoutConsortiumPaymentsInput = {
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
   bankConnections?: Prisma.BankConnectionUncheckedCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountCreateOrConnectWithoutConsortiumPaymentsInput = {
@@ -2247,11 +3045,21 @@ export type BankAccountUpdateWithoutConsortiumPaymentsInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutBankAccountsNestedInput
   company?: Prisma.CompanyUpdateOneWithoutBankAccountsNestedInput
+  chartOfAccount?: Prisma.ChartOfAccountUpdateOneWithoutBankAccountsNestedInput
   financeEntries?: Prisma.FinanceEntryUpdateManyWithoutBankAccountNestedInput
   financePayments?: Prisma.FinanceEntryPaymentUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUpdateManyWithoutBankAccountNestedInput
@@ -2259,6 +3067,8 @@ export type BankAccountUpdateWithoutConsortiumPaymentsInput = {
   consortia?: Prisma.ConsortiumUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateWithoutConsortiumPaymentsInput = {
@@ -2282,9 +3092,19 @@ export type BankAccountUncheckedUpdateWithoutConsortiumPaymentsInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutBankAccountNestedInput
   financePayments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutBankAccountNestedInput
@@ -2292,6 +3112,8 @@ export type BankAccountUncheckedUpdateWithoutConsortiumPaymentsInput = {
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUncheckedUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountCreateWithoutBankConnectionsInput = {
@@ -2313,11 +3135,21 @@ export type BankAccountCreateWithoutBankConnectionsInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutBankAccountsInput
   company?: Prisma.CompanyCreateNestedOneWithoutBankAccountsInput
+  chartOfAccount?: Prisma.ChartOfAccountCreateNestedOneWithoutBankAccountsInput
   financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutBankAccountInput
   financePayments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanCreateNestedManyWithoutBankAccountInput
@@ -2325,6 +3157,8 @@ export type BankAccountCreateWithoutBankConnectionsInput = {
   consortia?: Prisma.ConsortiumCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountUncheckedCreateWithoutBankConnectionsInput = {
@@ -2348,9 +3182,19 @@ export type BankAccountUncheckedCreateWithoutBankConnectionsInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  chartOfAccountId?: string | null
   financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutBankAccountInput
   financePayments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutBankAccountInput
@@ -2358,6 +3202,8 @@ export type BankAccountUncheckedCreateWithoutBankConnectionsInput = {
   consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutBankAccountInput
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
   reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedCreateNestedManyWithoutBankAccountInput
 }
 
 export type BankAccountCreateOrConnectWithoutBankConnectionsInput = {
@@ -2395,11 +3241,21 @@ export type BankAccountUpdateWithoutBankConnectionsInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutBankAccountsNestedInput
   company?: Prisma.CompanyUpdateOneWithoutBankAccountsNestedInput
+  chartOfAccount?: Prisma.ChartOfAccountUpdateOneWithoutBankAccountsNestedInput
   financeEntries?: Prisma.FinanceEntryUpdateManyWithoutBankAccountNestedInput
   financePayments?: Prisma.FinanceEntryPaymentUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUpdateManyWithoutBankAccountNestedInput
@@ -2407,6 +3263,8 @@ export type BankAccountUpdateWithoutBankConnectionsInput = {
   consortia?: Prisma.ConsortiumUpdateManyWithoutBankAccountNestedInput
   consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateWithoutBankConnectionsInput = {
@@ -2430,9 +3288,19 @@ export type BankAccountUncheckedUpdateWithoutBankConnectionsInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutBankAccountNestedInput
   financePayments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutBankAccountNestedInput
@@ -2440,6 +3308,400 @@ export type BankAccountUncheckedUpdateWithoutBankConnectionsInput = {
   consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutBankAccountNestedInput
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedUpdateManyWithoutBankAccountNestedInput
+}
+
+export type BankAccountCreateWithoutPaymentOrdersInput = {
+  id?: string
+  name: string
+  bankCode: string
+  bankName?: string | null
+  agency: string
+  agencyDigit?: string | null
+  accountNumber: string
+  accountDigit?: string | null
+  accountType: $Enums.BankAccountType
+  status?: $Enums.BankAccountStatus
+  pixKeyType?: string | null
+  pixKey?: string | null
+  currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
+  balanceUpdatedAt?: Date | string | null
+  color?: string | null
+  isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutBankAccountsInput
+  company?: Prisma.CompanyCreateNestedOneWithoutBankAccountsInput
+  chartOfAccount?: Prisma.ChartOfAccountCreateNestedOneWithoutBankAccountsInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutBankAccountInput
+  financePayments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutBankAccountInput
+  loans?: Prisma.LoanCreateNestedManyWithoutBankAccountInput
+  loanInstallments?: Prisma.LoanInstallmentCreateNestedManyWithoutBankAccountInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutBankAccountInput
+  consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
+  bankConnections?: Prisma.BankConnectionCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventCreateNestedManyWithoutBankAccountInput
+}
+
+export type BankAccountUncheckedCreateWithoutPaymentOrdersInput = {
+  id?: string
+  tenantId: string
+  companyId?: string | null
+  name: string
+  bankCode: string
+  bankName?: string | null
+  agency: string
+  agencyDigit?: string | null
+  accountNumber: string
+  accountDigit?: string | null
+  accountType: $Enums.BankAccountType
+  status?: $Enums.BankAccountStatus
+  pixKeyType?: string | null
+  pixKey?: string | null
+  currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
+  balanceUpdatedAt?: Date | string | null
+  color?: string | null
+  isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  chartOfAccountId?: string | null
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutBankAccountInput
+  financePayments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutBankAccountInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutBankAccountInput
+  loanInstallments?: Prisma.LoanInstallmentUncheckedCreateNestedManyWithoutBankAccountInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutBankAccountInput
+  consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
+  bankConnections?: Prisma.BankConnectionUncheckedCreateNestedManyWithoutBankAccountInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedCreateNestedManyWithoutBankAccountInput
+}
+
+export type BankAccountCreateOrConnectWithoutPaymentOrdersInput = {
+  where: Prisma.BankAccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.BankAccountCreateWithoutPaymentOrdersInput, Prisma.BankAccountUncheckedCreateWithoutPaymentOrdersInput>
+}
+
+export type BankAccountUpsertWithoutPaymentOrdersInput = {
+  update: Prisma.XOR<Prisma.BankAccountUpdateWithoutPaymentOrdersInput, Prisma.BankAccountUncheckedUpdateWithoutPaymentOrdersInput>
+  create: Prisma.XOR<Prisma.BankAccountCreateWithoutPaymentOrdersInput, Prisma.BankAccountUncheckedCreateWithoutPaymentOrdersInput>
+  where?: Prisma.BankAccountWhereInput
+}
+
+export type BankAccountUpdateToOneWithWhereWithoutPaymentOrdersInput = {
+  where?: Prisma.BankAccountWhereInput
+  data: Prisma.XOR<Prisma.BankAccountUpdateWithoutPaymentOrdersInput, Prisma.BankAccountUncheckedUpdateWithoutPaymentOrdersInput>
+}
+
+export type BankAccountUpdateWithoutPaymentOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  bankCode?: Prisma.StringFieldUpdateOperationsInput | string
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  agency?: Prisma.StringFieldUpdateOperationsInput | string
+  agencyDigit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  accountDigit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountType?: Prisma.EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
+  status?: Prisma.EnumBankAccountStatusFieldUpdateOperationsInput | $Enums.BankAccountStatus
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutBankAccountsNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutBankAccountsNestedInput
+  chartOfAccount?: Prisma.ChartOfAccountUpdateOneWithoutBankAccountsNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutBankAccountNestedInput
+  financePayments?: Prisma.FinanceEntryPaymentUpdateManyWithoutBankAccountNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutBankAccountNestedInput
+  loanInstallments?: Prisma.LoanInstallmentUpdateManyWithoutBankAccountNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutBankAccountNestedInput
+  consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
+  bankConnections?: Prisma.BankConnectionUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUpdateManyWithoutBankAccountNestedInput
+}
+
+export type BankAccountUncheckedUpdateWithoutPaymentOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  bankCode?: Prisma.StringFieldUpdateOperationsInput | string
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  agency?: Prisma.StringFieldUpdateOperationsInput | string
+  agencyDigit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  accountDigit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountType?: Prisma.EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
+  status?: Prisma.EnumBankAccountStatusFieldUpdateOperationsInput | $Enums.BankAccountStatus
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutBankAccountNestedInput
+  financePayments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutBankAccountNestedInput
+  loanInstallments?: Prisma.LoanInstallmentUncheckedUpdateManyWithoutBankAccountNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutBankAccountNestedInput
+  consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
+  bankConnections?: Prisma.BankConnectionUncheckedUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedUpdateManyWithoutBankAccountNestedInput
+}
+
+export type BankAccountCreateWithoutBankWebhookEventsInput = {
+  id?: string
+  name: string
+  bankCode: string
+  bankName?: string | null
+  agency: string
+  agencyDigit?: string | null
+  accountNumber: string
+  accountDigit?: string | null
+  accountType: $Enums.BankAccountType
+  status?: $Enums.BankAccountStatus
+  pixKeyType?: string | null
+  pixKey?: string | null
+  currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
+  balanceUpdatedAt?: Date | string | null
+  color?: string | null
+  isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutBankAccountsInput
+  company?: Prisma.CompanyCreateNestedOneWithoutBankAccountsInput
+  chartOfAccount?: Prisma.ChartOfAccountCreateNestedOneWithoutBankAccountsInput
+  financeEntries?: Prisma.FinanceEntryCreateNestedManyWithoutBankAccountInput
+  financePayments?: Prisma.FinanceEntryPaymentCreateNestedManyWithoutBankAccountInput
+  loans?: Prisma.LoanCreateNestedManyWithoutBankAccountInput
+  loanInstallments?: Prisma.LoanInstallmentCreateNestedManyWithoutBankAccountInput
+  consortia?: Prisma.ConsortiumCreateNestedManyWithoutBankAccountInput
+  consortiumPayments?: Prisma.ConsortiumPaymentCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationCreateNestedManyWithoutBankAccountInput
+  bankConnections?: Prisma.BankConnectionCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderCreateNestedManyWithoutBankAccountInput
+}
+
+export type BankAccountUncheckedCreateWithoutBankWebhookEventsInput = {
+  id?: string
+  tenantId: string
+  companyId?: string | null
+  name: string
+  bankCode: string
+  bankName?: string | null
+  agency: string
+  agencyDigit?: string | null
+  accountNumber: string
+  accountDigit?: string | null
+  accountType: $Enums.BankAccountType
+  status?: $Enums.BankAccountStatus
+  pixKeyType?: string | null
+  pixKey?: string | null
+  currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
+  balanceUpdatedAt?: Date | string | null
+  color?: string | null
+  isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  chartOfAccountId?: string | null
+  financeEntries?: Prisma.FinanceEntryUncheckedCreateNestedManyWithoutBankAccountInput
+  financePayments?: Prisma.FinanceEntryPaymentUncheckedCreateNestedManyWithoutBankAccountInput
+  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutBankAccountInput
+  loanInstallments?: Prisma.LoanInstallmentUncheckedCreateNestedManyWithoutBankAccountInput
+  consortia?: Prisma.ConsortiumUncheckedCreateNestedManyWithoutBankAccountInput
+  consortiumPayments?: Prisma.ConsortiumPaymentUncheckedCreateNestedManyWithoutBankAccountInput
+  reconciliations?: Prisma.BankReconciliationUncheckedCreateNestedManyWithoutBankAccountInput
+  bankConnections?: Prisma.BankConnectionUncheckedCreateNestedManyWithoutBankAccountInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedCreateNestedManyWithoutBankAccountInput
+}
+
+export type BankAccountCreateOrConnectWithoutBankWebhookEventsInput = {
+  where: Prisma.BankAccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.BankAccountCreateWithoutBankWebhookEventsInput, Prisma.BankAccountUncheckedCreateWithoutBankWebhookEventsInput>
+}
+
+export type BankAccountUpsertWithoutBankWebhookEventsInput = {
+  update: Prisma.XOR<Prisma.BankAccountUpdateWithoutBankWebhookEventsInput, Prisma.BankAccountUncheckedUpdateWithoutBankWebhookEventsInput>
+  create: Prisma.XOR<Prisma.BankAccountCreateWithoutBankWebhookEventsInput, Prisma.BankAccountUncheckedCreateWithoutBankWebhookEventsInput>
+  where?: Prisma.BankAccountWhereInput
+}
+
+export type BankAccountUpdateToOneWithWhereWithoutBankWebhookEventsInput = {
+  where?: Prisma.BankAccountWhereInput
+  data: Prisma.XOR<Prisma.BankAccountUpdateWithoutBankWebhookEventsInput, Prisma.BankAccountUncheckedUpdateWithoutBankWebhookEventsInput>
+}
+
+export type BankAccountUpdateWithoutBankWebhookEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  bankCode?: Prisma.StringFieldUpdateOperationsInput | string
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  agency?: Prisma.StringFieldUpdateOperationsInput | string
+  agencyDigit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  accountDigit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountType?: Prisma.EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
+  status?: Prisma.EnumBankAccountStatusFieldUpdateOperationsInput | $Enums.BankAccountStatus
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutBankAccountsNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutBankAccountsNestedInput
+  chartOfAccount?: Prisma.ChartOfAccountUpdateOneWithoutBankAccountsNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutBankAccountNestedInput
+  financePayments?: Prisma.FinanceEntryPaymentUpdateManyWithoutBankAccountNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutBankAccountNestedInput
+  loanInstallments?: Prisma.LoanInstallmentUpdateManyWithoutBankAccountNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutBankAccountNestedInput
+  consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
+  bankConnections?: Prisma.BankConnectionUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUpdateManyWithoutBankAccountNestedInput
+}
+
+export type BankAccountUncheckedUpdateWithoutBankWebhookEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  bankCode?: Prisma.StringFieldUpdateOperationsInput | string
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  agency?: Prisma.StringFieldUpdateOperationsInput | string
+  agencyDigit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  accountDigit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountType?: Prisma.EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
+  status?: Prisma.EnumBankAccountStatusFieldUpdateOperationsInput | $Enums.BankAccountStatus
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutBankAccountNestedInput
+  financePayments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutBankAccountNestedInput
+  loanInstallments?: Prisma.LoanInstallmentUncheckedUpdateManyWithoutBankAccountNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutBankAccountNestedInput
+  consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
+  bankConnections?: Prisma.BankConnectionUncheckedUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountCreateManyCompanyInput = {
@@ -2462,9 +3724,19 @@ export type BankAccountCreateManyCompanyInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  chartOfAccountId?: string | null
 }
 
 export type BankAccountUpdateWithoutCompanyInput = {
@@ -2486,10 +3758,20 @@ export type BankAccountUpdateWithoutCompanyInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutBankAccountsNestedInput
+  chartOfAccount?: Prisma.ChartOfAccountUpdateOneWithoutBankAccountsNestedInput
   financeEntries?: Prisma.FinanceEntryUpdateManyWithoutBankAccountNestedInput
   financePayments?: Prisma.FinanceEntryPaymentUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUpdateManyWithoutBankAccountNestedInput
@@ -2498,6 +3780,8 @@ export type BankAccountUpdateWithoutCompanyInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateWithoutCompanyInput = {
@@ -2520,9 +3804,19 @@ export type BankAccountUncheckedUpdateWithoutCompanyInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutBankAccountNestedInput
   financePayments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutBankAccountNestedInput
@@ -2531,6 +3825,8 @@ export type BankAccountUncheckedUpdateWithoutCompanyInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUncheckedUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateManyWithoutCompanyInput = {
@@ -2553,9 +3849,19 @@ export type BankAccountUncheckedUpdateManyWithoutCompanyInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type BankAccountCreateManyTenantInput = {
@@ -2578,9 +3884,19 @@ export type BankAccountCreateManyTenantInput = {
   balanceUpdatedAt?: Date | string | null
   color?: string | null
   isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  chartOfAccountId?: string | null
 }
 
 export type BankAccountUpdateWithoutTenantInput = {
@@ -2602,10 +3918,20 @@ export type BankAccountUpdateWithoutTenantInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneWithoutBankAccountsNestedInput
+  chartOfAccount?: Prisma.ChartOfAccountUpdateOneWithoutBankAccountsNestedInput
   financeEntries?: Prisma.FinanceEntryUpdateManyWithoutBankAccountNestedInput
   financePayments?: Prisma.FinanceEntryPaymentUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUpdateManyWithoutBankAccountNestedInput
@@ -2614,6 +3940,8 @@ export type BankAccountUpdateWithoutTenantInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateWithoutTenantInput = {
@@ -2636,9 +3964,19 @@ export type BankAccountUncheckedUpdateWithoutTenantInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutBankAccountNestedInput
   financePayments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutBankAccountNestedInput
@@ -2647,6 +3985,8 @@ export type BankAccountUncheckedUpdateWithoutTenantInput = {
   consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
   bankConnections?: Prisma.BankConnectionUncheckedUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedUpdateManyWithoutBankAccountNestedInput
 }
 
 export type BankAccountUncheckedUpdateManyWithoutTenantInput = {
@@ -2669,6 +4009,176 @@ export type BankAccountUncheckedUpdateManyWithoutTenantInput = {
   balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chartOfAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type BankAccountCreateManyChartOfAccountInput = {
+  id?: string
+  tenantId: string
+  companyId?: string | null
+  name: string
+  bankCode: string
+  bankName?: string | null
+  agency: string
+  agencyDigit?: string | null
+  accountNumber: string
+  accountDigit?: string | null
+  accountType: $Enums.BankAccountType
+  status?: $Enums.BankAccountStatus
+  pixKeyType?: string | null
+  pixKey?: string | null
+  currentBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: string | null
+  pixKeyHash?: string | null
+  balanceUpdatedAt?: Date | string | null
+  color?: string | null
+  isDefault?: boolean
+  apiProvider?: string | null
+  apiClientId?: string | null
+  apiCertFileId?: string | null
+  apiCertKeyFileId?: string | null
+  apiScopes?: string | null
+  apiWebhookSecret?: string | null
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type BankAccountUpdateWithoutChartOfAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  bankCode?: Prisma.StringFieldUpdateOperationsInput | string
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  agency?: Prisma.StringFieldUpdateOperationsInput | string
+  agencyDigit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  accountDigit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountType?: Prisma.EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
+  status?: Prisma.EnumBankAccountStatusFieldUpdateOperationsInput | $Enums.BankAccountStatus
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutBankAccountsNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutBankAccountsNestedInput
+  financeEntries?: Prisma.FinanceEntryUpdateManyWithoutBankAccountNestedInput
+  financePayments?: Prisma.FinanceEntryPaymentUpdateManyWithoutBankAccountNestedInput
+  loans?: Prisma.LoanUpdateManyWithoutBankAccountNestedInput
+  loanInstallments?: Prisma.LoanInstallmentUpdateManyWithoutBankAccountNestedInput
+  consortia?: Prisma.ConsortiumUpdateManyWithoutBankAccountNestedInput
+  consortiumPayments?: Prisma.ConsortiumPaymentUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUpdateManyWithoutBankAccountNestedInput
+  bankConnections?: Prisma.BankConnectionUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUpdateManyWithoutBankAccountNestedInput
+}
+
+export type BankAccountUncheckedUpdateWithoutChartOfAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  bankCode?: Prisma.StringFieldUpdateOperationsInput | string
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  agency?: Prisma.StringFieldUpdateOperationsInput | string
+  agencyDigit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  accountDigit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountType?: Prisma.EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
+  status?: Prisma.EnumBankAccountStatusFieldUpdateOperationsInput | $Enums.BankAccountStatus
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  financeEntries?: Prisma.FinanceEntryUncheckedUpdateManyWithoutBankAccountNestedInput
+  financePayments?: Prisma.FinanceEntryPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
+  loans?: Prisma.LoanUncheckedUpdateManyWithoutBankAccountNestedInput
+  loanInstallments?: Prisma.LoanInstallmentUncheckedUpdateManyWithoutBankAccountNestedInput
+  consortia?: Prisma.ConsortiumUncheckedUpdateManyWithoutBankAccountNestedInput
+  consortiumPayments?: Prisma.ConsortiumPaymentUncheckedUpdateManyWithoutBankAccountNestedInput
+  reconciliations?: Prisma.BankReconciliationUncheckedUpdateManyWithoutBankAccountNestedInput
+  bankConnections?: Prisma.BankConnectionUncheckedUpdateManyWithoutBankAccountNestedInput
+  paymentOrders?: Prisma.PaymentOrderUncheckedUpdateManyWithoutBankAccountNestedInput
+  bankWebhookEvents?: Prisma.BankWebhookEventUncheckedUpdateManyWithoutBankAccountNestedInput
+}
+
+export type BankAccountUncheckedUpdateManyWithoutChartOfAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  bankCode?: Prisma.StringFieldUpdateOperationsInput | string
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  agency?: Prisma.StringFieldUpdateOperationsInput | string
+  agencyDigit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  accountDigit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountType?: Prisma.EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
+  status?: Prisma.EnumBankAccountStatusFieldUpdateOperationsInput | $Enums.BankAccountStatus
+  pixKeyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  accountNumberHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balanceUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  apiProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiCertKeyFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiWebhookSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  apiEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoEmitBoleto?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoLowThreshold?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2688,6 +4198,8 @@ export type BankAccountCountOutputType = {
   consortiumPayments: number
   reconciliations: number
   bankConnections: number
+  paymentOrders: number
+  bankWebhookEvents: number
 }
 
 export type BankAccountCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2699,6 +4211,8 @@ export type BankAccountCountOutputTypeSelect<ExtArgs extends runtime.Types.Exten
   consortiumPayments?: boolean | BankAccountCountOutputTypeCountConsortiumPaymentsArgs
   reconciliations?: boolean | BankAccountCountOutputTypeCountReconciliationsArgs
   bankConnections?: boolean | BankAccountCountOutputTypeCountBankConnectionsArgs
+  paymentOrders?: boolean | BankAccountCountOutputTypeCountPaymentOrdersArgs
+  bankWebhookEvents?: boolean | BankAccountCountOutputTypeCountBankWebhookEventsArgs
 }
 
 /**
@@ -2767,6 +4281,20 @@ export type BankAccountCountOutputTypeCountBankConnectionsArgs<ExtArgs extends r
   where?: Prisma.BankConnectionWhereInput
 }
 
+/**
+ * BankAccountCountOutputType without action
+ */
+export type BankAccountCountOutputTypeCountPaymentOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PaymentOrderWhereInput
+}
+
+/**
+ * BankAccountCountOutputType without action
+ */
+export type BankAccountCountOutputTypeCountBankWebhookEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BankWebhookEventWhereInput
+}
+
 
 export type BankAccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2789,11 +4317,22 @@ export type BankAccountSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   balanceUpdatedAt?: boolean
   color?: boolean
   isDefault?: boolean
+  apiProvider?: boolean
+  apiClientId?: boolean
+  apiCertFileId?: boolean
+  apiCertKeyFileId?: boolean
+  apiScopes?: boolean
+  apiWebhookSecret?: boolean
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  chartOfAccountId?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   company?: boolean | Prisma.BankAccount$companyArgs<ExtArgs>
+  chartOfAccount?: boolean | Prisma.BankAccount$chartOfAccountArgs<ExtArgs>
   financeEntries?: boolean | Prisma.BankAccount$financeEntriesArgs<ExtArgs>
   financePayments?: boolean | Prisma.BankAccount$financePaymentsArgs<ExtArgs>
   loans?: boolean | Prisma.BankAccount$loansArgs<ExtArgs>
@@ -2802,6 +4341,8 @@ export type BankAccountSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   consortiumPayments?: boolean | Prisma.BankAccount$consortiumPaymentsArgs<ExtArgs>
   reconciliations?: boolean | Prisma.BankAccount$reconciliationsArgs<ExtArgs>
   bankConnections?: boolean | Prisma.BankAccount$bankConnectionsArgs<ExtArgs>
+  paymentOrders?: boolean | Prisma.BankAccount$paymentOrdersArgs<ExtArgs>
+  bankWebhookEvents?: boolean | Prisma.BankAccount$bankWebhookEventsArgs<ExtArgs>
   _count?: boolean | Prisma.BankAccountCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bankAccount"]>
 
@@ -2826,11 +4367,22 @@ export type BankAccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   balanceUpdatedAt?: boolean
   color?: boolean
   isDefault?: boolean
+  apiProvider?: boolean
+  apiClientId?: boolean
+  apiCertFileId?: boolean
+  apiCertKeyFileId?: boolean
+  apiScopes?: boolean
+  apiWebhookSecret?: boolean
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  chartOfAccountId?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   company?: boolean | Prisma.BankAccount$companyArgs<ExtArgs>
+  chartOfAccount?: boolean | Prisma.BankAccount$chartOfAccountArgs<ExtArgs>
 }, ExtArgs["result"]["bankAccount"]>
 
 export type BankAccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2854,11 +4406,22 @@ export type BankAccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   balanceUpdatedAt?: boolean
   color?: boolean
   isDefault?: boolean
+  apiProvider?: boolean
+  apiClientId?: boolean
+  apiCertFileId?: boolean
+  apiCertKeyFileId?: boolean
+  apiScopes?: boolean
+  apiWebhookSecret?: boolean
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  chartOfAccountId?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   company?: boolean | Prisma.BankAccount$companyArgs<ExtArgs>
+  chartOfAccount?: boolean | Prisma.BankAccount$chartOfAccountArgs<ExtArgs>
 }, ExtArgs["result"]["bankAccount"]>
 
 export type BankAccountSelectScalar = {
@@ -2882,15 +4445,26 @@ export type BankAccountSelectScalar = {
   balanceUpdatedAt?: boolean
   color?: boolean
   isDefault?: boolean
+  apiProvider?: boolean
+  apiClientId?: boolean
+  apiCertFileId?: boolean
+  apiCertKeyFileId?: boolean
+  apiScopes?: boolean
+  apiWebhookSecret?: boolean
+  apiEnabled?: boolean
+  autoEmitBoleto?: boolean
+  autoLowThreshold?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  chartOfAccountId?: boolean
 }
 
-export type BankAccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "companyId" | "name" | "bankCode" | "bankName" | "agency" | "agencyDigit" | "accountNumber" | "accountDigit" | "accountType" | "status" | "pixKeyType" | "pixKey" | "currentBalance" | "accountNumberHash" | "pixKeyHash" | "balanceUpdatedAt" | "color" | "isDefault" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["bankAccount"]>
+export type BankAccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "companyId" | "name" | "bankCode" | "bankName" | "agency" | "agencyDigit" | "accountNumber" | "accountDigit" | "accountType" | "status" | "pixKeyType" | "pixKey" | "currentBalance" | "accountNumberHash" | "pixKeyHash" | "balanceUpdatedAt" | "color" | "isDefault" | "apiProvider" | "apiClientId" | "apiCertFileId" | "apiCertKeyFileId" | "apiScopes" | "apiWebhookSecret" | "apiEnabled" | "autoEmitBoleto" | "autoLowThreshold" | "deletedAt" | "createdAt" | "updatedAt" | "chartOfAccountId", ExtArgs["result"]["bankAccount"]>
 export type BankAccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   company?: boolean | Prisma.BankAccount$companyArgs<ExtArgs>
+  chartOfAccount?: boolean | Prisma.BankAccount$chartOfAccountArgs<ExtArgs>
   financeEntries?: boolean | Prisma.BankAccount$financeEntriesArgs<ExtArgs>
   financePayments?: boolean | Prisma.BankAccount$financePaymentsArgs<ExtArgs>
   loans?: boolean | Prisma.BankAccount$loansArgs<ExtArgs>
@@ -2899,15 +4473,19 @@ export type BankAccountInclude<ExtArgs extends runtime.Types.Extensions.Internal
   consortiumPayments?: boolean | Prisma.BankAccount$consortiumPaymentsArgs<ExtArgs>
   reconciliations?: boolean | Prisma.BankAccount$reconciliationsArgs<ExtArgs>
   bankConnections?: boolean | Prisma.BankAccount$bankConnectionsArgs<ExtArgs>
+  paymentOrders?: boolean | Prisma.BankAccount$paymentOrdersArgs<ExtArgs>
+  bankWebhookEvents?: boolean | Prisma.BankAccount$bankWebhookEventsArgs<ExtArgs>
   _count?: boolean | Prisma.BankAccountCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BankAccountIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   company?: boolean | Prisma.BankAccount$companyArgs<ExtArgs>
+  chartOfAccount?: boolean | Prisma.BankAccount$chartOfAccountArgs<ExtArgs>
 }
 export type BankAccountIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   company?: boolean | Prisma.BankAccount$companyArgs<ExtArgs>
+  chartOfAccount?: boolean | Prisma.BankAccount$chartOfAccountArgs<ExtArgs>
 }
 
 export type $BankAccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2915,6 +4493,7 @@ export type $BankAccountPayload<ExtArgs extends runtime.Types.Extensions.Interna
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
     company: Prisma.$CompanyPayload<ExtArgs> | null
+    chartOfAccount: Prisma.$ChartOfAccountPayload<ExtArgs> | null
     financeEntries: Prisma.$FinanceEntryPayload<ExtArgs>[]
     financePayments: Prisma.$FinanceEntryPaymentPayload<ExtArgs>[]
     loans: Prisma.$LoanPayload<ExtArgs>[]
@@ -2923,6 +4502,8 @@ export type $BankAccountPayload<ExtArgs extends runtime.Types.Extensions.Interna
     consortiumPayments: Prisma.$ConsortiumPaymentPayload<ExtArgs>[]
     reconciliations: Prisma.$BankReconciliationPayload<ExtArgs>[]
     bankConnections: Prisma.$BankConnectionPayload<ExtArgs>[]
+    paymentOrders: Prisma.$PaymentOrderPayload<ExtArgs>[]
+    bankWebhookEvents: Prisma.$BankWebhookEventPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2945,9 +4526,19 @@ export type $BankAccountPayload<ExtArgs extends runtime.Types.Extensions.Interna
     balanceUpdatedAt: Date | null
     color: string | null
     isDefault: boolean
+    apiProvider: string | null
+    apiClientId: string | null
+    apiCertFileId: string | null
+    apiCertKeyFileId: string | null
+    apiScopes: string | null
+    apiWebhookSecret: string | null
+    apiEnabled: boolean
+    autoEmitBoleto: boolean
+    autoLowThreshold: runtime.Decimal | null
     deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
+    chartOfAccountId: string | null
   }, ExtArgs["result"]["bankAccount"]>
   composites: {}
 }
@@ -3344,6 +4935,7 @@ export interface Prisma__BankAccountClient<T, Null = never, ExtArgs extends runt
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   company<T extends Prisma.BankAccount$companyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BankAccount$companyArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  chartOfAccount<T extends Prisma.BankAccount$chartOfAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BankAccount$chartOfAccountArgs<ExtArgs>>): Prisma.Prisma__ChartOfAccountClient<runtime.Types.Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   financeEntries<T extends Prisma.BankAccount$financeEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BankAccount$financeEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   financePayments<T extends Prisma.BankAccount$financePaymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BankAccount$financePaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceEntryPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   loans<T extends Prisma.BankAccount$loansArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BankAccount$loansArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3352,6 +4944,8 @@ export interface Prisma__BankAccountClient<T, Null = never, ExtArgs extends runt
   consortiumPayments<T extends Prisma.BankAccount$consortiumPaymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BankAccount$consortiumPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConsortiumPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reconciliations<T extends Prisma.BankAccount$reconciliationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BankAccount$reconciliationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BankReconciliationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bankConnections<T extends Prisma.BankAccount$bankConnectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BankAccount$bankConnectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BankConnectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  paymentOrders<T extends Prisma.BankAccount$paymentOrdersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BankAccount$paymentOrdersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bankWebhookEvents<T extends Prisma.BankAccount$bankWebhookEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BankAccount$bankWebhookEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BankWebhookEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3401,9 +4995,19 @@ export interface BankAccountFieldRefs {
   readonly balanceUpdatedAt: Prisma.FieldRef<"BankAccount", 'DateTime'>
   readonly color: Prisma.FieldRef<"BankAccount", 'String'>
   readonly isDefault: Prisma.FieldRef<"BankAccount", 'Boolean'>
+  readonly apiProvider: Prisma.FieldRef<"BankAccount", 'String'>
+  readonly apiClientId: Prisma.FieldRef<"BankAccount", 'String'>
+  readonly apiCertFileId: Prisma.FieldRef<"BankAccount", 'String'>
+  readonly apiCertKeyFileId: Prisma.FieldRef<"BankAccount", 'String'>
+  readonly apiScopes: Prisma.FieldRef<"BankAccount", 'String'>
+  readonly apiWebhookSecret: Prisma.FieldRef<"BankAccount", 'String'>
+  readonly apiEnabled: Prisma.FieldRef<"BankAccount", 'Boolean'>
+  readonly autoEmitBoleto: Prisma.FieldRef<"BankAccount", 'Boolean'>
+  readonly autoLowThreshold: Prisma.FieldRef<"BankAccount", 'Decimal'>
   readonly deletedAt: Prisma.FieldRef<"BankAccount", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"BankAccount", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"BankAccount", 'DateTime'>
+  readonly chartOfAccountId: Prisma.FieldRef<"BankAccount", 'String'>
 }
     
 
@@ -3819,6 +5423,25 @@ export type BankAccount$companyArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
+ * BankAccount.chartOfAccount
+ */
+export type BankAccount$chartOfAccountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ChartOfAccount
+   */
+  select?: Prisma.ChartOfAccountSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ChartOfAccount
+   */
+  omit?: Prisma.ChartOfAccountOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChartOfAccountInclude<ExtArgs> | null
+  where?: Prisma.ChartOfAccountWhereInput
+}
+
+/**
  * BankAccount.financeEntries
  */
 export type BankAccount$financeEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4008,6 +5631,54 @@ export type BankAccount$bankConnectionsArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.BankConnectionScalarFieldEnum | Prisma.BankConnectionScalarFieldEnum[]
+}
+
+/**
+ * BankAccount.paymentOrders
+ */
+export type BankAccount$paymentOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PaymentOrder
+   */
+  select?: Prisma.PaymentOrderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PaymentOrder
+   */
+  omit?: Prisma.PaymentOrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentOrderInclude<ExtArgs> | null
+  where?: Prisma.PaymentOrderWhereInput
+  orderBy?: Prisma.PaymentOrderOrderByWithRelationInput | Prisma.PaymentOrderOrderByWithRelationInput[]
+  cursor?: Prisma.PaymentOrderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentOrderScalarFieldEnum | Prisma.PaymentOrderScalarFieldEnum[]
+}
+
+/**
+ * BankAccount.bankWebhookEvents
+ */
+export type BankAccount$bankWebhookEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BankWebhookEvent
+   */
+  select?: Prisma.BankWebhookEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BankWebhookEvent
+   */
+  omit?: Prisma.BankWebhookEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BankWebhookEventInclude<ExtArgs> | null
+  where?: Prisma.BankWebhookEventWhereInput
+  orderBy?: Prisma.BankWebhookEventOrderByWithRelationInput | Prisma.BankWebhookEventOrderByWithRelationInput[]
+  cursor?: Prisma.BankWebhookEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BankWebhookEventScalarFieldEnum | Prisma.BankWebhookEventScalarFieldEnum[]
 }
 
 /**

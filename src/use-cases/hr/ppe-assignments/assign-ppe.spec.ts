@@ -38,10 +38,7 @@ describe('Assign PPE Use Case', () => {
     expect(assignment.quantity).toBe(1);
 
     // Stock should be decremented
-    const updatedItem = await ppeItemsRepository.findById(
-      ppeItem.id,
-      tenantId,
-    );
+    const updatedItem = await ppeItemsRepository.findById(ppeItem.id, tenantId);
     expect(updatedItem!.currentStock).toBe(9);
   });
 

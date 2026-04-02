@@ -52,11 +52,14 @@ export async function createMsgTemplateController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.MESSAGE_TEMPLATE_CREATE,
           entityId: messageTemplate.id,
-          placeholders: { templateName: messageTemplate.name, userName: request.user.sub },
+          placeholders: {
+            templateName: messageTemplate.name,
+            userName: request.user.sub,
+          },
           newData: { name: body.name, channel: body.channel },
         });
 
-        return reply.status(201).send({ messageTemplate } as any);
+        return reply.status(201).send({ messageTemplate } as unknown);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

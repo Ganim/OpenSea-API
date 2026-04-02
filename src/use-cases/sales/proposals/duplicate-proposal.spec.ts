@@ -16,18 +16,17 @@ describe('DuplicateProposalUseCase', () => {
   });
 
   it('should duplicate a proposal as a new DRAFT', async () => {
-    const { proposal: originalProposal } =
-      await createProposalUseCase.execute({
-        tenantId: 'tenant-1',
-        customerId: 'customer-1',
-        title: 'Original Proposal',
-        description: 'Original description',
-        createdBy: 'user-1',
-        items: [
-          { description: 'Item A', quantity: 2, unitPrice: 100 },
-          { description: 'Item B', quantity: 1, unitPrice: 200 },
-        ],
-      });
+    const { proposal: originalProposal } = await createProposalUseCase.execute({
+      tenantId: 'tenant-1',
+      customerId: 'customer-1',
+      title: 'Original Proposal',
+      description: 'Original description',
+      createdBy: 'user-1',
+      items: [
+        { description: 'Item A', quantity: 2, unitPrice: 100 },
+        { description: 'Item B', quantity: 1, unitPrice: 200 },
+      ],
+    });
 
     const { proposal: duplicatedProposal } = await sut.execute({
       tenantId: 'tenant-1',

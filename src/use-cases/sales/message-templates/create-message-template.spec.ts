@@ -9,7 +9,9 @@ let createMessageTemplate: CreateMessageTemplateUseCase;
 describe('CreateMessageTemplateUseCase', () => {
   beforeEach(() => {
     messageTemplatesRepository = new InMemoryMessageTemplatesRepository();
-    createMessageTemplate = new CreateMessageTemplateUseCase(messageTemplatesRepository);
+    createMessageTemplate = new CreateMessageTemplateUseCase(
+      messageTemplatesRepository,
+    );
   });
 
   it('should create an email template with variables', async () => {
@@ -25,7 +27,10 @@ describe('CreateMessageTemplateUseCase', () => {
     expect(result.messageTemplate).toBeDefined();
     expect(result.messageTemplate.name).toBe('Welcome Email');
     expect(result.messageTemplate.channel).toBe('EMAIL');
-    expect(result.messageTemplate.variables).toEqual(['customerName', 'orderNumber']);
+    expect(result.messageTemplate.variables).toEqual([
+      'customerName',
+      'orderNumber',
+    ]);
     expect(result.messageTemplate.isActive).toBe(true);
   });
 

@@ -116,7 +116,7 @@ export class PrismaEmployeeRequestsRepository
     });
   }
 
-  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId: string): Promise<void> {
     await prisma.employeeRequest.delete({
       where: { id: id.toString() },
     });

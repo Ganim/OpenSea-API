@@ -64,7 +64,8 @@ export class GeneratePPPUseCase {
     // Get company data from employee's metadata or company relation
     const companyData: PPPCompanyData = {
       legalName:
-        (employee.metadata?.companyLegalName as string) ?? 'Empresa não informada',
+        (employee.metadata?.companyLegalName as string) ??
+        'Empresa não informada',
       cnpj: (employee.metadata?.companyCnpj as string) ?? '',
       tradeName: (employee.metadata?.companyTradeName as string) ?? undefined,
     };
@@ -132,7 +133,12 @@ export class GeneratePPPUseCase {
         employee.birthDate ? formatDateBR(employee.birthDate) : 'Não informada',
       ],
       ['PIS/PASEP', employee.pis?.formatted ?? 'Não informado'],
-      ['CTPS', [employee.ctpsNumber, employee.ctpsSeries, employee.ctpsState].filter(Boolean).join(' / ') || 'Não informada'],
+      [
+        'CTPS',
+        [employee.ctpsNumber, employee.ctpsSeries, employee.ctpsState]
+          .filter(Boolean)
+          .join(' / ') || 'Não informada',
+      ],
       ['Data de Admissão', formatDateBR(employee.hireDate)],
       [
         'Data de Desligamento',
@@ -180,12 +186,17 @@ export class GeneratePPPUseCase {
       y = drawTableHeader(doc, posColumns, y);
 
       for (const pos of positionHistory) {
-        y = drawTableRow(doc, posColumns, [
-          pos.positionName,
-          pos.departmentName ?? '—',
-          formatDateBR(pos.startDate),
-          pos.endDate ? formatDateBR(pos.endDate) : 'Atual',
-        ], y);
+        y = drawTableRow(
+          doc,
+          posColumns,
+          [
+            pos.positionName,
+            pos.departmentName ?? '—',
+            formatDateBR(pos.startDate),
+            pos.endDate ? formatDateBR(pos.endDate) : 'Atual',
+          ],
+          y,
+        );
       }
     }
     y += 10;
@@ -213,17 +224,17 @@ export class GeneratePPPUseCase {
       }
     } else {
       doc.font('Helvetica').fontSize(9);
-      doc.text(
-        'Nenhum agente nocivo registrado para este trabalhador.',
-        55,
-        y,
-      );
+      doc.text('Nenhum agente nocivo registrado para este trabalhador.', 55, y);
       y += 14;
     }
     y += 5;
 
     // ──── Seção 5: Exames Médicos (ASOs) ────
-    y = drawSectionHeader(doc, '5 — RESULTADOS DE MONITORAÇÃO BIOLÓGICA (ASOs)', y);
+    y = drawSectionHeader(
+      doc,
+      '5 — RESULTADOS DE MONITORAÇÃO BIOLÓGICA (ASOs)',
+      y,
+    );
     y += 5;
 
     if (medicalExams.length === 0) {
@@ -262,13 +273,18 @@ export class GeneratePPPUseCase {
           y = 40;
         }
 
-        y = drawTableRow(doc, examColumns, [
-          examTypeLabels[exam.type] ?? exam.type,
-          formatDateBR(exam.examDate),
-          resultLabels[exam.result] ?? exam.result,
-          exam.doctorName,
-          exam.doctorCrm,
-        ], y);
+        y = drawTableRow(
+          doc,
+          examColumns,
+          [
+            examTypeLabels[exam.type] ?? exam.type,
+            formatDateBR(exam.examDate),
+            resultLabels[exam.result] ?? exam.result,
+            exam.doctorName,
+            exam.doctorCrm,
+          ],
+          y,
+        );
       }
     }
     y += 10;
@@ -283,9 +299,11 @@ export class GeneratePPPUseCase {
     y += 5;
 
     const responsibleName =
-      (employee.metadata?.pppResponsibleName as string) ?? '___________________________';
+      (employee.metadata?.pppResponsibleName as string) ??
+      '___________________________';
     const responsibleRole =
-      (employee.metadata?.pppResponsibleRole as string) ?? 'Responsável Técnico';
+      (employee.metadata?.pppResponsibleRole as string) ??
+      'Responsável Técnico';
     const responsibleCRM =
       (employee.metadata?.pppResponsibleRegistration as string) ?? '';
 

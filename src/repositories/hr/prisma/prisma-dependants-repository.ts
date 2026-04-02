@@ -94,9 +94,7 @@ export class PrismaDependantsRepository implements DependantsRepository {
     );
   }
 
-  async update(
-    data: UpdateDependantSchema,
-  ): Promise<EmployeeDependant | null> {
+  async update(data: UpdateDependantSchema): Promise<EmployeeDependant | null> {
     const existing = await prisma.employeeDependant.findUnique({
       where: { id: data.id.toString() },
     });

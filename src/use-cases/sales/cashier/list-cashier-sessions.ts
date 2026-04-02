@@ -18,9 +18,7 @@ interface ListCashierSessionsUseCaseResponse {
 }
 
 export class ListCashierSessionsUseCase {
-  constructor(
-    private cashierSessionsRepository: CashierSessionsRepository,
-  ) {}
+  constructor(private cashierSessionsRepository: CashierSessionsRepository) {}
 
   async execute(
     input: ListCashierSessionsUseCaseRequest,
@@ -42,9 +40,7 @@ export class ListCashierSessionsUseCase {
     ]);
 
     return {
-      cashierSessions: sessions.map((session) =>
-        cashierSessionToDTO(session),
-      ),
+      cashierSessions: sessions.map((session) => cashierSessionToDTO(session)),
       total,
       page,
       perPage,

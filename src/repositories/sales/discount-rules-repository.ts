@@ -22,7 +22,11 @@ export interface CreateDiscountRuleSchema {
 export interface DiscountRulesRepository {
   create(data: CreateDiscountRuleSchema): Promise<DiscountRule>;
   findById(id: UniqueEntityID, tenantId: string): Promise<DiscountRule | null>;
-  findMany(page: number, perPage: number, tenantId: string): Promise<DiscountRule[]>;
+  findMany(
+    page: number,
+    perPage: number,
+    tenantId: string,
+  ): Promise<DiscountRule[]>;
   findActiveByTenant(tenantId: string): Promise<DiscountRule[]>;
   countByTenant(tenantId: string): Promise<number>;
   save(discountRule: DiscountRule): Promise<void>;

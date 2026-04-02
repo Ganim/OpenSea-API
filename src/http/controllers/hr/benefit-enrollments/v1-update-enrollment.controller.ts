@@ -9,7 +9,7 @@ import {
   benefitEnrollmentResponseSchema,
   updateEnrollmentSchema,
 } from '@/http/schemas/hr/benefits';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { benefitEnrollmentToDTO } from '@/mappers/hr/benefit-enrollment';
 import { makeUpdateEnrollmentUseCase } from '@/use-cases/hr/benefit-enrollments/factories/make-update-enrollment-use-case';
 
@@ -33,7 +33,7 @@ export async function v1UpdateEnrollmentController(app: FastifyInstance) {
       tags: ['HR - Benefits'],
       summary: 'Update benefit enrollment',
       description: 'Updates an existing benefit enrollment',
-      params: z.object({ enrollmentId: idSchema }),
+      params: z.object({ enrollmentId: cuidSchema }),
       body: updateEnrollmentSchema,
       response: {
         200: z.object({ enrollment: benefitEnrollmentResponseSchema }),

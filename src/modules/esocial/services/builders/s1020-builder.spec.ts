@@ -87,7 +87,9 @@ describe('S1020Builder', () => {
     expect(xml).toContain('<tpLotacao>04</tpLotacao>');
     expect(xml).toContain('<dadosLotacao>');
     // Inside dadosLotacao
-    expect(xml).toMatch(/<dadosLotacao>.*<tpInsc>1<\/tpInsc>.*<nrInsc>98765432000100<\/nrInsc>/s);
+    expect(xml).toMatch(
+      /<dadosLotacao>.*<tpInsc>1<\/tpInsc>.*<nrInsc>98765432000100<\/nrInsc>/s,
+    );
   });
 
   it('should include infoProcJudTerceiros when nrProcJud is provided', () => {
@@ -100,9 +102,7 @@ describe('S1020Builder', () => {
 
     expect(xml).toContain('<infoProcJudTerceiros>');
     expect(xml).toContain('<procJudTerceiro>');
-    expect(xml).toContain(
-      '<nrProcJud>0001234-56.2025.5.01.0001</nrProcJud>',
-    );
+    expect(xml).toContain('<nrProcJud>0001234-56.2025.5.01.0001</nrProcJud>');
     expect(xml).toContain('<codTerc>0064</codTerc>');
   });
 

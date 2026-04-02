@@ -35,6 +35,8 @@ export class GetBankAccountByIdUseCase {
       );
     }
 
-    return { bankAccount: bankAccountToDTO(bankAccount, { maskSensitiveData: false }) };
+    return {
+      bankAccount: bankAccountToDTO(bankAccount, { maskSensitiveData: false }),
+    };
   }
 }

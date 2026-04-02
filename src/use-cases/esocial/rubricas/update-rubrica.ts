@@ -22,9 +22,7 @@ export interface UpdateRubricaResponse {
 export class UpdateRubricaUseCase {
   constructor(private rubricasRepository: EsocialRubricasRepository) {}
 
-  async execute(
-    request: UpdateRubricaRequest,
-  ): Promise<UpdateRubricaResponse> {
+  async execute(request: UpdateRubricaRequest): Promise<UpdateRubricaResponse> {
     const id = new UniqueEntityID(request.rubricaId);
 
     const existing = await this.rubricasRepository.findById(

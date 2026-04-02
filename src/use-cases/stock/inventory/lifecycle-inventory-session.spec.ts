@@ -155,13 +155,14 @@ describe('CompleteInventorySessionUseCase', () => {
     expect(missing).toHaveLength(2);
   });
 
-  it('should complete a paused session', async () => {
+  it('should complete a paused session after resuming it', async () => {
     const sut = new CompleteInventorySessionUseCase(
       sessionsRepository,
       sessionItemsRepository,
     );
     const session = createOpenSession();
     session.pause();
+    session.resume();
 
     const result = await sut.execute({
       tenantId: TENANT_ID,
@@ -169,6 +170,22 @@ describe('CompleteInventorySessionUseCase', () => {
     });
 
     expect(result.session.status).toBe('COMPLETED');
+  });
+
+  it('should reject completing a paused session', async () => {
+    const sut = new CompleteInventorySessionUseCase(
+      sessionsRepository,
+      sessionItemsRepository,
+    );
+    const session = createOpenSession();
+    session.pause();
+
+    await expect(
+      sut.execute({
+        tenantId: TENANT_ID,
+        sessionId: session.id.toString(),
+      }),
+    ).rejects.toThrow(BadRequestError);
   });
 
   it('should reject completing a cancelled session', async () => {

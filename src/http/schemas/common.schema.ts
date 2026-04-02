@@ -13,6 +13,13 @@ export const idSchema = z.string().uuid({
 });
 
 /**
+ * Schema para ID (CUID) — usado por modelos HR mais recentes que usam @default(cuid())
+ */
+export const cuidSchema = z.string().min(1, {
+  message: 'ID must be a valid CUID',
+});
+
+/**
  * Schema para paginação
  */
 export const paginationSchema = z.object({

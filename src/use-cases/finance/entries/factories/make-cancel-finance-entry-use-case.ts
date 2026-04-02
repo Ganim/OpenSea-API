@@ -6,7 +6,9 @@ import { CancelFinanceEntryUseCase } from '../cancel-finance-entry';
 export function makeCancelFinanceEntryUseCase() {
   const entriesRepository = new PrismaFinanceEntriesRepository();
   const journalEntriesRepository = new PrismaJournalEntriesRepository();
-  const reverseJournalEntry = new ReverseJournalEntryUseCase(journalEntriesRepository);
+  const reverseJournalEntry = new ReverseJournalEntryUseCase(
+    journalEntriesRepository,
+  );
 
   return new CancelFinanceEntryUseCase(
     entriesRepository,

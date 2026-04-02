@@ -14,7 +14,8 @@ function createMockHttp(): {
     const next = queue.shift() ?? { status: 200, body: {} };
     return {
       status: next.status,
-      body: typeof next.body === 'string' ? next.body : JSON.stringify(next.body),
+      body:
+        typeof next.body === 'string' ? next.body : JSON.stringify(next.body),
     };
   });
 
@@ -62,7 +63,11 @@ describe('SicoobProvider', () => {
     const http = createMockHttp();
     const provider = makeProvider(http);
     expect(provider.capabilities).toEqual([
-      'READ', 'BOLETO', 'PIX', 'PAYMENT', 'TED',
+      'READ',
+      'BOLETO',
+      'PIX',
+      'PAYMENT',
+      'TED',
     ]);
     expect(provider.providerName).toBe('SICOOB');
   });
@@ -75,7 +80,9 @@ describe('SicoobProvider', () => {
     await provider.authenticate();
 
     expect(http.fn).toHaveBeenCalledOnce();
-    const [url] = (http.fn as ReturnType<typeof vi.fn>).mock.calls[0] as [string];
+    const [url] = (http.fn as ReturnType<typeof vi.fn>).mock.calls[0] as [
+      string,
+    ];
     expect(url).toContain('auth.sicoob.com.br');
   });
 
@@ -102,14 +109,28 @@ describe('SicoobProvider', () => {
       status: 200,
       body: {
         transacoes: [
-          { id: 'tx1', data: '2026-03-30', descricao: 'PIX recebido', valor: 500 },
-          { id: 'tx2', data: '2026-03-30', descricao: 'Pagamento', valor: -200 },
+          {
+            id: 'tx1',
+            data: '2026-03-30',
+            descricao: 'PIX recebido',
+            valor: 500,
+          },
+          {
+            id: 'tx2',
+            data: '2026-03-30',
+            descricao: 'Pagamento',
+            valor: -200,
+          },
         ],
       },
     });
 
     const provider = makeProvider(http);
-    const txs = await provider.getTransactions('123456', '2026-03-01', '2026-03-31');
+    const txs = await provider.getTransactions(
+      '123456',
+      '2026-03-01',
+      '2026-03-31',
+    );
 
     expect(txs).toHaveLength(2);
     expect(txs[0].type).toBe('CREDIT');
@@ -131,9 +152,12 @@ describe('SicoobProvider', () => {
 
     const provider = makeProvider(http);
     const result = await provider.createBoleto({
-      amount: 150, dueDate: '2026-04-15',
-      customerName: 'João', customerCpfCnpj: '12345678901',
-      description: 'Mensalidade', isHybrid: true,
+      amount: 150,
+      dueDate: '2026-04-15',
+      customerName: 'João',
+      customerCpfCnpj: '12345678901',
+      description: 'Mensalidade',
+      isHybrid: true,
     });
 
     expect(result.nossoNumero).toBe('00012345');
@@ -156,7 +180,8 @@ describe('SicoobProvider', () => {
     http.queue.push({
       status: 200,
       body: {
-        txid: 'tx123abc', status: 'ATIVA',
+        txid: 'tx123abc',
+        status: 'ATIVA',
         pixCopiaECola: '00020126580014br.gov.bcb.pix...',
         calendario: { criacao: '2026-03-31T10:00:00Z' },
       },
@@ -164,7 +189,9 @@ describe('SicoobProvider', () => {
 
     const provider = makeProvider(http);
     const result = await provider.createPixCharge({
-      amount: 100, pixKey: '12345678901', description: 'Serviço',
+      amount: 100,
+      pixKey: '12345678901',
+      description: 'Serviço',
     });
 
     expect(result.txId).toBe('tx123abc');
@@ -181,8 +208,10 @@ describe('SicoobProvider', () => {
 
     const provider = makeProvider(http);
     const receipt = await provider.executePixPayment({
-      amount: 250, recipientPixKey: 'joao@email.com',
-      recipientName: 'João', description: 'Pagamento',
+      amount: 250,
+      recipientPixKey: 'joao@email.com',
+      recipientName: 'João',
+      description: 'Pagamento',
     });
 
     expect(receipt.externalId).toBe('E756123456789');
@@ -199,9 +228,12 @@ describe('SicoobProvider', () => {
 
     const provider = makeProvider(http);
     const receipt = await provider.executePayment({
-      method: 'TED', amount: 5000,
-      recipientBankCode: '001', recipientAgency: '1234',
-      recipientAccount: '56789-0', recipientName: 'Empresa XYZ',
+      method: 'TED',
+      amount: 5000,
+      recipientBankCode: '001',
+      recipientAgency: '1234',
+      recipientAccount: '56789-0',
+      recipientName: 'Empresa XYZ',
     });
 
     expect(receipt.externalId).toBe('ted-001');
@@ -220,11 +252,14 @@ describe('SicoobProvider', () => {
     const http = createMockHttp();
     const provider = makeProvider(http);
     const result = await provider.handleWebhookPayload({
-      pix: [{
-        txid: 'tx999', valor: '350.00',
-        horario: '2026-03-31T14:30:00Z',
-        pagador: { nome: 'Maria', cpf: '99988877766' },
-      }],
+      pix: [
+        {
+          txid: 'tx999',
+          valor: '350.00',
+          horario: '2026-03-31T14:30:00Z',
+          pagador: { nome: 'Maria', cpf: '99988877766' },
+        },
+      ],
     });
 
     expect(result.eventType).toBe('PIX_RECEIVED');
@@ -237,7 +272,8 @@ describe('SicoobProvider', () => {
     const provider = makeProvider(http);
     const result = await provider.handleWebhookPayload({
       boleto: {
-        nossoNumero: '00012345', valorPago: 150,
+        nossoNumero: '00012345',
+        valorPago: 150,
         dataPagamento: '2026-04-01',
         pagador: { nome: 'José', cpf: '11122233344' },
       },
@@ -261,8 +297,8 @@ describe('SicoobProvider', () => {
     http.queue.push({ status: 500, body: { error: 'internal' } });
 
     const provider = makeProvider(http);
-    await expect(
-      provider.getBalance('123456'),
-    ).rejects.toThrow('Sicoob API error');
+    await expect(provider.getBalance('123456')).rejects.toThrow(
+      'Sicoob API error',
+    );
   });
 });

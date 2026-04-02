@@ -45,8 +45,7 @@ export class InMemoryReviewCyclesRepository implements ReviewCyclesRepository {
     filters?: FindReviewCycleFilters,
   ): Promise<{ reviewCycles: ReviewCycle[]; total: number }> {
     let filtered = this.items.filter(
-      (cycle) =>
-        cycle.tenantId.toString() === tenantId && !cycle.deletedAt,
+      (cycle) => cycle.tenantId.toString() === tenantId && !cycle.deletedAt,
     );
 
     if (filters?.type) {

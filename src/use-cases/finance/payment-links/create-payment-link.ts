@@ -30,14 +30,8 @@ export class CreatePaymentLinkUseCase {
   async execute(
     request: CreatePaymentLinkUseCaseRequest,
   ): Promise<CreatePaymentLinkUseCaseResponse> {
-    const {
-      tenantId,
-      entryId,
-      amount,
-      description,
-      customerName,
-      expiresAt,
-    } = request;
+    const { tenantId, entryId, amount, description, customerName, expiresAt } =
+      request;
 
     // Generate unique slug
     let slug = generateSlug();

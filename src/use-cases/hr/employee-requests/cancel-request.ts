@@ -15,18 +15,15 @@ export interface CancelRequestOutput {
 }
 
 export class CancelRequestUseCase {
-  constructor(
-    private employeeRequestsRepository: EmployeeRequestsRepository,
-  ) {}
+  constructor(private employeeRequestsRepository: EmployeeRequestsRepository) {}
 
   async execute(input: CancelRequestInput): Promise<CancelRequestOutput> {
     const { tenantId, requestId, employeeId } = input;
 
-    const employeeRequest =
-      await this.employeeRequestsRepository.findById(
-        new UniqueEntityID(requestId),
-        tenantId,
-      );
+    const employeeRequest = await this.employeeRequestsRepository.findById(
+      new UniqueEntityID(requestId),
+      tenantId,
+    );
 
     if (!employeeRequest) {
       throw new ResourceNotFoundError('Employee request not found');

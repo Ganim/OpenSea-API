@@ -95,7 +95,7 @@ export async function listTransactionsController(app: FastifyInstance) {
       return reply.status(200).send({
         transactions: transactionResponses,
         meta: { total, page, limit, pages: totalPages },
-      } as any);
+      } as unknown);
     },
   });
 }

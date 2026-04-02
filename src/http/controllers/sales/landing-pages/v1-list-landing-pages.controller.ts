@@ -47,7 +47,7 @@ export async function listLandingPagesController(app: FastifyInstance) {
       const useCase = makeListLandingPagesUseCase();
       const result = await useCase.execute({ tenantId, ...query });
 
-      return reply.status(200).send(result as any);
+      return reply.status(200).send(result as unknown);
     },
   });
 }

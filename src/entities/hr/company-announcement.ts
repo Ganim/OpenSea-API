@@ -72,9 +72,7 @@ export class CompanyAnnouncement extends Entity<CompanyAnnouncementProps> {
   }
 
   isTargetedToAll(): boolean {
-    return (
-      !this.targetDepartmentIds || this.targetDepartmentIds.length === 0
-    );
+    return !this.targetDepartmentIds || this.targetDepartmentIds.length === 0;
   }
 
   isVisibleToDepartment(departmentId: string): boolean {

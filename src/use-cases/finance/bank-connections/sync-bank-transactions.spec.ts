@@ -12,7 +12,16 @@ function makePluggyProviderMock(): PluggyProvider {
     createConnectToken: vi.fn(),
     getItem: vi.fn(),
     getAccounts: vi.fn().mockResolvedValue([
-      { id: 'account-1', itemId: 'item-1', type: 'BANK', subtype: 'CHECKING', name: 'Conta Corrente', number: '12345', balance: 10000, currencyCode: 'BRL' },
+      {
+        id: 'account-1',
+        itemId: 'item-1',
+        type: 'BANK',
+        subtype: 'CHECKING',
+        name: 'Conta Corrente',
+        number: '12345',
+        balance: 10000,
+        currencyCode: 'BRL',
+      },
     ]),
     getTransactions: vi.fn().mockResolvedValue([
       {
@@ -142,8 +151,26 @@ describe('SyncBankTransactionsUseCase', () => {
   it('should skip accounts with zero transactions', async () => {
     // Two accounts but both return empty transactions
     vi.mocked(pluggyProvider.getAccounts).mockResolvedValueOnce([
-      { id: 'account-1', itemId: 'item-1', type: 'BANK', subtype: 'CHECKING', name: 'Checking', number: '1', balance: 0, currencyCode: 'BRL' },
-      { id: 'account-2', itemId: 'item-1', type: 'BANK', subtype: 'SAVINGS', name: 'Savings', number: '2', balance: 0, currencyCode: 'BRL' },
+      {
+        id: 'account-1',
+        itemId: 'item-1',
+        type: 'BANK',
+        subtype: 'CHECKING',
+        name: 'Checking',
+        number: '1',
+        balance: 0,
+        currencyCode: 'BRL',
+      },
+      {
+        id: 'account-2',
+        itemId: 'item-1',
+        type: 'BANK',
+        subtype: 'SAVINGS',
+        name: 'Savings',
+        number: '2',
+        balance: 0,
+        currencyCode: 'BRL',
+      },
     ]);
     vi.mocked(pluggyProvider.getTransactions).mockResolvedValue([]);
 
@@ -182,10 +209,13 @@ describe('SyncBankTransactionsUseCase', () => {
       expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/),
     );
 
-    const [, fromDate, toDate] = vi.mocked(pluggyProvider.getTransactions).mock.calls[0];
+    const [, fromDate, toDate] = vi.mocked(pluggyProvider.getTransactions).mock
+      .calls[0];
     const from = new Date(fromDate);
     const to = new Date(toDate);
-    const diffDays = Math.round((to.getTime() - from.getTime()) / (1000 * 60 * 60 * 24));
+    const diffDays = Math.round(
+      (to.getTime() - from.getTime()) / (1000 * 60 * 60 * 24),
+    );
     expect(diffDays).toBe(30);
   });
 });

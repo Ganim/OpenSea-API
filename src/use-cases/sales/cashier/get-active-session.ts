@@ -12,18 +12,15 @@ interface GetActiveSessionUseCaseResponse {
 }
 
 export class GetActiveSessionUseCase {
-  constructor(
-    private cashierSessionsRepository: CashierSessionsRepository,
-  ) {}
+  constructor(private cashierSessionsRepository: CashierSessionsRepository) {}
 
   async execute(
     input: GetActiveSessionUseCaseRequest,
   ): Promise<GetActiveSessionUseCaseResponse> {
-    const session =
-      await this.cashierSessionsRepository.findOpenByCashierId(
-        input.cashierId,
-        input.tenantId,
-      );
+    const session = await this.cashierSessionsRepository.findOpenByCashierId(
+      input.cashierId,
+      input.tenantId,
+    );
 
     return {
       cashierSession: session ? cashierSessionToDTO(session) : null,

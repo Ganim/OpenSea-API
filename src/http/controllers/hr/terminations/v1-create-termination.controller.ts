@@ -11,10 +11,7 @@ import {
   terminationResponseSchema,
 } from '@/http/schemas';
 import { terminationToDTO } from '@/mappers/hr/termination';
-import {
-  NoticeType,
-  TerminationType,
-} from '@/entities/hr/termination';
+import { NoticeType, TerminationType } from '@/entities/hr/termination';
 import { makeCreateTerminationUseCase } from '@/use-cases/hr/terminations/factories/make-create-termination-use-case';
 
 import type { FastifyInstance } from 'fastify';

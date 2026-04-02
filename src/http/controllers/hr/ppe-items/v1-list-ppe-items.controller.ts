@@ -19,7 +19,8 @@ export async function v1ListPPEItemsController(app: FastifyInstance) {
     schema: {
       tags: ['HR - PPE (EPI)'],
       summary: 'List PPE items',
-      description: 'Lists all PPE items with optional filters (category, active status, low stock)',
+      description:
+        'Lists all PPE items with optional filters (category, active status, low stock)',
       querystring: listPPEItemsQuerySchema,
       response: {
         200: z.object({

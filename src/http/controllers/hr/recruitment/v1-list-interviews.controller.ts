@@ -1,6 +1,9 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { interviewResponseSchema, listInterviewsQuerySchema } from '@/http/schemas/hr/recruitment';
+import {
+  interviewResponseSchema,
+  listInterviewsQuerySchema,
+} from '@/http/schemas/hr/recruitment';
 import { interviewToDTO } from '@/mappers/hr/interview';
 import { makeListInterviewsUseCase } from '@/use-cases/hr/interviews/factories';
 import type { FastifyInstance } from 'fastify';
@@ -17,15 +20,25 @@ export async function v1ListInterviewsController(app: FastifyInstance) {
       summary: 'List interviews',
       description: 'Lists all interviews with optional filters',
       querystring: listInterviewsQuerySchema,
-      response: { 200: z.object({ interviews: z.array(interviewResponseSchema), total: z.number() }) },
+      response: {
+        200: z.object({
+          interviews: z.array(interviewResponseSchema),
+          total: z.number(),
+        }),
+      },
       security: [{ bearerAuth: [] }],
     },
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const filters = request.query;
       const useCase = makeListInterviewsUseCase();
-      const { interviews, total } = await useCase.execute({ tenantId, ...filters });
-      return reply.status(200).send({ interviews: interviews.map(interviewToDTO), total });
+      const { interviews, total } = await useCase.execute({
+        tenantId,
+        ...filters,
+      });
+      return reply
+        .status(200)
+        .send({ interviews: interviews.map(interviewToDTO), total });
     },
   });
 }

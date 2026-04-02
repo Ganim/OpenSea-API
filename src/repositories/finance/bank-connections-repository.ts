@@ -40,6 +40,8 @@ export interface BankConnectionsRepository {
     tenantId: string,
   ): Promise<BankConnectionRecord | null>;
   findMany(tenantId: string): Promise<BankConnectionRecord[]>;
-  update(data: UpdateBankConnectionSchema): Promise<BankConnectionRecord | null>;
+  update(
+    data: UpdateBankConnectionSchema,
+  ): Promise<BankConnectionRecord | null>;
   delete(id: UniqueEntityID, tenantId: string): Promise<void>;
 }

@@ -1,5 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { MessageTemplate, type MessageChannelType } from '@/entities/sales/message-template';
+import {
+  MessageTemplate,
+  type MessageChannelType,
+} from '@/entities/sales/message-template';
 import type { MessageTemplateDTO } from '@/mappers/sales/message-template/message-template-to-dto';
 import { messageTemplateToDTO } from '@/mappers/sales/message-template/message-template-to-dto';
 import { MessageTemplatesRepository } from '@/repositories/sales/message-templates-repository';
@@ -18,7 +21,12 @@ interface CreateMessageTemplateUseCaseResponse {
   messageTemplate: MessageTemplateDTO;
 }
 
-const VALID_CHANNELS: MessageChannelType[] = ['EMAIL', 'WHATSAPP', 'SMS', 'NOTIFICATION'];
+const VALID_CHANNELS: MessageChannelType[] = [
+  'EMAIL',
+  'WHATSAPP',
+  'SMS',
+  'NOTIFICATION',
+];
 
 export class CreateMessageTemplateUseCase {
   constructor(private messageTemplatesRepository: MessageTemplatesRepository) {}

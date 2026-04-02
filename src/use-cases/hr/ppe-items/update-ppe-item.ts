@@ -25,9 +25,7 @@ export interface UpdatePPEItemResponse {
 export class UpdatePPEItemUseCase {
   constructor(private ppeItemsRepository: PPEItemsRepository) {}
 
-  async execute(
-    request: UpdatePPEItemRequest,
-  ): Promise<UpdatePPEItemResponse> {
+  async execute(request: UpdatePPEItemRequest): Promise<UpdatePPEItemResponse> {
     const { tenantId, ppeItemId, ...updateData } = request;
 
     const existingItem = await this.ppeItemsRepository.findById(

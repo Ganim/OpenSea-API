@@ -39,9 +39,7 @@ describe('S1070Builder', () => {
 
     expect(xml).toContain('<ideProcesso>');
     expect(xml).toContain('<tpProc>2</tpProc>');
-    expect(xml).toContain(
-      '<nrProc>0001234-56.2025.5.01.0001</nrProc>',
-    );
+    expect(xml).toContain('<nrProc>0001234-56.2025.5.01.0001</nrProc>');
     expect(xml).toContain('<iniValid>2026-01</iniValid>');
   });
 

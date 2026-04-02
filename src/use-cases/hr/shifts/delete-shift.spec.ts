@@ -31,8 +31,8 @@ describe('Delete Shift Use Case', () => {
       tenantId: TENANT_ID,
     });
 
-    const shiftInRepo = shiftsRepository.shifts.find(
-      (s) => s.id.equals(createdShift.id),
+    const shiftInRepo = shiftsRepository.shifts.find((s) =>
+      s.id.equals(createdShift.id),
     );
     expect(shiftInRepo?.deletedAt).toBeDefined();
     expect(shiftInRepo?.isActive).toBe(false);

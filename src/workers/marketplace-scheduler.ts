@@ -52,7 +52,10 @@ async function scheduleImportOrders() {
           continue;
         }
         await existing.remove().catch((err) => {
-          logger.warn({ err, jobId }, 'Failed to remove existing import-orders job');
+          logger.warn(
+            { err, jobId },
+            'Failed to remove existing import-orders job',
+          );
         });
       }
 
@@ -60,7 +63,9 @@ async function scheduleImportOrders() {
         {
           tenantId: conn.tenantId,
           connectionId: conn.id,
-          since: new Date(Date.now() - IMPORT_ORDERS_INTERVAL_MS * 2).toISOString(),
+          since: new Date(
+            Date.now() - IMPORT_ORDERS_INTERVAL_MS * 2,
+          ).toISOString(),
         },
         { jobId },
       );
@@ -107,7 +112,10 @@ async function scheduleSyncInventory() {
           continue;
         }
         await existing.remove().catch((err) => {
-          logger.warn({ err, jobId }, 'Failed to remove existing sync-inventory job');
+          logger.warn(
+            { err, jobId },
+            'Failed to remove existing sync-inventory job',
+          );
         });
       }
 
@@ -149,7 +157,10 @@ async function scheduleSyncProducts() {
           continue;
         }
         await existing.remove().catch((err) => {
-          logger.warn({ err, jobId }, 'Failed to remove existing sync-products job');
+          logger.warn(
+            { err, jobId },
+            'Failed to remove existing sync-products job',
+          );
         });
       }
 

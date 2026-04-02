@@ -5,7 +5,7 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { idSchema } from '@/http/schemas';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import {
   onboardingChecklistResponseSchema,
   updateOnboardingChecklistSchema,
@@ -35,7 +35,7 @@ export async function v1UpdateOnboardingChecklistController(
       summary: 'Update onboarding checklist',
       description: 'Updates the title or items of an onboarding checklist',
       params: z.object({
-        id: idSchema,
+        id: cuidSchema,
       }),
       body: updateOnboardingChecklistSchema,
       response: {

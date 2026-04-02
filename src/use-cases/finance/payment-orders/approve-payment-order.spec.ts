@@ -31,14 +31,12 @@ function createMockBankingProvider(
     capabilities: ['PIX', 'PAYMENT', 'TED'],
     authenticate: vi.fn().mockResolvedValue(undefined),
     getAccounts: vi.fn().mockResolvedValue([]),
-    getBalance: vi
-      .fn()
-      .mockResolvedValue({
-        available: 0,
-        current: 0,
-        currency: 'BRL',
-        updatedAt: '',
-      }),
+    getBalance: vi.fn().mockResolvedValue({
+      available: 0,
+      current: 0,
+      currency: 'BRL',
+      updatedAt: '',
+    }),
     getTransactions: vi.fn().mockResolvedValue([]),
     createBoleto: vi.fn().mockResolvedValue({}),
     cancelBoleto: vi.fn().mockResolvedValue(undefined),

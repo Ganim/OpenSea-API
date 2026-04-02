@@ -33,10 +33,7 @@ export class ListConversationsUseCase {
         input.tenantId,
         input.status,
       ),
-      this.conversationsRepository.countByTenant(
-        input.tenantId,
-        input.status,
-      ),
+      this.conversationsRepository.countByTenant(input.tenantId, input.status),
     ]);
 
     return {

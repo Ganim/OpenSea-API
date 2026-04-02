@@ -33,9 +33,7 @@ const retentionSummarySchema = z.object({
   netAmount: z.number(),
 });
 
-export async function calculateEntryRetentionsController(
-  app: FastifyInstance,
-) {
+export async function calculateEntryRetentionsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/finance/entries/:id/retentions/calculate',

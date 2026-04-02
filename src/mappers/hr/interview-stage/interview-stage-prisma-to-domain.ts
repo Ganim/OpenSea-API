@@ -1,9 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { InterviewStage as PrismaInterviewStage } from '@prisma/generated/client.js';
 
-export function mapInterviewStagePrismaToDomain(
-  stage: PrismaInterviewStage,
-) {
+export function mapInterviewStagePrismaToDomain(stage: PrismaInterviewStage) {
   return {
     tenantId: new UniqueEntityID(stage.tenantId),
     jobPostingId: new UniqueEntityID(stage.jobPostingId),

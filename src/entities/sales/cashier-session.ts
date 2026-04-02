@@ -108,7 +108,10 @@ export class CashierSession extends Entity<CashierSessionProps> {
   }
 
   static create(
-    props: Optional<CashierSessionProps, 'id' | 'createdAt' | 'openedAt' | 'status'>,
+    props: Optional<
+      CashierSessionProps,
+      'id' | 'createdAt' | 'openedAt' | 'status'
+    >,
     id?: UniqueEntityID,
   ): CashierSession {
     const session = new CashierSession(

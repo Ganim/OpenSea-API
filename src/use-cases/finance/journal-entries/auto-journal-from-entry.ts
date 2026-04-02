@@ -1,4 +1,3 @@
-import type { BankAccountsRepository } from '@/repositories/finance/bank-accounts-repository';
 import type { ChartOfAccountsRepository } from '@/repositories/finance/chart-of-accounts-repository';
 import type { FinanceCategoriesRepository } from '@/repositories/finance/finance-categories-repository';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
@@ -42,9 +41,7 @@ export class AutoJournalFromEntryUseCase {
     );
 
     if (!entry) {
-      console.warn(
-        `[AutoJournalFromEntry] FinanceEntry not found: ${entryId}`,
-      );
+      console.warn(`[AutoJournalFromEntry] FinanceEntry not found: ${entryId}`);
       return null;
     }
 

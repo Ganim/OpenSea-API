@@ -35,13 +35,21 @@ export class CreateDelegationUseCase {
     private employeesRepository: EmployeesRepository,
   ) {}
 
-  async execute(
-    input: CreateDelegationInput,
-  ): Promise<CreateDelegationOutput> {
-    const { tenantId, delegatorId, delegateId, scope, startDate, endDate, reason } = input;
+  async execute(input: CreateDelegationInput): Promise<CreateDelegationOutput> {
+    const {
+      tenantId,
+      delegatorId,
+      delegateId,
+      scope,
+      startDate,
+      endDate,
+      reason,
+    } = input;
 
     if (delegatorId === delegateId) {
-      throw new BadRequestError('Cannot delegate approval authority to yourself');
+      throw new BadRequestError(
+        'Cannot delegate approval authority to yourself',
+      );
     }
 
     if (!VALID_SCOPES.includes(scope as DelegationScope)) {

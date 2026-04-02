@@ -36,7 +36,9 @@ export class CreateDiscountRuleUseCase {
     }
 
     if (input.name.length > 255) {
-      throw new BadRequestError('Discount rule name cannot exceed 255 characters.');
+      throw new BadRequestError(
+        'Discount rule name cannot exceed 255 characters.',
+      );
     }
 
     if (input.value <= 0) {

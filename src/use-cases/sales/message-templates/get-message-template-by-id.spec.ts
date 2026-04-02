@@ -11,8 +11,12 @@ let getMessageTemplateById: GetMessageTemplateByIdUseCase;
 describe('GetMessageTemplateByIdUseCase', () => {
   beforeEach(() => {
     messageTemplatesRepository = new InMemoryMessageTemplatesRepository();
-    createMessageTemplate = new CreateMessageTemplateUseCase(messageTemplatesRepository);
-    getMessageTemplateById = new GetMessageTemplateByIdUseCase(messageTemplatesRepository);
+    createMessageTemplate = new CreateMessageTemplateUseCase(
+      messageTemplatesRepository,
+    );
+    getMessageTemplateById = new GetMessageTemplateByIdUseCase(
+      messageTemplatesRepository,
+    );
   });
 
   it('should return a message template by id', async () => {

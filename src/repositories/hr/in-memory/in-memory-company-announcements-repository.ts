@@ -20,8 +20,7 @@ export class InMemoryCompanyAnnouncementsRepository
   ): Promise<CompanyAnnouncement | null> {
     return (
       this.items.find(
-        (item) =>
-          item.id.equals(id) && item.tenantId.toString() === tenantId,
+        (item) => item.id.equals(id) && item.tenantId.toString() === tenantId,
       ) ?? null
     );
   }
@@ -32,8 +31,7 @@ export class InMemoryCompanyAnnouncementsRepository
     take: number,
   ): Promise<PaginatedAnnouncementsResult> {
     const filtered = this.items.filter(
-      (item) =>
-        item.tenantId.toString() === tenantId && item.isActive,
+      (item) => item.tenantId.toString() === tenantId && item.isActive,
     );
 
     return {
@@ -53,8 +51,7 @@ export class InMemoryCompanyAnnouncementsRepository
 
   async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
     this.items = this.items.filter(
-      (item) =>
-        !(item.id.equals(id) && item.tenantId.toString() === tenantId),
+      (item) => !(item.id.equals(id) && item.tenantId.toString() === tenantId),
     );
   }
 }

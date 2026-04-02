@@ -31,13 +31,15 @@ function mapPrismaToDomain(data: {
       maternityLeaveDays: data.maternityLeaveDays,
       paternityLeaveDays: data.paternityLeaveDays,
       unionContributionEnabled: data.unionContributionEnabled,
-      unionContributionRate: data.unionContributionRate != null
-        ? Number(data.unionContributionRate)
-        : null,
+      unionContributionRate:
+        data.unionContributionRate != null
+          ? Number(data.unionContributionRate)
+          : null,
       patEnabled: data.patEnabled,
-      patMonthlyValuePerEmployee: data.patMonthlyValuePerEmployee != null
-        ? Number(data.patMonthlyValuePerEmployee)
-        : null,
+      patMonthlyValuePerEmployee:
+        data.patMonthlyValuePerEmployee != null
+          ? Number(data.patMonthlyValuePerEmployee)
+          : null,
       timeBankIndividualMonths: data.timeBankIndividualMonths,
       timeBankCollectiveMonths: data.timeBankCollectiveMonths,
       ratPercent: Number(data.ratPercent),

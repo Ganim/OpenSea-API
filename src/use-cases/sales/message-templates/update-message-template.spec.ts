@@ -12,8 +12,12 @@ let updateMessageTemplate: UpdateMessageTemplateUseCase;
 describe('UpdateMessageTemplateUseCase', () => {
   beforeEach(() => {
     messageTemplatesRepository = new InMemoryMessageTemplatesRepository();
-    createMessageTemplate = new CreateMessageTemplateUseCase(messageTemplatesRepository);
-    updateMessageTemplate = new UpdateMessageTemplateUseCase(messageTemplatesRepository);
+    createMessageTemplate = new CreateMessageTemplateUseCase(
+      messageTemplatesRepository,
+    );
+    updateMessageTemplate = new UpdateMessageTemplateUseCase(
+      messageTemplatesRepository,
+    );
   });
 
   it('should update template name', async () => {
@@ -49,7 +53,11 @@ describe('UpdateMessageTemplateUseCase', () => {
       body: 'Hello {{firstName}} {{lastName}}, order #{{orderNumber}}',
     });
 
-    expect(result.messageTemplate.variables).toEqual(['firstName', 'lastName', 'orderNumber']);
+    expect(result.messageTemplate.variables).toEqual([
+      'firstName',
+      'lastName',
+      'orderNumber',
+    ]);
   });
 
   it('should throw when template not found', async () => {

@@ -21,7 +21,8 @@ export async function v1ListExpiringAssignmentsController(
     schema: {
       tags: ['HR - PPE (EPI)'],
       summary: 'List expiring PPE assignments',
-      description: 'Lists PPE assignments that are expiring within the specified days ahead',
+      description:
+        'Lists PPE assignments that are expiring within the specified days ahead',
       querystring: listExpiringAssignmentsQuerySchema,
       response: {
         200: z.object({

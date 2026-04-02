@@ -17,8 +17,10 @@ function mapToDomain(data: Record<string, unknown>): CashierSession {
       openedAt: data.openedAt as Date,
       closedAt: (data.closedAt as Date) ?? undefined,
       openingBalance: Number(data.openingBalance),
-      closingBalance: data.closingBalance != null ? Number(data.closingBalance) : undefined,
-      expectedBalance: data.expectedBalance != null ? Number(data.expectedBalance) : undefined,
+      closingBalance:
+        data.closingBalance != null ? Number(data.closingBalance) : undefined,
+      expectedBalance:
+        data.expectedBalance != null ? Number(data.expectedBalance) : undefined,
       difference: data.difference != null ? Number(data.difference) : undefined,
       status: data.status as 'OPEN' | 'CLOSED' | 'RECONCILED',
       notes: (data.notes as string) ?? undefined,

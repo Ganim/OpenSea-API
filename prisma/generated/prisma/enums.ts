@@ -233,6 +233,31 @@ export const FinanceAttachmentType = {
 export type FinanceAttachmentType = (typeof FinanceAttachmentType)[keyof typeof FinanceAttachmentType]
 
 
+export const JournalSourceType = {
+  FINANCE_ENTRY: 'FINANCE_ENTRY',
+  FINANCE_PAYMENT: 'FINANCE_PAYMENT',
+  MANUAL: 'MANUAL'
+} as const
+
+export type JournalSourceType = (typeof JournalSourceType)[keyof typeof JournalSourceType]
+
+
+export const JournalStatus = {
+  POSTED: 'POSTED',
+  REVERSED: 'REVERSED'
+} as const
+
+export type JournalStatus = (typeof JournalStatus)[keyof typeof JournalStatus]
+
+
+export const EntryLineType = {
+  DEBIT: 'DEBIT',
+  CREDIT: 'CREDIT'
+} as const
+
+export type EntryLineType = (typeof EntryLineType)[keyof typeof EntryLineType]
+
+
 export const LoanType = {
   PERSONAL: 'PERSONAL',
   BUSINESS: 'BUSINESS',
@@ -3209,6 +3234,27 @@ export const BankConnectionStatus = {
 } as const
 
 export type BankConnectionStatus = (typeof BankConnectionStatus)[keyof typeof BankConnectionStatus]
+
+
+export const PaymentOrderStatus = {
+  PENDING_APPROVAL: 'PENDING_APPROVAL',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  PROCESSING: 'PROCESSING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED'
+} as const
+
+export type PaymentOrderStatus = (typeof PaymentOrderStatus)[keyof typeof PaymentOrderStatus]
+
+
+export const BankPaymentMethod = {
+  PIX: 'PIX',
+  TED: 'TED',
+  BOLETO: 'BOLETO'
+} as const
+
+export type BankPaymentMethod = (typeof BankPaymentMethod)[keyof typeof BankPaymentMethod]
 
 
 export const PaymentLinkStatus = {

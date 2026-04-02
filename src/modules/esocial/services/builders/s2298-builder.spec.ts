@@ -39,9 +39,7 @@ describe('S2298Builder', () => {
 
     expect(xml).toContain('<infoReintegr>');
     expect(xml).toContain('<tpReint>1</tpReint>');
-    expect(xml).toContain(
-      '<nrProcJud>0001234-56.2026.5.01.0001</nrProcJud>',
-    );
+    expect(xml).toContain('<nrProcJud>0001234-56.2026.5.01.0001</nrProcJud>');
     expect(xml).toContain('<dtReint>2026-07-01</dtReint>');
     expect(xml).toContain('<dtEfetRetorno>2026-07-15</dtEfetRetorno>');
   });

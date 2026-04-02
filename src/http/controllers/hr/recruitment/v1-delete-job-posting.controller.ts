@@ -5,7 +5,7 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { makeDeleteJobPostingUseCase } from '@/use-cases/hr/job-postings/factories';
 
 import type { FastifyInstance } from 'fastify';
@@ -28,7 +28,7 @@ export async function v1DeleteJobPostingController(app: FastifyInstance) {
       tags: ['HR - Recruitment'],
       summary: 'Delete job posting',
       description: 'Soft deletes a job posting',
-      params: z.object({ jobPostingId: idSchema }),
+      params: z.object({ jobPostingId: cuidSchema }),
       response: {
         204: z.null(),
         404: z.object({ message: z.string() }),

@@ -57,10 +57,7 @@ export class S2190Builder extends EsocialXmlBuilder<S2190Input> {
       this.formatDate(input.dtNascto),
     );
     infoRegPrelimContent += this.tag('dtAdm', this.formatDate(input.dtAdm));
-    const infoRegPrelim = this.tagGroup(
-      'infoRegPrelim',
-      infoRegPrelimContent,
-    );
+    const infoRegPrelim = this.tagGroup('infoRegPrelim', infoRegPrelimContent);
 
     // --- evtAdmPrelim ---
     const evtContent = ideEvento + ideEmpregador + infoRegPrelim;

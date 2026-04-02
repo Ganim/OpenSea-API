@@ -1,4 +1,3 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Employee } from '@/entities/hr/employee';
 import { CPF, EmployeeStatus } from '@/entities/hr/value-objects';
@@ -42,8 +41,7 @@ function makeEmployee(id: UniqueEntityID): Employee {
 
 describe('CreateDelegationUseCase', () => {
   beforeEach(() => {
-    approvalDelegationsRepository =
-      new InMemoryApprovalDelegationsRepository();
+    approvalDelegationsRepository = new InMemoryApprovalDelegationsRepository();
     employeesRepository = new InMemoryEmployeesRepository();
     createDelegationUseCase = new CreateDelegationUseCase(
       approvalDelegationsRepository,

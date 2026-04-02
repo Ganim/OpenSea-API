@@ -11,9 +11,20 @@ export interface CreateCashierSessionSchema {
 
 export interface CashierSessionsRepository {
   create(data: CreateCashierSessionSchema): Promise<CashierSession>;
-  findById(id: UniqueEntityID, tenantId: string): Promise<CashierSession | null>;
-  findOpenByCashierId(cashierId: string, tenantId: string): Promise<CashierSession | null>;
-  findMany(page: number, perPage: number, tenantId: string, status?: string): Promise<CashierSession[]>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<CashierSession | null>;
+  findOpenByCashierId(
+    cashierId: string,
+    tenantId: string,
+  ): Promise<CashierSession | null>;
+  findMany(
+    page: number,
+    perPage: number,
+    tenantId: string,
+    status?: string,
+  ): Promise<CashierSession[]>;
   countByTenant(tenantId: string, status?: string): Promise<number>;
   save(session: CashierSession): Promise<void>;
 }

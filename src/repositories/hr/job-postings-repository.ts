@@ -47,10 +47,7 @@ export interface FindJobPostingFilters {
 
 export interface JobPostingsRepository {
   create(data: CreateJobPostingSchema): Promise<JobPosting>;
-  findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<JobPosting | null>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<JobPosting | null>;
   findMany(
     tenantId: string,
     filters?: FindJobPostingFilters,

@@ -53,7 +53,7 @@ export async function duplicateProposalController(app: FastifyInstance) {
           placeholders: { userName: userId, proposalTitle: proposal.title },
         });
 
-        return reply.status(201).send({ proposal } as any);
+        return reply.status(201).send({ proposal } as unknown);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

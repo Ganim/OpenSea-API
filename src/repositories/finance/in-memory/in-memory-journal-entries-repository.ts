@@ -161,9 +161,12 @@ export class InMemoryJournalEntriesRepository
           i.lines.some((l) => l.chartOfAccountId === chartOfAccountId),
       )
       .sort((a, b) => {
-        const dateDiff = new Date(a.date).getTime() - new Date(b.date).getTime();
+        const dateDiff =
+          new Date(a.date).getTime() - new Date(b.date).getTime();
         if (dateDiff !== 0) return dateDiff;
-        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+        return (
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        );
       });
 
     let runningBalance = 0;

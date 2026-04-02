@@ -1,6 +1,11 @@
 export interface PluggyItem {
   id: string;
-  status: 'UPDATED' | 'UPDATING' | 'LOGIN_ERROR' | 'OUTDATED' | 'WAITING_USER_INPUT';
+  status:
+    | 'UPDATED'
+    | 'UPDATING'
+    | 'LOGIN_ERROR'
+    | 'OUTDATED'
+    | 'WAITING_USER_INPUT';
   executionStatus: string;
   connector: {
     id: number;
@@ -44,7 +49,9 @@ export interface PluggyConnectToken {
 
 export interface BankingProvider {
   readonly providerName: string;
-  createConnectToken(options?: { clientUserId?: string }): Promise<PluggyConnectToken>;
+  createConnectToken(options?: {
+    clientUserId?: string;
+  }): Promise<PluggyConnectToken>;
   getItem(itemId: string): Promise<PluggyItem>;
   getAccounts(itemId: string): Promise<PluggyAccount[]>;
   getTransactions(

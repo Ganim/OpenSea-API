@@ -12,8 +12,7 @@ const DELEGATE_ID = new UniqueEntityID();
 
 describe('ListDelegationsToMeUseCase', () => {
   beforeEach(() => {
-    approvalDelegationsRepository =
-      new InMemoryApprovalDelegationsRepository();
+    approvalDelegationsRepository = new InMemoryApprovalDelegationsRepository();
     listDelegationsToMeUseCase = new ListDelegationsToMeUseCase(
       approvalDelegationsRepository,
     );

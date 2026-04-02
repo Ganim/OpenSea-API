@@ -47,7 +47,7 @@ export async function listConversationsController(app: FastifyInstance) {
       const useCase = makeListConversationsUseCase();
       const result = await useCase.execute({ tenantId, ...query });
 
-      return reply.status(200).send(result as any);
+      return reply.status(200).send(result as unknown);
     },
   });
 }

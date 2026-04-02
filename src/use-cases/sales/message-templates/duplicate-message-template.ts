@@ -32,7 +32,12 @@ export class DuplicateMessageTemplateUseCase {
     // Generate unique name
     let duplicatedName = `${sourceTemplate.name} (copy)`;
     let counter = 1;
-    while (await this.messageTemplatesRepository.findByName(duplicatedName, input.tenantId)) {
+    while (
+      await this.messageTemplatesRepository.findByName(
+        duplicatedName,
+        input.tenantId,
+      )
+    ) {
       counter++;
       duplicatedName = `${sourceTemplate.name} (copy ${counter})`;
     }

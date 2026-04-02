@@ -47,7 +47,7 @@ export async function listCashierSessionsController(app: FastifyInstance) {
       const useCase = makeListCashierSessionsUseCase();
       const result = await useCase.execute({ tenantId, ...query });
 
-      return reply.status(200).send(result as any);
+      return reply.status(200).send(result as unknown);
     },
   });
 }

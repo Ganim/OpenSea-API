@@ -20,9 +20,7 @@ export interface CreateSafetyProgramResponse {
 }
 
 export class CreateSafetyProgramUseCase {
-  constructor(
-    private safetyProgramsRepository: SafetyProgramsRepository,
-  ) {}
+  constructor(private safetyProgramsRepository: SafetyProgramsRepository) {}
 
   async execute(
     request: CreateSafetyProgramRequest,
@@ -48,12 +46,19 @@ export class CreateSafetyProgramUseCase {
       throw new BadRequestError('O nome do responsável é obrigatório');
     }
 
-    if (!responsibleRegistration || responsibleRegistration.trim().length === 0) {
-      throw new BadRequestError('O registro profissional do responsável é obrigatório');
+    if (
+      !responsibleRegistration ||
+      responsibleRegistration.trim().length === 0
+    ) {
+      throw new BadRequestError(
+        'O registro profissional do responsável é obrigatório',
+      );
     }
 
     if (validUntil <= validFrom) {
-      throw new BadRequestError('A data de validade deve ser posterior à data de início');
+      throw new BadRequestError(
+        'A data de validade deve ser posterior à data de início',
+      );
     }
 
     const safetyProgram = await this.safetyProgramsRepository.create({

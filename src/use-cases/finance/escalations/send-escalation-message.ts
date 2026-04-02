@@ -2,7 +2,6 @@ import { logger } from '@/lib/logger';
 import type { OverdueActionsRepository } from '@/repositories/finance/overdue-actions-repository';
 import type { MessagingAccountsRepository } from '@/repositories/messaging/messaging-accounts-repository';
 import type { EmailAccountsRepository } from '@/repositories/email/email-accounts-repository';
-import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 import type { CustomersRepository } from '@/repositories/sales/customers-repository';
 import type { NotificationsRepository } from '@/repositories/notifications/notifications-repository';
 import type { MessagingGateway } from '@/services/messaging/messaging-gateway.interface';
@@ -65,7 +64,12 @@ export class SendEscalationMessageUseCase {
           break;
         }
         case 'EMAIL': {
-          await this.sendEmail(tenantId, entry, renderedSubject, renderedMessage);
+          await this.sendEmail(
+            tenantId,
+            entry,
+            renderedSubject,
+            renderedMessage,
+          );
           break;
         }
         case 'INTERNAL_NOTE': {
@@ -84,10 +88,7 @@ export class SendEscalationMessageUseCase {
       }
 
       // Mark action as SENT
-      await this.overdueActionsRepository.updateStatus(
-        action.id,
-        'SENT',
-      );
+      await this.overdueActionsRepository.updateStatus(action.id, 'SENT');
 
       logger.info(
         {
@@ -101,8 +102,7 @@ export class SendEscalationMessageUseCase {
 
       return { success: true };
     } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : String(err);
+      const errorMessage = err instanceof Error ? err.message : String(err);
 
       // Mark action as FAILED with error
       await this.overdueActionsRepository.updateStatus(
@@ -159,9 +159,8 @@ export class SendEscalationMessageUseCase {
 
     // Extract instance name from settings or use account id
     const instanceName =
-      (activeAccount.settings as Record<string, unknown> | null)
-        ?.instanceName as string | undefined ??
-      activeAccount.id.toString();
+      ((activeAccount.settings as Record<string, unknown> | null)
+        ?.instanceName as string | undefined) ?? activeAccount.id.toString();
 
     await this.whatsappGateway.sendMessage(instanceName, {
       to: phone,
@@ -176,7 +175,8 @@ export class SendEscalationMessageUseCase {
     message: string,
   ): Promise<void> {
     // Find an active email account for this tenant
-    const emailAccounts = await this.emailAccountsRepository.listActive(tenantId);
+    const emailAccounts =
+      await this.emailAccountsRepository.listActive(tenantId);
 
     const account = emailAccounts.find((a) => a.isDefault) ?? emailAccounts[0];
     if (!account) {
@@ -273,9 +273,7 @@ export class SendEscalationMessageUseCase {
 
     const daysPastDue = Math.max(
       0,
-      Math.floor(
-        (today.getTime() - dueDate.getTime()) / (1000 * 60 * 60 * 24),
-      ),
+      Math.floor((today.getTime() - dueDate.getTime()) / (1000 * 60 * 60 * 24)),
     );
 
     return template

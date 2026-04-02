@@ -30,9 +30,7 @@ export class PublishFormUseCase {
     }
 
     if (form.status !== 'DRAFT') {
-      throw new BadRequestError(
-        'Only draft forms can be published.',
-      );
+      throw new BadRequestError('Only draft forms can be published.');
     }
 
     form.publish();

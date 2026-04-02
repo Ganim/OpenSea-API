@@ -67,9 +67,7 @@ describe('Complete Interview Use Case', () => {
         rating: 3,
         recommendation: 'HOLD',
       }),
-    ).rejects.toThrow(
-      'Apenas entrevistas agendadas podem ser concluídas',
-    );
+    ).rejects.toThrow('Apenas entrevistas agendadas podem ser concluídas');
   });
 
   it('should throw error for invalid rating', async () => {

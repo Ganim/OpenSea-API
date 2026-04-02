@@ -42,7 +42,7 @@ export async function handleChatbotMessageController(app: FastifyInstance) {
           message: body.message,
         });
 
-        return reply.status(201).send(result as any);
+        return reply.status(201).send(result as unknown);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

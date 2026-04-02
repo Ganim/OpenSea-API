@@ -23,8 +23,10 @@ export class ListCandidatesUseCase {
   ): Promise<ListCandidatesResponse> {
     const { tenantId, ...filters } = request;
 
-    const { candidates, total } =
-      await this.candidatesRepository.findMany(tenantId, filters);
+    const { candidates, total } = await this.candidatesRepository.findMany(
+      tenantId,
+      filters,
+    );
 
     return { candidates, total };
   }

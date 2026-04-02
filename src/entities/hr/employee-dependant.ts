@@ -74,9 +74,7 @@ export class EmployeeDependant extends Entity<EmployeeDependantProps> {
 
   // Business methods
   isChild(): boolean {
-    return (
-      this.relationship === 'CHILD' || this.relationship === 'STEPCHILD'
-    );
+    return this.relationship === 'CHILD' || this.relationship === 'STEPCHILD';
   }
 
   isSpouse(): boolean {

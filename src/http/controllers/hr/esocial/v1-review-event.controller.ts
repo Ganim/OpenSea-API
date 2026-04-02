@@ -18,7 +18,8 @@ export async function v1ReviewEventController(app: FastifyInstance) {
     schema: {
       tags: ['HR - eSocial'],
       summary: 'Mark event as reviewed',
-      description: 'Transitions an event from DRAFT/VALIDATED to REVIEWED status',
+      description:
+        'Transitions an event from DRAFT/VALIDATED to REVIEWED status',
       params: eventIdParamSchema,
       body: reviewEventBodySchema,
       response: {

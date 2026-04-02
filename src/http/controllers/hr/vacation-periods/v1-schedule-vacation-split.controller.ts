@@ -23,9 +23,7 @@ const vacationSplitResponseSchema = z.object({
   updatedAt: z.coerce.date(),
 });
 
-export async function v1ScheduleVacationSplitController(
-  app: FastifyInstance,
-) {
+export async function v1ScheduleVacationSplitController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/vacation-periods/:vacationPeriodId/splits',

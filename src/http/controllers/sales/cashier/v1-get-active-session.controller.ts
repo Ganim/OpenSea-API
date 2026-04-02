@@ -41,7 +41,7 @@ export async function getActiveSessionController(app: FastifyInstance) {
         cashierId: userId,
       });
 
-      return reply.status(200).send({ cashierSession } as any);
+      return reply.status(200).send({ cashierSession } as unknown);
     },
   });
 }

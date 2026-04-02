@@ -90,7 +90,9 @@ export class ExchangeRateService {
     if (currency === 'BRL') return 1;
 
     if (!isSupportedCurrency(currency)) {
-      throw new Error(`Moeda não suportada: ${currency}. Use: ${SUPPORTED_CURRENCIES.join(', ')}`);
+      throw new Error(
+        `Moeda não suportada: ${currency}. Use: ${SUPPORTED_CURRENCIES.join(', ')}`,
+      );
     }
 
     const dateOnly = new Date(
@@ -171,10 +173,7 @@ export class ExchangeRateService {
   /**
    * List cached rates for a currency (most recent first).
    */
-  async listRates(
-    currency: string,
-    limit = 30,
-  ): Promise<ExchangeRateResult[]> {
+  async listRates(currency: string, limit = 30): Promise<ExchangeRateResult[]> {
     const rates = await prisma.exchangeRate.findMany({
       where: { currency },
       orderBy: { date: 'desc' },

@@ -57,8 +57,7 @@ export class S2206Builder extends EsocialXmlBuilder<S2206Input> {
     const ideVinculo = this.buildIdeVinculo(input);
     const altContratual = this.buildAltContratual(input);
 
-    const evtContent =
-      ideEvento + ideEmpregador + ideVinculo + altContratual;
+    const evtContent = ideEvento + ideEmpregador + ideVinculo + altContratual;
     const evtAltContratual = `<evtAltContratual Id="${eventId}">${evtContent}</evtAltContratual>`;
 
     const xmlns = `http://www.esocial.gov.br/schema/evt/evtAltContratual/${this.version}`;

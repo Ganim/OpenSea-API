@@ -526,7 +526,7 @@ export const listFinanceEntriesQuerySchema = z.object({
     .string()
     .optional()
     .describe(
-      'Status do lançamento (pode ser um valor ou comma-separated: PENDING,OVERDUE)'
+      'Status do lançamento (pode ser um valor ou comma-separated: PENDING,OVERDUE)',
     ),
   categoryId: z.string().uuid().optional().describe('Filtrar por categoria'),
   costCenterId: z

@@ -50,9 +50,7 @@ export class InMemoryConversationsRepository
           item.tenantId.toString() === tenantId &&
           (!status || item.status === status),
       )
-      .sort(
-        (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
-      )
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
       .slice(start, start + perPage);
   }
 

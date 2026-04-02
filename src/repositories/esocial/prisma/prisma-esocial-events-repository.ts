@@ -9,6 +9,7 @@ import type {
   FindManyEsocialEventsResult,
 } from '../esocial-events-repository';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Prisma result type mapping
 function mapToDomain(data: any): EsocialEvent {
   return EsocialEvent.create(
     {
@@ -53,6 +54,7 @@ export class PrismaEsocialEventsRepository implements EsocialEventsRepository {
         tenantId: data.tenantId,
         eventType: data.eventType,
         description: `Evento ${data.eventType}`,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Prisma enum cast
         status: (data.status as any) ?? 'DRAFT',
         referenceId: data.referenceId,
         referenceType: data.referenceType,
@@ -85,7 +87,7 @@ export class PrismaEsocialEventsRepository implements EsocialEventsRepository {
   ): Promise<FindManyEsocialEventsResult> {
     const { tenantId, page = 1, perPage = 20 } = params;
 
-    const where: any = { tenantId };
+    const where: Record<string, unknown> = { tenantId };
 
     if (params.status) {
       where.status = params.status;
@@ -126,6 +128,7 @@ export class PrismaEsocialEventsRepository implements EsocialEventsRepository {
     await prisma.esocialEvent.update({
       where: { id: event.id.toString() },
       data: {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Prisma enum cast
         status: event.status as any,
         xmlContent: event.xmlContent,
         reviewedBy: event.reviewedBy,

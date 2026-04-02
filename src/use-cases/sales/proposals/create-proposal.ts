@@ -35,9 +35,7 @@ export class CreateProposalUseCase {
     }
 
     if (input.title.length > 255) {
-      throw new BadRequestError(
-        'Proposal title cannot exceed 255 characters.',
-      );
+      throw new BadRequestError('Proposal title cannot exceed 255 characters.');
     }
 
     if (!input.items || input.items.length === 0) {

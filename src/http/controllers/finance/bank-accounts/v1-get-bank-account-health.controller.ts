@@ -1,7 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac/permission-codes';
-import { verifyJwt } from '@/http/middlewares/verify-jwt';
-import { verifyTenant } from '@/http/middlewares/verify-tenant';
-import { createPermissionMiddleware } from '@/http/middlewares/verify-permission';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac/verify-permission';
 import { makeGetBankAccountHealthUseCase } from '@/use-cases/finance/bank-accounts/factories/make-get-bank-account-health-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';

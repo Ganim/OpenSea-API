@@ -120,7 +120,8 @@ describe('BulkCancelEntriesUseCase', () => {
   });
 
   it('should reject entries requiring approval when approval rule matches', async () => {
-    const approvalRulesRepository = new InMemoryFinanceApprovalRulesRepository();
+    const approvalRulesRepository =
+      new InMemoryFinanceApprovalRulesRepository();
     const sutWithApproval = new BulkCancelEntriesUseCase(
       entriesRepository,
       fakeTransactionManager,
@@ -158,7 +159,8 @@ describe('BulkCancelEntriesUseCase', () => {
   });
 
   it('should allow cancellation when entry has manually-approved tag', async () => {
-    const approvalRulesRepository = new InMemoryFinanceApprovalRulesRepository();
+    const approvalRulesRepository =
+      new InMemoryFinanceApprovalRulesRepository();
     const sutWithApproval = new BulkCancelEntriesUseCase(
       entriesRepository,
       fakeTransactionManager,

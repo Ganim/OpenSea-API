@@ -34,8 +34,7 @@ export class InMemoryInterviewsRepository implements InterviewsRepository {
     return (
       this.items.find(
         (interview) =>
-          interview.id.equals(id) &&
-          interview.tenantId.toString() === tenantId,
+          interview.id.equals(id) && interview.tenantId.toString() === tenantId,
       ) ?? null
     );
   }
@@ -50,9 +49,7 @@ export class InMemoryInterviewsRepository implements InterviewsRepository {
           interview.applicationId.toString() === applicationId &&
           interview.tenantId.toString() === tenantId,
       )
-      .sort(
-        (a, b) => a.scheduledAt.getTime() - b.scheduledAt.getTime(),
-      );
+      .sort((a, b) => a.scheduledAt.getTime() - b.scheduledAt.getTime());
   }
 
   async findMany(

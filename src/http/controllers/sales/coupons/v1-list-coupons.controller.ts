@@ -69,7 +69,7 @@ export async function listCouponsController(app: FastifyInstance) {
           isActive: c.isActive,
           campaignId: null,
           aiGenerated: false,
-            aiReason: null,
+          aiReason: null,
           customerId: null,
           targetIds: [],
           createdAt: c.createdAt,

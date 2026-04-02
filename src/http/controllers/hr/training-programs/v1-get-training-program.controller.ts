@@ -2,7 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { trainingProgramResponseSchema } from '@/http/schemas/hr/training';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { trainingProgramToDTO } from '@/mappers/hr/training-program';
 import { makeGetTrainingProgramUseCase } from '@/use-cases/hr/training-programs/factories/make-get-training-program-use-case';
 
@@ -19,7 +19,7 @@ export async function v1GetTrainingProgramController(app: FastifyInstance) {
       tags: ['HR - Training'],
       summary: 'Get training program',
       description: 'Gets a training program by ID',
-      params: z.object({ trainingProgramId: idSchema }),
+      params: z.object({ trainingProgramId: cuidSchema }),
       response: {
         200: z.object({ trainingProgram: trainingProgramResponseSchema }),
         404: z.object({ message: z.string() }),

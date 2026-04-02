@@ -20,8 +20,7 @@ export class InMemoryApprovalDelegationsRepository
   ): Promise<ApprovalDelegation | null> {
     return (
       this.items.find(
-        (item) =>
-          item.id.equals(id) && item.tenantId.toString() === tenantId,
+        (item) => item.id.equals(id) && item.tenantId.toString() === tenantId,
       ) ?? null
     );
   }
@@ -107,9 +106,7 @@ export class InMemoryApprovalDelegationsRepository
   }
 
   async save(delegation: ApprovalDelegation): Promise<void> {
-    const index = this.items.findIndex((item) =>
-      item.id.equals(delegation.id),
-    );
+    const index = this.items.findIndex((item) => item.id.equals(delegation.id));
     if (index >= 0) {
       this.items[index] = delegation;
     }

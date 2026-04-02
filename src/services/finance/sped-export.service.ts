@@ -88,9 +88,8 @@ export class SpedExportService {
     const endDate = new Date(year, endMonth, 0); // Last day of endMonth
 
     // Fetch data
-    const categories = await this.financeCategoriesRepository.findMany(
-      tenantId,
-    );
+    const categories =
+      await this.financeCategoriesRepository.findMany(tenantId);
 
     const { entries } = await this.financeEntriesRepository.findMany({
       tenantId,
@@ -161,7 +160,8 @@ export class SpedExportService {
     // I050 — Chart of Accounts (from categories)
     const chartOfAccounts = categories.map((cat, idx) => {
       const code = pad(idx + 1, 5);
-      const type = cat.type === 'EXPENSE' ? 'D' : cat.type === 'REVENUE' ? 'C' : 'D';
+      const type =
+        cat.type === 'EXPENSE' ? 'D' : cat.type === 'REVENUE' ? 'C' : 'D';
       return { id: cat.id.toString(), code, name: cat.name, type };
     });
 
@@ -196,11 +196,7 @@ export class SpedExportService {
 
       addLine(
         'I150',
-        spedLine(
-          'I150',
-          formatSpedDate(monthStart),
-          formatSpedDate(monthEnd),
-        ),
+        spedLine('I150', formatSpedDate(monthStart), formatSpedDate(monthEnd)),
       );
 
       // Balance by account
@@ -237,9 +233,7 @@ export class SpedExportService {
             balance.debit > 0 ? 'D' : 'C', // IND_DC_INI
             formatSpedValue(balance.debit), // VL_DEB
             formatSpedValue(balance.credit), // VL_CRED
-            formatSpedValue(
-              Math.abs(balance.credit - balance.debit),
-            ), // VL_SLD_FIN
+            formatSpedValue(Math.abs(balance.credit - balance.debit)), // VL_SLD_FIN
             balance.credit >= balance.debit ? 'C' : 'D', // IND_DC_FIN
           ),
         );
@@ -300,10 +294,7 @@ export class SpedExportService {
     allRegisters['9999'] = 1;
 
     for (const [reg, count] of Object.entries(allRegisters).sort()) {
-      addLine(
-        '9900',
-        spedLine('9900', reg, String(count)),
-      );
+      addLine('9900', spedLine('9900', reg, String(count)));
     }
 
     // 9999 — Total record count

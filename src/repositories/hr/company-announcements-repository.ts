@@ -8,7 +8,10 @@ export interface PaginatedAnnouncementsResult {
 
 export interface CompanyAnnouncementsRepository {
   create(announcement: CompanyAnnouncement): Promise<void>;
-  findById(id: UniqueEntityID, tenantId: string): Promise<CompanyAnnouncement | null>;
+  findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<CompanyAnnouncement | null>;
   findManyActive(
     tenantId: string,
     skip: number,

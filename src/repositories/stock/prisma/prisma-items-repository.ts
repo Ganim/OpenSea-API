@@ -7,6 +7,7 @@ import { prisma } from '@/lib/prisma';
 import {
   Prisma,
   type ItemStatus as PrismaItemStatus,
+  type MovementType as PrismaMovementType,
 } from '@prisma/generated/client.js';
 
 import type {
@@ -168,6 +169,8 @@ export class PrismaItemsRepository implements ItemsRepository {
         batchNumber: itemData.batchNumber ?? undefined,
         manufacturingDate: itemData.manufacturingDate ?? undefined,
         expiryDate: itemData.expiryDate ?? undefined,
+        exitMovementType: (itemData as Record<string, unknown>)
+          .exitMovementType as string | undefined,
         createdAt: itemData.createdAt,
         updatedAt: itemData.updatedAt,
         deletedAt: itemData.deletedAt ?? undefined,
@@ -845,6 +848,7 @@ export class PrismaItemsRepository implements ItemsRepository {
         batchNumber: item.batchNumber,
         manufacturingDate: item.manufacturingDate,
         expiryDate: item.expiryDate,
+        exitMovementType: (item.exitMovementType as PrismaMovementType) ?? null,
         updatedAt: item.updatedAt,
         deletedAt: item.deletedAt,
       },

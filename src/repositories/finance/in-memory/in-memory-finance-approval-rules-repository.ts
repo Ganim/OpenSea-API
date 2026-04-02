@@ -29,8 +29,7 @@ export class InMemoryFinanceApprovalRulesRepository
         isActive: data.isActive ?? true,
         action: data.action,
         maxAmount: data.maxAmount,
-        conditions:
-          (data.conditions as FinanceApprovalRuleConditions) ?? {},
+        conditions: (data.conditions as FinanceApprovalRuleConditions) ?? {},
         priority: data.priority ?? 0,
       },
       ruleId,
@@ -75,15 +74,11 @@ export class InMemoryFinanceApprovalRulesRepository
     );
 
     if (options.isActive !== undefined) {
-      filtered = filtered.filter(
-        (item) => item.isActive === options.isActive,
-      );
+      filtered = filtered.filter((item) => item.isActive === options.isActive);
     }
 
     if (options.action !== undefined) {
-      filtered = filtered.filter(
-        (item) => item.action === options.action,
-      );
+      filtered = filtered.filter((item) => item.action === options.action);
     }
 
     const total = filtered.length;
@@ -125,8 +120,7 @@ export class InMemoryFinanceApprovalRulesRepository
       existing.maxAmount = data.maxAmount === null ? undefined : data.maxAmount;
     }
     if (data.conditions !== undefined) {
-      existing.conditions =
-        data.conditions as FinanceApprovalRuleConditions;
+      existing.conditions = data.conditions as FinanceApprovalRuleConditions;
     }
     if (data.priority !== undefined) existing.priority = data.priority;
 
@@ -142,8 +136,7 @@ export class InMemoryFinanceApprovalRulesRepository
 
   async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
     const index = this.items.findIndex(
-      (item) =>
-        item.id.equals(id) && item.tenantId.toString() === tenantId,
+      (item) => item.id.equals(id) && item.tenantId.toString() === tenantId,
     );
     if (index !== -1) {
       this.items[index].props.deletedAt = new Date();

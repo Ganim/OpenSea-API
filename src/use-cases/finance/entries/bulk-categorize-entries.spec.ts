@@ -176,7 +176,8 @@ describe('BulkCategorizeEntriesUseCase', () => {
   });
 
   it('should reject entries that require approval before categorization', async () => {
-    const approvalRulesRepository = new InMemoryFinanceApprovalRulesRepository();
+    const approvalRulesRepository =
+      new InMemoryFinanceApprovalRulesRepository();
     const sutWithApproval = new BulkCategorizeEntriesUseCase(
       entriesRepository,
       categoriesRepository,
@@ -222,7 +223,8 @@ describe('BulkCategorizeEntriesUseCase', () => {
   });
 
   it('should allow categorization of entries with manually-approved tag', async () => {
-    const approvalRulesRepository = new InMemoryFinanceApprovalRulesRepository();
+    const approvalRulesRepository =
+      new InMemoryFinanceApprovalRulesRepository();
     const sutWithApproval = new BulkCategorizeEntriesUseCase(
       entriesRepository,
       categoriesRepository,

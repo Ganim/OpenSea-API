@@ -11,7 +11,6 @@ import {
 } from '@/mappers/finance/finance-approval-rule/finance-approval-rule-to-dto';
 import type { FinanceApprovalRulesRepository } from '@/repositories/finance/finance-approval-rules-repository';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
-import type { FinanceEntryPaymentsRepository } from '@/repositories/finance/finance-entry-payments-repository';
 import type { RegisterPaymentUseCase } from '@/use-cases/finance/entries/register-payment';
 import { queueAuditLog } from '@/workers/queues/audit.queue';
 
@@ -131,8 +130,7 @@ export class EvaluateAutoApprovalUseCase {
       if (
         !entry.supplierName ||
         !conditions.supplierNames.some(
-          (name) =>
-            name.toLowerCase() === entry.supplierName?.toLowerCase(),
+          (name) => name.toLowerCase() === entry.supplierName?.toLowerCase(),
         )
       ) {
         return false;

@@ -50,7 +50,13 @@ export async function listPriceTableItemsController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const { id: priceTableId } = request.params;
-      const { page, limit, variantId, sortBy, sortOrder } = request.query;
+      const {
+        page,
+        limit,
+        variantId: _variantId,
+        sortBy,
+        sortOrder,
+      } = request.query;
 
       try {
         // Validate price table exists

@@ -19,7 +19,9 @@ import { verifyWebhookSignature } from './verify-webhook-signature';
 // ---------------------------------------------------------------------------
 
 function makeSignature(secret: string, body: unknown): string {
-  return createHmac('sha256', secret).update(JSON.stringify(body)).digest('hex');
+  return createHmac('sha256', secret)
+    .update(JSON.stringify(body))
+    .digest('hex');
 }
 
 function makeRequest(overrides: {
@@ -53,7 +55,9 @@ function makeReply(): {
     return { send: sendFn };
   });
 
-  const reply = { status: statusFn } as unknown as Parameters<typeof verifyWebhookSignature>[1];
+  const reply = { status: statusFn } as unknown as Parameters<
+    typeof verifyWebhookSignature
+  >[1];
 
   return {
     reply,
@@ -84,7 +88,10 @@ describe('verifyWebhookSignature middleware', () => {
   });
 
   it('passes through when no secret is configured (backwards-compatible)', async () => {
-    mockFindUnique.mockResolvedValue({ apiWebhookSecret: null, tenantId: 'tenant-1' });
+    mockFindUnique.mockResolvedValue({
+      apiWebhookSecret: null,
+      tenantId: 'tenant-1',
+    });
 
     const request = makeRequest({});
     const { reply, statusCode } = makeReply();
@@ -94,18 +101,25 @@ describe('verifyWebhookSignature middleware', () => {
     // No status set — middleware passed through
     expect(statusCode()).toBeUndefined();
     // tenantId was attached to the request
-    expect((request as Record<string, unknown>).bankAccountTenantId).toBe('tenant-1');
+    expect((request as Record<string, unknown>).bankAccountTenantId).toBe(
+      'tenant-1',
+    );
   });
 
   it('attaches bankAccountTenantId to request even when secret is null', async () => {
-    mockFindUnique.mockResolvedValue({ apiWebhookSecret: null, tenantId: 'tenant-abc' });
+    mockFindUnique.mockResolvedValue({
+      apiWebhookSecret: null,
+      tenantId: 'tenant-abc',
+    });
 
     const request = makeRequest({});
     const { reply } = makeReply();
 
     await verifyWebhookSignature(request, reply);
 
-    expect((request as Record<string, unknown>).bankAccountTenantId).toBe('tenant-abc');
+    expect((request as Record<string, unknown>).bankAccountTenantId).toBe(
+      'tenant-abc',
+    );
   });
 
   it('passes through when signature matches (x-webhook-signature header)', async () => {
@@ -113,7 +127,10 @@ describe('verifyWebhookSignature middleware', () => {
     const body = { event: 'PIX_RECEIVED', amount: 250 };
     const sig = makeSignature(secret, body);
 
-    mockFindUnique.mockResolvedValue({ apiWebhookSecret: secret, tenantId: 'tenant-2' });
+    mockFindUnique.mockResolvedValue({
+      apiWebhookSecret: secret,
+      tenantId: 'tenant-2',
+    });
 
     const request = makeRequest({
       headers: { 'x-webhook-signature': sig },
@@ -124,7 +141,9 @@ describe('verifyWebhookSignature middleware', () => {
     await verifyWebhookSignature(request, reply);
 
     expect(statusCode()).toBeUndefined();
-    expect((request as Record<string, unknown>).bankAccountTenantId).toBe('tenant-2');
+    expect((request as Record<string, unknown>).bankAccountTenantId).toBe(
+      'tenant-2',
+    );
   });
 
   it('passes through when signature matches (x-sicoob-signature header)', async () => {
@@ -132,7 +151,10 @@ describe('verifyWebhookSignature middleware', () => {
     const body = { event: 'BOLETO_PAID', value: 500 };
     const sig = makeSignature(secret, body);
 
-    mockFindUnique.mockResolvedValue({ apiWebhookSecret: secret, tenantId: 'tenant-3' });
+    mockFindUnique.mockResolvedValue({
+      apiWebhookSecret: secret,
+      tenantId: 'tenant-3',
+    });
 
     const request = makeRequest({
       headers: { 'x-sicoob-signature': sig },
@@ -150,7 +172,10 @@ describe('verifyWebhookSignature middleware', () => {
     const body = { event: 'TED_RECEIVED' };
     const sig = makeSignature(secret, body);
 
-    mockFindUnique.mockResolvedValue({ apiWebhookSecret: secret, tenantId: 'tenant-4' });
+    mockFindUnique.mockResolvedValue({
+      apiWebhookSecret: secret,
+      tenantId: 'tenant-4',
+    });
 
     const request = makeRequest({
       headers: { 'webhook-signature': sig },
@@ -164,7 +189,10 @@ describe('verifyWebhookSignature middleware', () => {
   });
 
   it('returns 401 when signature header is missing but secret is configured', async () => {
-    mockFindUnique.mockResolvedValue({ apiWebhookSecret: 'some-secret', tenantId: 'tenant-5' });
+    mockFindUnique.mockResolvedValue({
+      apiWebhookSecret: 'some-secret',
+      tenantId: 'tenant-5',
+    });
 
     const request = makeRequest({ headers: {} });
     const { reply, statusCode, sentPayload } = makeReply();
@@ -172,13 +200,18 @@ describe('verifyWebhookSignature middleware', () => {
     await verifyWebhookSignature(request, reply);
 
     expect(statusCode()).toBe(401);
-    expect(sentPayload()).toEqual({ message: 'Missing webhook signature header' });
+    expect(sentPayload()).toEqual({
+      message: 'Missing webhook signature header',
+    });
   });
 
   it('returns 401 when signature does not match', async () => {
     const secret = 'correct-secret';
 
-    mockFindUnique.mockResolvedValue({ apiWebhookSecret: secret, tenantId: 'tenant-6' });
+    mockFindUnique.mockResolvedValue({
+      apiWebhookSecret: secret,
+      tenantId: 'tenant-6',
+    });
 
     const request = makeRequest({
       headers: { 'x-webhook-signature': 'deadbeefdeadbeef' },
@@ -198,7 +231,10 @@ describe('verifyWebhookSignature middleware', () => {
     const tamperedBody = { event: 'PIX_RECEIVED', amount: 99999 };
     const sig = makeSignature(secret, originalBody);
 
-    mockFindUnique.mockResolvedValue({ apiWebhookSecret: secret, tenantId: 'tenant-7' });
+    mockFindUnique.mockResolvedValue({
+      apiWebhookSecret: secret,
+      tenantId: 'tenant-7',
+    });
 
     const request = makeRequest({
       headers: { 'x-webhook-signature': sig },

@@ -40,7 +40,7 @@ export async function getMsgTemplateByIdController(app: FastifyInstance) {
         const useCase = makeGetMessageTemplateByIdUseCase();
         const templateResult = await useCase.execute({ tenantId, id });
 
-        return reply.status(200).send(templateResult as any);
+        return reply.status(200).send(templateResult as unknown);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

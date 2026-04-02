@@ -36,11 +36,10 @@ export class RequestMagicLinkUseCase {
     const normalized = normalizeIdentifier(provider, identifier);
 
     // Find auth link — if not found, return generic success (don't reveal if exists)
-    const authLink =
-      await this.authLinksRepository.findByProviderAndIdentifier(
-        provider,
-        normalized,
-      );
+    const authLink = await this.authLinksRepository.findByProviderAndIdentifier(
+      provider,
+      normalized,
+    );
 
     if (!authLink) {
       return { message: GENERIC_SUCCESS_MESSAGE };

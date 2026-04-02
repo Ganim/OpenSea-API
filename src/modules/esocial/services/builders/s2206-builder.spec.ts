@@ -97,9 +97,7 @@ describe('S2206Builder', () => {
       localTrabCnpj: '99887766000100',
     };
     const xml = builder.build(input);
-    const match = xml.match(
-      /<localTrabGeral>.*?<nrInsc>(\d+)<\/nrInsc>/s,
-    );
+    const match = xml.match(/<localTrabGeral>.*?<nrInsc>(\d+)<\/nrInsc>/s);
     expect(match).not.toBeNull();
     expect(match![1]).toBe('99887766000100');
   });

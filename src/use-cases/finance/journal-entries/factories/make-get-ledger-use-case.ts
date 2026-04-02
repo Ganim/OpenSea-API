@@ -5,5 +5,8 @@ import { GetLedgerUseCase } from '../get-ledger';
 export function makeGetLedgerUseCase() {
   const chartOfAccountsRepository = new PrismaChartOfAccountsRepository();
   const journalEntriesRepository = new PrismaJournalEntriesRepository();
-  return new GetLedgerUseCase(chartOfAccountsRepository, journalEntriesRepository);
+  return new GetLedgerUseCase(
+    chartOfAccountsRepository,
+    journalEntriesRepository,
+  );
 }

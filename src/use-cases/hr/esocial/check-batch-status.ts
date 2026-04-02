@@ -45,7 +45,9 @@ export class CheckBatchStatusUseCase {
     }
 
     if (!batch.protocol) {
-      throw new BadRequestError('Lote não possui protocolo. Transmita o lote primeiro.');
+      throw new BadRequestError(
+        'Lote não possui protocolo. Transmita o lote primeiro.',
+      );
     }
 
     // 2. Get config
@@ -54,7 +56,9 @@ export class CheckBatchStatusUseCase {
     });
 
     if (!config) {
-      throw new ResourceNotFoundError('Configuração do eSocial não encontrada.');
+      throw new ResourceNotFoundError(
+        'Configuração do eSocial não encontrada.',
+      );
     }
 
     // 3. Get and decrypt certificate

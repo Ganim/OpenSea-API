@@ -49,7 +49,10 @@ export class CreatePPEItemUseCase {
       throw new BadRequestError('Categoria de EPI inválida');
     }
 
-    if (request.expirationMonths !== undefined && request.expirationMonths < 1) {
+    if (
+      request.expirationMonths !== undefined &&
+      request.expirationMonths < 1
+    ) {
       throw new BadRequestError(
         'O prazo de validade deve ser de pelo menos 1 mês',
       );

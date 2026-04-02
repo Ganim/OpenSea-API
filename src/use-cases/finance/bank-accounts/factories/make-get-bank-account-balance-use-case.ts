@@ -4,5 +4,8 @@ import { GetBankAccountBalanceUseCase } from '../get-bank-account-balance';
 
 export function makeGetBankAccountBalanceUseCase() {
   const repository = new PrismaBankAccountsRepository();
-  return new GetBankAccountBalanceUseCase(repository, getBankingProviderForAccount);
+  return new GetBankAccountBalanceUseCase(
+    repository,
+    getBankingProviderForAccount,
+  );
 }

@@ -32,10 +32,7 @@ export interface CreateEsocialEventData {
 
 export interface EsocialEventsRepository {
   create(data: CreateEsocialEventData): Promise<EsocialEvent>;
-  findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<EsocialEvent | null>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<EsocialEvent | null>;
   findMany(
     params: FindManyEsocialEventsParams,
   ): Promise<FindManyEsocialEventsResult>;

@@ -12,7 +12,7 @@ import { ItemMovementsRepository } from '@/repositories/stock/item-movements-rep
 import { ItemsRepository } from '@/repositories/stock/items-repository';
 import { queueAuditLog } from '@/workers/queues/audit.queue';
 
-const APPROVAL_REQUIRED_TYPES: readonly string[] = [
+const _APPROVAL_REQUIRED_TYPES: readonly string[] = [
   'LOSS',
   'INVENTORY_ADJUSTMENT',
 ];
@@ -100,6 +100,7 @@ export class RegisterItemExitUseCase {
     // If quantity reaches zero, mark item as expired (depleted)
     if (quantityAfter === 0) {
       item.status = ItemStatus.create('EXPIRED');
+      item.exitMovementType = input.movementType;
     }
 
     const { savedItem, movement } = await this.transactionManager.run(

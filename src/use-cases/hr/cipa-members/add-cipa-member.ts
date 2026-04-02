@@ -25,9 +25,7 @@ export class AddCipaMemberUseCase {
     private employeesRepository: EmployeesRepository,
   ) {}
 
-  async execute(
-    request: AddCipaMemberRequest,
-  ): Promise<AddCipaMemberResponse> {
+  async execute(request: AddCipaMemberRequest): Promise<AddCipaMemberResponse> {
     const { tenantId, mandateId, employeeId, role, type } = request;
 
     // Verify mandate exists
@@ -59,9 +57,7 @@ export class AddCipaMemberUseCase {
       );
 
     if (existingMember) {
-      throw new BadRequestError(
-        'Funcionário já é membro deste mandato CIPA',
-      );
+      throw new BadRequestError('Funcionário já é membro deste mandato CIPA');
     }
 
     // Elected members (EMPREGADO) get job stability

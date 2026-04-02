@@ -1,9 +1,7 @@
-import { hash } from 'bcryptjs';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
-import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 
@@ -62,7 +60,7 @@ describe('Auth Links Management (E2E)', () => {
     const { token, user } = await createAndAuthenticateUser(app, {
       tenantId,
     });
-    const userId = user.user.id;
+    const _userId = user.user.id;
 
     // First, create a second auth link so we have 2 active methods
     await request(app.server)

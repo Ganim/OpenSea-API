@@ -55,6 +55,7 @@ export function createModuleMiddleware(module: SystemModule) {
     const tenantContextService = new TenantContextService();
     const isEnabled = await tenantContextService.isModuleEnabled(
       tenantId,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- SystemModule types are identical but separate declarations
       module as any,
     );
 

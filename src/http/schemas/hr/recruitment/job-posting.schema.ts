@@ -3,7 +3,7 @@
  */
 
 import { z } from 'zod';
-import { dateSchema, idSchema, queryBooleanSchema } from '../../common.schema';
+import { cuidSchema, dateSchema } from '../../common.schema';
 
 const jobPostingStatusEnum = z.enum(['DRAFT', 'OPEN', 'CLOSED', 'FILLED']);
 const jobPostingTypeEnum = z.enum([
@@ -52,7 +52,7 @@ export const listJobPostingsQuerySchema = z.object({
 });
 
 export const jobPostingResponseSchema = z.object({
-  id: idSchema,
+  id: cuidSchema,
   title: z.string(),
   description: z.string().nullable(),
   departmentId: z.string().nullable(),

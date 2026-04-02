@@ -22,7 +22,7 @@ export class UpdatePunchConfigUseCase {
     const { tenantId, data } = request;
 
     // Ensure config exists (create default if needed)
-    let existing = await this.punchConfigRepository.findByTenantId(tenantId);
+    const existing = await this.punchConfigRepository.findByTenantId(tenantId);
     if (!existing) {
       await this.punchConfigRepository.create(tenantId);
     }

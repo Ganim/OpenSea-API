@@ -82,7 +82,9 @@ export class TransmitBatchUseCase {
     });
 
     if (approvedEvents.length === 0) {
-      throw new BadRequestError('Nenhum evento aprovado encontrado para transmissão.');
+      throw new BadRequestError(
+        'Nenhum evento aprovado encontrado para transmissão.',
+      );
     }
 
     // 5. Group into batches of max 50 events

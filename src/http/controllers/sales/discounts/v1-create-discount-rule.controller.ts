@@ -48,7 +48,10 @@ export async function createDiscountRuleController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.DISCOUNT_RULE_CREATE,
           entityId: discountRule.id,
-          placeholders: { ruleName: discountRule.name, userName: request.user.sub },
+          placeholders: {
+            ruleName: discountRule.name,
+            userName: request.user.sub,
+          },
           newData: { name: body.name, type: body.type, value: body.value },
         });
 

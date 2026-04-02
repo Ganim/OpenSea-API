@@ -93,13 +93,14 @@ export class ApproveAbsenceUseCase {
     }
 
     // Auto-generate eSocial S-2230 (Absence) event — non-blocking
-    import('@/services/esocial/auto-generate').then(({ tryAutoGenerateEvent }) =>
-      tryAutoGenerateEvent({
-        tenantId,
-        eventType: 'S-2230',
-        referenceType: 'ABSENCE',
-        referenceId: absence.id.toString(),
-      }),
+    import('@/services/esocial/auto-generate').then(
+      ({ tryAutoGenerateEvent }) =>
+        tryAutoGenerateEvent({
+          tenantId,
+          eventType: 'S-2230',
+          referenceType: 'ABSENCE',
+          referenceId: absence.id.toString(),
+        }),
     );
 
     return {

@@ -75,9 +75,7 @@ export class CreateBoletoForEntryUseCase {
 
     // Check if entry already has a boleto
     if (entry.boletoChargeId) {
-      throw new BadRequestError(
-        'This entry already has a registered boleto',
-      );
+      throw new BadRequestError('This entry already has a registered boleto');
     }
 
     // Calculate amount in cents

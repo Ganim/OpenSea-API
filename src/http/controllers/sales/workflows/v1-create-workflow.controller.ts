@@ -48,7 +48,10 @@ export async function createWorkflowController(app: FastifyInstance) {
         await logAudit(request, {
           message: AUDIT_MESSAGES.SALES.WORKFLOW_CREATE,
           entityId: workflow.id,
-          placeholders: { workflowName: workflow.name, userName: request.user.sub },
+          placeholders: {
+            workflowName: workflow.name,
+            userName: request.user.sub,
+          },
           newData: { name: body.name, trigger: body.trigger },
         });
 

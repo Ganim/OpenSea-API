@@ -72,9 +72,8 @@ export class CreatePixChargeForEntryUseCase {
     }
 
     // Calculate charge amount = remaining balance
-    const chargeAmount = entry.remainingBalance > 0
-      ? entry.remainingBalance
-      : entry.totalDue;
+    const chargeAmount =
+      entry.remainingBalance > 0 ? entry.remainingBalance : entry.totalDue;
 
     if (chargeAmount <= 0) {
       throw new BadRequestError(

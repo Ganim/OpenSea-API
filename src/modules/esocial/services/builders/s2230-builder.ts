@@ -65,8 +65,7 @@ export class S2230Builder extends EsocialXmlBuilder<S2230Input> {
     const ideVinculo = this.buildIdeVinculo(input);
     const infoAfastamento = this.buildInfoAfastamento(input);
 
-    const evtContent =
-      ideEvento + ideEmpregador + ideVinculo + infoAfastamento;
+    const evtContent = ideEvento + ideEmpregador + ideVinculo + infoAfastamento;
     const evtAfastTemp = `<evtAfastTemp Id="${eventId}">${evtContent}</evtAfastTemp>`;
 
     const xmlns = `http://www.esocial.gov.br/schema/evt/evtAfastTemp/${this.version}`;
@@ -83,10 +82,7 @@ export class S2230Builder extends EsocialXmlBuilder<S2230Input> {
   private buildInfoAfastamento(input: S2230Input): string {
     // iniAfastamento
     let iniContent = '';
-    iniContent += this.tag(
-      'dtIniAfast',
-      this.formatDate(input.dtIniAfast),
-    );
+    iniContent += this.tag('dtIniAfast', this.formatDate(input.dtIniAfast));
     iniContent += this.tag('codMotAfast', input.codMotAfast);
     if (input.codCID) iniContent += this.tag('codCID', input.codCID);
 
@@ -112,9 +108,7 @@ export class S2230Builder extends EsocialXmlBuilder<S2230Input> {
    * Convert an OpenSea AbsenceType value to the corresponding eSocial motivo code.
    * Returns undefined for absence types that are not reportable to eSocial.
    */
-  static getEsocialMotivo(
-    absenceType: AbsenceTypeValue,
-  ): string | undefined {
+  static getEsocialMotivo(absenceType: AbsenceTypeValue): string | undefined {
     return ABSENCE_TYPE_TO_ESOCIAL_MOTIVO[absenceType];
   }
 

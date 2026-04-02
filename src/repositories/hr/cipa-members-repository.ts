@@ -20,10 +20,7 @@ export interface FindCipaMemberFilters {
 
 export interface CipaMembersRepository {
   create(data: CreateCipaMemberSchema): Promise<CipaMember>;
-  findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<CipaMember | null>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<CipaMember | null>;
   findByMandateAndEmployee(
     mandateId: UniqueEntityID,
     employeeId: UniqueEntityID,

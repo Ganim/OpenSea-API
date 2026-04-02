@@ -18,9 +18,7 @@ export interface ListRubricasResponse {
 export class ListRubricasUseCase {
   constructor(private rubricasRepository: EsocialRubricasRepository) {}
 
-  async execute(
-    request: ListRubricasRequest,
-  ): Promise<ListRubricasResponse> {
+  async execute(request: ListRubricasRequest): Promise<ListRubricasResponse> {
     const { rubricas, total } = await this.rubricasRepository.findMany({
       tenantId: request.tenantId,
       page: request.page,

@@ -1,6 +1,6 @@
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { idSchema } from '@/http/schemas/common.schema';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { makeDeleteSurveyUseCase } from '@/use-cases/hr/surveys/factories';
 
 import type { FastifyInstance } from 'fastify';
@@ -16,7 +16,7 @@ export async function v1DeleteSurveyController(app: FastifyInstance) {
       tags: ['HR - Surveys'],
       summary: 'Delete a survey',
       description: 'Deletes a survey (only draft/closed)',
-      params: z.object({ surveyId: idSchema }),
+      params: z.object({ surveyId: cuidSchema }),
       response: {
         204: z.null(),
       },

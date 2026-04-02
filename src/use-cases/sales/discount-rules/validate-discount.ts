@@ -32,7 +32,9 @@ export class ValidateDiscountUseCase {
   async execute(
     input: ValidateDiscountUseCaseRequest,
   ): Promise<ValidateDiscountUseCaseResponse> {
-    const activeRules = await this.discountRulesRepository.findActiveByTenant(input.tenantId);
+    const activeRules = await this.discountRulesRepository.findActiveByTenant(
+      input.tenantId,
+    );
 
     const orderTotal = input.cartItems.reduce(
       (sum, cartItem) => sum + cartItem.quantity * cartItem.unitPrice,
@@ -50,7 +52,9 @@ export class ValidateDiscountUseCase {
       .filter(Boolean) as string[];
 
     // Sort by priority descending (higher priority first)
-    const sortedRules = [...activeRules].sort((a, b) => b.priority - a.priority);
+    const sortedRules = [...activeRules].sort(
+      (a, b) => b.priority - a.priority,
+    );
 
     const applicableDiscounts: ApplicableDiscount[] = [];
     let hasNonStackableApplied = false;
@@ -117,7 +121,10 @@ export class ValidateDiscountUseCase {
 
     return {
       applicableDiscounts,
-      totalDiscount: Math.min(Math.round(totalDiscount * 100) / 100, orderTotal),
+      totalDiscount: Math.min(
+        Math.round(totalDiscount * 100) / 100,
+        orderTotal,
+      ),
     };
   }
 }

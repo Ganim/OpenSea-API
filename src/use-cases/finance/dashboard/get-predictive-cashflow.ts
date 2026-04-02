@@ -576,7 +576,7 @@ export class GetPredictiveCashflowUseCase {
     expenseValues: number[],
     currentYear: number,
     currentMonth: number,
-    monthsOfData: number,
+    _monthsOfData: number,
   ): number {
     if (netValues.length < 3) return this.simpleStdDev(netValues);
 

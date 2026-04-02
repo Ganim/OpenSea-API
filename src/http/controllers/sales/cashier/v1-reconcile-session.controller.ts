@@ -61,7 +61,7 @@ export async function reconcileSessionController(app: FastifyInstance) {
           placeholders: { userName },
         });
 
-        return reply.status(200).send({ cashierSession } as any);
+        return reply.status(200).send({ cashierSession } as unknown);
       } catch (error) {
         if (error instanceof BadRequestError) {
           return reply.status(400).send({ message: error.message });

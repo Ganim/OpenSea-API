@@ -5,5 +5,8 @@ import { CreateMedicalExamUseCase } from '../create-medical-exam';
 export function makeCreateMedicalExamUseCase() {
   const medicalExamsRepository = new PrismaMedicalExamsRepository();
   const employeesRepository = new PrismaEmployeesRepository();
-  return new CreateMedicalExamUseCase(medicalExamsRepository, employeesRepository);
+  return new CreateMedicalExamUseCase(
+    medicalExamsRepository,
+    employeesRepository,
+  );
 }

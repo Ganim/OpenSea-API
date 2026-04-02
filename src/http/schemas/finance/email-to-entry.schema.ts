@@ -5,7 +5,10 @@ import { z } from 'zod';
 // ============================================================================
 
 export const upsertEmailToEntryConfigSchema = z.object({
-  emailAccountId: z.string().uuid().describe('ID da conta de e-mail a monitorar'),
+  emailAccountId: z
+    .string()
+    .uuid()
+    .describe('ID da conta de e-mail a monitorar'),
   monitoredFolder: z
     .string()
     .min(1)
@@ -16,7 +19,9 @@ export const upsertEmailToEntryConfigSchema = z.object({
   autoCreate: z
     .boolean()
     .default(false)
-    .describe('true = cria lançamento automaticamente, false = cria como rascunho'),
+    .describe(
+      'true = cria lançamento automaticamente, false = cria como rascunho',
+    ),
   defaultType: z
     .enum(['PAYABLE', 'RECEIVABLE'])
     .default('PAYABLE')
@@ -52,7 +57,9 @@ export const processEmailToEntryResponseSchema = z.object({
   processed: z.number().describe('Total de e-mails processados'),
   created: z.number().describe('Lançamentos criados'),
   failed: z.number().describe('Processamentos que falharam'),
-  skipped: z.number().describe('E-mails ignorados (sem anexo ou dados insuficientes)'),
+  skipped: z
+    .number()
+    .describe('E-mails ignorados (sem anexo ou dados insuficientes)'),
   entries: z.array(
     z.object({
       messageId: z.string(),

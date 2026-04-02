@@ -14,9 +14,7 @@ interface ListEntryRetentionsResponse {
 }
 
 export class ListEntryRetentionsUseCase {
-  constructor(
-    private retentionsRepository: FinanceEntryRetentionsRepository,
-  ) {}
+  constructor(private retentionsRepository: FinanceEntryRetentionsRepository) {}
 
   async execute(
     request: ListEntryRetentionsRequest,

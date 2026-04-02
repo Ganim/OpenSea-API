@@ -3,7 +3,6 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { InMemoryBankAccountsRepository } from '@/repositories/finance/in-memory/in-memory-bank-accounts-repository';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
 import { InMemoryPaymentOrdersRepository } from '@/repositories/finance/in-memory/in-memory-payment-orders-repository';
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { CreatePaymentOrderUseCase } from './create-payment-order';
 

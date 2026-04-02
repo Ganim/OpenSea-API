@@ -120,7 +120,8 @@ export class S1005Builder extends EsocialXmlBuilder<S1005Input> {
 
     let idePeriodoContent = '';
     idePeriodoContent += this.tag('iniValid', input.iniValid);
-    if (input.fimValid) idePeriodoContent += this.tag('fimValid', input.fimValid);
+    if (input.fimValid)
+      idePeriodoContent += this.tag('fimValid', input.fimValid);
     content += this.tagGroup('idePeriodo', idePeriodoContent);
 
     return this.tagGroup('ideEstab', content);
@@ -133,8 +134,10 @@ export class S1005Builder extends EsocialXmlBuilder<S1005Input> {
     // aliqGilrat (optional)
     if (input.fap !== undefined || input.aliqRat !== undefined) {
       let aliqContent = '';
-      if (input.aliqRat !== undefined) aliqContent += this.tag('aliqRat', input.aliqRat);
-      if (input.fap !== undefined) aliqContent += this.tag('fap', input.fap.toFixed(4));
+      if (input.aliqRat !== undefined)
+        aliqContent += this.tag('aliqRat', input.aliqRat);
+      if (input.fap !== undefined)
+        aliqContent += this.tag('fap', input.fap.toFixed(4));
       content += this.tagGroup('aliqGilrat', aliqContent);
     }
 
@@ -154,7 +157,8 @@ export class S1005Builder extends EsocialXmlBuilder<S1005Input> {
     if (addr.tpLograd) brasilContent += this.tag('tpLograd', addr.tpLograd);
     brasilContent += this.tag('dscLograd', addr.dscLograd);
     brasilContent += this.tag('nrLograd', addr.nrLograd);
-    if (addr.complemento) brasilContent += this.tag('complemento', addr.complemento);
+    if (addr.complemento)
+      brasilContent += this.tag('complemento', addr.complemento);
     if (addr.bairro) brasilContent += this.tag('bairro', addr.bairro);
     brasilContent += this.tag('cep', this.formatCEP(addr.cep));
     brasilContent += this.tag('codMunic', addr.codMunic);
@@ -167,7 +171,8 @@ export class S1005Builder extends EsocialXmlBuilder<S1005Input> {
   private buildContato(contato: S1005ContatoEstab): string {
     let content = '';
     if (contato.fonePrinc) content += this.tag('fonePrinc', contato.fonePrinc);
-    if (contato.emailPrinc) content += this.tag('emailPrinc', contato.emailPrinc);
+    if (contato.emailPrinc)
+      content += this.tag('emailPrinc', contato.emailPrinc);
     return this.tagGroup('contato', content);
   }
 }

@@ -91,7 +91,7 @@ export async function openSessionController(app: FastifyInstance) {
           },
         });
 
-        return reply.status(201).send({ session: sessionResponse } as any);
+        return reply.status(201).send({ session: sessionResponse } as unknown);
       } catch (error) {
         if (
           error instanceof BadRequestError ||
