@@ -29,6 +29,22 @@ export async function listItemsController(app: FastifyInstance) {
         binId: z.uuid().optional(),
         productId: z.uuid().optional(),
         status: z.string().optional(),
+        search: z.string().optional(),
+        manufacturerId: z.uuid().optional(),
+        zoneId: z.uuid().optional(),
+        hideEmpty: z.coerce.boolean().optional(),
+        sortBy: z
+          .enum([
+            'name',
+            'fullCode',
+            'currentQuantity',
+            'entryDate',
+            'manufacturerName',
+            'binAddress',
+            'createdAt',
+          ])
+          .optional(),
+        sortOrder: z.enum(['asc', 'desc']).optional(),
       }),
       response: {
         200: z.object({
@@ -46,8 +62,20 @@ export async function listItemsController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { variantId, binId, productId, status, page, limit } =
-        request.query;
+      const {
+        variantId,
+        binId,
+        productId,
+        status,
+        search,
+        manufacturerId,
+        zoneId,
+        hideEmpty,
+        sortBy,
+        sortOrder,
+        page,
+        limit,
+      } = request.query;
 
       const listItemsUseCase = makeListItemsUseCase();
       const result = await listItemsUseCase.execute({
@@ -56,6 +84,12 @@ export async function listItemsController(app: FastifyInstance) {
         binId,
         productId,
         status,
+        search,
+        manufacturerId,
+        zoneId,
+        hideEmpty,
+        sortBy,
+        sortOrder,
         page,
         limit,
       });

@@ -73,22 +73,8 @@ export class RegisterItemExitUseCase {
       throw new BadRequestError('Notes cannot exceed 1000 characters.');
     }
 
-    // Validation: approval required for LOSS and INVENTORY_ADJUSTMENT
-    if (
-      APPROVAL_REQUIRED_TYPES.includes(input.movementType) &&
-      !input.approvedBy
-    ) {
-      throw new BadRequestError(
-        `Saídas do tipo ${input.movementType} exigem aprovação (approvedBy).`,
-      );
-    }
-
-    // Validation: approvedBy must differ from userId (self-approval not allowed)
-    if (input.approvedBy && input.approvedBy === input.userId) {
-      throw new BadRequestError(
-        'O aprovador não pode ser o mesmo usuário que registra a saída.',
-      );
-    }
+    // TODO: Implementar sistema de aprovação real (PENDING_APPROVAL → aprovador aceita/rejeita)
+    // Por enquanto, saídas sensíveis (LOSS, INVENTORY_ADJUSTMENT) são protegidas por PIN no frontend
 
     // Validation: item must exist
     const item = await this.itemsRepository.findById(

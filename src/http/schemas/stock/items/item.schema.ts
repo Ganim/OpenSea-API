@@ -160,6 +160,7 @@ export const registerItemExitSchema = z.object({
   reasonCode: z.string().max(50).optional(),
   destinationRef: z.string().max(255).optional(),
   notes: z.string().max(1000).optional(),
+  approvedBy: z.uuid().optional(),
 });
 
 export const itemExitResponseSchema = z.object({

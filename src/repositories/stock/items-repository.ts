@@ -68,6 +68,16 @@ export interface UpdateItemSchema {
   expiryDate?: Date;
 }
 
+export interface ItemListFilters {
+  search?: string;
+  manufacturerId?: string;
+  zoneId?: string;
+  status?: string;
+  hideEmpty?: boolean;
+  sortBy?: string;
+  sortOrder?: 'asc' | 'desc';
+}
+
 export interface ItemsRepository {
   create(data: CreateItemSchema): Promise<Item>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Item | null>;
@@ -105,6 +115,7 @@ export interface ItemsRepository {
   findAllWithRelationsPaginated(
     tenantId: string,
     params: PaginationParams,
+    filters?: ItemListFilters,
   ): Promise<PaginatedResult<ItemWithRelationsDTO>>;
   findByIdWithRelations(
     id: UniqueEntityID,

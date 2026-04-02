@@ -15,6 +15,7 @@ import type {
 } from '../../pagination-params';
 import type {
   CreateItemSchema,
+  ItemListFilters,
   ItemsRepository,
   ItemWithRelationsDTO,
   UpdateItemSchema,
@@ -210,13 +211,91 @@ export class PrismaItemsRepository implements ItemsRepository {
   async findAllWithRelationsPaginated(
     tenantId: string,
     params: PaginationParams,
+    filters?: ItemListFilters,
   ): Promise<PaginatedResult<ItemWithRelationsDTO>> {
-    const where = { tenantId, deletedAt: null };
+    const where: Prisma.ItemWhereInput = { tenantId, deletedAt: null };
+
+    if (filters?.status) {
+      where.status = filters.status as PrismaItemStatus;
+    }
+
+    if (filters?.hideEmpty) {
+      where.currentQuantity = { gt: 0 };
+    }
+
+    if (filters?.manufacturerId) {
+      where.variant = {
+        ...((where.variant as Prisma.VariantWhereInput) ?? {}),
+        product: {
+          manufacturerId: filters.manufacturerId,
+        },
+      };
+    }
+
+    if (filters?.zoneId) {
+      where.bin = {
+        zone: {
+          id: filters.zoneId,
+        },
+      };
+    }
+
+    if (filters?.search) {
+      const searchTerm = filters.search;
+      where.OR = [
+        { fullCode: { contains: searchTerm, mode: 'insensitive' } },
+        { uniqueCode: { contains: searchTerm, mode: 'insensitive' } },
+        { batchNumber: { contains: searchTerm, mode: 'insensitive' } },
+        {
+          variant: {
+            name: { contains: searchTerm, mode: 'insensitive' },
+          },
+        },
+        {
+          variant: {
+            sku: { contains: searchTerm, mode: 'insensitive' },
+          },
+        },
+        {
+          variant: {
+            product: {
+              name: { contains: searchTerm, mode: 'insensitive' },
+            },
+          },
+        },
+        {
+          variant: {
+            product: {
+              template: {
+                name: { contains: searchTerm, mode: 'insensitive' },
+              },
+            },
+          },
+        },
+        {
+          variant: {
+            product: {
+              manufacturer: {
+                name: { contains: searchTerm, mode: 'insensitive' },
+              },
+            },
+          },
+        },
+        {
+          bin: {
+            address: { contains: searchTerm, mode: 'insensitive' },
+          },
+        },
+      ];
+    }
+
+    const orderBy = this.buildOrderBy(filters?.sortBy, filters?.sortOrder);
+
     const [items, total] = await Promise.all([
       prisma.item.findMany({
         where,
         include: this.itemRelationsInclude,
-        orderBy: { createdAt: 'desc' },
+        orderBy,
         skip: (params.page - 1) * params.limit,
         take: params.limit,
       }),
@@ -233,6 +312,32 @@ export class PrismaItemsRepository implements ItemsRepository {
       limit: params.limit,
       totalPages: Math.ceil(total / params.limit),
     };
+  }
+
+  private buildOrderBy(
+    sortBy?: string,
+    sortOrder?: 'asc' | 'desc',
+  ): Prisma.ItemOrderByWithRelationInput {
+    const direction = sortOrder ?? 'desc';
+
+    switch (sortBy) {
+      case 'name':
+        return { variant: { product: { name: direction } } };
+      case 'fullCode':
+        return { fullCode: direction };
+      case 'currentQuantity':
+        return { currentQuantity: direction };
+      case 'entryDate':
+        return { entryDate: direction };
+      case 'manufacturerName':
+        return { variant: { product: { manufacturer: { name: direction } } } };
+      case 'binAddress':
+        return { bin: { address: direction } };
+      case 'createdAt':
+        return { createdAt: direction };
+      default:
+        return { createdAt: 'desc' };
+    }
   }
 
   async findManyByVariantWithRelations(
