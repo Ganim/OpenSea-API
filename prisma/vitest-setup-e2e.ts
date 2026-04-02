@@ -1,7 +1,9 @@
 import { exec } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import { promisify } from 'node:util';
-import { afterAll } from 'vitest';
+import pg from 'pg';
+
+const { Client } = pg;
 
 const execAsync = promisify(exec);
 
@@ -12,252 +14,242 @@ process.env.NODE_ENV = 'test';
 process.env.SILENCE_RATE_LIMIT_LOGS = '1';
 console.log(`🧪 Vitest execArgv: ${JSON.stringify(process.execArgv)}`);
 
-// Gera schema único ANTES de qualquer importação do app
-const schema = `test_${randomUUID().replace(/-/g, '_')}`;
+// ── Configuration ───────────────────────────────────────────────────────
+const TEMPLATE_DB = 'test_e2e_template';
+const runId = randomUUID().replace(/-/g, '').substring(0, 12);
+const TEST_DB = `test_e2e_${runId}`;
 
-// Salva a URL original ANTES de sobrescrever
 const originalDatabaseUrl =
   process.env.DATABASE_URL ||
   'postgresql://docker:docker@localhost:5432/apiopensea?schema=public';
 
-function generateDatabaseUrl(schemaName: string) {
-  const url = new URL(originalDatabaseUrl);
-  url.searchParams.set('schema', schemaName);
-  return url.toString();
+// Parse connection info from the original URL
+const parsedUrl = new URL(originalDatabaseUrl);
+const PG_HOST = parsedUrl.hostname;
+const PG_PORT = parseInt(parsedUrl.port || '5432', 10);
+const PG_USER = decodeURIComponent(parsedUrl.username);
+const PG_PASSWORD = decodeURIComponent(parsedUrl.password);
+const PG_MAIN_DB = parsedUrl.pathname.replace('/', '');
+
+/** Build a DATABASE_URL pointing to a specific database (always public schema) */
+function buildDatabaseUrl(dbName: string): string {
+  const encodedUser = encodeURIComponent(PG_USER);
+  const encodedPassword = encodeURIComponent(PG_PASSWORD);
+  return `postgresql://${encodedUser}:${encodedPassword}@${PG_HOST}:${PG_PORT}/${dbName}?schema=public`;
 }
 
-// Define a URL do banco ANTES de importar qualquer módulo do app
-const testDatabaseUrl = generateDatabaseUrl(schema);
-process.env.DATABASE_URL = testDatabaseUrl;
-
-// Clean up stale test schemas from previous interrupted runs.
-// When tests are killed (Ctrl+C, timeout), afterAll never runs and schemas leak.
-// This prevents accumulation that degrades PostgreSQL performance.
-{
-  const { PrismaClient } = await import('./generated/prisma/client.js');
-  const { PrismaPg } = await import('@prisma/adapter-pg');
-
-  const cleanupAdapter = new PrismaPg({
-    connectionString: originalDatabaseUrl,
+/** Create a raw pg.Client for admin operations (CREATE/DROP DATABASE) */
+function createAdminClient(database = PG_MAIN_DB): pg.Client {
+  return new Client({
+    host: PG_HOST,
+    port: PG_PORT,
+    user: PG_USER,
+    password: PG_PASSWORD,
+    database,
   });
-  const cleanupClient = new PrismaClient({ adapter: cleanupAdapter });
+}
 
+// ── Step 1: Cleanup orphaned test databases ─────────────────────────────
+{
+  const client = createAdminClient();
+  await client.connect();
   try {
-    const staleSchemas: Array<{ nspname: string }> =
-      await cleanupClient.$queryRaw`
-        SELECT nspname FROM pg_namespace
-        WHERE nspname LIKE 'test_%'
-        AND nspname != ${schema}
-        ORDER BY nspname
-      `;
+    const { rows } = await client.query<{ datname: string }>(
+      `SELECT datname FROM pg_database WHERE datname LIKE 'test_e2e_%' AND datname != $1`,
+      [TEMPLATE_DB],
+    );
 
-    if (staleSchemas.length > 0) {
-      console.log(
-        `🧹 Cleaning up ${staleSchemas.length} stale test schema(s)...`,
-      );
-      for (const { nspname } of staleSchemas) {
-        await cleanupClient.$executeRawUnsafe(
-          `DROP SCHEMA IF EXISTS "${nspname}" CASCADE`,
+    if (rows.length > 0) {
+      console.log(`🧹 Cleaning up ${rows.length} stale test database(s)...`);
+      for (const { datname } of rows) {
+        // Terminate active connections first
+        await client.query(
+          `SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = $1 AND pid != pg_backend_pid()`,
+          [datname],
         );
+        await client.query(`DROP DATABASE IF EXISTS "${datname}"`);
       }
-      console.log(`🧹 Stale schemas removed.`);
+      console.log(`🧹 Stale databases removed.`);
     }
   } catch (error) {
-    // Non-fatal: if cleanup fails, continue with the test run
-    console.warn('⚠️ Failed to clean stale test schemas:', error);
+    console.warn('⚠️ Failed to clean stale test databases:', error);
   } finally {
-    await cleanupClient.$disconnect();
+    await client.end();
   }
 }
 
-// Cria o schema PostgreSQL antes de aplicar as migrações.
-// Prisma 7 com driver adapters não cria o schema automaticamente.
+// ── Step 2: Ensure template database exists and is up-to-date ───────────
 {
-  const { PrismaClient } = await import('./generated/prisma/client.js');
-  const { PrismaPg } = await import('@prisma/adapter-pg');
-
-  const createSchemaAdapter = new PrismaPg({
-    connectionString: originalDatabaseUrl,
-  });
-  const createSchemaClient = new PrismaClient({ adapter: createSchemaAdapter });
+  const client = createAdminClient();
+  await client.connect();
 
   try {
-    await createSchemaClient.$executeRawUnsafe(
-      `CREATE SCHEMA IF NOT EXISTS "${schema}"`,
+    // Check if template DB exists
+    const { rows } = await client.query<{ datname: string }>(
+      `SELECT datname FROM pg_database WHERE datname = $1`,
+      [TEMPLATE_DB],
     );
-  } finally {
-    await createSchemaClient.$disconnect();
-  }
-}
 
-// Aplica o schema no banco de testes usando `migrate deploy`.
-// Prisma 7 com driver adapters tem um bug intermitente (P1014) ao aplicar
-// migrações em schemas isolados. A estratégia de retry com recreação do
-// schema resolve o problema de forma confiável.
-// Com fileParallelism: false os specs rodam sequencialmente, então
-// não há contenção do advisory lock do PostgreSQL.
-const MAX_MIGRATE_RETRIES = 3;
-for (let attempt = 1; attempt <= MAX_MIGRATE_RETRIES; attempt++) {
+    if (rows.length === 0) {
+      console.log(`📦 Creating template database "${TEMPLATE_DB}"...`);
+      await client.query(`CREATE DATABASE "${TEMPLATE_DB}"`);
+    }
+  } finally {
+    await client.end();
+  }
+
+  // Apply migrations on template DB
+  const templateUrl = buildDatabaseUrl(TEMPLATE_DB);
+  console.log(`📦 Applying migrations on template...`);
+
   try {
     await execAsync(`npx prisma migrate deploy`, {
-      env: {
-        ...process.env,
-        DATABASE_URL: testDatabaseUrl,
-      },
-      maxBuffer: 1024 * 1024 * 10, // 10MB buffer for large migration output
+      env: { ...process.env, DATABASE_URL: templateUrl },
+      maxBuffer: 1024 * 1024 * 10,
     });
-    break; // Success
   } catch (error) {
     const stderr = (error as { stderr?: string }).stderr || '';
-    if (stderr.includes('P1014') && attempt < MAX_MIGRATE_RETRIES) {
-      console.warn(
-        `⚠️ migrate deploy failed with P1014 (attempt ${attempt}/${MAX_MIGRATE_RETRIES}), retrying...`,
-      );
-      // Drop and recreate the schema before retrying
-      const { PrismaClient } = await import('./generated/prisma/client.js');
-      const { PrismaPg } = await import('@prisma/adapter-pg');
-
-      const retryAdapter = new PrismaPg({
-        connectionString: originalDatabaseUrl,
-      });
-      const retryClient = new PrismaClient({ adapter: retryAdapter });
+    if (stderr.includes('already in sync')) {
+      console.log(`📦 Template already up-to-date.`);
+    } else {
+      // If migration fails, drop and recreate template
+      console.warn(`⚠️ Migration failed, recreating template...`);
+      const client2 = createAdminClient();
+      await client2.connect();
       try {
-        await retryClient.$executeRawUnsafe(
-          `DROP SCHEMA IF EXISTS "${schema}" CASCADE`,
+        await client2.query(
+          `SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = $1 AND pid != pg_backend_pid()`,
+          [TEMPLATE_DB],
         );
-        await retryClient.$executeRawUnsafe(
-          `CREATE SCHEMA IF NOT EXISTS "${schema}"`,
-        );
+        await client2.query(`DROP DATABASE IF EXISTS "${TEMPLATE_DB}"`);
+        await client2.query(`CREATE DATABASE "${TEMPLATE_DB}"`);
       } finally {
-        await retryClient.$disconnect();
+        await client2.end();
       }
-      continue;
+      // Retry migration
+      await execAsync(`npx prisma migrate deploy`, {
+        env: { ...process.env, DATABASE_URL: templateUrl },
+        maxBuffer: 1024 * 1024 * 10,
+      });
     }
-    throw error; // Non-retryable error or max retries exceeded
+  }
+
+  // Seed system user + permissions on template (idempotent)
+  {
+    const { PrismaClient } = await import('./generated/prisma/client.js');
+    const { PrismaPg } = await import('@prisma/adapter-pg');
+
+    const adapter = new PrismaPg({ connectionString: templateUrl });
+    const seedClient = new PrismaClient({ adapter });
+
+    try {
+      // System user
+      await seedClient.user.upsert({
+        where: { id: '00000000-0000-0000-0000-000000000000' },
+        update: {},
+        create: {
+          id: '00000000-0000-0000-0000-000000000000',
+          email: 'system@system.internal',
+          password_hash: 'not-a-real-hash',
+        },
+      });
+
+      // Permissions + admin-test group
+      const { flattenPermissions, ADMIN_TEST_GROUP_SLUG } = await import(
+        '../src/utils/tests/e2e-permissions.ts'
+      );
+
+      const allPerms = flattenPermissions();
+      await seedClient.permission.createMany({
+        data: allPerms.map(
+          (p: {
+            code: string;
+            name: string;
+            description: string;
+            module: string;
+            resource: string;
+            action: string;
+          }) => ({
+            ...p,
+            isSystem: true,
+          }),
+        ),
+        skipDuplicates: true,
+      });
+
+      // Upsert admin group (idempotent for re-runs)
+      let adminGroup = await seedClient.permissionGroup.findFirst({
+        where: { slug: ADMIN_TEST_GROUP_SLUG, deletedAt: null },
+      });
+
+      if (!adminGroup) {
+        adminGroup = await seedClient.permissionGroup.create({
+          data: {
+            name: 'Administrador de Testes',
+            slug: ADMIN_TEST_GROUP_SLUG,
+            description: 'Acesso completo ao sistema para testes E2E',
+            isSystem: true,
+            isActive: true,
+            color: '#DC2626',
+            priority: 100,
+          },
+        });
+      }
+
+      const permissionIds = await seedClient.permission.findMany({
+        select: { id: true },
+      });
+
+      await seedClient.permissionGroupPermission.createMany({
+        data: permissionIds.map((p: { id: string }) => ({
+          groupId: adminGroup.id,
+          permissionId: p.id,
+          effect: 'allow',
+        })),
+        skipDuplicates: true,
+      });
+
+      console.log(
+        `🔑 Template seeded: ${allPerms.length} permissions + admin-test group`,
+      );
+    } finally {
+      await seedClient.$disconnect();
+    }
   }
 }
 
-// Create system user required by EnsureSystemCalendarsUseCase (SYSTEM_USER_ID).
-// We force search_path at the PostgreSQL connection level via the `options` parameter
-// in pg.PoolConfig to ensure PrismaPg uses the correct schema reliably.
+// ── Step 3: Clone template → test database ──────────────────────────────
 {
-  const { PrismaClient } = await import('./generated/prisma/client.js');
-  const { PrismaPg } = await import('@prisma/adapter-pg');
-
-  const adapter = new PrismaPg(
-    {
-      connectionString: testDatabaseUrl,
-      options: `-c search_path="${schema}"`,
-    },
-    { schema },
-  );
-  const setupClient = new PrismaClient({ adapter });
-
-  await setupClient.user
-    .create({
-      data: {
-        id: '00000000-0000-0000-0000-000000000000',
-        email: 'system@system.internal',
-        password_hash: 'not-a-real-hash',
-      },
-    })
-    .catch(() => {
-      // Ignore if already exists
-    });
-
-  await setupClient.$disconnect();
-}
-
-// ── Seed global: permissions + admin-test group ─────────────────────────
-// Roda 1x antes de todos os E2E. Evita que cada createAndAuthenticateUser()
-// execute ~757 queries por chamada (1.709 chamadas × 757 = 1.3M queries).
-{
-  const { PrismaClient } = await import('./generated/prisma/client.js');
-  const { PrismaPg } = await import('@prisma/adapter-pg');
-  // NOTA: vitest-setup-e2e.ts NÃO tem acesso ao alias @/ — usar path relativo
-  const { flattenPermissions, ADMIN_TEST_GROUP_SLUG } = await import(
-    '../src/utils/tests/e2e-permissions.ts'
-  );
-
-  const adapter = new PrismaPg(
-    {
-      connectionString: testDatabaseUrl,
-      options: `-c search_path="${schema}"`,
-    },
-    { schema },
-  );
-  const seedClient = new PrismaClient({ adapter });
-
+  const client = createAdminClient();
+  await client.connect();
   try {
-    // 1. Create all permissions in one batch
-    const allPerms = flattenPermissions();
-    await seedClient.permission.createMany({
-      data: allPerms.map((p: { code: string; name: string; description: string; module: string; resource: string; action: string }) => ({ ...p, isSystem: true })),
-      skipDuplicates: true,
-    });
+    // Ensure no connections to template before cloning
+    await client.query(
+      `SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = $1 AND pid != pg_backend_pid()`,
+      [TEMPLATE_DB],
+    );
 
-    // 2. Create admin-test group
-    const adminGroup = await seedClient.permissionGroup.create({
-      data: {
-        name: 'Administrador de Testes',
-        slug: ADMIN_TEST_GROUP_SLUG,
-        description: 'Acesso completo ao sistema para testes E2E',
-        isSystem: true,
-        isActive: true,
-        color: '#DC2626',
-        priority: 100,
-      },
-    });
-
-    // 3. Fetch all permission IDs and associate to admin group in ONE batch
-    const permissionIds = await seedClient.permission.findMany({
-      select: { id: true },
-    });
-
-    await seedClient.permissionGroupPermission.createMany({
-      data: permissionIds.map((p: { id: string }) => ({
-        groupId: adminGroup.id,
-        permissionId: p.id,
-        effect: 'allow',
-      })),
-      skipDuplicates: true,
-    });
-
+    const start = Date.now();
+    await client.query(
+      `CREATE DATABASE "${TEST_DB}" TEMPLATE "${TEMPLATE_DB}"`,
+    );
     console.log(
-      `🔑 Seeded ${allPerms.length} permissions + admin-test group (${permissionIds.length} associations)`,
+      `🧪 Cloned "${TEMPLATE_DB}" → "${TEST_DB}" in ${Date.now() - start}ms`,
     );
   } finally {
-    await seedClient.$disconnect();
+    await client.end();
   }
 }
 
-console.log(`🧪 Testes E2E usando schema: ${schema}`);
+// ── Step 4: Set DATABASE_URL to cloned DB ───────────────────────────────
+const testDatabaseUrl = buildDatabaseUrl(TEST_DB);
+process.env.DATABASE_URL = testDatabaseUrl;
 
-// Cleanup após todos os testes
-afterAll(async () => {
-  // Desconecta o client do app primeiro
-  try {
-    const { prisma } = await import('@/lib/prisma');
-    await prisma.$disconnect();
-  } catch {
-    // ignora se não conseguir desconectar
-  }
+console.log(`🧪 E2E tests using database: ${TEST_DB}`);
 
-  // Usa conexão separada no schema público para dropar o schema de teste
-  const { PrismaClient } = await import('./generated/prisma/client.js');
-  const { PrismaPg } = await import('@prisma/adapter-pg');
-
-  const adapter = new PrismaPg({ connectionString: originalDatabaseUrl });
-  const cleanupClient = new PrismaClient({ adapter });
-
-  try {
-    await cleanupClient.$executeRawUnsafe(
-      `DROP SCHEMA IF EXISTS "${schema}" CASCADE`,
-    );
-    console.log(`🧹 Schema ${schema} removido com sucesso`);
-  } catch (error) {
-    console.error(`❌ Erro ao remover schema ${schema}:`, error);
-  } finally {
-    await cleanupClient.$disconnect();
-  }
-});
+// ── Cleanup ─────────────────────────────────────────────────────────────
+// With singleFork: true, the setup top-level runs once but afterAll fires per
+// test file. We CANNOT drop the DB here because subsequent test files in the
+// same fork still need it. Instead, we rely on orphan cleanup at the start of
+// the NEXT run (Step 1) to drop stale test databases.
+// This also handles crashes/Ctrl+C gracefully — orphans are always cleaned up.

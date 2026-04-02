@@ -458,6 +458,7 @@ export const ALL_PERMISSIONS: Record<string, Record<string, string[]>> = {
     'company-stakeholder': ['create', 'read', 'update', 'delete', 'manage'],
     settings: ['access', 'admin'],
     audit: ['access', 'admin'],
+    users: ['access', 'admin', 'register', 'modify', 'remove'],
   },
   // FINANCE module
   finance: {
