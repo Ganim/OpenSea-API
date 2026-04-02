@@ -119,11 +119,25 @@ export interface WebhookResult {
   rawPayload: Record<string, unknown>;
 }
 
+// Health check
+export interface HealthCheckResult {
+  provider: string;
+  status: 'healthy' | 'degraded' | 'unhealthy';
+  latencyMs: number;
+  checks: {
+    auth: { ok: boolean; error?: string };
+    balance: { ok: boolean; error?: string };
+    timestamp: string;
+  };
+  sandbox: boolean;
+}
+
 // Provider interface
 export interface BankingProvider {
   readonly providerName: string;
   readonly capabilities: ProviderCapability[];
   authenticate(): Promise<void>;
+  healthCheck(accountId: string): Promise<HealthCheckResult>;
   getAccounts(): Promise<BankAccountData[]>;
   getBalance(accountId: string): Promise<AccountBalance>;
   getTransactions(

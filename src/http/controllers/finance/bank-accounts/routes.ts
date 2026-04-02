@@ -10,6 +10,7 @@ import { getBankAccountBalanceController } from './v1-get-bank-account-balance.c
 import { listBankAccountsController } from './v1-list-bank-accounts.controller';
 import { updateBankAccountController } from './v1-update-bank-account.controller';
 import { updateBankAccountApiConfigController } from './v1-update-bank-account-api-config.controller';
+import { getBankAccountHealthController } from './v1-get-bank-account-health.controller';
 
 export async function bankAccountsRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
@@ -20,6 +21,7 @@ export async function bankAccountsRoutes(app: FastifyInstance) {
       queryApp.register(rateLimit, rateLimitConfig.query);
       queryApp.register(getBankAccountByIdController);
       queryApp.register(getBankAccountBalanceController);
+      queryApp.register(getBankAccountHealthController);
       queryApp.register(listBankAccountsController);
     },
     { prefix: '' },

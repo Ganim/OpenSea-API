@@ -19,10 +19,15 @@ import type {
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const SICOOB_AUTH_URL =
-  'https://auth.sicoob.com.br/auth/realms/cooperado/protocol/openid-connect/token';
+const SICOOB_SANDBOX = process.env.SICOOB_SANDBOX === 'true';
 
-const SICOOB_API_BASE = 'https://api.sicoob.com.br';
+const SICOOB_AUTH_URL = SICOOB_SANDBOX
+  ? 'https://sandbox.sicoob.com.br/auth/realms/cooperado/protocol/openid-connect/token'
+  : 'https://auth.sicoob.com.br/auth/realms/cooperado/protocol/openid-connect/token';
+
+const SICOOB_API_BASE = SICOOB_SANDBOX
+  ? 'https://sandbox.sicoob.com.br'
+  : 'https://api.sicoob.com.br';
 
 /** Refresh the token this many seconds before it expires to avoid race conditions */
 const TOKEN_REFRESH_BUFFER_SECONDS = 30;
@@ -83,6 +88,53 @@ export class SicoobProvider implements BankingProvider {
 
   async authenticate(): Promise<void> {
     await this.getAccessToken();
+  }
+
+  // ─── Health Check ───────────────────────────────────────────────────────
+
+  async healthCheck(
+    accountId: string,
+  ): Promise<import('./banking-provider.interface').HealthCheckResult> {
+    const start = Date.now();
+    const checks = {
+      auth: { ok: false, error: undefined as string | undefined },
+      balance: { ok: false, error: undefined as string | undefined },
+      timestamp: new Date().toISOString(),
+    };
+
+    // Check 1: Authentication (mTLS + OAuth2)
+    try {
+      await this.getAccessToken();
+      checks.auth.ok = true;
+    } catch (err) {
+      checks.auth.error =
+        err instanceof Error ? err.message : 'Auth failed';
+    }
+
+    // Check 2: Balance query (validates API connectivity)
+    if (checks.auth.ok) {
+      try {
+        await this.getBalance(accountId);
+        checks.balance.ok = true;
+      } catch (err) {
+        checks.balance.error =
+          err instanceof Error ? err.message : 'Balance query failed';
+      }
+    } else {
+      checks.balance.error = 'Skipped — auth failed';
+    }
+
+    const latencyMs = Date.now() - start;
+    const allOk = checks.auth.ok && checks.balance.ok;
+    const someOk = checks.auth.ok || checks.balance.ok;
+
+    return {
+      provider: 'SICOOB',
+      status: allOk ? 'healthy' : someOk ? 'degraded' : 'unhealthy',
+      latencyMs,
+      checks,
+      sandbox: SICOOB_SANDBOX,
+    };
   }
 
   // ─── Read ───────────────────────────────────────────────────────────────

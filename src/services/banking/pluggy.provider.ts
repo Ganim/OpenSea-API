@@ -58,6 +58,33 @@ export class PluggyProvider implements BankingProvider {
     await this.getApiKey();
   }
 
+  async healthCheck(
+    _accountId: string,
+  ): Promise<import('./banking-provider.interface').HealthCheckResult> {
+    const start = Date.now();
+    const checks = {
+      auth: { ok: false, error: undefined as string | undefined },
+      balance: { ok: false, error: undefined as string | undefined },
+      timestamp: new Date().toISOString(),
+    };
+
+    try {
+      await this.getApiKey();
+      checks.auth.ok = true;
+      checks.balance.ok = true;
+    } catch (err) {
+      checks.auth.error = err instanceof Error ? err.message : 'Auth failed';
+    }
+
+    return {
+      provider: 'PLUGGY',
+      status: checks.auth.ok ? 'healthy' : 'unhealthy',
+      latencyMs: Date.now() - start,
+      checks,
+      sandbox: false,
+    };
+  }
+
   // ─── BankingProvider: read operations ────────────────────────────────────────
 
   /**
