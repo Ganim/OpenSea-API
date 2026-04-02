@@ -11,6 +11,7 @@ import { listBankAccountsController } from './v1-list-bank-accounts.controller';
 import { updateBankAccountController } from './v1-update-bank-account.controller';
 import { updateBankAccountApiConfigController } from './v1-update-bank-account-api-config.controller';
 import { getBankAccountHealthController } from './v1-get-bank-account-health.controller';
+import { convertPfxCertificateController } from './v1-convert-pfx-certificate.controller';
 
 export async function bankAccountsRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('FINANCE'));
@@ -35,6 +36,7 @@ export async function bankAccountsRoutes(app: FastifyInstance) {
       mutationApp.register(updateBankAccountController);
       mutationApp.register(updateBankAccountApiConfigController);
       mutationApp.register(deleteBankAccountController);
+      mutationApp.register(convertPfxCertificateController);
     },
     { prefix: '' },
   );
