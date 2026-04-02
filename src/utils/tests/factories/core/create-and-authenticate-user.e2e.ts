@@ -1,758 +1,15 @@
 import { prisma } from '@/lib/prisma';
+import {
+  ADMIN_TEST_GROUP_SLUG,
+  generatePermissionName,
+} from '@/utils/tests/e2e-permissions';
 import { makeCreateUserUseCase } from '@/use-cases/core/users/factories/make-create-user-use-case';
 import type { FastifyInstance } from 'fastify';
 
 import request from 'supertest';
 
-/**
- * All permissions organized by module for E2E tests
- */
-const ALL_PERMISSIONS = {
-  // SELF module (own user permissions)
-  self: {
-    profile: [
-      'read',
-      'update',
-      'update-email',
-      'update-password',
-      'update-username',
-      'delete',
-    ],
-    sessions: ['read', 'list', 'revoke'],
-    permissions: ['read', 'list'],
-    groups: ['read', 'list'],
-    audit: ['read', 'list'],
-    employee: ['read'],
-    'time-entries': ['read', 'list', 'create'],
-    schedule: ['read'],
-    'time-bank': ['read', 'list'],
-    vacations: ['read', 'list', 'request', 'cancel'],
-    absences: ['read', 'list', 'request', 'cancel'],
-    payslips: ['read', 'list', 'download'],
-    overtime: ['read', 'list', 'request'],
-  },
-  // CORE module
-  core: {
-    users: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    sessions: ['read', 'delete', 'list', 'revoke', 'revoke-all'],
-    profiles: ['read', 'update'],
-    'label-templates': [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'duplicate',
-      'manage',
-    ],
-    teams: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    'teams.members': ['add', 'remove', 'manage'],
-    'teams.emails': ['link', 'read', 'manage', 'unlink'],
-  },
-  // STOCK module
-  stock: {
-    products: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'request',
-      'approve',
-      'manage',
-      'access',
-      'modify',
-      'import',
-      'register',
-    ],
-    variants: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'request',
-      'approve',
-      'manage',
-      'access',
-      'register',
-      'modify',
-      'remove',
-      'import',
-    ],
-    items: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'request',
-      'approve',
-      'entry',
-      'exit',
-      'transfer',
-      'manage',
-      'access',
-      'admin',
-    ],
-    movements: ['create', 'read', 'list', 'approve'],
-    suppliers: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'manage',
-      'access',
-      'register',
-      'modify',
-      'remove',
-    ],
-    manufacturers: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'manage',
-      'access',
-      'register',
-      'modify',
-      'remove',
-    ],
-    locations: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    categories: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'manage',
-      'access',
-      'register',
-      'modify',
-      'remove',
-    ],
-    tags: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    templates: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'manage',
-      'access',
-      'register',
-      'modify',
-      'remove',
-    ],
-    'purchase-orders': [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'approve',
-      'cancel',
-      'manage',
-      'access',
-      'register',
-      'admin',
-    ],
-    care: ['list', 'read', 'set'],
-    'product-attachments': ['create', 'read', 'delete'],
-    'product-care-instructions': ['create', 'read', 'delete'],
-    'variant-attachments': ['create', 'read', 'delete'],
-    bins: ['list', 'read', 'update', 'manage', 'search'],
-    inventory: ['access', 'register', 'modify', 'admin'],
-    warehouses: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'manage',
-      'access',
-      'register',
-      'modify',
-      'remove',
-      'admin',
-    ],
-    zones: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'manage',
-      'configure',
-      'access',
-      'register',
-      'modify',
-      'remove',
-    ],
-    volumes: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'manage',
-      'close',
-      'reopen',
-      'deliver',
-      'return',
-      'add-item',
-      'remove-item',
-      'romaneio',
-      'access',
-      'register',
-      'modify',
-      'remove',
-      'admin',
-      'print',
-    ],
-  },
-  // SALES module
-  sales: {
-    customers: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'manage',
-      'access',
-      'register',
-      'modify',
-      'remove',
-      'import',
-      'export',
-      'onlyself',
-      'admin',
-    ],
-    contacts: ['access', 'register', 'modify', 'remove', 'admin', 'onlyself'],
-    pipelines: ['access', 'admin'],
-    deals: [
-      'access',
-      'register',
-      'modify',
-      'remove',
-      'reassign',
-      'admin',
-      'onlyself',
-    ],
-    activities: ['access', 'register'],
-    orders: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'request',
-      'approve',
-      'manage',
-      'access',
-      'register',
-      'modify',
-      'remove',
-      'export',
-      'print',
-      'admin',
-      'onlyself',
-      'confirm',
-      'cancel',
-    ],
-    promotions: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    reservations: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    comments: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    notifications: ['create', 'read', 'update', 'delete', 'list'],
-  },
-  // RBAC module
-  rbac: {
-    permissions: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    groups: ['create', 'read', 'update', 'delete', 'list', 'assign', 'manage'],
-    audit: ['read', 'list'],
-    assignments: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    associations: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    'user-groups': ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    'user-permissions': [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'manage',
-    ],
-  },
-  // REQUESTS module
-  requests: {
-    requests: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'assign',
-      'approve',
-      'reject',
-      'cancel',
-      'complete',
-    ],
-    comments: ['create', 'read', 'update', 'delete', 'list'],
-    attachments: ['create', 'read', 'delete', 'list'],
-  },
-  // HR module
-  hr: {
-    companies: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'get_by_cnpj',
-      'restore',
-      'manage',
-    ],
-    employees: [
-      'create',
-      'read',
-      'read.all',
-      'read.team',
-      'update',
-      'update.all',
-      'update.team',
-      'delete',
-      'list',
-      'list.all',
-      'list.team',
-      'terminate',
-      'manage',
-    ],
-    departments: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    positions: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    absences: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'approve',
-      'reject',
-      'manage',
-    ],
-    vacations: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'approve',
-      'reject',
-      'manage',
-    ],
-    'time-entries': ['create', 'read', 'list', 'update', 'delete', 'manage'],
-    overtime: [
-      'create',
-      'read',
-      'read.all',
-      'read.team',
-      'update',
-      'delete',
-      'list',
-      'list.all',
-      'list.team',
-      'approve',
-      'approve.all',
-      'approve.team',
-      'reject',
-      'manage',
-    ],
-    payroll: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'process',
-      'approve',
-      'pay',
-    ],
-    bonuses: ['create', 'read', 'update', 'delete', 'list'],
-    deductions: ['create', 'read', 'update', 'delete', 'list'],
-    'fiscal-settings': [
-      'create',
-      'read',
-      'read_sensitive',
-      'update',
-      'delete',
-      'list',
-    ],
-    stakeholders: [
-      'create',
-      'read',
-      'read_sensitive',
-      'update',
-      'delete',
-      'list',
-      'sync_from_cnpj_api',
-    ],
-    'work-schedules': ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    'time-bank': ['create', 'read', 'update', 'list', 'manage'],
-    'vacation-periods': [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'schedule',
-      'cancel',
-      'complete',
-      'sell',
-      'manage',
-    ],
-    addresses: ['create', 'read', 'update', 'delete', 'list'],
-    cnaes: ['create', 'read', 'update', 'delete', 'list'],
-    'company-addresses': [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'manage',
-    ],
-    'company-cnaes': ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    'company-fiscal-settings': [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'manage',
-    ],
-    'company-stakeholder': [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'manage',
-    ],
-    manufacturers: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    suppliers: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    payrolls: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'process',
-      'approve',
-      'pay',
-      'manage',
-    ],
-    'time-control': ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    admissions: ['access', 'register', 'modify', 'remove', 'admin'],
-  },
-  // ADMIN module (tenant-scoped admin operations)
-  admin: {
-    companies: ['create', 'read', 'update', 'delete', 'restore'],
-    'company-addresses': ['create', 'read', 'update', 'delete', 'manage'],
-    'company-cnaes': ['create', 'read', 'update', 'delete', 'manage'],
-    'company-fiscal-settings': ['create', 'read', 'update', 'delete', 'manage'],
-    'company-stakeholder': ['create', 'read', 'update', 'delete', 'manage'],
-    settings: ['access', 'admin'],
-  },
-  // FINANCE module
-  finance: {
-    companies: ['read'],
-    'cost-centers': ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    'bank-accounts': [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'manage',
-      'admin',
-      'import',
-    ],
-    categories: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    entries: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'pay',
-      'cancel',
-      'manage',
-      'register',
-      'import',
-      'access',
-      'admin',
-    ],
-    attachments: ['create', 'read', 'delete', 'list'],
-    loans: ['create', 'read', 'update', 'delete', 'list', 'pay', 'manage'],
-    consortia: ['create', 'read', 'update', 'delete', 'list', 'pay', 'manage'],
-    recurring: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    contracts: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    dashboard: ['view'],
-    export: ['generate'],
-  },
-  // AUDIT module
-  audit: {
-    logs: ['view', 'list'],
-    history: ['view'],
-    rollback: ['preview', 'execute'],
-    compare: ['view'],
-  },
-  // STORAGE module
-  storage: {
-    interface: ['view'],
-    'user-folders': [
-      'list',
-      'create',
-      'read',
-      'update',
-      'delete',
-      'download',
-      'share-user',
-      'share-group',
-    ],
-    'filter-folders': ['list', 'read', 'download', 'share-user', 'share-group'],
-    'system-folders': ['list', 'read', 'download', 'share-user', 'share-group'],
-    files: [
-      'list',
-      'create',
-      'read',
-      'update',
-      'delete',
-      'download',
-      'share-user',
-      'share-group',
-    ],
-    versions: ['read', 'create', 'restore'],
-    stats: ['view'],
-    security: ['manage'],
-  },
-  // NOTIFICATIONS module
-  notifications: {
-    _root: ['broadcast', 'manage', 'schedule', 'send'],
-    notifications: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    preferences: ['create', 'read', 'update', 'delete', 'list'],
-  },
-  // CALENDAR module
-  calendar: {
-    events: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'list',
-      'manage',
-      'share-users',
-      'share-teams',
-      'export',
-    ],
-    participants: ['invite', 'respond', 'manage'],
-    reminders: ['create', 'delete'],
-  },
-  // REPORTS module
-  reports: {
-    stock: [
-      'view',
-      'generate',
-      'inventory',
-      'movements',
-      'low-stock',
-      'valuation',
-    ],
-    sales: [
-      'view',
-      'generate',
-      'daily',
-      'monthly',
-      'by-customer',
-      'by-product',
-      'by-seller',
-      'commissions',
-    ],
-    hr: ['view', 'generate', 'headcount', 'turnover', 'absences'],
-  },
-  // TASKS module
-  tasks: {
-    boards: ['create', 'read', 'update', 'delete', 'list', 'manage'],
-    cards: ['create', 'read', 'update', 'delete', 'list', 'move', 'assign'],
-    comments: ['create', 'read', 'update', 'delete'],
-    attachments: ['upload', 'delete'],
-    watchers: ['create', 'read', 'delete'],
-  },
-};
-
-/**
- * Generate permission code from module, resource and action
- */
-function generatePermissionCode(
-  module: string,
-  resource: string,
-  action: string,
-): string {
-  return `${module}.${resource}.${action}`;
-}
-
-/**
- * Generate human-readable name for permission
- */
-function generatePermissionName(
-  module: string,
-  resource: string,
-  action: string,
-): string {
-  const actionNames: Record<string, string> = {
-    create: 'Criar',
-    read: 'Visualizar',
-    read_sensitive: 'Visualizar Dados Sensíveis',
-    update: 'Atualizar',
-    delete: 'Excluir',
-    list: 'Listar',
-    manage: 'Gerenciar',
-    approve: 'Aprovar',
-    reject: 'Rejeitar',
-    request: 'Solicitar',
-    assign: 'Atribuir',
-    cancel: 'Cancelar',
-    complete: 'Completar',
-    process: 'Processar',
-    pay: 'Pagar',
-    restore: 'Restaurar',
-    get_by_cnpj: 'Buscar por CNPJ',
-    sync_from_cnpj_api: 'Sincronizar da API CNPJ',
-    view: 'Visualizar',
-    execute: 'Executar',
-    preview: 'Pré-visualizar',
-    schedule: 'Agendar',
-    sell: 'Vender',
-    close: 'Fechar',
-    reopen: 'Reabrir',
-    deliver: 'Entregar',
-    return: 'Retornar',
-    'add-item': 'Adicionar Item',
-    'remove-item': 'Remover Item',
-    romaneio: 'Romaneio',
-    duplicate: 'Duplicar',
-    generate: 'Gerar',
-    link: 'Vincular',
-    unlink: 'Desvincular',
-    download: 'Baixar',
-    'share-user': 'Compartilhar com Usuário',
-    'share-group': 'Compartilhar com Grupo',
-    'share-users': 'Compartilhar com Usuários',
-    'share-teams': 'Compartilhar com Equipes',
-    invite: 'Convidar',
-    respond: 'Responder',
-    export: 'Exportar',
-    move: 'Mover',
-    upload: 'Enviar',
-    import: 'Importar',
-    register: 'Registrar',
-    access: 'Acessar',
-    admin: 'Administrar',
-    onlyself: 'Apenas Próprio',
-  };
-
-  const resourceNames: Record<string, string> = {
-    users: 'Usuários',
-    sessions: 'Sessões',
-    profiles: 'Perfis',
-    'label-templates': 'Templates de Etiquetas',
-    products: 'Produtos',
-    variants: 'Variantes',
-    items: 'Itens',
-    movements: 'Movimentações',
-    suppliers: 'Fornecedores',
-    manufacturers: 'Fabricantes',
-    locations: 'Localizações',
-    categories: 'Categorias',
-    tags: 'Tags',
-    templates: 'Templates',
-    'purchase-orders': 'Pedidos de Compra',
-    'product-attachments': 'Anexos de Produto',
-    'product-care-instructions': 'Instruções de Cuidado de Produto',
-    'variant-attachments': 'Anexos de Variante',
-    customers: 'Clientes',
-    contacts: 'Contatos',
-    pipelines: 'Pipelines',
-    orders: 'Pedidos',
-    promotions: 'Promoções',
-    reservations: 'Reservas',
-    comments: 'Comentários',
-    permissions: 'Permissões',
-    groups: 'Grupos',
-    audit: 'Auditoria',
-    requests: 'Solicitações',
-    attachments: 'Anexos',
-    companies: 'Empresas',
-    employees: 'Funcionários',
-    departments: 'Departamentos',
-    positions: 'Cargos',
-    absences: 'Ausências',
-    vacations: 'Férias',
-    'time-entries': 'Registros de Ponto',
-    overtime: 'Horas Extras',
-    payroll: 'Folha de Pagamento',
-    bonuses: 'Bônus',
-    deductions: 'Deduções',
-    'fiscal-settings': 'Configurações Fiscais',
-    stakeholders: 'Sócios',
-    'work-schedules': 'Jornadas de Trabalho',
-    'time-bank': 'Banco de Horas',
-    'vacation-periods': 'Períodos de Férias',
-    addresses: 'Endereços',
-    cnaes: 'CNAEs',
-    'company-addresses': 'Endereços da Empresa',
-    'company-cnaes': 'CNAEs da Empresa',
-    'company-fiscal-settings': 'Configurações Fiscais da Empresa',
-    'company-stakeholder': 'Sócios da Empresa',
-    payrolls: 'Folhas de Pagamento',
-    'time-control': 'Controle de Ponto',
-    assignments: 'Atribuições',
-    associations: 'Associações',
-    'user-groups': 'Grupos de Usuários',
-    'user-permissions': 'Permissões de Usuários',
-    logs: 'Logs',
-    history: 'Histórico',
-    rollback: 'Rollback',
-    compare: 'Comparação',
-    notifications: 'Notificações',
-    preferences: 'Preferências',
-    volumes: 'Volumes',
-    'cost-centers': 'Centros de Custo',
-    'bank-accounts': 'Contas Bancárias',
-    entries: 'Lançamentos Financeiros',
-    loans: 'Empréstimos',
-    consortia: 'Consórcios',
-    dashboard: 'Dashboard Financeiro',
-    export: 'Exportação Contábil',
-    interface: 'Interface',
-    'user-folders': 'Pastas de Usuário',
-    'filter-folders': 'Pastas de Filtro',
-    'system-folders': 'Pastas do Sistema',
-    files: 'Arquivos',
-    versions: 'Versões',
-    stats: 'Estatísticas',
-    events: 'Eventos',
-    participants: 'Participantes',
-    reminders: 'Lembretes',
-    boards: 'Quadros',
-    cards: 'Cartões',
-  };
-
-  const actionName = actionNames[action] || action;
-  const resourceName = resourceNames[resource] || resource;
-
-  return `${actionName} ${resourceName}`;
-}
+/** Cached admin group ID — avoids 1 findFirst per createAndAuthenticateUser call */
+let cachedAdminGroupId: string | null = null;
 
 /**
  * Options for creating an authenticated user
@@ -793,118 +50,59 @@ export interface CreateUserOptions {
 }
 
 /**
- * Create all permissions and assign them to admin group for E2E tests
+ * Assigns user to the pre-seeded admin-test group.
+ * Permissions and admin group are seeded once in vitest-setup-e2e.ts.
+ * This reduces from ~757 queries to 1-2 queries per user.
  */
 async function setupAllPermissions(userId: string): Promise<void> {
-  // Generate all permissions from the configuration
-  const permissionsToCreate: Array<{
-    code: string;
-    name: string;
-    description: string;
-    module: string;
-    resource: string;
-    action: string;
-  }> = [];
+  if (!cachedAdminGroupId) {
+    const adminGroup = await prisma.permissionGroup.findFirst({
+      where: { slug: ADMIN_TEST_GROUP_SLUG, deletedAt: null },
+    });
 
-  for (const [module, resources] of Object.entries(ALL_PERMISSIONS)) {
-    for (const [resource, actions] of Object.entries(resources)) {
-      for (const action of actions) {
-        const code = generatePermissionCode(module, resource, action);
-        const name = generatePermissionName(module, resource, action);
-        permissionsToCreate.push({
-          code,
-          name,
-          description: `Permissão para ${name.toLowerCase()} no módulo ${module}`,
-          module,
-          resource,
-          action,
-        });
-      }
+    if (!adminGroup) {
+      throw new Error(
+        `Admin test group "${ADMIN_TEST_GROUP_SLUG}" not found. ` +
+          'Ensure vitest-setup-e2e.ts ran the permission seed.',
+      );
     }
+
+    cachedAdminGroupId = adminGroup.id;
   }
 
-  // Create all permissions in batch (skip duplicates for parallel-safe tests)
-  await prisma.permission.createMany({
-    data: permissionsToCreate.map((perm) => ({
-      ...perm,
-      isSystem: true,
-    })),
-    skipDuplicates: true,
-  });
-
-  // Get or create admin group
-  let adminGroup = await prisma.permissionGroup.findFirst({
-    where: { slug: 'admin-test', deletedAt: null },
-  });
-
-  if (!adminGroup) {
-    adminGroup = await prisma.permissionGroup.create({
-      data: {
-        name: 'Administrador de Testes',
-        slug: 'admin-test',
-        description: 'Acesso completo ao sistema para testes E2E',
-        isSystem: true,
-        isActive: true,
-        color: '#DC2626',
-        priority: 100,
-      },
-    });
-  }
-
-  // Get all permissions
-  const allPermissions = await prisma.permission.findMany({
-    select: { id: true },
-  });
-
-  // Assign all permissions to admin group using upsert
-  for (const permission of allPermissions) {
-    await prisma.permissionGroupPermission.upsert({
-      where: {
-        groupId_permissionId: {
-          groupId: adminGroup.id,
-          permissionId: permission.id,
-        },
-      },
-      update: { effect: 'allow' },
-      create: {
-        groupId: adminGroup.id,
-        permissionId: permission.id,
-        effect: 'allow',
-      },
-    });
-  }
-
-  // Assign user to admin group
   await prisma.userPermissionGroup.upsert({
     where: {
       userId_groupId: {
         userId,
-        groupId: adminGroup.id,
+        groupId: cachedAdminGroupId,
       },
     },
     update: {},
     create: {
       userId,
-      groupId: adminGroup.id,
+      groupId: cachedAdminGroupId,
     },
   });
 }
 
 /**
- * Setup specific permissions for a user (for testing specific permission scenarios)
+ * Creates a specific permission group for this user with only the given permissions.
+ * Permissions already exist in DB (seeded globally), so just find and assign.
  */
 async function setupSpecificPermissions(
   userId: string,
   permissionCodes: string[],
 ): Promise<void> {
   if (permissionCodes.length === 0) {
-    // No permissions - user will get 403 on any protected endpoint
-    return;
+    return; // No permissions — user will get 403
   }
 
-  // First ensure all required permissions exist in the database
+  // Ensure the specific permissions exist (some tests use codes not in ALL_PERMISSIONS)
   for (const code of permissionCodes) {
-    const [module, resource, action] = code.split('.');
+    const parts = code.split('.');
+    const module = parts[0];
+    const resource = parts.slice(1, -1).join('.');
+    const action = parts[parts.length - 1];
     const name = generatePermissionName(module, resource, action);
 
     await prisma.permission.upsert({
@@ -922,60 +120,40 @@ async function setupSpecificPermissions(
     });
   }
 
-  // Get or create a test group for specific permissions
+  // Create a unique group for this user's specific permissions
   const groupSlug = `test-specific-${userId.substring(0, 8)}`;
-  let testGroup = await prisma.permissionGroup.findFirst({
-    where: { slug: groupSlug, deletedAt: null },
+
+  const testGroup = await prisma.permissionGroup.create({
+    data: {
+      name: `Grupo de Teste ${userId.substring(0, 8)}`,
+      slug: groupSlug,
+      description: 'Grupo com permissões específicas para teste E2E',
+      isSystem: true,
+      isActive: true,
+      color: '#3B82F6',
+      priority: 50,
+    },
   });
 
-  if (!testGroup) {
-    testGroup = await prisma.permissionGroup.create({
-      data: {
-        name: `Grupo de Teste ${userId.substring(0, 8)}`,
-        slug: groupSlug,
-        description: 'Grupo com permissões específicas para teste E2E',
-        isSystem: true,
-        isActive: true,
-        color: '#3B82F6',
-        priority: 50,
-      },
-    });
-  }
-
-  // Get the specific permissions
+  // Find permission IDs and assign in batch
   const permissions = await prisma.permission.findMany({
     where: { code: { in: permissionCodes } },
     select: { id: true },
   });
 
-  // Assign only the specific permissions to the group
-  for (const permission of permissions) {
-    await prisma.permissionGroupPermission.upsert({
-      where: {
-        groupId_permissionId: {
-          groupId: testGroup.id,
-          permissionId: permission.id,
-        },
-      },
-      update: { effect: 'allow' },
-      create: {
+  if (permissions.length > 0) {
+    await prisma.permissionGroupPermission.createMany({
+      data: permissions.map((p) => ({
         groupId: testGroup.id,
-        permissionId: permission.id,
-        effect: 'allow',
-      },
+        permissionId: p.id,
+        effect: 'allow' as const,
+      })),
+      skipDuplicates: true,
     });
   }
 
-  // Assign user to the test group
-  await prisma.userPermissionGroup.upsert({
-    where: {
-      userId_groupId: {
-        userId,
-        groupId: testGroup.id,
-      },
-    },
-    update: {},
-    create: {
+  await prisma.userPermissionGroup.create({
+    data: {
       userId,
       groupId: testGroup.id,
     },

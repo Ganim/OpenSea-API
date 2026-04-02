@@ -168,6 +168,69 @@ for (let attempt = 1; attempt <= MAX_MIGRATE_RETRIES; attempt++) {
   await setupClient.$disconnect();
 }
 
+// ── Seed global: permissions + admin-test group ─────────────────────────
+// Roda 1x antes de todos os E2E. Evita que cada createAndAuthenticateUser()
+// execute ~757 queries por chamada (1.709 chamadas × 757 = 1.3M queries).
+{
+  const { PrismaClient } = await import('./generated/prisma/client.js');
+  const { PrismaPg } = await import('@prisma/adapter-pg');
+  // NOTA: vitest-setup-e2e.ts NÃO tem acesso ao alias @/ — usar path relativo
+  const { flattenPermissions, ADMIN_TEST_GROUP_SLUG } = await import(
+    '../src/utils/tests/e2e-permissions.ts'
+  );
+
+  const adapter = new PrismaPg(
+    {
+      connectionString: testDatabaseUrl,
+      options: `-c search_path="${schema}"`,
+    },
+    { schema },
+  );
+  const seedClient = new PrismaClient({ adapter });
+
+  try {
+    // 1. Create all permissions in one batch
+    const allPerms = flattenPermissions();
+    await seedClient.permission.createMany({
+      data: allPerms.map((p: { code: string; name: string; description: string; module: string; resource: string; action: string }) => ({ ...p, isSystem: true })),
+      skipDuplicates: true,
+    });
+
+    // 2. Create admin-test group
+    const adminGroup = await seedClient.permissionGroup.create({
+      data: {
+        name: 'Administrador de Testes',
+        slug: ADMIN_TEST_GROUP_SLUG,
+        description: 'Acesso completo ao sistema para testes E2E',
+        isSystem: true,
+        isActive: true,
+        color: '#DC2626',
+        priority: 100,
+      },
+    });
+
+    // 3. Fetch all permission IDs and associate to admin group in ONE batch
+    const permissionIds = await seedClient.permission.findMany({
+      select: { id: true },
+    });
+
+    await seedClient.permissionGroupPermission.createMany({
+      data: permissionIds.map((p: { id: string }) => ({
+        groupId: adminGroup.id,
+        permissionId: p.id,
+        effect: 'allow',
+      })),
+      skipDuplicates: true,
+    });
+
+    console.log(
+      `🔑 Seeded ${allPerms.length} permissions + admin-test group (${permissionIds.length} associations)`,
+    );
+  } finally {
+    await seedClient.$disconnect();
+  }
+}
+
 console.log(`🧪 Testes E2E usando schema: ${schema}`);
 
 // Cleanup após todos os testes
