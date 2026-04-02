@@ -101,8 +101,8 @@ export class TransferItemUseCase {
           quantityAfter: item.currentQuantity,
           movementType: MovementType.create('TRANSFER'),
           reasonCode: input.reasonCode,
-          originRef: originAddress ? `Bin: ${originAddress}` : undefined,
-          destinationRef: `Bin: ${destinationBin.address}`,
+          originRef: originAddress ?? undefined,
+          destinationRef: destinationBin.address,
           notes: input.notes,
         });
 

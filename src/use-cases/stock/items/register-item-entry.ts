@@ -223,7 +223,7 @@ export class RegisterItemEntryUseCase {
             quantityAfter: input.quantity,
             movementType: MovementType.create(entryType),
             reasonCode: 'ENTRY',
-            destinationRef: binAddress ? `Bin: ${binAddress}` : undefined,
+            destinationRef: binAddress ?? undefined,
             notes: input.notes,
             batchNumber: input.batchNumber,
           });

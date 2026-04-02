@@ -70,7 +70,7 @@ export async function listItemMovementsController(app: FastifyInstance) {
             }),
             prisma.user.findMany({
               where: { id: { in: userIds } },
-              select: { id: true, name: true, username: true },
+              select: { id: true, username: true, email: true },
             }),
           ])
         : [[], []];
@@ -79,7 +79,7 @@ export async function listItemMovementsController(app: FastifyInstance) {
         userProfiles.map((p) => [p.userId, `${p.name} ${p.surname}`.trim()]),
       );
       const userFallbackMap = new Map(
-        users.map((u) => [u.id, u.name || u.username]),
+        users.map((u) => [u.id, u.username || u.email]),
       );
 
       const enrichedMovements = movements.map((m) => {

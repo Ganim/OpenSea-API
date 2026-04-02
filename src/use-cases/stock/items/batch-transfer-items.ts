@@ -136,8 +136,8 @@ export class BatchTransferItemsUseCase {
         quantityBefore: item.currentQuantity,
         quantityAfter: item.currentQuantity,
         movementType: MovementType.create('TRANSFER'),
-        originRef: originAddress ? `Bin: ${originAddress}` : undefined,
-        destinationRef: `Bin: ${destinationBin.address}`,
+        originRef: originAddress ?? undefined,
+        destinationRef: destinationBin.address,
         notes: input.notes || 'Batch transfer',
       });
 
