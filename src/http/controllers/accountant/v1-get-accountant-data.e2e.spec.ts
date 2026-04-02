@@ -1,0 +1,31 @@
+import request from 'supertest';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+
+import { app } from '@/app';
+
+describe('Get Accountant Data (E2E)', () => {
+  beforeAll(async () => {
+    await app.ready();
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  it('should return 401 without accountant token', async () => {
+    const response = await request(app.server)
+      .get('/v1/accountant/data')
+      .query({ year: 2025, month: 6 });
+
+    expect(response.status).toBe(401);
+  });
+
+  it('should return 401 with invalid accountant token', async () => {
+    const response = await request(app.server)
+      .get('/v1/accountant/data')
+      .set('Authorization', 'Bearer invalid-token-123')
+      .query({ year: 2025, month: 6 });
+
+    expect(response.status).toBe(401);
+  });
+});

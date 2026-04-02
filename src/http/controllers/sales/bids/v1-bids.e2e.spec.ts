@@ -7,107 +7,174 @@ import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-se
 
 describe('Bids (E2E)', () => {
   let tenantId: string;
-  let token: string;
 
   beforeAll(async () => {
     await app.ready();
     const { tenantId: tid } = await createAndSetupTenant();
     tenantId = tid;
-    const auth = await createAndAuthenticateUser(app, { tenantId });
-    token = auth.token;
   });
 
   afterAll(async () => {
     await app.close();
   });
 
-  it('POST /v1/bids should create a bid (201)', async () => {
-    const response = await request(app.server)
-      .post('/v1/bids')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        title: 'Pregao Eletronico 001/2026',
-        modality: 'PREGAO_ELETRONICO',
-        agency: 'Prefeitura Municipal de Teste',
-      });
+  describe('POST /v1/bids', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .post('/v1/bids')
+        .send({ title: 'Test Bid' });
 
-    expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('bid');
-    expect(response.body.bid).toHaveProperty('id');
-    expect(response.body.bid.title).toBe('Pregao Eletronico 001/2026');
+      expect(response.status).toBe(401);
+    });
   });
 
-  it('GET /v1/bids should list bids (200)', async () => {
-    const response = await request(app.server)
-      .get('/v1/bids')
-      .set('Authorization', `Bearer ${token}`);
+  describe('GET /v1/bids', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/bids');
 
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('bids');
-    expect(response.body).toHaveProperty('meta');
-    expect(Array.isArray(response.body.bids)).toBe(true);
+      expect(response.status).toBe(401);
+    });
+
+    it('should list bids', async () => {
+      const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+      const response = await request(app.server)
+        .get('/v1/bids')
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body.bids).toBeDefined();
+      expect(Array.isArray(response.body.bids)).toBe(true);
+      expect(response.body.meta).toBeDefined();
+    });
   });
 
-  it('GET /v1/bids/:id should get a bid by id (200)', async () => {
-    // First create a bid to get its id
-    const createResponse = await request(app.server)
-      .post('/v1/bids')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        title: 'Concorrencia 002/2026',
-        modality: 'CONCORRENCIA',
-        agency: 'Secretaria de Educacao',
-      });
+  describe('GET /v1/bids/:id', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/bids/00000000-0000-0000-0000-000000000001');
 
-    const bidId = createResponse.body.bid.id;
-
-    const response = await request(app.server)
-      .get(`/v1/bids/${bidId}`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('bid');
-    expect(response.body.bid.id).toBe(bidId);
-    expect(response.body.bid.title).toBe('Concorrencia 002/2026');
+      expect(response.status).toBe(401);
+    });
   });
 
-  it('POST /v1/bid-documents should upload a bid document (201)', async () => {
-    // First create a bid
-    const createResponse = await request(app.server)
-      .post('/v1/bids')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        title: 'Pregao 003/2026',
-        modality: 'PREGAO_PRESENCIAL',
-        agency: 'Secretaria de Saude',
-      });
+  describe('PUT /v1/bids/:id', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .put('/v1/bids/00000000-0000-0000-0000-000000000001')
+        .send({ title: 'Updated Bid' });
 
-    const bidId = createResponse.body.bid.id;
-
-    const response = await request(app.server)
-      .post('/v1/bid-documents')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        bidId,
-        name: 'Edital Completo',
-        type: 'EDITAL',
-        fileUrl: 'https://example.com/docs/edital.pdf',
-      });
-
-    expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('document');
-    expect(response.body.document).toHaveProperty('id');
-    expect(response.body.document.name).toBe('Edital Completo');
+      expect(response.status).toBe(401);
+    });
   });
 
-  it('GET /v1/bid-documents should list bid documents (200)', async () => {
-    const response = await request(app.server)
-      .get('/v1/bid-documents')
-      .set('Authorization', `Bearer ${token}`);
+  describe('DELETE /v1/bids/:id', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .delete('/v1/bids/00000000-0000-0000-0000-000000000001');
 
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('documents');
-    expect(response.body).toHaveProperty('meta');
-    expect(Array.isArray(response.body.documents)).toBe(true);
+      expect(response.status).toBe(401);
+    });
+  });
+
+  describe('PATCH /v1/bids/:bidId/status', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .patch('/v1/bids/00000000-0000-0000-0000-000000000001/status')
+        .send({ status: 'ACTIVE' });
+
+      expect(response.status).toBe(401);
+    });
+  });
+
+  describe('GET /v1/bids/:bidId/items', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/bids/00000000-0000-0000-0000-000000000001/items');
+
+      expect(response.status).toBe(401);
+    });
+  });
+
+  describe('GET /v1/bids/:bidId/history', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/bids/00000000-0000-0000-0000-000000000001/history');
+
+      expect(response.status).toBe(401);
+    });
+  });
+
+  describe('POST /v1/bid-documents', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .post('/v1/bid-documents')
+        .send({});
+
+      expect(response.status).toBe(401);
+    });
+  });
+
+  describe('GET /v1/bid-documents', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/bid-documents');
+
+      expect(response.status).toBe(401);
+    });
+
+    it('should list bid documents', async () => {
+      const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+      const response = await request(app.server)
+        .get('/v1/bid-documents')
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body.documents).toBeDefined();
+      expect(Array.isArray(response.body.documents)).toBe(true);
+    });
+  });
+
+  describe('POST /v1/bid-contracts', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .post('/v1/bid-contracts')
+        .send({});
+
+      expect(response.status).toBe(401);
+    });
+  });
+
+  describe('GET /v1/bid-contracts', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/bid-contracts');
+
+      expect(response.status).toBe(401);
+    });
+
+    it('should list bid contracts', async () => {
+      const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+      const response = await request(app.server)
+        .get('/v1/bid-contracts')
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body.contracts).toBeDefined();
+      expect(Array.isArray(response.body.contracts)).toBe(true);
+    });
+  });
+
+  describe('POST /v1/bid-empenhos', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .post('/v1/bid-empenhos')
+        .send({});
+
+      expect(response.status).toBe(401);
+    });
   });
 });

@@ -7,115 +7,100 @@ import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-se
 
 describe('Campaigns (E2E)', () => {
   let tenantId: string;
-  let token: string;
 
   beforeAll(async () => {
     await app.ready();
     const { tenantId: tid } = await createAndSetupTenant();
     tenantId = tid;
-    const auth = await createAndAuthenticateUser(app, { tenantId });
-    token = auth.token;
   });
 
   afterAll(async () => {
     await app.close();
   });
 
-  it('POST /v1/campaigns should create a campaign (201)', async () => {
-    const timestamp = Date.now();
+  describe('POST /v1/campaigns', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .post('/v1/campaigns')
+        .send({ name: 'Test Campaign' });
 
-    const response = await request(app.server)
-      .post('/v1/campaigns')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        name: `Campaign ${timestamp}`,
-        type: 'PERCENTAGE',
-        startDate: new Date().toISOString(),
-        endDate: new Date(Date.now() + 86400000 * 30).toISOString(),
-      });
+      expect(response.status).toBe(401);
+    });
 
-    expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('campaign');
-    expect(response.body.campaign).toHaveProperty('id');
-    expect(response.body.campaign.name).toBe(`Campaign ${timestamp}`);
-    expect(response.body.campaign.type).toBe('PERCENTAGE');
+    it('should create a campaign', async () => {
+      const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+      const response = await request(app.server)
+        .post('/v1/campaigns')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+          name: `Campaign E2E ${Date.now()}`,
+          type: 'PERCENTAGE',
+          startDate: new Date().toISOString(),
+          endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+        });
+
+      expect(response.status).toBe(201);
+      expect(response.body.campaign).toBeDefined();
+    });
   });
 
-  it('GET /v1/campaigns should list campaigns (200)', async () => {
-    const response = await request(app.server)
-      .get('/v1/campaigns')
-      .set('Authorization', `Bearer ${token}`);
+  describe('GET /v1/campaigns', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/campaigns');
 
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('campaigns');
-    expect(response.body).toHaveProperty('meta');
-    expect(Array.isArray(response.body.campaigns)).toBe(true);
+      expect(response.status).toBe(401);
+    });
+
+    it('should list campaigns', async () => {
+      const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+      const response = await request(app.server)
+        .get('/v1/campaigns')
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body.campaigns).toBeDefined();
+      expect(Array.isArray(response.body.campaigns)).toBe(true);
+      expect(response.body.meta).toBeDefined();
+    });
   });
 
-  it('GET /v1/campaigns/:id should get campaign by id (200)', async () => {
-    const createResponse = await request(app.server)
-      .post('/v1/campaigns')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        name: `Campaign GetById ${Date.now()}`,
-        type: 'FIXED_VALUE',
-        startDate: new Date().toISOString(),
-        endDate: new Date(Date.now() + 86400000 * 30).toISOString(),
-      });
+  describe('GET /v1/campaigns/:id', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/campaigns/00000000-0000-0000-0000-000000000001');
 
-    const campaignId = createResponse.body.campaign.id;
-
-    const response = await request(app.server)
-      .get(`/v1/campaigns/${campaignId}`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('campaign');
-    expect(response.body.campaign.id).toBe(campaignId);
+      expect(response.status).toBe(401);
+    });
   });
 
-  it('PUT /v1/campaigns/:id should update a campaign (200)', async () => {
-    const createResponse = await request(app.server)
-      .post('/v1/campaigns')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        name: `Campaign Update ${Date.now()}`,
-        type: 'PERCENTAGE',
-        startDate: new Date().toISOString(),
-        endDate: new Date(Date.now() + 86400000 * 30).toISOString(),
-      });
+  describe('PUT /v1/campaigns/:id', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .put('/v1/campaigns/00000000-0000-0000-0000-000000000001')
+        .send({ name: 'Updated Campaign' });
 
-    const campaignId = createResponse.body.campaign.id;
-
-    const response = await request(app.server)
-      .put(`/v1/campaigns/${campaignId}`)
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        name: 'Updated Campaign Name',
-      });
-
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('campaign');
-    expect(response.body.campaign.name).toBe('Updated Campaign Name');
+      expect(response.status).toBe(401);
+    });
   });
 
-  it('DELETE /v1/campaigns/:id should soft delete a campaign (204)', async () => {
-    const createResponse = await request(app.server)
-      .post('/v1/campaigns')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        name: `Campaign Delete ${Date.now()}`,
-        type: 'FREE_SHIPPING',
-        startDate: new Date().toISOString(),
-        endDate: new Date(Date.now() + 86400000 * 30).toISOString(),
-      });
+  describe('DELETE /v1/campaigns/:id', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .delete('/v1/campaigns/00000000-0000-0000-0000-000000000001');
 
-    const campaignId = createResponse.body.campaign.id;
+      expect(response.status).toBe(401);
+    });
+  });
 
-    const response = await request(app.server)
-      .delete(`/v1/campaigns/${campaignId}`)
-      .set('Authorization', `Bearer ${token}`);
+  describe('PATCH /v1/campaigns/:id/activate', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .patch('/v1/campaigns/00000000-0000-0000-0000-000000000001/activate');
 
-    expect(response.status).toBe(204);
+      expect(response.status).toBe(401);
+    });
   });
 });

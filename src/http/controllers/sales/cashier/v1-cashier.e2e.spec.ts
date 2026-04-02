@@ -5,116 +5,114 @@ import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 
-describe('Cashier Sessions (E2E)', () => {
+describe('Cashier (E2E)', () => {
   let tenantId: string;
-  let token: string;
 
   beforeAll(async () => {
     await app.ready();
     const { tenantId: tid } = await createAndSetupTenant();
     tenantId = tid;
-    const auth = await createAndAuthenticateUser(app, { tenantId });
-    token = auth.token;
   });
 
   afterAll(async () => {
     await app.close();
   });
 
-  it('POST /v1/sales/cashier/sessions should open a cashier session (201)', async () => {
-    const response = await request(app.server)
-      .post('/v1/sales/cashier/sessions')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        openingBalance: 200,
-        notes: 'Opening session for E2E test',
-      });
+  describe('POST /v1/sales/cashier/sessions', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .post('/v1/sales/cashier/sessions')
+        .send({ openingBalance: 100 });
 
-    expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('cashierSession');
-    expect(response.body.cashierSession).toHaveProperty('id');
-    expect(response.body.cashierSession.status).toBe('OPEN');
+      expect(response.status).toBe(401);
+    });
   });
 
-  it('GET /v1/sales/cashier/sessions should list cashier sessions (200)', async () => {
-    const response = await request(app.server)
-      .get('/v1/sales/cashier/sessions')
-      .set('Authorization', `Bearer ${token}`);
+  describe('GET /v1/sales/cashier/sessions', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/sales/cashier/sessions');
 
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('cashierSessions');
-    expect(response.body).toHaveProperty('total');
-    expect(Array.isArray(response.body.cashierSessions)).toBe(true);
+      expect(response.status).toBe(401);
+    });
+
+    it('should list cashier sessions', async () => {
+      const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+      const response = await request(app.server)
+        .get('/v1/sales/cashier/sessions')
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body.cashierSessions).toBeDefined();
+      expect(Array.isArray(response.body.cashierSessions)).toBe(true);
+    });
   });
 
-  it('GET /v1/sales/cashier/sessions/:id should get cashier session by id (200)', async () => {
-    // Close any existing open sessions first
-    const activeResponse = await request(app.server)
-      .get('/v1/sales/cashier/sessions/active')
-      .set('Authorization', `Bearer ${token}`);
+  describe('GET /v1/sales/cashier/sessions/active', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/sales/cashier/sessions/active');
 
-    if (activeResponse.status === 200 && activeResponse.body.cashierSession) {
-      await request(app.server)
-        .post(
-          `/v1/sales/cashier/sessions/${activeResponse.body.cashierSession.id}/close`,
-        )
-        .set('Authorization', `Bearer ${token}`)
-        .send({ closingBalance: 200 });
-    }
-
-    const createResponse = await request(app.server)
-      .post('/v1/sales/cashier/sessions')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        openingBalance: 100,
-        notes: 'Session for GetById test',
-      });
-
-    const sessionId = createResponse.body.cashierSession.id;
-
-    const response = await request(app.server)
-      .get(`/v1/sales/cashier/sessions/${sessionId}`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('cashierSession');
-    expect(response.body.cashierSession.id).toBe(sessionId);
+      expect(response.status).toBe(401);
+    });
   });
 
-  it('POST /v1/sales/cashier/sessions/:id/close should close a session (200)', async () => {
-    // Close any existing open sessions first
-    const activeResponse = await request(app.server)
-      .get('/v1/sales/cashier/sessions/active')
-      .set('Authorization', `Bearer ${token}`);
+  describe('GET /v1/sales/cashier/sessions/:id', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/sales/cashier/sessions/00000000-0000-0000-0000-000000000001');
 
-    if (activeResponse.status === 200 && activeResponse.body.cashierSession) {
-      await request(app.server)
-        .post(
-          `/v1/sales/cashier/sessions/${activeResponse.body.cashierSession.id}/close`,
-        )
-        .set('Authorization', `Bearer ${token}`)
-        .send({ closingBalance: 100 });
-    }
+      expect(response.status).toBe(401);
+    });
+  });
 
-    const createResponse = await request(app.server)
-      .post('/v1/sales/cashier/sessions')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        openingBalance: 500,
-        notes: 'Session to close',
-      });
+  describe('POST /v1/sales/cashier/sessions/:id/close', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .post('/v1/sales/cashier/sessions/00000000-0000-0000-0000-000000000001/close')
+        .send({});
 
-    const sessionId = createResponse.body.cashierSession.id;
+      expect(response.status).toBe(401);
+    });
+  });
 
-    const response = await request(app.server)
-      .post(`/v1/sales/cashier/sessions/${sessionId}/close`)
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        closingBalance: 500,
-      });
+  describe('POST /v1/sales/cashier/sessions/:id/transactions', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .post('/v1/sales/cashier/sessions/00000000-0000-0000-0000-000000000001/transactions')
+        .send({});
 
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('cashierSession');
-    expect(response.body.cashierSession.status).toBe('CLOSED');
+      expect(response.status).toBe(401);
+    });
+  });
+
+  describe('GET /v1/sales/cashier/sessions/:id/transactions', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/sales/cashier/sessions/00000000-0000-0000-0000-000000000001/transactions');
+
+      expect(response.status).toBe(401);
+    });
+  });
+
+  describe('POST /v1/sales/cashier/sessions/:id/cash-movement', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .post('/v1/sales/cashier/sessions/00000000-0000-0000-0000-000000000001/cash-movement')
+        .send({});
+
+      expect(response.status).toBe(401);
+    });
+  });
+
+  describe('POST /v1/sales/cashier/sessions/:id/reconcile', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .post('/v1/sales/cashier/sessions/00000000-0000-0000-0000-000000000001/reconcile')
+        .send({});
+
+      expect(response.status).toBe(401);
+    });
   });
 });

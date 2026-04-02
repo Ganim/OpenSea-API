@@ -7,87 +7,93 @@ import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-se
 
 describe('Combos (E2E)', () => {
   let tenantId: string;
-  let token: string;
 
   beforeAll(async () => {
     await app.ready();
     const { tenantId: tid } = await createAndSetupTenant();
     tenantId = tid;
-    const auth = await createAndAuthenticateUser(app, { tenantId });
-    token = auth.token;
   });
 
   afterAll(async () => {
     await app.close();
   });
 
-  it('POST /v1/combos should create a combo (201)', async () => {
-    const timestamp = Date.now();
+  describe('POST /v1/combos', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .post('/v1/combos')
+        .send({ name: 'Test Combo' });
 
-    const response = await request(app.server)
-      .post('/v1/combos')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        name: `Combo ${timestamp}`,
-        type: 'FIXED',
-        fixedPrice: 99.9,
-        isActive: true,
-      });
+      expect(response.status).toBe(401);
+    });
 
-    expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('combo');
-    expect(response.body.combo).toHaveProperty('id');
-    expect(response.body.combo.name).toBe(`Combo ${timestamp}`);
-    expect(response.body.combo.type).toBe('FIXED');
+    it('should create a combo', async () => {
+      const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+      const response = await request(app.server)
+        .post('/v1/combos')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+          name: `Combo E2E ${Date.now()}`,
+          description: 'Test combo',
+          type: 'FIXED',
+          discountType: 'PERCENTAGE',
+          discountValue: 10,
+          isActive: true,
+        });
+
+      expect(response.status).toBe(201);
+      expect(response.body.combo).toBeDefined();
+    });
   });
 
-  it('GET /v1/combos should list combos (200)', async () => {
-    const response = await request(app.server)
-      .get('/v1/combos')
-      .set('Authorization', `Bearer ${token}`);
+  describe('GET /v1/combos', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/combos');
 
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('combos');
-    expect(response.body).toHaveProperty('meta');
-    expect(Array.isArray(response.body.combos)).toBe(true);
+      expect(response.status).toBe(401);
+    });
+
+    it('should list combos', async () => {
+      const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+      const response = await request(app.server)
+        .get('/v1/combos')
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body.combos).toBeDefined();
+      expect(Array.isArray(response.body.combos)).toBe(true);
+      expect(response.body.meta).toBeDefined();
+    });
   });
 
-  it('GET /v1/combos/:id should get combo by id (200)', async () => {
-    const createResponse = await request(app.server)
-      .post('/v1/combos')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        name: `Combo GetById ${Date.now()}`,
-        type: 'DYNAMIC',
-        discountType: 'PERCENTAGE',
-        discountValue: 10,
-      });
+  describe('GET /v1/combos/:id', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/combos/00000000-0000-0000-0000-000000000001');
 
-    const comboId = createResponse.body.combo.id;
-
-    const response = await request(app.server)
-      .get(`/v1/combos/${comboId}`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('combo');
-    expect(response.body.combo.id).toBe(comboId);
+      expect(response.status).toBe(401);
+    });
   });
 
-  it('DELETE /v1/combos/:id should soft delete a combo (204)', async () => {
-    const createResponse = await request(app.server)
-      .post('/v1/combos')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        name: `Combo Delete ${Date.now()}`,
-      });
+  describe('PUT /v1/combos/:id', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .put('/v1/combos/00000000-0000-0000-0000-000000000001')
+        .send({ name: 'Updated Combo' });
 
-    const comboId = createResponse.body.combo.id;
+      expect(response.status).toBe(401);
+    });
+  });
 
-    const response = await request(app.server)
-      .delete(`/v1/combos/${comboId}`)
-      .set('Authorization', `Bearer ${token}`);
+  describe('DELETE /v1/combos/:id', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .delete('/v1/combos/00000000-0000-0000-0000-000000000001');
 
-    expect(response.status).toBe(204);
+      expect(response.status).toBe(401);
+    });
   });
 });

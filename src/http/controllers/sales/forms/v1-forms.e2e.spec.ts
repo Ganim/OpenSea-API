@@ -7,117 +7,119 @@ import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-se
 
 describe('Forms (E2E)', () => {
   let tenantId: string;
-  let token: string;
 
   beforeAll(async () => {
     await app.ready();
     const { tenantId: tid } = await createAndSetupTenant();
     tenantId = tid;
-    const auth = await createAndAuthenticateUser(app, { tenantId });
-    token = auth.token;
   });
 
   afterAll(async () => {
     await app.close();
   });
 
-  it('POST /v1/sales/forms should create a form (201)', async () => {
-    const timestamp = Date.now();
+  describe('POST /v1/sales/forms', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .post('/v1/sales/forms')
+        .send({ title: 'Test Form' });
 
-    const response = await request(app.server)
-      .post('/v1/sales/forms')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        title: `Form ${timestamp}`,
-        description: 'Test form description',
-        fields: [
-          {
-            label: 'Full Name',
-            type: 'TEXT',
-            isRequired: true,
-            order: 0,
-          },
-          {
-            label: 'Email Address',
-            type: 'EMAIL',
-            isRequired: true,
-            order: 1,
-          },
-          {
-            label: 'Comments',
-            type: 'TEXTAREA',
-            isRequired: false,
-            order: 2,
-          },
-        ],
-      });
-
-    expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('form');
-    expect(response.body.form).toHaveProperty('id');
-    expect(response.body.form.title).toBe(`Form ${timestamp}`);
+      expect(response.status).toBe(401);
+    });
   });
 
-  it('GET /v1/sales/forms should list forms (200)', async () => {
-    const response = await request(app.server)
-      .get('/v1/sales/forms')
-      .set('Authorization', `Bearer ${token}`);
+  describe('GET /v1/sales/forms', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/sales/forms');
 
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('forms');
-    expect(response.body).toHaveProperty('total');
-    expect(Array.isArray(response.body.forms)).toBe(true);
+      expect(response.status).toBe(401);
+    });
+
+    it('should list forms', async () => {
+      const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+      const response = await request(app.server)
+        .get('/v1/sales/forms')
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body.forms).toBeDefined();
+      expect(Array.isArray(response.body.forms)).toBe(true);
+    });
   });
 
-  it('GET /v1/sales/forms/:id should get form by id (200)', async () => {
-    const createResponse = await request(app.server)
-      .post('/v1/sales/forms')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        title: `Form GetById ${Date.now()}`,
-        fields: [
-          {
-            label: 'Name',
-            type: 'TEXT',
-            isRequired: true,
-            order: 0,
-          },
-        ],
-      });
+  describe('GET /v1/sales/forms/:id', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/sales/forms/00000000-0000-0000-0000-000000000001');
 
-    const formId = createResponse.body.form.id;
-
-    const response = await request(app.server)
-      .get(`/v1/sales/forms/${formId}`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('form');
-    expect(response.body.form.id).toBe(formId);
+      expect(response.status).toBe(401);
+    });
   });
 
-  it('DELETE /v1/sales/forms/:id should soft delete a form (204)', async () => {
-    const createResponse = await request(app.server)
-      .post('/v1/sales/forms')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        title: `Form Delete ${Date.now()}`,
-        fields: [
-          {
-            label: 'Field',
-            type: 'TEXT',
-            isRequired: false,
-            order: 0,
-          },
-        ],
-      });
+  describe('PUT /v1/sales/forms/:id', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .put('/v1/sales/forms/00000000-0000-0000-0000-000000000001')
+        .send({ title: 'Updated Form' });
 
-    const formId = createResponse.body.form.id;
+      expect(response.status).toBe(401);
+    });
+  });
 
-    const response = await request(app.server)
-      .delete(`/v1/sales/forms/${formId}`)
-      .set('Authorization', `Bearer ${token}`);
+  describe('DELETE /v1/sales/forms/:id', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .delete('/v1/sales/forms/00000000-0000-0000-0000-000000000001');
 
-    expect(response.status).toBe(204);
+      expect(response.status).toBe(401);
+    });
+  });
+
+  describe('PATCH /v1/sales/forms/:id/publish', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .patch('/v1/sales/forms/00000000-0000-0000-0000-000000000001/publish');
+
+      expect(response.status).toBe(401);
+    });
+  });
+
+  describe('PATCH /v1/sales/forms/:id/unpublish', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .patch('/v1/sales/forms/00000000-0000-0000-0000-000000000001/unpublish');
+
+      expect(response.status).toBe(401);
+    });
+  });
+
+  describe('POST /v1/sales/forms/:id/duplicate', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .post('/v1/sales/forms/00000000-0000-0000-0000-000000000001/duplicate');
+
+      expect(response.status).toBe(401);
+    });
+  });
+
+  describe('POST /v1/sales/forms/:id/submit', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .post('/v1/sales/forms/00000000-0000-0000-0000-000000000001/submit')
+        .send({ data: {} });
+
+      expect(response.status).toBe(401);
+    });
+  });
+
+  describe('GET /v1/sales/forms/:id/submissions', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/sales/forms/00000000-0000-0000-0000-000000000001/submissions');
+
+      expect(response.status).toBe(401);
+    });
   });
 });

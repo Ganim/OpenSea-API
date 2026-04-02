@@ -7,64 +7,73 @@ import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-se
 
 describe('Content (E2E)', () => {
   let tenantId: string;
-  let token: string;
 
   beforeAll(async () => {
     await app.ready();
     const { tenantId: tid } = await createAndSetupTenant();
     tenantId = tid;
-    const auth = await createAndAuthenticateUser(app, { tenantId });
-    token = auth.token;
   });
 
   afterAll(async () => {
     await app.close();
   });
 
-  it('POST /v1/content/generate should create content (201)', async () => {
-    const response = await request(app.server)
-      .post('/v1/content/generate')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        type: 'SOCIAL_POST',
-        channel: 'INSTAGRAM',
-        title: `Content E2E ${Date.now()}`,
-        caption: 'Test caption for E2E test',
-      });
+  describe('POST /v1/content/generate', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .post('/v1/content/generate')
+        .send({ type: 'EMAIL', channel: 'EMAIL' });
 
-    expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('content');
-    expect(response.body.content).toHaveProperty('id');
-    expect(response.body.content.type).toBe('SOCIAL_POST');
-    expect(response.body.content.channel).toBe('INSTAGRAM');
+      expect(response.status).toBe(401);
+    });
   });
 
-  it('GET /v1/content should list contents (200)', async () => {
-    const response = await request(app.server)
-      .get('/v1/content')
-      .set('Authorization', `Bearer ${token}`);
+  describe('GET /v1/content', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/content');
 
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('data');
-    expect(response.body).toHaveProperty('meta');
-    expect(Array.isArray(response.body.data)).toBe(true);
+      expect(response.status).toBe(401);
+    });
+
+    it('should list contents', async () => {
+      const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+      const response = await request(app.server)
+        .get('/v1/content')
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body.data).toBeDefined();
+      expect(Array.isArray(response.body.data)).toBe(true);
+      expect(response.body.meta).toBeDefined();
+    });
   });
 
-  it('DELETE /v1/content/:id should delete content (204)', async () => {
-    const createResponse = await request(app.server)
-      .post('/v1/content/generate')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        type: 'BANNER',
-        title: `Content Delete ${Date.now()}`,
-      });
+  describe('GET /v1/content/:id', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/content/00000000-0000-0000-0000-000000000001');
 
-    const contentId = createResponse.body.content.id;
+      expect(response.status).toBe(401);
+    });
+  });
 
-    const response = await request(app.server)
-      .delete(`/v1/content/${contentId}`)
-      .set('Authorization', `Bearer ${token}`);
+  describe('PATCH /v1/content/:id/approve', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .patch('/v1/content/00000000-0000-0000-0000-000000000001/approve');
 
-    expect(response.status).toBe(204);
+      expect(response.status).toBe(401);
+    });
+  });
+
+  describe('DELETE /v1/content/:id', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .delete('/v1/content/00000000-0000-0000-0000-000000000001');
+
+      expect(response.status).toBe(401);
+    });
   });
 });

@@ -59,24 +59,31 @@ export async function listItemMovementsController(app: FastifyInstance) {
         ...filters,
       });
 
-      // Enrich movements with user profile data
+      // Enrich movements with user profile data (fallback to User.name/username)
       const userIds = [...new Set(movements.map((m) => m.userId))];
-      const userProfiles =
-        userIds.length > 0
-          ? await prisma.userProfile.findMany({
+
+      const [userProfiles, users] = userIds.length > 0
+        ? await Promise.all([
+            prisma.userProfile.findMany({
               where: { userId: { in: userIds } },
               select: { userId: true, name: true, surname: true },
-            })
-          : [];
-      const userMap = new Map(
-        userProfiles.map((p) => [
-          p.userId,
-          `${p.name} ${p.surname}`.trim() || null,
-        ]),
+            }),
+            prisma.user.findMany({
+              where: { id: { in: userIds } },
+              select: { id: true, name: true, username: true },
+            }),
+          ])
+        : [[], []];
+
+      const profileMap = new Map(
+        userProfiles.map((p) => [p.userId, `${p.name} ${p.surname}`.trim()]),
+      );
+      const userFallbackMap = new Map(
+        users.map((u) => [u.id, u.name || u.username]),
       );
 
       const enrichedMovements = movements.map((m) => {
-        const userName = userMap.get(m.userId);
+        const userName = profileMap.get(m.userId) || userFallbackMap.get(m.userId);
         return {
           ...m,
           user: userName ? { id: m.userId, name: userName } : null,

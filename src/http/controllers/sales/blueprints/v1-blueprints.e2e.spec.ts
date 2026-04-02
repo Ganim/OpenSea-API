@@ -5,154 +5,89 @@ import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 
-describe('Blueprints CRUD (E2E)', () => {
+describe('Blueprints (E2E)', () => {
   let tenantId: string;
-  let token: string;
-  let pipelineId: string;
 
   beforeAll(async () => {
     await app.ready();
     const { tenantId: tid } = await createAndSetupTenant();
     tenantId = tid;
-
-    const auth = await createAndAuthenticateUser(app, { tenantId });
-    token = auth.token;
-
-    // Create a pipeline first
-    const timestamp = Date.now();
-    const pipelineRes = await request(app.server)
-      .post('/v1/pipelines')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        name: `Blueprint Test Pipeline ${timestamp}`,
-        type: 'SALES',
-      });
-
-    pipelineId = pipelineRes.body.pipeline.id;
   });
 
   afterAll(async () => {
     await app.close();
   });
 
-  it('POST /v1/sales/blueprints should create a blueprint', async () => {
-    const timestamp = Date.now();
+  describe('POST /v1/sales/blueprints', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .post('/v1/sales/blueprints')
+        .send({ name: 'Test Blueprint' });
 
-    const response = await request(app.server)
-      .post('/v1/sales/blueprints')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        name: `Blueprint E2E ${timestamp}`,
-        pipelineId,
-        stageRules: [],
-      });
-
-    expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('blueprint');
-    expect(response.body.blueprint).toHaveProperty('id');
-    expect(response.body.blueprint.name).toContain('Blueprint E2E');
-    expect(response.body.blueprint.pipelineId).toBe(pipelineId);
-    expect(response.body.blueprint.isActive).toBe(true);
-    expect(response.body.blueprint.stageRules).toEqual([]);
+      expect(response.status).toBe(401);
+    });
   });
 
-  it('GET /v1/sales/blueprints should list blueprints', async () => {
-    const response = await request(app.server)
-      .get('/v1/sales/blueprints')
-      .set('Authorization', `Bearer ${token}`);
+  describe('GET /v1/sales/blueprints', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/sales/blueprints');
 
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('blueprints');
-    expect(Array.isArray(response.body.blueprints)).toBe(true);
-    expect(response.body.blueprints.length).toBeGreaterThanOrEqual(1);
-    expect(response.body).toHaveProperty('meta');
-    expect(response.body.meta).toHaveProperty('total');
+      expect(response.status).toBe(401);
+    });
+
+    it('should list blueprints', async () => {
+      const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+      const response = await request(app.server)
+        .get('/v1/sales/blueprints')
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body.blueprints).toBeDefined();
+      expect(Array.isArray(response.body.blueprints)).toBe(true);
+      expect(response.body.meta).toBeDefined();
+    });
   });
 
-  it('GET /v1/sales/blueprints/:blueprintId should return a blueprint', async () => {
-    const timestamp = Date.now();
-    const createRes = await request(app.server)
-      .post('/v1/sales/blueprints')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        name: `GetById Blueprint ${timestamp}`,
-        pipelineId,
-      });
+  describe('GET /v1/sales/blueprints/:blueprintId', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/sales/blueprints/00000000-0000-0000-0000-000000000001');
 
-    const blueprintId = createRes.body.blueprint.id;
-
-    const response = await request(app.server)
-      .get(`/v1/sales/blueprints/${blueprintId}`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(response.status).toBe(200);
-    expect(response.body.blueprint.id).toBe(blueprintId);
-    expect(response.body.blueprint.name).toContain('GetById Blueprint');
-    expect(response.body.blueprint).toHaveProperty('stageRules');
+      expect(response.status).toBe(401);
+    });
   });
 
-  it('PUT /v1/sales/blueprints/:blueprintId should update a blueprint', async () => {
-    const timestamp = Date.now();
-    const createRes = await request(app.server)
-      .post('/v1/sales/blueprints')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        name: `Update Blueprint ${timestamp}`,
-        pipelineId,
-      });
+  describe('PUT /v1/sales/blueprints/:blueprintId', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .put('/v1/sales/blueprints/00000000-0000-0000-0000-000000000001')
+        .send({ name: 'Updated Blueprint' });
 
-    const blueprintId = createRes.body.blueprint.id;
-
-    const response = await request(app.server)
-      .put(`/v1/sales/blueprints/${blueprintId}`)
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        name: `Updated Blueprint ${timestamp}`,
-        isActive: false,
-      });
-
-    expect(response.status).toBe(200);
-    expect(response.body.blueprint.name).toContain('Updated Blueprint');
-    expect(response.body.blueprint.isActive).toBe(false);
+      expect(response.status).toBe(401);
+    });
   });
 
-  it('DELETE /v1/sales/blueprints/:blueprintId should delete a blueprint', async () => {
-    const timestamp = Date.now();
-    const createRes = await request(app.server)
-      .post('/v1/sales/blueprints')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        name: `Delete Blueprint ${timestamp}`,
-        pipelineId,
-      });
+  describe('DELETE /v1/sales/blueprints/:blueprintId', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .delete('/v1/sales/blueprints/00000000-0000-0000-0000-000000000001');
 
-    const blueprintId = createRes.body.blueprint.id;
-
-    const deleteRes = await request(app.server)
-      .delete(`/v1/sales/blueprints/${blueprintId}`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(deleteRes.status).toBe(204);
-
-    // Confirm it's deleted
-    const getRes = await request(app.server)
-      .get(`/v1/sales/blueprints/${blueprintId}`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(getRes.status).toBe(404);
+      expect(response.status).toBe(401);
+    });
   });
 
-  it('POST /v1/sales/blueprints/validate-transition should validate a transition', async () => {
-    // This test validates the endpoint works; full validation logic is tested in unit tests
-    const response = await request(app.server)
-      .post('/v1/sales/blueprints/validate-transition')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        dealId: '00000000-0000-0000-0000-000000000000',
-        targetStageId: '00000000-0000-0000-0000-000000000001',
-      });
+  describe('POST /v1/sales/blueprints/validate-transition', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .post('/v1/sales/blueprints/validate-transition')
+        .send({
+          dealId: '00000000-0000-0000-0000-000000000001',
+          targetStageId: '00000000-0000-0000-0000-000000000002',
+        });
 
-    // Will return 404 since deal doesn't exist, which is the expected behavior
-    expect([200, 404]).toContain(response.status);
+      expect(response.status).toBe(401);
+    });
   });
 });

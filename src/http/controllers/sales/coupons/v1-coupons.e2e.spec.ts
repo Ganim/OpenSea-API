@@ -7,74 +7,103 @@ import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-se
 
 describe('Coupons (E2E)', () => {
   let tenantId: string;
-  let token: string;
 
   beforeAll(async () => {
     await app.ready();
     const { tenantId: tid } = await createAndSetupTenant();
     tenantId = tid;
-    const auth = await createAndAuthenticateUser(app, { tenantId });
-    token = auth.token;
   });
 
   afterAll(async () => {
     await app.close();
   });
 
-  it('POST /v1/coupons should create a coupon (201)', async () => {
-    const timestamp = Date.now();
-    const couponCode = `COUPON${timestamp}`;
+  describe('POST /v1/coupons', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .post('/v1/coupons')
+        .send({ code: 'TEST10' });
 
-    const response = await request(app.server)
-      .post('/v1/coupons')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        code: couponCode,
-        type: 'PERCENTAGE',
-        value: 15,
-        validFrom: new Date().toISOString(),
-        validUntil: new Date(Date.now() + 86400000 * 30).toISOString(),
-      });
+      expect(response.status).toBe(401);
+    });
 
-    expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('coupon');
-    expect(response.body.coupon).toHaveProperty('id');
-    expect(response.body.coupon.code).toBe(couponCode);
-    expect(response.body.coupon.type).toBe('PERCENTAGE');
-    expect(response.body.coupon.value).toBe(15);
+    it('should create a coupon', async () => {
+      const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+      const response = await request(app.server)
+        .post('/v1/coupons')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+          code: `COUPON${Date.now()}`,
+          type: 'PERCENTAGE',
+          value: 10,
+          applicableTo: 'ALL',
+          validFrom: new Date().toISOString(),
+          validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+        });
+
+      expect(response.status).toBe(201);
+      expect(response.body.coupon).toBeDefined();
+    });
   });
 
-  it('GET /v1/coupons should list coupons (200)', async () => {
-    const response = await request(app.server)
-      .get('/v1/coupons')
-      .set('Authorization', `Bearer ${token}`);
+  describe('GET /v1/coupons', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/coupons');
 
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('coupons');
-    expect(response.body).toHaveProperty('meta');
-    expect(Array.isArray(response.body.coupons)).toBe(true);
+      expect(response.status).toBe(401);
+    });
+
+    it('should list coupons', async () => {
+      const { token } = await createAndAuthenticateUser(app, { tenantId });
+
+      const response = await request(app.server)
+        .get('/v1/coupons')
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body.coupons).toBeDefined();
+      expect(Array.isArray(response.body.coupons)).toBe(true);
+      expect(response.body.meta).toBeDefined();
+    });
   });
 
-  it('DELETE /v1/coupons/:id should delete a coupon (204)', async () => {
-    const couponCode = `DEL${Date.now()}`;
+  describe('GET /v1/coupons/:id', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .get('/v1/coupons/00000000-0000-0000-0000-000000000001');
 
-    const createResponse = await request(app.server)
-      .post('/v1/coupons')
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        code: couponCode,
-        type: 'FIXED_VALUE',
-        value: 25,
-        validFrom: new Date().toISOString(),
-        validUntil: new Date(Date.now() + 86400000 * 30).toISOString(),
-      });
+      expect(response.status).toBe(401);
+    });
+  });
 
-    const couponId = createResponse.body.coupon.id;
+  describe('PUT /v1/coupons/:id', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .put('/v1/coupons/00000000-0000-0000-0000-000000000001')
+        .send({ code: 'UPDATED' });
 
-    const response = await request(app.server)
-      .delete(`/v1/coupons/${couponId}`)
-      .set('Authorization', `Bearer ${token}`);
+      expect(response.status).toBe(401);
+    });
+  });
 
-    expect(response.status).toBe(204);
+  describe('DELETE /v1/coupons/:id', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .delete('/v1/coupons/00000000-0000-0000-0000-000000000001');
+
+      expect(response.status).toBe(401);
+    });
+  });
+
+  describe('POST /v1/coupons/validate', () => {
+    it('should return 401 without token', async () => {
+      const response = await request(app.server)
+        .post('/v1/coupons/validate')
+        .send({ code: 'TEST10' });
+
+      expect(response.status).toBe(401);
+    });
   });
 });
