@@ -73,6 +73,33 @@ export async function createAndSetupTenant(
     },
   });
 
+  // Add all system modules to the plan so module middleware doesn't block
+  const allModules = [
+    'CORE',
+    'STOCK',
+    'SALES',
+    'HR',
+    'PAYROLL',
+    'REPORTS',
+    'AUDIT',
+    'REQUESTS',
+    'NOTIFICATIONS',
+    'FINANCE',
+    'CALENDAR',
+    'STORAGE',
+    'EMAIL',
+    'TASKS',
+    'MESSAGING',
+  ] as const;
+
+  await prisma.planModule.createMany({
+    data: allModules.map((mod) => ({
+      planId,
+      module: mod,
+    })),
+    skipDuplicates: true,
+  });
+
   return {
     tenant,
     tenantId: tenant.id,

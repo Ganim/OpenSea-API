@@ -1,5 +1,4 @@
 import { exec } from 'node:child_process';
-import { randomUUID } from 'node:crypto';
 import { promisify } from 'node:util';
 import pg from 'pg';
 
@@ -12,12 +11,13 @@ process.loadEnvFile();
 
 process.env.NODE_ENV = 'test';
 process.env.SILENCE_RATE_LIMIT_LOGS = '1';
-console.log(`🧪 Vitest execArgv: ${JSON.stringify(process.execArgv)}`);
 
 // ── Configuration ───────────────────────────────────────────────────────
-const TEMPLATE_DB = 'test_e2e_template';
-const runId = randomUUID().replace(/-/g, '').substring(0, 12);
-const TEST_DB = `test_e2e_${runId}`;
+// Use a single persistent test database instead of cloning per-run.
+// Cloning was unreliable with Prisma 7 + PrismaPg — the cloned database
+// would "disappear" between setup and test execution. Using a single
+// persistent DB with data cleanup avoids this entirely.
+const TEST_DB = 'test_e2e_persistent';
 
 const originalDatabaseUrl =
   process.env.DATABASE_URL ||
@@ -49,20 +49,19 @@ function createAdminClient(database = PG_MAIN_DB): pg.Client {
   });
 }
 
-// ── Step 1: Cleanup orphaned test databases ─────────────────────────────
+// ── Step 1: Cleanup orphaned test databases (keep persistent one) ────────
 {
   const client = createAdminClient();
   await client.connect();
   try {
     const { rows } = await client.query<{ datname: string }>(
       `SELECT datname FROM pg_database WHERE datname LIKE 'test_e2e_%' AND datname != $1`,
-      [TEMPLATE_DB],
+      [TEST_DB],
     );
 
     if (rows.length > 0) {
       console.log(`🧹 Cleaning up ${rows.length} stale test database(s)...`);
       for (const { datname } of rows) {
-        // Terminate active connections first
         await client.query(
           `SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = $1 AND pid != pg_backend_pid()`,
           [datname],
@@ -78,68 +77,54 @@ function createAdminClient(database = PG_MAIN_DB): pg.Client {
   }
 }
 
-// ── Step 2: Ensure template database exists and is up-to-date ───────────
+// ── Step 2: Ensure test database exists and is up-to-date ────────────────
 {
   const client = createAdminClient();
   await client.connect();
 
   try {
-    // Check if template DB exists
     const { rows } = await client.query<{ datname: string }>(
       `SELECT datname FROM pg_database WHERE datname = $1`,
-      [TEMPLATE_DB],
+      [TEST_DB],
     );
 
     if (rows.length === 0) {
-      console.log(`📦 Creating template database "${TEMPLATE_DB}"...`);
-      await client.query(`CREATE DATABASE "${TEMPLATE_DB}"`);
+      console.log(`📦 Creating test database "${TEST_DB}"...`);
+      await client.query(`CREATE DATABASE "${TEST_DB}"`);
     }
   } finally {
     await client.end();
   }
 
-  // Apply migrations on template DB
-  const templateUrl = buildDatabaseUrl(TEMPLATE_DB);
-  console.log(`📦 Applying migrations on template...`);
+  // Sync schema using db push (handles models added after last migration)
+  const testUrl = buildDatabaseUrl(TEST_DB);
+  console.log(`📦 Syncing schema on "${TEST_DB}"...`);
 
   try {
-    await execAsync(`npx prisma migrate deploy`, {
-      env: { ...process.env, DATABASE_URL: templateUrl },
+    await execAsync(`npx prisma db push --accept-data-loss`, {
+      env: { ...process.env, DATABASE_URL: testUrl },
       maxBuffer: 1024 * 1024 * 10,
     });
   } catch (error) {
     const stderr = (error as { stderr?: string }).stderr || '';
-    if (stderr.includes('already in sync')) {
-      console.log(`📦 Template already up-to-date.`);
-    } else {
-      // If migration fails, drop and recreate template
-      console.warn(`⚠️ Migration failed, recreating template...`);
-      const client2 = createAdminClient();
-      await client2.connect();
-      try {
-        await client2.query(
-          `SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = $1 AND pid != pg_backend_pid()`,
-          [TEMPLATE_DB],
-        );
-        await client2.query(`DROP DATABASE IF EXISTS "${TEMPLATE_DB}"`);
-        await client2.query(`CREATE DATABASE "${TEMPLATE_DB}"`);
-      } finally {
-        await client2.end();
-      }
-      // Retry migration
-      await execAsync(`npx prisma migrate deploy`, {
-        env: { ...process.env, DATABASE_URL: templateUrl },
-        maxBuffer: 1024 * 1024 * 10,
-      });
-    }
+    console.error(`⚠️ Schema sync failed:`, stderr);
+    throw error;
   }
 
-  // Seed system user + permissions on template (idempotent)
+  // Seed system user + permissions (idempotent)
   {
     const { PrismaClient } = await import('./generated/prisma/client.js');
     const { PrismaPg } = await import('@prisma/adapter-pg');
 
-    const adapter = new PrismaPg({ connectionString: templateUrl });
+    // Use explicit config fields — PrismaPg 7.x has issues with connectionString-only config
+    const tplParsed = new URL(testUrl);
+    const adapter = new PrismaPg({
+      host: tplParsed.hostname,
+      port: parseInt(tplParsed.port || '5432', 10),
+      user: decodeURIComponent(tplParsed.username),
+      password: decodeURIComponent(tplParsed.password),
+      database: tplParsed.pathname.replace('/', ''),
+    });
     const seedClient = new PrismaClient({ adapter });
 
     try {
@@ -177,7 +162,6 @@ function createAdminClient(database = PG_MAIN_DB): pg.Client {
         skipDuplicates: true,
       });
 
-      // Upsert admin group (idempotent for re-runs)
       let adminGroup = await seedClient.permissionGroup.findFirst({
         where: { slug: ADMIN_TEST_GROUP_SLUG, deletedAt: null },
       });
@@ -210,7 +194,7 @@ function createAdminClient(database = PG_MAIN_DB): pg.Client {
       });
 
       console.log(
-        `🔑 Template seeded: ${allPerms.length} permissions + admin-test group`,
+        `🔑 Test DB seeded: ${allPerms.length} permissions + admin-test group`,
       );
     } finally {
       await seedClient.$disconnect();
@@ -218,38 +202,47 @@ function createAdminClient(database = PG_MAIN_DB): pg.Client {
   }
 }
 
-// ── Step 3: Clone template → test database ──────────────────────────────
+// ── Step 3: Clean test data from previous runs ───────────────────────────
+// Truncate all tables except seed tables in a single TRUNCATE ... CASCADE.
+// This avoids FK constraint issues without needing superuser privileges.
 {
-  const client = createAdminClient();
+  const client = createAdminClient(TEST_DB);
   await client.connect();
   try {
-    // Ensure no connections to template before cloning
+    // Get all tables except seed/system tables
+    const { rows: tables } = await client.query(`
+      SELECT tablename FROM pg_tables
+      WHERE schemaname = 'public'
+        AND tablename NOT IN (
+          '_prisma_migrations',
+          'permissions',
+          'permission_groups',
+          'permission_group_permissions',
+          'users'
+        )
+    `);
+
+    if (tables.length > 0) {
+      const tableList = tables.map((t) => `"${t.tablename}"`).join(', ');
+      await client.query(`TRUNCATE TABLE ${tableList} CASCADE`);
+    }
+
+    // Clean users separately (keep system user)
     await client.query(
-      `SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = $1 AND pid != pg_backend_pid()`,
-      [TEMPLATE_DB],
+      `DELETE FROM "users" WHERE id != '00000000-0000-0000-0000-000000000000'`,
     );
 
-    const start = Date.now();
-    await client.query(
-      `CREATE DATABASE "${TEST_DB}" TEMPLATE "${TEMPLATE_DB}"`,
-    );
-    console.log(
-      `🧪 Cloned "${TEMPLATE_DB}" → "${TEST_DB}" in ${Date.now() - start}ms`,
-    );
+    console.log(`🧹 Test data cleaned from "${TEST_DB}"`);
+  } catch (error) {
+    // Non-critical: tests create their own data anyway
+    console.warn('⚠️ Failed to clean test data (non-critical):', error);
   } finally {
     await client.end();
   }
 }
 
-// ── Step 4: Set DATABASE_URL to cloned DB ───────────────────────────────
+// ── Step 4: Set DATABASE_URL to test DB ──────────────────────────────────
 const testDatabaseUrl = buildDatabaseUrl(TEST_DB);
 process.env.DATABASE_URL = testDatabaseUrl;
 
 console.log(`🧪 E2E tests using database: ${TEST_DB}`);
-
-// ── Cleanup ─────────────────────────────────────────────────────────────
-// With singleFork: true, the setup top-level runs once but afterAll fires per
-// test file. We CANNOT drop the DB here because subsequent test files in the
-// same fork still need it. Instead, we rely on orphan cleanup at the start of
-// the NEXT run (Step 1) to drop stale test databases.
-// This also handles crashes/Ctrl+C gracefully — orphans are always cleaned up.
