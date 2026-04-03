@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
@@ -31,9 +31,6 @@ describe('Pipeline Stages CRUD (E2E)', () => {
     pipelineId = pipelineRes.body.pipeline.id;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('POST /v1/pipelines/:pipelineId/stages should create a stage', async () => {
     const response = await request(app.server)

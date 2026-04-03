@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
@@ -15,9 +15,6 @@ describe('Unlink User from Employee (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should unlink user from employee', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });

@@ -10,6 +10,7 @@
     "notifications:worker": "tsx --env-file=.env src/workers/notifications-scheduler.ts",
     "test": "vitest run --project unit",
     "test:e2e": "vitest run --project e2e",
+    "test:e2e:shard": "node scripts/run-e2e-sharded.mjs",
     "test:e2e:email": "vitest run --project e2e \"src/http/controllers/email/**/*.e2e.spec.ts\"",
     "test:e2e:email:messages": "vitest run --project e2e src/http/controllers/email/messages/v1-email-messages.e2e.spec.ts",
     "test:watch": "vitest --project unit",

@@ -2,7 +2,7 @@ import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 function makeAccountPayload(overrides: Record<string, unknown> = {}) {
   return {
@@ -58,9 +58,6 @@ describe('Email Accounts Controller (E2E)', () => {
     secondUserId = secondUserResult.user.user.id;
   }, 60000);
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   // ─── POST /v1/email/accounts ─────────────────────────────────────────────
   describe('Criar conta (POST /v1/email/accounts)', () => {

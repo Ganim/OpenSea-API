@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
@@ -20,9 +20,6 @@ describe('AI Insights (E2E)', () => {
     userId = auth.user.user.id;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('GET /v1/ai/insights — should list insights (empty initially)', async () => {
     const response = await request(app.server)

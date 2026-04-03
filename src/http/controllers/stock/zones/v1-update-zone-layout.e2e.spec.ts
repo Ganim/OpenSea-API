@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { ZoneLayout } from '@/entities/stock/value-objects/zone-layout';
@@ -18,9 +18,6 @@ describe('Update Zone Layout (E2E)', () => {
     tenantId = tid;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should update zone layout with custom positions', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });

@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
@@ -16,9 +16,6 @@ describe('Delete Column (E2E)', () => {
     tenantId = tid;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should delete a column', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });

@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
@@ -17,9 +17,6 @@ describe('AI Config (E2E)', () => {
     token = auth.token;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('GET /v1/ai/config — should return default config for new tenant', async () => {
     const response = await request(app.server)

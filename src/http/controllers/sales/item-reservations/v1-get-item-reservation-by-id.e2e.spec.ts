@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
@@ -15,9 +15,6 @@ describe('Get Item Reservation By ID (E2E)', () => {
     tenantId = tid;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should get item reservation by id with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });

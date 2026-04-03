@@ -1,6 +1,6 @@
 import { hash } from 'bcryptjs';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
@@ -16,9 +16,6 @@ describe('Change User Password (E2E)', () => {
     tenantId = tid;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should change user password with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });

@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { ZoneStructure } from '@/entities/stock/value-objects/zone-structure';
@@ -17,9 +17,6 @@ describe('Configure Zone Structure (E2E)', () => {
     tenantId = tid;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should persist aisleConfigs and generate bins per aisle', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });

@@ -4,7 +4,7 @@ import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-a
 import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import { prisma } from '@/lib/prisma';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('Admin Get Tenant Auth Config (E2E)', () => {
   let tenantId: string;
@@ -27,9 +27,6 @@ describe('Admin Get Tenant Auth Config (E2E)', () => {
     });
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should return tenant auth config', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);

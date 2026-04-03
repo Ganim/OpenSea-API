@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
@@ -10,9 +10,6 @@ describe('Reset Password By Token (E2E)', () => {
     await app.ready();
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should reset password by token with correct schema', async () => {
     const email = makeUniqueEmail('reset-pwd');

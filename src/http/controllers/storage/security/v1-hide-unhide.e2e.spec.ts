@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
@@ -26,9 +26,6 @@ describe('Storage Security — Hide/Unhide (E2E)', () => {
     folderId = fid;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   // ─── Hide ──────────────────────────────────────────────
   describe('POST /v1/storage/security/hide', () => {

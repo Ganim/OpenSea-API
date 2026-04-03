@@ -5,7 +5,7 @@ import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-se
 import { makePermission } from '@/utils/tests/factories/rbac/make-permission';
 import { makePermissionGroup } from '@/utils/tests/factories/rbac/make-permission-group';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('List Group Permissions (e2e)', () => {
   let tenantId: string;
@@ -16,9 +16,6 @@ describe('List Group Permissions (e2e)', () => {
     tenantId = tid;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should list group permissions with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });

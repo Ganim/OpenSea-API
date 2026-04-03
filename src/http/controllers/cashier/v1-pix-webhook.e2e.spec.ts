@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 
@@ -8,9 +8,6 @@ describe('PIX Webhook (E2E)', () => {
     await app.ready();
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should accept webhook without auth (public endpoint)', async () => {
     const response = await request(app.server)

@@ -2,16 +2,13 @@ import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { makeNotification } from '@/utils/tests/factories/notifications/make-notification';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('List Notifications By UserId (e2e)', () => {
   beforeAll(async () => {
     await app.ready();
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should list notifications with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app);

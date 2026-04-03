@@ -2,16 +2,13 @@ import { app } from '@/app';
 import { createAndAuthenticateSuperAdmin } from '@/utils/tests/factories/core/create-and-authenticate-super-admin.e2e';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('Admin Get AI Usage Report (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should return AI usage report', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);

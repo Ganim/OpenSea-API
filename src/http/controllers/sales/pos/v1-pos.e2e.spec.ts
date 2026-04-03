@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
@@ -17,9 +17,6 @@ describe('POS (E2E)', () => {
     token = auth.token;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('POST /v1/pos/terminals should create a terminal (201)', async () => {
     const response = await request(app.server)

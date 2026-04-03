@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 import sharp from 'sharp';
 
 import { app } from '@/app';
@@ -28,9 +28,6 @@ describe('Upload My Avatar (E2E)', () => {
       .toBuffer();
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should upload avatar for user without linked employee', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });

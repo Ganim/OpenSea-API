@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
@@ -14,9 +14,6 @@ describe('List Performance Reviews (E2E)', () => {
     tenantId = tid;
   });
 
-  afterAll(async () => { await app.close(); });
-
-  it('should list performance reviews', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const response = await request(app.server).get('/v1/hr/performance-reviews').set('Authorization', `Bearer ${token}`);
     expect(response.status).toBe(200);

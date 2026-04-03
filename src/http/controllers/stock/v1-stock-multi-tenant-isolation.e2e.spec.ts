@@ -8,7 +8,7 @@ import { createCategory } from '@/utils/tests/factories/stock/create-category.e2
 import { createSupplier } from '@/utils/tests/factories/stock/create-supplier.e2e';
 import { createManufacturer } from '@/utils/tests/factories/stock/create-manufacturer.e2e';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('Stock Multi-Tenant Isolation (E2E)', () => {
   // Tenant A
@@ -77,9 +77,6 @@ describe('Stock Multi-Tenant Isolation (E2E)', () => {
     tokenB = authB.token;
   }, 60000);
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   // ── LIST Products isolation ─────────────────────────────────────────
 

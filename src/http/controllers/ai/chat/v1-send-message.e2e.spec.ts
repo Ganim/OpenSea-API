@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
@@ -17,9 +17,6 @@ describe('Send Message (E2E)', () => {
     token = auth.token;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should send a message and create a conversation (200)', async () => {
     const response = await request(app.server)

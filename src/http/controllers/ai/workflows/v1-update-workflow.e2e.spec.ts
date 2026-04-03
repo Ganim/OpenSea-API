@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
@@ -20,9 +20,6 @@ describe('Update Workflow (E2E)', () => {
     userId = auth.user.user.id;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should update workflow (toggle isActive) (200)', async () => {
     const workflow = await prisma.aiWorkflow.create({

@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 
@@ -8,9 +8,6 @@ describe('Webhook Shopee (E2E)', () => {
     await app.ready();
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should accept Shopee webhook notification', async () => {
     const response = await request(app.server)

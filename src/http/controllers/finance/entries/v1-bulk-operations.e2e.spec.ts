@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
@@ -31,9 +31,6 @@ describe('Bulk Finance Entry Operations (E2E)', () => {
     bankAccountId = prereqs.bankAccount.id;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   describe('POST /v1/finance/entries/bulk-pay', () => {
     it('should bulk pay multiple entries', async () => {

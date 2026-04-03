@@ -2,16 +2,13 @@ import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { makeNotification } from '@/utils/tests/factories/notifications/make-notification';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('Mark All Notifications As Read (e2e)', () => {
   beforeAll(async () => {
     await app.ready();
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should mark all notifications as read for user', async () => {
     const { token, user } = await createAndAuthenticateUser(app);

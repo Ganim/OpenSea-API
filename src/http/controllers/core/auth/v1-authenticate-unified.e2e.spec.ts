@@ -1,6 +1,6 @@
 import { hash } from 'bcryptjs';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
@@ -17,9 +17,6 @@ describe('Authenticate Unified (E2E)', () => {
     tenantId = tid;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should authenticate with email + password', async () => {
     const email = makeUniqueEmail('unified-email');

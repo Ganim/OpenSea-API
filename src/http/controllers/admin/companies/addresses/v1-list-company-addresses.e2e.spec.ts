@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { makeCreateCompanyUseCase } from '@/use-cases/admin/companies/factories/make-companies';
@@ -15,9 +15,6 @@ describe('List Company Addresses (E2E)', () => {
     tenantId = tid;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should list company addresses with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });

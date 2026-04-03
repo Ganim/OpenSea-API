@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { makeUniqueEmail } from '@/utils/tests/factories/core/make-unique-email';
@@ -9,9 +9,6 @@ describe('Send Password Reset Token (E2E)', () => {
     await app.ready();
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should send password reset token with correct schema', async () => {
     const email = makeUniqueEmail('send-reset');

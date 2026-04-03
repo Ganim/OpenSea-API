@@ -1,16 +1,13 @@
 import { app } from '@/app';
 import { createAndAuthenticateSuperAdmin } from '@/utils/tests/factories/core/create-and-authenticate-super-admin.e2e';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('Set Plan Modules (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should set modules for a plan', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);

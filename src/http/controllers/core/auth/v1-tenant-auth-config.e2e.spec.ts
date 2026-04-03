@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
@@ -32,9 +32,6 @@ describe('Tenant Auth Config (E2E)', () => {
     token = auth.token;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should get tenant auth config', async () => {
     const response = await request(app.server)

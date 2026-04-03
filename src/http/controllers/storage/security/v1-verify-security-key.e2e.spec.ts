@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
@@ -20,9 +20,6 @@ describe('Verify Security Key (E2E)', () => {
     userId = auth.user.user.id;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should return valid: false when user has no security key', async () => {
     const response = await request(app.server)

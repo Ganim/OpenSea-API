@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('List Audit Logs (E2E)', () => {
   let tenantId: string;
@@ -14,9 +14,6 @@ describe('List Audit Logs (E2E)', () => {
     tenantId = tid;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should list audit logs with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });

@@ -6,7 +6,7 @@ import {
   createFinanceEntry,
 } from '@/utils/tests/factories/finance/create-finance-test-data.e2e';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('Finance Multi-Tenant Isolation (E2E)', () => {
   // Tenant A
@@ -53,9 +53,6 @@ describe('Finance Multi-Tenant Isolation (E2E)', () => {
     tokenB = authB.token;
   }, 60000);
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   // ── GET isolation ─────────────────────────────────────────────────────
 

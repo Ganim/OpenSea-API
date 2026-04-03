@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
@@ -73,9 +73,6 @@ describe('Order Returns (E2E)', () => {
     orderId = orderResponse.body.order.id;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('POST /v1/returns should create a return request (201)', async () => {
     const response = await request(app.server)

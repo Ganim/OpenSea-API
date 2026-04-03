@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
@@ -24,9 +24,6 @@ describe('Activity Cross-Tenant Isolation (E2E)', () => {
     tenantIdB = tidB;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should not allow user from tenant B to access board activity from tenant A', async () => {
     // Create user and board in tenant A

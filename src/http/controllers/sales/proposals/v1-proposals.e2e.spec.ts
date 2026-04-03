@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
@@ -30,9 +30,6 @@ describe('Proposals (E2E)', () => {
     customerId = customer.id;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('POST /v1/sales/proposals should create a proposal (201)', async () => {
     const timestamp = Date.now();

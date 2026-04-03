@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { ZoneStructure } from '@/entities/stock/value-objects/zone-structure';
@@ -17,9 +17,6 @@ describe('Get Zone by ID (E2E)', () => {
     tenantId = tid;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should retrieve a zone by ID with warehouse info', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });

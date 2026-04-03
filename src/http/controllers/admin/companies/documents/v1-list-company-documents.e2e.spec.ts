@@ -2,7 +2,7 @@ import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('List Company Documents (E2E)', () => {
   let tenantId: string;
@@ -13,9 +13,6 @@ describe('List Company Documents (E2E)', () => {
     tenantId = tid;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should list documents for a company (empty if no company)', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });

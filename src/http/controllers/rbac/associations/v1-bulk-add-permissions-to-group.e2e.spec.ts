@@ -4,7 +4,7 @@ import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-se
 import { makePermission } from '@/utils/tests/factories/rbac/make-permission';
 import { makePermissionGroup } from '@/utils/tests/factories/rbac/make-permission-group';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('Bulk Add Permissions To Group (E2E)', () => {
   let tenantId: string;
@@ -15,9 +15,6 @@ describe('Bulk Add Permissions To Group (E2E)', () => {
     tenantId = tid;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should bulk add permissions to group with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });

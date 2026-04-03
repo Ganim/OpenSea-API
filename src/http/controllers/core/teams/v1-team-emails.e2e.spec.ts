@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
@@ -31,9 +31,6 @@ describe('Team Emails (E2E)', () => {
     noPermsToken = noPerms.token;
   }, 180000);
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   // ─── POST /v1/teams/:teamId/emails ────────────────────────────────────────
 

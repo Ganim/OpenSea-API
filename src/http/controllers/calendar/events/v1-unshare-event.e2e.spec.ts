@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
@@ -28,9 +28,6 @@ describe('Unshare Event (E2E)', () => {
     guestId = guest.user.user.id;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should unshare event (remove shared user)', async () => {
     const event = await createCalendarEvent(tenantId, ownerId);

@@ -4,7 +4,7 @@ import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-se
 import { makePermissionGroup } from '@/utils/tests/factories/rbac/make-permission-group';
 import { faker } from '@faker-js/faker';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('Update Permission Group (e2e)', () => {
   let tenantId: string;
@@ -15,9 +15,6 @@ describe('Update Permission Group (e2e)', () => {
     tenantId = tenantSetup.tenantId;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should update permission group with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });

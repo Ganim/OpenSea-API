@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
@@ -34,9 +34,6 @@ describe('CRM E2E (Contacts, Pipelines, Deals)', () => {
     customerId = customerRes.body.customer.id;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   // ── Contacts ────────────────────────────────────────────────────────────────
 

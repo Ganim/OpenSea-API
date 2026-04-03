@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
@@ -16,9 +16,6 @@ describe('Approve Admission (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should approve an admission and create an employee', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });

@@ -4,16 +4,13 @@ import { createAndAuthenticateSuperAdmin } from '@/utils/tests/factories/core/cr
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { makeCreateUserUseCase } from '@/use-cases/core/users/factories/make-create-user-use-case';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('Remove Tenant User (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should remove a user from a tenant', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);

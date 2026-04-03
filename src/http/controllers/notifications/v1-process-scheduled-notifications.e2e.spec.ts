@@ -2,16 +2,13 @@ import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('Process Scheduled Notifications (e2e)', () => {
   beforeAll(async () => {
     await app.ready();
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should process scheduled notifications with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app);

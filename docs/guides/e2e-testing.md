@@ -126,10 +126,32 @@ Se um novo modulo ou recurso precisa de permissoes nos testes E2E:
 npm run test:e2e -- src/http/controllers/stock/products/
 
 # Arquivo especifico
-npx vitest run --config vitest.e2e.config.ts src/http/controllers/stock/products/v1-create-product.e2e.spec.ts
+npx vitest run --project e2e src/http/controllers/stock/products/v1-create-product.e2e.spec.ts
 
-# Suite completa
+# Suite completa (sequencial)
 npm run test:e2e
+
+# Suite completa RAPIDA (4 shards em paralelo — recomendado)
+npm run test:e2e:shard
+
+# Suite completa com N shards customizado
+node scripts/run-e2e-sharded.mjs 8
+```
+
+## Importante: NÃO use `afterAll(() => app.close())`
+
+Com `singleFork: true`, todos os specs compartilham o mesmo processo.
+Chamar `app.close()` desliga o Fastify e forca re-boot no proximo spec.
+O vitest mata o processo automaticamente ao finalizar.
+
+```typescript
+// ERRADO — causa 1242 re-boots desnecessarios (~52 min desperdicados)
+afterAll(async () => {
+  await app.close();
+});
+
+// CORRETO — nao precisa de afterAll
+// O vitest + singleFork gerencia o ciclo de vida do processo
 ```
 
 ## Performance

@@ -2,7 +2,7 @@ import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('List Permissions By Modules (e2e)', () => {
   let tenantId: string;
@@ -13,9 +13,6 @@ describe('List Permissions By Modules (e2e)', () => {
     tenantId = tid;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should list permissions by modules with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });

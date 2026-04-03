@@ -2,16 +2,13 @@ import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateSuperAdmin } from '@/utils/tests/factories/core/create-and-authenticate-super-admin.e2e';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('List Tenant Users (E2E)', () => {
   beforeAll(async () => {
     await app.ready();
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should list users of a tenant', async () => {
     const { token, user } = await createAndAuthenticateSuperAdmin(app);

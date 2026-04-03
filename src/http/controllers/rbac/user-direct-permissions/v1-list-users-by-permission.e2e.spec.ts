@@ -6,7 +6,7 @@ import { makePermission } from '@/utils/tests/factories/rbac/make-permission';
 import { makeUserDirectPermission } from '@/utils/tests/factories/rbac/make-user-direct-permission';
 import { faker } from '@faker-js/faker';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('List Users By Permission (e2e)', () => {
   let tenantId: string;
@@ -17,9 +17,6 @@ describe('List Users By Permission (e2e)', () => {
     tenantId = tid;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should list users by permission with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });

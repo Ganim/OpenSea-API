@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
@@ -15,9 +15,6 @@ describe('Add Team Member (E2E)', () => {
     tenantId = tid;
   }, 180000);
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should add a member to the team', async () => {
     const { token, user: ownerUser } = await createAndAuthenticateUser(app, {

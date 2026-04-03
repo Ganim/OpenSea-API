@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('Email Folders Controller (E2E)', () => {
   let tenantId: string;
@@ -64,9 +64,6 @@ describe('Email Folders Controller (E2E)', () => {
     sentFolderId = sentFolder.id;
   }, 60000);
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   // --- GET /v1/email/folders -----------------------------------------------
   describe('Listar pastas (GET /v1/email/folders)', () => {

@@ -3,7 +3,7 @@ import { createAndAuthenticateSuperAdmin } from '@/utils/tests/factories/core/cr
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('Admin Add Tenant Subscription (E2E)', () => {
   let tenantId: string;
@@ -14,9 +14,6 @@ describe('Admin Add Tenant Subscription (E2E)', () => {
     tenantId = tid;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should return 404 for non-existent skill code', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);

@@ -3,7 +3,7 @@ import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-a
 import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import { makePermission } from '@/utils/tests/factories/rbac/make-permission';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('Update Permission (e2e)', () => {
   let tenantId: string;
@@ -14,9 +14,6 @@ describe('Update Permission (e2e)', () => {
     tenantId = tid;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should update permission with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });

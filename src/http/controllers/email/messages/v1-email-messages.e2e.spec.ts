@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-and-authenticate-user.e2e';
 import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 const ALL_EMAIL_PERMISSIONS = [
   'email.accounts.create',
@@ -113,9 +113,6 @@ describe('Email Messages Controller (E2E)', () => {
     sentMessageId = testMsg.id;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   // ─── POST /v1/email/messages/send ────────────────────────────────────────
   describe('Enviar mensagem (POST /v1/email/messages/send)', () => {

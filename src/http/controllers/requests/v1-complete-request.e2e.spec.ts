@@ -4,7 +4,7 @@ import { createAndAuthenticateUser } from '@/utils/tests/factories/core/create-a
 import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import { createRequestE2E } from '@/utils/tests/factories/core/create-request.e2e';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 describe('Complete Request (E2E)', () => {
   let tenantId: string;
@@ -15,9 +15,6 @@ describe('Complete Request (E2E)', () => {
     tenantId = tid;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should complete request with correct schema', async () => {
     const { token: assignedToken, user: assignedUser } =

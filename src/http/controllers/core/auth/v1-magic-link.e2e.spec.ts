@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
@@ -11,9 +11,6 @@ describe('Magic Link (E2E)', () => {
     await app.ready();
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should request magic link for valid email', async () => {
     const email = makeUniqueEmail('magic-req');

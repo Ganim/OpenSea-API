@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
@@ -20,9 +20,6 @@ describe('AI Workflows (E2E)', () => {
     userId = auth.user.user.id;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   /**
    * Helper to create a workflow directly via Prisma (bypasses AI provider)

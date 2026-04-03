@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
@@ -20,9 +20,6 @@ describe('Access Shared File (E2E)', () => {
     uploaderId = randomUUID();
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should access a shared file via public link', async () => {
     const { folderId } = await createStorageFolderE2E({ tenantId });

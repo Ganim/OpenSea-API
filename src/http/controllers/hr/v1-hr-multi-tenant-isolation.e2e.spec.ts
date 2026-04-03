@@ -5,7 +5,7 @@ import { createCompanyE2E } from '@/utils/tests/factories/hr/create-company.e2e'
 import { createDepartmentE2E } from '@/utils/tests/factories/hr/create-department.e2e';
 import { createEmployeeE2E } from '@/utils/tests/factories/hr/create-employee.e2e';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 const ALL_HR_PERMISSIONS = [
   'hr.companies.create',
@@ -91,9 +91,6 @@ describe('HR Multi-Tenant Isolation (E2E)', () => {
     tokenB = authB.token;
   }, 60000);
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   // ── Employee isolation ──────────────────────────────────────────────────
 

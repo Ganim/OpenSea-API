@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
@@ -20,9 +20,6 @@ describe('Bulk Import Stress Tests (E2E)', () => {
     token = auth.token;
   }, 300000);
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   /**
    * Creates a template with a unique code to avoid fullCode collisions

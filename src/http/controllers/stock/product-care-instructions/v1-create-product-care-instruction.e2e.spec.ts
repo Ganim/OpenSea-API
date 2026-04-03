@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { app } from '@/app';
 import { prisma } from '@/lib/prisma';
@@ -31,9 +31,6 @@ describe('Create Product Care Instruction (E2E)', () => {
     careTemplateId = template.id;
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should create a care instruction for a product', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });

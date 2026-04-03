@@ -5,7 +5,7 @@ import { createEmailAccount } from '@/utils/tests/factories/core/create-email-ac
 import { createAndSetupTenant } from '@/utils/tests/factories/core/create-and-setup-tenant.e2e';
 import { randomUUID } from 'node:crypto';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 const ALL_EMAIL_PERMISSIONS = [
   'email.accounts.create',
@@ -107,9 +107,6 @@ describe('Email Multi-Tenant Isolation (E2E)', () => {
     });
   }, 60000);
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   // ── Account isolation ───────────────────────────────────────────────────
 

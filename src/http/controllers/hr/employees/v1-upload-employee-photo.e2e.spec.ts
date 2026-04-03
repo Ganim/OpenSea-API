@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 import sharp from 'sharp';
 
 import { app } from '@/app';
@@ -29,9 +29,6 @@ describe('Upload Employee Photo (E2E)', () => {
       .toBuffer();
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
 
   it('should upload employee photo with crop', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
