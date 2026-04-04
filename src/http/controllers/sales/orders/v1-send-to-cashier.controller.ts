@@ -1,6 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -42,6 +44,15 @@ export async function v1SendToCashierController(app: FastifyInstance) {
         const result = await useCase.execute({
           tenantId,
           orderId,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.SALES.PDV_SENT_TO_CASHIER,
+          entityId: orderId,
+          placeholders: {
+            userName: request.user.sub,
+            saleCode: result.order.saleCode ?? '',
+          },
         });
 
         return reply.send({ order: orderToDTO(result.order) });

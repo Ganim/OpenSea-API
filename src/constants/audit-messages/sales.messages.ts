@@ -696,6 +696,52 @@ export const SALES_AUDIT_MESSAGES = {
     description: '{{userName}} registrou movimentação de caixa',
   } satisfies AuditMessage,
 
+  // ============================================================================
+  // PDV ORDER FLOW - Fluxo de pedidos PDV
+  // ============================================================================
+
+  PDV_ORDER_CREATED: {
+    action: AuditAction.ORDER_CREATE,
+    entity: AuditEntity.ORDER,
+    module: AuditModule.SALES,
+    description: '{{userName}} criou pedido PDV #{{saleCode}}',
+  } satisfies AuditMessage,
+
+  PDV_ITEM_ADDED: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.ORDER,
+    module: AuditModule.SALES,
+    description: '{{userName}} adicionou item "{{itemName}}" ao pedido PDV #{{orderId}}',
+  } satisfies AuditMessage,
+
+  PDV_ITEM_REMOVED: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.ORDER,
+    module: AuditModule.SALES,
+    description: '{{userName}} removeu item do pedido PDV #{{orderId}}',
+  } satisfies AuditMessage,
+
+  PDV_SENT_TO_CASHIER: {
+    action: AuditAction.STATUS_CHANGE,
+    entity: AuditEntity.ORDER,
+    module: AuditModule.SALES,
+    description: '{{userName}} enviou pedido PDV #{{saleCode}} para o caixa',
+  } satisfies AuditMessage,
+
+  PDV_ORDER_CLAIMED: {
+    action: AuditAction.STATUS_CHANGE,
+    entity: AuditEntity.ORDER,
+    module: AuditModule.SALES,
+    description: '{{userName}} reivindicou pedido PDV #{{orderId}}',
+  } satisfies AuditMessage,
+
+  PDV_PAYMENT_RECEIVED: {
+    action: AuditAction.ORDER_CONFIRM,
+    entity: AuditEntity.ORDER,
+    module: AuditModule.SALES,
+    description: '{{userName}} recebeu pagamento de R$ {{total}} no pedido PDV #{{saleCode}}',
+  } satisfies AuditMessage,
+
   // ─── Bids (Licitacoes) ──────────────────────────────────────────────────
 
   BID_CREATE: {

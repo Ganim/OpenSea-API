@@ -37,6 +37,13 @@ export class ConfirmOrderUseCase {
       throw new ResourceNotFoundError('Order not found.');
     }
 
+    // PDV orders must be confirmed via receive-payment flow
+    if (order.channel === 'PDV') {
+      throw new BadRequestError(
+        'Pedidos PDV devem ser confirmados via recebimento de pagamento.',
+      );
+    }
+
     // Check current stage is DRAFT type
     const currentStage = await this.pipelineStagesRepository.findById(
       order.stageId,

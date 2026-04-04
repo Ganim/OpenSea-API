@@ -1,6 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -50,9 +52,19 @@ export async function v1CreatePdvOrderController(app: FastifyInstance) {
           terminalId,
         });
 
-        return reply.status(201).send({
-          order: orderToDTO(result.order),
+        const dto = orderToDTO(result.order);
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.SALES.PDV_ORDER_CREATED,
+          entityId: result.order.id.toString(),
+          placeholders: {
+            userName: userId,
+            saleCode: result.order.saleCode ?? '',
+          },
+          newData: { customerId, terminalId },
         });
+
+        return reply.status(201).send({ order: dto });
       } catch (err) {
         if (err instanceof BadRequestError) {
           return reply.status(400).send({ message: err.message });

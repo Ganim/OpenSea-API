@@ -1,7 +1,9 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ConflictError } from '@/@errors/use-cases/conflict-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -89,6 +91,22 @@ export async function v1ReceivePaymentController(app: FastifyInstance) {
           expectedVersion,
           hasOverridePermission,
           payments,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.SALES.PDV_PAYMENT_RECEIVED,
+          entityId: orderId,
+          placeholders: {
+            userName: userId,
+            total: result.order.grandTotal.toFixed(2),
+            saleCode: result.order.saleCode ?? '',
+          },
+          newData: {
+            terminalMode,
+            posSessionId,
+            changeAmount: result.changeAmount,
+            paymentCount: payments.length,
+          },
         });
 
         return reply.send({

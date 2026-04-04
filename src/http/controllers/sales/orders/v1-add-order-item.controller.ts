@@ -1,6 +1,8 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -58,6 +60,17 @@ export async function v1AddOrderItemController(app: FastifyInstance) {
           variantId,
           quantity,
           isCashier,
+        });
+
+        await logAudit(request, {
+          message: AUDIT_MESSAGES.SALES.PDV_ITEM_ADDED,
+          entityId: result.orderItem.id.toString(),
+          placeholders: {
+            userName: request.user.sub,
+            itemName: result.orderItem.name,
+            orderId: orderId,
+          },
+          newData: { variantId, quantity: quantity ?? 1 },
         });
 
         return reply.status(201).send({
