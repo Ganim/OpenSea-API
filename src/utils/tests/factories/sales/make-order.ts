@@ -2,6 +2,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import {
   Order,
   type OrderChannel,
+  type OrderStatus,
   type OrderType,
 } from '@/entities/sales/order';
 import { faker } from '@faker-js/faker';
@@ -10,6 +11,7 @@ interface MakeOrderProps {
   tenantId?: UniqueEntityID;
   orderNumber?: string;
   type?: OrderType;
+  status?: OrderStatus;
   customerId?: UniqueEntityID;
   contactId?: UniqueEntityID;
   pipelineId?: UniqueEntityID;
@@ -30,6 +32,12 @@ interface MakeOrderProps {
   assignedToUserId?: UniqueEntityID;
   dealId?: UniqueEntityID;
   quoteId?: UniqueEntityID;
+  saleCode?: string;
+  cashierUserId?: UniqueEntityID;
+  posSessionId?: UniqueEntityID;
+  claimedByUserId?: UniqueEntityID;
+  claimedAt?: Date;
+  version?: number;
   notes?: string;
   tags?: string[];
   createdAt?: Date;
@@ -48,6 +56,7 @@ export function makeOrder(override: MakeOrderProps = {}): Order {
         override.orderNumber ??
         `ORD-${faker.string.alphanumeric(6).toUpperCase()}`,
       type: override.type ?? 'ORDER',
+      status: override.status,
       customerId: override.customerId ?? new UniqueEntityID(),
       contactId: override.contactId,
       pipelineId: override.pipelineId ?? new UniqueEntityID(),
@@ -68,6 +77,12 @@ export function makeOrder(override: MakeOrderProps = {}): Order {
       assignedToUserId: override.assignedToUserId,
       dealId: override.dealId,
       quoteId: override.quoteId,
+      saleCode: override.saleCode,
+      cashierUserId: override.cashierUserId,
+      posSessionId: override.posSessionId,
+      claimedByUserId: override.claimedByUserId,
+      claimedAt: override.claimedAt,
+      version: override.version,
       notes: override.notes,
       tags: override.tags,
       createdAt: override.createdAt,
