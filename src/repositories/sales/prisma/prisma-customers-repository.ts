@@ -48,6 +48,7 @@ function mapToDomain(customerData: Record<string, unknown>): Customer {
       country: (d.country as string) ?? undefined,
       notes: (d.notes as string) ?? undefined,
       isActive: d.isActive as boolean,
+      isSystem: (d.isSystem as boolean) ?? false,
       createdAt: d.createdAt as Date,
       updatedAt: d.updatedAt as Date,
       deletedAt: (d.deletedAt as Date) ?? undefined,
@@ -94,6 +95,20 @@ export class PrismaCustomersRepository implements CustomersRepository {
         ...hashes,
       },
     });
+
+    return mapToDomain(customerData as unknown as Record<string, unknown>);
+  }
+
+  async findSystemDefault(tenantId: string): Promise<Customer | null> {
+    const customerData = await prisma.customer.findFirst({
+      where: {
+        isSystem: true,
+        tenantId,
+        deletedAt: null,
+      },
+    });
+
+    if (!customerData) return null;
 
     return mapToDomain(customerData as unknown as Record<string, unknown>);
   }

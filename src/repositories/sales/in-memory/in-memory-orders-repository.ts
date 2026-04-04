@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Order } from '@/entities/sales/order';
 import type { PaginatedResult } from '@/repositories/pagination-params';
 import type {
+  FindCashierQueueParams,
   FindManyOrdersPaginatedParams,
   OrdersRepository,
 } from '@/repositories/sales/orders-repository';
@@ -37,6 +38,111 @@ export class InMemoryOrdersRepository implements OrdersRepository {
           !o.isDeleted,
       ) ?? null
     );
+  }
+
+  async findBySaleCode(
+    saleCode: string,
+    tenantId: string,
+  ): Promise<Order | null> {
+    return (
+      this.items.find(
+        (o) =>
+          o.saleCode === saleCode &&
+          o.tenantId.toString() === tenantId &&
+          !o.isDeleted,
+      ) ?? null
+    );
+  }
+
+  async findCashierQueue(
+    tenantId: string,
+    params: FindCashierQueueParams,
+  ): Promise<PaginatedResult<Order>> {
+    const page = params.page ?? 1;
+    const limit = params.limit ?? 20;
+    const CLAIM_EXPIRY_MS = 5 * 60 * 1000;
+    const claimExpiryThreshold = new Date(Date.now() - CLAIM_EXPIRY_MS);
+
+    let filtered = this.items.filter(
+      (o) =>
+        o.tenantId.toString() === tenantId &&
+        o.channel === 'PDV' &&
+        o.status === 'PENDING' &&
+        !o.isDeleted,
+    );
+
+    if (params.search) {
+      const searchLower = params.search.toLowerCase();
+      filtered = filtered.filter(
+        (o) =>
+          o.saleCode?.toLowerCase().includes(searchLower) ||
+          o.orderNumber.toLowerCase().includes(searchLower),
+      );
+    }
+
+    // Treat expired claims as unclaimed
+    filtered = filtered.map((o) => {
+      if (o.claimedAt && o.claimedAt < claimExpiryThreshold) {
+        o.claimedByUserId = undefined;
+        o.claimedAt = undefined;
+      }
+      return o;
+    });
+
+    // Sort by createdAt DESC
+    filtered.sort(
+      (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
+    );
+
+    const total = filtered.length;
+    const start = (page - 1) * limit;
+    const data = filtered.slice(start, start + limit);
+
+    return {
+      data,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
+  }
+
+  async findMyDrafts(
+    userId: string,
+    tenantId: string,
+    params: { page?: number; limit?: number },
+  ): Promise<PaginatedResult<Order>> {
+    const page = params.page ?? 1;
+    const limit = params.limit ?? 20;
+
+    const filtered = this.items.filter(
+      (o) =>
+        o.assignedToUserId?.toString() === userId &&
+        o.status === 'DRAFT' &&
+        o.channel === 'PDV' &&
+        o.tenantId.toString() === tenantId &&
+        !o.isDeleted,
+    );
+
+    const total = filtered.length;
+    const start = (page - 1) * limit;
+    const data = filtered.slice(start, start + limit);
+
+    return {
+      data,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
+  }
+
+  async generateOrderNumber(tenantId: string): Promise<string> {
+    const tenantOrders = this.items.filter(
+      (o) => o.tenantId.toString() === tenantId,
+    );
+    const nextNumber = tenantOrders.length + 1;
+    return `PDV-${String(nextNumber).padStart(5, '0')}`;
   }
 
   async findManyPaginated(

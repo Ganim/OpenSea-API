@@ -6,6 +6,7 @@ import type {
 } from '../../pagination-params';
 import type {
   CreateVariantSchema,
+  FindManyVariantsFilteredParams,
   UpdateVariantSchema,
   VariantsRepository,
 } from '../variants-repository';
@@ -226,6 +227,44 @@ export class InMemoryVariantsRepository implements VariantsRepository {
       itemCount: 5, // Mock
       totalCurrentQuantity: 100, // Mock
     }));
+  }
+
+  async findManyFiltered(
+    params: FindManyVariantsFilteredParams,
+  ): Promise<PaginatedResult<Variant>> {
+    let filtered = this.items.filter(
+      (item) => !item.deletedAt && item.tenantId.toString() === params.tenantId,
+    );
+
+    if (params.onlyActive) {
+      filtered = filtered.filter((item) => item.isActive);
+    }
+
+    if (params.barcode) {
+      filtered = filtered.filter((item) => item.barcode === params.barcode);
+    }
+
+    if (params.search) {
+      const searchLower = params.search.toLowerCase();
+      filtered = filtered.filter(
+        (item) =>
+          item.name.toLowerCase().includes(searchLower) ||
+          item.sku?.toLowerCase().includes(searchLower),
+      );
+    }
+
+    // Note: categoryId filtering requires product relation lookup
+    // In-memory does not have cross-repository joins, so we skip this filter
+
+    const total = filtered.length;
+    const start = (params.page - 1) * params.limit;
+    return {
+      data: filtered.slice(start, start + params.limit),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
   }
 
   async update(data: UpdateVariantSchema): Promise<Variant | null> {

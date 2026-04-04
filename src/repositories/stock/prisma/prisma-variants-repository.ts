@@ -14,6 +14,7 @@ import type {
 } from '../../pagination-params';
 import type {
   CreateVariantSchema,
+  FindManyVariantsFilteredParams,
   UpdateVariantSchema,
   VariantsRepository,
 } from '../variants-repository';
@@ -415,6 +416,52 @@ export class PrismaVariantsRepository implements VariantsRepository {
     });
 
     return variants.map((v) => this.mapVariantToDomain(v));
+  }
+
+  async findManyFiltered(
+    params: FindManyVariantsFilteredParams,
+  ): Promise<PaginatedResult<Variant>> {
+    const where: Record<string, unknown> = {
+      tenantId: params.tenantId,
+      deletedAt: null,
+    };
+
+    if (params.onlyActive) {
+      where.isActive = true;
+    }
+
+    if (params.barcode) {
+      where.barcode = params.barcode;
+    }
+
+    if (params.categoryId) {
+      where.product = { categoryId: params.categoryId, deletedAt: null };
+    }
+
+    if (params.search) {
+      where.OR = [
+        { name: { contains: params.search, mode: 'insensitive' } },
+        { sku: { contains: params.search, mode: 'insensitive' } },
+      ];
+    }
+
+    const [variants, total] = await Promise.all([
+      prisma.variant.findMany({
+        where: where as never,
+        orderBy: { createdAt: 'desc' },
+        skip: (params.page - 1) * params.limit,
+        take: params.limit,
+      }),
+      prisma.variant.count({ where: where as never }),
+    ]);
+
+    return {
+      data: variants.map((v) => this.mapVariantToDomain(v)),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
   }
 
   async update(data: UpdateVariantSchema): Promise<Variant | null> {

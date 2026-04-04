@@ -19,6 +19,7 @@ export interface CustomerProps {
   country?: string;
   notes?: string;
   isActive: boolean;
+  isSystem: boolean;
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date;
@@ -141,6 +142,10 @@ export class Customer extends Entity<CustomerProps> {
     this.touch();
   }
 
+  get isSystem(): boolean {
+    return this.props.isSystem;
+  }
+
   get createdAt(): Date {
     return this.props.createdAt;
   }
@@ -174,7 +179,7 @@ export class Customer extends Entity<CustomerProps> {
   }
 
   static create(
-    props: Optional<CustomerProps, 'id' | 'isActive' | 'createdAt'>,
+    props: Optional<CustomerProps, 'id' | 'isActive' | 'isSystem' | 'createdAt'>,
     id?: UniqueEntityID,
   ): Customer {
     const customer = new Customer(
@@ -182,6 +187,7 @@ export class Customer extends Entity<CustomerProps> {
         ...props,
         id: id ?? new UniqueEntityID(),
         isActive: props.isActive ?? true,
+        isSystem: props.isSystem ?? false,
         createdAt: props.createdAt ?? new Date(),
       },
       id,

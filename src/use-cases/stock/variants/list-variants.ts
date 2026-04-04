@@ -5,6 +5,10 @@ export interface ListVariantsUseCaseInput {
   tenantId: string;
   page?: number;
   limit?: number;
+  search?: string;
+  categoryId?: string;
+  barcode?: string;
+  onlyActive?: boolean;
 }
 
 export interface ListVariantsUseCaseOutput {
@@ -26,6 +30,31 @@ export class ListVariantsUseCase {
     const { tenantId } = input;
     const page = input.page ?? 1;
     const limit = input.limit ?? 20;
+
+    const hasFilters =
+      input.search || input.categoryId || input.barcode || input.onlyActive;
+
+    if (hasFilters) {
+      const result = await this.variantsRepository.findManyFiltered({
+        tenantId,
+        page,
+        limit,
+        search: input.search,
+        categoryId: input.categoryId,
+        barcode: input.barcode,
+        onlyActive: input.onlyActive,
+      });
+
+      return {
+        variants: result.data,
+        meta: {
+          total: result.total,
+          page: result.page,
+          limit: result.limit,
+          pages: result.totalPages,
+        },
+      };
+    }
 
     const result = await this.variantsRepository.findManyPaginated(tenantId, {
       page,

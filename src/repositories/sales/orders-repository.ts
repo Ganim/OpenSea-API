@@ -17,14 +17,31 @@ export interface FindManyOrdersPaginatedParams {
   sortOrder?: 'asc' | 'desc';
 }
 
+export interface FindCashierQueueParams {
+  search?: string;
+  page?: number;
+  limit?: number;
+}
+
 export interface OrdersRepository {
   create(order: Order): Promise<void>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Order | null>;
   findByNumber(orderNumber: string, tenantId: string): Promise<Order | null>;
+  findBySaleCode(saleCode: string, tenantId: string): Promise<Order | null>;
+  findCashierQueue(
+    tenantId: string,
+    params: FindCashierQueueParams,
+  ): Promise<PaginatedResult<Order>>;
+  findMyDrafts(
+    userId: string,
+    tenantId: string,
+    params: { page?: number; limit?: number },
+  ): Promise<PaginatedResult<Order>>;
   findManyPaginated(
     params: FindManyOrdersPaginatedParams,
   ): Promise<PaginatedResult<Order>>;
   save(order: Order): Promise<void>;
   delete(id: UniqueEntityID, tenantId: string): Promise<void>;
   getNextOrderNumber(tenantId: string): Promise<string>;
+  generateOrderNumber(tenantId: string): Promise<string>;
 }

@@ -3,6 +3,16 @@ import { Variant } from '@/entities/stock/variant';
 import type { Slug } from '@/entities/stock/value-objects/slug';
 import type { PaginatedResult, PaginationParams } from '../pagination-params';
 
+export interface FindManyVariantsFilteredParams {
+  tenantId: string;
+  page: number;
+  limit: number;
+  search?: string;
+  categoryId?: string;
+  barcode?: string;
+  onlyActive?: boolean;
+}
+
 export interface CreateVariantSchema {
   tenantId: string;
   productId: UniqueEntityID;
@@ -100,6 +110,9 @@ export interface VariantsRepository {
     productId: UniqueEntityID,
     tenantId: string,
   ): Promise<Variant | null>;
+  findManyFiltered(
+    params: FindManyVariantsFilteredParams,
+  ): Promise<PaginatedResult<Variant>>;
   update(data: UpdateVariantSchema): Promise<Variant | null>;
   save(variant: Variant): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;

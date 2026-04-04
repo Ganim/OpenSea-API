@@ -8,6 +8,7 @@ export function orderPrismaToDomain(raw: any): Order {
       tenantId: new UniqueEntityID(raw.tenantId),
       orderNumber: raw.orderNumber,
       type: raw.type,
+      status: raw.status ?? 'DRAFT',
       customerId: new UniqueEntityID(raw.customerId),
       contactId: raw.contactId ? new UniqueEntityID(raw.contactId) : undefined,
       pipelineId: new UniqueEntityID(raw.pipelineId),
@@ -55,6 +56,18 @@ export function orderPrismaToDomain(raw: any): Order {
       assignedToUserId: raw.assignedToUserId
         ? new UniqueEntityID(raw.assignedToUserId)
         : undefined,
+      saleCode: raw.saleCode ?? undefined,
+      cashierUserId: raw.cashierUserId
+        ? new UniqueEntityID(raw.cashierUserId)
+        : undefined,
+      posSessionId: raw.posSessionId
+        ? new UniqueEntityID(raw.posSessionId)
+        : undefined,
+      claimedByUserId: raw.claimedByUserId
+        ? new UniqueEntityID(raw.claimedByUserId)
+        : undefined,
+      claimedAt: raw.claimedAt ?? undefined,
+      version: raw.version ?? 1,
       notes: raw.notes ?? undefined,
       internalNotes: raw.internalNotes ?? undefined,
       tags: raw.tags ?? [],

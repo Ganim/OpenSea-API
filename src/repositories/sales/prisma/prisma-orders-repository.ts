@@ -4,12 +4,14 @@ import { prisma } from '@/lib/prisma';
 import { orderPrismaToDomain } from '@/mappers/sales/order/order-prisma-to-domain';
 import type { PaginatedResult } from '@/repositories/pagination-params';
 import type {
+  FindCashierQueueParams,
   FindManyOrdersPaginatedParams,
   OrdersRepository,
 } from '../orders-repository';
 import type {
   OrderType as PrismaOrderType,
   OrderChannel as PrismaOrderChannel,
+  OrderStatus as PrismaOrderStatus,
 } from '@prisma/generated/client.js';
 
 export class PrismaOrdersRepository implements OrdersRepository {
@@ -20,6 +22,7 @@ export class PrismaOrdersRepository implements OrdersRepository {
         tenantId: order.tenantId.toString(),
         orderNumber: order.orderNumber,
         type: order.type as PrismaOrderType,
+        status: order.status as PrismaOrderStatus,
         customerId: order.customerId.toString(),
         contactId: order.contactId?.toString() ?? null,
         pipelineId: order.pipelineId.toString(),
@@ -48,6 +51,12 @@ export class PrismaOrdersRepository implements OrdersRepository {
         quoteId: order.quoteId?.toString() ?? null,
         returnOriginId: order.returnOriginId?.toString() ?? null,
         couponId: order.couponId?.toString() ?? null,
+        saleCode: order.saleCode ?? null,
+        cashierUserId: order.cashierUserId?.toString() ?? null,
+        posSessionId: order.posSessionId?.toString() ?? null,
+        claimedByUserId: order.claimedByUserId?.toString() ?? null,
+        claimedAt: order.claimedAt ?? null,
+        version: order.version,
         notes: order.notes ?? null,
         internalNotes: order.internalNotes ?? null,
         tags: order.tags,
@@ -86,6 +95,179 @@ export class PrismaOrdersRepository implements OrdersRepository {
 
     if (!data) return null;
     return orderPrismaToDomain(data);
+  }
+
+  async findBySaleCode(
+    saleCode: string,
+    tenantId: string,
+  ): Promise<Order | null> {
+    const data = await prisma.order.findFirst({
+      where: {
+        saleCode,
+        tenantId,
+        deletedAt: null,
+      },
+    });
+
+    if (!data) return null;
+    return orderPrismaToDomain(data);
+  }
+
+  async findCashierQueue(
+    tenantId: string,
+    params: FindCashierQueueParams,
+  ): Promise<PaginatedResult<Order>> {
+    const page = params.page ?? 1;
+    const limit = params.limit ?? 20;
+
+    const CLAIM_EXPIRY_MS = 5 * 60 * 1000;
+    const claimExpiryThreshold = new Date(Date.now() - CLAIM_EXPIRY_MS);
+
+    const where: Record<string, unknown> = {
+      tenantId,
+      channel: 'PDV',
+      status: 'PENDING',
+      deletedAt: null,
+    };
+
+    if (params.search) {
+      where.OR = [
+        { saleCode: { contains: params.search, mode: 'insensitive' } },
+        {
+          customer: { name: { contains: params.search, mode: 'insensitive' } },
+        },
+      ];
+    }
+
+    const [data, total] = await Promise.all([
+      prisma.order.findMany({
+        where: where as never,
+        select: {
+          id: true,
+          tenantId: true,
+          orderNumber: true,
+          type: true,
+          status: true,
+          customerId: true,
+          contactId: true,
+          pipelineId: true,
+          stageId: true,
+          channel: true,
+          subtotal: true,
+          discountTotal: true,
+          taxTotal: true,
+          shippingTotal: true,
+          grandTotal: true,
+          currency: true,
+          priceTableId: true,
+          paymentConditionId: true,
+          creditUsed: true,
+          paidAmount: true,
+          remainingAmount: true,
+          deliveryMethod: true,
+          deliveryAddress: true,
+          trackingCode: true,
+          carrierName: true,
+          estimatedDelivery: true,
+          deliveredAt: true,
+          needsApproval: true,
+          approvedByUserId: true,
+          approvedAt: true,
+          approvalNotes: true,
+          rejectedReason: true,
+          dealId: true,
+          quoteId: true,
+          returnOriginId: true,
+          couponId: true,
+          sourceWarehouseId: true,
+          assignedToUserId: true,
+          saleCode: true,
+          cashierUserId: true,
+          posSessionId: true,
+          claimedByUserId: true,
+          claimedAt: true,
+          version: true,
+          notes: true,
+          internalNotes: true,
+          tags: true,
+          customFields: true,
+          stageEnteredAt: true,
+          confirmedAt: true,
+          cancelledAt: true,
+          cancelReason: true,
+          expiresAt: true,
+          deletedAt: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+        skip: (page - 1) * limit,
+        take: limit,
+        orderBy: { createdAt: 'desc' },
+      }),
+      prisma.order.count({ where: where as never }),
+    ]);
+
+    const ordersWithExpiredClaims = data.map((orderData) => {
+      if (
+        orderData.claimedAt &&
+        orderData.claimedAt < claimExpiryThreshold
+      ) {
+        return { ...orderData, claimedByUserId: null, claimedAt: null };
+      }
+      return orderData;
+    });
+
+    return {
+      data: ordersWithExpiredClaims.map((d) => orderPrismaToDomain(d)),
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
+  }
+
+  async findMyDrafts(
+    userId: string,
+    tenantId: string,
+    params: { page?: number; limit?: number },
+  ): Promise<PaginatedResult<Order>> {
+    const page = params.page ?? 1;
+    const limit = params.limit ?? 20;
+
+    const where = {
+      assignedToUserId: userId,
+      status: 'DRAFT' as const,
+      channel: 'PDV' as const,
+      tenantId,
+      deletedAt: null,
+    };
+
+    const [data, total] = await Promise.all([
+      prisma.order.findMany({
+        where,
+        skip: (page - 1) * limit,
+        take: limit,
+        orderBy: { createdAt: 'desc' },
+      }),
+      prisma.order.count({ where }),
+    ]);
+
+    return {
+      data: data.map((d) => orderPrismaToDomain(d)),
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
+  }
+
+  async generateOrderNumber(tenantId: string): Promise<string> {
+    const orderCount = await prisma.order.count({
+      where: { tenantId },
+    });
+
+    const nextNumber = orderCount + 1;
+    return `PDV-${String(nextNumber).padStart(5, '0')}`;
   }
 
   async findManyPaginated(
@@ -133,6 +315,7 @@ export class PrismaOrdersRepository implements OrdersRepository {
       where: { id: order.id.toString() },
       data: {
         type: order.type as PrismaOrderType,
+        status: order.status as PrismaOrderStatus,
         contactId: order.contactId?.toString() ?? null,
         stageId: order.stageId.toString(),
         subtotal: order.subtotal,
@@ -149,6 +332,12 @@ export class PrismaOrdersRepository implements OrdersRepository {
         approvedByUserId: order.approvedByUserId?.toString() ?? null,
         approvedAt: order.approvedAt ?? null,
         assignedToUserId: order.assignedToUserId?.toString() ?? null,
+        saleCode: order.saleCode ?? null,
+        cashierUserId: order.cashierUserId?.toString() ?? null,
+        posSessionId: order.posSessionId?.toString() ?? null,
+        claimedByUserId: order.claimedByUserId?.toString() ?? null,
+        claimedAt: order.claimedAt ?? null,
+        version: order.version,
         notes: order.notes ?? null,
         internalNotes: order.internalNotes ?? null,
         tags: order.tags,

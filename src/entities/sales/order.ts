@@ -4,6 +4,15 @@ import { UniqueEntityID } from '../domain/unique-entity-id';
 
 export type OrderType = 'QUOTE' | 'ORDER';
 
+export type OrderStatus =
+  | 'DRAFT'
+  | 'PENDING'
+  | 'CONFIRMED'
+  | 'IN_TRANSIT'
+  | 'DELIVERED'
+  | 'CANCELLED'
+  | 'RETURNED';
+
 export type OrderChannel =
   | 'PDV'
   | 'WEB'
@@ -20,6 +29,7 @@ export interface OrderProps {
   tenantId: UniqueEntityID;
   orderNumber: string;
   type: OrderType;
+  status: OrderStatus;
   customerId: UniqueEntityID;
   contactId?: UniqueEntityID;
   pipelineId: UniqueEntityID;
@@ -68,6 +78,14 @@ export interface OrderProps {
   // Assignment
   assignedToUserId?: UniqueEntityID;
 
+  // PDV fields
+  saleCode?: string;
+  cashierUserId?: UniqueEntityID;
+  posSessionId?: UniqueEntityID;
+  claimedByUserId?: UniqueEntityID;
+  claimedAt?: Date;
+  version: number;
+
   // Metadata
   notes?: string;
   internalNotes?: string;
@@ -103,6 +121,15 @@ export class Order extends Entity<OrderProps> {
 
   set type(value: OrderType) {
     this.props.type = value;
+    this.touch();
+  }
+
+  get status(): OrderStatus {
+    return this.props.status;
+  }
+
+  set status(value: OrderStatus) {
+    this.props.status = value;
     this.touch();
   }
 
@@ -299,6 +326,60 @@ export class Order extends Entity<OrderProps> {
     this.touch();
   }
 
+  get saleCode(): string | undefined {
+    return this.props.saleCode;
+  }
+
+  set saleCode(value: string | undefined) {
+    this.props.saleCode = value;
+    this.touch();
+  }
+
+  get cashierUserId(): UniqueEntityID | undefined {
+    return this.props.cashierUserId;
+  }
+
+  set cashierUserId(value: UniqueEntityID | undefined) {
+    this.props.cashierUserId = value;
+    this.touch();
+  }
+
+  get posSessionId(): UniqueEntityID | undefined {
+    return this.props.posSessionId;
+  }
+
+  set posSessionId(value: UniqueEntityID | undefined) {
+    this.props.posSessionId = value;
+    this.touch();
+  }
+
+  get claimedByUserId(): UniqueEntityID | undefined {
+    return this.props.claimedByUserId;
+  }
+
+  set claimedByUserId(value: UniqueEntityID | undefined) {
+    this.props.claimedByUserId = value;
+    this.touch();
+  }
+
+  get claimedAt(): Date | undefined {
+    return this.props.claimedAt;
+  }
+
+  set claimedAt(value: Date | undefined) {
+    this.props.claimedAt = value;
+    this.touch();
+  }
+
+  get version(): number {
+    return this.props.version;
+  }
+
+  set version(value: number) {
+    this.props.version = value;
+    this.touch();
+  }
+
   get notes(): string | undefined {
     return this.props.notes;
   }
@@ -428,6 +509,8 @@ export class Order extends Entity<OrderProps> {
       | 'tags'
       | 'needsApproval'
       | 'stageEnteredAt'
+      | 'status'
+      | 'version'
     >,
     id?: UniqueEntityID,
   ): Order {
@@ -446,6 +529,7 @@ export class Order extends Entity<OrderProps> {
       {
         ...props,
         id: id ?? new UniqueEntityID(),
+        status: props.status ?? 'DRAFT',
         discountTotal,
         taxTotal,
         shippingTotal,
@@ -457,6 +541,7 @@ export class Order extends Entity<OrderProps> {
         tags: props.tags ?? [],
         needsApproval: props.needsApproval ?? false,
         stageEnteredAt: props.stageEnteredAt ?? new Date(),
+        version: props.version ?? 1,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt,
         deletedAt: props.deletedAt,

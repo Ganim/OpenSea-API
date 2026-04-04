@@ -42,6 +42,7 @@ export interface CustomersRepository {
 
   // READ
   findById(id: UniqueEntityID, tenantId: string): Promise<Customer | null>;
+  findSystemDefault(tenantId: string): Promise<Customer | null>;
   findByDocument(
     document: Document,
     tenantId: string,

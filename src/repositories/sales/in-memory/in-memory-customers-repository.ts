@@ -32,6 +32,16 @@ export class InMemoryCustomersRepository implements CustomersRepository {
     return customer;
   }
 
+  async findSystemDefault(tenantId: string): Promise<Customer | null> {
+    const customer = this.items.find(
+      (item) =>
+        !item.deletedAt &&
+        item.isSystem &&
+        item.tenantId.toString() === tenantId,
+    );
+    return customer ?? null;
+  }
+
   async findById(
     id: UniqueEntityID,
     tenantId: string,
