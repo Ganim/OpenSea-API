@@ -1285,6 +1285,10 @@ async function main() {
   const { seedIntegrations } = await import('./seeds/integrations-seed.js');
   await seedIntegrations(prisma);
 
+  // PDV data (pipeline + consumidor final per tenant)
+  const { seedPdvData } = await import('./seeds/pdv-seed.js');
+  await seedPdvData(prisma);
+
   // Auth links migration (multi-method auth)
   const { migrateAuthLinks } = await import('./seeds/auth-links-migration.js');
   await migrateAuthLinks(prisma);

@@ -483,6 +483,8 @@ model User {
   // Orders Relations
   assignedOrders       Order[]               @relation("OrderAssignee")
   approvedOrders       Order[]               @relation("OrderApprover")
+  cashierOrders        Order[]               @relation("OrderCashier")
+  claimedOrders        Order[]               @relation("OrderClaimedBy")
   requestedReturns     OrderReturn[]         @relation("ReturnRequester")
   approvedReturns      OrderReturn[]         @relation("ReturnApprover")
   reviewedCreditLimits CustomerCreditLimit[] @relation("CreditLimitReviewer")
@@ -2925,6 +2927,7 @@ model Customer {
   country   String?   @db.VarChar(64)
   notes     String?   @db.Text
   isActive  Boolean   @default(true) @map("is_active")
+  isSystem  Boolean   @default(false) @map("is_system")
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
@@ -3114,6 +3117,7 @@ model CrmPipeline {
   color          String?      @db.VarChar(16)
   type           PipelineType @default(SALES)
   isDefault      Boolean      @default(false) @map("is_default")
+  isSystem       Boolean      @default(false) @map("is_system")
   position       Int          @default(0)
   nextPipelineId String?      @map("next_pipeline_id")
   isActive       Boolean      @default(true) @map("is_active")
@@ -9559,8 +9563,9 @@ model Order {
   id       String @id @default(uuid())
   tenantId String @map("tenant_id")
 
-  orderNumber String    @map("order_number") @db.VarChar(64)
+  orderNumber String      @map("order_number") @db.VarChar(64)
   type        OrderType
+  status      OrderStatus @default(DRAFT)
 
   // Relations FKs
   customerId String  @map("customer_id")
@@ -9623,6 +9628,14 @@ model Order {
   cancelReason   String?   @map("cancel_reason")
   expiresAt      DateTime? @map("expires_at")
 
+  // PDV fields
+  saleCode        String?   @map("sale_code") @db.VarChar(8)
+  cashierUserId   String?   @map("cashier_user_id")
+  posSessionId    String?   @map("pos_session_id")
+  claimedByUserId String?   @map("claimed_by_user_id")
+  claimedAt       DateTime? @map("claimed_at")
+  version         Int       @default(1)
+
   // Soft Delete
   deletedAt DateTime? @map("deleted_at")
 
@@ -9658,6 +9671,11 @@ model Order {
   storeCreditsReserved StoreCredit[]      @relation("StoreCreditReservedOrder")
   storeCreditUsages    StoreCreditUsage[]
 
+  // PDV Relations
+  cashierUser   User?       @relation("OrderCashier", fields: [cashierUserId], references: [id])
+  posSession    PosSession? @relation(fields: [posSessionId], references: [id])
+  claimedByUser User?       @relation("OrderClaimedBy", fields: [claimedByUserId], references: [id])
+
   // POS Relations
   posTransactions PosTransaction[]
   posVisitLogs    PosVisitLog[]
@@ -9666,6 +9684,7 @@ model Order {
   fiscalDocuments FiscalDocument[]
 
   @@unique([tenantId, orderNumber])
+  @@unique([tenantId, saleCode])
   @@index([tenantId])
   @@index([tenantId, type])
   @@index([tenantId, customerId])
@@ -9674,6 +9693,8 @@ model Order {
   @@index([tenantId, pipelineId])
   @@index([tenantId, channel])
   @@index([tenantId, createdAt])
+  @@index([tenantId, channel, status, createdAt])
+  @@index([tenantId, assignedToUserId, status])
   @@map("orders")
 }
 
@@ -11170,6 +11191,7 @@ model PosTerminal {
   cashierMode PosCashierMode  @default(INTEGRATED) @map("cashier_mode")
 
   acceptsPendingOrders Boolean @default(false) @map("accepts_pending_orders")
+  requiresSession     Boolean @default(true) @map("requires_session")
 
   warehouseId         String  @map("warehouse_id")
   defaultPriceTableId String? @map("default_price_table_id")
@@ -11229,6 +11251,7 @@ model PosSession {
 
   transactions PosTransaction[]
   movements    PosCashMovement[]
+  orders       Order[]
 
   @@index([tenantId])
   @@index([terminalId])
