@@ -40,6 +40,7 @@ export type CustomerMinAggregateOutputType = {
   country: string | null
   notes: string | null
   isActive: boolean | null
+  isSystem: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -70,6 +71,7 @@ export type CustomerMaxAggregateOutputType = {
   country: string | null
   notes: string | null
   isActive: boolean | null
+  isSystem: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -100,6 +102,7 @@ export type CustomerCountAggregateOutputType = {
   country: number
   notes: number
   isActive: number
+  isSystem: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -134,6 +137,7 @@ export type CustomerMinAggregateInputType = {
   country?: true
   notes?: true
   isActive?: true
+  isSystem?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -164,6 +168,7 @@ export type CustomerMaxAggregateInputType = {
   country?: true
   notes?: true
   isActive?: true
+  isSystem?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -194,6 +199,7 @@ export type CustomerCountAggregateInputType = {
   country?: true
   notes?: true
   isActive?: true
+  isSystem?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -299,6 +305,7 @@ export type CustomerGroupByOutputType = {
   country: string | null
   notes: string | null
   isActive: boolean
+  isSystem: boolean
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -352,6 +359,7 @@ export type CustomerWhereInput = {
   country?: Prisma.StringNullableFilter<"Customer"> | string | null
   notes?: Prisma.StringNullableFilter<"Customer"> | string | null
   isActive?: Prisma.BoolFilter<"Customer"> | boolean
+  isSystem?: Prisma.BoolFilter<"Customer"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Customer"> | Date | string | null
@@ -410,6 +418,7 @@ export type CustomerOrderByWithRelationInput = {
   country?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  isSystem?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -472,6 +481,7 @@ export type CustomerWhereUniqueInput = Prisma.AtLeast<{
   country?: Prisma.StringNullableFilter<"Customer"> | string | null
   notes?: Prisma.StringNullableFilter<"Customer"> | string | null
   isActive?: Prisma.BoolFilter<"Customer"> | boolean
+  isSystem?: Prisma.BoolFilter<"Customer"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Customer"> | Date | string | null
@@ -530,6 +540,7 @@ export type CustomerOrderByWithAggregationInput = {
   country?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  isSystem?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -568,6 +579,7 @@ export type CustomerScalarWhereWithAggregatesInput = {
   country?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
   isActive?: Prisma.BoolWithAggregatesFilter<"Customer"> | boolean
+  isSystem?: Prisma.BoolWithAggregatesFilter<"Customer"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Customer"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Customer"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Customer"> | Date | string | null
@@ -600,6 +612,7 @@ export type CustomerCreateInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -656,6 +669,7 @@ export type CustomerUncheckedCreateInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -712,6 +726,7 @@ export type CustomerUpdateInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -768,6 +783,7 @@ export type CustomerUncheckedUpdateInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -824,6 +840,7 @@ export type CustomerCreateManyInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -856,6 +873,7 @@ export type CustomerUpdateManyMutationInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -886,6 +904,7 @@ export type CustomerUncheckedUpdateManyInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -934,6 +953,7 @@ export type CustomerCountOrderByAggregateInput = {
   country?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  isSystem?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -966,6 +986,7 @@ export type CustomerMaxOrderByAggregateInput = {
   country?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  isSystem?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -996,6 +1017,7 @@ export type CustomerMinOrderByAggregateInput = {
   country?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  isSystem?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -1487,6 +1509,7 @@ export type CustomerCreateWithoutAssignedToInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1542,6 +1565,7 @@ export type CustomerUncheckedCreateWithoutAssignedToInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1626,6 +1650,7 @@ export type CustomerScalarWhereInput = {
   country?: Prisma.StringNullableFilter<"Customer"> | string | null
   notes?: Prisma.StringNullableFilter<"Customer"> | string | null
   isActive?: Prisma.BoolFilter<"Customer"> | boolean
+  isSystem?: Prisma.BoolFilter<"Customer"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Customer"> | Date | string | null
@@ -1658,6 +1683,7 @@ export type CustomerCreateWithoutSalesOrdersInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1713,6 +1739,7 @@ export type CustomerUncheckedCreateWithoutSalesOrdersInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1784,6 +1811,7 @@ export type CustomerUpdateWithoutSalesOrdersInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1839,6 +1867,7 @@ export type CustomerUncheckedUpdateWithoutSalesOrdersInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1894,6 +1923,7 @@ export type CustomerCreateWithoutCrmContactsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1949,6 +1979,7 @@ export type CustomerUncheckedCreateWithoutCrmContactsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2020,6 +2051,7 @@ export type CustomerUpdateWithoutCrmContactsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2075,6 +2107,7 @@ export type CustomerUncheckedUpdateWithoutCrmContactsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2130,6 +2163,7 @@ export type CustomerCreateWithoutCrmDealsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2185,6 +2219,7 @@ export type CustomerUncheckedCreateWithoutCrmDealsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2256,6 +2291,7 @@ export type CustomerUpdateWithoutCrmDealsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2311,6 +2347,7 @@ export type CustomerUncheckedUpdateWithoutCrmDealsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2366,6 +2403,7 @@ export type CustomerCreateWithoutContactsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2421,6 +2459,7 @@ export type CustomerUncheckedCreateWithoutContactsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2492,6 +2531,7 @@ export type CustomerUpdateWithoutContactsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2547,6 +2587,7 @@ export type CustomerUncheckedUpdateWithoutContactsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2602,6 +2643,7 @@ export type CustomerCreateWithoutDealsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2657,6 +2699,7 @@ export type CustomerUncheckedCreateWithoutDealsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2728,6 +2771,7 @@ export type CustomerUpdateWithoutDealsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2783,6 +2827,7 @@ export type CustomerUncheckedUpdateWithoutDealsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2838,6 +2883,7 @@ export type CustomerCreateWithoutActivitiesInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2893,6 +2939,7 @@ export type CustomerUncheckedCreateWithoutActivitiesInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2964,6 +3011,7 @@ export type CustomerUpdateWithoutActivitiesInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3019,6 +3067,7 @@ export type CustomerUncheckedUpdateWithoutActivitiesInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3074,6 +3123,7 @@ export type CustomerCreateWithoutTimelineEventsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3129,6 +3179,7 @@ export type CustomerUncheckedCreateWithoutTimelineEventsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3200,6 +3251,7 @@ export type CustomerUpdateWithoutTimelineEventsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3255,6 +3307,7 @@ export type CustomerUncheckedUpdateWithoutTimelineEventsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3310,6 +3363,7 @@ export type CustomerCreateWithoutTenantInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3365,6 +3419,7 @@ export type CustomerUncheckedCreateWithoutTenantInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3446,6 +3501,7 @@ export type CustomerCreateWithoutCustomerPricesInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3501,6 +3557,7 @@ export type CustomerUncheckedCreateWithoutCustomerPricesInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3572,6 +3629,7 @@ export type CustomerUpdateWithoutCustomerPricesInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3627,6 +3685,7 @@ export type CustomerUncheckedUpdateWithoutCustomerPricesInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3682,6 +3741,7 @@ export type CustomerCreateWithoutCouponsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3737,6 +3797,7 @@ export type CustomerUncheckedCreateWithoutCouponsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3808,6 +3869,7 @@ export type CustomerUpdateWithoutCouponsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3863,6 +3925,7 @@ export type CustomerUncheckedUpdateWithoutCouponsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3918,6 +3981,7 @@ export type CustomerCreateWithoutCouponUsagesInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3973,6 +4037,7 @@ export type CustomerUncheckedCreateWithoutCouponUsagesInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -4044,6 +4109,7 @@ export type CustomerUpdateWithoutCouponUsagesInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4099,6 +4165,7 @@ export type CustomerUncheckedUpdateWithoutCouponUsagesInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4154,6 +4221,7 @@ export type CustomerCreateWithoutCatalogsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -4209,6 +4277,7 @@ export type CustomerUncheckedCreateWithoutCatalogsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -4280,6 +4349,7 @@ export type CustomerUpdateWithoutCatalogsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4335,6 +4405,7 @@ export type CustomerUncheckedUpdateWithoutCatalogsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4390,6 +4461,7 @@ export type CustomerCreateWithoutOrdersInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -4445,6 +4517,7 @@ export type CustomerUncheckedCreateWithoutOrdersInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -4516,6 +4589,7 @@ export type CustomerUpdateWithoutOrdersInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4571,6 +4645,7 @@ export type CustomerUncheckedUpdateWithoutOrdersInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4626,6 +4701,7 @@ export type CustomerCreateWithoutStoreCreditsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -4681,6 +4757,7 @@ export type CustomerUncheckedCreateWithoutStoreCreditsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -4752,6 +4829,7 @@ export type CustomerUpdateWithoutStoreCreditsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4807,6 +4885,7 @@ export type CustomerUncheckedUpdateWithoutStoreCreditsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4862,6 +4941,7 @@ export type CustomerCreateWithoutCustomerCreditLimitsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -4917,6 +4997,7 @@ export type CustomerUncheckedCreateWithoutCustomerCreditLimitsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -4988,6 +5069,7 @@ export type CustomerUpdateWithoutCustomerCreditLimitsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5043,6 +5125,7 @@ export type CustomerUncheckedUpdateWithoutCustomerCreditLimitsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5098,6 +5181,7 @@ export type CustomerCreateWithoutPortalAccessesInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -5153,6 +5237,7 @@ export type CustomerUncheckedCreateWithoutPortalAccessesInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -5224,6 +5309,7 @@ export type CustomerUpdateWithoutPortalAccessesInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5279,6 +5365,7 @@ export type CustomerUncheckedUpdateWithoutPortalAccessesInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5334,6 +5421,7 @@ export type CustomerCreateWithoutPosTransactionsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -5389,6 +5477,7 @@ export type CustomerUncheckedCreateWithoutPosTransactionsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -5460,6 +5549,7 @@ export type CustomerUpdateWithoutPosTransactionsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5515,6 +5605,7 @@ export type CustomerUncheckedUpdateWithoutPosTransactionsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5570,6 +5661,7 @@ export type CustomerCreateWithoutPosVisitLogsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -5625,6 +5717,7 @@ export type CustomerUncheckedCreateWithoutPosVisitLogsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -5696,6 +5789,7 @@ export type CustomerUpdateWithoutPosVisitLogsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5751,6 +5845,7 @@ export type CustomerUncheckedUpdateWithoutPosVisitLogsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5806,6 +5901,7 @@ export type CustomerCreateWithoutBidsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -5861,6 +5957,7 @@ export type CustomerUncheckedCreateWithoutBidsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -5932,6 +6029,7 @@ export type CustomerUpdateWithoutBidsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5987,6 +6085,7 @@ export type CustomerUncheckedUpdateWithoutBidsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6042,6 +6141,7 @@ export type CustomerCreateWithoutBidContractsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -6097,6 +6197,7 @@ export type CustomerUncheckedCreateWithoutBidContractsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -6168,6 +6269,7 @@ export type CustomerUpdateWithoutBidContractsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6223,6 +6325,7 @@ export type CustomerUncheckedUpdateWithoutBidContractsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6278,6 +6381,7 @@ export type CustomerCreateWithoutMessagingContactsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -6333,6 +6437,7 @@ export type CustomerUncheckedCreateWithoutMessagingContactsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -6404,6 +6509,7 @@ export type CustomerUpdateWithoutMessagingContactsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6459,6 +6565,7 @@ export type CustomerUncheckedUpdateWithoutMessagingContactsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6514,6 +6621,7 @@ export type CustomerCreateWithoutQuotesInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -6569,6 +6677,7 @@ export type CustomerUncheckedCreateWithoutQuotesInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -6640,6 +6749,7 @@ export type CustomerUpdateWithoutQuotesInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6695,6 +6805,7 @@ export type CustomerUncheckedUpdateWithoutQuotesInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6750,6 +6861,7 @@ export type CustomerCreateWithoutProposalsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -6805,6 +6917,7 @@ export type CustomerUncheckedCreateWithoutProposalsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -6876,6 +6989,7 @@ export type CustomerUpdateWithoutProposalsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6931,6 +7045,7 @@ export type CustomerUncheckedUpdateWithoutProposalsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6986,6 +7101,7 @@ export type CustomerCreateWithoutConversationsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -7041,6 +7157,7 @@ export type CustomerUncheckedCreateWithoutConversationsInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -7112,6 +7229,7 @@ export type CustomerUpdateWithoutConversationsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7167,6 +7285,7 @@ export type CustomerUncheckedUpdateWithoutConversationsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7222,6 +7341,7 @@ export type CustomerCreateWithoutLeadScoresInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -7277,6 +7397,7 @@ export type CustomerUncheckedCreateWithoutLeadScoresInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -7348,6 +7469,7 @@ export type CustomerUpdateWithoutLeadScoresInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7403,6 +7525,7 @@ export type CustomerUncheckedUpdateWithoutLeadScoresInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7458,6 +7581,7 @@ export type CustomerCreateManyAssignedToInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -7489,6 +7613,7 @@ export type CustomerUpdateWithoutAssignedToInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7544,6 +7669,7 @@ export type CustomerUncheckedUpdateWithoutAssignedToInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7599,6 +7725,7 @@ export type CustomerUncheckedUpdateManyWithoutAssignedToInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7630,6 +7757,7 @@ export type CustomerCreateManyTenantInput = {
   country?: string | null
   notes?: string | null
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -7661,6 +7789,7 @@ export type CustomerUpdateWithoutTenantInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7716,6 +7845,7 @@ export type CustomerUncheckedUpdateWithoutTenantInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7771,6 +7901,7 @@ export type CustomerUncheckedUpdateManyWithoutTenantInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8040,6 +8171,7 @@ export type CustomerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   country?: boolean
   notes?: boolean
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -8099,6 +8231,7 @@ export type CustomerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   country?: boolean
   notes?: boolean
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -8133,6 +8266,7 @@ export type CustomerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   country?: boolean
   notes?: boolean
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -8167,6 +8301,7 @@ export type CustomerSelectScalar = {
   country?: boolean
   notes?: boolean
   isActive?: boolean
+  isSystem?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -8183,7 +8318,7 @@ export type CustomerSelectScalar = {
   tenantId?: boolean
 }
 
-export type CustomerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "type" | "document" | "email" | "phone" | "address" | "city" | "state" | "zipCode" | "documentHash" | "emailHash" | "country" | "notes" | "isActive" | "createdAt" | "updatedAt" | "deletedAt" | "tradeName" | "stateRegistration" | "website" | "addressNumber" | "addressComplement" | "addressNeighborhood" | "tags" | "customFields" | "source" | "assignedToUserId" | "tenantId", ExtArgs["result"]["customer"]>
+export type CustomerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "type" | "document" | "email" | "phone" | "address" | "city" | "state" | "zipCode" | "documentHash" | "emailHash" | "country" | "notes" | "isActive" | "isSystem" | "createdAt" | "updatedAt" | "deletedAt" | "tradeName" | "stateRegistration" | "website" | "addressNumber" | "addressComplement" | "addressNeighborhood" | "tags" | "customFields" | "source" | "assignedToUserId" | "tenantId", ExtArgs["result"]["customer"]>
 export type CustomerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   salesOrders?: boolean | Prisma.Customer$salesOrdersArgs<ExtArgs>
@@ -8268,6 +8403,7 @@ export type $CustomerPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     country: string | null
     notes: string | null
     isActive: boolean
+    isSystem: boolean
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -8746,6 +8882,7 @@ export interface CustomerFieldRefs {
   readonly country: Prisma.FieldRef<"Customer", 'String'>
   readonly notes: Prisma.FieldRef<"Customer", 'String'>
   readonly isActive: Prisma.FieldRef<"Customer", 'Boolean'>
+  readonly isSystem: Prisma.FieldRef<"Customer", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Customer", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Customer", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Customer", 'DateTime'>

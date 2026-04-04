@@ -43,6 +43,7 @@ export type CrmPipelineMinAggregateOutputType = {
   color: string | null
   type: $Enums.PipelineType | null
   isDefault: boolean | null
+  isSystem: boolean | null
   position: number | null
   nextPipelineId: string | null
   isActive: boolean | null
@@ -60,6 +61,7 @@ export type CrmPipelineMaxAggregateOutputType = {
   color: string | null
   type: $Enums.PipelineType | null
   isDefault: boolean | null
+  isSystem: boolean | null
   position: number | null
   nextPipelineId: string | null
   isActive: boolean | null
@@ -77,6 +79,7 @@ export type CrmPipelineCountAggregateOutputType = {
   color: number
   type: number
   isDefault: number
+  isSystem: number
   position: number
   nextPipelineId: number
   isActive: number
@@ -104,6 +107,7 @@ export type CrmPipelineMinAggregateInputType = {
   color?: true
   type?: true
   isDefault?: true
+  isSystem?: true
   position?: true
   nextPipelineId?: true
   isActive?: true
@@ -121,6 +125,7 @@ export type CrmPipelineMaxAggregateInputType = {
   color?: true
   type?: true
   isDefault?: true
+  isSystem?: true
   position?: true
   nextPipelineId?: true
   isActive?: true
@@ -138,6 +143,7 @@ export type CrmPipelineCountAggregateInputType = {
   color?: true
   type?: true
   isDefault?: true
+  isSystem?: true
   position?: true
   nextPipelineId?: true
   isActive?: true
@@ -242,6 +248,7 @@ export type CrmPipelineGroupByOutputType = {
   color: string | null
   type: $Enums.PipelineType
   isDefault: boolean
+  isSystem: boolean
   position: number
   nextPipelineId: string | null
   isActive: boolean
@@ -282,6 +289,7 @@ export type CrmPipelineWhereInput = {
   color?: Prisma.StringNullableFilter<"CrmPipeline"> | string | null
   type?: Prisma.EnumPipelineTypeFilter<"CrmPipeline"> | $Enums.PipelineType
   isDefault?: Prisma.BoolFilter<"CrmPipeline"> | boolean
+  isSystem?: Prisma.BoolFilter<"CrmPipeline"> | boolean
   position?: Prisma.IntFilter<"CrmPipeline"> | number
   nextPipelineId?: Prisma.StringNullableFilter<"CrmPipeline"> | string | null
   isActive?: Prisma.BoolFilter<"CrmPipeline"> | boolean
@@ -303,6 +311,7 @@ export type CrmPipelineOrderByWithRelationInput = {
   color?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
+  isSystem?: Prisma.SortOrder
   position?: Prisma.SortOrder
   nextPipelineId?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -327,6 +336,7 @@ export type CrmPipelineWhereUniqueInput = Prisma.AtLeast<{
   color?: Prisma.StringNullableFilter<"CrmPipeline"> | string | null
   type?: Prisma.EnumPipelineTypeFilter<"CrmPipeline"> | $Enums.PipelineType
   isDefault?: Prisma.BoolFilter<"CrmPipeline"> | boolean
+  isSystem?: Prisma.BoolFilter<"CrmPipeline"> | boolean
   position?: Prisma.IntFilter<"CrmPipeline"> | number
   nextPipelineId?: Prisma.StringNullableFilter<"CrmPipeline"> | string | null
   isActive?: Prisma.BoolFilter<"CrmPipeline"> | boolean
@@ -348,6 +358,7 @@ export type CrmPipelineOrderByWithAggregationInput = {
   color?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
+  isSystem?: Prisma.SortOrder
   position?: Prisma.SortOrder
   nextPipelineId?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -373,6 +384,7 @@ export type CrmPipelineScalarWhereWithAggregatesInput = {
   color?: Prisma.StringNullableWithAggregatesFilter<"CrmPipeline"> | string | null
   type?: Prisma.EnumPipelineTypeWithAggregatesFilter<"CrmPipeline"> | $Enums.PipelineType
   isDefault?: Prisma.BoolWithAggregatesFilter<"CrmPipeline"> | boolean
+  isSystem?: Prisma.BoolWithAggregatesFilter<"CrmPipeline"> | boolean
   position?: Prisma.IntWithAggregatesFilter<"CrmPipeline"> | number
   nextPipelineId?: Prisma.StringNullableWithAggregatesFilter<"CrmPipeline"> | string | null
   isActive?: Prisma.BoolWithAggregatesFilter<"CrmPipeline"> | boolean
@@ -389,6 +401,7 @@ export type CrmPipelineCreateInput = {
   color?: string | null
   type?: $Enums.PipelineType
   isDefault?: boolean
+  isSystem?: boolean
   position?: number
   nextPipelineId?: string | null
   isActive?: boolean
@@ -410,6 +423,7 @@ export type CrmPipelineUncheckedCreateInput = {
   color?: string | null
   type?: $Enums.PipelineType
   isDefault?: boolean
+  isSystem?: boolean
   position?: number
   nextPipelineId?: string | null
   isActive?: boolean
@@ -429,6 +443,7 @@ export type CrmPipelineUpdateInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPipelineTypeFieldUpdateOperationsInput | $Enums.PipelineType
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   position?: Prisma.IntFieldUpdateOperationsInput | number
   nextPipelineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -450,6 +465,7 @@ export type CrmPipelineUncheckedUpdateInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPipelineTypeFieldUpdateOperationsInput | $Enums.PipelineType
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   position?: Prisma.IntFieldUpdateOperationsInput | number
   nextPipelineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -470,6 +486,7 @@ export type CrmPipelineCreateManyInput = {
   color?: string | null
   type?: $Enums.PipelineType
   isDefault?: boolean
+  isSystem?: boolean
   position?: number
   nextPipelineId?: string | null
   isActive?: boolean
@@ -486,6 +503,7 @@ export type CrmPipelineUpdateManyMutationInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPipelineTypeFieldUpdateOperationsInput | $Enums.PipelineType
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   position?: Prisma.IntFieldUpdateOperationsInput | number
   nextPipelineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -503,6 +521,7 @@ export type CrmPipelineUncheckedUpdateManyInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPipelineTypeFieldUpdateOperationsInput | $Enums.PipelineType
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   position?: Prisma.IntFieldUpdateOperationsInput | number
   nextPipelineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -520,6 +539,7 @@ export type CrmPipelineCountOrderByAggregateInput = {
   color?: Prisma.SortOrder
   type?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
+  isSystem?: Prisma.SortOrder
   position?: Prisma.SortOrder
   nextPipelineId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -541,6 +561,7 @@ export type CrmPipelineMaxOrderByAggregateInput = {
   color?: Prisma.SortOrder
   type?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
+  isSystem?: Prisma.SortOrder
   position?: Prisma.SortOrder
   nextPipelineId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -558,6 +579,7 @@ export type CrmPipelineMinOrderByAggregateInput = {
   color?: Prisma.SortOrder
   type?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
+  isSystem?: Prisma.SortOrder
   position?: Prisma.SortOrder
   nextPipelineId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -681,6 +703,7 @@ export type CrmPipelineCreateWithoutStagesInput = {
   color?: string | null
   type?: $Enums.PipelineType
   isDefault?: boolean
+  isSystem?: boolean
   position?: number
   nextPipelineId?: string | null
   isActive?: boolean
@@ -701,6 +724,7 @@ export type CrmPipelineUncheckedCreateWithoutStagesInput = {
   color?: string | null
   type?: $Enums.PipelineType
   isDefault?: boolean
+  isSystem?: boolean
   position?: number
   nextPipelineId?: string | null
   isActive?: boolean
@@ -735,6 +759,7 @@ export type CrmPipelineUpdateWithoutStagesInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPipelineTypeFieldUpdateOperationsInput | $Enums.PipelineType
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   position?: Prisma.IntFieldUpdateOperationsInput | number
   nextPipelineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -755,6 +780,7 @@ export type CrmPipelineUncheckedUpdateWithoutStagesInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPipelineTypeFieldUpdateOperationsInput | $Enums.PipelineType
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   position?: Prisma.IntFieldUpdateOperationsInput | number
   nextPipelineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -773,6 +799,7 @@ export type CrmPipelineCreateWithoutDealsInput = {
   color?: string | null
   type?: $Enums.PipelineType
   isDefault?: boolean
+  isSystem?: boolean
   position?: number
   nextPipelineId?: string | null
   isActive?: boolean
@@ -793,6 +820,7 @@ export type CrmPipelineUncheckedCreateWithoutDealsInput = {
   color?: string | null
   type?: $Enums.PipelineType
   isDefault?: boolean
+  isSystem?: boolean
   position?: number
   nextPipelineId?: string | null
   isActive?: boolean
@@ -827,6 +855,7 @@ export type CrmPipelineUpdateWithoutDealsInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPipelineTypeFieldUpdateOperationsInput | $Enums.PipelineType
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   position?: Prisma.IntFieldUpdateOperationsInput | number
   nextPipelineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -847,6 +876,7 @@ export type CrmPipelineUncheckedUpdateWithoutDealsInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPipelineTypeFieldUpdateOperationsInput | $Enums.PipelineType
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   position?: Prisma.IntFieldUpdateOperationsInput | number
   nextPipelineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -865,6 +895,7 @@ export type CrmPipelineCreateWithoutTenantInput = {
   color?: string | null
   type?: $Enums.PipelineType
   isDefault?: boolean
+  isSystem?: boolean
   position?: number
   nextPipelineId?: string | null
   isActive?: boolean
@@ -884,6 +915,7 @@ export type CrmPipelineUncheckedCreateWithoutTenantInput = {
   color?: string | null
   type?: $Enums.PipelineType
   isDefault?: boolean
+  isSystem?: boolean
   position?: number
   nextPipelineId?: string | null
   isActive?: boolean
@@ -933,6 +965,7 @@ export type CrmPipelineScalarWhereInput = {
   color?: Prisma.StringNullableFilter<"CrmPipeline"> | string | null
   type?: Prisma.EnumPipelineTypeFilter<"CrmPipeline"> | $Enums.PipelineType
   isDefault?: Prisma.BoolFilter<"CrmPipeline"> | boolean
+  isSystem?: Prisma.BoolFilter<"CrmPipeline"> | boolean
   position?: Prisma.IntFilter<"CrmPipeline"> | number
   nextPipelineId?: Prisma.StringNullableFilter<"CrmPipeline"> | string | null
   isActive?: Prisma.BoolFilter<"CrmPipeline"> | boolean
@@ -949,6 +982,7 @@ export type CrmPipelineCreateWithoutOrdersInput = {
   color?: string | null
   type?: $Enums.PipelineType
   isDefault?: boolean
+  isSystem?: boolean
   position?: number
   nextPipelineId?: string | null
   isActive?: boolean
@@ -969,6 +1003,7 @@ export type CrmPipelineUncheckedCreateWithoutOrdersInput = {
   color?: string | null
   type?: $Enums.PipelineType
   isDefault?: boolean
+  isSystem?: boolean
   position?: number
   nextPipelineId?: string | null
   isActive?: boolean
@@ -1003,6 +1038,7 @@ export type CrmPipelineUpdateWithoutOrdersInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPipelineTypeFieldUpdateOperationsInput | $Enums.PipelineType
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   position?: Prisma.IntFieldUpdateOperationsInput | number
   nextPipelineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1023,6 +1059,7 @@ export type CrmPipelineUncheckedUpdateWithoutOrdersInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPipelineTypeFieldUpdateOperationsInput | $Enums.PipelineType
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   position?: Prisma.IntFieldUpdateOperationsInput | number
   nextPipelineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1041,6 +1078,7 @@ export type CrmPipelineCreateManyTenantInput = {
   color?: string | null
   type?: $Enums.PipelineType
   isDefault?: boolean
+  isSystem?: boolean
   position?: number
   nextPipelineId?: string | null
   isActive?: boolean
@@ -1057,6 +1095,7 @@ export type CrmPipelineUpdateWithoutTenantInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPipelineTypeFieldUpdateOperationsInput | $Enums.PipelineType
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   position?: Prisma.IntFieldUpdateOperationsInput | number
   nextPipelineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1076,6 +1115,7 @@ export type CrmPipelineUncheckedUpdateWithoutTenantInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPipelineTypeFieldUpdateOperationsInput | $Enums.PipelineType
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   position?: Prisma.IntFieldUpdateOperationsInput | number
   nextPipelineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1095,6 +1135,7 @@ export type CrmPipelineUncheckedUpdateManyWithoutTenantInput = {
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPipelineTypeFieldUpdateOperationsInput | $Enums.PipelineType
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSystem?: Prisma.BoolFieldUpdateOperationsInput | boolean
   position?: Prisma.IntFieldUpdateOperationsInput | number
   nextPipelineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1161,6 +1202,7 @@ export type CrmPipelineSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   color?: boolean
   type?: boolean
   isDefault?: boolean
+  isSystem?: boolean
   position?: boolean
   nextPipelineId?: boolean
   isActive?: boolean
@@ -1183,6 +1225,7 @@ export type CrmPipelineSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   color?: boolean
   type?: boolean
   isDefault?: boolean
+  isSystem?: boolean
   position?: boolean
   nextPipelineId?: boolean
   isActive?: boolean
@@ -1201,6 +1244,7 @@ export type CrmPipelineSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   color?: boolean
   type?: boolean
   isDefault?: boolean
+  isSystem?: boolean
   position?: boolean
   nextPipelineId?: boolean
   isActive?: boolean
@@ -1219,6 +1263,7 @@ export type CrmPipelineSelectScalar = {
   color?: boolean
   type?: boolean
   isDefault?: boolean
+  isSystem?: boolean
   position?: boolean
   nextPipelineId?: boolean
   isActive?: boolean
@@ -1227,7 +1272,7 @@ export type CrmPipelineSelectScalar = {
   deletedAt?: boolean
 }
 
-export type CrmPipelineOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "description" | "icon" | "color" | "type" | "isDefault" | "position" | "nextPipelineId" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["crmPipeline"]>
+export type CrmPipelineOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "description" | "icon" | "color" | "type" | "isDefault" | "isSystem" | "position" | "nextPipelineId" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["crmPipeline"]>
 export type CrmPipelineInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   stages?: boolean | Prisma.CrmPipeline$stagesArgs<ExtArgs>
@@ -1259,6 +1304,7 @@ export type $CrmPipelinePayload<ExtArgs extends runtime.Types.Extensions.Interna
     color: string | null
     type: $Enums.PipelineType
     isDefault: boolean
+    isSystem: boolean
     position: number
     nextPipelineId: string | null
     isActive: boolean
@@ -1700,6 +1746,7 @@ export interface CrmPipelineFieldRefs {
   readonly color: Prisma.FieldRef<"CrmPipeline", 'String'>
   readonly type: Prisma.FieldRef<"CrmPipeline", 'PipelineType'>
   readonly isDefault: Prisma.FieldRef<"CrmPipeline", 'Boolean'>
+  readonly isSystem: Prisma.FieldRef<"CrmPipeline", 'Boolean'>
   readonly position: Prisma.FieldRef<"CrmPipeline", 'Int'>
   readonly nextPipelineId: Prisma.FieldRef<"CrmPipeline", 'String'>
   readonly isActive: Prisma.FieldRef<"CrmPipeline", 'Boolean'>

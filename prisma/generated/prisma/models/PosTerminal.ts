@@ -32,6 +32,7 @@ export type PosTerminalMinAggregateOutputType = {
   mode: $Enums.PosTerminalMode | null
   cashierMode: $Enums.PosCashierMode | null
   acceptsPendingOrders: boolean | null
+  requiresSession: boolean | null
   warehouseId: string | null
   defaultPriceTableId: string | null
   isActive: boolean | null
@@ -49,6 +50,7 @@ export type PosTerminalMaxAggregateOutputType = {
   mode: $Enums.PosTerminalMode | null
   cashierMode: $Enums.PosCashierMode | null
   acceptsPendingOrders: boolean | null
+  requiresSession: boolean | null
   warehouseId: string | null
   defaultPriceTableId: string | null
   isActive: boolean | null
@@ -66,6 +68,7 @@ export type PosTerminalCountAggregateOutputType = {
   mode: number
   cashierMode: number
   acceptsPendingOrders: number
+  requiresSession: number
   warehouseId: number
   defaultPriceTableId: number
   isActive: number
@@ -86,6 +89,7 @@ export type PosTerminalMinAggregateInputType = {
   mode?: true
   cashierMode?: true
   acceptsPendingOrders?: true
+  requiresSession?: true
   warehouseId?: true
   defaultPriceTableId?: true
   isActive?: true
@@ -103,6 +107,7 @@ export type PosTerminalMaxAggregateInputType = {
   mode?: true
   cashierMode?: true
   acceptsPendingOrders?: true
+  requiresSession?: true
   warehouseId?: true
   defaultPriceTableId?: true
   isActive?: true
@@ -120,6 +125,7 @@ export type PosTerminalCountAggregateInputType = {
   mode?: true
   cashierMode?: true
   acceptsPendingOrders?: true
+  requiresSession?: true
   warehouseId?: true
   defaultPriceTableId?: true
   isActive?: true
@@ -211,6 +217,7 @@ export type PosTerminalGroupByOutputType = {
   mode: $Enums.PosTerminalMode
   cashierMode: $Enums.PosCashierMode
   acceptsPendingOrders: boolean
+  requiresSession: boolean
   warehouseId: string
   defaultPriceTableId: string | null
   isActive: boolean
@@ -250,6 +257,7 @@ export type PosTerminalWhereInput = {
   mode?: Prisma.EnumPosTerminalModeFilter<"PosTerminal"> | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFilter<"PosTerminal"> | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFilter<"PosTerminal"> | boolean
+  requiresSession?: Prisma.BoolFilter<"PosTerminal"> | boolean
   warehouseId?: Prisma.StringFilter<"PosTerminal"> | string
   defaultPriceTableId?: Prisma.StringNullableFilter<"PosTerminal"> | string | null
   isActive?: Prisma.BoolFilter<"PosTerminal"> | boolean
@@ -274,6 +282,7 @@ export type PosTerminalOrderByWithRelationInput = {
   mode?: Prisma.SortOrder
   cashierMode?: Prisma.SortOrder
   acceptsPendingOrders?: Prisma.SortOrder
+  requiresSession?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   defaultPriceTableId?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -302,6 +311,7 @@ export type PosTerminalWhereUniqueInput = Prisma.AtLeast<{
   mode?: Prisma.EnumPosTerminalModeFilter<"PosTerminal"> | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFilter<"PosTerminal"> | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFilter<"PosTerminal"> | boolean
+  requiresSession?: Prisma.BoolFilter<"PosTerminal"> | boolean
   warehouseId?: Prisma.StringFilter<"PosTerminal"> | string
   defaultPriceTableId?: Prisma.StringNullableFilter<"PosTerminal"> | string | null
   isActive?: Prisma.BoolFilter<"PosTerminal"> | boolean
@@ -326,6 +336,7 @@ export type PosTerminalOrderByWithAggregationInput = {
   mode?: Prisma.SortOrder
   cashierMode?: Prisma.SortOrder
   acceptsPendingOrders?: Prisma.SortOrder
+  requiresSession?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   defaultPriceTableId?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -350,6 +361,7 @@ export type PosTerminalScalarWhereWithAggregatesInput = {
   mode?: Prisma.EnumPosTerminalModeWithAggregatesFilter<"PosTerminal"> | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeWithAggregatesFilter<"PosTerminal"> | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolWithAggregatesFilter<"PosTerminal"> | boolean
+  requiresSession?: Prisma.BoolWithAggregatesFilter<"PosTerminal"> | boolean
   warehouseId?: Prisma.StringWithAggregatesFilter<"PosTerminal"> | string
   defaultPriceTableId?: Prisma.StringNullableWithAggregatesFilter<"PosTerminal"> | string | null
   isActive?: Prisma.BoolWithAggregatesFilter<"PosTerminal"> | boolean
@@ -367,6 +379,7 @@ export type PosTerminalCreateInput = {
   mode: $Enums.PosTerminalMode
   cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
@@ -389,6 +402,7 @@ export type PosTerminalUncheckedCreateInput = {
   mode: $Enums.PosTerminalMode
   cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   warehouseId: string
   defaultPriceTableId?: string | null
   isActive?: boolean
@@ -409,6 +423,7 @@ export type PosTerminalUpdateInput = {
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -431,6 +446,7 @@ export type PosTerminalUncheckedUpdateInput = {
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
   warehouseId?: Prisma.StringFieldUpdateOperationsInput | string
   defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -452,6 +468,7 @@ export type PosTerminalCreateManyInput = {
   mode: $Enums.PosTerminalMode
   cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   warehouseId: string
   defaultPriceTableId?: string | null
   isActive?: boolean
@@ -469,6 +486,7 @@ export type PosTerminalUpdateManyMutationInput = {
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -485,6 +503,7 @@ export type PosTerminalUncheckedUpdateManyInput = {
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
   warehouseId?: Prisma.StringFieldUpdateOperationsInput | string
   defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -518,6 +537,7 @@ export type PosTerminalCountOrderByAggregateInput = {
   mode?: Prisma.SortOrder
   cashierMode?: Prisma.SortOrder
   acceptsPendingOrders?: Prisma.SortOrder
+  requiresSession?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   defaultPriceTableId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -536,6 +556,7 @@ export type PosTerminalMaxOrderByAggregateInput = {
   mode?: Prisma.SortOrder
   cashierMode?: Prisma.SortOrder
   acceptsPendingOrders?: Prisma.SortOrder
+  requiresSession?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   defaultPriceTableId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -553,6 +574,7 @@ export type PosTerminalMinOrderByAggregateInput = {
   mode?: Prisma.SortOrder
   cashierMode?: Prisma.SortOrder
   acceptsPendingOrders?: Prisma.SortOrder
+  requiresSession?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   defaultPriceTableId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -757,6 +779,7 @@ export type PosTerminalCreateWithoutWarehouseInput = {
   mode: $Enums.PosTerminalMode
   cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
@@ -778,6 +801,7 @@ export type PosTerminalUncheckedCreateWithoutWarehouseInput = {
   mode: $Enums.PosTerminalMode
   cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   defaultPriceTableId?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
@@ -827,6 +851,7 @@ export type PosTerminalScalarWhereInput = {
   mode?: Prisma.EnumPosTerminalModeFilter<"PosTerminal"> | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFilter<"PosTerminal"> | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFilter<"PosTerminal"> | boolean
+  requiresSession?: Prisma.BoolFilter<"PosTerminal"> | boolean
   warehouseId?: Prisma.StringFilter<"PosTerminal"> | string
   defaultPriceTableId?: Prisma.StringNullableFilter<"PosTerminal"> | string | null
   isActive?: Prisma.BoolFilter<"PosTerminal"> | boolean
@@ -844,6 +869,7 @@ export type PosTerminalCreateWithoutTenantInput = {
   mode: $Enums.PosTerminalMode
   cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
@@ -864,6 +890,7 @@ export type PosTerminalUncheckedCreateWithoutTenantInput = {
   mode: $Enums.PosTerminalMode
   cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   warehouseId: string
   defaultPriceTableId?: string | null
   isActive?: boolean
@@ -910,6 +937,7 @@ export type PosTerminalCreateWithoutPriceTableInput = {
   mode: $Enums.PosTerminalMode
   cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
@@ -931,6 +959,7 @@ export type PosTerminalUncheckedCreateWithoutPriceTableInput = {
   mode: $Enums.PosTerminalMode
   cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   warehouseId: string
   isActive?: boolean
   lastSyncAt?: Date | string | null
@@ -976,6 +1005,7 @@ export type PosTerminalCreateWithoutSessionsInput = {
   mode: $Enums.PosTerminalMode
   cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
@@ -997,6 +1027,7 @@ export type PosTerminalUncheckedCreateWithoutSessionsInput = {
   mode: $Enums.PosTerminalMode
   cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   warehouseId: string
   defaultPriceTableId?: string | null
   isActive?: boolean
@@ -1032,6 +1063,7 @@ export type PosTerminalUpdateWithoutSessionsInput = {
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1053,6 +1085,7 @@ export type PosTerminalUncheckedUpdateWithoutSessionsInput = {
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
   warehouseId?: Prisma.StringFieldUpdateOperationsInput | string
   defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1072,6 +1105,7 @@ export type PosTerminalCreateWithoutOfflineQueueInput = {
   mode: $Enums.PosTerminalMode
   cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
@@ -1093,6 +1127,7 @@ export type PosTerminalUncheckedCreateWithoutOfflineQueueInput = {
   mode: $Enums.PosTerminalMode
   cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   warehouseId: string
   defaultPriceTableId?: string | null
   isActive?: boolean
@@ -1128,6 +1163,7 @@ export type PosTerminalUpdateWithoutOfflineQueueInput = {
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1149,6 +1185,7 @@ export type PosTerminalUncheckedUpdateWithoutOfflineQueueInput = {
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
   warehouseId?: Prisma.StringFieldUpdateOperationsInput | string
   defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1168,6 +1205,7 @@ export type PosTerminalCreateWithoutCashierSessionsInput = {
   mode: $Enums.PosTerminalMode
   cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
@@ -1189,6 +1227,7 @@ export type PosTerminalUncheckedCreateWithoutCashierSessionsInput = {
   mode: $Enums.PosTerminalMode
   cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   warehouseId: string
   defaultPriceTableId?: string | null
   isActive?: boolean
@@ -1224,6 +1263,7 @@ export type PosTerminalUpdateWithoutCashierSessionsInput = {
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1245,6 +1285,7 @@ export type PosTerminalUncheckedUpdateWithoutCashierSessionsInput = {
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
   warehouseId?: Prisma.StringFieldUpdateOperationsInput | string
   defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1265,6 +1306,7 @@ export type PosTerminalCreateManyWarehouseInput = {
   mode: $Enums.PosTerminalMode
   cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   defaultPriceTableId?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
@@ -1281,6 +1323,7 @@ export type PosTerminalUpdateWithoutWarehouseInput = {
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1302,6 +1345,7 @@ export type PosTerminalUncheckedUpdateWithoutWarehouseInput = {
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
   defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1322,6 +1366,7 @@ export type PosTerminalUncheckedUpdateManyWithoutWarehouseInput = {
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
   defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1338,6 +1383,7 @@ export type PosTerminalCreateManyTenantInput = {
   mode: $Enums.PosTerminalMode
   cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   warehouseId: string
   defaultPriceTableId?: string | null
   isActive?: boolean
@@ -1355,6 +1401,7 @@ export type PosTerminalUpdateWithoutTenantInput = {
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1375,6 +1422,7 @@ export type PosTerminalUncheckedUpdateWithoutTenantInput = {
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
   warehouseId?: Prisma.StringFieldUpdateOperationsInput | string
   defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1395,6 +1443,7 @@ export type PosTerminalUncheckedUpdateManyWithoutTenantInput = {
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
   warehouseId?: Prisma.StringFieldUpdateOperationsInput | string
   defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1413,6 +1462,7 @@ export type PosTerminalCreateManyPriceTableInput = {
   mode: $Enums.PosTerminalMode
   cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   warehouseId: string
   isActive?: boolean
   lastSyncAt?: Date | string | null
@@ -1429,6 +1479,7 @@ export type PosTerminalUpdateWithoutPriceTableInput = {
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1450,6 +1501,7 @@ export type PosTerminalUncheckedUpdateWithoutPriceTableInput = {
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
   warehouseId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1470,6 +1522,7 @@ export type PosTerminalUncheckedUpdateManyWithoutPriceTableInput = {
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
   cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
   warehouseId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1536,6 +1589,7 @@ export type PosTerminalSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   mode?: boolean
   cashierMode?: boolean
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   warehouseId?: boolean
   defaultPriceTableId?: boolean
   isActive?: boolean
@@ -1561,6 +1615,7 @@ export type PosTerminalSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   mode?: boolean
   cashierMode?: boolean
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   warehouseId?: boolean
   defaultPriceTableId?: boolean
   isActive?: boolean
@@ -1582,6 +1637,7 @@ export type PosTerminalSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   mode?: boolean
   cashierMode?: boolean
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   warehouseId?: boolean
   defaultPriceTableId?: boolean
   isActive?: boolean
@@ -1603,6 +1659,7 @@ export type PosTerminalSelectScalar = {
   mode?: boolean
   cashierMode?: boolean
   acceptsPendingOrders?: boolean
+  requiresSession?: boolean
   warehouseId?: boolean
   defaultPriceTableId?: boolean
   isActive?: boolean
@@ -1613,7 +1670,7 @@ export type PosTerminalSelectScalar = {
   updatedAt?: boolean
 }
 
-export type PosTerminalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "deviceId" | "mode" | "cashierMode" | "acceptsPendingOrders" | "warehouseId" | "defaultPriceTableId" | "isActive" | "lastSyncAt" | "lastOnlineAt" | "settings" | "createdAt" | "updatedAt", ExtArgs["result"]["posTerminal"]>
+export type PosTerminalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "deviceId" | "mode" | "cashierMode" | "acceptsPendingOrders" | "requiresSession" | "warehouseId" | "defaultPriceTableId" | "isActive" | "lastSyncAt" | "lastOnlineAt" | "settings" | "createdAt" | "updatedAt", ExtArgs["result"]["posTerminal"]>
 export type PosTerminalInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
@@ -1652,6 +1709,7 @@ export type $PosTerminalPayload<ExtArgs extends runtime.Types.Extensions.Interna
     mode: $Enums.PosTerminalMode
     cashierMode: $Enums.PosCashierMode
     acceptsPendingOrders: boolean
+    requiresSession: boolean
     warehouseId: string
     defaultPriceTableId: string | null
     isActive: boolean
@@ -2096,6 +2154,7 @@ export interface PosTerminalFieldRefs {
   readonly mode: Prisma.FieldRef<"PosTerminal", 'PosTerminalMode'>
   readonly cashierMode: Prisma.FieldRef<"PosTerminal", 'PosCashierMode'>
   readonly acceptsPendingOrders: Prisma.FieldRef<"PosTerminal", 'Boolean'>
+  readonly requiresSession: Prisma.FieldRef<"PosTerminal", 'Boolean'>
   readonly warehouseId: Prisma.FieldRef<"PosTerminal", 'String'>
   readonly defaultPriceTableId: Prisma.FieldRef<"PosTerminal", 'String'>
   readonly isActive: Prisma.FieldRef<"PosTerminal", 'Boolean'>

@@ -1784,3 +1784,13 @@ export type InterviewStage = Prisma.InterviewStageModel
  * 
  */
 export type Interview = Prisma.InterviewModel
+/**
+ * Model TenantPaymentConfig
+ * 
+ */
+export type TenantPaymentConfig = Prisma.TenantPaymentConfigModel
+/**
+ * Model PaymentCharge
+ * 
+ */
+export type PaymentCharge = Prisma.PaymentChargeModel

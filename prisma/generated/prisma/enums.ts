@@ -3500,3 +3500,15 @@ export const InterviewRecommendation = {
 } as const
 
 export type InterviewRecommendation = (typeof InterviewRecommendation)[keyof typeof InterviewRecommendation]
+
+
+export const PaymentChargeStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  EXPIRED: 'EXPIRED',
+  FAILED: 'FAILED',
+  REFUNDED: 'REFUNDED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type PaymentChargeStatus = (typeof PaymentChargeStatus)[keyof typeof PaymentChargeStatus]

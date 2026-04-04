@@ -6281,6 +6281,10 @@ model Tenant {
   chartOfAccounts ChartOfAccount[]
   journalEntries  JournalEntry[]
 
+  // Payment Gateway domain
+  tenantPaymentConfig TenantPaymentConfig?
+  paymentCharges      PaymentCharge[]
+
   @@index([status])
   @@index([deletedAt])
   @@index([createdAt])
@@ -9682,6 +9686,9 @@ model Order {
 
   // Fiscal Relations
   fiscalDocuments FiscalDocument[]
+
+  // Payment Gateway Relations
+  paymentCharges PaymentCharge[]
 
   @@unique([tenantId, orderNumber])
   @@unique([tenantId, saleCode])
@@ -15020,4 +15027,68 @@ model Interview {
   @@index([tenantId, interviewerId])
   @@index([tenantId, status])
   @@map("interviews")
+}
+
+// ===============================================
+// PAYMENT GATEWAY MODULE
+// ===============================================
+
+enum PaymentChargeStatus {
+  PENDING
+  PAID
+  EXPIRED
+  FAILED
+  REFUNDED
+  CANCELLED
+}
+
+model TenantPaymentConfig {
+  id               String    @id @default(uuid())
+  tenantId         String    @unique @map("tenant_id")
+  primaryProvider   String    @map("primary_provider")
+  primaryConfig     String    @map("primary_config") @db.Text
+  primaryActive     Boolean   @default(false) @map("primary_active")
+  primaryTestedAt   DateTime? @map("primary_tested_at")
+  fallbackProvider  String?   @map("fallback_provider")
+  fallbackConfig    String?   @map("fallback_config") @db.Text
+  fallbackActive    Boolean   @default(false) @map("fallback_active")
+  fallbackTestedAt  DateTime? @map("fallback_tested_at")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@map("tenant_payment_configs")
+}
+
+model PaymentCharge {
+  id                   String              @id @default(uuid())
+  tenantId             String              @map("tenant_id")
+  orderId              String              @map("order_id")
+  transactionPaymentId String?             @map("transaction_payment_id")
+  provider             String
+  providerChargeId     String?             @map("provider_charge_id")
+  method               PosPaymentMethod
+  amount               Decimal             @db.Decimal(12, 2)
+  status               PaymentChargeStatus @default(PENDING)
+  qrCode               String?             @db.Text
+  checkoutUrl          String?             @map("checkout_url")
+  boletoUrl            String?             @map("boleto_url")
+  boletoBarcode        String?             @map("boleto_barcode")
+  paidAt               DateTime?           @map("paid_at")
+  paidAmount           Decimal?            @map("paid_amount") @db.Decimal(12, 2)
+  expiresAt            DateTime?           @map("expires_at")
+  rawResponse          Json?               @map("raw_response")
+  webhookData          Json?               @map("webhook_data")
+  createdAt            DateTime            @default(now()) @map("created_at")
+  updatedAt            DateTime            @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  order  Order  @relation(fields: [orderId], references: [id])
+
+  @@index([tenantId])
+  @@index([tenantId, orderId])
+  @@index([providerChargeId])
+  @@index([tenantId, status])
+  @@map("payment_charges")
 }

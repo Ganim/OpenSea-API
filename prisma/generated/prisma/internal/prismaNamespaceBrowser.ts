@@ -399,7 +399,9 @@ export const ModelName = {
   Candidate: 'Candidate',
   Application: 'Application',
   InterviewStage: 'InterviewStage',
-  Interview: 'Interview'
+  Interview: 'Interview',
+  TenantPaymentConfig: 'TenantPaymentConfig',
+  PaymentCharge: 'PaymentCharge'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1295,6 +1297,7 @@ export const CustomerScalarFieldEnum = {
   country: 'country',
   notes: 'notes',
   isActive: 'isActive',
+  isSystem: 'isSystem',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',
@@ -1391,6 +1394,7 @@ export const CrmPipelineScalarFieldEnum = {
   color: 'color',
   type: 'type',
   isDefault: 'isDefault',
+  isSystem: 'isSystem',
   position: 'position',
   nextPipelineId: 'nextPipelineId',
   isActive: 'isActive',
@@ -4676,6 +4680,7 @@ export const OrderScalarFieldEnum = {
   tenantId: 'tenantId',
   orderNumber: 'orderNumber',
   type: 'type',
+  status: 'status',
   customerId: 'customerId',
   contactId: 'contactId',
   pipelineId: 'pipelineId',
@@ -4718,6 +4723,12 @@ export const OrderScalarFieldEnum = {
   cancelledAt: 'cancelledAt',
   cancelReason: 'cancelReason',
   expiresAt: 'expiresAt',
+  saleCode: 'saleCode',
+  cashierUserId: 'cashierUserId',
+  posSessionId: 'posSessionId',
+  claimedByUserId: 'claimedByUserId',
+  claimedAt: 'claimedAt',
+  version: 'version',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -5437,6 +5448,7 @@ export const PosTerminalScalarFieldEnum = {
   mode: 'mode',
   cashierMode: 'cashierMode',
   acceptsPendingOrders: 'acceptsPendingOrders',
+  requiresSession: 'requiresSession',
   warehouseId: 'warehouseId',
   defaultPriceTableId: 'defaultPriceTableId',
   isActive: 'isActive',
@@ -7480,6 +7492,50 @@ export const InterviewScalarFieldEnum = {
 } as const
 
 export type InterviewScalarFieldEnum = (typeof InterviewScalarFieldEnum)[keyof typeof InterviewScalarFieldEnum]
+
+
+export const TenantPaymentConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  primaryProvider: 'primaryProvider',
+  primaryConfig: 'primaryConfig',
+  primaryActive: 'primaryActive',
+  primaryTestedAt: 'primaryTestedAt',
+  fallbackProvider: 'fallbackProvider',
+  fallbackConfig: 'fallbackConfig',
+  fallbackActive: 'fallbackActive',
+  fallbackTestedAt: 'fallbackTestedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TenantPaymentConfigScalarFieldEnum = (typeof TenantPaymentConfigScalarFieldEnum)[keyof typeof TenantPaymentConfigScalarFieldEnum]
+
+
+export const PaymentChargeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  orderId: 'orderId',
+  transactionPaymentId: 'transactionPaymentId',
+  provider: 'provider',
+  providerChargeId: 'providerChargeId',
+  method: 'method',
+  amount: 'amount',
+  status: 'status',
+  qrCode: 'qrCode',
+  checkoutUrl: 'checkoutUrl',
+  boletoUrl: 'boletoUrl',
+  boletoBarcode: 'boletoBarcode',
+  paidAt: 'paidAt',
+  paidAmount: 'paidAmount',
+  expiresAt: 'expiresAt',
+  rawResponse: 'rawResponse',
+  webhookData: 'webhookData',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PaymentChargeScalarFieldEnum = (typeof PaymentChargeScalarFieldEnum)[keyof typeof PaymentChargeScalarFieldEnum]
 
 
 export const SortOrder = {
