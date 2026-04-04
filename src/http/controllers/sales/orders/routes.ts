@@ -9,17 +9,40 @@ import { v1ConfirmOrderController } from './v1-confirm-order.controller';
 import { v1CancelOrderController } from './v1-cancel-order.controller';
 import { v1ChangeOrderStageController } from './v1-change-order-stage.controller';
 import { v1ConvertQuoteController } from './v1-convert-quote.controller';
+import { v1CreatePdvOrderController } from './v1-create-pdv-order.controller';
+import { v1AddOrderItemController } from './v1-add-order-item.controller';
+import { v1RemoveOrderItemController } from './v1-remove-order-item.controller';
+import { v1UpdateOrderItemController } from './v1-update-order-item.controller';
+import { v1SendToCashierController } from './v1-send-to-cashier.controller';
+import { v1ClaimOrderController } from './v1-claim-order.controller';
+import { v1ReceivePaymentController } from './v1-receive-payment.controller';
+import { v1GetCashierQueueController } from './v1-get-cashier-queue.controller';
+import { v1GetMyDraftsController } from './v1-get-my-drafts.controller';
+import { v1GetOrderByCodeController } from './v1-get-order-by-code.controller';
 
 export async function ordersRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('SALES'));
 
+  // --- Static routes (must be registered before dynamic /:id routes) ---
   await app.register(v1ListOrdersController);
-  await app.register(v1GetOrderByIdController);
   await app.register(v1CreateOrderController);
+  await app.register(v1CreatePdvOrderController);
+  await app.register(v1GetCashierQueueController);
+  await app.register(v1GetMyDraftsController);
+  await app.register(v1GetOrderByCodeController);
+
+  // --- Dynamic routes (with :id param) ---
+  await app.register(v1GetOrderByIdController);
   await app.register(v1UpdateOrderController);
   await app.register(v1DeleteOrderController);
   await app.register(v1ConfirmOrderController);
   await app.register(v1CancelOrderController);
   await app.register(v1ChangeOrderStageController);
   await app.register(v1ConvertQuoteController);
+  await app.register(v1AddOrderItemController);
+  await app.register(v1RemoveOrderItemController);
+  await app.register(v1UpdateOrderItemController);
+  await app.register(v1SendToCashierController);
+  await app.register(v1ClaimOrderController);
+  await app.register(v1ReceivePaymentController);
 }
