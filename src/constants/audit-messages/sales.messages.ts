@@ -711,7 +711,8 @@ export const SALES_AUDIT_MESSAGES = {
     action: AuditAction.CREATE,
     entity: AuditEntity.ORDER,
     module: AuditModule.SALES,
-    description: '{{userName}} adicionou item "{{itemName}}" ao pedido PDV #{{orderId}}',
+    description:
+      '{{userName}} adicionou item "{{itemName}}" ao pedido PDV #{{orderId}}',
   } satisfies AuditMessage,
 
   PDV_ITEM_REMOVED: {
@@ -739,7 +740,8 @@ export const SALES_AUDIT_MESSAGES = {
     action: AuditAction.ORDER_CONFIRM,
     entity: AuditEntity.ORDER,
     module: AuditModule.SALES,
-    description: '{{userName}} recebeu pagamento de R$ {{total}} no pedido PDV #{{saleCode}}',
+    description:
+      '{{userName}} recebeu pagamento de R$ {{total}} no pedido PDV #{{saleCode}}',
   } satisfies AuditMessage,
 
   // ─── Bids (Licitacoes) ──────────────────────────────────────────────────
@@ -1446,6 +1448,37 @@ export const SALES_AUDIT_MESSAGES = {
     module: AuditModule.SALES,
     description:
       '{{userName}} analisou o sentimento da conversa (resultado: {{overallSentiment}})',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // PAYMENT GATEWAY - Configuração e cobranças de pagamento
+  // ============================================================================
+
+  /** Configuração de gateway de pagamento salva */
+  PAYMENT_CONFIG_SAVED: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PAYMENT_CONFIG,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} salvou configuração de gateway de pagamento (primário: {{primaryProvider}})',
+  } satisfies AuditMessage,
+
+  /** Teste de conexão com gateway de pagamento */
+  PAYMENT_CONNECTION_TESTED: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PAYMENT_CONFIG,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} testou conexão com gateway de pagamento (slot: {{slot}}, resultado: {{result}})',
+  } satisfies AuditMessage,
+
+  /** Cobrança de pagamento criada via gateway */
+  PAYMENT_CHARGE_CREATED: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.PAYMENT_CHARGE,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} criou cobrança de R$ {{amount}} via {{provider}} (método: {{method}})',
   } satisfies AuditMessage,
 } as const;
 

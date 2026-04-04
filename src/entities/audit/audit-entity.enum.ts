@@ -117,6 +117,8 @@ export enum AuditEntity {
   POS_SESSION = 'POS_SESSION',
   POS_TRANSACTION = 'POS_TRANSACTION',
   POS_CASH_MOVEMENT = 'POS_CASH_MOVEMENT',
+  PAYMENT_CONFIG = 'PAYMENT_CONFIG',
+  PAYMENT_CHARGE = 'PAYMENT_CHARGE',
 
   // ==========================================
   // Bids - Licitacoes

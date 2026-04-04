@@ -56,6 +56,8 @@ import { integrationsHubRoutes } from './controllers/sales/integrations/routes';
 import { marketplacesRoutes } from './controllers/sales/marketplaces/routes';
 import { ordersRoutes } from './controllers/sales/orders/routes';
 import { posRoutes } from './controllers/sales/pos/routes';
+import { paymentConfigRoutes } from './controllers/sales/payment-config/routes';
+import { paymentChargesRoutes } from './controllers/sales/payment-charges/routes';
 import { paymentConditionsRoutes } from './controllers/sales/payment-conditions/routes';
 import { orderReturnsRoutes } from './controllers/sales/order-returns/routes';
 import { storeCreditsRoutes } from './controllers/sales/store-credits/routes';
@@ -166,6 +168,9 @@ import { financeReportsRoutes } from './controllers/finance/reports/routes';
 
 // Accountant Portal routes (token-based auth)
 import { accountantPortalRoutes } from './controllers/accountant/routes';
+
+// Payment webhook routes (public — no auth)
+import { paymentWebhookRoutes } from './controllers/webhooks/routes';
 
 // Public routes (no auth)
 import { publicRoutes } from './controllers/public/routes';
@@ -363,6 +368,8 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(marketplacesRoutes);
   await app.register(integrationsHubRoutes);
   await app.register(posRoutes);
+  await app.register(paymentConfigRoutes);
+  await app.register(paymentChargesRoutes);
   // Sales - Planned (placeholder stubs)
   await app.register(commissionsRoutes);
   await app.register(discountsRoutes);
@@ -428,6 +435,9 @@ export async function registerRoutes(app: FastifyInstance) {
 
   // Accountant Portal routes (token-based auth, no JWT)
   await app.register(accountantPortalRoutes);
+
+  // Payment webhook routes (public — no auth, called by external providers)
+  await app.register(paymentWebhookRoutes);
 
   // Public routes (no auth)
   await app.register(publicRoutes);

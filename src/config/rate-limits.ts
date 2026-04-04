@@ -167,6 +167,17 @@ export const rateLimitConfig = {
     message:
       'Limite de webhooks financeiros atingido. Aguarde antes de continuar.',
   },
+
+  /**
+   * Payment gateway webhook endpoints (InfinitePay, Asaas, etc.)
+   * Limite moderado para notificações de pagamento externas.
+   */
+  paymentWebhook: {
+    max: 30, // 30 requisições por minuto
+    timeWindow: '1 minute',
+    message:
+      'Limite de webhooks de pagamento atingido. Aguarde antes de continuar.',
+  },
 } as const;
 
 /**
