@@ -21,6 +21,7 @@ export const SALES_EVENTS = {
   ORDER_PAID: 'sales.order.paid',
   ORDER_SHIPPED: 'sales.order.shipped',
   ORDER_DELIVERED: 'sales.order.delivered',
+  PRINT_JOB_QUEUED: 'sales.print-job.queued',
 
   // Marketplace
   MARKETPLACE_ORDER_IMPORTED: 'sales.marketplace-order.imported',
@@ -111,6 +112,13 @@ export interface OrderShippedData {
 
 export interface OrderDeliveredData {
   orderId: string;
+}
+
+export interface PrintJobQueuedData {
+  jobId: string;
+  orderId: string;
+  printerId: string;
+  status: 'CREATED' | 'QUEUED';
 }
 
 export interface MarketplaceOrderImportedData {

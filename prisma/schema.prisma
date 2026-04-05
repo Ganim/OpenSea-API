@@ -6182,6 +6182,8 @@ model Tenant {
 
   // POS domain
   posTerminals      PosTerminal[]
+  posPrinters       PosPrinter[]
+  printJobs         PrintJob[]
   posSessions       PosSession[]
   posTransactions   PosTransaction[]
   posVisitLogs      PosVisitLog[]
@@ -15122,6 +15124,35 @@ enum InvoiceStatus {
   ERROR
 }
 
+enum PrinterType {
+  THERMAL
+  INKJET
+  LABEL
+}
+
+enum PrinterConnection {
+  USB
+  NETWORK
+  BLUETOOTH
+  SERIAL
+}
+
+enum PrintJobType {
+  RECEIPT
+  LABEL
+  REPORT
+  DOCUMENT
+}
+
+enum PrintJobStatus {
+  CREATED
+  QUEUED
+  PRINTING
+  SUCCESS
+  FAILED
+  CANCELLED
+}
+
 model Invoice {
   id       String @id @default(cuid())
   tenantId String @map("tenant_id")
@@ -15155,6 +15186,77 @@ model Invoice {
   @@index([tenantId, issuedAt])
   @@index([accessKey])
   @@map("invoices")
+}
+
+model PosPrinter {
+  id       String @id @default(cuid())
+  tenantId String @map("tenant_id")
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  name       String            @db.VarChar(128)
+  type       PrinterType
+  connection PrinterConnection
+
+  // Network printer
+  ipAddress String? @db.VarChar(15)
+  port      Int?    @default(9100)
+
+  // USB printer
+  deviceId String? @db.VarChar(128)
+
+  // Bluetooth
+  bluetoothAddress String? @db.VarChar(20)
+
+  // Settings
+  paperWidth       Int    @default(80)
+  encoding         String @db.VarChar(20) @default("UTF-8")
+  characterPerLine Int    @default(42)
+
+  isDefault Boolean @default(false)
+  isActive  Boolean @default(true)
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  // Relations
+  printJobs PrintJob[]
+
+  @@index([tenantId])
+  @@index([tenantId, isDefault])
+  @@map("pos_printers")
+}
+
+model PrintJob {
+  id       String @id @default(cuid())
+  tenantId String @map("tenant_id")
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  printerId String     @map("printer_id")
+  printer   PosPrinter @relation(fields: [printerId], references: [id])
+
+  orderId String? @map("order_id")
+
+  type   PrintJobType
+  status PrintJobStatus @default(CREATED)
+
+  // Content
+  content      String @db.Text
+  templateData Json?
+
+  // Error handling
+  errorMessage String? @db.Text
+  retryCount   Int     @default(0)
+  maxRetries   Int     @default(3)
+
+  createdAt   DateTime  @default(now()) @map("created_at")
+  completedAt DateTime? @map("completed_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@index([tenantId, status])
+  @@index([printerId])
+  @@index([orderId])
+  @@map("print_jobs")
 }
 
 model FocusNfeConfig {

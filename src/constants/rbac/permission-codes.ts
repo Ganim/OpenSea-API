@@ -840,6 +840,11 @@ export const PermissionCodes = {
       REMOVE: 'sales.invoicing.remove' as const,
       ADMIN: 'sales.invoicing.admin' as const,
     },
+    PRINTING: {
+      ACCESS: 'sales.printing.access' as const,
+      PRINT: 'sales.printing.print' as const,
+      ADMIN: 'sales.printing.admin' as const,
+    },
   },
 
   // ============================================================================

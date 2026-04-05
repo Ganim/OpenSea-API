@@ -57,6 +57,8 @@ import { integrationsHubRoutes } from './controllers/sales/integrations/routes';
 import { marketplacesRoutes } from './controllers/sales/marketplaces/routes';
 import { ordersRoutes } from './controllers/sales/orders/routes';
 import { posRoutes } from './controllers/sales/pos/routes';
+import { printersRoutes } from './controllers/sales/printers/routes';
+import { printingRoutes } from './controllers/sales/printing/routes';
 import { paymentConfigRoutes } from './controllers/sales/payment-config/routes';
 import { paymentChargesRoutes } from './controllers/sales/payment-charges/routes';
 import { paymentConditionsRoutes } from './controllers/sales/payment-conditions/routes';
@@ -358,7 +360,6 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(itemReservationsRoutes);
   await app.register(notificationPreferencesRoutes);
   await app.register(invoicingRoutes);
-import { invoicingRoutes } from './controllers/sales/invoicing/routes';
   await app.register(priceTablesRoutes);
   await app.register(customerPricesRoutes);
   await app.register(campaignsRoutes);
@@ -371,6 +372,8 @@ import { invoicingRoutes } from './controllers/sales/invoicing/routes';
   await app.register(marketplacesRoutes);
   await app.register(integrationsHubRoutes);
   await app.register(posRoutes);
+  await app.register(printersRoutes);
+  await app.register(printingRoutes);
   await app.register(paymentConfigRoutes);
   await app.register(paymentChargesRoutes);
   // Sales - Planned (placeholder stubs)
