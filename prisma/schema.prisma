@@ -1349,6 +1349,8 @@ enum OrderStatus {
   DELIVERED
   CANCELLED
   RETURNED
+  INVOICED
+  INVOICE_CANCELLED
 }
 
 enum ContactLifecycleStage {
@@ -6285,6 +6287,10 @@ model Tenant {
   tenantPaymentConfig TenantPaymentConfig?
   paymentCharges      PaymentCharge[]
 
+  // Invoicing domain
+  invoices      Invoice[]
+  focusNfeConfig FocusNfeConfig?
+
   @@index([status])
   @@index([deletedAt])
   @@index([createdAt])
@@ -9640,6 +9646,10 @@ model Order {
   claimedAt       DateTime? @map("claimed_at")
   version         Int       @default(1)
 
+  // NF-e fields
+  invoiceId  String?   @map("invoice_id")
+  invoicedAt DateTime? @map("invoiced_at")
+
   // Soft Delete
   deletedAt DateTime? @map("deleted_at")
 
@@ -9684,11 +9694,14 @@ model Order {
   posTransactions PosTransaction[]
   posVisitLogs    PosVisitLog[]
 
+  // Invoicing Relations
+  invoice         Invoice?
+
   // Fiscal Relations
   fiscalDocuments FiscalDocument[]
 
   // Payment Gateway Relations
-  paymentCharges PaymentCharge[]
+  paymentCharges  PaymentCharge[]
 
   @@unique([tenantId, orderNumber])
   @@unique([tenantId, saleCode])
@@ -15091,4 +15104,74 @@ model PaymentCharge {
   @@index([providerChargeId])
   @@index([tenantId, status])
   @@map("payment_charges")
+}
+
+// ===============================================
+// INVOICING (NF-e / NFC-e)
+// ===============================================
+
+enum InvoiceType {
+  NFE
+  NFCE
+}
+
+enum InvoiceStatus {
+  PENDING
+  ISSUED
+  CANCELLED
+  ERROR
+}
+
+model Invoice {
+  id       String @id @default(cuid())
+  tenantId String @map("tenant_id")
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  orderId String  @unique @map("order_id")
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  type        InvoiceType @default(NFCE)
+  number      String      @db.VarChar(10)
+  series      String      @db.VarChar(3) @default("1")
+  accessKey   String      @db.VarChar(44)
+  focusIdRef  String?     @db.VarChar(255)
+
+  status         InvoiceStatus @default(PENDING)
+  statusDetails  String?       @db.Text
+  xmlUrl         String?       @db.Text
+  pdfUrl         String?       @db.Text
+  xmlContent     String?       @db.Text
+  xmlContentHash String?       @map("xml_content_hash") @db.VarChar(64)
+
+  issuedAt      DateTime?
+  cancelledAt   DateTime?
+  cancelReason  String?
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  deletedAt     DateTime? @map("deleted_at")
+
+  @@unique([tenantId, number, series])
+  @@index([tenantId, status])
+  @@index([tenantId, issuedAt])
+  @@index([accessKey])
+  @@map("invoices")
+}
+
+model FocusNfeConfig {
+  id       String @id @default(cuid())
+  tenantId String @unique @map("tenant_id")
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  apiKey             String  @db.Text
+  productionMode     Boolean @default(true)
+  isEnabled          Boolean @default(true)
+  defaultSeries      String  @db.VarChar(3) @default("1")
+  autoIssueOnConfirm Boolean @default(true)
+
+  createdBy String?
+  updatedBy String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("focus_nfe_configs")
 }
