@@ -833,6 +833,13 @@ export const PermissionCodes = {
       ADMIN: 'sales.cadences.admin' as const,
       EXECUTE: 'sales.cadences.execute' as const,
     },
+    // --- Emissão de Notas Fiscais ---
+    INVOICING: {
+      ACCESS: 'sales.invoicing.access' as const,
+      REGISTER: 'sales.invoicing.register' as const,
+      REMOVE: 'sales.invoicing.remove' as const,
+      ADMIN: 'sales.invoicing.admin' as const,
+    },
   },
 
   // ============================================================================
