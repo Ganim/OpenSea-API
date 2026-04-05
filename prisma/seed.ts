@@ -1275,23 +1275,50 @@ async function main() {
   await seedCentralUsers(prisma);
   await seedSupportSlaConfig(prisma);
 
-  // eSocial reference tables seed
-  const { seedEsocialTables } = await import(
-    '../src/modules/esocial/tables/seed-tables.js'
-  );
-  await seedEsocialTables(prisma);
+  // eSocial reference tables seed (best-effort for environments without HR/eSocial tables)
+  try {
+    const { seedEsocialTables } = await import(
+      '../src/modules/esocial/tables/seed-tables.js'
+    );
+    await seedEsocialTables(prisma);
+  } catch (esocialError) {
+    console.log(
+      '   ⚠️ Erro ao popular tabelas eSocial (não crítico):',
+      esocialError,
+    );
+  }
 
   // Integration Marketplace Hub seed
-  const { seedIntegrations } = await import('./seeds/integrations-seed.js');
-  await seedIntegrations(prisma);
+  try {
+    const { seedIntegrations } = await import('./seeds/integrations-seed.js');
+    await seedIntegrations(prisma);
+  } catch (integrationsError) {
+    console.log(
+      '   ⚠️ Erro ao popular integrações (não crítico):',
+      integrationsError,
+    );
+  }
 
   // PDV data (pipeline + consumidor final per tenant)
-  const { seedPdvData } = await import('./seeds/pdv-seed.js');
-  await seedPdvData(prisma);
+  try {
+    const { seedPdvData } = await import('./seeds/pdv-seed.js');
+    await seedPdvData(prisma);
+  } catch (pdvError) {
+    console.log('   ⚠️ Erro ao popular dados de PDV (não crítico):', pdvError);
+  }
 
   // Auth links migration (multi-method auth)
-  const { migrateAuthLinks } = await import('./seeds/auth-links-migration.js');
-  await migrateAuthLinks(prisma);
+  try {
+    const { migrateAuthLinks } = await import(
+      './seeds/auth-links-migration.js'
+    );
+    await migrateAuthLinks(prisma);
+  } catch (authLinksError) {
+    console.log(
+      '   ⚠️ Erro na migração de links de autenticação (não crítico):',
+      authLinksError,
+    );
+  }
 
   console.log('\n🎉 Seed concluído com sucesso!');
 }
