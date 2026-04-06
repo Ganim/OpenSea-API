@@ -14,7 +14,27 @@ CREATE INDEX IF NOT EXISTS "finance_entries_fiscal_document_id_idx"
 
 DO $$
 BEGIN
-  IF NOT EXISTS (
+  -- Add FK only when both tables/column exist in the target database.
+  IF EXISTS (
+    SELECT 1
+    FROM information_schema.tables
+    WHERE table_schema = 'public'
+      AND table_name = 'finance_entries'
+  )
+  AND EXISTS (
+    SELECT 1
+    FROM information_schema.columns
+    WHERE table_schema = 'public'
+      AND table_name = 'finance_entries'
+      AND column_name = 'fiscal_document_id'
+  )
+  AND EXISTS (
+    SELECT 1
+    FROM information_schema.tables
+    WHERE table_schema = 'public'
+      AND table_name = 'fiscal_documents'
+  )
+  AND NOT EXISTS (
     SELECT 1
     FROM pg_constraint
     WHERE conname = 'finance_entries_fiscal_document_id_fkey'
