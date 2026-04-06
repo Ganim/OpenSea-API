@@ -274,6 +274,11 @@ export class PrismaItemsRepository implements ItemsRepository {
         },
         {
           variant: {
+            reference: { contains: searchTerm, mode: 'insensitive' },
+          },
+        },
+        {
+          variant: {
             product: {
               name: { contains: searchTerm, mode: 'insensitive' },
             },
