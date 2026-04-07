@@ -10,6 +10,7 @@ interface BinItemDTO {
   id: string;
   itemCode: string;
   sku: string;
+  productId: string | null;
   templateName: string | null;
   productName: string;
   manufacturerName: string | null;
@@ -100,6 +101,7 @@ export class GetBinDetailUseCase {
           itemDTO.relatedData.variantSku ||
           itemDTO.item.uniqueCode ||
           itemDTO.item.id.toString().slice(0, 8),
+        productId: itemDTO.relatedData.productId ?? null,
         templateName: itemDTO.relatedData.templateName ?? null,
         productName: itemDTO.relatedData.productName,
         manufacturerName: itemDTO.relatedData.manufacturerName ?? null,

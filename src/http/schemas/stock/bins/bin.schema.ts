@@ -81,6 +81,7 @@ export const binItemSchema = z.object({
   id: z.string().uuid(),
   itemCode: z.string(),
   sku: z.string(),
+  productId: z.string().uuid().nullable(),
   templateName: z.string().nullable().optional(),
   productName: z.string(),
   manufacturerName: z.string().nullable().optional(),

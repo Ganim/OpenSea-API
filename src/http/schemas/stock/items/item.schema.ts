@@ -161,6 +161,7 @@ export const registerItemExitSchema = z.object({
     'SAMPLE',
     'LOSS',
     'SUPPLIER_RETURN',
+    'INVENTORY_ADJUSTMENT',
   ]),
   reasonCode: z.string().max(50).optional(),
   destinationRef: z.string().max(255).optional(),
