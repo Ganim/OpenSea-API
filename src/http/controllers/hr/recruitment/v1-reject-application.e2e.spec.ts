@@ -14,7 +14,6 @@ describe('Reject Application (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should reject an application', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -24,7 +23,9 @@ describe('Reject Application (E2E)', () => {
       .send({ title: `Job ${Date.now()}`, type: 'FULL_TIME' });
 
     await request(app.server)
-      .patch(`/v1/hr/recruitment/job-postings/${jpRes.body.jobPosting.id}/publish`)
+      .patch(
+        `/v1/hr/recruitment/job-postings/${jpRes.body.jobPosting.id}/publish`,
+      )
       .set('Authorization', `Bearer ${token}`);
 
     const candRes = await request(app.server)

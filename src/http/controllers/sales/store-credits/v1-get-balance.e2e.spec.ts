@@ -14,7 +14,6 @@ describe('Get Store Credit Balance (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
     const response = await request(app.server).get('/v1/store-credits/balance');
 

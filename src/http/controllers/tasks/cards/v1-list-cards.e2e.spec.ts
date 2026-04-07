@@ -16,7 +16,6 @@ describe('List Cards (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list cards with pagination', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

@@ -14,7 +14,6 @@ describe('Export SPED ECD (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should export SPED ECD data', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

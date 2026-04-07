@@ -14,7 +14,6 @@ describe('List Label Templates (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list label templates with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

@@ -14,7 +14,6 @@ describe('Parse Address (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should parse address with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

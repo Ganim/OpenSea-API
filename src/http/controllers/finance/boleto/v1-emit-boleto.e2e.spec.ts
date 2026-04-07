@@ -15,7 +15,6 @@ describe('Emit Boleto (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error when entry or bank account not found', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

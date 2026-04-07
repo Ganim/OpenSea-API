@@ -14,7 +14,6 @@ describe('Admin Override Tenant Limit (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should override tenant usage limit', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

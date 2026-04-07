@@ -13,14 +13,11 @@ describe('List Company Documents (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list documents for a company (empty if no company)', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
-      .get(
-        '/v1/admin/companies/00000000-0000-0000-0000-000000000000/documents',
-      )
+      .get('/v1/admin/companies/00000000-0000-0000-0000-000000000000/documents')
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(200);

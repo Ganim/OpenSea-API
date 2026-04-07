@@ -15,7 +15,6 @@ describe('Validate Address (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should validate existing address with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

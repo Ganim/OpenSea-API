@@ -15,7 +15,6 @@ describe('Change User Profile (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should change user profile with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const uniqueId = Math.random().toString(36).substring(2, 10);

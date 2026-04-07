@@ -14,7 +14,6 @@ describe('List Safety Programs (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list safety programs', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,7 @@ describe('List Safety Programs (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/safety-programs');
+    const response = await request(app.server).get('/v1/hr/safety-programs');
 
     expect(response.status).toBe(401);
   });

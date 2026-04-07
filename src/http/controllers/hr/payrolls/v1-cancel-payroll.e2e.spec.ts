@@ -15,7 +15,6 @@ describe('Cancel Payroll (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should cancel payroll with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const testMonth = 4;

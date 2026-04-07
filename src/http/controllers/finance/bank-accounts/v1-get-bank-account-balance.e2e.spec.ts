@@ -16,7 +16,6 @@ describe('Get Bank Account Balance (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for bank account without API config', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const bankAccount = await createBankAccount(tenantId);

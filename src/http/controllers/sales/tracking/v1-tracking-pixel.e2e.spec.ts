@@ -8,7 +8,6 @@ describe('Tracking Pixel (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return a transparent GIF (public, no auth)', async () => {
     const response = await request(app.server).get(
       '/v1/sales/tracking/quote/00000000-0000-0000-0000-000000000000/pixel.gif',

@@ -15,7 +15,6 @@ describe('Update Bin (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update bin capacity and status', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

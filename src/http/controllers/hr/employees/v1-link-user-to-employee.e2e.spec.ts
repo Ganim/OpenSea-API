@@ -15,7 +15,6 @@ describe('Link User to Employee (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should link user to employee with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employee } = await createEmployeeE2E({ tenantId });

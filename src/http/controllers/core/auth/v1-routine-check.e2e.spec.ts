@@ -14,7 +14,6 @@ describe('Routine Check (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should run routine check successfully', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

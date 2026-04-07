@@ -14,7 +14,6 @@ describe('Bulk Recalculate Scores (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
     const response = await request(app.server).post(
       '/v1/sales/lead-scoring/recalculate-all',

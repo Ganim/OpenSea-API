@@ -15,7 +15,6 @@ describe('Create Payroll (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create payroll with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const testMonth = 1;

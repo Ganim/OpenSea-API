@@ -35,9 +35,7 @@ export class RemoveOrderItemUseCase {
       throw new ResourceNotFoundError('Order not found.');
     }
 
-    const allowedStatuses = input.isCashier
-      ? ['DRAFT', 'PENDING']
-      : ['DRAFT'];
+    const allowedStatuses = input.isCashier ? ['DRAFT', 'PENDING'] : ['DRAFT'];
 
     if (!allowedStatuses.includes(order.status)) {
       throw new BadRequestError(

@@ -15,7 +15,6 @@ describe('Migrate Finance Attachments (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should migrate finance attachments as super admin', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

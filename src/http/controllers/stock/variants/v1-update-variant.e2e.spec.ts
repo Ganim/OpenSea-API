@@ -17,7 +17,6 @@ describe('Update Variant (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update variant with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

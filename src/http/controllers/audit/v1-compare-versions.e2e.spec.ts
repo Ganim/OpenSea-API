@@ -14,7 +14,6 @@ describe('Compare Versions (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should compare two versions and return differences with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 

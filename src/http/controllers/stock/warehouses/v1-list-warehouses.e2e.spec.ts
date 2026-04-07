@@ -15,7 +15,6 @@ describe('List Warehouses (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list all warehouses', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

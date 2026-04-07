@@ -64,8 +64,11 @@ export class PrismaInvoicesRepository implements InvoicesRepository {
     });
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<Invoice | null> {
-    const data = await prisma.invoice.findUnique({
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Invoice | null> {
+    const data = await prisma.invoice.findFirst({
       where: {
         id: id.toString(),
         tenantId,
@@ -79,7 +82,10 @@ export class PrismaInvoicesRepository implements InvoicesRepository {
     return mapToDomain(data);
   }
 
-  async findByAccessKey(accessKey: string, tenantId: string): Promise<Invoice | null> {
+  async findByAccessKey(
+    accessKey: string,
+    tenantId: string,
+  ): Promise<Invoice | null> {
     const data = await prisma.invoice.findFirst({
       where: {
         accessKey,
@@ -116,7 +122,10 @@ export class PrismaInvoicesRepository implements InvoicesRepository {
     return mapToDomain(data);
   }
 
-  async findByOrderId(orderId: UniqueEntityID, tenantId: string): Promise<Invoice | null> {
+  async findByOrderId(
+    orderId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Invoice | null> {
     const data = await prisma.invoice.findFirst({
       where: {
         orderId: orderId.toString(),
@@ -151,10 +160,12 @@ export class PrismaInvoicesRepository implements InvoicesRepository {
     if (params.filters?.fromDate || params.filters?.toDate) {
       where.createdAt = {};
       if (params.filters?.fromDate) {
-        (where.createdAt as Record<string, unknown>).gte = params.filters.fromDate;
+        (where.createdAt as Record<string, unknown>).gte =
+          params.filters.fromDate;
       }
       if (params.filters?.toDate) {
-        (where.createdAt as Record<string, unknown>).lte = params.filters.toDate;
+        (where.createdAt as Record<string, unknown>).lte =
+          params.filters.toDate;
       }
     }
 
@@ -172,7 +183,7 @@ export class PrismaInvoicesRepository implements InvoicesRepository {
       total,
       page: params.page,
       limit: params.limit,
-      pages: Math.ceil(total / params.limit),
+      totalPages: Math.ceil(total / params.limit),
     };
   }
 

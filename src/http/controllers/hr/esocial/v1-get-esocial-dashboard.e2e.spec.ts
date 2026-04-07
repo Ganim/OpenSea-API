@@ -14,7 +14,6 @@ describe('Get eSocial Dashboard (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get the eSocial dashboard', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,7 @@ describe('Get eSocial Dashboard (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .get('/v1/esocial/dashboard');
+    const response = await request(app.server).get('/v1/esocial/dashboard');
 
     expect(response.statusCode).toBe(401);
   });

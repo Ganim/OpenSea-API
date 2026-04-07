@@ -20,7 +20,6 @@ describe('Download Shared File (E2E)', () => {
     uploaderId = randomUUID();
   });
 
-
   it('should download a shared file and increment download count', async () => {
     const { folderId } = await createStorageFolderE2E({ tenantId });
     const { fileId } = await createStorageFileE2E({

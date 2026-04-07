@@ -17,7 +17,6 @@ describe('Remove Group From User (e2e)', () => {
     tenantId = tid;
   });
 
-
   it('should remove group from user with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const group = await makePermissionGroup();

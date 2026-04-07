@@ -54,7 +54,6 @@ describe('Orders E2E (Orders, Payment Conditions)', () => {
     stageId = stageRes.body.stage.id;
   });
 
-
   // ── Orders ──────────────────────────────────────────────────────────────────
 
   it('POST /v1/orders should create an order (201)', async () => {

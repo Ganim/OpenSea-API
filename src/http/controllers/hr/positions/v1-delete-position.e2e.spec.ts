@@ -15,7 +15,6 @@ describe('Delete Position (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete position with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { positionId } = await createPositionE2E({ tenantId });

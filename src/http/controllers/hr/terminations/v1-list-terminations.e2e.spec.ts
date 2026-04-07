@@ -15,7 +15,6 @@ describe('List Terminations (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list terminations with pagination', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     await createTerminationE2E({ tenantId });

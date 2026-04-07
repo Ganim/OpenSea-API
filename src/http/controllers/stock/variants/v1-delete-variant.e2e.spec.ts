@@ -17,7 +17,6 @@ describe('Delete Variant (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete variant with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

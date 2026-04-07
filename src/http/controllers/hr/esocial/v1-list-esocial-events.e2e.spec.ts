@@ -14,7 +14,6 @@ describe('List eSocial Events (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list eSocial events', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,7 @@ describe('List eSocial Events (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .get('/v1/esocial/events');
+    const response = await request(app.server).get('/v1/esocial/events');
 
     expect(response.statusCode).toBe(401);
   });

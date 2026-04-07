@@ -14,11 +14,11 @@ describe('Chatbot (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('GET /v1/sales/chatbot/config', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/chatbot/config');
+      const response = await request(app.server).get(
+        '/v1/sales/chatbot/config',
+      );
 
       expect(response.status).toBe(401);
     });

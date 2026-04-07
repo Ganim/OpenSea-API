@@ -14,7 +14,6 @@ describe('Generate QR Payload (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for non-existent employee', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

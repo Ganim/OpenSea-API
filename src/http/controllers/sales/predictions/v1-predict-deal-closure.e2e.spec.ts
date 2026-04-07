@@ -14,7 +14,6 @@ describe('Predict Deal Closure (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
     const response = await request(app.server).post(
       '/v1/sales/predictions/00000000-0000-0000-0000-000000000000',

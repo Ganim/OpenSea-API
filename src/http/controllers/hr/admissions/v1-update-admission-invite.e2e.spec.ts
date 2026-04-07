@@ -14,7 +14,6 @@ describe('Update Admission Invite (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent invite', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -18,7 +18,6 @@ describe('Transfer Team Ownership (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should transfer ownership to another member', async () => {
     const { token, user: ownerUser } = await createAndAuthenticateUser(app, {
       tenantId,

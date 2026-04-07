@@ -14,7 +14,6 @@ describe('Get Medical Exam (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent exam', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const response = await request(app.server)
@@ -24,7 +23,9 @@ describe('Get Medical Exam (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server).get('/v1/hr/medical-exams/00000000-0000-0000-0000-000000000000');
+    const response = await request(app.server).get(
+      '/v1/hr/medical-exams/00000000-0000-0000-0000-000000000000',
+    );
     expect(response.status).toBe(401);
   });
 });

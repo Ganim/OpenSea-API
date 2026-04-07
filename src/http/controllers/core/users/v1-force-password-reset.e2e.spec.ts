@@ -14,7 +14,6 @@ describe('Force Password Reset (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should force password reset with correct schema', async () => {
     const { token: adminToken } = await createAndAuthenticateUser(app, {
       tenantId,

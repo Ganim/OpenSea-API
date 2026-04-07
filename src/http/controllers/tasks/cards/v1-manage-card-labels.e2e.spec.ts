@@ -17,7 +17,6 @@ describe('Manage Card Labels (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should set labels on a card', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

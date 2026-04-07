@@ -14,7 +14,6 @@ describe('Create eSocial Rubrica (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a rubrica', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -16,7 +16,6 @@ describe('Get File (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get a file by id with versions', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

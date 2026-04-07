@@ -11,7 +11,6 @@ describe('Verify Magic Link (E2E)', () => {
     await app.ready();
   });
 
-
   it('should verify a valid magic link token', async () => {
     const email = makeUniqueEmail('verify-ml');
 

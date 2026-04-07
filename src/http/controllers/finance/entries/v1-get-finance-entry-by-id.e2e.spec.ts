@@ -18,7 +18,6 @@ describe('Get Finance Entry By ID (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get a finance entry by id', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { category, costCenter } = await createFinancePrerequisites(tenantId);

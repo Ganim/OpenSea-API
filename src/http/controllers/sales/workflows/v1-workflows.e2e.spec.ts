@@ -17,7 +17,6 @@ describe('Workflows (E2E)', () => {
     token = auth.token;
   });
 
-
   it('POST /v1/sales/workflows should create a workflow (201)', async () => {
     const timestamp = Date.now();
 

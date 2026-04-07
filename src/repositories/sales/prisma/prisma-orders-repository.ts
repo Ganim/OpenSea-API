@@ -208,10 +208,7 @@ export class PrismaOrdersRepository implements OrdersRepository {
     ]);
 
     const ordersWithExpiredClaims = data.map((orderData) => {
-      if (
-        orderData.claimedAt &&
-        orderData.claimedAt < claimExpiryThreshold
-      ) {
+      if (orderData.claimedAt && orderData.claimedAt < claimExpiryThreshold) {
         return { ...orderData, claimedByUserId: null, claimedAt: null };
       }
       return orderData;
@@ -262,11 +259,26 @@ export class PrismaOrdersRepository implements OrdersRepository {
   }
 
   async generateOrderNumber(tenantId: string): Promise<string> {
-    const orderCount = await prisma.order.count({
-      where: { tenantId },
+    // Find the highest existing PDV-##### number for this tenant.
+    // Using count(*) is unsafe: deletes break sequence, concurrent calls collide,
+    // and the unique constraint (tenant_id, order_number) rejects duplicates.
+    const lastOrder = await prisma.order.findFirst({
+      where: {
+        tenantId,
+        orderNumber: { startsWith: 'PDV-' },
+      },
+      orderBy: { orderNumber: 'desc' },
+      select: { orderNumber: true },
     });
 
-    const nextNumber = orderCount + 1;
+    let nextNumber = 1;
+    if (lastOrder) {
+      const match = lastOrder.orderNumber.match(/^PDV-(\d+)$/);
+      if (match) {
+        nextNumber = parseInt(match[1], 10) + 1;
+      }
+    }
+
     return `PDV-${String(nextNumber).padStart(5, '0')}`;
   }
 

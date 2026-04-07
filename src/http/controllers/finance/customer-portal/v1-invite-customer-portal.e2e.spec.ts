@@ -14,7 +14,6 @@ describe('Invite Customer Portal (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should invite a customer to the portal', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

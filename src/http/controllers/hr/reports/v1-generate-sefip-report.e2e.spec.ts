@@ -14,7 +14,6 @@ describe('Generate SEFIP Report (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should generate SEFIP report as JSON', async () => {
     const { token } = await createAndAuthenticateUser(app, {
       tenantId,

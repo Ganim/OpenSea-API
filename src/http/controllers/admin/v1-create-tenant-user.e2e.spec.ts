@@ -10,7 +10,6 @@ describe('Create Tenant User (E2E)', () => {
     await app.ready();
   });
 
-
   it('should create a user and assign to tenant', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
     const timestamp = Date.now();

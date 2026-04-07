@@ -17,7 +17,6 @@ describe('List Favorites (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should list favorites (200)', async () => {
     // Create a favorite first to ensure there is at least one
     await request(app.server)

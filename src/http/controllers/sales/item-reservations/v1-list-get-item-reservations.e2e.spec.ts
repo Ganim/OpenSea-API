@@ -15,7 +15,6 @@ describe('List and Get Item Reservations (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list item reservations with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

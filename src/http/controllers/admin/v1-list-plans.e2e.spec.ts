@@ -9,7 +9,6 @@ describe('List Plans (E2E)', () => {
     await app.ready();
   });
 
-
   it('should list all plans', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

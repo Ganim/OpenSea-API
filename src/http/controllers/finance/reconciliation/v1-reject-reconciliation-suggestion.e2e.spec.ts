@@ -15,7 +15,6 @@ describe('Reject Reconciliation Suggestion (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for non-existent suggestion', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

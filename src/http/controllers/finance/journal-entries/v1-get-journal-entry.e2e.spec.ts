@@ -15,7 +15,6 @@ describe('Get Journal Entry (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent journal entry', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

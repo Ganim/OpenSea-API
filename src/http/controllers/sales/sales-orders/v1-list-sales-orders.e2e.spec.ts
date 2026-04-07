@@ -14,7 +14,6 @@ describe('List Sales Orders (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list sales orders with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

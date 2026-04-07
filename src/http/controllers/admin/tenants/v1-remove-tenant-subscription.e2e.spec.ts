@@ -14,7 +14,6 @@ describe('Admin Remove Tenant Subscription (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent subscription', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

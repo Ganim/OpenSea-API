@@ -15,7 +15,6 @@ describe('Create Custom Field (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a custom field for a board', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

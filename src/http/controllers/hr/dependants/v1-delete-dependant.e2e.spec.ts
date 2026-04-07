@@ -16,7 +16,6 @@ describe('Delete Dependant (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a dependant', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId } = await createEmployeeE2E({ tenantId });

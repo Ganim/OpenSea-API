@@ -15,7 +15,6 @@ describe('Set Folder Access (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should set access rule for a user on a folder', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

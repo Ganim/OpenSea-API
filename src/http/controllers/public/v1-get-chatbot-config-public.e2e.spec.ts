@@ -8,7 +8,6 @@ describe('Get Public Chatbot Config (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return 404 for non-existent tenant slug', async () => {
     const response = await request(app.server).get(
       '/v1/public/chatbot/non-existent-slug/config',

@@ -14,7 +14,6 @@ describe('Create Interview Stage (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create an interview stage', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

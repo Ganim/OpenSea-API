@@ -857,7 +857,9 @@ export const OrderStatus = {
   IN_TRANSIT: 'IN_TRANSIT',
   DELIVERED: 'DELIVERED',
   CANCELLED: 'CANCELLED',
-  RETURNED: 'RETURNED'
+  RETURNED: 'RETURNED',
+  INVOICED: 'INVOICED',
+  INVOICE_CANCELLED: 'INVOICE_CANCELLED'
 } as const
 
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
@@ -3512,3 +3514,62 @@ export const PaymentChargeStatus = {
 } as const
 
 export type PaymentChargeStatus = (typeof PaymentChargeStatus)[keyof typeof PaymentChargeStatus]
+
+
+export const InvoiceType = {
+  NFE: 'NFE',
+  NFCE: 'NFCE'
+} as const
+
+export type InvoiceType = (typeof InvoiceType)[keyof typeof InvoiceType]
+
+
+export const InvoiceStatus = {
+  PENDING: 'PENDING',
+  ISSUED: 'ISSUED',
+  CANCELLED: 'CANCELLED',
+  ERROR: 'ERROR'
+} as const
+
+export type InvoiceStatus = (typeof InvoiceStatus)[keyof typeof InvoiceStatus]
+
+
+export const PrinterType = {
+  THERMAL: 'THERMAL',
+  INKJET: 'INKJET',
+  LABEL: 'LABEL'
+} as const
+
+export type PrinterType = (typeof PrinterType)[keyof typeof PrinterType]
+
+
+export const PrinterConnection = {
+  USB: 'USB',
+  NETWORK: 'NETWORK',
+  BLUETOOTH: 'BLUETOOTH',
+  SERIAL: 'SERIAL'
+} as const
+
+export type PrinterConnection = (typeof PrinterConnection)[keyof typeof PrinterConnection]
+
+
+export const PrintJobType = {
+  RECEIPT: 'RECEIPT',
+  LABEL: 'LABEL',
+  REPORT: 'REPORT',
+  DOCUMENT: 'DOCUMENT'
+} as const
+
+export type PrintJobType = (typeof PrintJobType)[keyof typeof PrintJobType]
+
+
+export const PrintJobStatus = {
+  CREATED: 'CREATED',
+  QUEUED: 'QUEUED',
+  PRINTING: 'PRINTING',
+  SUCCESS: 'SUCCESS',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type PrintJobStatus = (typeof PrintJobStatus)[keyof typeof PrintJobStatus]

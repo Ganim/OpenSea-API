@@ -15,7 +15,6 @@ describe('Get Bin by ID (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should retrieve a bin by ID with item count', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

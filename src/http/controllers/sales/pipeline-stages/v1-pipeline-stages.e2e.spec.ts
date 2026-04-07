@@ -31,7 +31,6 @@ describe('Pipeline Stages CRUD (E2E)', () => {
     pipelineId = pipelineRes.body.pipeline.id;
   });
 
-
   it('POST /v1/pipelines/:pipelineId/stages should create a stage', async () => {
     const response = await request(app.server)
       .post(`/v1/pipelines/${pipelineId}/stages`)

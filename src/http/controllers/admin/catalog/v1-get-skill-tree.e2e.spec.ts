@@ -9,7 +9,6 @@ describe('Admin Get Skill Tree (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return skill definitions tree', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

@@ -9,7 +9,6 @@ describe('List Tenants (E2E)', () => {
     await app.ready();
   });
 
-
   it('should list tenants with pagination', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

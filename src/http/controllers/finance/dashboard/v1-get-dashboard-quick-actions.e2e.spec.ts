@@ -14,7 +14,6 @@ describe('Get Dashboard Quick Actions (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return quick actions', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

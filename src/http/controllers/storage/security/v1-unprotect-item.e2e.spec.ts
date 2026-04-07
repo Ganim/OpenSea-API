@@ -26,7 +26,6 @@ describe('Unprotect Item (E2E)', () => {
     folderId = fid;
   });
 
-
   it('should unprotect a file with correct password', async () => {
     const { fileId } = await createStorageFileE2E({
       tenantId,

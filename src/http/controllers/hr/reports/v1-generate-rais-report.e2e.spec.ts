@@ -14,7 +14,6 @@ describe('Generate RAIS Report (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should generate RAIS report as JSON', async () => {
     const { token } = await createAndAuthenticateUser(app, {
       tenantId,

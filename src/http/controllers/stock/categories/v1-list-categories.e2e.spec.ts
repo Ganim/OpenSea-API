@@ -15,7 +15,6 @@ describe('List Categories (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list categories with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

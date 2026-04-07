@@ -16,7 +16,6 @@ describe('List Deductions (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list deductions with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId } = await createEmployeeE2E({ tenantId });

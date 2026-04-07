@@ -15,7 +15,6 @@ describe('Generate Labels (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should generate labels with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

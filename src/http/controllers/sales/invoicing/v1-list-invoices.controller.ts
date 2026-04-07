@@ -26,7 +26,8 @@ export async function v1ListInvoicesController(app: FastifyInstance) {
     schema: {
       tags: ['Sales - Invoicing'],
       summary: 'List invoices',
-      description: 'Lists all invoices for the tenant with pagination and optional filters',
+      description:
+        'Lists all invoices for the tenant with pagination and optional filters',
       querystring: listInvoicesQuerySchema,
       response: {
         200: listInvoicesResponseSchema,
@@ -36,7 +37,7 @@ export async function v1ListInvoicesController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { status, orderId, fromDate, toDate, page, limit } = request.query as any;
+      const { status, orderId, fromDate, toDate, page, limit } = request.query;
 
       try {
         const useCase = makeListInvoicesUseCase();
@@ -57,7 +58,8 @@ export async function v1ListInvoicesController(app: FastifyInstance) {
         }
 
         return reply.status(500).send({
-          message: error instanceof Error ? error.message : 'Internal server error',
+          message:
+            error instanceof Error ? error.message : 'Internal server error',
         });
       }
     },

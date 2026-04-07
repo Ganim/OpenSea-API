@@ -15,7 +15,6 @@ describe('Update Consortium (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update a consortium', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { costCenter, bankAccount } =

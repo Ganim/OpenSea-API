@@ -15,7 +15,6 @@ describe('Bulk Cancel Entries (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should handle bulk cancel with non-existent entries', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

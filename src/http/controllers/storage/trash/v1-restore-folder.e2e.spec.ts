@@ -17,7 +17,6 @@ describe('Restore Folder (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should restore a soft-deleted folder', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

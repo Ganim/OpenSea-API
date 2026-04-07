@@ -14,7 +14,6 @@ describe('Create Survey Question (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should add a question to a survey', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -43,7 +42,9 @@ describe('Create Survey Question (E2E)', () => {
 
     expect(response.statusCode).toBe(201);
     expect(response.body).toHaveProperty('id');
-    expect(response.body.text).toBe('How would you rate your work-life balance?');
+    expect(response.body.text).toBe(
+      'How would you rate your work-life balance?',
+    );
   });
 
   it('should return 401 without token', async () => {

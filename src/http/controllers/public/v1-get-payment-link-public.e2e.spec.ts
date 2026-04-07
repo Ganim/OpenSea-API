@@ -8,11 +8,8 @@ describe('Get Payment Link Public (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return 404 for non-existent payment link slug', async () => {
-    const response = await request(app.server).get(
-      '/v1/pay/nonexistent-slug',
-    );
+    const response = await request(app.server).get('/v1/pay/nonexistent-slug');
 
     expect(response.status).toBe(404);
   });

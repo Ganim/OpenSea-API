@@ -14,7 +14,6 @@ describe('Get Forecast (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return forecast data', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

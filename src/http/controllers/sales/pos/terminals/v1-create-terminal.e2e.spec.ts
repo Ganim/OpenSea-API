@@ -14,16 +14,13 @@ describe('Create POS Terminal (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .post('/v1/pos/terminals')
-      .send({
-        name: 'Terminal 1',
-        deviceId: 'DEV-001',
-        mode: 'FAST_CHECKOUT',
-        warehouseId: '00000000-0000-0000-0000-000000000000',
-      });
+    const response = await request(app.server).post('/v1/pos/terminals').send({
+      name: 'Terminal 1',
+      deviceId: 'DEV-001',
+      mode: 'FAST_CHECKOUT',
+      warehouseId: '00000000-0000-0000-0000-000000000000',
+    });
 
     expect(response.status).toBe(401);
   });

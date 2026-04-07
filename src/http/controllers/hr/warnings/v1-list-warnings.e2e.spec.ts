@@ -14,7 +14,6 @@ describe('List Warnings (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list warnings', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

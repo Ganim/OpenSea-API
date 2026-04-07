@@ -14,7 +14,6 @@ describe('Expire Vacation Periods (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should expire vacation periods', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const response = await request(app.server)

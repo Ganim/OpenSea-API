@@ -14,7 +14,6 @@ describe('List eSocial Tables (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list esocial reference tables', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

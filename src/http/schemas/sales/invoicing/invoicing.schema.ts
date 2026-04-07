@@ -2,7 +2,12 @@ import { z } from 'zod';
 
 export const invoiceTypeSchema = z.enum(['NFE', 'NFCE']).default('NFCE');
 
-export const invoiceStatusSchema = z.enum(['PENDING', 'ISSUED', 'CANCELLED', 'ERROR']);
+export const invoiceStatusSchema = z.enum([
+  'PENDING',
+  'ISSUED',
+  'CANCELLED',
+  'ERROR',
+]);
 
 // Request para issue invoice
 export const issueInvoiceRequestSchema = z.object({

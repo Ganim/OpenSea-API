@@ -20,7 +20,6 @@ describe('View Insight (E2E)', () => {
     userId = auth.user.user.id;
   });
 
-
   it('should mark insight as viewed (200)', async () => {
     // Create an insight directly in the database
     const insight = await prisma.aiInsight.create({

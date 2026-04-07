@@ -14,7 +14,6 @@ describe('Get Fiscal Config (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 when no config exists', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

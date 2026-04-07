@@ -15,7 +15,6 @@ describe('List Consortia (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list consortia', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { costCenter, bankAccount } =

@@ -14,7 +14,6 @@ describe('Force Action PIN Reset (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should force action PIN reset with correct schema', async () => {
     const { token: adminToken } = await createAndAuthenticateUser(app, {
       tenantId,

@@ -15,7 +15,6 @@ describe('Get Benefit Plan (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get a benefit plan by id', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { benefitPlanId } = await createBenefitPlanE2E({

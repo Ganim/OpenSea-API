@@ -14,7 +14,6 @@ describe('Delete Message Template (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a message template', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

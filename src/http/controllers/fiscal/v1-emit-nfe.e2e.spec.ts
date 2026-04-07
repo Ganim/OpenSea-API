@@ -14,11 +14,8 @@ describe('Emit NF-e (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .post('/v1/fiscal/nfe')
-      .send({});
+    const response = await request(app.server).post('/v1/fiscal/nfe').send({});
 
     expect(response.status).toBe(401);
   });

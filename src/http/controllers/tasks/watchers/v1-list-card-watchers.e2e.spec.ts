@@ -17,7 +17,6 @@ describe('List Card Watchers (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list watchers of a card', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

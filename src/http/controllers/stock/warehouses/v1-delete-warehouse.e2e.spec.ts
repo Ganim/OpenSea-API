@@ -15,7 +15,6 @@ describe('Delete Warehouse (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a warehouse successfully', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

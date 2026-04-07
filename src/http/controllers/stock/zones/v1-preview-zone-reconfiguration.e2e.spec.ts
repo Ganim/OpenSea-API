@@ -15,7 +15,6 @@ describe('Preview Zone Reconfiguration (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should preview reconfiguration diff for a zone', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

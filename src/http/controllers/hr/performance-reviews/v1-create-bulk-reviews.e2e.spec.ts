@@ -14,6 +14,7 @@ describe('Create Bulk Reviews (E2E)', () => {
     tenantId = tid;
   });
 
+  it('should handle bulk review creation request', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const response = await request(app.server)
       .post('/v1/hr/performance-reviews/bulk')

@@ -14,7 +14,6 @@ describe('Create Cost Center (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a cost center', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

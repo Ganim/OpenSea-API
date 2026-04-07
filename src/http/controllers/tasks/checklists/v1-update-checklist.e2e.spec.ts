@@ -17,7 +17,6 @@ describe('Update Checklist (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update a checklist title', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

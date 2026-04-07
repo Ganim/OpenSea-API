@@ -14,7 +14,6 @@ describe('Customer Prices (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('POST /v1/customer-prices', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
@@ -31,8 +30,7 @@ describe('Customer Prices (E2E)', () => {
 
   describe('GET /v1/customer-prices', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/customer-prices');
+      const response = await request(app.server).get('/v1/customer-prices');
 
       expect(response.status).toBe(401);
     });
@@ -63,8 +61,9 @@ describe('Customer Prices (E2E)', () => {
 
   describe('DELETE /v1/customer-prices/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .delete('/v1/customer-prices/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).delete(
+        '/v1/customer-prices/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });

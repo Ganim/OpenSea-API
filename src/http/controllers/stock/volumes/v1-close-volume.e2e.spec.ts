@@ -15,7 +15,6 @@ describe('Close Volume (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should close a volume successfully', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

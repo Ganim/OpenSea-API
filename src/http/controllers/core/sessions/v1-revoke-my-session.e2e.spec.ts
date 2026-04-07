@@ -15,7 +15,6 @@ describe('Revoke My Session (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should revoke my session with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 

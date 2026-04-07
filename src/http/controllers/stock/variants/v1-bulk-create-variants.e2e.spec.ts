@@ -16,7 +16,6 @@ describe('Bulk Create Variants (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should bulk create variants with auth', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

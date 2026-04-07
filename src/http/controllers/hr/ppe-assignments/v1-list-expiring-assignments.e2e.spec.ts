@@ -14,7 +14,6 @@ describe('List Expiring Assignments (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list expiring assignments', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,9 @@ describe('List Expiring Assignments (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/ppe-assignments/expiring');
+    const response = await request(app.server).get(
+      '/v1/hr/ppe-assignments/expiring',
+    );
 
     expect(response.status).toBe(401);
   });

@@ -8,7 +8,6 @@ describe('Webhook Mercado Livre (E2E)', () => {
     await app.ready();
   });
 
-
   it('should accept ML webhook notification', async () => {
     const response = await request(app.server)
       .post('/v1/webhooks/marketplace/ml')

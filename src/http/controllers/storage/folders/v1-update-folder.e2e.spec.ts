@@ -15,7 +15,6 @@ describe('Update Folder (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update folder color', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { folderId } = await createStorageFolderE2E({ tenantId });

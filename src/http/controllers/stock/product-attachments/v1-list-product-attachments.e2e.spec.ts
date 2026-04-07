@@ -15,7 +15,6 @@ describe('List Product Attachments (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list product attachments', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { product } = await createProduct({ tenantId });

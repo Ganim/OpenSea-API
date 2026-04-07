@@ -14,7 +14,6 @@ describe('Update Permission (e2e)', () => {
     tenantId = tid;
   });
 
-
   it('should update permission with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const permission = await makePermission();

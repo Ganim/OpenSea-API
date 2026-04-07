@@ -25,7 +25,10 @@ export interface InvoicesRepository {
     number: string,
     series: string,
   ): Promise<Invoice | null>;
-  findByOrderId(orderId: UniqueEntityID, tenantId: string): Promise<Invoice | null>;
+  findByOrderId(
+    orderId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Invoice | null>;
   listByTenant(
     params: FindManyInvoicesPaginatedParams,
   ): Promise<PaginatedResult<Invoice>>;

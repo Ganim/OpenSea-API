@@ -14,7 +14,6 @@ describe('Get Pix Charge (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent txId', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

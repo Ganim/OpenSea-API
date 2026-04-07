@@ -14,7 +14,6 @@ describe('Export Absences Report (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should export absences report as CSV', async () => {
     const { token } = await createAndAuthenticateUser(app, {
       tenantId,

@@ -17,7 +17,6 @@ describe('Upload Attachment (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should upload an attachment to a card', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

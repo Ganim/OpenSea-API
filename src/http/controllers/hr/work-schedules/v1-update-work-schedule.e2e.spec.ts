@@ -15,7 +15,6 @@ describe('Update Work Schedule (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should allow MANAGER to update a work schedule', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

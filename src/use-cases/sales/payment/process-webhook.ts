@@ -1,7 +1,5 @@
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type { PaymentChargesRepository } from '@/repositories/sales/payment-charges-repository';
 import type { PaymentConfigsRepository } from '@/repositories/sales/payment-configs-repository';
-import { PaymentProviderFactory } from '@/services/payment/payment-provider.factory';
 
 interface ProcessWebhookUseCaseRequest {
   providerName: string;
@@ -24,17 +22,11 @@ export class ProcessWebhookUseCase {
   async execute(
     input: ProcessWebhookUseCaseRequest,
   ): Promise<ProcessWebhookUseCaseResponse> {
-    // Instantiate the provider to parse the webhook payload.
-    // For webhook processing, we instantiate a "blank" provider since
-    // the provider only needs to parse the payload, not make API calls.
-    // The actual provider config is not needed for handleWebhook.
-    const factory = new PaymentProviderFactory();
-
-    // We use a null config and a compatible method to get a ManualProvider first,
-    // then use the provider registry to parse the webhook.
-    const {
-      createPaymentProvider,
-    } = await import('@/services/payment/provider-registry');
+    // For webhook processing we use the provider registry directly to
+    // instantiate a parser-only provider — no API calls needed.
+    const { createPaymentProvider } = await import(
+      '@/services/payment/provider-registry'
+    );
 
     let webhookResult;
 
@@ -95,7 +87,10 @@ export class ProcessWebhookUseCase {
         webhookResult.status,
         webhookResult.paidAmount,
         webhookResult.status === 'PAID' ? new Date() : undefined,
-        { ...((webhookResult.metadata as Record<string, unknown>) ?? {}), rawPayload: input.payload },
+        {
+          ...((webhookResult.metadata as Record<string, unknown>) ?? {}),
+          rawPayload: input.payload,
+        },
       );
 
     if (affectedCount === 0) {

@@ -14,7 +14,6 @@ describe('Parse Pix (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should parse a valid Copia e Cola code', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

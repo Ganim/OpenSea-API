@@ -14,7 +14,6 @@ describe('Detect Anomalies (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should detect anomalies', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

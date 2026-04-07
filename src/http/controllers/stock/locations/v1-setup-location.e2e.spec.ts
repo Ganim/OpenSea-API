@@ -14,7 +14,6 @@ describe('Setup Location (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a warehouse with zones and bins atomically', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();
@@ -34,9 +33,7 @@ describe('Setup Location (E2E)', () => {
             code: `Z${suffix.slice(-3)}`,
             name: `Zone A ${timestamp}`,
             structure: {
-              aisleConfigs: [
-                { shelvesPerAisle: 2, binsPerShelf: 3 },
-              ],
+              aisleConfigs: [{ shelvesPerAisle: 2, binsPerShelf: 3 }],
             },
           },
         ],

@@ -14,14 +14,17 @@ describe('Create Safety Program (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create or return error', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
       .post('/v1/hr/safety-programs')
       .set('Authorization', `Bearer ${token}`)
-      .send({ name: "PCMSO Test", type: "PCMSO", startDate: new Date().toISOString() });
+      .send({
+        name: 'PCMSO Test',
+        type: 'PCMSO',
+        startDate: new Date().toISOString(),
+      });
 
     expect(response.status).not.toBe(401);
   });
@@ -29,7 +32,11 @@ describe('Create Safety Program (E2E)', () => {
   it('should return 401 when not authenticated', async () => {
     const response = await request(app.server)
       .post('/v1/hr/safety-programs')
-      .send({ name: "PCMSO Test", type: "PCMSO", startDate: new Date().toISOString() });
+      .send({
+        name: 'PCMSO Test',
+        type: 'PCMSO',
+        startDate: new Date().toISOString(),
+      });
 
     expect(response.status).toBe(401);
   });

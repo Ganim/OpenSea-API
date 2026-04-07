@@ -14,7 +14,6 @@ describe('List My Support Tickets (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list my tickets (empty)', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

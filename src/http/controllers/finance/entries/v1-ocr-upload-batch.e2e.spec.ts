@@ -14,7 +14,6 @@ describe('OCR Upload Batch (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error when no files uploaded', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

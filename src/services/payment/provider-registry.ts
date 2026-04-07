@@ -6,25 +6,22 @@
  * based on tenant configuration.
  */
 
-import type { PaymentProvider } from './payment-provider.interface'
-import { ManualProvider } from './providers/manual.provider'
+import type { PaymentProvider } from './payment-provider.interface';
+import { ManualProvider } from './providers/manual.provider';
 import {
   InfinitePayProvider,
   type InfinitePayConfig,
-} from './providers/infinitepay.provider'
-import {
-  AsaasProvider,
-  type AsaasConfig,
-} from './providers/asaas.provider'
+} from './providers/infinitepay.provider';
+import { AsaasProvider, type AsaasConfig } from './providers/asaas.provider';
 
-export type ProviderName = 'manual' | 'infinitepay' | 'asaas'
+export type ProviderName = 'manual' | 'infinitepay' | 'asaas';
 
 /** Config type per provider */
 export type ProviderConfigMap = {
-  manual: Record<string, never>
-  infinitepay: InfinitePayConfig
-  asaas: AsaasConfig
-}
+  manual: Record<string, never>;
+  infinitepay: InfinitePayConfig;
+  asaas: AsaasConfig;
+};
 
 /**
  * Instantiate a payment provider by name with its config.
@@ -35,13 +32,13 @@ export function createPaymentProvider<T extends ProviderName>(
 ): PaymentProvider {
   switch (name) {
     case 'manual':
-      return new ManualProvider()
+      return new ManualProvider();
     case 'infinitepay':
-      return new InfinitePayProvider(config as InfinitePayConfig)
+      return new InfinitePayProvider(config as InfinitePayConfig);
     case 'asaas':
-      return new AsaasProvider(config as AsaasConfig)
+      return new AsaasProvider(config as AsaasConfig);
     default:
-      throw new Error(`Unknown payment provider: ${name}`)
+      throw new Error(`Unknown payment provider: ${name}`);
   }
 }
 
@@ -51,8 +48,8 @@ export function createPaymentProvider<T extends ProviderName>(
 export const PAYMENT_PROVIDERS: Record<
   ProviderName,
   {
-    displayName: string
-    getConfigFields: () => ReturnType<PaymentProvider['getConfigFields']>
+    displayName: string;
+    getConfigFields: () => ReturnType<PaymentProvider['getConfigFields']>;
   }
 > = {
   manual: {
@@ -75,7 +72,7 @@ export const PAYMENT_PROVIDERS: Record<
         environment: 'sandbox',
       }).getConfigFields(),
   },
-}
+};
 
 /**
  * List of all available provider names.
@@ -84,4 +81,4 @@ export const AVAILABLE_PROVIDERS: ProviderName[] = [
   'manual',
   'infinitepay',
   'asaas',
-]
+];

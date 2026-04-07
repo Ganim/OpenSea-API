@@ -15,7 +15,6 @@ describe('Delete Employee (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should delete employee with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employee } = await createEmployeeE2E({ tenantId });

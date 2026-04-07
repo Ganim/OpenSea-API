@@ -31,7 +31,6 @@ describe('Bulk Finance Entry Operations (E2E)', () => {
     bankAccountId = prereqs.bankAccount.id;
   });
 
-
   describe('POST /v1/finance/entries/bulk-pay', () => {
     it('should bulk pay multiple entries', async () => {
       const entry1 = await createFinanceEntry(tenantId, {

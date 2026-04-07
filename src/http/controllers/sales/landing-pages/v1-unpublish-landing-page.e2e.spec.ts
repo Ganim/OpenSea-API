@@ -14,7 +14,6 @@ describe('Unpublish Landing Page (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should unpublish a landing page', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

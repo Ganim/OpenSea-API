@@ -14,7 +14,6 @@ describe('List Overdue Exams (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list overdue exams', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const response = await request(app.server)
@@ -25,7 +24,9 @@ describe('List Overdue Exams (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server).get('/v1/hr/medical-exams/overdue');
+    const response = await request(app.server).get(
+      '/v1/hr/medical-exams/overdue',
+    );
     expect(response.status).toBe(401);
   });
 });

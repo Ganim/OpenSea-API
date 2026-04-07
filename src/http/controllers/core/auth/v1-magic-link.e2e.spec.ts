@@ -11,7 +11,6 @@ describe('Magic Link (E2E)', () => {
     await app.ready();
   });
 
-
   it('should request magic link for valid email', async () => {
     const email = makeUniqueEmail('magic-req');
 

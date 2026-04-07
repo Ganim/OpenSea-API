@@ -15,7 +15,6 @@ describe('Create Contract (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a contract', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { category, costCenter } = await createFinancePrerequisites(tenantId);
@@ -30,9 +29,7 @@ describe('Create Contract (E2E)', () => {
         paymentFrequency: 'MONTHLY',
         paymentAmount: 1000,
         startDate: new Date().toISOString(),
-        endDate: new Date(
-          Date.now() + 365 * 24 * 60 * 60 * 1000,
-        ).toISOString(),
+        endDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
         categoryId: category.id,
         costCenterId: costCenter.id,
       });

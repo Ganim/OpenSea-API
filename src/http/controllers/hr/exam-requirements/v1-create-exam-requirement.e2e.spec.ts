@@ -14,14 +14,17 @@ describe('Create Exam Requirement (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create or return error', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
       .post('/v1/hr/exam-requirements')
       .set('Authorization', `Bearer ${token}`)
-      .send({ examType: 'ADMISSIONAL', positionId: '00000000-0000-0000-0000-000000000000', periodicityMonths: 12 });
+      .send({
+        examType: 'ADMISSIONAL',
+        positionId: '00000000-0000-0000-0000-000000000000',
+        periodicityMonths: 12,
+      });
 
     expect(response.status).not.toBe(401);
   });
@@ -29,7 +32,11 @@ describe('Create Exam Requirement (E2E)', () => {
   it('should return 401 when not authenticated', async () => {
     const response = await request(app.server)
       .post('/v1/hr/exam-requirements')
-      .send({ examType: 'ADMISSIONAL', positionId: '00000000-0000-0000-0000-000000000000', periodicityMonths: 12 });
+      .send({
+        examType: 'ADMISSIONAL',
+        positionId: '00000000-0000-0000-0000-000000000000',
+        periodicityMonths: 12,
+      });
 
     expect(response.status).toBe(401);
   });

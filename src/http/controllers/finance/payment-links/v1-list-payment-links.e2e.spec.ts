@@ -14,7 +14,6 @@ describe('List Payment Links (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list payment links', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -27,9 +26,7 @@ describe('List Payment Links (E2E)', () => {
   });
 
   it('should return 401 without auth', async () => {
-    const response = await request(app.server).get(
-      '/v1/finance/payment-links',
-    );
+    const response = await request(app.server).get('/v1/finance/payment-links');
 
     expect(response.status).toBe(401);
   });

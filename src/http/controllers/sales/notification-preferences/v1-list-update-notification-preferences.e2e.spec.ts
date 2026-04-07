@@ -13,7 +13,6 @@ describe('List and Update Notification Preferences (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list notification preferences with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

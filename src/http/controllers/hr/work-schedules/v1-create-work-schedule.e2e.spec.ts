@@ -14,7 +14,6 @@ describe('Create Work Schedule (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should allow MANAGER to create a work schedule', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

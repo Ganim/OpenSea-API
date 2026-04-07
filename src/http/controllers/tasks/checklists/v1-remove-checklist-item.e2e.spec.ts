@@ -17,7 +17,6 @@ describe('Remove Checklist Item (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should remove an item from a checklist', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

@@ -16,7 +16,6 @@ describe('Toggle Automation (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should toggle an automation active state', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

@@ -14,7 +14,6 @@ describe('Create Calendar Event (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create event with minimal fields', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

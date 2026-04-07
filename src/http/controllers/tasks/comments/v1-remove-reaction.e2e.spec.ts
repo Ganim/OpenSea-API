@@ -17,7 +17,6 @@ describe('Remove Reaction (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should remove a reaction from a comment', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

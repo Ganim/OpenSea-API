@@ -15,7 +15,6 @@ describe('List My Payroll Items (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list my payroll items', { timeout: 15000 }, async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 

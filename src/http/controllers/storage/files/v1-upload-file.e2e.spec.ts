@@ -15,7 +15,6 @@ describe('Upload File (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should upload a file to a folder', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { folderId } = await createStorageFolderE2E({ tenantId });

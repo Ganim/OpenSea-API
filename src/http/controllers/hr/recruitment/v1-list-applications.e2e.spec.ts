@@ -14,7 +14,6 @@ describe('List Applications (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list applications', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -29,8 +28,9 @@ describe('List Applications (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/recruitment/applications');
+    const response = await request(app.server).get(
+      '/v1/hr/recruitment/applications',
+    );
 
     expect(response.statusCode).toBe(401);
   });

@@ -31,7 +31,6 @@ describe('Store Credits (E2E)', () => {
     customerId = customerResponse.body.customer.id;
   });
 
-
   it('POST /v1/store-credits should create a manual store credit (201)', async () => {
     const response = await request(app.server)
       .post('/v1/store-credits')

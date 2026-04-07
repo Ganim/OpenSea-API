@@ -14,7 +14,6 @@ describe('Blueprints (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('POST /v1/sales/blueprints', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
@@ -27,8 +26,7 @@ describe('Blueprints (E2E)', () => {
 
   describe('GET /v1/sales/blueprints', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/blueprints');
+      const response = await request(app.server).get('/v1/sales/blueprints');
 
       expect(response.status).toBe(401);
     });
@@ -49,8 +47,9 @@ describe('Blueprints (E2E)', () => {
 
   describe('GET /v1/sales/blueprints/:blueprintId', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/blueprints/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).get(
+        '/v1/sales/blueprints/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -68,8 +67,9 @@ describe('Blueprints (E2E)', () => {
 
   describe('DELETE /v1/sales/blueprints/:blueprintId', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .delete('/v1/sales/blueprints/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).delete(
+        '/v1/sales/blueprints/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });

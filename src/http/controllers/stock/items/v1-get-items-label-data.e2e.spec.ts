@@ -16,7 +16,6 @@ describe('Get Items Label Data (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return label data for given items', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

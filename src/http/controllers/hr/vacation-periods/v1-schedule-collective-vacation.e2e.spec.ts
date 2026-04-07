@@ -14,7 +14,6 @@ describe('Schedule Collective Vacation (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for non-existent employees', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const startDate = new Date(Date.now() + 60 * 24 * 60 * 60 * 1000);
@@ -33,7 +32,11 @@ describe('Schedule Collective Vacation (E2E)', () => {
   it('should return 401 when not authenticated', async () => {
     const response = await request(app.server)
       .post('/v1/hr/vacation-periods/collective')
-      .send({ employeeIds: [], startDate: new Date().toISOString(), endDate: new Date().toISOString() });
+      .send({
+        employeeIds: [],
+        startDate: new Date().toISOString(),
+        endDate: new Date().toISOString(),
+      });
     expect(response.status).toBe(401);
   });
 });

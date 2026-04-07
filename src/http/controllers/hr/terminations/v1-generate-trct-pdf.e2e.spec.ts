@@ -15,7 +15,6 @@ describe('Generate TRCT PDF (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should generate TRCT PDF for a termination', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { terminationId } = await createTerminationE2E({

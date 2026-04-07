@@ -15,7 +15,6 @@ describe('Get Bin By Address (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get bin by address with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

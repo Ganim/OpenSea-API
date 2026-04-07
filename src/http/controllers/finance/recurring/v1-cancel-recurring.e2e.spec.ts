@@ -15,7 +15,6 @@ describe('Cancel Recurring (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for non-existent config', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

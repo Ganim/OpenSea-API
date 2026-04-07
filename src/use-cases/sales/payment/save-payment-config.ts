@@ -3,7 +3,10 @@ import type { PaymentConfigDTO } from '@/mappers/sales/payment/payment-config-to
 import { paymentConfigToDTO } from '@/mappers/sales/payment/payment-config-to-dto';
 import type { PaymentConfigsRepository } from '@/repositories/sales/payment-configs-repository';
 import { getFieldCipherService } from '@/services/security/field-cipher-service';
-import { AVAILABLE_PROVIDERS, type ProviderName } from '@/services/payment/provider-registry';
+import {
+  AVAILABLE_PROVIDERS,
+  type ProviderName,
+} from '@/services/payment/provider-registry';
 
 interface SavePaymentConfigUseCaseRequest {
   tenantId: string;
@@ -20,16 +23,12 @@ interface SavePaymentConfigUseCaseResponse {
 }
 
 export class SavePaymentConfigUseCase {
-  constructor(
-    private paymentConfigsRepository: PaymentConfigsRepository,
-  ) {}
+  constructor(private paymentConfigsRepository: PaymentConfigsRepository) {}
 
   async execute(
     input: SavePaymentConfigUseCaseRequest,
   ): Promise<SavePaymentConfigUseCaseResponse> {
-    if (
-      !AVAILABLE_PROVIDERS.includes(input.primaryProvider as ProviderName)
-    ) {
+    if (!AVAILABLE_PROVIDERS.includes(input.primaryProvider as ProviderName)) {
       throw new BadRequestError(
         `Invalid primary provider: ${input.primaryProvider}. Available: ${AVAILABLE_PROVIDERS.join(', ')}`,
       );

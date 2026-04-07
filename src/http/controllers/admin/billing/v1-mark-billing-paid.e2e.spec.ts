@@ -9,7 +9,6 @@ describe('Admin Mark Billing Paid (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return 404 for non-existent billing', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

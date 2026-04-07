@@ -17,7 +17,6 @@ describe('Resolve Divergence (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should resolve a divergent inventory session item', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();
@@ -84,9 +83,7 @@ describe('Resolve Divergence (E2E)', () => {
       expect(response.body).toHaveProperty('sessionItem');
       expect(response.body.sessionItem.id).toBe(sessionItemId);
       expect(response.body.sessionItem.resolution).toBe('PENDING_REVIEW');
-      expect(response.body.sessionItem.notes).toBe(
-        'Needs manual verification',
-      );
+      expect(response.body.sessionItem.notes).toBe('Needs manual verification');
     }
   });
 

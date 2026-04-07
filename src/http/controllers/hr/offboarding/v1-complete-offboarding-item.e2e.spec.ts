@@ -14,11 +14,12 @@ describe('Complete Offboarding Item (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent checklist', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const response = await request(app.server)
-      .post('/v1/hr/offboarding/non-existent-id/items/non-existent-item/complete')
+      .post(
+        '/v1/hr/offboarding/non-existent-id/items/non-existent-item/complete',
+      )
       .set('Authorization', `Bearer ${token}`)
       .send({});
     expect(response.status).toBe(404);

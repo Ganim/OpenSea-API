@@ -9,7 +9,6 @@ describe('Admin Get System Health (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return system health status', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

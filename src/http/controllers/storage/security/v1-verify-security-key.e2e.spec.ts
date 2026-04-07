@@ -20,7 +20,6 @@ describe('Verify Security Key (E2E)', () => {
     userId = auth.user.user.id;
   });
 
-
   it('should return valid: false when user has no security key', async () => {
     const response = await request(app.server)
       .post('/v1/storage/security/verify-key')

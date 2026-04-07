@@ -18,7 +18,6 @@ describe('Reset Zone Layout (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should reset zone layout to automatic', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

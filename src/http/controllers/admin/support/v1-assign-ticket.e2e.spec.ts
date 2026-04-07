@@ -9,12 +9,13 @@ describe('Admin Assign Ticket (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return 404 for non-existent ticket', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 
     const response = await request(app.server)
-      .post('/v1/admin/support/tickets/00000000-0000-0000-0000-000000000000/assign')
+      .post(
+        '/v1/admin/support/tickets/00000000-0000-0000-0000-000000000000/assign',
+      )
       .set('Authorization', `Bearer ${token}`)
       .send({ assigneeId: '00000000-0000-0000-0000-000000000001' });
 
@@ -25,7 +26,9 @@ describe('Admin Assign Ticket (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
-      .post('/v1/admin/support/tickets/00000000-0000-0000-0000-000000000000/assign')
+      .post(
+        '/v1/admin/support/tickets/00000000-0000-0000-0000-000000000000/assign',
+      )
       .set('Authorization', `Bearer ${token}`)
       .send({ assigneeId: '00000000-0000-0000-0000-000000000001' });
 

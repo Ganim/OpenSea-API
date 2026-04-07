@@ -15,7 +15,6 @@ describe('Update Budget (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for non-existent budget', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

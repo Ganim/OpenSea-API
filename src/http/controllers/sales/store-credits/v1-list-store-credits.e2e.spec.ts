@@ -14,7 +14,6 @@ describe('List Store Credits (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list store credits', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

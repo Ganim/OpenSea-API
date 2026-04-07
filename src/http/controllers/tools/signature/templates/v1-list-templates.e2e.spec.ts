@@ -14,7 +14,6 @@ describe('List Signature Templates (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list templates (empty)', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

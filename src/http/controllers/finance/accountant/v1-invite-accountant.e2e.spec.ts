@@ -14,7 +14,6 @@ describe('Invite Accountant (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should invite an accountant', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -8,7 +8,6 @@ describe('Submit Candidate Data (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return 404 for non-existent admission token', async () => {
     const response = await request(app.server)
       .post('/v1/public/admission/00000000-0000-0000-0000-000000000000/submit')

@@ -8,7 +8,6 @@ describe('Set Plan Modules (E2E)', () => {
     await app.ready();
   });
 
-
   it('should set modules for a plan', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

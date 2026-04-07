@@ -13,12 +13,13 @@ describe('Create Company Document (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 400 when company does not exist', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
-      .post('/v1/admin/companies/00000000-0000-0000-0000-000000000000/documents')
+      .post(
+        '/v1/admin/companies/00000000-0000-0000-0000-000000000000/documents',
+      )
       .set('Authorization', `Bearer ${token}`)
       .field('documentType', 'CONTRACT')
       .attach('file', Buffer.from('test-content'), {
@@ -31,7 +32,9 @@ describe('Create Company Document (E2E)', () => {
 
   it('should return 401 without token', async () => {
     const response = await request(app.server)
-      .post('/v1/admin/companies/00000000-0000-0000-0000-000000000000/documents')
+      .post(
+        '/v1/admin/companies/00000000-0000-0000-0000-000000000000/documents',
+      )
       .field('documentType', 'CONTRACT')
       .attach('file', Buffer.from('test-content'), {
         filename: 'test.pdf',

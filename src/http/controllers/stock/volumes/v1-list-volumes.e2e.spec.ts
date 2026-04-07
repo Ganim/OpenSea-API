@@ -15,7 +15,6 @@ describe('List Volumes (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list volumes with pagination', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

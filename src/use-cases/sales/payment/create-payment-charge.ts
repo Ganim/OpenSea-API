@@ -1,5 +1,4 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import type { PosPaymentMethod } from '@/entities/sales/pos-transaction-payment';
 import type { PaymentChargeDTO } from '@/mappers/sales/payment/payment-charge-to-dto';
 import { paymentChargeToDTO } from '@/mappers/sales/payment/payment-charge-to-dto';
@@ -46,7 +45,12 @@ export class CreatePaymentChargeUseCase {
 
     const chargeResult = await provider.createCharge({
       amount: input.amount,
-      method: input.method as 'PIX' | 'CREDIT_CARD' | 'DEBIT_CARD' | 'BOLETO' | 'PAYMENT_LINK',
+      method: input.method as
+        | 'PIX'
+        | 'CREDIT_CARD'
+        | 'DEBIT_CARD'
+        | 'BOLETO'
+        | 'PAYMENT_LINK',
       orderId: input.orderId,
       orderNumber: input.orderNumber,
       customerName: input.customerName,

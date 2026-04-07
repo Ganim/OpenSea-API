@@ -32,7 +32,6 @@ describe('Tenant Auth Config (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should get tenant auth config', async () => {
     const response = await request(app.server)
       .get('/v1/tenant-auth-config')

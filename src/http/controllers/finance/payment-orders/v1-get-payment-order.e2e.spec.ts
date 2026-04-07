@@ -15,7 +15,6 @@ describe('Get Payment Order (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent order', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

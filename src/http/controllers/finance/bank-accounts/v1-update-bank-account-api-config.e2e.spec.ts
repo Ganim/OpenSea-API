@@ -16,7 +16,6 @@ describe('Update Bank Account API Config (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update API config for bank account', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const bankAccount = await createBankAccount(tenantId);

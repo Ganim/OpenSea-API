@@ -77,7 +77,6 @@ describe('Stock Multi-Tenant Isolation (E2E)', () => {
     tokenB = authB.token;
   }, 60000);
 
-
   // ── LIST Products isolation ─────────────────────────────────────────
 
   it('should not return products from another tenant', async () => {

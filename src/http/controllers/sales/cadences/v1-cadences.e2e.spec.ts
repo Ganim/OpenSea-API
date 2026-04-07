@@ -14,7 +14,6 @@ describe('Cadences (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('POST /v1/sales/cadences', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
@@ -27,8 +26,7 @@ describe('Cadences (E2E)', () => {
 
   describe('GET /v1/sales/cadences', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/cadences');
+      const response = await request(app.server).get('/v1/sales/cadences');
 
       expect(response.status).toBe(401);
     });
@@ -49,8 +47,9 @@ describe('Cadences (E2E)', () => {
 
   describe('GET /v1/sales/cadences/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/cadences/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).get(
+        '/v1/sales/cadences/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -68,8 +67,9 @@ describe('Cadences (E2E)', () => {
 
   describe('DELETE /v1/sales/cadences/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .delete('/v1/sales/cadences/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).delete(
+        '/v1/sales/cadences/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -77,8 +77,9 @@ describe('Cadences (E2E)', () => {
 
   describe('PATCH /v1/sales/cadences/:id/activate', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .patch('/v1/sales/cadences/00000000-0000-0000-0000-000000000001/activate');
+      const response = await request(app.server).patch(
+        '/v1/sales/cadences/00000000-0000-0000-0000-000000000001/activate',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -86,8 +87,9 @@ describe('Cadences (E2E)', () => {
 
   describe('PATCH /v1/sales/cadences/:id/deactivate', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .patch('/v1/sales/cadences/00000000-0000-0000-0000-000000000001/deactivate');
+      const response = await request(app.server).patch(
+        '/v1/sales/cadences/00000000-0000-0000-0000-000000000001/deactivate',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -105,8 +107,9 @@ describe('Cadences (E2E)', () => {
 
   describe('POST /v1/sales/cadences/enrollments/:enrollmentId/advance', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .post('/v1/sales/cadences/enrollments/00000000-0000-0000-0000-000000000001/advance');
+      const response = await request(app.server).post(
+        '/v1/sales/cadences/enrollments/00000000-0000-0000-0000-000000000001/advance',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -114,8 +117,9 @@ describe('Cadences (E2E)', () => {
 
   describe('POST /v1/sales/cadences/process-pending', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .post('/v1/sales/cadences/process-pending');
+      const response = await request(app.server).post(
+        '/v1/sales/cadences/process-pending',
+      );
 
       expect(response.status).toBe(401);
     });

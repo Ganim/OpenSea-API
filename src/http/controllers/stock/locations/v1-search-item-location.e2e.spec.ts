@@ -17,7 +17,6 @@ describe('Search Item Location (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should search items by query and return location info', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

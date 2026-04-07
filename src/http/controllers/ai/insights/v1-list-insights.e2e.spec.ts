@@ -17,7 +17,6 @@ describe('List Insights (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should list insights (200)', async () => {
     const response = await request(app.server)
       .get('/v1/ai/insights')

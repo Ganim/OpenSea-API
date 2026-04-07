@@ -9,7 +9,6 @@ describe('Authenticate with Password (E2E)', () => {
     await app.ready();
   });
 
-
   it('should authenticate with password with correct schema', async () => {
     const email = makeUniqueEmail('auth-login');
 

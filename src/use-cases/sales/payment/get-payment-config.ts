@@ -11,9 +11,7 @@ interface GetPaymentConfigUseCaseResponse {
 }
 
 export class GetPaymentConfigUseCase {
-  constructor(
-    private paymentConfigsRepository: PaymentConfigsRepository,
-  ) {}
+  constructor(private paymentConfigsRepository: PaymentConfigsRepository) {}
 
   async execute(
     input: GetPaymentConfigUseCaseRequest,

@@ -14,7 +14,6 @@ describe('Get Payment Timing (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return payment timing analytics', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

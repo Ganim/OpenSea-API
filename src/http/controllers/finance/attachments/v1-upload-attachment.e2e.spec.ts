@@ -18,7 +18,6 @@ describe('Upload Attachment (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should reject upload without proper multipart data', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

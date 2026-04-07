@@ -14,7 +14,6 @@ describe('Combos (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('POST /v1/combos', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
@@ -46,8 +45,7 @@ describe('Combos (E2E)', () => {
 
   describe('GET /v1/combos', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/combos');
+      const response = await request(app.server).get('/v1/combos');
 
       expect(response.status).toBe(401);
     });
@@ -68,8 +66,9 @@ describe('Combos (E2E)', () => {
 
   describe('GET /v1/combos/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/combos/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).get(
+        '/v1/combos/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -87,8 +86,9 @@ describe('Combos (E2E)', () => {
 
   describe('DELETE /v1/combos/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .delete('/v1/combos/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).delete(
+        '/v1/combos/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });

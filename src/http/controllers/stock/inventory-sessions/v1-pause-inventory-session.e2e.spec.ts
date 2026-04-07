@@ -17,7 +17,6 @@ describe('Pause Inventory Session (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should pause an open inventory session', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

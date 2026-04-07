@@ -1,12 +1,11 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { IFocusNfeProvider } from '@/providers/nfe/focus-nfe.provider';
 import { InMemoryFocusNfeConfigRepository } from '@/repositories/sales/in-memory/in-memory-focus-nfe-config-repository';
-import { FocusNfeProviderImpl } from '@/providers/nfe/implementations/focus-nfe.impl';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ConfigureFocusNfeUseCase } from './configure-focus-nfe.use-case';
 
 describe('ConfigureFocusNfeUseCase', () => {
   let focusNfeConfigRepository: InMemoryFocusNfeConfigRepository;
-  let focusNfeProvider: FocusNfeProviderImpl;
+  let focusNfeProvider: IFocusNfeProvider;
   let useCase: ConfigureFocusNfeUseCase;
 
   const tenantId = 'tenant-123';
@@ -14,8 +13,16 @@ describe('ConfigureFocusNfeUseCase', () => {
 
   beforeEach(() => {
     focusNfeConfigRepository = new InMemoryFocusNfeConfigRepository();
-    focusNfeProvider = new FocusNfeProviderImpl(false);
-    useCase = new ConfigureFocusNfeUseCase(focusNfeConfigRepository, focusNfeProvider);
+    focusNfeProvider = {
+      testConnection: vi.fn(async () => ({ ok: true, message: 'ok' })),
+      createInvoice: vi.fn(),
+      checkStatus: vi.fn(),
+      cancelInvoice: vi.fn(),
+    };
+    useCase = new ConfigureFocusNfeUseCase(
+      focusNfeConfigRepository,
+      focusNfeProvider,
+    );
   });
 
   it('should create new config if not exists', async () => {

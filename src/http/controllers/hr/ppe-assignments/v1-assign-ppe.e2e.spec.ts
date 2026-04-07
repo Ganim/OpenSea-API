@@ -14,14 +14,17 @@ describe('Assign PPE (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for non-existent data', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
       .post('/v1/hr/ppe-assignments')
       .set('Authorization', `Bearer ${token}`)
-      .send({ employeeId: '00000000-0000-0000-0000-000000000000', ppeItemId: 'clxxxxxxxxxxxxxxxxxxxxxxxxx', quantity: 1 });
+      .send({
+        employeeId: '00000000-0000-0000-0000-000000000000',
+        ppeItemId: 'clxxxxxxxxxxxxxxxxxxxxxxxxx',
+        quantity: 1,
+      });
 
     expect(response.status).not.toBe(401);
   });
@@ -29,7 +32,11 @@ describe('Assign PPE (E2E)', () => {
   it('should return 401 when not authenticated', async () => {
     const response = await request(app.server)
       .post('/v1/hr/ppe-assignments')
-      .send({ employeeId: '00000000-0000-0000-0000-000000000000', ppeItemId: 'clxxxxxxxxxxxxxxxxxxxxxxxxx', quantity: 1 });
+      .send({
+        employeeId: '00000000-0000-0000-0000-000000000000',
+        ppeItemId: 'clxxxxxxxxxxxxxxxxxxxxxxxxx',
+        quantity: 1,
+      });
 
     expect(response.status).toBe(401);
   });

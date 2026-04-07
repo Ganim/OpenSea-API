@@ -14,7 +14,6 @@ describe('Update Application Status (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update an application status', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -25,7 +24,9 @@ describe('Update Application Status (E2E)', () => {
       .send({ title: `Job ${Date.now()}`, type: 'FULL_TIME' });
 
     await request(app.server)
-      .patch(`/v1/hr/recruitment/job-postings/${jpRes.body.jobPosting.id}/publish`)
+      .patch(
+        `/v1/hr/recruitment/job-postings/${jpRes.body.jobPosting.id}/publish`,
+      )
       .set('Authorization', `Bearer ${token}`);
 
     const candRes = await request(app.server)

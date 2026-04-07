@@ -16,7 +16,6 @@ describe('Get Card (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get a card', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

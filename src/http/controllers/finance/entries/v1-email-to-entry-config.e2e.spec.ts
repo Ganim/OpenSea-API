@@ -14,7 +14,6 @@ describe('Email To Entry Config (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get email-to-entry config', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -14,7 +14,6 @@ describe('Customer Portal (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('POST /v1/sales/analytics/customer-portal', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
@@ -42,8 +41,9 @@ describe('Customer Portal (E2E)', () => {
 
   describe('GET /v1/sales/analytics/customer-portal/:token', () => {
     it('should return 404 for invalid token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/analytics/customer-portal/invalid-token');
+      const response = await request(app.server).get(
+        '/v1/sales/analytics/customer-portal/invalid-token',
+      );
 
       expect([400, 404]).toContain(response.status);
     });

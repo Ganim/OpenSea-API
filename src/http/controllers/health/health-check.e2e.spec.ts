@@ -8,7 +8,6 @@ describe('Health Check (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return detailed health check', async () => {
     const response = await request(app.server).get('/health');
 

@@ -14,7 +14,6 @@ describe('eSocial Config (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get eSocial config', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -41,8 +40,7 @@ describe('eSocial Config (E2E)', () => {
   });
 
   it('should return 401 on GET without token', async () => {
-    const response = await request(app.server)
-      .get('/v1/esocial/config');
+    const response = await request(app.server).get('/v1/esocial/config');
 
     expect(response.statusCode).toBe(401);
   });

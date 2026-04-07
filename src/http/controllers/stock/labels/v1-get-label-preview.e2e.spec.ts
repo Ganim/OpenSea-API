@@ -15,7 +15,6 @@ describe('Get Label Preview (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get label preview with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

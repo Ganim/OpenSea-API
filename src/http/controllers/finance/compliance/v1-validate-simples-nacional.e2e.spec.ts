@@ -14,7 +14,6 @@ describe('Validate Simples Nacional (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should validate simples nacional', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

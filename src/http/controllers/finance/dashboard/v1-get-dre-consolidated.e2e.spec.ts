@@ -14,7 +14,6 @@ describe('Get DRE Consolidated (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return DRE consolidated data', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

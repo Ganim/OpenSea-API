@@ -15,7 +15,6 @@ describe('List Admission Invites (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should list admission invites with pagination', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -16,7 +16,6 @@ describe('Assign Group To User (e2e)', () => {
     tenantId = tid;
   });
 
-
   it('should assign group to user with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const group = await makePermissionGroup();

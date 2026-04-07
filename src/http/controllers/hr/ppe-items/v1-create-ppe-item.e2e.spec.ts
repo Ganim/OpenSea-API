@@ -14,7 +14,6 @@ describe('Create PPE Item (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a PPE item', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const response = await request(app.server)
@@ -32,7 +31,9 @@ describe('Create PPE Item (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server).post('/v1/hr/ppe-items').send({ name: 'Test' });
+    const response = await request(app.server)
+      .post('/v1/hr/ppe-items')
+      .send({ name: 'Test' });
     expect(response.status).toBe(401);
   });
 });

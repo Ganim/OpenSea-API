@@ -14,7 +14,6 @@ describe('Hire Application (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should hire an application', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -24,7 +23,9 @@ describe('Hire Application (E2E)', () => {
       .send({ title: `Job ${Date.now()}`, type: 'FULL_TIME' });
 
     await request(app.server)
-      .patch(`/v1/hr/recruitment/job-postings/${jpRes.body.jobPosting.id}/publish`)
+      .patch(
+        `/v1/hr/recruitment/job-postings/${jpRes.body.jobPosting.id}/publish`,
+      )
       .set('Authorization', `Bearer ${token}`);
 
     const candRes = await request(app.server)
@@ -56,8 +57,9 @@ describe('Hire Application (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .patch('/v1/hr/recruitment/applications/nonexistent-id/hire');
+    const response = await request(app.server).patch(
+      '/v1/hr/recruitment/applications/nonexistent-id/hire',
+    );
 
     expect(response.statusCode).toBe(401);
   });

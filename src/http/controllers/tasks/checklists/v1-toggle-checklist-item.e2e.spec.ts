@@ -17,7 +17,6 @@ describe('Toggle Checklist Item (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should toggle a checklist item completion', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

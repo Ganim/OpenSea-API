@@ -14,7 +14,6 @@ describe('Confirm Order (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
     const response = await request(app.server).post(
       '/v1/orders/00000000-0000-0000-0000-000000000000/confirm',

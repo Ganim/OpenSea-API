@@ -28,6 +28,26 @@ export class InMemoryPosTransactionsRepository
     );
   }
 
+  async findByOrderId(
+    orderId: string,
+    tenantId: string,
+  ): Promise<PosTransaction | null> {
+    return (
+      this.items
+        .filter(
+          (transaction) =>
+            transaction.orderId.toString() === orderId &&
+            transaction.tenantId.toString() === tenantId,
+        )
+        .sort((leftTransaction, rightTransaction) => {
+          return (
+            rightTransaction.createdAt.getTime() -
+            leftTransaction.createdAt.getTime()
+          );
+        })[0] ?? null
+    );
+  }
+
   async findManyPaginated(
     params: FindManyPosTransactionsPaginatedParams,
   ): Promise<PaginatedResult<PosTransaction>> {

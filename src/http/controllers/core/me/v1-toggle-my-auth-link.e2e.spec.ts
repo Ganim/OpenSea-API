@@ -14,7 +14,6 @@ describe('Toggle My Auth Link (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should toggle auth link status', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

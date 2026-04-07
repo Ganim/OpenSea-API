@@ -14,7 +14,6 @@ describe('Complete Multipart Upload (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should reject disallowed MIME types', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

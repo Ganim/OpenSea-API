@@ -17,7 +17,6 @@ describe('Configure Zone Structure (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should persist aisleConfigs and generate bins per aisle', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

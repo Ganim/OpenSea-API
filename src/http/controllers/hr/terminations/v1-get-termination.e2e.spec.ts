@@ -15,7 +15,6 @@ describe('Get Termination (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get termination by id', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { terminationId } = await createTerminationE2E({ tenantId });

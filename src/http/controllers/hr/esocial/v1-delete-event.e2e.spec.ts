@@ -15,10 +15,10 @@ describe('Delete eSocial Event (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .delete(`/v1/esocial/events/${randomUUID()}`);
+    const response = await request(app.server).delete(
+      `/v1/esocial/events/${randomUUID()}`,
+    );
 
     expect(response.statusCode).toBe(401);
   });

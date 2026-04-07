@@ -15,7 +15,6 @@ describe('Unblock Bin (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should unblock bin with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

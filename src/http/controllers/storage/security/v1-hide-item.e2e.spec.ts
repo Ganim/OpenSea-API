@@ -26,7 +26,6 @@ describe('Hide Item (E2E)', () => {
     folderId = fid;
   });
 
-
   it('should hide a file', async () => {
     const { fileId } = await createStorageFileE2E({
       tenantId,

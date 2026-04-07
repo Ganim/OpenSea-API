@@ -18,7 +18,6 @@ describe('Register Item Exit (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should register item exit with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

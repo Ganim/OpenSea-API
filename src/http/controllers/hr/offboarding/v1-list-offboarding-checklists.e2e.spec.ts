@@ -14,7 +14,6 @@ describe('List Offboarding Checklists (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list offboarding checklists', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

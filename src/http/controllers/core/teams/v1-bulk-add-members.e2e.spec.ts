@@ -15,7 +15,6 @@ describe('Bulk Add Team Members (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should add multiple members at once', async () => {
     const { token, user: ownerUser } = await createAndAuthenticateUser(app, {
       tenantId,

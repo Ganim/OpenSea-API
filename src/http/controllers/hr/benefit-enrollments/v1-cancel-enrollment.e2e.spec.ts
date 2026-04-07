@@ -14,7 +14,6 @@ describe('Cancel Enrollment (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent enrollment', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,9 @@ describe('Cancel Enrollment (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .delete('/v1/hr/benefit-enrollments/clxxxxxxxxxxxxxxxxxxxxxxxxx');
+    const response = await request(app.server).delete(
+      '/v1/hr/benefit-enrollments/clxxxxxxxxxxxxxxxxxxxxxxxxx',
+    );
 
     expect(response.status).toBe(401);
   });

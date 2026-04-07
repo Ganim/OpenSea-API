@@ -15,7 +15,6 @@ describe('Get eSocial Event (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent event', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -27,8 +26,9 @@ describe('Get eSocial Event (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .get(`/v1/esocial/events/${randomUUID()}`);
+    const response = await request(app.server).get(
+      `/v1/esocial/events/${randomUUID()}`,
+    );
 
     expect(response.statusCode).toBe(401);
   });

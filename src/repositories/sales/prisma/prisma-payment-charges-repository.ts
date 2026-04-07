@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { PaymentCharge } from '@/entities/sales/payment-charge';
 import type { PaymentChargeStatus } from '@/entities/sales/payment-charge';
+import { PaymentCharge } from '@/entities/sales/payment-charge';
 import type { PosPaymentMethod } from '@/entities/sales/pos-transaction-payment';
 import { prisma } from '@/lib/prisma';
 import type {
@@ -8,8 +8,8 @@ import type {
   PosPaymentMethod as PrismaPosPaymentMethod,
 } from '@prisma/generated/client.js';
 import type {
-  PaymentChargesRepository,
   CreatePaymentChargeSchema,
+  PaymentChargesRepository,
 } from '../payment-charges-repository';
 
 function mapToDomain(data: Record<string, unknown>): PaymentCharge {
@@ -70,10 +70,7 @@ export class PrismaPaymentChargesRepository
     return mapToDomain(chargeData as unknown as Record<string, unknown>);
   }
 
-  async findById(
-    id: string,
-    tenantId: string,
-  ): Promise<PaymentCharge | null> {
+  async findById(id: string, tenantId: string): Promise<PaymentCharge | null> {
     const chargeData = await prisma.paymentCharge.findFirst({
       where: { id, tenantId },
     });
@@ -81,6 +78,23 @@ export class PrismaPaymentChargesRepository
     if (!chargeData) return null;
 
     return mapToDomain(chargeData as unknown as Record<string, unknown>);
+  }
+
+  async findByOrder(
+    orderId: string,
+    tenantId: string,
+  ): Promise<PaymentCharge[]> {
+    const chargesData = await prisma.paymentCharge.findMany({
+      where: {
+        orderId,
+        tenantId,
+      },
+      orderBy: { createdAt: 'asc' },
+    });
+
+    return chargesData.map((chargeData) =>
+      mapToDomain(chargeData as unknown as Record<string, unknown>),
+    );
   }
 
   async findByProviderChargeId(
@@ -104,6 +118,28 @@ export class PrismaPaymentChargesRepository
         orderId,
         tenantId,
         status: 'PENDING',
+      },
+      orderBy: { createdAt: 'asc' },
+    });
+
+    return chargesData.map((chargeData) =>
+      mapToDomain(chargeData as unknown as Record<string, unknown>),
+    );
+  }
+
+  async findPendingOverAge(
+    tenantId: string,
+    ageHours = 24,
+  ): Promise<PaymentCharge[]> {
+    const thresholdDate = new Date(Date.now() - ageHours * 60 * 60 * 1000);
+
+    const chargesData = await prisma.paymentCharge.findMany({
+      where: {
+        tenantId,
+        status: 'PENDING',
+        createdAt: {
+          lt: thresholdDate,
+        },
       },
       orderBy: { createdAt: 'asc' },
     });

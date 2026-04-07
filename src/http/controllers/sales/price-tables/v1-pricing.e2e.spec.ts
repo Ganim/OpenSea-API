@@ -16,7 +16,6 @@ describe('Pricing E2E (Price Tables, Campaigns, Coupons)', () => {
     token = auth.token;
   });
 
-
   // ── Price Tables ────────────────────────────────────────────────────────────
 
   it('POST /v1/price-tables should create a price table (201)', async () => {

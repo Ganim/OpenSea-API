@@ -9,7 +9,6 @@ describe('Admin Get SLA Config (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return SLA configurations', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

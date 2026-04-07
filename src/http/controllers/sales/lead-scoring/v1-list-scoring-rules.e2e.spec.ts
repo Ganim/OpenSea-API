@@ -14,7 +14,6 @@ describe('List Scoring Rules (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list scoring rules', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

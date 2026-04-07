@@ -14,14 +14,17 @@ describe('Calculate Benefit Deductions (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for non-existent employee', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
       .post('/v1/hr/benefit-deductions/calculate')
       .set('Authorization', `Bearer ${token}`)
-      .send({ employeeId: '00000000-0000-0000-0000-000000000000', month: 1, year: 2026 });
+      .send({
+        employeeId: '00000000-0000-0000-0000-000000000000',
+        month: 1,
+        year: 2026,
+      });
 
     expect(response.status).not.toBe(401);
   });
@@ -29,7 +32,11 @@ describe('Calculate Benefit Deductions (E2E)', () => {
   it('should return 401 when not authenticated', async () => {
     const response = await request(app.server)
       .post('/v1/hr/benefit-deductions/calculate')
-      .send({ employeeId: '00000000-0000-0000-0000-000000000000', month: 1, year: 2026 });
+      .send({
+        employeeId: '00000000-0000-0000-0000-000000000000',
+        month: 1,
+        year: 2026,
+      });
 
     expect(response.status).toBe(401);
   });

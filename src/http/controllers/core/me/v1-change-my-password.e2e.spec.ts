@@ -14,7 +14,6 @@ describe('Change My Password (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should change my password with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

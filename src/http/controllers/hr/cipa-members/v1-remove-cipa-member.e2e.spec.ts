@@ -14,20 +14,22 @@ describe('Remove CIPA Member (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent member', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
-      .delete('/v1/hr/cipa-mandates/00000000-0000-0000-0000-000000000000/members/00000000-0000-0000-0000-000000000000')
+      .delete(
+        '/v1/hr/cipa-mandates/00000000-0000-0000-0000-000000000000/members/00000000-0000-0000-0000-000000000000',
+      )
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).not.toBe(401);
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .delete('/v1/hr/cipa-mandates/00000000-0000-0000-0000-000000000000/members/00000000-0000-0000-0000-000000000000');
+    const response = await request(app.server).delete(
+      '/v1/hr/cipa-mandates/00000000-0000-0000-0000-000000000000/members/00000000-0000-0000-0000-000000000000',
+    );
 
     expect(response.status).toBe(401);
   });

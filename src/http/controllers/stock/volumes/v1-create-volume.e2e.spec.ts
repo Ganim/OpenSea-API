@@ -14,7 +14,6 @@ describe('Create Volume (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a volume successfully', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -15,7 +15,6 @@ describe('Delete Loan (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a loan', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { costCenter, bankAccount } =

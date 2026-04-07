@@ -14,7 +14,6 @@ describe('Admin Link Auth Method (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should link auth method to a user as admin', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { user: targetUser } = await createAndAuthenticateUser(app, {

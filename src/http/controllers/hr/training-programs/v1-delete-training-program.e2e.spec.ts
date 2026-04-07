@@ -15,7 +15,6 @@ describe('Delete Training Program (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should soft delete a training program', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { trainingProgramId } = await createTrainingProgramE2E({

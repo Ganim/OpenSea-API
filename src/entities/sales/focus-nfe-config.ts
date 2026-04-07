@@ -86,6 +86,10 @@ export class FocusNfeConfig extends Entity<FocusNfeConfigProps> {
     return this.props.updatedAt;
   }
 
+  private touch(): void {
+    this.props.updatedAt = new Date();
+  }
+
   /**
    * Ativa ou desativa a configuração
    */
@@ -112,9 +116,10 @@ export class FocusNfeConfig extends Entity<FocusNfeConfigProps> {
     const config = new FocusNfeConfig(
       {
         ...props,
+        id: props.id ?? id ?? new UniqueEntityID(),
         createdAt: props.createdAt ?? new Date(),
       },
-      id,
+      id ?? props.id,
     );
     return config;
   }

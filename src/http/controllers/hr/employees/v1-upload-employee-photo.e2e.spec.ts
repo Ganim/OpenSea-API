@@ -29,7 +29,6 @@ describe('Upload Employee Photo (E2E)', () => {
       .toBuffer();
   });
 
-
   it('should upload employee photo with crop', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId } = await createEmployeeE2E({ tenantId });

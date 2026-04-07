@@ -14,7 +14,6 @@ describe('List POS Terminals (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list terminals', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

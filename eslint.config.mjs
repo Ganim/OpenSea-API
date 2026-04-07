@@ -41,4 +41,13 @@ export default defineConfig([
   globalIgnores(['prisma/*'], 'Ignore Generated Prisma Directory'),
   tseslint.configs.recommended,
   eslintPluginPrettierRecommended,
+  {
+    // Tests often have setup variables (tenantId, factories) that are
+    // referenced only in some `it` blocks. Don't fail lint on those.
+    // Must come AFTER tseslint.configs.recommended to actually override.
+    files: ['**/*.spec.ts', '**/*.e2e.spec.ts', '**/tests/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'off',
+    },
+  },
 ]);

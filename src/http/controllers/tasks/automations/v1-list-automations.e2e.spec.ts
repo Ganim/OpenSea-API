@@ -16,7 +16,6 @@ describe('List Automations (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list board automations', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

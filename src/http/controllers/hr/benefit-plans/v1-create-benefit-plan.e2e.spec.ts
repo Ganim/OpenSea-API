@@ -15,7 +15,6 @@ describe('Create Benefit Plan (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a benefit plan with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const benefitPlanData = generateBenefitPlanData({ type: 'HEALTH' });

@@ -14,7 +14,6 @@ describe('Update eSocial Rubrica (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent rubrica', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

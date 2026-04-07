@@ -17,7 +17,6 @@ describe('AI Favorites (E2E)', () => {
     token = auth.token;
   });
 
-
   it('POST /v1/ai/favorites — should create a favorite query', async () => {
     const response = await request(app.server)
       .post('/v1/ai/favorites')

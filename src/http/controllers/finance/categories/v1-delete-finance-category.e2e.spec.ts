@@ -15,7 +15,6 @@ describe('Delete Finance Category (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a finance category', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

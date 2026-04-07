@@ -14,7 +14,6 @@ describe('Create Template (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create template with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

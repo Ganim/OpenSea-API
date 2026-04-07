@@ -15,7 +15,6 @@ describe('Get Entry Escalation History (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get escalation history for an entry', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -15,7 +15,6 @@ describe('Get Board (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get a board with columns, labels and members', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

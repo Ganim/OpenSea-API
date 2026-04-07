@@ -14,7 +14,6 @@ describe('Delete eSocial Certificate (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 when no certificate exists', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

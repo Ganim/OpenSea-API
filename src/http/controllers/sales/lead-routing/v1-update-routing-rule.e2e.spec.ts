@@ -14,7 +14,6 @@ describe('Update Routing Rule (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update a routing rule', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

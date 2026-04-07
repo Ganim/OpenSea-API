@@ -107,7 +107,6 @@ describe('Email Multi-Tenant Isolation (E2E)', () => {
     });
   }, 60000);
 
-
   // ── Account isolation ───────────────────────────────────────────────────
 
   it('should NOT list accounts from another tenant', async () => {

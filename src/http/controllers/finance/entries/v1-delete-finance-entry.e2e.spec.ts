@@ -19,7 +19,6 @@ describe('Delete Finance Entry (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a finance entry', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { category, costCenter } = await createFinancePrerequisites(tenantId);

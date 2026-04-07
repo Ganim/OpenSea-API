@@ -17,7 +17,6 @@ describe('POS (E2E)', () => {
     token = auth.token;
   });
 
-
   it('POST /v1/pos/terminals should create a terminal (201)', async () => {
     const response = await request(app.server)
       .post('/v1/pos/terminals')

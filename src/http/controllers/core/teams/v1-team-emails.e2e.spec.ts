@@ -31,7 +31,6 @@ describe('Team Emails (E2E)', () => {
     noPermsToken = noPerms.token;
   }, 180000);
 
-
   // ─── POST /v1/teams/:teamId/emails ────────────────────────────────────────
 
   describe('Vincular email (POST /v1/teams/:teamId/emails)', () => {

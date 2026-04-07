@@ -14,7 +14,6 @@ describe('Update Medical Exam (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent exam', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const response = await request(app.server)

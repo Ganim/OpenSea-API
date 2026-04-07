@@ -15,7 +15,6 @@ describe('Get Company By ID - HR read-only (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get company by id with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

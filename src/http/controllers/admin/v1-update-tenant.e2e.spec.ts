@@ -10,7 +10,6 @@ describe('Update Tenant (E2E)', () => {
     await app.ready();
   });
 
-
   it('should update tenant name and slug', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
     const timestamp = Date.now();

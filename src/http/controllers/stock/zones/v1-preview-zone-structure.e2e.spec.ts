@@ -17,7 +17,6 @@ describe('Preview Zone Structure (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should preview zone structure with sample bins without persisting', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

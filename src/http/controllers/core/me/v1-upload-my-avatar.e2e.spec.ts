@@ -28,7 +28,6 @@ describe('Upload My Avatar (E2E)', () => {
       .toBuffer();
   });
 
-
   it('should upload avatar for user without linked employee', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

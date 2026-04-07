@@ -15,7 +15,6 @@ describe('Create Termination (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a termination record', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employee } = await createEmployeeE2E({

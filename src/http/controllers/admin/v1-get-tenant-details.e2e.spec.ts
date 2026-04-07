@@ -10,7 +10,6 @@ describe('Get Tenant Details (E2E)', () => {
     await app.ready();
   });
 
-
   it('should get tenant details', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

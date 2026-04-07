@@ -14,7 +14,6 @@ describe('Generate Label Template Thumbnail (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should generate label template thumbnail with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

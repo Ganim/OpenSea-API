@@ -14,7 +14,6 @@ describe('Parse Boleto (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should parse a boleto barcode', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

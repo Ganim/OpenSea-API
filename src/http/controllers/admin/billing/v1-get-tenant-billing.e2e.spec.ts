@@ -14,7 +14,6 @@ describe('Admin Get Tenant Billing (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return billing history for a tenant', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

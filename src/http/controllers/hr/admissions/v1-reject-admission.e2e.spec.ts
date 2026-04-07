@@ -15,7 +15,6 @@ describe('Reject Admission (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should reject an admission invite with a reason', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { admissionInvite } = await createAdmissionInviteE2E({

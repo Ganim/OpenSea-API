@@ -50,6 +50,7 @@ enum FinanceCategoryType {
   REVENUE
   BOTH
 }
+
 enum AccountType {
   ASSET
   LIABILITY
@@ -4079,7 +4080,7 @@ model Employee {
   trainingEnrollments TrainingEnrollment[]
 
   // Performance Reviews
-  performanceReviews         PerformanceReview[] @relation("ReviewEmployee")
+  performanceReviews          PerformanceReview[] @relation("ReviewEmployee")
   conductedPerformanceReviews PerformanceReview[] @relation("ReviewReviewer")
 
   // Management
@@ -4104,12 +4105,12 @@ model Employee {
   delegationsReceived ApprovalDelegation[] @relation("DelegationDelegate")
 
   // Surveys
-  createdSurveys    Survey[]         @relation("SurveyCreator")
-  surveyResponses   SurveyResponse[] @relation("SurveyResponseEmployee")
+  createdSurveys  Survey[]         @relation("SurveyCreator")
+  surveyResponses SurveyResponse[] @relation("SurveyResponseEmployee")
 
   // OKRs
-  ownedObjectives   Objective[]      @relation("ObjectiveOwner")
-  okrCheckIns       OKRCheckIn[]     @relation("OKRCheckInEmployee")
+  ownedObjectives Objective[]  @relation("ObjectiveOwner")
+  okrCheckIns     OKRCheckIn[] @relation("OKRCheckInEmployee")
 
   // Recruitment
   conductedInterviews Interview[] @relation("InterviewerInterviews")
@@ -4157,13 +4158,13 @@ model Department {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
-  tenant    Tenant       @relation(fields: [tenantId], references: [id])
-  parent    Department?  @relation("DepartmentHierarchy", fields: [parentId], references: [id])
-  children  Department[] @relation("DepartmentHierarchy")
-  manager   Employee?    @relation("DepartmentManager", fields: [managerId], references: [id])
-  company   Company      @relation(fields: [companyId], references: [id])
+  tenant           Tenant            @relation(fields: [tenantId], references: [id])
+  parent           Department?       @relation("DepartmentHierarchy", fields: [parentId], references: [id])
+  children         Department[]      @relation("DepartmentHierarchy")
+  manager          Employee?         @relation("DepartmentManager", fields: [managerId], references: [id])
+  company          Company           @relation(fields: [companyId], references: [id])
   positions        Position[]
-  employees        Employee[]         @relation("DepartmentEmployees")
+  employees        Employee[]        @relation("DepartmentEmployees")
   jobPostings      JobPosting[]
   admissionInvites AdmissionInvite[]
 
@@ -5190,25 +5191,25 @@ model ReviewCycle {
 }
 
 model PerformanceReview {
-  id                    String    @id @default(cuid())
-  tenantId              String    @map("tenant_id")
-  reviewCycleId         String    @map("review_cycle_id")
-  employeeId            String    @map("employee_id")
-  reviewerId            String    @map("reviewer_id")
-  status                String    @default("PENDING") @db.VarChar(32) // PENDING, SELF_ASSESSMENT, MANAGER_REVIEW, COMPLETED
-  selfScore             Float?    @map("self_score")
-  managerScore          Float?    @map("manager_score")
-  finalScore            Float?    @map("final_score")
-  selfComments          String?   @map("self_comments") @db.VarChar(2000)
-  managerComments       String?   @map("manager_comments") @db.VarChar(2000)
-  strengths             String?   @db.VarChar(2000)
-  improvements          String?   @db.VarChar(2000)
-  goals                 String?   @db.VarChar(2000)
-  employeeAcknowledged  Boolean   @default(false) @map("employee_acknowledged")
-  acknowledgedAt        DateTime? @map("acknowledged_at")
-  completedAt           DateTime? @map("completed_at")
-  createdAt             DateTime  @default(now()) @map("created_at")
-  updatedAt             DateTime  @updatedAt @map("updated_at")
+  id                   String    @id @default(cuid())
+  tenantId             String    @map("tenant_id")
+  reviewCycleId        String    @map("review_cycle_id")
+  employeeId           String    @map("employee_id")
+  reviewerId           String    @map("reviewer_id")
+  status               String    @default("PENDING") @db.VarChar(32) // PENDING, SELF_ASSESSMENT, MANAGER_REVIEW, COMPLETED
+  selfScore            Float?    @map("self_score")
+  managerScore         Float?    @map("manager_score")
+  finalScore           Float?    @map("final_score")
+  selfComments         String?   @map("self_comments") @db.VarChar(2000)
+  managerComments      String?   @map("manager_comments") @db.VarChar(2000)
+  strengths            String?   @db.VarChar(2000)
+  improvements         String?   @db.VarChar(2000)
+  goals                String?   @db.VarChar(2000)
+  employeeAcknowledged Boolean   @default(false) @map("employee_acknowledged")
+  acknowledgedAt       DateTime? @map("acknowledged_at")
+  completedAt          DateTime? @map("completed_at")
+  createdAt            DateTime  @default(now()) @map("created_at")
+  updatedAt            DateTime  @updatedAt @map("updated_at")
 
   tenant      Tenant      @relation(fields: [tenantId], references: [id])
   reviewCycle ReviewCycle @relation(fields: [reviewCycleId], references: [id])
@@ -5228,18 +5229,18 @@ model PerformanceReview {
 // ===============================================
 
 model Survey {
-  id          String    @id @default(cuid())
-  tenantId    String    @map("tenant_id")
-  title       String    @db.VarChar(256)
-  description String?   @db.VarChar(2000)
-  type        String    @db.VarChar(32) // ENGAGEMENT, SATISFACTION, PULSE, EXIT, CUSTOM
-  status      String    @default("DRAFT") @db.VarChar(16) // DRAFT, ACTIVE, CLOSED, ARCHIVED
-  isAnonymous Boolean   @default(false) @map("is_anonymous")
-  startDate   DateTime  @map("start_date")
-  endDate     DateTime  @map("end_date")
-  createdBy   String    @map("created_by")
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @updatedAt @map("updated_at")
+  id          String   @id @default(cuid())
+  tenantId    String   @map("tenant_id")
+  title       String   @db.VarChar(256)
+  description String?  @db.VarChar(2000)
+  type        String   @db.VarChar(32) // ENGAGEMENT, SATISFACTION, PULSE, EXIT, CUSTOM
+  status      String   @default("DRAFT") @db.VarChar(16) // DRAFT, ACTIVE, CLOSED, ARCHIVED
+  isAnonymous Boolean  @default(false) @map("is_anonymous")
+  startDate   DateTime @map("start_date")
+  endDate     DateTime @map("end_date")
+  createdBy   String   @map("created_by")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
 
   tenant    Tenant           @relation(fields: [tenantId], references: [id])
   creator   Employee         @relation("SurveyCreator", fields: [createdBy], references: [id])
@@ -5258,7 +5259,7 @@ model SurveyQuestion {
   surveyId   String  @map("survey_id")
   text       String  @db.VarChar(1000)
   type       String  @db.VarChar(32) // RATING_1_5, RATING_1_10, YES_NO, TEXT, MULTIPLE_CHOICE, NPS
-  options    Json?   // For MULTIPLE_CHOICE: ["Option A", "Option B", ...]
+  options    Json? // For MULTIPLE_CHOICE: ["Option A", "Option B", ...]
   order      Int
   isRequired Boolean @default(true) @map("is_required")
   category   String  @db.VarChar(32) // ENGAGEMENT, LEADERSHIP, CULTURE, WORK_LIFE, GROWTH, COMPENSATION, CUSTOM
@@ -5276,12 +5277,12 @@ model SurveyQuestion {
 }
 
 model SurveyResponse {
-  id          String    @id @default(cuid())
-  tenantId    String    @map("tenant_id")
-  surveyId    String    @map("survey_id")
-  employeeId  String?   @map("employee_id") // Nullable if anonymous
-  submittedAt DateTime  @default(now()) @map("submitted_at")
-  createdAt   DateTime  @default(now()) @map("created_at")
+  id          String   @id @default(cuid())
+  tenantId    String   @map("tenant_id")
+  surveyId    String   @map("survey_id")
+  employeeId  String?  @map("employee_id") // Nullable if anonymous
+  submittedAt DateTime @default(now()) @map("submitted_at")
+  createdAt   DateTime @default(now()) @map("created_at")
 
   tenant   Tenant         @relation(fields: [tenantId], references: [id])
   survey   Survey         @relation(fields: [surveyId], references: [id], onDelete: Cascade)
@@ -5319,20 +5320,20 @@ model SurveyAnswer {
 // ===============================================
 
 model Objective {
-  id          String    @id @default(cuid())
-  tenantId    String    @map("tenant_id")
-  title       String    @db.VarChar(256)
-  description String?   @db.VarChar(2000)
-  ownerId     String    @map("owner_id")
-  parentId    String?   @map("parent_id")
-  level       String    @db.VarChar(16) // COMPANY, DEPARTMENT, TEAM, INDIVIDUAL
-  status      String    @default("DRAFT") @db.VarChar(16) // DRAFT, ACTIVE, COMPLETED, CANCELLED
-  period      String    @db.VarChar(16) // e.g., Q1_2026, Q2_2026
-  startDate   DateTime  @map("start_date")
-  endDate     DateTime  @map("end_date")
-  progress    Float     @default(0) // 0-100, computed from key results
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @updatedAt @map("updated_at")
+  id          String   @id @default(cuid())
+  tenantId    String   @map("tenant_id")
+  title       String   @db.VarChar(256)
+  description String?  @db.VarChar(2000)
+  ownerId     String   @map("owner_id")
+  parentId    String?  @map("parent_id")
+  level       String   @db.VarChar(16) // COMPANY, DEPARTMENT, TEAM, INDIVIDUAL
+  status      String   @default("DRAFT") @db.VarChar(16) // DRAFT, ACTIVE, COMPLETED, CANCELLED
+  period      String   @db.VarChar(16) // e.g., Q1_2026, Q2_2026
+  startDate   DateTime @map("start_date")
+  endDate     DateTime @map("end_date")
+  progress    Float    @default(0) // 0-100, computed from key results
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
 
   tenant     Tenant      @relation(fields: [tenantId], references: [id])
   owner      Employee    @relation("ObjectiveOwner", fields: [ownerId], references: [id])
@@ -5349,18 +5350,18 @@ model Objective {
 }
 
 model KeyResult {
-  id           String  @id @default(cuid())
-  tenantId     String  @map("tenant_id")
-  objectiveId  String  @map("objective_id")
-  title        String  @db.VarChar(256)
-  description  String? @db.VarChar(2000)
-  type         String  @db.VarChar(16) // NUMERIC, PERCENTAGE, CURRENCY, BINARY
-  startValue   Float   @default(0) @map("start_value")
-  targetValue  Float   @map("target_value")
-  currentValue Float   @default(0) @map("current_value")
-  unit         String? @db.VarChar(32)
-  status       String  @default("ON_TRACK") @db.VarChar(16) // ON_TRACK, AT_RISK, BEHIND, COMPLETED
-  weight       Float   @default(1) // For weighted progress calculation
+  id           String   @id @default(cuid())
+  tenantId     String   @map("tenant_id")
+  objectiveId  String   @map("objective_id")
+  title        String   @db.VarChar(256)
+  description  String?  @db.VarChar(2000)
+  type         String   @db.VarChar(16) // NUMERIC, PERCENTAGE, CURRENCY, BINARY
+  startValue   Float    @default(0) @map("start_value")
+  targetValue  Float    @map("target_value")
+  currentValue Float    @default(0) @map("current_value")
+  unit         String?  @db.VarChar(32)
+  status       String   @default("ON_TRACK") @db.VarChar(16) // ON_TRACK, AT_RISK, BEHIND, COMPLETED
+  weight       Float    @default(1) // For weighted progress calculation
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 
@@ -5983,118 +5984,118 @@ model Tenant {
   refreshTokens      RefreshToken[]
 
   // Stock domain
-  warehouses                Warehouse[]
-  zones                     Zone[]
-  bins                      Bin[]
-  templates                 Template[]
-  products                  Product[]
-  variants                  Variant[]
-  items                     Item[]
-  itemMovements             ItemMovement[]
-  categories                Category[]
-  tags                      Tag[]
-  suppliers                 Supplier[]
-  manufacturers             Manufacturer[]
-  volumes                   Volume[]
-  purchaseOrders            PurchaseOrder[]
-  productCareInstructions   ProductCareInstruction[]
-  productAttachments        ProductAttachment[]
-  variantAttachments        VariantAttachment[]
+  warehouses                   Warehouse[]
+  zones                        Zone[]
+  bins                         Bin[]
+  templates                    Template[]
+  products                     Product[]
+  variants                     Variant[]
+  items                        Item[]
+  itemMovements                ItemMovement[]
+  categories                   Category[]
+  tags                         Tag[]
+  suppliers                    Supplier[]
+  manufacturers                Manufacturer[]
+  volumes                      Volume[]
+  purchaseOrders               PurchaseOrder[]
+  productCareInstructions      ProductCareInstruction[]
+  productAttachments           ProductAttachment[]
+  variantAttachments           VariantAttachment[]
   // Sales domain
-  customers                 Customer[]
-  salesOrders               SalesOrder[]
+  customers                    Customer[]
+  salesOrders                  SalesOrder[]
   // CRM domain
-  crmContacts               CrmContact[]
-  crmPipelines              CrmPipeline[]
-  crmDeals                  CrmDeal[]
-  crmActivities             CrmActivity[]
-  crmTimelineEvents         CrmTimelineEvent[]
+  crmContacts                  CrmContact[]
+  crmPipelines                 CrmPipeline[]
+  crmDeals                     CrmDeal[]
+  crmActivities                CrmActivity[]
+  crmTimelineEvents            CrmTimelineEvent[]
   // HR domain
-  companies                 Company[]
-  companyDocuments          CompanyDocument[]
-  departments               Department[]
-  positions                 Position[]
-  employees                 Employee[]
-  timeEntries               TimeEntry[]
-  workSchedules             WorkSchedule[]
-  shifts                    Shift[]
-  shiftAssignments          ShiftAssignment[]
-  overtime                  Overtime[]
-  timeBanks                 TimeBank[]
-  absences                  Absence[]
-  vacationPeriods           VacationPeriod[]
-  payrolls                  Payroll[]
-  bonuses                   Bonus[]
-  deductions                Deduction[]
-  employeeDependants        EmployeeDependant[]
-  terminations              Termination[]
-  medicalExams                    MedicalExam[]
-  occupationalExamRequirements    OccupationalExamRequirement[]
-  safetyPrograms                  SafetyProgram[]
-  workplaceRisks            WorkplaceRisk[]
-  cipaMandates              CipaMandate[]
-  cipaMembers               CipaMember[]
-  admissionInvites          AdmissionInvite[]
-  benefitPlans              BenefitPlan[]
-  benefitEnrollments        BenefitEnrollment[]
-  flexBenefitAllocations    FlexBenefitAllocation[]
-  trainingPrograms          TrainingProgram[]
-  trainingEnrollments       TrainingEnrollment[]
-  reviewCycles              ReviewCycle[]
-  performanceReviews        PerformanceReview[]
+  companies                    Company[]
+  companyDocuments             CompanyDocument[]
+  departments                  Department[]
+  positions                    Position[]
+  employees                    Employee[]
+  timeEntries                  TimeEntry[]
+  workSchedules                WorkSchedule[]
+  shifts                       Shift[]
+  shiftAssignments             ShiftAssignment[]
+  overtime                     Overtime[]
+  timeBanks                    TimeBank[]
+  absences                     Absence[]
+  vacationPeriods              VacationPeriod[]
+  payrolls                     Payroll[]
+  bonuses                      Bonus[]
+  deductions                   Deduction[]
+  employeeDependants           EmployeeDependant[]
+  terminations                 Termination[]
+  medicalExams                 MedicalExam[]
+  occupationalExamRequirements OccupationalExamRequirement[]
+  safetyPrograms               SafetyProgram[]
+  workplaceRisks               WorkplaceRisk[]
+  cipaMandates                 CipaMandate[]
+  cipaMembers                  CipaMember[]
+  admissionInvites             AdmissionInvite[]
+  benefitPlans                 BenefitPlan[]
+  benefitEnrollments           BenefitEnrollment[]
+  flexBenefitAllocations       FlexBenefitAllocation[]
+  trainingPrograms             TrainingProgram[]
+  trainingEnrollments          TrainingEnrollment[]
+  reviewCycles                 ReviewCycle[]
+  performanceReviews           PerformanceReview[]
   // Surveys domain
-  surveys                   Survey[]
-  surveyQuestions           SurveyQuestion[]
-  surveyResponses           SurveyResponse[]
-  surveyAnswers             SurveyAnswer[]
+  surveys                      Survey[]
+  surveyQuestions              SurveyQuestion[]
+  surveyResponses              SurveyResponse[]
+  surveyAnswers                SurveyAnswer[]
   // OKRs domain
-  objectives                Objective[]
-  keyResults                KeyResult[]
-  okrCheckIns               OKRCheckIn[]
+  objectives                   Objective[]
+  keyResults                   KeyResult[]
+  okrCheckIns                  OKRCheckIn[]
   // Recruitment domain
-  jobPostings               JobPosting[]
-  candidates                Candidate[]
-  applications              Application[]
-  interviewStages           InterviewStage[]
-  interviews                Interview[]
+  jobPostings                  JobPosting[]
+  candidates                   Candidate[]
+  applications                 Application[]
+  interviewStages              InterviewStage[]
+  interviews                   Interview[]
   // Audit domain
-  auditLogs                 AuditLog[]
+  auditLogs                    AuditLog[]
   // Core domain
-  labelTemplates            LabelTemplate[]
-  organizations             Organization[]
+  labelTemplates               LabelTemplate[]
+  organizations                Organization[]
   // Finance domain
-  costCenters               CostCenter[]
-  bankAccounts              BankAccount[]
-  financeCategories         FinanceCategory[]
-  financeEntries            FinanceEntry[]
-  financeAttachments        FinanceAttachment[]
-  financeEntryRetentions    FinanceEntryRetention[]
-  loans                     Loan[]
-  consortia                 Consortium[]
-  recurringConfigs          RecurringConfig[]
-  financeBudgets            FinanceBudget[]
-  contracts                 Contract[]
-  bankReconciliations       BankReconciliation[]
-  reconciliationSuggestions ReconciliationSuggestion[]
-  overdueEscalations        OverdueEscalation[]
-  overdueActions            OverdueAction[]
-  financeApprovalRules      FinanceApprovalRule[]
-  bankConnections           BankConnection[]
-  paymentLinks              PaymentLink[]
-  taxObligations            TaxObligation[]
-  bankWebhookEvents         BankWebhookEvent[]
-  paymentOrders             PaymentOrder[]
+  costCenters                  CostCenter[]
+  bankAccounts                 BankAccount[]
+  financeCategories            FinanceCategory[]
+  financeEntries               FinanceEntry[]
+  financeAttachments           FinanceAttachment[]
+  financeEntryRetentions       FinanceEntryRetention[]
+  loans                        Loan[]
+  consortia                    Consortium[]
+  recurringConfigs             RecurringConfig[]
+  financeBudgets               FinanceBudget[]
+  contracts                    Contract[]
+  bankReconciliations          BankReconciliation[]
+  reconciliationSuggestions    ReconciliationSuggestion[]
+  overdueEscalations           OverdueEscalation[]
+  overdueActions               OverdueAction[]
+  financeApprovalRules         FinanceApprovalRule[]
+  bankConnections              BankConnection[]
+  paymentLinks                 PaymentLink[]
+  taxObligations               TaxObligation[]
+  bankWebhookEvents            BankWebhookEvent[]
+  paymentOrders                PaymentOrder[]
   // Storage domain
-  storageFolders            StorageFolder[]
-  storageFiles              StorageFile[]
-  folderAccessRules         FolderAccessRule[]
-  storageShareLinks         StorageShareLink[]
+  storageFolders               StorageFolder[]
+  storageFiles                 StorageFile[]
+  folderAccessRules            FolderAccessRule[]
+  storageShareLinks            StorageShareLink[]
   // Calendar domain
-  calendars                 Calendar[]
-  calendarEvents            CalendarEvent[]
-  eventParticipants         EventParticipant[]
-  eventReminders            EventReminder[]
-  teamCalendarConfigs       TeamCalendarConfig[]
+  calendars                    Calendar[]
+  calendarEvents               CalendarEvent[]
+  eventParticipants            EventParticipant[]
+  eventReminders               EventReminder[]
+  teamCalendarConfigs          TeamCalendarConfig[]
 
   // Email domain
   emailAccounts        EmailAccount[]
@@ -6282,15 +6283,15 @@ model Tenant {
   authLinks        AuthLink[]
   tenantAuthConfig TenantAuthConfig?
   // Chart of Accounts domain
-  chartOfAccounts ChartOfAccount[]
-  journalEntries  JournalEntry[]
+  chartOfAccounts  ChartOfAccount[]
+  journalEntries   JournalEntry[]
 
   // Payment Gateway domain
   tenantPaymentConfig TenantPaymentConfig?
   paymentCharges      PaymentCharge[]
 
   // Invoicing domain
-  invoices      Invoice[]
+  invoices       Invoice[]
   focusNfeConfig FocusNfeConfig?
 
   @@index([status])
@@ -6468,15 +6469,15 @@ model CostCenter {
 model ChartOfAccount {
   id String @id @default(uuid())
 
-  tenantId String         @map("tenant_id")
-  code     String         @db.VarChar(20)
-  name     String         @db.VarChar(128)
+  tenantId String        @map("tenant_id")
+  code     String        @db.VarChar(20)
+  name     String        @db.VarChar(128)
   type     AccountType
   class    AccountClass
   nature   AccountNature
-  parentId String?        @map("parent_id")
-  isActive Boolean        @default(true) @map("is_active")
-  isSystem Boolean        @default(false) @map("is_system")
+  parentId String?       @map("parent_id")
+  isActive Boolean       @default(true) @map("is_active")
+  isSystem Boolean       @default(false) @map("is_system")
 
   deletedAt DateTime? @map("deleted_at")
   createdAt DateTime  @default(now()) @map("created_at")
@@ -6514,9 +6515,9 @@ model JournalEntry {
   createdAt    DateTime          @default(now()) @map("created_at")
   updatedAt    DateTime          @updatedAt @map("updated_at")
 
-  tenant     Tenant        @relation(fields: [tenantId], references: [id])
-  reversedBy JournalEntry? @relation("JournalReversal", fields: [reversedById], references: [id])
-  reversalOf JournalEntry? @relation("JournalReversal")
+  tenant     Tenant             @relation(fields: [tenantId], references: [id])
+  reversedBy JournalEntry?      @relation("JournalReversal", fields: [reversedById], references: [id])
+  reversalOf JournalEntry?      @relation("JournalReversal")
   lines      JournalEntryLine[]
 
   @@unique([tenantId, code])
@@ -6570,23 +6571,23 @@ model BankAccount {
   isDefault Boolean @default(false) @map("is_default")
 
   // API Integration
-  apiProvider       String?   @map("api_provider") @db.VarChar(32)
-  apiClientId       String?   @map("api_client_id") @db.VarChar(256)
-  apiCertFileId     String?   @map("api_cert_file_id")
-  apiCertKeyFileId  String?   @map("api_cert_key_file_id")
-  apiScopes         String?   @map("api_scopes") @db.VarChar(512)
-  apiWebhookSecret  String?   @map("api_webhook_secret") @db.VarChar(256)
-  apiEnabled        Boolean   @default(false) @map("api_enabled")
+  apiProvider      String? @map("api_provider") @db.VarChar(32)
+  apiClientId      String? @map("api_client_id") @db.VarChar(256)
+  apiCertFileId    String? @map("api_cert_file_id")
+  apiCertKeyFileId String? @map("api_cert_key_file_id")
+  apiScopes        String? @map("api_scopes") @db.VarChar(512)
+  apiWebhookSecret String? @map("api_webhook_secret") @db.VarChar(256)
+  apiEnabled       Boolean @default(false) @map("api_enabled")
 
   // Billing config
-  autoEmitBoleto    Boolean   @default(false) @map("auto_emit_boleto")
-  autoLowThreshold  Decimal?  @map("auto_low_threshold") @db.Decimal(15, 2)
+  autoEmitBoleto   Boolean  @default(false) @map("auto_emit_boleto")
+  autoLowThreshold Decimal? @map("auto_low_threshold") @db.Decimal(15, 2)
 
   deletedAt DateTime? @map("deleted_at")
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
 
-  chartOfAccountId String?         @map("chart_of_account_id")
+  chartOfAccountId String? @map("chart_of_account_id")
 
   tenant         Tenant          @relation(fields: [tenantId], references: [id])
   company        Company?        @relation(fields: [companyId], references: [id])
@@ -6628,9 +6629,9 @@ model FinanceCategory {
   isActive     Boolean             @default(true) @map("is_active")
   isSystem     Boolean             @default(false) @map("is_system")
 
-  chartOfAccountId String?         @map("chart_of_account_id")
-  interestRate Decimal? @map("interest_rate") @db.Decimal(5, 4)
-  penaltyRate  Decimal? @map("penalty_rate") @db.Decimal(5, 4)
+  chartOfAccountId String?  @map("chart_of_account_id")
+  interestRate     Decimal? @map("interest_rate") @db.Decimal(5, 4)
+  penaltyRate      Decimal? @map("penalty_rate") @db.Decimal(5, 4)
 
   deletedAt DateTime? @map("deleted_at")
   createdAt DateTime  @default(now()) @map("created_at")
@@ -6638,8 +6639,8 @@ model FinanceCategory {
 
   tenant         Tenant            @relation(fields: [tenantId], references: [id])
   chartOfAccount ChartOfAccount?   @relation(fields: [chartOfAccountId], references: [id])
-  parent   FinanceCategory?  @relation("FinanceCategoryHierarchy", fields: [parentId], references: [id])
-  children FinanceCategory[] @relation("FinanceCategoryHierarchy")
+  parent         FinanceCategory?  @relation("FinanceCategoryHierarchy", fields: [parentId], references: [id])
+  children       FinanceCategory[] @relation("FinanceCategoryHierarchy")
 
   financeEntries FinanceEntry[]
   financeBudgets FinanceBudget[]
@@ -6665,9 +6666,9 @@ model FinanceEntry {
 
   categoryId       String  @map("category_id")
   chartOfAccountId String? @map("chart_of_account_id")
-  companyId     String? @map("company_id")
-  costCenterId  String? @map("cost_center_id")
-  bankAccountId String? @map("bank_account_id")
+  companyId        String? @map("company_id")
+  costCenterId     String? @map("cost_center_id")
+  bankAccountId    String? @map("bank_account_id")
 
   supplierName String? @map("supplier_name") @db.VarChar(512)
   customerName String? @map("customer_name") @db.VarChar(512)
@@ -6724,14 +6725,14 @@ model FinanceEntry {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
 
-  tenant           Tenant           @relation(fields: [tenantId], references: [id])
-  category         FinanceCategory  @relation(fields: [categoryId], references: [id])
-  chartOfAccount   ChartOfAccount?  @relation(fields: [chartOfAccountId], references: [id])
-  company      Company?        @relation(fields: [companyId], references: [id])
-  costCenter   CostCenter?     @relation(fields: [costCenterId], references: [id])
-  bankAccount  BankAccount?    @relation(fields: [bankAccountId], references: [id])
-  parentEntry  FinanceEntry?   @relation("EntryRecurrence", fields: [parentEntryId], references: [id])
-  childEntries FinanceEntry[]  @relation("EntryRecurrence")
+  tenant         Tenant          @relation(fields: [tenantId], references: [id])
+  category       FinanceCategory @relation(fields: [categoryId], references: [id])
+  chartOfAccount ChartOfAccount? @relation(fields: [chartOfAccountId], references: [id])
+  company        Company?        @relation(fields: [companyId], references: [id])
+  costCenter     CostCenter?     @relation(fields: [costCenterId], references: [id])
+  bankAccount    BankAccount?    @relation(fields: [bankAccountId], references: [id])
+  parentEntry    FinanceEntry?   @relation("EntryRecurrence", fields: [parentEntryId], references: [id])
+  childEntries   FinanceEntry[]  @relation("EntryRecurrence")
 
   pixCharge        PixCharge?      @relation(fields: [pixChargeId], references: [id])
   fiscalDocumentId String?         @map("fiscal_document_id")
@@ -9697,13 +9698,13 @@ model Order {
   posVisitLogs    PosVisitLog[]
 
   // Invoicing Relations
-  invoice         Invoice?
+  invoice Invoice?
 
   // Fiscal Relations
   fiscalDocuments FiscalDocument[]
 
   // Payment Gateway Relations
-  paymentCharges  PaymentCharge[]
+  paymentCharges PaymentCharge[]
 
   @@unique([tenantId, orderNumber])
   @@unique([tenantId, saleCode])
@@ -11213,7 +11214,7 @@ model PosTerminal {
   cashierMode PosCashierMode  @default(INTEGRATED) @map("cashier_mode")
 
   acceptsPendingOrders Boolean @default(false) @map("accepts_pending_orders")
-  requiresSession     Boolean @default(true) @map("requires_session")
+  requiresSession      Boolean @default(true) @map("requires_session")
 
   warehouseId         String  @map("warehouse_id")
   defaultPriceTableId String? @map("default_price_table_id")
@@ -13587,31 +13588,31 @@ enum BankPaymentMethod {
 }
 
 model PaymentOrder {
-  id              String              @id @default(uuid())
-  tenantId        String              @map("tenant_id")
-  entryId         String              @map("entry_id")
-  bankAccountId   String              @map("bank_account_id")
-  method          BankPaymentMethod
-  amount          Decimal             @db.Decimal(15, 2)
-  recipientData   Json                @map("recipient_data")
-  status          PaymentOrderStatus  @default(PENDING_APPROVAL)
+  id            String             @id @default(uuid())
+  tenantId      String             @map("tenant_id")
+  entryId       String             @map("entry_id")
+  bankAccountId String             @map("bank_account_id")
+  method        BankPaymentMethod
+  amount        Decimal            @db.Decimal(15, 2)
+  recipientData Json               @map("recipient_data")
+  status        PaymentOrderStatus @default(PENDING_APPROVAL)
 
-  requestedById   String              @map("requested_by_id")
-  approvedById    String?             @map("approved_by_id")
-  approvedAt      DateTime?           @map("approved_at")
-  rejectedReason  String?             @map("rejected_reason") @db.VarChar(500)
+  requestedById  String    @map("requested_by_id")
+  approvedById   String?   @map("approved_by_id")
+  approvedAt     DateTime? @map("approved_at")
+  rejectedReason String?   @map("rejected_reason") @db.VarChar(500)
 
-  externalId      String?             @map("external_id") @db.VarChar(256)
-  receiptData     Json?               @map("receipt_data")
-  receiptFileId   String?             @map("receipt_file_id")
-  errorMessage    String?             @map("error_message") @db.VarChar(1000)
+  externalId    String? @map("external_id") @db.VarChar(256)
+  receiptData   Json?   @map("receipt_data")
+  receiptFileId String? @map("receipt_file_id")
+  errorMessage  String? @map("error_message") @db.VarChar(1000)
 
-  createdAt       DateTime            @default(now()) @map("created_at")
-  updatedAt       DateTime            @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  tenant          Tenant              @relation(fields: [tenantId], references: [id])
-  entry           FinanceEntry        @relation(fields: [entryId], references: [id])
-  bankAccount     BankAccount         @relation(fields: [bankAccountId], references: [id])
+  tenant      Tenant       @relation(fields: [tenantId], references: [id])
+  entry       FinanceEntry @relation(fields: [entryId], references: [id])
+  bankAccount BankAccount  @relation(fields: [bankAccountId], references: [id])
 
   @@index([tenantId])
   @@index([entryId])
@@ -13624,21 +13625,21 @@ model PaymentOrder {
 // ============================================================================
 
 model BankWebhookEvent {
-  id              String    @id @default(uuid())
-  tenantId        String    @map("tenant_id")
-  bankAccountId   String    @map("bank_account_id")
-  provider        String    @db.VarChar(32)
-  eventType       String    @map("event_type") @db.VarChar(64)
-  externalId      String    @map("external_id") @db.VarChar(256)
-  amount          Decimal   @db.Decimal(15, 2)
-  payload         Json
-  matchedEntryId  String?   @map("matched_entry_id")
-  autoSettled     Boolean   @default(false) @map("auto_settled")
-  processedAt     DateTime? @map("processed_at")
-  createdAt       DateTime  @default(now()) @map("created_at")
+  id             String    @id @default(uuid())
+  tenantId       String    @map("tenant_id")
+  bankAccountId  String    @map("bank_account_id")
+  provider       String    @db.VarChar(32)
+  eventType      String    @map("event_type") @db.VarChar(64)
+  externalId     String    @map("external_id") @db.VarChar(256)
+  amount         Decimal   @db.Decimal(15, 2)
+  payload        Json
+  matchedEntryId String?   @map("matched_entry_id")
+  autoSettled    Boolean   @default(false) @map("auto_settled")
+  processedAt    DateTime? @map("processed_at")
+  createdAt      DateTime  @default(now()) @map("created_at")
 
-  tenant          Tenant       @relation(fields: [tenantId], references: [id])
-  bankAccount     BankAccount  @relation(fields: [bankAccountId], references: [id])
+  tenant      Tenant      @relation(fields: [tenantId], references: [id])
+  bankAccount BankAccount @relation(fields: [bankAccountId], references: [id])
 
   @@index([tenantId])
   @@index([bankAccountId])
@@ -14615,7 +14616,7 @@ model PPEItem {
   deletedAt        DateTime? @map("deleted_at")
 
   assignments PPEAssignment[]
-  tenant      Tenant @relation(fields: [tenantId], references: [id])
+  tenant      Tenant          @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId, deletedAt])
   @@map("ppe_items")
@@ -15060,16 +15061,16 @@ enum PaymentChargeStatus {
 model TenantPaymentConfig {
   id               String    @id @default(uuid())
   tenantId         String    @unique @map("tenant_id")
-  primaryProvider   String    @map("primary_provider")
-  primaryConfig     String    @map("primary_config") @db.Text
-  primaryActive     Boolean   @default(false) @map("primary_active")
-  primaryTestedAt   DateTime? @map("primary_tested_at")
-  fallbackProvider  String?   @map("fallback_provider")
-  fallbackConfig    String?   @map("fallback_config") @db.Text
-  fallbackActive    Boolean   @default(false) @map("fallback_active")
-  fallbackTestedAt  DateTime? @map("fallback_tested_at")
-  createdAt         DateTime  @default(now()) @map("created_at")
-  updatedAt         DateTime  @updatedAt @map("updated_at")
+  primaryProvider  String    @map("primary_provider")
+  primaryConfig    String    @map("primary_config") @db.Text
+  primaryActive    Boolean   @default(false) @map("primary_active")
+  primaryTestedAt  DateTime? @map("primary_tested_at")
+  fallbackProvider String?   @map("fallback_provider")
+  fallbackConfig   String?   @map("fallback_config") @db.Text
+  fallbackActive   Boolean   @default(false) @map("fallback_active")
+  fallbackTestedAt DateTime? @map("fallback_tested_at")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
 
   tenant Tenant @relation(fields: [tenantId], references: [id])
 
@@ -15158,14 +15159,14 @@ model Invoice {
   tenantId String @map("tenant_id")
   tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
-  orderId String  @unique @map("order_id")
-  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId String @unique @map("order_id")
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
-  type        InvoiceType @default(NFCE)
-  number      String      @db.VarChar(10)
-  series      String      @db.VarChar(3) @default("1")
-  accessKey   String      @db.VarChar(44)
-  focusIdRef  String?     @db.VarChar(255)
+  type       InvoiceType @default(NFCE)
+  number     String      @db.VarChar(10)
+  series     String      @default("1") @db.VarChar(3)
+  accessKey  String      @db.VarChar(44)
+  focusIdRef String?     @db.VarChar(255)
 
   status         InvoiceStatus @default(PENDING)
   statusDetails  String?       @db.Text
@@ -15174,12 +15175,12 @@ model Invoice {
   xmlContent     String?       @db.Text
   xmlContentHash String?       @map("xml_content_hash") @db.VarChar(64)
 
-  issuedAt      DateTime?
-  cancelledAt   DateTime?
-  cancelReason  String?
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @updatedAt @map("updated_at")
-  deletedAt     DateTime? @map("deleted_at")
+  issuedAt     DateTime?
+  cancelledAt  DateTime?
+  cancelReason String?
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  deletedAt    DateTime? @map("deleted_at")
 
   @@unique([tenantId, number, series])
   @@index([tenantId, status])
@@ -15209,7 +15210,7 @@ model PosPrinter {
 
   // Settings
   paperWidth       Int    @default(80)
-  encoding         String @db.VarChar(20) @default("UTF-8")
+  encoding         String @default("UTF-8") @db.VarChar(20)
   characterPerLine Int    @default(42)
 
   isDefault Boolean @default(false)
@@ -15267,7 +15268,7 @@ model FocusNfeConfig {
   apiKey             String  @db.Text
   productionMode     Boolean @default(true)
   isEnabled          Boolean @default(true)
-  defaultSeries      String  @db.VarChar(3) @default("1")
+  defaultSeries      String  @default("1") @db.VarChar(3)
   autoIssueOnConfirm Boolean @default(true)
 
   createdBy String?

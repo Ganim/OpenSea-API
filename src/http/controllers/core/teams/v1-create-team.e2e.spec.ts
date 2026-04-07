@@ -14,7 +14,6 @@ describe('Create Team (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a team with minimal fields', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

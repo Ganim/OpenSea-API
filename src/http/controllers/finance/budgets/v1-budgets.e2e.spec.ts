@@ -23,7 +23,6 @@ describe('Finance Budgets (E2E)', () => {
     costCenterId = prereqs.costCenter.id;
   });
 
-
   // ─── CREATE ────────────────────────────────────────────────────────
 
   it('should create a budget', async () => {

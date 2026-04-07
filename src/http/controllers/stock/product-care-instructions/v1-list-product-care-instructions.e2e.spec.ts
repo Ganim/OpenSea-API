@@ -30,7 +30,6 @@ describe('List Product Care Instructions (E2E)', () => {
     careTemplateId = template.id;
   });
 
-
   it('should list care instructions for a product', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { product } = await createProduct({

@@ -15,7 +15,6 @@ describe('Get Category By ID (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get category by id with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

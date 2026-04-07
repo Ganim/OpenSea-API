@@ -17,7 +17,6 @@ describe('List Inventory Sessions (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list inventory sessions with pagination', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

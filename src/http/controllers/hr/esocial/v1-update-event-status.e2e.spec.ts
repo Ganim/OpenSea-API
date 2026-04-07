@@ -15,7 +15,6 @@ describe('Update eSocial Event Status (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
     const response = await request(app.server)
       .patch(`/v1/esocial/events/${randomUUID()}/status`)

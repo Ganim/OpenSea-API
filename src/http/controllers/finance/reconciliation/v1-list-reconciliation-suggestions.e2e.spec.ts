@@ -14,7 +14,6 @@ describe('List Reconciliation Suggestions (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list reconciliation suggestions', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

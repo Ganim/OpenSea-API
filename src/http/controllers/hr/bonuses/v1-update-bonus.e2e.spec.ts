@@ -16,7 +16,6 @@ describe('Update Bonus (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update a bonus successfully', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const employeeData = await createEmployeeE2E({ tenantId });

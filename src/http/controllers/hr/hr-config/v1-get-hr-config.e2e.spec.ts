@@ -14,7 +14,6 @@ describe('Get HR Config (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return HR config', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,7 @@ describe('Get HR Config (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/config');
+    const response = await request(app.server).get('/v1/hr/config');
 
     expect(response.status).toBe(401);
   });

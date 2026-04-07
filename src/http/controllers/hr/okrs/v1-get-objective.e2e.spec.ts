@@ -14,7 +14,6 @@ describe('Get Objective (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent objective', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,9 @@ describe('Get Objective (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/okrs/objectives/clxxxxxxxxxxxxxxxxxxxxxxxxx');
+    const response = await request(app.server).get(
+      '/v1/hr/okrs/objectives/clxxxxxxxxxxxxxxxxxxxxxxxxx',
+    );
 
     expect(response.status).toBe(401);
   });

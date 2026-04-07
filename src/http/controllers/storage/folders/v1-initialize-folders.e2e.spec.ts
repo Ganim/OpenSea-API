@@ -14,7 +14,6 @@ describe('Initialize Folders (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should initialize system folders for the tenant', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -1,15 +1,16 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { InvoiceStatus } from '@/entities/sales/invoice';
 import { Invoice } from '@/entities/sales/invoice';
-import type { OrdersRepository } from '@/repositories/sales/orders-repository';
-import type { OrderItemsRepository } from '@/repositories/sales/order-items-repository';
-import type { CustomersRepository } from '@/repositories/sales/customers-repository';
-import type { InvoicesRepository } from '@/repositories/sales/invoices-repository';
-import type { FocusNfeConfigRepository } from '@/repositories/sales/focus-nfe-config-repository';
 import type { IFocusNfeProvider } from '@/providers/nfe/focus-nfe.provider';
 import { OrderToNfceXmlMapper } from '@/providers/nfe/mappers/order-to-nfce-xml.mapper';
-import { orderPrismaToDomain } from '@/mappers/sales/order/order-prisma-to-domain';
+import { OrderToNfeXmlMapper } from '@/providers/nfe/mappers/order-to-nfe-xml.mapper';
+import type { CustomersRepository } from '@/repositories/sales/customers-repository';
+import type { FocusNfeConfigRepository } from '@/repositories/sales/focus-nfe-config-repository';
+import type { InvoicesRepository } from '@/repositories/sales/invoices-repository';
+import type { OrderItemsRepository } from '@/repositories/sales/order-items-repository';
+import type { OrdersRepository } from '@/repositories/sales/orders-repository';
 
 interface IssueInvoiceUseCaseRequest {
   orderId: string;
@@ -21,7 +22,7 @@ interface IssueInvoiceUseCaseRequest {
 interface IssueInvoiceUseCaseResponse {
   invoiceId: string;
   accessKey: string;
-  status: string;
+  status: InvoiceStatus;
   issuedAt: Date;
   xmlUrl?: string;
   pdfUrl?: string;
@@ -70,7 +71,9 @@ export class IssueInvoiceUseCase {
     }
 
     // Busca e valida configuração Focus NFe
-    const config = await this.focusNfeConfigRepository.findByTenant(request.tenantId);
+    const config = await this.focusNfeConfigRepository.findByTenant(
+      request.tenantId,
+    );
 
     if (!config) {
       throw new BadRequestError(
@@ -83,13 +86,15 @@ export class IssueInvoiceUseCase {
     }
 
     // Busca items da order
-    const orderItems = await this.orderItemsRepository.findByOrderId(
+    const orderItems = await this.orderItemsRepository.findManyByOrder(
       order.id,
       request.tenantId,
     );
 
     if (!orderItems || orderItems.length === 0) {
-      throw new BadRequestError('Order must have at least one item to issue invoice.');
+      throw new BadRequestError(
+        'Order must have at least one item to issue invoice.',
+      );
     }
 
     // Busca customer
@@ -114,8 +119,20 @@ export class IssueInvoiceUseCase {
     const invoiceType = request.invoiceType ?? 'NFCE';
     const invoiceInput =
       invoiceType === 'NFCE'
-        ? OrderToNfceXmlMapper.map(order, orderItems, customer, companyData, config.defaultSeries)
-        : OrderToNfceXmlMapper.map(order, orderItems, customer, companyData, config.defaultSeries);
+        ? OrderToNfceXmlMapper.map(
+            order,
+            orderItems,
+            customer,
+            companyData,
+            config.defaultSeries,
+          )
+        : OrderToNfeXmlMapper.map(
+            order,
+            orderItems,
+            customer,
+            companyData,
+            config.defaultSeries,
+          );
 
     // Adiciona API key do Focus NFe
     invoiceInput.apiKey = config.apiKey;
@@ -138,7 +155,9 @@ export class IssueInvoiceUseCase {
       focusResponse = await this.focusNfeProvider.createInvoice(invoiceInput);
     } catch (error) {
       // Se der erro, marca como ERROR
-      invoice.markAsError(error instanceof Error ? error.message : String(error));
+      invoice.markAsError(
+        error instanceof Error ? error.message : String(error),
+      );
       await this.invoicesRepository.create(invoice);
 
       throw new Error(
@@ -154,14 +173,17 @@ export class IssueInvoiceUseCase {
     }
 
     // Atualiza invoice com dados da resposta
-    invoice.props.number = String(focusResponse.numero_nf || '');
-    invoice.props.accessKey = focusResponse.chave_nfe || '';
-    invoice.props.focusIdRef = focusResponse.id;
-    invoice.props.xmlUrl = focusResponse.caminho_xml;
-    invoice.props.pdfUrl = focusResponse.caminho_pdf;
+    invoice.number = String(focusResponse.numero_nf || '');
+    invoice.accessKey = focusResponse.chave_nfe || '';
+    invoice.focusIdRef = focusResponse.id;
+    invoice.xmlUrl = focusResponse.caminho_xml;
+    invoice.pdfUrl = focusResponse.caminho_pdf;
 
     // Se status for sucesso no Focus, marca como ISSUED
-    if (focusResponse.status === 'processando_digitacao' || focusResponse.status === 'autorizado') {
+    if (
+      focusResponse.status === 'processando_digitacao' ||
+      focusResponse.status === 'autorizado'
+    ) {
       invoice.markAsIssued(
         focusResponse.chave_nfe,
         focusResponse.id,

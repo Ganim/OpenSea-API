@@ -15,7 +15,6 @@ describe('Create Column (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a column', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

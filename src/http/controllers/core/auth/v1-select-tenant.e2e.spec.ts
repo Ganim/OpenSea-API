@@ -10,7 +10,6 @@ describe('Select Tenant (E2E)', () => {
     await app.ready();
   });
 
-
   it('should select a tenant and return a scoped token', async () => {
     const { token, user } = await createAndAuthenticateUser(app);
 

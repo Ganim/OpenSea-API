@@ -15,7 +15,6 @@ describe('Provide Info (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should provide info with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const { user: assignedUser } = await createAndAuthenticateUser(app, {

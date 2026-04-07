@@ -14,7 +14,6 @@ describe('Create Marketplace Connection (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a marketplace connection', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

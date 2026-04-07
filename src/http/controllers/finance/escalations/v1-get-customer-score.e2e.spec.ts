@@ -14,7 +14,6 @@ describe('Get Customer Score (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get customer payment reliability score', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -14,7 +14,6 @@ describe('Update Onboarding Checklist (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent checklist', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

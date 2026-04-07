@@ -14,7 +14,6 @@ describe('Coupons (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('POST /v1/coupons', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
@@ -36,7 +35,9 @@ describe('Coupons (E2E)', () => {
           value: 10,
           applicableTo: 'ALL',
           validFrom: new Date().toISOString(),
-          validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+          validUntil: new Date(
+            Date.now() + 30 * 24 * 60 * 60 * 1000,
+          ).toISOString(),
         });
 
       expect(response.status).toBe(201);
@@ -46,8 +47,7 @@ describe('Coupons (E2E)', () => {
 
   describe('GET /v1/coupons', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/coupons');
+      const response = await request(app.server).get('/v1/coupons');
 
       expect(response.status).toBe(401);
     });
@@ -68,8 +68,9 @@ describe('Coupons (E2E)', () => {
 
   describe('GET /v1/coupons/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/coupons/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).get(
+        '/v1/coupons/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -87,8 +88,9 @@ describe('Coupons (E2E)', () => {
 
   describe('DELETE /v1/coupons/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .delete('/v1/coupons/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).delete(
+        '/v1/coupons/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });

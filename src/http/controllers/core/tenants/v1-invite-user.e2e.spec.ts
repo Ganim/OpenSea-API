@@ -10,7 +10,6 @@ describe('Invite User to Tenant (E2E)', () => {
     await app.ready();
   });
 
-
   it('should invite a user to the tenant', { timeout: 20000 }, async () => {
     const { token, user } = await createAndAuthenticateUser(app);
 

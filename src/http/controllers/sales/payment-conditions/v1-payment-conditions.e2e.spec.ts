@@ -17,7 +17,6 @@ describe('Payment Conditions (E2E)', () => {
     token = auth.token;
   });
 
-
   it('POST /v1/payment-conditions should create a payment condition (201)', async () => {
     const response = await request(app.server)
       .post('/v1/payment-conditions')

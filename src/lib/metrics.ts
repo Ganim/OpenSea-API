@@ -1,5 +1,5 @@
-import { Counter, Gauge, Histogram } from 'prom-client';
 import { register } from '@/http/plugins/prometheus.plugin';
+import { Counter, Gauge, Histogram } from 'prom-client';
 
 // ─── Authentication Metrics ────────────────────────────────────────────────
 export const authLoginTotal = new Counter({
@@ -61,5 +61,27 @@ export const storageUploadSize = new Histogram({
   help: 'Size of uploaded files',
   labelNames: ['tenant'] as const,
   buckets: [1024, 10240, 102400, 1048576, 10485760, 26214400], // 1KB to 25MB
+  registers: [register],
+});
+
+export const paymentReconciliationRunsTotal = new Counter({
+  name: 'payment_reconciliation_runs_total',
+  help: 'Total payment reconciliation runs per tenant and status',
+  labelNames: ['tenant', 'success'] as const,
+  registers: [register],
+});
+
+export const paymentReconciliationChargesTotal = new Counter({
+  name: 'payment_reconciliation_charges_total',
+  help: 'Total reconciled payment charges by resulting status',
+  labelNames: ['tenant', 'status'] as const,
+  registers: [register],
+});
+
+export const paymentReconciliationDurationSeconds = new Histogram({
+  name: 'payment_reconciliation_duration_seconds',
+  help: 'Duration of payment reconciliation run in seconds',
+  labelNames: ['tenant', 'success'] as const,
+  buckets: [0.1, 0.5, 1, 2, 5, 10, 30, 60, 120],
   registers: [register],
 });

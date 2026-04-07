@@ -16,7 +16,6 @@ describe('Cancel Scheduled Vacation (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should cancel a scheduled vacation with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId } = await createEmployeeE2E({ tenantId });

@@ -14,7 +14,6 @@ describe('List Landing Pages (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list landing pages', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

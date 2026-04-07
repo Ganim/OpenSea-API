@@ -14,7 +14,6 @@ describe('Generate PPP (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent employee', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,9 @@ describe('Generate PPP (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/employees/00000000-0000-0000-0000-000000000000/ppp');
+    const response = await request(app.server).get(
+      '/v1/hr/employees/00000000-0000-0000-0000-000000000000/ppp',
+    );
 
     expect(response.status).toBe(401);
   });

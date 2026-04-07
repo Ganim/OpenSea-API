@@ -14,7 +14,6 @@ describe('List Audit Logs (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list audit logs with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 

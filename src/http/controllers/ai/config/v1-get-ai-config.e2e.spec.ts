@@ -17,7 +17,6 @@ describe('Get AI Config (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should return default config for new tenant (200)', async () => {
     const response = await request(app.server)
       .get('/v1/ai/config')

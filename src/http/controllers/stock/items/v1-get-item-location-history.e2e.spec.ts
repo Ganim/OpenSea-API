@@ -16,7 +16,6 @@ describe('Get Item Location History (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return location history for an item', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

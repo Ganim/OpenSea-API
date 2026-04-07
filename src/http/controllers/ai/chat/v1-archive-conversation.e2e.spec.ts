@@ -17,7 +17,6 @@ describe('Archive Conversation (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should archive a conversation (200)', async () => {
     // Create a conversation first
     const chatResponse = await request(app.server)

@@ -14,22 +14,25 @@ describe('Update Workplace Risk (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent risk', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
-      .put('/v1/hr/safety-programs/00000000-0000-0000-0000-000000000000/risks/00000000-0000-0000-0000-000000000000')
+      .put(
+        '/v1/hr/safety-programs/00000000-0000-0000-0000-000000000000/risks/00000000-0000-0000-0000-000000000000',
+      )
       .set('Authorization', `Bearer ${token}`)
-      .send({ name: "Updated Risk" });
+      .send({ name: 'Updated Risk' });
 
     expect(response.status).not.toBe(401);
   });
 
   it('should return 401 when not authenticated', async () => {
     const response = await request(app.server)
-      .put('/v1/hr/safety-programs/00000000-0000-0000-0000-000000000000/risks/00000000-0000-0000-0000-000000000000')
-      .send({ name: "Updated Risk" });
+      .put(
+        '/v1/hr/safety-programs/00000000-0000-0000-0000-000000000000/risks/00000000-0000-0000-0000-000000000000',
+      )
+      .send({ name: 'Updated Risk' });
 
     expect(response.status).toBe(401);
   });

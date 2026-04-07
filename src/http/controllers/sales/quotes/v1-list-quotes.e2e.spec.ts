@@ -14,7 +14,6 @@ describe('List Quotes (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list quotes', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -15,7 +15,6 @@ describe('Delete Cost Center (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a cost center', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

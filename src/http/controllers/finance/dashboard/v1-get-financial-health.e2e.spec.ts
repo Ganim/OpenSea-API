@@ -14,7 +14,6 @@ describe('Get Financial Health (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return financial health score', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

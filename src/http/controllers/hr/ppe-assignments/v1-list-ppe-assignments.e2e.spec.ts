@@ -14,7 +14,6 @@ describe('List PPE Assignments (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list PPE assignments', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,7 @@ describe('List PPE Assignments (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/ppe-assignments');
+    const response = await request(app.server).get('/v1/hr/ppe-assignments');
 
     expect(response.status).toBe(401);
   });

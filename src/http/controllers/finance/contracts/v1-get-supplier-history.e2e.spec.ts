@@ -14,7 +14,6 @@ describe('Get Supplier History (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return supplier history', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

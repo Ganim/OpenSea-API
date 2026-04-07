@@ -14,7 +14,6 @@ describe('Create Scoring Rule (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a scoring rule', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

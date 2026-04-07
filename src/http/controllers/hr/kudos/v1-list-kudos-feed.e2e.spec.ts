@@ -14,7 +14,6 @@ describe('List Kudos Feed (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list kudos feed', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,7 @@ describe('List Kudos Feed (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/kudos/feed');
+    const response = await request(app.server).get('/v1/hr/kudos/feed');
 
     expect(response.status).toBe(401);
   });

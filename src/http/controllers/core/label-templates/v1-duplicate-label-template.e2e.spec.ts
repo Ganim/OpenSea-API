@@ -14,7 +14,6 @@ describe('Duplicate Label Template (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should duplicate label template with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

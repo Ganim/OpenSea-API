@@ -8,7 +8,6 @@ describe('Delete Plan (E2E)', () => {
     await app.ready();
   });
 
-
   it('should deactivate a plan', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

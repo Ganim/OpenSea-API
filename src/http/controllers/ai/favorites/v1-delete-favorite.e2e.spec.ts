@@ -17,7 +17,6 @@ describe('Delete Favorite (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should delete a favorite (200)', async () => {
     // Create a favorite to delete
     const createResponse = await request(app.server)

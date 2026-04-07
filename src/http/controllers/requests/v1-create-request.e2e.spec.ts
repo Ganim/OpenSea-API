@@ -13,7 +13,6 @@ describe('Create Request (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create request with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

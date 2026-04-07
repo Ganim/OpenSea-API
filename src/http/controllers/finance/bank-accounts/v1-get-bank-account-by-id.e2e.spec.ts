@@ -15,7 +15,6 @@ describe('Get Bank Account By ID (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get a bank account by id', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

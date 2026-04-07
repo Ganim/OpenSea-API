@@ -14,7 +14,6 @@ describe('Initiate Multipart Upload (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should initiate multipart upload with valid parameters', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -1,6 +1,6 @@
+import type { Customer } from '@/entities/sales/customer';
 import type { Order } from '@/entities/sales/order';
 import type { OrderItem } from '@/entities/sales/order-item';
-import type { Customer } from '@/entities/sales/customer';
 import type { CreateInvoiceInput, DetailItem } from '../focus-nfe.types';
 
 /**
@@ -35,7 +35,7 @@ export class OrderToNfceXmlMapper {
       valor_desconto: order.discountTotal > 0 ? order.discountTotal : undefined,
       observacoes: order.notes || undefined,
       ambiente: 2, // sandbox by default
-      
+
       // Dados do cliente
       ...customerData,
     };
@@ -45,24 +45,24 @@ export class OrderToNfceXmlMapper {
    * Mapeia OrderItems para lista de DetailItem
    */
   private static mapItems(items: OrderItem[]): DetailItem[] {
-    return items
-      .filter((item) => !item.isDeleted)
-      .map((item) => ({
-        descricao: item.name,
-        quantidade: item.quantity,
-        valor_unitario: item.unitPrice,
-        codigo_ncm: '00000000', // TODO: usar NCM do variant se disponível
-        codigo_cfop: '5102', // CFOP padrão para venda de mercadorias
-        origem: 0, // 0: Nacional
-        icms_aliquota: item.taxRate ? item.taxRate * 100 : 18,
-        icms_valor: (item.quantity * item.unitPrice * (item.taxRate || 0.18)) / 100,
-      }));
+    return items.map((item) => ({
+      descricao: item.name,
+      quantidade: item.quantity,
+      valor_unitario: item.unitPrice,
+      codigo_ncm: '00000000', // TODO: usar NCM do variant se disponível
+      codigo_cfop: '5102', // CFOP padrão para venda de mercadorias
+      origem: 0, // 0: Nacional
+      icms_aliquota: item.taxIcms > 0 ? item.taxIcms : 18,
+      icms_valor: (item.quantity * item.unitPrice * item.taxIcms) / 100,
+    }));
   }
 
   /**
    * Mapeia Customer para dados de destinatário
    */
-  private static mapCustomer(customer: Customer | null): Partial<CreateInvoiceInput> {
+  private static mapCustomer(
+    customer: Customer | null,
+  ): Partial<CreateInvoiceInput> {
     if (!customer) {
       return {
         nome_destinatario: 'Consumidor Final',
@@ -73,7 +73,7 @@ export class OrderToNfceXmlMapper {
 
     return {
       nome_destinatario: customer.name,
-      cpf_cnpj_destinatario: customer.cpfCnpj,
+      cpf_cnpj_destinatario: customer.document?.value,
       email_destinatario: customer.email || undefined,
       telefone_destinatario: customer.phone || undefined,
     };

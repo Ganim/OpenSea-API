@@ -15,7 +15,6 @@ describe('Get Purchase Order By ID (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get purchase order by id with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

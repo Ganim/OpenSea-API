@@ -28,7 +28,8 @@ export async function v1IssueInvoiceController(app: FastifyInstance) {
     schema: {
       tags: ['Sales - Invoicing'],
       summary: 'Issue a NFC-e or NF-e for a confirmed order',
-      description: 'Creates and issues an invoice for a confirmed order via Focus NFe provider',
+      description:
+        'Creates and issues an invoice for a confirmed order via Focus NFe provider',
       params: z.object({
         orderId: z.string().uuid(),
       }),
@@ -42,7 +43,7 @@ export async function v1IssueInvoiceController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const userId = request.user.id!;
+      const userId = request.user.sub;
       const { orderId } = request.params as { orderId: string };
       const { invoiceType } = request.body;
 
@@ -55,22 +56,26 @@ export async function v1IssueInvoiceController(app: FastifyInstance) {
           invoiceType: (invoiceType as 'NFE' | 'NFCE') || 'NFCE',
         });
 
-        return reply.status(201).send(result);
+        return reply.status(201).send({
+          invoiceId: result.invoiceId,
+          accessKey: result.accessKey,
+          status: result.status,
+          issuedAt: result.issuedAt,
+          xmlUrl: result.xmlUrl,
+          pdfUrl: result.pdfUrl,
+        });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
-          return reply
-            .status(404)
-            .send({ message: error.message });
+          return reply.status(404).send({ message: error.message });
         }
 
         if (error instanceof BadRequestError) {
-          return reply
-            .status(400)
-            .send({ message: error.message });
+          return reply.status(400).send({ message: error.message });
         }
 
         return reply.status(500).send({
-          message: error instanceof Error ? error.message : 'Internal server error',
+          message:
+            error instanceof Error ? error.message : 'Internal server error',
         });
       }
     },

@@ -14,7 +14,6 @@ describe('Create Journal Entry (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 400 when body is empty', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

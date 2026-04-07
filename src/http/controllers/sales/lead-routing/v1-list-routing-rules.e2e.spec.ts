@@ -14,7 +14,6 @@ describe('List Routing Rules (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list routing rules', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

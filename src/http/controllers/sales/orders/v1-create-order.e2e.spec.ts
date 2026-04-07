@@ -14,17 +14,18 @@ describe('Create Order (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
-    const response = await request(app.server).post('/v1/orders').send({
-      type: 'ORDER',
-      customerId: '00000000-0000-0000-0000-000000000000',
-      pipelineId: '00000000-0000-0000-0000-000000000000',
-      stageId: '00000000-0000-0000-0000-000000000000',
-      channel: 'MANUAL',
-      subtotal: 100,
-      items: [{ name: 'Test Item', quantity: 1, unitPrice: 100 }],
-    });
+    const response = await request(app.server)
+      .post('/v1/orders')
+      .send({
+        type: 'ORDER',
+        customerId: '00000000-0000-0000-0000-000000000000',
+        pipelineId: '00000000-0000-0000-0000-000000000000',
+        stageId: '00000000-0000-0000-0000-000000000000',
+        channel: 'MANUAL',
+        subtotal: 100,
+        items: [{ name: 'Test Item', quantity: 1, unitPrice: 100 }],
+      });
 
     expect(response.status).toBe(401);
   });

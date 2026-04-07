@@ -14,7 +14,6 @@ describe('List eSocial Batches (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list eSocial batches', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,7 @@ describe('List eSocial Batches (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .get('/v1/esocial/batches');
+    const response = await request(app.server).get('/v1/esocial/batches');
 
     expect(response.statusCode).toBe(401);
   });

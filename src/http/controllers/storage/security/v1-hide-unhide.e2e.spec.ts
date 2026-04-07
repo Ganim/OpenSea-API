@@ -26,7 +26,6 @@ describe('Storage Security — Hide/Unhide (E2E)', () => {
     folderId = fid;
   });
 
-
   // ─── Hide ──────────────────────────────────────────────
   describe('POST /v1/storage/security/hide', () => {
     it('should hide a file', async () => {

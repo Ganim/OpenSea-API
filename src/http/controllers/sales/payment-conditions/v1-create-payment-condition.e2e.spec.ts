@@ -14,7 +14,6 @@ describe('Create Payment Condition (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a payment condition', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

@@ -14,7 +14,6 @@ describe('Delete Price Table (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
     const response = await request(app.server).delete(
       '/v1/price-tables/00000000-0000-0000-0000-000000000000',

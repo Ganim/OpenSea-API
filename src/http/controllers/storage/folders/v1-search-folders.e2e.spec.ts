@@ -15,7 +15,6 @@ describe('Search Folders (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should search folders by name', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const uniqueName = `SearchableFolder-${Date.now()}`;

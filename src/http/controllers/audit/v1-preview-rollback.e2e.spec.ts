@@ -14,7 +14,6 @@ describe('Preview Rollback (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should preview rollback with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 

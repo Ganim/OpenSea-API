@@ -14,7 +14,6 @@ describe('List Announcements (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list announcements', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,7 @@ describe('List Announcements (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/announcements');
+    const response = await request(app.server).get('/v1/hr/announcements');
 
     expect(response.status).toBe(401);
   });

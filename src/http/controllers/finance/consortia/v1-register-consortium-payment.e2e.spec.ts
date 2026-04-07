@@ -15,7 +15,6 @@ describe('Register Consortium Payment (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should register a consortium payment', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { costCenter, bankAccount } =

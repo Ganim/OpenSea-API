@@ -23,7 +23,6 @@ describe('Share Event With Team (E2E)', () => {
     ownerId = owner.user.user.id;
   });
 
-
   it('should share an event with a team', async () => {
     const event = await createCalendarEvent(tenantId, ownerId);
 

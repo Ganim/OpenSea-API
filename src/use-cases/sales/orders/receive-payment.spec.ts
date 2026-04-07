@@ -74,9 +74,7 @@ describe('Receive Payment', () => {
       terminalMode: 'STANDARD',
       posSessionId: 'session-1',
       expectedVersion: 1,
-      payments: [
-        { method: 'CASH', amount: 100, receivedAmount: 120 },
-      ],
+      payments: [{ method: 'CASH', amount: 100, receivedAmount: 120 }],
     });
 
     expect(result.order.status).toBe('CONFIRMED');

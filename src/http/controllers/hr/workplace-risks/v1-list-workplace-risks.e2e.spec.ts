@@ -14,7 +14,6 @@ describe('List Workplace Risks (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list risks', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,9 @@ describe('List Workplace Risks (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/safety-programs/00000000-0000-0000-0000-000000000000/risks');
+    const response = await request(app.server).get(
+      '/v1/hr/safety-programs/00000000-0000-0000-0000-000000000000/risks',
+    );
 
     expect(response.status).toBe(401);
   });

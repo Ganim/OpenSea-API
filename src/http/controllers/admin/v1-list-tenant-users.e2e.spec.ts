@@ -9,7 +9,6 @@ describe('List Tenant Users (E2E)', () => {
     await app.ready();
   });
 
-
   it('should list users of a tenant', async () => {
     const { token, user } = await createAndAuthenticateSuperAdmin(app);
 

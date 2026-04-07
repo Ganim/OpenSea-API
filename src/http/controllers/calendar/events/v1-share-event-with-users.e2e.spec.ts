@@ -26,7 +26,6 @@ describe('Share Event With Users (E2E)', () => {
     guestId = guest.user.user.id;
   });
 
-
   it('should share an event with specific users', async () => {
     const event = await createCalendarEvent(tenantId, ownerId);
 

@@ -17,7 +17,6 @@ describe('Marketplaces (E2E)', () => {
     token = auth.token;
   });
 
-
   it('POST /v1/marketplaces/connections should create a connection (201)', async () => {
     const response = await request(app.server)
       .post('/v1/marketplaces/connections')

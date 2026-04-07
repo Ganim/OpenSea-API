@@ -1,6 +1,6 @@
+import type { Customer } from '@/entities/sales/customer';
 import type { Order } from '@/entities/sales/order';
 import type { OrderItem } from '@/entities/sales/order-item';
-import type { Customer } from '@/entities/sales/customer';
 import type { CreateInvoiceInput, DetailItem } from '../focus-nfe.types';
 import type { CompanyData } from './order-to-nfce-xml.mapper';
 
@@ -48,38 +48,30 @@ export class OrderToNfeXmlMapper {
    * Mapeia OrderItems para lista de DetailItem (com mais campos que NFC-e)
    */
   private static mapItems(items: OrderItem[]): DetailItem[] {
-    return items
-      .filter((item) => !item.isDeleted)
-      .map((item) => ({
-        descricao: item.name,
-        quantidade: item.quantity,
-        valor_unitario: item.unitPrice,
-        codigo_ncm: '00000000', // TODO: usar NCM do variant se disponível
-        codigo_cfop: '5102', // CFOP padrão para venda de mercadorias
-        origem: 0, // 0: Nacional
-        
-        // ICMS (18% padrão)
-        icms_aliquota: item.taxRate ? item.taxRate * 100 : 18,
-        icms_valor: (item.quantity * item.unitPrice * (item.taxRate || 0.18)) / 100,
-        
-        // PIS (1.65% padrão)
-        pis_aliquota: 1.65,
-        pis_valor: (item.quantity * item.unitPrice * 0.0165) / 100,
-        
-        // COFINS (7.6% padrão)
-        cofins_aliquota: 7.6,
-        cofins_valor: (item.quantity * item.unitPrice * 0.076) / 100,
-        
-        // IPI (0% padrão)
-        ipi_aliquota: 0,
-        ipi_valor: 0,
-      }));
+    return items.map((item) => ({
+      descricao: item.name,
+      quantidade: item.quantity,
+      valor_unitario: item.unitPrice,
+      codigo_ncm: item.ncm ?? '00000000',
+      codigo_cfop: item.cfop ?? '5102',
+      origem: 0,
+      icms_aliquota: item.taxIcms > 0 ? item.taxIcms : 18,
+      icms_valor: (item.quantity * item.unitPrice * item.taxIcms) / 100,
+      pis_aliquota: item.taxPis,
+      pis_valor: (item.quantity * item.unitPrice * item.taxPis) / 100,
+      cofins_aliquota: item.taxCofins,
+      cofins_valor: (item.quantity * item.unitPrice * item.taxCofins) / 100,
+      ipi_aliquota: item.taxIpi,
+      ipi_valor: (item.quantity * item.unitPrice * item.taxIpi) / 100,
+    }));
   }
 
   /**
    * Mapeia Customer para dados de destinatário (NF-e exige CPF/CNPJ)
    */
-  private static mapCustomer(customer: Customer | null): Partial<CreateInvoiceInput> {
+  private static mapCustomer(
+    customer: Customer | null,
+  ): Partial<CreateInvoiceInput> {
     if (!customer) {
       return {
         nome_destinatario: 'Consumidor Final',
@@ -88,22 +80,15 @@ export class OrderToNfeXmlMapper {
       };
     }
 
-    const address = customer.addresses?.[0];
-
     return {
       nome_destinatario: customer.name,
-      cpf_cnpj_destinatario: customer.cpfCnpj,
+      cpf_cnpj_destinatario: customer.document?.value,
       email_destinatario: customer.email || undefined,
       telefone_destinatario: customer.phone || undefined,
-      
-      // Endereço se disponível
-      endereco_destinatario: address?.street || undefined,
-      numero_destinatario: address?.number || undefined,
-      complemento_destinatario: address?.complement || undefined,
-      bairro_destinatario: address?.neighborhood || undefined,
-      cidade_destinatario: address?.city || undefined,
-      uf_destinatario: address?.state || undefined,
-      cep_destinatario: address?.zipCode || undefined,
+      endereco_destinatario: customer.address || undefined,
+      cidade_destinatario: customer.city || undefined,
+      uf_destinatario: customer.state || undefined,
+      cep_destinatario: customer.zipCode || undefined,
       pais_destinatario: 'BR',
     };
   }

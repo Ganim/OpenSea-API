@@ -14,14 +14,11 @@ describe('Delete Signature Certificate (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent certificate', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
-      .delete(
-        '/v1/signature/certificates/00000000-0000-0000-0000-000000000000',
-      )
+      .delete('/v1/signature/certificates/00000000-0000-0000-0000-000000000000')
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(404);

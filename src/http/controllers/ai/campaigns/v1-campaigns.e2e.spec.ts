@@ -17,7 +17,6 @@ describe('AI Campaigns (E2E)', () => {
     token = auth.token;
   });
 
-
   it('POST /v1/ai/campaigns/generate — should return 401 without auth', async () => {
     const response = await request(app.server)
       .post('/v1/ai/campaigns/generate')

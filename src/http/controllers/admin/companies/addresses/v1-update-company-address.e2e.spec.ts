@@ -16,7 +16,6 @@ describe('Update Company Address (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update company address with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

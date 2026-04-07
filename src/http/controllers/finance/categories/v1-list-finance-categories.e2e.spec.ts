@@ -15,7 +15,6 @@ describe('List Finance Categories (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list finance categories', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

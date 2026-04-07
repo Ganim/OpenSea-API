@@ -17,7 +17,6 @@ describe('Update AI Config (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should update AI config (200)', async () => {
     const response = await request(app.server)
       .put('/v1/ai/config')

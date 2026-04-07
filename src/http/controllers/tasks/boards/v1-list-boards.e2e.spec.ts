@@ -15,7 +15,6 @@ describe('List Boards (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list boards with pagination', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

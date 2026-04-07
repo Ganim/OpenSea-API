@@ -716,13 +716,7 @@ export const ALL_PERMISSIONS: Record<string, Record<string, string[]>> = {
       'admin',
       'share',
     ],
-    'email.messages': [
-      'access',
-      'register',
-      'modify',
-      'remove',
-      'onlyself',
-    ],
+    'email.messages': ['access', 'register', 'modify', 'remove', 'onlyself'],
     // Tasks
     'tasks.boards': ['access', 'register', 'modify', 'remove', 'share'],
     'tasks.cards': [

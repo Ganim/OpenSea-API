@@ -14,7 +14,6 @@ describe('Get Candidate (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get a candidate by ID', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -40,8 +39,9 @@ describe('Get Candidate (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/recruitment/candidates/nonexistent-id');
+    const response = await request(app.server).get(
+      '/v1/hr/recruitment/candidates/nonexistent-id',
+    );
 
     expect(response.statusCode).toBe(401);
   });

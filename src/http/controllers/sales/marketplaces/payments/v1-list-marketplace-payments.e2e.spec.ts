@@ -14,7 +14,6 @@ describe('List Marketplace Payments (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list marketplace payments', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

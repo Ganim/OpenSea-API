@@ -17,7 +17,6 @@ describe('Register Item Entry (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should register item entry with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

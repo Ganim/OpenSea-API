@@ -18,7 +18,6 @@ describe('List Team Members (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list team members with pagination', async () => {
     const { token, user: ownerUser } = await createAndAuthenticateUser(app, {
       tenantId,

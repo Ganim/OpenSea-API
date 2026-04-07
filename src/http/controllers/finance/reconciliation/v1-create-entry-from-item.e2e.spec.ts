@@ -15,7 +15,6 @@ describe('Create Entry From Reconciliation Item (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for non-existent reconciliation/item', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

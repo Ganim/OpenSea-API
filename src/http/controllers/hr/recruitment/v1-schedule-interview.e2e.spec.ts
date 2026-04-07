@@ -15,7 +15,6 @@ describe('Schedule Interview (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should schedule an interview', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId } = await createEmployeeE2E({ tenantId });
@@ -27,7 +26,9 @@ describe('Schedule Interview (E2E)', () => {
       .send({ title: `Job ${Date.now()}`, type: 'FULL_TIME' });
 
     await request(app.server)
-      .patch(`/v1/hr/recruitment/job-postings/${jpRes.body.jobPosting.id}/publish`)
+      .patch(
+        `/v1/hr/recruitment/job-postings/${jpRes.body.jobPosting.id}/publish`,
+      )
       .set('Authorization', `Bearer ${token}`);
 
     // Create candidate + application

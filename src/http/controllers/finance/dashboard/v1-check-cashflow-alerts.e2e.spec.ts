@@ -14,7 +14,6 @@ describe('Check Cashflow Alerts (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return cashflow alerts', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

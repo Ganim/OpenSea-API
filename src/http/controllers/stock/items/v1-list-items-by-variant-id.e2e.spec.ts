@@ -16,7 +16,6 @@ describe('List Items By Variant ID (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list items by variant id with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

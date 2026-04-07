@@ -14,14 +14,16 @@ describe('Enroll Employee (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for non-existent data', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
       .post('/v1/hr/benefit-enrollments')
       .set('Authorization', `Bearer ${token}`)
-      .send({ employeeId: "00000000-0000-0000-0000-000000000000", benefitPlanId: "00000000-0000-0000-0000-000000000000" });
+      .send({
+        employeeId: '00000000-0000-0000-0000-000000000000',
+        benefitPlanId: '00000000-0000-0000-0000-000000000000',
+      });
 
     expect(response.status).not.toBe(401);
   });
@@ -29,7 +31,10 @@ describe('Enroll Employee (E2E)', () => {
   it('should return 401 when not authenticated', async () => {
     const response = await request(app.server)
       .post('/v1/hr/benefit-enrollments')
-      .send({ employeeId: "00000000-0000-0000-0000-000000000000", benefitPlanId: "00000000-0000-0000-0000-000000000000" });
+      .send({
+        employeeId: '00000000-0000-0000-0000-000000000000',
+        benefitPlanId: '00000000-0000-0000-0000-000000000000',
+      });
 
     expect(response.status).toBe(401);
   });

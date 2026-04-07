@@ -14,7 +14,6 @@ describe('Export Accounting (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should export accounting data', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

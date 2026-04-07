@@ -9,7 +9,6 @@ describe('Create Tenant (E2E)', () => {
     await app.ready();
   });
 
-
   it('should create a new tenant', async () => {
     const { token } = await createAndAuthenticateUser(app);
 

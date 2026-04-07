@@ -15,7 +15,6 @@ describe('Process Due Reminders (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should process due reminders', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

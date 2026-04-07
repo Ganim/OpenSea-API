@@ -14,14 +14,16 @@ describe('Bulk Enroll (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for empty data', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
       .post('/v1/hr/benefit-enrollments/bulk')
       .set('Authorization', `Bearer ${token}`)
-      .send({ benefitPlanId: "00000000-0000-0000-0000-000000000000", employeeIds: [] });
+      .send({
+        benefitPlanId: '00000000-0000-0000-0000-000000000000',
+        employeeIds: [],
+      });
 
     expect(response.status).not.toBe(401);
   });
@@ -29,7 +31,10 @@ describe('Bulk Enroll (E2E)', () => {
   it('should return 401 when not authenticated', async () => {
     const response = await request(app.server)
       .post('/v1/hr/benefit-enrollments/bulk')
-      .send({ benefitPlanId: "00000000-0000-0000-0000-000000000000", employeeIds: [] });
+      .send({
+        benefitPlanId: '00000000-0000-0000-0000-000000000000',
+        employeeIds: [],
+      });
 
     expect(response.status).toBe(401);
   });

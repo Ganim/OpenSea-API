@@ -15,7 +15,6 @@ describe('Delete Team (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should soft delete a team (owner)', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

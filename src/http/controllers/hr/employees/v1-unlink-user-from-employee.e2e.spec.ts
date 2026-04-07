@@ -15,7 +15,6 @@ describe('Unlink User from Employee (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should unlink user from employee', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { user: userToLink } = await createAndAuthenticateUser(app, {

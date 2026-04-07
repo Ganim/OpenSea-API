@@ -14,7 +14,6 @@ describe('Create Chart of Account (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a chart of account', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

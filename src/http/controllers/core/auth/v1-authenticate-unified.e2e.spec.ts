@@ -17,7 +17,6 @@ describe('Authenticate Unified (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should authenticate with email + password', async () => {
     const email = makeUniqueEmail('unified-email');
 

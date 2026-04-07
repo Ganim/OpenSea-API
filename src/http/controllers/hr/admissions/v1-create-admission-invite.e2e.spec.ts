@@ -15,7 +15,6 @@ describe('Create Admission Invite (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should create an admission invite successfully', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const inviteData = generateAdmissionInviteData();

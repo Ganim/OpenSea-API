@@ -14,7 +14,6 @@ describe('List Folder Templates (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return the list of available folder templates', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

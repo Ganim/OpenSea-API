@@ -14,7 +14,6 @@ describe('Check Overdue Entries (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should check for overdue entries', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

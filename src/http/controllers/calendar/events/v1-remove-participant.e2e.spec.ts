@@ -19,7 +19,6 @@ describe('Remove Participant (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should remove a participant from an event', async () => {
     const { token: ownerToken, user: ownerUser } =
       await createAndAuthenticateUser(app, { tenantId });

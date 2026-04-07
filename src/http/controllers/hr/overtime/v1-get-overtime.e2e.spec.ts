@@ -16,7 +16,6 @@ describe('Get Overtime (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get overtime by id with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId } = await createEmployeeE2E({ tenantId });

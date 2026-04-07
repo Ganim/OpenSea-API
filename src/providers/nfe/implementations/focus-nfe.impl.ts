@@ -1,3 +1,5 @@
+import { FocusNfeRestClient } from '../focus-nfe-rest-client';
+import type { IFocusNfeProvider } from '../focus-nfe.provider';
 import type {
   CancelInvoiceInput,
   CancelInvoiceResponse,
@@ -7,8 +9,6 @@ import type {
   CreateInvoiceResponse,
   TestConnectionResponse,
 } from '../focus-nfe.types';
-import type { IFocusNfeProvider } from '../focus-nfe.provider';
-import { FocusNfeRestClient } from '../focus-nfe-rest-client';
 
 /**
  * Implementação do IFocusNfeProvider usando Focus NFe REST API
@@ -20,10 +20,10 @@ export class FocusNfeProviderImpl implements IFocusNfeProvider {
     this.client = new FocusNfeRestClient(production);
   }
 
-  async createInvoice(input: CreateInvoiceInput): Promise<CreateInvoiceResponse> {
+  async createInvoice(
+    input: CreateInvoiceInput,
+  ): Promise<CreateInvoiceResponse> {
     try {
-      const endpoint = input.type === 'nfe' ? 'createNfe' : 'createNfce';
-      
       const payload = {
         referencia: input.reference,
         natureza_operacao: input.natureza_operacao,
@@ -116,7 +116,9 @@ export class FocusNfeProviderImpl implements IFocusNfeProvider {
     }
   }
 
-  async cancelInvoice(input: CancelInvoiceInput): Promise<CancelInvoiceResponse> {
+  async cancelInvoice(
+    input: CancelInvoiceInput,
+  ): Promise<CancelInvoiceResponse> {
     try {
       const payload = {
         numero_nf: input.numero_nf,
@@ -130,9 +132,17 @@ export class FocusNfeProviderImpl implements IFocusNfeProvider {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let response: any;
       if (input.type === 'nfe') {
-        response = await this.client.cancelNfe(input.ref, payload, input.apiKey);
+        response = await this.client.cancelNfe(
+          input.ref,
+          payload,
+          input.apiKey,
+        );
       } else {
-        response = await this.client.cancelNfce(input.ref, payload, input.apiKey);
+        response = await this.client.cancelNfce(
+          input.ref,
+          payload,
+          input.apiKey,
+        );
       }
 
       return {
@@ -143,7 +153,8 @@ export class FocusNfeProviderImpl implements IFocusNfeProvider {
         numero_nf: response.numero_nf,
         serie_nf: response.serie_nf,
         descricao_status: response.descricao_status,
-        protocoloCanc: response.protocolo_cancelamento || response.protocoloCanc,
+        protocoloCanc:
+          response.protocolo_cancelamento || response.protocoloCanc,
         ambiente: input.ambiente || 2,
       };
     } catch (error) {
@@ -155,7 +166,7 @@ export class FocusNfeProviderImpl implements IFocusNfeProvider {
 
   async testConnection(
     apiKey: string,
-    production: boolean = false,
+    _production = false,
   ): Promise<TestConnectionResponse> {
     try {
       await this.client.testConnection(apiKey);

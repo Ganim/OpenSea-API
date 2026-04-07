@@ -15,7 +15,6 @@ describe('Invite Board Member (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should invite a member to a board', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

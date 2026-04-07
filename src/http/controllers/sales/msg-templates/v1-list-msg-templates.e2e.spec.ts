@@ -14,7 +14,6 @@ describe('List Message Templates (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list message templates', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

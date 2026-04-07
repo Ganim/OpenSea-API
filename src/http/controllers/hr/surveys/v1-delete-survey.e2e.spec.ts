@@ -14,7 +14,6 @@ describe('Delete Survey (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a draft survey', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -38,8 +37,9 @@ describe('Delete Survey (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .delete('/v1/hr/surveys/nonexistent-id');
+    const response = await request(app.server).delete(
+      '/v1/hr/surveys/nonexistent-id',
+    );
 
     expect(response.statusCode).toBe(401);
   });

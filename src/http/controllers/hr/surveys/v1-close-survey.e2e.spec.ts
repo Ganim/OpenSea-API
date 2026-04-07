@@ -14,10 +14,10 @@ describe('Close Survey (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .patch('/v1/hr/surveys/nonexistent-id/close');
+    const response = await request(app.server).patch(
+      '/v1/hr/surveys/nonexistent-id/close',
+    );
 
     expect(response.statusCode).toBe(401);
   });

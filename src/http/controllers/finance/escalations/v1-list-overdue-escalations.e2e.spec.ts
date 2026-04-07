@@ -14,7 +14,6 @@ describe('List Overdue Escalations (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list escalation templates', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

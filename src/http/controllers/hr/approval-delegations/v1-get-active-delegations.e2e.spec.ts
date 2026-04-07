@@ -14,7 +14,6 @@ describe('Get Active Delegations (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return result or 404', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,9 @@ describe('Get Active Delegations (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/approval-delegations/active');
+    const response = await request(app.server).get(
+      '/v1/hr/approval-delegations/active',
+    );
 
     expect(response.status).toBe(401);
   });

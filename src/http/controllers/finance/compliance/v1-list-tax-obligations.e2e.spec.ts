@@ -14,7 +14,6 @@ describe('List Tax Obligations (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list tax obligations', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

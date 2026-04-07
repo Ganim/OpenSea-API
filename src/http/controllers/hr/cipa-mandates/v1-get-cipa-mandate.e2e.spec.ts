@@ -14,7 +14,6 @@ describe('Get CIPA Mandate (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent mandate', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,9 @@ describe('Get CIPA Mandate (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/cipa-mandates/00000000-0000-0000-0000-000000000000');
+    const response = await request(app.server).get(
+      '/v1/hr/cipa-mandates/00000000-0000-0000-0000-000000000000',
+    );
 
     expect(response.status).toBe(401);
   });

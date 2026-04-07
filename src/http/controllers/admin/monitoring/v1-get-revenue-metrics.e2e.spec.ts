@@ -9,7 +9,6 @@ describe('Admin Get Revenue Metrics (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return revenue metrics', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

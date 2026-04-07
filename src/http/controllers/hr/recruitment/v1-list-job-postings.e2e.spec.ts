@@ -14,7 +14,6 @@ describe('List Job Postings (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list job postings', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -29,8 +28,9 @@ describe('List Job Postings (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/recruitment/job-postings');
+    const response = await request(app.server).get(
+      '/v1/hr/recruitment/job-postings',
+    );
 
     expect(response.statusCode).toBe(401);
   });

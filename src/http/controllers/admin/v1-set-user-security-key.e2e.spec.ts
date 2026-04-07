@@ -24,7 +24,6 @@ describe('Set User Security Key (E2E)', () => {
     superAdminToken = sa.token;
   });
 
-
   it('should set a security key for a user', async () => {
     const response = await request(app.server)
       .patch(`/v1/admin/tenants/${tenantId}/users/${userId}/security-key`)

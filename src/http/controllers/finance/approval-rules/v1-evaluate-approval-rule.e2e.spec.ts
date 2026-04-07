@@ -15,7 +15,6 @@ describe('Evaluate Approval Rule (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should evaluate approval for a non-existent entry and return error or no match', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

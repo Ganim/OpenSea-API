@@ -18,6 +18,10 @@ export interface PosTransactionsRepository {
     id: UniqueEntityID,
     tenantId: string,
   ): Promise<PosTransaction | null>;
+  findByOrderId(
+    orderId: string,
+    tenantId: string,
+  ): Promise<PosTransaction | null>;
   findManyPaginated(
     params: FindManyPosTransactionsPaginatedParams,
   ): Promise<PaginatedResult<PosTransaction>>;

@@ -15,7 +15,6 @@ describe('Create Entries Batch (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create entries in batch', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { category, costCenter } = await createFinancePrerequisites(tenantId);

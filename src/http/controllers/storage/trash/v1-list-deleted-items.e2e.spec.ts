@@ -17,7 +17,6 @@ describe('List Deleted Items (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list soft-deleted files and folders', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

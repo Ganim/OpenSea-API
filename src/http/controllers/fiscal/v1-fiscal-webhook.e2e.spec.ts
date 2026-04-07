@@ -8,7 +8,6 @@ describe('Fiscal Webhook (E2E)', () => {
     await app.ready();
   });
 
-
   it('should accept webhook without auth (public endpoint)', async () => {
     const response = await request(app.server)
       .post('/v1/webhooks/fiscal')

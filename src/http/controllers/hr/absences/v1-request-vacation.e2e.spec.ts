@@ -16,7 +16,6 @@ describe('Request Vacation (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should request vacation with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -14,7 +14,6 @@ describe('Update Message Template (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update a message template', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

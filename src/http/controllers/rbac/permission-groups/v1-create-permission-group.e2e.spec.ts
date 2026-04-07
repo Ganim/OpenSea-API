@@ -14,7 +14,6 @@ describe('Create Permission Group (e2e)', () => {
     tenantId = tenantSetup.tenantId;
   });
 
-
   it('should create permission group with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

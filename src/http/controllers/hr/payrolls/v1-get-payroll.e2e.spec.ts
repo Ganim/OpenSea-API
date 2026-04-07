@@ -15,7 +15,6 @@ describe('Get Payroll (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get payroll by id with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const testMonth = 6;

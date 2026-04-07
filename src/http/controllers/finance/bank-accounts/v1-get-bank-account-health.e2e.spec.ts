@@ -16,7 +16,6 @@ describe('Get Bank Account Health (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return health status for bank account', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const bankAccount = await createBankAccount(tenantId);

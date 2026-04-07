@@ -16,7 +16,6 @@ describe('Connect Bank (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should attempt to connect bank account', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const bankAccount = await createBankAccount(tenantId);

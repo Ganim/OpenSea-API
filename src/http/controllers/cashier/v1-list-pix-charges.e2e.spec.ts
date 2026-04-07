@@ -14,7 +14,6 @@ describe('List PIX Charges (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list pix charges (empty)', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -15,7 +15,6 @@ describe('Get User By ID (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get user by id with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const uniqueId = Math.random().toString(36).substring(2, 10);

@@ -15,7 +15,6 @@ describe('Request My Overtime (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should request overtime for myself', { timeout: 15000 }, async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 

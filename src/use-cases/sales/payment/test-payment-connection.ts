@@ -19,9 +19,7 @@ interface TestPaymentConnectionUseCaseResponse {
 }
 
 export class TestPaymentConnectionUseCase {
-  constructor(
-    private paymentConfigsRepository: PaymentConfigsRepository,
-  ) {}
+  constructor(private paymentConfigsRepository: PaymentConfigsRepository) {}
 
   async execute(
     input: TestPaymentConnectionUseCaseRequest,
@@ -40,14 +38,10 @@ export class TestPaymentConnectionUseCase {
         : config.fallbackProvider;
 
     const encryptedConfig =
-      input.slot === 'primary'
-        ? config.primaryConfig
-        : config.fallbackConfig;
+      input.slot === 'primary' ? config.primaryConfig : config.fallbackConfig;
 
     if (!providerName) {
-      throw new BadRequestError(
-        `No ${input.slot} provider configured.`,
-      );
+      throw new BadRequestError(`No ${input.slot} provider configured.`);
     }
 
     if (providerName === 'manual') {

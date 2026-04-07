@@ -18,7 +18,6 @@ describe('Create Payment Order (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a payment order', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { category, costCenter, bankAccount } =

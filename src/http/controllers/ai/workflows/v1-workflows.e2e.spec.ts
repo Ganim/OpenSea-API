@@ -20,7 +20,6 @@ describe('AI Workflows (E2E)', () => {
     userId = auth.user.user.id;
   });
 
-
   /**
    * Helper to create a workflow directly via Prisma (bypasses AI provider)
    */

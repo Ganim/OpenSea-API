@@ -15,7 +15,6 @@ describe('Move Folder (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should move a folder to a new parent', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { folderId: targetParentId } = await createStorageFolderE2E({

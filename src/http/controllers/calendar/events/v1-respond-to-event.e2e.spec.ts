@@ -16,7 +16,6 @@ describe('Respond to Event (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should accept an event invitation', async () => {
     const { token: ownerToken, user: ownerUser } =
       await createAndAuthenticateUser(app, { tenantId });

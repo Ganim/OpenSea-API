@@ -15,7 +15,6 @@ describe('Register Loan Payment (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should register a loan payment', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { costCenter, bankAccount } =

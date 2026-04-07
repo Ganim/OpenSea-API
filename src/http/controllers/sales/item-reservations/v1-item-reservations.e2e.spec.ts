@@ -14,7 +14,6 @@ describe('Item Reservations (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('POST /v1/item-reservations', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
@@ -30,8 +29,7 @@ describe('Item Reservations (E2E)', () => {
 
   describe('GET /v1/item-reservations', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/item-reservations');
+      const response = await request(app.server).get('/v1/item-reservations');
 
       expect(response.status).toBe(401);
     });
@@ -51,8 +49,9 @@ describe('Item Reservations (E2E)', () => {
 
   describe('GET /v1/item-reservations/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/item-reservations/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).get(
+        '/v1/item-reservations/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -60,8 +59,9 @@ describe('Item Reservations (E2E)', () => {
 
   describe('PATCH /v1/item-reservations/:id/release', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .patch('/v1/item-reservations/00000000-0000-0000-0000-000000000001/release');
+      const response = await request(app.server).patch(
+        '/v1/item-reservations/00000000-0000-0000-0000-000000000001/release',
+      );
 
       expect(response.status).toBe(401);
     });

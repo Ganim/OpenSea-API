@@ -14,7 +14,6 @@ describe('List Signature Certificates (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list certificates (empty)', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

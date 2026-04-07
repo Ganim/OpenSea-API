@@ -18,7 +18,6 @@ describe('Change Team Member Role (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should change member role to ADMIN (owner)', async () => {
     const { token, user: ownerUser } = await createAndAuthenticateUser(app, {
       tenantId,

@@ -20,7 +20,6 @@ describe('Access Shared File (E2E)', () => {
     uploaderId = randomUUID();
   });
 
-
   it('should access a shared file via public link', async () => {
     const { folderId } = await createStorageFolderE2E({ tenantId });
     const { fileId } = await createStorageFileE2E({

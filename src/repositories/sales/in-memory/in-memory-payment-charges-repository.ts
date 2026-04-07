@@ -1,9 +1,9 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { PaymentCharge } from '@/entities/sales/payment-charge';
 import type { PaymentChargeStatus } from '@/entities/sales/payment-charge';
+import { PaymentCharge } from '@/entities/sales/payment-charge';
 import type {
-  PaymentChargesRepository,
   CreatePaymentChargeSchema,
+  PaymentChargesRepository,
 } from '../payment-charges-repository';
 
 export class InMemoryPaymentChargesRepository
@@ -34,10 +34,7 @@ export class InMemoryPaymentChargesRepository
     return charge;
   }
 
-  async findById(
-    id: string,
-    tenantId: string,
-  ): Promise<PaymentCharge | null> {
+  async findById(id: string, tenantId: string): Promise<PaymentCharge | null> {
     return (
       this.items.find(
         (charge) =>
@@ -45,6 +42,21 @@ export class InMemoryPaymentChargesRepository
           charge.tenantId.toString() === tenantId,
       ) ?? null
     );
+  }
+
+  async findByOrder(
+    orderId: string,
+    tenantId: string,
+  ): Promise<PaymentCharge[]> {
+    return this.items
+      .filter(
+        (charge) =>
+          charge.orderId.toString() === orderId &&
+          charge.tenantId.toString() === tenantId,
+      )
+      .sort((leftCharge, rightCharge) => {
+        return leftCharge.createdAt.getTime() - rightCharge.createdAt.getTime();
+      });
   }
 
   async findByProviderChargeId(
@@ -67,6 +79,24 @@ export class InMemoryPaymentChargesRepository
         charge.tenantId.toString() === tenantId &&
         charge.status === 'PENDING',
     );
+  }
+
+  async findPendingOverAge(
+    tenantId: string,
+    ageHours = 24,
+  ): Promise<PaymentCharge[]> {
+    const thresholdDate = new Date(Date.now() - ageHours * 60 * 60 * 1000);
+
+    return this.items
+      .filter(
+        (charge) =>
+          charge.tenantId.toString() === tenantId &&
+          charge.status === 'PENDING' &&
+          charge.createdAt < thresholdDate,
+      )
+      .sort((leftCharge, rightCharge) => {
+        return leftCharge.createdAt.getTime() - rightCharge.createdAt.getTime();
+      });
   }
 
   async updateStatusIdempotent(

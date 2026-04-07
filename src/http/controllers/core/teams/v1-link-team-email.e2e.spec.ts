@@ -15,7 +15,6 @@ describe('Link Team Email (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 when linking email to non-existent team', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

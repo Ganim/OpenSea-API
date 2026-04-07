@@ -43,7 +43,6 @@ describe('Finance Contracts (E2E)', () => {
     bankAccountId = prereqs.bankAccount.id;
   });
 
-
   // --- CREATE ---
   it('should create a contract', async () => {
     const response = await request(app.server)

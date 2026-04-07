@@ -15,7 +15,6 @@ describe('Apply Folder Template (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should apply a valid template to a user folder', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

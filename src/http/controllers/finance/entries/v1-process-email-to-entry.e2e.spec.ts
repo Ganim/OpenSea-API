@@ -14,7 +14,6 @@ describe('Process Email To Entry (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should attempt to process email-to-entry', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

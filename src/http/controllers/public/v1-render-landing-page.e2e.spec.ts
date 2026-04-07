@@ -8,7 +8,6 @@ describe('Render Landing Page (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return 404 HTML for non-existent landing page', async () => {
     const response = await request(app.server).get(
       '/lp/non-existent-tenant/non-existent-page',

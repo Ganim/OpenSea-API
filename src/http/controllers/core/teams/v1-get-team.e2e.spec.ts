@@ -15,7 +15,6 @@ describe('Get Team (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get a team by id', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

@@ -1,4 +1,3 @@
-import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { FocusNfeConfig } from '@/entities/sales/focus-nfe-config';
 
 export interface FocusNfeConfigRepository {

@@ -17,7 +17,6 @@ describe('Get Inventory Session (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get an inventory session by ID', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

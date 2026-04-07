@@ -16,7 +16,6 @@ describe('Delete Variant Attachment (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a variant attachment successfully', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { product } = await createProduct({ tenantId });

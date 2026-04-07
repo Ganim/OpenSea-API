@@ -14,7 +14,6 @@ describe('Update Announcement (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent announcement', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -50,6 +50,11 @@ export class Invoice extends Entity<InvoiceProps> {
     return this.props.number;
   }
 
+  set number(value: string) {
+    this.props.number = value;
+    this.touch();
+  }
+
   get series(): string {
     return this.props.series;
   }
@@ -58,8 +63,18 @@ export class Invoice extends Entity<InvoiceProps> {
     return this.props.accessKey;
   }
 
+  set accessKey(value: string) {
+    this.props.accessKey = value;
+    this.touch();
+  }
+
   get focusIdRef(): string | undefined {
     return this.props.focusIdRef;
+  }
+
+  set focusIdRef(value: string | undefined) {
+    this.props.focusIdRef = value;
+    this.touch();
   }
 
   get status(): InvoiceStatus {
@@ -159,10 +174,24 @@ export class Invoice extends Entity<InvoiceProps> {
     return this.props.deletedAt !== undefined;
   }
 
+  softDelete(): void {
+    this.props.deletedAt = new Date();
+    this.touch();
+  }
+
+  private touch(): void {
+    this.props.updatedAt = new Date();
+  }
+
   /**
    * Marca a fatura como emitida com sucesso
    */
-  markAsIssued(accessKey: string, focusIdRef?: string, xmlUrl?: string, pdfUrl?: string): void {
+  markAsIssued(
+    accessKey: string,
+    focusIdRef?: string,
+    xmlUrl?: string,
+    pdfUrl?: string,
+  ): void {
     this.props.status = 'ISSUED';
     this.props.accessKey = accessKey;
     this.props.focusIdRef = focusIdRef;
@@ -197,13 +226,17 @@ export class Invoice extends Entity<InvoiceProps> {
   /**
    * Cria uma nova Invoice
    */
-  static create(props: Optional<InvoiceProps, 'createdAt' | 'id'>, id?: UniqueEntityID): Invoice {
+  static create(
+    props: Optional<InvoiceProps, 'createdAt' | 'id'>,
+    id?: UniqueEntityID,
+  ): Invoice {
     const invoice = new Invoice(
       {
         ...props,
+        id: props.id ?? id ?? new UniqueEntityID(),
         createdAt: props.createdAt ?? new Date(),
       },
-      id,
+      id ?? props.id,
     );
     return invoice;
   }

@@ -14,7 +14,6 @@ describe('Catalogs (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('POST /v1/catalogs', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
@@ -48,8 +47,7 @@ describe('Catalogs (E2E)', () => {
 
   describe('GET /v1/catalogs', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/catalogs');
+      const response = await request(app.server).get('/v1/catalogs');
 
       expect(response.status).toBe(401);
     });
@@ -70,8 +68,9 @@ describe('Catalogs (E2E)', () => {
 
   describe('GET /v1/catalogs/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/catalogs/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).get(
+        '/v1/catalogs/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -89,8 +88,9 @@ describe('Catalogs (E2E)', () => {
 
   describe('DELETE /v1/catalogs/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .delete('/v1/catalogs/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).delete(
+        '/v1/catalogs/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -108,8 +108,9 @@ describe('Catalogs (E2E)', () => {
 
   describe('DELETE /v1/catalogs/:id/items/:itemId', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .delete('/v1/catalogs/00000000-0000-0000-0000-000000000001/items/00000000-0000-0000-0000-000000000002');
+      const response = await request(app.server).delete(
+        '/v1/catalogs/00000000-0000-0000-0000-000000000001/items/00000000-0000-0000-0000-000000000002',
+      );
 
       expect(response.status).toBe(401);
     });

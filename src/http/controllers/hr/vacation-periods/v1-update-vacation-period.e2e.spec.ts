@@ -14,7 +14,6 @@ describe('Update Vacation Period (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent period', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const response = await request(app.server)

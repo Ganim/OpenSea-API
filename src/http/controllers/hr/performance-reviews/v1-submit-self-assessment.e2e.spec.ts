@@ -14,9 +14,12 @@ describe('Submit Self Assessment (E2E)', () => {
     tenantId = tid;
   });
 
+  it('should return 404 when submitting self assessment for non-existent record', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const response = await request(app.server)
-      .patch('/v1/hr/performance-reviews/clxxxxxxxxxxxxxxxxxxxxxxxxx/self-assessment')
+      .patch(
+        '/v1/hr/performance-reviews/clxxxxxxxxxxxxxxxxxxxxxxxxx/self-assessment',
+      )
       .set('Authorization', `Bearer ${token}`)
       .send({ score: 7, feedback: 'Self assessment feedback' });
     expect(response.status).toBe(404);
@@ -24,7 +27,9 @@ describe('Submit Self Assessment (E2E)', () => {
 
   it('should return 401 when not authenticated', async () => {
     const response = await request(app.server)
-      .patch('/v1/hr/performance-reviews/clxxxxxxxxxxxxxxxxxxxxxxxxx/self-assessment')
+      .patch(
+        '/v1/hr/performance-reviews/clxxxxxxxxxxxxxxxxxxxxxxxxx/self-assessment',
+      )
       .send({ score: 7 });
     expect(response.status).toBe(401);
   });

@@ -25,9 +25,7 @@ export class DeletePipelineUseCase {
 
     // Guard: system pipelines (e.g., PDV) cannot be deleted
     if (pipeline.name === 'PDV') {
-      throw new BadRequestError(
-        'Não é possível excluir entidades do sistema.',
-      );
+      throw new BadRequestError('Não é possível excluir entidades do sistema.');
     }
 
     await this.pipelinesRepository.delete(new UniqueEntityID(id));

@@ -115,9 +115,12 @@ export class PrismaItemsRepository implements ItemsRepository {
       variantPattern: itemData.variant.pattern ?? undefined,
       manufacturerName: itemData.variant.product.manufacturer?.name,
       productId: itemData.variant.product.id,
-      templateProductAttributes: itemData.variant.product.template?.productAttributes as Record<string, unknown> | undefined,
-      templateVariantAttributes: itemData.variant.product.template?.variantAttributes as Record<string, unknown> | undefined,
-      templateItemAttributes: itemData.variant.product.template?.itemAttributes as Record<string, unknown> | undefined,
+      templateProductAttributes: itemData.variant.product.template
+        ?.productAttributes as Record<string, unknown> | undefined,
+      templateVariantAttributes: itemData.variant.product.template
+        ?.variantAttributes as Record<string, unknown> | undefined,
+      templateItemAttributes: itemData.variant.product.template
+        ?.itemAttributes as Record<string, unknown> | undefined,
     };
   }
 

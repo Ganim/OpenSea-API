@@ -9,7 +9,6 @@ describe('Admin List Tickets (E2E)', () => {
     await app.ready();
   });
 
-
   it('should list all support tickets', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

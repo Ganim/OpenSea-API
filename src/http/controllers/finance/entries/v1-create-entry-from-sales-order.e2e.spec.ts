@@ -15,7 +15,6 @@ describe('Create Entry From Sales Order (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for non-existent sales order', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

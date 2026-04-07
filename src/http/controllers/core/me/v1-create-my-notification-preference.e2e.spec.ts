@@ -14,7 +14,6 @@ describe('Create My Notification Preference (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a notification preference', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 

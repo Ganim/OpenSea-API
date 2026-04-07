@@ -16,7 +16,6 @@ describe('Convert PFX Certificate (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 400 when no file is uploaded', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const bankAccount = await createBankAccount(tenantId);

@@ -14,15 +14,20 @@ describe('List Performance Reviews (E2E)', () => {
     tenantId = tid;
   });
 
+  it('should list performance reviews when authenticated', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
-    const response = await request(app.server).get('/v1/hr/performance-reviews').set('Authorization', `Bearer ${token}`);
+    const response = await request(app.server)
+      .get('/v1/hr/performance-reviews')
+      .set('Authorization', `Bearer ${token}`);
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('reviews');
     expect(response.body).toHaveProperty('total');
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server).get('/v1/hr/performance-reviews');
+    const response = await request(app.server).get(
+      '/v1/hr/performance-reviews',
+    );
     expect(response.status).toBe(401);
   });
 });

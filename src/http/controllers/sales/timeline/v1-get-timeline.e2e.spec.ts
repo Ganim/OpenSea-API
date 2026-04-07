@@ -14,7 +14,6 @@ describe('Get Timeline (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get timeline', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

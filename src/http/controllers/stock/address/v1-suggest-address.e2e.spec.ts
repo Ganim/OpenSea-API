@@ -15,7 +15,6 @@ describe('Suggest Address (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should suggest addresses with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

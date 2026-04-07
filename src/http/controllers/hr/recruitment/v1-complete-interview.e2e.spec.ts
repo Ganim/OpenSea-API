@@ -14,7 +14,6 @@ describe('Complete Interview (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
     const response = await request(app.server)
       .patch('/v1/hr/recruitment/interviews/nonexistent-id/complete')
@@ -31,7 +30,9 @@ describe('Complete Interview (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
-      .patch('/v1/hr/recruitment/interviews/clxxxxxxxxxxxxxxxxxxxxxxxxx/complete')
+      .patch(
+        '/v1/hr/recruitment/interviews/clxxxxxxxxxxxxxxxxxxxxxxxxx/complete',
+      )
       .set('Authorization', `Bearer ${token}`)
       .send({
         feedback: 'Good candidate',

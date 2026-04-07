@@ -14,7 +14,6 @@ describe('Get eSocial Table Items (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent table code', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -15,7 +15,6 @@ describe('Get Loan By Id (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get a loan by id', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { costCenter, bankAccount } =

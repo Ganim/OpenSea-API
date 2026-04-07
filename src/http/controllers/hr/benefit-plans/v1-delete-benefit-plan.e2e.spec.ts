@@ -15,7 +15,6 @@ describe('Delete Benefit Plan (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete (deactivate) a benefit plan', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { benefitPlanId } = await createBenefitPlanE2E({

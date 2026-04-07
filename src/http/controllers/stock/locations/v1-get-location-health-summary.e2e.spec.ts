@@ -14,7 +14,6 @@ describe('Get Location Health Summary (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return the location health summary', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

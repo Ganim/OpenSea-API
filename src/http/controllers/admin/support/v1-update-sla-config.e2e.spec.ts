@@ -9,7 +9,6 @@ describe('Admin Update SLA Config (E2E)', () => {
     await app.ready();
   });
 
-
   it('should update SLA config for a priority (or 404 if not seeded)', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

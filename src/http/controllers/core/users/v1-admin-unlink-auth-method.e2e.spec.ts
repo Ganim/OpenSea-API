@@ -14,7 +14,6 @@ describe('Admin Unlink Auth Method (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should unlink auth method from a user as admin', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { user: targetUser } = await createAndAuthenticateUser(app, {
@@ -41,9 +40,7 @@ describe('Admin Unlink Auth Method (E2E)', () => {
     expect(cpfLink).toBeTruthy();
 
     const response = await request(app.server)
-      .delete(
-        `/v1/users/${targetUser.user.id}/auth-links/${cpfLink.id}`,
-      )
+      .delete(`/v1/users/${targetUser.user.id}/auth-links/${cpfLink.id}`)
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(200);

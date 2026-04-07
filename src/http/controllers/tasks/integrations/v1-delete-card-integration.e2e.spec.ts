@@ -16,7 +16,6 @@ describe('Delete Card Integration (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a card integration', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

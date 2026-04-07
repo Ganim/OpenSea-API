@@ -17,7 +17,6 @@ describe('Bulk Delete Items (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should bulk-delete files and folders', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

@@ -14,14 +14,13 @@ describe('Update CIPA Mandate (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent mandate', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
       .put('/v1/hr/cipa-mandates/00000000-0000-0000-0000-000000000000')
       .set('Authorization', `Bearer ${token}`)
-      .send({ notes: "Updated notes" });
+      .send({ notes: 'Updated notes' });
 
     expect(response.status).not.toBe(401);
   });
@@ -29,7 +28,7 @@ describe('Update CIPA Mandate (E2E)', () => {
   it('should return 401 when not authenticated', async () => {
     const response = await request(app.server)
       .put('/v1/hr/cipa-mandates/00000000-0000-0000-0000-000000000000')
-      .send({ notes: "Updated notes" });
+      .send({ notes: 'Updated notes' });
 
     expect(response.status).toBe(401);
   });

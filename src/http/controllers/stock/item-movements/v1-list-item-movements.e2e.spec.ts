@@ -17,7 +17,6 @@ describe('List Item Movements (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list item movements with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

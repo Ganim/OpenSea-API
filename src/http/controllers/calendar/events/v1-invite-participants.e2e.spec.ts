@@ -16,7 +16,6 @@ describe('Invite Participants (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should invite a participant to an event', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const { user: user2 } = await createAndAuthenticateUser(app, { tenantId });

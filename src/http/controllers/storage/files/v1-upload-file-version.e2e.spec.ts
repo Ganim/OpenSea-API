@@ -16,7 +16,6 @@ describe('Upload File Version (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should upload a new version of a file', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

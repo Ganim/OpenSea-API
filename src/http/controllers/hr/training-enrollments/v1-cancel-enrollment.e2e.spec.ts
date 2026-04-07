@@ -14,7 +14,6 @@ describe('Cancel Training Enrollment (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent enrollment', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

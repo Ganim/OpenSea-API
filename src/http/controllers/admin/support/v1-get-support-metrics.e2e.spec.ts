@@ -9,7 +9,6 @@ describe('Admin Get Support Metrics (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return support metrics', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

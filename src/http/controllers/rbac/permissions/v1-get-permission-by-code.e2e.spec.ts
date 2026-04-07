@@ -14,7 +14,6 @@ describe('Get Permission By Code (e2e)', () => {
     tenantId = tid;
   });
 
-
   it('should get permission by code with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const permission = await makePermission({

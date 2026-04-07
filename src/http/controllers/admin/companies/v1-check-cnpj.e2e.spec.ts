@@ -18,7 +18,6 @@ describe('Check CNPJ (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should check cnpj with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const cnpj = generateCNPJForTest();

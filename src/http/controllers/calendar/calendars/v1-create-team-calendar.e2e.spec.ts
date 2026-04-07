@@ -15,7 +15,6 @@ describe('Create Team Calendar (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a team calendar', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

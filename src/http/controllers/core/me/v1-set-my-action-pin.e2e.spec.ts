@@ -14,7 +14,6 @@ describe('Set My Action PIN (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should set action PIN with correct password', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

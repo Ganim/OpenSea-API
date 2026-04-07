@@ -20,6 +20,9 @@ export type {
   OrderDeliveredData,
   OrderPaidData,
   OrderShippedData,
+  PaymentConfirmedData,
+  PaymentExpiredData,
+  PaymentFailedData,
   PriceTableUpdatedData,
   SalesEventType,
   StageChangedData,
@@ -45,9 +48,9 @@ export type {
 
 // Event bus
 export {
-  TypedEventBus,
   getTypedEventBus,
   setTypedEventBus,
+  TypedEventBus,
 } from './typed-event-bus';
 export type { TypedEventBusOptions } from './typed-event-bus';
 
@@ -56,15 +59,15 @@ export { registerEventConsumers } from './register-consumers';
 
 // Consumers
 export { crmTimelineConsumer } from './consumers/crm-consumer';
-export { notificationConsumer } from './consumers/notification-consumer';
-export {
-  stockOrderCancellationConsumer,
-  stockOrderReservationConsumer,
-} from './consumers/stock-consumer';
+export { dealWonOrderCreationConsumer } from './consumers/deal-won-consumer';
 export {
   financeOrderPaymentConsumer,
   financePixPaymentConsumer,
 } from './consumers/finance-consumer';
 export { marketplaceOrderImportConsumer } from './consumers/marketplace-consumer';
-export { dealWonOrderCreationConsumer } from './consumers/deal-won-consumer';
 export { messagingNotificationConsumer } from './consumers/messaging-notification-consumer';
+export { notificationConsumer } from './consumers/notification-consumer';
+export {
+  stockOrderCancellationConsumer,
+  stockOrderReservationConsumer,
+} from './consumers/stock-consumer';

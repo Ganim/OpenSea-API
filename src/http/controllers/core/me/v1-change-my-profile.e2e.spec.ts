@@ -14,7 +14,6 @@ describe('Change My Profile (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should change my profile with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

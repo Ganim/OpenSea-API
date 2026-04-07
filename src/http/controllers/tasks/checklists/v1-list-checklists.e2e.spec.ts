@@ -16,7 +16,6 @@ describe('List Checklists (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list all checklists for a card', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

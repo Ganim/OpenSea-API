@@ -20,7 +20,6 @@ describe('Get Workflow (E2E)', () => {
     userId = auth.user.user.id;
   });
 
-
   it('should get workflow by ID (200)', async () => {
     const workflow = await prisma.aiWorkflow.create({
       data: {

@@ -16,7 +16,6 @@ describe('Change User Password (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should change user password with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

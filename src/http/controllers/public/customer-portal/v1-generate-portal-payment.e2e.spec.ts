@@ -8,7 +8,6 @@ describe('Generate Portal Payment (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return 401 for invalid portal token', async () => {
     const response = await request(app.server)
       .post(

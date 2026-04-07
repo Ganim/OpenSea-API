@@ -17,7 +17,6 @@ describe('List Conversations (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should list conversations (200)', async () => {
     const response = await request(app.server)
       .get('/v1/ai/chat/conversations')
@@ -34,9 +33,7 @@ describe('List Conversations (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server).get(
-      '/v1/ai/chat/conversations',
-    );
+    const response = await request(app.server).get('/v1/ai/chat/conversations');
 
     expect(response.status).toBe(401);
   });

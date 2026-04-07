@@ -14,7 +14,6 @@ describe('Announcements (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('POST /v1/hr/announcements', () => {
     it('should create an announcement successfully', async () => {
       const { token } = await createAndAuthenticateUser(app, { tenantId });

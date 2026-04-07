@@ -18,7 +18,6 @@ describe('Export Calendar Events - Personal Only (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should export events as iCal', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 

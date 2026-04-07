@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach } from 'vitest';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Invoice } from '@/entities/sales/invoice';
 import { InMemoryInvoicesRepository } from '@/repositories/sales/in-memory/in-memory-invoices-repository';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { ListInvoicesUseCase } from './list-invoices.use-case';
 
 describe('ListInvoicesUseCase', () => {

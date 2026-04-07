@@ -20,7 +20,6 @@ describe('Update Workflow (E2E)', () => {
     userId = auth.user.user.id;
   });
 
-
   it('should update workflow (toggle isActive) (200)', async () => {
     const workflow = await prisma.aiWorkflow.create({
       data: {

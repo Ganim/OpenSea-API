@@ -17,7 +17,6 @@ describe('Analytics (E2E)', () => {
     token = auth.token;
   });
 
-
   // --- Goals ---
 
   it('POST /v1/sales/analytics/goals should create a goal (201)', async () => {

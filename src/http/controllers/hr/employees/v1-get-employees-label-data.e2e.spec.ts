@@ -15,7 +15,6 @@ describe('Get Employees Label Data (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return label data for employees', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

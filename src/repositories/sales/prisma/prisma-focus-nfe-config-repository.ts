@@ -22,7 +22,9 @@ function mapToDomain(data: any): FocusNfeConfig {
   );
 }
 
-export class PrismaFocusNfeConfigRepository implements FocusNfeConfigRepository {
+export class PrismaFocusNfeConfigRepository
+  implements FocusNfeConfigRepository
+{
   async create(config: FocusNfeConfig): Promise<void> {
     await prisma.focusNfeConfig.create({
       data: {

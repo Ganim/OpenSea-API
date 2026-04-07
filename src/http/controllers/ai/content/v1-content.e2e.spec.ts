@@ -17,7 +17,6 @@ describe('AI Content (E2E)', () => {
     token = auth.token;
   });
 
-
   it('POST /v1/ai/content/generate — should return 401 without auth', async () => {
     const response = await request(app.server)
       .post('/v1/ai/content/generate')

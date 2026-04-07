@@ -10,9 +10,7 @@ let getPaymentConfig: GetPaymentConfigUseCase;
 describe('GetPaymentConfigUseCase', () => {
   beforeEach(() => {
     paymentConfigsRepository = new InMemoryPaymentConfigsRepository();
-    getPaymentConfig = new GetPaymentConfigUseCase(
-      paymentConfigsRepository,
-    );
+    getPaymentConfig = new GetPaymentConfigUseCase(paymentConfigsRepository);
   });
 
   it('should return null when no config exists', async () => {

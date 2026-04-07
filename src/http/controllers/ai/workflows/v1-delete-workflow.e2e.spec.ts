@@ -20,7 +20,6 @@ describe('Delete Workflow (E2E)', () => {
     userId = auth.user.user.id;
   });
 
-
   it('should delete workflow (204)', async () => {
     const workflow = await prisma.aiWorkflow.create({
       data: {

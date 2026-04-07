@@ -14,7 +14,6 @@ describe('Update Shift (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update a shift', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -1,13 +1,13 @@
-import { PrismaOrdersRepository } from '@/repositories/sales/prisma/prisma-orders-repository';
-import { PrismaOrderItemsRepository } from '@/repositories/sales/prisma/prisma-order-items-repository';
-import { PrismaCustomersRepository } from '@/repositories/sales/prisma/prisma-customers-repository';
-import { PrismaInvoicesRepository } from '@/repositories/sales/prisma/prisma-invoices-repository';
-import { PrismaFocusNfeConfigRepository } from '@/repositories/sales/prisma/prisma-focus-nfe-config-repository';
 import { FocusNfeProviderImpl } from '@/providers/nfe/implementations/focus-nfe.impl';
-import { IssueInvoiceUseCase } from '../issue-invoice.use-case';
-import { CheckInvoiceStatusUseCase } from '../check-invoice-status.use-case';
+import { PrismaCustomersRepository } from '@/repositories/sales/prisma/prisma-customers-repository';
+import { PrismaFocusNfeConfigRepository } from '@/repositories/sales/prisma/prisma-focus-nfe-config-repository';
+import { PrismaInvoicesRepository } from '@/repositories/sales/prisma/prisma-invoices-repository';
+import { PrismaOrderItemsRepository } from '@/repositories/sales/prisma/prisma-order-items-repository';
+import { PrismaOrdersRepository } from '@/repositories/sales/prisma/prisma-orders-repository';
 import { CancelInvoiceUseCase } from '../cancel-invoice.use-case';
+import { CheckInvoiceStatusUseCase } from '../check-invoice-status.use-case';
 import { ConfigureFocusNfeUseCase } from '../configure-focus-nfe.use-case';
+import { IssueInvoiceUseCase } from '../issue-invoice.use-case';
 import { ListInvoicesUseCase } from '../list-invoices.use-case';
 
 export function makeIssueInvoiceUseCase(): IssueInvoiceUseCase {

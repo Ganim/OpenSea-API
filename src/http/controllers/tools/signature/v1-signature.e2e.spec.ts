@@ -18,7 +18,6 @@ describe('Digital Signature (E2E)', () => {
     token = auth.token;
   });
 
-
   // ─── Certificates ──────────────────────────────────────────────────
 
   it('POST /v1/signature/certificates should upload a certificate (201)', async () => {

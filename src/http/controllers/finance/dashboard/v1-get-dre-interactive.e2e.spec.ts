@@ -14,7 +14,6 @@ describe('Get DRE Interactive (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return DRE interactive data', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -27,9 +26,7 @@ describe('Get DRE Interactive (E2E)', () => {
   });
 
   it('should return 401 without auth', async () => {
-    const response = await request(app.server).get(
-      '/v1/finance/dashboard/dre',
-    );
+    const response = await request(app.server).get('/v1/finance/dashboard/dre');
 
     expect(response.status).toBe(401);
   });

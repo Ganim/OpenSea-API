@@ -14,9 +14,12 @@ describe('Submit Manager Review (E2E)', () => {
     tenantId = tid;
   });
 
+  it('should return 404 when submitting manager review for non-existent record', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const response = await request(app.server)
-      .patch('/v1/hr/performance-reviews/clxxxxxxxxxxxxxxxxxxxxxxxxx/manager-review')
+      .patch(
+        '/v1/hr/performance-reviews/clxxxxxxxxxxxxxxxxxxxxxxxxx/manager-review',
+      )
       .set('Authorization', `Bearer ${token}`)
       .send({ score: 8, feedback: 'Good performance' });
     expect(response.status).toBe(404);
@@ -24,7 +27,9 @@ describe('Submit Manager Review (E2E)', () => {
 
   it('should return 401 when not authenticated', async () => {
     const response = await request(app.server)
-      .patch('/v1/hr/performance-reviews/clxxxxxxxxxxxxxxxxxxxxxxxxx/manager-review')
+      .patch(
+        '/v1/hr/performance-reviews/clxxxxxxxxxxxxxxxxxxxxxxxxx/manager-review',
+      )
       .send({ score: 8 });
     expect(response.status).toBe(401);
   });

@@ -14,7 +14,6 @@ describe('Get Cashflow Accuracy (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return cashflow accuracy data', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

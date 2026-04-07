@@ -15,7 +15,6 @@ describe('Update Product (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update product with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

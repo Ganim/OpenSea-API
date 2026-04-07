@@ -11,7 +11,6 @@ describe('Remove Tenant User (E2E)', () => {
     await app.ready();
   });
 
-
   it('should remove a user from a tenant', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
     const timestamp = Date.now();

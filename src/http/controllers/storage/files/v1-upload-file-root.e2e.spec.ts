@@ -14,7 +14,6 @@ describe('Upload File to Root (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should upload a file to root (no folder)', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -15,7 +15,6 @@ describe('Calculate Termination (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should calculate termination payment', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { terminationId } = await createTerminationE2E({ tenantId });

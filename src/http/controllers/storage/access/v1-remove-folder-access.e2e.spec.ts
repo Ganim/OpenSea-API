@@ -15,7 +15,6 @@ describe('Remove Folder Access (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should remove an access rule', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

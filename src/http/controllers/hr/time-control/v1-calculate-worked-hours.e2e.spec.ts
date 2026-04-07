@@ -16,7 +16,6 @@ describe('Calculate Worked Hours (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should calculate worked hours with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId } = await createEmployeeE2E({ tenantId });

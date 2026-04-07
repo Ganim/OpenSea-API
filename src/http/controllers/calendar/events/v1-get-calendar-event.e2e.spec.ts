@@ -15,7 +15,6 @@ describe('Get Calendar Event (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get event by id', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -13,7 +13,10 @@ export class InMemoryInvoicesRepository implements InvoicesRepository {
     this.items.push(invoice);
   }
 
-  async findById(id: UniqueEntityID, tenantId: string): Promise<Invoice | null> {
+  async findById(
+    id: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Invoice | null> {
     return (
       this.items.find(
         (inv) =>
@@ -24,7 +27,10 @@ export class InMemoryInvoicesRepository implements InvoicesRepository {
     );
   }
 
-  async findByAccessKey(accessKey: string, tenantId: string): Promise<Invoice | null> {
+  async findByAccessKey(
+    accessKey: string,
+    tenantId: string,
+  ): Promise<Invoice | null> {
     return (
       this.items.find(
         (inv) =>
@@ -51,7 +57,10 @@ export class InMemoryInvoicesRepository implements InvoicesRepository {
     );
   }
 
-  async findByOrderId(orderId: UniqueEntityID, tenantId: string): Promise<Invoice | null> {
+  async findByOrderId(
+    orderId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<Invoice | null> {
     return (
       this.items.find(
         (inv) =>
@@ -71,7 +80,9 @@ export class InMemoryInvoicesRepository implements InvoicesRepository {
 
     // Apply filters
     if (params.filters?.status) {
-      filtered = filtered.filter((inv) => inv.status === params.filters?.status);
+      filtered = filtered.filter(
+        (inv) => inv.status === params.filters?.status,
+      );
     }
 
     if (params.filters?.orderId) {
@@ -81,7 +92,9 @@ export class InMemoryInvoicesRepository implements InvoicesRepository {
     }
 
     if (params.filters?.fromDate) {
-      filtered = filtered.filter((inv) => inv.createdAt >= params.filters!.fromDate!);
+      filtered = filtered.filter(
+        (inv) => inv.createdAt >= params.filters!.fromDate!,
+      );
     }
 
     if (params.filters?.toDate) {
@@ -103,7 +116,7 @@ export class InMemoryInvoicesRepository implements InvoicesRepository {
       total,
       page: params.page,
       limit: params.limit,
-      pages: Math.ceil(total / params.limit),
+      totalPages: Math.ceil(total / params.limit),
     };
   }
 
@@ -112,7 +125,9 @@ export class InMemoryInvoicesRepository implements InvoicesRepository {
     status: 'PENDING' | 'ISSUED' | 'CANCELLED' | 'ERROR',
     details?: string,
   ): Promise<void> {
-    const invoice = this.items.find((inv) => inv.id.toString() === id.toString());
+    const invoice = this.items.find(
+      (inv) => inv.id.toString() === id.toString(),
+    );
     if (invoice) {
       invoice.status = status;
       if (details) {
@@ -122,7 +137,9 @@ export class InMemoryInvoicesRepository implements InvoicesRepository {
   }
 
   async save(invoice: Invoice): Promise<void> {
-    const index = this.items.findIndex((inv) => inv.id.toString() === invoice.id.toString());
+    const index = this.items.findIndex(
+      (inv) => inv.id.toString() === invoice.id.toString(),
+    );
     if (index >= 0) {
       this.items[index] = invoice;
     }
@@ -135,7 +152,7 @@ export class InMemoryInvoicesRepository implements InvoicesRepository {
         inv.tenantId.toString() === tenantId,
     );
     if (invoice) {
-      invoice.deletedAt = new Date();
+      invoice.softDelete();
     }
   }
 }

@@ -15,7 +15,6 @@ describe('List Positions (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list positions with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     await createPositionE2E({ tenantId });

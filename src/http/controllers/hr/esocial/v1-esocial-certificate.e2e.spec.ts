@@ -14,7 +14,6 @@ describe('eSocial Certificate (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get certificate info (or 404 if none)', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,15 +25,13 @@ describe('eSocial Certificate (E2E)', () => {
   });
 
   it('should return 401 on GET without token', async () => {
-    const response = await request(app.server)
-      .get('/v1/esocial/certificate');
+    const response = await request(app.server).get('/v1/esocial/certificate');
 
     expect(response.statusCode).toBe(401);
   });
 
   it('should return 401 on POST without token', async () => {
-    const response = await request(app.server)
-      .post('/v1/esocial/certificate');
+    const response = await request(app.server).post('/v1/esocial/certificate');
 
     expect(response.statusCode).toBe(401);
   });

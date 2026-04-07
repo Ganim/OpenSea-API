@@ -8,7 +8,6 @@ describe('Get Plan By ID (E2E)', () => {
     await app.ready();
   });
 
-
   it('should get a plan by id with modules', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

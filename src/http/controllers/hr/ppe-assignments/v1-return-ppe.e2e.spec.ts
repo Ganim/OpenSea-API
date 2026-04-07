@@ -14,7 +14,6 @@ describe('Return PPE (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent assignment', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

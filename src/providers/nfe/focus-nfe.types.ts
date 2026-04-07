@@ -16,7 +16,7 @@ export interface CreateInvoiceInput {
   data_saida_entrada?: string;
   natureza_operacao: string;
   descricao_operacao: string;
-  
+
   // Cliente
   nome_destinatario?: string;
   cpf_cnpj_destinatario?: string;
@@ -30,19 +30,19 @@ export interface CreateInvoiceInput {
   pais_destinatario?: string;
   telefone_destinatario?: string;
   email_destinatario?: string;
-  
+
   // Itens
   detalhes: DetailItem[];
-  
+
   // Totalizadores
   valor_frete?: number;
   valor_seguro?: number;
   valor_desconto?: number;
   valor_desconto_item?: number;
-  
+
   // Observações
   observacoes?: string;
-  
+
   // Ambiente
   ambiente?: number; // 1: produção, 2: sandbox
 }

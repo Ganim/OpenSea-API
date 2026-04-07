@@ -14,7 +14,6 @@ describe('Create Candidate (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a candidate', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

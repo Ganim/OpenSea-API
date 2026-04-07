@@ -67,7 +67,6 @@ describe('Import OFX Reconciliation (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should import an OFX file and create reconciliation', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const bankAccount = await createBankAccount(tenantId);

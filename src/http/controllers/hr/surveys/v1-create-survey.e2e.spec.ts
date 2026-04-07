@@ -14,7 +14,6 @@ describe('Create Survey (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a survey', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -36,14 +35,12 @@ describe('Create Survey (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .post('/v1/hr/surveys')
-      .send({
-        title: 'Test Survey',
-        type: 'ENGAGEMENT',
-        startDate: new Date().toISOString(),
-        endDate: new Date().toISOString(),
-      });
+    const response = await request(app.server).post('/v1/hr/surveys').send({
+      title: 'Test Survey',
+      type: 'ENGAGEMENT',
+      startDate: new Date().toISOString(),
+      endDate: new Date().toISOString(),
+    });
 
     expect(response.statusCode).toBe(401);
   });

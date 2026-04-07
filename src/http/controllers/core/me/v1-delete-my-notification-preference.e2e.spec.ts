@@ -15,7 +15,6 @@ describe('Delete My Notification Preference (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete my notification preference', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -14,14 +14,13 @@ describe('Update Enrollment (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent enrollment', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
       .put('/v1/hr/benefit-enrollments/clxxxxxxxxxxxxxxxxxxxxxxxxx')
       .set('Authorization', `Bearer ${token}`)
-      .send({ status: "ACTIVE" });
+      .send({ status: 'ACTIVE' });
 
     expect(response.status).not.toBe(401);
   });
@@ -29,7 +28,7 @@ describe('Update Enrollment (E2E)', () => {
   it('should return 401 when not authenticated', async () => {
     const response = await request(app.server)
       .put('/v1/hr/benefit-enrollments/clxxxxxxxxxxxxxxxxxxxxxxxxx')
-      .send({ status: "ACTIVE" });
+      .send({ status: 'ACTIVE' });
 
     expect(response.status).toBe(401);
   });

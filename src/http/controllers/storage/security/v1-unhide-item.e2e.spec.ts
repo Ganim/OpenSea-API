@@ -26,7 +26,6 @@ describe('Unhide Item (E2E)', () => {
     folderId = fid;
   });
 
-
   it('should unhide a previously hidden file', async () => {
     const { fileId } = await createStorageFileE2E({
       tenantId,

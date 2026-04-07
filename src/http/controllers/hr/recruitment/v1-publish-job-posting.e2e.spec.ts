@@ -14,7 +14,6 @@ describe('Publish Job Posting (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should publish a draft job posting', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -38,8 +37,9 @@ describe('Publish Job Posting (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .patch('/v1/hr/recruitment/job-postings/nonexistent-id/publish');
+    const response = await request(app.server).patch(
+      '/v1/hr/recruitment/job-postings/nonexistent-id/publish',
+    );
 
     expect(response.statusCode).toBe(401);
   });

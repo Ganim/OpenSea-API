@@ -15,7 +15,6 @@ describe('Delete Calendar Event (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete event', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

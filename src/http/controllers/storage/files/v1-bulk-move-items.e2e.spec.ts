@@ -16,7 +16,6 @@ describe('Bulk Move Items (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should bulk-move files and folders to a target folder', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

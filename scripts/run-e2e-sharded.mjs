@@ -55,7 +55,9 @@ for (const mod of modules) {
   lightest.count += mod.count;
 }
 
-console.log(`🚀 Running ${totalSpecs} E2E specs across ${SHARD_COUNT} shards:\n`);
+console.log(
+  `🚀 Running ${totalSpecs} E2E specs across ${SHARD_COUNT} shards:\n`,
+);
 for (let i = 0; i < SHARD_COUNT; i++) {
   const b = shardBuckets[i];
   const names = b.modules.map((m) => `${m.name}(${m.count})`).join(', ');
@@ -130,7 +132,9 @@ console.log('─'.repeat(60));
 console.log(
   `${passed > 0 ? '✅' : '❌'} ${passed} shards passed, ${failed > 0 ? `❌ ${failed} shards failed` : 'all clean'}`,
 );
-console.log(`⏱  Total wall time: ${elapsed}s (${(elapsed / 60).toFixed(1)}min)`);
+console.log(
+  `⏱  Total wall time: ${elapsed}s (${(elapsed / 60).toFixed(1)}min)`,
+);
 console.log('─'.repeat(60));
 
 process.exit(failed > 0 ? 1 : 0);

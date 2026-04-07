@@ -9,7 +9,6 @@ describe('Admin List Billing (E2E)', () => {
     await app.ready();
   });
 
-
   it('should list all billing records', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

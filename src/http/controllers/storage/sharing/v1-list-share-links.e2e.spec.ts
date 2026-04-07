@@ -18,7 +18,6 @@ describe('List Share Links (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list share links for a file', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

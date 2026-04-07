@@ -14,7 +14,6 @@ describe('Delete Routing Rule (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a routing rule', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

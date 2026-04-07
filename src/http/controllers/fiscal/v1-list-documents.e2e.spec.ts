@@ -14,7 +14,6 @@ describe('List Fiscal Documents (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list fiscal documents (empty)', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

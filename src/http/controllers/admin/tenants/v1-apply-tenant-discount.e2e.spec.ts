@@ -14,7 +14,6 @@ describe('Admin Apply Tenant Discount (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent subscription', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

@@ -15,7 +15,6 @@ describe('Delete Work Schedule (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should allow MANAGER to delete a work schedule', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

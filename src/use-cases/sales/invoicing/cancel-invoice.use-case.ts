@@ -1,8 +1,9 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { InvoicesRepository } from '@/repositories/sales/invoices-repository';
+import type { InvoiceStatus } from '@/entities/sales/invoice';
 import type { IFocusNfeProvider } from '@/providers/nfe/focus-nfe.provider';
+import type { InvoicesRepository } from '@/repositories/sales/invoices-repository';
 
 interface CancelInvoiceUseCaseRequest {
   invoiceId: string;
@@ -13,7 +14,7 @@ interface CancelInvoiceUseCaseRequest {
 
 interface CancelInvoiceUseCaseResponse {
   invoiceId: string;
-  status: string;
+  status: InvoiceStatus;
   cancelledAt: Date;
   cancelReason: string;
 }
@@ -54,7 +55,9 @@ export class CancelInvoiceUseCase {
         serie_nf: Number(invoice.series),
         chave_nfe: invoice.accessKey,
         cnpj_emitente: '', // TODO: buscar do company
-        data_emissao: invoice.issuedAt?.toISOString().split('T')[0] || new Date().toISOString().split('T')[0],
+        data_emissao:
+          invoice.issuedAt?.toISOString().split('T')[0] ||
+          new Date().toISOString().split('T')[0],
         justificativa: request.reason,
       });
     } catch (error) {

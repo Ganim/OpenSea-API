@@ -8,7 +8,6 @@ describe('Sign Document (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return 404 for invalid signing token', async () => {
     const response = await request(app.server)
       .post('/v1/signature/sign/invalid-token-abc123')

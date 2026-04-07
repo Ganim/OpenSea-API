@@ -14,7 +14,6 @@ describe('Get Comment By ID (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get comment by id with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

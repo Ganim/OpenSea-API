@@ -17,7 +17,6 @@ describe('Generate Campaigns (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should trigger campaign generation (200 or provider error)', async () => {
     const response = await request(app.server)
       .post('/v1/ai/campaigns/generate')

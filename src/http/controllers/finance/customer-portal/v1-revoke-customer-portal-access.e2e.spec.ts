@@ -15,7 +15,6 @@ describe('Revoke Customer Portal Access (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for non-existent access', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -14,7 +14,6 @@ describe('List CIPA Members (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list CIPA members', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,9 @@ describe('List CIPA Members (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/cipa-mandates/00000000-0000-0000-0000-000000000000/members');
+    const response = await request(app.server).get(
+      '/v1/hr/cipa-mandates/00000000-0000-0000-0000-000000000000/members',
+    );
 
     expect(response.status).toBe(401);
   });

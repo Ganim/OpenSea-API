@@ -15,7 +15,6 @@ describe('Apply Entry Retentions (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for non-existent entry', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

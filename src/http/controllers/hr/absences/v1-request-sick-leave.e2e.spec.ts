@@ -16,7 +16,6 @@ describe('Request Sick Leave (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should request sick leave with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

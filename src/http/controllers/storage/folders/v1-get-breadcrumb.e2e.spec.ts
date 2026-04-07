@@ -15,7 +15,6 @@ describe('Get Breadcrumb (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get breadcrumb for a nested folder', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { folderId: parentId } = await createStorageFolderE2E({ tenantId });

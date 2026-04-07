@@ -16,7 +16,6 @@ describe('Cancel My Request (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should cancel a pending request', async () => {
     const { token, user: userResponse } = await createAndAuthenticateUser(app, {
       tenantId,

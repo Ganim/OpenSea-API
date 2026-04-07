@@ -14,7 +14,6 @@ describe('Update eSocial Config (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update esocial config', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

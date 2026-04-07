@@ -14,7 +14,6 @@ describe('List Surveys (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list surveys', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -29,8 +28,7 @@ describe('List Surveys (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/surveys');
+    const response = await request(app.server).get('/v1/hr/surveys');
 
     expect(response.statusCode).toBe(401);
   });

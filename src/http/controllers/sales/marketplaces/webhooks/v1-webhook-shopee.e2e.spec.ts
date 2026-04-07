@@ -8,7 +8,6 @@ describe('Webhook Shopee (E2E)', () => {
     await app.ready();
   });
 
-
   it('should accept Shopee webhook notification', async () => {
     const response = await request(app.server)
       .post('/v1/webhooks/marketplace/shopee')

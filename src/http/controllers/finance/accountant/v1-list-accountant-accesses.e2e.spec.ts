@@ -14,7 +14,6 @@ describe('List Accountant Accesses (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list accountant accesses', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

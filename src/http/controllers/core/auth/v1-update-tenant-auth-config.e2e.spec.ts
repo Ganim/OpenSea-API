@@ -27,7 +27,6 @@ describe('Update Tenant Auth Config (E2E)', () => {
     });
   });
 
-
   it('should update tenant auth config', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

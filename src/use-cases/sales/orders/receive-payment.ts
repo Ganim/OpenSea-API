@@ -59,9 +59,7 @@ export class ReceivePaymentUseCase {
   ): Promise<ReceivePaymentUseCaseResponse> {
     // If transaction manager available, wrap in transaction
     if (this.transactionManager) {
-      return this.transactionManager.run(() =>
-        this.executePayment(input),
-      );
+      return this.transactionManager.run(() => this.executePayment(input));
     }
 
     // For unit tests without transaction manager
@@ -134,9 +132,7 @@ export class ReceivePaymentUseCase {
     let totalPaymentAmount = 0;
     for (const payment of input.payments) {
       if (payment.amount <= 0) {
-        throw new BadRequestError(
-          'Payment amounts must be greater than zero.',
-        );
+        throw new BadRequestError('Payment amounts must be greater than zero.');
       }
       totalPaymentAmount += payment.amount;
     }
@@ -185,10 +181,7 @@ export class ReceivePaymentUseCase {
       (sum, p) => sum + (p.receivedAmount ?? p.amount),
       0,
     );
-    const totalNonCash = nonCashPayments.reduce(
-      (sum, p) => sum + p.amount,
-      0,
-    );
+    const totalNonCash = nonCashPayments.reduce((sum, p) => sum + p.amount, 0);
     const amountDueAfterNonCash = order.grandTotal - totalNonCash;
     const changeAmount = Math.max(0, totalCashReceived - amountDueAfterNonCash);
 

@@ -15,7 +15,6 @@ describe('Update Team Calendar Permissions (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update team calendar permissions', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;
@@ -58,8 +57,16 @@ describe('Update Team Calendar Permissions (E2E)', () => {
       .patch(`/v1/calendar/calendars/${calendar.id}/team-permissions`)
       .set('Authorization', `Bearer ${token}`)
       .send({
-        MEMBER: { canCreateEvents: true, canEditOwnEvents: true, canEditAllEvents: false },
-        ADMIN: { canCreateEvents: true, canEditOwnEvents: true, canEditAllEvents: true },
+        MEMBER: {
+          canCreateEvents: true,
+          canEditOwnEvents: true,
+          canEditAllEvents: false,
+        },
+        ADMIN: {
+          canCreateEvents: true,
+          canEditOwnEvents: true,
+          canEditAllEvents: true,
+        },
       });
 
     expect(response.status).toBe(200);

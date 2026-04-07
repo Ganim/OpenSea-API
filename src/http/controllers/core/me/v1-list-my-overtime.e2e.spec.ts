@@ -15,7 +15,6 @@ describe('List My Overtime (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list my overtime requests', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -9,7 +9,6 @@ describe('Create Plan (E2E)', () => {
     await app.ready();
   });
 
-
   it('should create a new plan', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

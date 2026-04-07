@@ -16,7 +16,6 @@ describe('Cancel Absence (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should cancel absence with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

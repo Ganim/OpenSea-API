@@ -14,7 +14,6 @@ describe('Content (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('POST /v1/content/generate', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
@@ -27,8 +26,7 @@ describe('Content (E2E)', () => {
 
   describe('GET /v1/content', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/content');
+      const response = await request(app.server).get('/v1/content');
 
       expect(response.status).toBe(401);
     });
@@ -49,8 +47,9 @@ describe('Content (E2E)', () => {
 
   describe('GET /v1/content/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/content/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).get(
+        '/v1/content/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -58,8 +57,9 @@ describe('Content (E2E)', () => {
 
   describe('PATCH /v1/content/:id/approve', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .patch('/v1/content/00000000-0000-0000-0000-000000000001/approve');
+      const response = await request(app.server).patch(
+        '/v1/content/00000000-0000-0000-0000-000000000001/approve',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -67,8 +67,9 @@ describe('Content (E2E)', () => {
 
   describe('DELETE /v1/content/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .delete('/v1/content/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).delete(
+        '/v1/content/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });

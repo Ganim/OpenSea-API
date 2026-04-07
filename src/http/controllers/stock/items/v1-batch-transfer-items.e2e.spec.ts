@@ -16,7 +16,6 @@ describe('Batch Transfer Items (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should batch transfer items to destination bin', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

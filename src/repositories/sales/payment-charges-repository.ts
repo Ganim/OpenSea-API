@@ -1,5 +1,7 @@
-import type { PaymentCharge } from '@/entities/sales/payment-charge';
-import type { PaymentChargeStatus } from '@/entities/sales/payment-charge';
+import type {
+  PaymentCharge,
+  PaymentChargeStatus,
+} from '@/entities/sales/payment-charge';
 import type { PosPaymentMethod } from '@/entities/sales/pos-transaction-payment';
 
 export interface CreatePaymentChargeSchema {
@@ -23,12 +25,17 @@ export interface CreatePaymentChargeSchema {
 export interface PaymentChargesRepository {
   create(data: CreatePaymentChargeSchema): Promise<PaymentCharge>;
   findById(id: string, tenantId: string): Promise<PaymentCharge | null>;
+  findByOrder(orderId: string, tenantId: string): Promise<PaymentCharge[]>;
   findByProviderChargeId(
     providerChargeId: string,
   ): Promise<PaymentCharge | null>;
   findPendingByOrder(
     orderId: string,
     tenantId: string,
+  ): Promise<PaymentCharge[]>;
+  findPendingOverAge(
+    tenantId: string,
+    ageHours?: number,
   ): Promise<PaymentCharge[]>;
   updateStatusIdempotent(
     id: string,

@@ -14,14 +14,13 @@ describe('Create Workplace Risk (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for non-existent program', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
       .post('/v1/hr/safety-programs/00000000-0000-0000-0000-000000000000/risks')
       .set('Authorization', `Bearer ${token}`)
-      .send({ name: "Test Risk", category: "PHYSICAL", severity: "HIGH" });
+      .send({ name: 'Test Risk', category: 'PHYSICAL', severity: 'HIGH' });
 
     expect(response.status).not.toBe(401);
   });
@@ -29,7 +28,7 @@ describe('Create Workplace Risk (E2E)', () => {
   it('should return 401 when not authenticated', async () => {
     const response = await request(app.server)
       .post('/v1/hr/safety-programs/00000000-0000-0000-0000-000000000000/risks')
-      .send({ name: "Test Risk", category: "PHYSICAL", severity: "HIGH" });
+      .send({ name: 'Test Risk', category: 'PHYSICAL', severity: 'HIGH' });
 
     expect(response.status).toBe(401);
   });

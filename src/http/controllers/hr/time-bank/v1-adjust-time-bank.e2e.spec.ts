@@ -16,7 +16,6 @@ describe('Adjust Time Bank (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should adjust time bank balance with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId } = await createEmployeeE2E({ tenantId });

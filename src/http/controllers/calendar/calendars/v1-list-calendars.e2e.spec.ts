@@ -14,7 +14,6 @@ describe('List Calendars (E2E)', () => {
     tenantId = tid;
   });
 
-
   it("should list user's personal calendar", async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

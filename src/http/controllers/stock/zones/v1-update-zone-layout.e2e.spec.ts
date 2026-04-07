@@ -18,7 +18,6 @@ describe('Update Zone Layout (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update zone layout with custom positions', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

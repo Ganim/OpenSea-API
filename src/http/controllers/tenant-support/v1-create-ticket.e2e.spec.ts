@@ -14,7 +14,6 @@ describe('Create Support Ticket (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a support ticket', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

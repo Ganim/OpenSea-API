@@ -16,7 +16,6 @@ describe('Restore File Version (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should restore a file to a previous version', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

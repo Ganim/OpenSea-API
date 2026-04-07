@@ -7,7 +7,6 @@ import {
   getInvoiceParamsSchema,
   invoiceDetailResponseSchema,
 } from '@/http/schemas/sales/invoicing/invoicing.schema';
-import { invoiceToDTO } from '@/mappers/sales/invoice/invoice-to-dto';
 import { makeCheckInvoiceStatusUseCase } from '@/use-cases/sales/invoicing/factories/make-invoicing-use-cases';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -28,7 +27,8 @@ export async function v1GetInvoiceController(app: FastifyInstance) {
     schema: {
       tags: ['Sales - Invoicing'],
       summary: 'Get invoice details',
-      description: 'Retrieves details of a specific invoice and checks its status',
+      description:
+        'Retrieves details of a specific invoice and checks its status',
       params: getInvoiceParamsSchema,
       response: {
         200: invoiceDetailResponseSchema,
@@ -50,13 +50,12 @@ export async function v1GetInvoiceController(app: FastifyInstance) {
         return reply.status(200).send(result);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
-          return reply
-            .status(404)
-            .send({ message: error.message });
+          return reply.status(404).send({ message: error.message });
         }
 
         return reply.status(500).send({
-          message: error instanceof Error ? error.message : 'Internal server error',
+          message:
+            error instanceof Error ? error.message : 'Internal server error',
         });
       }
     },

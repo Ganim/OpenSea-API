@@ -8,7 +8,6 @@ describe('OAuth Callback (E2E)', () => {
     await app.ready();
   });
 
-
   it('should handle OAuth callback with code and state', async () => {
     const response = await request(app.server)
       .get('/v1/marketplace/oauth/callback')

@@ -15,7 +15,6 @@ describe('Cancel Request (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should cancel request with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -26,7 +26,6 @@ describe('Storage Security (E2E)', () => {
     folderId = fid;
   });
 
-
   // ─── Protect ────────────────────────────────────────────
   describe('POST /v1/storage/security/protect', () => {
     it('should protect a file with a password', async () => {

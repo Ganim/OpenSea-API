@@ -16,7 +16,6 @@ describe('Manage Reminders (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should set reminders for an event', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 

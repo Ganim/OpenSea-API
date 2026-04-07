@@ -14,7 +14,6 @@ describe('List Geofence Zones (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list geofence zones', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,7 @@ describe('List Geofence Zones (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/geofence-zones');
+    const response = await request(app.server).get('/v1/hr/geofence-zones');
 
     expect(response.status).toBe(401);
   });

@@ -17,7 +17,6 @@ describe('Lookup by Code (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should lookup an item by its fullCode', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

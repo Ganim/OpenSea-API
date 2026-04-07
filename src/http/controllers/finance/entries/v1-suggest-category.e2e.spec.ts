@@ -14,7 +14,6 @@ describe('Suggest Category (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should suggest a category based on description', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

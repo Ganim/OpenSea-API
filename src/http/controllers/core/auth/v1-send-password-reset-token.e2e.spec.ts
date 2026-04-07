@@ -9,7 +9,6 @@ describe('Send Password Reset Token (E2E)', () => {
     await app.ready();
   });
 
-
   it('should send password reset token with correct schema', async () => {
     const email = makeUniqueEmail('send-reset');
 

@@ -13,7 +13,6 @@ describe('List Permissions By Modules (e2e)', () => {
     tenantId = tid;
   });
 
-
   it('should list permissions by modules with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

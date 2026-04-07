@@ -15,7 +15,6 @@ describe('List Folder Access (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list access rules for a folder', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

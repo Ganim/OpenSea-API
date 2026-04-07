@@ -15,7 +15,6 @@ describe('List Available Bins (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list available bins with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

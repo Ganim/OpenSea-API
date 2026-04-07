@@ -16,7 +16,6 @@ describe('Delete Column (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a column', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

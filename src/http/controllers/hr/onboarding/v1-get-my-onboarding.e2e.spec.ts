@@ -14,7 +14,6 @@ describe('Get My Onboarding (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 when no employee linked', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

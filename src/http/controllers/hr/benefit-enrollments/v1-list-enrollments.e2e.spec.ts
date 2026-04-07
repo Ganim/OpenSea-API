@@ -14,7 +14,6 @@ describe('List Enrollments (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list enrollments', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,9 @@ describe('List Enrollments (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/benefit-enrollments');
+    const response = await request(app.server).get(
+      '/v1/hr/benefit-enrollments',
+    );
 
     expect(response.status).toBe(401);
   });

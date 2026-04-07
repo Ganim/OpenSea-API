@@ -16,7 +16,6 @@ describe('Delete Bonus (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete bonus with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId } = await createEmployeeE2E({ tenantId });

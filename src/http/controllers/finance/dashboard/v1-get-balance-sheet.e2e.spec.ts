@@ -14,7 +14,6 @@ describe('Get Balance Sheet (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return balance sheet data', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

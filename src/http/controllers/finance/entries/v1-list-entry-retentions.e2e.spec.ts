@@ -15,7 +15,6 @@ describe('List Entry Retentions (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return retentions for entry or empty', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

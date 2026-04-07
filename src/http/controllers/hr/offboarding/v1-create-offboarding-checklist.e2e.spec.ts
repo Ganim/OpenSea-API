@@ -15,7 +15,6 @@ describe('Create Offboarding Checklist (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create an offboarding checklist', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId } = await createEmployeeE2E({ tenantId });
@@ -36,9 +35,10 @@ describe('Create Offboarding Checklist (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .post('/v1/hr/offboarding')
-      .send({ employeeId: '00000000-0000-0000-0000-000000000000', title: 'Test' });
+    const response = await request(app.server).post('/v1/hr/offboarding').send({
+      employeeId: '00000000-0000-0000-0000-000000000000',
+      title: 'Test',
+    });
 
     expect(response.status).toBe(401);
   });

@@ -16,7 +16,6 @@ describe('Import Payroll (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should respond to import payroll request', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const fakePayrollId = randomUUID();

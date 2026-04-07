@@ -14,7 +14,6 @@ describe('Budget vs Actual (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return budget vs actual report', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

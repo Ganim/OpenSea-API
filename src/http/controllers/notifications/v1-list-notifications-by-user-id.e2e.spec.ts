@@ -9,7 +9,6 @@ describe('List Notifications By UserId (e2e)', () => {
     await app.ready();
   });
 
-
   it('should list notifications with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app);
     const userId = user.user.id.toString();

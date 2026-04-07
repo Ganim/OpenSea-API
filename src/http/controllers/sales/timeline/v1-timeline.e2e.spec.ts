@@ -30,7 +30,6 @@ describe('Timeline (E2E)', () => {
     customerId = customerResponse.body.customer.id;
   });
 
-
   it('GET /v1/timeline should return timeline items filtered by customerId (200)', async () => {
     const response = await request(app.server)
       .get('/v1/timeline')

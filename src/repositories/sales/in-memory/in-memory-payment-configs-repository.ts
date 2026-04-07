@@ -12,9 +12,8 @@ export class InMemoryPaymentConfigsRepository
 
   async findByTenantId(tenantId: string): Promise<TenantPaymentConfig | null> {
     return (
-      this.items.find(
-        (config) => config.tenantId.toString() === tenantId,
-      ) ?? null
+      this.items.find((config) => config.tenantId.toString() === tenantId) ??
+      null
     );
   }
 
@@ -49,9 +48,7 @@ export class InMemoryPaymentConfigsRepository
     slot: 'primary' | 'fallback',
     testedAt: Date,
   ): Promise<void> {
-    const config = this.items.find(
-      (c) => c.tenantId.toString() === tenantId,
-    );
+    const config = this.items.find((c) => c.tenantId.toString() === tenantId);
 
     if (config) {
       if (slot === 'primary') {

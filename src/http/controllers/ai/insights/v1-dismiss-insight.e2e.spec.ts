@@ -20,7 +20,6 @@ describe('Dismiss Insight (E2E)', () => {
     userId = auth.user.user.id;
   });
 
-
   it('should dismiss an insight (200)', async () => {
     // Create an insight directly in the database
     const insight = await prisma.aiInsight.create({

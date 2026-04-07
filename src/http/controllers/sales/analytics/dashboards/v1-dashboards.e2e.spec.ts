@@ -14,7 +14,6 @@ describe('Analytics Dashboards (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('POST /v1/sales/analytics/dashboards', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
@@ -44,8 +43,9 @@ describe('Analytics Dashboards (E2E)', () => {
 
   describe('GET /v1/sales/analytics/dashboards', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/analytics/dashboards');
+      const response = await request(app.server).get(
+        '/v1/sales/analytics/dashboards',
+      );
 
       expect(response.status).toBe(401);
     });

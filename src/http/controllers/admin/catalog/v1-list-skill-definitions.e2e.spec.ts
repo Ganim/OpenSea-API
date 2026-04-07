@@ -9,7 +9,6 @@ describe('Admin List Skill Definitions (E2E)', () => {
     await app.ready();
   });
 
-
   it('should list all skill definitions', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

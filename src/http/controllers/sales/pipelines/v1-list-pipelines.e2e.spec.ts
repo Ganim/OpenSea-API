@@ -14,7 +14,6 @@ describe('List Pipelines (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list pipelines', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

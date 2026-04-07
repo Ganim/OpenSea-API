@@ -20,7 +20,6 @@ describe('AI Insights (E2E)', () => {
     userId = auth.user.user.id;
   });
 
-
   it('GET /v1/ai/insights — should list insights (empty initially)', async () => {
     const response = await request(app.server)
       .get('/v1/ai/insights')

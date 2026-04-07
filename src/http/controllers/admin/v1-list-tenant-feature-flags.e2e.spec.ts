@@ -14,7 +14,6 @@ describe('Admin List Tenant Feature Flags (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list feature flags for a tenant', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

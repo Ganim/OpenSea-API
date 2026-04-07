@@ -16,7 +16,6 @@ describe('Reject Request (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should reject a pending request with reason', async () => {
     const { token, user: userResponse } = await createAndAuthenticateUser(app, {
       tenantId,

@@ -15,7 +15,6 @@ describe('Get Folder Activity (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return activity logs for a folder', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

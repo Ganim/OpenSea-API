@@ -15,7 +15,6 @@ describe('Bulk Add Permissions To Group (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should bulk add permissions to group with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const group = await makePermissionGroup();

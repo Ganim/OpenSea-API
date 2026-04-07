@@ -16,7 +16,6 @@ describe('Grant Direct Permission (e2e)', () => {
     tenantId = tid;
   });
 
-
   it('should grant direct permission with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const permission = await makePermission();

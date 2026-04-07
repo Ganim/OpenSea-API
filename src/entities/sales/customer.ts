@@ -179,7 +179,10 @@ export class Customer extends Entity<CustomerProps> {
   }
 
   static create(
-    props: Optional<CustomerProps, 'id' | 'isActive' | 'isSystem' | 'createdAt'>,
+    props: Optional<
+      CustomerProps,
+      'id' | 'isActive' | 'isSystem' | 'createdAt'
+    >,
     id?: UniqueEntityID,
   ): Customer {
     const customer = new Customer(

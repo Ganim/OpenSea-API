@@ -14,7 +14,6 @@ describe('Delete My User (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete my user with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

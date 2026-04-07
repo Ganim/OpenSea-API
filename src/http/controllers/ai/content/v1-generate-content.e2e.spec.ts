@@ -17,7 +17,6 @@ describe('Generate Content (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should generate content (200 or provider error)', async () => {
     const response = await request(app.server)
       .post('/v1/ai/content/generate')

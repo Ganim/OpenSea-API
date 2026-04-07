@@ -14,7 +14,6 @@ describe('Generate AFD (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should generate AFD or return error', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,9 @@ describe('Generate AFD (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/time-control/afd?startDate=2026-01-01&endDate=2026-01-31');
+    const response = await request(app.server).get(
+      '/v1/hr/time-control/afd?startDate=2026-01-01&endDate=2026-01-31',
+    );
 
     expect(response.status).toBe(401);
   });

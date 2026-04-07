@@ -14,7 +14,6 @@ describe('Create Board (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a board', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

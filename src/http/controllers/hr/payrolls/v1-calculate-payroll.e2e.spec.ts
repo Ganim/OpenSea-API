@@ -15,7 +15,6 @@ describe('Calculate Payroll (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should calculate payroll with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

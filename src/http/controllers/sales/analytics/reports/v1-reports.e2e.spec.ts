@@ -14,7 +14,6 @@ describe('Analytics Reports (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('POST /v1/sales/analytics/reports', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
@@ -43,8 +42,9 @@ describe('Analytics Reports (E2E)', () => {
 
   describe('GET /v1/sales/analytics/reports', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/analytics/reports');
+      const response = await request(app.server).get(
+        '/v1/sales/analytics/reports',
+      );
 
       expect(response.status).toBe(401);
     });

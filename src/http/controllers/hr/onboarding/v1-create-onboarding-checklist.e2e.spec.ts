@@ -15,7 +15,6 @@ describe('Create Onboarding Checklist (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create an onboarding checklist', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId } = await createEmployeeE2E({ tenantId });
@@ -27,8 +26,14 @@ describe('Create Onboarding Checklist (E2E)', () => {
         employeeId,
         title: `Onboarding ${Date.now()}`,
         items: [
-          { title: 'Setup workstation', description: 'Prepare desk and equipment' },
-          { title: 'Meet the team', description: 'Introduction to team members' },
+          {
+            title: 'Setup workstation',
+            description: 'Prepare desk and equipment',
+          },
+          {
+            title: 'Meet the team',
+            description: 'Introduction to team members',
+          },
         ],
       });
 
@@ -37,9 +42,10 @@ describe('Create Onboarding Checklist (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .post('/v1/hr/onboarding')
-      .send({ employeeId: '00000000-0000-0000-0000-000000000000', title: 'Test' });
+    const response = await request(app.server).post('/v1/hr/onboarding').send({
+      employeeId: '00000000-0000-0000-0000-000000000000',
+      title: 'Test',
+    });
 
     expect(response.status).toBe(401);
   });

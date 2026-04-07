@@ -401,7 +401,11 @@ export const ModelName = {
   InterviewStage: 'InterviewStage',
   Interview: 'Interview',
   TenantPaymentConfig: 'TenantPaymentConfig',
-  PaymentCharge: 'PaymentCharge'
+  PaymentCharge: 'PaymentCharge',
+  Invoice: 'Invoice',
+  PosPrinter: 'PosPrinter',
+  PrintJob: 'PrintJob',
+  FocusNfeConfig: 'FocusNfeConfig'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -4729,6 +4733,8 @@ export const OrderScalarFieldEnum = {
   claimedByUserId: 'claimedByUserId',
   claimedAt: 'claimedAt',
   version: 'version',
+  invoiceId: 'invoiceId',
+  invoicedAt: 'invoicedAt',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -7536,6 +7542,92 @@ export const PaymentChargeScalarFieldEnum = {
 } as const
 
 export type PaymentChargeScalarFieldEnum = (typeof PaymentChargeScalarFieldEnum)[keyof typeof PaymentChargeScalarFieldEnum]
+
+
+export const InvoiceScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  orderId: 'orderId',
+  type: 'type',
+  number: 'number',
+  series: 'series',
+  accessKey: 'accessKey',
+  focusIdRef: 'focusIdRef',
+  status: 'status',
+  statusDetails: 'statusDetails',
+  xmlUrl: 'xmlUrl',
+  pdfUrl: 'pdfUrl',
+  xmlContent: 'xmlContent',
+  xmlContentHash: 'xmlContentHash',
+  issuedAt: 'issuedAt',
+  cancelledAt: 'cancelledAt',
+  cancelReason: 'cancelReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type InvoiceScalarFieldEnum = (typeof InvoiceScalarFieldEnum)[keyof typeof InvoiceScalarFieldEnum]
+
+
+export const PosPrinterScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  type: 'type',
+  connection: 'connection',
+  ipAddress: 'ipAddress',
+  port: 'port',
+  deviceId: 'deviceId',
+  bluetoothAddress: 'bluetoothAddress',
+  paperWidth: 'paperWidth',
+  encoding: 'encoding',
+  characterPerLine: 'characterPerLine',
+  isDefault: 'isDefault',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type PosPrinterScalarFieldEnum = (typeof PosPrinterScalarFieldEnum)[keyof typeof PosPrinterScalarFieldEnum]
+
+
+export const PrintJobScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  printerId: 'printerId',
+  orderId: 'orderId',
+  type: 'type',
+  status: 'status',
+  content: 'content',
+  templateData: 'templateData',
+  errorMessage: 'errorMessage',
+  retryCount: 'retryCount',
+  maxRetries: 'maxRetries',
+  createdAt: 'createdAt',
+  completedAt: 'completedAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PrintJobScalarFieldEnum = (typeof PrintJobScalarFieldEnum)[keyof typeof PrintJobScalarFieldEnum]
+
+
+export const FocusNfeConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  apiKey: 'apiKey',
+  productionMode: 'productionMode',
+  isEnabled: 'isEnabled',
+  defaultSeries: 'defaultSeries',
+  autoIssueOnConfirm: 'autoIssueOnConfirm',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FocusNfeConfigScalarFieldEnum = (typeof FocusNfeConfigScalarFieldEnum)[keyof typeof FocusNfeConfigScalarFieldEnum]
 
 
 export const SortOrder = {

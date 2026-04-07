@@ -17,7 +17,6 @@ describe('Delete Zone (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a zone and soft delete its bins', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

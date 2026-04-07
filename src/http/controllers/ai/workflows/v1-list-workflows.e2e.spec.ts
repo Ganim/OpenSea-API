@@ -17,7 +17,6 @@ describe('List Workflows (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should list workflows (200)', async () => {
     const response = await request(app.server)
       .get('/v1/ai/workflows')

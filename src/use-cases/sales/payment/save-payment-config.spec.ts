@@ -17,9 +17,7 @@ let savePaymentConfig: SavePaymentConfigUseCase;
 describe('SavePaymentConfigUseCase', () => {
   beforeEach(() => {
     paymentConfigsRepository = new InMemoryPaymentConfigsRepository();
-    savePaymentConfig = new SavePaymentConfigUseCase(
-      paymentConfigsRepository,
-    );
+    savePaymentConfig = new SavePaymentConfigUseCase(paymentConfigsRepository);
   });
 
   it('should save a payment config with primary provider', async () => {

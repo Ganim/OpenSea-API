@@ -17,7 +17,6 @@ describe('Analyze Document (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should analyze text content (200 or provider error)', async () => {
     const documentContent = `
       EDITAL DE LICITACAO No 001/2026

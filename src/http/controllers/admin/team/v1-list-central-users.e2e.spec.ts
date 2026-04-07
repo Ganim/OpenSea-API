@@ -9,7 +9,6 @@ describe('Admin List Central Users (E2E)', () => {
     await app.ready();
   });
 
-
   it('should list central team users', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

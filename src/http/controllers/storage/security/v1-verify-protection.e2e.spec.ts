@@ -26,7 +26,6 @@ describe('Verify Protection (E2E)', () => {
     folderId = fid;
   });
 
-
   it('should return valid: true for correct password', async () => {
     const { fileId } = await createStorageFileE2E({
       tenantId,

@@ -17,7 +17,6 @@ describe('Run Setup Wizard (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should accept business description and return plan (200 or provider error)', async () => {
     const response = await request(app.server)
       .post('/v1/ai/setup-wizard')
@@ -67,8 +66,7 @@ describe('Run Setup Wizard (E2E)', () => {
     const response = await request(app.server)
       .post('/v1/ai/setup-wizard')
       .send({
-        businessDescription:
-          'Uma loja de roupas femininas com 3 funcionarios',
+        businessDescription: 'Uma loja de roupas femininas com 3 funcionarios',
       });
 
     expect(response.status).toBe(401);

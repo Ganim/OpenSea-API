@@ -14,7 +14,6 @@ describe('Configure Fiscal (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create fiscal configuration', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

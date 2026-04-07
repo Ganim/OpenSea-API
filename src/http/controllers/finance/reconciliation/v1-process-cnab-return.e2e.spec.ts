@@ -14,7 +14,6 @@ describe('Process CNAB Return (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error when no file uploaded', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

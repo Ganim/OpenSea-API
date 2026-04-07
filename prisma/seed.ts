@@ -10,24 +10,20 @@ try {
 }
 
 import {
-  DEFAULT_USER_PERMISSIONS,
-  PermissionCodes,
+    DEFAULT_USER_PERMISSIONS,
+    PermissionCodes,
 } from '../src/constants/rbac/permission-codes.js';
 import {
-  PermissionGroupColors,
-  PermissionGroupPriorities,
-  PermissionGroupSlugs,
+    PermissionGroupColors,
+    PermissionGroupPriorities,
+    PermissionGroupSlugs,
 } from '../src/constants/rbac/permission-groups.js';
 import {
-  FILTER_FOLDER_CONFIGS,
-  ROOT_SYSTEM_FOLDERS,
-  slugify,
+    FILTER_FOLDER_CONFIGS,
+    ROOT_SYSTEM_FOLDERS,
+    slugify,
 } from '../src/constants/storage/folder-templates.js';
 
-import { seedSkillDefinitions } from './seeds/skill-definitions.js';
-import { seedSkillPricing } from './seeds/skill-pricing.js';
-import { seedCentralUsers } from './seeds/central-users.js';
-import { seedSupportSlaConfig } from './seeds/support-sla-config.js';
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
 const prisma = new PrismaClient({ adapter });

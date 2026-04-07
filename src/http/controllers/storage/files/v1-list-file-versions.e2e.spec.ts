@@ -16,7 +16,6 @@ describe('List File Versions (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list versions of a file', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

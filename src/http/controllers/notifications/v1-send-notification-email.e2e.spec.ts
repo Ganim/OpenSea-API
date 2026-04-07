@@ -9,7 +9,6 @@ describe('Send Notification Email (e2e)', () => {
     await app.ready();
   });
 
-
   it('should send email notification with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app);
 

@@ -15,7 +15,6 @@ describe('Mark Consortium Contemplated (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should mark a consortium as contemplated', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { costCenter, bankAccount } =

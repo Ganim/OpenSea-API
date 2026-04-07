@@ -9,7 +9,6 @@ describe('Register New User (E2E)', () => {
     await app.ready();
   });
 
-
   it('should register new user with correct schema', async () => {
     const email = makeUniqueEmail('register');
 

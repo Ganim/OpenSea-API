@@ -14,7 +14,6 @@ describe('Cashier (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('POST /v1/sales/cashier/sessions', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
@@ -27,8 +26,9 @@ describe('Cashier (E2E)', () => {
 
   describe('GET /v1/sales/cashier/sessions', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/cashier/sessions');
+      const response = await request(app.server).get(
+        '/v1/sales/cashier/sessions',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -48,8 +48,9 @@ describe('Cashier (E2E)', () => {
 
   describe('GET /v1/sales/cashier/sessions/active', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/cashier/sessions/active');
+      const response = await request(app.server).get(
+        '/v1/sales/cashier/sessions/active',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -57,8 +58,9 @@ describe('Cashier (E2E)', () => {
 
   describe('GET /v1/sales/cashier/sessions/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/cashier/sessions/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).get(
+        '/v1/sales/cashier/sessions/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -67,7 +69,9 @@ describe('Cashier (E2E)', () => {
   describe('POST /v1/sales/cashier/sessions/:id/close', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
-        .post('/v1/sales/cashier/sessions/00000000-0000-0000-0000-000000000001/close')
+        .post(
+          '/v1/sales/cashier/sessions/00000000-0000-0000-0000-000000000001/close',
+        )
         .send({});
 
       expect(response.status).toBe(401);
@@ -77,7 +81,9 @@ describe('Cashier (E2E)', () => {
   describe('POST /v1/sales/cashier/sessions/:id/transactions', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
-        .post('/v1/sales/cashier/sessions/00000000-0000-0000-0000-000000000001/transactions')
+        .post(
+          '/v1/sales/cashier/sessions/00000000-0000-0000-0000-000000000001/transactions',
+        )
         .send({});
 
       expect(response.status).toBe(401);
@@ -86,8 +92,9 @@ describe('Cashier (E2E)', () => {
 
   describe('GET /v1/sales/cashier/sessions/:id/transactions', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/cashier/sessions/00000000-0000-0000-0000-000000000001/transactions');
+      const response = await request(app.server).get(
+        '/v1/sales/cashier/sessions/00000000-0000-0000-0000-000000000001/transactions',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -96,7 +103,9 @@ describe('Cashier (E2E)', () => {
   describe('POST /v1/sales/cashier/sessions/:id/cash-movement', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
-        .post('/v1/sales/cashier/sessions/00000000-0000-0000-0000-000000000001/cash-movement')
+        .post(
+          '/v1/sales/cashier/sessions/00000000-0000-0000-0000-000000000001/cash-movement',
+        )
         .send({});
 
       expect(response.status).toBe(401);
@@ -106,7 +115,9 @@ describe('Cashier (E2E)', () => {
   describe('POST /v1/sales/cashier/sessions/:id/reconcile', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
-        .post('/v1/sales/cashier/sessions/00000000-0000-0000-0000-000000000001/reconcile')
+        .post(
+          '/v1/sales/cashier/sessions/00000000-0000-0000-0000-000000000001/reconcile',
+        )
         .send({});
 
       expect(response.status).toBe(401);

@@ -17,7 +17,6 @@ describe('Apply Campaign (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should return error for non-existent insight', async () => {
     const fakeInsightId = '00000000-0000-0000-0000-000000000000';
 

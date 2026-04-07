@@ -14,7 +14,6 @@ describe('Generate CAGED Report (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should generate CAGED report as JSON', async () => {
     const { token } = await createAndAuthenticateUser(app, {
       tenantId,

@@ -16,7 +16,6 @@ describe('Delete Custom Field (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a custom field', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

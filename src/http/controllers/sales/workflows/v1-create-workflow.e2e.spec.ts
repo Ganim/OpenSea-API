@@ -14,7 +14,6 @@ describe('Create Workflow (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a workflow', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

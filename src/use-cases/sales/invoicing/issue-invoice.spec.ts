@@ -1,17 +1,16 @@
-import { describe, it, expect, beforeEach } from 'vitest';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { FocusNfeConfig } from '@/entities/sales/focus-nfe-config';
 import { Order } from '@/entities/sales/order';
 import { OrderItem } from '@/entities/sales/order-item';
-import { Customer } from '@/entities/sales/customer';
-import { FocusNfeConfig } from '@/entities/sales/focus-nfe-config';
-import { InMemoryOrdersRepository } from '@/repositories/sales/in-memory/in-memory-orders-repository';
-import { InMemoryOrderItemsRepository } from '@/repositories/sales/in-memory/in-memory-order-items-repository';
+import type { IFocusNfeProvider } from '@/providers/nfe/focus-nfe.provider';
 import { InMemoryCustomersRepository } from '@/repositories/sales/in-memory/in-memory-customers-repository';
-import { InMemoryInvoicesRepository } from '@/repositories/sales/in-memory/in-memory-invoices-repository';
 import { InMemoryFocusNfeConfigRepository } from '@/repositories/sales/in-memory/in-memory-focus-nfe-config-repository';
-import { FocusNfeProviderImpl } from '@/providers/nfe/implementations/focus-nfe.impl';
+import { InMemoryInvoicesRepository } from '@/repositories/sales/in-memory/in-memory-invoices-repository';
+import { InMemoryOrderItemsRepository } from '@/repositories/sales/in-memory/in-memory-order-items-repository';
+import { InMemoryOrdersRepository } from '@/repositories/sales/in-memory/in-memory-orders-repository';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { IssueInvoiceUseCase } from './issue-invoice.use-case';
 
 describe('IssueInvoiceUseCase', () => {
@@ -20,7 +19,7 @@ describe('IssueInvoiceUseCase', () => {
   let customersRepository: InMemoryCustomersRepository;
   let invoicesRepository: InMemoryInvoicesRepository;
   let focusNfeConfigRepository: InMemoryFocusNfeConfigRepository;
-  let focusNfeProvider: FocusNfeProviderImpl;
+  let focusNfeProvider: IFocusNfeProvider;
   let useCase: IssueInvoiceUseCase;
 
   const tenantId = 'tenant-123';
@@ -32,7 +31,22 @@ describe('IssueInvoiceUseCase', () => {
     customersRepository = new InMemoryCustomersRepository();
     invoicesRepository = new InMemoryInvoicesRepository();
     focusNfeConfigRepository = new InMemoryFocusNfeConfigRepository();
-    focusNfeProvider = new FocusNfeProviderImpl(false); // sandbox
+    focusNfeProvider = {
+      createInvoice: vi.fn(async () => ({
+        id: 'focus-ref-1',
+        ref: 'focus-ref-1',
+        status: 'autorizado',
+        status_code: 200,
+        chave_nfe: '35240512345678000190550010000000011234567890',
+        numero_nf: 1,
+        serie_nf: 1,
+        caminho_xml: 'https://example.com/nfce.xml',
+        caminho_pdf: 'https://example.com/nfce.pdf',
+      })),
+      checkStatus: vi.fn(),
+      cancelInvoice: vi.fn(),
+      testConnection: vi.fn(async () => ({ ok: true, message: 'ok' })),
+    };
 
     useCase = new IssueInvoiceUseCase(
       ordersRepository,
@@ -197,11 +211,12 @@ describe('IssueInvoiceUseCase', () => {
     });
 
     const orderItem = OrderItem.create({
+      tenantId: new UniqueEntityID(tenantId),
       orderId: order.id,
       name: 'Test Product',
       quantity: 1,
       unitPrice: 100,
-      taxRate: 0.18,
+      taxIcms: 18,
     });
 
     const config = FocusNfeConfig.create({
@@ -217,19 +232,15 @@ describe('IssueInvoiceUseCase', () => {
     await orderItemsRepository.create(orderItem);
     await focusNfeConfigRepository.create(config);
 
-    try {
-      await useCase.execute({
-        orderId: order.id.toString(),
-        tenantId,
-        userId,
-      });
-    } catch {
-      // Focus NFe provider may fail, but invoice should be created with ERROR status
-      // This is expected in test environment
-    }
+    await useCase.execute({
+      orderId: order.id.toString(),
+      tenantId,
+      userId,
+    });
 
     const invoices = invoicesRepository.items;
     expect(invoices.length).toBe(1);
     expect(invoices[0].orderId.toString()).toBe(order.id.toString());
+    expect(invoices[0].status).toBe('ISSUED');
   });
 });

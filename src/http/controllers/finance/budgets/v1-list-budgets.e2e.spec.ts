@@ -14,7 +14,6 @@ describe('List Budgets (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list budgets', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -14,7 +14,6 @@ describe('Get eSocial Certificate (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get certificate info (null when none uploaded)', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

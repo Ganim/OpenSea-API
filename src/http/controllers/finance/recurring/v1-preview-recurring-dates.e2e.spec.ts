@@ -14,7 +14,6 @@ describe('Preview Recurring Dates (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should preview recurring dates', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

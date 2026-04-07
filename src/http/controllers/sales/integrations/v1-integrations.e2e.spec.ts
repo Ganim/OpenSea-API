@@ -14,11 +14,9 @@ describe('Integrations (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('GET /v1/sales/integrations', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/integrations');
+      const response = await request(app.server).get('/v1/sales/integrations');
 
       expect(response.status).toBe(401);
     });
@@ -38,8 +36,9 @@ describe('Integrations (E2E)', () => {
 
   describe('GET /v1/sales/integrations/:integrationId', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/integrations/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).get(
+        '/v1/sales/integrations/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -47,8 +46,9 @@ describe('Integrations (E2E)', () => {
 
   describe('GET /v1/sales/integrations/tenant', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/integrations/tenant');
+      const response = await request(app.server).get(
+        '/v1/sales/integrations/tenant',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -79,8 +79,9 @@ describe('Integrations (E2E)', () => {
 
   describe('POST /v1/sales/integrations/:tenantIntegrationId/disconnect', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .post('/v1/sales/integrations/00000000-0000-0000-0000-000000000001/disconnect');
+      const response = await request(app.server).post(
+        '/v1/sales/integrations/00000000-0000-0000-0000-000000000001/disconnect',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -89,7 +90,9 @@ describe('Integrations (E2E)', () => {
   describe('PATCH /v1/sales/integrations/:tenantIntegrationId/config', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
-        .patch('/v1/sales/integrations/00000000-0000-0000-0000-000000000001/config')
+        .patch(
+          '/v1/sales/integrations/00000000-0000-0000-0000-000000000001/config',
+        )
         .send({ config: {} });
 
       expect(response.status).toBe(401);
@@ -98,8 +101,9 @@ describe('Integrations (E2E)', () => {
 
   describe('POST /v1/sales/integrations/:tenantIntegrationId/sync', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .post('/v1/sales/integrations/00000000-0000-0000-0000-000000000001/sync');
+      const response = await request(app.server).post(
+        '/v1/sales/integrations/00000000-0000-0000-0000-000000000001/sync',
+      );
 
       expect(response.status).toBe(401);
     });

@@ -91,7 +91,6 @@ describe('HR Multi-Tenant Isolation (E2E)', () => {
     tokenB = authB.token;
   }, 60000);
 
-
   // ── Employee isolation ──────────────────────────────────────────────────
 
   describe('Employees', () => {

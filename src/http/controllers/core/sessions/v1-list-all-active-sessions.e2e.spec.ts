@@ -14,7 +14,6 @@ describe('List All Active Sessions (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list all active sessions with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

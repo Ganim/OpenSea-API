@@ -16,7 +16,6 @@ describe('List User Sessions By Date (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list user sessions by date with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const uniqueId = Math.random().toString(36).substring(2, 10);

@@ -16,7 +16,6 @@ describe('List Card Integrations (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list integrations of a card', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

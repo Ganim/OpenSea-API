@@ -15,7 +15,6 @@ describe('List Team Emails (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list emails for a team', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const team = await createTeam(tenantId, user.user.id);

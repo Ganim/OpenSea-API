@@ -14,11 +14,11 @@ describe('Analytics Rankings (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('GET /v1/sales/analytics/rankings/sellers', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/analytics/rankings/sellers');
+      const response = await request(app.server).get(
+        '/v1/sales/analytics/rankings/sellers',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -39,8 +39,9 @@ describe('Analytics Rankings (E2E)', () => {
 
   describe('GET /v1/sales/analytics/rankings/products', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/analytics/rankings/products');
+      const response = await request(app.server).get(
+        '/v1/sales/analytics/rankings/products',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -61,8 +62,9 @@ describe('Analytics Rankings (E2E)', () => {
 
   describe('GET /v1/sales/analytics/rankings/customers', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/analytics/rankings/customers');
+      const response = await request(app.server).get(
+        '/v1/sales/analytics/rankings/customers',
+      );
 
       expect(response.status).toBe(401);
     });

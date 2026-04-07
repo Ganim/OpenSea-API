@@ -16,7 +16,6 @@ describe('Update Custom Field (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update a custom field', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

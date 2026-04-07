@@ -9,7 +9,6 @@ describe('Admin List Skill Pricing (E2E)', () => {
     await app.ready();
   });
 
-
   it('should list all skill pricing', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

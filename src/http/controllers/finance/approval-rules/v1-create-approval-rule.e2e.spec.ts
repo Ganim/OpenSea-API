@@ -14,7 +14,6 @@ describe('Create Approval Rule (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create an approval rule', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

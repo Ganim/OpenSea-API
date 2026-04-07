@@ -8,7 +8,6 @@ describe('List Portal Invoices (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return 401 for invalid portal token', async () => {
     const response = await request(app.server).get(
       '/v1/public/customer-portal/invalid-token-123/invoices',

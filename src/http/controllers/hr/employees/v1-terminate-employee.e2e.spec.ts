@@ -15,7 +15,6 @@ describe('Terminate Employee (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should terminate employee with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employee } = await createEmployeeE2E({

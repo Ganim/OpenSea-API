@@ -14,6 +14,7 @@ describe('Get Performance Review (E2E)', () => {
     tenantId = tid;
   });
 
+  it('should return 404 for non-existent review', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const response = await request(app.server)
       .get('/v1/hr/performance-reviews/clxxxxxxxxxxxxxxxxxxxxxxxxx')
@@ -22,7 +23,9 @@ describe('Get Performance Review (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server).get('/v1/hr/performance-reviews/clxxxxxxxxxxxxxxxxxxxxxxxxx');
+    const response = await request(app.server).get(
+      '/v1/hr/performance-reviews/clxxxxxxxxxxxxxxxxxxxxxxxxx',
+    );
     expect(response.status).toBe(401);
   });
 });

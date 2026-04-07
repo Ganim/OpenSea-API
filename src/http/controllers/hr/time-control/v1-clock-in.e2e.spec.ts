@@ -15,7 +15,6 @@ describe('Clock In (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should register clock in with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId } = await createEmployeeE2E({ tenantId });

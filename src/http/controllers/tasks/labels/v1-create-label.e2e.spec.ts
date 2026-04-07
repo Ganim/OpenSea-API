@@ -15,7 +15,6 @@ describe('Create Label (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a label for a board', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

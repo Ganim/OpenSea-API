@@ -14,7 +14,6 @@ describe('Check Duplicate Entry (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should check for duplicate entries', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -10,7 +10,6 @@ describe('Remove User from Tenant (E2E)', () => {
     await app.ready();
   });
 
-
   it('should remove a user from the tenant', { timeout: 20000 }, async () => {
     const { token, user } = await createAndAuthenticateUser(app);
 

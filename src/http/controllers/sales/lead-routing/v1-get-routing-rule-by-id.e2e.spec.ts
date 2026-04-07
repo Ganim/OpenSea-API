@@ -14,7 +14,6 @@ describe('Get Routing Rule By ID (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get routing rule by id', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

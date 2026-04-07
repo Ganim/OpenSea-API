@@ -15,12 +15,13 @@ describe('Upload Label Template Image (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent template', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
-      .post('/v1/label-templates/00000000-0000-0000-0000-000000000000/upload-image')
+      .post(
+        '/v1/label-templates/00000000-0000-0000-0000-000000000000/upload-image',
+      )
       .set('Authorization', `Bearer ${token}`)
       .attach('file', Buffer.from('fake-image'), {
         filename: 'test.png',
@@ -32,7 +33,9 @@ describe('Upload Label Template Image (E2E)', () => {
 
   it('should return 401 without token', async () => {
     const response = await request(app.server)
-      .post('/v1/label-templates/00000000-0000-0000-0000-000000000000/upload-image')
+      .post(
+        '/v1/label-templates/00000000-0000-0000-0000-000000000000/upload-image',
+      )
       .attach('file', Buffer.from('fake-image'), {
         filename: 'test.png',
         contentType: 'image/png',

@@ -14,7 +14,6 @@ describe('Link My Auth Method (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should link a CPF auth method', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -34,13 +33,11 @@ describe('Link My Auth Method (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .post('/v1/me/auth-links')
-      .send({
-        provider: 'CPF',
-        identifier: '123.456.789-00',
-        currentPassword: 'Pass@123',
-      });
+    const response = await request(app.server).post('/v1/me/auth-links').send({
+      provider: 'CPF',
+      identifier: '123.456.789-00',
+      currentPassword: 'Pass@123',
+    });
 
     expect(response.status).toBe(401);
   });

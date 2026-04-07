@@ -25,7 +25,6 @@ describe('Finance Recurring (E2E)', () => {
     bankAccountId = prereqs.bankAccount.id;
   });
 
-
   // ─── CREATE ────────────────────────────────────────────────────────
 
   it('should create a recurring config', async () => {

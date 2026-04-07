@@ -16,7 +16,6 @@ describe('List Vacation Periods (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list vacation periods with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId } = await createEmployeeE2E({ tenantId });

@@ -16,7 +16,6 @@ describe('Decompress File (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 400 for non-ZIP file', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const { folderId } = await createStorageFolderE2E({ tenantId });

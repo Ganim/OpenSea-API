@@ -14,7 +14,6 @@ describe('Campaigns (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('POST /v1/campaigns', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
@@ -34,7 +33,9 @@ describe('Campaigns (E2E)', () => {
           name: `Campaign E2E ${Date.now()}`,
           type: 'PERCENTAGE',
           startDate: new Date().toISOString(),
-          endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+          endDate: new Date(
+            Date.now() + 30 * 24 * 60 * 60 * 1000,
+          ).toISOString(),
         });
 
       expect(response.status).toBe(201);
@@ -44,8 +45,7 @@ describe('Campaigns (E2E)', () => {
 
   describe('GET /v1/campaigns', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/campaigns');
+      const response = await request(app.server).get('/v1/campaigns');
 
       expect(response.status).toBe(401);
     });
@@ -66,8 +66,9 @@ describe('Campaigns (E2E)', () => {
 
   describe('GET /v1/campaigns/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/campaigns/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).get(
+        '/v1/campaigns/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -85,8 +86,9 @@ describe('Campaigns (E2E)', () => {
 
   describe('DELETE /v1/campaigns/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .delete('/v1/campaigns/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).delete(
+        '/v1/campaigns/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -94,8 +96,9 @@ describe('Campaigns (E2E)', () => {
 
   describe('PATCH /v1/campaigns/:id/activate', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .patch('/v1/campaigns/00000000-0000-0000-0000-000000000001/activate');
+      const response = await request(app.server).patch(
+        '/v1/campaigns/00000000-0000-0000-0000-000000000001/activate',
+      );
 
       expect(response.status).toBe(401);
     });

@@ -14,7 +14,6 @@ describe('Get Overdue Escalation By ID (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get an escalation by id with steps', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

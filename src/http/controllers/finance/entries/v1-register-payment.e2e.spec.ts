@@ -19,7 +19,6 @@ describe('Register Payment (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should register a payment for a finance entry', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { category, costCenter } = await createFinancePrerequisites(tenantId);

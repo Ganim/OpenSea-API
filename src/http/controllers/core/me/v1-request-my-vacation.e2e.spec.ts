@@ -16,7 +16,6 @@ describe('Request My Vacation (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should request vacation for myself', { timeout: 15000 }, async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -14,20 +14,22 @@ describe('Generate Punch Receipt PDF (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent entry', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
-      .get('/v1/hr/time-control/entries/00000000-0000-0000-0000-000000000000/receipt')
+      .get(
+        '/v1/hr/time-control/entries/00000000-0000-0000-0000-000000000000/receipt',
+      )
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).not.toBe(401);
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/time-control/entries/00000000-0000-0000-0000-000000000000/receipt');
+    const response = await request(app.server).get(
+      '/v1/hr/time-control/entries/00000000-0000-0000-0000-000000000000/receipt',
+    );
 
     expect(response.status).toBe(401);
   });

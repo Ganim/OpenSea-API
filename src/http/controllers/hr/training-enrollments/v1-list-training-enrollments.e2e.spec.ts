@@ -17,7 +17,6 @@ describe('List Training Enrollments (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list training enrollments', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { trainingProgramId } = await createTrainingProgramE2E({

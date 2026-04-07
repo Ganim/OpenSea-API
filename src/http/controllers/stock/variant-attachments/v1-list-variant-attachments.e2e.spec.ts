@@ -16,7 +16,6 @@ describe('List Variant Attachments (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list variant attachments', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { product } = await createProduct({ tenantId });

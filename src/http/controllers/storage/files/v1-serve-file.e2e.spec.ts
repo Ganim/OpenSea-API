@@ -16,7 +16,6 @@ describe('Serve File (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should serve a file with correct headers', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const { folderId } = await createStorageFolderE2E({ tenantId });

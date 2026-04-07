@@ -9,12 +9,13 @@ describe('Admin Update Ticket Status (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return 404 for non-existent ticket', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 
     const response = await request(app.server)
-      .patch('/v1/admin/support/tickets/00000000-0000-0000-0000-000000000000/status')
+      .patch(
+        '/v1/admin/support/tickets/00000000-0000-0000-0000-000000000000/status',
+      )
       .set('Authorization', `Bearer ${token}`)
       .send({ status: 'IN_PROGRESS' });
 
@@ -25,7 +26,9 @@ describe('Admin Update Ticket Status (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app);
 
     const response = await request(app.server)
-      .patch('/v1/admin/support/tickets/00000000-0000-0000-0000-000000000000/status')
+      .patch(
+        '/v1/admin/support/tickets/00000000-0000-0000-0000-000000000000/status',
+      )
       .set('Authorization', `Bearer ${token}`)
       .send({ status: 'IN_PROGRESS' });
 

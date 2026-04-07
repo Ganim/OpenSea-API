@@ -14,7 +14,6 @@ describe('List Onboarding Checklists (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list onboarding checklists', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

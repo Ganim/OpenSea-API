@@ -9,7 +9,6 @@ describe('Admin Remove Central User (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return 404 for non-existent central user', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

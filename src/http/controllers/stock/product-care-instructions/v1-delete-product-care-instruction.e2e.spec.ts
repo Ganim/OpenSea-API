@@ -30,7 +30,6 @@ describe('Delete Product Care Instruction (E2E)', () => {
     careTemplateId = template.id;
   });
 
-
   it('should delete a care instruction from a product', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { product } = await createProduct({

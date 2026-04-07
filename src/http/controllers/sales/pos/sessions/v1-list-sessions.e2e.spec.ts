@@ -14,7 +14,6 @@ describe('List POS Sessions (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list sessions', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

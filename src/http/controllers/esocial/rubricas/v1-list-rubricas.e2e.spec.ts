@@ -14,7 +14,6 @@ describe('List eSocial Rubricas (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list rubricas', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

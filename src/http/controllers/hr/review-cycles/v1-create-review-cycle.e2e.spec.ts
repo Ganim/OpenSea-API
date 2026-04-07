@@ -14,7 +14,6 @@ describe('Create Review Cycle (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a review cycle', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -20,7 +20,6 @@ describe('Run Workflow (E2E)', () => {
     userId = auth.user.user.id;
   });
 
-
   it('should run workflow manually (200 or execution error)', async () => {
     const workflow = await prisma.aiWorkflow.create({
       data: {

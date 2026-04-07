@@ -15,7 +15,6 @@ describe('Create Folder (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a root folder', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

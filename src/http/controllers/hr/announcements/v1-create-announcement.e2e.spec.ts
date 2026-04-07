@@ -14,14 +14,17 @@ describe('Create Announcement (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create announcement', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
       .post('/v1/hr/announcements')
       .set('Authorization', `Bearer ${token}`)
-      .send({ title: 'Test Announcement', content: 'Test content', priority: 'NORMAL' });
+      .send({
+        title: 'Test Announcement',
+        content: 'Test content',
+        priority: 'NORMAL',
+      });
 
     expect(response.status).not.toBe(401);
   });
@@ -29,7 +32,11 @@ describe('Create Announcement (E2E)', () => {
   it('should return 401 when not authenticated', async () => {
     const response = await request(app.server)
       .post('/v1/hr/announcements')
-      .send({ title: 'Test Announcement', content: 'Test content', priority: 'NORMAL' });
+      .send({
+        title: 'Test Announcement',
+        content: 'Test content',
+        priority: 'NORMAL',
+      });
 
     expect(response.status).toBe(401);
   });

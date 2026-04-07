@@ -15,7 +15,6 @@ describe('Create My Request (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a new employee request', async () => {
     const { token, user: userResponse } = await createAndAuthenticateUser(app, {
       tenantId,

@@ -16,7 +16,6 @@ describe('Search Storage (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should search files and folders by query', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

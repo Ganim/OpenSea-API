@@ -15,7 +15,6 @@ describe('Get Volume By ID (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get a volume by ID', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

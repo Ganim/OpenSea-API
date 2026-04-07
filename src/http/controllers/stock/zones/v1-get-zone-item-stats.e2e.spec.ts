@@ -15,7 +15,6 @@ describe('Get Zone Item Stats (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return zone item statistics', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

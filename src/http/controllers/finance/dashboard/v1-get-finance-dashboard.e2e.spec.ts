@@ -14,7 +14,6 @@ describe('Get Finance Dashboard (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return dashboard data', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

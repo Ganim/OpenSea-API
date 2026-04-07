@@ -17,7 +17,6 @@ describe('Finance Query (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should query finances using natural language (200)', async () => {
     const response = await request(app.server)
       .post('/v1/ai/finance-query')

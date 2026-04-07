@@ -1,5 +1,5 @@
-import { closeAllQueues } from '@/lib/queue';
 import { prisma } from '@/lib/prisma';
+import { closeAllQueues } from '@/lib/queue';
 import { PrismaEmailAccountsRepository } from '@/repositories/email/prisma/prisma-email-accounts-repository';
 import { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import { getImapIdleManager } from '@/services/email/imap-idle-manager';
@@ -13,6 +13,10 @@ import {
   stopEsocialBatchScheduler,
 } from './esocial-batch-scheduler';
 import { stopNotificationsScheduler } from './notifications-scheduler';
+import {
+  startPaymentReconciliationScheduler,
+  stopPaymentReconciliationScheduler,
+} from './payment-reconciliation-scheduler';
 import { startEmailSyncWorker } from './queues/email-sync.queue';
 import { startEsocialBatchPollingWorker } from './queues/esocial-batch-polling.queue';
 import { startNotificationWorker } from './queues/notification.queue';
@@ -109,6 +113,16 @@ export async function startAllWorkers(): Promise<void> {
     console.error('[Workers] Failed to start IDLE monitoring:', err);
   }
 
+  // Start payment reconciliation scheduler (daily 02:00 UTC)
+  try {
+    await startPaymentReconciliationScheduler();
+  } catch (err) {
+    console.error(
+      '[Workers] Failed to start payment reconciliation scheduler:',
+      err,
+    );
+  }
+
   workersStarted = true;
   console.log('[Workers] All workers started successfully');
 }
@@ -127,6 +141,7 @@ export async function stopAllWorkers(): Promise<void> {
   stopEmailSyncScheduler();
   stopEsocialBatchScheduler();
   stopNotificationsScheduler();
+  stopPaymentReconciliationScheduler();
 
   // Then close BullMQ queues and workers
   await closeAllQueues();

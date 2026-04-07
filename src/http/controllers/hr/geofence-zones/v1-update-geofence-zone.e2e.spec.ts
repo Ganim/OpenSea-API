@@ -14,14 +14,13 @@ describe('Update Geofence Zone (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent zone', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
       .patch('/v1/hr/geofence-zones/00000000-0000-0000-0000-000000000000')
       .set('Authorization', `Bearer ${token}`)
-      .send({ name: "Updated Zone" });
+      .send({ name: 'Updated Zone' });
 
     expect(response.status).not.toBe(401);
   });
@@ -29,7 +28,7 @@ describe('Update Geofence Zone (E2E)', () => {
   it('should return 401 when not authenticated', async () => {
     const response = await request(app.server)
       .patch('/v1/hr/geofence-zones/00000000-0000-0000-0000-000000000000')
-      .send({ name: "Updated Zone" });
+      .send({ name: 'Updated Zone' });
 
     expect(response.status).toBe(401);
   });

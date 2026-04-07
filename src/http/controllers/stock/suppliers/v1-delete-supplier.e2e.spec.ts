@@ -15,7 +15,6 @@ describe('Delete Supplier (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete supplier with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

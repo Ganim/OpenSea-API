@@ -15,7 +15,6 @@ describe('Expire Session (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should expire session with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 

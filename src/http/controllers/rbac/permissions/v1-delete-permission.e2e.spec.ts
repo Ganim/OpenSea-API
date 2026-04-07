@@ -14,7 +14,6 @@ describe('Delete Permission (e2e)', () => {
     tenantId = tid;
   });
 
-
   it('should delete permission with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const permission = await makePermission();

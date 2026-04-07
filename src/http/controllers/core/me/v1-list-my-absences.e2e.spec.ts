@@ -15,7 +15,6 @@ describe('List My Absences (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list my absences with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 

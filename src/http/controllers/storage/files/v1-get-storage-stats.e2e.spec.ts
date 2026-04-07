@@ -14,7 +14,6 @@ describe('Get Storage Stats (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return storage statistics', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

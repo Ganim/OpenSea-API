@@ -14,7 +14,6 @@ describe('Authenticate with Access PIN (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should authenticate with correct access PIN', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

@@ -9,7 +9,6 @@ describe('Admin Monitoring (E2E)', () => {
     await app.ready();
   });
 
-
   // GET /v1/admin/monitoring/health
   it('should return system health status', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);

@@ -15,7 +15,6 @@ describe('Get Admission Invite (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should get an admission invite by id', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { admissionInvite } = await createAdmissionInviteE2E({ tenantId });

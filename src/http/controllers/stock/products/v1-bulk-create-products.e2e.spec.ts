@@ -15,7 +15,6 @@ describe('Bulk Create Products (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should bulk create products with auth', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

@@ -16,7 +16,6 @@ describe('Move Card Concurrency (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should handle simultaneous card moves without data corruption', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

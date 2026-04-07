@@ -13,7 +13,6 @@ describe('List Permissions (e2e)', () => {
     tenantId = tid;
   });
 
-
   it('should list permissions with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

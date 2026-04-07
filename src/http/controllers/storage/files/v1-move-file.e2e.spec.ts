@@ -16,7 +16,6 @@ describe('Move File (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should move a file to another folder', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

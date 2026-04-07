@@ -15,7 +15,6 @@ describe('Assign Employee to Shift (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should assign an employee to a shift', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId } = await createEmployeeE2E({ tenantId });

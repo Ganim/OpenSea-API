@@ -15,7 +15,6 @@ describe('Revoke Accountant (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent accountant', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

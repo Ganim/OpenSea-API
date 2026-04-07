@@ -15,7 +15,6 @@ describe('Create Employee with User (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should create employee with user with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const employeeData = generateEmployeeData();

@@ -14,7 +14,6 @@ describe('Get Supplier Summary (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return supplier summary', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

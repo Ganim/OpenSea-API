@@ -14,7 +14,6 @@ describe('Admin Generate Billing (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should generate billing for a tenant', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
     const uniqueMonth = `2025-${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}`;

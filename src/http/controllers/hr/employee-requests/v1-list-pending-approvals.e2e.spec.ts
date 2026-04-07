@@ -16,7 +16,6 @@ describe('List Pending Approvals (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list pending requests for approver', async () => {
     const { token, user: userResponse } = await createAndAuthenticateUser(app, {
       tenantId,

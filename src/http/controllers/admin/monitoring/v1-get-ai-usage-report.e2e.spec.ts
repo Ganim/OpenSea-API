@@ -9,7 +9,6 @@ describe('Admin Get AI Usage Report (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return AI usage report', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

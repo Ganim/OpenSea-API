@@ -26,7 +26,6 @@ describe('Preview File Protected (E2E)', () => {
     folderId = fid;
   });
 
-
   it('should preview a file via POST (IDM-safe)', async () => {
     const { fileId } = await createStorageFileE2E({
       tenantId,

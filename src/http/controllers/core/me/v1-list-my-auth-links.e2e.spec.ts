@@ -14,7 +14,6 @@ describe('List My Auth Links (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list auth links for current user', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

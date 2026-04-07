@@ -15,7 +15,6 @@ describe('Get Approval Rule By ID (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent rule', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

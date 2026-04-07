@@ -14,7 +14,6 @@ describe('Conversations (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('POST /v1/sales/conversations', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
@@ -27,8 +26,7 @@ describe('Conversations (E2E)', () => {
 
   describe('GET /v1/sales/conversations', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/conversations');
+      const response = await request(app.server).get('/v1/sales/conversations');
 
       expect(response.status).toBe(401);
     });
@@ -48,8 +46,9 @@ describe('Conversations (E2E)', () => {
 
   describe('GET /v1/sales/conversations/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/conversations/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).get(
+        '/v1/sales/conversations/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -58,7 +57,9 @@ describe('Conversations (E2E)', () => {
   describe('POST /v1/sales/conversations/:id/messages', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
-        .post('/v1/sales/conversations/00000000-0000-0000-0000-000000000001/messages')
+        .post(
+          '/v1/sales/conversations/00000000-0000-0000-0000-000000000001/messages',
+        )
         .send({ content: 'Test message' });
 
       expect(response.status).toBe(401);
@@ -67,8 +68,9 @@ describe('Conversations (E2E)', () => {
 
   describe('PATCH /v1/sales/conversations/:id/read', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .patch('/v1/sales/conversations/00000000-0000-0000-0000-000000000001/read');
+      const response = await request(app.server).patch(
+        '/v1/sales/conversations/00000000-0000-0000-0000-000000000001/read',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -76,8 +78,9 @@ describe('Conversations (E2E)', () => {
 
   describe('PATCH /v1/sales/conversations/:id/close', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .patch('/v1/sales/conversations/00000000-0000-0000-0000-000000000001/close');
+      const response = await request(app.server).patch(
+        '/v1/sales/conversations/00000000-0000-0000-0000-000000000001/close',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -85,8 +88,9 @@ describe('Conversations (E2E)', () => {
 
   describe('PATCH /v1/sales/conversations/:id/archive', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .patch('/v1/sales/conversations/00000000-0000-0000-0000-000000000001/archive');
+      const response = await request(app.server).patch(
+        '/v1/sales/conversations/00000000-0000-0000-0000-000000000001/archive',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -94,8 +98,9 @@ describe('Conversations (E2E)', () => {
 
   describe('DELETE /v1/sales/conversations/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .delete('/v1/sales/conversations/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).delete(
+        '/v1/sales/conversations/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });

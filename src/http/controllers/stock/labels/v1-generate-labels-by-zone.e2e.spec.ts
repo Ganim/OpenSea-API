@@ -15,7 +15,6 @@ describe('Generate Labels By Zone (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should generate labels by zone with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

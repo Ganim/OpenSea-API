@@ -15,7 +15,6 @@ describe('Get Employee By Id (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should get employee by id with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId, employee } = await createEmployeeE2E({ tenantId });

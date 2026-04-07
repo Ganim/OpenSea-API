@@ -9,7 +9,6 @@ describe('Request Magic Link (E2E)', () => {
     await app.ready();
   });
 
-
   it('should request magic link for valid identifier', async () => {
     const email = makeUniqueEmail('req-magic');
 

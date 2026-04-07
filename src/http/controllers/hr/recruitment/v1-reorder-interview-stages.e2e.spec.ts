@@ -14,7 +14,6 @@ describe('Reorder Interview Stages (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should reorder interview stages', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

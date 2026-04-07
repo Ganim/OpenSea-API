@@ -14,7 +14,6 @@ describe('List Calendar Events (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list events with meta', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

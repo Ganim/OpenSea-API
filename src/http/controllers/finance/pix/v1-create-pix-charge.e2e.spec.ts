@@ -15,7 +15,6 @@ describe('Create Pix Charge (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for invalid data', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

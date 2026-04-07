@@ -14,7 +14,6 @@ describe('Adjust PPE Item Stock (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent PPE item', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const response = await request(app.server)

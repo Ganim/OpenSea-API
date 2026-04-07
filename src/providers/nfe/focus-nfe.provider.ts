@@ -31,5 +31,8 @@ export interface IFocusNfeProvider {
   /**
    * Testa a conexão com a API
    */
-  testConnection(apiKey: string, production?: boolean): Promise<TestConnectionResponse>;
+  testConnection(
+    apiKey: string,
+    production?: boolean,
+  ): Promise<TestConnectionResponse>;
 }

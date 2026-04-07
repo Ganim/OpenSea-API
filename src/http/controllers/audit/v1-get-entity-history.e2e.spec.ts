@@ -14,7 +14,6 @@ describe('Get Entity History (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return entity history with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -17,7 +17,6 @@ describe('Create Workflow (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should create workflow from natural language (201 or provider error)', async () => {
     const response = await request(app.server)
       .post('/v1/ai/workflows')
@@ -41,11 +40,9 @@ describe('Create Workflow (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .post('/v1/ai/workflows')
-      .send({
-        naturalPrompt: 'Enviar alerta quando estoque baixo',
-      });
+    const response = await request(app.server).post('/v1/ai/workflows').send({
+      naturalPrompt: 'Enviar alerta quando estoque baixo',
+    });
 
     expect(response.status).toBe(401);
   });

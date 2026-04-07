@@ -8,7 +8,6 @@ describe('Export SPED (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return 401 without accountant token', async () => {
     const response = await request(app.server)
       .get('/v1/accountant/export/sped')

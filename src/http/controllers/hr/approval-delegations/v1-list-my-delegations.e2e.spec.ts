@@ -14,7 +14,6 @@ describe('List My Delegations (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list outgoing delegations', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,9 @@ describe('List My Delegations (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/approval-delegations/outgoing');
+    const response = await request(app.server).get(
+      '/v1/hr/approval-delegations/outgoing',
+    );
 
     expect(response.status).toBe(401);
   });

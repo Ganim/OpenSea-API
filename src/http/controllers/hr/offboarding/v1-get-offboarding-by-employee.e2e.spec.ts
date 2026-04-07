@@ -14,7 +14,6 @@ describe('Get Offboarding By Employee (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent employee offboarding', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const response = await request(app.server)
@@ -24,8 +23,9 @@ describe('Get Offboarding By Employee (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/offboarding/employee/00000000-0000-0000-0000-000000000000');
+    const response = await request(app.server).get(
+      '/v1/hr/offboarding/employee/00000000-0000-0000-0000-000000000000',
+    );
     expect(response.status).toBe(401);
   });
 });

@@ -14,11 +14,9 @@ describe('Brand (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('GET /v1/brand', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/brand');
+      const response = await request(app.server).get('/v1/brand');
 
       expect(response.status).toBe(401);
     });

@@ -8,7 +8,6 @@ describe('Handle Chatbot Message (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return 404 for non-existent tenant slug', async () => {
     const response = await request(app.server)
       .post('/v1/public/chatbot/non-existent-slug/message')

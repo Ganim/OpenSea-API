@@ -15,7 +15,6 @@ describe('Get Payment Receipt (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for non-existent order', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

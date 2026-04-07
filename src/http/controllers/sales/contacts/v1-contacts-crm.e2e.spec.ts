@@ -34,7 +34,6 @@ describe('CRM E2E (Contacts, Pipelines, Deals)', () => {
     customerId = customerRes.body.customer.id;
   });
 
-
   // ── Contacts ────────────────────────────────────────────────────────────────
 
   it('POST /v1/contacts should create a contact (201)', async () => {

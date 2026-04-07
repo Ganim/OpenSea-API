@@ -14,7 +14,6 @@ describe('Create Shift (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a shift', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -37,14 +36,12 @@ describe('Create Shift (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .post('/v1/hr/shifts')
-      .send({
-        name: 'Test Shift',
-        type: 'FIXED',
-        startTime: '08:00',
-        endTime: '17:00',
-      });
+    const response = await request(app.server).post('/v1/hr/shifts').send({
+      name: 'Test Shift',
+      type: 'FIXED',
+      startTime: '08:00',
+      endTime: '17:00',
+    });
 
     expect(response.statusCode).toBe(401);
   });

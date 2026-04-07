@@ -15,7 +15,6 @@ describe('Update Department (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update department with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { departmentId } = await createDepartmentE2E({ tenantId });

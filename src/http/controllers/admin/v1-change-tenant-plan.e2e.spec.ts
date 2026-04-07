@@ -10,7 +10,6 @@ describe('Change Tenant Plan (E2E)', () => {
     await app.ready();
   });
 
-
   it('should change a tenant plan', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

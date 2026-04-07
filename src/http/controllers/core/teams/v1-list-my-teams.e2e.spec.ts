@@ -18,7 +18,6 @@ describe('List My Teams (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list only teams the user belongs to', async () => {
     const { token, user: myUser } = await createAndAuthenticateUser(app, {
       tenantId,

@@ -14,7 +14,6 @@ describe('List Interview Stages (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list interview stages for a job posting', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -35,8 +34,9 @@ describe('List Interview Stages (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/recruitment/job-postings/nonexistent-id/stages');
+    const response = await request(app.server).get(
+      '/v1/hr/recruitment/job-postings/nonexistent-id/stages',
+    );
 
     expect(response.statusCode).toBe(401);
   });

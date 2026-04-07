@@ -17,7 +17,6 @@ describe('Empty Trash (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should permanently delete all soft-deleted files and folders', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

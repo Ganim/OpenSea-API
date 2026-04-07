@@ -14,12 +14,13 @@ describe('Revoke Delegation (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent delegation', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
-      .patch('/v1/hr/approval-delegations/00000000-0000-0000-0000-000000000000/revoke')
+      .patch(
+        '/v1/hr/approval-delegations/00000000-0000-0000-0000-000000000000/revoke',
+      )
       .set('Authorization', `Bearer ${token}`)
       .send({});
 
@@ -28,7 +29,9 @@ describe('Revoke Delegation (E2E)', () => {
 
   it('should return 401 when not authenticated', async () => {
     const response = await request(app.server)
-      .patch('/v1/hr/approval-delegations/00000000-0000-0000-0000-000000000000/revoke')
+      .patch(
+        '/v1/hr/approval-delegations/00000000-0000-0000-0000-000000000000/revoke',
+      )
       .send({});
 
     expect(response.status).toBe(401);

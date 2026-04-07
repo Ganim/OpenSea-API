@@ -15,7 +15,6 @@ describe('Change My Email (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should change my email with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const newEmail = makeUniqueEmail('change-my-email');

@@ -14,10 +14,10 @@ describe('Transmit eSocial Batch (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .post('/v1/esocial/batches/transmit');
+    const response = await request(app.server).post(
+      '/v1/esocial/batches/transmit',
+    );
 
     expect(response.statusCode).toBe(401);
   });

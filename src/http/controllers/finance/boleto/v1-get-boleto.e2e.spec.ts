@@ -15,7 +15,6 @@ describe('Get Boleto (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent boleto', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

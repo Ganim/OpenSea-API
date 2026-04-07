@@ -14,7 +14,6 @@ describe('Create Manufacturer (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create manufacturer with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

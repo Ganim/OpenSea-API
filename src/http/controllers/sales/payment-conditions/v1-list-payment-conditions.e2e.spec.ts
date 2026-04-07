@@ -14,7 +14,6 @@ describe('List Payment Conditions (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list payment conditions', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

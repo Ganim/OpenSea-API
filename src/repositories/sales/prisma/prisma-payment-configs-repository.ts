@@ -6,9 +6,7 @@ import type {
   SavePaymentConfigSchema,
 } from '../payment-configs-repository';
 
-function mapToDomain(
-  data: Record<string, unknown>,
-): TenantPaymentConfig {
+function mapToDomain(data: Record<string, unknown>): TenantPaymentConfig {
   return TenantPaymentConfig.create(
     {
       tenantId: new UniqueEntityID(data.tenantId as string),
@@ -30,9 +28,7 @@ function mapToDomain(
 export class PrismaPaymentConfigsRepository
   implements PaymentConfigsRepository
 {
-  async findByTenantId(
-    tenantId: string,
-  ): Promise<TenantPaymentConfig | null> {
+  async findByTenantId(tenantId: string): Promise<TenantPaymentConfig | null> {
     const configData = await prisma.tenantPaymentConfig.findUnique({
       where: { tenantId },
     });

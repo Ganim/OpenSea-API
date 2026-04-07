@@ -1772,3 +1772,23 @@ export type TenantPaymentConfig = Prisma.TenantPaymentConfigModel
  * 
  */
 export type PaymentCharge = Prisma.PaymentChargeModel
+/**
+ * Model Invoice
+ * 
+ */
+export type Invoice = Prisma.InvoiceModel
+/**
+ * Model PosPrinter
+ * 
+ */
+export type PosPrinter = Prisma.PosPrinterModel
+/**
+ * Model PrintJob
+ * 
+ */
+export type PrintJob = Prisma.PrintJobModel
+/**
+ * Model FocusNfeConfig
+ * 
+ */
+export type FocusNfeConfig = Prisma.FocusNfeConfigModel

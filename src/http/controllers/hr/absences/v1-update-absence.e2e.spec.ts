@@ -14,7 +14,6 @@ describe('Update Absence (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent absence', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

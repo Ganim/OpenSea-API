@@ -14,7 +14,6 @@ describe('Get Connect Token (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should attempt to get connect token', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

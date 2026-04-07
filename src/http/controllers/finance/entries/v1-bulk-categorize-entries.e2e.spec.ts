@@ -16,7 +16,6 @@ describe('Bulk Categorize Entries (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should handle bulk categorize', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { category } = await createFinancePrerequisites(tenantId);

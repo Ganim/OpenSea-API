@@ -18,7 +18,6 @@ describe('Check CPF (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should check cpf with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const cpf = generateValidCPF();

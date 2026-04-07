@@ -17,7 +17,6 @@ describe('Send Message (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should send a message and create a conversation (200)', async () => {
     const response = await request(app.server)
       .post('/v1/ai/chat')

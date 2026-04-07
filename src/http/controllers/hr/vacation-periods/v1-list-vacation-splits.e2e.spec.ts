@@ -14,18 +14,20 @@ describe('List Vacation Splits (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent vacation period', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const response = await request(app.server)
-      .get('/v1/hr/vacation-periods/00000000-0000-0000-0000-000000000000/splits')
+      .get(
+        '/v1/hr/vacation-periods/00000000-0000-0000-0000-000000000000/splits',
+      )
       .set('Authorization', `Bearer ${token}`);
     expect([200, 404]).toContain(response.status);
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/vacation-periods/00000000-0000-0000-0000-000000000000/splits');
+    const response = await request(app.server).get(
+      '/v1/hr/vacation-periods/00000000-0000-0000-0000-000000000000/splits',
+    );
     expect(response.status).toBe(401);
   });
 });

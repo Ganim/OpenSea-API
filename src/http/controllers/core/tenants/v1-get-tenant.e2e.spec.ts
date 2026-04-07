@@ -10,7 +10,6 @@ describe('Get Tenant (E2E)', () => {
     await app.ready();
   });
 
-
   it('should get tenant details by id', async () => {
     const { token, user } = await createAndAuthenticateUser(app);
 

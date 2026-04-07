@@ -14,7 +14,6 @@ describe('Admin Get Tenant Consumption (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return tenant consumption', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

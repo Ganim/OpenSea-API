@@ -2,7 +2,5 @@ import { PrismaPaymentConfigsRepository } from '@/repositories/sales/prisma/pris
 import { TestPaymentConnectionUseCase } from '../test-payment-connection';
 
 export function makeTestPaymentConnectionUseCase() {
-  return new TestPaymentConnectionUseCase(
-    new PrismaPaymentConfigsRepository(),
-  );
+  return new TestPaymentConnectionUseCase(new PrismaPaymentConfigsRepository());
 }

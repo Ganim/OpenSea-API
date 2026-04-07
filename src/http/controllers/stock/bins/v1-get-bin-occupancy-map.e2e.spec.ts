@@ -15,7 +15,6 @@ describe('Get Bin Occupancy Map (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get bin occupancy map with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

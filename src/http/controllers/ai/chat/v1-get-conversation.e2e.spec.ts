@@ -17,7 +17,6 @@ describe('Get Conversation (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should get a conversation with messages (200)', async () => {
     // Create a conversation first
     const chatResponse = await request(app.server)

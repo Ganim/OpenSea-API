@@ -15,7 +15,6 @@ describe('Suspend Employee (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should suspend employee with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employee } = await createEmployeeE2E({

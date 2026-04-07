@@ -15,7 +15,6 @@ describe('Create Training Program (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a training program', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const programData = generateTrainingProgramData({

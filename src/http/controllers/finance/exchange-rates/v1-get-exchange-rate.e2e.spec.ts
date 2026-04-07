@@ -14,7 +14,6 @@ describe('Get Exchange Rate (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get exchange rate', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -14,7 +14,6 @@ describe('Publish Marketplace Listing (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
     const response = await request(app.server)
       .post(

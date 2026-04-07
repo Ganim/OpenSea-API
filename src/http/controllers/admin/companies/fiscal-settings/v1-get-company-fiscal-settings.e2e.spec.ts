@@ -16,7 +16,6 @@ describe('Get Company Fiscal Settings (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get company fiscal settings with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

@@ -14,7 +14,6 @@ describe('Ensure Entity Folder (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create entity folders', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const entityId = `entity-${Date.now()}`;

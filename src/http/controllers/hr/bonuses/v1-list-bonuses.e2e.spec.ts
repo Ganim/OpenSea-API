@@ -14,7 +14,6 @@ describe('List Bonuses (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list bonuses with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

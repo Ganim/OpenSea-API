@@ -73,7 +73,6 @@ describe('Order Returns (E2E)', () => {
     orderId = orderResponse.body.order.id;
   });
 
-
   it('POST /v1/returns should create a return request (201)', async () => {
     const response = await request(app.server)
       .post('/v1/returns')

@@ -14,7 +14,6 @@ describe('Admin Toggle Auth Link (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should toggle auth link status for a user', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { user: targetUser, token: targetToken } =
@@ -40,9 +39,7 @@ describe('Admin Toggle Auth Link (E2E)', () => {
     expect(cpfLink).toBeTruthy();
 
     const response = await request(app.server)
-      .patch(
-        `/v1/users/${targetUser.user.id}/auth-links/${cpfLink.id}`,
-      )
+      .patch(`/v1/users/${targetUser.user.id}/auth-links/${cpfLink.id}`)
       .set('Authorization', `Bearer ${token}`)
       .send({ status: 'INACTIVE' });
 

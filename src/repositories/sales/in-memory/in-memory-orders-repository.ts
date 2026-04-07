@@ -90,9 +90,7 @@ export class InMemoryOrdersRepository implements OrdersRepository {
     });
 
     // Sort by createdAt DESC
-    filtered.sort(
-      (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
-    );
+    filtered.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 
     const total = filtered.length;
     const start = (page - 1) * limit;

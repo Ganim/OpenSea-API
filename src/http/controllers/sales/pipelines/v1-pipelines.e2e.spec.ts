@@ -18,7 +18,6 @@ describe('Pipelines CRUD (E2E)', () => {
     token = auth.token;
   });
 
-
   it('POST /v1/pipelines should create a pipeline', async () => {
     const timestamp = Date.now();
 

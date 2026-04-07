@@ -14,7 +14,6 @@ describe('Admin Get Tenant Overview (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return tenant overview', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

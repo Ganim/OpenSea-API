@@ -14,7 +14,6 @@ describe('Get Finance Overview (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return finance overview data', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

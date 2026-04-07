@@ -14,7 +14,6 @@ describe('Get PPE Item (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent PPE item', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const response = await request(app.server)
@@ -24,7 +23,9 @@ describe('Get PPE Item (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server).get('/v1/hr/ppe-items/clxxxxxxxxxxxxxxxxxxxxxxxxx');
+    const response = await request(app.server).get(
+      '/v1/hr/ppe-items/clxxxxxxxxxxxxxxxxxxxxxxxxx',
+    );
     expect(response.status).toBe(401);
   });
 });

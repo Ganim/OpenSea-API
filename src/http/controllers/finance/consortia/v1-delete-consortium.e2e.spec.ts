@@ -15,7 +15,6 @@ describe('Delete Consortium (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a consortium', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { costCenter, bankAccount } =

@@ -14,7 +14,6 @@ describe('Get My Support Ticket (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent ticket', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

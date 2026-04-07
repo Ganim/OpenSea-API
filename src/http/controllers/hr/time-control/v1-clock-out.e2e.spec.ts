@@ -16,7 +16,6 @@ describe('Clock Out (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should register clock out with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId } = await createEmployeeE2E({ tenantId });

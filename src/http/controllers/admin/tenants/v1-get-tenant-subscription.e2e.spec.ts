@@ -14,7 +14,6 @@ describe('Admin Get Tenant Subscription (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return tenant subscriptions', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

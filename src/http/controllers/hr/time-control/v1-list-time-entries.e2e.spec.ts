@@ -16,7 +16,6 @@ describe('List Time Entries (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should list time entries with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId } = await createEmployeeE2E({ tenantId });

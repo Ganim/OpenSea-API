@@ -18,7 +18,6 @@ describe('Cancel Finance Entry (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should cancel a finance entry', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { category, costCenter } = await createFinancePrerequisites(tenantId);

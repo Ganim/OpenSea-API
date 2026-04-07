@@ -14,7 +14,6 @@ describe('Admin Add Tenant Subscription (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent skill code', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

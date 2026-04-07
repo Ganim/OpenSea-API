@@ -15,7 +15,6 @@ describe('List Training Programs (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list training programs with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     await createTrainingProgramE2E({ tenantId, category: 'SAFETY' });

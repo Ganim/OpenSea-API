@@ -17,7 +17,6 @@ describe('Watch Card (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should watch a card successfully', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

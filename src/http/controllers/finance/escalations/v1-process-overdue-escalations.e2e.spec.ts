@@ -14,7 +14,6 @@ describe('Process Overdue Escalations (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should process overdue entries against escalation rules', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

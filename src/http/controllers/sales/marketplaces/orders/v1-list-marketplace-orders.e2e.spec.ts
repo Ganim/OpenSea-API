@@ -14,7 +14,6 @@ describe('List Marketplace Orders (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list marketplace orders', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

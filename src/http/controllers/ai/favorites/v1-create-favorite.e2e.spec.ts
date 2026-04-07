@@ -17,7 +17,6 @@ describe('Create Favorite (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should create a favorite query (201)', async () => {
     const response = await request(app.server)
       .post('/v1/ai/favorites')
@@ -39,12 +38,10 @@ describe('Create Favorite (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .post('/v1/ai/favorites')
-      .send({
-        query: 'vendas do mes',
-        category: 'SALES',
-      });
+    const response = await request(app.server).post('/v1/ai/favorites').send({
+      query: 'vendas do mes',
+      category: 'SALES',
+    });
 
     expect(response.status).toBe(401);
   });

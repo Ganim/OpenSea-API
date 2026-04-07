@@ -14,7 +14,6 @@ describe('Update Comment (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update comment with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

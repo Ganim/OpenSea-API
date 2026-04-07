@@ -14,7 +14,6 @@ describe('List Journal Entries (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list journal entries', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -15,7 +15,6 @@ describe('Disconnect Bank (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent connection', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

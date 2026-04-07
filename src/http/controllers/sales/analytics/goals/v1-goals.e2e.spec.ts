@@ -14,7 +14,6 @@ describe('Analytics Goals (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('POST /v1/sales/analytics/goals', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
@@ -36,7 +35,9 @@ describe('Analytics Goals (E2E)', () => {
           targetValue: 10000,
           period: 'MONTHLY',
           startDate: new Date().toISOString(),
-          endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+          endDate: new Date(
+            Date.now() + 30 * 24 * 60 * 60 * 1000,
+          ).toISOString(),
           scope: 'TENANT',
         });
 
@@ -47,8 +48,9 @@ describe('Analytics Goals (E2E)', () => {
 
   describe('GET /v1/sales/analytics/goals', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/analytics/goals');
+      const response = await request(app.server).get(
+        '/v1/sales/analytics/goals',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -78,8 +80,9 @@ describe('Analytics Goals (E2E)', () => {
 
   describe('DELETE /v1/sales/analytics/goals/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .delete('/v1/sales/analytics/goals/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).delete(
+        '/v1/sales/analytics/goals/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -87,8 +90,9 @@ describe('Analytics Goals (E2E)', () => {
 
   describe('GET /v1/sales/analytics/goals/:id/progress', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/analytics/goals/00000000-0000-0000-0000-000000000001/progress');
+      const response = await request(app.server).get(
+        '/v1/sales/analytics/goals/00000000-0000-0000-0000-000000000001/progress',
+      );
 
       expect(response.status).toBe(401);
     });

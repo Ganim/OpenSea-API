@@ -113,7 +113,6 @@ describe('Email Messages Controller (E2E)', () => {
     sentMessageId = testMsg.id;
   });
 
-
   // ─── POST /v1/email/messages/send ────────────────────────────────────────
   describe('Enviar mensagem (POST /v1/email/messages/send)', () => {
     it('[SUCESSO] deve enviar e retornar 202 com messageId', async () => {

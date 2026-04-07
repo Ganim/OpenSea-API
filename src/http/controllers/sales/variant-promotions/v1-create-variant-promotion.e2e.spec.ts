@@ -14,7 +14,6 @@ describe('Create Variant Promotion (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create variant promotion with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

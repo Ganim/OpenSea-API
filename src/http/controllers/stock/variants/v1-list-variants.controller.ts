@@ -2,7 +2,11 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import { paginationSchema, variantResponseSchema } from '@/http/schemas';
+import {
+  paginationSchema,
+  queryBooleanSchema,
+  variantResponseSchema,
+} from '@/http/schemas';
 import { variantToDTO } from '@/mappers/stock/variant/variant-to-dto';
 import { makeListVariantsUseCase } from '@/use-cases/stock/variants/factories/make-list-variants-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -24,7 +28,13 @@ export async function listVariantsController(app: FastifyInstance) {
     schema: {
       tags: ['Stock - Variants'],
       summary: 'List all variants',
-      querystring: paginationSchema,
+      querystring: paginationSchema.extend({
+        search: z.string().optional(),
+        categoryId: z.string().optional(),
+        barcode: z.string().optional(),
+        hasStock: queryBooleanSchema.optional(),
+        onlyActive: queryBooleanSchema.optional(),
+      }),
       response: {
         200: z.object({
           variants: z.array(variantResponseSchema),
@@ -41,13 +51,18 @@ export async function listVariantsController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { page, limit } = request.query;
+      const { page, limit, search, categoryId, barcode, onlyActive } =
+        request.query;
 
       const listVariantsUseCase = makeListVariantsUseCase();
       const { variants, meta } = await listVariantsUseCase.execute({
         tenantId,
         page,
         limit,
+        search,
+        categoryId,
+        barcode,
+        onlyActive,
       });
 
       return reply

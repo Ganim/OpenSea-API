@@ -17,7 +17,6 @@ describe('Delete Attachment (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete an attachment', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

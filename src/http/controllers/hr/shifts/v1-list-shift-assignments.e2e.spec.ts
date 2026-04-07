@@ -14,7 +14,6 @@ describe('List Shift Assignments (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list assignments for a shift', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -42,8 +41,9 @@ describe('List Shift Assignments (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/shifts/nonexistent-id/assignments');
+    const response = await request(app.server).get(
+      '/v1/hr/shifts/nonexistent-id/assignments',
+    );
 
     expect(response.statusCode).toBe(401);
   });

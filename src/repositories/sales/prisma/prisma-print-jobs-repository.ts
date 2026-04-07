@@ -2,12 +2,12 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { PrintJob } from '@/entities/sales/print-job';
 import { prisma } from '@/lib/prisma';
 import { printJobPrismaToDomain } from '@/mappers/sales/print-job/print-job-prisma-to-domain';
-import type { PrintJobsRepository } from '../print-jobs-repository';
 import type {
-  PrintJobType as PrismaPrintJobType,
-  PrintJobStatus as PrismaPrintJobStatus,
   Prisma,
+  PrintJobStatus as PrismaPrintJobStatus,
+  PrintJobType as PrismaPrintJobType,
 } from '@prisma/generated/client.js';
+import type { PrintJobsRepository } from '../print-jobs-repository';
 
 export class PrismaPrintJobsRepository implements PrintJobsRepository {
   async create(job: PrintJob): Promise<void> {

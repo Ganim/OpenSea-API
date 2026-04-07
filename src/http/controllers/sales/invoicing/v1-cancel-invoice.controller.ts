@@ -5,9 +5,9 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
-  getInvoiceParamsSchema,
   cancelInvoiceRequestSchema,
   cancelInvoiceResponseSchema,
+  getInvoiceParamsSchema,
 } from '@/http/schemas/sales/invoicing/invoicing.schema';
 import { makeCancelInvoiceUseCase } from '@/use-cases/sales/invoicing/factories/make-invoicing-use-cases';
 import type { FastifyInstance } from 'fastify';
@@ -41,7 +41,7 @@ export async function v1CancelInvoiceController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const userId = request.user.id!;
+      const userId = request.user.sub;
       const { invoiceId } = request.params as { invoiceId: string };
       const { reason } = request.body;
 
@@ -57,19 +57,16 @@ export async function v1CancelInvoiceController(app: FastifyInstance) {
         return reply.status(200).send(result);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
-          return reply
-            .status(404)
-            .send({ message: error.message });
+          return reply.status(404).send({ message: error.message });
         }
 
         if (error instanceof BadRequestError) {
-          return reply
-            .status(400)
-            .send({ message: error.message });
+          return reply.status(400).send({ message: error.message });
         }
 
         return reply.status(500).send({
-          message: error instanceof Error ? error.message : 'Internal server error',
+          message:
+            error instanceof Error ? error.message : 'Internal server error',
         });
       }
     },

@@ -15,7 +15,6 @@ describe('List Companies - Finance read-only (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list companies with finance.companies.read permission', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

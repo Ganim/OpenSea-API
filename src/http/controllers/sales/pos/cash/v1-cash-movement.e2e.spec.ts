@@ -14,7 +14,6 @@ describe('POS Cash Movement (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
     const response = await request(app.server)
       .post('/v1/pos/cash/movement')

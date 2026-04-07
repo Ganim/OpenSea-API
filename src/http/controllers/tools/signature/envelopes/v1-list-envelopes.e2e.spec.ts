@@ -14,7 +14,6 @@ describe('List Signature Envelopes (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list envelopes (empty)', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

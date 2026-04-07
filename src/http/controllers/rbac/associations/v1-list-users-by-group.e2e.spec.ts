@@ -17,7 +17,6 @@ describe('List Users By Group (e2e)', () => {
     tenantId = tid;
   });
 
-
   it('should list users by group with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const group = await makePermissionGroup();

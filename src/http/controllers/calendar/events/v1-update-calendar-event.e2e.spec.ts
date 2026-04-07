@@ -15,7 +15,6 @@ describe('Update Calendar Event (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update event', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

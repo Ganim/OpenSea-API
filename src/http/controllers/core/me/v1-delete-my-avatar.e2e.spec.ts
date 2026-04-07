@@ -14,7 +14,6 @@ describe('Delete My Avatar (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete avatar (or no-op if none exists)', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

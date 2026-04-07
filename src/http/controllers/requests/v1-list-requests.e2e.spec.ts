@@ -14,7 +14,6 @@ describe('List Requests (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list requests with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
 

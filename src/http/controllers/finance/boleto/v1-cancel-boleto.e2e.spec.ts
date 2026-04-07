@@ -15,7 +15,6 @@ describe('Cancel Boleto (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for non-existent boleto', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

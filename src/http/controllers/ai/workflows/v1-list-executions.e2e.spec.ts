@@ -20,7 +20,6 @@ describe('List Executions (E2E)', () => {
     userId = auth.user.user.id;
   });
 
-
   it('should list workflow executions (200)', async () => {
     const workflow = await prisma.aiWorkflow.create({
       data: {

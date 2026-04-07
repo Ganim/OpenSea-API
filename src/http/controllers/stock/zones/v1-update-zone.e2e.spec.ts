@@ -17,7 +17,6 @@ describe('Update Zone (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update zone details successfully', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

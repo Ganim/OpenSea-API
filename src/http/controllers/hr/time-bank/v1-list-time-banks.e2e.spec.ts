@@ -16,7 +16,6 @@ describe('List Time Banks (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list all time banks with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId: emp1 } = await createEmployeeE2E({ tenantId });

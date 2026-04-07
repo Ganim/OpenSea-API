@@ -2,7 +2,5 @@ import { PrismaPaymentConfigsRepository } from '@/repositories/sales/prisma/pris
 import { GetPaymentConfigUseCase } from '../get-payment-config';
 
 export function makeGetPaymentConfigUseCase() {
-  return new GetPaymentConfigUseCase(
-    new PrismaPaymentConfigsRepository(),
-  );
+  return new GetPaymentConfigUseCase(new PrismaPaymentConfigsRepository());
 }

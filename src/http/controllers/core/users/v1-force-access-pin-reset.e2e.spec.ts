@@ -14,7 +14,6 @@ describe('Force Access PIN Reset (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should force access PIN reset with correct schema', async () => {
     const { token: adminToken } = await createAndAuthenticateUser(app, {
       tenantId,

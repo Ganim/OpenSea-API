@@ -17,7 +17,6 @@ describe('Message Templates (E2E)', () => {
     token = auth.token;
   });
 
-
   it('POST /v1/sales/msg-templates should create a message template (201)', async () => {
     const timestamp = Date.now();
 

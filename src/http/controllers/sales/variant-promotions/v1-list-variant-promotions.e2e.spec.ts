@@ -14,7 +14,6 @@ describe('List Variant Promotions (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list variant promotions', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

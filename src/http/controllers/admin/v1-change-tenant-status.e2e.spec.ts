@@ -10,7 +10,6 @@ describe('Change Tenant Status (E2E)', () => {
     await app.ready();
   });
 
-
   it('should change tenant status to SUSPENDED', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

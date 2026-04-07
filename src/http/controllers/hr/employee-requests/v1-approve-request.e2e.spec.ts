@@ -16,7 +16,6 @@ describe('Approve Request (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should approve a pending request', async () => {
     const { token, user: userResponse } = await createAndAuthenticateUser(app, {
       tenantId,

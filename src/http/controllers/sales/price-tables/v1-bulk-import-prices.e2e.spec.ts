@@ -14,12 +14,9 @@ describe('Bulk Import Prices (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
     const response = await request(app.server)
-      .post(
-        '/v1/price-tables/00000000-0000-0000-0000-000000000000/bulk-import',
-      )
+      .post('/v1/price-tables/00000000-0000-0000-0000-000000000000/bulk-import')
       .send({});
 
     expect(response.status).toBe(401);

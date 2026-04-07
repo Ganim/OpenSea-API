@@ -14,7 +14,6 @@ describe('Create Supplier (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create supplier with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

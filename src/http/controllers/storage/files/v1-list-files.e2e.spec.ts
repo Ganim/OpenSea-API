@@ -16,7 +16,6 @@ describe('List Files (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list files with pagination', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

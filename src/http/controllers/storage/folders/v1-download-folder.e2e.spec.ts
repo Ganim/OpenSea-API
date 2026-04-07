@@ -19,7 +19,6 @@ describe('Download Folder (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should attempt to download a folder as ZIP', async () => {
     const { folderId } = await createStorageFolderE2E({ tenantId });
 

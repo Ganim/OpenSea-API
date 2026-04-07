@@ -16,7 +16,6 @@ describe('Update Subtask (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update a subtask', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

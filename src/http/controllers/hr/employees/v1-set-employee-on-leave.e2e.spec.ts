@@ -15,7 +15,6 @@ describe('Set Employee On Leave (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should set employee on leave with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employee } = await createEmployeeE2E({

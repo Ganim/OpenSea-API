@@ -14,7 +14,6 @@ describe('Unlink Team Email (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent team or account', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

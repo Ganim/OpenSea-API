@@ -15,7 +15,6 @@ describe('Get Contract By ID (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent contract', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -16,7 +16,6 @@ describe('Get Filter Folder Contents (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return files matching the filter file type', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

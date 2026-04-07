@@ -14,7 +14,6 @@ describe('Update Survey (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update a draft survey', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

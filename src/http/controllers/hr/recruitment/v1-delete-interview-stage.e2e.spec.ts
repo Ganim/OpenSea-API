@@ -14,7 +14,6 @@ describe('Delete Interview Stage (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete an interview stage', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -42,8 +41,9 @@ describe('Delete Interview Stage (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .delete('/v1/hr/recruitment/interview-stages/nonexistent-id');
+    const response = await request(app.server).delete(
+      '/v1/hr/recruitment/interview-stages/nonexistent-id',
+    );
 
     expect(response.statusCode).toBe(401);
   });

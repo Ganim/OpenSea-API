@@ -14,7 +14,6 @@ describe('Forms (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('POST /v1/sales/forms', () => {
     it('should return 401 without token', async () => {
       const response = await request(app.server)
@@ -27,8 +26,7 @@ describe('Forms (E2E)', () => {
 
   describe('GET /v1/sales/forms', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/forms');
+      const response = await request(app.server).get('/v1/sales/forms');
 
       expect(response.status).toBe(401);
     });
@@ -48,8 +46,9 @@ describe('Forms (E2E)', () => {
 
   describe('GET /v1/sales/forms/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/forms/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).get(
+        '/v1/sales/forms/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -67,8 +66,9 @@ describe('Forms (E2E)', () => {
 
   describe('DELETE /v1/sales/forms/:id', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .delete('/v1/sales/forms/00000000-0000-0000-0000-000000000001');
+      const response = await request(app.server).delete(
+        '/v1/sales/forms/00000000-0000-0000-0000-000000000001',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -76,8 +76,9 @@ describe('Forms (E2E)', () => {
 
   describe('PATCH /v1/sales/forms/:id/publish', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .patch('/v1/sales/forms/00000000-0000-0000-0000-000000000001/publish');
+      const response = await request(app.server).patch(
+        '/v1/sales/forms/00000000-0000-0000-0000-000000000001/publish',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -85,8 +86,9 @@ describe('Forms (E2E)', () => {
 
   describe('PATCH /v1/sales/forms/:id/unpublish', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .patch('/v1/sales/forms/00000000-0000-0000-0000-000000000001/unpublish');
+      const response = await request(app.server).patch(
+        '/v1/sales/forms/00000000-0000-0000-0000-000000000001/unpublish',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -94,8 +96,9 @@ describe('Forms (E2E)', () => {
 
   describe('POST /v1/sales/forms/:id/duplicate', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .post('/v1/sales/forms/00000000-0000-0000-0000-000000000001/duplicate');
+      const response = await request(app.server).post(
+        '/v1/sales/forms/00000000-0000-0000-0000-000000000001/duplicate',
+      );
 
       expect(response.status).toBe(401);
     });
@@ -113,8 +116,9 @@ describe('Forms (E2E)', () => {
 
   describe('GET /v1/sales/forms/:id/submissions', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/forms/00000000-0000-0000-0000-000000000001/submissions');
+      const response = await request(app.server).get(
+        '/v1/sales/forms/00000000-0000-0000-0000-000000000001/submissions',
+      );
 
       expect(response.status).toBe(401);
     });

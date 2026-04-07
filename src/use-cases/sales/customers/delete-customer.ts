@@ -29,9 +29,7 @@ export class DeleteCustomerUseCase {
 
     // Guard: system customers (e.g., default PDV customer) cannot be deleted
     if (customer.isSystem) {
-      throw new BadRequestError(
-        'Não é possível excluir entidades do sistema.',
-      );
+      throw new BadRequestError('Não é possível excluir entidades do sistema.');
     }
 
     customer.delete();

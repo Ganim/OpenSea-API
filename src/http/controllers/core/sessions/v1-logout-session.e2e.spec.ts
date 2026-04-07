@@ -14,7 +14,6 @@ describe('Logout Session (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should logout session with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

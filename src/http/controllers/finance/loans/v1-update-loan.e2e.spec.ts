@@ -15,7 +15,6 @@ describe('Update Loan (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update a loan', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { costCenter, bankAccount } =

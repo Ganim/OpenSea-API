@@ -14,7 +14,6 @@ describe('Cancel Sales Order (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should cancel sales order with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

@@ -17,7 +17,6 @@ describe('Generate Insights (E2E)', () => {
     token = auth.token;
   });
 
-
   it('should trigger insight generation (200)', async () => {
     const response = await request(app.server)
       .post('/v1/ai/insights/generate')
@@ -34,9 +33,7 @@ describe('Generate Insights (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server).post(
-      '/v1/ai/insights/generate',
-    );
+    const response = await request(app.server).post('/v1/ai/insights/generate');
 
     expect(response.status).toBe(401);
   });

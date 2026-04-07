@@ -15,7 +15,6 @@ describe('Delete Bank Account (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a bank account', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

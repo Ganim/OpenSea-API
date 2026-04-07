@@ -15,10 +15,10 @@ describe('Check eSocial Batch Status (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .post(`/v1/esocial/batches/${randomUUID()}/check`);
+    const response = await request(app.server).post(
+      `/v1/esocial/batches/${randomUUID()}/check`,
+    );
 
     expect(response.statusCode).toBe(401);
   });

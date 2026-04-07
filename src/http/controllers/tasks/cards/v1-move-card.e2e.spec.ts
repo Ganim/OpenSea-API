@@ -16,7 +16,6 @@ describe('Move Card (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should move a card to a different column', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

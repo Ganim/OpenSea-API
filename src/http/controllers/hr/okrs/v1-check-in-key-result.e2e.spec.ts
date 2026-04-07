@@ -14,7 +14,6 @@ describe('Check-in Key Result (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for non-existent key result', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -14,7 +14,6 @@ describe('Activate Survey (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should activate a survey with questions', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -52,8 +51,9 @@ describe('Activate Survey (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .patch('/v1/hr/surveys/nonexistent-id/activate');
+    const response = await request(app.server).patch(
+      '/v1/hr/surveys/nonexistent-id/activate',
+    );
 
     expect(response.statusCode).toBe(401);
   });

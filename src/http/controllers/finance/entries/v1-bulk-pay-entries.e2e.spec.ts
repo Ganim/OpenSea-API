@@ -15,7 +15,6 @@ describe('Bulk Pay Entries (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should handle bulk pay with non-existent entries', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

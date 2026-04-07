@@ -11,7 +11,7 @@ let absencesRepository: InMemoryAbsencesRepository;
 let vacationPeriodsRepository: InMemoryVacationPeriodsRepository;
 let sut: CancelAbsenceUseCase;
 let testAbsence: Absence;
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 let testVacationPeriod: VacationPeriod;
 const tenantId = new UniqueEntityID().toString();
 const employeeId = new UniqueEntityID();

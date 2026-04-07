@@ -17,7 +17,6 @@ describe('Add Reaction (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should add a reaction to a comment', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

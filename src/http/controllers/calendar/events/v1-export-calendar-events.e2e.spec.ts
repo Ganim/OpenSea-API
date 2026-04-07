@@ -14,7 +14,6 @@ describe('Export Calendar Events (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should export events as .ics file', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

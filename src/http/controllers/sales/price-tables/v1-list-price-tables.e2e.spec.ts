@@ -14,7 +14,6 @@ describe('List Price Tables (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list price tables', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

@@ -10,7 +10,6 @@ describe('List User Tenants (E2E)', () => {
     await app.ready();
   });
 
-
   it('should list tenants for the authenticated user', async () => {
     const { token, user } = await createAndAuthenticateUser(app);
 

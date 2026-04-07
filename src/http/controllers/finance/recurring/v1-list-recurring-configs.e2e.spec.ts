@@ -14,7 +14,6 @@ describe('List Recurring Configs (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list recurring configs', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

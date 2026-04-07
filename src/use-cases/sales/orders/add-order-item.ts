@@ -47,9 +47,7 @@ export class AddOrderItemUseCase {
     }
 
     // Validate order status
-    const allowedStatuses = input.isCashier
-      ? ['DRAFT', 'PENDING']
-      : ['DRAFT'];
+    const allowedStatuses = input.isCashier ? ['DRAFT', 'PENDING'] : ['DRAFT'];
 
     if (!allowedStatuses.includes(order.status)) {
       throw new BadRequestError(

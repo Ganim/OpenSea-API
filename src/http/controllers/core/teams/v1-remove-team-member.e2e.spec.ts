@@ -18,7 +18,6 @@ describe('Remove Team Member (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should remove a member (owner removes member)', async () => {
     const { token, user: ownerUser } = await createAndAuthenticateUser(app, {
       tenantId,

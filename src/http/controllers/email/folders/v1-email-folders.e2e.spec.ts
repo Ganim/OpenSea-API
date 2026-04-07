@@ -64,7 +64,6 @@ describe('Email Folders Controller (E2E)', () => {
     sentFolderId = sentFolder.id;
   }, 60000);
 
-
   // --- GET /v1/email/folders -----------------------------------------------
   describe('Listar pastas (GET /v1/email/folders)', () => {
     it('[SUCESSO] deve listar pastas de uma conta', async () => {

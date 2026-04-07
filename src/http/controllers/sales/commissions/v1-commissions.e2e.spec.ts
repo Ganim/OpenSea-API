@@ -14,11 +14,9 @@ describe('Commissions (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('GET /v1/sales/commissions', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/sales/commissions');
+      const response = await request(app.server).get('/v1/sales/commissions');
 
       expect(response.status).toBe(401);
     });

@@ -9,7 +9,6 @@ describe('Process Scheduled Notifications (e2e)', () => {
     await app.ready();
   });
 
-
   it('should process scheduled notifications with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app);
 

@@ -15,7 +15,6 @@ describe('Update Column (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update a column title', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

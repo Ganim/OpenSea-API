@@ -14,10 +14,10 @@ describe('Get Interview (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/recruitment/interviews/nonexistent-id');
+    const response = await request(app.server).get(
+      '/v1/hr/recruitment/interviews/nonexistent-id',
+    );
 
     expect(response.statusCode).toBe(401);
   });

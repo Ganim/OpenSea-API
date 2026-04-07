@@ -19,6 +19,9 @@ export const SALES_EVENTS = {
   ORDER_CONFIRMED: 'sales.order.confirmed',
   ORDER_CANCELLED: 'sales.order.cancelled',
   ORDER_PAID: 'sales.order.paid',
+  PAYMENT_CONFIRMED: 'sales.payment.confirmed',
+  PAYMENT_FAILED: 'sales.payment.failed',
+  PAYMENT_EXPIRED: 'sales.payment.expired',
   ORDER_SHIPPED: 'sales.order.shipped',
   ORDER_DELIVERED: 'sales.order.delivered',
   PRINT_JOB_QUEUED: 'sales.print-job.queued',
@@ -102,6 +105,35 @@ export interface OrderPaidData {
   paymentAmount: number;
   total: number;
   items: Array<{ productName: string; quantity: number; unitPrice: number }>;
+}
+
+export interface PaymentConfirmedData {
+  chargeId: string;
+  orderId: string;
+  provider: string;
+  providerChargeId?: string;
+  amount: number;
+  paidAmount: number;
+  paidAt?: string;
+  method: string;
+}
+
+export interface PaymentFailedData {
+  chargeId: string;
+  orderId: string;
+  provider: string;
+  providerChargeId?: string;
+  amount: number;
+  method: string;
+}
+
+export interface PaymentExpiredData {
+  chargeId: string;
+  orderId: string;
+  provider: string;
+  providerChargeId?: string;
+  amount: number;
+  method: string;
 }
 
 export interface OrderShippedData {

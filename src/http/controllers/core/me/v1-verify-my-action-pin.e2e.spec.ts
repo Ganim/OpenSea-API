@@ -14,7 +14,6 @@ describe('Verify My Action PIN (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return valid true for correct action PIN', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

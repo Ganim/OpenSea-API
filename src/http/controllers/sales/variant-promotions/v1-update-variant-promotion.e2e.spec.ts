@@ -14,7 +14,6 @@ describe('Update Variant Promotion (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update a variant promotion successfully', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

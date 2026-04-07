@@ -17,7 +17,6 @@ describe('List User Direct Permissions (e2e)', () => {
     tenantId = tid;
   });
 
-
   it('should list user direct permissions with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const permission = await makePermission();

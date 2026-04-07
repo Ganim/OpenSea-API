@@ -15,7 +15,6 @@ describe('Create Medical Exam (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a medical exam', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId } = await createEmployeeE2E({ tenantId });
@@ -27,7 +26,9 @@ describe('Create Medical Exam (E2E)', () => {
         employeeId,
         type: 'ADMISSIONAL',
         examDate: new Date().toISOString(),
-        expirationDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+        expirationDate: new Date(
+          Date.now() + 365 * 24 * 60 * 60 * 1000,
+        ).toISOString(),
         result: 'FIT',
         doctorName: 'Dr. Test',
         doctorCrm: 'CRM-12345',
@@ -39,7 +40,10 @@ describe('Create Medical Exam (E2E)', () => {
   it('should return 401 when not authenticated', async () => {
     const response = await request(app.server)
       .post('/v1/hr/medical-exams')
-      .send({ employeeId: '00000000-0000-0000-0000-000000000000', type: 'ADMISSIONAL' });
+      .send({
+        employeeId: '00000000-0000-0000-0000-000000000000',
+        type: 'ADMISSIONAL',
+      });
     expect(response.status).toBe(401);
   });
 });

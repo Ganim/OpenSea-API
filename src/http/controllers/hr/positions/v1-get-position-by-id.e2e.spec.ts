@@ -15,7 +15,6 @@ describe('Get Position By ID (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get position by id with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { position, positionId } = await createPositionE2E({ tenantId });

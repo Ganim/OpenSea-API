@@ -14,10 +14,10 @@ describe('Cancel Interview (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .patch('/v1/hr/recruitment/interviews/nonexistent-id/cancel');
+    const response = await request(app.server).patch(
+      '/v1/hr/recruitment/interviews/nonexistent-id/cancel',
+    );
 
     expect(response.statusCode).toBe(401);
   });

@@ -8,7 +8,6 @@ describe('Update Plan (E2E)', () => {
     await app.ready();
   });
 
-
   it('should update a plan', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

@@ -14,7 +14,6 @@ describe('Get Tag By ID (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get tag by id with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

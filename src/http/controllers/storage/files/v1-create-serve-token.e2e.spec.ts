@@ -14,7 +14,6 @@ describe('Create Serve Token (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a short-lived serve token', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

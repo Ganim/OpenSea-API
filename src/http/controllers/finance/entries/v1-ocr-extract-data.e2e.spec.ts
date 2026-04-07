@@ -14,7 +14,6 @@ describe('OCR Extract Data (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without auth on POST /ocr', async () => {
     const response = await request(app.server)
       .post('/v1/finance/entries/ocr')
@@ -24,8 +23,9 @@ describe('OCR Extract Data (E2E)', () => {
   });
 
   it('should return 401 without auth on POST /ocr/upload', async () => {
-    const response = await request(app.server)
-      .post('/v1/finance/entries/ocr/upload');
+    const response = await request(app.server).post(
+      '/v1/finance/entries/ocr/upload',
+    );
 
     expect(response.status).toBe(401);
   });

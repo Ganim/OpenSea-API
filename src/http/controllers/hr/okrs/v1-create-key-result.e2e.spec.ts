@@ -14,7 +14,6 @@ describe('Create Key Result (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent objective', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

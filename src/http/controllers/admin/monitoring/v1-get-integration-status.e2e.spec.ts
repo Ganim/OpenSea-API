@@ -9,7 +9,6 @@ describe('Admin Get Integration Status (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return integration status overview', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

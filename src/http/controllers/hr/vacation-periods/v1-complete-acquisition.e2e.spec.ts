@@ -16,7 +16,6 @@ describe('Complete Acquisition (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should complete an acquisition period', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId } = await createEmployeeE2E({ tenantId });

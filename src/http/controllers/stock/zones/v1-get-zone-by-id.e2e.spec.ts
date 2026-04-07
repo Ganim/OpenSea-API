@@ -17,7 +17,6 @@ describe('Get Zone by ID (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should retrieve a zone by ID with warehouse info', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

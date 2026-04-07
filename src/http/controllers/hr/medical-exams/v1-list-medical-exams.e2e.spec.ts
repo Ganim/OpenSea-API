@@ -14,7 +14,6 @@ describe('List Medical Exams (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list medical exams', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const response = await request(app.server)

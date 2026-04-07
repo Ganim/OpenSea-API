@@ -14,7 +14,6 @@ describe('Create Finance Category (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a finance category', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

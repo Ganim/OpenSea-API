@@ -18,7 +18,6 @@ describe('Revoke Share Link (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should revoke a share link', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

@@ -14,7 +14,6 @@ describe('Get Trial Balance (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return trial balance data', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

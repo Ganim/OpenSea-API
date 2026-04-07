@@ -1,10 +1,10 @@
-import { describe, it, expect, beforeEach } from 'vitest';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Invoice } from '@/entities/sales/invoice';
-import { InMemoryInvoicesRepository } from '@/repositories/sales/in-memory/in-memory-invoices-repository';
 import { FocusNfeProviderImpl } from '@/providers/nfe/implementations/focus-nfe.impl';
+import { InMemoryInvoicesRepository } from '@/repositories/sales/in-memory/in-memory-invoices-repository';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { CancelInvoiceUseCase } from './cancel-invoice.use-case';
 
 describe('CancelInvoiceUseCase', () => {

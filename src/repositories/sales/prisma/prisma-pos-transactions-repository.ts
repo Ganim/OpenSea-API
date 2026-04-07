@@ -3,11 +3,11 @@ import type { PosTransaction } from '@/entities/sales/pos-transaction';
 import { prisma } from '@/lib/prisma';
 import { posTransactionPrismaToDomain } from '@/mappers/sales/pos-transaction/pos-transaction-prisma-to-domain';
 import type { PaginatedResult } from '@/repositories/pagination-params';
+import type { PosTransactionStatus as PrismaStatus } from '@prisma/generated/client.js';
 import type {
   FindManyPosTransactionsPaginatedParams,
   PosTransactionsRepository,
 } from '../pos-transactions-repository';
-import type { PosTransactionStatus as PrismaStatus } from '@prisma/generated/client.js';
 
 export class PrismaPosTransactionsRepository
   implements PosTransactionsRepository
@@ -43,6 +43,23 @@ export class PrismaPosTransactionsRepository
     const raw = await prisma.posTransaction.findFirst({
       where: { id: id.toString(), tenantId },
     });
+    return raw ? posTransactionPrismaToDomain(raw) : null;
+  }
+
+  async findByOrderId(
+    orderId: string,
+    tenantId: string,
+  ): Promise<PosTransaction | null> {
+    const raw = await prisma.posTransaction.findFirst({
+      where: {
+        orderId,
+        tenantId,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
     return raw ? posTransactionPrismaToDomain(raw) : null;
   }
 

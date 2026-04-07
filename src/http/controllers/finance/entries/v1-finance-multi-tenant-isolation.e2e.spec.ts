@@ -53,7 +53,6 @@ describe('Finance Multi-Tenant Isolation (E2E)', () => {
     tokenB = authB.token;
   }, 60000);
 
-
   // ── GET isolation ─────────────────────────────────────────────────────
 
   it('should NOT get a finance entry from another tenant', async () => {

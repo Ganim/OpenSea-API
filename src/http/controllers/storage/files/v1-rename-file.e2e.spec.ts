@@ -16,7 +16,6 @@ describe('Rename File (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should rename a file', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

@@ -14,7 +14,6 @@ describe('Delete Review Cycle (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent review cycle', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,9 @@ describe('Delete Review Cycle (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .delete('/v1/hr/review-cycles/clxxxxxxxxxxxxxxxxxxxxxxxxx');
+    const response = await request(app.server).delete(
+      '/v1/hr/review-cycles/clxxxxxxxxxxxxxxxxxxxxxxxxx',
+    );
 
     expect(response.status).toBe(401);
   });

@@ -10,7 +10,6 @@ describe('Reset Password By Token (E2E)', () => {
     await app.ready();
   });
 
-
   it('should reset password by token with correct schema', async () => {
     const email = makeUniqueEmail('reset-pwd');
     const uniqueId = Math.random().toString(36).substring(2, 10);

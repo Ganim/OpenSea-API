@@ -2,11 +2,11 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { PosPrinter } from '@/entities/sales/pos-printer';
 import { prisma } from '@/lib/prisma';
 import { posPrinterPrismaToDomain } from '@/mappers/sales/pos-printer/pos-printer-prisma-to-domain';
-import type { PosPrintersRepository } from '../pos-printers-repository';
 import type {
   PrinterConnection as PrismaPrinterConnection,
   PrinterType as PrismaPrinterType,
 } from '@prisma/generated/client.js';
+import type { PosPrintersRepository } from '../pos-printers-repository';
 
 export class PrismaPosPrintersRepository implements PosPrintersRepository {
   async create(printer: PosPrinter): Promise<void> {

@@ -15,7 +15,6 @@ describe('Delete Volume (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a volume successfully (soft delete)', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

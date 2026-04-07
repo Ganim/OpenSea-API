@@ -14,7 +14,6 @@ describe('List Comments (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list comments with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

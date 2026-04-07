@@ -10,7 +10,6 @@ describe('Delete Tenant (E2E)', () => {
     await app.ready();
   });
 
-
   it('should deactivate a tenant', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
     const timestamp = Date.now();

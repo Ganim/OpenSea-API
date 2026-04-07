@@ -16,7 +16,6 @@ describe('Update Deduction (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update a deduction successfully', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const employee = await createEmployeeE2E({ tenantId });

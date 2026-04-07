@@ -14,7 +14,6 @@ describe('Close Review Cycle (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent review cycle', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

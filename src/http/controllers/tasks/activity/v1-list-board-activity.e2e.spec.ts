@@ -17,7 +17,6 @@ describe('List Board Activity (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list activity for a board', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

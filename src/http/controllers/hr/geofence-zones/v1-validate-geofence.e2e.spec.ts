@@ -14,7 +14,6 @@ describe('Validate Geofence (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should validate a geofence location', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

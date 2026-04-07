@@ -15,7 +15,6 @@ describe('Deliver Volume (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should mark a closed volume as delivered', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

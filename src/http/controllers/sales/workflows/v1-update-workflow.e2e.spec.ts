@@ -14,7 +14,6 @@ describe('Update Workflow (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 401 without token', async () => {
     const response = await request(app.server)
       .put('/v1/sales/workflows/00000000-0000-0000-0000-000000000000')

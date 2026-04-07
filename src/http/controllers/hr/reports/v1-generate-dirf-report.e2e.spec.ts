@@ -14,7 +14,6 @@ describe('Generate DIRF Report (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should generate DIRF report as JSON', async () => {
     const { token } = await createAndAuthenticateUser(app, {
       tenantId,

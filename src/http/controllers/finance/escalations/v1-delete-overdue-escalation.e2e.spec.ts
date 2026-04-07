@@ -14,7 +14,6 @@ describe('Delete Overdue Escalation (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should soft-delete an escalation template', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

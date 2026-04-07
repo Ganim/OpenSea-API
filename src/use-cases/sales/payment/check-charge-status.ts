@@ -56,9 +56,7 @@ export class CheckChargeStatusUseCase {
     const factory = new PaymentProviderFactory();
     const provider = factory.resolve(tenantConfig, charge.method);
 
-    const providerStatus = await provider.checkStatus(
-      charge.providerChargeId,
-    );
+    const providerStatus = await provider.checkStatus(charge.providerChargeId);
 
     if (providerStatus.status === charge.status) {
       return {

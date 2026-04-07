@@ -14,7 +14,6 @@ describe('Generate Tax Obligations (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should generate tax obligations for a given month', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

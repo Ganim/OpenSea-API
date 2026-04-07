@@ -14,7 +14,6 @@ describe('Create Price Table (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a price table', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

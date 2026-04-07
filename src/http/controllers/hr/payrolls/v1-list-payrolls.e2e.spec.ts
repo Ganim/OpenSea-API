@@ -15,7 +15,6 @@ describe('List Payrolls (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list payrolls with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

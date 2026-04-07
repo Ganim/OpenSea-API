@@ -14,14 +14,17 @@ describe('Add CIPA Member (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for non-existent mandate', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
       .post('/v1/hr/cipa-mandates/00000000-0000-0000-0000-000000000000/members')
       .set('Authorization', `Bearer ${token}`)
-      .send({ employeeId: '00000000-0000-0000-0000-000000000000', type: 'EMPREGADO', role: 'MEMBRO' });
+      .send({
+        employeeId: '00000000-0000-0000-0000-000000000000',
+        type: 'EMPREGADO',
+        role: 'MEMBRO',
+      });
 
     expect(response.status).not.toBe(401);
   });
@@ -29,7 +32,11 @@ describe('Add CIPA Member (E2E)', () => {
   it('should return 401 when not authenticated', async () => {
     const response = await request(app.server)
       .post('/v1/hr/cipa-mandates/00000000-0000-0000-0000-000000000000/members')
-      .send({ employeeId: '00000000-0000-0000-0000-000000000000', type: 'EMPREGADO', role: 'MEMBRO' });
+      .send({
+        employeeId: '00000000-0000-0000-0000-000000000000',
+        type: 'EMPREGADO',
+        role: 'MEMBRO',
+      });
 
     expect(response.status).toBe(401);
   });

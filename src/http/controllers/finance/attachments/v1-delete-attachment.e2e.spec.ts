@@ -20,7 +20,6 @@ describe('Delete Attachment (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error when attachment does not exist', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

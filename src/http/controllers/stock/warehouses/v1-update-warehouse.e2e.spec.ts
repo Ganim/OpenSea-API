@@ -15,7 +15,6 @@ describe('Update Warehouse (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update warehouse details successfully', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

@@ -15,7 +15,6 @@ describe('Update Chart of Account (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent account', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

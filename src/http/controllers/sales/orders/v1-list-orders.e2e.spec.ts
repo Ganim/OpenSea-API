@@ -14,7 +14,6 @@ describe('List Orders (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list orders', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

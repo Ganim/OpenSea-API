@@ -16,7 +16,6 @@ describe('Compress Files (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should compress selected files into a ZIP', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const { folderId } = await createStorageFolderE2E({ tenantId });

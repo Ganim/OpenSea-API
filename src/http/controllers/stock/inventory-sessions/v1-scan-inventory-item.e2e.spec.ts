@@ -17,7 +17,6 @@ describe('Scan Inventory Item (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should scan an item in an open inventory session', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

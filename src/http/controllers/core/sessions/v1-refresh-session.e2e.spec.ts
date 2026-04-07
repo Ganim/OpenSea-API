@@ -9,7 +9,6 @@ describe('Refresh Session (E2E)', () => {
     await app.ready();
   });
 
-
   it('should refresh session with correct schema', async () => {
     const { refreshToken } = await createAndAuthenticateUser(app);
 

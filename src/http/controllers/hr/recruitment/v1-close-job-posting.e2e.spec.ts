@@ -14,7 +14,6 @@ describe('Close Job Posting (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should close an open job posting', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -43,8 +42,9 @@ describe('Close Job Posting (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .patch('/v1/hr/recruitment/job-postings/nonexistent-id/close');
+    const response = await request(app.server).patch(
+      '/v1/hr/recruitment/job-postings/nonexistent-id/close',
+    );
 
     expect(response.statusCode).toBe(401);
   });

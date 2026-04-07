@@ -15,7 +15,6 @@ describe('Create Warning (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a warning', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { employeeId } = await createEmployeeE2E({ tenantId });
@@ -37,16 +36,14 @@ describe('Create Warning (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .post('/v1/hr/warnings')
-      .send({
-        employeeId: '00000000-0000-0000-0000-000000000000',
-        type: 'VERBAL',
-        severity: 'MINOR',
-        reason: 'Test',
-        description: 'Test',
-        date: new Date().toISOString(),
-      });
+    const response = await request(app.server).post('/v1/hr/warnings').send({
+      employeeId: '00000000-0000-0000-0000-000000000000',
+      type: 'VERBAL',
+      severity: 'MINOR',
+      reason: 'Test',
+      description: 'Test',
+      date: new Date().toISOString(),
+    });
 
     expect(response.status).toBe(401);
   });

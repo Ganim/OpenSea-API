@@ -15,7 +15,6 @@ describe('Get Company By ID - Finance read-only (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get company by id with finance.companies.read permission', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

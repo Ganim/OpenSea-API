@@ -1,9 +1,9 @@
-import { getFieldCipherService } from '@/services/security/field-cipher-service';
-import type { TenantPaymentConfig } from '@/entities/sales/tenant-payment-config';
 import type { PosPaymentMethod } from '@/entities/sales/pos-transaction-payment';
+import type { TenantPaymentConfig } from '@/entities/sales/tenant-payment-config';
+import { getFieldCipherService } from '@/services/security/field-cipher-service';
 import type { PaymentProvider } from './payment-provider.interface';
-import { ManualProvider } from './providers/manual.provider';
 import { createPaymentProvider, type ProviderName } from './provider-registry';
+import { ManualProvider } from './providers/manual.provider';
 
 export class PaymentProviderFactory {
   /**
@@ -67,6 +67,56 @@ export class PaymentProviderFactory {
     return new ManualProvider();
   }
 
+  /**
+   * Resolve provider by explicit provider name from a persisted charge.
+   * Falls back to method-based resolution when explicit configuration is unavailable.
+   */
+  resolveByName(
+    tenantConfig: TenantPaymentConfig | null,
+    providerName: string,
+    methodFallback: PosPaymentMethod,
+  ): PaymentProvider {
+    if (!tenantConfig || providerName === 'manual') {
+      return this.resolve(tenantConfig, methodFallback);
+    }
+
+    const cipherService = getFieldCipherService();
+
+    if (
+      tenantConfig.primaryProvider === providerName &&
+      tenantConfig.primaryActive &&
+      tenantConfig.primaryConfig
+    ) {
+      const provider = this.instantiateProvider(
+        tenantConfig.primaryProvider,
+        tenantConfig.primaryConfig,
+        cipherService,
+      );
+
+      if (provider) {
+        return provider;
+      }
+    }
+
+    if (
+      tenantConfig.fallbackProvider === providerName &&
+      tenantConfig.fallbackActive &&
+      tenantConfig.fallbackConfig
+    ) {
+      const provider = this.instantiateProvider(
+        tenantConfig.fallbackProvider,
+        tenantConfig.fallbackConfig,
+        cipherService,
+      );
+
+      if (provider) {
+        return provider;
+      }
+    }
+
+    return this.resolve(tenantConfig, methodFallback);
+  }
+
   private instantiateProvider(
     providerName: string,
     encryptedConfig: string,
@@ -80,10 +130,7 @@ export class PaymentProviderFactory {
       const decryptedConfigJson = cipherService.decrypt(encryptedConfig);
       const parsedConfig = JSON.parse(decryptedConfigJson);
 
-      return createPaymentProvider(
-        providerName as ProviderName,
-        parsedConfig,
-      );
+      return createPaymentProvider(providerName as ProviderName, parsedConfig);
     } catch (error) {
       console.error(
         `[PaymentProviderFactory] Failed to instantiate provider "${providerName}":`,

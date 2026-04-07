@@ -15,7 +15,6 @@ describe('Get Company Stakeholders (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get company stakeholders with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

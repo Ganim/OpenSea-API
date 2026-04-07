@@ -14,7 +14,6 @@ describe('Get Last Supplier Entry (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return last supplier entry or empty', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

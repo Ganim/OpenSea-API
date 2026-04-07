@@ -14,7 +14,6 @@ describe('Create Application (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create an application', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,7 +25,9 @@ describe('Create Application (E2E)', () => {
 
     // Publish it so applications can be created
     await request(app.server)
-      .patch(`/v1/hr/recruitment/job-postings/${jpResponse.body.jobPosting.id}/publish`)
+      .patch(
+        `/v1/hr/recruitment/job-postings/${jpResponse.body.jobPosting.id}/publish`,
+      )
       .set('Authorization', `Bearer ${token}`);
 
     // Create a candidate

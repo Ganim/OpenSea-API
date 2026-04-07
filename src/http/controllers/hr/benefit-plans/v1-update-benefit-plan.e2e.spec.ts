@@ -15,7 +15,6 @@ describe('Update Benefit Plan (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update a benefit plan', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { benefitPlanId } = await createBenefitPlanE2E({

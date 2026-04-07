@@ -14,7 +14,6 @@ describe('Delete Onboarding Checklist (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent checklist', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,9 @@ describe('Delete Onboarding Checklist (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .delete('/v1/hr/onboarding/clxxxxxxxxxxxxxxxxxxxxxxxxx');
+    const response = await request(app.server).delete(
+      '/v1/hr/onboarding/clxxxxxxxxxxxxxxxxxxxxxxxxx',
+    );
 
     expect(response.status).toBe(401);
   });

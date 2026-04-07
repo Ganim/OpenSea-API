@@ -10,7 +10,6 @@ describe('Update Tenant (E2E)', () => {
     await app.ready();
   });
 
-
   it('should update tenant information', async () => {
     const { token, user } = await createAndAuthenticateUser(app);
 

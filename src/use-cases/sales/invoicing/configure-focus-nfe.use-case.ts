@@ -1,7 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { FocusNfeConfig } from '@/entities/sales/focus-nfe-config';
-import type { FocusNfeConfigRepository } from '@/repositories/sales/focus-nfe-config-repository';
 import type { IFocusNfeProvider } from '@/providers/nfe/focus-nfe.provider';
+import type { FocusNfeConfigRepository } from '@/repositories/sales/focus-nfe-config-repository';
 
 interface ConfigureFocusNfeUseCaseRequest {
   tenantId: string;
@@ -42,7 +42,9 @@ export class ConfigureFocusNfeUseCase {
     }
 
     // Busca configuração existente
-    let config = await this.focusNfeConfigRepository.findByTenant(request.tenantId);
+    let config = await this.focusNfeConfigRepository.findByTenant(
+      request.tenantId,
+    );
 
     if (config) {
       // Atualiza configuração existente
@@ -51,7 +53,6 @@ export class ConfigureFocusNfeUseCase {
       config.isEnabled = true;
       config.autoIssueOnConfirm = request.autoIssueOnConfirm ?? true;
       config.defaultSeries = request.defaultSeries ?? '1';
-      config.updatedBy = request.userId;
 
       await this.focusNfeConfigRepository.save(config);
     } else {

@@ -1,5 +1,4 @@
 import axios, { AxiosInstance } from 'axios';
-import crypto from 'crypto';
 
 /**
  * Focus NFe REST Client com retry logic e validação HMAC
@@ -94,14 +93,20 @@ export class FocusNfeRestClient {
   /**
    * GET /v1/nfe/{ref} (status NF-e)
    */
-  async getNfeStatus(ref: string, apiKey: string): Promise<Record<string, unknown>> {
+  async getNfeStatus(
+    ref: string,
+    apiKey: string,
+  ): Promise<Record<string, unknown>> {
     return this.request('GET', `/v1/nfe/${ref}`, undefined, apiKey);
   }
 
   /**
    * GET /v1/nfce/{ref} (status NFC-e)
    */
-  async getNfceStatus(ref: string, apiKey: string): Promise<Record<string, unknown>> {
+  async getNfceStatus(
+    ref: string,
+    apiKey: string,
+  ): Promise<Record<string, unknown>> {
     return this.request('GET', `/v1/nfce/${ref}`, undefined, apiKey);
   }
 
@@ -137,7 +142,7 @@ export class FocusNfeRestClient {
   /**
    * Valida HMAC da resposta
    */
-  private validateHmac(data: unknown, signature: string): void {
+  private validateHmac(_data: unknown, _signature: string): void {
     // TODO: Implementar validação HMAC se necessário
     // Focus NFe usa HMAC para validar respostas
     // Exemplo: SHA256(payload + secret) === signature
@@ -149,7 +154,12 @@ export class FocusNfeRestClient {
   private isNonRetryableError(error: unknown): boolean {
     if (error instanceof Error) {
       // 4xx errors (exceto 429) são não-retentáveis
-      if (error.message.includes('400') || error.message.includes('401') || error.message.includes('403') || error.message.includes('404')) {
+      if (
+        error.message.includes('400') ||
+        error.message.includes('401') ||
+        error.message.includes('403') ||
+        error.message.includes('404')
+      ) {
         return true;
       }
     }

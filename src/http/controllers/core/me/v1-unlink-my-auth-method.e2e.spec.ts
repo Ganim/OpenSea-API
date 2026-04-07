@@ -14,7 +14,6 @@ describe('Unlink My Auth Method (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should unlink auth method when not the last one', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

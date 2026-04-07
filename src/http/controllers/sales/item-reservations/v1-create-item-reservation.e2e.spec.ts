@@ -15,7 +15,6 @@ describe('Create Item Reservation (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create item reservation with correct schema', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

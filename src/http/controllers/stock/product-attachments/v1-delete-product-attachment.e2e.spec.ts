@@ -15,7 +15,6 @@ describe('Delete Product Attachment (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a product attachment successfully', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { product } = await createProduct({ tenantId });

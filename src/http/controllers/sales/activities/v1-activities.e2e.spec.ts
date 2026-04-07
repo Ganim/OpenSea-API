@@ -17,7 +17,6 @@ describe('Activities (E2E)', () => {
     token = auth.token;
   });
 
-
   it('POST /v1/activities should create an activity (201)', async () => {
     const response = await request(app.server)
       .post('/v1/activities')

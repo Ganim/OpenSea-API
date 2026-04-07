@@ -1,5 +1,3 @@
-import { PermissionCodes } from '@/constants/rbac';
-import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifySuperAdmin } from '@/http/middlewares/rbac/verify-super-admin';
 import {
@@ -19,7 +17,8 @@ export async function v1ConfigureFocusNfeController(app: FastifyInstance) {
     schema: {
       tags: ['Sales - Invoicing'],
       summary: 'Configure Focus NFe integration',
-      description: 'Configures or updates Focus NFe API settings (super admin only)',
+      description:
+        'Configures or updates Focus NFe API settings (super admin only)',
       body: configureFocusNfeRequestSchema,
       response: {
         200: configureFocusNfeResponseSchema,
@@ -28,8 +27,9 @@ export async function v1ConfigureFocusNfeController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      const userId = request.user.id!;
-      const { apiKey, productionMode, autoIssueOnConfirm, defaultSeries } = request.body;
+      const userId = request.user.sub;
+      const { apiKey, productionMode, autoIssueOnConfirm, defaultSeries } =
+        request.body;
 
       try {
         const useCase = makeConfigureFocusNfeUseCase();
@@ -44,12 +44,16 @@ export async function v1ConfigureFocusNfeController(app: FastifyInstance) {
 
         return reply.status(200).send(result);
       } catch (error) {
-        if (error instanceof Error && error.message.includes('Failed to connect')) {
+        if (
+          error instanceof Error &&
+          error.message.includes('Failed to connect')
+        ) {
           return reply.status(400).send({ message: error.message });
         }
 
         return reply.status(500).send({
-          message: error instanceof Error ? error.message : 'Internal server error',
+          message:
+            error instanceof Error ? error.message : 'Internal server error',
         });
       }
     },

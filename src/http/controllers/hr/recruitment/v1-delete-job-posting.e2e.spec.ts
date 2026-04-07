@@ -14,7 +14,6 @@ describe('Delete Job Posting (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a job posting', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -36,8 +35,9 @@ describe('Delete Job Posting (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .delete('/v1/hr/recruitment/job-postings/nonexistent-id');
+    const response = await request(app.server).delete(
+      '/v1/hr/recruitment/job-postings/nonexistent-id',
+    );
 
     expect(response.statusCode).toBe(401);
   });

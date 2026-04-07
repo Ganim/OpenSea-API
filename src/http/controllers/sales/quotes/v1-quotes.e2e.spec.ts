@@ -30,7 +30,6 @@ describe('Quotes (E2E)', () => {
     customerId = customer.id;
   });
 
-
   it('POST /v1/sales/quotes should create a quote (201)', async () => {
     const timestamp = Date.now();
 

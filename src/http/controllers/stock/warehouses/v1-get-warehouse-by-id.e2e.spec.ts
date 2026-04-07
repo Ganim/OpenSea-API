@@ -15,7 +15,6 @@ describe('Get Warehouse by ID (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should retrieve a warehouse by ID', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now().toString();

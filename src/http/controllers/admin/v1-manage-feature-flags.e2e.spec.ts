@@ -10,7 +10,6 @@ describe('Manage Feature Flags (E2E)', () => {
     await app.ready();
   });
 
-
   it('should enable a feature flag for a tenant', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

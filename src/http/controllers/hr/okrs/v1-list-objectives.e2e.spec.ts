@@ -14,7 +14,6 @@ describe('List Objectives (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list objectives', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

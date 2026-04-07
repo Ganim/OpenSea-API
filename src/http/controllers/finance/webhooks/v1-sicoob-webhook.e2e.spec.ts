@@ -8,7 +8,6 @@ describe('Sicoob Webhook (E2E)', () => {
     await app.ready();
   });
 
-
   it('should reject webhook without valid HMAC signature', async () => {
     const response = await request(app.server)
       .post('/v1/finance/webhooks/sicoob')

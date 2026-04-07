@@ -15,7 +15,6 @@ describe('Get Work Schedule (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get a work schedule by id', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

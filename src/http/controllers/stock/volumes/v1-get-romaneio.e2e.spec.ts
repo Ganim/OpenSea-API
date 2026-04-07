@@ -15,7 +15,6 @@ describe('Get Romaneio (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get romaneio for a volume', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

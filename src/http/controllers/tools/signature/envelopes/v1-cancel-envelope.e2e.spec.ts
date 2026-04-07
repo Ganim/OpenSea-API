@@ -14,7 +14,6 @@ describe('Cancel Signature Envelope (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent envelope', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

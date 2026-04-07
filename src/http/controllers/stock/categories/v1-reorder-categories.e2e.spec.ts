@@ -15,7 +15,6 @@ describe('Reorder Categories (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should reorder categories', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

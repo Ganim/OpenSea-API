@@ -16,7 +16,6 @@ describe('Download File (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return a download URL for a file', async () => {
     const auth = await createAndAuthenticateUser(app, { tenantId });
     const token = auth.token;

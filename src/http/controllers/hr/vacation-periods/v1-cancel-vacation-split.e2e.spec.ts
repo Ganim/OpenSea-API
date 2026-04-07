@@ -14,11 +14,12 @@ describe('Cancel Vacation Split (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return 404 for non-existent split', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const response = await request(app.server)
-      .patch('/v1/hr/vacation-periods/splits/00000000-0000-0000-0000-000000000000/cancel')
+      .patch(
+        '/v1/hr/vacation-periods/splits/00000000-0000-0000-0000-000000000000/cancel',
+      )
       .set('Authorization', `Bearer ${token}`)
       .send({});
     expect([400, 404]).toContain(response.status);
@@ -26,7 +27,9 @@ describe('Cancel Vacation Split (E2E)', () => {
 
   it('should return 401 when not authenticated', async () => {
     const response = await request(app.server)
-      .patch('/v1/hr/vacation-periods/splits/00000000-0000-0000-0000-000000000000/cancel')
+      .patch(
+        '/v1/hr/vacation-periods/splits/00000000-0000-0000-0000-000000000000/cancel',
+      )
       .send({});
     expect(response.status).toBe(401);
   });

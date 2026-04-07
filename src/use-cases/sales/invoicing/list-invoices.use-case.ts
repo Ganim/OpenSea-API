@@ -1,11 +1,12 @@
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Invoice } from '@/entities/sales/invoice';
-import type { InvoicesRepository } from '@/repositories/sales/invoices-repository';
-import type { PaginatedResult } from '@/repositories/pagination-params';
+import type {
+  InvoicesRepository,
+  ListInvoicesFilters,
+} from '@/repositories/sales/invoices-repository';
 
 interface ListInvoicesUseCaseRequest {
   tenantId: string;
-  status?: string;
+  status?: 'PENDING' | 'ISSUED' | 'CANCELLED' | 'ERROR';
   orderId?: string;
   fromDate?: string;
   toDate?: string;
@@ -16,11 +17,11 @@ interface ListInvoicesUseCaseRequest {
 interface InvoiceListItemDTO {
   id: string;
   orderId: string;
-  type: string;
+  type: 'NFE' | 'NFCE';
   number: string;
   series: string;
   accessKey: string;
-  status: string;
+  status: 'PENDING' | 'ISSUED' | 'CANCELLED' | 'ERROR';
   issuedAt?: Date;
   createdAt: Date;
 }
@@ -49,10 +50,10 @@ export class ListInvoicesUseCase {
     }
 
     // Converte filters
-    const filters: Record<string, unknown> = {};
+    const filters: ListInvoicesFilters = {};
 
     if (request.status) {
-      filters.status = request.status as any;
+      filters.status = request.status;
     }
 
     if (request.orderId) {
@@ -70,7 +71,7 @@ export class ListInvoicesUseCase {
     // Busca invoices
     const result = await this.invoicesRepository.listByTenant({
       tenantId: request.tenantId,
-      filters: filters as any,
+      filters,
       page: request.page,
       limit: request.limit,
     });
@@ -93,7 +94,7 @@ export class ListInvoicesUseCase {
       total: result.total,
       page: result.page,
       limit: result.limit,
-      pages: result.pages,
+      pages: result.totalPages,
     };
   }
 }

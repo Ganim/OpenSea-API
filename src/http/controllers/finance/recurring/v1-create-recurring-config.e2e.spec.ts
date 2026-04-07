@@ -15,7 +15,6 @@ describe('Create Recurring Config (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a recurring config', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { category, costCenter, bankAccount } =

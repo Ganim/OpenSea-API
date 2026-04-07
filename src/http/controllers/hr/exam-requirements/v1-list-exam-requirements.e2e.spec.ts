@@ -14,7 +14,6 @@ describe('List Exam Requirements (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list exam requirements', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
@@ -26,8 +25,7 @@ describe('List Exam Requirements (E2E)', () => {
   });
 
   it('should return 401 when not authenticated', async () => {
-    const response = await request(app.server)
-      .get('/v1/hr/exam-requirements');
+    const response = await request(app.server).get('/v1/hr/exam-requirements');
 
     expect(response.status).toBe(401);
   });

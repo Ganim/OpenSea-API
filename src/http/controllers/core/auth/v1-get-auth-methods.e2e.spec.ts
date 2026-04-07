@@ -8,7 +8,6 @@ describe('Get Auth Methods (E2E)', () => {
     await app.ready();
   });
 
-
   it('should return available authentication methods', async () => {
     const response = await request(app.server).get('/v1/auth/methods');
 

@@ -17,7 +17,6 @@ describe('AI Assistant (E2E)', () => {
     token = auth.token;
   });
 
-
   // --- Chat ---
 
   it('POST /v1/ai/chat should send a message (200)', async () => {

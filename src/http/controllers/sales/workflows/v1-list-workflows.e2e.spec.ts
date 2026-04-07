@@ -14,7 +14,6 @@ describe('List Workflows (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list workflows', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

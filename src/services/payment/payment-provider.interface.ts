@@ -13,66 +13,66 @@ export type PaymentMethod =
   | 'CREDIT_CARD'
   | 'DEBIT_CARD'
   | 'BOLETO'
-  | 'PAYMENT_LINK'
+  | 'PAYMENT_LINK';
 
 export interface CreateChargeInput {
   /** Amount in cents */
-  amount: number
-  method: PaymentMethod
-  orderId: string
-  orderNumber: string
-  customerName?: string
-  customerDocument?: string
-  description?: string
-  installments?: number
-  expiresInMinutes?: number
+  amount: number;
+  method: PaymentMethod;
+  orderId: string;
+  orderNumber: string;
+  customerName?: string;
+  customerDocument?: string;
+  description?: string;
+  installments?: number;
+  expiresInMinutes?: number;
 }
 
 export interface ChargeResult {
-  chargeId: string
-  status: 'PENDING' | 'PAID' | 'FAILED'
-  qrCode?: string
-  qrCodeImage?: string
-  checkoutUrl?: string
-  boletoUrl?: string
-  boletoBarcode?: string
-  expiresAt?: Date
-  rawResponse?: unknown
+  chargeId: string;
+  status: 'PENDING' | 'PAID' | 'FAILED';
+  qrCode?: string;
+  qrCodeImage?: string;
+  checkoutUrl?: string;
+  boletoUrl?: string;
+  boletoBarcode?: string;
+  expiresAt?: Date;
+  rawResponse?: unknown;
 }
 
 export interface ChargeStatus {
-  status: 'PENDING' | 'PAID' | 'EXPIRED' | 'FAILED' | 'REFUNDED'
-  paidAt?: Date
-  paidAmount?: number
+  status: 'PENDING' | 'PAID' | 'EXPIRED' | 'FAILED' | 'REFUNDED';
+  paidAt?: Date;
+  paidAmount?: number;
 }
 
 export interface WebhookResult {
-  chargeId: string
-  status: 'PAID' | 'FAILED' | 'EXPIRED' | 'REFUNDED'
-  paidAmount?: number
-  metadata?: Record<string, unknown>
+  chargeId: string;
+  status: 'PAID' | 'FAILED' | 'EXPIRED' | 'REFUNDED';
+  paidAmount?: number;
+  metadata?: Record<string, unknown>;
 }
 
 export interface ConfigField {
-  key: string
-  label: string
-  type: 'text' | 'password' | 'file'
-  required: boolean
-  placeholder?: string
-  helpText?: string
+  key: string;
+  label: string;
+  type: 'text' | 'password' | 'file';
+  required: boolean;
+  placeholder?: string;
+  helpText?: string;
 }
 
 export interface PaymentProvider {
-  name: string
-  displayName: string
-  supportedMethods: PaymentMethod[]
+  name: string;
+  displayName: string;
+  supportedMethods: PaymentMethod[];
 
-  createCharge(input: CreateChargeInput): Promise<ChargeResult>
-  checkStatus(chargeId: string): Promise<ChargeStatus>
+  createCharge(input: CreateChargeInput): Promise<ChargeResult>;
+  checkStatus(chargeId: string): Promise<ChargeStatus>;
   handleWebhook(
     payload: unknown,
     headers: Record<string, string>,
-  ): Promise<WebhookResult>
-  testConnection(): Promise<{ ok: boolean; message: string }>
-  getConfigFields(): ConfigField[]
+  ): Promise<WebhookResult>;
+  testConnection(): Promise<{ ok: boolean; message: string }>;
+  getConfigFields(): ConfigField[];
 }

@@ -14,7 +14,6 @@ describe('Create Permission (e2e)', () => {
     tenantId = tid;
   });
 
-
   it('should create permission with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const uniqueId = faker.string.alpha({ length: 8 }).toLowerCase();

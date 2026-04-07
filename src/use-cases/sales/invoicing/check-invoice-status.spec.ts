@@ -1,9 +1,9 @@
-import { describe, it, expect, beforeEach } from 'vitest';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Invoice } from '@/entities/sales/invoice';
-import { InMemoryInvoicesRepository } from '@/repositories/sales/in-memory/in-memory-invoices-repository';
 import { FocusNfeProviderImpl } from '@/providers/nfe/implementations/focus-nfe.impl';
+import { InMemoryInvoicesRepository } from '@/repositories/sales/in-memory/in-memory-invoices-repository';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { CheckInvoiceStatusUseCase } from './check-invoice-status.use-case';
 
 describe('CheckInvoiceStatusUseCase', () => {
@@ -16,7 +16,10 @@ describe('CheckInvoiceStatusUseCase', () => {
   beforeEach(() => {
     invoicesRepository = new InMemoryInvoicesRepository();
     focusNfeProvider = new FocusNfeProviderImpl(false);
-    useCase = new CheckInvoiceStatusUseCase(invoicesRepository, focusNfeProvider);
+    useCase = new CheckInvoiceStatusUseCase(
+      invoicesRepository,
+      focusNfeProvider,
+    );
   });
 
   it('should throw ResourceNotFoundError if invoice does not exist', async () => {
@@ -47,7 +50,7 @@ describe('CheckInvoiceStatusUseCase', () => {
       tenantId,
     });
 
-    expect(result.invoiceId).toBe(invoice.id.toString());
+    expect(result.id).toBe(invoice.id.toString());
     expect(result.status).toBe('ISSUED');
     expect(result.accessKey).toBe(invoice.accessKey);
   });

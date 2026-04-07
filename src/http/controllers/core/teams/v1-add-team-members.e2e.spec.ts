@@ -15,7 +15,6 @@ describe('Add Team Member (E2E)', () => {
     tenantId = tid;
   }, 180000);
 
-
   it('should add a member to the team', async () => {
     const { token, user: ownerUser } = await createAndAuthenticateUser(app, {
       tenantId,

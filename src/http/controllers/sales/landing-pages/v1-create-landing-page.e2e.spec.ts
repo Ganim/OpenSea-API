@@ -14,7 +14,6 @@ describe('Create Landing Page (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create a landing page', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

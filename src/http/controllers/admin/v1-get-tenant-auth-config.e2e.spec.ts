@@ -27,7 +27,6 @@ describe('Admin Get Tenant Auth Config (E2E)', () => {
     });
   });
 
-
   it('should return tenant auth config', async () => {
     const { token } = await createAndAuthenticateSuperAdmin(app);
 

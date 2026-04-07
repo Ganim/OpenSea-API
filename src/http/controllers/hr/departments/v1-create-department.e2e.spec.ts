@@ -16,7 +16,6 @@ describe('Create Department (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should create department with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { companyId } = await createCompanyE2E({ tenantId });

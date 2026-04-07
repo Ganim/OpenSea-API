@@ -16,7 +16,6 @@ describe('Validate Bulk Variants (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should validate and return correct response shape', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const timestamp = Date.now();

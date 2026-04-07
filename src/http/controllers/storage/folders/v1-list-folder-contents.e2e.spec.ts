@@ -15,7 +15,6 @@ describe('List Folder Contents (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should list root folder contents', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     await createStorageFolderE2E({ tenantId });

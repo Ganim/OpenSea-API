@@ -19,34 +19,34 @@ import type {
   ChargeStatus,
   WebhookResult,
   ConfigField,
-} from '../payment-provider.interface'
+} from '../payment-provider.interface';
 
-const INFINITEPAY_BASE_URL = 'https://api.infinitepay.io'
+const INFINITEPAY_BASE_URL = 'https://api.infinitepay.io';
 
 export interface InfinitePayConfig {
-  clientId: string
-  clientSecret: string
+  clientId: string;
+  clientSecret: string;
 }
 
 export class InfinitePayProvider implements PaymentProvider {
-  readonly name = 'infinitepay'
-  readonly displayName = 'InfinitePay'
+  readonly name = 'infinitepay';
+  readonly displayName = 'InfinitePay';
   readonly supportedMethods: PaymentMethod[] = [
     'PIX',
     'CREDIT_CARD',
     'DEBIT_CARD',
-  ]
+  ];
 
-  private cachedAccessToken: string | null = null
-  private tokenExpirationDate: Date = new Date(0)
+  private cachedAccessToken: string | null = null;
+  private tokenExpirationDate: Date = new Date(0);
 
   constructor(private config: InfinitePayConfig) {}
 
   async createCharge(input: CreateChargeInput): Promise<ChargeResult> {
     try {
-      const accessToken = await this.authenticate()
+      const accessToken = await this.authenticate();
 
-      const amountInReais = input.amount / 100
+      const amountInReais = input.amount / 100;
 
       const body: Record<string, unknown> = {
         handle: input.orderNumber,
@@ -55,12 +55,11 @@ export class InfinitePayProvider implements PaymentProvider {
           {
             quantity: 1,
             price: amountInReais,
-            description:
-              input.description || `Pedido ${input.orderNumber}`,
+            description: input.description || `Pedido ${input.orderNumber}`,
           },
         ],
         webhook_url: `${process.env.API_BASE_URL || 'https://api.example.com'}/v1/webhooks/infinitepay`,
-      }
+      };
 
       if (input.customerName || input.customerDocument) {
         body.customer = {
@@ -68,11 +67,11 @@ export class InfinitePayProvider implements PaymentProvider {
           ...(input.customerDocument && {
             document: input.customerDocument.replace(/\D/g, ''),
           }),
-        }
+        };
       }
 
       if (input.expiresInMinutes) {
-        body.expires_in = input.expiresInMinutes * 60
+        body.expires_in = input.expiresInMinutes * 60;
       }
 
       const response = await this.request(
@@ -80,60 +79,61 @@ export class InfinitePayProvider implements PaymentProvider {
         'POST',
         '/invoices/public/checkout/links',
         body,
-      )
+      );
 
-      const data = response as Record<string, unknown>
-      const checkoutUrl = (data.url as string) || (data.checkout_url as string) || ''
+      const data = response as Record<string, unknown>;
+      const checkoutUrl =
+        (data.url as string) || (data.checkout_url as string) || '';
       const chargeId =
         (data.id as string) ||
         (data.invoice_slug as string) ||
         (data.slug as string) ||
-        input.orderId
+        input.orderId;
 
       const result: ChargeResult = {
         chargeId,
         status: 'PENDING',
         checkoutUrl,
         rawResponse: data,
-      }
+      };
 
       // For PIX: the checkout URL itself can be used as QR code payload
       if (input.method === 'PIX' && checkoutUrl) {
-        result.qrCode = checkoutUrl
+        result.qrCode = checkoutUrl;
       }
 
       if (input.expiresInMinutes) {
         result.expiresAt = new Date(
           Date.now() + input.expiresInMinutes * 60 * 1000,
-        )
+        );
       }
 
       console.log(
         `[InfinitePay] Charge created: ${chargeId} for order ${input.orderNumber}`,
-      )
+      );
 
-      return result
+      return result;
     } catch (error) {
-      console.error('[InfinitePay] createCharge error:', error)
+      console.error('[InfinitePay] createCharge error:', error);
       throw new Error(
         `Falha ao criar cobrança via InfinitePay: ${error instanceof Error ? error.message : 'Erro desconhecido'}`,
-      )
+      );
     }
   }
 
   async checkStatus(chargeId: string): Promise<ChargeStatus> {
     try {
-      const accessToken = await this.authenticate()
+      const accessToken = await this.authenticate();
 
       const response = await this.request(
         accessToken,
         'POST',
         '/invoices/public/checkout/payment_check',
         { invoice_slug: chargeId },
-      )
+      );
 
-      const data = response as Record<string, unknown>
-      const providerStatus = (data.status as string) || ''
+      const data = response as Record<string, unknown>;
+      const providerStatus = (data.status as string) || '';
 
       return {
         status: this.mapStatus(providerStatus),
@@ -141,12 +141,12 @@ export class InfinitePayProvider implements PaymentProvider {
         paidAmount: data.paid_amount
           ? Math.round(Number(data.paid_amount) * 100)
           : undefined,
-      }
+      };
     } catch (error) {
-      console.error('[InfinitePay] checkStatus error:', error)
+      console.error('[InfinitePay] checkStatus error:', error);
       throw new Error(
         `Falha ao verificar status via InfinitePay: ${error instanceof Error ? error.message : 'Erro desconhecido'}`,
-      )
+      );
     }
   }
 
@@ -155,7 +155,7 @@ export class InfinitePayProvider implements PaymentProvider {
     _headers: Record<string, string>,
   ): Promise<WebhookResult> {
     try {
-      const data = payload as Record<string, unknown>
+      const data = payload as Record<string, unknown>;
 
       // TODO: Validate HMAC signature from headers when InfinitePay docs provide details
       // const signature = headers['x-infinitepay-signature'] || headers['x-signature']
@@ -165,19 +165,19 @@ export class InfinitePayProvider implements PaymentProvider {
         (data.invoice_slug as string) ||
         (data.id as string) ||
         (data.slug as string) ||
-        ''
-      const providerStatus = (data.status as string) || ''
+        '';
+      const providerStatus = (data.status as string) || '';
       const paidAmount = data.paid_amount
         ? Math.round(Number(data.paid_amount) * 100)
         : data.amount
           ? Math.round(Number(data.amount) * 100)
-          : undefined
+          : undefined;
 
-      const status = this.mapWebhookStatus(providerStatus)
+      const status = this.mapWebhookStatus(providerStatus);
 
       console.log(
         `[InfinitePay] Webhook received: charge=${chargeId} status=${providerStatus} → ${status}`,
-      )
+      );
 
       return {
         chargeId,
@@ -188,28 +188,28 @@ export class InfinitePayProvider implements PaymentProvider {
           receiptUrl: data.receipt_url,
           rawStatus: providerStatus,
         },
-      }
+      };
     } catch (error) {
-      console.error('[InfinitePay] handleWebhook error:', error)
+      console.error('[InfinitePay] handleWebhook error:', error);
       throw new Error(
         `Falha ao processar webhook InfinitePay: ${error instanceof Error ? error.message : 'Erro desconhecido'}`,
-      )
+      );
     }
   }
 
   async testConnection(): Promise<{ ok: boolean; message: string }> {
     try {
-      await this.authenticate()
+      await this.authenticate();
       return {
         ok: true,
         message:
           'Autenticação realizada com sucesso. Atenção: InfinitePay não possui ambiente sandbox.',
-      }
+      };
     } catch (error) {
       return {
         ok: false,
         message: `Falha na autenticação: ${error instanceof Error ? error.message : 'Erro desconhecido'}`,
-      }
+      };
     }
   }
 
@@ -232,7 +232,7 @@ export class InfinitePayProvider implements PaymentProvider {
         helpText:
           'Chave secreta fornecida pela InfinitePay. Nunca compartilhe esta chave.',
       },
-    ]
+    ];
   }
 
   // ---------------------------------------------------------------------------
@@ -241,42 +241,39 @@ export class InfinitePayProvider implements PaymentProvider {
 
   private async authenticate(): Promise<string> {
     if (this.cachedAccessToken && this.tokenExpirationDate > new Date()) {
-      return this.cachedAccessToken
+      return this.cachedAccessToken;
     }
 
     const base64Credentials = Buffer.from(
       `${this.config.clientId}:${this.config.clientSecret}`,
-    ).toString('base64')
+    ).toString('base64');
 
-    const tokenResponse = await fetch(
-      `${INFINITEPAY_BASE_URL}/oauth/token`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Basic ${base64Credentials}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ grant_type: 'client_credentials' }),
+    const tokenResponse = await fetch(`${INFINITEPAY_BASE_URL}/oauth/token`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Basic ${base64Credentials}`,
+        'Content-Type': 'application/json',
       },
-    )
+      body: JSON.stringify({ grant_type: 'client_credentials' }),
+    });
 
     if (!tokenResponse.ok) {
-      const errorBody = await tokenResponse.json().catch(() => ({}))
+      const errorBody = await tokenResponse.json().catch(() => ({}));
       throw new Error(
         `InfinitePay OAuth failed (${tokenResponse.status}): ${JSON.stringify(errorBody)}`,
-      )
+      );
     }
 
-    const tokenData = (await tokenResponse.json()) as Record<string, unknown>
+    const tokenData = (await tokenResponse.json()) as Record<string, unknown>;
 
-    this.cachedAccessToken = tokenData.access_token as string
+    this.cachedAccessToken = tokenData.access_token as string;
     this.tokenExpirationDate = new Date(
       Date.now() + ((tokenData.expires_in as number) || 3600) * 1000,
-    )
+    );
 
-    console.log('[InfinitePay] Authenticated successfully')
+    console.log('[InfinitePay] Authenticated successfully');
 
-    return this.cachedAccessToken
+    return this.cachedAccessToken;
   }
 
   private async request(
@@ -291,64 +288,80 @@ export class InfinitePayProvider implements PaymentProvider {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-    }
+    };
 
     if (body && method !== 'GET') {
-      requestOptions.body = JSON.stringify(body)
+      requestOptions.body = JSON.stringify(body);
     }
 
     const httpResponse = await fetch(
       `${INFINITEPAY_BASE_URL}${path}`,
       requestOptions,
-    )
+    );
 
     if (!httpResponse.ok) {
-      const errorBody = await httpResponse.json().catch(() => ({}))
+      const errorBody = await httpResponse.json().catch(() => ({}));
       throw new Error(
         `InfinitePay API error (${httpResponse.status}): ${JSON.stringify(errorBody)}`,
-      )
+      );
     }
 
-    const contentLength = httpResponse.headers.get('content-length')
+    const contentLength = httpResponse.headers.get('content-length');
     if (contentLength === '0') {
-      return {}
+      return {};
     }
 
-    return httpResponse.json() as Promise<Record<string, unknown>>
+    return httpResponse.json() as Promise<Record<string, unknown>>;
   }
 
-  private mapStatus(
-    providerStatus: string,
-  ): ChargeStatus['status'] {
-    const normalized = providerStatus.toLowerCase()
-    if (normalized === 'paid' || normalized === 'approved' || normalized === 'confirmed') {
-      return 'PAID'
+  private mapStatus(providerStatus: string): ChargeStatus['status'] {
+    const normalized = providerStatus.toLowerCase();
+    if (
+      normalized === 'paid' ||
+      normalized === 'approved' ||
+      normalized === 'confirmed'
+    ) {
+      return 'PAID';
     }
-    if (normalized === 'expired' || normalized === 'canceled' || normalized === 'cancelled') {
-      return 'EXPIRED'
+    if (
+      normalized === 'expired' ||
+      normalized === 'canceled' ||
+      normalized === 'cancelled'
+    ) {
+      return 'EXPIRED';
     }
-    if (normalized === 'failed' || normalized === 'rejected' || normalized === 'error') {
-      return 'FAILED'
+    if (
+      normalized === 'failed' ||
+      normalized === 'rejected' ||
+      normalized === 'error'
+    ) {
+      return 'FAILED';
     }
     if (normalized === 'refunded' || normalized === 'reversed') {
-      return 'REFUNDED'
+      return 'REFUNDED';
     }
-    return 'PENDING'
+    return 'PENDING';
   }
 
-  private mapWebhookStatus(
-    providerStatus: string,
-  ): WebhookResult['status'] {
-    const normalized = providerStatus.toLowerCase()
-    if (normalized === 'paid' || normalized === 'approved' || normalized === 'confirmed') {
-      return 'PAID'
+  private mapWebhookStatus(providerStatus: string): WebhookResult['status'] {
+    const normalized = providerStatus.toLowerCase();
+    if (
+      normalized === 'paid' ||
+      normalized === 'approved' ||
+      normalized === 'confirmed'
+    ) {
+      return 'PAID';
     }
-    if (normalized === 'expired' || normalized === 'canceled' || normalized === 'cancelled') {
-      return 'EXPIRED'
+    if (
+      normalized === 'expired' ||
+      normalized === 'canceled' ||
+      normalized === 'cancelled'
+    ) {
+      return 'EXPIRED';
     }
     if (normalized === 'refunded' || normalized === 'reversed') {
-      return 'REFUNDED'
+      return 'REFUNDED';
     }
-    return 'FAILED'
+    return 'FAILED';
   }
 }

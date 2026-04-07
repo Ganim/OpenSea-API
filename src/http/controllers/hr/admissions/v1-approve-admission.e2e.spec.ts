@@ -16,7 +16,6 @@ describe('Approve Admission (E2E)', () => {
     tenantId = tenant.tenantId;
   });
 
-
   it('should approve an admission and create an employee', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const { admissionInvite } = await createAdmissionInviteE2E({

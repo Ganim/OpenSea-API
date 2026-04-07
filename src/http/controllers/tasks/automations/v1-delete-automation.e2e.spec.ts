@@ -16,7 +16,6 @@ describe('Delete Automation (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should delete a board automation', async () => {
     const { token, user } = await createAndAuthenticateUser(app, { tenantId });
     const userId = user.user.id;

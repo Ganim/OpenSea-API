@@ -17,7 +17,6 @@ describe('Get Reconciliation By ID (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should get a reconciliation with items', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const bankAccount = await createBankAccount(tenantId);

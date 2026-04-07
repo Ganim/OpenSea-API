@@ -15,7 +15,6 @@ describe('Mark Tax Obligation Paid (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should return error for non-existent obligation', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

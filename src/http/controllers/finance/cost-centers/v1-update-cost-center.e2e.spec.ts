@@ -15,7 +15,6 @@ describe('Update Cost Center (E2E)', () => {
     tenantId = tid;
   });
 
-
   it('should update a cost center', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 

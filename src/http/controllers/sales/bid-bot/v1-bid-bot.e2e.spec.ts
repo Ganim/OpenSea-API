@@ -14,11 +14,9 @@ describe('Bid Bot (E2E)', () => {
     tenantId = tid;
   });
 
-
   describe('GET /v1/bid-bot', () => {
     it('should return 401 without token', async () => {
-      const response = await request(app.server)
-        .get('/v1/bid-bot');
+      const response = await request(app.server).get('/v1/bid-bot');
 
       expect(response.status).toBe(401);
     });

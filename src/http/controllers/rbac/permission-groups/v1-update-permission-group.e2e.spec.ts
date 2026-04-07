@@ -15,7 +15,6 @@ describe('Update Permission Group (e2e)', () => {
     tenantId = tenantSetup.tenantId;
   });
 
-
   it('should update permission group with correct schema', async () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
     const group = await makePermissionGroup({ tenantId });

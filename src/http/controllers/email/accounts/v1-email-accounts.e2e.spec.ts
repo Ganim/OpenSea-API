@@ -58,7 +58,6 @@ describe('Email Accounts Controller (E2E)', () => {
     secondUserId = secondUserResult.user.user.id;
   }, 60000);
 
-
   // ─── POST /v1/email/accounts ─────────────────────────────────────────────
   describe('Criar conta (POST /v1/email/accounts)', () => {
     it('[SUCESSO] deve criar conta com campos obrigatórios', async () => {
