@@ -44,16 +44,15 @@ export class ListVariantsUseCase {
       input.search || input.categoryId || input.barcode || input.onlyActive;
 
     if (input.includeProduct) {
-      const result =
-        await this.variantsRepository.findManyFilteredWithProduct({
-          tenantId,
-          page,
-          limit,
-          search: input.search,
-          categoryId: input.categoryId,
-          barcode: input.barcode,
-          onlyActive: input.onlyActive,
-        });
+      const result = await this.variantsRepository.findManyFilteredWithProduct({
+        tenantId,
+        page,
+        limit,
+        search: input.search,
+        categoryId: input.categoryId,
+        barcode: input.barcode,
+        onlyActive: input.onlyActive,
+      });
 
       const variants: Variant[] = [];
       const productInfoById: Record<string, VariantProductInfo> = {};
