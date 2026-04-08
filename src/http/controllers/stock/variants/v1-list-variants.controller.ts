@@ -5,9 +5,12 @@ import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   paginationSchema,
   queryBooleanSchema,
-  variantResponseSchema,
+  variantWithProductResponseSchema,
 } from '@/http/schemas';
-import { variantToDTO } from '@/mappers/stock/variant/variant-to-dto';
+import {
+  variantToDTO,
+  variantWithProductToDTO,
+} from '@/mappers/stock/variant/variant-to-dto';
 import { makeListVariantsUseCase } from '@/use-cases/stock/variants/factories/make-list-variants-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -34,10 +37,11 @@ export async function listVariantsController(app: FastifyInstance) {
         barcode: z.string().optional(),
         hasStock: queryBooleanSchema.optional(),
         onlyActive: queryBooleanSchema.optional(),
+        includeProduct: queryBooleanSchema.optional(),
       }),
       response: {
         200: z.object({
-          variants: z.array(variantResponseSchema),
+          variants: z.array(variantWithProductResponseSchema),
           meta: z.object({
             total: z.number(),
             page: z.number(),
@@ -51,23 +55,36 @@ export async function listVariantsController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { page, limit, search, categoryId, barcode, onlyActive } =
-        request.query;
-
-      const listVariantsUseCase = makeListVariantsUseCase();
-      const { variants, meta } = await listVariantsUseCase.execute({
-        tenantId,
+      const {
         page,
         limit,
         search,
         categoryId,
         barcode,
         onlyActive,
-      });
+        includeProduct,
+      } = request.query;
 
-      return reply
-        .status(200)
-        .send({ variants: variants.map(variantToDTO), meta });
+      const listVariantsUseCase = makeListVariantsUseCase();
+      const { variants, productInfoById, meta } =
+        await listVariantsUseCase.execute({
+          tenantId,
+          page,
+          limit,
+          search,
+          categoryId,
+          barcode,
+          onlyActive,
+          includeProduct,
+        });
+
+      const variantsPayload = includeProduct
+        ? variants.map((v) =>
+            variantWithProductToDTO(v, productInfoById?.[v.id.toString()]),
+          )
+        : variants.map(variantToDTO);
+
+      return reply.status(200).send({ variants: variantsPayload, meta });
     },
   });
 }

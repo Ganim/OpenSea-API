@@ -77,6 +77,25 @@ export const variantWithAggregationsResponseSchema =
     totalCurrentQuantity: z.number(),
   });
 
+/**
+ * Lightweight product info attached to a variant when the
+ * `includeProduct=true` query flag is used on GET /v1/variants.
+ * Provides enough metadata for mobile selectors to render
+ * template/product/manufacturer labels without extra requests.
+ */
+export const variantProductInfoSchema = z.object({
+  productId: z.uuid(),
+  productName: z.string(),
+  templateId: z.string().nullable(),
+  templateName: z.string().nullable(),
+  manufacturerId: z.string().nullable(),
+  manufacturerName: z.string().nullable(),
+});
+
+export const variantWithProductResponseSchema = variantResponseSchema.extend({
+  product: variantProductInfoSchema.optional(),
+});
+
 export const updateVariantSchema = createVariantSchema
   .partial()
   .omit({ productId: true });

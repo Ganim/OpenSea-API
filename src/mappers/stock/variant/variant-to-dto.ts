@@ -1,4 +1,5 @@
 import type { Variant } from '@/entities/stock/variant';
+import type { VariantProductInfo } from '@/repositories/stock/variants-repository';
 
 export interface VariantDTO {
   id: string;
@@ -38,6 +39,19 @@ export interface VariantWithAggregationsDTO extends VariantDTO {
   productName: string;
   itemCount: number;
   totalCurrentQuantity: number;
+}
+
+export interface VariantProductInfoDTO {
+  productId: string;
+  productName: string;
+  templateId: string | null;
+  templateName: string | null;
+  manufacturerId: string | null;
+  manufacturerName: string | null;
+}
+
+export interface VariantWithProductDTO extends VariantDTO {
+  product?: VariantProductInfoDTO;
 }
 
 export function variantToDTO(variant: Variant): VariantDTO {
@@ -88,5 +102,28 @@ export function variantWithAggregationsToDTO(variantWithAggregations: {
     productName: variantWithAggregations.productName,
     itemCount: variantWithAggregations.itemCount,
     totalCurrentQuantity: variantWithAggregations.totalCurrentQuantity,
+  };
+}
+
+export function variantProductInfoToDTO(
+  info: VariantProductInfo,
+): VariantProductInfoDTO {
+  return {
+    productId: info.productId,
+    productName: info.productName,
+    templateId: info.templateId,
+    templateName: info.templateName,
+    manufacturerId: info.manufacturerId,
+    manufacturerName: info.manufacturerName,
+  };
+}
+
+export function variantWithProductToDTO(
+  variant: Variant,
+  info: VariantProductInfo | undefined,
+): VariantWithProductDTO {
+  return {
+    ...variantToDTO(variant),
+    product: info ? variantProductInfoToDTO(info) : undefined,
   };
 }

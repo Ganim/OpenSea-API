@@ -13,6 +13,26 @@ export interface FindManyVariantsFilteredParams {
   onlyActive?: boolean;
 }
 
+/**
+ * Lightweight product info returned alongside a variant when
+ * callers opt-in to `findManyFilteredWithProduct`. Used by mobile
+ * selectors that need to display product/template/manufacturer
+ * labels without issuing additional requests.
+ */
+export interface VariantProductInfo {
+  productId: string;
+  productName: string;
+  templateId: string | null;
+  templateName: string | null;
+  manufacturerId: string | null;
+  manufacturerName: string | null;
+}
+
+export interface VariantWithProductInfo {
+  variant: Variant;
+  productInfo: VariantProductInfo;
+}
+
 export interface CreateVariantSchema {
   tenantId: string;
   productId: UniqueEntityID;
@@ -113,6 +133,9 @@ export interface VariantsRepository {
   findManyFiltered(
     params: FindManyVariantsFilteredParams,
   ): Promise<PaginatedResult<Variant>>;
+  findManyFilteredWithProduct(
+    params: FindManyVariantsFilteredParams,
+  ): Promise<PaginatedResult<VariantWithProductInfo>>;
   update(data: UpdateVariantSchema): Promise<Variant | null>;
   save(variant: Variant): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;

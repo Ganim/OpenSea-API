@@ -9,6 +9,7 @@ import type {
   FindManyVariantsFilteredParams,
   UpdateVariantSchema,
   VariantsRepository,
+  VariantWithProductInfo,
 } from '../variants-repository';
 
 export class InMemoryVariantsRepository implements VariantsRepository {
@@ -249,7 +250,9 @@ export class InMemoryVariantsRepository implements VariantsRepository {
       filtered = filtered.filter(
         (item) =>
           item.name.toLowerCase().includes(searchLower) ||
-          item.sku?.toLowerCase().includes(searchLower),
+          item.sku?.toLowerCase().includes(searchLower) ||
+          item.reference?.toLowerCase().includes(searchLower) ||
+          item.barcode?.toLowerCase().includes(searchLower),
       );
     }
 
@@ -264,6 +267,29 @@ export class InMemoryVariantsRepository implements VariantsRepository {
       page: params.page,
       limit: params.limit,
       totalPages: Math.ceil(total / params.limit),
+    };
+  }
+
+  async findManyFilteredWithProduct(
+    params: FindManyVariantsFilteredParams,
+  ): Promise<PaginatedResult<VariantWithProductInfo>> {
+    // In-memory repo has no cross-repository joins, so product/template/
+    // manufacturer names come back as null placeholders. The Prisma
+    // implementation is the source of truth for the enriched shape.
+    const base = await this.findManyFiltered(params);
+    return {
+      ...base,
+      data: base.data.map((variant) => ({
+        variant,
+        productInfo: {
+          productId: variant.productId.toString(),
+          productName: '',
+          templateId: null,
+          templateName: null,
+          manufacturerId: null,
+          manufacturerName: null,
+        },
+      })),
     };
   }
 

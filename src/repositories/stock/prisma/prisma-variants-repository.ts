@@ -17,6 +17,7 @@ import type {
   FindManyVariantsFilteredParams,
   UpdateVariantSchema,
   VariantsRepository,
+  VariantWithProductInfo,
 } from '../variants-repository';
 
 export class PrismaVariantsRepository implements VariantsRepository {
@@ -418,45 +419,125 @@ export class PrismaVariantsRepository implements VariantsRepository {
     return variants.map((v) => this.mapVariantToDomain(v));
   }
 
-  async findManyFiltered(
+  private buildFilteredWhere(
     params: FindManyVariantsFilteredParams,
-  ): Promise<PaginatedResult<Variant>> {
-    const where: Record<string, unknown> = {
-      tenantId: params.tenantId,
-      deletedAt: null,
-    };
+  ): Prisma.VariantWhereInput {
+    const filters: Prisma.VariantWhereInput[] = [
+      { tenantId: params.tenantId, deletedAt: null },
+    ];
 
     if (params.onlyActive) {
-      where.isActive = true;
+      filters.push({ isActive: true });
     }
 
     if (params.barcode) {
-      where.barcode = params.barcode;
+      filters.push({ barcode: params.barcode });
     }
 
     if (params.categoryId) {
-      where.product = { categoryId: params.categoryId, deletedAt: null };
+      filters.push({
+        product: {
+          deletedAt: null,
+          productCategories: { some: { categoryId: params.categoryId } },
+        },
+      });
     }
 
     if (params.search) {
-      where.OR = [
-        { name: { contains: params.search, mode: 'insensitive' } },
-        { sku: { contains: params.search, mode: 'insensitive' } },
-      ];
+      const q = params.search;
+      const like = { contains: q, mode: 'insensitive' as const };
+      filters.push({
+        OR: [
+          { name: like },
+          { sku: like },
+          { reference: like },
+          { barcode: like },
+          { product: { name: like, deletedAt: null } },
+          {
+            product: {
+              template: { name: like },
+              deletedAt: null,
+            },
+          },
+          {
+            product: {
+              manufacturer: { name: like },
+              deletedAt: null,
+            },
+          },
+        ],
+      });
     }
+
+    return { AND: filters };
+  }
+
+  async findManyFiltered(
+    params: FindManyVariantsFilteredParams,
+  ): Promise<PaginatedResult<Variant>> {
+    const where = this.buildFilteredWhere(params);
 
     const [variants, total] = await Promise.all([
       prisma.variant.findMany({
-        where: where as never,
+        where,
         orderBy: { createdAt: 'desc' },
         skip: (params.page - 1) * params.limit,
         take: params.limit,
       }),
-      prisma.variant.count({ where: where as never }),
+      prisma.variant.count({ where }),
     ]);
 
     return {
       data: variants.map((v) => this.mapVariantToDomain(v)),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
+  }
+
+  async findManyFilteredWithProduct(
+    params: FindManyVariantsFilteredParams,
+  ): Promise<PaginatedResult<VariantWithProductInfo>> {
+    const where = this.buildFilteredWhere(params);
+
+    const [variants, total] = await Promise.all([
+      prisma.variant.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        skip: (params.page - 1) * params.limit,
+        take: params.limit,
+        include: {
+          product: {
+            select: {
+              id: true,
+              name: true,
+              templateId: true,
+              template: { select: { id: true, name: true } },
+              manufacturerId: true,
+              manufacturer: { select: { id: true, name: true } },
+            },
+          },
+        },
+      }),
+      prisma.variant.count({ where }),
+    ]);
+
+    const data: VariantWithProductInfo[] = variants.map((v) => ({
+      variant: this.mapVariantToDomain(v),
+      productInfo: {
+        productId: v.product.id,
+        productName: v.product.name,
+        templateId: v.product.templateId ?? v.product.template?.id ?? null,
+        templateName: v.product.template?.name ?? null,
+        manufacturerId:
+          v.product.manufacturerId ?? v.product.manufacturer?.id ?? null,
+        manufacturerName: v.product.manufacturer?.name ?? null,
+      },
+    }));
+
+    return {
+      data,
       total,
       page: params.page,
       limit: params.limit,
