@@ -27,8 +27,6 @@ describe('DeletePrintAgentUseCase', () => {
     const agent = PrintAgent.create({
       tenantId: new UniqueEntityID(TENANT_ID),
       name: 'Agent To Delete',
-      apiKeyHash: 'hash-del',
-      apiKeyPrefix: 'osa_del1',
     });
 
     await printAgentsRepository.create(agent);
@@ -46,8 +44,6 @@ describe('DeletePrintAgentUseCase', () => {
     const agent = PrintAgent.create({
       tenantId: new UniqueEntityID(TENANT_ID),
       name: 'Agent With Printers',
-      apiKeyHash: 'hash-wp',
-      apiKeyPrefix: 'osa_wp01',
     });
 
     await printAgentsRepository.create(agent);

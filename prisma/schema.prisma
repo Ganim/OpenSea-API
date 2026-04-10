@@ -15260,26 +15260,30 @@ model Invoice {
 }
 
 model PrintAgent {
-  id           String      @id @default(cuid())
-  tenantId     String      @map("tenant_id")
-  name         String      @db.VarChar(128)
-  apiKeyHash   String      @map("api_key_hash") @db.VarChar(128)
-  apiKeyPrefix String      @map("api_key_prefix") @db.VarChar(8)
-  status       AgentStatus @default(OFFLINE)
-  lastSeenAt   DateTime?   @map("last_seen_at")
-  ipAddress    String?     @map("ip_address") @db.VarChar(45)
-  hostname     String?     @db.VarChar(128)
-  osInfo       Json?       @map("os_info")
-  version      String?     @db.VarChar(20)
-  createdAt    DateTime    @default(now()) @map("created_at")
-  updatedAt    DateTime?   @updatedAt @map("updated_at")
-  deletedAt    DateTime?   @map("deleted_at")
+  id              String      @id @default(cuid())
+  tenantId        String      @map("tenant_id")
+  name            String      @db.VarChar(128)
+  pairingSecret   String      @map("pairing_secret") @db.VarChar(64)
+  deviceTokenHash String?     @unique @map("device_token_hash") @db.VarChar(128)
+  deviceLabel     String?     @map("device_label") @db.VarChar(128)
+  pairedAt        DateTime?   @map("paired_at")
+  pairedByUserId  String?     @map("paired_by_user_id")
+  revokedAt       DateTime?   @map("revoked_at")
+  status          AgentStatus @default(OFFLINE)
+  lastSeenAt      DateTime?   @map("last_seen_at")
+  ipAddress       String?     @map("ip_address") @db.VarChar(45)
+  hostname        String?     @db.VarChar(128)
+  osInfo          Json?       @map("os_info")
+  version         String?     @db.VarChar(20)
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime?   @updatedAt @map("updated_at")
+  deletedAt       DateTime?   @map("deleted_at")
 
   tenant   Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   printers PosPrinter[]
 
   @@index([tenantId])
-  @@index([apiKeyPrefix])
+  @@index([deviceTokenHash])
   @@map("print_agents")
 }
 

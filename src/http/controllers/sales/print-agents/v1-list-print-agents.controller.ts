@@ -23,7 +23,7 @@ export async function v1ListPrintAgentsController(app: FastifyInstance) {
       tags: ['Sales - Printing'],
       summary: 'List all print agents',
       description:
-        'Returns all print agents for the current tenant with printer count.',
+        'Returns all print agents for the current tenant with printer count and pairing status.',
       response: {
         200: listPrintAgentsResponseSchema,
       },
@@ -39,6 +39,9 @@ export async function v1ListPrintAgentsController(app: FastifyInstance) {
           id: agent.id.toString(),
           name: agent.name,
           status: agent.status,
+          isPaired: agent.isPaired,
+          deviceLabel: agent.deviceLabel ?? null,
+          pairedAt: agent.pairedAt?.toISOString() ?? null,
           lastSeenAt: agent.lastSeenAt?.toISOString() ?? null,
           ipAddress: agent.ipAddress ?? null,
           hostname: agent.hostname ?? null,

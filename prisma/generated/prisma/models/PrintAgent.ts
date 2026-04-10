@@ -28,8 +28,12 @@ export type PrintAgentMinAggregateOutputType = {
   id: string | null
   tenantId: string | null
   name: string | null
-  apiKeyHash: string | null
-  apiKeyPrefix: string | null
+  pairingSecret: string | null
+  deviceTokenHash: string | null
+  deviceLabel: string | null
+  pairedAt: Date | null
+  pairedByUserId: string | null
+  revokedAt: Date | null
   status: $Enums.AgentStatus | null
   lastSeenAt: Date | null
   ipAddress: string | null
@@ -44,8 +48,12 @@ export type PrintAgentMaxAggregateOutputType = {
   id: string | null
   tenantId: string | null
   name: string | null
-  apiKeyHash: string | null
-  apiKeyPrefix: string | null
+  pairingSecret: string | null
+  deviceTokenHash: string | null
+  deviceLabel: string | null
+  pairedAt: Date | null
+  pairedByUserId: string | null
+  revokedAt: Date | null
   status: $Enums.AgentStatus | null
   lastSeenAt: Date | null
   ipAddress: string | null
@@ -60,8 +68,12 @@ export type PrintAgentCountAggregateOutputType = {
   id: number
   tenantId: number
   name: number
-  apiKeyHash: number
-  apiKeyPrefix: number
+  pairingSecret: number
+  deviceTokenHash: number
+  deviceLabel: number
+  pairedAt: number
+  pairedByUserId: number
+  revokedAt: number
   status: number
   lastSeenAt: number
   ipAddress: number
@@ -79,8 +91,12 @@ export type PrintAgentMinAggregateInputType = {
   id?: true
   tenantId?: true
   name?: true
-  apiKeyHash?: true
-  apiKeyPrefix?: true
+  pairingSecret?: true
+  deviceTokenHash?: true
+  deviceLabel?: true
+  pairedAt?: true
+  pairedByUserId?: true
+  revokedAt?: true
   status?: true
   lastSeenAt?: true
   ipAddress?: true
@@ -95,8 +111,12 @@ export type PrintAgentMaxAggregateInputType = {
   id?: true
   tenantId?: true
   name?: true
-  apiKeyHash?: true
-  apiKeyPrefix?: true
+  pairingSecret?: true
+  deviceTokenHash?: true
+  deviceLabel?: true
+  pairedAt?: true
+  pairedByUserId?: true
+  revokedAt?: true
   status?: true
   lastSeenAt?: true
   ipAddress?: true
@@ -111,8 +131,12 @@ export type PrintAgentCountAggregateInputType = {
   id?: true
   tenantId?: true
   name?: true
-  apiKeyHash?: true
-  apiKeyPrefix?: true
+  pairingSecret?: true
+  deviceTokenHash?: true
+  deviceLabel?: true
+  pairedAt?: true
+  pairedByUserId?: true
+  revokedAt?: true
   status?: true
   lastSeenAt?: true
   ipAddress?: true
@@ -201,8 +225,12 @@ export type PrintAgentGroupByOutputType = {
   id: string
   tenantId: string
   name: string
-  apiKeyHash: string
-  apiKeyPrefix: string
+  pairingSecret: string
+  deviceTokenHash: string | null
+  deviceLabel: string | null
+  pairedAt: Date | null
+  pairedByUserId: string | null
+  revokedAt: Date | null
   status: $Enums.AgentStatus
   lastSeenAt: Date | null
   ipAddress: string | null
@@ -239,8 +267,12 @@ export type PrintAgentWhereInput = {
   id?: Prisma.StringFilter<"PrintAgent"> | string
   tenantId?: Prisma.StringFilter<"PrintAgent"> | string
   name?: Prisma.StringFilter<"PrintAgent"> | string
-  apiKeyHash?: Prisma.StringFilter<"PrintAgent"> | string
-  apiKeyPrefix?: Prisma.StringFilter<"PrintAgent"> | string
+  pairingSecret?: Prisma.StringFilter<"PrintAgent"> | string
+  deviceTokenHash?: Prisma.StringNullableFilter<"PrintAgent"> | string | null
+  deviceLabel?: Prisma.StringNullableFilter<"PrintAgent"> | string | null
+  pairedAt?: Prisma.DateTimeNullableFilter<"PrintAgent"> | Date | string | null
+  pairedByUserId?: Prisma.StringNullableFilter<"PrintAgent"> | string | null
+  revokedAt?: Prisma.DateTimeNullableFilter<"PrintAgent"> | Date | string | null
   status?: Prisma.EnumAgentStatusFilter<"PrintAgent"> | $Enums.AgentStatus
   lastSeenAt?: Prisma.DateTimeNullableFilter<"PrintAgent"> | Date | string | null
   ipAddress?: Prisma.StringNullableFilter<"PrintAgent"> | string | null
@@ -258,8 +290,12 @@ export type PrintAgentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  apiKeyHash?: Prisma.SortOrder
-  apiKeyPrefix?: Prisma.SortOrder
+  pairingSecret?: Prisma.SortOrder
+  deviceTokenHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  deviceLabel?: Prisma.SortOrderInput | Prisma.SortOrder
+  pairedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  pairedByUserId?: Prisma.SortOrderInput | Prisma.SortOrder
+  revokedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrderInput | Prisma.SortOrder
   ipAddress?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -275,13 +311,17 @@ export type PrintAgentOrderByWithRelationInput = {
 
 export type PrintAgentWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  deviceTokenHash?: string
   AND?: Prisma.PrintAgentWhereInput | Prisma.PrintAgentWhereInput[]
   OR?: Prisma.PrintAgentWhereInput[]
   NOT?: Prisma.PrintAgentWhereInput | Prisma.PrintAgentWhereInput[]
   tenantId?: Prisma.StringFilter<"PrintAgent"> | string
   name?: Prisma.StringFilter<"PrintAgent"> | string
-  apiKeyHash?: Prisma.StringFilter<"PrintAgent"> | string
-  apiKeyPrefix?: Prisma.StringFilter<"PrintAgent"> | string
+  pairingSecret?: Prisma.StringFilter<"PrintAgent"> | string
+  deviceLabel?: Prisma.StringNullableFilter<"PrintAgent"> | string | null
+  pairedAt?: Prisma.DateTimeNullableFilter<"PrintAgent"> | Date | string | null
+  pairedByUserId?: Prisma.StringNullableFilter<"PrintAgent"> | string | null
+  revokedAt?: Prisma.DateTimeNullableFilter<"PrintAgent"> | Date | string | null
   status?: Prisma.EnumAgentStatusFilter<"PrintAgent"> | $Enums.AgentStatus
   lastSeenAt?: Prisma.DateTimeNullableFilter<"PrintAgent"> | Date | string | null
   ipAddress?: Prisma.StringNullableFilter<"PrintAgent"> | string | null
@@ -293,14 +333,18 @@ export type PrintAgentWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"PrintAgent"> | Date | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   printers?: Prisma.PosPrinterListRelationFilter
-}, "id">
+}, "id" | "deviceTokenHash">
 
 export type PrintAgentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  apiKeyHash?: Prisma.SortOrder
-  apiKeyPrefix?: Prisma.SortOrder
+  pairingSecret?: Prisma.SortOrder
+  deviceTokenHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  deviceLabel?: Prisma.SortOrderInput | Prisma.SortOrder
+  pairedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  pairedByUserId?: Prisma.SortOrderInput | Prisma.SortOrder
+  revokedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrderInput | Prisma.SortOrder
   ipAddress?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -322,8 +366,12 @@ export type PrintAgentScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"PrintAgent"> | string
   tenantId?: Prisma.StringWithAggregatesFilter<"PrintAgent"> | string
   name?: Prisma.StringWithAggregatesFilter<"PrintAgent"> | string
-  apiKeyHash?: Prisma.StringWithAggregatesFilter<"PrintAgent"> | string
-  apiKeyPrefix?: Prisma.StringWithAggregatesFilter<"PrintAgent"> | string
+  pairingSecret?: Prisma.StringWithAggregatesFilter<"PrintAgent"> | string
+  deviceTokenHash?: Prisma.StringNullableWithAggregatesFilter<"PrintAgent"> | string | null
+  deviceLabel?: Prisma.StringNullableWithAggregatesFilter<"PrintAgent"> | string | null
+  pairedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PrintAgent"> | Date | string | null
+  pairedByUserId?: Prisma.StringNullableWithAggregatesFilter<"PrintAgent"> | string | null
+  revokedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PrintAgent"> | Date | string | null
   status?: Prisma.EnumAgentStatusWithAggregatesFilter<"PrintAgent"> | $Enums.AgentStatus
   lastSeenAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PrintAgent"> | Date | string | null
   ipAddress?: Prisma.StringNullableWithAggregatesFilter<"PrintAgent"> | string | null
@@ -338,8 +386,12 @@ export type PrintAgentScalarWhereWithAggregatesInput = {
 export type PrintAgentCreateInput = {
   id?: string
   name: string
-  apiKeyHash: string
-  apiKeyPrefix: string
+  pairingSecret: string
+  deviceTokenHash?: string | null
+  deviceLabel?: string | null
+  pairedAt?: Date | string | null
+  pairedByUserId?: string | null
+  revokedAt?: Date | string | null
   status?: $Enums.AgentStatus
   lastSeenAt?: Date | string | null
   ipAddress?: string | null
@@ -357,8 +409,12 @@ export type PrintAgentUncheckedCreateInput = {
   id?: string
   tenantId: string
   name: string
-  apiKeyHash: string
-  apiKeyPrefix: string
+  pairingSecret: string
+  deviceTokenHash?: string | null
+  deviceLabel?: string | null
+  pairedAt?: Date | string | null
+  pairedByUserId?: string | null
+  revokedAt?: Date | string | null
   status?: $Enums.AgentStatus
   lastSeenAt?: Date | string | null
   ipAddress?: string | null
@@ -374,8 +430,12 @@ export type PrintAgentUncheckedCreateInput = {
 export type PrintAgentUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  apiKeyHash?: Prisma.StringFieldUpdateOperationsInput | string
-  apiKeyPrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  pairingSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pairedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAgentStatusFieldUpdateOperationsInput | $Enums.AgentStatus
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -393,8 +453,12 @@ export type PrintAgentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  apiKeyHash?: Prisma.StringFieldUpdateOperationsInput | string
-  apiKeyPrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  pairingSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pairedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAgentStatusFieldUpdateOperationsInput | $Enums.AgentStatus
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -411,8 +475,12 @@ export type PrintAgentCreateManyInput = {
   id?: string
   tenantId: string
   name: string
-  apiKeyHash: string
-  apiKeyPrefix: string
+  pairingSecret: string
+  deviceTokenHash?: string | null
+  deviceLabel?: string | null
+  pairedAt?: Date | string | null
+  pairedByUserId?: string | null
+  revokedAt?: Date | string | null
   status?: $Enums.AgentStatus
   lastSeenAt?: Date | string | null
   ipAddress?: string | null
@@ -427,8 +495,12 @@ export type PrintAgentCreateManyInput = {
 export type PrintAgentUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  apiKeyHash?: Prisma.StringFieldUpdateOperationsInput | string
-  apiKeyPrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  pairingSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pairedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAgentStatusFieldUpdateOperationsInput | $Enums.AgentStatus
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -444,8 +516,12 @@ export type PrintAgentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  apiKeyHash?: Prisma.StringFieldUpdateOperationsInput | string
-  apiKeyPrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  pairingSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pairedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAgentStatusFieldUpdateOperationsInput | $Enums.AgentStatus
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -471,8 +547,12 @@ export type PrintAgentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  apiKeyHash?: Prisma.SortOrder
-  apiKeyPrefix?: Prisma.SortOrder
+  pairingSecret?: Prisma.SortOrder
+  deviceTokenHash?: Prisma.SortOrder
+  deviceLabel?: Prisma.SortOrder
+  pairedAt?: Prisma.SortOrder
+  pairedByUserId?: Prisma.SortOrder
+  revokedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrder
   ipAddress?: Prisma.SortOrder
@@ -488,8 +568,12 @@ export type PrintAgentMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  apiKeyHash?: Prisma.SortOrder
-  apiKeyPrefix?: Prisma.SortOrder
+  pairingSecret?: Prisma.SortOrder
+  deviceTokenHash?: Prisma.SortOrder
+  deviceLabel?: Prisma.SortOrder
+  pairedAt?: Prisma.SortOrder
+  pairedByUserId?: Prisma.SortOrder
+  revokedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrder
   ipAddress?: Prisma.SortOrder
@@ -504,8 +588,12 @@ export type PrintAgentMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  apiKeyHash?: Prisma.SortOrder
-  apiKeyPrefix?: Prisma.SortOrder
+  pairingSecret?: Prisma.SortOrder
+  deviceTokenHash?: Prisma.SortOrder
+  deviceLabel?: Prisma.SortOrder
+  pairedAt?: Prisma.SortOrder
+  pairedByUserId?: Prisma.SortOrder
+  revokedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrder
   ipAddress?: Prisma.SortOrder
@@ -586,8 +674,12 @@ export type PrintAgentUpdateOneWithoutPrintersNestedInput = {
 export type PrintAgentCreateWithoutTenantInput = {
   id?: string
   name: string
-  apiKeyHash: string
-  apiKeyPrefix: string
+  pairingSecret: string
+  deviceTokenHash?: string | null
+  deviceLabel?: string | null
+  pairedAt?: Date | string | null
+  pairedByUserId?: string | null
+  revokedAt?: Date | string | null
   status?: $Enums.AgentStatus
   lastSeenAt?: Date | string | null
   ipAddress?: string | null
@@ -603,8 +695,12 @@ export type PrintAgentCreateWithoutTenantInput = {
 export type PrintAgentUncheckedCreateWithoutTenantInput = {
   id?: string
   name: string
-  apiKeyHash: string
-  apiKeyPrefix: string
+  pairingSecret: string
+  deviceTokenHash?: string | null
+  deviceLabel?: string | null
+  pairedAt?: Date | string | null
+  pairedByUserId?: string | null
+  revokedAt?: Date | string | null
   status?: $Enums.AgentStatus
   lastSeenAt?: Date | string | null
   ipAddress?: string | null
@@ -650,8 +746,12 @@ export type PrintAgentScalarWhereInput = {
   id?: Prisma.StringFilter<"PrintAgent"> | string
   tenantId?: Prisma.StringFilter<"PrintAgent"> | string
   name?: Prisma.StringFilter<"PrintAgent"> | string
-  apiKeyHash?: Prisma.StringFilter<"PrintAgent"> | string
-  apiKeyPrefix?: Prisma.StringFilter<"PrintAgent"> | string
+  pairingSecret?: Prisma.StringFilter<"PrintAgent"> | string
+  deviceTokenHash?: Prisma.StringNullableFilter<"PrintAgent"> | string | null
+  deviceLabel?: Prisma.StringNullableFilter<"PrintAgent"> | string | null
+  pairedAt?: Prisma.DateTimeNullableFilter<"PrintAgent"> | Date | string | null
+  pairedByUserId?: Prisma.StringNullableFilter<"PrintAgent"> | string | null
+  revokedAt?: Prisma.DateTimeNullableFilter<"PrintAgent"> | Date | string | null
   status?: Prisma.EnumAgentStatusFilter<"PrintAgent"> | $Enums.AgentStatus
   lastSeenAt?: Prisma.DateTimeNullableFilter<"PrintAgent"> | Date | string | null
   ipAddress?: Prisma.StringNullableFilter<"PrintAgent"> | string | null
@@ -666,8 +766,12 @@ export type PrintAgentScalarWhereInput = {
 export type PrintAgentCreateWithoutPrintersInput = {
   id?: string
   name: string
-  apiKeyHash: string
-  apiKeyPrefix: string
+  pairingSecret: string
+  deviceTokenHash?: string | null
+  deviceLabel?: string | null
+  pairedAt?: Date | string | null
+  pairedByUserId?: string | null
+  revokedAt?: Date | string | null
   status?: $Enums.AgentStatus
   lastSeenAt?: Date | string | null
   ipAddress?: string | null
@@ -684,8 +788,12 @@ export type PrintAgentUncheckedCreateWithoutPrintersInput = {
   id?: string
   tenantId: string
   name: string
-  apiKeyHash: string
-  apiKeyPrefix: string
+  pairingSecret: string
+  deviceTokenHash?: string | null
+  deviceLabel?: string | null
+  pairedAt?: Date | string | null
+  pairedByUserId?: string | null
+  revokedAt?: Date | string | null
   status?: $Enums.AgentStatus
   lastSeenAt?: Date | string | null
   ipAddress?: string | null
@@ -716,8 +824,12 @@ export type PrintAgentUpdateToOneWithWhereWithoutPrintersInput = {
 export type PrintAgentUpdateWithoutPrintersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  apiKeyHash?: Prisma.StringFieldUpdateOperationsInput | string
-  apiKeyPrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  pairingSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pairedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAgentStatusFieldUpdateOperationsInput | $Enums.AgentStatus
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -734,8 +846,12 @@ export type PrintAgentUncheckedUpdateWithoutPrintersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  apiKeyHash?: Prisma.StringFieldUpdateOperationsInput | string
-  apiKeyPrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  pairingSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pairedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAgentStatusFieldUpdateOperationsInput | $Enums.AgentStatus
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -750,8 +866,12 @@ export type PrintAgentUncheckedUpdateWithoutPrintersInput = {
 export type PrintAgentCreateManyTenantInput = {
   id?: string
   name: string
-  apiKeyHash: string
-  apiKeyPrefix: string
+  pairingSecret: string
+  deviceTokenHash?: string | null
+  deviceLabel?: string | null
+  pairedAt?: Date | string | null
+  pairedByUserId?: string | null
+  revokedAt?: Date | string | null
   status?: $Enums.AgentStatus
   lastSeenAt?: Date | string | null
   ipAddress?: string | null
@@ -766,8 +886,12 @@ export type PrintAgentCreateManyTenantInput = {
 export type PrintAgentUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  apiKeyHash?: Prisma.StringFieldUpdateOperationsInput | string
-  apiKeyPrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  pairingSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pairedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAgentStatusFieldUpdateOperationsInput | $Enums.AgentStatus
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -783,8 +907,12 @@ export type PrintAgentUpdateWithoutTenantInput = {
 export type PrintAgentUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  apiKeyHash?: Prisma.StringFieldUpdateOperationsInput | string
-  apiKeyPrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  pairingSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pairedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAgentStatusFieldUpdateOperationsInput | $Enums.AgentStatus
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -800,8 +928,12 @@ export type PrintAgentUncheckedUpdateWithoutTenantInput = {
 export type PrintAgentUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  apiKeyHash?: Prisma.StringFieldUpdateOperationsInput | string
-  apiKeyPrefix?: Prisma.StringFieldUpdateOperationsInput | string
+  pairingSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  deviceTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pairedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumAgentStatusFieldUpdateOperationsInput | $Enums.AgentStatus
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -848,8 +980,12 @@ export type PrintAgentSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   id?: boolean
   tenantId?: boolean
   name?: boolean
-  apiKeyHash?: boolean
-  apiKeyPrefix?: boolean
+  pairingSecret?: boolean
+  deviceTokenHash?: boolean
+  deviceLabel?: boolean
+  pairedAt?: boolean
+  pairedByUserId?: boolean
+  revokedAt?: boolean
   status?: boolean
   lastSeenAt?: boolean
   ipAddress?: boolean
@@ -868,8 +1004,12 @@ export type PrintAgentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   tenantId?: boolean
   name?: boolean
-  apiKeyHash?: boolean
-  apiKeyPrefix?: boolean
+  pairingSecret?: boolean
+  deviceTokenHash?: boolean
+  deviceLabel?: boolean
+  pairedAt?: boolean
+  pairedByUserId?: boolean
+  revokedAt?: boolean
   status?: boolean
   lastSeenAt?: boolean
   ipAddress?: boolean
@@ -886,8 +1026,12 @@ export type PrintAgentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   tenantId?: boolean
   name?: boolean
-  apiKeyHash?: boolean
-  apiKeyPrefix?: boolean
+  pairingSecret?: boolean
+  deviceTokenHash?: boolean
+  deviceLabel?: boolean
+  pairedAt?: boolean
+  pairedByUserId?: boolean
+  revokedAt?: boolean
   status?: boolean
   lastSeenAt?: boolean
   ipAddress?: boolean
@@ -904,8 +1048,12 @@ export type PrintAgentSelectScalar = {
   id?: boolean
   tenantId?: boolean
   name?: boolean
-  apiKeyHash?: boolean
-  apiKeyPrefix?: boolean
+  pairingSecret?: boolean
+  deviceTokenHash?: boolean
+  deviceLabel?: boolean
+  pairedAt?: boolean
+  pairedByUserId?: boolean
+  revokedAt?: boolean
   status?: boolean
   lastSeenAt?: boolean
   ipAddress?: boolean
@@ -917,7 +1065,7 @@ export type PrintAgentSelectScalar = {
   deletedAt?: boolean
 }
 
-export type PrintAgentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "apiKeyHash" | "apiKeyPrefix" | "status" | "lastSeenAt" | "ipAddress" | "hostname" | "osInfo" | "version" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["printAgent"]>
+export type PrintAgentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "pairingSecret" | "deviceTokenHash" | "deviceLabel" | "pairedAt" | "pairedByUserId" | "revokedAt" | "status" | "lastSeenAt" | "ipAddress" | "hostname" | "osInfo" | "version" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["printAgent"]>
 export type PrintAgentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   printers?: boolean | Prisma.PrintAgent$printersArgs<ExtArgs>
@@ -940,8 +1088,12 @@ export type $PrintAgentPayload<ExtArgs extends runtime.Types.Extensions.Internal
     id: string
     tenantId: string
     name: string
-    apiKeyHash: string
-    apiKeyPrefix: string
+    pairingSecret: string
+    deviceTokenHash: string | null
+    deviceLabel: string | null
+    pairedAt: Date | null
+    pairedByUserId: string | null
+    revokedAt: Date | null
     status: $Enums.AgentStatus
     lastSeenAt: Date | null
     ipAddress: string | null
@@ -1379,8 +1531,12 @@ export interface PrintAgentFieldRefs {
   readonly id: Prisma.FieldRef<"PrintAgent", 'String'>
   readonly tenantId: Prisma.FieldRef<"PrintAgent", 'String'>
   readonly name: Prisma.FieldRef<"PrintAgent", 'String'>
-  readonly apiKeyHash: Prisma.FieldRef<"PrintAgent", 'String'>
-  readonly apiKeyPrefix: Prisma.FieldRef<"PrintAgent", 'String'>
+  readonly pairingSecret: Prisma.FieldRef<"PrintAgent", 'String'>
+  readonly deviceTokenHash: Prisma.FieldRef<"PrintAgent", 'String'>
+  readonly deviceLabel: Prisma.FieldRef<"PrintAgent", 'String'>
+  readonly pairedAt: Prisma.FieldRef<"PrintAgent", 'DateTime'>
+  readonly pairedByUserId: Prisma.FieldRef<"PrintAgent", 'String'>
+  readonly revokedAt: Prisma.FieldRef<"PrintAgent", 'DateTime'>
   readonly status: Prisma.FieldRef<"PrintAgent", 'AgentStatus'>
   readonly lastSeenAt: Prisma.FieldRef<"PrintAgent", 'DateTime'>
   readonly ipAddress: Prisma.FieldRef<"PrintAgent", 'String'>

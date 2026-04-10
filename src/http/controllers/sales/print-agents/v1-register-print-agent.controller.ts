@@ -27,7 +27,7 @@ export async function v1RegisterPrintAgentController(app: FastifyInstance) {
       tags: ['Sales - Printing'],
       summary: 'Register a new print agent',
       description:
-        'Creates a print agent and returns the API key. Store the key securely — it cannot be retrieved later.',
+        'Creates a print agent. Use the pairing code endpoint to pair a device.',
       body: registerPrintAgentBodySchema,
       response: {
         201: registerPrintAgentResponseSchema,
@@ -36,16 +36,12 @@ export async function v1RegisterPrintAgentController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const useCase = makeRegisterPrintAgentUseCase();
-      const { agentId, apiKey } = await useCase.execute({
+      const { agentId } = await useCase.execute({
         tenantId: request.user.tenantId!,
         name: request.body.name,
       });
 
-      return reply.status(201).send({
-        agentId,
-        apiKey,
-        message: 'Store this API key securely. It will not be shown again.',
-      });
+      return reply.status(201).send({ agentId });
     },
   });
 }

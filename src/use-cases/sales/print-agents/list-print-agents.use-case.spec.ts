@@ -32,15 +32,11 @@ describe('ListPrintAgentsUseCase', () => {
     const agentOne = PrintAgent.create({
       tenantId: new UniqueEntityID(TENANT_ID),
       name: 'Agent One',
-      apiKeyHash: 'hash-one',
-      apiKeyPrefix: 'osa_abcd',
     });
 
     const agentTwo = PrintAgent.create({
       tenantId: new UniqueEntityID(TENANT_ID),
       name: 'Agent Two',
-      apiKeyHash: 'hash-two',
-      apiKeyPrefix: 'osa_efgh',
     });
 
     await printAgentsRepository.create(agentOne);
@@ -97,15 +93,11 @@ describe('ListPrintAgentsUseCase', () => {
     const agentOwn = PrintAgent.create({
       tenantId: new UniqueEntityID(TENANT_ID),
       name: 'Own Agent',
-      apiKeyHash: 'hash-own',
-      apiKeyPrefix: 'osa_own1',
     });
 
     const agentOther = PrintAgent.create({
       tenantId: new UniqueEntityID('other-tenant'),
       name: 'Other Agent',
-      apiKeyHash: 'hash-other',
-      apiKeyPrefix: 'osa_othr',
     });
 
     await printAgentsRepository.create(agentOwn);

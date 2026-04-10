@@ -1,4 +1,4 @@
-import { compare } from 'bcryptjs';
+import { createHash } from 'node:crypto';
 import jwt from 'jsonwebtoken';
 import type { Socket } from 'socket.io';
 
@@ -16,13 +16,13 @@ export async function authenticateSocket(
   next: (err?: Error) => void,
 ): Promise<void> {
   try {
-    const { apiKey, token } = socket.handshake.auth as {
-      apiKey?: string;
+    const { deviceToken, token } = socket.handshake.auth as {
+      deviceToken?: string;
       token?: string;
     };
 
-    if (apiKey) {
-      await authenticateAgent(socket, apiKey);
+    if (deviceToken) {
+      await authenticateAgent(socket, deviceToken);
       return next();
     }
 
@@ -31,7 +31,9 @@ export async function authenticateSocket(
       return next();
     }
 
-    return next(new Error('Authentication required: provide apiKey or token'));
+    return next(
+      new Error('Authentication required: provide deviceToken or token'),
+    );
   } catch (error) {
     const message =
       error instanceof Error ? error.message : 'Authentication failed';
@@ -41,22 +43,22 @@ export async function authenticateSocket(
 
 async function authenticateAgent(
   socket: Socket,
-  apiKey: string,
+  deviceToken: string,
 ): Promise<void> {
-  const prefix = apiKey.substring(0, 8);
+  const deviceTokenHash = createHash('sha256')
+    .update(deviceToken)
+    .digest('hex');
 
   const agent = await prisma.printAgent.findFirst({
-    where: { apiKeyPrefix: prefix, deletedAt: null },
+    where: {
+      deviceTokenHash,
+      deletedAt: null,
+      revokedAt: null,
+    },
   });
 
   if (!agent) {
-    throw new Error('Invalid API key: agent not found');
-  }
-
-  const isValidKey = await compare(apiKey, agent.apiKeyHash);
-
-  if (!isValidKey) {
-    throw new Error('Invalid API key: authentication failed');
+    throw new Error('Invalid or revoked device token');
   }
 
   const socketData: SocketData = {

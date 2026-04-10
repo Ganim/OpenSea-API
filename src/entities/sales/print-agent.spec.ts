@@ -7,14 +7,18 @@ describe('PrintAgent Entity', () => {
     const agent = PrintAgent.create({
       tenantId: new UniqueEntityID(),
       name: 'Office Agent',
-      apiKeyHash: 'hashed-key-value',
-      apiKeyPrefix: 'oa_1234',
     });
 
     expect(agent.name).toBe('Office Agent');
     expect(agent.status).toBe('OFFLINE');
-    expect(agent.apiKeyHash).toBe('hashed-key-value');
-    expect(agent.apiKeyPrefix).toBe('oa_1234');
+    expect(agent.pairingSecret).toBeDefined();
+    expect(agent.pairingSecret).toHaveLength(64); // 32 bytes hex
+    expect(agent.deviceTokenHash).toBeUndefined();
+    expect(agent.deviceLabel).toBeUndefined();
+    expect(agent.pairedAt).toBeUndefined();
+    expect(agent.pairedByUserId).toBeUndefined();
+    expect(agent.revokedAt).toBeUndefined();
+    expect(agent.isPaired).toBe(false);
     expect(agent.createdAt).toBeInstanceOf(Date);
     expect(agent.deletedAt).toBeUndefined();
     expect(agent.lastSeenAt).toBeUndefined();
@@ -24,12 +28,76 @@ describe('PrintAgent Entity', () => {
     expect(agent.version).toBeUndefined();
   });
 
+  it('should allow providing a custom pairing secret', () => {
+    const secret = 'a'.repeat(64);
+    const agent = PrintAgent.create({
+      tenantId: new UniqueEntityID(),
+      name: 'Custom Secret Agent',
+      pairingSecret: secret,
+    });
+
+    expect(agent.pairingSecret).toBe(secret);
+  });
+
+  it('should pair the agent and set all pairing fields', () => {
+    const agent = PrintAgent.create({
+      tenantId: new UniqueEntityID(),
+      name: 'Agent To Pair',
+    });
+
+    const tokenHash = 'abc123hash';
+    const label = 'Windows 11 - STOCK-PC';
+    const userId = 'user-01';
+
+    agent.pair(tokenHash, label, userId);
+
+    expect(agent.deviceTokenHash).toBe(tokenHash);
+    expect(agent.deviceLabel).toBe(label);
+    expect(agent.pairedByUserId).toBe(userId);
+    expect(agent.pairedAt).toBeInstanceOf(Date);
+    expect(agent.revokedAt).toBeUndefined();
+    expect(agent.isPaired).toBe(true);
+    expect(agent.updatedAt).toBeInstanceOf(Date);
+  });
+
+  it('should unpair the agent by setting revokedAt', () => {
+    const agent = PrintAgent.create({
+      tenantId: new UniqueEntityID(),
+      name: 'Agent To Unpair',
+    });
+
+    agent.pair('hash123', 'label', 'user-01');
+    expect(agent.isPaired).toBe(true);
+
+    agent.unpair();
+
+    expect(agent.revokedAt).toBeInstanceOf(Date);
+    expect(agent.isPaired).toBe(false);
+    expect(agent.updatedAt).toBeInstanceOf(Date);
+  });
+
+  it('should allow re-pairing after unpair', () => {
+    const agent = PrintAgent.create({
+      tenantId: new UniqueEntityID(),
+      name: 'Agent Re-Pair',
+    });
+
+    agent.pair('hash-first', 'label-first', 'user-01');
+    agent.unpair();
+    expect(agent.isPaired).toBe(false);
+
+    agent.pair('hash-second', 'label-second', 'user-02');
+    expect(agent.isPaired).toBe(true);
+    expect(agent.deviceTokenHash).toBe('hash-second');
+    expect(agent.deviceLabel).toBe('label-second');
+    expect(agent.pairedByUserId).toBe('user-02');
+    expect(agent.revokedAt).toBeUndefined();
+  });
+
   it('should update status and touch updatedAt', () => {
     const agent = PrintAgent.create({
       tenantId: new UniqueEntityID(),
       name: 'Agent A',
-      apiKeyHash: 'hash',
-      apiKeyPrefix: 'ag_0001',
     });
 
     expect(agent.updatedAt).toBeUndefined();
@@ -44,8 +112,6 @@ describe('PrintAgent Entity', () => {
     const agent = PrintAgent.create({
       tenantId: new UniqueEntityID(),
       name: 'Warehouse Agent',
-      apiKeyHash: 'hash-abc',
-      apiKeyPrefix: 'wa_5678',
     });
 
     agent.recordHeartbeat('192.168.1.100', 'warehouse-pc-01');
@@ -61,8 +127,6 @@ describe('PrintAgent Entity', () => {
     const agent = PrintAgent.create({
       tenantId: new UniqueEntityID(),
       name: 'Agent B',
-      apiKeyHash: 'hash-def',
-      apiKeyPrefix: 'ab_9999',
     });
 
     agent.recordHeartbeat('10.0.0.1', 'host-a');
@@ -76,8 +140,6 @@ describe('PrintAgent Entity', () => {
     const agent = PrintAgent.create({
       tenantId: new UniqueEntityID(),
       name: 'Agent C',
-      apiKeyHash: 'hash-ghi',
-      apiKeyPrefix: 'ac_1111',
     });
 
     agent.recordHeartbeat('10.0.0.2', 'host-b');
@@ -92,8 +154,6 @@ describe('PrintAgent Entity', () => {
     const agent = PrintAgent.create({
       tenantId: new UniqueEntityID(),
       name: 'Agent D',
-      apiKeyHash: 'hash-jkl',
-      apiKeyPrefix: 'ad_2222',
     });
 
     expect(agent.deletedAt).toBeUndefined();
@@ -108,8 +168,6 @@ describe('PrintAgent Entity', () => {
     const agent = PrintAgent.create({
       tenantId: new UniqueEntityID(),
       name: 'Old Name',
-      apiKeyHash: 'hash-mno',
-      apiKeyPrefix: 'on_3333',
     });
 
     agent.name = 'New Name';
@@ -122,8 +180,6 @@ describe('PrintAgent Entity', () => {
     const agent = PrintAgent.create({
       tenantId: new UniqueEntityID(),
       name: 'Agent E',
-      apiKeyHash: 'hash-pqr',
-      apiKeyPrefix: 'ae_4444',
     });
 
     agent.osInfo = { platform: 'win32', arch: 'x64' };
