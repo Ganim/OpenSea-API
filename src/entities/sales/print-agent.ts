@@ -1,3 +1,4 @@
+import { randomBytes } from 'node:crypto';
 import { Entity } from '../domain/entities';
 import type { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
@@ -8,8 +9,12 @@ export interface PrintAgentProps {
   id: UniqueEntityID;
   tenantId: UniqueEntityID;
   name: string;
-  apiKeyHash: string;
-  apiKeyPrefix: string;
+  pairingSecret: string;
+  deviceTokenHash?: string;
+  deviceLabel?: string;
+  pairedAt?: Date;
+  pairedByUserId?: string;
+  revokedAt?: Date;
   status: AgentStatus;
   lastSeenAt?: Date;
   ipAddress?: string;
@@ -35,22 +40,32 @@ export class PrintAgent extends Entity<PrintAgentProps> {
     this.touch();
   }
 
-  get apiKeyHash() {
-    return this.props.apiKeyHash;
+  get pairingSecret() {
+    return this.props.pairingSecret;
   }
 
-  set apiKeyHash(value: string) {
-    this.props.apiKeyHash = value;
-    this.touch();
+  get deviceTokenHash() {
+    return this.props.deviceTokenHash;
   }
 
-  get apiKeyPrefix() {
-    return this.props.apiKeyPrefix;
+  get deviceLabel() {
+    return this.props.deviceLabel;
   }
 
-  set apiKeyPrefix(value: string) {
-    this.props.apiKeyPrefix = value;
-    this.touch();
+  get pairedAt() {
+    return this.props.pairedAt;
+  }
+
+  get pairedByUserId() {
+    return this.props.pairedByUserId;
+  }
+
+  get revokedAt() {
+    return this.props.revokedAt;
+  }
+
+  get isPaired(): boolean {
+    return !!this.props.deviceTokenHash && !this.props.revokedAt;
   }
 
   get status() {
@@ -109,6 +124,22 @@ export class PrintAgent extends Entity<PrintAgentProps> {
     this.touch();
   }
 
+  pair(deviceTokenHash: string, deviceLabel: string, pairedByUserId?: string) {
+    this.props.deviceTokenHash = deviceTokenHash;
+    this.props.deviceLabel = deviceLabel;
+    this.props.pairedAt = new Date();
+    if (pairedByUserId) {
+      this.props.pairedByUserId = pairedByUserId;
+    }
+    this.props.revokedAt = undefined;
+    this.touch();
+  }
+
+  unpair() {
+    this.props.revokedAt = new Date();
+    this.touch();
+  }
+
   recordHeartbeat(ipAddress?: string, hostname?: string) {
     this.props.lastSeenAt = new Date();
     this.props.ipAddress = ipAddress ?? this.props.ipAddress;
@@ -127,13 +158,14 @@ export class PrintAgent extends Entity<PrintAgentProps> {
   }
 
   static create(
-    props: Optional<PrintAgentProps, 'id' | 'createdAt' | 'status'>,
+    props: Optional<PrintAgentProps, 'id' | 'createdAt' | 'status' | 'pairingSecret'>,
     id?: UniqueEntityID,
   ) {
     return new PrintAgent(
       {
         ...props,
         id: props.id ?? new UniqueEntityID(),
+        pairingSecret: props.pairingSecret ?? randomBytes(32).toString('hex'),
         status: props.status ?? 'OFFLINE',
         createdAt: props.createdAt ?? new Date(),
       },

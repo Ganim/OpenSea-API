@@ -4,7 +4,9 @@ import type { PrintAgent } from '@/entities/sales/print-agent';
 export interface PrintAgentsRepository {
   create(agent: PrintAgent): Promise<void>;
   findById(id: UniqueEntityID, tenantId: string): Promise<PrintAgent | null>;
-  findByApiKeyPrefix(prefix: string): Promise<PrintAgent | null>;
+  findByDeviceTokenHash(hash: string): Promise<PrintAgent | null>;
+  findAllWithPairingSecret(tenantId: string): Promise<PrintAgent[]>;
+  findAllUnpairedWithPairingSecret(): Promise<PrintAgent[]>;
   findManyByTenant(tenantId: string): Promise<PrintAgent[]>;
   findOnlineByTenant(tenantId: string): Promise<PrintAgent[]>;
   findStaleAgents(thresholdDate: Date): Promise<PrintAgent[]>;

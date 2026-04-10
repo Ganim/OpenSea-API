@@ -15,8 +15,12 @@ export class PrismaPrintAgentsRepository implements PrintAgentsRepository {
         id: agent.id.toString(),
         tenantId: agent.tenantId.toString(),
         name: agent.name,
-        apiKeyHash: agent.apiKeyHash,
-        apiKeyPrefix: agent.apiKeyPrefix,
+        pairingSecret: agent.pairingSecret,
+        deviceTokenHash: agent.deviceTokenHash ?? null,
+        deviceLabel: agent.deviceLabel ?? null,
+        pairedAt: agent.pairedAt ?? null,
+        pairedByUserId: agent.pairedByUserId ?? null,
+        revokedAt: agent.revokedAt ?? null,
         status: agent.status as PrismaAgentStatus,
         lastSeenAt: agent.lastSeenAt ?? null,
         ipAddress: agent.ipAddress ?? null,
@@ -44,15 +48,41 @@ export class PrismaPrintAgentsRepository implements PrintAgentsRepository {
     return raw ? printAgentPrismaToDomain(raw) : null;
   }
 
-  async findByApiKeyPrefix(prefix: string): Promise<PrintAgent | null> {
+  async findByDeviceTokenHash(hash: string): Promise<PrintAgent | null> {
     const raw = await prisma.printAgent.findFirst({
       where: {
-        apiKeyPrefix: prefix,
+        deviceTokenHash: hash,
         deletedAt: null,
+        revokedAt: null,
       },
     });
 
     return raw ? printAgentPrismaToDomain(raw) : null;
+  }
+
+  async findAllWithPairingSecret(tenantId: string): Promise<PrintAgent[]> {
+    const rows = await prisma.printAgent.findMany({
+      where: {
+        tenantId,
+        deletedAt: null,
+        pairingSecret: { not: '' },
+      },
+    });
+
+    return rows.map(printAgentPrismaToDomain);
+  }
+
+  async findAllUnpairedWithPairingSecret(): Promise<PrintAgent[]> {
+    const rows = await prisma.printAgent.findMany({
+      where: {
+        deletedAt: null,
+        pairingSecret: { not: '' },
+        pairedAt: null,
+        deviceTokenHash: null,
+      },
+    });
+
+    return rows.map(printAgentPrismaToDomain);
   }
 
   async findManyByTenant(tenantId: string): Promise<PrintAgent[]> {
@@ -101,8 +131,12 @@ export class PrismaPrintAgentsRepository implements PrintAgentsRepository {
       },
       data: {
         name: agent.name,
-        apiKeyHash: agent.apiKeyHash,
-        apiKeyPrefix: agent.apiKeyPrefix,
+        pairingSecret: agent.pairingSecret,
+        deviceTokenHash: agent.deviceTokenHash ?? null,
+        deviceLabel: agent.deviceLabel ?? null,
+        pairedAt: agent.pairedAt ?? null,
+        pairedByUserId: agent.pairedByUserId ?? null,
+        revokedAt: agent.revokedAt ?? null,
         status: agent.status as PrismaAgentStatus,
         lastSeenAt: agent.lastSeenAt ?? null,
         ipAddress: agent.ipAddress ?? null,

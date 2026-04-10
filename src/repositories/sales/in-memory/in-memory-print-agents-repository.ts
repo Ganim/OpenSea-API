@@ -23,11 +23,33 @@ export class InMemoryPrintAgentsRepository implements PrintAgentsRepository {
     );
   }
 
-  async findByApiKeyPrefix(prefix: string): Promise<PrintAgent | null> {
+  async findByDeviceTokenHash(hash: string): Promise<PrintAgent | null> {
     return (
       this.items.find(
-        (agent) => agent.apiKeyPrefix === prefix && !agent.deletedAt,
+        (agent) =>
+          agent.deviceTokenHash === hash &&
+          !agent.deletedAt &&
+          !agent.revokedAt,
       ) ?? null
+    );
+  }
+
+  async findAllWithPairingSecret(tenantId: string): Promise<PrintAgent[]> {
+    return this.items.filter(
+      (agent) =>
+        agent.tenantId.toString() === tenantId &&
+        !agent.deletedAt &&
+        !!agent.pairingSecret,
+    );
+  }
+
+  async findAllUnpairedWithPairingSecret(): Promise<PrintAgent[]> {
+    return this.items.filter(
+      (agent) =>
+        !agent.deletedAt &&
+        !!agent.pairingSecret &&
+        !agent.pairedAt &&
+        !agent.deviceTokenHash,
     );
   }
 
