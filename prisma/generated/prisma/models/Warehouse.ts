@@ -226,7 +226,7 @@ export type WarehouseWhereInput = {
   zones?: Prisma.ZoneListRelationFilter
   orders?: Prisma.OrderListRelationFilter
   orderDeliveryItems?: Prisma.OrderDeliveryItemListRelationFilter
-  posTerminals?: Prisma.PosTerminalListRelationFilter
+  posTerminalLinks?: Prisma.PosTerminalWarehouseListRelationFilter
 }
 
 export type WarehouseOrderByWithRelationInput = {
@@ -244,7 +244,7 @@ export type WarehouseOrderByWithRelationInput = {
   zones?: Prisma.ZoneOrderByRelationAggregateInput
   orders?: Prisma.OrderOrderByRelationAggregateInput
   orderDeliveryItems?: Prisma.OrderDeliveryItemOrderByRelationAggregateInput
-  posTerminals?: Prisma.PosTerminalOrderByRelationAggregateInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseOrderByRelationAggregateInput
 }
 
 export type WarehouseWhereUniqueInput = Prisma.AtLeast<{
@@ -266,7 +266,7 @@ export type WarehouseWhereUniqueInput = Prisma.AtLeast<{
   zones?: Prisma.ZoneListRelationFilter
   orders?: Prisma.OrderListRelationFilter
   orderDeliveryItems?: Prisma.OrderDeliveryItemListRelationFilter
-  posTerminals?: Prisma.PosTerminalListRelationFilter
+  posTerminalLinks?: Prisma.PosTerminalWarehouseListRelationFilter
 }, "id" | "warehouses_code_unique_active">
 
 export type WarehouseOrderByWithAggregationInput = {
@@ -315,7 +315,7 @@ export type WarehouseCreateInput = {
   zones?: Prisma.ZoneCreateNestedManyWithoutWarehouseInput
   orders?: Prisma.OrderCreateNestedManyWithoutSourceWarehouseInput
   orderDeliveryItems?: Prisma.OrderDeliveryItemCreateNestedManyWithoutWarehouseInput
-  posTerminals?: Prisma.PosTerminalCreateNestedManyWithoutWarehouseInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseCreateNestedManyWithoutWarehouseInput
 }
 
 export type WarehouseUncheckedCreateInput = {
@@ -332,7 +332,7 @@ export type WarehouseUncheckedCreateInput = {
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutWarehouseInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutSourceWarehouseInput
   orderDeliveryItems?: Prisma.OrderDeliveryItemUncheckedCreateNestedManyWithoutWarehouseInput
-  posTerminals?: Prisma.PosTerminalUncheckedCreateNestedManyWithoutWarehouseInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseUncheckedCreateNestedManyWithoutWarehouseInput
 }
 
 export type WarehouseUpdateInput = {
@@ -349,7 +349,7 @@ export type WarehouseUpdateInput = {
   zones?: Prisma.ZoneUpdateManyWithoutWarehouseNestedInput
   orders?: Prisma.OrderUpdateManyWithoutSourceWarehouseNestedInput
   orderDeliveryItems?: Prisma.OrderDeliveryItemUpdateManyWithoutWarehouseNestedInput
-  posTerminals?: Prisma.PosTerminalUpdateManyWithoutWarehouseNestedInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseUpdateManyWithoutWarehouseNestedInput
 }
 
 export type WarehouseUncheckedUpdateInput = {
@@ -366,7 +366,7 @@ export type WarehouseUncheckedUpdateInput = {
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutWarehouseNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutSourceWarehouseNestedInput
   orderDeliveryItems?: Prisma.OrderDeliveryItemUncheckedUpdateManyWithoutWarehouseNestedInput
-  posTerminals?: Prisma.PosTerminalUncheckedUpdateManyWithoutWarehouseNestedInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseUncheckedUpdateManyWithoutWarehouseNestedInput
 }
 
 export type WarehouseCreateManyInput = {
@@ -560,18 +560,18 @@ export type WarehouseUpdateOneWithoutOrderDeliveryItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.WarehouseUpdateToOneWithWhereWithoutOrderDeliveryItemsInput, Prisma.WarehouseUpdateWithoutOrderDeliveryItemsInput>, Prisma.WarehouseUncheckedUpdateWithoutOrderDeliveryItemsInput>
 }
 
-export type WarehouseCreateNestedOneWithoutPosTerminalsInput = {
-  create?: Prisma.XOR<Prisma.WarehouseCreateWithoutPosTerminalsInput, Prisma.WarehouseUncheckedCreateWithoutPosTerminalsInput>
-  connectOrCreate?: Prisma.WarehouseCreateOrConnectWithoutPosTerminalsInput
+export type WarehouseCreateNestedOneWithoutPosTerminalLinksInput = {
+  create?: Prisma.XOR<Prisma.WarehouseCreateWithoutPosTerminalLinksInput, Prisma.WarehouseUncheckedCreateWithoutPosTerminalLinksInput>
+  connectOrCreate?: Prisma.WarehouseCreateOrConnectWithoutPosTerminalLinksInput
   connect?: Prisma.WarehouseWhereUniqueInput
 }
 
-export type WarehouseUpdateOneRequiredWithoutPosTerminalsNestedInput = {
-  create?: Prisma.XOR<Prisma.WarehouseCreateWithoutPosTerminalsInput, Prisma.WarehouseUncheckedCreateWithoutPosTerminalsInput>
-  connectOrCreate?: Prisma.WarehouseCreateOrConnectWithoutPosTerminalsInput
-  upsert?: Prisma.WarehouseUpsertWithoutPosTerminalsInput
+export type WarehouseUpdateOneRequiredWithoutPosTerminalLinksNestedInput = {
+  create?: Prisma.XOR<Prisma.WarehouseCreateWithoutPosTerminalLinksInput, Prisma.WarehouseUncheckedCreateWithoutPosTerminalLinksInput>
+  connectOrCreate?: Prisma.WarehouseCreateOrConnectWithoutPosTerminalLinksInput
+  upsert?: Prisma.WarehouseUpsertWithoutPosTerminalLinksInput
   connect?: Prisma.WarehouseWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.WarehouseUpdateToOneWithWhereWithoutPosTerminalsInput, Prisma.WarehouseUpdateWithoutPosTerminalsInput>, Prisma.WarehouseUncheckedUpdateWithoutPosTerminalsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WarehouseUpdateToOneWithWhereWithoutPosTerminalLinksInput, Prisma.WarehouseUpdateWithoutPosTerminalLinksInput>, Prisma.WarehouseUncheckedUpdateWithoutPosTerminalLinksInput>
 }
 
 export type WarehouseCreateWithoutZonesInput = {
@@ -587,7 +587,7 @@ export type WarehouseCreateWithoutZonesInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutWarehousesInput
   orders?: Prisma.OrderCreateNestedManyWithoutSourceWarehouseInput
   orderDeliveryItems?: Prisma.OrderDeliveryItemCreateNestedManyWithoutWarehouseInput
-  posTerminals?: Prisma.PosTerminalCreateNestedManyWithoutWarehouseInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseCreateNestedManyWithoutWarehouseInput
 }
 
 export type WarehouseUncheckedCreateWithoutZonesInput = {
@@ -603,7 +603,7 @@ export type WarehouseUncheckedCreateWithoutZonesInput = {
   tenantId: string
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutSourceWarehouseInput
   orderDeliveryItems?: Prisma.OrderDeliveryItemUncheckedCreateNestedManyWithoutWarehouseInput
-  posTerminals?: Prisma.PosTerminalUncheckedCreateNestedManyWithoutWarehouseInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseUncheckedCreateNestedManyWithoutWarehouseInput
 }
 
 export type WarehouseCreateOrConnectWithoutZonesInput = {
@@ -635,7 +635,7 @@ export type WarehouseUpdateWithoutZonesInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutWarehousesNestedInput
   orders?: Prisma.OrderUpdateManyWithoutSourceWarehouseNestedInput
   orderDeliveryItems?: Prisma.OrderDeliveryItemUpdateManyWithoutWarehouseNestedInput
-  posTerminals?: Prisma.PosTerminalUpdateManyWithoutWarehouseNestedInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseUpdateManyWithoutWarehouseNestedInput
 }
 
 export type WarehouseUncheckedUpdateWithoutZonesInput = {
@@ -651,7 +651,7 @@ export type WarehouseUncheckedUpdateWithoutZonesInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   orders?: Prisma.OrderUncheckedUpdateManyWithoutSourceWarehouseNestedInput
   orderDeliveryItems?: Prisma.OrderDeliveryItemUncheckedUpdateManyWithoutWarehouseNestedInput
-  posTerminals?: Prisma.PosTerminalUncheckedUpdateManyWithoutWarehouseNestedInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseUncheckedUpdateManyWithoutWarehouseNestedInput
 }
 
 export type WarehouseCreateWithoutTenantInput = {
@@ -667,7 +667,7 @@ export type WarehouseCreateWithoutTenantInput = {
   zones?: Prisma.ZoneCreateNestedManyWithoutWarehouseInput
   orders?: Prisma.OrderCreateNestedManyWithoutSourceWarehouseInput
   orderDeliveryItems?: Prisma.OrderDeliveryItemCreateNestedManyWithoutWarehouseInput
-  posTerminals?: Prisma.PosTerminalCreateNestedManyWithoutWarehouseInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseCreateNestedManyWithoutWarehouseInput
 }
 
 export type WarehouseUncheckedCreateWithoutTenantInput = {
@@ -683,7 +683,7 @@ export type WarehouseUncheckedCreateWithoutTenantInput = {
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutWarehouseInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutSourceWarehouseInput
   orderDeliveryItems?: Prisma.OrderDeliveryItemUncheckedCreateNestedManyWithoutWarehouseInput
-  posTerminals?: Prisma.PosTerminalUncheckedCreateNestedManyWithoutWarehouseInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseUncheckedCreateNestedManyWithoutWarehouseInput
 }
 
 export type WarehouseCreateOrConnectWithoutTenantInput = {
@@ -741,7 +741,7 @@ export type WarehouseCreateWithoutOrdersInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutWarehousesInput
   zones?: Prisma.ZoneCreateNestedManyWithoutWarehouseInput
   orderDeliveryItems?: Prisma.OrderDeliveryItemCreateNestedManyWithoutWarehouseInput
-  posTerminals?: Prisma.PosTerminalCreateNestedManyWithoutWarehouseInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseCreateNestedManyWithoutWarehouseInput
 }
 
 export type WarehouseUncheckedCreateWithoutOrdersInput = {
@@ -757,7 +757,7 @@ export type WarehouseUncheckedCreateWithoutOrdersInput = {
   tenantId: string
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutWarehouseInput
   orderDeliveryItems?: Prisma.OrderDeliveryItemUncheckedCreateNestedManyWithoutWarehouseInput
-  posTerminals?: Prisma.PosTerminalUncheckedCreateNestedManyWithoutWarehouseInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseUncheckedCreateNestedManyWithoutWarehouseInput
 }
 
 export type WarehouseCreateOrConnectWithoutOrdersInput = {
@@ -789,7 +789,7 @@ export type WarehouseUpdateWithoutOrdersInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutWarehousesNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutWarehouseNestedInput
   orderDeliveryItems?: Prisma.OrderDeliveryItemUpdateManyWithoutWarehouseNestedInput
-  posTerminals?: Prisma.PosTerminalUpdateManyWithoutWarehouseNestedInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseUpdateManyWithoutWarehouseNestedInput
 }
 
 export type WarehouseUncheckedUpdateWithoutOrdersInput = {
@@ -805,7 +805,7 @@ export type WarehouseUncheckedUpdateWithoutOrdersInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutWarehouseNestedInput
   orderDeliveryItems?: Prisma.OrderDeliveryItemUncheckedUpdateManyWithoutWarehouseNestedInput
-  posTerminals?: Prisma.PosTerminalUncheckedUpdateManyWithoutWarehouseNestedInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseUncheckedUpdateManyWithoutWarehouseNestedInput
 }
 
 export type WarehouseCreateWithoutOrderDeliveryItemsInput = {
@@ -821,7 +821,7 @@ export type WarehouseCreateWithoutOrderDeliveryItemsInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutWarehousesInput
   zones?: Prisma.ZoneCreateNestedManyWithoutWarehouseInput
   orders?: Prisma.OrderCreateNestedManyWithoutSourceWarehouseInput
-  posTerminals?: Prisma.PosTerminalCreateNestedManyWithoutWarehouseInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseCreateNestedManyWithoutWarehouseInput
 }
 
 export type WarehouseUncheckedCreateWithoutOrderDeliveryItemsInput = {
@@ -837,7 +837,7 @@ export type WarehouseUncheckedCreateWithoutOrderDeliveryItemsInput = {
   tenantId: string
   zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutWarehouseInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutSourceWarehouseInput
-  posTerminals?: Prisma.PosTerminalUncheckedCreateNestedManyWithoutWarehouseInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseUncheckedCreateNestedManyWithoutWarehouseInput
 }
 
 export type WarehouseCreateOrConnectWithoutOrderDeliveryItemsInput = {
@@ -869,7 +869,7 @@ export type WarehouseUpdateWithoutOrderDeliveryItemsInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutWarehousesNestedInput
   zones?: Prisma.ZoneUpdateManyWithoutWarehouseNestedInput
   orders?: Prisma.OrderUpdateManyWithoutSourceWarehouseNestedInput
-  posTerminals?: Prisma.PosTerminalUpdateManyWithoutWarehouseNestedInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseUpdateManyWithoutWarehouseNestedInput
 }
 
 export type WarehouseUncheckedUpdateWithoutOrderDeliveryItemsInput = {
@@ -885,10 +885,10 @@ export type WarehouseUncheckedUpdateWithoutOrderDeliveryItemsInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutWarehouseNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutSourceWarehouseNestedInput
-  posTerminals?: Prisma.PosTerminalUncheckedUpdateManyWithoutWarehouseNestedInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseUncheckedUpdateManyWithoutWarehouseNestedInput
 }
 
-export type WarehouseCreateWithoutPosTerminalsInput = {
+export type WarehouseCreateWithoutPosTerminalLinksInput = {
   id?: string
   code: string
   name: string
@@ -904,7 +904,7 @@ export type WarehouseCreateWithoutPosTerminalsInput = {
   orderDeliveryItems?: Prisma.OrderDeliveryItemCreateNestedManyWithoutWarehouseInput
 }
 
-export type WarehouseUncheckedCreateWithoutPosTerminalsInput = {
+export type WarehouseUncheckedCreateWithoutPosTerminalLinksInput = {
   id?: string
   code: string
   name: string
@@ -920,23 +920,23 @@ export type WarehouseUncheckedCreateWithoutPosTerminalsInput = {
   orderDeliveryItems?: Prisma.OrderDeliveryItemUncheckedCreateNestedManyWithoutWarehouseInput
 }
 
-export type WarehouseCreateOrConnectWithoutPosTerminalsInput = {
+export type WarehouseCreateOrConnectWithoutPosTerminalLinksInput = {
   where: Prisma.WarehouseWhereUniqueInput
-  create: Prisma.XOR<Prisma.WarehouseCreateWithoutPosTerminalsInput, Prisma.WarehouseUncheckedCreateWithoutPosTerminalsInput>
+  create: Prisma.XOR<Prisma.WarehouseCreateWithoutPosTerminalLinksInput, Prisma.WarehouseUncheckedCreateWithoutPosTerminalLinksInput>
 }
 
-export type WarehouseUpsertWithoutPosTerminalsInput = {
-  update: Prisma.XOR<Prisma.WarehouseUpdateWithoutPosTerminalsInput, Prisma.WarehouseUncheckedUpdateWithoutPosTerminalsInput>
-  create: Prisma.XOR<Prisma.WarehouseCreateWithoutPosTerminalsInput, Prisma.WarehouseUncheckedCreateWithoutPosTerminalsInput>
+export type WarehouseUpsertWithoutPosTerminalLinksInput = {
+  update: Prisma.XOR<Prisma.WarehouseUpdateWithoutPosTerminalLinksInput, Prisma.WarehouseUncheckedUpdateWithoutPosTerminalLinksInput>
+  create: Prisma.XOR<Prisma.WarehouseCreateWithoutPosTerminalLinksInput, Prisma.WarehouseUncheckedCreateWithoutPosTerminalLinksInput>
   where?: Prisma.WarehouseWhereInput
 }
 
-export type WarehouseUpdateToOneWithWhereWithoutPosTerminalsInput = {
+export type WarehouseUpdateToOneWithWhereWithoutPosTerminalLinksInput = {
   where?: Prisma.WarehouseWhereInput
-  data: Prisma.XOR<Prisma.WarehouseUpdateWithoutPosTerminalsInput, Prisma.WarehouseUncheckedUpdateWithoutPosTerminalsInput>
+  data: Prisma.XOR<Prisma.WarehouseUpdateWithoutPosTerminalLinksInput, Prisma.WarehouseUncheckedUpdateWithoutPosTerminalLinksInput>
 }
 
-export type WarehouseUpdateWithoutPosTerminalsInput = {
+export type WarehouseUpdateWithoutPosTerminalLinksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -952,7 +952,7 @@ export type WarehouseUpdateWithoutPosTerminalsInput = {
   orderDeliveryItems?: Prisma.OrderDeliveryItemUpdateManyWithoutWarehouseNestedInput
 }
 
-export type WarehouseUncheckedUpdateWithoutPosTerminalsInput = {
+export type WarehouseUncheckedUpdateWithoutPosTerminalLinksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -993,7 +993,7 @@ export type WarehouseUpdateWithoutTenantInput = {
   zones?: Prisma.ZoneUpdateManyWithoutWarehouseNestedInput
   orders?: Prisma.OrderUpdateManyWithoutSourceWarehouseNestedInput
   orderDeliveryItems?: Prisma.OrderDeliveryItemUpdateManyWithoutWarehouseNestedInput
-  posTerminals?: Prisma.PosTerminalUpdateManyWithoutWarehouseNestedInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseUpdateManyWithoutWarehouseNestedInput
 }
 
 export type WarehouseUncheckedUpdateWithoutTenantInput = {
@@ -1009,7 +1009,7 @@ export type WarehouseUncheckedUpdateWithoutTenantInput = {
   zones?: Prisma.ZoneUncheckedUpdateManyWithoutWarehouseNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutSourceWarehouseNestedInput
   orderDeliveryItems?: Prisma.OrderDeliveryItemUncheckedUpdateManyWithoutWarehouseNestedInput
-  posTerminals?: Prisma.PosTerminalUncheckedUpdateManyWithoutWarehouseNestedInput
+  posTerminalLinks?: Prisma.PosTerminalWarehouseUncheckedUpdateManyWithoutWarehouseNestedInput
 }
 
 export type WarehouseUncheckedUpdateManyWithoutTenantInput = {
@@ -1033,14 +1033,14 @@ export type WarehouseCountOutputType = {
   zones: number
   orders: number
   orderDeliveryItems: number
-  posTerminals: number
+  posTerminalLinks: number
 }
 
 export type WarehouseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   zones?: boolean | WarehouseCountOutputTypeCountZonesArgs
   orders?: boolean | WarehouseCountOutputTypeCountOrdersArgs
   orderDeliveryItems?: boolean | WarehouseCountOutputTypeCountOrderDeliveryItemsArgs
-  posTerminals?: boolean | WarehouseCountOutputTypeCountPosTerminalsArgs
+  posTerminalLinks?: boolean | WarehouseCountOutputTypeCountPosTerminalLinksArgs
 }
 
 /**
@@ -1077,8 +1077,8 @@ export type WarehouseCountOutputTypeCountOrderDeliveryItemsArgs<ExtArgs extends 
 /**
  * WarehouseCountOutputType without action
  */
-export type WarehouseCountOutputTypeCountPosTerminalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PosTerminalWhereInput
+export type WarehouseCountOutputTypeCountPosTerminalLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PosTerminalWarehouseWhereInput
 }
 
 
@@ -1097,7 +1097,7 @@ export type WarehouseSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   zones?: boolean | Prisma.Warehouse$zonesArgs<ExtArgs>
   orders?: boolean | Prisma.Warehouse$ordersArgs<ExtArgs>
   orderDeliveryItems?: boolean | Prisma.Warehouse$orderDeliveryItemsArgs<ExtArgs>
-  posTerminals?: boolean | Prisma.Warehouse$posTerminalsArgs<ExtArgs>
+  posTerminalLinks?: boolean | Prisma.Warehouse$posTerminalLinksArgs<ExtArgs>
   _count?: boolean | Prisma.WarehouseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["warehouse"]>
 
@@ -1148,7 +1148,7 @@ export type WarehouseInclude<ExtArgs extends runtime.Types.Extensions.InternalAr
   zones?: boolean | Prisma.Warehouse$zonesArgs<ExtArgs>
   orders?: boolean | Prisma.Warehouse$ordersArgs<ExtArgs>
   orderDeliveryItems?: boolean | Prisma.Warehouse$orderDeliveryItemsArgs<ExtArgs>
-  posTerminals?: boolean | Prisma.Warehouse$posTerminalsArgs<ExtArgs>
+  posTerminalLinks?: boolean | Prisma.Warehouse$posTerminalLinksArgs<ExtArgs>
   _count?: boolean | Prisma.WarehouseCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type WarehouseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1165,7 +1165,7 @@ export type $WarehousePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     zones: Prisma.$ZonePayload<ExtArgs>[]
     orders: Prisma.$OrderPayload<ExtArgs>[]
     orderDeliveryItems: Prisma.$OrderDeliveryItemPayload<ExtArgs>[]
-    posTerminals: Prisma.$PosTerminalPayload<ExtArgs>[]
+    posTerminalLinks: Prisma.$PosTerminalWarehousePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1576,7 +1576,7 @@ export interface Prisma__WarehouseClient<T, Null = never, ExtArgs extends runtim
   zones<T extends Prisma.Warehouse$zonesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Warehouse$zonesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   orders<T extends Prisma.Warehouse$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Warehouse$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   orderDeliveryItems<T extends Prisma.Warehouse$orderDeliveryItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Warehouse$orderDeliveryItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderDeliveryItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  posTerminals<T extends Prisma.Warehouse$posTerminalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Warehouse$posTerminalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosTerminalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  posTerminalLinks<T extends Prisma.Warehouse$posTerminalLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Warehouse$posTerminalLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosTerminalWarehousePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2084,27 +2084,27 @@ export type Warehouse$orderDeliveryItemsArgs<ExtArgs extends runtime.Types.Exten
 }
 
 /**
- * Warehouse.posTerminals
+ * Warehouse.posTerminalLinks
  */
-export type Warehouse$posTerminalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Warehouse$posTerminalLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the PosTerminal
+   * Select specific fields to fetch from the PosTerminalWarehouse
    */
-  select?: Prisma.PosTerminalSelect<ExtArgs> | null
+  select?: Prisma.PosTerminalWarehouseSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the PosTerminal
+   * Omit specific fields from the PosTerminalWarehouse
    */
-  omit?: Prisma.PosTerminalOmit<ExtArgs> | null
+  omit?: Prisma.PosTerminalWarehouseOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.PosTerminalInclude<ExtArgs> | null
-  where?: Prisma.PosTerminalWhereInput
-  orderBy?: Prisma.PosTerminalOrderByWithRelationInput | Prisma.PosTerminalOrderByWithRelationInput[]
-  cursor?: Prisma.PosTerminalWhereUniqueInput
+  include?: Prisma.PosTerminalWarehouseInclude<ExtArgs> | null
+  where?: Prisma.PosTerminalWarehouseWhereInput
+  orderBy?: Prisma.PosTerminalWarehouseOrderByWithRelationInput | Prisma.PosTerminalWarehouseOrderByWithRelationInput[]
+  cursor?: Prisma.PosTerminalWarehouseWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.PosTerminalScalarFieldEnum | Prisma.PosTerminalScalarFieldEnum[]
+  distinct?: Prisma.PosTerminalWarehouseScalarFieldEnum | Prisma.PosTerminalWarehouseScalarFieldEnum[]
 }
 
 /**

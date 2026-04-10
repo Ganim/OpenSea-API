@@ -1,5 +1,5 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { PosPrinter } from '@/entities/sales/pos-printer';
+import type { PosPrinter, PrinterStatus } from '@/entities/sales/pos-printer';
 import type { PosPrintersRepository } from '../pos-printers-repository';
 
 export class InMemoryPosPrintersRepository implements PosPrintersRepository {
@@ -40,6 +40,45 @@ export class InMemoryPosPrintersRepository implements PosPrintersRepository {
       (printer) =>
         printer.tenantId.toString() === tenantId && !printer.deletedAt,
     );
+  }
+
+  async findByAgentId(
+    agentId: string,
+    tenantId: string,
+  ): Promise<PosPrinter[]> {
+    return this.items.filter(
+      (printer) =>
+        printer.agentId === agentId &&
+        printer.tenantId.toString() === tenantId &&
+        !printer.deletedAt,
+    );
+  }
+
+  async findByOsName(
+    osName: string,
+    agentId: string,
+    tenantId: string,
+  ): Promise<PosPrinter | null> {
+    return (
+      this.items.find(
+        (printer) =>
+          printer.osName === osName &&
+          printer.agentId === agentId &&
+          printer.tenantId.toString() === tenantId &&
+          !printer.deletedAt,
+      ) ?? null
+    );
+  }
+
+  async updateStatusByAgentId(
+    agentId: string,
+    status: string,
+  ): Promise<void> {
+    for (const printer of this.items) {
+      if (printer.agentId === agentId && !printer.deletedAt) {
+        printer.status = status as PrinterStatus;
+      }
+    }
   }
 
   async unsetDefaultForTenant(tenantId: string): Promise<void> {

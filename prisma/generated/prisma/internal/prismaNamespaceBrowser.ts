@@ -298,6 +298,8 @@ export const ModelName = {
   AiActionLog: 'AiActionLog',
   AiInsight: 'AiInsight',
   PosTerminal: 'PosTerminal',
+  PosTerminalWarehouse: 'PosTerminalWarehouse',
+  PosDevicePairing: 'PosDevicePairing',
   PosSession: 'PosSession',
   PosTransaction: 'PosTransaction',
   PosTransactionPayment: 'PosTransactionPayment',
@@ -403,6 +405,7 @@ export const ModelName = {
   TenantPaymentConfig: 'TenantPaymentConfig',
   PaymentCharge: 'PaymentCharge',
   Invoice: 'Invoice',
+  PrintAgent: 'PrintAgent',
   PosPrinter: 'PosPrinter',
   PrintJob: 'PrintJob',
   FocusNfeConfig: 'FocusNfeConfig'
@@ -4728,6 +4731,7 @@ export const OrderScalarFieldEnum = {
   cancelReason: 'cancelReason',
   expiresAt: 'expiresAt',
   saleCode: 'saleCode',
+  terminalId: 'terminalId',
   cashierUserId: 'cashierUserId',
   posSessionId: 'posSessionId',
   claimedByUserId: 'claimedByUserId',
@@ -5449,23 +5453,53 @@ export type AiInsightScalarFieldEnum = (typeof AiInsightScalarFieldEnum)[keyof t
 export const PosTerminalScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
-  name: 'name',
-  deviceId: 'deviceId',
+  terminalName: 'terminalName',
+  terminalCode: 'terminalCode',
+  totemCode: 'totemCode',
   mode: 'mode',
-  cashierMode: 'cashierMode',
   acceptsPendingOrders: 'acceptsPendingOrders',
   requiresSession: 'requiresSession',
-  warehouseId: 'warehouseId',
+  allowAnonymous: 'allowAnonymous',
+  systemUserId: 'systemUserId',
+  pairingSecret: 'pairingSecret',
   defaultPriceTableId: 'defaultPriceTableId',
   isActive: 'isActive',
   lastSyncAt: 'lastSyncAt',
   lastOnlineAt: 'lastOnlineAt',
   settings: 'settings',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type PosTerminalScalarFieldEnum = (typeof PosTerminalScalarFieldEnum)[keyof typeof PosTerminalScalarFieldEnum]
+
+
+export const PosTerminalWarehouseScalarFieldEnum = {
+  terminalId: 'terminalId',
+  warehouseId: 'warehouseId',
+  isDefault: 'isDefault',
+  createdAt: 'createdAt'
+} as const
+
+export type PosTerminalWarehouseScalarFieldEnum = (typeof PosTerminalWarehouseScalarFieldEnum)[keyof typeof PosTerminalWarehouseScalarFieldEnum]
+
+
+export const PosDevicePairingScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  terminalId: 'terminalId',
+  deviceLabel: 'deviceLabel',
+  deviceTokenHash: 'deviceTokenHash',
+  pairedAt: 'pairedAt',
+  lastSeenAt: 'lastSeenAt',
+  pairedByUserId: 'pairedByUserId',
+  revokedAt: 'revokedAt',
+  revokedByUserId: 'revokedByUserId',
+  revokedReason: 'revokedReason'
+} as const
+
+export type PosDevicePairingScalarFieldEnum = (typeof PosDevicePairingScalarFieldEnum)[keyof typeof PosDevicePairingScalarFieldEnum]
 
 
 export const PosSessionScalarFieldEnum = {
@@ -5481,6 +5515,7 @@ export const PosSessionScalarFieldEnum = {
   expectedBalance: 'expectedBalance',
   difference: 'difference',
   closingBreakdown: 'closingBreakdown',
+  orphanClosed: 'orphanClosed',
   notes: 'notes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -7570,6 +7605,26 @@ export const InvoiceScalarFieldEnum = {
 export type InvoiceScalarFieldEnum = (typeof InvoiceScalarFieldEnum)[keyof typeof InvoiceScalarFieldEnum]
 
 
+export const PrintAgentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  apiKeyHash: 'apiKeyHash',
+  apiKeyPrefix: 'apiKeyPrefix',
+  status: 'status',
+  lastSeenAt: 'lastSeenAt',
+  ipAddress: 'ipAddress',
+  hostname: 'hostname',
+  osInfo: 'osInfo',
+  version: 'version',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type PrintAgentScalarFieldEnum = (typeof PrintAgentScalarFieldEnum)[keyof typeof PrintAgentScalarFieldEnum]
+
+
 export const PosPrinterScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -7585,6 +7640,11 @@ export const PosPrinterScalarFieldEnum = {
   characterPerLine: 'characterPerLine',
   isDefault: 'isDefault',
   isActive: 'isActive',
+  status: 'status',
+  lastSeenAt: 'lastSeenAt',
+  agentId: 'agentId',
+  capabilities: 'capabilities',
+  osName: 'osName',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -7602,6 +7662,11 @@ export const PrintJobScalarFieldEnum = {
   status: 'status',
   content: 'content',
   templateData: 'templateData',
+  agentId: 'agentId',
+  copies: 'copies',
+  printerName: 'printerName',
+  labelData: 'labelData',
+  startedAt: 'startedAt',
   errorMessage: 'errorMessage',
   retryCount: 'retryCount',
   maxRetries: 'maxRetries',

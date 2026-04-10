@@ -2583,21 +2583,13 @@ export type AiInsightStatus = (typeof AiInsightStatus)[keyof typeof AiInsightSta
 
 
 export const PosTerminalMode = {
-  FAST_CHECKOUT: 'FAST_CHECKOUT',
-  CONSULTIVE: 'CONSULTIVE',
-  SELF_SERVICE: 'SELF_SERVICE',
-  EXTERNAL: 'EXTERNAL'
+  SALES_ONLY: 'SALES_ONLY',
+  SALES_WITH_CHECKOUT: 'SALES_WITH_CHECKOUT',
+  CASHIER: 'CASHIER',
+  TOTEM: 'TOTEM'
 } as const
 
 export type PosTerminalMode = (typeof PosTerminalMode)[keyof typeof PosTerminalMode]
-
-
-export const PosCashierMode = {
-  INTEGRATED: 'INTEGRATED',
-  SEPARATED: 'SEPARATED'
-} as const
-
-export type PosCashierMode = (typeof PosCashierMode)[keyof typeof PosCashierMode]
 
 
 export const PosSessionStatus = {
@@ -3573,3 +3565,23 @@ export const PrintJobStatus = {
 } as const
 
 export type PrintJobStatus = (typeof PrintJobStatus)[keyof typeof PrintJobStatus]
+
+
+export const AgentStatus = {
+  ONLINE: 'ONLINE',
+  OFFLINE: 'OFFLINE',
+  ERROR: 'ERROR'
+} as const
+
+export type AgentStatus = (typeof AgentStatus)[keyof typeof AgentStatus]
+
+
+export const PrinterStatus = {
+  ONLINE: 'ONLINE',
+  OFFLINE: 'OFFLINE',
+  BUSY: 'BUSY',
+  ERROR: 'ERROR',
+  UNKNOWN: 'UNKNOWN'
+} as const
+
+export type PrinterStatus = (typeof PrinterStatus)[keyof typeof PrinterStatus]

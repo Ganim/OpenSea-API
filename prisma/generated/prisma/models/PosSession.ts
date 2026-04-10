@@ -52,6 +52,7 @@ export type PosSessionMinAggregateOutputType = {
   closingBalance: runtime.Decimal | null
   expectedBalance: runtime.Decimal | null
   difference: runtime.Decimal | null
+  orphanClosed: boolean | null
   notes: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -69,6 +70,7 @@ export type PosSessionMaxAggregateOutputType = {
   closingBalance: runtime.Decimal | null
   expectedBalance: runtime.Decimal | null
   difference: runtime.Decimal | null
+  orphanClosed: boolean | null
   notes: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -87,6 +89,7 @@ export type PosSessionCountAggregateOutputType = {
   expectedBalance: number
   difference: number
   closingBreakdown: number
+  orphanClosed: number
   notes: number
   createdAt: number
   updatedAt: number
@@ -120,6 +123,7 @@ export type PosSessionMinAggregateInputType = {
   closingBalance?: true
   expectedBalance?: true
   difference?: true
+  orphanClosed?: true
   notes?: true
   createdAt?: true
   updatedAt?: true
@@ -137,6 +141,7 @@ export type PosSessionMaxAggregateInputType = {
   closingBalance?: true
   expectedBalance?: true
   difference?: true
+  orphanClosed?: true
   notes?: true
   createdAt?: true
   updatedAt?: true
@@ -155,6 +160,7 @@ export type PosSessionCountAggregateInputType = {
   expectedBalance?: true
   difference?: true
   closingBreakdown?: true
+  orphanClosed?: true
   notes?: true
   createdAt?: true
   updatedAt?: true
@@ -260,6 +266,7 @@ export type PosSessionGroupByOutputType = {
   expectedBalance: runtime.Decimal | null
   difference: runtime.Decimal | null
   closingBreakdown: runtime.JsonValue | null
+  orphanClosed: boolean
   notes: string | null
   createdAt: Date
   updatedAt: Date
@@ -301,6 +308,7 @@ export type PosSessionWhereInput = {
   expectedBalance?: Prisma.DecimalNullableFilter<"PosSession"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.DecimalNullableFilter<"PosSession"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.JsonNullableFilter<"PosSession">
+  orphanClosed?: Prisma.BoolFilter<"PosSession"> | boolean
   notes?: Prisma.StringNullableFilter<"PosSession"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PosSession"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PosSession"> | Date | string
@@ -325,6 +333,7 @@ export type PosSessionOrderByWithRelationInput = {
   expectedBalance?: Prisma.SortOrderInput | Prisma.SortOrder
   difference?: Prisma.SortOrderInput | Prisma.SortOrder
   closingBreakdown?: Prisma.SortOrderInput | Prisma.SortOrder
+  orphanClosed?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -352,6 +361,7 @@ export type PosSessionWhereUniqueInput = Prisma.AtLeast<{
   expectedBalance?: Prisma.DecimalNullableFilter<"PosSession"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.DecimalNullableFilter<"PosSession"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.JsonNullableFilter<"PosSession">
+  orphanClosed?: Prisma.BoolFilter<"PosSession"> | boolean
   notes?: Prisma.StringNullableFilter<"PosSession"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PosSession"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PosSession"> | Date | string
@@ -376,6 +386,7 @@ export type PosSessionOrderByWithAggregationInput = {
   expectedBalance?: Prisma.SortOrderInput | Prisma.SortOrder
   difference?: Prisma.SortOrderInput | Prisma.SortOrder
   closingBreakdown?: Prisma.SortOrderInput | Prisma.SortOrder
+  orphanClosed?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -402,6 +413,7 @@ export type PosSessionScalarWhereWithAggregatesInput = {
   expectedBalance?: Prisma.DecimalNullableWithAggregatesFilter<"PosSession"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.DecimalNullableWithAggregatesFilter<"PosSession"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.JsonNullableWithAggregatesFilter<"PosSession">
+  orphanClosed?: Prisma.BoolWithAggregatesFilter<"PosSession"> | boolean
   notes?: Prisma.StringNullableWithAggregatesFilter<"PosSession"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PosSession"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PosSession"> | Date | string
@@ -417,6 +429,7 @@ export type PosSessionCreateInput = {
   expectedBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: boolean
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -441,6 +454,7 @@ export type PosSessionUncheckedCreateInput = {
   expectedBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: boolean
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -459,6 +473,7 @@ export type PosSessionUpdateInput = {
   expectedBalance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -483,6 +498,7 @@ export type PosSessionUncheckedUpdateInput = {
   expectedBalance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -504,6 +520,7 @@ export type PosSessionCreateManyInput = {
   expectedBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: boolean
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -519,6 +536,7 @@ export type PosSessionUpdateManyMutationInput = {
   expectedBalance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -537,6 +555,7 @@ export type PosSessionUncheckedUpdateManyInput = {
   expectedBalance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -570,6 +589,7 @@ export type PosSessionCountOrderByAggregateInput = {
   expectedBalance?: Prisma.SortOrder
   difference?: Prisma.SortOrder
   closingBreakdown?: Prisma.SortOrder
+  orphanClosed?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -594,6 +614,7 @@ export type PosSessionMaxOrderByAggregateInput = {
   closingBalance?: Prisma.SortOrder
   expectedBalance?: Prisma.SortOrder
   difference?: Prisma.SortOrder
+  orphanClosed?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -611,6 +632,7 @@ export type PosSessionMinOrderByAggregateInput = {
   closingBalance?: Prisma.SortOrder
   expectedBalance?: Prisma.SortOrder
   difference?: Prisma.SortOrder
+  orphanClosed?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -812,6 +834,7 @@ export type PosSessionCreateWithoutOperatorInput = {
   expectedBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: boolean
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -834,6 +857,7 @@ export type PosSessionUncheckedCreateWithoutOperatorInput = {
   expectedBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: boolean
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -884,6 +908,7 @@ export type PosSessionScalarWhereInput = {
   expectedBalance?: Prisma.DecimalNullableFilter<"PosSession"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.DecimalNullableFilter<"PosSession"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.JsonNullableFilter<"PosSession">
+  orphanClosed?: Prisma.BoolFilter<"PosSession"> | boolean
   notes?: Prisma.StringNullableFilter<"PosSession"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PosSession"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PosSession"> | Date | string
@@ -899,6 +924,7 @@ export type PosSessionCreateWithoutTenantInput = {
   expectedBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: boolean
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -921,6 +947,7 @@ export type PosSessionUncheckedCreateWithoutTenantInput = {
   expectedBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: boolean
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -965,6 +992,7 @@ export type PosSessionCreateWithoutOrdersInput = {
   expectedBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: boolean
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -988,6 +1016,7 @@ export type PosSessionUncheckedCreateWithoutOrdersInput = {
   expectedBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: boolean
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1021,6 +1050,7 @@ export type PosSessionUpdateWithoutOrdersInput = {
   expectedBalance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1044,6 +1074,7 @@ export type PosSessionUncheckedUpdateWithoutOrdersInput = {
   expectedBalance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1061,6 +1092,7 @@ export type PosSessionCreateWithoutTerminalInput = {
   expectedBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: boolean
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1083,6 +1115,7 @@ export type PosSessionUncheckedCreateWithoutTerminalInput = {
   expectedBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: boolean
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1127,6 +1160,7 @@ export type PosSessionCreateWithoutTransactionsInput = {
   expectedBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: boolean
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1150,6 +1184,7 @@ export type PosSessionUncheckedCreateWithoutTransactionsInput = {
   expectedBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: boolean
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1183,6 +1218,7 @@ export type PosSessionUpdateWithoutTransactionsInput = {
   expectedBalance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1206,6 +1242,7 @@ export type PosSessionUncheckedUpdateWithoutTransactionsInput = {
   expectedBalance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1223,6 +1260,7 @@ export type PosSessionCreateWithoutMovementsInput = {
   expectedBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: boolean
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1246,6 +1284,7 @@ export type PosSessionUncheckedCreateWithoutMovementsInput = {
   expectedBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: boolean
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1279,6 +1318,7 @@ export type PosSessionUpdateWithoutMovementsInput = {
   expectedBalance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1302,6 +1342,7 @@ export type PosSessionUncheckedUpdateWithoutMovementsInput = {
   expectedBalance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1321,6 +1362,7 @@ export type PosSessionCreateManyOperatorInput = {
   expectedBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: boolean
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1336,6 +1378,7 @@ export type PosSessionUpdateWithoutOperatorInput = {
   expectedBalance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1358,6 +1401,7 @@ export type PosSessionUncheckedUpdateWithoutOperatorInput = {
   expectedBalance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1378,6 +1422,7 @@ export type PosSessionUncheckedUpdateManyWithoutOperatorInput = {
   expectedBalance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1395,6 +1440,7 @@ export type PosSessionCreateManyTenantInput = {
   expectedBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: boolean
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1410,6 +1456,7 @@ export type PosSessionUpdateWithoutTenantInput = {
   expectedBalance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1432,6 +1479,7 @@ export type PosSessionUncheckedUpdateWithoutTenantInput = {
   expectedBalance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1452,6 +1500,7 @@ export type PosSessionUncheckedUpdateManyWithoutTenantInput = {
   expectedBalance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1469,6 +1518,7 @@ export type PosSessionCreateManyTerminalInput = {
   expectedBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: boolean
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1484,6 +1534,7 @@ export type PosSessionUpdateWithoutTerminalInput = {
   expectedBalance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1506,6 +1557,7 @@ export type PosSessionUncheckedUpdateWithoutTerminalInput = {
   expectedBalance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1526,6 +1578,7 @@ export type PosSessionUncheckedUpdateManyWithoutTerminalInput = {
   expectedBalance?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   difference?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   closingBreakdown?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  orphanClosed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1593,6 +1646,7 @@ export type PosSessionSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   expectedBalance?: boolean
   difference?: boolean
   closingBreakdown?: boolean
+  orphanClosed?: boolean
   notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1618,6 +1672,7 @@ export type PosSessionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   expectedBalance?: boolean
   difference?: boolean
   closingBreakdown?: boolean
+  orphanClosed?: boolean
   notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1639,6 +1694,7 @@ export type PosSessionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   expectedBalance?: boolean
   difference?: boolean
   closingBreakdown?: boolean
+  orphanClosed?: boolean
   notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1660,12 +1716,13 @@ export type PosSessionSelectScalar = {
   expectedBalance?: boolean
   difference?: boolean
   closingBreakdown?: boolean
+  orphanClosed?: boolean
   notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PosSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "terminalId" | "operatorUserId" | "status" | "openedAt" | "closedAt" | "openingBalance" | "closingBalance" | "expectedBalance" | "difference" | "closingBreakdown" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["posSession"]>
+export type PosSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "terminalId" | "operatorUserId" | "status" | "openedAt" | "closedAt" | "openingBalance" | "closingBalance" | "expectedBalance" | "difference" | "closingBreakdown" | "orphanClosed" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["posSession"]>
 export type PosSessionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   terminal?: boolean | Prisma.PosTerminalDefaultArgs<ExtArgs>
@@ -1709,6 +1766,7 @@ export type $PosSessionPayload<ExtArgs extends runtime.Types.Extensions.Internal
     expectedBalance: runtime.Decimal | null
     difference: runtime.Decimal | null
     closingBreakdown: runtime.JsonValue | null
+    orphanClosed: boolean
     notes: string | null
     createdAt: Date
     updatedAt: Date
@@ -2153,6 +2211,7 @@ export interface PosSessionFieldRefs {
   readonly expectedBalance: Prisma.FieldRef<"PosSession", 'Decimal'>
   readonly difference: Prisma.FieldRef<"PosSession", 'Decimal'>
   readonly closingBreakdown: Prisma.FieldRef<"PosSession", 'Json'>
+  readonly orphanClosed: Prisma.FieldRef<"PosSession", 'Boolean'>
   readonly notes: Prisma.FieldRef<"PosSession", 'String'>
   readonly createdAt: Prisma.FieldRef<"PosSession", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"PosSession", 'DateTime'>

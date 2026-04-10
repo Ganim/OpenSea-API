@@ -21,6 +21,11 @@ export interface PrintJobProps {
   status: PrintJobStatus;
   content: string;
   templateData?: Record<string, unknown>;
+  agentId?: string;
+  copies: number;
+  printerName?: string;
+  labelData?: Record<string, unknown>;
+  startedAt?: Date;
   errorMessage?: string;
   retryCount: number;
   maxRetries: number;
@@ -66,6 +71,51 @@ export class PrintJob extends Entity<PrintJobProps> {
     return this.props.templateData;
   }
 
+  get agentId() {
+    return this.props.agentId;
+  }
+
+  set agentId(value: string | undefined) {
+    this.props.agentId = value;
+    this.touch();
+  }
+
+  get copies() {
+    return this.props.copies;
+  }
+
+  set copies(value: number) {
+    this.props.copies = value;
+    this.touch();
+  }
+
+  get printerName() {
+    return this.props.printerName;
+  }
+
+  set printerName(value: string | undefined) {
+    this.props.printerName = value;
+    this.touch();
+  }
+
+  get labelData() {
+    return this.props.labelData;
+  }
+
+  set labelData(value: Record<string, unknown> | undefined) {
+    this.props.labelData = value;
+    this.touch();
+  }
+
+  get startedAt() {
+    return this.props.startedAt;
+  }
+
+  set startedAt(value: Date | undefined) {
+    this.props.startedAt = value;
+    this.touch();
+  }
+
   get errorMessage() {
     return this.props.errorMessage;
   }
@@ -107,7 +157,7 @@ export class PrintJob extends Entity<PrintJobProps> {
   static create(
     props: Optional<
       PrintJobProps,
-      'id' | 'createdAt' | 'status' | 'retryCount' | 'maxRetries'
+      'id' | 'createdAt' | 'status' | 'retryCount' | 'maxRetries' | 'copies'
     >,
     id?: UniqueEntityID,
   ) {
@@ -118,6 +168,7 @@ export class PrintJob extends Entity<PrintJobProps> {
         status: props.status ?? 'CREATED',
         retryCount: props.retryCount ?? 0,
         maxRetries: props.maxRetries ?? 3,
+        copies: props.copies ?? 1,
         createdAt: props.createdAt ?? new Date(),
       },
       id ?? props.id,

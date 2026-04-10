@@ -6,6 +6,9 @@ export interface PosPrintersRepository {
   findById(id: UniqueEntityID, tenantId: string): Promise<PosPrinter | null>;
   findDefaultByTenant(tenantId: string): Promise<PosPrinter | null>;
   findManyByTenant(tenantId: string): Promise<PosPrinter[]>;
+  findByAgentId(agentId: string, tenantId: string): Promise<PosPrinter[]>;
+  findByOsName(osName: string, agentId: string, tenantId: string): Promise<PosPrinter | null>;
+  updateStatusByAgentId(agentId: string, status: string): Promise<void>;
   unsetDefaultForTenant(tenantId: string): Promise<void>;
   save(printer: PosPrinter): Promise<void>;
 }

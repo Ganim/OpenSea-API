@@ -27,11 +27,13 @@ export type AggregatePrintJob = {
 }
 
 export type PrintJobAvgAggregateOutputType = {
+  copies: number | null
   retryCount: number | null
   maxRetries: number | null
 }
 
 export type PrintJobSumAggregateOutputType = {
+  copies: number | null
   retryCount: number | null
   maxRetries: number | null
 }
@@ -44,6 +46,10 @@ export type PrintJobMinAggregateOutputType = {
   type: $Enums.PrintJobType | null
   status: $Enums.PrintJobStatus | null
   content: string | null
+  agentId: string | null
+  copies: number | null
+  printerName: string | null
+  startedAt: Date | null
   errorMessage: string | null
   retryCount: number | null
   maxRetries: number | null
@@ -60,6 +66,10 @@ export type PrintJobMaxAggregateOutputType = {
   type: $Enums.PrintJobType | null
   status: $Enums.PrintJobStatus | null
   content: string | null
+  agentId: string | null
+  copies: number | null
+  printerName: string | null
+  startedAt: Date | null
   errorMessage: string | null
   retryCount: number | null
   maxRetries: number | null
@@ -77,6 +87,11 @@ export type PrintJobCountAggregateOutputType = {
   status: number
   content: number
   templateData: number
+  agentId: number
+  copies: number
+  printerName: number
+  labelData: number
+  startedAt: number
   errorMessage: number
   retryCount: number
   maxRetries: number
@@ -88,11 +103,13 @@ export type PrintJobCountAggregateOutputType = {
 
 
 export type PrintJobAvgAggregateInputType = {
+  copies?: true
   retryCount?: true
   maxRetries?: true
 }
 
 export type PrintJobSumAggregateInputType = {
+  copies?: true
   retryCount?: true
   maxRetries?: true
 }
@@ -105,6 +122,10 @@ export type PrintJobMinAggregateInputType = {
   type?: true
   status?: true
   content?: true
+  agentId?: true
+  copies?: true
+  printerName?: true
+  startedAt?: true
   errorMessage?: true
   retryCount?: true
   maxRetries?: true
@@ -121,6 +142,10 @@ export type PrintJobMaxAggregateInputType = {
   type?: true
   status?: true
   content?: true
+  agentId?: true
+  copies?: true
+  printerName?: true
+  startedAt?: true
   errorMessage?: true
   retryCount?: true
   maxRetries?: true
@@ -138,6 +163,11 @@ export type PrintJobCountAggregateInputType = {
   status?: true
   content?: true
   templateData?: true
+  agentId?: true
+  copies?: true
+  printerName?: true
+  labelData?: true
+  startedAt?: true
   errorMessage?: true
   retryCount?: true
   maxRetries?: true
@@ -242,6 +272,11 @@ export type PrintJobGroupByOutputType = {
   status: $Enums.PrintJobStatus
   content: string
   templateData: runtime.JsonValue | null
+  agentId: string | null
+  copies: number
+  printerName: string | null
+  labelData: runtime.JsonValue | null
+  startedAt: Date | null
   errorMessage: string | null
   retryCount: number
   maxRetries: number
@@ -282,6 +317,11 @@ export type PrintJobWhereInput = {
   status?: Prisma.EnumPrintJobStatusFilter<"PrintJob"> | $Enums.PrintJobStatus
   content?: Prisma.StringFilter<"PrintJob"> | string
   templateData?: Prisma.JsonNullableFilter<"PrintJob">
+  agentId?: Prisma.StringNullableFilter<"PrintJob"> | string | null
+  copies?: Prisma.IntFilter<"PrintJob"> | number
+  printerName?: Prisma.StringNullableFilter<"PrintJob"> | string | null
+  labelData?: Prisma.JsonNullableFilter<"PrintJob">
+  startedAt?: Prisma.DateTimeNullableFilter<"PrintJob"> | Date | string | null
   errorMessage?: Prisma.StringNullableFilter<"PrintJob"> | string | null
   retryCount?: Prisma.IntFilter<"PrintJob"> | number
   maxRetries?: Prisma.IntFilter<"PrintJob"> | number
@@ -301,6 +341,11 @@ export type PrintJobOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   content?: Prisma.SortOrder
   templateData?: Prisma.SortOrderInput | Prisma.SortOrder
+  agentId?: Prisma.SortOrderInput | Prisma.SortOrder
+  copies?: Prisma.SortOrder
+  printerName?: Prisma.SortOrderInput | Prisma.SortOrder
+  labelData?: Prisma.SortOrderInput | Prisma.SortOrder
+  startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   errorMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   retryCount?: Prisma.SortOrder
   maxRetries?: Prisma.SortOrder
@@ -323,6 +368,11 @@ export type PrintJobWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumPrintJobStatusFilter<"PrintJob"> | $Enums.PrintJobStatus
   content?: Prisma.StringFilter<"PrintJob"> | string
   templateData?: Prisma.JsonNullableFilter<"PrintJob">
+  agentId?: Prisma.StringNullableFilter<"PrintJob"> | string | null
+  copies?: Prisma.IntFilter<"PrintJob"> | number
+  printerName?: Prisma.StringNullableFilter<"PrintJob"> | string | null
+  labelData?: Prisma.JsonNullableFilter<"PrintJob">
+  startedAt?: Prisma.DateTimeNullableFilter<"PrintJob"> | Date | string | null
   errorMessage?: Prisma.StringNullableFilter<"PrintJob"> | string | null
   retryCount?: Prisma.IntFilter<"PrintJob"> | number
   maxRetries?: Prisma.IntFilter<"PrintJob"> | number
@@ -342,6 +392,11 @@ export type PrintJobOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   content?: Prisma.SortOrder
   templateData?: Prisma.SortOrderInput | Prisma.SortOrder
+  agentId?: Prisma.SortOrderInput | Prisma.SortOrder
+  copies?: Prisma.SortOrder
+  printerName?: Prisma.SortOrderInput | Prisma.SortOrder
+  labelData?: Prisma.SortOrderInput | Prisma.SortOrder
+  startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   errorMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   retryCount?: Prisma.SortOrder
   maxRetries?: Prisma.SortOrder
@@ -367,6 +422,11 @@ export type PrintJobScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumPrintJobStatusWithAggregatesFilter<"PrintJob"> | $Enums.PrintJobStatus
   content?: Prisma.StringWithAggregatesFilter<"PrintJob"> | string
   templateData?: Prisma.JsonNullableWithAggregatesFilter<"PrintJob">
+  agentId?: Prisma.StringNullableWithAggregatesFilter<"PrintJob"> | string | null
+  copies?: Prisma.IntWithAggregatesFilter<"PrintJob"> | number
+  printerName?: Prisma.StringNullableWithAggregatesFilter<"PrintJob"> | string | null
+  labelData?: Prisma.JsonNullableWithAggregatesFilter<"PrintJob">
+  startedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PrintJob"> | Date | string | null
   errorMessage?: Prisma.StringNullableWithAggregatesFilter<"PrintJob"> | string | null
   retryCount?: Prisma.IntWithAggregatesFilter<"PrintJob"> | number
   maxRetries?: Prisma.IntWithAggregatesFilter<"PrintJob"> | number
@@ -382,6 +442,11 @@ export type PrintJobCreateInput = {
   status?: $Enums.PrintJobStatus
   content: string
   templateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  agentId?: string | null
+  copies?: number
+  printerName?: string | null
+  labelData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Date | string | null
   errorMessage?: string | null
   retryCount?: number
   maxRetries?: number
@@ -401,6 +466,11 @@ export type PrintJobUncheckedCreateInput = {
   status?: $Enums.PrintJobStatus
   content: string
   templateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  agentId?: string | null
+  copies?: number
+  printerName?: string | null
+  labelData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Date | string | null
   errorMessage?: string | null
   retryCount?: number
   maxRetries?: number
@@ -416,6 +486,11 @@ export type PrintJobUpdateInput = {
   status?: Prisma.EnumPrintJobStatusFieldUpdateOperationsInput | $Enums.PrintJobStatus
   content?: Prisma.StringFieldUpdateOperationsInput | string
   templateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  agentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copies?: Prisma.IntFieldUpdateOperationsInput | number
+  printerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   maxRetries?: Prisma.IntFieldUpdateOperationsInput | number
@@ -435,6 +510,11 @@ export type PrintJobUncheckedUpdateInput = {
   status?: Prisma.EnumPrintJobStatusFieldUpdateOperationsInput | $Enums.PrintJobStatus
   content?: Prisma.StringFieldUpdateOperationsInput | string
   templateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  agentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copies?: Prisma.IntFieldUpdateOperationsInput | number
+  printerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   maxRetries?: Prisma.IntFieldUpdateOperationsInput | number
@@ -452,6 +532,11 @@ export type PrintJobCreateManyInput = {
   status?: $Enums.PrintJobStatus
   content: string
   templateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  agentId?: string | null
+  copies?: number
+  printerName?: string | null
+  labelData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Date | string | null
   errorMessage?: string | null
   retryCount?: number
   maxRetries?: number
@@ -467,6 +552,11 @@ export type PrintJobUpdateManyMutationInput = {
   status?: Prisma.EnumPrintJobStatusFieldUpdateOperationsInput | $Enums.PrintJobStatus
   content?: Prisma.StringFieldUpdateOperationsInput | string
   templateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  agentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copies?: Prisma.IntFieldUpdateOperationsInput | number
+  printerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   maxRetries?: Prisma.IntFieldUpdateOperationsInput | number
@@ -484,6 +574,11 @@ export type PrintJobUncheckedUpdateManyInput = {
   status?: Prisma.EnumPrintJobStatusFieldUpdateOperationsInput | $Enums.PrintJobStatus
   content?: Prisma.StringFieldUpdateOperationsInput | string
   templateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  agentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copies?: Prisma.IntFieldUpdateOperationsInput | number
+  printerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   maxRetries?: Prisma.IntFieldUpdateOperationsInput | number
@@ -511,6 +606,11 @@ export type PrintJobCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   content?: Prisma.SortOrder
   templateData?: Prisma.SortOrder
+  agentId?: Prisma.SortOrder
+  copies?: Prisma.SortOrder
+  printerName?: Prisma.SortOrder
+  labelData?: Prisma.SortOrder
+  startedAt?: Prisma.SortOrder
   errorMessage?: Prisma.SortOrder
   retryCount?: Prisma.SortOrder
   maxRetries?: Prisma.SortOrder
@@ -520,6 +620,7 @@ export type PrintJobCountOrderByAggregateInput = {
 }
 
 export type PrintJobAvgOrderByAggregateInput = {
+  copies?: Prisma.SortOrder
   retryCount?: Prisma.SortOrder
   maxRetries?: Prisma.SortOrder
 }
@@ -532,6 +633,10 @@ export type PrintJobMaxOrderByAggregateInput = {
   type?: Prisma.SortOrder
   status?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  agentId?: Prisma.SortOrder
+  copies?: Prisma.SortOrder
+  printerName?: Prisma.SortOrder
+  startedAt?: Prisma.SortOrder
   errorMessage?: Prisma.SortOrder
   retryCount?: Prisma.SortOrder
   maxRetries?: Prisma.SortOrder
@@ -548,6 +653,10 @@ export type PrintJobMinOrderByAggregateInput = {
   type?: Prisma.SortOrder
   status?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  agentId?: Prisma.SortOrder
+  copies?: Prisma.SortOrder
+  printerName?: Prisma.SortOrder
+  startedAt?: Prisma.SortOrder
   errorMessage?: Prisma.SortOrder
   retryCount?: Prisma.SortOrder
   maxRetries?: Prisma.SortOrder
@@ -557,6 +666,7 @@ export type PrintJobMinOrderByAggregateInput = {
 }
 
 export type PrintJobSumOrderByAggregateInput = {
+  copies?: Prisma.SortOrder
   retryCount?: Prisma.SortOrder
   maxRetries?: Prisma.SortOrder
 }
@@ -660,6 +770,11 @@ export type PrintJobCreateWithoutTenantInput = {
   status?: $Enums.PrintJobStatus
   content: string
   templateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  agentId?: string | null
+  copies?: number
+  printerName?: string | null
+  labelData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Date | string | null
   errorMessage?: string | null
   retryCount?: number
   maxRetries?: number
@@ -677,6 +792,11 @@ export type PrintJobUncheckedCreateWithoutTenantInput = {
   status?: $Enums.PrintJobStatus
   content: string
   templateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  agentId?: string | null
+  copies?: number
+  printerName?: string | null
+  labelData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Date | string | null
   errorMessage?: string | null
   retryCount?: number
   maxRetries?: number
@@ -723,6 +843,11 @@ export type PrintJobScalarWhereInput = {
   status?: Prisma.EnumPrintJobStatusFilter<"PrintJob"> | $Enums.PrintJobStatus
   content?: Prisma.StringFilter<"PrintJob"> | string
   templateData?: Prisma.JsonNullableFilter<"PrintJob">
+  agentId?: Prisma.StringNullableFilter<"PrintJob"> | string | null
+  copies?: Prisma.IntFilter<"PrintJob"> | number
+  printerName?: Prisma.StringNullableFilter<"PrintJob"> | string | null
+  labelData?: Prisma.JsonNullableFilter<"PrintJob">
+  startedAt?: Prisma.DateTimeNullableFilter<"PrintJob"> | Date | string | null
   errorMessage?: Prisma.StringNullableFilter<"PrintJob"> | string | null
   retryCount?: Prisma.IntFilter<"PrintJob"> | number
   maxRetries?: Prisma.IntFilter<"PrintJob"> | number
@@ -738,6 +863,11 @@ export type PrintJobCreateWithoutPrinterInput = {
   status?: $Enums.PrintJobStatus
   content: string
   templateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  agentId?: string | null
+  copies?: number
+  printerName?: string | null
+  labelData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Date | string | null
   errorMessage?: string | null
   retryCount?: number
   maxRetries?: number
@@ -755,6 +885,11 @@ export type PrintJobUncheckedCreateWithoutPrinterInput = {
   status?: $Enums.PrintJobStatus
   content: string
   templateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  agentId?: string | null
+  copies?: number
+  printerName?: string | null
+  labelData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Date | string | null
   errorMessage?: string | null
   retryCount?: number
   maxRetries?: number
@@ -797,6 +932,11 @@ export type PrintJobCreateManyTenantInput = {
   status?: $Enums.PrintJobStatus
   content: string
   templateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  agentId?: string | null
+  copies?: number
+  printerName?: string | null
+  labelData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Date | string | null
   errorMessage?: string | null
   retryCount?: number
   maxRetries?: number
@@ -812,6 +952,11 @@ export type PrintJobUpdateWithoutTenantInput = {
   status?: Prisma.EnumPrintJobStatusFieldUpdateOperationsInput | $Enums.PrintJobStatus
   content?: Prisma.StringFieldUpdateOperationsInput | string
   templateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  agentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copies?: Prisma.IntFieldUpdateOperationsInput | number
+  printerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   maxRetries?: Prisma.IntFieldUpdateOperationsInput | number
@@ -829,6 +974,11 @@ export type PrintJobUncheckedUpdateWithoutTenantInput = {
   status?: Prisma.EnumPrintJobStatusFieldUpdateOperationsInput | $Enums.PrintJobStatus
   content?: Prisma.StringFieldUpdateOperationsInput | string
   templateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  agentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copies?: Prisma.IntFieldUpdateOperationsInput | number
+  printerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   maxRetries?: Prisma.IntFieldUpdateOperationsInput | number
@@ -845,6 +995,11 @@ export type PrintJobUncheckedUpdateManyWithoutTenantInput = {
   status?: Prisma.EnumPrintJobStatusFieldUpdateOperationsInput | $Enums.PrintJobStatus
   content?: Prisma.StringFieldUpdateOperationsInput | string
   templateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  agentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copies?: Prisma.IntFieldUpdateOperationsInput | number
+  printerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   maxRetries?: Prisma.IntFieldUpdateOperationsInput | number
@@ -861,6 +1016,11 @@ export type PrintJobCreateManyPrinterInput = {
   status?: $Enums.PrintJobStatus
   content: string
   templateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  agentId?: string | null
+  copies?: number
+  printerName?: string | null
+  labelData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Date | string | null
   errorMessage?: string | null
   retryCount?: number
   maxRetries?: number
@@ -876,6 +1036,11 @@ export type PrintJobUpdateWithoutPrinterInput = {
   status?: Prisma.EnumPrintJobStatusFieldUpdateOperationsInput | $Enums.PrintJobStatus
   content?: Prisma.StringFieldUpdateOperationsInput | string
   templateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  agentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copies?: Prisma.IntFieldUpdateOperationsInput | number
+  printerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   maxRetries?: Prisma.IntFieldUpdateOperationsInput | number
@@ -893,6 +1058,11 @@ export type PrintJobUncheckedUpdateWithoutPrinterInput = {
   status?: Prisma.EnumPrintJobStatusFieldUpdateOperationsInput | $Enums.PrintJobStatus
   content?: Prisma.StringFieldUpdateOperationsInput | string
   templateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  agentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copies?: Prisma.IntFieldUpdateOperationsInput | number
+  printerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   maxRetries?: Prisma.IntFieldUpdateOperationsInput | number
@@ -909,6 +1079,11 @@ export type PrintJobUncheckedUpdateManyWithoutPrinterInput = {
   status?: Prisma.EnumPrintJobStatusFieldUpdateOperationsInput | $Enums.PrintJobStatus
   content?: Prisma.StringFieldUpdateOperationsInput | string
   templateData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  agentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copies?: Prisma.IntFieldUpdateOperationsInput | number
+  printerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   retryCount?: Prisma.IntFieldUpdateOperationsInput | number
   maxRetries?: Prisma.IntFieldUpdateOperationsInput | number
@@ -928,6 +1103,11 @@ export type PrintJobSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   status?: boolean
   content?: boolean
   templateData?: boolean
+  agentId?: boolean
+  copies?: boolean
+  printerName?: boolean
+  labelData?: boolean
+  startedAt?: boolean
   errorMessage?: boolean
   retryCount?: boolean
   maxRetries?: boolean
@@ -947,6 +1127,11 @@ export type PrintJobSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   status?: boolean
   content?: boolean
   templateData?: boolean
+  agentId?: boolean
+  copies?: boolean
+  printerName?: boolean
+  labelData?: boolean
+  startedAt?: boolean
   errorMessage?: boolean
   retryCount?: boolean
   maxRetries?: boolean
@@ -966,6 +1151,11 @@ export type PrintJobSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   status?: boolean
   content?: boolean
   templateData?: boolean
+  agentId?: boolean
+  copies?: boolean
+  printerName?: boolean
+  labelData?: boolean
+  startedAt?: boolean
   errorMessage?: boolean
   retryCount?: boolean
   maxRetries?: boolean
@@ -985,6 +1175,11 @@ export type PrintJobSelectScalar = {
   status?: boolean
   content?: boolean
   templateData?: boolean
+  agentId?: boolean
+  copies?: boolean
+  printerName?: boolean
+  labelData?: boolean
+  startedAt?: boolean
   errorMessage?: boolean
   retryCount?: boolean
   maxRetries?: boolean
@@ -993,7 +1188,7 @@ export type PrintJobSelectScalar = {
   updatedAt?: boolean
 }
 
-export type PrintJobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "printerId" | "orderId" | "type" | "status" | "content" | "templateData" | "errorMessage" | "retryCount" | "maxRetries" | "createdAt" | "completedAt" | "updatedAt", ExtArgs["result"]["printJob"]>
+export type PrintJobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "printerId" | "orderId" | "type" | "status" | "content" | "templateData" | "agentId" | "copies" | "printerName" | "labelData" | "startedAt" | "errorMessage" | "retryCount" | "maxRetries" | "createdAt" | "completedAt" | "updatedAt", ExtArgs["result"]["printJob"]>
 export type PrintJobInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   printer?: boolean | Prisma.PosPrinterDefaultArgs<ExtArgs>
@@ -1022,6 +1217,11 @@ export type $PrintJobPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     status: $Enums.PrintJobStatus
     content: string
     templateData: runtime.JsonValue | null
+    agentId: string | null
+    copies: number
+    printerName: string | null
+    labelData: runtime.JsonValue | null
+    startedAt: Date | null
     errorMessage: string | null
     retryCount: number
     maxRetries: number
@@ -1461,6 +1661,11 @@ export interface PrintJobFieldRefs {
   readonly status: Prisma.FieldRef<"PrintJob", 'PrintJobStatus'>
   readonly content: Prisma.FieldRef<"PrintJob", 'String'>
   readonly templateData: Prisma.FieldRef<"PrintJob", 'Json'>
+  readonly agentId: Prisma.FieldRef<"PrintJob", 'String'>
+  readonly copies: Prisma.FieldRef<"PrintJob", 'Int'>
+  readonly printerName: Prisma.FieldRef<"PrintJob", 'String'>
+  readonly labelData: Prisma.FieldRef<"PrintJob", 'Json'>
+  readonly startedAt: Prisma.FieldRef<"PrintJob", 'DateTime'>
   readonly errorMessage: Prisma.FieldRef<"PrintJob", 'String'>
   readonly retryCount: Prisma.FieldRef<"PrintJob", 'Int'>
   readonly maxRetries: Prisma.FieldRef<"PrintJob", 'Int'>

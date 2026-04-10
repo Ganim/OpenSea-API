@@ -3,7 +3,9 @@ import type { PosPrinter } from '@/entities/sales/pos-printer';
 import { prisma } from '@/lib/prisma';
 import { posPrinterPrismaToDomain } from '@/mappers/sales/pos-printer/pos-printer-prisma-to-domain';
 import type {
+  Prisma,
   PrinterConnection as PrismaPrinterConnection,
+  PrinterStatus as PrismaPrinterStatus,
   PrinterType as PrismaPrinterType,
 } from '@prisma/generated/client.js';
 import type { PosPrintersRepository } from '../pos-printers-repository';
@@ -26,6 +28,11 @@ export class PrismaPosPrintersRepository implements PosPrintersRepository {
         characterPerLine: printer.characterPerLine,
         isDefault: printer.isDefault,
         isActive: printer.isActive,
+        status: printer.status as PrismaPrinterStatus,
+        lastSeenAt: printer.lastSeenAt ?? null,
+        agentId: printer.agentId ?? null,
+        capabilities: (printer.capabilities as Prisma.InputJsonValue | undefined) ?? undefined,
+        osName: printer.osName ?? null,
         deletedAt: printer.deletedAt ?? null,
       },
     });
@@ -71,6 +78,54 @@ export class PrismaPosPrintersRepository implements PosPrintersRepository {
     return rows.map((row) => posPrinterPrismaToDomain(row));
   }
 
+  async findByAgentId(
+    agentId: string,
+    tenantId: string,
+  ): Promise<PosPrinter[]> {
+    const rows = await prisma.posPrinter.findMany({
+      where: {
+        agentId,
+        tenantId,
+        deletedAt: null,
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    return rows.map(posPrinterPrismaToDomain);
+  }
+
+  async findByOsName(
+    osName: string,
+    agentId: string,
+    tenantId: string,
+  ): Promise<PosPrinter | null> {
+    const raw = await prisma.posPrinter.findFirst({
+      where: {
+        osName,
+        agentId,
+        tenantId,
+        deletedAt: null,
+      },
+    });
+
+    return raw ? posPrinterPrismaToDomain(raw) : null;
+  }
+
+  async updateStatusByAgentId(
+    agentId: string,
+    status: string,
+  ): Promise<void> {
+    await prisma.posPrinter.updateMany({
+      where: {
+        agentId,
+        deletedAt: null,
+      },
+      data: {
+        status: status as PrismaPrinterStatus,
+      },
+    });
+  }
+
   async unsetDefaultForTenant(tenantId: string): Promise<void> {
     await prisma.posPrinter.updateMany({
       where: {
@@ -102,6 +157,11 @@ export class PrismaPosPrintersRepository implements PosPrintersRepository {
         characterPerLine: printer.characterPerLine,
         isDefault: printer.isDefault,
         isActive: printer.isActive,
+        status: printer.status as PrismaPrinterStatus,
+        lastSeenAt: printer.lastSeenAt ?? null,
+        agentId: printer.agentId ?? null,
+        capabilities: (printer.capabilities as Prisma.InputJsonValue | undefined) ?? undefined,
+        osName: printer.osName ?? null,
         deletedAt: printer.deletedAt ?? null,
       },
     });

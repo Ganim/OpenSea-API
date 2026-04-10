@@ -53,6 +53,10 @@ export type PosPrinterMinAggregateOutputType = {
   characterPerLine: number | null
   isDefault: boolean | null
   isActive: boolean | null
+  status: $Enums.PrinterStatus | null
+  lastSeenAt: Date | null
+  agentId: string | null
+  osName: string | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -73,6 +77,10 @@ export type PosPrinterMaxAggregateOutputType = {
   characterPerLine: number | null
   isDefault: boolean | null
   isActive: boolean | null
+  status: $Enums.PrinterStatus | null
+  lastSeenAt: Date | null
+  agentId: string | null
+  osName: string | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -93,6 +101,11 @@ export type PosPrinterCountAggregateOutputType = {
   characterPerLine: number
   isDefault: number
   isActive: number
+  status: number
+  lastSeenAt: number
+  agentId: number
+  capabilities: number
+  osName: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -127,6 +140,10 @@ export type PosPrinterMinAggregateInputType = {
   characterPerLine?: true
   isDefault?: true
   isActive?: true
+  status?: true
+  lastSeenAt?: true
+  agentId?: true
+  osName?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -147,6 +164,10 @@ export type PosPrinterMaxAggregateInputType = {
   characterPerLine?: true
   isDefault?: true
   isActive?: true
+  status?: true
+  lastSeenAt?: true
+  agentId?: true
+  osName?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -167,6 +188,11 @@ export type PosPrinterCountAggregateInputType = {
   characterPerLine?: true
   isDefault?: true
   isActive?: true
+  status?: true
+  lastSeenAt?: true
+  agentId?: true
+  capabilities?: true
+  osName?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -274,6 +300,11 @@ export type PosPrinterGroupByOutputType = {
   characterPerLine: number
   isDefault: boolean
   isActive: boolean
+  status: $Enums.PrinterStatus
+  lastSeenAt: Date | null
+  agentId: string | null
+  capabilities: runtime.JsonValue | null
+  osName: string | null
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -317,10 +348,16 @@ export type PosPrinterWhereInput = {
   characterPerLine?: Prisma.IntFilter<"PosPrinter"> | number
   isDefault?: Prisma.BoolFilter<"PosPrinter"> | boolean
   isActive?: Prisma.BoolFilter<"PosPrinter"> | boolean
+  status?: Prisma.EnumPrinterStatusFilter<"PosPrinter"> | $Enums.PrinterStatus
+  lastSeenAt?: Prisma.DateTimeNullableFilter<"PosPrinter"> | Date | string | null
+  agentId?: Prisma.StringNullableFilter<"PosPrinter"> | string | null
+  capabilities?: Prisma.JsonNullableFilter<"PosPrinter">
+  osName?: Prisma.StringNullableFilter<"PosPrinter"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PosPrinter"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PosPrinter"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"PosPrinter"> | Date | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  agent?: Prisma.XOR<Prisma.PrintAgentNullableScalarRelationFilter, Prisma.PrintAgentWhereInput> | null
   printJobs?: Prisma.PrintJobListRelationFilter
 }
 
@@ -339,10 +376,16 @@ export type PosPrinterOrderByWithRelationInput = {
   characterPerLine?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  lastSeenAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  agentId?: Prisma.SortOrderInput | Prisma.SortOrder
+  capabilities?: Prisma.SortOrderInput | Prisma.SortOrder
+  osName?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
+  agent?: Prisma.PrintAgentOrderByWithRelationInput
   printJobs?: Prisma.PrintJobOrderByRelationAggregateInput
 }
 
@@ -364,10 +407,16 @@ export type PosPrinterWhereUniqueInput = Prisma.AtLeast<{
   characterPerLine?: Prisma.IntFilter<"PosPrinter"> | number
   isDefault?: Prisma.BoolFilter<"PosPrinter"> | boolean
   isActive?: Prisma.BoolFilter<"PosPrinter"> | boolean
+  status?: Prisma.EnumPrinterStatusFilter<"PosPrinter"> | $Enums.PrinterStatus
+  lastSeenAt?: Prisma.DateTimeNullableFilter<"PosPrinter"> | Date | string | null
+  agentId?: Prisma.StringNullableFilter<"PosPrinter"> | string | null
+  capabilities?: Prisma.JsonNullableFilter<"PosPrinter">
+  osName?: Prisma.StringNullableFilter<"PosPrinter"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PosPrinter"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PosPrinter"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"PosPrinter"> | Date | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  agent?: Prisma.XOR<Prisma.PrintAgentNullableScalarRelationFilter, Prisma.PrintAgentWhereInput> | null
   printJobs?: Prisma.PrintJobListRelationFilter
 }, "id">
 
@@ -386,6 +435,11 @@ export type PosPrinterOrderByWithAggregationInput = {
   characterPerLine?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  lastSeenAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  agentId?: Prisma.SortOrderInput | Prisma.SortOrder
+  capabilities?: Prisma.SortOrderInput | Prisma.SortOrder
+  osName?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -414,6 +468,11 @@ export type PosPrinterScalarWhereWithAggregatesInput = {
   characterPerLine?: Prisma.IntWithAggregatesFilter<"PosPrinter"> | number
   isDefault?: Prisma.BoolWithAggregatesFilter<"PosPrinter"> | boolean
   isActive?: Prisma.BoolWithAggregatesFilter<"PosPrinter"> | boolean
+  status?: Prisma.EnumPrinterStatusWithAggregatesFilter<"PosPrinter"> | $Enums.PrinterStatus
+  lastSeenAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PosPrinter"> | Date | string | null
+  agentId?: Prisma.StringNullableWithAggregatesFilter<"PosPrinter"> | string | null
+  capabilities?: Prisma.JsonNullableWithAggregatesFilter<"PosPrinter">
+  osName?: Prisma.StringNullableWithAggregatesFilter<"PosPrinter"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PosPrinter"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PosPrinter"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PosPrinter"> | Date | string | null
@@ -433,10 +492,15 @@ export type PosPrinterCreateInput = {
   characterPerLine?: number
   isDefault?: boolean
   isActive?: boolean
+  status?: $Enums.PrinterStatus
+  lastSeenAt?: Date | string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutPosPrintersInput
+  agent?: Prisma.PrintAgentCreateNestedOneWithoutPrintersInput
   printJobs?: Prisma.PrintJobCreateNestedManyWithoutPrinterInput
 }
 
@@ -455,6 +519,11 @@ export type PosPrinterUncheckedCreateInput = {
   characterPerLine?: number
   isDefault?: boolean
   isActive?: boolean
+  status?: $Enums.PrinterStatus
+  lastSeenAt?: Date | string | null
+  agentId?: string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -475,10 +544,15 @@ export type PosPrinterUpdateInput = {
   characterPerLine?: Prisma.IntFieldUpdateOperationsInput | number
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPrinterStatusFieldUpdateOperationsInput | $Enums.PrinterStatus
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosPrintersNestedInput
+  agent?: Prisma.PrintAgentUpdateOneWithoutPrintersNestedInput
   printJobs?: Prisma.PrintJobUpdateManyWithoutPrinterNestedInput
 }
 
@@ -497,6 +571,11 @@ export type PosPrinterUncheckedUpdateInput = {
   characterPerLine?: Prisma.IntFieldUpdateOperationsInput | number
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPrinterStatusFieldUpdateOperationsInput | $Enums.PrinterStatus
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  agentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -518,6 +597,11 @@ export type PosPrinterCreateManyInput = {
   characterPerLine?: number
   isDefault?: boolean
   isActive?: boolean
+  status?: $Enums.PrinterStatus
+  lastSeenAt?: Date | string | null
+  agentId?: string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -537,6 +621,10 @@ export type PosPrinterUpdateManyMutationInput = {
   characterPerLine?: Prisma.IntFieldUpdateOperationsInput | number
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPrinterStatusFieldUpdateOperationsInput | $Enums.PrinterStatus
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -557,6 +645,11 @@ export type PosPrinterUncheckedUpdateManyInput = {
   characterPerLine?: Prisma.IntFieldUpdateOperationsInput | number
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPrinterStatusFieldUpdateOperationsInput | $Enums.PrinterStatus
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  agentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -587,6 +680,11 @@ export type PosPrinterCountOrderByAggregateInput = {
   characterPerLine?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  lastSeenAt?: Prisma.SortOrder
+  agentId?: Prisma.SortOrder
+  capabilities?: Prisma.SortOrder
+  osName?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -613,6 +711,10 @@ export type PosPrinterMaxOrderByAggregateInput = {
   characterPerLine?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  lastSeenAt?: Prisma.SortOrder
+  agentId?: Prisma.SortOrder
+  osName?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -633,6 +735,10 @@ export type PosPrinterMinOrderByAggregateInput = {
   characterPerLine?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  lastSeenAt?: Prisma.SortOrder
+  agentId?: Prisma.SortOrder
+  osName?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -691,12 +797,58 @@ export type PosPrinterUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.PosPrinterScalarWhereInput | Prisma.PosPrinterScalarWhereInput[]
 }
 
+export type PosPrinterCreateNestedManyWithoutAgentInput = {
+  create?: Prisma.XOR<Prisma.PosPrinterCreateWithoutAgentInput, Prisma.PosPrinterUncheckedCreateWithoutAgentInput> | Prisma.PosPrinterCreateWithoutAgentInput[] | Prisma.PosPrinterUncheckedCreateWithoutAgentInput[]
+  connectOrCreate?: Prisma.PosPrinterCreateOrConnectWithoutAgentInput | Prisma.PosPrinterCreateOrConnectWithoutAgentInput[]
+  createMany?: Prisma.PosPrinterCreateManyAgentInputEnvelope
+  connect?: Prisma.PosPrinterWhereUniqueInput | Prisma.PosPrinterWhereUniqueInput[]
+}
+
+export type PosPrinterUncheckedCreateNestedManyWithoutAgentInput = {
+  create?: Prisma.XOR<Prisma.PosPrinterCreateWithoutAgentInput, Prisma.PosPrinterUncheckedCreateWithoutAgentInput> | Prisma.PosPrinterCreateWithoutAgentInput[] | Prisma.PosPrinterUncheckedCreateWithoutAgentInput[]
+  connectOrCreate?: Prisma.PosPrinterCreateOrConnectWithoutAgentInput | Prisma.PosPrinterCreateOrConnectWithoutAgentInput[]
+  createMany?: Prisma.PosPrinterCreateManyAgentInputEnvelope
+  connect?: Prisma.PosPrinterWhereUniqueInput | Prisma.PosPrinterWhereUniqueInput[]
+}
+
+export type PosPrinterUpdateManyWithoutAgentNestedInput = {
+  create?: Prisma.XOR<Prisma.PosPrinterCreateWithoutAgentInput, Prisma.PosPrinterUncheckedCreateWithoutAgentInput> | Prisma.PosPrinterCreateWithoutAgentInput[] | Prisma.PosPrinterUncheckedCreateWithoutAgentInput[]
+  connectOrCreate?: Prisma.PosPrinterCreateOrConnectWithoutAgentInput | Prisma.PosPrinterCreateOrConnectWithoutAgentInput[]
+  upsert?: Prisma.PosPrinterUpsertWithWhereUniqueWithoutAgentInput | Prisma.PosPrinterUpsertWithWhereUniqueWithoutAgentInput[]
+  createMany?: Prisma.PosPrinterCreateManyAgentInputEnvelope
+  set?: Prisma.PosPrinterWhereUniqueInput | Prisma.PosPrinterWhereUniqueInput[]
+  disconnect?: Prisma.PosPrinterWhereUniqueInput | Prisma.PosPrinterWhereUniqueInput[]
+  delete?: Prisma.PosPrinterWhereUniqueInput | Prisma.PosPrinterWhereUniqueInput[]
+  connect?: Prisma.PosPrinterWhereUniqueInput | Prisma.PosPrinterWhereUniqueInput[]
+  update?: Prisma.PosPrinterUpdateWithWhereUniqueWithoutAgentInput | Prisma.PosPrinterUpdateWithWhereUniqueWithoutAgentInput[]
+  updateMany?: Prisma.PosPrinterUpdateManyWithWhereWithoutAgentInput | Prisma.PosPrinterUpdateManyWithWhereWithoutAgentInput[]
+  deleteMany?: Prisma.PosPrinterScalarWhereInput | Prisma.PosPrinterScalarWhereInput[]
+}
+
+export type PosPrinterUncheckedUpdateManyWithoutAgentNestedInput = {
+  create?: Prisma.XOR<Prisma.PosPrinterCreateWithoutAgentInput, Prisma.PosPrinterUncheckedCreateWithoutAgentInput> | Prisma.PosPrinterCreateWithoutAgentInput[] | Prisma.PosPrinterUncheckedCreateWithoutAgentInput[]
+  connectOrCreate?: Prisma.PosPrinterCreateOrConnectWithoutAgentInput | Prisma.PosPrinterCreateOrConnectWithoutAgentInput[]
+  upsert?: Prisma.PosPrinterUpsertWithWhereUniqueWithoutAgentInput | Prisma.PosPrinterUpsertWithWhereUniqueWithoutAgentInput[]
+  createMany?: Prisma.PosPrinterCreateManyAgentInputEnvelope
+  set?: Prisma.PosPrinterWhereUniqueInput | Prisma.PosPrinterWhereUniqueInput[]
+  disconnect?: Prisma.PosPrinterWhereUniqueInput | Prisma.PosPrinterWhereUniqueInput[]
+  delete?: Prisma.PosPrinterWhereUniqueInput | Prisma.PosPrinterWhereUniqueInput[]
+  connect?: Prisma.PosPrinterWhereUniqueInput | Prisma.PosPrinterWhereUniqueInput[]
+  update?: Prisma.PosPrinterUpdateWithWhereUniqueWithoutAgentInput | Prisma.PosPrinterUpdateWithWhereUniqueWithoutAgentInput[]
+  updateMany?: Prisma.PosPrinterUpdateManyWithWhereWithoutAgentInput | Prisma.PosPrinterUpdateManyWithWhereWithoutAgentInput[]
+  deleteMany?: Prisma.PosPrinterScalarWhereInput | Prisma.PosPrinterScalarWhereInput[]
+}
+
 export type EnumPrinterTypeFieldUpdateOperationsInput = {
   set?: $Enums.PrinterType
 }
 
 export type EnumPrinterConnectionFieldUpdateOperationsInput = {
   set?: $Enums.PrinterConnection
+}
+
+export type EnumPrinterStatusFieldUpdateOperationsInput = {
+  set?: $Enums.PrinterStatus
 }
 
 export type PosPrinterCreateNestedOneWithoutPrintJobsInput = {
@@ -727,9 +879,14 @@ export type PosPrinterCreateWithoutTenantInput = {
   characterPerLine?: number
   isDefault?: boolean
   isActive?: boolean
+  status?: $Enums.PrinterStatus
+  lastSeenAt?: Date | string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  agent?: Prisma.PrintAgentCreateNestedOneWithoutPrintersInput
   printJobs?: Prisma.PrintJobCreateNestedManyWithoutPrinterInput
 }
 
@@ -747,6 +904,11 @@ export type PosPrinterUncheckedCreateWithoutTenantInput = {
   characterPerLine?: number
   isDefault?: boolean
   isActive?: boolean
+  status?: $Enums.PrinterStatus
+  lastSeenAt?: Date | string | null
+  agentId?: string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -797,9 +959,90 @@ export type PosPrinterScalarWhereInput = {
   characterPerLine?: Prisma.IntFilter<"PosPrinter"> | number
   isDefault?: Prisma.BoolFilter<"PosPrinter"> | boolean
   isActive?: Prisma.BoolFilter<"PosPrinter"> | boolean
+  status?: Prisma.EnumPrinterStatusFilter<"PosPrinter"> | $Enums.PrinterStatus
+  lastSeenAt?: Prisma.DateTimeNullableFilter<"PosPrinter"> | Date | string | null
+  agentId?: Prisma.StringNullableFilter<"PosPrinter"> | string | null
+  capabilities?: Prisma.JsonNullableFilter<"PosPrinter">
+  osName?: Prisma.StringNullableFilter<"PosPrinter"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PosPrinter"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PosPrinter"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"PosPrinter"> | Date | string | null
+}
+
+export type PosPrinterCreateWithoutAgentInput = {
+  id?: string
+  name: string
+  type: $Enums.PrinterType
+  connection: $Enums.PrinterConnection
+  ipAddress?: string | null
+  port?: number | null
+  deviceId?: string | null
+  bluetoothAddress?: string | null
+  paperWidth?: number
+  encoding?: string
+  characterPerLine?: number
+  isDefault?: boolean
+  isActive?: boolean
+  status?: $Enums.PrinterStatus
+  lastSeenAt?: Date | string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutPosPrintersInput
+  printJobs?: Prisma.PrintJobCreateNestedManyWithoutPrinterInput
+}
+
+export type PosPrinterUncheckedCreateWithoutAgentInput = {
+  id?: string
+  tenantId: string
+  name: string
+  type: $Enums.PrinterType
+  connection: $Enums.PrinterConnection
+  ipAddress?: string | null
+  port?: number | null
+  deviceId?: string | null
+  bluetoothAddress?: string | null
+  paperWidth?: number
+  encoding?: string
+  characterPerLine?: number
+  isDefault?: boolean
+  isActive?: boolean
+  status?: $Enums.PrinterStatus
+  lastSeenAt?: Date | string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  printJobs?: Prisma.PrintJobUncheckedCreateNestedManyWithoutPrinterInput
+}
+
+export type PosPrinterCreateOrConnectWithoutAgentInput = {
+  where: Prisma.PosPrinterWhereUniqueInput
+  create: Prisma.XOR<Prisma.PosPrinterCreateWithoutAgentInput, Prisma.PosPrinterUncheckedCreateWithoutAgentInput>
+}
+
+export type PosPrinterCreateManyAgentInputEnvelope = {
+  data: Prisma.PosPrinterCreateManyAgentInput | Prisma.PosPrinterCreateManyAgentInput[]
+  skipDuplicates?: boolean
+}
+
+export type PosPrinterUpsertWithWhereUniqueWithoutAgentInput = {
+  where: Prisma.PosPrinterWhereUniqueInput
+  update: Prisma.XOR<Prisma.PosPrinterUpdateWithoutAgentInput, Prisma.PosPrinterUncheckedUpdateWithoutAgentInput>
+  create: Prisma.XOR<Prisma.PosPrinterCreateWithoutAgentInput, Prisma.PosPrinterUncheckedCreateWithoutAgentInput>
+}
+
+export type PosPrinterUpdateWithWhereUniqueWithoutAgentInput = {
+  where: Prisma.PosPrinterWhereUniqueInput
+  data: Prisma.XOR<Prisma.PosPrinterUpdateWithoutAgentInput, Prisma.PosPrinterUncheckedUpdateWithoutAgentInput>
+}
+
+export type PosPrinterUpdateManyWithWhereWithoutAgentInput = {
+  where: Prisma.PosPrinterScalarWhereInput
+  data: Prisma.XOR<Prisma.PosPrinterUpdateManyMutationInput, Prisma.PosPrinterUncheckedUpdateManyWithoutAgentInput>
 }
 
 export type PosPrinterCreateWithoutPrintJobsInput = {
@@ -816,10 +1059,15 @@ export type PosPrinterCreateWithoutPrintJobsInput = {
   characterPerLine?: number
   isDefault?: boolean
   isActive?: boolean
+  status?: $Enums.PrinterStatus
+  lastSeenAt?: Date | string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutPosPrintersInput
+  agent?: Prisma.PrintAgentCreateNestedOneWithoutPrintersInput
 }
 
 export type PosPrinterUncheckedCreateWithoutPrintJobsInput = {
@@ -837,6 +1085,11 @@ export type PosPrinterUncheckedCreateWithoutPrintJobsInput = {
   characterPerLine?: number
   isDefault?: boolean
   isActive?: boolean
+  status?: $Enums.PrinterStatus
+  lastSeenAt?: Date | string | null
+  agentId?: string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -872,10 +1125,15 @@ export type PosPrinterUpdateWithoutPrintJobsInput = {
   characterPerLine?: Prisma.IntFieldUpdateOperationsInput | number
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPrinterStatusFieldUpdateOperationsInput | $Enums.PrinterStatus
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosPrintersNestedInput
+  agent?: Prisma.PrintAgentUpdateOneWithoutPrintersNestedInput
 }
 
 export type PosPrinterUncheckedUpdateWithoutPrintJobsInput = {
@@ -893,6 +1151,11 @@ export type PosPrinterUncheckedUpdateWithoutPrintJobsInput = {
   characterPerLine?: Prisma.IntFieldUpdateOperationsInput | number
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPrinterStatusFieldUpdateOperationsInput | $Enums.PrinterStatus
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  agentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -912,6 +1175,11 @@ export type PosPrinterCreateManyTenantInput = {
   characterPerLine?: number
   isDefault?: boolean
   isActive?: boolean
+  status?: $Enums.PrinterStatus
+  lastSeenAt?: Date | string | null
+  agentId?: string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -931,9 +1199,14 @@ export type PosPrinterUpdateWithoutTenantInput = {
   characterPerLine?: Prisma.IntFieldUpdateOperationsInput | number
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPrinterStatusFieldUpdateOperationsInput | $Enums.PrinterStatus
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  agent?: Prisma.PrintAgentUpdateOneWithoutPrintersNestedInput
   printJobs?: Prisma.PrintJobUpdateManyWithoutPrinterNestedInput
 }
 
@@ -951,6 +1224,11 @@ export type PosPrinterUncheckedUpdateWithoutTenantInput = {
   characterPerLine?: Prisma.IntFieldUpdateOperationsInput | number
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPrinterStatusFieldUpdateOperationsInput | $Enums.PrinterStatus
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  agentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -971,6 +1249,109 @@ export type PosPrinterUncheckedUpdateManyWithoutTenantInput = {
   characterPerLine?: Prisma.IntFieldUpdateOperationsInput | number
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPrinterStatusFieldUpdateOperationsInput | $Enums.PrinterStatus
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  agentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type PosPrinterCreateManyAgentInput = {
+  id?: string
+  tenantId: string
+  name: string
+  type: $Enums.PrinterType
+  connection: $Enums.PrinterConnection
+  ipAddress?: string | null
+  port?: number | null
+  deviceId?: string | null
+  bluetoothAddress?: string | null
+  paperWidth?: number
+  encoding?: string
+  characterPerLine?: number
+  isDefault?: boolean
+  isActive?: boolean
+  status?: $Enums.PrinterStatus
+  lastSeenAt?: Date | string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type PosPrinterUpdateWithoutAgentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumPrinterTypeFieldUpdateOperationsInput | $Enums.PrinterType
+  connection?: Prisma.EnumPrinterConnectionFieldUpdateOperationsInput | $Enums.PrinterConnection
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  port?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bluetoothAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paperWidth?: Prisma.IntFieldUpdateOperationsInput | number
+  encoding?: Prisma.StringFieldUpdateOperationsInput | string
+  characterPerLine?: Prisma.IntFieldUpdateOperationsInput | number
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPrinterStatusFieldUpdateOperationsInput | $Enums.PrinterStatus
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutPosPrintersNestedInput
+  printJobs?: Prisma.PrintJobUpdateManyWithoutPrinterNestedInput
+}
+
+export type PosPrinterUncheckedUpdateWithoutAgentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumPrinterTypeFieldUpdateOperationsInput | $Enums.PrinterType
+  connection?: Prisma.EnumPrinterConnectionFieldUpdateOperationsInput | $Enums.PrinterConnection
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  port?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bluetoothAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paperWidth?: Prisma.IntFieldUpdateOperationsInput | number
+  encoding?: Prisma.StringFieldUpdateOperationsInput | string
+  characterPerLine?: Prisma.IntFieldUpdateOperationsInput | number
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPrinterStatusFieldUpdateOperationsInput | $Enums.PrinterStatus
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  printJobs?: Prisma.PrintJobUncheckedUpdateManyWithoutPrinterNestedInput
+}
+
+export type PosPrinterUncheckedUpdateManyWithoutAgentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumPrinterTypeFieldUpdateOperationsInput | $Enums.PrinterType
+  connection?: Prisma.EnumPrinterConnectionFieldUpdateOperationsInput | $Enums.PrinterConnection
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  port?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bluetoothAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paperWidth?: Prisma.IntFieldUpdateOperationsInput | number
+  encoding?: Prisma.StringFieldUpdateOperationsInput | string
+  characterPerLine?: Prisma.IntFieldUpdateOperationsInput | number
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPrinterStatusFieldUpdateOperationsInput | $Enums.PrinterStatus
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capabilities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  osName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1022,10 +1403,16 @@ export type PosPrinterSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   characterPerLine?: boolean
   isDefault?: boolean
   isActive?: boolean
+  status?: boolean
+  lastSeenAt?: boolean
+  agentId?: boolean
+  capabilities?: boolean
+  osName?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  agent?: boolean | Prisma.PosPrinter$agentArgs<ExtArgs>
   printJobs?: boolean | Prisma.PosPrinter$printJobsArgs<ExtArgs>
   _count?: boolean | Prisma.PosPrinterCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["posPrinter"]>
@@ -1045,10 +1432,16 @@ export type PosPrinterSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   characterPerLine?: boolean
   isDefault?: boolean
   isActive?: boolean
+  status?: boolean
+  lastSeenAt?: boolean
+  agentId?: boolean
+  capabilities?: boolean
+  osName?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  agent?: boolean | Prisma.PosPrinter$agentArgs<ExtArgs>
 }, ExtArgs["result"]["posPrinter"]>
 
 export type PosPrinterSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1066,10 +1459,16 @@ export type PosPrinterSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   characterPerLine?: boolean
   isDefault?: boolean
   isActive?: boolean
+  status?: boolean
+  lastSeenAt?: boolean
+  agentId?: boolean
+  capabilities?: boolean
+  osName?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  agent?: boolean | Prisma.PosPrinter$agentArgs<ExtArgs>
 }, ExtArgs["result"]["posPrinter"]>
 
 export type PosPrinterSelectScalar = {
@@ -1087,28 +1486,37 @@ export type PosPrinterSelectScalar = {
   characterPerLine?: boolean
   isDefault?: boolean
   isActive?: boolean
+  status?: boolean
+  lastSeenAt?: boolean
+  agentId?: boolean
+  capabilities?: boolean
+  osName?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type PosPrinterOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "type" | "connection" | "ipAddress" | "port" | "deviceId" | "bluetoothAddress" | "paperWidth" | "encoding" | "characterPerLine" | "isDefault" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["posPrinter"]>
+export type PosPrinterOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "type" | "connection" | "ipAddress" | "port" | "deviceId" | "bluetoothAddress" | "paperWidth" | "encoding" | "characterPerLine" | "isDefault" | "isActive" | "status" | "lastSeenAt" | "agentId" | "capabilities" | "osName" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["posPrinter"]>
 export type PosPrinterInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  agent?: boolean | Prisma.PosPrinter$agentArgs<ExtArgs>
   printJobs?: boolean | Prisma.PosPrinter$printJobsArgs<ExtArgs>
   _count?: boolean | Prisma.PosPrinterCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PosPrinterIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  agent?: boolean | Prisma.PosPrinter$agentArgs<ExtArgs>
 }
 export type PosPrinterIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  agent?: boolean | Prisma.PosPrinter$agentArgs<ExtArgs>
 }
 
 export type $PosPrinterPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "PosPrinter"
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
+    agent: Prisma.$PrintAgentPayload<ExtArgs> | null
     printJobs: Prisma.$PrintJobPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1126,6 +1534,11 @@ export type $PosPrinterPayload<ExtArgs extends runtime.Types.Extensions.Internal
     characterPerLine: number
     isDefault: boolean
     isActive: boolean
+    status: $Enums.PrinterStatus
+    lastSeenAt: Date | null
+    agentId: string | null
+    capabilities: runtime.JsonValue | null
+    osName: string | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -1524,6 +1937,7 @@ readonly fields: PosPrinterFieldRefs;
 export interface Prisma__PosPrinterClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  agent<T extends Prisma.PosPrinter$agentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosPrinter$agentArgs<ExtArgs>>): Prisma.Prisma__PrintAgentClient<runtime.Types.Result.GetResult<Prisma.$PrintAgentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   printJobs<T extends Prisma.PosPrinter$printJobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosPrinter$printJobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PrintJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1568,6 +1982,11 @@ export interface PosPrinterFieldRefs {
   readonly characterPerLine: Prisma.FieldRef<"PosPrinter", 'Int'>
   readonly isDefault: Prisma.FieldRef<"PosPrinter", 'Boolean'>
   readonly isActive: Prisma.FieldRef<"PosPrinter", 'Boolean'>
+  readonly status: Prisma.FieldRef<"PosPrinter", 'PrinterStatus'>
+  readonly lastSeenAt: Prisma.FieldRef<"PosPrinter", 'DateTime'>
+  readonly agentId: Prisma.FieldRef<"PosPrinter", 'String'>
+  readonly capabilities: Prisma.FieldRef<"PosPrinter", 'Json'>
+  readonly osName: Prisma.FieldRef<"PosPrinter", 'String'>
   readonly createdAt: Prisma.FieldRef<"PosPrinter", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"PosPrinter", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"PosPrinter", 'DateTime'>
@@ -1964,6 +2383,25 @@ export type PosPrinterDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Limit how many PosPrinters to delete.
    */
   limit?: number
+}
+
+/**
+ * PosPrinter.agent
+ */
+export type PosPrinter$agentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PrintAgent
+   */
+  select?: Prisma.PrintAgentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PrintAgent
+   */
+  omit?: Prisma.PrintAgentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PrintAgentInclude<ExtArgs> | null
+  where?: Prisma.PrintAgentWhereInput
 }
 
 /**

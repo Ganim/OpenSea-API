@@ -1253,6 +1253,16 @@ export type AiInsight = Prisma.AiInsightModel
  */
 export type PosTerminal = Prisma.PosTerminalModel
 /**
+ * Model PosTerminalWarehouse
+ * 
+ */
+export type PosTerminalWarehouse = Prisma.PosTerminalWarehouseModel
+/**
+ * Model PosDevicePairing
+ * 
+ */
+export type PosDevicePairing = Prisma.PosDevicePairingModel
+/**
  * Model PosSession
  * 
  */
@@ -1777,6 +1787,11 @@ export type PaymentCharge = Prisma.PaymentChargeModel
  * 
  */
 export type Invoice = Prisma.InvoiceModel
+/**
+ * Model PrintAgent
+ * 
+ */
+export type PrintAgent = Prisma.PrintAgentModel
 /**
  * Model PosPrinter
  * 

@@ -3917,13 +3917,6 @@ export type EnumPosTerminalModeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumPosTerminalModeFilter<$PrismaModel> | $Enums.PosTerminalMode
 }
 
-export type EnumPosCashierModeFilter<$PrismaModel = never> = {
-  equals?: $Enums.PosCashierMode | Prisma.EnumPosCashierModeFieldRefInput<$PrismaModel>
-  in?: $Enums.PosCashierMode[] | Prisma.ListEnumPosCashierModeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.PosCashierMode[] | Prisma.ListEnumPosCashierModeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumPosCashierModeFilter<$PrismaModel> | $Enums.PosCashierMode
-}
-
 export type EnumPosTerminalModeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.PosTerminalMode | Prisma.EnumPosTerminalModeFieldRefInput<$PrismaModel>
   in?: $Enums.PosTerminalMode[] | Prisma.ListEnumPosTerminalModeFieldRefInput<$PrismaModel>
@@ -3932,16 +3925,6 @@ export type EnumPosTerminalModeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumPosTerminalModeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumPosTerminalModeFilter<$PrismaModel>
-}
-
-export type EnumPosCashierModeWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.PosCashierMode | Prisma.EnumPosCashierModeFieldRefInput<$PrismaModel>
-  in?: $Enums.PosCashierMode[] | Prisma.ListEnumPosCashierModeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.PosCashierMode[] | Prisma.ListEnumPosCashierModeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumPosCashierModeWithAggregatesFilter<$PrismaModel> | $Enums.PosCashierMode
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumPosCashierModeFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumPosCashierModeFilter<$PrismaModel>
 }
 
 export type EnumPosSessionStatusFilter<$PrismaModel = never> = {
@@ -5423,6 +5406,23 @@ export type EnumInvoiceStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumInvoiceStatusFilter<$PrismaModel>
 }
 
+export type EnumAgentStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.AgentStatus | Prisma.EnumAgentStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AgentStatus[] | Prisma.ListEnumAgentStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AgentStatus[] | Prisma.ListEnumAgentStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAgentStatusFilter<$PrismaModel> | $Enums.AgentStatus
+}
+
+export type EnumAgentStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AgentStatus | Prisma.EnumAgentStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AgentStatus[] | Prisma.ListEnumAgentStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AgentStatus[] | Prisma.ListEnumAgentStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAgentStatusWithAggregatesFilter<$PrismaModel> | $Enums.AgentStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAgentStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAgentStatusFilter<$PrismaModel>
+}
+
 export type EnumPrinterTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.PrinterType | Prisma.EnumPrinterTypeFieldRefInput<$PrismaModel>
   in?: $Enums.PrinterType[] | Prisma.ListEnumPrinterTypeFieldRefInput<$PrismaModel>
@@ -5435,6 +5435,13 @@ export type EnumPrinterConnectionFilter<$PrismaModel = never> = {
   in?: $Enums.PrinterConnection[] | Prisma.ListEnumPrinterConnectionFieldRefInput<$PrismaModel>
   notIn?: $Enums.PrinterConnection[] | Prisma.ListEnumPrinterConnectionFieldRefInput<$PrismaModel>
   not?: Prisma.NestedEnumPrinterConnectionFilter<$PrismaModel> | $Enums.PrinterConnection
+}
+
+export type EnumPrinterStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.PrinterStatus | Prisma.EnumPrinterStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PrinterStatus[] | Prisma.ListEnumPrinterStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PrinterStatus[] | Prisma.ListEnumPrinterStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPrinterStatusFilter<$PrismaModel> | $Enums.PrinterStatus
 }
 
 export type EnumPrinterTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -5455,6 +5462,16 @@ export type EnumPrinterConnectionWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumPrinterConnectionFilter<$PrismaModel>
   _max?: Prisma.NestedEnumPrinterConnectionFilter<$PrismaModel>
+}
+
+export type EnumPrinterStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PrinterStatus | Prisma.EnumPrinterStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PrinterStatus[] | Prisma.ListEnumPrinterStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PrinterStatus[] | Prisma.ListEnumPrinterStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPrinterStatusWithAggregatesFilter<$PrismaModel> | $Enums.PrinterStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPrinterStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPrinterStatusFilter<$PrismaModel>
 }
 
 export type EnumPrintJobTypeFilter<$PrismaModel = never> = {
@@ -9331,13 +9348,6 @@ export type NestedEnumPosTerminalModeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumPosTerminalModeFilter<$PrismaModel> | $Enums.PosTerminalMode
 }
 
-export type NestedEnumPosCashierModeFilter<$PrismaModel = never> = {
-  equals?: $Enums.PosCashierMode | Prisma.EnumPosCashierModeFieldRefInput<$PrismaModel>
-  in?: $Enums.PosCashierMode[] | Prisma.ListEnumPosCashierModeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.PosCashierMode[] | Prisma.ListEnumPosCashierModeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumPosCashierModeFilter<$PrismaModel> | $Enums.PosCashierMode
-}
-
 export type NestedEnumPosTerminalModeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.PosTerminalMode | Prisma.EnumPosTerminalModeFieldRefInput<$PrismaModel>
   in?: $Enums.PosTerminalMode[] | Prisma.ListEnumPosTerminalModeFieldRefInput<$PrismaModel>
@@ -9346,16 +9356,6 @@ export type NestedEnumPosTerminalModeWithAggregatesFilter<$PrismaModel = never> 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumPosTerminalModeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumPosTerminalModeFilter<$PrismaModel>
-}
-
-export type NestedEnumPosCashierModeWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.PosCashierMode | Prisma.EnumPosCashierModeFieldRefInput<$PrismaModel>
-  in?: $Enums.PosCashierMode[] | Prisma.ListEnumPosCashierModeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.PosCashierMode[] | Prisma.ListEnumPosCashierModeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumPosCashierModeWithAggregatesFilter<$PrismaModel> | $Enums.PosCashierMode
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumPosCashierModeFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumPosCashierModeFilter<$PrismaModel>
 }
 
 export type NestedEnumPosSessionStatusFilter<$PrismaModel = never> = {
@@ -10837,6 +10837,23 @@ export type NestedEnumInvoiceStatusWithAggregatesFilter<$PrismaModel = never> = 
   _max?: Prisma.NestedEnumInvoiceStatusFilter<$PrismaModel>
 }
 
+export type NestedEnumAgentStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.AgentStatus | Prisma.EnumAgentStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AgentStatus[] | Prisma.ListEnumAgentStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AgentStatus[] | Prisma.ListEnumAgentStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAgentStatusFilter<$PrismaModel> | $Enums.AgentStatus
+}
+
+export type NestedEnumAgentStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AgentStatus | Prisma.EnumAgentStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AgentStatus[] | Prisma.ListEnumAgentStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AgentStatus[] | Prisma.ListEnumAgentStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAgentStatusWithAggregatesFilter<$PrismaModel> | $Enums.AgentStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAgentStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAgentStatusFilter<$PrismaModel>
+}
+
 export type NestedEnumPrinterTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.PrinterType | Prisma.EnumPrinterTypeFieldRefInput<$PrismaModel>
   in?: $Enums.PrinterType[] | Prisma.ListEnumPrinterTypeFieldRefInput<$PrismaModel>
@@ -10849,6 +10866,13 @@ export type NestedEnumPrinterConnectionFilter<$PrismaModel = never> = {
   in?: $Enums.PrinterConnection[] | Prisma.ListEnumPrinterConnectionFieldRefInput<$PrismaModel>
   notIn?: $Enums.PrinterConnection[] | Prisma.ListEnumPrinterConnectionFieldRefInput<$PrismaModel>
   not?: Prisma.NestedEnumPrinterConnectionFilter<$PrismaModel> | $Enums.PrinterConnection
+}
+
+export type NestedEnumPrinterStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.PrinterStatus | Prisma.EnumPrinterStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PrinterStatus[] | Prisma.ListEnumPrinterStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PrinterStatus[] | Prisma.ListEnumPrinterStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPrinterStatusFilter<$PrismaModel> | $Enums.PrinterStatus
 }
 
 export type NestedEnumPrinterTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -10869,6 +10893,16 @@ export type NestedEnumPrinterConnectionWithAggregatesFilter<$PrismaModel = never
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumPrinterConnectionFilter<$PrismaModel>
   _max?: Prisma.NestedEnumPrinterConnectionFilter<$PrismaModel>
+}
+
+export type NestedEnumPrinterStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PrinterStatus | Prisma.EnumPrinterStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PrinterStatus[] | Prisma.ListEnumPrinterStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PrinterStatus[] | Prisma.ListEnumPrinterStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPrinterStatusWithAggregatesFilter<$PrismaModel> | $Enums.PrinterStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPrinterStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPrinterStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumPrintJobTypeFilter<$PrismaModel = never> = {

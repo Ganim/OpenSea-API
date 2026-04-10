@@ -27,17 +27,20 @@ export type AggregatePosTerminal = {
 export type PosTerminalMinAggregateOutputType = {
   id: string | null
   tenantId: string | null
-  name: string | null
-  deviceId: string | null
+  terminalName: string | null
+  terminalCode: string | null
+  totemCode: string | null
   mode: $Enums.PosTerminalMode | null
-  cashierMode: $Enums.PosCashierMode | null
   acceptsPendingOrders: boolean | null
   requiresSession: boolean | null
-  warehouseId: string | null
+  allowAnonymous: boolean | null
+  systemUserId: string | null
+  pairingSecret: string | null
   defaultPriceTableId: string | null
   isActive: boolean | null
   lastSyncAt: Date | null
   lastOnlineAt: Date | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -45,17 +48,20 @@ export type PosTerminalMinAggregateOutputType = {
 export type PosTerminalMaxAggregateOutputType = {
   id: string | null
   tenantId: string | null
-  name: string | null
-  deviceId: string | null
+  terminalName: string | null
+  terminalCode: string | null
+  totemCode: string | null
   mode: $Enums.PosTerminalMode | null
-  cashierMode: $Enums.PosCashierMode | null
   acceptsPendingOrders: boolean | null
   requiresSession: boolean | null
-  warehouseId: string | null
+  allowAnonymous: boolean | null
+  systemUserId: string | null
+  pairingSecret: string | null
   defaultPriceTableId: string | null
   isActive: boolean | null
   lastSyncAt: Date | null
   lastOnlineAt: Date | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -63,18 +69,21 @@ export type PosTerminalMaxAggregateOutputType = {
 export type PosTerminalCountAggregateOutputType = {
   id: number
   tenantId: number
-  name: number
-  deviceId: number
+  terminalName: number
+  terminalCode: number
+  totemCode: number
   mode: number
-  cashierMode: number
   acceptsPendingOrders: number
   requiresSession: number
-  warehouseId: number
+  allowAnonymous: number
+  systemUserId: number
+  pairingSecret: number
   defaultPriceTableId: number
   isActive: number
   lastSyncAt: number
   lastOnlineAt: number
   settings: number
+  deletedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -84,17 +93,20 @@ export type PosTerminalCountAggregateOutputType = {
 export type PosTerminalMinAggregateInputType = {
   id?: true
   tenantId?: true
-  name?: true
-  deviceId?: true
+  terminalName?: true
+  terminalCode?: true
+  totemCode?: true
   mode?: true
-  cashierMode?: true
   acceptsPendingOrders?: true
   requiresSession?: true
-  warehouseId?: true
+  allowAnonymous?: true
+  systemUserId?: true
+  pairingSecret?: true
   defaultPriceTableId?: true
   isActive?: true
   lastSyncAt?: true
   lastOnlineAt?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -102,17 +114,20 @@ export type PosTerminalMinAggregateInputType = {
 export type PosTerminalMaxAggregateInputType = {
   id?: true
   tenantId?: true
-  name?: true
-  deviceId?: true
+  terminalName?: true
+  terminalCode?: true
+  totemCode?: true
   mode?: true
-  cashierMode?: true
   acceptsPendingOrders?: true
   requiresSession?: true
-  warehouseId?: true
+  allowAnonymous?: true
+  systemUserId?: true
+  pairingSecret?: true
   defaultPriceTableId?: true
   isActive?: true
   lastSyncAt?: true
   lastOnlineAt?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -120,18 +135,21 @@ export type PosTerminalMaxAggregateInputType = {
 export type PosTerminalCountAggregateInputType = {
   id?: true
   tenantId?: true
-  name?: true
-  deviceId?: true
+  terminalName?: true
+  terminalCode?: true
+  totemCode?: true
   mode?: true
-  cashierMode?: true
   acceptsPendingOrders?: true
   requiresSession?: true
-  warehouseId?: true
+  allowAnonymous?: true
+  systemUserId?: true
+  pairingSecret?: true
   defaultPriceTableId?: true
   isActive?: true
   lastSyncAt?: true
   lastOnlineAt?: true
   settings?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -212,18 +230,21 @@ export type PosTerminalGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type PosTerminalGroupByOutputType = {
   id: string
   tenantId: string
-  name: string
-  deviceId: string
+  terminalName: string
+  terminalCode: string
+  totemCode: string | null
   mode: $Enums.PosTerminalMode
-  cashierMode: $Enums.PosCashierMode
   acceptsPendingOrders: boolean
   requiresSession: boolean
-  warehouseId: string
+  allowAnonymous: boolean
+  systemUserId: string | null
+  pairingSecret: string | null
   defaultPriceTableId: string | null
   isActive: boolean
   lastSyncAt: Date | null
   lastOnlineAt: Date | null
   settings: runtime.JsonValue | null
+  deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: PosTerminalCountAggregateOutputType | null
@@ -252,97 +273,117 @@ export type PosTerminalWhereInput = {
   NOT?: Prisma.PosTerminalWhereInput | Prisma.PosTerminalWhereInput[]
   id?: Prisma.StringFilter<"PosTerminal"> | string
   tenantId?: Prisma.StringFilter<"PosTerminal"> | string
-  name?: Prisma.StringFilter<"PosTerminal"> | string
-  deviceId?: Prisma.StringFilter<"PosTerminal"> | string
+  terminalName?: Prisma.StringFilter<"PosTerminal"> | string
+  terminalCode?: Prisma.StringFilter<"PosTerminal"> | string
+  totemCode?: Prisma.StringNullableFilter<"PosTerminal"> | string | null
   mode?: Prisma.EnumPosTerminalModeFilter<"PosTerminal"> | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFilter<"PosTerminal"> | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFilter<"PosTerminal"> | boolean
   requiresSession?: Prisma.BoolFilter<"PosTerminal"> | boolean
-  warehouseId?: Prisma.StringFilter<"PosTerminal"> | string
+  allowAnonymous?: Prisma.BoolFilter<"PosTerminal"> | boolean
+  systemUserId?: Prisma.StringNullableFilter<"PosTerminal"> | string | null
+  pairingSecret?: Prisma.StringNullableFilter<"PosTerminal"> | string | null
   defaultPriceTableId?: Prisma.StringNullableFilter<"PosTerminal"> | string | null
   isActive?: Prisma.BoolFilter<"PosTerminal"> | boolean
   lastSyncAt?: Prisma.DateTimeNullableFilter<"PosTerminal"> | Date | string | null
   lastOnlineAt?: Prisma.DateTimeNullableFilter<"PosTerminal"> | Date | string | null
   settings?: Prisma.JsonNullableFilter<"PosTerminal">
+  deletedAt?: Prisma.DateTimeNullableFilter<"PosTerminal"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"PosTerminal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PosTerminal"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
-  warehouse?: Prisma.XOR<Prisma.WarehouseScalarRelationFilter, Prisma.WarehouseWhereInput>
   priceTable?: Prisma.XOR<Prisma.PriceTableNullableScalarRelationFilter, Prisma.PriceTableWhereInput> | null
+  systemUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  warehouses?: Prisma.PosTerminalWarehouseListRelationFilter
+  devicePairing?: Prisma.XOR<Prisma.PosDevicePairingNullableScalarRelationFilter, Prisma.PosDevicePairingWhereInput> | null
   sessions?: Prisma.PosSessionListRelationFilter
   offlineQueue?: Prisma.PosOfflineQueueListRelationFilter
   cashierSessions?: Prisma.CashierSessionListRelationFilter
+  orders?: Prisma.OrderListRelationFilter
 }
 
 export type PosTerminalOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  deviceId?: Prisma.SortOrder
+  terminalName?: Prisma.SortOrder
+  terminalCode?: Prisma.SortOrder
+  totemCode?: Prisma.SortOrderInput | Prisma.SortOrder
   mode?: Prisma.SortOrder
-  cashierMode?: Prisma.SortOrder
   acceptsPendingOrders?: Prisma.SortOrder
   requiresSession?: Prisma.SortOrder
-  warehouseId?: Prisma.SortOrder
+  allowAnonymous?: Prisma.SortOrder
+  systemUserId?: Prisma.SortOrderInput | Prisma.SortOrder
+  pairingSecret?: Prisma.SortOrderInput | Prisma.SortOrder
   defaultPriceTableId?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
   lastSyncAt?: Prisma.SortOrderInput | Prisma.SortOrder
   lastOnlineAt?: Prisma.SortOrderInput | Prisma.SortOrder
   settings?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
-  warehouse?: Prisma.WarehouseOrderByWithRelationInput
   priceTable?: Prisma.PriceTableOrderByWithRelationInput
+  systemUser?: Prisma.UserOrderByWithRelationInput
+  warehouses?: Prisma.PosTerminalWarehouseOrderByRelationAggregateInput
+  devicePairing?: Prisma.PosDevicePairingOrderByWithRelationInput
   sessions?: Prisma.PosSessionOrderByRelationAggregateInput
   offlineQueue?: Prisma.PosOfflineQueueOrderByRelationAggregateInput
   cashierSessions?: Prisma.CashierSessionOrderByRelationAggregateInput
+  orders?: Prisma.OrderOrderByRelationAggregateInput
 }
 
 export type PosTerminalWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  tenantId_deviceId?: Prisma.PosTerminalTenantIdDeviceIdCompoundUniqueInput
+  terminalCode?: string
+  totemCode?: string
+  systemUserId?: string
   AND?: Prisma.PosTerminalWhereInput | Prisma.PosTerminalWhereInput[]
   OR?: Prisma.PosTerminalWhereInput[]
   NOT?: Prisma.PosTerminalWhereInput | Prisma.PosTerminalWhereInput[]
   tenantId?: Prisma.StringFilter<"PosTerminal"> | string
-  name?: Prisma.StringFilter<"PosTerminal"> | string
-  deviceId?: Prisma.StringFilter<"PosTerminal"> | string
+  terminalName?: Prisma.StringFilter<"PosTerminal"> | string
   mode?: Prisma.EnumPosTerminalModeFilter<"PosTerminal"> | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFilter<"PosTerminal"> | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFilter<"PosTerminal"> | boolean
   requiresSession?: Prisma.BoolFilter<"PosTerminal"> | boolean
-  warehouseId?: Prisma.StringFilter<"PosTerminal"> | string
+  allowAnonymous?: Prisma.BoolFilter<"PosTerminal"> | boolean
+  pairingSecret?: Prisma.StringNullableFilter<"PosTerminal"> | string | null
   defaultPriceTableId?: Prisma.StringNullableFilter<"PosTerminal"> | string | null
   isActive?: Prisma.BoolFilter<"PosTerminal"> | boolean
   lastSyncAt?: Prisma.DateTimeNullableFilter<"PosTerminal"> | Date | string | null
   lastOnlineAt?: Prisma.DateTimeNullableFilter<"PosTerminal"> | Date | string | null
   settings?: Prisma.JsonNullableFilter<"PosTerminal">
+  deletedAt?: Prisma.DateTimeNullableFilter<"PosTerminal"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"PosTerminal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PosTerminal"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
-  warehouse?: Prisma.XOR<Prisma.WarehouseScalarRelationFilter, Prisma.WarehouseWhereInput>
   priceTable?: Prisma.XOR<Prisma.PriceTableNullableScalarRelationFilter, Prisma.PriceTableWhereInput> | null
+  systemUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  warehouses?: Prisma.PosTerminalWarehouseListRelationFilter
+  devicePairing?: Prisma.XOR<Prisma.PosDevicePairingNullableScalarRelationFilter, Prisma.PosDevicePairingWhereInput> | null
   sessions?: Prisma.PosSessionListRelationFilter
   offlineQueue?: Prisma.PosOfflineQueueListRelationFilter
   cashierSessions?: Prisma.CashierSessionListRelationFilter
-}, "id" | "tenantId_deviceId">
+  orders?: Prisma.OrderListRelationFilter
+}, "id" | "terminalCode" | "totemCode" | "systemUserId">
 
 export type PosTerminalOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  deviceId?: Prisma.SortOrder
+  terminalName?: Prisma.SortOrder
+  terminalCode?: Prisma.SortOrder
+  totemCode?: Prisma.SortOrderInput | Prisma.SortOrder
   mode?: Prisma.SortOrder
-  cashierMode?: Prisma.SortOrder
   acceptsPendingOrders?: Prisma.SortOrder
   requiresSession?: Prisma.SortOrder
-  warehouseId?: Prisma.SortOrder
+  allowAnonymous?: Prisma.SortOrder
+  systemUserId?: Prisma.SortOrderInput | Prisma.SortOrder
+  pairingSecret?: Prisma.SortOrderInput | Prisma.SortOrder
   defaultPriceTableId?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
   lastSyncAt?: Prisma.SortOrderInput | Prisma.SortOrder
   lastOnlineAt?: Prisma.SortOrderInput | Prisma.SortOrder
   settings?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PosTerminalCountOrderByAggregateInput
@@ -356,141 +397,174 @@ export type PosTerminalScalarWhereWithAggregatesInput = {
   NOT?: Prisma.PosTerminalScalarWhereWithAggregatesInput | Prisma.PosTerminalScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"PosTerminal"> | string
   tenantId?: Prisma.StringWithAggregatesFilter<"PosTerminal"> | string
-  name?: Prisma.StringWithAggregatesFilter<"PosTerminal"> | string
-  deviceId?: Prisma.StringWithAggregatesFilter<"PosTerminal"> | string
+  terminalName?: Prisma.StringWithAggregatesFilter<"PosTerminal"> | string
+  terminalCode?: Prisma.StringWithAggregatesFilter<"PosTerminal"> | string
+  totemCode?: Prisma.StringNullableWithAggregatesFilter<"PosTerminal"> | string | null
   mode?: Prisma.EnumPosTerminalModeWithAggregatesFilter<"PosTerminal"> | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeWithAggregatesFilter<"PosTerminal"> | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolWithAggregatesFilter<"PosTerminal"> | boolean
   requiresSession?: Prisma.BoolWithAggregatesFilter<"PosTerminal"> | boolean
-  warehouseId?: Prisma.StringWithAggregatesFilter<"PosTerminal"> | string
+  allowAnonymous?: Prisma.BoolWithAggregatesFilter<"PosTerminal"> | boolean
+  systemUserId?: Prisma.StringNullableWithAggregatesFilter<"PosTerminal"> | string | null
+  pairingSecret?: Prisma.StringNullableWithAggregatesFilter<"PosTerminal"> | string | null
   defaultPriceTableId?: Prisma.StringNullableWithAggregatesFilter<"PosTerminal"> | string | null
   isActive?: Prisma.BoolWithAggregatesFilter<"PosTerminal"> | boolean
   lastSyncAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PosTerminal"> | Date | string | null
   lastOnlineAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PosTerminal"> | Date | string | null
   settings?: Prisma.JsonNullableWithAggregatesFilter<"PosTerminal">
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PosTerminal"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PosTerminal"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PosTerminal"> | Date | string
 }
 
 export type PosTerminalCreateInput = {
   id?: string
-  name: string
-  deviceId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
   mode: $Enums.PosTerminalMode
-  cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
+  allowAnonymous?: boolean
+  pairingSecret?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPosTerminalsInput
-  warehouse: Prisma.WarehouseCreateNestedOneWithoutPosTerminalsInput
   priceTable?: Prisma.PriceTableCreateNestedOneWithoutPosTerminalsInput
+  systemUser?: Prisma.UserCreateNestedOneWithoutPosTerminalsAsSystemInput
+  warehouses?: Prisma.PosTerminalWarehouseCreateNestedManyWithoutTerminalInput
+  devicePairing?: Prisma.PosDevicePairingCreateNestedOneWithoutTerminalInput
   sessions?: Prisma.PosSessionCreateNestedManyWithoutTerminalInput
   offlineQueue?: Prisma.PosOfflineQueueCreateNestedManyWithoutTerminalInput
   cashierSessions?: Prisma.CashierSessionCreateNestedManyWithoutPosTerminalInput
+  orders?: Prisma.OrderCreateNestedManyWithoutTerminalInput
 }
 
 export type PosTerminalUncheckedCreateInput = {
   id?: string
   tenantId: string
-  name: string
-  deviceId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
   mode: $Enums.PosTerminalMode
-  cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
-  warehouseId: string
+  allowAnonymous?: boolean
+  systemUserId?: string | null
+  pairingSecret?: string | null
   defaultPriceTableId?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  warehouses?: Prisma.PosTerminalWarehouseUncheckedCreateNestedManyWithoutTerminalInput
+  devicePairing?: Prisma.PosDevicePairingUncheckedCreateNestedOneWithoutTerminalInput
   sessions?: Prisma.PosSessionUncheckedCreateNestedManyWithoutTerminalInput
   offlineQueue?: Prisma.PosOfflineQueueUncheckedCreateNestedManyWithoutTerminalInput
   cashierSessions?: Prisma.CashierSessionUncheckedCreateNestedManyWithoutPosTerminalInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutTerminalInput
 }
 
 export type PosTerminalUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTerminalsNestedInput
-  warehouse?: Prisma.WarehouseUpdateOneRequiredWithoutPosTerminalsNestedInput
   priceTable?: Prisma.PriceTableUpdateOneWithoutPosTerminalsNestedInput
+  systemUser?: Prisma.UserUpdateOneWithoutPosTerminalsAsSystemNestedInput
+  warehouses?: Prisma.PosTerminalWarehouseUpdateManyWithoutTerminalNestedInput
+  devicePairing?: Prisma.PosDevicePairingUpdateOneWithoutTerminalNestedInput
   sessions?: Prisma.PosSessionUpdateManyWithoutTerminalNestedInput
   offlineQueue?: Prisma.PosOfflineQueueUpdateManyWithoutTerminalNestedInput
   cashierSessions?: Prisma.CashierSessionUpdateManyWithoutPosTerminalNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutTerminalNestedInput
 }
 
 export type PosTerminalUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  warehouseId?: Prisma.StringFieldUpdateOperationsInput | string
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  systemUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  warehouses?: Prisma.PosTerminalWarehouseUncheckedUpdateManyWithoutTerminalNestedInput
+  devicePairing?: Prisma.PosDevicePairingUncheckedUpdateOneWithoutTerminalNestedInput
   sessions?: Prisma.PosSessionUncheckedUpdateManyWithoutTerminalNestedInput
   offlineQueue?: Prisma.PosOfflineQueueUncheckedUpdateManyWithoutTerminalNestedInput
   cashierSessions?: Prisma.CashierSessionUncheckedUpdateManyWithoutPosTerminalNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutTerminalNestedInput
 }
 
 export type PosTerminalCreateManyInput = {
   id?: string
   tenantId: string
-  name: string
-  deviceId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
   mode: $Enums.PosTerminalMode
-  cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
-  warehouseId: string
+  allowAnonymous?: boolean
+  systemUserId?: string | null
+  pairingSecret?: string | null
   defaultPriceTableId?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type PosTerminalUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -498,18 +572,21 @@ export type PosTerminalUpdateManyMutationInput = {
 export type PosTerminalUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  warehouseId?: Prisma.StringFieldUpdateOperationsInput | string
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  systemUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -524,26 +601,29 @@ export type PosTerminalOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type PosTerminalTenantIdDeviceIdCompoundUniqueInput = {
-  tenantId: string
-  deviceId: string
+export type PosTerminalNullableScalarRelationFilter = {
+  is?: Prisma.PosTerminalWhereInput | null
+  isNot?: Prisma.PosTerminalWhereInput | null
 }
 
 export type PosTerminalCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  deviceId?: Prisma.SortOrder
+  terminalName?: Prisma.SortOrder
+  terminalCode?: Prisma.SortOrder
+  totemCode?: Prisma.SortOrder
   mode?: Prisma.SortOrder
-  cashierMode?: Prisma.SortOrder
   acceptsPendingOrders?: Prisma.SortOrder
   requiresSession?: Prisma.SortOrder
-  warehouseId?: Prisma.SortOrder
+  allowAnonymous?: Prisma.SortOrder
+  systemUserId?: Prisma.SortOrder
+  pairingSecret?: Prisma.SortOrder
   defaultPriceTableId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   lastSyncAt?: Prisma.SortOrder
   lastOnlineAt?: Prisma.SortOrder
   settings?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -551,17 +631,20 @@ export type PosTerminalCountOrderByAggregateInput = {
 export type PosTerminalMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  deviceId?: Prisma.SortOrder
+  terminalName?: Prisma.SortOrder
+  terminalCode?: Prisma.SortOrder
+  totemCode?: Prisma.SortOrder
   mode?: Prisma.SortOrder
-  cashierMode?: Prisma.SortOrder
   acceptsPendingOrders?: Prisma.SortOrder
   requiresSession?: Prisma.SortOrder
-  warehouseId?: Prisma.SortOrder
+  allowAnonymous?: Prisma.SortOrder
+  systemUserId?: Prisma.SortOrder
+  pairingSecret?: Prisma.SortOrder
   defaultPriceTableId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   lastSyncAt?: Prisma.SortOrder
   lastOnlineAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -569,17 +652,20 @@ export type PosTerminalMaxOrderByAggregateInput = {
 export type PosTerminalMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  deviceId?: Prisma.SortOrder
+  terminalName?: Prisma.SortOrder
+  terminalCode?: Prisma.SortOrder
+  totemCode?: Prisma.SortOrder
   mode?: Prisma.SortOrder
-  cashierMode?: Prisma.SortOrder
   acceptsPendingOrders?: Prisma.SortOrder
   requiresSession?: Prisma.SortOrder
-  warehouseId?: Prisma.SortOrder
+  allowAnonymous?: Prisma.SortOrder
+  systemUserId?: Prisma.SortOrder
+  pairingSecret?: Prisma.SortOrder
   defaultPriceTableId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   lastSyncAt?: Prisma.SortOrder
   lastOnlineAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -589,50 +675,45 @@ export type PosTerminalScalarRelationFilter = {
   isNot?: Prisma.PosTerminalWhereInput
 }
 
-export type PosTerminalNullableScalarRelationFilter = {
-  is?: Prisma.PosTerminalWhereInput | null
-  isNot?: Prisma.PosTerminalWhereInput | null
-}
-
-export type PosTerminalCreateNestedManyWithoutWarehouseInput = {
-  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutWarehouseInput, Prisma.PosTerminalUncheckedCreateWithoutWarehouseInput> | Prisma.PosTerminalCreateWithoutWarehouseInput[] | Prisma.PosTerminalUncheckedCreateWithoutWarehouseInput[]
-  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutWarehouseInput | Prisma.PosTerminalCreateOrConnectWithoutWarehouseInput[]
-  createMany?: Prisma.PosTerminalCreateManyWarehouseInputEnvelope
+export type PosTerminalCreateNestedManyWithoutSystemUserInput = {
+  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutSystemUserInput, Prisma.PosTerminalUncheckedCreateWithoutSystemUserInput> | Prisma.PosTerminalCreateWithoutSystemUserInput[] | Prisma.PosTerminalUncheckedCreateWithoutSystemUserInput[]
+  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutSystemUserInput | Prisma.PosTerminalCreateOrConnectWithoutSystemUserInput[]
+  createMany?: Prisma.PosTerminalCreateManySystemUserInputEnvelope
   connect?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
 }
 
-export type PosTerminalUncheckedCreateNestedManyWithoutWarehouseInput = {
-  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutWarehouseInput, Prisma.PosTerminalUncheckedCreateWithoutWarehouseInput> | Prisma.PosTerminalCreateWithoutWarehouseInput[] | Prisma.PosTerminalUncheckedCreateWithoutWarehouseInput[]
-  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutWarehouseInput | Prisma.PosTerminalCreateOrConnectWithoutWarehouseInput[]
-  createMany?: Prisma.PosTerminalCreateManyWarehouseInputEnvelope
+export type PosTerminalUncheckedCreateNestedManyWithoutSystemUserInput = {
+  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutSystemUserInput, Prisma.PosTerminalUncheckedCreateWithoutSystemUserInput> | Prisma.PosTerminalCreateWithoutSystemUserInput[] | Prisma.PosTerminalUncheckedCreateWithoutSystemUserInput[]
+  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutSystemUserInput | Prisma.PosTerminalCreateOrConnectWithoutSystemUserInput[]
+  createMany?: Prisma.PosTerminalCreateManySystemUserInputEnvelope
   connect?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
 }
 
-export type PosTerminalUpdateManyWithoutWarehouseNestedInput = {
-  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutWarehouseInput, Prisma.PosTerminalUncheckedCreateWithoutWarehouseInput> | Prisma.PosTerminalCreateWithoutWarehouseInput[] | Prisma.PosTerminalUncheckedCreateWithoutWarehouseInput[]
-  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutWarehouseInput | Prisma.PosTerminalCreateOrConnectWithoutWarehouseInput[]
-  upsert?: Prisma.PosTerminalUpsertWithWhereUniqueWithoutWarehouseInput | Prisma.PosTerminalUpsertWithWhereUniqueWithoutWarehouseInput[]
-  createMany?: Prisma.PosTerminalCreateManyWarehouseInputEnvelope
+export type PosTerminalUpdateManyWithoutSystemUserNestedInput = {
+  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutSystemUserInput, Prisma.PosTerminalUncheckedCreateWithoutSystemUserInput> | Prisma.PosTerminalCreateWithoutSystemUserInput[] | Prisma.PosTerminalUncheckedCreateWithoutSystemUserInput[]
+  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutSystemUserInput | Prisma.PosTerminalCreateOrConnectWithoutSystemUserInput[]
+  upsert?: Prisma.PosTerminalUpsertWithWhereUniqueWithoutSystemUserInput | Prisma.PosTerminalUpsertWithWhereUniqueWithoutSystemUserInput[]
+  createMany?: Prisma.PosTerminalCreateManySystemUserInputEnvelope
   set?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
   disconnect?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
   delete?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
   connect?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
-  update?: Prisma.PosTerminalUpdateWithWhereUniqueWithoutWarehouseInput | Prisma.PosTerminalUpdateWithWhereUniqueWithoutWarehouseInput[]
-  updateMany?: Prisma.PosTerminalUpdateManyWithWhereWithoutWarehouseInput | Prisma.PosTerminalUpdateManyWithWhereWithoutWarehouseInput[]
+  update?: Prisma.PosTerminalUpdateWithWhereUniqueWithoutSystemUserInput | Prisma.PosTerminalUpdateWithWhereUniqueWithoutSystemUserInput[]
+  updateMany?: Prisma.PosTerminalUpdateManyWithWhereWithoutSystemUserInput | Prisma.PosTerminalUpdateManyWithWhereWithoutSystemUserInput[]
   deleteMany?: Prisma.PosTerminalScalarWhereInput | Prisma.PosTerminalScalarWhereInput[]
 }
 
-export type PosTerminalUncheckedUpdateManyWithoutWarehouseNestedInput = {
-  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutWarehouseInput, Prisma.PosTerminalUncheckedCreateWithoutWarehouseInput> | Prisma.PosTerminalCreateWithoutWarehouseInput[] | Prisma.PosTerminalUncheckedCreateWithoutWarehouseInput[]
-  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutWarehouseInput | Prisma.PosTerminalCreateOrConnectWithoutWarehouseInput[]
-  upsert?: Prisma.PosTerminalUpsertWithWhereUniqueWithoutWarehouseInput | Prisma.PosTerminalUpsertWithWhereUniqueWithoutWarehouseInput[]
-  createMany?: Prisma.PosTerminalCreateManyWarehouseInputEnvelope
+export type PosTerminalUncheckedUpdateManyWithoutSystemUserNestedInput = {
+  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutSystemUserInput, Prisma.PosTerminalUncheckedCreateWithoutSystemUserInput> | Prisma.PosTerminalCreateWithoutSystemUserInput[] | Prisma.PosTerminalUncheckedCreateWithoutSystemUserInput[]
+  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutSystemUserInput | Prisma.PosTerminalCreateOrConnectWithoutSystemUserInput[]
+  upsert?: Prisma.PosTerminalUpsertWithWhereUniqueWithoutSystemUserInput | Prisma.PosTerminalUpsertWithWhereUniqueWithoutSystemUserInput[]
+  createMany?: Prisma.PosTerminalCreateManySystemUserInputEnvelope
   set?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
   disconnect?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
   delete?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
   connect?: Prisma.PosTerminalWhereUniqueInput | Prisma.PosTerminalWhereUniqueInput[]
-  update?: Prisma.PosTerminalUpdateWithWhereUniqueWithoutWarehouseInput | Prisma.PosTerminalUpdateWithWhereUniqueWithoutWarehouseInput[]
-  updateMany?: Prisma.PosTerminalUpdateManyWithWhereWithoutWarehouseInput | Prisma.PosTerminalUpdateManyWithWhereWithoutWarehouseInput[]
+  update?: Prisma.PosTerminalUpdateWithWhereUniqueWithoutSystemUserInput | Prisma.PosTerminalUpdateWithWhereUniqueWithoutSystemUserInput[]
+  updateMany?: Prisma.PosTerminalUpdateManyWithWhereWithoutSystemUserInput | Prisma.PosTerminalUpdateManyWithWhereWithoutSystemUserInput[]
   deleteMany?: Prisma.PosTerminalScalarWhereInput | Prisma.PosTerminalScalarWhereInput[]
 }
 
@@ -720,12 +801,52 @@ export type PosTerminalUncheckedUpdateManyWithoutPriceTableNestedInput = {
   deleteMany?: Prisma.PosTerminalScalarWhereInput | Prisma.PosTerminalScalarWhereInput[]
 }
 
+export type PosTerminalCreateNestedOneWithoutOrdersInput = {
+  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutOrdersInput, Prisma.PosTerminalUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutOrdersInput
+  connect?: Prisma.PosTerminalWhereUniqueInput
+}
+
+export type PosTerminalUpdateOneWithoutOrdersNestedInput = {
+  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutOrdersInput, Prisma.PosTerminalUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutOrdersInput
+  upsert?: Prisma.PosTerminalUpsertWithoutOrdersInput
+  disconnect?: Prisma.PosTerminalWhereInput | boolean
+  delete?: Prisma.PosTerminalWhereInput | boolean
+  connect?: Prisma.PosTerminalWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PosTerminalUpdateToOneWithWhereWithoutOrdersInput, Prisma.PosTerminalUpdateWithoutOrdersInput>, Prisma.PosTerminalUncheckedUpdateWithoutOrdersInput>
+}
+
 export type EnumPosTerminalModeFieldUpdateOperationsInput = {
   set?: $Enums.PosTerminalMode
 }
 
-export type EnumPosCashierModeFieldUpdateOperationsInput = {
-  set?: $Enums.PosCashierMode
+export type PosTerminalCreateNestedOneWithoutWarehousesInput = {
+  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutWarehousesInput, Prisma.PosTerminalUncheckedCreateWithoutWarehousesInput>
+  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutWarehousesInput
+  connect?: Prisma.PosTerminalWhereUniqueInput
+}
+
+export type PosTerminalUpdateOneRequiredWithoutWarehousesNestedInput = {
+  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutWarehousesInput, Prisma.PosTerminalUncheckedCreateWithoutWarehousesInput>
+  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutWarehousesInput
+  upsert?: Prisma.PosTerminalUpsertWithoutWarehousesInput
+  connect?: Prisma.PosTerminalWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PosTerminalUpdateToOneWithWhereWithoutWarehousesInput, Prisma.PosTerminalUpdateWithoutWarehousesInput>, Prisma.PosTerminalUncheckedUpdateWithoutWarehousesInput>
+}
+
+export type PosTerminalCreateNestedOneWithoutDevicePairingInput = {
+  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutDevicePairingInput, Prisma.PosTerminalUncheckedCreateWithoutDevicePairingInput>
+  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutDevicePairingInput
+  connect?: Prisma.PosTerminalWhereUniqueInput
+}
+
+export type PosTerminalUpdateOneRequiredWithoutDevicePairingNestedInput = {
+  create?: Prisma.XOR<Prisma.PosTerminalCreateWithoutDevicePairingInput, Prisma.PosTerminalUncheckedCreateWithoutDevicePairingInput>
+  connectOrCreate?: Prisma.PosTerminalCreateOrConnectWithoutDevicePairingInput
+  upsert?: Prisma.PosTerminalUpsertWithoutDevicePairingInput
+  connect?: Prisma.PosTerminalWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PosTerminalUpdateToOneWithWhereWithoutDevicePairingInput, Prisma.PosTerminalUpdateWithoutDevicePairingInput>, Prisma.PosTerminalUncheckedUpdateWithoutDevicePairingInput>
 }
 
 export type PosTerminalCreateNestedOneWithoutSessionsInput = {
@@ -772,72 +893,84 @@ export type PosTerminalUpdateOneWithoutCashierSessionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PosTerminalUpdateToOneWithWhereWithoutCashierSessionsInput, Prisma.PosTerminalUpdateWithoutCashierSessionsInput>, Prisma.PosTerminalUncheckedUpdateWithoutCashierSessionsInput>
 }
 
-export type PosTerminalCreateWithoutWarehouseInput = {
+export type PosTerminalCreateWithoutSystemUserInput = {
   id?: string
-  name: string
-  deviceId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
   mode: $Enums.PosTerminalMode
-  cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
+  allowAnonymous?: boolean
+  pairingSecret?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPosTerminalsInput
   priceTable?: Prisma.PriceTableCreateNestedOneWithoutPosTerminalsInput
+  warehouses?: Prisma.PosTerminalWarehouseCreateNestedManyWithoutTerminalInput
+  devicePairing?: Prisma.PosDevicePairingCreateNestedOneWithoutTerminalInput
   sessions?: Prisma.PosSessionCreateNestedManyWithoutTerminalInput
   offlineQueue?: Prisma.PosOfflineQueueCreateNestedManyWithoutTerminalInput
   cashierSessions?: Prisma.CashierSessionCreateNestedManyWithoutPosTerminalInput
+  orders?: Prisma.OrderCreateNestedManyWithoutTerminalInput
 }
 
-export type PosTerminalUncheckedCreateWithoutWarehouseInput = {
+export type PosTerminalUncheckedCreateWithoutSystemUserInput = {
   id?: string
   tenantId: string
-  name: string
-  deviceId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
   mode: $Enums.PosTerminalMode
-  cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
+  allowAnonymous?: boolean
+  pairingSecret?: string | null
   defaultPriceTableId?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  warehouses?: Prisma.PosTerminalWarehouseUncheckedCreateNestedManyWithoutTerminalInput
+  devicePairing?: Prisma.PosDevicePairingUncheckedCreateNestedOneWithoutTerminalInput
   sessions?: Prisma.PosSessionUncheckedCreateNestedManyWithoutTerminalInput
   offlineQueue?: Prisma.PosOfflineQueueUncheckedCreateNestedManyWithoutTerminalInput
   cashierSessions?: Prisma.CashierSessionUncheckedCreateNestedManyWithoutPosTerminalInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutTerminalInput
 }
 
-export type PosTerminalCreateOrConnectWithoutWarehouseInput = {
+export type PosTerminalCreateOrConnectWithoutSystemUserInput = {
   where: Prisma.PosTerminalWhereUniqueInput
-  create: Prisma.XOR<Prisma.PosTerminalCreateWithoutWarehouseInput, Prisma.PosTerminalUncheckedCreateWithoutWarehouseInput>
+  create: Prisma.XOR<Prisma.PosTerminalCreateWithoutSystemUserInput, Prisma.PosTerminalUncheckedCreateWithoutSystemUserInput>
 }
 
-export type PosTerminalCreateManyWarehouseInputEnvelope = {
-  data: Prisma.PosTerminalCreateManyWarehouseInput | Prisma.PosTerminalCreateManyWarehouseInput[]
+export type PosTerminalCreateManySystemUserInputEnvelope = {
+  data: Prisma.PosTerminalCreateManySystemUserInput | Prisma.PosTerminalCreateManySystemUserInput[]
   skipDuplicates?: boolean
 }
 
-export type PosTerminalUpsertWithWhereUniqueWithoutWarehouseInput = {
+export type PosTerminalUpsertWithWhereUniqueWithoutSystemUserInput = {
   where: Prisma.PosTerminalWhereUniqueInput
-  update: Prisma.XOR<Prisma.PosTerminalUpdateWithoutWarehouseInput, Prisma.PosTerminalUncheckedUpdateWithoutWarehouseInput>
-  create: Prisma.XOR<Prisma.PosTerminalCreateWithoutWarehouseInput, Prisma.PosTerminalUncheckedCreateWithoutWarehouseInput>
+  update: Prisma.XOR<Prisma.PosTerminalUpdateWithoutSystemUserInput, Prisma.PosTerminalUncheckedUpdateWithoutSystemUserInput>
+  create: Prisma.XOR<Prisma.PosTerminalCreateWithoutSystemUserInput, Prisma.PosTerminalUncheckedCreateWithoutSystemUserInput>
 }
 
-export type PosTerminalUpdateWithWhereUniqueWithoutWarehouseInput = {
+export type PosTerminalUpdateWithWhereUniqueWithoutSystemUserInput = {
   where: Prisma.PosTerminalWhereUniqueInput
-  data: Prisma.XOR<Prisma.PosTerminalUpdateWithoutWarehouseInput, Prisma.PosTerminalUncheckedUpdateWithoutWarehouseInput>
+  data: Prisma.XOR<Prisma.PosTerminalUpdateWithoutSystemUserInput, Prisma.PosTerminalUncheckedUpdateWithoutSystemUserInput>
 }
 
-export type PosTerminalUpdateManyWithWhereWithoutWarehouseInput = {
+export type PosTerminalUpdateManyWithWhereWithoutSystemUserInput = {
   where: Prisma.PosTerminalScalarWhereInput
-  data: Prisma.XOR<Prisma.PosTerminalUpdateManyMutationInput, Prisma.PosTerminalUncheckedUpdateManyWithoutWarehouseInput>
+  data: Prisma.XOR<Prisma.PosTerminalUpdateManyMutationInput, Prisma.PosTerminalUncheckedUpdateManyWithoutSystemUserInput>
 }
 
 export type PosTerminalScalarWhereInput = {
@@ -846,62 +979,77 @@ export type PosTerminalScalarWhereInput = {
   NOT?: Prisma.PosTerminalScalarWhereInput | Prisma.PosTerminalScalarWhereInput[]
   id?: Prisma.StringFilter<"PosTerminal"> | string
   tenantId?: Prisma.StringFilter<"PosTerminal"> | string
-  name?: Prisma.StringFilter<"PosTerminal"> | string
-  deviceId?: Prisma.StringFilter<"PosTerminal"> | string
+  terminalName?: Prisma.StringFilter<"PosTerminal"> | string
+  terminalCode?: Prisma.StringFilter<"PosTerminal"> | string
+  totemCode?: Prisma.StringNullableFilter<"PosTerminal"> | string | null
   mode?: Prisma.EnumPosTerminalModeFilter<"PosTerminal"> | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFilter<"PosTerminal"> | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFilter<"PosTerminal"> | boolean
   requiresSession?: Prisma.BoolFilter<"PosTerminal"> | boolean
-  warehouseId?: Prisma.StringFilter<"PosTerminal"> | string
+  allowAnonymous?: Prisma.BoolFilter<"PosTerminal"> | boolean
+  systemUserId?: Prisma.StringNullableFilter<"PosTerminal"> | string | null
+  pairingSecret?: Prisma.StringNullableFilter<"PosTerminal"> | string | null
   defaultPriceTableId?: Prisma.StringNullableFilter<"PosTerminal"> | string | null
   isActive?: Prisma.BoolFilter<"PosTerminal"> | boolean
   lastSyncAt?: Prisma.DateTimeNullableFilter<"PosTerminal"> | Date | string | null
   lastOnlineAt?: Prisma.DateTimeNullableFilter<"PosTerminal"> | Date | string | null
   settings?: Prisma.JsonNullableFilter<"PosTerminal">
+  deletedAt?: Prisma.DateTimeNullableFilter<"PosTerminal"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"PosTerminal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PosTerminal"> | Date | string
 }
 
 export type PosTerminalCreateWithoutTenantInput = {
   id?: string
-  name: string
-  deviceId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
   mode: $Enums.PosTerminalMode
-  cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
+  allowAnonymous?: boolean
+  pairingSecret?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  warehouse: Prisma.WarehouseCreateNestedOneWithoutPosTerminalsInput
   priceTable?: Prisma.PriceTableCreateNestedOneWithoutPosTerminalsInput
+  systemUser?: Prisma.UserCreateNestedOneWithoutPosTerminalsAsSystemInput
+  warehouses?: Prisma.PosTerminalWarehouseCreateNestedManyWithoutTerminalInput
+  devicePairing?: Prisma.PosDevicePairingCreateNestedOneWithoutTerminalInput
   sessions?: Prisma.PosSessionCreateNestedManyWithoutTerminalInput
   offlineQueue?: Prisma.PosOfflineQueueCreateNestedManyWithoutTerminalInput
   cashierSessions?: Prisma.CashierSessionCreateNestedManyWithoutPosTerminalInput
+  orders?: Prisma.OrderCreateNestedManyWithoutTerminalInput
 }
 
 export type PosTerminalUncheckedCreateWithoutTenantInput = {
   id?: string
-  name: string
-  deviceId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
   mode: $Enums.PosTerminalMode
-  cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
-  warehouseId: string
+  allowAnonymous?: boolean
+  systemUserId?: string | null
+  pairingSecret?: string | null
   defaultPriceTableId?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  warehouses?: Prisma.PosTerminalWarehouseUncheckedCreateNestedManyWithoutTerminalInput
+  devicePairing?: Prisma.PosDevicePairingUncheckedCreateNestedOneWithoutTerminalInput
   sessions?: Prisma.PosSessionUncheckedCreateNestedManyWithoutTerminalInput
   offlineQueue?: Prisma.PosOfflineQueueUncheckedCreateNestedManyWithoutTerminalInput
   cashierSessions?: Prisma.CashierSessionUncheckedCreateNestedManyWithoutPosTerminalInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutTerminalInput
 }
 
 export type PosTerminalCreateOrConnectWithoutTenantInput = {
@@ -932,44 +1080,56 @@ export type PosTerminalUpdateManyWithWhereWithoutTenantInput = {
 
 export type PosTerminalCreateWithoutPriceTableInput = {
   id?: string
-  name: string
-  deviceId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
   mode: $Enums.PosTerminalMode
-  cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
+  allowAnonymous?: boolean
+  pairingSecret?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPosTerminalsInput
-  warehouse: Prisma.WarehouseCreateNestedOneWithoutPosTerminalsInput
+  systemUser?: Prisma.UserCreateNestedOneWithoutPosTerminalsAsSystemInput
+  warehouses?: Prisma.PosTerminalWarehouseCreateNestedManyWithoutTerminalInput
+  devicePairing?: Prisma.PosDevicePairingCreateNestedOneWithoutTerminalInput
   sessions?: Prisma.PosSessionCreateNestedManyWithoutTerminalInput
   offlineQueue?: Prisma.PosOfflineQueueCreateNestedManyWithoutTerminalInput
   cashierSessions?: Prisma.CashierSessionCreateNestedManyWithoutPosTerminalInput
+  orders?: Prisma.OrderCreateNestedManyWithoutTerminalInput
 }
 
 export type PosTerminalUncheckedCreateWithoutPriceTableInput = {
   id?: string
   tenantId: string
-  name: string
-  deviceId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
   mode: $Enums.PosTerminalMode
-  cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
-  warehouseId: string
+  allowAnonymous?: boolean
+  systemUserId?: string | null
+  pairingSecret?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  warehouses?: Prisma.PosTerminalWarehouseUncheckedCreateNestedManyWithoutTerminalInput
+  devicePairing?: Prisma.PosDevicePairingUncheckedCreateNestedOneWithoutTerminalInput
   sessions?: Prisma.PosSessionUncheckedCreateNestedManyWithoutTerminalInput
   offlineQueue?: Prisma.PosOfflineQueueUncheckedCreateNestedManyWithoutTerminalInput
   cashierSessions?: Prisma.CashierSessionUncheckedCreateNestedManyWithoutPosTerminalInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutTerminalInput
 }
 
 export type PosTerminalCreateOrConnectWithoutPriceTableInput = {
@@ -998,46 +1158,430 @@ export type PosTerminalUpdateManyWithWhereWithoutPriceTableInput = {
   data: Prisma.XOR<Prisma.PosTerminalUpdateManyMutationInput, Prisma.PosTerminalUncheckedUpdateManyWithoutPriceTableInput>
 }
 
-export type PosTerminalCreateWithoutSessionsInput = {
+export type PosTerminalCreateWithoutOrdersInput = {
   id?: string
-  name: string
-  deviceId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
   mode: $Enums.PosTerminalMode
-  cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
+  allowAnonymous?: boolean
+  pairingSecret?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPosTerminalsInput
-  warehouse: Prisma.WarehouseCreateNestedOneWithoutPosTerminalsInput
   priceTable?: Prisma.PriceTableCreateNestedOneWithoutPosTerminalsInput
+  systemUser?: Prisma.UserCreateNestedOneWithoutPosTerminalsAsSystemInput
+  warehouses?: Prisma.PosTerminalWarehouseCreateNestedManyWithoutTerminalInput
+  devicePairing?: Prisma.PosDevicePairingCreateNestedOneWithoutTerminalInput
+  sessions?: Prisma.PosSessionCreateNestedManyWithoutTerminalInput
   offlineQueue?: Prisma.PosOfflineQueueCreateNestedManyWithoutTerminalInput
   cashierSessions?: Prisma.CashierSessionCreateNestedManyWithoutPosTerminalInput
 }
 
-export type PosTerminalUncheckedCreateWithoutSessionsInput = {
+export type PosTerminalUncheckedCreateWithoutOrdersInput = {
   id?: string
   tenantId: string
-  name: string
-  deviceId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
   mode: $Enums.PosTerminalMode
-  cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
-  warehouseId: string
+  allowAnonymous?: boolean
+  systemUserId?: string | null
+  pairingSecret?: string | null
   defaultPriceTableId?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  warehouses?: Prisma.PosTerminalWarehouseUncheckedCreateNestedManyWithoutTerminalInput
+  devicePairing?: Prisma.PosDevicePairingUncheckedCreateNestedOneWithoutTerminalInput
+  sessions?: Prisma.PosSessionUncheckedCreateNestedManyWithoutTerminalInput
   offlineQueue?: Prisma.PosOfflineQueueUncheckedCreateNestedManyWithoutTerminalInput
   cashierSessions?: Prisma.CashierSessionUncheckedCreateNestedManyWithoutPosTerminalInput
+}
+
+export type PosTerminalCreateOrConnectWithoutOrdersInput = {
+  where: Prisma.PosTerminalWhereUniqueInput
+  create: Prisma.XOR<Prisma.PosTerminalCreateWithoutOrdersInput, Prisma.PosTerminalUncheckedCreateWithoutOrdersInput>
+}
+
+export type PosTerminalUpsertWithoutOrdersInput = {
+  update: Prisma.XOR<Prisma.PosTerminalUpdateWithoutOrdersInput, Prisma.PosTerminalUncheckedUpdateWithoutOrdersInput>
+  create: Prisma.XOR<Prisma.PosTerminalCreateWithoutOrdersInput, Prisma.PosTerminalUncheckedCreateWithoutOrdersInput>
+  where?: Prisma.PosTerminalWhereInput
+}
+
+export type PosTerminalUpdateToOneWithWhereWithoutOrdersInput = {
+  where?: Prisma.PosTerminalWhereInput
+  data: Prisma.XOR<Prisma.PosTerminalUpdateWithoutOrdersInput, Prisma.PosTerminalUncheckedUpdateWithoutOrdersInput>
+}
+
+export type PosTerminalUpdateWithoutOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
+  acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTerminalsNestedInput
+  priceTable?: Prisma.PriceTableUpdateOneWithoutPosTerminalsNestedInput
+  systemUser?: Prisma.UserUpdateOneWithoutPosTerminalsAsSystemNestedInput
+  warehouses?: Prisma.PosTerminalWarehouseUpdateManyWithoutTerminalNestedInput
+  devicePairing?: Prisma.PosDevicePairingUpdateOneWithoutTerminalNestedInput
+  sessions?: Prisma.PosSessionUpdateManyWithoutTerminalNestedInput
+  offlineQueue?: Prisma.PosOfflineQueueUpdateManyWithoutTerminalNestedInput
+  cashierSessions?: Prisma.CashierSessionUpdateManyWithoutPosTerminalNestedInput
+}
+
+export type PosTerminalUncheckedUpdateWithoutOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
+  acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  systemUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  warehouses?: Prisma.PosTerminalWarehouseUncheckedUpdateManyWithoutTerminalNestedInput
+  devicePairing?: Prisma.PosDevicePairingUncheckedUpdateOneWithoutTerminalNestedInput
+  sessions?: Prisma.PosSessionUncheckedUpdateManyWithoutTerminalNestedInput
+  offlineQueue?: Prisma.PosOfflineQueueUncheckedUpdateManyWithoutTerminalNestedInput
+  cashierSessions?: Prisma.CashierSessionUncheckedUpdateManyWithoutPosTerminalNestedInput
+}
+
+export type PosTerminalCreateWithoutWarehousesInput = {
+  id?: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
+  mode: $Enums.PosTerminalMode
+  acceptsPendingOrders?: boolean
+  requiresSession?: boolean
+  allowAnonymous?: boolean
+  pairingSecret?: string | null
+  isActive?: boolean
+  lastSyncAt?: Date | string | null
+  lastOnlineAt?: Date | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutPosTerminalsInput
+  priceTable?: Prisma.PriceTableCreateNestedOneWithoutPosTerminalsInput
+  systemUser?: Prisma.UserCreateNestedOneWithoutPosTerminalsAsSystemInput
+  devicePairing?: Prisma.PosDevicePairingCreateNestedOneWithoutTerminalInput
+  sessions?: Prisma.PosSessionCreateNestedManyWithoutTerminalInput
+  offlineQueue?: Prisma.PosOfflineQueueCreateNestedManyWithoutTerminalInput
+  cashierSessions?: Prisma.CashierSessionCreateNestedManyWithoutPosTerminalInput
+  orders?: Prisma.OrderCreateNestedManyWithoutTerminalInput
+}
+
+export type PosTerminalUncheckedCreateWithoutWarehousesInput = {
+  id?: string
+  tenantId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
+  mode: $Enums.PosTerminalMode
+  acceptsPendingOrders?: boolean
+  requiresSession?: boolean
+  allowAnonymous?: boolean
+  systemUserId?: string | null
+  pairingSecret?: string | null
+  defaultPriceTableId?: string | null
+  isActive?: boolean
+  lastSyncAt?: Date | string | null
+  lastOnlineAt?: Date | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  devicePairing?: Prisma.PosDevicePairingUncheckedCreateNestedOneWithoutTerminalInput
+  sessions?: Prisma.PosSessionUncheckedCreateNestedManyWithoutTerminalInput
+  offlineQueue?: Prisma.PosOfflineQueueUncheckedCreateNestedManyWithoutTerminalInput
+  cashierSessions?: Prisma.CashierSessionUncheckedCreateNestedManyWithoutPosTerminalInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutTerminalInput
+}
+
+export type PosTerminalCreateOrConnectWithoutWarehousesInput = {
+  where: Prisma.PosTerminalWhereUniqueInput
+  create: Prisma.XOR<Prisma.PosTerminalCreateWithoutWarehousesInput, Prisma.PosTerminalUncheckedCreateWithoutWarehousesInput>
+}
+
+export type PosTerminalUpsertWithoutWarehousesInput = {
+  update: Prisma.XOR<Prisma.PosTerminalUpdateWithoutWarehousesInput, Prisma.PosTerminalUncheckedUpdateWithoutWarehousesInput>
+  create: Prisma.XOR<Prisma.PosTerminalCreateWithoutWarehousesInput, Prisma.PosTerminalUncheckedCreateWithoutWarehousesInput>
+  where?: Prisma.PosTerminalWhereInput
+}
+
+export type PosTerminalUpdateToOneWithWhereWithoutWarehousesInput = {
+  where?: Prisma.PosTerminalWhereInput
+  data: Prisma.XOR<Prisma.PosTerminalUpdateWithoutWarehousesInput, Prisma.PosTerminalUncheckedUpdateWithoutWarehousesInput>
+}
+
+export type PosTerminalUpdateWithoutWarehousesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
+  acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTerminalsNestedInput
+  priceTable?: Prisma.PriceTableUpdateOneWithoutPosTerminalsNestedInput
+  systemUser?: Prisma.UserUpdateOneWithoutPosTerminalsAsSystemNestedInput
+  devicePairing?: Prisma.PosDevicePairingUpdateOneWithoutTerminalNestedInput
+  sessions?: Prisma.PosSessionUpdateManyWithoutTerminalNestedInput
+  offlineQueue?: Prisma.PosOfflineQueueUpdateManyWithoutTerminalNestedInput
+  cashierSessions?: Prisma.CashierSessionUpdateManyWithoutPosTerminalNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutTerminalNestedInput
+}
+
+export type PosTerminalUncheckedUpdateWithoutWarehousesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
+  acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  systemUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  devicePairing?: Prisma.PosDevicePairingUncheckedUpdateOneWithoutTerminalNestedInput
+  sessions?: Prisma.PosSessionUncheckedUpdateManyWithoutTerminalNestedInput
+  offlineQueue?: Prisma.PosOfflineQueueUncheckedUpdateManyWithoutTerminalNestedInput
+  cashierSessions?: Prisma.CashierSessionUncheckedUpdateManyWithoutPosTerminalNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutTerminalNestedInput
+}
+
+export type PosTerminalCreateWithoutDevicePairingInput = {
+  id?: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
+  mode: $Enums.PosTerminalMode
+  acceptsPendingOrders?: boolean
+  requiresSession?: boolean
+  allowAnonymous?: boolean
+  pairingSecret?: string | null
+  isActive?: boolean
+  lastSyncAt?: Date | string | null
+  lastOnlineAt?: Date | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutPosTerminalsInput
+  priceTable?: Prisma.PriceTableCreateNestedOneWithoutPosTerminalsInput
+  systemUser?: Prisma.UserCreateNestedOneWithoutPosTerminalsAsSystemInput
+  warehouses?: Prisma.PosTerminalWarehouseCreateNestedManyWithoutTerminalInput
+  sessions?: Prisma.PosSessionCreateNestedManyWithoutTerminalInput
+  offlineQueue?: Prisma.PosOfflineQueueCreateNestedManyWithoutTerminalInput
+  cashierSessions?: Prisma.CashierSessionCreateNestedManyWithoutPosTerminalInput
+  orders?: Prisma.OrderCreateNestedManyWithoutTerminalInput
+}
+
+export type PosTerminalUncheckedCreateWithoutDevicePairingInput = {
+  id?: string
+  tenantId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
+  mode: $Enums.PosTerminalMode
+  acceptsPendingOrders?: boolean
+  requiresSession?: boolean
+  allowAnonymous?: boolean
+  systemUserId?: string | null
+  pairingSecret?: string | null
+  defaultPriceTableId?: string | null
+  isActive?: boolean
+  lastSyncAt?: Date | string | null
+  lastOnlineAt?: Date | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  warehouses?: Prisma.PosTerminalWarehouseUncheckedCreateNestedManyWithoutTerminalInput
+  sessions?: Prisma.PosSessionUncheckedCreateNestedManyWithoutTerminalInput
+  offlineQueue?: Prisma.PosOfflineQueueUncheckedCreateNestedManyWithoutTerminalInput
+  cashierSessions?: Prisma.CashierSessionUncheckedCreateNestedManyWithoutPosTerminalInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutTerminalInput
+}
+
+export type PosTerminalCreateOrConnectWithoutDevicePairingInput = {
+  where: Prisma.PosTerminalWhereUniqueInput
+  create: Prisma.XOR<Prisma.PosTerminalCreateWithoutDevicePairingInput, Prisma.PosTerminalUncheckedCreateWithoutDevicePairingInput>
+}
+
+export type PosTerminalUpsertWithoutDevicePairingInput = {
+  update: Prisma.XOR<Prisma.PosTerminalUpdateWithoutDevicePairingInput, Prisma.PosTerminalUncheckedUpdateWithoutDevicePairingInput>
+  create: Prisma.XOR<Prisma.PosTerminalCreateWithoutDevicePairingInput, Prisma.PosTerminalUncheckedCreateWithoutDevicePairingInput>
+  where?: Prisma.PosTerminalWhereInput
+}
+
+export type PosTerminalUpdateToOneWithWhereWithoutDevicePairingInput = {
+  where?: Prisma.PosTerminalWhereInput
+  data: Prisma.XOR<Prisma.PosTerminalUpdateWithoutDevicePairingInput, Prisma.PosTerminalUncheckedUpdateWithoutDevicePairingInput>
+}
+
+export type PosTerminalUpdateWithoutDevicePairingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
+  acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTerminalsNestedInput
+  priceTable?: Prisma.PriceTableUpdateOneWithoutPosTerminalsNestedInput
+  systemUser?: Prisma.UserUpdateOneWithoutPosTerminalsAsSystemNestedInput
+  warehouses?: Prisma.PosTerminalWarehouseUpdateManyWithoutTerminalNestedInput
+  sessions?: Prisma.PosSessionUpdateManyWithoutTerminalNestedInput
+  offlineQueue?: Prisma.PosOfflineQueueUpdateManyWithoutTerminalNestedInput
+  cashierSessions?: Prisma.CashierSessionUpdateManyWithoutPosTerminalNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutTerminalNestedInput
+}
+
+export type PosTerminalUncheckedUpdateWithoutDevicePairingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
+  acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  systemUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  warehouses?: Prisma.PosTerminalWarehouseUncheckedUpdateManyWithoutTerminalNestedInput
+  sessions?: Prisma.PosSessionUncheckedUpdateManyWithoutTerminalNestedInput
+  offlineQueue?: Prisma.PosOfflineQueueUncheckedUpdateManyWithoutTerminalNestedInput
+  cashierSessions?: Prisma.CashierSessionUncheckedUpdateManyWithoutPosTerminalNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutTerminalNestedInput
+}
+
+export type PosTerminalCreateWithoutSessionsInput = {
+  id?: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
+  mode: $Enums.PosTerminalMode
+  acceptsPendingOrders?: boolean
+  requiresSession?: boolean
+  allowAnonymous?: boolean
+  pairingSecret?: string | null
+  isActive?: boolean
+  lastSyncAt?: Date | string | null
+  lastOnlineAt?: Date | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutPosTerminalsInput
+  priceTable?: Prisma.PriceTableCreateNestedOneWithoutPosTerminalsInput
+  systemUser?: Prisma.UserCreateNestedOneWithoutPosTerminalsAsSystemInput
+  warehouses?: Prisma.PosTerminalWarehouseCreateNestedManyWithoutTerminalInput
+  devicePairing?: Prisma.PosDevicePairingCreateNestedOneWithoutTerminalInput
+  offlineQueue?: Prisma.PosOfflineQueueCreateNestedManyWithoutTerminalInput
+  cashierSessions?: Prisma.CashierSessionCreateNestedManyWithoutPosTerminalInput
+  orders?: Prisma.OrderCreateNestedManyWithoutTerminalInput
+}
+
+export type PosTerminalUncheckedCreateWithoutSessionsInput = {
+  id?: string
+  tenantId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
+  mode: $Enums.PosTerminalMode
+  acceptsPendingOrders?: boolean
+  requiresSession?: boolean
+  allowAnonymous?: boolean
+  systemUserId?: string | null
+  pairingSecret?: string | null
+  defaultPriceTableId?: string | null
+  isActive?: boolean
+  lastSyncAt?: Date | string | null
+  lastOnlineAt?: Date | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  warehouses?: Prisma.PosTerminalWarehouseUncheckedCreateNestedManyWithoutTerminalInput
+  devicePairing?: Prisma.PosDevicePairingUncheckedCreateNestedOneWithoutTerminalInput
+  offlineQueue?: Prisma.PosOfflineQueueUncheckedCreateNestedManyWithoutTerminalInput
+  cashierSessions?: Prisma.CashierSessionUncheckedCreateNestedManyWithoutPosTerminalInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutTerminalInput
 }
 
 export type PosTerminalCreateOrConnectWithoutSessionsInput = {
@@ -1058,86 +1602,110 @@ export type PosTerminalUpdateToOneWithWhereWithoutSessionsInput = {
 
 export type PosTerminalUpdateWithoutSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTerminalsNestedInput
-  warehouse?: Prisma.WarehouseUpdateOneRequiredWithoutPosTerminalsNestedInput
   priceTable?: Prisma.PriceTableUpdateOneWithoutPosTerminalsNestedInput
+  systemUser?: Prisma.UserUpdateOneWithoutPosTerminalsAsSystemNestedInput
+  warehouses?: Prisma.PosTerminalWarehouseUpdateManyWithoutTerminalNestedInput
+  devicePairing?: Prisma.PosDevicePairingUpdateOneWithoutTerminalNestedInput
   offlineQueue?: Prisma.PosOfflineQueueUpdateManyWithoutTerminalNestedInput
   cashierSessions?: Prisma.CashierSessionUpdateManyWithoutPosTerminalNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutTerminalNestedInput
 }
 
 export type PosTerminalUncheckedUpdateWithoutSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  warehouseId?: Prisma.StringFieldUpdateOperationsInput | string
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  systemUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  warehouses?: Prisma.PosTerminalWarehouseUncheckedUpdateManyWithoutTerminalNestedInput
+  devicePairing?: Prisma.PosDevicePairingUncheckedUpdateOneWithoutTerminalNestedInput
   offlineQueue?: Prisma.PosOfflineQueueUncheckedUpdateManyWithoutTerminalNestedInput
   cashierSessions?: Prisma.CashierSessionUncheckedUpdateManyWithoutPosTerminalNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutTerminalNestedInput
 }
 
 export type PosTerminalCreateWithoutOfflineQueueInput = {
   id?: string
-  name: string
-  deviceId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
   mode: $Enums.PosTerminalMode
-  cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
+  allowAnonymous?: boolean
+  pairingSecret?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPosTerminalsInput
-  warehouse: Prisma.WarehouseCreateNestedOneWithoutPosTerminalsInput
   priceTable?: Prisma.PriceTableCreateNestedOneWithoutPosTerminalsInput
+  systemUser?: Prisma.UserCreateNestedOneWithoutPosTerminalsAsSystemInput
+  warehouses?: Prisma.PosTerminalWarehouseCreateNestedManyWithoutTerminalInput
+  devicePairing?: Prisma.PosDevicePairingCreateNestedOneWithoutTerminalInput
   sessions?: Prisma.PosSessionCreateNestedManyWithoutTerminalInput
   cashierSessions?: Prisma.CashierSessionCreateNestedManyWithoutPosTerminalInput
+  orders?: Prisma.OrderCreateNestedManyWithoutTerminalInput
 }
 
 export type PosTerminalUncheckedCreateWithoutOfflineQueueInput = {
   id?: string
   tenantId: string
-  name: string
-  deviceId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
   mode: $Enums.PosTerminalMode
-  cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
-  warehouseId: string
+  allowAnonymous?: boolean
+  systemUserId?: string | null
+  pairingSecret?: string | null
   defaultPriceTableId?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  warehouses?: Prisma.PosTerminalWarehouseUncheckedCreateNestedManyWithoutTerminalInput
+  devicePairing?: Prisma.PosDevicePairingUncheckedCreateNestedOneWithoutTerminalInput
   sessions?: Prisma.PosSessionUncheckedCreateNestedManyWithoutTerminalInput
   cashierSessions?: Prisma.CashierSessionUncheckedCreateNestedManyWithoutPosTerminalInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutTerminalInput
 }
 
 export type PosTerminalCreateOrConnectWithoutOfflineQueueInput = {
@@ -1158,86 +1726,110 @@ export type PosTerminalUpdateToOneWithWhereWithoutOfflineQueueInput = {
 
 export type PosTerminalUpdateWithoutOfflineQueueInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTerminalsNestedInput
-  warehouse?: Prisma.WarehouseUpdateOneRequiredWithoutPosTerminalsNestedInput
   priceTable?: Prisma.PriceTableUpdateOneWithoutPosTerminalsNestedInput
+  systemUser?: Prisma.UserUpdateOneWithoutPosTerminalsAsSystemNestedInput
+  warehouses?: Prisma.PosTerminalWarehouseUpdateManyWithoutTerminalNestedInput
+  devicePairing?: Prisma.PosDevicePairingUpdateOneWithoutTerminalNestedInput
   sessions?: Prisma.PosSessionUpdateManyWithoutTerminalNestedInput
   cashierSessions?: Prisma.CashierSessionUpdateManyWithoutPosTerminalNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutTerminalNestedInput
 }
 
 export type PosTerminalUncheckedUpdateWithoutOfflineQueueInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  warehouseId?: Prisma.StringFieldUpdateOperationsInput | string
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  systemUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  warehouses?: Prisma.PosTerminalWarehouseUncheckedUpdateManyWithoutTerminalNestedInput
+  devicePairing?: Prisma.PosDevicePairingUncheckedUpdateOneWithoutTerminalNestedInput
   sessions?: Prisma.PosSessionUncheckedUpdateManyWithoutTerminalNestedInput
   cashierSessions?: Prisma.CashierSessionUncheckedUpdateManyWithoutPosTerminalNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutTerminalNestedInput
 }
 
 export type PosTerminalCreateWithoutCashierSessionsInput = {
   id?: string
-  name: string
-  deviceId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
   mode: $Enums.PosTerminalMode
-  cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
+  allowAnonymous?: boolean
+  pairingSecret?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPosTerminalsInput
-  warehouse: Prisma.WarehouseCreateNestedOneWithoutPosTerminalsInput
   priceTable?: Prisma.PriceTableCreateNestedOneWithoutPosTerminalsInput
+  systemUser?: Prisma.UserCreateNestedOneWithoutPosTerminalsAsSystemInput
+  warehouses?: Prisma.PosTerminalWarehouseCreateNestedManyWithoutTerminalInput
+  devicePairing?: Prisma.PosDevicePairingCreateNestedOneWithoutTerminalInput
   sessions?: Prisma.PosSessionCreateNestedManyWithoutTerminalInput
   offlineQueue?: Prisma.PosOfflineQueueCreateNestedManyWithoutTerminalInput
+  orders?: Prisma.OrderCreateNestedManyWithoutTerminalInput
 }
 
 export type PosTerminalUncheckedCreateWithoutCashierSessionsInput = {
   id?: string
   tenantId: string
-  name: string
-  deviceId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
   mode: $Enums.PosTerminalMode
-  cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
-  warehouseId: string
+  allowAnonymous?: boolean
+  systemUserId?: string | null
+  pairingSecret?: string | null
   defaultPriceTableId?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  warehouses?: Prisma.PosTerminalWarehouseUncheckedCreateNestedManyWithoutTerminalInput
+  devicePairing?: Prisma.PosDevicePairingUncheckedCreateNestedOneWithoutTerminalInput
   sessions?: Prisma.PosSessionUncheckedCreateNestedManyWithoutTerminalInput
   offlineQueue?: Prisma.PosOfflineQueueUncheckedCreateNestedManyWithoutTerminalInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutTerminalInput
 }
 
 export type PosTerminalCreateOrConnectWithoutCashierSessionsInput = {
@@ -1258,198 +1850,246 @@ export type PosTerminalUpdateToOneWithWhereWithoutCashierSessionsInput = {
 
 export type PosTerminalUpdateWithoutCashierSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTerminalsNestedInput
-  warehouse?: Prisma.WarehouseUpdateOneRequiredWithoutPosTerminalsNestedInput
   priceTable?: Prisma.PriceTableUpdateOneWithoutPosTerminalsNestedInput
+  systemUser?: Prisma.UserUpdateOneWithoutPosTerminalsAsSystemNestedInput
+  warehouses?: Prisma.PosTerminalWarehouseUpdateManyWithoutTerminalNestedInput
+  devicePairing?: Prisma.PosDevicePairingUpdateOneWithoutTerminalNestedInput
   sessions?: Prisma.PosSessionUpdateManyWithoutTerminalNestedInput
   offlineQueue?: Prisma.PosOfflineQueueUpdateManyWithoutTerminalNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutTerminalNestedInput
 }
 
 export type PosTerminalUncheckedUpdateWithoutCashierSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  warehouseId?: Prisma.StringFieldUpdateOperationsInput | string
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  systemUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  warehouses?: Prisma.PosTerminalWarehouseUncheckedUpdateManyWithoutTerminalNestedInput
+  devicePairing?: Prisma.PosDevicePairingUncheckedUpdateOneWithoutTerminalNestedInput
   sessions?: Prisma.PosSessionUncheckedUpdateManyWithoutTerminalNestedInput
   offlineQueue?: Prisma.PosOfflineQueueUncheckedUpdateManyWithoutTerminalNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutTerminalNestedInput
 }
 
-export type PosTerminalCreateManyWarehouseInput = {
+export type PosTerminalCreateManySystemUserInput = {
   id?: string
   tenantId: string
-  name: string
-  deviceId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
   mode: $Enums.PosTerminalMode
-  cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
+  allowAnonymous?: boolean
+  pairingSecret?: string | null
   defaultPriceTableId?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type PosTerminalUpdateWithoutWarehouseInput = {
+export type PosTerminalUpdateWithoutSystemUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTerminalsNestedInput
   priceTable?: Prisma.PriceTableUpdateOneWithoutPosTerminalsNestedInput
+  warehouses?: Prisma.PosTerminalWarehouseUpdateManyWithoutTerminalNestedInput
+  devicePairing?: Prisma.PosDevicePairingUpdateOneWithoutTerminalNestedInput
   sessions?: Prisma.PosSessionUpdateManyWithoutTerminalNestedInput
   offlineQueue?: Prisma.PosOfflineQueueUpdateManyWithoutTerminalNestedInput
   cashierSessions?: Prisma.CashierSessionUpdateManyWithoutPosTerminalNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutTerminalNestedInput
 }
 
-export type PosTerminalUncheckedUpdateWithoutWarehouseInput = {
+export type PosTerminalUncheckedUpdateWithoutSystemUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  warehouses?: Prisma.PosTerminalWarehouseUncheckedUpdateManyWithoutTerminalNestedInput
+  devicePairing?: Prisma.PosDevicePairingUncheckedUpdateOneWithoutTerminalNestedInput
   sessions?: Prisma.PosSessionUncheckedUpdateManyWithoutTerminalNestedInput
   offlineQueue?: Prisma.PosOfflineQueueUncheckedUpdateManyWithoutTerminalNestedInput
   cashierSessions?: Prisma.CashierSessionUncheckedUpdateManyWithoutPosTerminalNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutTerminalNestedInput
 }
 
-export type PosTerminalUncheckedUpdateManyWithoutWarehouseInput = {
+export type PosTerminalUncheckedUpdateManyWithoutSystemUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PosTerminalCreateManyTenantInput = {
   id?: string
-  name: string
-  deviceId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
   mode: $Enums.PosTerminalMode
-  cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
-  warehouseId: string
+  allowAnonymous?: boolean
+  systemUserId?: string | null
+  pairingSecret?: string | null
   defaultPriceTableId?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type PosTerminalUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  warehouse?: Prisma.WarehouseUpdateOneRequiredWithoutPosTerminalsNestedInput
   priceTable?: Prisma.PriceTableUpdateOneWithoutPosTerminalsNestedInput
+  systemUser?: Prisma.UserUpdateOneWithoutPosTerminalsAsSystemNestedInput
+  warehouses?: Prisma.PosTerminalWarehouseUpdateManyWithoutTerminalNestedInput
+  devicePairing?: Prisma.PosDevicePairingUpdateOneWithoutTerminalNestedInput
   sessions?: Prisma.PosSessionUpdateManyWithoutTerminalNestedInput
   offlineQueue?: Prisma.PosOfflineQueueUpdateManyWithoutTerminalNestedInput
   cashierSessions?: Prisma.CashierSessionUpdateManyWithoutPosTerminalNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutTerminalNestedInput
 }
 
 export type PosTerminalUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  warehouseId?: Prisma.StringFieldUpdateOperationsInput | string
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  systemUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  warehouses?: Prisma.PosTerminalWarehouseUncheckedUpdateManyWithoutTerminalNestedInput
+  devicePairing?: Prisma.PosDevicePairingUncheckedUpdateOneWithoutTerminalNestedInput
   sessions?: Prisma.PosSessionUncheckedUpdateManyWithoutTerminalNestedInput
   offlineQueue?: Prisma.PosOfflineQueueUncheckedUpdateManyWithoutTerminalNestedInput
   cashierSessions?: Prisma.CashierSessionUncheckedUpdateManyWithoutPosTerminalNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutTerminalNestedInput
 }
 
 export type PosTerminalUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  warehouseId?: Prisma.StringFieldUpdateOperationsInput | string
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  systemUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   defaultPriceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1457,77 +2097,95 @@ export type PosTerminalUncheckedUpdateManyWithoutTenantInput = {
 export type PosTerminalCreateManyPriceTableInput = {
   id?: string
   tenantId: string
-  name: string
-  deviceId: string
+  terminalName: string
+  terminalCode: string
+  totemCode?: string | null
   mode: $Enums.PosTerminalMode
-  cashierMode?: $Enums.PosCashierMode
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
-  warehouseId: string
+  allowAnonymous?: boolean
+  systemUserId?: string | null
+  pairingSecret?: string | null
   isActive?: boolean
   lastSyncAt?: Date | string | null
   lastOnlineAt?: Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type PosTerminalUpdateWithoutPriceTableInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPosTerminalsNestedInput
-  warehouse?: Prisma.WarehouseUpdateOneRequiredWithoutPosTerminalsNestedInput
+  systemUser?: Prisma.UserUpdateOneWithoutPosTerminalsAsSystemNestedInput
+  warehouses?: Prisma.PosTerminalWarehouseUpdateManyWithoutTerminalNestedInput
+  devicePairing?: Prisma.PosDevicePairingUpdateOneWithoutTerminalNestedInput
   sessions?: Prisma.PosSessionUpdateManyWithoutTerminalNestedInput
   offlineQueue?: Prisma.PosOfflineQueueUpdateManyWithoutTerminalNestedInput
   cashierSessions?: Prisma.CashierSessionUpdateManyWithoutPosTerminalNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutTerminalNestedInput
 }
 
 export type PosTerminalUncheckedUpdateWithoutPriceTableInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  warehouseId?: Prisma.StringFieldUpdateOperationsInput | string
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  systemUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  warehouses?: Prisma.PosTerminalWarehouseUncheckedUpdateManyWithoutTerminalNestedInput
+  devicePairing?: Prisma.PosDevicePairingUncheckedUpdateOneWithoutTerminalNestedInput
   sessions?: Prisma.PosSessionUncheckedUpdateManyWithoutTerminalNestedInput
   offlineQueue?: Prisma.PosOfflineQueueUncheckedUpdateManyWithoutTerminalNestedInput
   cashierSessions?: Prisma.CashierSessionUncheckedUpdateManyWithoutPosTerminalNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutTerminalNestedInput
 }
 
 export type PosTerminalUncheckedUpdateManyWithoutPriceTableInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  deviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalName?: Prisma.StringFieldUpdateOperationsInput | string
+  terminalCode?: Prisma.StringFieldUpdateOperationsInput | string
+  totemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mode?: Prisma.EnumPosTerminalModeFieldUpdateOperationsInput | $Enums.PosTerminalMode
-  cashierMode?: Prisma.EnumPosCashierModeFieldUpdateOperationsInput | $Enums.PosCashierMode
   acceptsPendingOrders?: Prisma.BoolFieldUpdateOperationsInput | boolean
   requiresSession?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  warehouseId?: Prisma.StringFieldUpdateOperationsInput | string
+  allowAnonymous?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  systemUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pairingSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastOnlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1538,15 +2196,19 @@ export type PosTerminalUncheckedUpdateManyWithoutPriceTableInput = {
  */
 
 export type PosTerminalCountOutputType = {
+  warehouses: number
   sessions: number
   offlineQueue: number
   cashierSessions: number
+  orders: number
 }
 
 export type PosTerminalCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  warehouses?: boolean | PosTerminalCountOutputTypeCountWarehousesArgs
   sessions?: boolean | PosTerminalCountOutputTypeCountSessionsArgs
   offlineQueue?: boolean | PosTerminalCountOutputTypeCountOfflineQueueArgs
   cashierSessions?: boolean | PosTerminalCountOutputTypeCountCashierSessionsArgs
+  orders?: boolean | PosTerminalCountOutputTypeCountOrdersArgs
 }
 
 /**
@@ -1557,6 +2219,13 @@ export type PosTerminalCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.
    * Select specific fields to fetch from the PosTerminalCountOutputType
    */
   select?: Prisma.PosTerminalCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * PosTerminalCountOutputType without action
+ */
+export type PosTerminalCountOutputTypeCountWarehousesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PosTerminalWarehouseWhereInput
 }
 
 /**
@@ -1580,142 +2249,173 @@ export type PosTerminalCountOutputTypeCountCashierSessionsArgs<ExtArgs extends r
   where?: Prisma.CashierSessionWhereInput
 }
 
+/**
+ * PosTerminalCountOutputType without action
+ */
+export type PosTerminalCountOutputTypeCountOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderWhereInput
+}
+
 
 export type PosTerminalSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantId?: boolean
-  name?: boolean
-  deviceId?: boolean
+  terminalName?: boolean
+  terminalCode?: boolean
+  totemCode?: boolean
   mode?: boolean
-  cashierMode?: boolean
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
-  warehouseId?: boolean
+  allowAnonymous?: boolean
+  systemUserId?: boolean
+  pairingSecret?: boolean
   defaultPriceTableId?: boolean
   isActive?: boolean
   lastSyncAt?: boolean
   lastOnlineAt?: boolean
   settings?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
-  warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
   priceTable?: boolean | Prisma.PosTerminal$priceTableArgs<ExtArgs>
+  systemUser?: boolean | Prisma.PosTerminal$systemUserArgs<ExtArgs>
+  warehouses?: boolean | Prisma.PosTerminal$warehousesArgs<ExtArgs>
+  devicePairing?: boolean | Prisma.PosTerminal$devicePairingArgs<ExtArgs>
   sessions?: boolean | Prisma.PosTerminal$sessionsArgs<ExtArgs>
   offlineQueue?: boolean | Prisma.PosTerminal$offlineQueueArgs<ExtArgs>
   cashierSessions?: boolean | Prisma.PosTerminal$cashierSessionsArgs<ExtArgs>
+  orders?: boolean | Prisma.PosTerminal$ordersArgs<ExtArgs>
   _count?: boolean | Prisma.PosTerminalCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["posTerminal"]>
 
 export type PosTerminalSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantId?: boolean
-  name?: boolean
-  deviceId?: boolean
+  terminalName?: boolean
+  terminalCode?: boolean
+  totemCode?: boolean
   mode?: boolean
-  cashierMode?: boolean
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
-  warehouseId?: boolean
+  allowAnonymous?: boolean
+  systemUserId?: boolean
+  pairingSecret?: boolean
   defaultPriceTableId?: boolean
   isActive?: boolean
   lastSyncAt?: boolean
   lastOnlineAt?: boolean
   settings?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
-  warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
   priceTable?: boolean | Prisma.PosTerminal$priceTableArgs<ExtArgs>
+  systemUser?: boolean | Prisma.PosTerminal$systemUserArgs<ExtArgs>
 }, ExtArgs["result"]["posTerminal"]>
 
 export type PosTerminalSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantId?: boolean
-  name?: boolean
-  deviceId?: boolean
+  terminalName?: boolean
+  terminalCode?: boolean
+  totemCode?: boolean
   mode?: boolean
-  cashierMode?: boolean
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
-  warehouseId?: boolean
+  allowAnonymous?: boolean
+  systemUserId?: boolean
+  pairingSecret?: boolean
   defaultPriceTableId?: boolean
   isActive?: boolean
   lastSyncAt?: boolean
   lastOnlineAt?: boolean
   settings?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
-  warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
   priceTable?: boolean | Prisma.PosTerminal$priceTableArgs<ExtArgs>
+  systemUser?: boolean | Prisma.PosTerminal$systemUserArgs<ExtArgs>
 }, ExtArgs["result"]["posTerminal"]>
 
 export type PosTerminalSelectScalar = {
   id?: boolean
   tenantId?: boolean
-  name?: boolean
-  deviceId?: boolean
+  terminalName?: boolean
+  terminalCode?: boolean
+  totemCode?: boolean
   mode?: boolean
-  cashierMode?: boolean
   acceptsPendingOrders?: boolean
   requiresSession?: boolean
-  warehouseId?: boolean
+  allowAnonymous?: boolean
+  systemUserId?: boolean
+  pairingSecret?: boolean
   defaultPriceTableId?: boolean
   isActive?: boolean
   lastSyncAt?: boolean
   lastOnlineAt?: boolean
   settings?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PosTerminalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "deviceId" | "mode" | "cashierMode" | "acceptsPendingOrders" | "requiresSession" | "warehouseId" | "defaultPriceTableId" | "isActive" | "lastSyncAt" | "lastOnlineAt" | "settings" | "createdAt" | "updatedAt", ExtArgs["result"]["posTerminal"]>
+export type PosTerminalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "terminalName" | "terminalCode" | "totemCode" | "mode" | "acceptsPendingOrders" | "requiresSession" | "allowAnonymous" | "systemUserId" | "pairingSecret" | "defaultPriceTableId" | "isActive" | "lastSyncAt" | "lastOnlineAt" | "settings" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["posTerminal"]>
 export type PosTerminalInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
-  warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
   priceTable?: boolean | Prisma.PosTerminal$priceTableArgs<ExtArgs>
+  systemUser?: boolean | Prisma.PosTerminal$systemUserArgs<ExtArgs>
+  warehouses?: boolean | Prisma.PosTerminal$warehousesArgs<ExtArgs>
+  devicePairing?: boolean | Prisma.PosTerminal$devicePairingArgs<ExtArgs>
   sessions?: boolean | Prisma.PosTerminal$sessionsArgs<ExtArgs>
   offlineQueue?: boolean | Prisma.PosTerminal$offlineQueueArgs<ExtArgs>
   cashierSessions?: boolean | Prisma.PosTerminal$cashierSessionsArgs<ExtArgs>
+  orders?: boolean | Prisma.PosTerminal$ordersArgs<ExtArgs>
   _count?: boolean | Prisma.PosTerminalCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PosTerminalIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
-  warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
   priceTable?: boolean | Prisma.PosTerminal$priceTableArgs<ExtArgs>
+  systemUser?: boolean | Prisma.PosTerminal$systemUserArgs<ExtArgs>
 }
 export type PosTerminalIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
-  warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
   priceTable?: boolean | Prisma.PosTerminal$priceTableArgs<ExtArgs>
+  systemUser?: boolean | Prisma.PosTerminal$systemUserArgs<ExtArgs>
 }
 
 export type $PosTerminalPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "PosTerminal"
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
-    warehouse: Prisma.$WarehousePayload<ExtArgs>
     priceTable: Prisma.$PriceTablePayload<ExtArgs> | null
+    systemUser: Prisma.$UserPayload<ExtArgs> | null
+    warehouses: Prisma.$PosTerminalWarehousePayload<ExtArgs>[]
+    devicePairing: Prisma.$PosDevicePairingPayload<ExtArgs> | null
     sessions: Prisma.$PosSessionPayload<ExtArgs>[]
     offlineQueue: Prisma.$PosOfflineQueuePayload<ExtArgs>[]
     cashierSessions: Prisma.$CashierSessionPayload<ExtArgs>[]
+    orders: Prisma.$OrderPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     tenantId: string
-    name: string
-    deviceId: string
+    terminalName: string
+    terminalCode: string
+    totemCode: string | null
     mode: $Enums.PosTerminalMode
-    cashierMode: $Enums.PosCashierMode
     acceptsPendingOrders: boolean
     requiresSession: boolean
-    warehouseId: string
+    allowAnonymous: boolean
+    systemUserId: string | null
+    pairingSecret: string | null
     defaultPriceTableId: string | null
     isActive: boolean
     lastSyncAt: Date | null
     lastOnlineAt: Date | null
     settings: runtime.JsonValue | null
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["posTerminal"]>
@@ -2113,11 +2813,14 @@ readonly fields: PosTerminalFieldRefs;
 export interface Prisma__PosTerminalClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  warehouse<T extends Prisma.WarehouseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WarehouseDefaultArgs<ExtArgs>>): Prisma.Prisma__WarehouseClient<runtime.Types.Result.GetResult<Prisma.$WarehousePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   priceTable<T extends Prisma.PosTerminal$priceTableArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosTerminal$priceTableArgs<ExtArgs>>): Prisma.Prisma__PriceTableClient<runtime.Types.Result.GetResult<Prisma.$PriceTablePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  systemUser<T extends Prisma.PosTerminal$systemUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosTerminal$systemUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  warehouses<T extends Prisma.PosTerminal$warehousesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosTerminal$warehousesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosTerminalWarehousePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  devicePairing<T extends Prisma.PosTerminal$devicePairingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosTerminal$devicePairingArgs<ExtArgs>>): Prisma.Prisma__PosDevicePairingClient<runtime.Types.Result.GetResult<Prisma.$PosDevicePairingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   sessions<T extends Prisma.PosTerminal$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosTerminal$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   offlineQueue<T extends Prisma.PosTerminal$offlineQueueArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosTerminal$offlineQueueArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosOfflineQueuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   cashierSessions<T extends Prisma.PosTerminal$cashierSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosTerminal$cashierSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CashierSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  orders<T extends Prisma.PosTerminal$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PosTerminal$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2149,18 +2852,21 @@ export interface Prisma__PosTerminalClient<T, Null = never, ExtArgs extends runt
 export interface PosTerminalFieldRefs {
   readonly id: Prisma.FieldRef<"PosTerminal", 'String'>
   readonly tenantId: Prisma.FieldRef<"PosTerminal", 'String'>
-  readonly name: Prisma.FieldRef<"PosTerminal", 'String'>
-  readonly deviceId: Prisma.FieldRef<"PosTerminal", 'String'>
+  readonly terminalName: Prisma.FieldRef<"PosTerminal", 'String'>
+  readonly terminalCode: Prisma.FieldRef<"PosTerminal", 'String'>
+  readonly totemCode: Prisma.FieldRef<"PosTerminal", 'String'>
   readonly mode: Prisma.FieldRef<"PosTerminal", 'PosTerminalMode'>
-  readonly cashierMode: Prisma.FieldRef<"PosTerminal", 'PosCashierMode'>
   readonly acceptsPendingOrders: Prisma.FieldRef<"PosTerminal", 'Boolean'>
   readonly requiresSession: Prisma.FieldRef<"PosTerminal", 'Boolean'>
-  readonly warehouseId: Prisma.FieldRef<"PosTerminal", 'String'>
+  readonly allowAnonymous: Prisma.FieldRef<"PosTerminal", 'Boolean'>
+  readonly systemUserId: Prisma.FieldRef<"PosTerminal", 'String'>
+  readonly pairingSecret: Prisma.FieldRef<"PosTerminal", 'String'>
   readonly defaultPriceTableId: Prisma.FieldRef<"PosTerminal", 'String'>
   readonly isActive: Prisma.FieldRef<"PosTerminal", 'Boolean'>
   readonly lastSyncAt: Prisma.FieldRef<"PosTerminal", 'DateTime'>
   readonly lastOnlineAt: Prisma.FieldRef<"PosTerminal", 'DateTime'>
   readonly settings: Prisma.FieldRef<"PosTerminal", 'Json'>
+  readonly deletedAt: Prisma.FieldRef<"PosTerminal", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"PosTerminal", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"PosTerminal", 'DateTime'>
 }
@@ -2578,6 +3284,68 @@ export type PosTerminal$priceTableArgs<ExtArgs extends runtime.Types.Extensions.
 }
 
 /**
+ * PosTerminal.systemUser
+ */
+export type PosTerminal$systemUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * PosTerminal.warehouses
+ */
+export type PosTerminal$warehousesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PosTerminalWarehouse
+   */
+  select?: Prisma.PosTerminalWarehouseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PosTerminalWarehouse
+   */
+  omit?: Prisma.PosTerminalWarehouseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PosTerminalWarehouseInclude<ExtArgs> | null
+  where?: Prisma.PosTerminalWarehouseWhereInput
+  orderBy?: Prisma.PosTerminalWarehouseOrderByWithRelationInput | Prisma.PosTerminalWarehouseOrderByWithRelationInput[]
+  cursor?: Prisma.PosTerminalWarehouseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PosTerminalWarehouseScalarFieldEnum | Prisma.PosTerminalWarehouseScalarFieldEnum[]
+}
+
+/**
+ * PosTerminal.devicePairing
+ */
+export type PosTerminal$devicePairingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PosDevicePairing
+   */
+  select?: Prisma.PosDevicePairingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PosDevicePairing
+   */
+  omit?: Prisma.PosDevicePairingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PosDevicePairingInclude<ExtArgs> | null
+  where?: Prisma.PosDevicePairingWhereInput
+}
+
+/**
  * PosTerminal.sessions
  */
 export type PosTerminal$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2647,6 +3415,30 @@ export type PosTerminal$cashierSessionsArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.CashierSessionScalarFieldEnum | Prisma.CashierSessionScalarFieldEnum[]
+}
+
+/**
+ * PosTerminal.orders
+ */
+export type PosTerminal$ordersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Order
+   */
+  select?: Prisma.OrderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Order
+   */
+  omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  where?: Prisma.OrderWhereInput
+  orderBy?: Prisma.OrderOrderByWithRelationInput | Prisma.OrderOrderByWithRelationInput[]
+  cursor?: Prisma.OrderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrderScalarFieldEnum | Prisma.OrderScalarFieldEnum[]
 }
 
 /**

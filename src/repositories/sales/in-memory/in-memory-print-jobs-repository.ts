@@ -22,6 +22,51 @@ export class InMemoryPrintJobsRepository implements PrintJobsRepository {
     );
   }
 
+  async findManyByTenant(
+    tenantId: string,
+    filters?: {
+      status?: string;
+      printerId?: string;
+      limit?: number;
+      page?: number;
+    },
+  ): Promise<{ jobs: PrintJob[]; total: number }> {
+    let filtered = this.items.filter(
+      (job) => job.tenantId.toString() === tenantId,
+    );
+
+    if (filters?.status) {
+      filtered = filtered.filter((job) => job.status === filters.status);
+    }
+
+    if (filters?.printerId) {
+      filtered = filtered.filter(
+        (job) => job.printerId.toString() === filters.printerId,
+      );
+    }
+
+    const total = filtered.length;
+    const page = filters?.page ?? 1;
+    const limit = filters?.limit ?? 20;
+    const offset = (page - 1) * limit;
+
+    const jobs = filtered.slice(offset, offset + limit);
+
+    return { jobs, total };
+  }
+
+  async findPendingByPrinter(
+    printerId: string,
+    tenantId: string,
+  ): Promise<PrintJob[]> {
+    return this.items.filter(
+      (job) =>
+        job.printerId.toString() === printerId &&
+        job.tenantId.toString() === tenantId &&
+        (job.status === 'CREATED' || job.status === 'QUEUED'),
+    );
+  }
+
   async save(job: PrintJob): Promise<void> {
     const index = this.items.findIndex(
       (item) => item.id.toString() === job.id.toString(),

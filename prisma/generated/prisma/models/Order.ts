@@ -96,6 +96,7 @@ export type OrderMinAggregateOutputType = {
   cancelReason: string | null
   expiresAt: Date | null
   saleCode: string | null
+  terminalId: string | null
   cashierUserId: string | null
   posSessionId: string | null
   claimedByUserId: string | null
@@ -154,6 +155,7 @@ export type OrderMaxAggregateOutputType = {
   cancelReason: string | null
   expiresAt: Date | null
   saleCode: string | null
+  terminalId: string | null
   cashierUserId: string | null
   posSessionId: string | null
   claimedByUserId: string | null
@@ -215,6 +217,7 @@ export type OrderCountAggregateOutputType = {
   cancelReason: number
   expiresAt: number
   saleCode: number
+  terminalId: number
   cashierUserId: number
   posSessionId: number
   claimedByUserId: number
@@ -299,6 +302,7 @@ export type OrderMinAggregateInputType = {
   cancelReason?: true
   expiresAt?: true
   saleCode?: true
+  terminalId?: true
   cashierUserId?: true
   posSessionId?: true
   claimedByUserId?: true
@@ -357,6 +361,7 @@ export type OrderMaxAggregateInputType = {
   cancelReason?: true
   expiresAt?: true
   saleCode?: true
+  terminalId?: true
   cashierUserId?: true
   posSessionId?: true
   claimedByUserId?: true
@@ -418,6 +423,7 @@ export type OrderCountAggregateInputType = {
   cancelReason?: true
   expiresAt?: true
   saleCode?: true
+  terminalId?: true
   cashierUserId?: true
   posSessionId?: true
   claimedByUserId?: true
@@ -566,6 +572,7 @@ export type OrderGroupByOutputType = {
   cancelReason: string | null
   expiresAt: Date | null
   saleCode: string | null
+  terminalId: string | null
   cashierUserId: string | null
   posSessionId: string | null
   claimedByUserId: string | null
@@ -650,6 +657,7 @@ export type OrderWhereInput = {
   cancelReason?: Prisma.StringNullableFilter<"Order"> | string | null
   expiresAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   saleCode?: Prisma.StringNullableFilter<"Order"> | string | null
+  terminalId?: Prisma.StringNullableFilter<"Order"> | string | null
   cashierUserId?: Prisma.StringNullableFilter<"Order"> | string | null
   posSessionId?: Prisma.StringNullableFilter<"Order"> | string | null
   claimedByUserId?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -686,6 +694,7 @@ export type OrderWhereInput = {
   cashierUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   posSession?: Prisma.XOR<Prisma.PosSessionNullableScalarRelationFilter, Prisma.PosSessionWhereInput> | null
   claimedByUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  terminal?: Prisma.XOR<Prisma.PosTerminalNullableScalarRelationFilter, Prisma.PosTerminalWhereInput> | null
   posTransactions?: Prisma.PosTransactionListRelationFilter
   posVisitLogs?: Prisma.PosVisitLogListRelationFilter
   invoice?: Prisma.XOR<Prisma.InvoiceNullableScalarRelationFilter, Prisma.InvoiceWhereInput> | null
@@ -742,6 +751,7 @@ export type OrderOrderByWithRelationInput = {
   cancelReason?: Prisma.SortOrderInput | Prisma.SortOrder
   expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   saleCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  terminalId?: Prisma.SortOrderInput | Prisma.SortOrder
   cashierUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   posSessionId?: Prisma.SortOrderInput | Prisma.SortOrder
   claimedByUserId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -778,6 +788,7 @@ export type OrderOrderByWithRelationInput = {
   cashierUser?: Prisma.UserOrderByWithRelationInput
   posSession?: Prisma.PosSessionOrderByWithRelationInput
   claimedByUser?: Prisma.UserOrderByWithRelationInput
+  terminal?: Prisma.PosTerminalOrderByWithRelationInput
   posTransactions?: Prisma.PosTransactionOrderByRelationAggregateInput
   posVisitLogs?: Prisma.PosVisitLogOrderByRelationAggregateInput
   invoice?: Prisma.InvoiceOrderByWithRelationInput
@@ -839,6 +850,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   cancelReason?: Prisma.StringNullableFilter<"Order"> | string | null
   expiresAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   saleCode?: Prisma.StringNullableFilter<"Order"> | string | null
+  terminalId?: Prisma.StringNullableFilter<"Order"> | string | null
   cashierUserId?: Prisma.StringNullableFilter<"Order"> | string | null
   posSessionId?: Prisma.StringNullableFilter<"Order"> | string | null
   claimedByUserId?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -875,6 +887,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   cashierUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   posSession?: Prisma.XOR<Prisma.PosSessionNullableScalarRelationFilter, Prisma.PosSessionWhereInput> | null
   claimedByUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  terminal?: Prisma.XOR<Prisma.PosTerminalNullableScalarRelationFilter, Prisma.PosTerminalWhereInput> | null
   posTransactions?: Prisma.PosTransactionListRelationFilter
   posVisitLogs?: Prisma.PosVisitLogListRelationFilter
   invoice?: Prisma.XOR<Prisma.InvoiceNullableScalarRelationFilter, Prisma.InvoiceWhereInput> | null
@@ -931,6 +944,7 @@ export type OrderOrderByWithAggregationInput = {
   cancelReason?: Prisma.SortOrderInput | Prisma.SortOrder
   expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   saleCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  terminalId?: Prisma.SortOrderInput | Prisma.SortOrder
   cashierUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   posSessionId?: Prisma.SortOrderInput | Prisma.SortOrder
   claimedByUserId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -1000,6 +1014,7 @@ export type OrderScalarWhereWithAggregatesInput = {
   cancelReason?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   expiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
   saleCode?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  terminalId?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   cashierUserId?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   posSessionId?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   claimedByUserId?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
@@ -1081,6 +1096,7 @@ export type OrderCreateInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -1137,6 +1153,7 @@ export type OrderUncheckedCreateInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -1233,6 +1250,7 @@ export type OrderUpdateInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -1289,6 +1307,7 @@ export type OrderUncheckedUpdateInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1365,6 +1384,7 @@ export type OrderCreateManyInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -1471,6 +1491,7 @@ export type OrderUncheckedUpdateManyInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1557,6 +1578,7 @@ export type OrderCountOrderByAggregateInput = {
   cancelReason?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   saleCode?: Prisma.SortOrder
+  terminalId?: Prisma.SortOrder
   cashierUserId?: Prisma.SortOrder
   posSessionId?: Prisma.SortOrder
   claimedByUserId?: Prisma.SortOrder
@@ -1627,6 +1649,7 @@ export type OrderMaxOrderByAggregateInput = {
   cancelReason?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   saleCode?: Prisma.SortOrder
+  terminalId?: Prisma.SortOrder
   cashierUserId?: Prisma.SortOrder
   posSessionId?: Prisma.SortOrder
   claimedByUserId?: Prisma.SortOrder
@@ -1685,6 +1708,7 @@ export type OrderMinOrderByAggregateInput = {
   cancelReason?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   saleCode?: Prisma.SortOrder
+  terminalId?: Prisma.SortOrder
   cashierUserId?: Prisma.SortOrder
   posSessionId?: Prisma.SortOrder
   claimedByUserId?: Prisma.SortOrder
@@ -2511,6 +2535,48 @@ export type OrderUpdateOneRequiredWithoutHistoryNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.OrderUpdateToOneWithWhereWithoutHistoryInput, Prisma.OrderUpdateWithoutHistoryInput>, Prisma.OrderUncheckedUpdateWithoutHistoryInput>
 }
 
+export type OrderCreateNestedManyWithoutTerminalInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutTerminalInput, Prisma.OrderUncheckedCreateWithoutTerminalInput> | Prisma.OrderCreateWithoutTerminalInput[] | Prisma.OrderUncheckedCreateWithoutTerminalInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutTerminalInput | Prisma.OrderCreateOrConnectWithoutTerminalInput[]
+  createMany?: Prisma.OrderCreateManyTerminalInputEnvelope
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+}
+
+export type OrderUncheckedCreateNestedManyWithoutTerminalInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutTerminalInput, Prisma.OrderUncheckedCreateWithoutTerminalInput> | Prisma.OrderCreateWithoutTerminalInput[] | Prisma.OrderUncheckedCreateWithoutTerminalInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutTerminalInput | Prisma.OrderCreateOrConnectWithoutTerminalInput[]
+  createMany?: Prisma.OrderCreateManyTerminalInputEnvelope
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+}
+
+export type OrderUpdateManyWithoutTerminalNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutTerminalInput, Prisma.OrderUncheckedCreateWithoutTerminalInput> | Prisma.OrderCreateWithoutTerminalInput[] | Prisma.OrderUncheckedCreateWithoutTerminalInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutTerminalInput | Prisma.OrderCreateOrConnectWithoutTerminalInput[]
+  upsert?: Prisma.OrderUpsertWithWhereUniqueWithoutTerminalInput | Prisma.OrderUpsertWithWhereUniqueWithoutTerminalInput[]
+  createMany?: Prisma.OrderCreateManyTerminalInputEnvelope
+  set?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  disconnect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  delete?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  update?: Prisma.OrderUpdateWithWhereUniqueWithoutTerminalInput | Prisma.OrderUpdateWithWhereUniqueWithoutTerminalInput[]
+  updateMany?: Prisma.OrderUpdateManyWithWhereWithoutTerminalInput | Prisma.OrderUpdateManyWithWhereWithoutTerminalInput[]
+  deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
+}
+
+export type OrderUncheckedUpdateManyWithoutTerminalNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutTerminalInput, Prisma.OrderUncheckedCreateWithoutTerminalInput> | Prisma.OrderCreateWithoutTerminalInput[] | Prisma.OrderUncheckedCreateWithoutTerminalInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutTerminalInput | Prisma.OrderCreateOrConnectWithoutTerminalInput[]
+  upsert?: Prisma.OrderUpsertWithWhereUniqueWithoutTerminalInput | Prisma.OrderUpsertWithWhereUniqueWithoutTerminalInput[]
+  createMany?: Prisma.OrderCreateManyTerminalInputEnvelope
+  set?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  disconnect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  delete?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  update?: Prisma.OrderUpdateWithWhereUniqueWithoutTerminalInput | Prisma.OrderUpdateWithWhereUniqueWithoutTerminalInput[]
+  updateMany?: Prisma.OrderUpdateManyWithWhereWithoutTerminalInput | Prisma.OrderUpdateManyWithWhereWithoutTerminalInput[]
+  deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
+}
+
 export type OrderCreateNestedManyWithoutPosSessionInput = {
   create?: Prisma.XOR<Prisma.OrderCreateWithoutPosSessionInput, Prisma.OrderUncheckedCreateWithoutPosSessionInput> | Prisma.OrderCreateWithoutPosSessionInput[] | Prisma.OrderUncheckedCreateWithoutPosSessionInput[]
   connectOrCreate?: Prisma.OrderCreateOrConnectWithoutPosSessionInput | Prisma.OrderCreateOrConnectWithoutPosSessionInput[]
@@ -2695,6 +2761,7 @@ export type OrderCreateWithoutAssignedToInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -2750,6 +2817,7 @@ export type OrderUncheckedCreateWithoutAssignedToInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -2855,6 +2923,7 @@ export type OrderCreateWithoutApprovedByInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -2910,6 +2979,7 @@ export type OrderUncheckedCreateWithoutApprovedByInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -3015,6 +3085,7 @@ export type OrderCreateWithoutCashierUserInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -3071,6 +3142,7 @@ export type OrderUncheckedCreateWithoutCashierUserInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
@@ -3175,6 +3247,7 @@ export type OrderCreateWithoutClaimedByUserInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -3231,6 +3304,7 @@ export type OrderUncheckedCreateWithoutClaimedByUserInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedAt?: Date | string | null
@@ -3335,6 +3409,7 @@ export type OrderScalarWhereInput = {
   cancelReason?: Prisma.StringNullableFilter<"Order"> | string | null
   expiresAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   saleCode?: Prisma.StringNullableFilter<"Order"> | string | null
+  terminalId?: Prisma.StringNullableFilter<"Order"> | string | null
   cashierUserId?: Prisma.StringNullableFilter<"Order"> | string | null
   posSessionId?: Prisma.StringNullableFilter<"Order"> | string | null
   claimedByUserId?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -3463,6 +3538,7 @@ export type OrderCreateWithoutSourceWarehouseInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -3518,6 +3594,7 @@ export type OrderUncheckedCreateWithoutSourceWarehouseInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -3639,6 +3716,7 @@ export type OrderCreateWithoutCustomerInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -3694,6 +3772,7 @@ export type OrderUncheckedCreateWithoutCustomerInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -3815,6 +3894,7 @@ export type OrderCreateWithoutContactInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -3870,6 +3950,7 @@ export type OrderUncheckedCreateWithoutContactInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -3991,6 +4072,7 @@ export type OrderCreateWithoutPipelineInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -4046,6 +4128,7 @@ export type OrderUncheckedCreateWithoutPipelineInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -4167,6 +4250,7 @@ export type OrderCreateWithoutStageInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -4222,6 +4306,7 @@ export type OrderUncheckedCreateWithoutStageInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -4343,6 +4428,7 @@ export type OrderCreateWithoutTenantInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -4398,6 +4484,7 @@ export type OrderUncheckedCreateWithoutTenantInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -4519,6 +4606,7 @@ export type OrderCreateWithoutPriceTableInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -4574,6 +4662,7 @@ export type OrderUncheckedCreateWithoutPriceTableInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -4695,6 +4784,7 @@ export type OrderCreateWithoutCouponInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -4750,6 +4840,7 @@ export type OrderUncheckedCreateWithoutCouponInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -4871,6 +4962,7 @@ export type OrderCreateWithoutConvertedOrdersInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -4927,6 +5019,7 @@ export type OrderUncheckedCreateWithoutConvertedOrdersInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -5026,6 +5119,7 @@ export type OrderCreateWithoutQuoteInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -5081,6 +5175,7 @@ export type OrderUncheckedCreateWithoutQuoteInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -5186,6 +5281,7 @@ export type OrderCreateWithoutReturnedOrdersInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -5242,6 +5338,7 @@ export type OrderUncheckedCreateWithoutReturnedOrdersInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -5341,6 +5438,7 @@ export type OrderCreateWithoutReturnOriginInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -5396,6 +5494,7 @@ export type OrderUncheckedCreateWithoutReturnOriginInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -5512,6 +5611,7 @@ export type OrderUpdateWithoutConvertedOrdersInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -5568,6 +5668,7 @@ export type OrderUncheckedUpdateWithoutConvertedOrdersInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5689,6 +5790,7 @@ export type OrderUpdateWithoutReturnedOrdersInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -5745,6 +5847,7 @@ export type OrderUncheckedUpdateWithoutReturnedOrdersInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5855,6 +5958,7 @@ export type OrderCreateWithoutItemsInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -5911,6 +6015,7 @@ export type OrderUncheckedCreateWithoutItemsInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -6021,6 +6126,7 @@ export type OrderUpdateWithoutItemsInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -6077,6 +6183,7 @@ export type OrderUncheckedUpdateWithoutItemsInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6171,6 +6278,7 @@ export type OrderCreateWithoutPaymentConditionInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -6226,6 +6334,7 @@ export type OrderUncheckedCreateWithoutPaymentConditionInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -6347,6 +6456,7 @@ export type OrderCreateWithoutPaymentsInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -6403,6 +6513,7 @@ export type OrderUncheckedCreateWithoutPaymentsInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -6513,6 +6624,7 @@ export type OrderUpdateWithoutPaymentsInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -6569,6 +6681,7 @@ export type OrderUncheckedUpdateWithoutPaymentsInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6663,6 +6776,7 @@ export type OrderCreateWithoutDeliveriesInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -6719,6 +6833,7 @@ export type OrderUncheckedCreateWithoutDeliveriesInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -6829,6 +6944,7 @@ export type OrderUpdateWithoutDeliveriesInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -6885,6 +7001,7 @@ export type OrderUncheckedUpdateWithoutDeliveriesInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6979,6 +7096,7 @@ export type OrderCreateWithoutReturnsInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -7035,6 +7153,7 @@ export type OrderUncheckedCreateWithoutReturnsInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -7145,6 +7264,7 @@ export type OrderUpdateWithoutReturnsInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -7201,6 +7321,7 @@ export type OrderUncheckedUpdateWithoutReturnsInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7295,6 +7416,7 @@ export type OrderCreateWithoutStoreCreditsReservedInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -7351,6 +7473,7 @@ export type OrderUncheckedCreateWithoutStoreCreditsReservedInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -7461,6 +7584,7 @@ export type OrderUpdateWithoutStoreCreditsReservedInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -7517,6 +7641,7 @@ export type OrderUncheckedUpdateWithoutStoreCreditsReservedInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7611,6 +7736,7 @@ export type OrderCreateWithoutStoreCreditUsagesInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -7667,6 +7793,7 @@ export type OrderUncheckedCreateWithoutStoreCreditUsagesInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -7777,6 +7904,7 @@ export type OrderUpdateWithoutStoreCreditUsagesInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -7833,6 +7961,7 @@ export type OrderUncheckedUpdateWithoutStoreCreditUsagesInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7927,6 +8056,7 @@ export type OrderCreateWithoutCommissionsInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -7983,6 +8113,7 @@ export type OrderUncheckedCreateWithoutCommissionsInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -8093,6 +8224,7 @@ export type OrderUpdateWithoutCommissionsInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -8149,6 +8281,7 @@ export type OrderUncheckedUpdateWithoutCommissionsInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8243,6 +8376,7 @@ export type OrderCreateWithoutHistoryInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -8299,6 +8433,7 @@ export type OrderUncheckedCreateWithoutHistoryInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -8409,6 +8544,7 @@ export type OrderUpdateWithoutHistoryInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -8465,6 +8601,7 @@ export type OrderUncheckedUpdateWithoutHistoryInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8489,6 +8626,184 @@ export type OrderUncheckedUpdateWithoutHistoryInput = {
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderCreateWithoutTerminalInput = {
+  id?: string
+  orderNumber: string
+  type: $Enums.OrderType
+  status?: $Enums.OrderStatus
+  channel: $Enums.OrderChannel
+  subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  creditUsed?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: string | null
+  carrierName?: string | null
+  estimatedDelivery?: Date | string | null
+  deliveredAt?: Date | string | null
+  needsApproval?: boolean
+  approvedAt?: Date | string | null
+  approvalNotes?: string | null
+  rejectedReason?: string | null
+  dealId?: string | null
+  notes?: string | null
+  internalNotes?: string | null
+  tags?: Prisma.OrderCreatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt: Date | string
+  confirmedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  expiresAt?: Date | string | null
+  saleCode?: string | null
+  claimedAt?: Date | string | null
+  version?: number
+  invoiceId?: string | null
+  invoicedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutOrdersInput
+  customer: Prisma.CustomerCreateNestedOneWithoutOrdersInput
+  contact?: Prisma.CrmContactCreateNestedOneWithoutOrdersInput
+  pipeline: Prisma.CrmPipelineCreateNestedOneWithoutOrdersInput
+  stage: Prisma.CrmPipelineStageCreateNestedOneWithoutOrdersInput
+  priceTable?: Prisma.PriceTableCreateNestedOneWithoutOrdersInput
+  paymentCondition?: Prisma.PaymentConditionCreateNestedOneWithoutOrdersInput
+  quote?: Prisma.OrderCreateNestedOneWithoutConvertedOrdersInput
+  convertedOrders?: Prisma.OrderCreateNestedManyWithoutQuoteInput
+  returnOrigin?: Prisma.OrderCreateNestedOneWithoutReturnedOrdersInput
+  returnedOrders?: Prisma.OrderCreateNestedManyWithoutReturnOriginInput
+  coupon?: Prisma.CouponCreateNestedOneWithoutOrdersInput
+  sourceWarehouse?: Prisma.WarehouseCreateNestedOneWithoutOrdersInput
+  assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedOrdersInput
+  approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedOrdersInput
+  items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
+  payments?: Prisma.OrderPaymentCreateNestedManyWithoutOrderInput
+  deliveries?: Prisma.OrderDeliveryCreateNestedManyWithoutOrderInput
+  returns?: Prisma.OrderReturnCreateNestedManyWithoutOrderInput
+  commissions?: Prisma.OrderCommissionCreateNestedManyWithoutOrderInput
+  history?: Prisma.OrderHistoryCreateNestedManyWithoutOrderInput
+  storeCreditsReserved?: Prisma.StoreCreditCreateNestedManyWithoutReservedForOrderInput
+  storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
+  cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
+  posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
+  claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
+  posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
+  paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
+}
+
+export type OrderUncheckedCreateWithoutTerminalInput = {
+  id?: string
+  tenantId: string
+  orderNumber: string
+  type: $Enums.OrderType
+  status?: $Enums.OrderStatus
+  customerId: string
+  contactId?: string | null
+  pipelineId: string
+  stageId: string
+  channel: $Enums.OrderChannel
+  subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  priceTableId?: string | null
+  paymentConditionId?: string | null
+  creditUsed?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: string | null
+  carrierName?: string | null
+  estimatedDelivery?: Date | string | null
+  deliveredAt?: Date | string | null
+  needsApproval?: boolean
+  approvedByUserId?: string | null
+  approvedAt?: Date | string | null
+  approvalNotes?: string | null
+  rejectedReason?: string | null
+  dealId?: string | null
+  quoteId?: string | null
+  returnOriginId?: string | null
+  couponId?: string | null
+  sourceWarehouseId?: string | null
+  assignedToUserId?: string | null
+  notes?: string | null
+  internalNotes?: string | null
+  tags?: Prisma.OrderCreatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt: Date | string
+  confirmedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  expiresAt?: Date | string | null
+  saleCode?: string | null
+  cashierUserId?: string | null
+  posSessionId?: string | null
+  claimedByUserId?: string | null
+  claimedAt?: Date | string | null
+  version?: number
+  invoiceId?: string | null
+  invoicedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  convertedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutQuoteInput
+  returnedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutReturnOriginInput
+  items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
+  payments?: Prisma.OrderPaymentUncheckedCreateNestedManyWithoutOrderInput
+  deliveries?: Prisma.OrderDeliveryUncheckedCreateNestedManyWithoutOrderInput
+  returns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutOrderInput
+  commissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutOrderInput
+  history?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutOrderInput
+  storeCreditsReserved?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutReservedForOrderInput
+  storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
+  posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
+  posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
+  paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
+}
+
+export type OrderCreateOrConnectWithoutTerminalInput = {
+  where: Prisma.OrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderCreateWithoutTerminalInput, Prisma.OrderUncheckedCreateWithoutTerminalInput>
+}
+
+export type OrderCreateManyTerminalInputEnvelope = {
+  data: Prisma.OrderCreateManyTerminalInput | Prisma.OrderCreateManyTerminalInput[]
+  skipDuplicates?: boolean
+}
+
+export type OrderUpsertWithWhereUniqueWithoutTerminalInput = {
+  where: Prisma.OrderWhereUniqueInput
+  update: Prisma.XOR<Prisma.OrderUpdateWithoutTerminalInput, Prisma.OrderUncheckedUpdateWithoutTerminalInput>
+  create: Prisma.XOR<Prisma.OrderCreateWithoutTerminalInput, Prisma.OrderUncheckedCreateWithoutTerminalInput>
+}
+
+export type OrderUpdateWithWhereUniqueWithoutTerminalInput = {
+  where: Prisma.OrderWhereUniqueInput
+  data: Prisma.XOR<Prisma.OrderUpdateWithoutTerminalInput, Prisma.OrderUncheckedUpdateWithoutTerminalInput>
+}
+
+export type OrderUpdateManyWithWhereWithoutTerminalInput = {
+  where: Prisma.OrderScalarWhereInput
+  data: Prisma.XOR<Prisma.OrderUpdateManyMutationInput, Prisma.OrderUncheckedUpdateManyWithoutTerminalInput>
 }
 
 export type OrderCreateWithoutPosSessionInput = {
@@ -8559,6 +8874,7 @@ export type OrderCreateWithoutPosSessionInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -8615,6 +8931,7 @@ export type OrderUncheckedCreateWithoutPosSessionInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
@@ -8736,6 +9053,7 @@ export type OrderCreateWithoutPosTransactionsInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
@@ -8791,6 +9109,7 @@ export type OrderUncheckedCreateWithoutPosTransactionsInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -8902,6 +9221,7 @@ export type OrderUpdateWithoutPosTransactionsInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
@@ -8957,6 +9277,7 @@ export type OrderUncheckedUpdateWithoutPosTransactionsInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9052,6 +9373,7 @@ export type OrderCreateWithoutPosVisitLogsInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
@@ -9107,6 +9429,7 @@ export type OrderUncheckedCreateWithoutPosVisitLogsInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -9218,6 +9541,7 @@ export type OrderUpdateWithoutPosVisitLogsInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
@@ -9273,6 +9597,7 @@ export type OrderUncheckedUpdateWithoutPosVisitLogsInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9368,6 +9693,7 @@ export type OrderCreateWithoutFiscalDocumentsInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -9423,6 +9749,7 @@ export type OrderUncheckedCreateWithoutFiscalDocumentsInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -9534,6 +9861,7 @@ export type OrderUpdateWithoutFiscalDocumentsInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -9589,6 +9917,7 @@ export type OrderUncheckedUpdateWithoutFiscalDocumentsInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9684,6 +10013,7 @@ export type OrderCreateWithoutPaymentChargesInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
@@ -9739,6 +10069,7 @@ export type OrderUncheckedCreateWithoutPaymentChargesInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -9850,6 +10181,7 @@ export type OrderUpdateWithoutPaymentChargesInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -9905,6 +10237,7 @@ export type OrderUncheckedUpdateWithoutPaymentChargesInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10000,6 +10333,7 @@ export type OrderCreateWithoutInvoiceInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
@@ -10055,6 +10389,7 @@ export type OrderUncheckedCreateWithoutInvoiceInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -10166,6 +10501,7 @@ export type OrderUpdateWithoutInvoiceInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
@@ -10221,6 +10557,7 @@ export type OrderUncheckedUpdateWithoutInvoiceInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10295,6 +10632,7 @@ export type OrderCreateManyAssignedToInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -10355,6 +10693,7 @@ export type OrderCreateManyApprovedByInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -10416,6 +10755,7 @@ export type OrderCreateManyCashierUserInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
@@ -10476,6 +10816,7 @@ export type OrderCreateManyClaimedByUserInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedAt?: Date | string | null
@@ -10555,6 +10896,7 @@ export type OrderUpdateWithoutAssignedToInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -10610,6 +10952,7 @@ export type OrderUncheckedUpdateWithoutAssignedToInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10685,6 +11028,7 @@ export type OrderUncheckedUpdateManyWithoutAssignedToInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10765,6 +11109,7 @@ export type OrderUpdateWithoutApprovedByInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -10820,6 +11165,7 @@ export type OrderUncheckedUpdateWithoutApprovedByInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10895,6 +11241,7 @@ export type OrderUncheckedUpdateManyWithoutApprovedByInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10975,6 +11322,7 @@ export type OrderUpdateWithoutCashierUserInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -11031,6 +11379,7 @@ export type OrderUncheckedUpdateWithoutCashierUserInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11106,6 +11455,7 @@ export type OrderUncheckedUpdateManyWithoutCashierUserInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11185,6 +11535,7 @@ export type OrderUpdateWithoutClaimedByUserInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -11241,6 +11592,7 @@ export type OrderUncheckedUpdateWithoutClaimedByUserInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11316,6 +11668,7 @@ export type OrderUncheckedUpdateManyWithoutClaimedByUserInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11375,6 +11728,7 @@ export type OrderCreateManySourceWarehouseInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -11455,6 +11809,7 @@ export type OrderUpdateWithoutSourceWarehouseInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -11510,6 +11865,7 @@ export type OrderUncheckedUpdateWithoutSourceWarehouseInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11585,6 +11941,7 @@ export type OrderUncheckedUpdateManyWithoutSourceWarehouseInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11645,6 +12002,7 @@ export type OrderCreateManyCustomerInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -11725,6 +12083,7 @@ export type OrderUpdateWithoutCustomerInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -11780,6 +12139,7 @@ export type OrderUncheckedUpdateWithoutCustomerInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11855,6 +12215,7 @@ export type OrderUncheckedUpdateManyWithoutCustomerInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11915,6 +12276,7 @@ export type OrderCreateManyContactInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -11995,6 +12357,7 @@ export type OrderUpdateWithoutContactInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -12050,6 +12413,7 @@ export type OrderUncheckedUpdateWithoutContactInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12125,6 +12489,7 @@ export type OrderUncheckedUpdateManyWithoutContactInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12185,6 +12550,7 @@ export type OrderCreateManyPipelineInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -12265,6 +12631,7 @@ export type OrderUpdateWithoutPipelineInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -12320,6 +12687,7 @@ export type OrderUncheckedUpdateWithoutPipelineInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12395,6 +12763,7 @@ export type OrderUncheckedUpdateManyWithoutPipelineInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12455,6 +12824,7 @@ export type OrderCreateManyStageInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -12535,6 +12905,7 @@ export type OrderUpdateWithoutStageInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -12590,6 +12961,7 @@ export type OrderUncheckedUpdateWithoutStageInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12665,6 +13037,7 @@ export type OrderUncheckedUpdateManyWithoutStageInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12725,6 +13098,7 @@ export type OrderCreateManyTenantInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -12805,6 +13179,7 @@ export type OrderUpdateWithoutTenantInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -12860,6 +13235,7 @@ export type OrderUncheckedUpdateWithoutTenantInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12935,6 +13311,7 @@ export type OrderUncheckedUpdateManyWithoutTenantInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12995,6 +13372,7 @@ export type OrderCreateManyPriceTableInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -13075,6 +13453,7 @@ export type OrderUpdateWithoutPriceTableInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -13130,6 +13509,7 @@ export type OrderUncheckedUpdateWithoutPriceTableInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13205,6 +13585,7 @@ export type OrderUncheckedUpdateManyWithoutPriceTableInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13265,6 +13646,7 @@ export type OrderCreateManyCouponInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -13345,6 +13727,7 @@ export type OrderUpdateWithoutCouponInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -13400,6 +13783,7 @@ export type OrderUncheckedUpdateWithoutCouponInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13475,6 +13859,7 @@ export type OrderUncheckedUpdateManyWithoutCouponInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13535,6 +13920,7 @@ export type OrderCreateManyQuoteInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -13595,6 +13981,7 @@ export type OrderCreateManyReturnOriginInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -13675,6 +14062,7 @@ export type OrderUpdateWithoutQuoteInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -13730,6 +14118,7 @@ export type OrderUncheckedUpdateWithoutQuoteInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13805,6 +14194,7 @@ export type OrderUncheckedUpdateManyWithoutQuoteInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13885,6 +14275,7 @@ export type OrderUpdateWithoutReturnOriginInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -13940,6 +14331,7 @@ export type OrderUncheckedUpdateWithoutReturnOriginInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -14015,6 +14407,7 @@ export type OrderUncheckedUpdateManyWithoutReturnOriginInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -14075,6 +14468,7 @@ export type OrderCreateManyPaymentConditionInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   posSessionId?: string | null
   claimedByUserId?: string | null
@@ -14155,6 +14549,7 @@ export type OrderUpdateWithoutPaymentConditionInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -14180,6 +14575,281 @@ export type OrderUncheckedUpdateWithoutPaymentConditionInput = {
   grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   priceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creditUsed?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: Prisma.NullableEnumDeliveryMethodFieldUpdateOperationsInput | $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  carrierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedDelivery?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  needsApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dealId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  returnOriginId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  couponId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceWarehouseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.OrderUpdatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  convertedOrders?: Prisma.OrderUncheckedUpdateManyWithoutQuoteNestedInput
+  returnedOrders?: Prisma.OrderUncheckedUpdateManyWithoutReturnOriginNestedInput
+  items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
+  payments?: Prisma.OrderPaymentUncheckedUpdateManyWithoutOrderNestedInput
+  deliveries?: Prisma.OrderDeliveryUncheckedUpdateManyWithoutOrderNestedInput
+  returns?: Prisma.OrderReturnUncheckedUpdateManyWithoutOrderNestedInput
+  commissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutOrderNestedInput
+  history?: Prisma.OrderHistoryUncheckedUpdateManyWithoutOrderNestedInput
+  storeCreditsReserved?: Prisma.StoreCreditUncheckedUpdateManyWithoutReservedForOrderNestedInput
+  storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
+  posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
+  posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
+  paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderUncheckedUpdateManyWithoutPaymentConditionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineId?: Prisma.StringFieldUpdateOperationsInput | string
+  stageId?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  priceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creditUsed?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: Prisma.NullableEnumDeliveryMethodFieldUpdateOperationsInput | $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  carrierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedDelivery?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  needsApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dealId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  returnOriginId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  couponId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceWarehouseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.OrderUpdatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OrderCreateManyTerminalInput = {
+  id?: string
+  tenantId: string
+  orderNumber: string
+  type: $Enums.OrderType
+  status?: $Enums.OrderStatus
+  customerId: string
+  contactId?: string | null
+  pipelineId: string
+  stageId: string
+  channel: $Enums.OrderChannel
+  subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  priceTableId?: string | null
+  paymentConditionId?: string | null
+  creditUsed?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: string | null
+  carrierName?: string | null
+  estimatedDelivery?: Date | string | null
+  deliveredAt?: Date | string | null
+  needsApproval?: boolean
+  approvedByUserId?: string | null
+  approvedAt?: Date | string | null
+  approvalNotes?: string | null
+  rejectedReason?: string | null
+  dealId?: string | null
+  quoteId?: string | null
+  returnOriginId?: string | null
+  couponId?: string | null
+  sourceWarehouseId?: string | null
+  assignedToUserId?: string | null
+  notes?: string | null
+  internalNotes?: string | null
+  tags?: Prisma.OrderCreatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt: Date | string
+  confirmedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  expiresAt?: Date | string | null
+  saleCode?: string | null
+  cashierUserId?: string | null
+  posSessionId?: string | null
+  claimedByUserId?: string | null
+  claimedAt?: Date | string | null
+  version?: number
+  invoiceId?: string | null
+  invoicedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OrderUpdateWithoutTerminalInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  channel?: Prisma.EnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  creditUsed?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: Prisma.NullableEnumDeliveryMethodFieldUpdateOperationsInput | $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  carrierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedDelivery?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  needsApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dealId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.OrderUpdatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutOrdersNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutOrdersNestedInput
+  contact?: Prisma.CrmContactUpdateOneWithoutOrdersNestedInput
+  pipeline?: Prisma.CrmPipelineUpdateOneRequiredWithoutOrdersNestedInput
+  stage?: Prisma.CrmPipelineStageUpdateOneRequiredWithoutOrdersNestedInput
+  priceTable?: Prisma.PriceTableUpdateOneWithoutOrdersNestedInput
+  paymentCondition?: Prisma.PaymentConditionUpdateOneWithoutOrdersNestedInput
+  quote?: Prisma.OrderUpdateOneWithoutConvertedOrdersNestedInput
+  convertedOrders?: Prisma.OrderUpdateManyWithoutQuoteNestedInput
+  returnOrigin?: Prisma.OrderUpdateOneWithoutReturnedOrdersNestedInput
+  returnedOrders?: Prisma.OrderUpdateManyWithoutReturnOriginNestedInput
+  coupon?: Prisma.CouponUpdateOneWithoutOrdersNestedInput
+  sourceWarehouse?: Prisma.WarehouseUpdateOneWithoutOrdersNestedInput
+  assignedTo?: Prisma.UserUpdateOneWithoutAssignedOrdersNestedInput
+  approvedBy?: Prisma.UserUpdateOneWithoutApprovedOrdersNestedInput
+  items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
+  payments?: Prisma.OrderPaymentUpdateManyWithoutOrderNestedInput
+  deliveries?: Prisma.OrderDeliveryUpdateManyWithoutOrderNestedInput
+  returns?: Prisma.OrderReturnUpdateManyWithoutOrderNestedInput
+  commissions?: Prisma.OrderCommissionUpdateManyWithoutOrderNestedInput
+  history?: Prisma.OrderHistoryUpdateManyWithoutOrderNestedInput
+  storeCreditsReserved?: Prisma.StoreCreditUpdateManyWithoutReservedForOrderNestedInput
+  storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
+  cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
+  posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
+  claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
+  posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
+  paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderUncheckedUpdateWithoutTerminalInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineId?: Prisma.StringFieldUpdateOperationsInput | string
+  stageId?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  priceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentConditionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   creditUsed?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   paidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   remainingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -14237,7 +14907,7 @@ export type OrderUncheckedUpdateWithoutPaymentConditionInput = {
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
 }
 
-export type OrderUncheckedUpdateManyWithoutPaymentConditionInput = {
+export type OrderUncheckedUpdateManyWithoutTerminalInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14255,6 +14925,7 @@ export type OrderUncheckedUpdateManyWithoutPaymentConditionInput = {
   grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   priceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentConditionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   creditUsed?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   paidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   remainingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -14346,6 +15017,7 @@ export type OrderCreateManyPosSessionInput = {
   cancelReason?: string | null
   expiresAt?: Date | string | null
   saleCode?: string | null
+  terminalId?: string | null
   cashierUserId?: string | null
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
@@ -14425,6 +15097,7 @@ export type OrderUpdateWithoutPosSessionInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
@@ -14481,6 +15154,7 @@ export type OrderUncheckedUpdateWithoutPosSessionInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14556,6 +15230,7 @@ export type OrderUncheckedUpdateManyWithoutPosSessionInput = {
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14764,6 +15439,7 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   cancelReason?: boolean
   expiresAt?: boolean
   saleCode?: boolean
+  terminalId?: boolean
   cashierUserId?: boolean
   posSessionId?: boolean
   claimedByUserId?: boolean
@@ -14800,6 +15476,7 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   cashierUser?: boolean | Prisma.Order$cashierUserArgs<ExtArgs>
   posSession?: boolean | Prisma.Order$posSessionArgs<ExtArgs>
   claimedByUser?: boolean | Prisma.Order$claimedByUserArgs<ExtArgs>
+  terminal?: boolean | Prisma.Order$terminalArgs<ExtArgs>
   posTransactions?: boolean | Prisma.Order$posTransactionsArgs<ExtArgs>
   posVisitLogs?: boolean | Prisma.Order$posVisitLogsArgs<ExtArgs>
   invoice?: boolean | Prisma.Order$invoiceArgs<ExtArgs>
@@ -14857,6 +15534,7 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   cancelReason?: boolean
   expiresAt?: boolean
   saleCode?: boolean
+  terminalId?: boolean
   cashierUserId?: boolean
   posSessionId?: boolean
   claimedByUserId?: boolean
@@ -14883,6 +15561,7 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   cashierUser?: boolean | Prisma.Order$cashierUserArgs<ExtArgs>
   posSession?: boolean | Prisma.Order$posSessionArgs<ExtArgs>
   claimedByUser?: boolean | Prisma.Order$claimedByUserArgs<ExtArgs>
+  terminal?: boolean | Prisma.Order$terminalArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
 
 export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -14934,6 +15613,7 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   cancelReason?: boolean
   expiresAt?: boolean
   saleCode?: boolean
+  terminalId?: boolean
   cashierUserId?: boolean
   posSessionId?: boolean
   claimedByUserId?: boolean
@@ -14960,6 +15640,7 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   cashierUser?: boolean | Prisma.Order$cashierUserArgs<ExtArgs>
   posSession?: boolean | Prisma.Order$posSessionArgs<ExtArgs>
   claimedByUser?: boolean | Prisma.Order$claimedByUserArgs<ExtArgs>
+  terminal?: boolean | Prisma.Order$terminalArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
 
 export type OrderSelectScalar = {
@@ -15011,6 +15692,7 @@ export type OrderSelectScalar = {
   cancelReason?: boolean
   expiresAt?: boolean
   saleCode?: boolean
+  terminalId?: boolean
   cashierUserId?: boolean
   posSessionId?: boolean
   claimedByUserId?: boolean
@@ -15023,7 +15705,7 @@ export type OrderSelectScalar = {
   updatedAt?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "orderNumber" | "type" | "status" | "customerId" | "contactId" | "pipelineId" | "stageId" | "channel" | "subtotal" | "discountTotal" | "taxTotal" | "shippingTotal" | "grandTotal" | "currency" | "priceTableId" | "paymentConditionId" | "creditUsed" | "paidAmount" | "remainingAmount" | "deliveryMethod" | "deliveryAddress" | "trackingCode" | "carrierName" | "estimatedDelivery" | "deliveredAt" | "needsApproval" | "approvedByUserId" | "approvedAt" | "approvalNotes" | "rejectedReason" | "dealId" | "quoteId" | "returnOriginId" | "couponId" | "sourceWarehouseId" | "assignedToUserId" | "notes" | "internalNotes" | "tags" | "customFields" | "stageEnteredAt" | "confirmedAt" | "cancelledAt" | "cancelReason" | "expiresAt" | "saleCode" | "cashierUserId" | "posSessionId" | "claimedByUserId" | "claimedAt" | "version" | "invoiceId" | "invoicedAt" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "orderNumber" | "type" | "status" | "customerId" | "contactId" | "pipelineId" | "stageId" | "channel" | "subtotal" | "discountTotal" | "taxTotal" | "shippingTotal" | "grandTotal" | "currency" | "priceTableId" | "paymentConditionId" | "creditUsed" | "paidAmount" | "remainingAmount" | "deliveryMethod" | "deliveryAddress" | "trackingCode" | "carrierName" | "estimatedDelivery" | "deliveredAt" | "needsApproval" | "approvedByUserId" | "approvedAt" | "approvalNotes" | "rejectedReason" | "dealId" | "quoteId" | "returnOriginId" | "couponId" | "sourceWarehouseId" | "assignedToUserId" | "notes" | "internalNotes" | "tags" | "customFields" | "stageEnteredAt" | "confirmedAt" | "cancelledAt" | "cancelReason" | "expiresAt" | "saleCode" | "terminalId" | "cashierUserId" | "posSessionId" | "claimedByUserId" | "claimedAt" | "version" | "invoiceId" | "invoicedAt" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
@@ -15051,6 +15733,7 @@ export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   cashierUser?: boolean | Prisma.Order$cashierUserArgs<ExtArgs>
   posSession?: boolean | Prisma.Order$posSessionArgs<ExtArgs>
   claimedByUser?: boolean | Prisma.Order$claimedByUserArgs<ExtArgs>
+  terminal?: boolean | Prisma.Order$terminalArgs<ExtArgs>
   posTransactions?: boolean | Prisma.Order$posTransactionsArgs<ExtArgs>
   posVisitLogs?: boolean | Prisma.Order$posVisitLogsArgs<ExtArgs>
   invoice?: boolean | Prisma.Order$invoiceArgs<ExtArgs>
@@ -15075,6 +15758,7 @@ export type OrderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   cashierUser?: boolean | Prisma.Order$cashierUserArgs<ExtArgs>
   posSession?: boolean | Prisma.Order$posSessionArgs<ExtArgs>
   claimedByUser?: boolean | Prisma.Order$claimedByUserArgs<ExtArgs>
+  terminal?: boolean | Prisma.Order$terminalArgs<ExtArgs>
 }
 export type OrderIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -15093,6 +15777,7 @@ export type OrderIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   cashierUser?: boolean | Prisma.Order$cashierUserArgs<ExtArgs>
   posSession?: boolean | Prisma.Order$posSessionArgs<ExtArgs>
   claimedByUser?: boolean | Prisma.Order$claimedByUserArgs<ExtArgs>
+  terminal?: boolean | Prisma.Order$terminalArgs<ExtArgs>
 }
 
 export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -15124,6 +15809,7 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     cashierUser: Prisma.$UserPayload<ExtArgs> | null
     posSession: Prisma.$PosSessionPayload<ExtArgs> | null
     claimedByUser: Prisma.$UserPayload<ExtArgs> | null
+    terminal: Prisma.$PosTerminalPayload<ExtArgs> | null
     posTransactions: Prisma.$PosTransactionPayload<ExtArgs>[]
     posVisitLogs: Prisma.$PosVisitLogPayload<ExtArgs>[]
     invoice: Prisma.$InvoicePayload<ExtArgs> | null
@@ -15179,6 +15865,7 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     cancelReason: string | null
     expiresAt: Date | null
     saleCode: string | null
+    terminalId: string | null
     cashierUserId: string | null
     posSessionId: string | null
     claimedByUserId: string | null
@@ -15609,6 +16296,7 @@ export interface Prisma__OrderClient<T, Null = never, ExtArgs extends runtime.Ty
   cashierUser<T extends Prisma.Order$cashierUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$cashierUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   posSession<T extends Prisma.Order$posSessionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$posSessionArgs<ExtArgs>>): Prisma.Prisma__PosSessionClient<runtime.Types.Result.GetResult<Prisma.$PosSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   claimedByUser<T extends Prisma.Order$claimedByUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$claimedByUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  terminal<T extends Prisma.Order$terminalArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$terminalArgs<ExtArgs>>): Prisma.Prisma__PosTerminalClient<runtime.Types.Result.GetResult<Prisma.$PosTerminalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   posTransactions<T extends Prisma.Order$posTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$posTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   posVisitLogs<T extends Prisma.Order$posVisitLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$posVisitLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosVisitLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   invoice<T extends Prisma.Order$invoiceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$invoiceArgs<ExtArgs>>): Prisma.Prisma__InvoiceClient<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -15691,6 +16379,7 @@ export interface OrderFieldRefs {
   readonly cancelReason: Prisma.FieldRef<"Order", 'String'>
   readonly expiresAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly saleCode: Prisma.FieldRef<"Order", 'String'>
+  readonly terminalId: Prisma.FieldRef<"Order", 'String'>
   readonly cashierUserId: Prisma.FieldRef<"Order", 'String'>
   readonly posSessionId: Prisma.FieldRef<"Order", 'String'>
   readonly claimedByUserId: Prisma.FieldRef<"Order", 'String'>
@@ -16562,6 +17251,25 @@ export type Order$claimedByUserArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   include?: Prisma.UserInclude<ExtArgs> | null
   where?: Prisma.UserWhereInput
+}
+
+/**
+ * Order.terminal
+ */
+export type Order$terminalArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PosTerminal
+   */
+  select?: Prisma.PosTerminalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PosTerminal
+   */
+  omit?: Prisma.PosTerminalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PosTerminalInclude<ExtArgs> | null
+  where?: Prisma.PosTerminalWhereInput
 }
 
 /**

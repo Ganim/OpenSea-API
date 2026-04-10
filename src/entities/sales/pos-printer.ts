@@ -5,6 +5,8 @@ import { UniqueEntityID } from '../domain/unique-entity-id';
 export type PrinterType = 'THERMAL' | 'INKJET' | 'LABEL';
 export type PrinterConnection = 'USB' | 'NETWORK' | 'BLUETOOTH' | 'SERIAL';
 
+export type PrinterStatus = 'ONLINE' | 'OFFLINE' | 'BUSY' | 'ERROR' | 'UNKNOWN';
+
 export interface PosPrinterProps {
   id: UniqueEntityID;
   tenantId: UniqueEntityID;
@@ -20,6 +22,11 @@ export interface PosPrinterProps {
   characterPerLine: number;
   isDefault: boolean;
   isActive: boolean;
+  status: PrinterStatus;
+  lastSeenAt?: Date;
+  agentId?: string;
+  capabilities?: Record<string, unknown>;
+  osName?: string;
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date;
@@ -93,6 +100,51 @@ export class PosPrinter extends Entity<PosPrinterProps> {
     this.touch();
   }
 
+  get status() {
+    return this.props.status;
+  }
+
+  set status(value: PrinterStatus) {
+    this.props.status = value;
+    this.touch();
+  }
+
+  get lastSeenAt() {
+    return this.props.lastSeenAt;
+  }
+
+  set lastSeenAt(value: Date | undefined) {
+    this.props.lastSeenAt = value;
+    this.touch();
+  }
+
+  get agentId() {
+    return this.props.agentId;
+  }
+
+  set agentId(value: string | undefined) {
+    this.props.agentId = value;
+    this.touch();
+  }
+
+  get capabilities() {
+    return this.props.capabilities;
+  }
+
+  set capabilities(value: Record<string, unknown> | undefined) {
+    this.props.capabilities = value;
+    this.touch();
+  }
+
+  get osName() {
+    return this.props.osName;
+  }
+
+  set osName(value: string | undefined) {
+    this.props.osName = value;
+    this.touch();
+  }
+
   get createdAt() {
     return this.props.createdAt;
   }
@@ -125,6 +177,7 @@ export class PosPrinter extends Entity<PosPrinterProps> {
       | 'encoding'
       | 'characterPerLine'
       | 'port'
+      | 'status'
     >,
     id?: UniqueEntityID,
   ) {
@@ -141,6 +194,7 @@ export class PosPrinter extends Entity<PosPrinterProps> {
           props.characterPerLine ?? (paperWidth === 58 ? 32 : 42),
         isDefault: props.isDefault ?? false,
         isActive: props.isActive ?? true,
+        status: props.status ?? 'UNKNOWN',
         createdAt: props.createdAt ?? new Date(),
       },
       id ?? props.id,
