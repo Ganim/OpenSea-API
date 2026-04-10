@@ -41,6 +41,10 @@ export const listPrintersResponseSchema = z.object({
       paperWidth: z.number(),
       isDefault: z.boolean(),
       isActive: z.boolean(),
+      status: z.enum(['ONLINE', 'OFFLINE', 'BUSY', 'ERROR', 'UNKNOWN']),
+      lastSeenAt: z.string().nullable(),
+      agentId: z.string().nullable(),
+      osName: z.string().nullable(),
     }),
   ),
 });

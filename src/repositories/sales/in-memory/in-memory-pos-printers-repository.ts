@@ -70,10 +70,7 @@ export class InMemoryPosPrintersRepository implements PosPrintersRepository {
     );
   }
 
-  async updateStatusByAgentId(
-    agentId: string,
-    status: string,
-  ): Promise<void> {
+  async updateStatusByAgentId(agentId: string, status: string): Promise<void> {
     for (const printer of this.items) {
       if (printer.agentId === agentId && !printer.deletedAt) {
         printer.status = status as PrinterStatus;

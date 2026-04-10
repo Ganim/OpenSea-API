@@ -31,7 +31,9 @@ export class PrismaPosPrintersRepository implements PosPrintersRepository {
         status: printer.status as PrismaPrinterStatus,
         lastSeenAt: printer.lastSeenAt ?? null,
         agentId: printer.agentId ?? null,
-        capabilities: (printer.capabilities as Prisma.InputJsonValue | undefined) ?? undefined,
+        capabilities:
+          (printer.capabilities as Prisma.InputJsonValue | undefined) ??
+          undefined,
         osName: printer.osName ?? null,
         deletedAt: printer.deletedAt ?? null,
       },
@@ -111,10 +113,7 @@ export class PrismaPosPrintersRepository implements PosPrintersRepository {
     return raw ? posPrinterPrismaToDomain(raw) : null;
   }
 
-  async updateStatusByAgentId(
-    agentId: string,
-    status: string,
-  ): Promise<void> {
+  async updateStatusByAgentId(agentId: string, status: string): Promise<void> {
     await prisma.posPrinter.updateMany({
       where: {
         agentId,
@@ -160,7 +159,9 @@ export class PrismaPosPrintersRepository implements PosPrintersRepository {
         status: printer.status as PrismaPrinterStatus,
         lastSeenAt: printer.lastSeenAt ?? null,
         agentId: printer.agentId ?? null,
-        capabilities: (printer.capabilities as Prisma.InputJsonValue | undefined) ?? undefined,
+        capabilities:
+          (printer.capabilities as Prisma.InputJsonValue | undefined) ??
+          undefined,
         osName: printer.osName ?? null,
         deletedAt: printer.deletedAt ?? null,
       },

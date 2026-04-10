@@ -21,7 +21,8 @@ export class PrismaPrintAgentsRepository implements PrintAgentsRepository {
         lastSeenAt: agent.lastSeenAt ?? null,
         ipAddress: agent.ipAddress ?? null,
         hostname: agent.hostname ?? null,
-        osInfo: (agent.osInfo as Prisma.InputJsonValue | undefined) ?? undefined,
+        osInfo:
+          (agent.osInfo as Prisma.InputJsonValue | undefined) ?? undefined,
         version: agent.version ?? null,
         deletedAt: agent.deletedAt ?? null,
       },
@@ -106,7 +107,8 @@ export class PrismaPrintAgentsRepository implements PrintAgentsRepository {
         lastSeenAt: agent.lastSeenAt ?? null,
         ipAddress: agent.ipAddress ?? null,
         hostname: agent.hostname ?? null,
-        osInfo: (agent.osInfo as Prisma.InputJsonValue | undefined) ?? undefined,
+        osInfo:
+          (agent.osInfo as Prisma.InputJsonValue | undefined) ?? undefined,
         version: agent.version ?? null,
         deletedAt: agent.deletedAt ?? null,
       },

@@ -33,8 +33,7 @@ export class InMemoryPrintAgentsRepository implements PrintAgentsRepository {
 
   async findManyByTenant(tenantId: string): Promise<PrintAgent[]> {
     return this.items.filter(
-      (agent) =>
-        agent.tenantId.toString() === tenantId && !agent.deletedAt,
+      (agent) => agent.tenantId.toString() === tenantId && !agent.deletedAt,
     );
   }
 

@@ -22,8 +22,7 @@ export function posPrinterPrismaToDomain(raw: PrismaPosPrinter): PosPrinter {
       status: raw.status,
       lastSeenAt: raw.lastSeenAt ?? undefined,
       agentId: raw.agentId ?? undefined,
-      capabilities:
-        (raw.capabilities as Record<string, unknown>) ?? undefined,
+      capabilities: (raw.capabilities as Record<string, unknown>) ?? undefined,
       osName: raw.osName ?? undefined,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,

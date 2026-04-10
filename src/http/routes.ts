@@ -58,6 +58,7 @@ import { pipelineStagesRoutes } from './controllers/sales/pipeline-stages/routes
 import { pipelinesRoutes } from './controllers/sales/pipelines/routes';
 import { posRoutes } from './controllers/sales/pos/routes';
 import { priceTablesRoutes } from './controllers/sales/price-tables/routes';
+import { printAgentsRoutes } from './controllers/sales/print-agents/routes';
 import { printersRoutes } from './controllers/sales/printers/routes';
 import { printingRoutes } from './controllers/sales/printing/routes';
 import { salesOrdersRoutes } from './controllers/sales/sales-orders/routes';
@@ -372,6 +373,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(marketplacesRoutes);
   await app.register(integrationsHubRoutes);
   await app.register(posRoutes);
+  await app.register(printAgentsRoutes);
   await app.register(printersRoutes);
   await app.register(printingRoutes);
   await app.register(paymentConfigRoutes);
