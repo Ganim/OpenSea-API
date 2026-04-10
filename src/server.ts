@@ -6,6 +6,14 @@ import { getTypedEventBus } from './lib/events/typed-event-bus';
 import { registerEventConsumers } from './lib/events/register-consumers';
 import { httpLogger } from './lib/logger';
 import { prisma } from './lib/prisma';
+import {
+  initializeSocketServer,
+  getSocketServer,
+} from './lib/websocket/socket-server';
+import {
+  startHeartbeatChecker,
+  stopHeartbeatChecker,
+} from './lib/websocket/heartbeat-checker';
 import { moduleLoadStart } from './startup-banner';
 import { getWorkflowScheduler } from './services/ai-workflows/workflow-scheduler';
 import { getInsightScheduler } from './services/ai-insights/insight-scheduler';
@@ -128,6 +136,16 @@ async function gracefulShutdown(signal: string) {
   shutdownTimer.unref();
 
   try {
+    // Stop heartbeat checker
+    stopHeartbeatChecker();
+
+    // Close WebSocket server
+    const wsServer = getSocketServer();
+    if (wsServer) {
+      wsServer.close();
+      console.log('[shutdown] WebSocket server closed');
+    }
+
     // Stop all schedulers
     getWorkflowScheduler().stop();
     getInsightScheduler().stop();
@@ -209,6 +227,12 @@ async function start() {
       'HTTP server is running on port %d',
       env.PORT,
     );
+
+    // Initialize WebSocket server (attached to Fastify's HTTP server)
+    const httpServer = app.server;
+    initializeSocketServer(httpServer);
+    startHeartbeatChecker();
+    console.log('[startup] WebSocket server initialized');
 
     // Start AI workflow scheduler (CRON-based workflows)
     const scheduler = getWorkflowScheduler();
