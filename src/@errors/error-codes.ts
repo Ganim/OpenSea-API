@@ -54,6 +54,9 @@ export const ErrorCodes = {
   VOLUME_ITEM_NOT_FOUND: 'VOLUME_ITEM_NOT_FOUND',
   VOLUME_ITEM_ALREADY_EXISTS: 'VOLUME_ITEM_ALREADY_EXISTS',
   INVALID_VOLUME_STATUS: 'INVALID_VOLUME_STATUS',
+
+  // POS
+  ORPHAN_SESSION_EXISTS: 'ORPHAN_SESSION_EXISTS',
 } as const;
 
 export type ErrorCode = (typeof ErrorCodes)[keyof typeof ErrorCodes];

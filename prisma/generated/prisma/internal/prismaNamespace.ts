@@ -34509,6 +34509,7 @@ export const PosPrinterScalarFieldEnum = {
   characterPerLine: 'characterPerLine',
   isDefault: 'isDefault',
   isActive: 'isActive',
+  isHidden: 'isHidden',
   status: 'status',
   lastSeenAt: 'lastSeenAt',
   agentId: 'agentId',

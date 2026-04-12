@@ -806,11 +806,14 @@ export const PermissionCodes = {
         REGISTER: 'sales.pos.terminals.register' as const,
         MODIFY: 'sales.pos.terminals.modify' as const,
         REMOVE: 'sales.pos.terminals.remove' as const,
+        PAIR: 'sales.pos.terminals.pair' as const,
+        UNPAIR: 'sales.pos.terminals.unpair' as const,
       },
       SESSIONS: {
         ACCESS: 'sales.pos.sessions.access' as const,
         OPEN: 'sales.pos.sessions.open' as const,
         CLOSE: 'sales.pos.sessions.close' as const,
+        CLOSE_ORPHAN: 'sales.pos.sessions.close-orphan' as const,
       },
       TRANSACTIONS: {
         ACCESS: 'sales.pos.transactions.access' as const,

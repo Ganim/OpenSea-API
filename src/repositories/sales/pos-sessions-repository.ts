@@ -20,6 +20,10 @@ export interface PosSessionsRepository {
     terminalId: string,
     tenantId: string,
   ): Promise<PosSession | null>;
+  findOrphanByTerminal(
+    terminalId: string,
+    tenantId: string,
+  ): Promise<PosSession | null>;
   findManyPaginated(
     params: FindManyPosSessionsPaginatedParams,
   ): Promise<PaginatedResult<PosSession>>;

@@ -1,32 +1,25 @@
 import { z } from 'zod';
 
 export const posTerminalModeEnum = z.enum([
-  'FAST_CHECKOUT',
-  'CONSULTIVE',
-  'SELF_SERVICE',
-  'EXTERNAL',
+  'SALES_ONLY',
+  'SALES_WITH_CHECKOUT',
+  'CASHIER',
+  'TOTEM',
 ]);
 
-export const posCashierModeEnum = z.enum(['INTEGRATED', 'SEPARATED']);
-
 export const createPosTerminalSchema = z.object({
-  name: z.string().min(1).max(128),
-  deviceId: z.string().min(1).max(256),
+  terminalName: z.string().min(1).max(128),
   mode: posTerminalModeEnum,
-  cashierMode: posCashierModeEnum.optional(),
   acceptsPendingOrders: z.boolean().optional(),
-  warehouseId: z.string().uuid(),
-  defaultPriceTableId: z.string().uuid().optional(),
+  warehouseIds: z.array(z.string().uuid()).optional(),
+  defaultPriceTableId: z.string().uuid().optional().nullable(),
   settings: z.record(z.string(), z.unknown()).optional(),
 });
 
 export const updatePosTerminalSchema = z.object({
-  name: z.string().min(1).max(128).optional(),
-  deviceId: z.string().min(1).max(256).optional(),
+  terminalName: z.string().min(1).max(128).optional(),
   mode: posTerminalModeEnum.optional(),
-  cashierMode: posCashierModeEnum.optional(),
   acceptsPendingOrders: z.boolean().optional(),
-  warehouseId: z.string().uuid().optional(),
   defaultPriceTableId: z.string().uuid().nullable().optional(),
   isActive: z.boolean().optional(),
   settings: z.record(z.string(), z.unknown()).nullable().optional(),
@@ -35,17 +28,35 @@ export const updatePosTerminalSchema = z.object({
 export const posTerminalResponseSchema = z.object({
   id: z.string(),
   tenantId: z.string(),
-  name: z.string(),
-  deviceId: z.string(),
-  mode: z.string(),
-  cashierMode: z.string(),
+  terminalName: z.string(),
+  terminalCode: z.string(),
+  totemCode: z.string().nullable(),
+  mode: posTerminalModeEnum,
   acceptsPendingOrders: z.boolean(),
-  warehouseId: z.string(),
+  requiresSession: z.boolean(),
+  allowAnonymous: z.boolean(),
+  systemUserId: z.string().nullable(),
   defaultPriceTableId: z.string().nullable(),
   isActive: z.boolean(),
-  lastSyncAt: z.date().nullable(),
-  lastOnlineAt: z.date().nullable(),
+  hasPairing: z.boolean().optional(),
+  deletedAt: z.string().nullable(),
+  lastSyncAt: z.string().nullable(),
+  lastOnlineAt: z.string().nullable(),
   settings: z.record(z.string(), z.unknown()).nullable(),
-  createdAt: z.date(),
-  updatedAt: z.date().nullable(),
+  createdAt: z.string(),
+  updatedAt: z.string().nullable(),
+});
+
+export const posDevicePairingResponseSchema = z.object({
+  id: z.string(),
+  tenantId: z.string(),
+  terminalId: z.string(),
+  deviceLabel: z.string(),
+  pairedAt: z.string(),
+  lastSeenAt: z.string().nullable(),
+  pairedByUserId: z.string(),
+  revokedAt: z.string().nullable(),
+  revokedByUserId: z.string().nullable(),
+  revokedReason: z.string().nullable(),
+  isActive: z.boolean(),
 });

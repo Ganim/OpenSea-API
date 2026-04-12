@@ -22,6 +22,7 @@ export interface PosPrinterProps {
   characterPerLine: number;
   isDefault: boolean;
   isActive: boolean;
+  isHidden: boolean;
   status: PrinterStatus;
   lastSeenAt?: Date;
   agentId?: string;
@@ -100,6 +101,15 @@ export class PosPrinter extends Entity<PosPrinterProps> {
     this.touch();
   }
 
+  get isHidden() {
+    return this.props.isHidden;
+  }
+
+  set isHidden(value: boolean) {
+    this.props.isHidden = value;
+    this.touch();
+  }
+
   get status() {
     return this.props.status;
   }
@@ -173,6 +183,7 @@ export class PosPrinter extends Entity<PosPrinterProps> {
       | 'createdAt'
       | 'isActive'
       | 'isDefault'
+      | 'isHidden'
       | 'paperWidth'
       | 'encoding'
       | 'characterPerLine'
@@ -194,6 +205,7 @@ export class PosPrinter extends Entity<PosPrinterProps> {
           props.characterPerLine ?? (paperWidth === 58 ? 32 : 42),
         isDefault: props.isDefault ?? false,
         isActive: props.isActive ?? true,
+        isHidden: props.isHidden ?? false,
         status: props.status ?? 'UNKNOWN',
         createdAt: props.createdAt ?? new Date(),
       },

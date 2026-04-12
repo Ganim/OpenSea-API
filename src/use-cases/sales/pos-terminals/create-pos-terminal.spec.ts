@@ -1,6 +1,13 @@
-import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+vi.mock('@/lib/prisma', () => ({
+  prisma: {
+    posTerminalWarehouse: {
+      createMany: vi.fn().mockResolvedValue({ count: 0 }),
+    },
+  },
+}));
+
 import { InMemoryPosTerminalsRepository } from '@/repositories/sales/in-memory/in-memory-pos-terminals-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { CreatePosTerminalUseCase } from './create-pos-terminal';
 
 let posTerminalsRepository: InMemoryPosTerminalsRepository;
@@ -15,19 +22,16 @@ describe('CreatePosTerminalUseCase', () => {
   it('should be able to create a POS terminal', async () => {
     const { terminal } = await createPosTerminal.execute({
       tenantId: 'tenant-1',
-      name: 'Terminal Caixa 01',
-      deviceId: 'device-001',
-      mode: 'FAST_CHECKOUT',
-      warehouseId: 'warehouse-1',
+      terminalName: 'Caixa 01',
+      mode: 'CASHIER',
+      warehouseIds: ['warehouse-1'],
     });
 
     expect(terminal).toBeDefined();
-    expect(terminal.name).toBe('Terminal Caixa 01');
-    expect(terminal.deviceId).toBe('device-001');
-    expect(terminal.mode).toBe('FAST_CHECKOUT');
-    expect(terminal.warehouseId.toString()).toBe('warehouse-1');
+    expect(terminal.terminalName).toBe('Caixa 01');
+    expect(terminal.terminalCode).toBeTruthy();
+    expect(terminal.mode).toBe('CASHIER');
     expect(terminal.isActive).toBe(true);
-    expect(terminal.cashierMode).toBe('INTEGRATED');
     expect(terminal.acceptsPendingOrders).toBe(false);
     expect(posTerminalsRepository.items).toHaveLength(1);
   });
@@ -35,18 +39,16 @@ describe('CreatePosTerminalUseCase', () => {
   it('should be able to create a terminal with custom settings', async () => {
     const { terminal } = await createPosTerminal.execute({
       tenantId: 'tenant-1',
-      name: 'Terminal Self-Service',
-      deviceId: 'kiosk-001',
-      mode: 'SELF_SERVICE',
-      cashierMode: 'SEPARATED',
+      terminalName: 'Totem Autoatendimento',
+      mode: 'TOTEM',
       acceptsPendingOrders: true,
-      warehouseId: 'warehouse-2',
+      warehouseIds: ['warehouse-2'],
       defaultPriceTableId: 'price-table-1',
       settings: { printReceipt: true, language: 'pt-BR' },
     });
 
-    expect(terminal.mode).toBe('SELF_SERVICE');
-    expect(terminal.cashierMode).toBe('SEPARATED');
+    expect(terminal.mode).toBe('TOTEM');
+    expect(terminal.totemCode).toBeTruthy();
     expect(terminal.acceptsPendingOrders).toBe(true);
     expect(terminal.defaultPriceTableId?.toString()).toBe('price-table-1');
     expect(terminal.settings).toEqual({
@@ -55,41 +57,40 @@ describe('CreatePosTerminalUseCase', () => {
     });
   });
 
-  it('should not allow duplicate device IDs within the same tenant', async () => {
-    await createPosTerminal.execute({
+  it('should set requiresSession to false for SALES_ONLY mode', async () => {
+    const { terminal } = await createPosTerminal.execute({
       tenantId: 'tenant-1',
-      name: 'Terminal A',
-      deviceId: 'device-dup',
-      mode: 'FAST_CHECKOUT',
-      warehouseId: 'warehouse-1',
+      terminalName: 'Terminal Vendas',
+      mode: 'SALES_ONLY',
     });
 
-    await expect(() =>
-      createPosTerminal.execute({
-        tenantId: 'tenant-1',
-        name: 'Terminal B',
-        deviceId: 'device-dup',
-        mode: 'CONSULTIVE',
-        warehouseId: 'warehouse-1',
-      }),
-    ).rejects.toThrow(BadRequestError);
+    expect(terminal.requiresSession).toBe(false);
+    expect(terminal.allowAnonymous).toBe(false);
   });
 
-  it('should allow same device ID in different tenants', async () => {
+  it('should set allowAnonymous to true for TOTEM mode', async () => {
+    const { terminal } = await createPosTerminal.execute({
+      tenantId: 'tenant-1',
+      terminalName: 'Totem 01',
+      mode: 'TOTEM',
+    });
+
+    expect(terminal.allowAnonymous).toBe(true);
+    expect(terminal.totemCode).toBeTruthy();
+  });
+
+  it('should be able to create multiple terminals for the same tenant', async () => {
     await createPosTerminal.execute({
       tenantId: 'tenant-1',
-      name: 'Terminal Tenant 1',
-      deviceId: 'shared-device',
-      mode: 'FAST_CHECKOUT',
-      warehouseId: 'warehouse-1',
+      terminalName: 'Terminal A',
+      mode: 'CASHIER',
+      warehouseIds: ['warehouse-1'],
     });
 
     const { terminal } = await createPosTerminal.execute({
-      tenantId: 'tenant-2',
-      name: 'Terminal Tenant 2',
-      deviceId: 'shared-device',
-      mode: 'FAST_CHECKOUT',
-      warehouseId: 'warehouse-2',
+      tenantId: 'tenant-1',
+      terminalName: 'Terminal B',
+      mode: 'SALES_ONLY',
     });
 
     expect(terminal).toBeDefined();

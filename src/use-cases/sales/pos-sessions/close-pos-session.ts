@@ -5,7 +5,7 @@ import { PosCashMovement } from '@/entities/sales/pos-cash-movement';
 import type { PosSession } from '@/entities/sales/pos-session';
 import type { PosCashMovementsRepository } from '@/repositories/sales/pos-cash-movements-repository';
 import type { PosSessionsRepository } from '@/repositories/sales/pos-sessions-repository';
-import type { PosTransactionsRepository } from '@/repositories/sales/pos-transactions-repository';
+import { prisma } from '@/lib/prisma';
 
 interface ClosingBreakdown {
   cash?: number;
@@ -33,7 +33,6 @@ export class ClosePosSessionUseCase {
   constructor(
     private posSessionsRepository: PosSessionsRepository,
     private posCashMovementsRepository: PosCashMovementsRepository,
-    private posTransactionsRepository: PosTransactionsRepository,
   ) {}
 
   async execute(
@@ -52,7 +51,7 @@ export class ClosePosSessionUseCase {
       throw new BadRequestError('Session is not open.');
     }
 
-    // Calculate expected balance from cash movements and cash transactions
+    // Calculate expected cash from movements (opening, supplies, withdrawals)
     const movements = await this.posCashMovementsRepository.findBySessionId(
       request.sessionId,
     );
@@ -70,23 +69,21 @@ export class ClosePosSessionUseCase {
       }
     }
 
-    // Get all completed transactions for this session to calculate cash sales
-    const transactions = await this.posTransactionsRepository.findManyPaginated(
-      {
-        tenantId: request.tenantId,
-        sessionId: request.sessionId,
-        status: 'COMPLETED',
-        page: 1,
-        limit: 10000,
+    // Sum only CASH payments from completed transactions (not all methods)
+    const cashPaymentResult = await prisma.posTransactionPayment.aggregate({
+      where: {
+        method: 'CASH',
+        transaction: {
+          sessionId: request.sessionId,
+          status: 'COMPLETED',
+        },
       },
-    );
+      _sum: {
+        amount: true,
+      },
+    });
 
-    // Sum cash payments (from grandTotal for simplicity - in production would
-    // sum only CASH payments from PosTransactionPayment)
-    // For now, add total change-adjusted amounts
-    for (const txn of transactions.data) {
-      expectedCash += txn.grandTotal - txn.changeAmount;
-    }
+    expectedCash += cashPaymentResult._sum.amount?.toNumber() ?? 0;
 
     const difference = request.closingBalance - expectedCash;
 

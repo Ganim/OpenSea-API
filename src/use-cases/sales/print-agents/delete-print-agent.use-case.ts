@@ -27,14 +27,14 @@ export class DeletePrintAgentUseCase {
     agent.deletedAt = new Date();
     await this.printAgentsRepository.save(agent);
 
+    // Soft-delete all printers associated with the deleted agent
     const agentPrinters = await this.posPrintersRepository.findByAgentId(
       input.agentId,
       input.tenantId,
     );
 
     for (const printer of agentPrinters) {
-      printer.agentId = undefined;
-      printer.status = 'UNKNOWN';
+      printer.deletedAt = new Date();
       await this.posPrintersRepository.save(printer);
     }
   }

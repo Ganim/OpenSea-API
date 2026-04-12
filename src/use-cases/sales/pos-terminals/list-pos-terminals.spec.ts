@@ -1,5 +1,13 @@
+vi.mock('@/lib/prisma', () => ({
+  prisma: {
+    posTerminalWarehouse: {
+      createMany: vi.fn().mockResolvedValue({ count: 0 }),
+    },
+  },
+}));
+
 import { InMemoryPosTerminalsRepository } from '@/repositories/sales/in-memory/in-memory-pos-terminals-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { CreatePosTerminalUseCase } from './create-pos-terminal';
 import { ListPosTerminalsUseCase } from './list-pos-terminals';
 
@@ -17,18 +25,15 @@ describe('ListPosTerminalsUseCase', () => {
   it('should list all terminals for a tenant', async () => {
     await createPosTerminal.execute({
       tenantId: 'tenant-1',
-      name: 'Terminal 01',
-      deviceId: 'dev-001',
-      mode: 'FAST_CHECKOUT',
-      warehouseId: 'warehouse-1',
+      terminalName: 'Terminal 01',
+      mode: 'CASHIER',
+      warehouseIds: ['warehouse-1'],
     });
 
     await createPosTerminal.execute({
       tenantId: 'tenant-1',
-      name: 'Terminal 02',
-      deviceId: 'dev-002',
-      mode: 'CONSULTIVE',
-      warehouseId: 'warehouse-1',
+      terminalName: 'Terminal 02',
+      mode: 'SALES_ONLY',
     });
 
     const result = await listPosTerminals.execute({
@@ -46,10 +51,9 @@ describe('ListPosTerminalsUseCase', () => {
     for (let i = 1; i <= 5; i++) {
       await createPosTerminal.execute({
         tenantId: 'tenant-1',
-        name: `Terminal ${i}`,
-        deviceId: `dev-${i}`,
-        mode: 'FAST_CHECKOUT',
-        warehouseId: 'warehouse-1',
+        terminalName: `Terminal ${i}`,
+        mode: 'CASHIER',
+        warehouseIds: ['warehouse-1'],
       });
     }
 
@@ -75,18 +79,15 @@ describe('ListPosTerminalsUseCase', () => {
   it('should filter by search term', async () => {
     await createPosTerminal.execute({
       tenantId: 'tenant-1',
-      name: 'Caixa Principal',
-      deviceId: 'dev-001',
-      mode: 'FAST_CHECKOUT',
-      warehouseId: 'warehouse-1',
+      terminalName: 'Caixa Principal',
+      mode: 'CASHIER',
+      warehouseIds: ['warehouse-1'],
     });
 
     await createPosTerminal.execute({
       tenantId: 'tenant-1',
-      name: 'Totem Self-Service',
-      deviceId: 'dev-002',
-      mode: 'SELF_SERVICE',
-      warehouseId: 'warehouse-1',
+      terminalName: 'Totem Autoatendimento',
+      mode: 'TOTEM',
     });
 
     const result = await listPosTerminals.execute({
@@ -97,24 +98,22 @@ describe('ListPosTerminalsUseCase', () => {
     });
 
     expect(result.terminals).toHaveLength(1);
-    expect(result.terminals[0].name).toBe('Caixa Principal');
+    expect(result.terminals[0].terminalName).toBe('Caixa Principal');
   });
 
   it('should not return terminals from other tenants', async () => {
     await createPosTerminal.execute({
       tenantId: 'tenant-1',
-      name: 'Terminal Tenant 1',
-      deviceId: 'dev-001',
-      mode: 'FAST_CHECKOUT',
-      warehouseId: 'warehouse-1',
+      terminalName: 'Terminal Tenant 1',
+      mode: 'CASHIER',
+      warehouseIds: ['warehouse-1'],
     });
 
     await createPosTerminal.execute({
       tenantId: 'tenant-2',
-      name: 'Terminal Tenant 2',
-      deviceId: 'dev-002',
-      mode: 'FAST_CHECKOUT',
-      warehouseId: 'warehouse-2',
+      terminalName: 'Terminal Tenant 2',
+      mode: 'CASHIER',
+      warehouseIds: ['warehouse-2'],
     });
 
     const result = await listPosTerminals.execute({
@@ -124,7 +123,7 @@ describe('ListPosTerminalsUseCase', () => {
     });
 
     expect(result.terminals).toHaveLength(1);
-    expect(result.terminals[0].name).toBe('Terminal Tenant 1');
+    expect(result.terminals[0].terminalName).toBe('Terminal Tenant 1');
   });
 
   it('should return empty list when no terminals exist', async () => {

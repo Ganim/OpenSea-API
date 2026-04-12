@@ -16,11 +16,53 @@ import type {
 
 export class PrismaOrdersRepository implements OrdersRepository {
   async create(order: Order): Promise<void> {
+    const tenantId = order.tenantId.toString();
+    const MAX_ATTEMPTS = 10;
+
+    for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+      const orderNumber =
+        attempt === 0
+          ? order.orderNumber
+          : await this.generateOrderNumber(tenantId);
+
+      try {
+        await this.createWithOrderNumber(order, orderNumber);
+        if (attempt > 0) {
+          // Sync the regenerated number back to the in-memory entity
+          (
+            order as unknown as { props: { orderNumber: string } }
+          ).props.orderNumber = orderNumber;
+        }
+        return;
+      } catch (err) {
+        // Any P2002 on this create is treated as an orderNumber collision.
+        // Order IDs are UUIDs (astronomical collision chance), so P2002 here
+        // is effectively always the (tenant_id, order_number) composite constraint.
+        // meta.target shape varies across Prisma versions (string constraint name
+        // vs array of fields), so we don't inspect it — we just retry.
+        const isUniqueConflict =
+          typeof err === 'object' &&
+          err !== null &&
+          'code' in err &&
+          (err as { code: string }).code === 'P2002';
+
+        if (!isUniqueConflict || attempt === MAX_ATTEMPTS - 1) {
+          throw err;
+        }
+        // Retry with a freshly generated number
+      }
+    }
+  }
+
+  private async createWithOrderNumber(
+    order: Order,
+    orderNumber: string,
+  ): Promise<void> {
     await prisma.order.create({
       data: {
         id: order.id.toString(),
         tenantId: order.tenantId.toString(),
-        orderNumber: order.orderNumber,
+        orderNumber,
         type: order.type as PrismaOrderType,
         status: order.status as PrismaOrderStatus,
         customerId: order.customerId.toString(),
@@ -137,6 +179,12 @@ export class PrismaOrdersRepository implements OrdersRepository {
           customer: { name: { contains: params.search, mode: 'insensitive' } },
         },
       ];
+    }
+
+    if (params.terminalId) {
+      where.terminalId = params.terminalId;
+    } else if (params.terminalIds && params.terminalIds.length > 0) {
+      where.terminalId = { in: params.terminalIds };
     }
 
     const [data, total] = await Promise.all([
@@ -259,27 +307,27 @@ export class PrismaOrdersRepository implements OrdersRepository {
   }
 
   async generateOrderNumber(tenantId: string): Promise<string> {
-    // Find the highest existing PDV-##### number for this tenant.
-    // Using count(*) is unsafe: deletes break sequence, concurrent calls collide,
-    // and the unique constraint (tenant_id, order_number) rejects duplicates.
-    const lastOrder = await prisma.order.findFirst({
+    // Fetch all PDV-prefixed numbers and compute max numerically.
+    // Lexicographic ordering would incorrectly rank 'PDV-9' > 'PDV-00010'
+    // if both formats coexist (e.g. seed data vs app-generated).
+    const pdvOrders = await prisma.order.findMany({
       where: {
         tenantId,
         orderNumber: { startsWith: 'PDV-' },
       },
-      orderBy: { orderNumber: 'desc' },
       select: { orderNumber: true },
     });
 
-    let nextNumber = 1;
-    if (lastOrder) {
-      const match = lastOrder.orderNumber.match(/^PDV-(\d+)$/);
+    let maxNumber = 0;
+    for (const o of pdvOrders) {
+      const match = o.orderNumber.match(/^PDV-(\d+)$/);
       if (match) {
-        nextNumber = parseInt(match[1], 10) + 1;
+        const n = parseInt(match[1], 10);
+        if (n > maxNumber) maxNumber = n;
       }
     }
 
-    return `PDV-${String(nextNumber).padStart(5, '0')}`;
+    return `PDV-${String(maxNumber + 1).padStart(5, '0')}`;
   }
 
   async findManyPaginated(

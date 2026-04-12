@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ErrorCodes } from '@/@errors/error-codes';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { PosCashMovement } from '@/entities/sales/pos-cash-movement';
@@ -16,6 +17,15 @@ interface OpenPosSessionUseCaseRequest {
 
 interface OpenPosSessionUseCaseResponse {
   session: PosSession;
+}
+
+export class OrphanSessionExistsError extends BadRequestError {
+  constructor(public readonly orphanSessionId: string) {
+    super(
+      'An orphan open session already exists for this terminal. Close it before opening a new one.',
+      ErrorCodes.ORPHAN_SESSION_EXISTS,
+    );
+  }
 }
 
 export class OpenPosSessionUseCase {
@@ -41,16 +51,13 @@ export class OpenPosSessionUseCase {
       throw new BadRequestError('Terminal is not active.');
     }
 
-    const existingSession =
-      await this.posSessionsRepository.findActiveByTerminal(
-        request.terminalId,
-        request.tenantId,
-      );
+    const orphan = await this.posSessionsRepository.findOrphanByTerminal(
+      request.terminalId,
+      request.tenantId,
+    );
 
-    if (existingSession) {
-      throw new BadRequestError(
-        'This terminal already has an active session. Close it first.',
-      );
+    if (orphan) {
+      throw new OrphanSessionExistsError(orphan.id.toString());
     }
 
     const session = PosSession.create({

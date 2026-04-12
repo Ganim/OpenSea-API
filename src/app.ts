@@ -4,6 +4,7 @@ import helmet from '@fastify/helmet';
 import fastifyJwt from '@fastify/jwt';
 import multipart from '@fastify/multipart';
 import rateLimit from '@fastify/rate-limit';
+import websocket from '@fastify/websocket';
 import swagger from '@fastify/swagger';
 import swaggerUI from '@fastify/swagger-ui';
 import fastify from 'fastify';
@@ -126,7 +127,7 @@ app.register(cors, {
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Pos-Device-Token'],
   exposedHeaders: [
     'Content-Length',
     'Content-Disposition',
@@ -222,6 +223,9 @@ app.register(multipart, {
     headerPairs: 2000, // max header pairs
   },
 });
+
+// WebSocket support (used by print-agent native WS endpoint)
+app.register(websocket);
 
 // HTTP Cache-Control + ETag + Metrics (disabled in tests)
 if (!isTestEnv) {

@@ -23,6 +23,7 @@ export function posSessionPrismaToDomain(raw: PrismaPosSession): PosSession {
       closingBreakdown: raw.closingBreakdown as
         | Record<string, unknown>
         | undefined,
+      orphanClosed: raw.orphanClosed,
       notes: raw.notes ?? undefined,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,

@@ -22,10 +22,9 @@ function createActiveTerminal(
   return PosTerminal.create({
     id: new UniqueEntityID(overrides?.id ?? 'terminal-1'),
     tenantId: new UniqueEntityID(overrides?.tenantId ?? TENANT_ID),
-    name: 'Test Terminal',
-    deviceId: `device-${overrides?.id ?? 'terminal-1'}`,
-    mode: 'FAST_CHECKOUT',
-    warehouseId: new UniqueEntityID('warehouse-1'),
+    terminalName: 'Test Terminal',
+    terminalCode: 'ABCD1234',
+    mode: 'CASHIER',
     isActive: overrides?.isActive ?? true,
   });
 }

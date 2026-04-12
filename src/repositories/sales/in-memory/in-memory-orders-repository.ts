@@ -80,6 +80,23 @@ export class InMemoryOrdersRepository implements OrdersRepository {
       );
     }
 
+    if (params.terminalId) {
+      filtered = filtered.filter(
+        (o) =>
+          (
+            o as unknown as { terminalId?: { toString(): string } }
+          ).terminalId?.toString() === params.terminalId,
+      );
+    } else if (params.terminalIds && params.terminalIds.length > 0) {
+      const ids = new Set(params.terminalIds);
+      filtered = filtered.filter((o) => {
+        const tId = (
+          o as unknown as { terminalId?: { toString(): string } }
+        ).terminalId?.toString();
+        return tId ? ids.has(tId) : false;
+      });
+    }
+
     // Treat expired claims as unclaimed
     filtered = filtered.map((o) => {
       if (o.claimedAt && o.claimedAt < claimExpiryThreshold) {

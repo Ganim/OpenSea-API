@@ -20,7 +20,7 @@ export class DeletePosTerminalUseCase {
       throw new ResourceNotFoundError('Terminal not found.');
     }
 
-    await this.posTerminalsRepository.delete(
+    await this.posTerminalsRepository.softDelete(
       new UniqueEntityID(request.terminalId),
       request.tenantId,
     );

@@ -25,6 +25,7 @@ export async function v1GetCashierQueueController(app: FastifyInstance) {
       tags: ['PDV'],
       summary: 'Get the cashier queue of pending orders',
       querystring: z.object({
+        terminalId: z.string().uuid(),
         search: z.string().optional(),
         page: z.coerce.number().int().min(1).default(1),
         limit: z.coerce.number().int().min(1).max(100).default(20),
@@ -43,11 +44,12 @@ export async function v1GetCashierQueueController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { search, page, limit } = request.query;
+      const { terminalId, search, page, limit } = request.query;
 
       const useCase = makeGetCashierQueueUseCase();
       const result = await useCase.execute({
         tenantId,
+        terminalId,
         search,
         page,
         limit,

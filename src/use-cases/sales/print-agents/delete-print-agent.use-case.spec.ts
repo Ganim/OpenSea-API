@@ -40,7 +40,7 @@ describe('DeletePrintAgentUseCase', () => {
     expect(deletedAgent.deletedAt).toBeDefined();
   });
 
-  it('should nullify agentId and set UNKNOWN status on associated printers', async () => {
+  it('should soft-delete associated printers when agent is deleted', async () => {
     const agent = PrintAgent.create({
       tenantId: new UniqueEntityID(TENANT_ID),
       name: 'Agent With Printers',
@@ -75,8 +75,7 @@ describe('DeletePrintAgentUseCase', () => {
     });
 
     for (const printer of posPrintersRepository.items) {
-      expect(printer.agentId).toBeUndefined();
-      expect(printer.status).toBe('UNKNOWN');
+      expect(printer.deletedAt).toBeInstanceOf(Date);
     }
   });
 

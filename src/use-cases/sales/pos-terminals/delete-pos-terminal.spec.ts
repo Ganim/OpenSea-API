@@ -16,10 +16,9 @@ describe('DeletePosTerminalUseCase', () => {
   it('should delete an existing terminal', async () => {
     const terminal = PosTerminal.create({
       tenantId: new UniqueEntityID('tenant-1'),
-      name: 'Terminal 1',
-      deviceId: 'device-1',
-      mode: 'FAST_CHECKOUT',
-      warehouseId: new UniqueEntityID('warehouse-1'),
+      terminalName: 'Terminal 1',
+      terminalCode: 'ABCD1234',
+      mode: 'CASHIER',
     });
     await posTerminalsRepository.create(terminal);
 
@@ -28,7 +27,8 @@ describe('DeletePosTerminalUseCase', () => {
       terminalId: terminal.id.toString(),
     });
 
-    expect(posTerminalsRepository.items).toHaveLength(0);
+    expect(posTerminalsRepository.items[0].deletedAt).toBeDefined();
+    expect(posTerminalsRepository.items[0].isActive).toBe(false);
   });
 
   it('should throw if terminal is not found', async () => {
@@ -43,10 +43,9 @@ describe('DeletePosTerminalUseCase', () => {
   it('should not delete terminal from another tenant', async () => {
     const terminal = PosTerminal.create({
       tenantId: new UniqueEntityID('tenant-1'),
-      name: 'Terminal 1',
-      deviceId: 'device-1',
-      mode: 'FAST_CHECKOUT',
-      warehouseId: new UniqueEntityID('warehouse-1'),
+      terminalName: 'Terminal 1',
+      terminalCode: 'ABCD1234',
+      mode: 'CASHIER',
     });
     await posTerminalsRepository.create(terminal);
 

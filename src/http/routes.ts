@@ -60,7 +60,7 @@ import { posRoutes } from './controllers/sales/pos/routes';
 import { priceTablesRoutes } from './controllers/sales/price-tables/routes';
 import { printAgentsRoutes, printAgentsPublicRoutes } from './controllers/sales/print-agents/routes';
 import { printersRoutes } from './controllers/sales/printers/routes';
-import { printingRoutes } from './controllers/sales/printing/routes';
+import { printAgentWsRoutes, printingRoutes } from './controllers/sales/printing/routes';
 import { salesOrdersRoutes } from './controllers/sales/sales-orders/routes';
 import { storeCreditsRoutes } from './controllers/sales/store-credits/routes';
 import { timelineRoutes } from './controllers/sales/timeline/routes';
@@ -377,6 +377,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(printAgentsPublicRoutes); // Public pairing endpoint (no JWT)
   await app.register(printersRoutes);
   await app.register(printingRoutes);
+  await app.register(printAgentWsRoutes); // WebSocket — no module middleware (device token auth)
   await app.register(paymentConfigRoutes);
   await app.register(paymentChargesRoutes);
   // Sales - Planned (placeholder stubs)

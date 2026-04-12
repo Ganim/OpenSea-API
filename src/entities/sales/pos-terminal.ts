@@ -1,26 +1,29 @@
+import { randomBytes } from 'node:crypto';
 import { Entity } from '../domain/entities';
 import type { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
 
 export type PosTerminalMode =
-  | 'FAST_CHECKOUT'
-  | 'CONSULTIVE'
-  | 'SELF_SERVICE'
-  | 'EXTERNAL';
-
-export type PosCashierMode = 'INTEGRATED' | 'SEPARATED';
+  | 'SALES_ONLY'
+  | 'SALES_WITH_CHECKOUT'
+  | 'CASHIER'
+  | 'TOTEM';
 
 export interface PosTerminalProps {
   id: UniqueEntityID;
   tenantId: UniqueEntityID;
-  name: string;
-  deviceId: string;
+  terminalName: string;
+  terminalCode: string;
+  totemCode?: string;
   mode: PosTerminalMode;
-  cashierMode: PosCashierMode;
   acceptsPendingOrders: boolean;
-  warehouseId: UniqueEntityID;
+  requiresSession: boolean;
+  allowAnonymous: boolean;
+  systemUserId?: string;
+  pairingSecret?: string;
   defaultPriceTableId?: UniqueEntityID;
   isActive: boolean;
+  deletedAt?: Date;
   lastSyncAt?: Date;
   lastOnlineAt?: Date;
   settings?: Record<string, unknown>;
@@ -32,17 +35,23 @@ export class PosTerminal extends Entity<PosTerminalProps> {
   get tenantId() {
     return this.props.tenantId;
   }
-  get name() {
-    return this.props.name;
+  get terminalName() {
+    return this.props.terminalName;
   }
-  set name(value: string) {
-    this.props.name = value;
+  set terminalName(value: string) {
+    this.props.terminalName = value;
   }
-  get deviceId() {
-    return this.props.deviceId;
+  get terminalCode() {
+    return this.props.terminalCode;
   }
-  set deviceId(value: string) {
-    this.props.deviceId = value;
+  set terminalCode(value: string) {
+    this.props.terminalCode = value;
+  }
+  get totemCode() {
+    return this.props.totemCode;
+  }
+  set totemCode(value: string | undefined) {
+    this.props.totemCode = value;
   }
   get mode() {
     return this.props.mode;
@@ -50,23 +59,35 @@ export class PosTerminal extends Entity<PosTerminalProps> {
   set mode(value: PosTerminalMode) {
     this.props.mode = value;
   }
-  get cashierMode() {
-    return this.props.cashierMode;
-  }
-  set cashierMode(value: PosCashierMode) {
-    this.props.cashierMode = value;
-  }
   get acceptsPendingOrders() {
     return this.props.acceptsPendingOrders;
   }
   set acceptsPendingOrders(value: boolean) {
     this.props.acceptsPendingOrders = value;
   }
-  get warehouseId() {
-    return this.props.warehouseId;
+  get requiresSession() {
+    return this.props.requiresSession;
   }
-  set warehouseId(value: UniqueEntityID) {
-    this.props.warehouseId = value;
+  set requiresSession(value: boolean) {
+    this.props.requiresSession = value;
+  }
+  get allowAnonymous() {
+    return this.props.allowAnonymous;
+  }
+  set allowAnonymous(value: boolean) {
+    this.props.allowAnonymous = value;
+  }
+  get systemUserId() {
+    return this.props.systemUserId;
+  }
+  set systemUserId(value: string | undefined) {
+    this.props.systemUserId = value;
+  }
+  get pairingSecret() {
+    return this.props.pairingSecret;
+  }
+  set pairingSecret(value: string | undefined) {
+    this.props.pairingSecret = value;
   }
   get defaultPriceTableId() {
     return this.props.defaultPriceTableId;
@@ -79,6 +100,12 @@ export class PosTerminal extends Entity<PosTerminalProps> {
   }
   set isActive(value: boolean) {
     this.props.isActive = value;
+  }
+  get deletedAt() {
+    return this.props.deletedAt;
+  }
+  set deletedAt(value: Date | undefined) {
+    this.props.deletedAt = value;
   }
   get lastSyncAt() {
     return this.props.lastSyncAt;
@@ -108,7 +135,12 @@ export class PosTerminal extends Entity<PosTerminalProps> {
   static create(
     props: Optional<
       PosTerminalProps,
-      'id' | 'createdAt' | 'isActive' | 'cashierMode' | 'acceptsPendingOrders'
+      | 'id'
+      | 'createdAt'
+      | 'isActive'
+      | 'acceptsPendingOrders'
+      | 'requiresSession'
+      | 'allowAnonymous'
     >,
     id?: UniqueEntityID,
   ) {
@@ -117,8 +149,10 @@ export class PosTerminal extends Entity<PosTerminalProps> {
         ...props,
         id: props.id ?? new UniqueEntityID(),
         isActive: props.isActive ?? true,
-        cashierMode: props.cashierMode ?? 'INTEGRATED',
         acceptsPendingOrders: props.acceptsPendingOrders ?? false,
+        requiresSession: props.requiresSession ?? true,
+        allowAnonymous: props.allowAnonymous ?? false,
+        pairingSecret: props.pairingSecret ?? randomBytes(32).toString('hex'),
         createdAt: props.createdAt ?? new Date(),
       },
       id ?? props.id,

@@ -17,6 +17,7 @@ export interface PosSessionProps {
   expectedBalance?: number;
   difference?: number;
   closingBreakdown?: Record<string, unknown>;
+  orphanClosed: boolean;
   notes?: string;
   createdAt: Date;
   updatedAt?: Date;
@@ -74,6 +75,12 @@ export class PosSession extends Entity<PosSessionProps> {
   set closingBreakdown(value: Record<string, unknown> | undefined) {
     this.props.closingBreakdown = value;
   }
+  get orphanClosed() {
+    return this.props.orphanClosed;
+  }
+  set orphanClosed(value: boolean) {
+    this.props.orphanClosed = value;
+  }
   get notes() {
     return this.props.notes;
   }
@@ -90,7 +97,12 @@ export class PosSession extends Entity<PosSessionProps> {
   static create(
     props: Optional<
       PosSessionProps,
-      'id' | 'createdAt' | 'status' | 'openedAt' | 'openingBalance'
+      | 'id'
+      | 'createdAt'
+      | 'status'
+      | 'openedAt'
+      | 'openingBalance'
+      | 'orphanClosed'
     >,
     id?: UniqueEntityID,
   ) {
@@ -101,6 +113,7 @@ export class PosSession extends Entity<PosSessionProps> {
         status: props.status ?? 'OPEN',
         openedAt: props.openedAt ?? new Date(),
         openingBalance: props.openingBalance ?? 0,
+        orphanClosed: props.orphanClosed ?? false,
         createdAt: props.createdAt ?? new Date(),
       },
       id ?? props.id,

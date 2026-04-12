@@ -1,39 +1,48 @@
-import type { PosTerminal } from '@/entities/sales/pos-terminal';
+import type {
+  PosTerminal,
+  PosTerminalMode,
+} from '@/entities/sales/pos-terminal';
 
 export interface PosTerminalDTO {
   id: string;
   tenantId: string;
-  name: string;
-  deviceId: string;
-  mode: string;
-  cashierMode: string;
+  terminalName: string;
+  terminalCode: string;
+  totemCode: string | null;
+  mode: PosTerminalMode;
   acceptsPendingOrders: boolean;
-  warehouseId: string;
+  requiresSession: boolean;
+  allowAnonymous: boolean;
+  systemUserId: string | null;
   defaultPriceTableId: string | null;
   isActive: boolean;
-  lastSyncAt: Date | null;
-  lastOnlineAt: Date | null;
+  deletedAt: string | null;
+  lastSyncAt: string | null;
+  lastOnlineAt: string | null;
   settings: Record<string, unknown> | null;
-  createdAt: Date;
-  updatedAt: Date | null;
+  createdAt: string;
+  updatedAt: string | null;
 }
 
 export function posTerminalToDTO(terminal: PosTerminal): PosTerminalDTO {
   return {
     id: terminal.id.toString(),
     tenantId: terminal.tenantId.toString(),
-    name: terminal.name,
-    deviceId: terminal.deviceId,
+    terminalName: terminal.terminalName,
+    terminalCode: terminal.terminalCode,
+    totemCode: terminal.totemCode ?? null,
     mode: terminal.mode,
-    cashierMode: terminal.cashierMode,
     acceptsPendingOrders: terminal.acceptsPendingOrders,
-    warehouseId: terminal.warehouseId.toString(),
+    requiresSession: terminal.requiresSession,
+    allowAnonymous: terminal.allowAnonymous,
+    systemUserId: terminal.systemUserId ?? null,
     defaultPriceTableId: terminal.defaultPriceTableId?.toString() ?? null,
     isActive: terminal.isActive,
-    lastSyncAt: terminal.lastSyncAt ?? null,
-    lastOnlineAt: terminal.lastOnlineAt ?? null,
+    deletedAt: terminal.deletedAt?.toISOString() ?? null,
+    lastSyncAt: terminal.lastSyncAt?.toISOString() ?? null,
+    lastOnlineAt: terminal.lastOnlineAt?.toISOString() ?? null,
     settings: terminal.settings ?? null,
-    createdAt: terminal.createdAt,
-    updatedAt: terminal.updatedAt ?? null,
+    createdAt: terminal.createdAt.toISOString(),
+    updatedAt: terminal.updatedAt?.toISOString() ?? null,
   };
 }

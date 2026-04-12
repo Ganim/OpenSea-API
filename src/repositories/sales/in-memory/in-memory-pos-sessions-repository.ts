@@ -40,6 +40,22 @@ export class InMemoryPosSessionsRepository implements PosSessionsRepository {
     );
   }
 
+  async findOrphanByTerminal(
+    terminalId: string,
+    tenantId: string,
+  ): Promise<PosSession | null> {
+    return (
+      this.items
+        .filter(
+          (s) =>
+            s.terminalId.toString() === terminalId &&
+            s.tenantId.toString() === tenantId &&
+            s.status === 'OPEN',
+        )
+        .sort((a, b) => a.openedAt.getTime() - b.openedAt.getTime())[0] ?? null
+    );
+  }
+
   async findManyPaginated(
     params: FindManyPosSessionsPaginatedParams,
   ): Promise<PaginatedResult<PosSession>> {

@@ -54,6 +54,20 @@ export class PrismaPosSessionsRepository implements PosSessionsRepository {
     return raw ? posSessionPrismaToDomain(raw) : null;
   }
 
+  async findOrphanByTerminal(
+    terminalId: string,
+    tenantId: string,
+  ): Promise<PosSession | null> {
+    // An orphan session is any OPEN session for the terminal that may have
+    // been left open by a previous shift/device. Callers use this to detect
+    // and force-close before opening a new one.
+    const raw = await prisma.posSession.findFirst({
+      where: { terminalId, tenantId, status: 'OPEN' },
+      orderBy: { openedAt: 'asc' },
+    });
+    return raw ? posSessionPrismaToDomain(raw) : null;
+  }
+
   async findManyPaginated(
     params: FindManyPosSessionsPaginatedParams,
   ): Promise<PaginatedResult<PosSession>> {
@@ -96,6 +110,7 @@ export class PrismaPosSessionsRepository implements PosSessionsRepository {
         closingBreakdown:
           (session.closingBreakdown as Prisma.InputJsonValue) ?? undefined,
         notes: session.notes ?? null,
+        orphanClosed: session.orphanClosed,
       },
     });
   }

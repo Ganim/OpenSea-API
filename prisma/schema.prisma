@@ -15313,6 +15313,7 @@ model PosPrinter {
 
   isDefault Boolean @default(false)
   isActive  Boolean @default(true)
+  isHidden  Boolean @default(false) @map("is_hidden")
 
   // Agent integration
   status       PrinterStatus @default(UNKNOWN)

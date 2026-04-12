@@ -19,6 +19,7 @@ export function posPrinterPrismaToDomain(raw: PrismaPosPrinter): PosPrinter {
       characterPerLine: raw.characterPerLine,
       isDefault: raw.isDefault,
       isActive: raw.isActive,
+      isHidden: raw.isHidden,
       status: raw.status,
       lastSeenAt: raw.lastSeenAt ?? undefined,
       agentId: raw.agentId ?? undefined,

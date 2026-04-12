@@ -16,23 +16,22 @@ describe('UpdatePosTerminalUseCase', () => {
   it('should update terminal fields', async () => {
     const terminal = PosTerminal.create({
       tenantId: new UniqueEntityID('tenant-1'),
-      name: 'Terminal 1',
-      deviceId: 'device-1',
-      mode: 'FAST_CHECKOUT',
-      warehouseId: new UniqueEntityID('warehouse-1'),
+      terminalName: 'Terminal 1',
+      terminalCode: 'ABCD1234',
+      mode: 'CASHIER',
     });
     await posTerminalsRepository.create(terminal);
 
     const result = await sut.execute({
       tenantId: 'tenant-1',
       terminalId: terminal.id.toString(),
-      name: 'Updated Terminal',
-      mode: 'CONSULTIVE',
+      terminalName: 'Terminal Atualizado',
+      mode: 'SALES_WITH_CHECKOUT',
       isActive: false,
     });
 
-    expect(result.terminal.name).toBe('Updated Terminal');
-    expect(result.terminal.mode).toBe('CONSULTIVE');
+    expect(result.terminal.terminalName).toBe('Terminal Atualizado');
+    expect(result.terminal.mode).toBe('SALES_WITH_CHECKOUT');
     expect(result.terminal.isActive).toBe(false);
   });
 
@@ -41,7 +40,7 @@ describe('UpdatePosTerminalUseCase', () => {
       sut.execute({
         tenantId: 'tenant-1',
         terminalId: 'non-existent',
-        name: 'Test',
+        terminalName: 'Test',
       }),
     ).rejects.toThrow('Terminal not found.');
   });
@@ -49,10 +48,9 @@ describe('UpdatePosTerminalUseCase', () => {
   it('should update defaultPriceTableId to null', async () => {
     const terminal = PosTerminal.create({
       tenantId: new UniqueEntityID('tenant-1'),
-      name: 'Terminal 1',
-      deviceId: 'device-1',
-      mode: 'FAST_CHECKOUT',
-      warehouseId: new UniqueEntityID('warehouse-1'),
+      terminalName: 'Terminal 1',
+      terminalCode: 'ABCD1234',
+      mode: 'CASHIER',
       defaultPriceTableId: new UniqueEntityID('price-table-1'),
     });
     await posTerminalsRepository.create(terminal);
@@ -69,21 +67,20 @@ describe('UpdatePosTerminalUseCase', () => {
   it('should only update provided fields', async () => {
     const terminal = PosTerminal.create({
       tenantId: new UniqueEntityID('tenant-1'),
-      name: 'Terminal 1',
-      deviceId: 'device-1',
-      mode: 'FAST_CHECKOUT',
-      warehouseId: new UniqueEntityID('warehouse-1'),
+      terminalName: 'Terminal 1',
+      terminalCode: 'ABCD1234',
+      mode: 'CASHIER',
     });
     await posTerminalsRepository.create(terminal);
 
     const result = await sut.execute({
       tenantId: 'tenant-1',
       terminalId: terminal.id.toString(),
-      name: 'Updated Name',
+      terminalName: 'Nome Atualizado',
     });
 
-    expect(result.terminal.name).toBe('Updated Name');
-    expect(result.terminal.mode).toBe('FAST_CHECKOUT');
-    expect(result.terminal.deviceId).toBe('device-1');
+    expect(result.terminal.terminalName).toBe('Nome Atualizado');
+    expect(result.terminal.mode).toBe('CASHIER');
+    expect(result.terminal.terminalCode).toBe('ABCD1234');
   });
 });

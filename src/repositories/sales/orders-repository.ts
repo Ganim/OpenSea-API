@@ -21,6 +21,16 @@ export interface FindCashierQueueParams {
   search?: string;
   page?: number;
   limit?: number;
+  /**
+   * Filter to orders attached to specific terminals (for CASHIER mode that
+   * pulls awaiting-payment orders from SALES_ONLY terminals).
+   */
+  terminalIds?: string[];
+  /**
+   * Filter to a single terminal (for SALES_WITH_CHECKOUT mode that only sees
+   * its own pending orders).
+   */
+  terminalId?: string;
 }
 
 export interface OrdersRepository {

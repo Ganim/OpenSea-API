@@ -15,7 +15,7 @@ import { z } from 'zod';
 
 export async function v1UpdateTerminalController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
-    method: 'PUT',
+    method: 'PATCH',
     url: '/v1/pos/terminals/:terminalId',
     preHandler: [
       verifyJwt,

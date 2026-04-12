@@ -9,6 +9,7 @@ export interface FindManyPosTerminalsPaginatedParams {
   search?: string;
   mode?: string;
   isActive?: boolean;
+  includeDeleted?: boolean;
   sortBy?: string;
   sortOrder?: 'asc' | 'desc';
 }
@@ -16,13 +17,13 @@ export interface FindManyPosTerminalsPaginatedParams {
 export interface PosTerminalsRepository {
   create(terminal: PosTerminal): Promise<void>;
   findById(id: UniqueEntityID, tenantId: string): Promise<PosTerminal | null>;
-  findByDeviceId(
-    deviceId: string,
-    tenantId: string,
-  ): Promise<PosTerminal | null>;
+  findByTerminalCode(code: string): Promise<PosTerminal | null>;
+  findByTotemCode(code: string): Promise<PosTerminal | null>;
   findManyPaginated(
     params: FindManyPosTerminalsPaginatedParams,
   ): Promise<PaginatedResult<PosTerminal>>;
+  generateUniqueTerminalCode(): Promise<string>;
+  generateUniqueTotemCode(): Promise<string>;
   save(terminal: PosTerminal): Promise<void>;
-  delete(id: UniqueEntityID, tenantId: string): Promise<void>;
+  softDelete(id: UniqueEntityID, tenantId: string): Promise<void>;
 }

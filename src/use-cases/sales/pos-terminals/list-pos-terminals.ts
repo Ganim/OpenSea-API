@@ -9,6 +9,7 @@ interface ListPosTerminalsUseCaseRequest {
   search?: string;
   mode?: string;
   isActive?: boolean;
+  includeDeleted?: boolean;
   sortBy?: string;
   sortOrder?: 'asc' | 'desc';
 }
@@ -35,6 +36,7 @@ export class ListPosTerminalsUseCase {
         search: request.search,
         mode: request.mode,
         isActive: request.isActive,
+        includeDeleted: request.includeDeleted,
         sortBy: request.sortBy,
         sortOrder: request.sortOrder,
       });

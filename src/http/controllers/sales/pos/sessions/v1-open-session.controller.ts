@@ -1,5 +1,6 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { OrphanSessionExistsError } from '@/use-cases/sales/pos-sessions/open-pos-session';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
@@ -34,6 +35,11 @@ export async function v1OpenSessionController(app: FastifyInstance) {
         201: z.object({ session: posSessionResponseSchema }),
         400: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
+        409: z.object({
+          message: z.string(),
+          code: z.literal('ORPHAN_SESSION_EXISTS'),
+          orphanSessionId: z.string(),
+        }),
       },
     },
     handler: async (request, reply) => {
@@ -53,6 +59,13 @@ export async function v1OpenSessionController(app: FastifyInstance) {
           session: posSessionToDTO(result.session),
         });
       } catch (err) {
+        if (err instanceof OrphanSessionExistsError) {
+          return reply.status(409).send({
+            message: err.message,
+            code: 'ORPHAN_SESSION_EXISTS',
+            orphanSessionId: err.orphanSessionId,
+          });
+        }
         if (err instanceof BadRequestError) {
           return reply.status(400).send({ message: err.message });
         }
