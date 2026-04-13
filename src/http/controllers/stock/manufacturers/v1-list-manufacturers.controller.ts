@@ -4,6 +4,7 @@ import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { paginationSchema } from '@/http/schemas';
 import { manufacturerResponseSchema } from '@/http/schemas/stock/manufacturers';
+import { prisma } from '@/lib/prisma';
 import { manufacturerToDTO } from '@/mappers/stock/manufacturer/manufacturer-to-dto';
 import { makeListManufacturersUseCase } from '@/use-cases/stock/manufacturers/factories/make-list-manufacturers-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -61,9 +62,35 @@ export async function listManufacturersController(app: FastifyInstance) {
         limit,
       });
 
+      const dtos = manufacturers.map(manufacturerToDTO);
+
+      // Efficient single query to get product counts for all returned manufacturers
+      const manufacturerIds = dtos.map((m) => m.id);
+      const productCounts =
+        manufacturerIds.length > 0
+          ? await prisma.product.groupBy({
+              by: ['manufacturerId'],
+              where: {
+                tenantId,
+                manufacturerId: { in: manufacturerIds },
+                deletedAt: null,
+              },
+              _count: { id: true },
+            })
+          : [];
+
+      const countMap = new Map(
+        productCounts.map((pc) => [pc.manufacturerId, pc._count.id]),
+      );
+
+      const manufacturersWithCount = dtos.map((m) => ({
+        ...m,
+        productCount: countMap.get(m.id) ?? 0,
+      }));
+
       return reply
         .status(200)
-        .send({ manufacturers: manufacturers.map(manufacturerToDTO), meta });
+        .send({ manufacturers: manufacturersWithCount, meta });
     },
   });
 }

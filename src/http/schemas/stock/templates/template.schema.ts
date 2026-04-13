@@ -85,6 +85,7 @@ export const templateResponseSchema = z.object({
   itemAttributes: templateAttributesMapSchema,
   specialModules: z.array(z.string()),
   isActive: z.boolean(),
+  productCount: z.number().optional(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date().nullable(),
   deletedAt: z.coerce.date().nullable(),

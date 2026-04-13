@@ -41,6 +41,7 @@ export const manufacturerResponseSchema = z.object({
   isActive: z.boolean(),
   rating: z.number().nullable(),
   notes: z.string().nullable(),
+  productCount: z.number().optional(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
   deletedAt: z.coerce.date().nullable(),
