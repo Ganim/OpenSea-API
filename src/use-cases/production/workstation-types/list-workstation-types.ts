@@ -9,9 +9,7 @@ interface ListWorkstationTypesUseCaseResponse {
 }
 
 export class ListWorkstationTypesUseCase {
-  constructor(
-    private workstationTypesRepository: WorkstationTypesRepository,
-  ) {}
+  constructor(private workstationTypesRepository: WorkstationTypesRepository) {}
 
   async execute({
     tenantId,

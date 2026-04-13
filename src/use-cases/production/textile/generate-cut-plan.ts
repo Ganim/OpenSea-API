@@ -61,9 +61,7 @@ interface GenerateCutPlanUseCaseResponse {
 }
 
 export class GenerateCutPlanUseCase {
-  constructor(
-    private productionOrdersRepository: ProductionOrdersRepository,
-  ) {}
+  constructor(private productionOrdersRepository: ProductionOrdersRepository) {}
 
   async execute({
     tenantId,
@@ -150,8 +148,7 @@ export class GenerateCutPlanUseCase {
       0,
     );
 
-    const wasteAmount =
-      totalEstimatedFabricMeters * (wastePercentage / 100);
+    const wasteAmount = totalEstimatedFabricMeters * (wastePercentage / 100);
     const totalWithWaste =
       Math.round((totalEstimatedFabricMeters + wasteAmount) * 100) / 100;
 

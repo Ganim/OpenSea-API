@@ -113,9 +113,24 @@ describe('Change Production Order Status Use Case', () => {
     });
 
     // Progress through the lifecycle
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'PLANNED', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'FIRM', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'RELEASED', userId: USER_ID });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'PLANNED',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'FIRM',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'RELEASED',
+      userId: USER_ID,
+    });
 
     const { productionOrder: updated } = await sut.execute({
       tenantId: TENANT_ID,
@@ -137,10 +152,30 @@ describe('Change Production Order Status Use Case', () => {
       createdById: USER_ID,
     });
 
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'PLANNED', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'FIRM', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'RELEASED', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'IN_PROCESS', userId: USER_ID });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'PLANNED',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'FIRM',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'RELEASED',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'IN_PROCESS',
+      userId: USER_ID,
+    });
 
     const { productionOrder: updated } = await sut.execute({
       tenantId: TENANT_ID,
@@ -162,11 +197,36 @@ describe('Change Production Order Status Use Case', () => {
       createdById: USER_ID,
     });
 
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'PLANNED', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'FIRM', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'RELEASED', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'IN_PROCESS', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'TECHNICALLY_COMPLETE', userId: USER_ID });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'PLANNED',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'FIRM',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'RELEASED',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'IN_PROCESS',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'TECHNICALLY_COMPLETE',
+      userId: USER_ID,
+    });
 
     const { productionOrder: updated } = await sut.execute({
       tenantId: TENANT_ID,
@@ -187,7 +247,14 @@ describe('Change Production Order Status Use Case', () => {
       createdById: USER_ID,
     });
 
-    const statuses = ['PLANNED', 'FIRM', 'RELEASED', 'IN_PROCESS', 'TECHNICALLY_COMPLETE', 'CLOSED'] as const;
+    const statuses = [
+      'PLANNED',
+      'FIRM',
+      'RELEASED',
+      'IN_PROCESS',
+      'TECHNICALLY_COMPLETE',
+      'CLOSED',
+    ] as const;
     let current = productionOrder;
 
     for (const targetStatus of statuses) {
@@ -232,7 +299,12 @@ describe('Change Production Order Status Use Case', () => {
       createdById: USER_ID,
     });
 
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'PLANNED', userId: USER_ID });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'PLANNED',
+      userId: USER_ID,
+    });
 
     const { productionOrder: updated } = await sut.execute({
       tenantId: TENANT_ID,
@@ -253,8 +325,18 @@ describe('Change Production Order Status Use Case', () => {
       createdById: USER_ID,
     });
 
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'PLANNED', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'FIRM', userId: USER_ID });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'PLANNED',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'FIRM',
+      userId: USER_ID,
+    });
 
     const { productionOrder: updated } = await sut.execute({
       tenantId: TENANT_ID,
@@ -275,9 +357,24 @@ describe('Change Production Order Status Use Case', () => {
       createdById: USER_ID,
     });
 
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'PLANNED', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'FIRM', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'RELEASED', userId: USER_ID });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'PLANNED',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'FIRM',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'RELEASED',
+      userId: USER_ID,
+    });
 
     const { productionOrder: updated } = await sut.execute({
       tenantId: TENANT_ID,
@@ -300,10 +397,30 @@ describe('Change Production Order Status Use Case', () => {
       createdById: USER_ID,
     });
 
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'PLANNED', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'FIRM', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'RELEASED', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'IN_PROCESS', userId: USER_ID });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'PLANNED',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'FIRM',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'RELEASED',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'IN_PROCESS',
+      userId: USER_ID,
+    });
 
     await expect(() =>
       sut.execute({
@@ -382,12 +499,42 @@ describe('Change Production Order Status Use Case', () => {
     });
 
     // Progress to CLOSED
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'PLANNED', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'FIRM', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'RELEASED', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'IN_PROCESS', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'TECHNICALLY_COMPLETE', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'CLOSED', userId: USER_ID });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'PLANNED',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'FIRM',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'RELEASED',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'IN_PROCESS',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'TECHNICALLY_COMPLETE',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'CLOSED',
+      userId: USER_ID,
+    });
 
     await expect(() =>
       sut.execute({
@@ -434,11 +581,36 @@ describe('Change Production Order Status Use Case', () => {
       createdById: USER_ID,
     });
 
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'PLANNED', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'FIRM', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'RELEASED', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'IN_PROCESS', userId: USER_ID });
-    await sut.execute({ tenantId: TENANT_ID, id: productionOrder.id.toString(), targetStatus: 'TECHNICALLY_COMPLETE', userId: USER_ID });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'PLANNED',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'FIRM',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'RELEASED',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'IN_PROCESS',
+      userId: USER_ID,
+    });
+    await sut.execute({
+      tenantId: TENANT_ID,
+      id: productionOrder.id.toString(),
+      targetStatus: 'TECHNICALLY_COMPLETE',
+      userId: USER_ID,
+    });
 
     await expect(() =>
       sut.execute({

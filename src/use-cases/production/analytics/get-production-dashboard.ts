@@ -10,17 +10,10 @@ interface GetProductionDashboardUseCaseResponse {
   activeOrders: number;
 }
 
-const ACTIVE_STATUSES = [
-  'PLANNED',
-  'FIRM',
-  'RELEASED',
-  'IN_PROCESS',
-];
+const ACTIVE_STATUSES = ['PLANNED', 'FIRM', 'RELEASED', 'IN_PROCESS'];
 
 export class GetProductionDashboardUseCase {
-  constructor(
-    private productionOrdersRepository: ProductionOrdersRepository,
-  ) {}
+  constructor(private productionOrdersRepository: ProductionOrdersRepository) {}
 
   async execute({
     tenantId,

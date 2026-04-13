@@ -29,9 +29,7 @@ export class CreateWorkCenterUseCase {
     );
 
     if (existingWorkCenter) {
-      throw new BadRequestError(
-        'A work center with this code already exists.',
-      );
+      throw new BadRequestError('A work center with this code already exists.');
     }
 
     const workCenter = await this.workCentersRepository.create({

@@ -9,9 +9,7 @@ interface CountProductionOrdersByStatusUseCaseResponse {
 }
 
 export class CountProductionOrdersByStatusUseCase {
-  constructor(
-    private productionOrdersRepository: ProductionOrdersRepository,
-  ) {}
+  constructor(private productionOrdersRepository: ProductionOrdersRepository) {}
 
   async execute({
     tenantId,

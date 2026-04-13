@@ -49,7 +49,9 @@ describe('GenerateCutPlanUseCase', () => {
     expect(cutPlan.piecesPerSize).toHaveLength(3);
     expect(cutPlan.piecesPerColor).toHaveLength(2);
     expect(cutPlan.wastePercentage).toBe(5);
-    expect(cutPlan.totalWithWaste).toBeGreaterThan(cutPlan.totalEstimatedFabricMeters);
+    expect(cutPlan.totalWithWaste).toBeGreaterThan(
+      cutPlan.totalEstimatedFabricMeters,
+    );
     expect(cutPlan.layersNeeded).toBeGreaterThan(0);
   });
 

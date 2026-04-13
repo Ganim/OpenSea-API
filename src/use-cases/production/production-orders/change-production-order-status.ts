@@ -15,7 +15,10 @@ interface ChangeProductionOrderStatusUseCaseResponse {
   productionOrder: import('@/entities/production/production-order').ProductionOrder;
 }
 
-const VALID_TRANSITIONS: Record<ProductionOrderStatus, ProductionOrderStatus[]> = {
+const VALID_TRANSITIONS: Record<
+  ProductionOrderStatus,
+  ProductionOrderStatus[]
+> = {
   DRAFT: ['PLANNED', 'CANCELLED'],
   PLANNED: ['FIRM', 'CANCELLED'],
   FIRM: ['RELEASED', 'CANCELLED'],
@@ -27,9 +30,7 @@ const VALID_TRANSITIONS: Record<ProductionOrderStatus, ProductionOrderStatus[]> 
 };
 
 export class ChangeProductionOrderStatusUseCase {
-  constructor(
-    private productionOrdersRepository: ProductionOrdersRepository,
-  ) {}
+  constructor(private productionOrdersRepository: ProductionOrdersRepository) {}
 
   async execute({
     tenantId,

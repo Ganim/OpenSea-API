@@ -13,17 +13,13 @@ export class InMemoryProductionOrdersRepository
 {
   public items: ProductionOrder[] = [];
 
-  async create(
-    data: CreateProductionOrderSchema,
-  ): Promise<ProductionOrder> {
+  async create(data: CreateProductionOrderSchema): Promise<ProductionOrder> {
     const order = ProductionOrder.create({
       tenantId: new EntityID(data.tenantId),
       orderNumber: data.orderNumber,
       bomId: new EntityID(data.bomId),
       productId: new EntityID(data.productId),
-      salesOrderId: data.salesOrderId
-        ? new EntityID(data.salesOrderId)
-        : null,
+      salesOrderId: data.salesOrderId ? new EntityID(data.salesOrderId) : null,
       parentOrderId: data.parentOrderId
         ? new EntityID(data.parentOrderId)
         : null,
@@ -38,9 +34,7 @@ export class InMemoryProductionOrdersRepository
       actualStartDate: data.actualStartDate ?? null,
       actualEndDate: data.actualEndDate ?? null,
       releasedAt: data.releasedAt ?? null,
-      releasedById: data.releasedById
-        ? new EntityID(data.releasedById)
-        : null,
+      releasedById: data.releasedById ? new EntityID(data.releasedById) : null,
       notes: data.notes ?? null,
       createdById: new EntityID(data.createdById),
     });
@@ -54,8 +48,7 @@ export class InMemoryProductionOrdersRepository
     tenantId: string,
   ): Promise<ProductionOrder | null> {
     const item = this.items.find(
-      (i) =>
-        i.id.equals(id) && i.tenantId.toString() === tenantId,
+      (i) => i.id.equals(id) && i.tenantId.toString() === tenantId,
     );
     return item ?? null;
   }
@@ -92,8 +85,7 @@ export class InMemoryProductionOrdersRepository
     status: string,
   ): Promise<ProductionOrder[]> {
     return this.items.filter(
-      (i) =>
-        i.tenantId.toString() === tenantId && i.status === status,
+      (i) => i.tenantId.toString() === tenantId && i.status === status,
     );
   }
 
@@ -103,8 +95,7 @@ export class InMemoryProductionOrdersRepository
 
     const tenantOrders = this.items.filter(
       (i) =>
-        i.tenantId.toString() === tenantId &&
-        i.orderNumber.startsWith(prefix),
+        i.tenantId.toString() === tenantId && i.orderNumber.startsWith(prefix),
     );
 
     let maxNumber = 0;

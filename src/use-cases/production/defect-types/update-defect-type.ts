@@ -19,9 +19,7 @@ interface UpdateDefectTypeUseCaseResponse {
 }
 
 export class UpdateDefectTypeUseCase {
-  constructor(
-    private defectTypesRepository: DefectTypesRepository,
-  ) {}
+  constructor(private defectTypesRepository: DefectTypesRepository) {}
 
   async execute({
     tenantId,

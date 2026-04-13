@@ -55,9 +55,7 @@ export class PrismaDowntimeRecordsRepository
     return toDomain(raw);
   }
 
-  async findById(
-    id: UniqueEntityID,
-  ): Promise<ProductionDowntimeRecord | null> {
+  async findById(id: UniqueEntityID): Promise<ProductionDowntimeRecord | null> {
     const raw = await prisma.productionDowntimeRecord.findUnique({
       where: { id: id.toString() },
     });

@@ -125,10 +125,26 @@ describe('GenerateBundleTicketsUseCase', () => {
     expect(result.totalBundles).toBe(4);
 
     // Each size-color combination should produce exactly 1 bundle of 10
-    expect(result.bundles[0]).toMatchObject({ size: 'P', color: 'Branco', quantity: 10 });
-    expect(result.bundles[1]).toMatchObject({ size: 'P', color: 'Preto', quantity: 10 });
-    expect(result.bundles[2]).toMatchObject({ size: 'M', color: 'Branco', quantity: 10 });
-    expect(result.bundles[3]).toMatchObject({ size: 'M', color: 'Preto', quantity: 10 });
+    expect(result.bundles[0]).toMatchObject({
+      size: 'P',
+      color: 'Branco',
+      quantity: 10,
+    });
+    expect(result.bundles[1]).toMatchObject({
+      size: 'P',
+      color: 'Preto',
+      quantity: 10,
+    });
+    expect(result.bundles[2]).toMatchObject({
+      size: 'M',
+      color: 'Branco',
+      quantity: 10,
+    });
+    expect(result.bundles[3]).toMatchObject({
+      size: 'M',
+      color: 'Preto',
+      quantity: 10,
+    });
   });
 
   it('should throw when production order does not exist', async () => {

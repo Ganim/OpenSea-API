@@ -12,9 +12,7 @@ interface GetDowntimeReasonByIdUseCaseResponse {
 }
 
 export class GetDowntimeReasonByIdUseCase {
-  constructor(
-    private downtimeReasonsRepository: DowntimeReasonsRepository,
-  ) {}
+  constructor(private downtimeReasonsRepository: DowntimeReasonsRepository) {}
 
   async execute({
     tenantId,

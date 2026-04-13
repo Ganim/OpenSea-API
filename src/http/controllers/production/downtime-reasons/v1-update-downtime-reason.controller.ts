@@ -56,8 +56,7 @@ export async function updateDowntimeReasonController(app: FastifyInstance) {
       const userId = request.user.sub;
 
       const getUserByIdUseCase = makeGetUserByIdUseCase();
-      const getDowntimeReasonByIdUseCase =
-        makeGetDowntimeReasonByIdUseCase();
+      const getDowntimeReasonByIdUseCase = makeGetDowntimeReasonByIdUseCase();
 
       const [{ user }, { downtimeReason: oldDowntimeReason }] =
         await Promise.all([

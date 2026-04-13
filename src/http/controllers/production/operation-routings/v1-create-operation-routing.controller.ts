@@ -74,31 +74,32 @@ export async function createOperationRoutingController(app: FastifyInstance) {
         ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
         : user.username || user.email;
 
-      const createOperationRoutingUseCase =
-        makeCreateOperationRoutingUseCase();
-      const { operationRouting } =
-        await createOperationRoutingUseCase.execute({
-          tenantId,
-          bomId,
-          workstationId,
-          sequence,
-          operationName,
-          description,
-          setupTime,
-          executionTime,
-          waitTime,
-          moveTime,
-          isQualityCheck,
-          isOptional,
-          skillRequired,
-          instructions,
-          imageUrl,
-        });
+      const createOperationRoutingUseCase = makeCreateOperationRoutingUseCase();
+      const { operationRouting } = await createOperationRoutingUseCase.execute({
+        tenantId,
+        bomId,
+        workstationId,
+        sequence,
+        operationName,
+        description,
+        setupTime,
+        executionTime,
+        waitTime,
+        moveTime,
+        isQualityCheck,
+        isOptional,
+        skillRequired,
+        instructions,
+        imageUrl,
+      });
 
       await logAudit(request, {
         message: AUDIT_MESSAGES.PRODUCTION.OPERATION_ROUTING_CREATE,
         entityId: operationRouting.id.toString(),
-        placeholders: { userName, operationName: operationRouting.operationName },
+        placeholders: {
+          userName,
+          operationName: operationRouting.operationName,
+        },
         newData: {
           bomId,
           workstationId,

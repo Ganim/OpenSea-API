@@ -74,9 +74,7 @@ describe('Create Workstation Use Case', () => {
       metadata: { brand: 'Haas' },
     });
 
-    expect(workstation.workCenterId?.toString()).toBe(
-      workCenter.id.toString(),
-    );
+    expect(workstation.workCenterId?.toString()).toBe(workCenter.id.toString());
     expect(workstation.description).toBe('Secondary CNC machine');
     expect(workstation.costPerHour).toBe(50);
     expect(workstation.isActive).toBe(false);

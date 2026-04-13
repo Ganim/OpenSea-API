@@ -14,9 +14,7 @@ interface CreateProductionCostUseCaseResponse {
 }
 
 export class CreateProductionCostUseCase {
-  constructor(
-    private productionCostsRepository: ProductionCostsRepository,
-  ) {}
+  constructor(private productionCostsRepository: ProductionCostsRepository) {}
 
   async execute({
     productionOrderId,

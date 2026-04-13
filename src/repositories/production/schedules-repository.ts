@@ -55,7 +55,9 @@ export interface SchedulesRepository {
   deleteSchedule(id: UniqueEntityID): Promise<void>;
 
   // Schedule Entry
-  createEntry(data: CreateScheduleEntrySchema): Promise<ProductionScheduleEntry>;
+  createEntry(
+    data: CreateScheduleEntrySchema,
+  ): Promise<ProductionScheduleEntry>;
   findEntryById(id: UniqueEntityID): Promise<ProductionScheduleEntry | null>;
   findManyEntries(
     scheduleId: string,

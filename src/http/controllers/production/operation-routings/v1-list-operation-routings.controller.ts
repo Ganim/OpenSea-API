@@ -42,10 +42,11 @@ export async function listOperationRoutingsController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
       const { bomId } = request.params;
 
-      const listOperationRoutingsUseCase =
-        makeListOperationRoutingsUseCase();
-      const { operationRoutings } =
-        await listOperationRoutingsUseCase.execute({ tenantId, bomId });
+      const listOperationRoutingsUseCase = makeListOperationRoutingsUseCase();
+      const { operationRoutings } = await listOperationRoutingsUseCase.execute({
+        tenantId,
+        bomId,
+      });
 
       return reply.status(200).send({
         operationRoutings: operationRoutings.map(operationRoutingToDTO),

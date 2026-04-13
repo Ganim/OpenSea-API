@@ -12,9 +12,7 @@ interface DeleteWorkstationTypeUseCaseResponse {
 }
 
 export class DeleteWorkstationTypeUseCase {
-  constructor(
-    private workstationTypesRepository: WorkstationTypesRepository,
-  ) {}
+  constructor(private workstationTypesRepository: WorkstationTypesRepository) {}
 
   async execute({
     tenantId,

@@ -24,7 +24,10 @@ export const textileConfigResponseSchema = z.object({
 export const sizeColorMatrixSchema = z.object({
   sizes: z.array(z.string().min(1)).min(1, 'At least one size is required'),
   colors: z.array(z.string().min(1)).min(1, 'At least one color is required'),
-  quantities: z.record(z.string(), z.record(z.string(), z.number().int().min(0))),
+  quantities: z.record(
+    z.string(),
+    z.record(z.string(), z.number().int().min(0)),
+  ),
 });
 
 // ============================================================================
@@ -37,13 +40,10 @@ export const generateCutPlanSchema = z.object({
     .number()
     .positive('Base fabric consumption must be positive'),
   wastePercentage: z.number().min(0).max(50).optional().default(5),
-  spreadingTableWidthPieces: z
-    .number()
-    .int()
-    .positive()
-    .optional()
-    .default(50),
-  sizeConsumptionFactors: z.record(z.string(), z.number().positive()).optional(),
+  spreadingTableWidthPieces: z.number().int().positive().optional().default(50),
+  sizeConsumptionFactors: z
+    .record(z.string(), z.number().positive())
+    .optional(),
 });
 
 const cutPlanSizeSummarySchema = z.object({
@@ -78,7 +78,10 @@ export const generateBundleTicketsSchema = z.object({
   bundleSize: z.number().int().min(1).max(100).optional().default(15),
   sizes: z.array(z.string().min(1)).min(1, 'At least one size is required'),
   colors: z.array(z.string().min(1)).min(1, 'At least one color is required'),
-  quantities: z.record(z.string(), z.record(z.string(), z.number().int().min(0))),
+  quantities: z.record(
+    z.string(),
+    z.record(z.string(), z.number().int().min(0)),
+  ),
 });
 
 const bundleTicketSchema = z.object({

@@ -48,8 +48,7 @@ export async function deleteOperationRoutingController(app: FastifyInstance) {
         ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
         : user.username || user.email;
 
-      const deleteOperationRoutingUseCase =
-        makeDeleteOperationRoutingUseCase();
+      const deleteOperationRoutingUseCase = makeDeleteOperationRoutingUseCase();
       await deleteOperationRoutingUseCase.execute({ tenantId, id });
 
       await logAudit(request, {

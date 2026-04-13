@@ -17,9 +17,7 @@ interface UpdateInspectionPlanUseCaseResponse {
 }
 
 export class UpdateInspectionPlanUseCase {
-  constructor(
-    private inspectionPlansRepository: InspectionPlansRepository,
-  ) {}
+  constructor(private inspectionPlansRepository: InspectionPlansRepository) {}
 
   async execute({
     inspectionPlanId,

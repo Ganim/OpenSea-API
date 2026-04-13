@@ -35,8 +35,9 @@ export async function listDowntimeReasonsController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const listDowntimeReasonsUseCase = makeListDowntimeReasonsUseCase();
-      const { downtimeReasons } =
-        await listDowntimeReasonsUseCase.execute({ tenantId });
+      const { downtimeReasons } = await listDowntimeReasonsUseCase.execute({
+        tenantId,
+      });
 
       return reply.status(200).send({
         downtimeReasons: downtimeReasons.map(downtimeReasonToDTO),

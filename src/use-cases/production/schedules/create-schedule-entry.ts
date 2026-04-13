@@ -31,9 +31,7 @@ export class CreateScheduleEntryUseCase {
     notes,
   }: CreateScheduleEntryUseCaseRequest): Promise<CreateScheduleEntryUseCaseResponse> {
     if (endDate <= startDate) {
-      throw new BadRequestError(
-        'End date must be after start date.',
-      );
+      throw new BadRequestError('End date must be after start date.');
     }
 
     const entry = await this.schedulesRepository.createEntry({

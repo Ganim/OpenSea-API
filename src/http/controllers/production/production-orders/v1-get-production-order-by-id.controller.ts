@@ -43,8 +43,10 @@ export async function getProductionOrderByIdController(app: FastifyInstance) {
       const { id } = request.params;
 
       const getProductionOrderByIdUseCase = makeGetProductionOrderByIdUseCase();
-      const { productionOrder } =
-        await getProductionOrderByIdUseCase.execute({ tenantId, id });
+      const { productionOrder } = await getProductionOrderByIdUseCase.execute({
+        tenantId,
+        id,
+      });
 
       return reply
         .status(200)

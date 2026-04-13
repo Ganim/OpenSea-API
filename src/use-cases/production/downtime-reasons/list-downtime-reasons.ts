@@ -9,9 +9,7 @@ interface ListDowntimeReasonsUseCaseResponse {
 }
 
 export class ListDowntimeReasonsUseCase {
-  constructor(
-    private downtimeReasonsRepository: DowntimeReasonsRepository,
-  ) {}
+  constructor(private downtimeReasonsRepository: DowntimeReasonsRepository) {}
 
   async execute({
     tenantId,

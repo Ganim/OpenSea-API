@@ -56,8 +56,7 @@ export async function updateWorkstationTypeController(app: FastifyInstance) {
       const userId = request.user.sub;
 
       const getUserByIdUseCase = makeGetUserByIdUseCase();
-      const getWorkstationTypeByIdUseCase =
-        makeGetWorkstationTypeByIdUseCase();
+      const getWorkstationTypeByIdUseCase = makeGetWorkstationTypeByIdUseCase();
 
       const [{ user }, { workstationType: oldWorkstationType }] =
         await Promise.all([

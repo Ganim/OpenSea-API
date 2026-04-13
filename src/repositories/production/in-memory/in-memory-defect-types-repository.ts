@@ -30,8 +30,7 @@ export class InMemoryDefectTypesRepository implements DefectTypesRepository {
     tenantId: string,
   ): Promise<ProductionDefectType | null> {
     const item = this.items.find(
-      (i) =>
-        i.id.equals(id) && i.tenantId.toString() === tenantId,
+      (i) => i.id.equals(id) && i.tenantId.toString() === tenantId,
     );
     return item ?? null;
   }
@@ -49,9 +48,7 @@ export class InMemoryDefectTypesRepository implements DefectTypesRepository {
   }
 
   async findMany(tenantId: string): Promise<ProductionDefectType[]> {
-    return this.items.filter(
-      (i) => i.tenantId.toString() === tenantId,
-    );
+    return this.items.filter((i) => i.tenantId.toString() === tenantId);
   }
 
   async update(

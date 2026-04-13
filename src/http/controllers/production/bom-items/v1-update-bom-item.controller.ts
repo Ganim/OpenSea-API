@@ -50,7 +50,7 @@ export async function updateBomItemController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
-      const tenantId = request.user.tenantId!;
+      const _tenantId = request.user.tenantId!;
       const { bomId, id } = request.params;
       const {
         materialId,

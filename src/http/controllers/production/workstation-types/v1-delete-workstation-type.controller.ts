@@ -43,8 +43,7 @@ export async function deleteWorkstationTypeController(app: FastifyInstance) {
       const userId = request.user.sub;
 
       const getUserByIdUseCase = makeGetUserByIdUseCase();
-      const getWorkstationTypeByIdUseCase =
-        makeGetWorkstationTypeByIdUseCase();
+      const getWorkstationTypeByIdUseCase = makeGetWorkstationTypeByIdUseCase();
 
       const [{ user }, { workstationType }] = await Promise.all([
         getUserByIdUseCase.execute({ userId }),

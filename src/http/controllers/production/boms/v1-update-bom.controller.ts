@@ -4,10 +4,7 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import {
-  updateBomSchema,
-  bomResponseSchema,
-} from '@/http/schemas/production';
+import { updateBomSchema, bomResponseSchema } from '@/http/schemas/production';
 import { bomToDTO } from '@/mappers/production/bom-to-dto';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeGetBomByIdUseCase } from '@/use-cases/production/boms/factories/make-get-bom-by-id-use-case';

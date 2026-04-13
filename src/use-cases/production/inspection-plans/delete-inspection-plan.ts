@@ -7,9 +7,7 @@ interface DeleteInspectionPlanUseCaseRequest {
 }
 
 export class DeleteInspectionPlanUseCase {
-  constructor(
-    private inspectionPlansRepository: InspectionPlansRepository,
-  ) {}
+  constructor(private inspectionPlansRepository: InspectionPlansRepository) {}
 
   async execute({
     inspectionPlanId,
@@ -22,6 +20,8 @@ export class DeleteInspectionPlanUseCase {
       throw new ResourceNotFoundError('Inspection plan not found.');
     }
 
-    await this.inspectionPlansRepository.delete(new UniqueEntityID(inspectionPlanId));
+    await this.inspectionPlansRepository.delete(
+      new UniqueEntityID(inspectionPlanId),
+    );
   }
 }

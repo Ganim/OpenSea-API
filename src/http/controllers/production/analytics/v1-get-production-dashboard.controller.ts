@@ -35,8 +35,7 @@ export async function getProductionDashboardController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
 
-      const getProductionDashboardUseCase =
-        makeGetProductionDashboardUseCase();
+      const getProductionDashboardUseCase = makeGetProductionDashboardUseCase();
       const { orderCounts, totalOrders, activeOrders } =
         await getProductionDashboardUseCase.execute({ tenantId });
 

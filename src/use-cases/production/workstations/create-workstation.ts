@@ -50,9 +50,7 @@ export class CreateWorkstationUseCase {
     );
 
     if (existingWorkstation) {
-      throw new BadRequestError(
-        'A workstation with this code already exists.',
-      );
+      throw new BadRequestError('A workstation with this code already exists.');
     }
 
     // Validate workstation type exists

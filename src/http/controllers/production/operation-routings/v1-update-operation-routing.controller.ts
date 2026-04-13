@@ -75,32 +75,33 @@ export async function updateOperationRoutingController(app: FastifyInstance) {
         ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
         : user.username || user.email;
 
-      const updateOperationRoutingUseCase =
-        makeUpdateOperationRoutingUseCase();
-      const { operationRouting } =
-        await updateOperationRoutingUseCase.execute({
-          tenantId,
-          bomId,
-          id,
-          workstationId,
-          sequence,
-          operationName,
-          description,
-          setupTime,
-          executionTime,
-          waitTime,
-          moveTime,
-          isQualityCheck,
-          isOptional,
-          skillRequired,
-          instructions,
-          imageUrl,
-        });
+      const updateOperationRoutingUseCase = makeUpdateOperationRoutingUseCase();
+      const { operationRouting } = await updateOperationRoutingUseCase.execute({
+        tenantId,
+        bomId,
+        id,
+        workstationId,
+        sequence,
+        operationName,
+        description,
+        setupTime,
+        executionTime,
+        waitTime,
+        moveTime,
+        isQualityCheck,
+        isOptional,
+        skillRequired,
+        instructions,
+        imageUrl,
+      });
 
       await logAudit(request, {
         message: AUDIT_MESSAGES.PRODUCTION.OPERATION_ROUTING_UPDATE,
         entityId: operationRouting.id.toString(),
-        placeholders: { userName, operationName: operationRouting.operationName },
+        placeholders: {
+          userName,
+          operationName: operationRouting.operationName,
+        },
         newData: {
           bomId,
           workstationId,

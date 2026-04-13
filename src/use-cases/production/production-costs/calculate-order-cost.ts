@@ -13,17 +13,13 @@ interface CalculateOrderCostUseCaseResponse {
 }
 
 export class CalculateOrderCostUseCase {
-  constructor(
-    private productionCostsRepository: ProductionCostsRepository,
-  ) {}
+  constructor(private productionCostsRepository: ProductionCostsRepository) {}
 
   async execute({
     productionOrderId,
   }: CalculateOrderCostUseCaseRequest): Promise<CalculateOrderCostUseCaseResponse> {
     const details =
-      await this.productionCostsRepository.findManyByOrderId(
-        productionOrderId,
-      );
+      await this.productionCostsRepository.findManyByOrderId(productionOrderId);
 
     let totalPlanned = 0;
     let totalActual = 0;

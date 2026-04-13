@@ -40,7 +40,8 @@ export async function createInspectionPlanController(app: FastifyInstance) {
       const body = request.body;
 
       const createInspectionPlanUseCase = makeCreateInspectionPlanUseCase();
-      const { inspectionPlan } = await createInspectionPlanUseCase.execute(body);
+      const { inspectionPlan } =
+        await createInspectionPlanUseCase.execute(body);
 
       return reply.status(201).send({
         inspectionPlan: inspectionPlanToDTO(inspectionPlan),

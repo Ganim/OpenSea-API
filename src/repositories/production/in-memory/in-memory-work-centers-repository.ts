@@ -28,8 +28,7 @@ export class InMemoryWorkCentersRepository implements WorkCentersRepository {
     tenantId: string,
   ): Promise<ProductionWorkCenter | null> {
     const item = this.items.find(
-      (i) =>
-        i.id.equals(id) && i.tenantId.toString() === tenantId,
+      (i) => i.id.equals(id) && i.tenantId.toString() === tenantId,
     );
     return item ?? null;
   }
@@ -47,9 +46,7 @@ export class InMemoryWorkCentersRepository implements WorkCentersRepository {
   }
 
   async findMany(tenantId: string): Promise<ProductionWorkCenter[]> {
-    return this.items.filter(
-      (i) => i.tenantId.toString() === tenantId,
-    );
+    return this.items.filter((i) => i.tenantId.toString() === tenantId);
   }
 
   async update(

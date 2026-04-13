@@ -16,9 +16,7 @@ interface CreateDefectTypeUseCaseResponse {
 }
 
 export class CreateDefectTypeUseCase {
-  constructor(
-    private defectTypesRepository: DefectTypesRepository,
-  ) {}
+  constructor(private defectTypesRepository: DefectTypesRepository) {}
 
   async execute({
     tenantId,
@@ -35,9 +33,7 @@ export class CreateDefectTypeUseCase {
     );
 
     if (existingByCode) {
-      throw new BadRequestError(
-        'A defect type with this code already exists.',
-      );
+      throw new BadRequestError('A defect type with this code already exists.');
     }
 
     const defectType = await this.defectTypesRepository.create({

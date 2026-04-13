@@ -38,7 +38,7 @@ export async function deleteBomItemController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
-      const tenantId = request.user.tenantId!;
+      const _tenantId = request.user.tenantId!;
       const { bomId, id } = request.params;
       const userId = request.user.sub;
 

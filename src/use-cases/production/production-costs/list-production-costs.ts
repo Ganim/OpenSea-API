@@ -10,17 +10,13 @@ interface ListProductionCostsUseCaseResponse {
 }
 
 export class ListProductionCostsUseCase {
-  constructor(
-    private productionCostsRepository: ProductionCostsRepository,
-  ) {}
+  constructor(private productionCostsRepository: ProductionCostsRepository) {}
 
   async execute({
     productionOrderId,
   }: ListProductionCostsUseCaseRequest): Promise<ListProductionCostsUseCaseResponse> {
     const costs =
-      await this.productionCostsRepository.findManyByOrderId(
-        productionOrderId,
-      );
+      await this.productionCostsRepository.findManyByOrderId(productionOrderId);
 
     return { costs };
   }

@@ -63,7 +63,9 @@ export async function createQualityHoldController(app: FastifyInstance) {
         newData: { productionOrderId, reason },
       });
 
-      return reply.status(201).send({ qualityHold: qualityHoldToDTO(qualityHold) });
+      return reply
+        .status(201)
+        .send({ qualityHold: qualityHoldToDTO(qualityHold) });
     },
   });
 }

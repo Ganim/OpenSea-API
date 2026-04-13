@@ -40,12 +40,8 @@ function toDomain(raw: {
       orderNumber: raw.orderNumber,
       bomId: new EntityID(raw.bomId),
       productId: new EntityID(raw.productId),
-      salesOrderId: raw.salesOrderId
-        ? new EntityID(raw.salesOrderId)
-        : null,
-      parentOrderId: raw.parentOrderId
-        ? new EntityID(raw.parentOrderId)
-        : null,
+      salesOrderId: raw.salesOrderId ? new EntityID(raw.salesOrderId) : null,
+      parentOrderId: raw.parentOrderId ? new EntityID(raw.parentOrderId) : null,
       status: raw.status as ProductionOrderStatus,
       priority: raw.priority,
       quantityPlanned: raw.quantityPlanned,
@@ -57,9 +53,7 @@ function toDomain(raw: {
       actualStartDate: raw.actualStartDate ?? null,
       actualEndDate: raw.actualEndDate ?? null,
       releasedAt: raw.releasedAt ?? null,
-      releasedById: raw.releasedById
-        ? new EntityID(raw.releasedById)
-        : null,
+      releasedById: raw.releasedById ? new EntityID(raw.releasedById) : null,
       notes: raw.notes ?? null,
       createdById: new EntityID(raw.createdById),
       createdAt: raw.createdAt,

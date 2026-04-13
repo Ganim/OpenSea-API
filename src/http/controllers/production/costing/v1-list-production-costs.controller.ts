@@ -43,9 +43,7 @@ export async function listProductionCostsController(app: FastifyInstance) {
         productionOrderId: orderId,
       });
 
-      return reply
-        .status(200)
-        .send({ costs: costs.map(productionCostToDTO) });
+      return reply.status(200).send({ costs: costs.map(productionCostToDTO) });
     },
   });
 }

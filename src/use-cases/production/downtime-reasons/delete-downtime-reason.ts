@@ -12,9 +12,7 @@ interface DeleteDowntimeReasonUseCaseResponse {
 }
 
 export class DeleteDowntimeReasonUseCase {
-  constructor(
-    private downtimeReasonsRepository: DowntimeReasonsRepository,
-  ) {}
+  constructor(private downtimeReasonsRepository: DowntimeReasonsRepository) {}
 
   async execute({
     tenantId,

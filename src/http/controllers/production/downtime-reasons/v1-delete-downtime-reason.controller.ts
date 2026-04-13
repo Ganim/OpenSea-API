@@ -43,8 +43,7 @@ export async function deleteDowntimeReasonController(app: FastifyInstance) {
       const userId = request.user.sub;
 
       const getUserByIdUseCase = makeGetUserByIdUseCase();
-      const getDowntimeReasonByIdUseCase =
-        makeGetDowntimeReasonByIdUseCase();
+      const getDowntimeReasonByIdUseCase = makeGetDowntimeReasonByIdUseCase();
 
       const [{ user }, { downtimeReason }] = await Promise.all([
         getUserByIdUseCase.execute({ userId }),

@@ -24,9 +24,7 @@ export class InMemoryBomsRepository implements BomsRepository {
       status: (data.status ?? 'DRAFT') as ProductionBomStatus,
       baseQuantity: data.baseQuantity,
       createdById: new EntityID(data.createdById),
-      approvedById: data.approvedById
-        ? new EntityID(data.approvedById)
-        : null,
+      approvedById: data.approvedById ? new EntityID(data.approvedById) : null,
       approvedAt: data.approvedAt ?? null,
     });
 
@@ -39,16 +37,13 @@ export class InMemoryBomsRepository implements BomsRepository {
     tenantId: string,
   ): Promise<ProductionBom | null> {
     const item = this.items.find(
-      (i) =>
-        i.id.equals(id) && i.tenantId.toString() === tenantId,
+      (i) => i.id.equals(id) && i.tenantId.toString() === tenantId,
     );
     return item ?? null;
   }
 
   async findMany(tenantId: string): Promise<ProductionBom[]> {
-    return this.items.filter(
-      (i) => i.tenantId.toString() === tenantId,
-    );
+    return this.items.filter((i) => i.tenantId.toString() === tenantId);
   }
 
   async findByProductId(
@@ -89,8 +84,7 @@ export class InMemoryBomsRepository implements BomsRepository {
     if (data.validFrom !== undefined) item.validFrom = data.validFrom;
     if (data.validUntil !== undefined) item.validUntil = data.validUntil;
     if (data.status !== undefined) item.status = data.status;
-    if (data.baseQuantity !== undefined)
-      item.baseQuantity = data.baseQuantity;
+    if (data.baseQuantity !== undefined) item.baseQuantity = data.baseQuantity;
 
     return item;
   }

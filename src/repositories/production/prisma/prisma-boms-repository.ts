@@ -40,9 +40,7 @@ function toDomain(raw: {
       status: raw.status as ProductionBomStatus,
       baseQuantity: raw.baseQuantity,
       createdById: new EntityID(raw.createdById),
-      approvedById: raw.approvedById
-        ? new EntityID(raw.approvedById)
-        : null,
+      approvedById: raw.approvedById ? new EntityID(raw.approvedById) : null,
       approvedAt: raw.approvedAt ?? null,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,

@@ -20,9 +20,7 @@ interface CreateProductionOrderUseCaseResponse {
 }
 
 export class CreateProductionOrderUseCase {
-  constructor(
-    private productionOrdersRepository: ProductionOrdersRepository,
-  ) {}
+  constructor(private productionOrdersRepository: ProductionOrdersRepository) {}
 
   async execute({
     tenantId,

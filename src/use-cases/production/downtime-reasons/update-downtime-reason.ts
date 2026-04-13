@@ -18,9 +18,7 @@ interface UpdateDowntimeReasonUseCaseResponse {
 }
 
 export class UpdateDowntimeReasonUseCase {
-  constructor(
-    private downtimeReasonsRepository: DowntimeReasonsRepository,
-  ) {}
+  constructor(private downtimeReasonsRepository: DowntimeReasonsRepository) {}
 
   async execute({
     tenantId,

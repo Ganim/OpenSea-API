@@ -17,7 +17,10 @@ describe('UpdateBomItemUseCase', () => {
   beforeEach(async () => {
     bomItemsRepository = new InMemoryBomItemsRepository();
     bomsRepository = new InMemoryBomsRepository();
-    createBomItem = new CreateBomItemUseCase(bomItemsRepository, bomsRepository);
+    createBomItem = new CreateBomItemUseCase(
+      bomItemsRepository,
+      bomsRepository,
+    );
     sut = new UpdateBomItemUseCase(bomItemsRepository);
 
     const bom = await bomsRepository.create({

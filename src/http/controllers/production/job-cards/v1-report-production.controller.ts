@@ -48,8 +48,13 @@ export async function reportProductionController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const { id } = request.params;
-      const { operatorId, quantityGood, quantityScrapped, quantityRework, notes } =
-        request.body;
+      const {
+        operatorId,
+        quantityGood,
+        quantityScrapped,
+        quantityRework,
+        notes,
+      } = request.body;
 
       const reportProductionUseCase = makeReportProductionUseCase();
       const { jobCard } = await reportProductionUseCase.execute({

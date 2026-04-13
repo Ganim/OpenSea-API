@@ -9,15 +9,15 @@ interface ListInspectionPlansUseCaseResponse {
 }
 
 export class ListInspectionPlansUseCase {
-  constructor(
-    private inspectionPlansRepository: InspectionPlansRepository,
-  ) {}
+  constructor(private inspectionPlansRepository: InspectionPlansRepository) {}
 
   async execute({
     operationRoutingId,
   }: ListInspectionPlansUseCaseRequest): Promise<ListInspectionPlansUseCaseResponse> {
     const inspectionPlans =
-      await this.inspectionPlansRepository.findManyByOperationRoutingId(operationRoutingId);
+      await this.inspectionPlansRepository.findManyByOperationRoutingId(
+        operationRoutingId,
+      );
 
     return { inspectionPlans };
   }

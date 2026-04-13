@@ -35,8 +35,9 @@ export async function listDefectTypesController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const listDefectTypesUseCase = makeListDefectTypesUseCase();
-      const { defectTypes } =
-        await listDefectTypesUseCase.execute({ tenantId });
+      const { defectTypes } = await listDefectTypesUseCase.execute({
+        tenantId,
+      });
 
       return reply
         .status(200)

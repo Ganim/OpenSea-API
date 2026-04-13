@@ -32,9 +32,7 @@ function toDomain(raw: {
     {
       tenantId: new EntityID(raw.tenantId),
       bomId: new EntityID(raw.bomId),
-      workstationId: raw.workstationId
-        ? new EntityID(raw.workstationId)
-        : null,
+      workstationId: raw.workstationId ? new EntityID(raw.workstationId) : null,
       sequence: raw.sequence,
       operationName: raw.operationName,
       description: raw.description ?? null,

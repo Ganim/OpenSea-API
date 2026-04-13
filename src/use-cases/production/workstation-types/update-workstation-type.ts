@@ -18,9 +18,7 @@ interface UpdateWorkstationTypeUseCaseResponse {
 }
 
 export class UpdateWorkstationTypeUseCase {
-  constructor(
-    private workstationTypesRepository: WorkstationTypesRepository,
-  ) {}
+  constructor(private workstationTypesRepository: WorkstationTypesRepository) {}
 
   async execute({
     tenantId,
@@ -53,15 +51,16 @@ export class UpdateWorkstationTypeUseCase {
       }
     }
 
-    const updatedWorkstationType =
-      await this.workstationTypesRepository.update({
+    const updatedWorkstationType = await this.workstationTypesRepository.update(
+      {
         id: new UniqueEntityID(id),
         name,
         description,
         icon,
         color,
         isActive,
-      });
+      },
+    );
 
     if (!updatedWorkstationType) {
       throw new ResourceNotFoundError('Workstation type not found.');

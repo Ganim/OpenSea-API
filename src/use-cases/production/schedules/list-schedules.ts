@@ -14,7 +14,8 @@ export class ListSchedulesUseCase {
   async execute({
     tenantId,
   }: ListSchedulesUseCaseRequest): Promise<ListSchedulesUseCaseResponse> {
-    const schedules = await this.schedulesRepository.findManySchedules(tenantId);
+    const schedules =
+      await this.schedulesRepository.findManySchedules(tenantId);
     return { schedules };
   }
 }

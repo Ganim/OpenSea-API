@@ -9,7 +9,6 @@ import type {
   UpdateProductionCostSchema,
 } from '../production-costs-repository';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function toDomain(raw: {
   id: string;
   productionOrderId: string;

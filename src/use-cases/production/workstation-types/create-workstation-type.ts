@@ -15,9 +15,7 @@ interface CreateWorkstationTypeUseCaseResponse {
 }
 
 export class CreateWorkstationTypeUseCase {
-  constructor(
-    private workstationTypesRepository: WorkstationTypesRepository,
-  ) {}
+  constructor(private workstationTypesRepository: WorkstationTypesRepository) {}
 
   async execute({
     tenantId,

@@ -57,9 +57,7 @@ function entryToDomain(raw: {
       productionOrderId: raw.productionOrderId
         ? new EntityID(raw.productionOrderId)
         : null,
-      workstationId: raw.workstationId
-        ? new EntityID(raw.workstationId)
-        : null,
+      workstationId: raw.workstationId ? new EntityID(raw.workstationId) : null,
       title: raw.title,
       startDate: raw.startDate,
       endDate: raw.endDate,
@@ -78,7 +76,9 @@ export class PrismaSchedulesRepository implements SchedulesRepository {
   // Schedule
   // =========================================================================
 
-  async createSchedule(data: CreateScheduleSchema): Promise<ProductionSchedule> {
+  async createSchedule(
+    data: CreateScheduleSchema,
+  ): Promise<ProductionSchedule> {
     const raw = await prisma.productionSchedule.create({
       data: {
         tenantId: data.tenantId,

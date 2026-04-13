@@ -35,8 +35,9 @@ export async function listWorkCentersController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const listWorkCentersUseCase = makeListWorkCentersUseCase();
-      const { workCenters } =
-        await listWorkCentersUseCase.execute({ tenantId });
+      const { workCenters } = await listWorkCentersUseCase.execute({
+        tenantId,
+      });
 
       return reply
         .status(200)

@@ -35,8 +35,9 @@ export async function listWorkstationTypesController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const listWorkstationTypesUseCase = makeListWorkstationTypesUseCase();
-      const { workstationTypes } =
-        await listWorkstationTypesUseCase.execute({ tenantId });
+      const { workstationTypes } = await listWorkstationTypesUseCase.execute({
+        tenantId,
+      });
 
       return reply.status(200).send({
         workstationTypes: workstationTypes.map(workstationTypeToDTO),

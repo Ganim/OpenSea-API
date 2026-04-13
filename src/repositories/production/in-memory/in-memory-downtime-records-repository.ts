@@ -29,9 +29,7 @@ export class InMemoryDowntimeRecordsRepository
     return record;
   }
 
-  async findById(
-    id: UniqueEntityID,
-  ): Promise<ProductionDowntimeRecord | null> {
+  async findById(id: UniqueEntityID): Promise<ProductionDowntimeRecord | null> {
     const item = this.items.find((i) => i.id.equals(id));
     return item ?? null;
   }

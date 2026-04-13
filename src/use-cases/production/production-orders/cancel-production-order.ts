@@ -21,9 +21,7 @@ const CANCELLABLE_STATUSES: ProductionOrderStatus[] = [
 ];
 
 export class CancelProductionOrderUseCase {
-  constructor(
-    private productionOrdersRepository: ProductionOrdersRepository,
-  ) {}
+  constructor(private productionOrdersRepository: ProductionOrdersRepository) {}
 
   async execute({
     tenantId,

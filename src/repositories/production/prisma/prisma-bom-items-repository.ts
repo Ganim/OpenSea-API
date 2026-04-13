@@ -73,9 +73,7 @@ export class PrismaBomItemsRepository implements BomItemsRepository {
     return toDomain(raw);
   }
 
-  async findManyByBomId(
-    bomId: UniqueEntityID,
-  ): Promise<ProductionBomItem[]> {
+  async findManyByBomId(bomId: UniqueEntityID): Promise<ProductionBomItem[]> {
     const records = await prisma.productionBomItem.findMany({
       where: { bomId: bomId.toString() },
       orderBy: { sequence: 'asc' },

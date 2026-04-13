@@ -35,10 +35,7 @@ export interface UpdateBomSchema {
 
 export interface BomsRepository {
   create(data: CreateBomSchema): Promise<ProductionBom>;
-  findById(
-    id: UniqueEntityID,
-    tenantId: string,
-  ): Promise<ProductionBom | null>;
+  findById(id: UniqueEntityID, tenantId: string): Promise<ProductionBom | null>;
   findMany(tenantId: string): Promise<ProductionBom[]>;
   findByProductId(
     productId: string,

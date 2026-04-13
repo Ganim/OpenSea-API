@@ -4,10 +4,7 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
-import {
-  createBomSchema,
-  bomResponseSchema,
-} from '@/http/schemas/production';
+import { createBomSchema, bomResponseSchema } from '@/http/schemas/production';
 import { bomToDTO } from '@/mappers/production/bom-to-dto';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeCreateBomUseCase } from '@/use-cases/production/boms/factories/make-create-bom-use-case';
@@ -45,14 +42,8 @@ export async function createBomController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const userId = request.user.sub;
-      const {
-        productId,
-        name,
-        description,
-        version,
-        isDefault,
-        baseQuantity,
-      } = request.body;
+      const { productId, name, description, version, isDefault, baseQuantity } =
+        request.body;
 
       const getUserByIdUseCase = makeGetUserByIdUseCase();
       const { user } = await getUserByIdUseCase.execute({ userId });
@@ -75,8 +66,19 @@ export async function createBomController(app: FastifyInstance) {
       await logAudit(request, {
         message: AUDIT_MESSAGES.PRODUCTION.BOM_CREATE,
         entityId: bom.id.toString(),
-        placeholders: { userName, name: bom.name, version: String(bom.version) },
-        newData: { productId, name, description, version, isDefault, baseQuantity },
+        placeholders: {
+          userName,
+          name: bom.name,
+          version: String(bom.version),
+        },
+        newData: {
+          productId,
+          name,
+          description,
+          version,
+          isDefault,
+          baseQuantity,
+        },
       });
 
       return reply.status(201).send({ bom: bomToDTO(bom) });

@@ -39,7 +39,7 @@ export async function listBomItemsController(app: FastifyInstance) {
     },
 
     handler: async (request, reply) => {
-      const tenantId = request.user.tenantId!;
+      const _tenantId = request.user.tenantId!;
       const { bomId } = request.params;
 
       const listBomItemsUseCase = makeListBomItemsUseCase();
@@ -47,9 +47,7 @@ export async function listBomItemsController(app: FastifyInstance) {
         bomId,
       });
 
-      return reply
-        .status(200)
-        .send({ bomItems: bomItems.map(bomItemToDTO) });
+      return reply.status(200).send({ bomItems: bomItems.map(bomItemToDTO) });
     },
   });
 }

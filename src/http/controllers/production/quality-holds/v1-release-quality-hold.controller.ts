@@ -76,7 +76,9 @@ export async function releaseQualityHoldController(app: FastifyInstance) {
         newData: { resolution },
       });
 
-      return reply.status(200).send({ qualityHold: qualityHoldToDTO(qualityHold) });
+      return reply
+        .status(200)
+        .send({ qualityHold: qualityHoldToDTO(qualityHold) });
     },
   });
 }

@@ -121,9 +121,7 @@ describe('Update Workstation Use Case', () => {
       workCenterId: workCenter.id.toString(),
     });
 
-    expect(assigned.workCenterId?.toString()).toBe(
-      workCenter.id.toString(),
-    );
+    expect(assigned.workCenterId?.toString()).toBe(workCenter.id.toString());
 
     // Remove work center
     const { workstation: removed } = await sut.execute({

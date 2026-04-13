@@ -33,8 +33,7 @@ export class InMemoryWorkstationTypesRepository
     tenantId: string,
   ): Promise<ProductionWorkstationType | null> {
     const item = this.items.find(
-      (i) =>
-        i.id.equals(id) && i.tenantId.toString() === tenantId,
+      (i) => i.id.equals(id) && i.tenantId.toString() === tenantId,
     );
     return item ?? null;
   }
@@ -52,9 +51,7 @@ export class InMemoryWorkstationTypesRepository
   }
 
   async findMany(tenantId: string): Promise<ProductionWorkstationType[]> {
-    return this.items.filter(
-      (i) => i.tenantId.toString() === tenantId,
-    );
+    return this.items.filter((i) => i.tenantId.toString() === tenantId);
   }
 
   async update(

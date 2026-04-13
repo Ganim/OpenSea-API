@@ -65,7 +65,11 @@ export async function createWorkCenterController(app: FastifyInstance) {
       await logAudit(request, {
         message: AUDIT_MESSAGES.PRODUCTION.WORK_CENTER_CREATE,
         entityId: workCenter.id.toString(),
-        placeholders: { userName, name: workCenter.name, code: workCenter.code },
+        placeholders: {
+          userName,
+          name: workCenter.name,
+          code: workCenter.code,
+        },
         newData: { code, name, description, isActive },
       });
 

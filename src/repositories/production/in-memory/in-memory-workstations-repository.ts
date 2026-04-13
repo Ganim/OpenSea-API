@@ -14,9 +14,7 @@ export class InMemoryWorkstationsRepository implements WorkstationsRepository {
     const workstation = ProductionWorkstation.create({
       tenantId: new EntityID(data.tenantId),
       workstationTypeId: new EntityID(data.workstationTypeId),
-      workCenterId: data.workCenterId
-        ? new EntityID(data.workCenterId)
-        : null,
+      workCenterId: data.workCenterId ? new EntityID(data.workCenterId) : null,
       code: data.code,
       name: data.name,
       description: data.description ?? null,
@@ -36,8 +34,7 @@ export class InMemoryWorkstationsRepository implements WorkstationsRepository {
     tenantId: string,
   ): Promise<ProductionWorkstation | null> {
     const item = this.items.find(
-      (i) =>
-        i.id.equals(id) && i.tenantId.toString() === tenantId,
+      (i) => i.id.equals(id) && i.tenantId.toString() === tenantId,
     );
     return item ?? null;
   }
@@ -55,9 +52,7 @@ export class InMemoryWorkstationsRepository implements WorkstationsRepository {
   }
 
   async findMany(tenantId: string): Promise<ProductionWorkstation[]> {
-    return this.items.filter(
-      (i) => i.tenantId.toString() === tenantId,
-    );
+    return this.items.filter((i) => i.tenantId.toString() === tenantId);
   }
 
   async findManyByWorkCenter(

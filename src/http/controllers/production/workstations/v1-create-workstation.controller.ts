@@ -80,7 +80,11 @@ export async function createWorkstationController(app: FastifyInstance) {
       await logAudit(request, {
         message: AUDIT_MESSAGES.PRODUCTION.WORKSTATION_CREATE,
         entityId: workstation.id.toString(),
-        placeholders: { userName, name: workstation.name, code: workstation.code },
+        placeholders: {
+          userName,
+          name: workstation.name,
+          code: workstation.code,
+        },
         newData: {
           workstationTypeId,
           workCenterId,

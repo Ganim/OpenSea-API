@@ -52,8 +52,7 @@ export async function endDowntimeRecordController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const userId = request.user.sub;
       const { id } = request.params;
-      const endTime = (request.body as { endTime?: Date } | undefined)
-        ?.endTime;
+      const endTime = (request.body as { endTime?: Date } | undefined)?.endTime;
 
       const getUserByIdUseCase = makeGetUserByIdUseCase();
       const { user } = await getUserByIdUseCase.execute({ userId });

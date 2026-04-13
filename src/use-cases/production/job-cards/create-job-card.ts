@@ -26,9 +26,7 @@ export class CreateJobCardUseCase {
     scheduledEnd,
   }: CreateJobCardUseCaseRequest): Promise<CreateJobCardUseCaseResponse> {
     if (quantityPlanned <= 0) {
-      throw new BadRequestError(
-        'Quantity planned must be greater than zero.',
-      );
+      throw new BadRequestError('Quantity planned must be greater than zero.');
     }
 
     const barcode = `JC-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;

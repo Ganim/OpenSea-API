@@ -23,6 +23,8 @@ export class DeleteScheduleUseCase {
       throw new ResourceNotFoundError('Schedule not found.');
     }
 
-    await this.schedulesRepository.deleteSchedule(new UniqueEntityID(scheduleId));
+    await this.schedulesRepository.deleteSchedule(
+      new UniqueEntityID(scheduleId),
+    );
   }
 }

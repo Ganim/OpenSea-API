@@ -29,9 +29,7 @@ export class EndDowntimeRecordUseCase {
     }
 
     if (downtimeRecord.endTime) {
-      throw new BadRequestError(
-        'This downtime record has already been ended.',
-      );
+      throw new BadRequestError('This downtime record has already been ended.');
     }
 
     const resolvedEndTime = endTime ?? new Date();

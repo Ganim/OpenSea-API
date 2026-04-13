@@ -30,9 +30,7 @@ export class PrismaWorkstationsRepository implements WorkstationsRepository {
       {
         tenantId: new EntityID(raw.tenantId),
         workstationTypeId: new EntityID(raw.workstationTypeId),
-        workCenterId: raw.workCenterId
-          ? new EntityID(raw.workCenterId)
-          : null,
+        workCenterId: raw.workCenterId ? new EntityID(raw.workCenterId) : null,
         code: raw.code,
         name: raw.name,
         description: raw.description ?? null,
@@ -67,9 +65,7 @@ export class PrismaWorkstationsRepository implements WorkstationsRepository {
       {
         tenantId: new EntityID(raw.tenantId),
         workstationTypeId: new EntityID(raw.workstationTypeId),
-        workCenterId: raw.workCenterId
-          ? new EntityID(raw.workCenterId)
-          : null,
+        workCenterId: raw.workCenterId ? new EntityID(raw.workCenterId) : null,
         code: raw.code,
         name: raw.name,
         description: raw.description ?? null,
@@ -104,9 +100,7 @@ export class PrismaWorkstationsRepository implements WorkstationsRepository {
       {
         tenantId: new EntityID(raw.tenantId),
         workstationTypeId: new EntityID(raw.workstationTypeId),
-        workCenterId: raw.workCenterId
-          ? new EntityID(raw.workCenterId)
-          : null,
+        workCenterId: raw.workCenterId ? new EntityID(raw.workCenterId) : null,
         code: raw.code,
         name: raw.name,
         description: raw.description ?? null,
@@ -230,9 +224,7 @@ export class PrismaWorkstationsRepository implements WorkstationsRepository {
       {
         tenantId: new EntityID(raw.tenantId),
         workstationTypeId: new EntityID(raw.workstationTypeId),
-        workCenterId: raw.workCenterId
-          ? new EntityID(raw.workCenterId)
-          : null,
+        workCenterId: raw.workCenterId ? new EntityID(raw.workCenterId) : null,
         code: raw.code,
         name: raw.name,
         description: raw.description ?? null,

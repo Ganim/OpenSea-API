@@ -12,9 +12,7 @@ interface GetDefectTypeByIdUseCaseResponse {
 }
 
 export class GetDefectTypeByIdUseCase {
-  constructor(
-    private defectTypesRepository: DefectTypesRepository,
-  ) {}
+  constructor(private defectTypesRepository: DefectTypesRepository) {}
 
   async execute({
     tenantId,

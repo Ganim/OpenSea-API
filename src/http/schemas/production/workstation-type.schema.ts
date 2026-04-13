@@ -11,7 +11,8 @@ export const createWorkstationTypeSchema = z.object({
   isActive: z.boolean().optional(),
 });
 
-export const updateWorkstationTypeSchema = createWorkstationTypeSchema.partial();
+export const updateWorkstationTypeSchema =
+  createWorkstationTypeSchema.partial();
 
 export const workstationTypeResponseSchema = z.object({
   id: z.string(),

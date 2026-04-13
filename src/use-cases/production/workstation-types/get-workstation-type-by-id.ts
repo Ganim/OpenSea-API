@@ -12,9 +12,7 @@ interface GetWorkstationTypeByIdUseCaseResponse {
 }
 
 export class GetWorkstationTypeByIdUseCase {
-  constructor(
-    private workstationTypesRepository: WorkstationTypesRepository,
-  ) {}
+  constructor(private workstationTypesRepository: WorkstationTypesRepository) {}
 
   async execute({
     tenantId,

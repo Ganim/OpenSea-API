@@ -61,7 +61,10 @@ export class UpdateWorkstationUseCase {
         tenantId,
       );
 
-      if (existingWorkstation && !existingWorkstation.id.equals(workstation.id)) {
+      if (
+        existingWorkstation &&
+        !existingWorkstation.id.equals(workstation.id)
+      ) {
         throw new BadRequestError(
           'A workstation with this code already exists.',
         );

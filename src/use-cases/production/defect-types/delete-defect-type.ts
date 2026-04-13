@@ -12,9 +12,7 @@ interface DeleteDefectTypeUseCaseResponse {
 }
 
 export class DeleteDefectTypeUseCase {
-  constructor(
-    private defectTypesRepository: DefectTypesRepository,
-  ) {}
+  constructor(private defectTypesRepository: DefectTypesRepository) {}
 
   async execute({
     tenantId,

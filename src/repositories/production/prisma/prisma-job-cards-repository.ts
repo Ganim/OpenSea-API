@@ -30,9 +30,7 @@ function toDomain(raw: {
     {
       productionOrderId: new EntityID(raw.productionOrderId),
       operationRoutingId: new EntityID(raw.operationRoutingId),
-      workstationId: raw.workstationId
-        ? new EntityID(raw.workstationId)
-        : null,
+      workstationId: raw.workstationId ? new EntityID(raw.workstationId) : null,
       status: raw.status as ProductionJobCardStatus,
       quantityPlanned: raw.quantityPlanned,
       quantityCompleted: raw.quantityCompleted,

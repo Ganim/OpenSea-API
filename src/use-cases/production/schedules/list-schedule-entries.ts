@@ -19,10 +19,10 @@ export class ListScheduleEntriesUseCase {
     startDate,
     endDate,
   }: ListScheduleEntriesUseCaseRequest): Promise<ListScheduleEntriesUseCaseResponse> {
-    const entries = await this.schedulesRepository.findManyEntries(
-      scheduleId,
-      { startDate, endDate },
-    );
+    const entries = await this.schedulesRepository.findManyEntries(scheduleId, {
+      startDate,
+      endDate,
+    });
 
     return { entries };
   }

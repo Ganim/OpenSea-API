@@ -18,9 +18,7 @@ interface UpdateProductionOrderUseCaseResponse {
 }
 
 export class UpdateProductionOrderUseCase {
-  constructor(
-    private productionOrdersRepository: ProductionOrdersRepository,
-  ) {}
+  constructor(private productionOrdersRepository: ProductionOrdersRepository) {}
 
   async execute({
     tenantId,
@@ -40,7 +38,10 @@ export class UpdateProductionOrderUseCase {
       throw new ResourceNotFoundError('Production order not found.');
     }
 
-    if (productionOrder.status !== 'DRAFT' && productionOrder.status !== 'PLANNED') {
+    if (
+      productionOrder.status !== 'DRAFT' &&
+      productionOrder.status !== 'PLANNED'
+    ) {
       throw new BadRequestError(
         'Production order can only be updated when status is DRAFT or PLANNED.',
       );
@@ -50,15 +51,16 @@ export class UpdateProductionOrderUseCase {
       throw new BadRequestError('Quantity planned must be greater than zero.');
     }
 
-    const updatedProductionOrder =
-      await this.productionOrdersRepository.update({
+    const updatedProductionOrder = await this.productionOrdersRepository.update(
+      {
         id: new UniqueEntityID(id),
         priority,
         quantityPlanned,
         plannedStartDate,
         plannedEndDate,
         notes,
-      });
+      },
+    );
 
     if (!updatedProductionOrder) {
       throw new ResourceNotFoundError('Production order not found.');

@@ -145,7 +145,9 @@ export class ProductionOrder extends Entity<ProductionOrderProps> {
   }
 
   get quantityRemaining(): number {
-    return this.quantityPlanned - this.quantityCompleted - this.quantityScrapped;
+    return (
+      this.quantityPlanned - this.quantityCompleted - this.quantityScrapped
+    );
   }
 
   // Setters

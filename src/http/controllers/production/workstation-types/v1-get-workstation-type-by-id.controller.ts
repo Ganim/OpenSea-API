@@ -42,10 +42,11 @@ export async function getWorkstationTypeByIdController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
       const { id } = request.params;
 
-      const getWorkstationTypeByIdUseCase =
-        makeGetWorkstationTypeByIdUseCase();
-      const { workstationType } =
-        await getWorkstationTypeByIdUseCase.execute({ tenantId, id });
+      const getWorkstationTypeByIdUseCase = makeGetWorkstationTypeByIdUseCase();
+      const { workstationType } = await getWorkstationTypeByIdUseCase.execute({
+        tenantId,
+        id,
+      });
 
       return reply
         .status(200)

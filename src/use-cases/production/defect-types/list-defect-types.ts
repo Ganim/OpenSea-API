@@ -9,15 +9,12 @@ interface ListDefectTypesUseCaseResponse {
 }
 
 export class ListDefectTypesUseCase {
-  constructor(
-    private defectTypesRepository: DefectTypesRepository,
-  ) {}
+  constructor(private defectTypesRepository: DefectTypesRepository) {}
 
   async execute({
     tenantId,
   }: ListDefectTypesUseCaseRequest): Promise<ListDefectTypesUseCaseResponse> {
-    const defectTypes =
-      await this.defectTypesRepository.findMany(tenantId);
+    const defectTypes = await this.defectTypesRepository.findMany(tenantId);
 
     return { defectTypes };
   }

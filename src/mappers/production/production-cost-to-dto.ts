@@ -12,9 +12,7 @@ export interface ProductionCostDTO {
   updatedAt: Date;
 }
 
-export function productionCostToDTO(
-  entity: ProductionCost,
-): ProductionCostDTO {
+export function productionCostToDTO(entity: ProductionCost): ProductionCostDTO {
   return {
     id: entity.productionCostId.toString(),
     productionOrderId: entity.productionOrderId.toString(),

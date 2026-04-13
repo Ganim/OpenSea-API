@@ -50,9 +50,7 @@ interface GenerateBundleTicketsUseCaseResponse {
 }
 
 export class GenerateBundleTicketsUseCase {
-  constructor(
-    private productionOrdersRepository: ProductionOrdersRepository,
-  ) {}
+  constructor(private productionOrdersRepository: ProductionOrdersRepository) {}
 
   async execute({
     tenantId,
@@ -73,9 +71,7 @@ export class GenerateBundleTicketsUseCase {
     }
 
     if (bundleSize < 1 || bundleSize > 100) {
-      throw new BadRequestError(
-        'Bundle size must be between 1 and 100.',
-      );
+      throw new BadRequestError('Bundle size must be between 1 and 100.');
     }
 
     if (!sizes.length || !colors.length) {

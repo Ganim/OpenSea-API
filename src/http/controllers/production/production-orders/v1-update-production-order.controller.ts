@@ -52,8 +52,13 @@ export async function updateProductionOrderController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const { id } = request.params;
-      const { priority, quantityPlanned, plannedStartDate, plannedEndDate, notes } =
-        request.body;
+      const {
+        priority,
+        quantityPlanned,
+        plannedStartDate,
+        plannedEndDate,
+        notes,
+      } = request.body;
       const userId = request.user.sub;
 
       const getUserByIdUseCase = makeGetUserByIdUseCase();
@@ -86,7 +91,13 @@ export async function updateProductionOrderController(app: FastifyInstance) {
           priority: oldOrder.priority,
           quantityPlanned: oldOrder.quantityPlanned,
         },
-        newData: { priority, quantityPlanned, plannedStartDate, plannedEndDate, notes },
+        newData: {
+          priority,
+          quantityPlanned,
+          plannedStartDate,
+          plannedEndDate,
+          notes,
+        },
       });
 
       return reply
