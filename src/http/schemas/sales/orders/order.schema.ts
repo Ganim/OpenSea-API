@@ -176,7 +176,6 @@ export const orderResponseSchema = z.object({
   needsApproval: z.boolean(),
   assignedToUserId: z.string().uuid().nullable(),
   notes: z.string().nullable(),
-  internalNotes: z.string().nullable(),
   tags: z.array(z.string()),
   stageEnteredAt: z.coerce.date(),
   confirmedAt: z.coerce.date().nullable(),

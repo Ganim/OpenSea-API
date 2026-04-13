@@ -25,7 +25,6 @@ export interface OrderDTO {
   needsApproval: boolean;
   assignedToUserId: string | null;
   notes: string | null;
-  internalNotes: string | null;
   tags: string[];
   stageEnteredAt: Date;
   confirmedAt: Date | null;
@@ -62,7 +61,6 @@ export function orderToDTO(order: Order): OrderDTO {
     needsApproval: order.needsApproval,
     assignedToUserId: order.assignedToUserId?.toString() ?? null,
     notes: order.notes ?? null,
-    internalNotes: order.internalNotes ?? null,
     tags: order.tags,
     stageEnteredAt: order.stageEnteredAt,
     confirmedAt: order.confirmedAt ?? null,
