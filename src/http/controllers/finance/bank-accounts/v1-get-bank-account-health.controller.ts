@@ -49,7 +49,7 @@ export async function getBankAccountHealthController(app: FastifyInstance) {
       const useCase = makeGetBankAccountHealthUseCase();
 
       const result = await useCase.execute({
-        tenantId: request.tenantId,
+        tenantId: request.user.tenantId!,
         bankAccountId: id,
       });
 

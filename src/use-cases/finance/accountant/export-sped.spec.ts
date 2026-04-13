@@ -6,7 +6,7 @@ import type { SpedExportResult } from '@/services/finance/sped-export.service';
 
 function makeSpedExportServiceMock() {
   return {
-    export: vi.fn<[], Promise<SpedExportResult>>().mockResolvedValue({
+    export: vi.fn<() => Promise<SpedExportResult>>().mockResolvedValue({
       fileName: 'SPED_ECD_2024_01_12.txt',
       data: Buffer.from('|0000|LECD|...|\r\n'),
       mimeType: 'text/plain; charset=utf-8',

@@ -5,7 +5,7 @@ import type {
   PaymentOrdersRepository,
   UpdatePaymentOrderData,
 } from '../payment-orders-repository';
-import type { PaymentOrderStatus } from '@prisma/generated/prisma';
+import type { PaymentOrderStatus } from '@prisma/generated/client.js';
 
 export class InMemoryPaymentOrdersRepository
   implements PaymentOrdersRepository

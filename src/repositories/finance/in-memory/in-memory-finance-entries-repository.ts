@@ -75,6 +75,7 @@ export class InMemoryFinanceEntriesRepository
       beneficiaryCpfCnpj: data.beneficiaryCpfCnpj,
       pixKey: data.pixKey,
       pixKeyType: data.pixKeyType,
+      pixChargeId: data.pixChargeId,
       metadata: data.metadata ?? {},
       tags: data.tags ?? [],
       createdBy: data.createdBy,

@@ -101,7 +101,7 @@ describe('verifyWebhookSignature middleware', () => {
     // No status set — middleware passed through
     expect(statusCode()).toBeUndefined();
     // tenantId was attached to the request
-    expect((request as Record<string, unknown>).bankAccountTenantId).toBe(
+    expect((request as unknown as Record<string, unknown>).bankAccountTenantId).toBe(
       'tenant-1',
     );
   });
@@ -117,7 +117,7 @@ describe('verifyWebhookSignature middleware', () => {
 
     await verifyWebhookSignature(request, reply);
 
-    expect((request as Record<string, unknown>).bankAccountTenantId).toBe(
+    expect((request as unknown as Record<string, unknown>).bankAccountTenantId).toBe(
       'tenant-abc',
     );
   });
@@ -141,7 +141,7 @@ describe('verifyWebhookSignature middleware', () => {
     await verifyWebhookSignature(request, reply);
 
     expect(statusCode()).toBeUndefined();
-    expect((request as Record<string, unknown>).bankAccountTenantId).toBe(
+    expect((request as unknown as Record<string, unknown>).bankAccountTenantId).toBe(
       'tenant-2',
     );
   });

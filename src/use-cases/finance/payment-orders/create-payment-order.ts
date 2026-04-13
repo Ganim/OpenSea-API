@@ -1,7 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type { BankPaymentMethod } from '@prisma/generated/prisma';
+import type { BankPaymentMethod } from '@prisma/generated/client.js';
 import type { BankAccountsRepository } from '@/repositories/finance/bank-accounts-repository';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 import type {

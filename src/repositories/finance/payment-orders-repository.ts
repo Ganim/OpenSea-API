@@ -2,7 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type {
   BankPaymentMethod,
   PaymentOrderStatus,
-} from '@prisma/generated/prisma';
+} from '@prisma/generated/client.js';
 
 export interface PaymentOrderRecord {
   id: string;

@@ -18,6 +18,7 @@ const mockProvider: BankingProvider = {
   providerName: 'MOCK_BANK',
   capabilities: ['PIX'],
   authenticate: vi.fn().mockResolvedValue(undefined),
+  healthCheck: vi.fn(),
   getAccounts: vi.fn(),
   getBalance: vi.fn(),
   getTransactions: vi.fn(),

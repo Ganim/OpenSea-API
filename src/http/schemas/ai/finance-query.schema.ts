@@ -11,7 +11,7 @@ export const financeQueryBodySchema = z.object({
 export const financeQueryResponseSchema = z.object({
   answer: z.string().describe('Resposta em linguagem natural em português'),
   data: z
-    .record(z.unknown())
+    .record(z.string(), z.unknown())
     .optional()
     .describe('Dados estruturados da resposta'),
   intent: z

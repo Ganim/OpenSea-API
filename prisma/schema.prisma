@@ -6545,6 +6545,20 @@ model JournalEntryLine {
   @@map("journal_entry_lines")
 }
 
+model ExchangeRate {
+  id       String   @id @default(uuid())
+  currency String   @db.VarChar(3)
+  rate     Decimal  @db.Decimal(18, 8)
+  date     DateTime @db.Date
+  source   String   @db.VarChar(10)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([currency, date], name: "currency_date")
+  @@map("exchange_rates")
+}
+
 model BankAccount {
   id String @id @default(uuid())
 

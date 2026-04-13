@@ -5,7 +5,7 @@ import type {
   PaymentOrdersRepository,
   UpdatePaymentOrderData,
 } from '../payment-orders-repository';
-import type { PaymentOrderStatus } from '@prisma/generated/prisma';
+import { Prisma, type PaymentOrderStatus } from '@prisma/generated/client.js';
 
 function toPersisted(raw: Record<string, unknown>): PaymentOrderRecord {
   return {
@@ -39,7 +39,7 @@ export class PrismaPaymentOrdersRepository implements PaymentOrdersRepository {
         bankAccountId: data.bankAccountId,
         method: data.method,
         amount: data.amount,
-        recipientData: data.recipientData,
+        recipientData: data.recipientData as Prisma.InputJsonValue,
         requestedById: data.requestedById,
       },
     });

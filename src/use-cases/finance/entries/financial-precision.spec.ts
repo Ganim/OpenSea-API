@@ -43,6 +43,8 @@ describe('Financial Precision', () => {
       entriesRepository,
       categoriesRepository,
       costCentersRepository,
+      undefined, // calendarSyncService
+      undefined, // transactionManager
       costCenterAllocationsRepository,
     );
 

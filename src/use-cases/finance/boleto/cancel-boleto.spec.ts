@@ -9,6 +9,7 @@ function makeBankingProviderMock(): BankingProvider {
     providerName: 'mock-provider',
     capabilities: ['BOLETO'],
     authenticate: vi.fn().mockResolvedValue(undefined),
+    healthCheck: vi.fn(),
     getAccounts: vi.fn(),
     getBalance: vi.fn(),
     getTransactions: vi.fn(),
@@ -55,7 +56,7 @@ describe('CancelBoletoUseCase', () => {
       dueDate: new Date('2025-01-31'),
       boletoBarcodeNumber:
         overrides.boletoBarcodeNumber !== undefined
-          ? overrides.boletoBarcodeNumber
+          ? (overrides.boletoBarcodeNumber ?? undefined)
           : '12345678901234',
     });
   }

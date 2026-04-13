@@ -52,6 +52,7 @@ export interface CreateFinanceEntrySchema {
   beneficiaryCpfCnpj?: string;
   pixKey?: string;
   pixKeyType?: string;
+  pixChargeId?: string;
   metadata?: Record<string, unknown>;
   tags?: string[];
   createdBy?: string;

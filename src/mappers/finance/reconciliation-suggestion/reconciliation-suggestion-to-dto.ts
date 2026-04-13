@@ -1,4 +1,4 @@
-import type { ReconciliationSuggestion } from '@/entities/finance/reconciliation-suggestion';
+import type { ReconciliationSuggestion, ReconciliationSuggestionStatus } from '@/entities/finance/reconciliation-suggestion';
 
 export interface ReconciliationSuggestionDTO {
   id: string;
@@ -7,7 +7,7 @@ export interface ReconciliationSuggestionDTO {
   entryId: string;
   score: number;
   matchReasons: string[];
-  status: string;
+  status: ReconciliationSuggestionStatus;
   reviewedAt?: Date;
   reviewedBy?: string;
   createdAt: Date;

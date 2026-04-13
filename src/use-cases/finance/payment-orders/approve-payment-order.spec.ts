@@ -30,6 +30,7 @@ function createMockBankingProvider(
     providerName: 'MOCK',
     capabilities: ['PIX', 'PAYMENT', 'TED'],
     authenticate: vi.fn().mockResolvedValue(undefined),
+    healthCheck: vi.fn(),
     getAccounts: vi.fn().mockResolvedValue([]),
     getBalance: vi.fn().mockResolvedValue({
       available: 0,

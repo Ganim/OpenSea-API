@@ -21,6 +21,7 @@ export async function convertPfxCertificateController(app: FastifyInstance) {
           certFileId: z.string(),
           keyFileId: z.string(),
         }),
+        400: z.object({ message: z.string() }),
       },
     },
     preHandler: [
@@ -53,7 +54,7 @@ export async function convertPfxCertificateController(app: FastifyInstance) {
 
       const useCase = makeConvertPfxCertificateUseCase();
       const result = await useCase.execute({
-        tenantId: request.tenantId,
+        tenantId: request.user.tenantId!,
         bankAccountId,
         pfxBuffer,
         pfxPassword: password,

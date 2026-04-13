@@ -663,6 +663,11 @@ export type JournalEntry = Prisma.JournalEntryModel
  */
 export type JournalEntryLine = Prisma.JournalEntryLineModel
 /**
+ * Model ExchangeRate
+ * 
+ */
+export type ExchangeRate = Prisma.ExchangeRateModel
+/**
  * Model BankAccount
  * 
  */

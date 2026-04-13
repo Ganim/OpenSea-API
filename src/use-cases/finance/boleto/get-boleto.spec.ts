@@ -24,6 +24,7 @@ function makeBankingProviderMock(): BankingProvider {
     providerName: 'mock-provider',
     capabilities: ['BOLETO'],
     authenticate: vi.fn().mockResolvedValue(undefined),
+    healthCheck: vi.fn(),
     getAccounts: vi.fn(),
     getBalance: vi.fn(),
     getTransactions: vi.fn(),

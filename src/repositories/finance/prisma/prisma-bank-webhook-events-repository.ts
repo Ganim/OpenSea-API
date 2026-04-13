@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import { Prisma } from '@prisma/generated/client.js';
 import type {
   BankWebhookEventRecord,
   BankWebhookEventsRepository,
@@ -36,7 +37,7 @@ export class PrismaBankWebhookEventsRepository
         eventType: data.eventType,
         externalId: data.externalId,
         amount: data.amount,
-        payload: data.payload,
+        payload: data.payload as Prisma.InputJsonValue,
         matchedEntryId: data.matchedEntryId,
         autoSettled: data.autoSettled ?? false,
         processedAt: data.processedAt,

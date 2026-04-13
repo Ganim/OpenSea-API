@@ -180,6 +180,7 @@ export const ModelName = {
   ChartOfAccount: 'ChartOfAccount',
   JournalEntry: 'JournalEntry',
   JournalEntryLine: 'JournalEntryLine',
+  ExchangeRate: 'ExchangeRate',
   BankAccount: 'BankAccount',
   FinanceCategory: 'FinanceCategory',
   FinanceEntry: 'FinanceEntry',
@@ -3016,6 +3017,19 @@ export const JournalEntryLineScalarFieldEnum = {
 } as const
 
 export type JournalEntryLineScalarFieldEnum = (typeof JournalEntryLineScalarFieldEnum)[keyof typeof JournalEntryLineScalarFieldEnum]
+
+
+export const ExchangeRateScalarFieldEnum = {
+  id: 'id',
+  currency: 'currency',
+  rate: 'rate',
+  date: 'date',
+  source: 'source',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ExchangeRateScalarFieldEnum = (typeof ExchangeRateScalarFieldEnum)[keyof typeof ExchangeRateScalarFieldEnum]
 
 
 export const BankAccountScalarFieldEnum = {

@@ -1,4 +1,4 @@
-import type { PaymentOrderStatus } from '@prisma/generated/prisma';
+import type { PaymentOrderStatus } from '@prisma/generated/client.js';
 import type {
   PaymentOrderRecord,
   PaymentOrdersRepository,

@@ -19,6 +19,6 @@ export class ListBankAccountsUseCase {
     tenantId,
   }: ListBankAccountsUseCaseRequest): Promise<ListBankAccountsUseCaseResponse> {
     const bankAccounts = await this.bankAccountsRepository.findMany(tenantId);
-    return { bankAccounts: bankAccounts.map(bankAccountToDTO) };
+    return { bankAccounts: bankAccounts.map((ba) => bankAccountToDTO(ba)) };
   }
 }
