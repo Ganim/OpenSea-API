@@ -238,6 +238,7 @@ import { bomsRoutes } from './controllers/production/boms/routes';
 import { defectTypesRoutes } from './controllers/production/defect-types/routes';
 import { downtimeReasonsRoutes } from './controllers/production/downtime-reasons/routes';
 import { operationRoutingsRoutes } from './controllers/production/operation-routings/routes';
+import { productionOrdersRoutes } from './controllers/production/production-orders/routes';
 import { workCentersRoutes } from './controllers/production/work-centers/routes';
 import { workstationTypesRoutes } from './controllers/production/workstation-types/routes';
 import { workstationsRoutes } from './controllers/production/workstations/routes';
@@ -586,6 +587,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(bomsRoutes);
   await app.register(bomItemsRoutes);
   await app.register(operationRoutingsRoutes);
+  await app.register(productionOrdersRoutes);
   await app.register(downtimeReasonsRoutes);
   await app.register(defectTypesRoutes);
 
