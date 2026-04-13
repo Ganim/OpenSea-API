@@ -27,7 +27,7 @@ export async function deleteDefectTypeController(app: FastifyInstance) {
       tags: ['Production - Quality'],
       summary: 'Delete a defect type',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.string(),
       }),
       response: {
         204: z.null().describe('Defect type deleted successfully'),

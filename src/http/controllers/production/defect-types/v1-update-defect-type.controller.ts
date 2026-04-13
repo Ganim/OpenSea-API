@@ -32,7 +32,7 @@ export async function updateDefectTypeController(app: FastifyInstance) {
       tags: ['Production - Quality'],
       summary: 'Update a defect type',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.string(),
       }),
       body: updateDefectTypeSchema,
       response: {

@@ -25,7 +25,7 @@ export async function getBomByIdController(app: FastifyInstance) {
       tags: ['Production - Engineering'],
       summary: 'Get a bill of materials by ID',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.string(),
       }),
       response: {
         200: z.object({

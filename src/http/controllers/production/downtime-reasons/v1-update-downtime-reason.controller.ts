@@ -32,7 +32,7 @@ export async function updateDowntimeReasonController(app: FastifyInstance) {
       tags: ['Production - Shop Floor'],
       summary: 'Update a downtime reason',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.string(),
       }),
       body: updateDowntimeReasonSchema,
       response: {

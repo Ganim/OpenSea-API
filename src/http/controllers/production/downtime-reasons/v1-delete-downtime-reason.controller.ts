@@ -27,7 +27,7 @@ export async function deleteDowntimeReasonController(app: FastifyInstance) {
       tags: ['Production - Shop Floor'],
       summary: 'Delete a downtime reason',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.string(),
       }),
       response: {
         204: z.null().describe('Downtime reason deleted successfully'),

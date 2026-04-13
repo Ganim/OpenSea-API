@@ -25,7 +25,7 @@ export async function listOperationRoutingsController(app: FastifyInstance) {
       tags: ['Production - Engineering'],
       summary: 'List all operation routing steps for a BOM',
       params: z.object({
-        bomId: z.string().uuid(),
+        bomId: z.string(),
       }),
       response: {
         200: z.object({

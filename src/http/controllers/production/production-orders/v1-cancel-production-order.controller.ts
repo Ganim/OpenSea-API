@@ -27,7 +27,7 @@ export async function cancelProductionOrderController(app: FastifyInstance) {
       tags: ['Production - Orders'],
       summary: 'Cancel a production order',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.string(),
       }),
       response: {
         204: z.null().describe('Production order cancelled successfully'),

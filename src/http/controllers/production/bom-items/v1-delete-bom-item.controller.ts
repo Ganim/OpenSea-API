@@ -26,8 +26,8 @@ export async function deleteBomItemController(app: FastifyInstance) {
       tags: ['Production - Engineering'],
       summary: 'Remove an item from a bill of materials',
       params: z.object({
-        bomId: z.string().uuid(),
-        id: z.string().uuid(),
+        bomId: z.string(),
+        id: z.string(),
       }),
       response: {
         204: z.null().describe('BOM item deleted successfully'),

@@ -31,8 +31,8 @@ export async function updateOperationRoutingController(app: FastifyInstance) {
       tags: ['Production - Engineering'],
       summary: 'Update an operation routing step',
       params: z.object({
-        bomId: z.string().uuid(),
-        id: z.string().uuid(),
+        bomId: z.string(),
+        id: z.string(),
       }),
       body: updateOperationRoutingSchema,
       response: {

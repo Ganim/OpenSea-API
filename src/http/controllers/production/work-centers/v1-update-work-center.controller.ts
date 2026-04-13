@@ -32,7 +32,7 @@ export async function updateWorkCenterController(app: FastifyInstance) {
       tags: ['Production - Engineering'],
       summary: 'Update a work center',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.string(),
       }),
       body: updateWorkCenterSchema,
       response: {

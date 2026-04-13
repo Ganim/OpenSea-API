@@ -25,7 +25,7 @@ export async function getProductionOrderByIdController(app: FastifyInstance) {
       tags: ['Production - Orders'],
       summary: 'Get a production order by ID',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.string(),
       }),
       response: {
         200: z.object({

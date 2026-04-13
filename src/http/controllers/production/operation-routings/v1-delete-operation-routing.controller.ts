@@ -26,8 +26,8 @@ export async function deleteOperationRoutingController(app: FastifyInstance) {
       tags: ['Production - Engineering'],
       summary: 'Delete an operation routing step',
       params: z.object({
-        bomId: z.string().uuid(),
-        id: z.string().uuid(),
+        bomId: z.string(),
+        id: z.string(),
       }),
       response: {
         204: z.null().describe('Operation routing deleted successfully'),

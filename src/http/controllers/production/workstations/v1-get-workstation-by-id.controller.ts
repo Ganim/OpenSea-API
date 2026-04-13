@@ -25,7 +25,7 @@ export async function getWorkstationByIdController(app: FastifyInstance) {
       tags: ['Production - Engineering'],
       summary: 'Get a workstation by ID',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.string(),
       }),
       response: {
         200: z.object({

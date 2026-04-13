@@ -25,7 +25,7 @@ export async function listBomItemsController(app: FastifyInstance) {
       tags: ['Production - Engineering'],
       summary: 'List all items of a bill of materials',
       params: z.object({
-        bomId: z.string().uuid(),
+        bomId: z.string(),
       }),
       response: {
         200: z.object({

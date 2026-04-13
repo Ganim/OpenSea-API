@@ -32,7 +32,7 @@ export async function updateProductionOrderController(app: FastifyInstance) {
       tags: ['Production - Orders'],
       summary: 'Update a production order',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.string(),
       }),
       body: updateProductionOrderSchema,
       response: {

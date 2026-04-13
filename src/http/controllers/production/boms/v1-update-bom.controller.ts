@@ -29,7 +29,7 @@ export async function updateBomController(app: FastifyInstance) {
       tags: ['Production - Engineering'],
       summary: 'Update a bill of materials',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.string(),
       }),
       body: updateBomSchema,
       response: {

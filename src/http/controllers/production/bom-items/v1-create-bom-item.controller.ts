@@ -31,7 +31,7 @@ export async function createBomItemController(app: FastifyInstance) {
       tags: ['Production - Engineering'],
       summary: 'Add an item to a bill of materials',
       params: z.object({
-        bomId: z.string().uuid(),
+        bomId: z.string(),
       }),
       body: createBomItemSchema,
       response: {

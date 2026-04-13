@@ -27,7 +27,7 @@ export async function deleteWorkstationController(app: FastifyInstance) {
       tags: ['Production - Engineering'],
       summary: 'Delete a workstation',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.string(),
       }),
       response: {
         204: z.null().describe('Workstation deleted successfully'),

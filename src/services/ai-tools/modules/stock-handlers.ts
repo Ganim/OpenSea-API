@@ -29,10 +29,6 @@ import { makeCreateCategoryUseCase } from '@/use-cases/stock/categories/factorie
 import { makeListTemplatesUseCase } from '@/use-cases/stock/templates/factories/make-list-templates-use-case';
 import { makeCreateTemplateUseCase } from '@/use-cases/stock/templates/factories/make-create-template-use-case';
 
-// === Supplier Factories ===
-import { makeListSuppliersUseCase } from '@/use-cases/stock/suppliers/factories/make-list-suppliers-use-case';
-import { makeCreateSupplierUseCase } from '@/use-cases/stock/suppliers/factories/make-create-supplier-use-case';
-
 // === Manufacturer Factories ===
 import { makeListManufacturersUseCase } from '@/use-cases/stock/manufacturers/factories/make-list-manufacturers-use-case';
 import { makeCreateManufacturerUseCase } from '@/use-cases/stock/manufacturers/factories/make-create-manufacturer-use-case';
@@ -334,29 +330,6 @@ export function getStockHandlers(): Record<string, ToolHandler> {
               id: t.id,
               name: t.name,
               code: t.code,
-            })),
-        };
-      },
-    },
-
-    stock_list_suppliers: {
-      async execute(
-        _args: Record<string, unknown>,
-        context: ToolExecutionContext,
-      ) {
-        const useCase = makeListSuppliersUseCase();
-        const result = await useCase.execute({ tenantId: context.tenantId });
-        return {
-          total: result.suppliers.length,
-          suppliers: result.suppliers
-            .slice(0, TOOL_LIST_MAX_ITEMS)
-            .map((s) => ({
-              id: s.id,
-              name: s.name,
-              cnpj: s.cnpj,
-              email: s.email,
-              phone: s.phone,
-              isActive: s.isActive,
             })),
         };
       },
@@ -909,31 +882,6 @@ export function getStockHandlers(): Record<string, ToolHandler> {
             id: result.template.id,
             name: result.template.name,
             code: result.template.code,
-          },
-        };
-      },
-    },
-
-    stock_create_supplier: {
-      async execute(
-        args: Record<string, unknown>,
-        context: ToolExecutionContext,
-      ) {
-        const useCase = makeCreateSupplierUseCase();
-        const result = await useCase.execute({
-          tenantId: context.tenantId,
-          name: args.name as string,
-          cnpj: args.cnpj as string | undefined,
-          email: args.email as string | undefined,
-          phone: args.phone as string | undefined,
-          notes: args.notes as string | undefined,
-        });
-        return {
-          success: true,
-          message: `Fornecedor "${result.supplier.name}" cadastrado com sucesso.`,
-          supplier: {
-            id: result.supplier.id,
-            name: result.supplier.name,
           },
         };
       },

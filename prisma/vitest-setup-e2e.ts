@@ -111,7 +111,46 @@ function createAdminClient(database = PG_MAIN_DB): pg.Client {
     throw error;
   }
 
-  // Seed system user + permissions (idempotent)
+  // ── Step 2b: Clean test data from previous runs ──────────────────────────
+  // Truncate all tables except seed tables in a single TRUNCATE ... CASCADE.
+  // IMPORTANT: This must run BEFORE seeding to avoid CASCADE deleting seed data.
+  {
+    const client = createAdminClient(TEST_DB);
+    await client.connect();
+    try {
+      // Get all tables except seed/system tables
+      const { rows: tables } = await client.query(`
+        SELECT tablename FROM pg_tables
+        WHERE schemaname = 'public'
+          AND tablename NOT IN (
+            '_prisma_migrations',
+            'permissions',
+            'permission_groups',
+            'permission_group_permissions',
+            'users'
+          )
+      `);
+
+      if (tables.length > 0) {
+        const tableList = tables.map((t) => `"${t.tablename}"`).join(', ');
+        await client.query(`TRUNCATE TABLE ${tableList} CASCADE`);
+      }
+
+      // Clean users separately (keep system user)
+      await client.query(
+        `DELETE FROM "users" WHERE id != '00000000-0000-0000-0000-000000000000'`,
+      );
+
+      console.log(`🧹 Test data cleaned from "${TEST_DB}"`);
+    } catch (error) {
+      // Non-critical: tests create their own data anyway
+      console.warn('⚠️ Failed to clean test data (non-critical):', error);
+    } finally {
+      await client.end();
+    }
+  }
+
+  // ── Step 2c: Seed system user + permissions (idempotent) ────────────────
   {
     const { PrismaClient } = await import('./generated/prisma/client.js');
     const { PrismaPg } = await import('@prisma/adapter-pg');
@@ -199,45 +238,6 @@ function createAdminClient(database = PG_MAIN_DB): pg.Client {
     } finally {
       await seedClient.$disconnect();
     }
-  }
-}
-
-// ── Step 3: Clean test data from previous runs ───────────────────────────
-// Truncate all tables except seed tables in a single TRUNCATE ... CASCADE.
-// This avoids FK constraint issues without needing superuser privileges.
-{
-  const client = createAdminClient(TEST_DB);
-  await client.connect();
-  try {
-    // Get all tables except seed/system tables
-    const { rows: tables } = await client.query(`
-      SELECT tablename FROM pg_tables
-      WHERE schemaname = 'public'
-        AND tablename NOT IN (
-          '_prisma_migrations',
-          'permissions',
-          'permission_groups',
-          'permission_group_permissions',
-          'users'
-        )
-    `);
-
-    if (tables.length > 0) {
-      const tableList = tables.map((t) => `"${t.tablename}"`).join(', ');
-      await client.query(`TRUNCATE TABLE ${tableList} CASCADE`);
-    }
-
-    // Clean users separately (keep system user)
-    await client.query(
-      `DELETE FROM "users" WHERE id != '00000000-0000-0000-0000-000000000000'`,
-    );
-
-    console.log(`🧹 Test data cleaned from "${TEST_DB}"`);
-  } catch (error) {
-    // Non-critical: tests create their own data anyway
-    console.warn('⚠️ Failed to clean test data (non-critical):', error);
-  } finally {
-    await client.end();
   }
 }
 

@@ -28,7 +28,7 @@ export async function approveBomController(app: FastifyInstance) {
       tags: ['Production - Engineering'],
       summary: 'Approve a bill of materials',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.string(),
       }),
       response: {
         200: z.object({

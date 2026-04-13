@@ -31,8 +31,8 @@ export async function updateBomItemController(app: FastifyInstance) {
       tags: ['Production - Engineering'],
       summary: 'Update a BOM item',
       params: z.object({
-        bomId: z.string().uuid(),
-        id: z.string().uuid(),
+        bomId: z.string(),
+        id: z.string(),
       }),
       body: updateBomItemSchema,
       response: {

@@ -30,7 +30,7 @@ export async function changeProductionOrderStatusController(
       tags: ['Production - Orders'],
       summary: 'Change a production order status',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.string(),
       }),
       body: z.object({
         targetStatus: z.enum([
