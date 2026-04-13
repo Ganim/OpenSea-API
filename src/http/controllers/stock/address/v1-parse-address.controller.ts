@@ -1,6 +1,7 @@
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { parseAddressResponseSchema } from '@/http/schemas';
 import { makeParseAddressUseCase } from '@/use-cases/stock/address/factories/make-parse-address-use-case';
 import type { FastifyInstance } from 'fastify';
@@ -13,6 +14,7 @@ export async function parseAddressController(app: FastifyInstance) {
     url: '/v1/address/parse/:address',
     preHandler: [
       verifyJwt,
+      verifyTenant,
       createPermissionMiddleware({
         permissionCode: PermissionCodes.STOCK.WAREHOUSES.ACCESS,
         resource: 'address',
