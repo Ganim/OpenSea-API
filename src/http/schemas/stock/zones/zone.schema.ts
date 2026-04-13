@@ -72,8 +72,8 @@ export const layoutAnnotationSchema = z.object({
   width: z.number().positive(),
   height: z.number().positive(),
   rotation: z.number().optional(),
-  label: z.string().optional(),
-  color: z.string().optional(),
+  label: z.string().max(255).optional(),
+  color: z.string().max(64).optional(),
 });
 
 // Zone layout schema

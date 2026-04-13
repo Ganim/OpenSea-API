@@ -33,8 +33,8 @@ export const itemMovementResponseSchema = z.object({
 export const itemMovementQuerySchema = z.object({
   itemId: z.uuid().optional(),
   userId: z.uuid().optional(),
-  movementType: z.string().optional(),
+  movementType: z.string().max(128).optional(),
   salesOrderId: z.uuid().optional(),
-  batchNumber: z.string().optional(),
+  batchNumber: z.string().max(128).optional(),
   pendingApproval: queryBooleanSchema.optional(),
 });

@@ -24,7 +24,7 @@ export const listBinsQuerySchema = z.object({
   isBlocked: queryBooleanSchema.optional(),
   isEmpty: queryBooleanSchema.optional(),
   isFull: queryBooleanSchema.optional(),
-  addressPattern: z.string().optional(),
+  addressPattern: z.string().max(128).optional(),
 });
 
 // Response schemas

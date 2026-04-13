@@ -10,7 +10,7 @@ export const volumeStatusSchema = z.enum([
 export const createVolumeSchema = z.object({
   code: z.string().min(1, 'Volume code is required').max(256),
   name: z.string().max(256).optional(),
-  notes: z.string().optional(),
+  notes: z.string().max(5000).optional(),
   destinationRef: z.string().max(256).optional(),
   salesOrderId: z.string().uuid().optional(),
   customerId: z.string().uuid().optional(),
@@ -20,7 +20,7 @@ export const createVolumeSchema = z.object({
 // Schema para body de criacao (codigo gerado automaticamente)
 export const createVolumeBodySchema = z.object({
   name: z.string().max(256).optional(),
-  notes: z.string().optional(),
+  notes: z.string().max(5000).optional(),
   destinationRef: z.string().max(256).optional(),
   salesOrderId: z.string().uuid().optional(),
   customerId: z.string().uuid().optional(),
@@ -29,7 +29,7 @@ export const createVolumeBodySchema = z.object({
 
 export const updateVolumeSchema = z.object({
   name: z.string().max(256).optional(),
-  notes: z.string().optional(),
+  notes: z.string().max(5000).optional(),
   destinationRef: z.string().max(256).optional(),
   status: volumeStatusSchema.optional(),
 });
