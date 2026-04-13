@@ -4,6 +4,7 @@ import { Item } from '@/entities/stock/item';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import { Slug } from '@/entities/stock/value-objects/slug';
 import { prisma } from '@/lib/prisma';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import {
   Prisma,
   type ItemStatus as PrismaItemStatus,
@@ -486,6 +487,73 @@ export class PrismaItemsRepository implements ItemsRepository {
       relatedData: this.extractRelatedData(itemData as ItemWithRelations),
     }));
   }
+
+  async findManyByBinWithRelationsPaginated(
+    binId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemWithRelationsDTO>> {
+    const where = {
+      binId: binId.toString(),
+      tenantId,
+      deletedAt: null,
+    };
+    const [items, total] = await Promise.all([
+      prisma.item.findMany({
+        where,
+        include: this.itemRelationsInclude,
+        orderBy: { createdAt: 'desc' },
+        skip: (params.page - 1) * params.limit,
+        take: params.limit,
+      }),
+      prisma.item.count({ where }),
+    ]);
+
+    return {
+      data: items.map((itemData) => ({
+        item: this.createItemEntity(itemData as ItemWithRelations),
+        relatedData: this.extractRelatedData(itemData as ItemWithRelations),
+      })),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
+  }
+
+  async findManyByBatchWithRelationsPaginated(
+    batchNumber: string,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemWithRelationsDTO>> {
+    const where = {
+      batchNumber,
+      tenantId,
+      deletedAt: null,
+    };
+    const [items, total] = await Promise.all([
+      prisma.item.findMany({
+        where,
+        include: this.itemRelationsInclude,
+        orderBy: { createdAt: 'desc' },
+        skip: (params.page - 1) * params.limit,
+        take: params.limit,
+      }),
+      prisma.item.count({ where }),
+    ]);
+
+    return {
+      data: items.map((itemData) => ({
+        item: this.createItemEntity(itemData as ItemWithRelations),
+        relatedData: this.extractRelatedData(itemData as ItemWithRelations),
+      })),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
+  }
+
   async create(data: CreateItemSchema): Promise<Item> {
     const itemData = await prisma.item.create({
       data: {
@@ -873,8 +941,9 @@ export class PrismaItemsRepository implements ItemsRepository {
     return this.toDomainItem(itemData);
   }
 
-  async save(item: Item): Promise<void> {
-    await prisma.item.update({
+  async save(item: Item, tx?: TransactionClient): Promise<void> {
+    const client = tx ?? prisma;
+    await client.item.update({
       where: {
         id: item.id.toString(),
       },
@@ -892,6 +961,26 @@ export class PrismaItemsRepository implements ItemsRepository {
         deletedAt: item.deletedAt,
       },
     });
+  }
+
+  async atomicDecrement(
+    id: UniqueEntityID,
+    quantity: number,
+    tenantId: string,
+    tx?: TransactionClient,
+  ): Promise<Item> {
+    const client = tx ?? prisma;
+    const itemData = await client.item.update({
+      where: {
+        id: id.toString(),
+        tenantId,
+      },
+      data: {
+        currentQuantity: { decrement: quantity },
+      },
+    });
+
+    return this.toDomainItem(itemData);
   }
 
   async delete(id: UniqueEntityID): Promise<void> {

@@ -82,30 +82,37 @@ export class ListItemsUseCase {
     }
 
     if (input.binId) {
-      const allItems = await this.itemsRepository.findManyByBinWithRelations(
-        new UniqueEntityID(input.binId),
-        tenantId,
-      );
+      const result =
+        await this.itemsRepository.findManyByBinWithRelationsPaginated(
+          new UniqueEntityID(input.binId),
+          tenantId,
+          { page, limit },
+        );
 
-      return this.paginateInMemory(allItems, page, limit);
+      return this.buildResponse(
+        result.data,
+        result.total,
+        result.page,
+        result.limit,
+        result.totalPages,
+      );
     }
 
     if (input.batchNumber) {
-      const items = await this.itemsRepository.findManyByBatch(
-        input.batchNumber,
-        tenantId,
-      );
-      const itemsWithRelations: ItemWithRelationsDTO[] = items.map((item) => ({
-        item,
-        relatedData: {
-          productCode: null,
-          productName: '',
-          variantSku: '',
-          variantName: '',
-        },
-      }));
+      const result =
+        await this.itemsRepository.findManyByBatchWithRelationsPaginated(
+          input.batchNumber,
+          tenantId,
+          { page, limit },
+        );
 
-      return this.paginateInMemory(itemsWithRelations, page, limit);
+      return this.buildResponse(
+        result.data,
+        result.total,
+        result.page,
+        result.limit,
+        result.totalPages,
+      );
     }
 
     // Build filters for the paginated repository method
@@ -150,21 +157,4 @@ export class ListItemsUseCase {
     };
   }
 
-  private paginateInMemory(
-    items: ItemWithRelationsDTO[],
-    page: number,
-    limit: number,
-  ): ListItemsUseCaseResponse {
-    const total = items.length;
-    const start = (page - 1) * limit;
-    const paginated = items.slice(start, start + limit);
-
-    return this.buildResponse(
-      paginated,
-      total,
-      page,
-      limit,
-      Math.ceil(total / limit),
-    );
-  }
 }

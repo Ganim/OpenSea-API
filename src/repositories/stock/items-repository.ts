@@ -156,4 +156,14 @@ export interface ItemsRepository {
     binId: UniqueEntityID,
     tenantId: string,
   ): Promise<ItemWithRelationsDTO[]>;
+  findManyByBinWithRelationsPaginated(
+    binId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemWithRelationsDTO>>;
+  findManyByBatchWithRelationsPaginated(
+    batchNumber: string,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemWithRelationsDTO>>;
 }

@@ -280,13 +280,32 @@ export class InMemoryItemsRepository implements ItemsRepository {
     return item;
   }
 
-  async save(item: Item): Promise<void> {
+  async save(item: Item, _tx?: unknown): Promise<void> {
     const index = this.items.findIndex((i) => i.id.equals(item.id));
     if (index >= 0) {
       this.items[index] = item;
     } else {
       this.items.push(item);
     }
+  }
+
+  async atomicDecrement(
+    id: UniqueEntityID,
+    quantity: number,
+    tenantId: string,
+    _tx?: unknown,
+  ): Promise<Item> {
+    const item = this.items.find(
+      (i) =>
+        !i.deletedAt &&
+        i.id.equals(id) &&
+        i.tenantId.toString() === tenantId,
+    );
+    if (!item) {
+      throw new Error('Item not found for atomic decrement.');
+    }
+    item.currentQuantity = item.currentQuantity - quantity;
+    return item;
   }
 
   async delete(id: UniqueEntityID): Promise<void> {
@@ -490,6 +509,60 @@ export class InMemoryItemsRepository implements ItemsRepository {
       item,
       relatedData: this.buildRelatedData(item),
     }));
+  }
+
+  async findManyByBinWithRelationsPaginated(
+    binId: UniqueEntityID,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemWithRelationsDTO>> {
+    const allItems = this.items.filter(
+      (item) =>
+        !item.deletedAt &&
+        item.binId?.equals(binId) &&
+        item.tenantId.toString() === tenantId,
+    );
+    const total = allItems.length;
+    const start = (params.page - 1) * params.limit;
+    const paged = allItems.slice(start, start + params.limit);
+
+    return {
+      data: paged.map((item) => ({
+        item,
+        relatedData: this.buildRelatedData(item),
+      })),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
+  }
+
+  async findManyByBatchWithRelationsPaginated(
+    batchNumber: string,
+    tenantId: string,
+    params: PaginationParams,
+  ): Promise<PaginatedResult<ItemWithRelationsDTO>> {
+    const allItems = this.items.filter(
+      (item) =>
+        !item.deletedAt &&
+        item.batchNumber === batchNumber &&
+        item.tenantId.toString() === tenantId,
+    );
+    const total = allItems.length;
+    const start = (params.page - 1) * params.limit;
+    const paged = allItems.slice(start, start + params.limit);
+
+    return {
+      data: paged.map((item) => ({
+        item,
+        relatedData: this.buildRelatedData(item),
+      })),
+      total,
+      page: params.page,
+      limit: params.limit,
+      totalPages: Math.ceil(total / params.limit),
+    };
   }
 
   async detachItemsFromBins(
