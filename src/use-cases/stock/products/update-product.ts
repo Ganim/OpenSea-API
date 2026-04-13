@@ -5,7 +5,6 @@ import { ProductStatus } from '@/entities/stock/value-objects/product-status';
 import { CategoriesRepository } from '@/repositories/stock/categories-repository';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
-import { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 import { queueAuditLog } from '@/workers/queues/audit.queue';
 
@@ -32,7 +31,6 @@ export class UpdateProductUseCase {
   constructor(
     private productsRepository: ProductsRepository,
     private templatesRepository: TemplatesRepository,
-    private suppliersRepository: SuppliersRepository,
     private manufacturersRepository: ManufacturersRepository,
     private categoriesRepository: CategoriesRepository,
   ) {}
@@ -124,17 +122,6 @@ export class UpdateProductUseCase {
       }
 
       productStatus = ProductStatus.create(newStatusValue);
-    }
-
-    // Validate supplier exists if provided
-    if (supplierId !== undefined) {
-      const supplier = await this.suppliersRepository.findById(
-        new UniqueEntityID(supplierId),
-        tenantId,
-      );
-      if (!supplier) {
-        throw new ResourceNotFoundError('Supplier not found');
-      }
     }
 
     // Validate manufacturer exists if provided

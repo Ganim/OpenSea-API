@@ -4,7 +4,6 @@ import { InMemoryCategoriesRepository } from '@/repositories/stock/in-memory/in-
 import { InMemoryItemsRepository } from '@/repositories/stock/in-memory/in-memory-items-repository';
 import { InMemoryManufacturersRepository } from '@/repositories/stock/in-memory/in-memory-manufacturers-repository';
 import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-memory-products-repository';
-import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
 import { InMemoryVariantsRepository } from '@/repositories/stock/in-memory/in-memory-variants-repository';
 import { templateAttr } from '@/utils/tests/factories/stock/make-template';
@@ -20,7 +19,6 @@ import { GetProductByIdUseCase } from './get-product-by-id';
 
 let productsRepository: InMemoryProductsRepository;
 let templatesRepository: InMemoryTemplatesRepository;
-let suppliersRepository: InMemorySuppliersRepository;
 let manufacturersRepository: InMemoryManufacturersRepository;
 let categoriesRepository: InMemoryCategoriesRepository;
 let variantsRepository: InMemoryVariantsRepository;
@@ -36,7 +34,6 @@ describe('DeleteProductUseCase', () => {
   beforeEach(() => {
     productsRepository = new InMemoryProductsRepository();
     templatesRepository = new InMemoryTemplatesRepository();
-    suppliersRepository = new InMemorySuppliersRepository();
     manufacturersRepository = new InMemoryManufacturersRepository();
     categoriesRepository = new InMemoryCategoriesRepository();
     variantsRepository = new InMemoryVariantsRepository();
@@ -52,7 +49,6 @@ describe('DeleteProductUseCase', () => {
     createProduct = new CreateProductUseCase(
       productsRepository,
       templatesRepository,
-      suppliersRepository,
       manufacturersRepository,
       categoriesRepository,
     );

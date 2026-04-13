@@ -2,7 +2,6 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { InMemoryCategoriesRepository } from '@/repositories/stock/in-memory/in-memory-categories-repository';
 import { InMemoryManufacturersRepository } from '@/repositories/stock/in-memory/in-memory-manufacturers-repository';
 import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-memory-products-repository';
-import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
 import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -15,7 +14,6 @@ import { BulkCreateProductsUseCase } from './bulk-create-products';
 
 let productsRepository: InMemoryProductsRepository;
 let templatesRepository: InMemoryTemplatesRepository;
-let suppliersRepository: InMemorySuppliersRepository;
 let manufacturersRepository: InMemoryManufacturersRepository;
 let categoriesRepository: InMemoryCategoriesRepository;
 let sut: BulkCreateProductsUseCase;
@@ -33,14 +31,12 @@ describe('BulkCreateProductsUseCase', () => {
   beforeEach(async () => {
     productsRepository = new InMemoryProductsRepository();
     templatesRepository = new InMemoryTemplatesRepository();
-    suppliersRepository = new InMemorySuppliersRepository();
     manufacturersRepository = new InMemoryManufacturersRepository();
     categoriesRepository = new InMemoryCategoriesRepository();
 
     sut = new BulkCreateProductsUseCase(
       productsRepository,
       templatesRepository,
-      suppliersRepository,
       manufacturersRepository,
       categoriesRepository,
     );
@@ -51,7 +47,6 @@ describe('BulkCreateProductsUseCase', () => {
     createProduct = new CreateProductUseCase(
       productsRepository,
       templatesRepository,
-      suppliersRepository,
       manufacturersRepository,
       categoriesRepository,
     );
@@ -206,25 +201,6 @@ describe('BulkCreateProductsUseCase', () => {
     expect(result.errors).toHaveLength(1);
     expect(result.errors[0].name).toBe('Product With Invalid Manufacturer');
     expect(result.errors[0].message).toContain('Manufacturer');
-  });
-
-  it('should error when supplier does not exist', async () => {
-    const result = await sut.execute({
-      tenantId: TENANT_ID,
-      products: [
-        {
-          name: 'Product With Invalid Supplier',
-          templateId,
-          supplierId: 'non-existent-supplier-id',
-        },
-      ],
-      options: { skipDuplicates: false },
-    });
-
-    expect(result.created).toHaveLength(0);
-    expect(result.errors).toHaveLength(1);
-    expect(result.errors[0].name).toBe('Product With Invalid Supplier');
-    expect(result.errors[0].message).toContain('Supplier');
   });
 
   it('should error when category does not exist', async () => {

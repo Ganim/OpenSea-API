@@ -3,23 +3,19 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { InMemoryCategoriesRepository } from '@/repositories/stock/in-memory/in-memory-categories-repository';
 import { InMemoryManufacturersRepository } from '@/repositories/stock/in-memory/in-memory-manufacturers-repository';
 import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-memory-products-repository';
-import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
 import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateManufacturerUseCase } from '../manufacturers/create-manufacturer';
-import { CreateSupplierUseCase } from '../suppliers/create-supplier';
 import { CreateTemplateUseCase } from '../templates/create-template';
 import { CreateProductUseCase } from './create-product';
 
 let productsRepository: InMemoryProductsRepository;
 let templatesRepository: InMemoryTemplatesRepository;
-let suppliersRepository: InMemorySuppliersRepository;
 let manufacturersRepository: InMemoryManufacturersRepository;
 let categoriesRepository: InMemoryCategoriesRepository;
 let sut: CreateProductUseCase;
 let createTemplate: CreateTemplateUseCase;
-let createSupplier: CreateSupplierUseCase;
 let createManufacturer: CreateManufacturerUseCase;
 
 const TENANT_ID = 'tenant-1';
@@ -28,20 +24,17 @@ describe('CreateProductUseCase', () => {
   beforeEach(() => {
     productsRepository = new InMemoryProductsRepository();
     templatesRepository = new InMemoryTemplatesRepository();
-    suppliersRepository = new InMemorySuppliersRepository();
     manufacturersRepository = new InMemoryManufacturersRepository();
     categoriesRepository = new InMemoryCategoriesRepository();
 
     sut = new CreateProductUseCase(
       productsRepository,
       templatesRepository,
-      suppliersRepository,
       manufacturersRepository,
       categoriesRepository,
     );
 
     createTemplate = new CreateTemplateUseCase(templatesRepository);
-    createSupplier = new CreateSupplierUseCase(suppliersRepository);
     createManufacturer = new CreateManufacturerUseCase(manufacturersRepository);
   });
 
@@ -82,29 +75,21 @@ describe('CreateProductUseCase', () => {
     expect(result.product.templateId).toBeDefined();
   });
 
-  it('should create a product with supplier', async () => {
+  it('should create a product with supplierId (no runtime validation)', async () => {
     const template = await createTemplate.execute({
       tenantId: TENANT_ID,
       name: 'Electronics Template',
       productAttributes: { brand: templateAttr.string() },
     });
 
-    const supplier = await createSupplier.execute({
-      tenantId: TENANT_ID,
-      name: 'Tech Supplies Co.',
-      country: 'United States',
-    });
-
     const result = await sut.execute({
       tenantId: TENANT_ID,
       name: 'Laptop Dell',
       templateId: template.template.id.toString(),
-      supplierId: supplier.supplier.id.toString(),
+      supplierId: 'any-supplier-id',
     });
 
-    expect(result.product.supplierId?.toString()).toBe(
-      supplier.supplier.id.toString(),
-    );
+    expect(result.product.supplierId?.toString()).toBe('any-supplier-id');
   });
 
   it('should create a product with manufacturer', async () => {
@@ -279,23 +264,6 @@ describe('CreateProductUseCase', () => {
         tenantId: TENANT_ID,
         name: 'Test Product',
         templateId: 'non-existent-template-id',
-      }),
-    ).rejects.toThrow(ResourceNotFoundError);
-  });
-
-  it('should not create a product with non-existent supplier', async () => {
-    const template = await createTemplate.execute({
-      tenantId: TENANT_ID,
-      name: 'Simple Template',
-      productAttributes: { category: templateAttr.string() },
-    });
-
-    await expect(
-      sut.execute({
-        tenantId: TENANT_ID,
-        name: 'Test Product',
-        templateId: template.template.id.toString(),
-        supplierId: 'non-existent-supplier-id',
       }),
     ).rejects.toThrow(ResourceNotFoundError);
   });

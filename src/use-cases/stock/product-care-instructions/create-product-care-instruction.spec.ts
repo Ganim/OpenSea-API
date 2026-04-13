@@ -5,7 +5,6 @@ import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-me
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
 import { InMemoryCategoriesRepository } from '@/repositories/stock/in-memory/in-memory-categories-repository';
 import { InMemoryManufacturersRepository } from '@/repositories/stock/in-memory/in-memory-manufacturers-repository';
-import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
 import { CareCatalogProvider } from '@/services/care/care-catalog-provider';
 import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -16,7 +15,6 @@ import { CreateProductCareInstructionUseCase } from './create-product-care-instr
 let productCareInstructionsRepository: InMemoryProductCareInstructionsRepository;
 let productsRepository: InMemoryProductsRepository;
 let templatesRepository: InMemoryTemplatesRepository;
-let suppliersRepository: InMemorySuppliersRepository;
 let manufacturersRepository: InMemoryManufacturersRepository;
 let categoriesRepository: InMemoryCategoriesRepository;
 let careCatalogProvider: CareCatalogProvider;
@@ -32,7 +30,6 @@ describe('CreateProductCareInstructionUseCase', () => {
       new InMemoryProductCareInstructionsRepository();
     productsRepository = new InMemoryProductsRepository();
     templatesRepository = new InMemoryTemplatesRepository();
-    suppliersRepository = new InMemorySuppliersRepository();
     manufacturersRepository = new InMemoryManufacturersRepository();
     categoriesRepository = new InMemoryCategoriesRepository();
 
@@ -50,7 +47,6 @@ describe('CreateProductCareInstructionUseCase', () => {
     createProduct = new CreateProductUseCase(
       productsRepository,
       templatesRepository,
-      suppliersRepository,
       manufacturersRepository,
       categoriesRepository,
     );

@@ -6,7 +6,6 @@ import { Slug } from '@/entities/stock/value-objects/slug';
 import { CategoriesRepository } from '@/repositories/stock/categories-repository';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
-import { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 import {
   generateBarcode,
@@ -47,7 +46,6 @@ export class CreateProductUseCase {
   constructor(
     private productsRepository: ProductsRepository,
     private templatesRepository: TemplatesRepository,
-    private suppliersRepository: SuppliersRepository,
     private manufacturersRepository: ManufacturersRepository,
     private categoriesRepository: CategoriesRepository,
   ) {}
@@ -116,17 +114,6 @@ export class CreateProductUseCase {
     );
     if (!template) {
       throw new ResourceNotFoundError('Template not found');
-    }
-
-    // Validate supplier exists if provided
-    if (supplierId) {
-      const supplier = await this.suppliersRepository.findById(
-        new UniqueEntityID(supplierId),
-        tenantId,
-      );
-      if (!supplier) {
-        throw new ResourceNotFoundError('Supplier not found');
-      }
     }
 
     // Validate manufacturer exists if provided

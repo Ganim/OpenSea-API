@@ -3,7 +3,6 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { InMemoryCategoriesRepository } from '@/repositories/stock/in-memory/in-memory-categories-repository';
 import { InMemoryManufacturersRepository } from '@/repositories/stock/in-memory/in-memory-manufacturers-repository';
 import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-memory-products-repository';
-import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
 import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -12,20 +11,17 @@ vi.mock('@/workers/queues/audit.queue', () => ({
   queueAuditLog: vi.fn().mockResolvedValue(undefined),
 }));
 import { CreateManufacturerUseCase } from '../manufacturers/create-manufacturer';
-import { CreateSupplierUseCase } from '../suppliers/create-supplier';
 import { CreateTemplateUseCase } from '../templates/create-template';
 import { CreateProductUseCase } from './create-product';
 import { UpdateProductUseCase } from './update-product';
 
 let productsRepository: InMemoryProductsRepository;
 let templatesRepository: InMemoryTemplatesRepository;
-let suppliersRepository: InMemorySuppliersRepository;
 let manufacturersRepository: InMemoryManufacturersRepository;
 let categoriesRepository: InMemoryCategoriesRepository;
 let sut: UpdateProductUseCase;
 let createProduct: CreateProductUseCase;
 let createTemplate: CreateTemplateUseCase;
-let createSupplier: CreateSupplierUseCase;
 let createManufacturer: CreateManufacturerUseCase;
 
 const TENANT_ID = 'tenant-1';
@@ -34,26 +30,22 @@ describe('UpdateProductUseCase', () => {
   beforeEach(() => {
     productsRepository = new InMemoryProductsRepository();
     templatesRepository = new InMemoryTemplatesRepository();
-    suppliersRepository = new InMemorySuppliersRepository();
     manufacturersRepository = new InMemoryManufacturersRepository();
     categoriesRepository = new InMemoryCategoriesRepository();
 
     sut = new UpdateProductUseCase(
       productsRepository,
       templatesRepository,
-      suppliersRepository,
       manufacturersRepository,
       categoriesRepository,
     );
     createProduct = new CreateProductUseCase(
       productsRepository,
       templatesRepository,
-      suppliersRepository,
       manufacturersRepository,
       categoriesRepository,
     );
     createTemplate = new CreateTemplateUseCase(templatesRepository);
-    createSupplier = new CreateSupplierUseCase(suppliersRepository);
     createManufacturer = new CreateManufacturerUseCase(manufacturersRepository);
   });
 
@@ -110,7 +102,7 @@ describe('UpdateProductUseCase', () => {
     expect(result.product.description).toBe('Updated');
   });
 
-  it('should update product with supplier', async () => {
+  it('should update product with supplierId (no runtime validation)', async () => {
     const template = await createTemplate.execute({
       tenantId: TENANT_ID,
       name: 'Electronics Template',
@@ -124,21 +116,13 @@ describe('UpdateProductUseCase', () => {
       templateId: template.template.id.toString(),
     });
 
-    const supplier = await createSupplier.execute({
-      tenantId: TENANT_ID,
-      name: 'Tech Supplies Co.',
-      country: 'United States',
-    });
-
     const result = await sut.execute({
       tenantId: TENANT_ID,
       id: created.product.id.toString(),
-      supplierId: supplier.supplier.id.toString(),
+      supplierId: 'any-supplier-id',
     });
 
-    expect(result.product.supplierId?.toString()).toBe(
-      supplier.supplier.id.toString(),
-    );
+    expect(result.product.supplierId?.toString()).toBe('any-supplier-id');
   });
 
   it('should update product with manufacturer', async () => {
@@ -258,29 +242,6 @@ describe('UpdateProductUseCase', () => {
         name: 'Laptop Dell',
       }),
     ).rejects.toThrow(BadRequestError);
-  });
-
-  it('should not update with non-existent supplier', async () => {
-    const template = await createTemplate.execute({
-      tenantId: TENANT_ID,
-      name: 'Electronics Template',
-      productAttributes: { brand: templateAttr.string() },
-    });
-
-    const created = await createProduct.execute({
-      tenantId: TENANT_ID,
-      name: 'Laptop Dell',
-
-      templateId: template.template.id.toString(),
-    });
-
-    await expect(
-      sut.execute({
-        tenantId: TENANT_ID,
-        id: created.product.id.toString(),
-        supplierId: 'non-existent-supplier-id',
-      }),
-    ).rejects.toThrow(ResourceNotFoundError);
   });
 
   it('should not update with non-existent manufacturer', async () => {

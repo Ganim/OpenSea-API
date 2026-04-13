@@ -10,7 +10,6 @@ import { InMemoryVariantsRepository } from '@/repositories/stock/in-memory/in-me
 import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateProductUseCase } from '../products/create-product';
-import { CreateSupplierUseCase } from '../suppliers/create-supplier';
 import { CreateTemplateUseCase } from '../templates/create-template';
 import { CreateVariantUseCase } from '../variants/create-variant';
 import { CreatePurchaseOrderUseCase } from './create-purchase-order';
@@ -22,7 +21,6 @@ let productsRepository: InMemoryProductsRepository;
 let templatesRepository: InMemoryTemplatesRepository;
 let manufacturersRepository: InMemoryManufacturersRepository;
 let categoriesRepository: InMemoryCategoriesRepository;
-let createSupplier: CreateSupplierUseCase;
 let createVariant: CreateVariantUseCase;
 let createProduct: CreateProductUseCase;
 let createTemplate: CreateTemplateUseCase;
@@ -38,12 +36,10 @@ describe('CreatePurchaseOrderUseCase', () => {
     variantsRepository = new InMemoryVariantsRepository();
     categoriesRepository = new InMemoryCategoriesRepository();
 
-    createSupplier = new CreateSupplierUseCase(suppliersRepository);
     createTemplate = new CreateTemplateUseCase(templatesRepository);
     createProduct = new CreateProductUseCase(
       productsRepository,
       templatesRepository,
-      suppliersRepository,
       manufacturersRepository,
       categoriesRepository,
     );
@@ -61,7 +57,7 @@ describe('CreatePurchaseOrderUseCase', () => {
   });
 
   it('should be able to create a purchase order', async () => {
-    const { supplier } = await createSupplier.execute({
+    const supplier = await suppliersRepository.create({
       tenantId: 'tenant-1',
       name: 'Test Supplier',
     });
@@ -131,7 +127,7 @@ describe('CreatePurchaseOrderUseCase', () => {
   });
 
   it('should not be able to create a purchase order with duplicate order number', async () => {
-    const { supplier } = await createSupplier.execute({
+    const supplier = await suppliersRepository.create({
       tenantId: 'tenant-1',
       name: 'Test Supplier',
     });
@@ -207,7 +203,7 @@ describe('CreatePurchaseOrderUseCase', () => {
   });
 
   it('should not be able to create a purchase order without items', async () => {
-    const { supplier } = await createSupplier.execute({
+    const supplier = await suppliersRepository.create({
       tenantId: 'tenant-1',
       name: 'Test Supplier',
     });
@@ -223,7 +219,7 @@ describe('CreatePurchaseOrderUseCase', () => {
   });
 
   it('should not be able to create a purchase order with nonexistent variant', async () => {
-    const { supplier } = await createSupplier.execute({
+    const supplier = await suppliersRepository.create({
       tenantId: 'tenant-1',
       name: 'Test Supplier',
     });
@@ -245,7 +241,7 @@ describe('CreatePurchaseOrderUseCase', () => {
   });
 
   it('should not be able to create a purchase order with invalid quantity', async () => {
-    const { supplier } = await createSupplier.execute({
+    const supplier = await suppliersRepository.create({
       tenantId: 'tenant-1',
       name: 'Test Supplier',
     });
@@ -291,7 +287,7 @@ describe('CreatePurchaseOrderUseCase', () => {
   });
 
   it('should not be able to create a purchase order with negative unit cost', async () => {
-    const { supplier } = await createSupplier.execute({
+    const supplier = await suppliersRepository.create({
       tenantId: 'tenant-1',
       name: 'Test Supplier',
     });

@@ -6,7 +6,6 @@ import { Slug } from '@/entities/stock/value-objects/slug';
 import { CategoriesRepository } from '@/repositories/stock/categories-repository';
 import { ManufacturersRepository } from '@/repositories/stock/manufacturers-repository';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
-import { SuppliersRepository } from '@/repositories/stock/suppliers-repository';
 import { TemplatesRepository } from '@/repositories/stock/templates-repository';
 import {
   generateBarcode,
@@ -53,7 +52,6 @@ export class BulkCreateProductsUseCase {
   constructor(
     private productsRepository: ProductsRepository,
     private templatesRepository: TemplatesRepository,
-    private suppliersRepository: SuppliersRepository,
     private manufacturersRepository: ManufacturersRepository,
     private categoriesRepository: CategoriesRepository,
   ) {}
@@ -114,21 +112,6 @@ export class BulkCreateProductsUseCase {
       if (manufacturer) {
         manufacturerMap.set(manufacturerId, manufacturer);
       }
-    }
-
-    // Pre-fetch all unique suppliers
-    const uniqueSupplierIds = [
-      ...new Set(
-        products.map((p) => p.supplierId).filter((id): id is string => !!id),
-      ),
-    ];
-    const supplierMap = new Map<string, boolean>();
-    for (const supplierId of uniqueSupplierIds) {
-      const supplier = await this.suppliersRepository.findById(
-        new UniqueEntityID(supplierId),
-        tenantId,
-      );
-      supplierMap.set(supplierId, !!supplier);
     }
 
     // Pre-fetch all unique category IDs
@@ -212,20 +195,7 @@ export class BulkCreateProductsUseCase {
         continue;
       }
 
-      // d. Validate supplierId exists
-      if (
-        productInput.supplierId &&
-        !supplierMap.get(productInput.supplierId)
-      ) {
-        errors.push({
-          index,
-          name: productName,
-          message: `Supplier not found: ${productInput.supplierId}`,
-        });
-        continue;
-      }
-
-      // e. Validate each categoryId exists
+      // d. Validate each categoryId exists
       if (productInput.categoryIds) {
         const invalidCategoryId = productInput.categoryIds.find(
           (catId) => !validCategoryIdSet.has(catId),

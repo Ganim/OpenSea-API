@@ -4,7 +4,6 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryCategoriesRepository } from '@/repositories/stock/in-memory/in-memory-categories-repository';
 import { InMemoryManufacturersRepository } from '@/repositories/stock/in-memory/in-memory-manufacturers-repository';
 import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-memory-products-repository';
-import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
 import { InMemoryVariantsRepository } from '@/repositories/stock/in-memory/in-memory-variants-repository';
 import { templateAttr } from '@/utils/tests/factories/stock/make-template';
@@ -17,7 +16,6 @@ import { UpdateVariantUseCase } from './update-variant';
 let variantsRepository: InMemoryVariantsRepository;
 let productsRepository: InMemoryProductsRepository;
 let templatesRepository: InMemoryTemplatesRepository;
-let suppliersRepository: InMemorySuppliersRepository;
 let manufacturersRepository: InMemoryManufacturersRepository;
 let categoriesRepository: InMemoryCategoriesRepository;
 let updateVariant: UpdateVariantUseCase;
@@ -30,7 +28,6 @@ describe('UpdateVariantUseCase', () => {
     variantsRepository = new InMemoryVariantsRepository();
     productsRepository = new InMemoryProductsRepository();
     templatesRepository = new InMemoryTemplatesRepository();
-    suppliersRepository = new InMemorySuppliersRepository();
     manufacturersRepository = new InMemoryManufacturersRepository();
     categoriesRepository = new InMemoryCategoriesRepository();
     updateVariant = new UpdateVariantUseCase(
@@ -46,7 +43,6 @@ describe('UpdateVariantUseCase', () => {
     createProduct = new CreateProductUseCase(
       productsRepository,
       templatesRepository,
-      suppliersRepository,
       manufacturersRepository,
       categoriesRepository,
     );

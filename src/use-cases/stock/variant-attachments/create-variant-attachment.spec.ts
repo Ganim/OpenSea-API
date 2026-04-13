@@ -5,7 +5,6 @@ import { InMemoryProductsRepository } from '@/repositories/stock/in-memory/in-me
 import { InMemoryTemplatesRepository } from '@/repositories/stock/in-memory/in-memory-templates-repository';
 import { InMemoryCategoriesRepository } from '@/repositories/stock/in-memory/in-memory-categories-repository';
 import { InMemoryManufacturersRepository } from '@/repositories/stock/in-memory/in-memory-manufacturers-repository';
-import { InMemorySuppliersRepository } from '@/repositories/stock/in-memory/in-memory-suppliers-repository';
 import { templateAttr } from '@/utils/tests/factories/stock/make-template';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateProductUseCase } from '../products/create-product';
@@ -17,7 +16,6 @@ let variantAttachmentsRepository: InMemoryVariantAttachmentsRepository;
 let variantsRepository: InMemoryVariantsRepository;
 let productsRepository: InMemoryProductsRepository;
 let templatesRepository: InMemoryTemplatesRepository;
-let suppliersRepository: InMemorySuppliersRepository;
 let manufacturersRepository: InMemoryManufacturersRepository;
 let categoriesRepository: InMemoryCategoriesRepository;
 let sut: CreateVariantAttachmentUseCase;
@@ -33,7 +31,6 @@ describe('CreateVariantAttachmentUseCase', () => {
     variantsRepository = new InMemoryVariantsRepository();
     productsRepository = new InMemoryProductsRepository();
     templatesRepository = new InMemoryTemplatesRepository();
-    suppliersRepository = new InMemorySuppliersRepository();
     manufacturersRepository = new InMemoryManufacturersRepository();
     categoriesRepository = new InMemoryCategoriesRepository();
 
@@ -46,7 +43,6 @@ describe('CreateVariantAttachmentUseCase', () => {
     createProduct = new CreateProductUseCase(
       productsRepository,
       templatesRepository,
-      suppliersRepository,
       manufacturersRepository,
       categoriesRepository,
     );
