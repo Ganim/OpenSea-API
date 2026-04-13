@@ -1,6 +1,8 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { TransactionManager } from '@/lib/transaction-manager';
+import type { ItemsRepository } from '@/repositories/stock/items-repository';
 import { ProductsRepository } from '@/repositories/stock/products-repository';
 import { VariantsRepository } from '@/repositories/stock/variants-repository';
 import { queueAuditLog } from '@/workers/queues/audit.queue';
@@ -15,6 +17,7 @@ export class DeleteProductUseCase {
   constructor(
     private productsRepository: ProductsRepository,
     private variantsRepository: VariantsRepository,
+    private itemsRepository: ItemsRepository,
     private transactionManager: TransactionManager,
   ) {}
 
@@ -29,13 +32,26 @@ export class DeleteProductUseCase {
       throw new ResourceNotFoundError('Product not found');
     }
 
-    // Soft-delete variants + product atomically
-    await this.transactionManager.run(async () => {
-      const variants = await this.variantsRepository.findManyByProduct(
-        productId,
+    // Check if any variant has active items before deleting
+    const variants = await this.variantsRepository.findManyByProduct(
+      productId,
+      tenantId,
+    );
+
+    for (const variant of variants) {
+      const itemCount = await this.itemsRepository.countByVariantId(
+        variant.id,
         tenantId,
       );
+      if (itemCount > 0) {
+        throw new BadRequestError(
+          `Não é possível excluir o produto. A variante "${variant.name}" possui ${itemCount} item(ns) em estoque.`,
+        );
+      }
+    }
 
+    // Soft-delete variants + product atomically
+    await this.transactionManager.run(async () => {
       for (const variant of variants) {
         await this.variantsRepository.delete(variant.id);
       }
