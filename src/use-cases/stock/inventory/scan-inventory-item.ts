@@ -125,26 +125,6 @@ export class ScanInventoryItemUseCase {
   }
 
   private async findItemByCode(code: string, tenantId: string) {
-    // Try fullCode first
-    let item = await this.itemsRepository.findByFullCode(code, tenantId);
-    if (item) return item;
-
-    // Try barcode
-    item = await this.itemsRepository.findByBarcode(code, tenantId);
-    if (item) return item;
-
-    // Try EAN
-    item = await this.itemsRepository.findByEanCode(code, tenantId);
-    if (item) return item;
-
-    // Try UPC
-    item = await this.itemsRepository.findByUpcCode(code, tenantId);
-    if (item) return item;
-
-    // Try uniqueCode
-    item = await this.itemsRepository.findByUniqueCode(code, tenantId);
-    if (item) return item;
-
-    return null;
+    return this.itemsRepository.findByAnyCode(code, tenantId);
   }
 }

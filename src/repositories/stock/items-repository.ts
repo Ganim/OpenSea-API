@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Item } from '@/entities/stock/item';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import type { Slug } from '@/entities/stock/value-objects/slug';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import type { PaginatedResult, PaginationParams } from '../pagination-params';
 
 export interface ItemRelatedData {
@@ -92,6 +93,7 @@ export interface ItemsRepository {
   findByBarcode(barcode: string, tenantId: string): Promise<Item | null>;
   findByEanCode(eanCode: string, tenantId: string): Promise<Item | null>;
   findByUpcCode(upcCode: string, tenantId: string): Promise<Item | null>;
+  findByAnyCode(code: string, tenantId: string): Promise<Item | null>;
   findAll(tenantId: string): Promise<Item[]>;
   findManyByVariant(
     variantId: UniqueEntityID,
@@ -111,9 +113,15 @@ export interface ItemsRepository {
     tenantId: string,
   ): Promise<Item | null>;
   update(data: UpdateItemSchema): Promise<Item | null>;
-  save(item: Item): Promise<void>;
+  save(item: Item, tx?: TransactionClient): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;
   detachItemsFromBins(binIds: string[], tenantId: string): Promise<number>;
+  atomicDecrement(
+    id: UniqueEntityID,
+    quantity: number,
+    tenantId: string,
+    tx?: TransactionClient,
+  ): Promise<Item>;
 
   // Methods with relations (for list/get with related data)
   findAllWithRelations(tenantId: string): Promise<ItemWithRelationsDTO[]>;

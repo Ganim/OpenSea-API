@@ -136,6 +136,20 @@ export class InMemoryItemsRepository implements ItemsRepository {
     return item ?? null;
   }
 
+  async findByAnyCode(code: string, tenantId: string): Promise<Item | null> {
+    const item = this.items.find(
+      (i) =>
+        !i.deletedAt &&
+        i.tenantId.toString() === tenantId &&
+        (i.fullCode === code ||
+          i.barcode === code ||
+          i.eanCode === code ||
+          i.upcCode === code ||
+          i.uniqueCode === code),
+    );
+    return item ?? null;
+  }
+
   async findAll(tenantId: string): Promise<Item[]> {
     return this.items.filter(
       (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
