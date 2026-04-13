@@ -1,4 +1,7 @@
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { makeExchangeRateService } from '@/services/finance/exchange-rate.service';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -8,7 +11,14 @@ export async function getExchangeRateController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/finance/exchange-rates',
-    preHandler: [verifyJwt],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.FINANCE.ENTRIES.ACCESS,
+        resource: 'entries',
+      }),
+    ],
     schema: {
       tags: ['Finance - Exchange Rates'],
       summary: 'Get exchange rate for a currency',
