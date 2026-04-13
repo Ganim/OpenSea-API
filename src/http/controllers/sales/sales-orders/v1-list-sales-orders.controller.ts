@@ -1,4 +1,6 @@
-﻿import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+﻿import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
   salesOrderResponseSchema,
@@ -14,7 +16,14 @@ export async function v1ListSalesOrdersController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/sales-orders',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.SALES.ORDERS.ACCESS,
+        resource: 'sales-orders',
+      }),
+    ],
     schema: {
       tags: ['Sales - Orders (Legacy)'],
       summary: 'List sales orders',

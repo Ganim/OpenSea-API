@@ -1,4 +1,6 @@
 ﻿import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { salesOrderResponseSchema } from '@/http/schemas/sales.schema';
@@ -12,7 +14,14 @@ export async function v1GetSalesOrderByIdController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/sales-orders/:id',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.SALES.ORDERS.ACCESS,
+        resource: 'sales-orders',
+      }),
+    ],
     schema: {
       tags: ['Sales - Orders (Legacy)'],
       summary: 'Get sales order by ID',
