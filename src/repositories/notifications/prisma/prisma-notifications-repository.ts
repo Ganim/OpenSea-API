@@ -102,6 +102,12 @@ export class PrismaNotificationsRepository implements NotificationsRepository {
       if (filter.startDate) where.createdAt.gte = filter.startDate;
       if (filter.endDate) where.createdAt.lte = filter.endDate;
     }
+    if (filter.excludeEntityTypes && filter.excludeEntityTypes.length > 0) {
+      where.OR = [
+        { entityType: null },
+        { entityType: { notIn: filter.excludeEntityTypes } },
+      ];
+    }
 
     const page = filter.page ?? 1;
     const limit = filter.limit ?? 20;

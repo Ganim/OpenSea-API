@@ -29,6 +29,8 @@ export interface ListNotificationsFilter {
   priority?: NotificationPriorityValue;
   startDate?: Date;
   endDate?: Date;
+  /** Exclude notifications with these entityTypes (permission-based filtering) */
+  excludeEntityTypes?: string[];
   page?: number;
   limit?: number;
 }

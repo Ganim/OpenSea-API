@@ -53,6 +53,23 @@ export async function listNotificationsByUserIdController(
         limit,
       } = request.query;
 
+      // Determine which entity types to exclude based on user permissions
+      const permissionService = getPermissionService();
+      const userId = new UniqueEntityID(request.user.sub);
+
+      const excludeEntityTypes: string[] = [];
+      for (const [entityType, permissionCode] of Object.entries(
+        ENTITY_TYPE_PERMISSION_MAP,
+      )) {
+        const allowed = await permissionService.hasPermission(
+          userId,
+          permissionCode,
+        );
+        if (!allowed) {
+          excludeEntityTypes.push(entityType);
+        }
+      }
+
       const listNotificationsByUserIdUseCase =
         makeListNotificationsByUserIdUseCase();
       const { data, total } = await listNotificationsByUserIdUseCase.execute({
@@ -63,51 +80,17 @@ export async function listNotificationsByUserIdController(
         priority,
         startDate,
         endDate,
+        excludeEntityTypes:
+          excludeEntityTypes.length > 0 ? excludeEntityTypes : undefined,
         page,
         limit,
       });
 
-      // Post-filter: remove notifications from modules the user lacks permission for
-      const permissionService = getPermissionService();
-      const userId = new UniqueEntityID(request.user.sub);
-
-      // Collect unique entity types that need permission checks
-      const entityTypesToCheck = new Set<string>();
-      for (const notification of data) {
-        const entityType = notification.entityType;
-        if (entityType && entityType in ENTITY_TYPE_PERMISSION_MAP) {
-          entityTypesToCheck.add(entityType);
-        }
-      }
-
-      // Batch-check permissions (one check per entity type, not per notification)
-      const deniedEntityTypes = new Set<string>();
-      for (const entityType of entityTypesToCheck) {
-        const requiredPermission = ENTITY_TYPE_PERMISSION_MAP[entityType];
-        const allowed = await permissionService.hasPermission(
-          userId,
-          requiredPermission,
-        );
-        if (!allowed) {
-          deniedEntityTypes.add(entityType);
-        }
-      }
-
-      // Filter out denied notifications
-      const filtered =
-        deniedEntityTypes.size > 0
-          ? data.filter(
-              (n) => !n.entityType || !deniedEntityTypes.has(n.entityType),
-            )
-          : data;
-
-      const filteredTotal =
-        deniedEntityTypes.size > 0 ? total - (data.length - filtered.length) : total;
-      const totalPages = Math.ceil(filteredTotal / (limit || 20));
+      const totalPages = Math.ceil(total / (limit || 20));
 
       return reply.status(200).send({
-        notifications: NotificationPresenter.toHTTPMany(filtered),
-        total: Math.max(0, filteredTotal),
+        notifications: NotificationPresenter.toHTTPMany(data),
+        total,
         totalPages,
       });
     },

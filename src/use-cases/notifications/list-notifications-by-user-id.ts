@@ -13,6 +13,8 @@ interface ListNotificationsUseCaseRequest {
   priority?: 'LOW' | 'NORMAL' | 'HIGH' | 'URGENT';
   startDate?: Date;
   endDate?: Date;
+  /** Exclude notifications with these entityTypes (permission-based filtering) */
+  excludeEntityTypes?: string[];
   page?: number;
   limit?: number;
 }
@@ -36,6 +38,7 @@ export class ListNotificationsByUserIdUseCase {
       priority: params.priority,
       startDate: params.startDate,
       endDate: params.endDate,
+      excludeEntityTypes: params.excludeEntityTypes,
       page: params.page,
       limit: params.limit,
     };

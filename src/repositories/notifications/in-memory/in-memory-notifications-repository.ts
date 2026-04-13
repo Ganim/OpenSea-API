@@ -80,6 +80,11 @@ export class InMemoryNotificationsRepository
         return after && before;
       });
     }
+    if (filter.excludeEntityTypes && filter.excludeEntityTypes.length > 0) {
+      result = result.filter(
+        (n) => !n.entityType || !filter.excludeEntityTypes!.includes(n.entityType),
+      );
+    }
 
     // Order by createdAt desc (as Prisma impl)
     result = result.sort(
