@@ -73,8 +73,10 @@ export class AcceptReconciliationSuggestionUseCase {
       matchStatus: 'SUGGESTION_ACCEPTED',
     });
 
-    // Register payment on the entry if the transaction matches
-    // We use the entry's expected amount as the payment amount
+    // Register payment on the entry if the transaction matches.
+    // NOTE: This use case lacks a TransactionManager — the payment + status
+    // update is NOT atomic. A future improvement should wrap this in a
+    // transaction with findByIdForUpdate to prevent concurrent races.
     const existingPaymentsSum =
       await this.financeEntryPaymentsRepository.sumByEntryId(
         suggestion.entryId,

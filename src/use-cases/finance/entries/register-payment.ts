@@ -175,23 +175,26 @@ export class RegisterPaymentUseCase {
         );
       }
 
+      // Acquire row-level lock on the entry to prevent concurrent payment races.
+      // Any other transaction trying to pay the same entry will block here until
+      // this transaction commits or rolls back.
+      const lockedEntry = tx
+        ? await this.financeEntriesRepository.findByIdForUpdate(
+            new UniqueEntityID(entryId),
+            tenantId,
+            tx,
+          )
+        : await this.financeEntriesRepository.findById(
+            new UniqueEntityID(entryId),
+            tenantId,
+          );
+
       // Re-fetch entry after interest/penalty updates to get correct totalDue
-      const refreshedEntry =
+      const entryForPayment =
         finalInterest !== undefined || finalPenalty !== undefined
-          ? await this.financeEntriesRepository.findById(
-              new UniqueEntityID(entryId),
-              tenantId,
-              tx,
-            )
-          : entry;
+          ? (lockedEntry ?? entry)
+          : (lockedEntry ?? entry);
 
-      const entryForPayment = refreshedEntry ?? entry;
-
-      // TODO: CONCURRENCY — This validation is NOT safe under concurrent requests.
-      // Two simultaneous payments can both read sumByEntryId=0 and both pass.
-      // Proper fix requires: PostgreSQL SELECT ... FOR UPDATE or serializable
-      // transaction isolation in the TransactionManager.
-      // See: financial-precision.spec.ts concurrency tests for reproduction.
       const existingPaymentsSum =
         await this.financeEntryPaymentsRepository.sumByEntryId(
           new UniqueEntityID(entryId),

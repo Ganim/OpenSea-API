@@ -63,6 +63,15 @@ export class AutoRegisterPixPaymentUseCase {
     }
 
     const executePayment = async (tx?: TransactionClient) => {
+      // Acquire row-level lock to prevent concurrent payment races
+      if (tx) {
+        await this.financeEntriesRepository.findByIdForUpdate(
+          entry.id,
+          entry.tenantId.toString(),
+          tx,
+        );
+      }
+
       // Create payment record
       await this.financeEntryPaymentsRepository.create(
         {
@@ -78,7 +87,7 @@ export class AutoRegisterPixPaymentUseCase {
         tx,
       );
 
-      // Calculate new total
+      // Calculate new total (safe — row is locked)
       const existingPaymentsSum =
         await this.financeEntryPaymentsRepository.sumByEntryId(
           new UniqueEntityID(entry.id.toString()),

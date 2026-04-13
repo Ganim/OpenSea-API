@@ -97,6 +97,15 @@ export class InMemoryFinanceEntriesRepository
     return item ?? null;
   }
 
+  async findByIdForUpdate(
+    id: UniqueEntityID,
+    tenantId: string,
+    _tx?: unknown,
+  ): Promise<FinanceEntry | null> {
+    // In-memory: no real locking needed, delegates to findById
+    return this.findById(id, tenantId, _tx);
+  }
+
   async findByCode(
     code: string,
     tenantId: string,

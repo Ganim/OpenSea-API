@@ -175,6 +175,15 @@ export interface FinanceEntriesRepository {
     tenantId: string,
     tx?: TransactionClient,
   ): Promise<FinanceEntry | null>;
+  /**
+   * SELECT ... FOR UPDATE — acquires a row-level lock inside a transaction.
+   * Prevents concurrent payments from reading stale sums.
+   */
+  findByIdForUpdate(
+    id: UniqueEntityID,
+    tenantId: string,
+    tx: TransactionClient,
+  ): Promise<FinanceEntry | null>;
   findByCode(code: string, tenantId: string): Promise<FinanceEntry | null>;
   findMany(
     options: FindManyFinanceEntriesOptions,

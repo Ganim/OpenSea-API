@@ -128,7 +128,8 @@ export class SplitPaymentUseCase {
 
     await this.transactionManager.run(async (tx: TransactionClient) => {
       for (const allocation of allocations) {
-        const entry = await this.financeEntriesRepository.findById(
+        // Acquire row-level lock to prevent concurrent payment races
+        const entry = await this.financeEntriesRepository.findByIdForUpdate(
           new UniqueEntityID(allocation.entryId),
           tenantId,
           tx,

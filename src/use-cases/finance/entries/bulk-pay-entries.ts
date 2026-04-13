@@ -52,7 +52,8 @@ export class BulkPayEntriesUseCase {
     await this.transactionManager.run(async (tx: TransactionClient) => {
       for (const entryId of entryIds) {
         try {
-          const entry = await this.financeEntriesRepository.findById(
+          // Acquire row-level lock to prevent concurrent payment races
+          const entry = await this.financeEntriesRepository.findByIdForUpdate(
             new UniqueEntityID(entryId),
             tenantId,
             tx,

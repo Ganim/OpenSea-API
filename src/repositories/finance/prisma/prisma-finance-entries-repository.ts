@@ -145,6 +145,43 @@ export class PrismaFinanceEntriesRepository
     return financeEntryPrismaToDomain(decrypted as typeof entry);
   }
 
+  async findByIdForUpdate(
+    id: UniqueEntityID,
+    tenantId: string,
+    tx: TransactionClient,
+  ): Promise<FinanceEntry | null> {
+    // Acquire row-level lock — concurrent transactions block here
+    const rows = await tx.$queryRaw<Array<{ id: string }>>(
+      Prisma.sql`
+        SELECT "id" FROM "finance_entries"
+        WHERE "id" = ${id.toString()}
+          AND "tenant_id" = ${tenantId}
+          AND "deleted_at" IS NULL
+        FOR UPDATE
+      `,
+    );
+
+    if (rows.length === 0) return null;
+
+    // Re-fetch with Prisma for proper field mapping and decryption
+    const entry = await tx.financeEntry.findFirst({
+      where: {
+        id: id.toString(),
+        tenantId,
+        deletedAt: null,
+      },
+    });
+
+    if (!entry) return null;
+
+    const cipher = tryGetCipher();
+    const decrypted = cipher
+      ? cipher.decryptFields(entry as Record<string, unknown>, encryptedFields)
+      : entry;
+
+    return financeEntryPrismaToDomain(decrypted as typeof entry);
+  }
+
   async findByCode(
     code: string,
     tenantId: string,
