@@ -10,6 +10,7 @@ import { createMyNotificationPreferenceController } from './v1-create-my-notific
 import { deleteMyNotificationPreferenceController } from './v1-delete-my-notification-preference.controller';
 import { deleteMyUserController } from './v1-delete-my-user.controller';
 import { getMyEmployeeController } from './v1-get-my-employee.controller';
+import { getMyModulesController } from './v1-get-my-modules.controller';
 import { getMyTimeBankController } from './v1-get-my-time-bank.controller';
 import { getMyUserController } from './v1-get-my-user.controller';
 import { listMyAbsencesController } from './v1-list-my-absences.controller';
@@ -64,6 +65,9 @@ export async function meRoutes(app: FastifyInstance) {
   app.register(linkMyAuthMethodController);
   app.register(toggleMyAuthLinkController);
   app.register(unlinkMyAuthMethodController);
+
+  // Tenant Modules Route
+  app.register(getMyModulesController);
 
   // HR Self-Service Routes
   app.register(getMyEmployeeController);
