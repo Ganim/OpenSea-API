@@ -2447,6 +2447,14 @@ model Item {
   @@index([batchNumber, variantId])
   @@index([tenantId])
   @@index([tenantId, status])
+  @@index([tenantId, barcode])
+  @@index([tenantId, eanCode])
+  @@index([tenantId, upcCode])
+  @@index([tenantId, binId])
+  @@index([tenantId, expiryDate])
+  @@index([tenantId, createdAt])
+  @@index([tenantId, updatedAt])
+  @@index([currentQuantity])
   @@map("items")
 }
 
