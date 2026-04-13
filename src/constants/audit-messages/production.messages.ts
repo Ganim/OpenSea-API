@@ -373,4 +373,24 @@ export const PRODUCTION_AUDIT_MESSAGES = {
     description:
       '{{userName}} atualizou custo {{costType}} na OP {{orderId}}',
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // TEXTILE — Confecção / Vestuário
+  // ============================================================================
+
+  TEXTILE_CUT_PLAN_GENERATE: {
+    action: AuditAction.GENERATE,
+    entity: AuditEntity.PRODUCTION_TEXTILE_CUT_PLAN,
+    module: AuditModule.PRODUCTION,
+    description:
+      '{{userName}} gerou plano de corte para a OP {{orderNumber}} ({{totalPieces}} peças)',
+  } satisfies AuditMessage,
+
+  TEXTILE_BUNDLE_TICKETS_GENERATE: {
+    action: AuditAction.GENERATE,
+    entity: AuditEntity.PRODUCTION_TEXTILE_BUNDLE_TICKET,
+    module: AuditModule.PRODUCTION,
+    description:
+      '{{userName}} gerou {{totalBundles}} tickets de pacote para a OP {{orderNumber}}',
+  } satisfies AuditMessage,
 };

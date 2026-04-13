@@ -249,6 +249,7 @@ import { qualityHoldsRoutes } from './controllers/production/quality-holds/route
 import { productionSchedulesRoutes } from './controllers/production/schedules/routes';
 import { productionCostingRoutes } from './controllers/production/costing/routes';
 import { productionAnalyticsRoutes } from './controllers/production/analytics/routes';
+import { textileRoutes } from './controllers/production/textile/routes';
 
 // Fiscal routes
 import { fiscalRoutes } from './controllers/fiscal/routes';
@@ -604,6 +605,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(productionSchedulesRoutes);
   await app.register(productionCostingRoutes);
   await app.register(productionAnalyticsRoutes);
+  await app.register(textileRoutes);
 
   // Fiscal routes
   await app.register(fiscalRoutes);
