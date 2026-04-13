@@ -207,18 +207,6 @@ export class InMemoryItemsRepository implements ItemsRepository {
     );
   }
 
-  async findManyByStatus(
-    status: ItemStatus,
-    tenantId: string,
-  ): Promise<Item[]> {
-    return this.items.filter(
-      (item) =>
-        !item.deletedAt &&
-        item.status.value === status.value &&
-        item.tenantId.toString() === tenantId,
-    );
-  }
-
   async findManyByBatch(
     batchNumber: string,
     tenantId: string,
@@ -227,30 +215,6 @@ export class InMemoryItemsRepository implements ItemsRepository {
       (item) =>
         !item.deletedAt &&
         item.batchNumber === batchNumber &&
-        item.tenantId.toString() === tenantId,
-    );
-  }
-
-  async findManyExpiring(
-    daysUntilExpiry: number,
-    tenantId: string,
-  ): Promise<Item[]> {
-    return this.items.filter(
-      (item) =>
-        !item.deletedAt &&
-        item.expiryDate !== null &&
-        item.daysUntilExpiry !== null &&
-        item.daysUntilExpiry <= daysUntilExpiry &&
-        item.daysUntilExpiry > 0 &&
-        item.tenantId.toString() === tenantId,
-    );
-  }
-
-  async findManyExpired(tenantId: string): Promise<Item[]> {
-    return this.items.filter(
-      (item) =>
-        !item.deletedAt &&
-        item.isExpired &&
         item.tenantId.toString() === tenantId,
     );
   }
@@ -354,19 +318,6 @@ export class InMemoryItemsRepository implements ItemsRepository {
       zoneCode: zone?.code,
       zoneName: zone?.name,
     };
-  }
-
-  async findAllWithRelations(
-    tenantId: string,
-  ): Promise<ItemWithRelationsDTO[]> {
-    const items = this.items.filter(
-      (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
-    );
-
-    return items.map((item) => ({
-      item,
-      relatedData: this.buildRelatedData(item),
-    }));
   }
 
   async findAllWithRelationsPaginated(

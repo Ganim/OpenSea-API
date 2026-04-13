@@ -204,23 +204,6 @@ export class PrismaItemsRepository implements ItemsRepository {
     },
   } as const;
 
-  async findAllWithRelations(
-    tenantId: string,
-  ): Promise<ItemWithRelationsDTO[]> {
-    const items = await prisma.item.findMany({
-      where: {
-        tenantId,
-        deletedAt: null,
-      },
-      include: this.itemRelationsInclude,
-    });
-
-    return items.map((itemData) => ({
-      item: this.createItemEntity(itemData as ItemWithRelations),
-      relatedData: this.extractRelatedData(itemData as ItemWithRelations),
-    }));
-  }
-
   async findAllWithRelationsPaginated(
     tenantId: string,
     params: PaginationParams,
@@ -845,21 +828,6 @@ export class PrismaItemsRepository implements ItemsRepository {
     return items.map((itemData) => this.toDomainItem(itemData));
   }
 
-  async findManyByStatus(
-    status: ItemStatus,
-    tenantId: string,
-  ): Promise<Item[]> {
-    const items = await prisma.item.findMany({
-      where: {
-        status: status.value as PrismaItemStatus,
-        tenantId,
-        deletedAt: null,
-      },
-    });
-
-    return items.map((itemData) => this.toDomainItem(itemData));
-  }
-
   async findManyByBatch(
     batchNumber: string,
     tenantId: string,
@@ -867,41 +835,6 @@ export class PrismaItemsRepository implements ItemsRepository {
     const items = await prisma.item.findMany({
       where: {
         batchNumber,
-        tenantId,
-        deletedAt: null,
-      },
-    });
-
-    return items.map((itemData) => this.toDomainItem(itemData));
-  }
-
-  async findManyExpiring(
-    daysUntilExpiry: number,
-    tenantId: string,
-  ): Promise<Item[]> {
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + daysUntilExpiry);
-
-    const items = await prisma.item.findMany({
-      where: {
-        expiryDate: {
-          lte: targetDate,
-          gt: new Date(),
-        },
-        tenantId,
-        deletedAt: null,
-      },
-    });
-
-    return items.map((itemData) => this.toDomainItem(itemData));
-  }
-
-  async findManyExpired(tenantId: string): Promise<Item[]> {
-    const items = await prisma.item.findMany({
-      where: {
-        expiryDate: {
-          lt: new Date(),
-        },
         tenantId,
         deletedAt: null,
       },

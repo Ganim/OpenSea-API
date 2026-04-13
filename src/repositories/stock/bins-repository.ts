@@ -66,13 +66,7 @@ export interface BinsRepository {
   findByAddress(address: string, tenantId: string): Promise<Bin | null>;
   findMany(tenantId: string, filters?: BinSearchFilters): Promise<Bin[]>;
   findManyByZone(zoneId: UniqueEntityID, tenantId: string): Promise<Bin[]>;
-  findManyByAisle(
-    zoneId: UniqueEntityID,
-    aisle: number,
-    tenantId: string,
-  ): Promise<Bin[]>;
   findManyAvailable(zoneId: UniqueEntityID, tenantId: string): Promise<Bin[]>;
-  findManyBlocked(zoneId: UniqueEntityID, tenantId: string): Promise<Bin[]>;
   search(query: string, tenantId: string, limit?: number): Promise<Bin[]>;
   update(data: UpdateBinSchema): Promise<Bin | null>;
   save(bin: Bin): Promise<void>;
@@ -82,7 +76,6 @@ export interface BinsRepository {
     zoneId: UniqueEntityID,
     tenantId: string,
   ): Promise<BinOccupancyData[]>;
-  countByZone(zoneId: UniqueEntityID, tenantId: string): Promise<number>;
   countItemsInBin(binId: UniqueEntityID): Promise<number>;
   softDeleteMany(binIds: string[]): Promise<number>;
   updateAddressMany(

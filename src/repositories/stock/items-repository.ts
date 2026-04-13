@@ -108,10 +108,7 @@ export interface ItemsRepository {
     tenantId: string,
   ): Promise<Item[]>;
   findManyByBin(binId: UniqueEntityID, tenantId: string): Promise<Item[]>;
-  findManyByStatus(status: ItemStatus, tenantId: string): Promise<Item[]>;
   findManyByBatch(batchNumber: string, tenantId: string): Promise<Item[]>;
-  findManyExpiring(daysUntilExpiry: number, tenantId: string): Promise<Item[]>;
-  findManyExpired(tenantId: string): Promise<Item[]>;
   findLastByVariantId(
     variantId: UniqueEntityID,
     tenantId: string,
@@ -128,7 +125,6 @@ export interface ItemsRepository {
   ): Promise<Item>;
 
   // Methods with relations (for list/get with related data)
-  findAllWithRelations(tenantId: string): Promise<ItemWithRelationsDTO[]>;
   findAllWithRelationsPaginated(
     tenantId: string,
     params: PaginationParams,

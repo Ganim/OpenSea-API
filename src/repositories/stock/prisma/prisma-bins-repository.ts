@@ -212,24 +212,6 @@ export class PrismaBinsRepository implements BinsRepository {
     return bins.map(mapToBin);
   }
 
-  async findManyByAisle(
-    zoneId: UniqueEntityID,
-    aisle: number,
-    tenantId: string,
-  ): Promise<Bin[]> {
-    const bins = await prisma.bin.findMany({
-      where: {
-        zoneId: zoneId.toString(),
-        aisle,
-        tenantId,
-        deletedAt: null,
-      },
-      orderBy: [{ shelf: 'asc' }, { position: 'asc' }],
-    });
-
-    return bins.map(mapToBin);
-  }
-
   async findManyAvailable(
     zoneId: UniqueEntityID,
     tenantId: string,
@@ -247,23 +229,6 @@ export class PrismaBinsRepository implements BinsRepository {
 
     // Filter out full bins
     return bins.map(mapToBin).filter((bin) => !bin.isFull);
-  }
-
-  async findManyBlocked(
-    zoneId: UniqueEntityID,
-    tenantId: string,
-  ): Promise<Bin[]> {
-    const bins = await prisma.bin.findMany({
-      where: {
-        zoneId: zoneId.toString(),
-        tenantId,
-        isBlocked: true,
-        deletedAt: null,
-      },
-      orderBy: [{ aisle: 'asc' }, { shelf: 'asc' }, { position: 'asc' }],
-    });
-
-    return bins.map(mapToBin);
   }
 
   async search(query: string, tenantId: string, limit = 20): Promise<Bin[]> {
@@ -395,16 +360,6 @@ export class PrismaBinsRepository implements BinsRepository {
       isBlocked: bin.isBlocked,
       itemCount: bin._count.items,
     }));
-  }
-
-  async countByZone(zoneId: UniqueEntityID, tenantId: string): Promise<number> {
-    return prisma.bin.count({
-      where: {
-        zoneId: zoneId.toString(),
-        tenantId,
-        deletedAt: null,
-      },
-    });
   }
 
   async countItemsInBin(binId: UniqueEntityID): Promise<number> {

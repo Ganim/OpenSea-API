@@ -130,20 +130,6 @@ export class InMemoryBinsRepository implements BinsRepository {
     );
   }
 
-  async findManyByAisle(
-    zoneId: UniqueEntityID,
-    aisle: number,
-    tenantId: string,
-  ): Promise<Bin[]> {
-    return this.bins.filter(
-      (b) =>
-        !b.deletedAt &&
-        b.zoneId.equals(zoneId) &&
-        b.aisle === aisle &&
-        b.tenantId.toString() === tenantId,
-    );
-  }
-
   async findManyAvailable(
     zoneId: UniqueEntityID,
     tenantId: string,
@@ -153,19 +139,6 @@ export class InMemoryBinsRepository implements BinsRepository {
         !b.deletedAt &&
         b.zoneId.equals(zoneId) &&
         b.isAvailable &&
-        b.tenantId.toString() === tenantId,
-    );
-  }
-
-  async findManyBlocked(
-    zoneId: UniqueEntityID,
-    tenantId: string,
-  ): Promise<Bin[]> {
-    return this.bins.filter(
-      (b) =>
-        !b.deletedAt &&
-        b.zoneId.equals(zoneId) &&
-        b.isBlocked &&
         b.tenantId.toString() === tenantId,
     );
   }
@@ -236,14 +209,6 @@ export class InMemoryBinsRepository implements BinsRepository {
         isBlocked: b.isBlocked,
         itemCount: 0, // For testing, return 0 (could be integrated with items repository)
       }));
-  }
-
-  async countByZone(
-    zoneId: UniqueEntityID,
-    _tenantId: string,
-  ): Promise<number> {
-    return this.bins.filter((b) => !b.deletedAt && b.zoneId.equals(zoneId))
-      .length;
   }
 
   async countItemsInBin(_binId: UniqueEntityID): Promise<number> {
