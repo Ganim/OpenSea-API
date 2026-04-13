@@ -45,8 +45,18 @@ describe('Update Form (E2E)', () => {
         title: `Form Atualizado ${ts}`,
         description: 'Descricao atualizada',
         fields: [
-          { label: 'Campo A Atualizado', type: 'TEXT', isRequired: true, order: 0 },
-          { label: 'Campo B Novo', type: 'NUMBER', isRequired: false, order: 1 },
+          {
+            label: 'Campo A Atualizado',
+            type: 'TEXT',
+            isRequired: true,
+            order: 0,
+          },
+          {
+            label: 'Campo B Novo',
+            type: 'NUMBER',
+            isRequired: false,
+            order: 1,
+          },
         ],
       });
 

@@ -1,6 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Item } from '@/entities/stock/item';
-import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import type {
   PaginatedResult,
   PaginationParams,
@@ -273,9 +272,7 @@ export class InMemoryItemsRepository implements ItemsRepository {
   ): Promise<Item> {
     const item = this.items.find(
       (i) =>
-        !i.deletedAt &&
-        i.id.equals(id) &&
-        i.tenantId.toString() === tenantId,
+        !i.deletedAt && i.id.equals(id) && i.tenantId.toString() === tenantId,
     );
     if (!item) {
       throw new Error('Item not found for atomic decrement.');

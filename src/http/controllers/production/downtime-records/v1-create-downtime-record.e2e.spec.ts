@@ -67,7 +67,9 @@ describe('Create Downtime Record (E2E)', () => {
     expect(response.body).toHaveProperty('downtimeRecord');
     expect(response.body.downtimeRecord).toHaveProperty('id');
     expect(response.body.downtimeRecord.workstationId).toBe(workstationId);
-    expect(response.body.downtimeRecord.downtimeReasonId).toBe(downtimeReasonId);
+    expect(response.body.downtimeRecord.downtimeReasonId).toBe(
+      downtimeReasonId,
+    );
     expect(response.body.downtimeRecord.notes).toBe(
       'Machine broke down during production',
     );

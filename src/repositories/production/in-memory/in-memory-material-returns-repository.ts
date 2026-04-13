@@ -27,9 +27,7 @@ export class InMemoryMaterialReturnsRepository
     return materialReturn;
   }
 
-  async findById(
-    id: UniqueEntityID,
-  ): Promise<ProductionMaterialReturn | null> {
+  async findById(id: UniqueEntityID): Promise<ProductionMaterialReturn | null> {
     const item = this.items.find(
       (i) => i.materialReturnId.toString() === id.toString(),
     );

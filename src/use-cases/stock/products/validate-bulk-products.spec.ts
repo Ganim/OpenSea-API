@@ -38,7 +38,6 @@ describe('ValidateBulkProductsUseCase', () => {
     createProduct = new CreateProductUseCase(
       productsRepository,
       templatesRepository,
-      { findById: async () => null } as unknown,
       manufacturersRepository,
       categoriesRepository,
     );
@@ -94,7 +93,8 @@ describe('ValidateBulkProductsUseCase', () => {
     await categoriesRepository.create({
       tenantId: TENANT_ID,
       name: 'Roupas',
-    });
+      slug: 'roupas',
+    } as any);
 
     const result = await sut.execute({
       tenantId: TENANT_ID,
@@ -114,7 +114,9 @@ describe('ValidateBulkProductsUseCase', () => {
     await manufacturersRepository.create({
       tenantId: TENANT_ID,
       name: 'Fabricante X',
-    });
+      code: 'FAB-X',
+      country: 'BR',
+    } as any);
 
     const result = await sut.execute({
       tenantId: TENANT_ID,
@@ -163,7 +165,8 @@ describe('ValidateBulkProductsUseCase', () => {
     await categoriesRepository.create({
       tenantId: TENANT_ID,
       name: 'Roupas',
-    });
+      slug: 'roupas',
+    } as any);
 
     const result = await sut.execute({
       tenantId: TENANT_ID,

@@ -158,7 +158,10 @@ export class PrintAgent extends Entity<PrintAgentProps> {
   }
 
   static create(
-    props: Optional<PrintAgentProps, 'id' | 'createdAt' | 'status' | 'pairingSecret'>,
+    props: Optional<
+      PrintAgentProps,
+      'id' | 'createdAt' | 'status' | 'pairingSecret'
+    >,
     id?: UniqueEntityID,
   ) {
     return new PrintAgent(

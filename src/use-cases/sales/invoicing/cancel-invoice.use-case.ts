@@ -50,12 +50,18 @@ export class CancelInvoiceUseCase {
     }
 
     // Busca config Focus NFe do tenant
-    const config = await this.focusNfeConfigRepository.findByTenant(request.tenantId);
+    const config = await this.focusNfeConfigRepository.findByTenant(
+      request.tenantId,
+    );
     if (!config || !config.isEnabled) {
-      throw new BadRequestError('Focus NFe is not configured or disabled for this tenant.');
+      throw new BadRequestError(
+        'Focus NFe is not configured or disabled for this tenant.',
+      );
     }
 
-    const companies = await this.companiesRepository.findManyActive(request.tenantId);
+    const companies = await this.companiesRepository.findManyActive(
+      request.tenantId,
+    );
     const company = companies[0];
     if (!company) {
       throw new BadRequestError('Nenhuma empresa cadastrada para este tenant.');

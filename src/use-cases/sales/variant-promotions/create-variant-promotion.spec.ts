@@ -114,7 +114,7 @@ describe('CreateVariantPromotionUseCase', () => {
         tenantId: 'tenant-1',
         variantId: variant.id.toString(),
         name: 'Invalid Discount',
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
         discountType: 'INVALID' as any,
         discountValue: 10,
         startDate: new Date('2025-01-01'),

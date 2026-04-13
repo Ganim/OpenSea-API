@@ -27,9 +27,7 @@ describe('Check Charge Status (E2E)', () => {
 
   it('should return 404 for non-existent charge', async () => {
     const response = await request(app.server)
-      .get(
-        '/v1/payments/charges/00000000-0000-0000-0000-000000000001/status',
-      )
+      .get('/v1/payments/charges/00000000-0000-0000-0000-000000000001/status')
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(404);

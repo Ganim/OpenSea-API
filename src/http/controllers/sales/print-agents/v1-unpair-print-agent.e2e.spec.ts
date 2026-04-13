@@ -27,7 +27,9 @@ describe('Unpair Print Agent (E2E)', () => {
 
   it('should return 404 for non-existent agent', async () => {
     const response = await request(app.server)
-      .post('/v1/sales/print-agents/00000000-0000-0000-0000-000000000001/unpair')
+      .post(
+        '/v1/sales/print-agents/00000000-0000-0000-0000-000000000001/unpair',
+      )
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(404);

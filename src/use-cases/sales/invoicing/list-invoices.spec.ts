@@ -90,15 +90,15 @@ describe('ListInvoicesUseCase', () => {
   });
 
   it('should throw if page is less than 1', async () => {
-    await expect(
-      sut.execute({ tenantId, page: 0, limit: 10 }),
-    ).rejects.toThrow('Page must be >= 1');
+    await expect(sut.execute({ tenantId, page: 0, limit: 10 })).rejects.toThrow(
+      'Page must be >= 1',
+    );
   });
 
   it('should throw if limit is out of range', async () => {
-    await expect(
-      sut.execute({ tenantId, page: 1, limit: 0 }),
-    ).rejects.toThrow('Limit must be between 1 and 100');
+    await expect(sut.execute({ tenantId, page: 1, limit: 0 })).rejects.toThrow(
+      'Limit must be between 1 and 100',
+    );
 
     await expect(
       sut.execute({ tenantId, page: 1, limit: 101 }),

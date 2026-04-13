@@ -29,31 +29,31 @@ function makeBoard(overrides?: Partial<{ ownerId: string }>) {
 function makeMocks() {
   const boardsRepository = {
     findById: vi.fn(),
-  } as unknown;
+  };
 
   const boardMembersRepository = {
     findByBoardAndUser: vi.fn(),
-  } as unknown;
+  };
 
   const cardsRepository = {
     findById: vi.fn(),
-  } as unknown;
+  };
 
   const cardIntegrationsRepository = {
     findByCardAndEntity: vi.fn(),
     create: vi.fn(),
-  } as unknown;
+  };
 
   const cardActivitiesRepository = {
     create: vi.fn(),
-  } as unknown;
+  };
 
   const sut = new CreateCardIntegrationUseCase(
-    boardsRepository,
-    boardMembersRepository,
-    cardsRepository,
-    cardIntegrationsRepository,
-    cardActivitiesRepository,
+    boardsRepository as any,
+    boardMembersRepository as any,
+    cardsRepository as any,
+    cardIntegrationsRepository as any,
+    cardActivitiesRepository as any,
   );
 
   return {

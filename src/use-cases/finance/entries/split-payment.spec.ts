@@ -15,11 +15,18 @@ let paymentsRepository: InMemoryFinanceEntryPaymentsRepository;
 let sut: SplitPaymentUseCase;
 
 // Fake transaction manager that executes synchronously (no real DB)
-const fakeTransactionManager: import('@/lib/transaction-manager').TransactionManager = {
-  run: async <T>(fn: (tx: import('@/lib/transaction-manager').TransactionClient) => Promise<T>): Promise<T> => {
-    return fn(undefined as unknown as import('@/lib/transaction-manager').TransactionClient);
-  },
-};
+const fakeTransactionManager: import('@/lib/transaction-manager').TransactionManager =
+  {
+    run: async <T>(
+      fn: (
+        tx: import('@/lib/transaction-manager').TransactionClient,
+      ) => Promise<T>,
+    ): Promise<T> => {
+      return fn(
+        undefined as unknown as import('@/lib/transaction-manager').TransactionClient,
+      );
+    },
+  };
 
 describe('SplitPaymentUseCase', () => {
   beforeEach(() => {

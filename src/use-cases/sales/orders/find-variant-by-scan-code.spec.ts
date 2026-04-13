@@ -76,9 +76,9 @@ describe('FindVariantByScanCodeUseCase', () => {
   });
 
   it('should throw BadRequestError for empty scan code', async () => {
-    await expect(
-      sut.execute({ tenantId, code: '   ' }),
-    ).rejects.toBeInstanceOf(BadRequestError);
+    await expect(sut.execute({ tenantId, code: '   ' })).rejects.toBeInstanceOf(
+      BadRequestError,
+    );
   });
 
   it('should throw ResourceNotFoundError when no variant matches', async () => {

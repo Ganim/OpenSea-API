@@ -26,9 +26,7 @@ describe('List Submissions (E2E)', () => {
     const { token } = await createAndAuthenticateUser(app, { tenantId });
 
     const response = await request(app.server)
-      .get(
-        '/v1/sales/forms/00000000-0000-0000-0000-000000000001/submissions',
-      )
+      .get('/v1/sales/forms/00000000-0000-0000-0000-000000000001/submissions')
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(404);
@@ -44,9 +42,7 @@ describe('List Submissions (E2E)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         title: `Form Listagem ${ts}`,
-        fields: [
-          { label: 'Nome', type: 'TEXT', isRequired: true, order: 0 },
-        ],
+        fields: [{ label: 'Nome', type: 'TEXT', isRequired: true, order: 0 }],
       });
 
     const formId = createRes.body.form.id;

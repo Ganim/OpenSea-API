@@ -33,7 +33,9 @@ export class CancelMaterialReservationUseCase {
     }
 
     if (existingReservation.status === 'FULLY_ISSUED') {
-      throw new BadRequestError('Cannot cancel a fully issued material reservation.');
+      throw new BadRequestError(
+        'Cannot cancel a fully issued material reservation.',
+      );
     }
 
     const materialReservation =

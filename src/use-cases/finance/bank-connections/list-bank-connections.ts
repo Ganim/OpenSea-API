@@ -12,9 +12,7 @@ interface ListBankConnectionsUseCaseResponse {
 }
 
 export class ListBankConnectionsUseCase {
-  constructor(
-    private bankConnectionsRepository: BankConnectionsRepository,
-  ) {}
+  constructor(private bankConnectionsRepository: BankConnectionsRepository) {}
 
   async execute(
     request: ListBankConnectionsUseCaseRequest,

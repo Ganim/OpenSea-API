@@ -156,5 +156,4 @@ export class ListItemsUseCase {
       meta: { total, page, limit, pages },
     };
   }
-
 }

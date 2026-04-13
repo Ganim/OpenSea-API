@@ -107,10 +107,14 @@ export class IssueInvoiceUseCase {
       request.tenantId,
     );
 
-    const companies = await this.companiesRepository.findManyActive(request.tenantId);
+    const companies = await this.companiesRepository.findManyActive(
+      request.tenantId,
+    );
     const company = companies[0];
     if (!company) {
-      throw new BadRequestError('Nenhuma empresa cadastrada para este tenant. Configure os dados da empresa antes de emitir notas fiscais.');
+      throw new BadRequestError(
+        'Nenhuma empresa cadastrada para este tenant. Configure os dados da empresa antes de emitir notas fiscais.',
+      );
     }
 
     const addressResult = await this.companyAddressesRepository.findMany({

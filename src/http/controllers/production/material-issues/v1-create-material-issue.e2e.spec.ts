@@ -43,7 +43,9 @@ describe('Create Material Issue (E2E)', () => {
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty('materialIssue');
     expect(response.body.materialIssue).toHaveProperty('id');
-    expect(response.body.materialIssue.productionOrderId).toBe(productionOrderId);
+    expect(response.body.materialIssue.productionOrderId).toBe(
+      productionOrderId,
+    );
     expect(response.body.materialIssue.materialId).toBe(productId);
     expect(response.body.materialIssue.quantity).toBe(25);
   });

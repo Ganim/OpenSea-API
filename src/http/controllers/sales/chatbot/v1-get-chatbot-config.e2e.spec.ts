@@ -18,9 +18,7 @@ describe('Get Chatbot Config (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server).get(
-      '/v1/sales/chatbot/config',
-    );
+    const response = await request(app.server).get('/v1/sales/chatbot/config');
 
     expect(response.status).toBe(401);
   });

@@ -163,7 +163,9 @@ export class ProcessEmailToEntryUseCase {
 
           try {
             // Find PDF/image attachments in bodyStructure
-            const attachmentParts = this.findAttachmentParts(msg.bodyStructure as Record<string, unknown>);
+            const attachmentParts = this.findAttachmentParts(
+              msg.bodyStructure as Record<string, unknown>,
+            );
 
             if (attachmentParts.length === 0) {
               // No relevant attachments - skip

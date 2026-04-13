@@ -46,7 +46,9 @@ export class CreateTimeEntryUseCase {
     }
 
     if (jobCard.status !== 'IN_PROGRESS') {
-      throw new BadRequestError('Job card must be IN_PROGRESS to register time entries.');
+      throw new BadRequestError(
+        'Job card must be IN_PROGRESS to register time entries.',
+      );
     }
 
     if (endTime && endTime <= startTime) {

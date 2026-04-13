@@ -31,22 +31,22 @@ function makeMocks() {
   const storageFoldersRepository = {
     findById: vi.fn(),
     findDescendants: vi.fn(),
-  } as unknown;
+  };
 
   const storageFilesRepository = {
     findMany: vi.fn(),
-  } as unknown;
+  };
 
   const fileUploadService = {
     getObject: vi.fn(),
     upload: vi.fn(),
     getPresignedUrl: vi.fn(),
-  } as unknown;
+  };
 
   const sut = new DownloadFolderUseCase(
-    storageFoldersRepository,
-    storageFilesRepository,
-    fileUploadService,
+    storageFoldersRepository as any,
+    storageFilesRepository as any,
+    fileUploadService as any,
   );
 
   return {

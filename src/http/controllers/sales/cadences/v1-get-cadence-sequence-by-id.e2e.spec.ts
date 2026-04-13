@@ -41,9 +41,7 @@ describe('Get Cadence Sequence By ID (E2E)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         name: `Cadencia Detail ${ts}`,
-        steps: [
-          { order: 1, type: 'EMAIL', delayDays: 0, config: {} },
-        ],
+        steps: [{ order: 1, type: 'EMAIL', delayDays: 0, config: {} }],
       });
 
     const cadenceId = createRes.body.cadenceSequence.id;

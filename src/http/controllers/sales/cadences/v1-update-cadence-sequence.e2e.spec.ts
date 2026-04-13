@@ -31,9 +31,7 @@ describe('Update Cadence Sequence (E2E)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         name: `Cadencia Original ${ts}`,
-        steps: [
-          { order: 1, type: 'EMAIL', delayDays: 0, config: {} },
-        ],
+        steps: [{ order: 1, type: 'EMAIL', delayDays: 0, config: {} }],
       });
 
     const cadenceId = createRes.body.cadenceSequence.id;
@@ -45,7 +43,12 @@ describe('Update Cadence Sequence (E2E)', () => {
         name: `Cadencia Atualizada ${ts}`,
         description: 'Descricao atualizada',
         steps: [
-          { order: 1, type: 'EMAIL', delayDays: 0, config: { subject: 'Novo assunto' } },
+          {
+            order: 1,
+            type: 'EMAIL',
+            delayDays: 0,
+            config: { subject: 'Novo assunto' },
+          },
           { order: 2, type: 'WHATSAPP', delayDays: 2, config: {} },
         ],
       });

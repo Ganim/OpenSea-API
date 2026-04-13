@@ -44,8 +44,6 @@ export function startEsocialBatchPollingWorker() {
     console.log(
       `[eSocial] Batch ${batchId}: status=${result.status}, accepted=${result.acceptedCount}, rejected=${result.rejectedCount}`,
     );
-
-    return result;
   });
 }
 

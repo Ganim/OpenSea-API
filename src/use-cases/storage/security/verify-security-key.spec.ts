@@ -32,8 +32,8 @@ describe('VerifySecurityKeyUseCase', () => {
       tenantId,
       userId,
       securityKeyHash: '$2a$10$hashedkey',
-    });
-    vi.mocked(compare).mockResolvedValue(true);
+    } as any);
+    vi.mocked(compare).mockResolvedValue(true as any);
 
     const result = await sut.execute({
       tenantId,
@@ -51,8 +51,8 @@ describe('VerifySecurityKeyUseCase', () => {
       tenantId,
       userId,
       securityKeyHash: '$2a$10$hashedkey',
-    });
-    vi.mocked(compare).mockResolvedValue(false);
+    } as any);
+    vi.mocked(compare).mockResolvedValue(false as any);
 
     const result = await sut.execute({
       tenantId,
@@ -82,7 +82,7 @@ describe('VerifySecurityKeyUseCase', () => {
       tenantId,
       userId,
       securityKeyHash: null,
-    });
+    } as any);
 
     const result = await sut.execute({
       tenantId,

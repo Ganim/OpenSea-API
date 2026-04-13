@@ -16,8 +16,7 @@ const tenantId = 'tenant-1';
 describe('GetCashierSessionReportUseCase', () => {
   beforeEach(() => {
     cashierSessionsRepository = new InMemoryCashierSessionsRepository();
-    cashierTransactionsRepository =
-      new InMemoryCashierTransactionsRepository();
+    cashierTransactionsRepository = new InMemoryCashierTransactionsRepository();
 
     sut = new GetCashierSessionReportUseCase(
       cashierSessionsRepository,

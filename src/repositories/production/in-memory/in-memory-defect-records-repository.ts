@@ -30,9 +30,7 @@ export class InMemoryDefectRecordsRepository
     return defectRecord;
   }
 
-  async findById(
-    id: UniqueEntityID,
-  ): Promise<ProductionDefectRecord | null> {
+  async findById(id: UniqueEntityID): Promise<ProductionDefectRecord | null> {
     const item = this.items.find(
       (i) => i.defectRecordId.toString() === id.toString(),
     );

@@ -58,7 +58,9 @@ export class RegisterItemExitUseCase {
 
     // Validation: reasonCode max length 64
     if (input.reasonCode && input.reasonCode.length > 64) {
-      throw new BadRequestError('O código de motivo não pode exceder 64 caracteres.');
+      throw new BadRequestError(
+        'O código de motivo não pode exceder 64 caracteres.',
+      );
     }
 
     // Validation: destinationRef max length 256
@@ -70,7 +72,9 @@ export class RegisterItemExitUseCase {
 
     // Validation: notes max length 1000
     if (input.notes && input.notes.length > 1000) {
-      throw new BadRequestError('As observações não podem exceder 1000 caracteres.');
+      throw new BadRequestError(
+        'As observações não podem exceder 1000 caracteres.',
+      );
     }
 
     // TODO: Implementar sistema de aprovação real (PENDING_APPROVAL → aprovador aceita/rejeita)

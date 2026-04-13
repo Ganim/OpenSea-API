@@ -31,9 +31,7 @@ describe('Delete Form (E2E)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         title: `Form Deletar ${ts}`,
-        fields: [
-          { label: 'Campo', type: 'TEXT', isRequired: false, order: 0 },
-        ],
+        fields: [{ label: 'Campo', type: 'TEXT', isRequired: false, order: 0 }],
       });
 
     const formId = createRes.body.form.id;

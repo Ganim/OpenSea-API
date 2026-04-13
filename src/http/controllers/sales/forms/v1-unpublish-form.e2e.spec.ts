@@ -32,9 +32,7 @@ describe('Unpublish Form (E2E)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         title: `Form Despublicar ${ts}`,
-        fields: [
-          { label: 'Nome', type: 'TEXT', isRequired: true, order: 0 },
-        ],
+        fields: [{ label: 'Nome', type: 'TEXT', isRequired: true, order: 0 }],
       });
 
     const formId = createRes.body.form.id;

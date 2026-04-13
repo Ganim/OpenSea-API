@@ -25,7 +25,7 @@ export async function createEmployeeRequestE2E(
       employeeId: props.employeeId,
       type: props.type ?? 'VACATION',
       status: props.status ?? 'PENDING',
-      data: props.data ?? {},
+      data: (props.data ?? {}) as any,
       approverEmployeeId: props.approverEmployeeId,
       rejectionReason: props.rejectionReason,
     },

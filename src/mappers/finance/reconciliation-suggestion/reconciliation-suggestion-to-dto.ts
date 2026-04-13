@@ -1,4 +1,7 @@
-import type { ReconciliationSuggestion, ReconciliationSuggestionStatus } from '@/entities/finance/reconciliation-suggestion';
+import type {
+  ReconciliationSuggestion,
+  ReconciliationSuggestionStatus,
+} from '@/entities/finance/reconciliation-suggestion';
 
 export interface ReconciliationSuggestionDTO {
   id: string;

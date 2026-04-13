@@ -29,9 +29,7 @@ export class InMemoryInspectionPlansRepository
     return inspectionPlan;
   }
 
-  async findById(
-    id: UniqueEntityID,
-  ): Promise<ProductionInspectionPlan | null> {
+  async findById(id: UniqueEntityID): Promise<ProductionInspectionPlan | null> {
     const item = this.items.find(
       (i) => i.inspectionPlanId.toString() === id.toString(),
     );

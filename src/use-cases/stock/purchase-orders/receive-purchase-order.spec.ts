@@ -38,10 +38,7 @@ function makeConfirmedOrderWithItems() {
   });
 
   // Access internal items array to add items to confirmed order
-  (order as unknown as { props: Record<string, unknown> }).props.items.push(
-    item1,
-    item2,
-  );
+  (order as any).props.items.push(item1, item2);
   (order as unknown as { props: Record<string, unknown> }).props.totalCost =
     item1.totalCost + item2.totalCost;
 
@@ -118,8 +115,8 @@ describe('ReceivePurchaseOrderUseCase', () => {
       (c: unknown[]) =>
         (c[0] as Record<string, unknown>).variantId === variantId1.toString(),
     );
-    expect(overriddenCall[0].quantity).toBe(3);
-    expect(overriddenCall[0].notes).toBe('Partial shipment');
+    expect(overriddenCall![0].quantity).toBe(3);
+    expect(overriddenCall![0].notes).toBe('Partial shipment');
   });
 
   it('should skip zero-quantity items in overrides', async () => {
@@ -213,7 +210,7 @@ describe('ReceivePurchaseOrderUseCase', () => {
     sut = new ReceivePurchaseOrderUseCase(
       purchaseOrdersRepository,
       mockRegisterItemEntry,
-      mockCalendarSync as unknown,
+      mockCalendarSync as any,
     );
 
     const { order } = makeConfirmedOrderWithItems();

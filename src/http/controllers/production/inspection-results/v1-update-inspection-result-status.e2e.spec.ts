@@ -37,9 +37,7 @@ describe('Update Inspection Result Status (E2E)', () => {
 
   it('should update inspection result status', async () => {
     const response = await request(app.server)
-      .patch(
-        `/v1/production/inspection-results/${inspectionResultId}/status`,
-      )
+      .patch(`/v1/production/inspection-results/${inspectionResultId}/status`)
       .set('Authorization', `Bearer ${token}`)
       .send({
         status: 'PASSED',

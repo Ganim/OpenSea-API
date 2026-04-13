@@ -140,7 +140,7 @@ describe('SyncEmailFolderUseCase', () => {
     sut = new SyncEmailFolderUseCase(
       foldersRepository,
       messagesRepository,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       new FakeCipherService() as any,
     );
   });

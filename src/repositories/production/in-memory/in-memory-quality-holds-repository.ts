@@ -11,9 +11,7 @@ import type {
 export class InMemoryQualityHoldsRepository implements QualityHoldsRepository {
   public items: ProductionQualityHold[] = [];
 
-  async create(
-    data: CreateQualityHoldSchema,
-  ): Promise<ProductionQualityHold> {
+  async create(data: CreateQualityHoldSchema): Promise<ProductionQualityHold> {
     const hold = ProductionQualityHold.create({
       productionOrderId: new EntityID(data.productionOrderId),
       reason: data.reason,
@@ -37,8 +35,7 @@ export class InMemoryQualityHoldsRepository implements QualityHoldsRepository {
 
     if (filters.productionOrderId) {
       results = results.filter(
-        (i) =>
-          i.productionOrderId.toString() === filters.productionOrderId,
+        (i) => i.productionOrderId.toString() === filters.productionOrderId,
       );
     }
 

@@ -38,8 +38,7 @@ describe('AddTenantSubscriptionUseCase', () => {
   beforeEach(() => {
     subscriptionsRepository = new InMemoryTenantSubscriptionsRepository();
     tenantsRepository = new InMemoryTenantsRepository();
-    skillDefinitionsRepository =
-      new InMemorySystemSkillDefinitionsRepository();
+    skillDefinitionsRepository = new InMemorySystemSkillDefinitionsRepository();
 
     sut = new AddTenantSubscriptionUseCase(
       subscriptionsRepository,

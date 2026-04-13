@@ -41,9 +41,7 @@ describe('Delete Cadence Sequence (E2E)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         name: `Cadencia Deletar ${ts}`,
-        steps: [
-          { order: 1, type: 'CALL', delayDays: 0, config: {} },
-        ],
+        steps: [{ order: 1, type: 'CALL', delayDays: 0, config: {} }],
       });
 
     const cadenceId = createRes.body.cadenceSequence.id;

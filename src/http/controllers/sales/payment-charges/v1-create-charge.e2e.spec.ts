@@ -38,7 +38,7 @@ describe('Create Payment Charge (E2E)', () => {
         orderId: '00000000-0000-0000-0000-000000000001',
         orderNumber: 'ORD-E2E-001',
         method: 'PIX',
-        amount: 150.00,
+        amount: 150.0,
       });
 
     expect([400, 404, 500]).toContain(response.status);

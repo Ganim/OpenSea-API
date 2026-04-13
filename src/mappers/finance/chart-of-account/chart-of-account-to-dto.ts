@@ -1,7 +1,17 @@
 import type { ChartOfAccount } from '@/entities/finance/chart-of-account';
 
-export type AccountType = 'ASSET' | 'LIABILITY' | 'EQUITY' | 'REVENUE' | 'EXPENSE';
-export type AccountClass = 'CURRENT' | 'NON_CURRENT' | 'OPERATIONAL' | 'FINANCIAL' | 'OTHER';
+export type AccountType =
+  | 'ASSET'
+  | 'LIABILITY'
+  | 'EQUITY'
+  | 'REVENUE'
+  | 'EXPENSE';
+export type AccountClass =
+  | 'CURRENT'
+  | 'NON_CURRENT'
+  | 'OPERATIONAL'
+  | 'FINANCIAL'
+  | 'OTHER';
 export type AccountNature = 'DEBIT' | 'CREDIT';
 
 export interface ChartOfAccountDTO {

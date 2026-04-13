@@ -40,8 +40,12 @@ describe('Create Inspection Result (E2E)', () => {
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty('inspectionResult');
     expect(response.body.inspectionResult).toHaveProperty('id');
-    expect(response.body.inspectionResult.inspectionPlanId).toBe(inspectionPlanId);
-    expect(response.body.inspectionResult.productionOrderId).toBe(productionOrderId);
+    expect(response.body.inspectionResult.inspectionPlanId).toBe(
+      inspectionPlanId,
+    );
+    expect(response.body.inspectionResult.productionOrderId).toBe(
+      productionOrderId,
+    );
     expect(response.body.inspectionResult.sampleSize).toBe(10);
     expect(response.body.inspectionResult.defectsFound).toBe(2);
     expect(response.body.inspectionResult.status).toBe('PENDING');

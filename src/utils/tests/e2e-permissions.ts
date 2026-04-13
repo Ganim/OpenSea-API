@@ -780,7 +780,15 @@ export const ALL_PERMISSIONS: Record<string, Record<string, string[]>> = {
   // PRODUCTION module
   production: {
     engineering: ['access', 'register', 'modify', 'remove', 'admin'],
-    orders: ['access', 'register', 'modify', 'remove', 'export', 'print', 'admin'],
+    orders: [
+      'access',
+      'register',
+      'modify',
+      'remove',
+      'export',
+      'print',
+      'admin',
+    ],
     shopfloor: ['access', 'register', 'modify', 'admin'],
     planning: ['access', 'register', 'modify', 'admin'],
     quality: ['access', 'register', 'modify', 'admin'],

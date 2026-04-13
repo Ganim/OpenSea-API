@@ -26,14 +26,14 @@ function makeBoard(overrides?: Partial<{ ownerId: string }>) {
 }
 
 function makeMocks() {
-  const boardsRepository = { findById: vi.fn() } as unknown;
-  const boardMembersRepository = { findByBoardAndUser: vi.fn() } as unknown;
-  const cardIntegrationsRepository = { findByCardId: vi.fn() } as unknown;
+  const boardsRepository = { findById: vi.fn() };
+  const boardMembersRepository = { findByBoardAndUser: vi.fn() };
+  const cardIntegrationsRepository = { findByCardId: vi.fn() };
 
   const sut = new ListCardIntegrationsUseCase(
-    boardsRepository,
-    boardMembersRepository,
-    cardIntegrationsRepository,
+    boardsRepository as any,
+    boardMembersRepository as any,
+    cardIntegrationsRepository as any,
   );
 
   return {

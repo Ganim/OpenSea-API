@@ -33,13 +33,16 @@ export async function v1ListPrintersController(app: FastifyInstance) {
       const result = await useCase.execute({ tenantId });
 
       // Build agent name lookup
-      const agentIds = [...new Set(result.printers.map((p) => p.agentId).filter(Boolean))] as string[];
-      const agents = agentIds.length > 0
-        ? await prisma.printAgent.findMany({
-            where: { id: { in: agentIds }, tenantId },
-            select: { id: true, name: true },
-          })
-        : [];
+      const agentIds = [
+        ...new Set(result.printers.map((p) => p.agentId).filter(Boolean)),
+      ] as string[];
+      const agents =
+        agentIds.length > 0
+          ? await prisma.printAgent.findMany({
+              where: { id: { in: agentIds }, tenantId },
+              select: { id: true, name: true },
+            })
+          : [];
       const agentNameMap = new Map(agents.map((a) => [a.id, a.name]));
 
       return reply.status(200).send({
@@ -59,7 +62,9 @@ export async function v1ListPrintersController(app: FastifyInstance) {
           status: printer.status ?? 'UNKNOWN',
           lastSeenAt: printer.lastSeenAt?.toISOString() ?? null,
           agentId: printer.agentId ?? null,
-          agentName: printer.agentId ? (agentNameMap.get(printer.agentId) ?? null) : null,
+          agentName: printer.agentId
+            ? (agentNameMap.get(printer.agentId) ?? null)
+            : null,
           osName: printer.osName ?? null,
         })),
       });

@@ -265,8 +265,7 @@ export const PRODUCTION_AUDIT_MESSAGES = {
     action: AuditAction.UPDATE,
     entity: AuditEntity.PRODUCTION_JOB_CARD,
     module: AuditModule.PRODUCTION,
-    description:
-      '{{userName}} pausou o job card da operação {{operationName}}',
+    description: '{{userName}} pausou o job card da operação {{operationName}}',
   } satisfies AuditMessage,
 
   PRODUCTION_REPORT: {

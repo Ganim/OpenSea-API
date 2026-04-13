@@ -23,8 +23,7 @@ function makeOrderWithTerminal(
 ) {
   const order = makeOrder(props);
   if (props?.terminalId) {
-    (order as unknown as Record<string, unknown>).terminalId =
-      props.terminalId;
+    (order as unknown as Record<string, unknown>).terminalId = props.terminalId;
   }
   return order;
 }

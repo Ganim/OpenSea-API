@@ -46,7 +46,7 @@ export async function createBenefitPlanE2E(
         override.policyNumber ??
         `POL-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
       isActive: override.isActive ?? true,
-      rules: override.rules ?? undefined,
+      rules: (override.rules as any) ?? undefined,
       description: override.description ?? faker.lorem.sentence(),
     },
   });

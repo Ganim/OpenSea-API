@@ -34,7 +34,9 @@ describe('Delete Coupon (E2E)', () => {
         type: 'PERCENTAGE',
         value: 10,
         validFrom: new Date().toISOString(),
-        validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+        validUntil: new Date(
+          Date.now() + 30 * 24 * 60 * 60 * 1000,
+        ).toISOString(),
       });
 
     const couponId = createRes.body.coupon.id;

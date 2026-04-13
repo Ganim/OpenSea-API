@@ -58,9 +58,15 @@ import { pipelineStagesRoutes } from './controllers/sales/pipeline-stages/routes
 import { pipelinesRoutes } from './controllers/sales/pipelines/routes';
 import { posRoutes } from './controllers/sales/pos/routes';
 import { priceTablesRoutes } from './controllers/sales/price-tables/routes';
-import { printAgentsRoutes, printAgentsPublicRoutes } from './controllers/sales/print-agents/routes';
+import {
+  printAgentsRoutes,
+  printAgentsPublicRoutes,
+} from './controllers/sales/print-agents/routes';
 import { printersRoutes } from './controllers/sales/printers/routes';
-import { printAgentWsRoutes, printingRoutes } from './controllers/sales/printing/routes';
+import {
+  printAgentWsRoutes,
+  printingRoutes,
+} from './controllers/sales/printing/routes';
 import { salesOrdersRoutes } from './controllers/sales/sales-orders/routes';
 import { storeCreditsRoutes } from './controllers/sales/store-credits/routes';
 import { timelineRoutes } from './controllers/sales/timeline/routes';

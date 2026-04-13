@@ -32,7 +32,9 @@ export class InMemoryProductionCostsRepository
     return item ?? null;
   }
 
-  async findManyByOrderId(productionOrderId: string): Promise<ProductionCost[]> {
+  async findManyByOrderId(
+    productionOrderId: string,
+  ): Promise<ProductionCost[]> {
     return this.items.filter(
       (i) => i.productionOrderId.toString() === productionOrderId,
     );
@@ -46,7 +48,8 @@ export class InMemoryProductionCostsRepository
 
     if (data.costType !== undefined) item.costType = data.costType;
     if (data.description !== undefined) item.description = data.description;
-    if (data.plannedAmount !== undefined) item.plannedAmount = data.plannedAmount;
+    if (data.plannedAmount !== undefined)
+      item.plannedAmount = data.plannedAmount;
     if (data.actualAmount !== undefined) item.actualAmount = data.actualAmount;
     if (data.varianceAmount !== undefined)
       item.varianceAmount = data.varianceAmount;

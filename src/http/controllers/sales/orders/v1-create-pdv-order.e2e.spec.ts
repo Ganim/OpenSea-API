@@ -15,9 +15,7 @@ describe('Create PDV Order (E2E)', () => {
   });
 
   it('should return 401 without token', async () => {
-    const response = await request(app.server)
-      .post('/v1/orders/pdv')
-      .send({});
+    const response = await request(app.server).post('/v1/orders/pdv').send({});
 
     expect(response.status).toBe(401);
   });

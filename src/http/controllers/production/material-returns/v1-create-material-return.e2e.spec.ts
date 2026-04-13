@@ -42,7 +42,9 @@ describe('Create Material Return (E2E)', () => {
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty('materialReturn');
     expect(response.body.materialReturn).toHaveProperty('id');
-    expect(response.body.materialReturn.productionOrderId).toBe(productionOrderId);
+    expect(response.body.materialReturn.productionOrderId).toBe(
+      productionOrderId,
+    );
     expect(response.body.materialReturn.quantity).toBe(5);
     expect(response.body.materialReturn.reason).toBe(
       'Excess material returned to warehouse',

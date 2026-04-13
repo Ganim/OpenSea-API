@@ -30,9 +30,8 @@ describe('ValidateBulkVariantsUseCase', () => {
     createProduct = new CreateProductUseCase(
       productsRepository,
       templatesRepository,
-      { findById: async () => null } as unknown,
-      { findById: async () => null } as unknown,
-      { findById: async () => null } as unknown,
+      { findById: async () => null } as any,
+      { findById: async () => null } as any,
     );
 
     const templateResult = await createTemplate.execute({

@@ -13,7 +13,7 @@ vi.mock('@/lib/prisma', () => {
 import { prisma } from '@/lib/prisma';
 import { SearchItemLocationUseCase } from './search-item-location';
 
-const mockPrisma = vi.mocked(prisma);
+const mockPrisma = vi.mocked(prisma) as any;
 const TENANT_ID = 'tenant-1';
 let sut: SearchItemLocationUseCase;
 

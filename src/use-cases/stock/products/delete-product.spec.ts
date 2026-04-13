@@ -89,9 +89,7 @@ describe('DeleteProductUseCase', () => {
   });
 
   it('should throw BadRequestError if a variant has active items', async () => {
-    const { Slug } = await import(
-      '@/entities/stock/value-objects/slug'
-    );
+    const { Slug } = await import('@/entities/stock/value-objects/slug');
     const { ItemStatus } = await import(
       '@/entities/stock/value-objects/item-status'
     );

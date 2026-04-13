@@ -82,7 +82,9 @@ export class CheckInvoiceStatusUseCase {
 
     // Se for PENDING ou ERROR, tenta query o status via provider
     if (invoice.status === 'PENDING' || invoice.status === 'ERROR') {
-      const config = await this.focusNfeConfigRepository.findByTenant(request.tenantId);
+      const config = await this.focusNfeConfigRepository.findByTenant(
+        request.tenantId,
+      );
       if (config && config.isEnabled) {
         try {
           const statusResponse = await this.focusNfeProvider.checkStatus({

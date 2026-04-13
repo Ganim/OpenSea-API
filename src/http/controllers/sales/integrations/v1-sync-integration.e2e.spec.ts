@@ -27,9 +27,7 @@ describe('Sync Integration (E2E)', () => {
 
   it('should return 404 for non-existent tenant integration', async () => {
     const response = await request(app.server)
-      .post(
-        '/v1/sales/integrations/00000000-0000-0000-0000-000000000001/sync',
-      )
+      .post('/v1/sales/integrations/00000000-0000-0000-0000-000000000001/sync')
       .set('Authorization', `Bearer ${token}`);
 
     expect([404, 400]).toContain(response.status);

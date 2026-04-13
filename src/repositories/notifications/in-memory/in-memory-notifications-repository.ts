@@ -82,7 +82,8 @@ export class InMemoryNotificationsRepository
     }
     if (filter.excludeEntityTypes && filter.excludeEntityTypes.length > 0) {
       result = result.filter(
-        (n) => !n.entityType || !filter.excludeEntityTypes!.includes(n.entityType),
+        (n) =>
+          !n.entityType || !filter.excludeEntityTypes!.includes(n.entityType),
       );
     }
 

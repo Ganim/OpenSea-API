@@ -44,9 +44,7 @@ describe('Enroll Contact (E2E)', () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         name: `Cadencia Enroll ${ts}`,
-        steps: [
-          { order: 1, type: 'EMAIL', delayDays: 0, config: {} },
-        ],
+        steps: [{ order: 1, type: 'EMAIL', delayDays: 0, config: {} }],
       });
 
     const cadenceId = createRes.body.cadenceSequence.id;

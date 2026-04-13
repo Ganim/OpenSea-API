@@ -32,11 +32,11 @@ describe('UpdateEmailAccountUseCase', () => {
     repository = new InMemoryEmailAccountsRepository();
     sut = new UpdateEmailAccountUseCase(
       repository,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       new FakeCipherService() as any,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       new FakeImapService() as any,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       new FakeSmtpService() as any,
     );
   });

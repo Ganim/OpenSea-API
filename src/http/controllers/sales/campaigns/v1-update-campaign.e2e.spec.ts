@@ -60,9 +60,7 @@ describe('Update Campaign (E2E)', () => {
 
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('campaign');
-      expect(response.body.campaign.name).toBe(
-        `Campaign Updated ${timestamp}`,
-      );
+      expect(response.body.campaign.name).toBe(`Campaign Updated ${timestamp}`);
     }
   });
 });

@@ -57,11 +57,11 @@ describe('CreateEmailAccountUseCase', () => {
 
     sut = new CreateEmailAccountUseCase(
       repository,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       cipherService as any,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       imapService as any,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       smtpService as any,
     );
 

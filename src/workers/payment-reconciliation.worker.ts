@@ -95,7 +95,7 @@ export class PaymentReconciliationWorker {
       where: {
         status: 'ACTIVE',
         deletedAt: null,
-        paymentConfigs: {
+        tenantPaymentConfig: {
           is: {
             OR: [
               {

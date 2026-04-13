@@ -101,9 +101,9 @@ describe('verifyWebhookSignature middleware', () => {
     // No status set — middleware passed through
     expect(statusCode()).toBeUndefined();
     // tenantId was attached to the request
-    expect((request as unknown as Record<string, unknown>).bankAccountTenantId).toBe(
-      'tenant-1',
-    );
+    expect(
+      (request as unknown as Record<string, unknown>).bankAccountTenantId,
+    ).toBe('tenant-1');
   });
 
   it('attaches bankAccountTenantId to request even when secret is null', async () => {
@@ -117,9 +117,9 @@ describe('verifyWebhookSignature middleware', () => {
 
     await verifyWebhookSignature(request, reply);
 
-    expect((request as unknown as Record<string, unknown>).bankAccountTenantId).toBe(
-      'tenant-abc',
-    );
+    expect(
+      (request as unknown as Record<string, unknown>).bankAccountTenantId,
+    ).toBe('tenant-abc');
   });
 
   it('passes through when signature matches (x-webhook-signature header)', async () => {
@@ -141,9 +141,9 @@ describe('verifyWebhookSignature middleware', () => {
     await verifyWebhookSignature(request, reply);
 
     expect(statusCode()).toBeUndefined();
-    expect((request as unknown as Record<string, unknown>).bankAccountTenantId).toBe(
-      'tenant-2',
-    );
+    expect(
+      (request as unknown as Record<string, unknown>).bankAccountTenantId,
+    ).toBe('tenant-2');
   });
 
   it('passes through when signature matches (x-sicoob-signature header)', async () => {

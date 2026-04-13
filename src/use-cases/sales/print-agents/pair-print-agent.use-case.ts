@@ -26,7 +26,8 @@ export class PairPrintAgentUseCase {
     // Search ALL unpaired agents across all tenants.
     // The TOTP-based pairing code (6-char, 120s window, 32-byte random secret)
     // is globally unique — collision probability is negligible.
-    const unpairedAgents = await this.printAgentsRepository.findAllUnpairedWithPairingSecret();
+    const unpairedAgents =
+      await this.printAgentsRepository.findAllUnpairedWithPairingSecret();
 
     const matchedAgent = unpairedAgents.find(
       (agent) =>
@@ -39,11 +40,15 @@ export class PairPrintAgentUseCase {
     }
 
     if (matchedAgent.isPaired) {
-      throw new BadRequestError('This agent is already paired. Unpair it first.');
+      throw new BadRequestError(
+        'This agent is already paired. Unpair it first.',
+      );
     }
 
     const deviceToken = randomBytes(32).toString('hex');
-    const deviceTokenHash = createHash('sha256').update(deviceToken).digest('hex');
+    const deviceTokenHash = createHash('sha256')
+      .update(deviceToken)
+      .digest('hex');
     const deviceLabel = `${input.hostname}`;
 
     matchedAgent.pair(deviceTokenHash, deviceLabel);

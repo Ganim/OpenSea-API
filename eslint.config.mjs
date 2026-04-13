@@ -48,6 +48,7 @@ export default defineConfig([
     files: ['**/*.spec.ts', '**/*.e2e.spec.ts', '**/tests/**/*.ts'],
     rules: {
       '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
 ]);

@@ -52,7 +52,7 @@ describe('MarkEmailMessageReadUseCase', () => {
       accountsRepository,
       foldersRepository,
       messagesRepository,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       cipherService as any,
     );
 

@@ -40,7 +40,9 @@ describe('Create Inspection Plan (E2E)', () => {
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty('inspectionPlan');
     expect(response.body.inspectionPlan).toHaveProperty('id');
-    expect(response.body.inspectionPlan.operationRoutingId).toBe(operationRoutingId);
+    expect(response.body.inspectionPlan.operationRoutingId).toBe(
+      operationRoutingId,
+    );
     expect(response.body.inspectionPlan.inspectionType).toBe('DIMENSIONAL');
     expect(response.body.inspectionPlan.sampleSize).toBe(5);
     expect(response.body.inspectionPlan.isActive).toBe(true);

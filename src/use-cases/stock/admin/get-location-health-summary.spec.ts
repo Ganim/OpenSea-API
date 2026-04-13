@@ -18,7 +18,7 @@ vi.mock('@/lib/prisma', () => {
 import { prisma } from '@/lib/prisma';
 import { GetLocationHealthSummaryUseCase } from './get-location-health-summary';
 
-const mockPrisma = vi.mocked(prisma);
+const mockPrisma = vi.mocked(prisma) as any;
 const TENANT_ID = 'tenant-1';
 let sut: GetLocationHealthSummaryUseCase;
 

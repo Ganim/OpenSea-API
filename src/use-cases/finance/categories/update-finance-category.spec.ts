@@ -71,7 +71,7 @@ describe('UpdateFinanceCategoryUseCase', () => {
       sut.execute({
         tenantId: 'tenant-1',
         id: category.id.toString(),
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
         type: 'INVALID_TYPE' as any,
       }),
     ).rejects.toThrow(BadRequestError);

@@ -33,9 +33,19 @@ describe('Create Cadence Sequence (E2E)', () => {
         name: `Cadencia ${ts}`,
         description: 'Cadencia de follow-up',
         steps: [
-          { order: 1, type: 'EMAIL', delayDays: 0, config: { subject: 'Primeiro contato' } },
+          {
+            order: 1,
+            type: 'EMAIL',
+            delayDays: 0,
+            config: { subject: 'Primeiro contato' },
+          },
           { order: 2, type: 'WAIT', delayDays: 3, config: {} },
-          { order: 3, type: 'CALL', delayDays: 0, config: { script: 'Follow-up call' } },
+          {
+            order: 3,
+            type: 'CALL',
+            delayDays: 0,
+            config: { script: 'Follow-up call' },
+          },
         ],
       });
 

@@ -42,7 +42,7 @@ describe('CreateNotificationPreferenceUseCase', () => {
     await expect(() =>
       sut.execute({
         userId: userId.toString(),
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
         alertType: 'INVALID_TYPE' as any,
         channel: 'EMAIL',
       }),
@@ -54,7 +54,7 @@ describe('CreateNotificationPreferenceUseCase', () => {
       sut.execute({
         userId: userId.toString(),
         alertType: 'LOW_STOCK',
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
         channel: 'INVALID_CHANNEL' as any,
       }),
     ).rejects.toThrow('Invalid notification channel');

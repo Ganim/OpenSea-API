@@ -41,7 +41,9 @@ export class CreateProductionEntryUseCase {
     }
 
     if (jobCard.status !== 'IN_PROGRESS') {
-      throw new BadRequestError('Job card must be IN_PROGRESS to register production entries.');
+      throw new BadRequestError(
+        'Job card must be IN_PROGRESS to register production entries.',
+      );
     }
 
     if (quantityGood + (quantityScrapped ?? 0) + (quantityRework ?? 0) <= 0) {
