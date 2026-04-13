@@ -111,15 +111,16 @@ describe('DeleteProductUseCase', () => {
       templateId: template.template.id.toString(),
     });
 
-    // Get the default variant created with the product
-    const variants = await variantsRepository.findManyByProduct(
-      created.product.id,
-      TENANT_ID,
-    );
-
-    expect(variants.length).toBeGreaterThan(0);
-
-    const variant = variants[0];
+    // Create a variant for the product using the repository schema
+    const variant = await variantsRepository.create({
+      tenantId: TENANT_ID,
+      productId: created.product.id,
+      name: 'Default Variant',
+      slug: Slug.create('default-variant'),
+      fullCode: 'TMPL.MFR.PROD.001',
+      sequentialCode: 1,
+      price: 100,
+    });
 
     // Create an active item for the variant
     await itemsRepository.create({
