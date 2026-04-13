@@ -15,7 +15,7 @@ export async function revokeAccountantController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.ENTRIES.ADMIN,
+        permissionCode: PermissionCodes.FINANCE.ACCOUNTANT.ADMIN,
         resource: 'accountant',
       }),
     ],

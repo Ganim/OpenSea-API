@@ -217,6 +217,11 @@ export const PermissionCodes = {
       ACCESS: 'finance.reports.access' as const,
       EXPORT: 'finance.reports.export' as const,
     },
+    ACCOUNTANT: {
+      ACCESS: 'finance.accountant.access' as const,
+      REGISTER: 'finance.accountant.register' as const,
+      ADMIN: 'finance.accountant.admin' as const,
+    },
   },
 
   // ============================================================================
