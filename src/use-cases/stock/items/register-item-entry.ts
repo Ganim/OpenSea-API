@@ -98,7 +98,7 @@ export class RegisterItemEntryUseCase {
 
     // Validate quantity
     if (input.quantity <= 0) {
-      throw new BadRequestError('Quantity must be greater than 0');
+      throw new BadRequestError('A quantidade deve ser maior que zero.');
     }
 
     // Validate variant exists

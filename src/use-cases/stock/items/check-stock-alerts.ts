@@ -1,3 +1,4 @@
+// TODO: Expose via admin endpoint or register as cron job trigger
 import type { VariantsRepository } from '@/repositories/stock/variants-repository';
 import type { ItemsRepository } from '@/repositories/stock/items-repository';
 import type { NotificationsRepository } from '@/repositories/notifications/notifications-repository';

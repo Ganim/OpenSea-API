@@ -53,24 +53,24 @@ export class RegisterItemExitUseCase {
   ): Promise<RegisterItemExitUseCaseResponse> {
     // Validation: quantity must be positive
     if (input.quantity <= 0) {
-      throw new BadRequestError('Quantity must be greater than zero.');
+      throw new BadRequestError('A quantidade deve ser maior que zero.');
     }
 
     // Validation: reasonCode max length 64
     if (input.reasonCode && input.reasonCode.length > 64) {
-      throw new BadRequestError('Reason code cannot exceed 64 characters.');
+      throw new BadRequestError('O código de motivo não pode exceder 64 caracteres.');
     }
 
     // Validation: destinationRef max length 256
     if (input.destinationRef && input.destinationRef.length > 256) {
       throw new BadRequestError(
-        'Destination reference cannot exceed 256 characters.',
+        'A referência de destino não pode exceder 256 caracteres.',
       );
     }
 
     // Validation: notes max length 1000
     if (input.notes && input.notes.length > 1000) {
-      throw new BadRequestError('Notes cannot exceed 1000 characters.');
+      throw new BadRequestError('As observações não podem exceder 1000 caracteres.');
     }
 
     // TODO: Implementar sistema de aprovação real (PENDING_APPROVAL → aprovador aceita/rejeita)
