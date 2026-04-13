@@ -11,7 +11,6 @@ export * from './warehouses';
 export * from './zones';
 export * from './bins';
 export * from './manufacturers';
-export * from './suppliers';
 export * from './tags';
 export * from './templates';
 export * from './purchase-orders';

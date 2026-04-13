@@ -7,7 +7,7 @@ import type { AuditMessage } from './types';
  * Mensagens de auditoria do módulo STOCK
  *
  * Inclui: Products, Categories, Variants, Items, Locations,
- * Manufacturers, Suppliers, Tags, Templates, Purchase Orders, Care
+ * Manufacturers, Tags, Templates, Purchase Orders, Care
  */
 export const STOCK_AUDIT_MESSAGES = {
   // ============================================================================
@@ -189,34 +189,6 @@ export const STOCK_AUDIT_MESSAGES = {
     entity: AuditEntity.MANUFACTURER,
     module: AuditModule.STOCK,
     description: '{{userName}} excluiu o fabricante {{manufacturerName}}',
-  } satisfies AuditMessage,
-
-  // ============================================================================
-  // SUPPLIERS - Gestão de fornecedores
-  // ============================================================================
-
-  /** Novo fornecedor criado */
-  SUPPLIER_CREATE: {
-    action: AuditAction.CREATE,
-    entity: AuditEntity.SUPPLIER,
-    module: AuditModule.STOCK,
-    description: '{{userName}} cadastrou o fornecedor {{supplierName}}',
-  } satisfies AuditMessage,
-
-  /** Fornecedor atualizado */
-  SUPPLIER_UPDATE: {
-    action: AuditAction.UPDATE,
-    entity: AuditEntity.SUPPLIER,
-    module: AuditModule.STOCK,
-    description: '{{userName}} atualizou o fornecedor {{supplierName}}',
-  } satisfies AuditMessage,
-
-  /** Fornecedor excluído */
-  SUPPLIER_DELETE: {
-    action: AuditAction.DELETE,
-    entity: AuditEntity.SUPPLIER,
-    module: AuditModule.STOCK,
-    description: '{{userName}} excluiu o fornecedor {{supplierName}}',
   } satisfies AuditMessage,
 
   // ============================================================================
