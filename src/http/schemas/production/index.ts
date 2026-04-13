@@ -7,3 +7,4 @@ export * from './production-order.schema';
 export * from './downtime-reason.schema';
 export * from './defect-type.schema';
 export * from './job-card.schema';
+export * from './downtime-record.schema';

@@ -1,5 +1,14 @@
 import { z } from 'zod';
 
+export const createJobCardSchema = z.object({
+  productionOrderId: z.string().min(1),
+  operationRoutingId: z.string().min(1),
+  workstationId: z.string().min(1).optional(),
+  quantityPlanned: z.number().positive(),
+  scheduledStart: z.coerce.date().optional(),
+  scheduledEnd: z.coerce.date().optional(),
+});
+
 export const jobCardResponseSchema = z.object({
   id: z.string(),
   productionOrderId: z.string(),

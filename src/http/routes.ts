@@ -241,6 +241,8 @@ import { operationRoutingsRoutes } from './controllers/production/operation-rout
 import { productionOrdersRoutes } from './controllers/production/production-orders/routes';
 import { workCentersRoutes } from './controllers/production/work-centers/routes';
 import { workstationTypesRoutes } from './controllers/production/workstation-types/routes';
+import { downtimeRecordsRoutes } from './controllers/production/downtime-records/routes';
+import { jobCardsRoutes } from './controllers/production/job-cards/routes';
 import { workstationsRoutes } from './controllers/production/workstations/routes';
 
 // Fiscal routes
@@ -590,6 +592,8 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(productionOrdersRoutes);
   await app.register(downtimeReasonsRoutes);
   await app.register(defectTypesRoutes);
+  await app.register(jobCardsRoutes);
+  await app.register(downtimeRecordsRoutes);
 
   // Fiscal routes
   await app.register(fiscalRoutes);

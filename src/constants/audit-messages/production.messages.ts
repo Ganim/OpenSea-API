@@ -283,6 +283,14 @@ export const PRODUCTION_AUDIT_MESSAGES = {
       '{{userName}} registrou parada no posto {{workstationName}}',
   } satisfies AuditMessage,
 
+  DOWNTIME_RECORD_END: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.DOWNTIME_RECORD,
+    module: AuditModule.PRODUCTION,
+    description:
+      '{{userName}} encerrou parada no posto {{workstationName}}',
+  } satisfies AuditMessage,
+
   // ============================================================================
   // QUALITY
   // ============================================================================
