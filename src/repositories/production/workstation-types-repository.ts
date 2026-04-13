@@ -25,6 +25,10 @@ export interface WorkstationTypesRepository {
     id: UniqueEntityID,
     tenantId: string,
   ): Promise<ProductionWorkstationType | null>;
+  findByName(
+    name: string,
+    tenantId: string,
+  ): Promise<ProductionWorkstationType | null>;
   findMany(tenantId: string): Promise<ProductionWorkstationType[]>;
   update(
     data: UpdateWorkstationTypeSchema,

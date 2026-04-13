@@ -70,6 +70,36 @@ export class PrismaWorkstationTypesRepository
     );
   }
 
+  async findByName(
+    name: string,
+    tenantId: string,
+  ): Promise<ProductionWorkstationType | null> {
+    const raw = await prisma.productionWorkstationType.findFirst({
+      where: {
+        tenantId,
+        name: { equals: name, mode: 'insensitive' },
+      },
+    });
+
+    if (!raw) {
+      return null;
+    }
+
+    return ProductionWorkstationType.create(
+      {
+        tenantId: new EntityID(raw.tenantId),
+        name: raw.name,
+        description: raw.description ?? null,
+        icon: raw.icon ?? null,
+        color: raw.color ?? null,
+        isActive: raw.isActive,
+        createdAt: raw.createdAt,
+        updatedAt: raw.updatedAt,
+      },
+      new EntityID(raw.id),
+    );
+  }
+
   async findMany(tenantId: string): Promise<ProductionWorkstationType[]> {
     const records = await prisma.productionWorkstationType.findMany({
       where: { tenantId },
