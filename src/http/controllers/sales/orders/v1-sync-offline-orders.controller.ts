@@ -42,7 +42,8 @@ export async function v1SyncOfflineOrdersController(app: FastifyInstance) {
                 .min(1),
             }),
           )
-          .min(1),
+          .min(1)
+          .max(100),
       }),
       response: {
         200: z.object({
