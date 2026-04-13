@@ -90,6 +90,7 @@ export async function createAndSetupTenant(
     'EMAIL',
     'TASKS',
     'MESSAGING',
+    'PRODUCTION',
   ] as const;
 
   await prisma.planModule.createMany({

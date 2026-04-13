@@ -5,8 +5,18 @@ import { PosSession } from '@/entities/sales/pos-session';
 import { InMemoryPosCashMovementsRepository } from '@/repositories/sales/in-memory/in-memory-pos-cash-movements-repository';
 import { InMemoryPosSessionsRepository } from '@/repositories/sales/in-memory/in-memory-pos-sessions-repository';
 import { InMemoryPosTransactionsRepository } from '@/repositories/sales/in-memory/in-memory-pos-transactions-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ClosePosSessionUseCase } from './close-pos-session';
+
+vi.mock('@/lib/prisma', () => ({
+  prisma: {
+    posTransactionPayment: {
+      aggregate: vi.fn().mockResolvedValue({
+        _sum: { amount: { toNumber: () => 0 } },
+      }),
+    },
+  },
+}));
 
 let posSessionsRepository: InMemoryPosSessionsRepository;
 let posCashMovementsRepository: InMemoryPosCashMovementsRepository;

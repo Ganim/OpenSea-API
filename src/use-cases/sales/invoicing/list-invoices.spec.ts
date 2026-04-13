@@ -6,17 +6,17 @@ import { ListInvoicesUseCase } from './list-invoices.use-case';
 
 describe('ListInvoicesUseCase', () => {
   let invoicesRepository: InMemoryInvoicesRepository;
-  let useCase: ListInvoicesUseCase;
+  let sut: ListInvoicesUseCase;
 
   const tenantId = 'tenant-123';
 
   beforeEach(() => {
     invoicesRepository = new InMemoryInvoicesRepository();
-    useCase = new ListInvoicesUseCase(invoicesRepository);
+    sut = new ListInvoicesUseCase(invoicesRepository);
   });
 
   it('should return empty list if no invoices exist', async () => {
-    const result = await useCase.execute({
+    const result = await sut.execute({
       tenantId,
       page: 1,
       limit: 10,
@@ -35,46 +35,50 @@ describe('ListInvoicesUseCase', () => {
         type: 'NFCE',
         number: String(i + 1).padStart(3, '0'),
         series: '1',
-        accessKey: `35240512345678000190550010000000${String(i + 1).padStart(8, '0')}`,
+        accessKey: `key-${i}`,
         status: i % 2 === 0 ? 'ISSUED' : 'PENDING',
       });
-      await invoicesRepository.create(invoice);
+      invoicesRepository.items.push(invoice);
     }
 
-    const page1 = await useCase.execute({
-      tenantId,
-      page: 1,
-      limit: 10,
-    });
+    const page1 = await sut.execute({ tenantId, page: 1, limit: 10 });
 
     expect(page1.data).toHaveLength(10);
     expect(page1.total).toBe(25);
     expect(page1.pages).toBe(3);
 
-    const page2 = await useCase.execute({
-      tenantId,
-      page: 2,
-      limit: 10,
-    });
+    const page2 = await sut.execute({ tenantId, page: 2, limit: 10 });
 
     expect(page2.data).toHaveLength(10);
   });
 
   it('should filter invoices by status', async () => {
     for (let i = 0; i < 5; i++) {
-      const invoice = Invoice.create({
-        tenantId: new UniqueEntityID(tenantId),
-        orderId: new UniqueEntityID(`order-${i}`),
-        type: 'NFCE',
-        number: String(i + 1).padStart(3, '0'),
-        series: '1',
-        accessKey: `35240512345678000190550010000000${String(i + 1).padStart(8, '0')}`,
-        status: 'ISSUED',
-      });
-      await invoicesRepository.create(invoice);
+      invoicesRepository.items.push(
+        Invoice.create({
+          tenantId: new UniqueEntityID(tenantId),
+          orderId: new UniqueEntityID(`order-${i}`),
+          type: 'NFCE',
+          number: String(i + 1).padStart(3, '0'),
+          series: '1',
+          accessKey: `key-${i}`,
+          status: 'ISSUED',
+        }),
+      );
     }
+    invoicesRepository.items.push(
+      Invoice.create({
+        tenantId: new UniqueEntityID(tenantId),
+        orderId: new UniqueEntityID('order-pending'),
+        type: 'NFCE',
+        number: '006',
+        series: '1',
+        accessKey: 'key-pending',
+        status: 'PENDING',
+      }),
+    );
 
-    const result = await useCase.execute({
+    const result = await sut.execute({
       tenantId,
       status: 'ISSUED',
       page: 1,
@@ -83,5 +87,21 @@ describe('ListInvoicesUseCase', () => {
 
     expect(result.data).toHaveLength(5);
     expect(result.data.every((inv) => inv.status === 'ISSUED')).toBe(true);
+  });
+
+  it('should throw if page is less than 1', async () => {
+    await expect(
+      sut.execute({ tenantId, page: 0, limit: 10 }),
+    ).rejects.toThrow('Page must be >= 1');
+  });
+
+  it('should throw if limit is out of range', async () => {
+    await expect(
+      sut.execute({ tenantId, page: 1, limit: 0 }),
+    ).rejects.toThrow('Limit must be between 1 and 100');
+
+    await expect(
+      sut.execute({ tenantId, page: 1, limit: 101 }),
+    ).rejects.toThrow('Limit must be between 1 and 100');
   });
 });
