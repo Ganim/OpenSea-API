@@ -249,6 +249,13 @@ import { productionSchedulesRoutes } from './controllers/production/schedules/ro
 import { productionCostingRoutes } from './controllers/production/costing/routes';
 import { productionAnalyticsRoutes } from './controllers/production/analytics/routes';
 import { textileRoutes } from './controllers/production/textile/routes';
+import { timeEntriesRoutes } from './controllers/production/time-entries/routes';
+import { productionEntriesRoutes } from './controllers/production/production-entries/routes';
+import { inspectionResultsRoutes } from './controllers/production/inspection-results/routes';
+import { defectRecordsRoutes } from './controllers/production/defect-records/routes';
+import { materialReservationsRoutes } from './controllers/production/material-reservations/routes';
+import { materialIssuesRoutes } from './controllers/production/material-issues/routes';
+import { materialReturnsRoutes } from './controllers/production/material-returns/routes';
 
 // Fiscal routes
 import { fiscalRoutes } from './controllers/fiscal/routes';
@@ -600,10 +607,17 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(downtimeRecordsRoutes);
   await app.register(inspectionPlansRoutes);
   await app.register(qualityHoldsRoutes);
+  await app.register(inspectionResultsRoutes);
+  await app.register(defectRecordsRoutes);
   await app.register(productionSchedulesRoutes);
   await app.register(productionCostingRoutes);
   await app.register(productionAnalyticsRoutes);
   await app.register(textileRoutes);
+  await app.register(timeEntriesRoutes);
+  await app.register(productionEntriesRoutes);
+  await app.register(materialReservationsRoutes);
+  await app.register(materialIssuesRoutes);
+  await app.register(materialReturnsRoutes);
 
   // Fiscal routes
   await app.register(fiscalRoutes);

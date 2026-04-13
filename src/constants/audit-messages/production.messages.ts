@@ -18,24 +18,21 @@ export const PRODUCTION_AUDIT_MESSAGES = {
     action: AuditAction.CREATE,
     entity: AuditEntity.WORKSTATION_TYPE,
     module: AuditModule.PRODUCTION,
-    description:
-      '{{userName}} criou o tipo de posto de trabalho {{name}}',
+    description: '{{userName}} criou o tipo de posto de trabalho {{name}}',
   } satisfies AuditMessage,
 
   WORKSTATION_TYPE_UPDATE: {
     action: AuditAction.UPDATE,
     entity: AuditEntity.WORKSTATION_TYPE,
     module: AuditModule.PRODUCTION,
-    description:
-      '{{userName}} atualizou o tipo de posto de trabalho {{name}}',
+    description: '{{userName}} atualizou o tipo de posto de trabalho {{name}}',
   } satisfies AuditMessage,
 
   WORKSTATION_TYPE_DELETE: {
     action: AuditAction.DELETE,
     entity: AuditEntity.WORKSTATION_TYPE,
     module: AuditModule.PRODUCTION,
-    description:
-      '{{userName}} removeu o tipo de posto de trabalho {{name}}',
+    description: '{{userName}} removeu o tipo de posto de trabalho {{name}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -71,8 +68,7 @@ export const PRODUCTION_AUDIT_MESSAGES = {
     action: AuditAction.CREATE,
     entity: AuditEntity.WORK_CENTER,
     module: AuditModule.PRODUCTION,
-    description:
-      '{{userName}} criou o centro de trabalho {{name}} ({{code}})',
+    description: '{{userName}} criou o centro de trabalho {{name}} ({{code}})',
   } satisfies AuditMessage,
 
   WORK_CENTER_UPDATE: {
@@ -97,15 +93,15 @@ export const PRODUCTION_AUDIT_MESSAGES = {
     action: AuditAction.CREATE,
     entity: AuditEntity.PRODUCTION_BOM,
     module: AuditModule.PRODUCTION,
-    description: '{{userName}} criou a lista de materiais {{name}} v{{version}}',
+    description:
+      '{{userName}} criou a lista de materiais {{name}} v{{version}}',
   } satisfies AuditMessage,
 
   BOM_UPDATE: {
     action: AuditAction.UPDATE,
     entity: AuditEntity.PRODUCTION_BOM,
     module: AuditModule.PRODUCTION,
-    description:
-      '{{userName}} atualizou a lista de materiais {{name}}',
+    description: '{{userName}} atualizou a lista de materiais {{name}}',
   } satisfies AuditMessage,
 
   BOM_DELETE: {
@@ -119,7 +115,8 @@ export const PRODUCTION_AUDIT_MESSAGES = {
     action: AuditAction.UPDATE,
     entity: AuditEntity.PRODUCTION_BOM,
     module: AuditModule.PRODUCTION,
-    description: '{{userName}} aprovou a lista de materiais {{name}} v{{version}}',
+    description:
+      '{{userName}} aprovou a lista de materiais {{name}} v{{version}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -155,8 +152,7 @@ export const PRODUCTION_AUDIT_MESSAGES = {
     action: AuditAction.CREATE,
     entity: AuditEntity.OPERATION_ROUTING,
     module: AuditModule.PRODUCTION,
-    description:
-      '{{userName}} criou a operação {{operationName}} no roteiro',
+    description: '{{userName}} criou a operação {{operationName}} no roteiro',
   } satisfies AuditMessage,
 
   OPERATION_ROUTING_UPDATE: {
@@ -171,8 +167,7 @@ export const PRODUCTION_AUDIT_MESSAGES = {
     action: AuditAction.DELETE,
     entity: AuditEntity.OPERATION_ROUTING,
     module: AuditModule.PRODUCTION,
-    description:
-      '{{userName}} removeu a operação {{operationName}} do roteiro',
+    description: '{{userName}} removeu a operação {{operationName}} do roteiro',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -183,16 +178,14 @@ export const PRODUCTION_AUDIT_MESSAGES = {
     action: AuditAction.CREATE,
     entity: AuditEntity.PRODUCTION_ORDER,
     module: AuditModule.PRODUCTION,
-    description:
-      '{{userName}} criou a ordem de produção {{orderNumber}}',
+    description: '{{userName}} criou a ordem de produção {{orderNumber}}',
   } satisfies AuditMessage,
 
   ORDER_UPDATE: {
     action: AuditAction.UPDATE,
     entity: AuditEntity.PRODUCTION_ORDER,
     module: AuditModule.PRODUCTION,
-    description:
-      '{{userName}} atualizou a ordem de produção {{orderNumber}}',
+    description: '{{userName}} atualizou a ordem de produção {{orderNumber}}',
   } satisfies AuditMessage,
 
   ORDER_STATUS_CHANGE: {
@@ -207,8 +200,27 @@ export const PRODUCTION_AUDIT_MESSAGES = {
     action: AuditAction.DELETE,
     entity: AuditEntity.PRODUCTION_ORDER,
     module: AuditModule.PRODUCTION,
+    description: '{{userName}} cancelou a ordem de produção {{orderNumber}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // MATERIAL RESERVATIONS
+  // ============================================================================
+
+  MATERIAL_RESERVATION_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.PRODUCTION_MATERIAL_RESERVATION,
+    module: AuditModule.PRODUCTION,
     description:
-      '{{userName}} cancelou a ordem de produção {{orderNumber}}',
+      '{{userName}} criou reserva de material para a OP {{orderNumber}}',
+  } satisfies AuditMessage,
+
+  MATERIAL_RESERVATION_CANCEL: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PRODUCTION_MATERIAL_RESERVATION,
+    module: AuditModule.PRODUCTION,
+    description:
+      '{{userName}} cancelou reserva de material da OP {{orderNumber}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -219,16 +231,14 @@ export const PRODUCTION_AUDIT_MESSAGES = {
     action: AuditAction.CREATE,
     entity: AuditEntity.PRODUCTION_MATERIAL_ISSUE,
     module: AuditModule.PRODUCTION,
-    description:
-      '{{userName}} requisitou material para a OP {{orderNumber}}',
+    description: '{{userName}} requisitou material para a OP {{orderNumber}}',
   } satisfies AuditMessage,
 
   MATERIAL_RETURN: {
     action: AuditAction.CREATE,
-    entity: AuditEntity.PRODUCTION_MATERIAL_ISSUE,
+    entity: AuditEntity.PRODUCTION_MATERIAL_RETURN,
     module: AuditModule.PRODUCTION,
-    description:
-      '{{userName}} devolveu material da OP {{orderNumber}}',
+    description: '{{userName}} devolveu material da OP {{orderNumber}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -239,7 +249,8 @@ export const PRODUCTION_AUDIT_MESSAGES = {
     action: AuditAction.UPDATE,
     entity: AuditEntity.PRODUCTION_JOB_CARD,
     module: AuditModule.PRODUCTION,
-    description: '{{userName}} iniciou o job card da operação {{operationName}}',
+    description:
+      '{{userName}} iniciou o job card da operação {{operationName}}',
   } satisfies AuditMessage,
 
   JOB_CARD_COMPLETE: {
@@ -279,16 +290,14 @@ export const PRODUCTION_AUDIT_MESSAGES = {
     action: AuditAction.CREATE,
     entity: AuditEntity.DOWNTIME_RECORD,
     module: AuditModule.PRODUCTION,
-    description:
-      '{{userName}} registrou parada no posto {{workstationName}}',
+    description: '{{userName}} registrou parada no posto {{workstationName}}',
   } satisfies AuditMessage,
 
   DOWNTIME_RECORD_END: {
     action: AuditAction.UPDATE,
     entity: AuditEntity.DOWNTIME_RECORD,
     module: AuditModule.PRODUCTION,
-    description:
-      '{{userName}} encerrou parada no posto {{workstationName}}',
+    description: '{{userName}} encerrou parada no posto {{workstationName}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -299,8 +308,7 @@ export const PRODUCTION_AUDIT_MESSAGES = {
     action: AuditAction.CREATE,
     entity: AuditEntity.QUALITY_HOLD,
     module: AuditModule.PRODUCTION,
-    description:
-      '{{userName}} bloqueou a OP {{orderNumber}} por qualidade',
+    description: '{{userName}} bloqueou a OP {{orderNumber}} por qualidade',
   } satisfies AuditMessage,
 
   QUALITY_HOLD_RELEASE: {
@@ -355,6 +363,36 @@ export const PRODUCTION_AUDIT_MESSAGES = {
   } satisfies AuditMessage,
 
   // ============================================================================
+  // INSPECTION RESULTS
+  // ============================================================================
+
+  INSPECTION_RESULT_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.INSPECTION_RESULT,
+    module: AuditModule.PRODUCTION,
+    description:
+      '{{userName}} registrou resultado de inspeção na OP {{orderNumber}}',
+  } satisfies AuditMessage,
+
+  INSPECTION_RESULT_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.INSPECTION_RESULT,
+    module: AuditModule.PRODUCTION,
+    description: '{{userName}} atualizou resultado de inspeção para {{status}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // DEFECT RECORDS
+  // ============================================================================
+
+  DEFECT_RECORD_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.DEFECT_RECORD,
+    module: AuditModule.PRODUCTION,
+    description: '{{userName}} registrou defeito {{defectTypeName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
   // COSTING
   // ============================================================================
 
@@ -362,16 +400,14 @@ export const PRODUCTION_AUDIT_MESSAGES = {
     action: AuditAction.CREATE,
     entity: AuditEntity.PRODUCTION_COST,
     module: AuditModule.PRODUCTION,
-    description:
-      '{{userName}} registrou custo {{costType}} na OP {{orderId}}',
+    description: '{{userName}} registrou custo {{costType}} na OP {{orderId}}',
   } satisfies AuditMessage,
 
   COST_UPDATE: {
     action: AuditAction.UPDATE,
     entity: AuditEntity.PRODUCTION_COST,
     module: AuditModule.PRODUCTION,
-    description:
-      '{{userName}} atualizou custo {{costType}} na OP {{orderId}}',
+    description: '{{userName}} atualizou custo {{costType}} na OP {{orderId}}',
   } satisfies AuditMessage,
 
   // ============================================================================
@@ -392,5 +428,35 @@ export const PRODUCTION_AUDIT_MESSAGES = {
     module: AuditModule.PRODUCTION,
     description:
       '{{userName}} gerou {{totalBundles}} tickets de pacote para a OP {{orderNumber}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // TIME ENTRIES
+  // ============================================================================
+
+  TIME_ENTRY_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.PRODUCTION_TIME_ENTRY,
+    module: AuditModule.PRODUCTION,
+    description: '{{userName}} registrou tempo no job card',
+  } satisfies AuditMessage,
+
+  TIME_ENTRY_END: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PRODUCTION_TIME_ENTRY,
+    module: AuditModule.PRODUCTION,
+    description: '{{userName}} encerrou registro de tempo',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // PRODUCTION ENTRIES
+  // ============================================================================
+
+  PRODUCTION_ENTRY_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.PRODUCTION_ENTRY,
+    module: AuditModule.PRODUCTION,
+    description:
+      '{{userName}} apontou produção no job card ({{quantityGood}} boas, {{quantityScrapped}} refugo)',
   } satisfies AuditMessage,
 };
