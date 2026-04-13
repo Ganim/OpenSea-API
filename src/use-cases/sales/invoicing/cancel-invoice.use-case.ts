@@ -3,6 +3,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { InvoiceStatus } from '@/entities/sales/invoice';
 import type { IFocusNfeProvider } from '@/providers/nfe/focus-nfe.provider';
+import type { FocusNfeConfigRepository } from '@/repositories/sales/focus-nfe-config-repository';
 import type { InvoicesRepository } from '@/repositories/sales/invoices-repository';
 
 interface CancelInvoiceUseCaseRequest {
@@ -23,6 +24,7 @@ export class CancelInvoiceUseCase {
   constructor(
     private invoicesRepository: InvoicesRepository,
     private focusNfeProvider: IFocusNfeProvider,
+    private focusNfeConfigRepository: FocusNfeConfigRepository,
   ) {}
 
   async execute(
@@ -45,11 +47,17 @@ export class CancelInvoiceUseCase {
       );
     }
 
+    // Busca config Focus NFe do tenant
+    const config = await this.focusNfeConfigRepository.findByTenant(request.tenantId);
+    if (!config || !config.isEnabled) {
+      throw new BadRequestError('Focus NFe is not configured or disabled for this tenant.');
+    }
+
     // Chama provider para cancelar
     try {
       await this.focusNfeProvider.cancelInvoice({
         type: invoice.type.toLowerCase() as 'nfe' | 'nfce',
-        apiKey: '', // TODO: passar API key do config
+        apiKey: config.apiKey,
         ref: invoice.id.toString(),
         numero_nf: Number(invoice.number),
         serie_nf: Number(invoice.series),

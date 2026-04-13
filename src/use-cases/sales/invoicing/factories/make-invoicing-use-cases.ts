@@ -25,6 +25,7 @@ export function makeCheckInvoiceStatusUseCase(): CheckInvoiceStatusUseCase {
   return new CheckInvoiceStatusUseCase(
     new PrismaInvoicesRepository(),
     new FocusNfeProviderImpl(true),
+    new PrismaFocusNfeConfigRepository(),
   );
 }
 
@@ -32,6 +33,7 @@ export function makeCancelInvoiceUseCase(): CancelInvoiceUseCase {
   return new CancelInvoiceUseCase(
     new PrismaInvoicesRepository(),
     new FocusNfeProviderImpl(true),
+    new PrismaFocusNfeConfigRepository(),
   );
 }
 

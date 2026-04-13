@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { InvoiceStatus } from '@/entities/sales/invoice';
 import type { IFocusNfeProvider } from '@/providers/nfe/focus-nfe.provider';
+import type { FocusNfeConfigRepository } from '@/repositories/sales/focus-nfe-config-repository';
 import type { InvoicesRepository } from '@/repositories/sales/invoices-repository';
 
 interface CheckInvoiceStatusUseCaseRequest {
@@ -63,6 +64,7 @@ export class CheckInvoiceStatusUseCase {
   constructor(
     private invoicesRepository: InvoicesRepository,
     private focusNfeProvider: IFocusNfeProvider,
+    private focusNfeConfigRepository: FocusNfeConfigRepository,
   ) {}
 
   async execute(
@@ -80,36 +82,39 @@ export class CheckInvoiceStatusUseCase {
 
     // Se for PENDING ou ERROR, tenta query o status via provider
     if (invoice.status === 'PENDING' || invoice.status === 'ERROR') {
-      try {
-        const statusResponse = await this.focusNfeProvider.checkStatus({
-          type: invoice.type.toLowerCase() as 'nfe' | 'nfce',
-          apiKey: '', // TODO: passar API key do config
-          ref: invoice.id.toString(),
-        });
+      const config = await this.focusNfeConfigRepository.findByTenant(request.tenantId);
+      if (config && config.isEnabled) {
+        try {
+          const statusResponse = await this.focusNfeProvider.checkStatus({
+            type: invoice.type.toLowerCase() as 'nfe' | 'nfce',
+            apiKey: config.apiKey,
+            ref: invoice.id.toString(),
+          });
 
-        // Atualiza status se mudou
-        const mappedStatus = mapProviderStatusToInvoiceStatus(
-          statusResponse.status,
-        );
+          // Atualiza status se mudou
+          const mappedStatus = mapProviderStatusToInvoiceStatus(
+            statusResponse.status,
+          );
 
-        if (mappedStatus && mappedStatus !== invoice.status) {
-          invoice.status = mappedStatus;
-          invoice.statusDetails = statusResponse.descricao_status;
-          if (
-            statusResponse.status === 'autorizado' ||
-            statusResponse.status === 'processando_digitacao'
-          ) {
-            invoice.markAsIssued(
-              statusResponse.chave_nfe || invoice.accessKey,
-              statusResponse.protocolo,
-              statusResponse.caminho_xml,
-              statusResponse.caminho_pdf,
-            );
+          if (mappedStatus && mappedStatus !== invoice.status) {
+            invoice.status = mappedStatus;
+            invoice.statusDetails = statusResponse.descricao_status;
+            if (
+              statusResponse.status === 'autorizado' ||
+              statusResponse.status === 'processando_digitacao'
+            ) {
+              invoice.markAsIssued(
+                statusResponse.chave_nfe || invoice.accessKey,
+                statusResponse.protocolo,
+                statusResponse.caminho_xml,
+                statusResponse.caminho_pdf,
+              );
+            }
+            await this.invoicesRepository.save(invoice);
           }
-          await this.invoicesRepository.save(invoice);
+        } catch {
+          // Se falhar query, apenas retorna status atual
         }
-      } catch {
-        // Se falhar query, apenas retorna status atual
       }
     }
 
