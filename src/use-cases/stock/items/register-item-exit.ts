@@ -76,36 +76,49 @@ export class RegisterItemExitUseCase {
     // TODO: Implementar sistema de aprovação real (PENDING_APPROVAL → aprovador aceita/rejeita)
     // Por enquanto, saídas sensíveis (LOSS, INVENTORY_ADJUSTMENT) são protegidas por PIN no frontend
 
-    // Validation: item must exist
+    // Validation: item must exist (fast-fail outside transaction)
     const item = await this.itemsRepository.findById(
       new UniqueEntityID(input.itemId),
       input.tenantId,
     );
     if (!item) {
-      throw new ResourceNotFoundError('Item not found.');
+      throw new ResourceNotFoundError('Item não encontrado.');
     }
 
-    // Validation: sufficient quantity available
+    // Fast-fail: check quantity before entering transaction (non-authoritative)
     const quantityBefore = item.currentQuantity;
     if (quantityBefore < input.quantity) {
       throw new BadRequestError(
-        `Insufficient quantity available. Current: ${quantityBefore}, Requested: ${input.quantity}`,
+        `Quantidade insuficiente. Atual: ${quantityBefore}, Solicitado: ${input.quantity}`,
       );
     }
 
-    // Update item quantity
-    const quantityAfter = quantityBefore - input.quantity;
-    item.currentQuantity = quantityAfter;
-
-    // If quantity reaches zero, mark item as expired (depleted)
-    if (quantityAfter === 0) {
-      item.status = ItemStatus.create('EXPIRED');
-      item.exitMovementType = input.movementType;
-    }
-
     const { savedItem, movement } = await this.transactionManager.run(
-      async () => {
-        await this.itemsRepository.save(item);
+      async (tx) => {
+        // Atomic decrement prevents race condition — the DB guarantees
+        // no two concurrent exits can read the same quantity
+        const updatedItem = await this.itemsRepository.atomicDecrement(
+          item.id,
+          input.quantity,
+          input.tenantId,
+          tx,
+        );
+
+        // If negative, another concurrent exit consumed the stock first
+        if (updatedItem.currentQuantity < 0) {
+          throw new BadRequestError(
+            `Quantidade insuficiente. Atual: ${quantityBefore}, Solicitado: ${input.quantity}`,
+          );
+        }
+
+        const quantityAfter = updatedItem.currentQuantity;
+
+        // If depleted, mark item as expired
+        if (quantityAfter === 0) {
+          updatedItem.status = ItemStatus.create('EXPIRED');
+          updatedItem.exitMovementType = input.movementType;
+          await this.itemsRepository.save(updatedItem, tx);
+        }
 
         // Create movement record
         const mov = await this.itemMovementsRepository.create({
@@ -121,9 +134,11 @@ export class RegisterItemExitUseCase {
           notes: input.notes,
         });
 
-        return { savedItem: item, movement: mov };
+        return { savedItem: updatedItem, movement: mov };
       },
     );
+
+    const quantityAfter = savedItem.currentQuantity;
 
     // Audit log (fire-and-forget, outside transaction)
     queueAuditLog({
