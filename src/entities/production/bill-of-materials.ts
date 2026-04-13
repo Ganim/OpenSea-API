@@ -8,7 +8,7 @@ export interface ProductionBomProps {
   id: UniqueEntityID;
   tenantId: UniqueEntityID;
   productId: UniqueEntityID;
-  version: string;
+  version: number;
   name: string;
   description: string | null;
   isDefault: boolean;
@@ -37,7 +37,7 @@ export class ProductionBom extends Entity<ProductionBomProps> {
     return this.props.productId;
   }
 
-  get version(): string {
+  get version(): number {
     return this.props.version;
   }
 

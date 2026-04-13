@@ -39,6 +39,18 @@ export class InMemoryWorkstationTypesRepository
     return item ?? null;
   }
 
+  async findByName(
+    name: string,
+    tenantId: string,
+  ): Promise<ProductionWorkstationType | null> {
+    const item = this.items.find(
+      (i) =>
+        i.name.toLowerCase() === name.toLowerCase() &&
+        i.tenantId.toString() === tenantId,
+    );
+    return item ?? null;
+  }
+
   async findMany(tenantId: string): Promise<ProductionWorkstationType[]> {
     return this.items.filter(
       (i) => i.tenantId.toString() === tenantId,
