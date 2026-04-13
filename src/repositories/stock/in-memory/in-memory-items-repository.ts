@@ -156,6 +156,18 @@ export class InMemoryItemsRepository implements ItemsRepository {
     );
   }
 
+  async countByVariantId(
+    variantId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<number> {
+    return this.items.filter(
+      (item) =>
+        !item.deletedAt &&
+        item.variantId.equals(variantId) &&
+        item.tenantId.toString() === tenantId,
+    ).length;
+  }
+
   async findManyByVariant(
     variantId: UniqueEntityID,
     tenantId: string,

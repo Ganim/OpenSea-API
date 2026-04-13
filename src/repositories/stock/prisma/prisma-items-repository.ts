@@ -743,6 +743,19 @@ export class PrismaItemsRepository implements ItemsRepository {
     return items.map((itemData) => this.toDomainItem(itemData));
   }
 
+  async countByVariantId(
+    variantId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<number> {
+    return prisma.item.count({
+      where: {
+        variantId: variantId.toString(),
+        tenantId,
+        deletedAt: null,
+      },
+    });
+  }
+
   async findManyByVariant(
     variantId: UniqueEntityID,
     tenantId: string,

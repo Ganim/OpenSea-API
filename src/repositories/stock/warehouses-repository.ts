@@ -29,4 +29,5 @@ export interface WarehousesRepository {
   save(warehouse: Warehouse): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;
   countZones(warehouseId: UniqueEntityID): Promise<number>;
+  countItems(warehouseId: UniqueEntityID, tenantId: string): Promise<number>;
 }

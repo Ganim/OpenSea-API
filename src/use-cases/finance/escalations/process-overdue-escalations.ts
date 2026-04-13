@@ -11,6 +11,8 @@ import type { SendEscalationMessageUseCase } from './send-escalation-message';
 interface ProcessOverdueEscalationsUseCaseRequest {
   tenantId: string;
   createdBy?: string;
+  /** User IDs authorized to receive SYSTEM_ALERT notifications (finance admins) */
+  notifyUserIds?: string[];
 }
 
 interface ProcessOverdueEscalationsUseCaseResponse {
@@ -33,7 +35,7 @@ export class ProcessOverdueEscalationsUseCase {
   async execute(
     request: ProcessOverdueEscalationsUseCaseRequest,
   ): Promise<ProcessOverdueEscalationsUseCaseResponse> {
-    const { tenantId, createdBy } = request;
+    const { tenantId, createdBy, notifyUserIds } = request;
     const t0 = Date.now();
     let processed = 0;
     let actionsCreated = 0;

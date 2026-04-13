@@ -1,4 +1,4 @@
-import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { QualityHoldsRepository } from '@/repositories/production/quality-holds-repository';

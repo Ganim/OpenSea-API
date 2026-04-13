@@ -36,7 +36,19 @@ export class DeleteWarehouseUseCase {
 
     if (zoneCount > 0) {
       throw new BadRequestError(
-        `Cannot delete warehouse with ${zoneCount} zone(s). Delete all zones first.`,
+        `Não é possível excluir o armazém com ${zoneCount} zona(s). Exclua todas as zonas primeiro.`,
+      );
+    }
+
+    // Check for items in warehouse bins
+    const itemCount = await this.warehousesRepository.countItems(
+      warehouseId,
+      tenantId,
+    );
+
+    if (itemCount > 0) {
+      throw new BadRequestError(
+        `Não é possível excluir o armazém com ${itemCount} item(ns) em estoque. Remova ou transfira os itens primeiro.`,
       );
     }
 

@@ -77,7 +77,37 @@ describe('DeleteWarehouseUseCase', () => {
       expect.fail('Should have thrown');
     } catch (error) {
       expect(error).toBeInstanceOf(BadRequestError);
-      expect((error as BadRequestError).message).toContain('5 zone(s)');
+      expect((error as BadRequestError).message).toContain('5 zona(s)');
+    }
+  });
+
+  it('should fail when warehouse has items in bins', async () => {
+    const warehouse = await createTestWarehouse();
+
+    vi.spyOn(warehousesRepository, 'countItems').mockResolvedValue(10);
+
+    await expect(() =>
+      sut.execute({
+        tenantId: TENANT_ID,
+        id: warehouse.warehouseId.toString(),
+      }),
+    ).rejects.toThrow(BadRequestError);
+  });
+
+  it('should fail with message including item count', async () => {
+    const warehouse = await createTestWarehouse();
+
+    vi.spyOn(warehousesRepository, 'countItems').mockResolvedValue(3);
+
+    try {
+      await sut.execute({
+        tenantId: TENANT_ID,
+        id: warehouse.warehouseId.toString(),
+      });
+      expect.fail('Should have thrown');
+    } catch (error) {
+      expect(error).toBeInstanceOf(BadRequestError);
+      expect((error as BadRequestError).message).toContain('3 item(ns)');
     }
   });
 

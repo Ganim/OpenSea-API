@@ -228,4 +228,23 @@ export class PrismaWarehousesRepository implements WarehousesRepository {
       },
     });
   }
+
+  async countItems(
+    warehouseId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<number> {
+    return prisma.item.count({
+      where: {
+        tenantId,
+        deletedAt: null,
+        bin: {
+          deletedAt: null,
+          zone: {
+            warehouseId: warehouseId.toString(),
+            deletedAt: null,
+          },
+        },
+      },
+    });
+  }
 }

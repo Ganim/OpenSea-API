@@ -1295,6 +1295,21 @@ async function main() {
     );
   }
 
+  // Production module data (workstations, BOMs, orders, job cards, quality)
+  if (demoTenant) {
+    try {
+      const { seedProductionData } = await import(
+        './seeds/production-seed.js'
+      );
+      await seedProductionData(prisma, demoTenant.id);
+    } catch (productionError) {
+      console.log(
+        '   ⚠️ Erro ao popular dados de produção (não crítico):',
+        productionError,
+      );
+    }
+  }
+
   // PDV data (pipeline + consumidor final per tenant)
   try {
     const { seedPdvData } = await import('./seeds/pdv-seed.js');

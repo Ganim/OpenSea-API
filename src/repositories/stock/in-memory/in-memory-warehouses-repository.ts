@@ -99,4 +99,12 @@ export class InMemoryWarehousesRepository implements WarehousesRepository {
     // For testing, return 0 (or could be integrated with zones repository)
     return 0;
   }
+
+  async countItems(
+    _warehouseId: UniqueEntityID,
+    _tenantId: string,
+  ): Promise<number> {
+    // For testing, return 0 (or could be integrated with items/zones/bins repositories)
+    return 0;
+  }
 }

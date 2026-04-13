@@ -95,6 +95,10 @@ export interface ItemsRepository {
   findByUpcCode(upcCode: string, tenantId: string): Promise<Item | null>;
   findByAnyCode(code: string, tenantId: string): Promise<Item | null>;
   findAll(tenantId: string): Promise<Item[]>;
+  countByVariantId(
+    variantId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<number>;
   findManyByVariant(
     variantId: UniqueEntityID,
     tenantId: string,
