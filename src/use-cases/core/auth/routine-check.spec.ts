@@ -13,18 +13,29 @@ const mockProcessDueReminders = {
   execute: vi.fn(),
 };
 
+const mockPermissionService = {
+  hasPermission: vi.fn(),
+  checkPermission: vi.fn(),
+  getUserPermissionCodes: vi.fn(),
+  invalidateUserCache: vi.fn(),
+  clearCache: vi.fn(),
+};
+
 let sut: RoutineCheckUseCase;
 
 describe('RoutineCheckUseCase', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    // Default: user HAS finance permission
+    mockPermissionService.hasPermission.mockResolvedValue(true);
     sut = new RoutineCheckUseCase(
       mockCheckOverdueEntries as never,
       mockProcessDueReminders as never,
+      mockPermissionService as never,
     );
   });
 
-  it('should return results from both sub-tasks when both succeed', async () => {
+  it('should return results from both sub-tasks when user has finance permission', async () => {
     mockCheckOverdueEntries.execute.mockResolvedValue({
       markedOverdue: 3,
       dueSoonAlerts: 5,
@@ -42,6 +53,28 @@ describe('RoutineCheckUseCase', () => {
 
     expect(result.finance).toEqual({ markedOverdue: 3, dueSoonAlerts: 5 });
     expect(result.calendarReminders).toEqual({ processed: 10, errors: 1 });
+    expect(mockCheckOverdueEntries.execute).toHaveBeenCalledWith({
+      tenantId: 'tenant-1',
+      createdBy: 'user-1',
+    });
+  });
+
+  it('should skip finance checks when user lacks finance permission', async () => {
+    mockPermissionService.hasPermission.mockResolvedValue(false);
+
+    mockProcessDueReminders.execute.mockResolvedValue({
+      processed: 5,
+      errors: 0,
+    });
+
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      userId: 'user-without-finance',
+    });
+
+    expect(result.finance).toBeNull();
+    expect(result.calendarReminders).toEqual({ processed: 5, errors: 0 });
+    expect(mockCheckOverdueEntries.execute).not.toHaveBeenCalled();
   });
 
   it('should return null for finance when checkOverdueEntries fails', async () => {

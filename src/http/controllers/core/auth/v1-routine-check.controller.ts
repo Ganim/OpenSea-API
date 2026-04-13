@@ -9,7 +9,7 @@ export async function routineCheckController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/auth/routine-check',
-    onRequest: [verifyJwt, verifyTenant],
+    preHandler: [verifyJwt, verifyTenant],
     schema: {
       tags: ['Auth'],
       summary:

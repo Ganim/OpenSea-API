@@ -1,4 +1,7 @@
+import { PermissionCodes } from '@/constants/rbac';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { logger } from '@/lib/logger';
+import type { PermissionService } from '@/services/rbac/permission-service';
 import type { ProcessDueRemindersUseCase } from '@/use-cases/calendar/events/process-due-reminders';
 import type { CheckOverdueEntriesUseCase } from '@/use-cases/finance/entries/check-overdue-entries';
 
@@ -16,6 +19,7 @@ export class RoutineCheckUseCase {
   constructor(
     private checkOverdueEntries: CheckOverdueEntriesUseCase,
     private processDueReminders: ProcessDueRemindersUseCase,
+    private permissionService: PermissionService,
   ) {}
 
   async execute(request: RoutineCheckRequest): Promise<RoutineCheckResponse> {
@@ -28,8 +32,18 @@ export class RoutineCheckUseCase {
       '[routine-check] starting',
     );
 
+    // Only run finance checks if the user has finance.entries.access permission
+    const hasFinanceAccess = await this.permissionService.hasPermission(
+      new UniqueEntityID(userId),
+      PermissionCodes.FINANCE.ENTRIES.ACCESS,
+    );
+
+    const financePromise = hasFinanceAccess
+      ? this.checkOverdueEntries.execute({ tenantId, createdBy: userId })
+      : Promise.resolve(null);
+
     const [financeResult, remindersResult] = await Promise.allSettled([
-      this.checkOverdueEntries.execute({ tenantId, createdBy: userId }),
+      financePromise,
       this.processDueReminders.execute(),
     ]);
 
@@ -67,7 +81,7 @@ export class RoutineCheckUseCase {
 
     return {
       finance:
-        financeResult.status === 'fulfilled'
+        financeResult.status === 'fulfilled' && financeResult.value
           ? {
               markedOverdue: financeResult.value.markedOverdue,
               dueSoonAlerts: financeResult.value.dueSoonAlerts,
