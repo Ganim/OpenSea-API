@@ -6,6 +6,8 @@ import { Invoice } from '@/entities/sales/invoice';
 import type { IFocusNfeProvider } from '@/providers/nfe/focus-nfe.provider';
 import { OrderToNfceXmlMapper } from '@/providers/nfe/mappers/order-to-nfce-xml.mapper';
 import { OrderToNfeXmlMapper } from '@/providers/nfe/mappers/order-to-nfe-xml.mapper';
+import type { CompanyAddressesRepository } from '@/repositories/core/company-addresses-repository';
+import type { CompaniesRepository } from '@/repositories/core/companies-repository';
 import type { CustomersRepository } from '@/repositories/sales/customers-repository';
 import type { FocusNfeConfigRepository } from '@/repositories/sales/focus-nfe-config-repository';
 import type { InvoicesRepository } from '@/repositories/sales/invoices-repository';
@@ -36,6 +38,8 @@ export class IssueInvoiceUseCase {
     private invoicesRepository: InvoicesRepository,
     private focusNfeConfigRepository: FocusNfeConfigRepository,
     private focusNfeProvider: IFocusNfeProvider,
+    private companiesRepository: CompaniesRepository,
+    private companyAddressesRepository: CompanyAddressesRepository,
   ) {}
 
   async execute(
@@ -103,16 +107,28 @@ export class IssueInvoiceUseCase {
       request.tenantId,
     );
 
-    // TODO: Implementar busca de dados da empresa via Tenant/Company
+    const companies = await this.companiesRepository.findManyActive(request.tenantId);
+    const company = companies[0];
+    if (!company) {
+      throw new BadRequestError('Nenhuma empresa cadastrada para este tenant. Configure os dados da empresa antes de emitir notas fiscais.');
+    }
+
+    const addressResult = await this.companyAddressesRepository.findMany({
+      companyId: company.id,
+      type: 'FISCAL',
+      isPrimary: true,
+    });
+    const address = addressResult.addresses[0];
+
     const companyData = {
-      cnpj: '12345678000190', // Placeholder
-      razaoSocial: 'Demo Company',
-      endereco: 'Rua Demo',
-      numero: '123',
-      bairro: 'Centro',
-      cidade: 'São Paulo',
-      uf: 'SP',
-      cep: '01000000',
+      cnpj: company.cnpj,
+      razaoSocial: company.legalName,
+      endereco: address?.street ?? '',
+      numero: address?.number ?? 'S/N',
+      bairro: address?.district ?? '',
+      cidade: address?.city ?? '',
+      uf: address?.state ?? '',
+      cep: address?.zip ?? '',
     };
 
     // Mapeia order para invoice input (NFC-e)

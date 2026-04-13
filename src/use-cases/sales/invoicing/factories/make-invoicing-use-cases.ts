@@ -1,4 +1,6 @@
 import { FocusNfeProviderImpl } from '@/providers/nfe/implementations/focus-nfe.impl';
+import { PrismaCompanyAddressesRepository } from '@/repositories/core/prisma/prisma-company-addresses-repository';
+import { PrismaCompaniesRepository } from '@/repositories/core/prisma/prisma-companies-repository';
 import { PrismaCustomersRepository } from '@/repositories/sales/prisma/prisma-customers-repository';
 import { PrismaFocusNfeConfigRepository } from '@/repositories/sales/prisma/prisma-focus-nfe-config-repository';
 import { PrismaInvoicesRepository } from '@/repositories/sales/prisma/prisma-invoices-repository';
@@ -18,6 +20,8 @@ export function makeIssueInvoiceUseCase(): IssueInvoiceUseCase {
     new PrismaInvoicesRepository(),
     new PrismaFocusNfeConfigRepository(),
     new FocusNfeProviderImpl(true), // production
+    new PrismaCompaniesRepository(),
+    new PrismaCompanyAddressesRepository(),
   );
 }
 
@@ -34,6 +38,7 @@ export function makeCancelInvoiceUseCase(): CancelInvoiceUseCase {
     new PrismaInvoicesRepository(),
     new FocusNfeProviderImpl(true),
     new PrismaFocusNfeConfigRepository(),
+    new PrismaCompaniesRepository(),
   );
 }
 
