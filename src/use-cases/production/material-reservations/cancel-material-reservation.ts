@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { MaterialReservationsRepository } from '@/repositories/production/material-reservations-repository';
 
@@ -23,15 +25,15 @@ export class CancelMaterialReservationUseCase {
       );
 
     if (!existingReservation) {
-      throw new Error('Material reservation not found.');
+      throw new ResourceNotFoundError('Material reservation not found.');
     }
 
     if (existingReservation.status === 'CANCELLED') {
-      throw new Error('Material reservation is already cancelled.');
+      throw new BadRequestError('Material reservation is already cancelled.');
     }
 
     if (existingReservation.status === 'FULLY_ISSUED') {
-      throw new Error('Cannot cancel a fully issued material reservation.');
+      throw new BadRequestError('Cannot cancel a fully issued material reservation.');
     }
 
     const materialReservation =
@@ -41,7 +43,7 @@ export class CancelMaterialReservationUseCase {
       });
 
     if (!materialReservation) {
-      throw new Error('Failed to cancel material reservation.');
+      throw new BadRequestError('Failed to cancel material reservation.');
     }
 
     return { materialReservation };

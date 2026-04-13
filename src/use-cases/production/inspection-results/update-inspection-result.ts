@@ -1,3 +1,5 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type {
   InspectionStatus,
@@ -32,7 +34,7 @@ export class UpdateInspectionResultUseCase {
     );
 
     if (!existingResult) {
-      throw new Error('Inspection result not found');
+      throw new ResourceNotFoundError('Inspection result not found');
     }
 
     const inspectionResult = await this.inspectionResultsRepository.update({
@@ -43,7 +45,7 @@ export class UpdateInspectionResultUseCase {
     });
 
     if (!inspectionResult) {
-      throw new Error('Failed to update inspection result');
+      throw new BadRequestError('Failed to update inspection result');
     }
 
     return { inspectionResult };
