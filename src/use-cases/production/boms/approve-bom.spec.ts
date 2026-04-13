@@ -23,7 +23,7 @@ describe('ApproveBomUseCase', () => {
     const { bom: created } = await createBom.execute({
       tenantId: TENANT_ID,
       productId: 'product-1',
-      version: '1.0',
+      version: 1,
       name: 'Draft BOM',
       baseQuantity: 1,
       validFrom: new Date('2026-01-01'),
@@ -47,7 +47,7 @@ describe('ApproveBomUseCase', () => {
     const { bom: created } = await createBom.execute({
       tenantId: TENANT_ID,
       productId: 'product-1',
-      version: '1.0',
+      version: 1,
       name: 'Draft BOM',
       baseQuantity: 1,
       validFrom: new Date('2026-01-01'),

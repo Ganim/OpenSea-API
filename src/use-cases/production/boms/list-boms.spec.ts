@@ -20,7 +20,7 @@ describe('ListBomsUseCase', () => {
     await createBom.execute({
       tenantId: TENANT_ID,
       productId: 'product-1',
-      version: '1.0',
+      version: 1,
       name: 'BOM 1',
       baseQuantity: 1,
       validFrom: new Date('2026-01-01'),
@@ -30,7 +30,7 @@ describe('ListBomsUseCase', () => {
     await createBom.execute({
       tenantId: TENANT_ID,
       productId: 'product-2',
-      version: '1.0',
+      version: 1,
       name: 'BOM 2',
       baseQuantity: 1,
       validFrom: new Date('2026-01-01'),
@@ -46,7 +46,7 @@ describe('ListBomsUseCase', () => {
     await createBom.execute({
       tenantId: TENANT_ID,
       productId: 'product-1',
-      version: '1.0',
+      version: 1,
       name: 'BOM Product 1',
       baseQuantity: 1,
       validFrom: new Date('2026-01-01'),
@@ -56,7 +56,7 @@ describe('ListBomsUseCase', () => {
     await createBom.execute({
       tenantId: TENANT_ID,
       productId: 'product-2',
-      version: '1.0',
+      version: 1,
       name: 'BOM Product 2',
       baseQuantity: 1,
       validFrom: new Date('2026-01-01'),

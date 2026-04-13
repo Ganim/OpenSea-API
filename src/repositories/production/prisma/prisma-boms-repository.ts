@@ -13,7 +13,7 @@ function toDomain(raw: {
   id: string;
   tenantId: string;
   productId: string;
-  version: string;
+  version: number;
   name: string;
   description: string | null;
   isDefault: boolean;
@@ -139,7 +139,7 @@ export class PrismaBomsRepository implements BomsRepository {
   async update(data: UpdateBomSchema): Promise<ProductionBom | null> {
     const updateData: {
       productId?: string;
-      version?: string;
+      version?: number;
       name?: string;
       description?: string | null;
       isDefault?: boolean;

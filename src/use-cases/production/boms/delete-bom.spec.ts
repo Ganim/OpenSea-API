@@ -21,7 +21,7 @@ describe('DeleteBomUseCase', () => {
     const { bom } = await createBom.execute({
       tenantId: TENANT_ID,
       productId: 'product-1',
-      version: '1.0',
+      version: 1,
       name: 'BOM to delete',
       baseQuantity: 1,
       validFrom: new Date('2026-01-01'),

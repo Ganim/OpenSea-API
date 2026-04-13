@@ -4,11 +4,11 @@ import { BomsRepository } from '@/repositories/production/boms-repository';
 interface CreateBomUseCaseRequest {
   tenantId: string;
   productId: string;
-  version: string;
+  version: number;
   name: string;
   description?: string;
   isDefault?: boolean;
-  validFrom: Date;
+  validFrom?: Date;
   validUntil?: Date;
   baseQuantity: number;
   createdById: string;
@@ -53,7 +53,7 @@ export class CreateBomUseCase {
       name,
       description,
       isDefault,
-      validFrom,
+      validFrom: validFrom ?? new Date(),
       validUntil,
       baseQuantity,
       createdById,

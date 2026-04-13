@@ -20,7 +20,7 @@ describe('CreateBomUseCase', () => {
     const { bom } = await sut.execute({
       tenantId: TENANT_ID,
       productId: PRODUCT_ID,
-      version: '1.0',
+      version: 1,
       name: 'Main BOM',
       description: 'Primary bill of materials',
       baseQuantity: 1,
@@ -30,7 +30,7 @@ describe('CreateBomUseCase', () => {
 
     expect(bom.id.toString()).toEqual(expect.any(String));
     expect(bom.name).toBe('Main BOM');
-    expect(bom.version).toBe('1.0');
+    expect(bom.version).toBe(1);
     expect(bom.status).toBe('DRAFT');
     expect(bom.baseQuantity).toBe(1);
     expect(bom.description).toBe('Primary bill of materials');
@@ -40,7 +40,7 @@ describe('CreateBomUseCase', () => {
     const { bom } = await sut.execute({
       tenantId: TENANT_ID,
       productId: PRODUCT_ID,
-      version: '1.0',
+      version: 1,
       name: 'Default BOM',
       isDefault: true,
       baseQuantity: 1,
@@ -56,7 +56,7 @@ describe('CreateBomUseCase', () => {
     const { bom } = await sut.execute({
       tenantId: TENANT_ID,
       productId: PRODUCT_ID,
-      version: '1.0',
+      version: 1,
       name: 'Seasonal BOM',
       baseQuantity: 10,
       validFrom: new Date('2026-01-01'),
@@ -71,7 +71,7 @@ describe('CreateBomUseCase', () => {
     await sut.execute({
       tenantId: TENANT_ID,
       productId: PRODUCT_ID,
-      version: '1.0',
+      version: 1,
       name: 'BOM v1',
       baseQuantity: 1,
       validFrom: new Date('2026-01-01'),
@@ -82,7 +82,7 @@ describe('CreateBomUseCase', () => {
       sut.execute({
         tenantId: TENANT_ID,
         productId: PRODUCT_ID,
-        version: '1.0',
+        version: 1,
         name: 'BOM v1 duplicate',
         baseQuantity: 1,
         validFrom: new Date('2026-01-01'),
@@ -95,7 +95,7 @@ describe('CreateBomUseCase', () => {
     await sut.execute({
       tenantId: TENANT_ID,
       productId: 'product-1',
-      version: '1.0',
+      version: 1,
       name: 'BOM Product 1',
       baseQuantity: 1,
       validFrom: new Date('2026-01-01'),
@@ -105,7 +105,7 @@ describe('CreateBomUseCase', () => {
     const { bom } = await sut.execute({
       tenantId: TENANT_ID,
       productId: 'product-2',
-      version: '1.0',
+      version: 1,
       name: 'BOM Product 2',
       baseQuantity: 1,
       validFrom: new Date('2026-01-01'),
@@ -119,7 +119,7 @@ describe('CreateBomUseCase', () => {
     await sut.execute({
       tenantId: TENANT_ID,
       productId: PRODUCT_ID,
-      version: '1.0',
+      version: 1,
       name: 'BOM v1',
       baseQuantity: 1,
       validFrom: new Date('2026-01-01'),
@@ -129,13 +129,13 @@ describe('CreateBomUseCase', () => {
     const { bom } = await sut.execute({
       tenantId: TENANT_ID,
       productId: PRODUCT_ID,
-      version: '2.0',
+      version: 2,
       name: 'BOM v2',
       baseQuantity: 1,
       validFrom: new Date('2026-06-01'),
       createdById: CREATED_BY,
     });
 
-    expect(bom.version).toBe('2.0');
+    expect(bom.version).toBe(2);
   });
 });

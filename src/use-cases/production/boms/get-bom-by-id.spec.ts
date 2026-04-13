@@ -21,7 +21,7 @@ describe('GetBomByIdUseCase', () => {
     const { bom: created } = await createBom.execute({
       tenantId: TENANT_ID,
       productId: 'product-1',
-      version: '1.0',
+      version: 1,
       name: 'Test BOM',
       baseQuantity: 1,
       validFrom: new Date('2026-01-01'),
@@ -34,7 +34,7 @@ describe('GetBomByIdUseCase', () => {
     });
 
     expect(bom.name).toBe('Test BOM');
-    expect(bom.version).toBe('1.0');
+    expect(bom.version).toBe(1);
   });
 
   it('should throw if BOM not found', async () => {

@@ -22,7 +22,7 @@ describe('ListBomItemsUseCase', () => {
     const bom = await bomsRepository.create({
       tenantId: TENANT_ID,
       productId: 'product-1',
-      version: '1.0',
+      version: 1,
       name: 'Test BOM',
       baseQuantity: 1,
       validFrom: new Date('2026-01-01'),
@@ -65,7 +65,7 @@ describe('ListBomItemsUseCase', () => {
     const otherBom = await bomsRepository.create({
       tenantId: TENANT_ID,
       productId: 'product-2',
-      version: '1.0',
+      version: 1,
       name: 'Other BOM',
       baseQuantity: 1,
       validFrom: new Date('2026-01-01'),

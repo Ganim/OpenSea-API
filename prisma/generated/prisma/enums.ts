@@ -1605,7 +1605,8 @@ export const SystemModuleEnum = {
   STORAGE: 'STORAGE',
   EMAIL: 'EMAIL',
   TASKS: 'TASKS',
-  MESSAGING: 'MESSAGING'
+  MESSAGING: 'MESSAGING',
+  PRODUCTION: 'PRODUCTION'
 } as const
 
 export type SystemModuleEnum = (typeof SystemModuleEnum)[keyof typeof SystemModuleEnum]
@@ -3585,3 +3586,109 @@ export const PrinterStatus = {
 } as const
 
 export type PrinterStatus = (typeof PrinterStatus)[keyof typeof PrinterStatus]
+
+
+export const ProductionOrderStatus = {
+  DRAFT: 'DRAFT',
+  PLANNED: 'PLANNED',
+  FIRM: 'FIRM',
+  RELEASED: 'RELEASED',
+  IN_PROCESS: 'IN_PROCESS',
+  TECHNICALLY_COMPLETE: 'TECHNICALLY_COMPLETE',
+  CLOSED: 'CLOSED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type ProductionOrderStatus = (typeof ProductionOrderStatus)[keyof typeof ProductionOrderStatus]
+
+
+export const BomStatus = {
+  DRAFT: 'DRAFT',
+  ACTIVE: 'ACTIVE',
+  OBSOLETE: 'OBSOLETE'
+} as const
+
+export type BomStatus = (typeof BomStatus)[keyof typeof BomStatus]
+
+
+export const JobCardStatus = {
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  ON_HOLD: 'ON_HOLD',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type JobCardStatus = (typeof JobCardStatus)[keyof typeof JobCardStatus]
+
+
+export const MaterialReservationStatus = {
+  RESERVED: 'RESERVED',
+  PARTIALLY_ISSUED: 'PARTIALLY_ISSUED',
+  FULLY_ISSUED: 'FULLY_ISSUED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type MaterialReservationStatus = (typeof MaterialReservationStatus)[keyof typeof MaterialReservationStatus]
+
+
+export const ProductionTimeEntryType = {
+  PRODUCTION: 'PRODUCTION',
+  SETUP: 'SETUP',
+  REWORK: 'REWORK',
+  IDLE: 'IDLE'
+} as const
+
+export type ProductionTimeEntryType = (typeof ProductionTimeEntryType)[keyof typeof ProductionTimeEntryType]
+
+
+export const DowntimeCategory = {
+  MACHINE: 'MACHINE',
+  MATERIAL: 'MATERIAL',
+  QUALITY: 'QUALITY',
+  SETUP: 'SETUP',
+  PLANNING: 'PLANNING',
+  MAINTENANCE: 'MAINTENANCE',
+  OTHER: 'OTHER'
+} as const
+
+export type DowntimeCategory = (typeof DowntimeCategory)[keyof typeof DowntimeCategory]
+
+
+export const InspectionStatus = {
+  PENDING: 'PENDING',
+  PASSED: 'PASSED',
+  FAILED: 'FAILED',
+  CONDITIONAL: 'CONDITIONAL'
+} as const
+
+export type InspectionStatus = (typeof InspectionStatus)[keyof typeof InspectionStatus]
+
+
+export const DefectSeverity = {
+  CRITICAL: 'CRITICAL',
+  MAJOR: 'MAJOR',
+  MINOR: 'MINOR'
+} as const
+
+export type DefectSeverity = (typeof DefectSeverity)[keyof typeof DefectSeverity]
+
+
+export const QualityHoldStatus = {
+  ACTIVE: 'ACTIVE',
+  RELEASED: 'RELEASED',
+  SCRAPPED: 'SCRAPPED'
+} as const
+
+export type QualityHoldStatus = (typeof QualityHoldStatus)[keyof typeof QualityHoldStatus]
+
+
+export const ScheduleEntryStatus = {
+  PLANNED: 'PLANNED',
+  CONFIRMED: 'CONFIRMED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type ScheduleEntryStatus = (typeof ScheduleEntryStatus)[keyof typeof ScheduleEntryStatus]

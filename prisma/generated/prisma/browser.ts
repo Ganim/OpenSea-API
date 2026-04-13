@@ -1812,3 +1812,118 @@ export type PrintJob = Prisma.PrintJobModel
  * 
  */
 export type FocusNfeConfig = Prisma.FocusNfeConfigModel
+/**
+ * Model ProductionWorkstationType
+ * 
+ */
+export type ProductionWorkstationType = Prisma.ProductionWorkstationTypeModel
+/**
+ * Model ProductionWorkstation
+ * 
+ */
+export type ProductionWorkstation = Prisma.ProductionWorkstationModel
+/**
+ * Model ProductionWorkCenter
+ * 
+ */
+export type ProductionWorkCenter = Prisma.ProductionWorkCenterModel
+/**
+ * Model ProductionBom
+ * 
+ */
+export type ProductionBom = Prisma.ProductionBomModel
+/**
+ * Model ProductionBomItem
+ * 
+ */
+export type ProductionBomItem = Prisma.ProductionBomItemModel
+/**
+ * Model ProductionOperationRouting
+ * 
+ */
+export type ProductionOperationRouting = Prisma.ProductionOperationRoutingModel
+/**
+ * Model ProductionOrder
+ * 
+ */
+export type ProductionOrder = Prisma.ProductionOrderModel
+/**
+ * Model ProductionMaterialReservation
+ * 
+ */
+export type ProductionMaterialReservation = Prisma.ProductionMaterialReservationModel
+/**
+ * Model ProductionMaterialIssue
+ * 
+ */
+export type ProductionMaterialIssue = Prisma.ProductionMaterialIssueModel
+/**
+ * Model ProductionMaterialReturn
+ * 
+ */
+export type ProductionMaterialReturn = Prisma.ProductionMaterialReturnModel
+/**
+ * Model ProductionJobCard
+ * 
+ */
+export type ProductionJobCard = Prisma.ProductionJobCardModel
+/**
+ * Model ProductionTimeEntry
+ * 
+ */
+export type ProductionTimeEntry = Prisma.ProductionTimeEntryModel
+/**
+ * Model ProductionEntry
+ * 
+ */
+export type ProductionEntry = Prisma.ProductionEntryModel
+/**
+ * Model ProductionDowntimeReason
+ * 
+ */
+export type ProductionDowntimeReason = Prisma.ProductionDowntimeReasonModel
+/**
+ * Model ProductionDowntimeRecord
+ * 
+ */
+export type ProductionDowntimeRecord = Prisma.ProductionDowntimeRecordModel
+/**
+ * Model ProductionSchedule
+ * 
+ */
+export type ProductionSchedule = Prisma.ProductionScheduleModel
+/**
+ * Model ProductionScheduleEntry
+ * 
+ */
+export type ProductionScheduleEntry = Prisma.ProductionScheduleEntryModel
+/**
+ * Model ProductionDefectType
+ * 
+ */
+export type ProductionDefectType = Prisma.ProductionDefectTypeModel
+/**
+ * Model ProductionInspectionPlan
+ * 
+ */
+export type ProductionInspectionPlan = Prisma.ProductionInspectionPlanModel
+/**
+ * Model ProductionInspectionResult
+ * 
+ */
+export type ProductionInspectionResult = Prisma.ProductionInspectionResultModel
+/**
+ * Model ProductionDefectRecord
+ * 
+ */
+export type ProductionDefectRecord = Prisma.ProductionDefectRecordModel
+/**
+ * Model ProductionQualityHold
+ * 
+ */
+export type ProductionQualityHold = Prisma.ProductionQualityHoldModel
+/**
+ * Model ProductionCost
+ * 
+ */
+export type ProductionCost = Prisma.ProductionCostModel

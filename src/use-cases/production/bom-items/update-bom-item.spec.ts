@@ -23,7 +23,7 @@ describe('UpdateBomItemUseCase', () => {
     const bom = await bomsRepository.create({
       tenantId: TENANT_ID,
       productId: 'product-1',
-      version: '1.0',
+      version: 1,
       name: 'Test BOM',
       baseQuantity: 1,
       validFrom: new Date('2026-01-01'),

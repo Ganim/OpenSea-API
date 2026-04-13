@@ -95,7 +95,7 @@ export class ProductionBom extends Entity<ProductionBomProps> {
     this.touch();
   }
 
-  set version(version: string) {
+  set version(version: number) {
     this.props.version = version;
     this.touch();
   }

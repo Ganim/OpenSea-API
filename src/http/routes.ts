@@ -232,6 +232,16 @@ import { esocialConfigRoutes } from './controllers/esocial/config/routes';
 import { esocialRubricasRoutes } from './controllers/esocial/rubricas/routes';
 import { esocialTablesRoutes } from './controllers/esocial/tables/routes';
 
+// Production routes
+import { bomItemsRoutes } from './controllers/production/bom-items/routes';
+import { bomsRoutes } from './controllers/production/boms/routes';
+import { defectTypesRoutes } from './controllers/production/defect-types/routes';
+import { downtimeReasonsRoutes } from './controllers/production/downtime-reasons/routes';
+import { operationRoutingsRoutes } from './controllers/production/operation-routings/routes';
+import { workCentersRoutes } from './controllers/production/work-centers/routes';
+import { workstationTypesRoutes } from './controllers/production/workstation-types/routes';
+import { workstationsRoutes } from './controllers/production/workstations/routes';
+
 // Fiscal routes
 import { fiscalRoutes } from './controllers/fiscal/routes';
 
@@ -568,6 +578,16 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(esocialCertificatesRoutes);
   await app.register(esocialTablesRoutes);
   await app.register(esocialRubricasRoutes);
+
+  // Production routes
+  await app.register(workstationTypesRoutes);
+  await app.register(workstationsRoutes);
+  await app.register(workCentersRoutes);
+  await app.register(bomsRoutes);
+  await app.register(bomItemsRoutes);
+  await app.register(operationRoutingsRoutes);
+  await app.register(downtimeReasonsRoutes);
+  await app.register(defectTypesRoutes);
 
   // Fiscal routes
   await app.register(fiscalRoutes);

@@ -6,7 +6,7 @@ interface UpdateBomUseCaseRequest {
   tenantId: string;
   id: string;
   productId?: string;
-  version?: string;
+  version?: number;
   name?: string;
   description?: string | null;
   isDefault?: boolean;

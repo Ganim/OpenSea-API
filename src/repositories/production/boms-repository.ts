@@ -5,7 +5,7 @@ import { ProductionBom } from '@/entities/production/bill-of-materials';
 export interface CreateBomSchema {
   tenantId: string;
   productId: string;
-  version: string;
+  version: number;
   name: string;
   description?: string;
   isDefault?: boolean;
@@ -21,7 +21,7 @@ export interface CreateBomSchema {
 export interface UpdateBomSchema {
   id: UniqueEntityID;
   productId?: string;
-  version?: string;
+  version?: number;
   name?: string;
   description?: string | null;
   isDefault?: boolean;

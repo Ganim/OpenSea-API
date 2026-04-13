@@ -123,6 +123,31 @@ export const PRODUCTION_AUDIT_MESSAGES = {
   } satisfies AuditMessage,
 
   // ============================================================================
+  // BOM ITEMS
+  // ============================================================================
+
+  BOM_ITEM_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.PRODUCTION_BOM_ITEM,
+    module: AuditModule.PRODUCTION,
+    description: '{{userName}} adicionou material à lista de materiais',
+  } satisfies AuditMessage,
+
+  BOM_ITEM_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PRODUCTION_BOM_ITEM,
+    module: AuditModule.PRODUCTION,
+    description: '{{userName}} atualizou item da lista de materiais',
+  } satisfies AuditMessage,
+
+  BOM_ITEM_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.PRODUCTION_BOM_ITEM,
+    module: AuditModule.PRODUCTION,
+    description: '{{userName}} removeu item da lista de materiais',
+  } satisfies AuditMessage,
+
+  // ============================================================================
   // OPERATION ROUTING
   // ============================================================================
 
@@ -234,6 +259,20 @@ export const PRODUCTION_AUDIT_MESSAGES = {
     entity: AuditEntity.DOWNTIME_REASON,
     module: AuditModule.PRODUCTION,
     description: '{{userName}} criou o motivo de parada {{name}}',
+  } satisfies AuditMessage,
+
+  DOWNTIME_REASON_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.DOWNTIME_REASON,
+    module: AuditModule.PRODUCTION,
+    description: '{{userName}} atualizou o motivo de parada {{name}}',
+  } satisfies AuditMessage,
+
+  DOWNTIME_REASON_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.DOWNTIME_REASON,
+    module: AuditModule.PRODUCTION,
+    description: '{{userName}} removeu o motivo de parada {{name}}',
   } satisfies AuditMessage,
 
   DOWNTIME_RECORD_CREATE: {
