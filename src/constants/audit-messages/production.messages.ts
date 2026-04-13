@@ -353,4 +353,24 @@ export const PRODUCTION_AUDIT_MESSAGES = {
     module: AuditModule.PRODUCTION,
     description: '{{userName}} removeu o tipo de defeito {{name}}',
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // COSTING
+  // ============================================================================
+
+  COST_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.PRODUCTION_COST,
+    module: AuditModule.PRODUCTION,
+    description:
+      '{{userName}} registrou custo {{costType}} na OP {{orderId}}',
+  } satisfies AuditMessage,
+
+  COST_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PRODUCTION_COST,
+    module: AuditModule.PRODUCTION,
+    description:
+      '{{userName}} atualizou custo {{costType}} na OP {{orderId}}',
+  } satisfies AuditMessage,
 };

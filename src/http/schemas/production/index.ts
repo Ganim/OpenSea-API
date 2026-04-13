@@ -10,3 +10,4 @@ export * from './job-card.schema';
 export * from './downtime-record.schema';
 export * from './quality.schema';
 export * from './schedule.schema';
+export * from './costing.schema';
