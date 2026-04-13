@@ -15,5 +15,6 @@ export enum AuditModule {
   EMAIL = 'EMAIL',
   ADMIN = 'ADMIN',
   SYSTEM = 'SYSTEM',
+  PRODUCTION = 'PRODUCTION',
   OTHER = 'OTHER',
 }

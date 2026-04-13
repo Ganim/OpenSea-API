@@ -5807,6 +5807,7 @@ enum SystemModuleEnum {
   EMAIL
   TASKS
   MESSAGING
+  PRODUCTION
 }
 
 // --- Central Redesign Enums ---
@@ -6296,6 +6297,17 @@ model Tenant {
   // Invoicing domain
   invoices       Invoice[]
   focusNfeConfig FocusNfeConfig?
+
+  // Production domain
+  workstationTypes       ProductionWorkstationType[]
+  workstations           ProductionWorkstation[]
+  workCenters            ProductionWorkCenter[]
+  billsOfMaterials       ProductionBom[]
+  operationRoutings      ProductionOperationRouting[]
+  downtimeReasons        ProductionDowntimeReason[]
+  productionOrders       ProductionOrder[]
+  productionSchedules    ProductionSchedule[]
+  defectTypes            ProductionDefectType[]
 
   @@index([status])
   @@index([deletedAt])
@@ -15406,4 +15418,622 @@ model FocusNfeConfig {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("focus_nfe_configs")
+}
+
+// ===============================================
+// PRODUCTION MODULE — Controle de Produção
+// ===============================================
+
+// --- Enums ---
+
+enum ProductionOrderStatus {
+  DRAFT
+  PLANNED
+  FIRM
+  RELEASED
+  IN_PROCESS
+  TECHNICALLY_COMPLETE
+  CLOSED
+  CANCELLED
+}
+
+enum BomStatus {
+  DRAFT
+  ACTIVE
+  OBSOLETE
+}
+
+enum JobCardStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  ON_HOLD
+  CANCELLED
+}
+
+enum MaterialReservationStatus {
+  RESERVED
+  PARTIALLY_ISSUED
+  FULLY_ISSUED
+  CANCELLED
+}
+
+enum ProductionTimeEntryType {
+  PRODUCTION
+  SETUP
+  REWORK
+  IDLE
+}
+
+enum DowntimeCategory {
+  MACHINE
+  MATERIAL
+  QUALITY
+  SETUP
+  PLANNING
+  MAINTENANCE
+  OTHER
+}
+
+enum InspectionStatus {
+  PENDING
+  PASSED
+  FAILED
+  CONDITIONAL
+}
+
+enum DefectSeverity {
+  CRITICAL
+  MAJOR
+  MINOR
+}
+
+enum QualityHoldStatus {
+  ACTIVE
+  RELEASED
+  SCRAPPED
+}
+
+enum ScheduleEntryStatus {
+  PLANNED
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+// --- Engenharia (Phase 1) ---
+
+model ProductionWorkstationType {
+  id          String  @id @default(cuid())
+  tenantId    String  @map("tenant_id")
+  name        String  @db.VarChar(128)
+  description String? @db.VarChar(500)
+  icon        String? @db.VarChar(64)
+  color       String? @db.VarChar(7)
+  isActive    Boolean @default(true) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant       Tenant                  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  workstations ProductionWorkstation[]
+
+  @@unique([tenantId, name])
+  @@index([tenantId])
+  @@map("production_workstation_types")
+}
+
+model ProductionWorkstation {
+  id                String   @id @default(cuid())
+  tenantId          String   @map("tenant_id")
+  workstationTypeId String   @map("workstation_type_id")
+  workCenterId      String?  @map("work_center_id")
+  code              String   @db.VarChar(32)
+  name              String   @db.VarChar(128)
+  description       String?  @db.VarChar(500)
+  capacityPerDay    Decimal  @default(8) @map("capacity_per_day") @db.Decimal(10, 2)
+  costPerHour       Decimal? @map("cost_per_hour") @db.Decimal(10, 2)
+  setupTimeDefault  Int      @default(0) @map("setup_time_default")
+  isActive          Boolean  @default(true) @map("is_active")
+  metadata          Json?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant          Tenant                        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  workstationType ProductionWorkstationType     @relation(fields: [workstationTypeId], references: [id])
+  workCenter      ProductionWorkCenter?         @relation(fields: [workCenterId], references: [id])
+  operationRoutings ProductionOperationRouting[]
+  jobCards        ProductionJobCard[]
+  scheduleEntries ProductionScheduleEntry[]
+  downtimeRecords ProductionDowntimeRecord[]
+
+  @@unique([tenantId, code])
+  @@index([tenantId])
+  @@index([workstationTypeId])
+  @@index([workCenterId])
+  @@map("production_workstations")
+}
+
+model ProductionWorkCenter {
+  id          String  @id @default(cuid())
+  tenantId    String  @map("tenant_id")
+  code        String  @db.VarChar(32)
+  name        String  @db.VarChar(128)
+  description String? @db.VarChar(500)
+  isActive    Boolean @default(true) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant       Tenant                  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  workstations ProductionWorkstation[]
+
+  @@unique([tenantId, code])
+  @@index([tenantId])
+  @@map("production_work_centers")
+}
+
+model ProductionBom {
+  id           String    @id @default(cuid())
+  tenantId     String    @map("tenant_id")
+  productId    String    @map("product_id")
+  version      Int       @default(1)
+  name         String    @db.VarChar(128)
+  description  String?   @db.VarChar(500)
+  isDefault    Boolean   @default(false) @map("is_default")
+  validFrom    DateTime  @default(now()) @map("valid_from")
+  validUntil   DateTime? @map("valid_until")
+  status       BomStatus @default(DRAFT)
+  baseQuantity Decimal   @default(1) @map("base_quantity") @db.Decimal(10, 4)
+  createdById  String    @map("created_by_id")
+  approvedById String?   @map("approved_by_id")
+  approvedAt   DateTime? @map("approved_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant           Tenant                        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  items            ProductionBomItem[]
+  operationRoutings ProductionOperationRouting[]
+  productionOrders ProductionOrder[]
+
+  @@unique([tenantId, productId, version])
+  @@index([tenantId])
+  @@index([productId])
+  @@map("production_boms")
+}
+
+model ProductionBomItem {
+  id              String  @id @default(cuid())
+  bomId           String  @map("bom_id")
+  materialId      String  @map("material_id")
+  sequence        Int
+  quantity        Decimal @db.Decimal(10, 4)
+  unit            String  @db.VarChar(16)
+  wastagePercent  Decimal @default(0) @map("wastage_percent") @db.Decimal(5, 2)
+  isOptional      Boolean @default(false) @map("is_optional")
+  substituteForId String? @map("substitute_for_id")
+  notes           String? @db.VarChar(500)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  bom           ProductionBom      @relation(fields: [bomId], references: [id], onDelete: Cascade)
+  substituteFor ProductionBomItem? @relation("BomSubstitute", fields: [substituteForId], references: [id])
+  substitutes   ProductionBomItem[] @relation("BomSubstitute")
+
+  @@unique([bomId, sequence])
+  @@index([bomId])
+  @@index([materialId])
+  @@map("production_bom_items")
+}
+
+model ProductionOperationRouting {
+  id              String  @id @default(cuid())
+  tenantId        String  @map("tenant_id")
+  bomId           String  @map("bom_id")
+  workstationId   String? @map("workstation_id")
+  sequence        Int
+  operationName   String  @map("operation_name") @db.VarChar(128)
+  description     String? @db.VarChar(500)
+  setupTime       Int     @default(0) @map("setup_time")
+  executionTime   Decimal @map("execution_time") @db.Decimal(10, 2)
+  waitTime        Int     @default(0) @map("wait_time")
+  moveTime        Int     @default(0) @map("move_time")
+  isQualityCheck  Boolean @default(false) @map("is_quality_check")
+  isOptional      Boolean @default(false) @map("is_optional")
+  skillRequired   String? @map("skill_required") @db.VarChar(128)
+  instructions    String? @db.Text
+  imageUrl        String? @map("image_url") @db.VarChar(512)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant      Tenant                 @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  bom         ProductionBom          @relation(fields: [bomId], references: [id], onDelete: Cascade)
+  workstation ProductionWorkstation? @relation(fields: [workstationId], references: [id])
+  jobCards    ProductionJobCard[]
+  inspectionPlans ProductionInspectionPlan[]
+
+  @@unique([bomId, sequence])
+  @@index([tenantId])
+  @@index([bomId])
+  @@map("production_operation_routings")
+}
+
+// --- Ordens de Produção (Phase 2) ---
+
+model ProductionOrder {
+  id                String                @id @default(cuid())
+  tenantId          String                @map("tenant_id")
+  orderNumber       String                @map("order_number") @db.VarChar(32)
+  bomId             String                @map("bom_id")
+  productId         String                @map("product_id")
+  salesOrderId      String?               @map("sales_order_id")
+  parentOrderId     String?               @map("parent_order_id")
+  status            ProductionOrderStatus @default(DRAFT)
+  priority          Int                   @default(50)
+  quantityPlanned   Decimal               @map("quantity_planned") @db.Decimal(10, 4)
+  quantityStarted   Decimal               @default(0) @map("quantity_started") @db.Decimal(10, 4)
+  quantityCompleted Decimal               @default(0) @map("quantity_completed") @db.Decimal(10, 4)
+  quantityScrapped  Decimal               @default(0) @map("quantity_scrapped") @db.Decimal(10, 4)
+  plannedStartDate  DateTime?             @map("planned_start_date")
+  plannedEndDate    DateTime?             @map("planned_end_date")
+  actualStartDate   DateTime?             @map("actual_start_date")
+  actualEndDate     DateTime?             @map("actual_end_date")
+  releasedAt        DateTime?             @map("released_at")
+  releasedById      String?               @map("released_by_id")
+  notes             String?               @db.Text
+  createdById       String                @map("created_by_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant               Tenant                       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  bom                  ProductionBom                @relation(fields: [bomId], references: [id])
+  parentOrder          ProductionOrder?             @relation("SubOrders", fields: [parentOrderId], references: [id])
+  subOrders            ProductionOrder[]            @relation("SubOrders")
+  materialReservations ProductionMaterialReservation[]
+  materialIssues       ProductionMaterialIssue[]
+  materialReturns      ProductionMaterialReturn[]
+  jobCards             ProductionJobCard[]
+  qualityHolds         ProductionQualityHold[]
+  costRecords          ProductionCost[]
+  inspectionResults    ProductionInspectionResult[]
+
+  @@unique([tenantId, orderNumber])
+  @@index([tenantId, status])
+  @@index([tenantId, plannedStartDate])
+  @@index([productId])
+  @@index([bomId])
+  @@map("production_orders")
+}
+
+model ProductionMaterialReservation {
+  id                String                    @id @default(cuid())
+  productionOrderId String                    @map("production_order_id")
+  materialId        String                    @map("material_id")
+  warehouseId       String                    @map("warehouse_id")
+  quantityReserved  Decimal                   @map("quantity_reserved") @db.Decimal(10, 4)
+  quantityIssued    Decimal                   @default(0) @map("quantity_issued") @db.Decimal(10, 4)
+  status            MaterialReservationStatus @default(RESERVED)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  productionOrder ProductionOrder @relation(fields: [productionOrderId], references: [id], onDelete: Cascade)
+
+  @@index([productionOrderId])
+  @@index([materialId])
+  @@map("production_material_reservations")
+}
+
+model ProductionMaterialIssue {
+  id                String   @id @default(cuid())
+  productionOrderId String   @map("production_order_id")
+  materialId        String   @map("material_id")
+  warehouseId       String   @map("warehouse_id")
+  quantity          Decimal  @db.Decimal(10, 4)
+  batchNumber       String?  @map("batch_number") @db.VarChar(64)
+  issuedById        String   @map("issued_by_id")
+  issuedAt          DateTime @default(now()) @map("issued_at")
+  notes             String?  @db.VarChar(500)
+
+  productionOrder ProductionOrder @relation(fields: [productionOrderId], references: [id], onDelete: Cascade)
+
+  @@index([productionOrderId])
+  @@map("production_material_issues")
+}
+
+model ProductionMaterialReturn {
+  id                String   @id @default(cuid())
+  productionOrderId String   @map("production_order_id")
+  materialId        String   @map("material_id")
+  warehouseId       String   @map("warehouse_id")
+  quantity          Decimal  @db.Decimal(10, 4)
+  reason            String?  @db.VarChar(500)
+  returnedById      String   @map("returned_by_id")
+  returnedAt        DateTime @default(now()) @map("returned_at")
+
+  productionOrder ProductionOrder @relation(fields: [productionOrderId], references: [id], onDelete: Cascade)
+
+  @@index([productionOrderId])
+  @@map("production_material_returns")
+}
+
+// --- Chão de Fábrica (Phase 3) ---
+
+model ProductionJobCard {
+  id                 String        @id @default(cuid())
+  productionOrderId  String        @map("production_order_id")
+  operationRoutingId String        @map("operation_routing_id")
+  workstationId      String?       @map("workstation_id")
+  status             JobCardStatus @default(PENDING)
+  quantityPlanned    Decimal       @map("quantity_planned") @db.Decimal(10, 4)
+  quantityCompleted  Decimal       @default(0) @map("quantity_completed") @db.Decimal(10, 4)
+  quantityScrapped   Decimal       @default(0) @map("quantity_scrapped") @db.Decimal(10, 4)
+  scheduledStart     DateTime?     @map("scheduled_start")
+  scheduledEnd       DateTime?     @map("scheduled_end")
+  actualStart        DateTime?     @map("actual_start")
+  actualEnd          DateTime?     @map("actual_end")
+  barcode            String?       @unique @db.VarChar(64)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  productionOrder  ProductionOrder          @relation(fields: [productionOrderId], references: [id], onDelete: Cascade)
+  operationRouting ProductionOperationRouting @relation(fields: [operationRoutingId], references: [id])
+  workstation      ProductionWorkstation?   @relation(fields: [workstationId], references: [id])
+  timeEntries      ProductionTimeEntry[]
+  productionEntries ProductionEntry[]
+
+  @@index([productionOrderId])
+  @@index([operationRoutingId])
+  @@index([workstationId])
+  @@map("production_job_cards")
+}
+
+model ProductionTimeEntry {
+  id           String        @id @default(cuid())
+  jobCardId    String        @map("job_card_id")
+  operatorId   String        @map("operator_id")
+  startTime    DateTime      @map("start_time")
+  endTime      DateTime?     @map("end_time")
+  breakMinutes Int           @default(0) @map("break_minutes")
+  entryType    ProductionTimeEntryType @default(PRODUCTION)
+  notes        String?       @db.VarChar(500)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  jobCard ProductionJobCard @relation(fields: [jobCardId], references: [id], onDelete: Cascade)
+
+  @@index([jobCardId])
+  @@index([operatorId])
+  @@map("production_time_entries")
+}
+
+model ProductionEntry {
+  id               String   @id @default(cuid())
+  jobCardId        String   @map("job_card_id")
+  operatorId       String   @map("operator_id")
+  quantityGood     Decimal  @map("quantity_good") @db.Decimal(10, 4)
+  quantityScrapped Decimal  @default(0) @map("quantity_scrapped") @db.Decimal(10, 4)
+  quantityRework   Decimal  @default(0) @map("quantity_rework") @db.Decimal(10, 4)
+  enteredAt        DateTime @default(now()) @map("entered_at")
+  notes            String?  @db.VarChar(500)
+
+  jobCard ProductionJobCard @relation(fields: [jobCardId], references: [id], onDelete: Cascade)
+
+  @@index([jobCardId])
+  @@index([operatorId])
+  @@map("production_entries")
+}
+
+model ProductionDowntimeReason {
+  id       String           @id @default(cuid())
+  tenantId String           @map("tenant_id")
+  code     String           @db.VarChar(32)
+  name     String           @db.VarChar(128)
+  category DowntimeCategory
+  isActive Boolean          @default(true) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  tenant  Tenant                       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  records ProductionDowntimeRecord[]
+
+  @@unique([tenantId, code])
+  @@index([tenantId])
+  @@map("production_downtime_reasons")
+}
+
+model ProductionDowntimeRecord {
+  id               String    @id @default(cuid())
+  workstationId    String    @map("workstation_id")
+  downtimeReasonId String    @map("downtime_reason_id")
+  startTime        DateTime  @map("start_time")
+  endTime          DateTime? @map("end_time")
+  durationMinutes  Int?      @map("duration_minutes")
+  reportedById     String    @map("reported_by_id")
+  notes            String?   @db.VarChar(500)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  workstation    ProductionWorkstation    @relation(fields: [workstationId], references: [id])
+  downtimeReason ProductionDowntimeReason @relation(fields: [downtimeReasonId], references: [id])
+
+  @@index([workstationId])
+  @@index([downtimeReasonId])
+  @@map("production_downtime_records")
+}
+
+// --- Planejamento / Scheduling (Phase 4) ---
+
+model ProductionSchedule {
+  id          String  @id @default(cuid())
+  tenantId    String  @map("tenant_id")
+  name        String  @db.VarChar(128)
+  description String? @db.VarChar(500)
+  startDate   DateTime @map("start_date")
+  endDate     DateTime @map("end_date")
+  isActive    Boolean  @default(true) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant  Tenant                    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  entries ProductionScheduleEntry[]
+
+  @@index([tenantId])
+  @@map("production_schedules")
+}
+
+model ProductionScheduleEntry {
+  id                String              @id @default(cuid())
+  scheduleId        String              @map("schedule_id")
+  productionOrderId String?             @map("production_order_id")
+  workstationId     String?             @map("workstation_id")
+  title             String              @db.VarChar(256)
+  startDate         DateTime            @map("start_date")
+  endDate           DateTime            @map("end_date")
+  status            ScheduleEntryStatus @default(PLANNED)
+  color             String?             @db.VarChar(7)
+  notes             String?             @db.VarChar(500)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  schedule    ProductionSchedule     @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+  workstation ProductionWorkstation? @relation(fields: [workstationId], references: [id])
+
+  @@index([scheduleId])
+  @@index([workstationId])
+  @@index([startDate, endDate])
+  @@map("production_schedule_entries")
+}
+
+// --- Qualidade (Phase 5) ---
+
+model ProductionDefectType {
+  id          String         @id @default(cuid())
+  tenantId    String         @map("tenant_id")
+  code        String         @db.VarChar(32)
+  name        String         @db.VarChar(128)
+  description String?        @db.VarChar(500)
+  severity    DefectSeverity @default(MINOR)
+  isActive    Boolean        @default(true) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant        Tenant                   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  defectRecords ProductionDefectRecord[]
+
+  @@unique([tenantId, code])
+  @@index([tenantId])
+  @@map("production_defect_types")
+}
+
+model ProductionInspectionPlan {
+  id                 String  @id @default(cuid())
+  operationRoutingId String  @map("operation_routing_id")
+  inspectionType     String  @map("inspection_type") @db.VarChar(64)
+  description        String? @db.VarChar(500)
+  sampleSize         Int     @default(0) @map("sample_size")
+  aqlLevel           String? @map("aql_level") @db.VarChar(16)
+  instructions       String? @db.Text
+  isActive           Boolean @default(true) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  operationRouting  ProductionOperationRouting   @relation(fields: [operationRoutingId], references: [id], onDelete: Cascade)
+  inspectionResults ProductionInspectionResult[]
+
+  @@index([operationRoutingId])
+  @@map("production_inspection_plans")
+}
+
+model ProductionInspectionResult {
+  id                String           @id @default(cuid())
+  inspectionPlanId  String           @map("inspection_plan_id")
+  productionOrderId String           @map("production_order_id")
+  inspectedById     String           @map("inspected_by_id")
+  inspectedAt       DateTime         @default(now()) @map("inspected_at")
+  sampleSize        Int              @map("sample_size")
+  defectsFound      Int              @default(0) @map("defects_found")
+  status            InspectionStatus @default(PENDING)
+  notes             String?          @db.Text
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  inspectionPlan  ProductionInspectionPlan @relation(fields: [inspectionPlanId], references: [id])
+  productionOrder ProductionOrder          @relation(fields: [productionOrderId], references: [id])
+  defectRecords   ProductionDefectRecord[]
+
+  @@index([inspectionPlanId])
+  @@index([productionOrderId])
+  @@map("production_inspection_results")
+}
+
+model ProductionDefectRecord {
+  id                   String         @id @default(cuid())
+  inspectionResultId   String?        @map("inspection_result_id")
+  defectTypeId         String         @map("defect_type_id")
+  operatorId           String?        @map("operator_id")
+  quantity             Int            @default(1)
+  severity             DefectSeverity
+  description          String?        @db.VarChar(500)
+  imageUrl             String?        @map("image_url") @db.VarChar(512)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  inspectionResult ProductionInspectionResult? @relation(fields: [inspectionResultId], references: [id])
+  defectType       ProductionDefectType        @relation(fields: [defectTypeId], references: [id])
+
+  @@index([inspectionResultId])
+  @@index([defectTypeId])
+  @@map("production_defect_records")
+}
+
+model ProductionQualityHold {
+  id                String            @id @default(cuid())
+  productionOrderId String            @map("production_order_id")
+  reason            String            @db.VarChar(500)
+  status            QualityHoldStatus @default(ACTIVE)
+  holdById          String            @map("hold_by_id")
+  holdAt            DateTime          @default(now()) @map("hold_at")
+  releasedById      String?           @map("released_by_id")
+  releasedAt        DateTime?         @map("released_at")
+  resolution        String?           @db.VarChar(500)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  productionOrder ProductionOrder @relation(fields: [productionOrderId], references: [id], onDelete: Cascade)
+
+  @@index([productionOrderId])
+  @@map("production_quality_holds")
+}
+
+// --- Custeio (Phase 6) ---
+
+model ProductionCost {
+  id                String  @id @default(cuid())
+  productionOrderId String  @map("production_order_id")
+  costType          String  @map("cost_type") @db.VarChar(32)
+  description       String? @db.VarChar(256)
+  plannedAmount     Decimal @default(0) @map("planned_amount") @db.Decimal(12, 2)
+  actualAmount      Decimal @default(0) @map("actual_amount") @db.Decimal(12, 2)
+  varianceAmount    Decimal @default(0) @map("variance_amount") @db.Decimal(12, 2)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  productionOrder ProductionOrder @relation(fields: [productionOrderId], references: [id], onDelete: Cascade)
+
+  @@index([productionOrderId])
+  @@map("production_costs")
 }

@@ -17,7 +17,8 @@ export type SystemModule =
   | 'STORAGE'
   | 'EMAIL'
   | 'TASKS'
-  | 'MESSAGING';
+  | 'MESSAGING'
+  | 'PRODUCTION';
 
 /**
  * Factory that creates a middleware to verify if the tenant's plan

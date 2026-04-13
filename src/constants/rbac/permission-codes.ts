@@ -1106,6 +1106,54 @@ export const PermissionCodes = {
       ADMIN: 'esocial.certificates.admin' as const,
     },
   },
+
+  // ============================================================================
+  // PRODUCTION — Controle de Produção
+  // ============================================================================
+  PRODUCTION: {
+    ENGINEERING: {
+      ACCESS: 'production.engineering.access' as const,
+      REGISTER: 'production.engineering.register' as const,
+      MODIFY: 'production.engineering.modify' as const,
+      REMOVE: 'production.engineering.remove' as const,
+      ADMIN: 'production.engineering.admin' as const,
+    },
+    ORDERS: {
+      ACCESS: 'production.orders.access' as const,
+      REGISTER: 'production.orders.register' as const,
+      MODIFY: 'production.orders.modify' as const,
+      REMOVE: 'production.orders.remove' as const,
+      EXPORT: 'production.orders.export' as const,
+      PRINT: 'production.orders.print' as const,
+      ADMIN: 'production.orders.admin' as const,
+    },
+    SHOPFLOOR: {
+      ACCESS: 'production.shopfloor.access' as const,
+      REGISTER: 'production.shopfloor.register' as const,
+      MODIFY: 'production.shopfloor.modify' as const,
+      ADMIN: 'production.shopfloor.admin' as const,
+    },
+    PLANNING: {
+      ACCESS: 'production.planning.access' as const,
+      REGISTER: 'production.planning.register' as const,
+      MODIFY: 'production.planning.modify' as const,
+      ADMIN: 'production.planning.admin' as const,
+    },
+    QUALITY: {
+      ACCESS: 'production.quality.access' as const,
+      REGISTER: 'production.quality.register' as const,
+      MODIFY: 'production.quality.modify' as const,
+      ADMIN: 'production.quality.admin' as const,
+    },
+    COSTING: {
+      ACCESS: 'production.costing.access' as const,
+      ADMIN: 'production.costing.admin' as const,
+    },
+    ANALYTICS: {
+      ACCESS: 'production.analytics.access' as const,
+      EXPORT: 'production.analytics.export' as const,
+    },
+  },
 } as const;
 
 // =============================================================================
