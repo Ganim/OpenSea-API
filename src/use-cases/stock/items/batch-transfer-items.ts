@@ -107,7 +107,20 @@ export class BatchTransferItemsUseCase {
       originBins.map((bin) => [bin.binId.toString(), bin]),
     );
 
-    const movements: ItemMovementDTO[] = [];
+    // Collect items to update and movement inputs (avoid serial awaits)
+    const itemsToUpdate: typeof items = [];
+    const movementInputs: Array<{
+      tenantId: string;
+      itemId: UniqueEntityID;
+      userId: UniqueEntityID;
+      quantity: number;
+      quantityBefore: number;
+      quantityAfter: number;
+      movementType: MovementType;
+      originRef?: string;
+      destinationRef: string;
+      notes: string;
+    }> = [];
 
     for (const itemId of input.itemIds) {
       const item = itemsMap.get(itemId)!;
@@ -122,13 +135,12 @@ export class BatchTransferItemsUseCase {
         ? originBinsMap.get(item.binId.toString())?.address
         : undefined;
 
-      // Update item
+      // Update item in memory
       item.binId = destinationBin.binId;
       item.lastKnownAddress = destinationBin.address;
-      await this.itemsRepository.save(item);
+      itemsToUpdate.push(item);
 
-      // Create transfer movement
-      const movement = await this.itemMovementsRepository.create({
+      movementInputs.push({
         tenantId: input.tenantId,
         itemId: item.id,
         userId: new UniqueEntityID(input.userId),
@@ -140,9 +152,19 @@ export class BatchTransferItemsUseCase {
         destinationRef: destinationBin.address,
         notes: input.notes || 'Batch transfer',
       });
-
-      movements.push(itemMovementToDTO(movement));
     }
+
+    // Batch execute: save all items in parallel
+    await Promise.all(
+      itemsToUpdate.map((item) => this.itemsRepository.save(item)),
+    );
+
+    // Create all movements in parallel
+    const createdMovements = await Promise.all(
+      movementInputs.map((mi) => this.itemMovementsRepository.create(mi)),
+    );
+
+    const movements = createdMovements.map((mov) => itemMovementToDTO(mov));
 
     // Auto-cleanup: check if any origin bins are blocked and now empty
     // Batch-load origin bins for cleanup (reuse pre-fetched data)
