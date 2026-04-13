@@ -17,7 +17,7 @@ export async function listMaterialIssuesController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.PRODUCTION.SHOPFLOOR.ACCESS,
+        permissionCode: PermissionCodes.PRODUCTION.ORDERS.ACCESS,
         resource: 'material-issues',
       }),
     ],

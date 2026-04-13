@@ -83,6 +83,20 @@ export class InMemoryJobCardsRepository implements JobCardsRepository {
     return item;
   }
 
+  async reportProduction(
+    id: UniqueEntityID,
+    quantityGood: number,
+    quantityScrapped: number,
+  ): Promise<ProductionJobCard | null> {
+    const item = this.items.find((i) => i.id.equals(id));
+    if (!item) return null;
+
+    item.quantityCompleted = item.quantityCompleted + quantityGood;
+    item.quantityScrapped = item.quantityScrapped + quantityScrapped;
+
+    return item;
+  }
+
   async delete(id: UniqueEntityID): Promise<void> {
     const index = this.items.findIndex((i) => i.id.equals(id));
     if (index >= 0) {

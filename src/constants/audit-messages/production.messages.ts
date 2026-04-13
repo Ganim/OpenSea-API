@@ -261,6 +261,22 @@ export const PRODUCTION_AUDIT_MESSAGES = {
       '{{userName}} concluiu o job card da operação {{operationName}}',
   } satisfies AuditMessage,
 
+  JOB_CARD_HOLD: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PRODUCTION_JOB_CARD,
+    module: AuditModule.PRODUCTION,
+    description:
+      '{{userName}} pausou o job card da operação {{operationName}}',
+  } satisfies AuditMessage,
+
+  PRODUCTION_REPORT: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.PRODUCTION_ENTRY,
+    module: AuditModule.PRODUCTION,
+    description:
+      '{{userName}} registrou produção: {{quantityGood}} boas, {{quantityScrapped}} refugo',
+  } satisfies AuditMessage,
+
   // ============================================================================
   // DOWNTIME
   // ============================================================================

@@ -146,6 +146,22 @@ export class PrismaJobCardsRepository implements JobCardsRepository {
     return toDomain(raw);
   }
 
+  async reportProduction(
+    id: UniqueEntityID,
+    quantityGood: number,
+    quantityScrapped: number,
+  ): Promise<ProductionJobCard | null> {
+    const raw = await prisma.productionJobCard.update({
+      where: { id: id.toString() },
+      data: {
+        quantityCompleted: { increment: quantityGood },
+        quantityScrapped: { increment: quantityScrapped },
+      },
+    });
+
+    return toDomain(raw);
+  }
+
   async delete(id: UniqueEntityID): Promise<void> {
     await prisma.productionJobCard.delete({
       where: { id: id.toString() },

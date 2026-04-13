@@ -42,5 +42,10 @@ export interface JobCardsRepository {
     workstationId: UniqueEntityID,
   ): Promise<ProductionJobCard[]>;
   update(data: UpdateJobCardSchema): Promise<ProductionJobCard | null>;
+  reportProduction(
+    id: UniqueEntityID,
+    quantityGood: number,
+    quantityScrapped: number,
+  ): Promise<ProductionJobCard | null>;
   delete(id: UniqueEntityID): Promise<void>;
 }

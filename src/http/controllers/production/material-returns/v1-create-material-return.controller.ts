@@ -23,7 +23,7 @@ export async function createMaterialReturnController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.PRODUCTION.SHOPFLOOR.REGISTER,
+        permissionCode: PermissionCodes.PRODUCTION.ORDERS.REGISTER,
         resource: 'material-returns',
       }),
     ],

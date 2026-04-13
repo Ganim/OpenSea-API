@@ -45,15 +45,13 @@ export class ReportProductionUseCase {
       throw new BadRequestError('Quantities cannot be negative.');
     }
 
-    const newCompleted =
-      jobCard.quantityCompleted + quantityGood + quantityRework;
-    const newScrapped = jobCard.quantityScrapped + quantityScrapped;
+    const totalGood = quantityGood + quantityRework;
 
-    const updated = await this.jobCardsRepository.update({
-      id: jobCard.jobCardId,
-      quantityCompleted: newCompleted,
-      quantityScrapped: newScrapped,
-    });
+    const updated = await this.jobCardsRepository.reportProduction(
+      jobCard.jobCardId,
+      totalGood,
+      quantityScrapped,
+    );
 
     return { jobCard: updated! };
   }

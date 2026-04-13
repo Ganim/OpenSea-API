@@ -1,4 +1,6 @@
+import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
+import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
@@ -7,6 +9,7 @@ import {
   jobCardResponseSchema,
 } from '@/http/schemas/production';
 import { jobCardToDTO } from '@/mappers/production/job-card-to-dto';
+import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeReportProductionUseCase } from '@/use-cases/production/job-cards/factories/make-report-production-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -47,6 +50,7 @@ export async function reportProductionController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
+      const userId = request.user.sub;
       const { id } = request.params;
       const {
         operatorId,
@@ -55,6 +59,12 @@ export async function reportProductionController(app: FastifyInstance) {
         quantityRework,
         notes,
       } = request.body;
+
+      const getUserByIdUseCase = makeGetUserByIdUseCase();
+      const { user } = await getUserByIdUseCase.execute({ userId });
+      const userName = user.profile?.name
+        ? `${user.profile.name} ${user.profile.surname || ''}`.trim()
+        : user.username || user.email;
 
       const reportProductionUseCase = makeReportProductionUseCase();
       const { jobCard } = await reportProductionUseCase.execute({
@@ -65,6 +75,23 @@ export async function reportProductionController(app: FastifyInstance) {
         quantityScrapped,
         quantityRework,
         notes,
+      });
+
+      await logAudit(request, {
+        message: AUDIT_MESSAGES.PRODUCTION.PRODUCTION_REPORT,
+        entityId: jobCard.jobCardId.toString(),
+        placeholders: {
+          userName,
+          quantityGood: String(quantityGood),
+          quantityScrapped: String(quantityScrapped ?? 0),
+        },
+        newData: {
+          operatorId,
+          quantityGood,
+          quantityScrapped,
+          quantityRework,
+          notes,
+        },
       });
 
       return reply.status(200).send({ jobCard: jobCardToDTO(jobCard) });
