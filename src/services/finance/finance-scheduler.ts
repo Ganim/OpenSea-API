@@ -1,5 +1,8 @@
+import { PermissionCodes } from '@/constants/rbac';
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { prisma } from '@/lib/prisma';
 import { logger } from '@/lib/logger';
+import { getPermissionService } from '@/services/rbac/get-permission-service';
 import { makeProcessOverdueEscalationsUseCase } from '@/use-cases/finance/escalations/factories/make-process-overdue-escalations-use-case';
 import { makeGenerateRecurringBatchUseCase } from '@/use-cases/finance/recurring/factories/make-generate-recurring-batch';
 import { makeSyncBankTransactionsUseCase } from '@/use-cases/finance/bank-connections/factories/make-sync-bank-transactions-use-case';
@@ -242,6 +245,7 @@ export class FinanceScheduler {
     }
 
     const useCase = makeProcessOverdueEscalationsUseCase();
+    const permissionService = getPermissionService();
 
     let totalProcessed = 0;
     let totalActionsCreated = 0;
@@ -249,7 +253,13 @@ export class FinanceScheduler {
 
     for (const tenantId of activeTenantIds) {
       try {
-        const result = await useCase.execute({ tenantId });
+        // Resolve finance admin users for SYSTEM_ALERT notifications
+        const notifyUserIds = await this.resolveFinanceAdminUsers(
+          tenantId,
+          permissionService,
+        );
+
+        const result = await useCase.execute({ tenantId, notifyUserIds });
         totalProcessed += result.processed;
         totalActionsCreated += result.actionsCreated;
 
@@ -627,6 +637,43 @@ export class FinanceScheduler {
   }
 
   // ─── Helpers ──────────────────────────────────────────────────────────
+
+  /**
+   * Find users in a tenant that have finance.entries.access permission.
+   * These users will receive SYSTEM_ALERT notifications from escalations.
+   */
+  private async resolveFinanceAdminUsers(
+    tenantId: string,
+    permissionSvc: PermissionService,
+  ): Promise<string[]> {
+    try {
+      const tenantUsers = await prisma.tenantUser.findMany({
+        where: { tenantId, deletedAt: null },
+        select: { userId: true },
+      });
+
+      const authorizedIds: string[] = [];
+
+      for (const tu of tenantUsers) {
+        const allowed = await permissionSvc.hasPermission(
+          new UniqueEntityID(tu.userId),
+          PermissionCodes.FINANCE.ENTRIES.ACCESS,
+        );
+
+        if (allowed) {
+          authorizedIds.push(tu.userId);
+        }
+      }
+
+      return authorizedIds;
+    } catch (err) {
+      logger.warn(
+        { tenantId, error: err },
+        `${LOG_PREFIX} [resolve-finance-admins] Failed, skipping SYSTEM_ALERT`,
+      );
+      return [];
+    }
+  }
 
   /**
    * Returns all active tenant IDs (non-deleted, ACTIVE status).

@@ -130,35 +130,69 @@ export class ProcessOverdueEscalationsUseCase {
 
           actionsCreated++;
 
+          // Resolve recipient(s) for SYSTEM_ALERT: prefer notifyUserIds, fall back to createdBy
+          const alertRecipients =
+            notifyUserIds && notifyUserIds.length > 0
+              ? notifyUserIds
+              : createdBy
+                ? [createdBy]
+                : [];
+
           // Attempt to send the message via the real gateway
           if (this.sendEscalationMessageUseCase) {
-            const sendResult = await this.sendEscalationMessageUseCase.execute({
-              tenantId,
-              action,
-              step,
-              entry,
-              createdBy,
-            });
-
-            if (sendResult.success) {
-              messagesSent++;
+            // For SYSTEM_ALERT, send to each authorized recipient
+            if (step.channel === 'SYSTEM_ALERT' && alertRecipients.length > 0) {
+              for (const recipientId of alertRecipients) {
+                const sendResult =
+                  await this.sendEscalationMessageUseCase.execute({
+                    tenantId,
+                    action,
+                    step,
+                    entry,
+                    createdBy: recipientId,
+                  });
+                if (sendResult.success) {
+                  messagesSent++;
+                } else {
+                  messagesFailed++;
+                  if (sendResult.error) {
+                    errors.push(
+                      `Failed to send ${step.channel} for entry ${entry.code}: ${sendResult.error}`,
+                    );
+                  }
+                }
+              }
             } else {
-              messagesFailed++;
-              if (sendResult.error) {
-                errors.push(
-                  `Failed to send ${step.channel} for entry ${entry.code}: ${sendResult.error}`,
-                );
+              const sendResult =
+                await this.sendEscalationMessageUseCase.execute({
+                  tenantId,
+                  action,
+                  step,
+                  entry,
+                  createdBy,
+                });
+              if (sendResult.success) {
+                messagesSent++;
+              } else {
+                messagesFailed++;
+                if (sendResult.error) {
+                  errors.push(
+                    `Failed to send ${step.channel} for entry ${entry.code}: ${sendResult.error}`,
+                  );
+                }
               }
             }
           } else {
             // Fallback: handle channel actions internally (legacy behavior)
-            await this.handleChannelActionLegacy(
-              step,
-              entry,
-              daysOverdue,
-              tenantId,
-              createdBy,
-            );
+            for (const recipientId of alertRecipients) {
+              await this.handleChannelActionLegacy(
+                step,
+                entry,
+                daysOverdue,
+                tenantId,
+                recipientId,
+              );
+            }
           }
         } catch (stepError) {
           const errorMessage = `Failed to process step ${step.id.toString()} for entry ${entry.code}: ${stepError instanceof Error ? stepError.message : String(stepError)}`;
