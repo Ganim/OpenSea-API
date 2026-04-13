@@ -3,6 +3,7 @@ import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module'
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 
+import { listBankConnectionsController } from './v1-list-bank-connections.controller';
 import { getConnectTokenController } from './v1-get-connect-token.controller';
 import { connectBankController } from './v1-connect-bank.controller';
 import { syncBankTransactionsController } from './v1-sync-bank-transactions.controller';
@@ -15,6 +16,7 @@ export async function bankConnectionsRoutes(app: FastifyInstance) {
   app.register(
     async (queryApp) => {
       queryApp.register(rateLimit, rateLimitConfig.query);
+      queryApp.register(listBankConnectionsController);
       queryApp.register(getConnectTokenController);
     },
     { prefix: '' },
