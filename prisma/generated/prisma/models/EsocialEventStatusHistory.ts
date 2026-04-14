@@ -172,7 +172,7 @@ export type EsocialEventStatusHistoryGroupByOutputType = {
   _max: EsocialEventStatusHistoryMaxAggregateOutputType | null
 }
 
-type GetEsocialEventStatusHistoryGroupByPayload<T extends EsocialEventStatusHistoryGroupByArgs> = Prisma.PrismaPromise<
+export type GetEsocialEventStatusHistoryGroupByPayload<T extends EsocialEventStatusHistoryGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<EsocialEventStatusHistoryGroupByOutputType, T['by']> &
       {
@@ -1192,6 +1192,11 @@ export type EsocialEventStatusHistoryFindManyArgs<ExtArgs extends runtime.Types.
    * Skip the first `n` EsocialEventStatusHistories.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of EsocialEventStatusHistories.
+   */
   distinct?: Prisma.EsocialEventStatusHistoryScalarFieldEnum | Prisma.EsocialEventStatusHistoryScalarFieldEnum[]
 }
 

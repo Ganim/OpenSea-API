@@ -200,7 +200,7 @@ export type FiscalDocumentEventGroupByOutputType = {
   _max: FiscalDocumentEventMaxAggregateOutputType | null
 }
 
-type GetFiscalDocumentEventGroupByPayload<T extends FiscalDocumentEventGroupByArgs> = Prisma.PrismaPromise<
+export type GetFiscalDocumentEventGroupByPayload<T extends FiscalDocumentEventGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<FiscalDocumentEventGroupByOutputType, T['by']> &
       {
@@ -1336,6 +1336,11 @@ export type FiscalDocumentEventFindManyArgs<ExtArgs extends runtime.Types.Extens
    * Skip the first `n` FiscalDocumentEvents.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of FiscalDocumentEvents.
+   */
   distinct?: Prisma.FiscalDocumentEventScalarFieldEnum | Prisma.FiscalDocumentEventScalarFieldEnum[]
 }
 

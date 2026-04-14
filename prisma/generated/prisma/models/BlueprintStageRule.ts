@@ -171,7 +171,7 @@ export type BlueprintStageRuleGroupByOutputType = {
   _max: BlueprintStageRuleMaxAggregateOutputType | null
 }
 
-type GetBlueprintStageRuleGroupByPayload<T extends BlueprintStageRuleGroupByArgs> = Prisma.PrismaPromise<
+export type GetBlueprintStageRuleGroupByPayload<T extends BlueprintStageRuleGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<BlueprintStageRuleGroupByOutputType, T['by']> &
       {
@@ -1224,6 +1224,11 @@ export type BlueprintStageRuleFindManyArgs<ExtArgs extends runtime.Types.Extensi
    * Skip the first `n` BlueprintStageRules.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of BlueprintStageRules.
+   */
   distinct?: Prisma.BlueprintStageRuleScalarFieldEnum | Prisma.BlueprintStageRuleScalarFieldEnum[]
 }
 

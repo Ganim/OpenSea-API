@@ -158,7 +158,7 @@ export type CommentReactionGroupByOutputType = {
   _max: CommentReactionMaxAggregateOutputType | null
 }
 
-type GetCommentReactionGroupByPayload<T extends CommentReactionGroupByArgs> = Prisma.PrismaPromise<
+export type GetCommentReactionGroupByPayload<T extends CommentReactionGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CommentReactionGroupByOutputType, T['by']> &
       {
@@ -1249,6 +1249,11 @@ export type CommentReactionFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` CommentReactions.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CommentReactions.
+   */
   distinct?: Prisma.CommentReactionScalarFieldEnum | Prisma.CommentReactionScalarFieldEnum[]
 }
 

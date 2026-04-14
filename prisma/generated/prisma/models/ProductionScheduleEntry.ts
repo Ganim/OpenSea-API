@@ -207,7 +207,7 @@ export type ProductionScheduleEntryGroupByOutputType = {
   _max: ProductionScheduleEntryMaxAggregateOutputType | null
 }
 
-type GetProductionScheduleEntryGroupByPayload<T extends ProductionScheduleEntryGroupByArgs> = Prisma.PrismaPromise<
+export type GetProductionScheduleEntryGroupByPayload<T extends ProductionScheduleEntryGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ProductionScheduleEntryGroupByOutputType, T['by']> &
       {
@@ -1533,6 +1533,11 @@ export type ProductionScheduleEntryFindManyArgs<ExtArgs extends runtime.Types.Ex
    * Skip the first `n` ProductionScheduleEntries.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ProductionScheduleEntries.
+   */
   distinct?: Prisma.ProductionScheduleEntryScalarFieldEnum | Prisma.ProductionScheduleEntryScalarFieldEnum[]
 }
 

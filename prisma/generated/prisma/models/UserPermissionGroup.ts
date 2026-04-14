@@ -165,7 +165,7 @@ export type UserPermissionGroupGroupByOutputType = {
   _max: UserPermissionGroupMaxAggregateOutputType | null
 }
 
-type GetUserPermissionGroupGroupByPayload<T extends UserPermissionGroupGroupByArgs> = Prisma.PrismaPromise<
+export type GetUserPermissionGroupGroupByPayload<T extends UserPermissionGroupGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UserPermissionGroupGroupByOutputType, T['by']> &
       {
@@ -1415,6 +1415,11 @@ export type UserPermissionGroupFindManyArgs<ExtArgs extends runtime.Types.Extens
    * Skip the first `n` UserPermissionGroups.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of UserPermissionGroups.
+   */
   distinct?: Prisma.UserPermissionGroupScalarFieldEnum | Prisma.UserPermissionGroupScalarFieldEnum[]
 }
 

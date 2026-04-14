@@ -179,7 +179,7 @@ export type EmployeeKudosGroupByOutputType = {
   _max: EmployeeKudosMaxAggregateOutputType | null
 }
 
-type GetEmployeeKudosGroupByPayload<T extends EmployeeKudosGroupByArgs> = Prisma.PrismaPromise<
+export type GetEmployeeKudosGroupByPayload<T extends EmployeeKudosGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<EmployeeKudosGroupByOutputType, T['by']> &
       {
@@ -1227,6 +1227,11 @@ export type EmployeeKudosFindManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Skip the first `n` EmployeeKudos.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of EmployeeKudos.
+   */
   distinct?: Prisma.EmployeeKudosScalarFieldEnum | Prisma.EmployeeKudosScalarFieldEnum[]
 }
 

@@ -165,7 +165,7 @@ export type CardWatcherGroupByOutputType = {
   _max: CardWatcherMaxAggregateOutputType | null
 }
 
-type GetCardWatcherGroupByPayload<T extends CardWatcherGroupByArgs> = Prisma.PrismaPromise<
+export type GetCardWatcherGroupByPayload<T extends CardWatcherGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CardWatcherGroupByOutputType, T['by']> &
       {
@@ -1415,6 +1415,11 @@ export type CardWatcherFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` CardWatchers.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CardWatchers.
+   */
   distinct?: Prisma.CardWatcherScalarFieldEnum | Prisma.CardWatcherScalarFieldEnum[]
 }
 

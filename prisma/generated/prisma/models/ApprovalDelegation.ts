@@ -200,7 +200,7 @@ export type ApprovalDelegationGroupByOutputType = {
   _max: ApprovalDelegationMaxAggregateOutputType | null
 }
 
-type GetApprovalDelegationGroupByPayload<T extends ApprovalDelegationGroupByArgs> = Prisma.PrismaPromise<
+export type GetApprovalDelegationGroupByPayload<T extends ApprovalDelegationGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ApprovalDelegationGroupByOutputType, T['by']> &
       {
@@ -1644,6 +1644,11 @@ export type ApprovalDelegationFindManyArgs<ExtArgs extends runtime.Types.Extensi
    * Skip the first `n` ApprovalDelegations.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ApprovalDelegations.
+   */
   distinct?: Prisma.ApprovalDelegationScalarFieldEnum | Prisma.ApprovalDelegationScalarFieldEnum[]
 }
 

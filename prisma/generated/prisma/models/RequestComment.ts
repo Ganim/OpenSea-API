@@ -179,7 +179,7 @@ export type RequestCommentGroupByOutputType = {
   _max: RequestCommentMaxAggregateOutputType | null
 }
 
-type GetRequestCommentGroupByPayload<T extends RequestCommentGroupByArgs> = Prisma.PrismaPromise<
+export type GetRequestCommentGroupByPayload<T extends RequestCommentGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<RequestCommentGroupByOutputType, T['by']> &
       {
@@ -1365,6 +1365,11 @@ export type RequestCommentFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Skip the first `n` RequestComments.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of RequestComments.
+   */
   distinct?: Prisma.RequestCommentScalarFieldEnum | Prisma.RequestCommentScalarFieldEnum[]
 }
 

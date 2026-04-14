@@ -282,7 +282,7 @@ export type EventLogGroupByOutputType = {
   _max: EventLogMaxAggregateOutputType | null
 }
 
-type GetEventLogGroupByPayload<T extends EventLogGroupByArgs> = Prisma.PrismaPromise<
+export type GetEventLogGroupByPayload<T extends EventLogGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<EventLogGroupByOutputType, T['by']> &
       {
@@ -1657,6 +1657,11 @@ export type EventLogFindManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Skip the first `n` EventLogs.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of EventLogs.
+   */
   distinct?: Prisma.EventLogScalarFieldEnum | Prisma.EventLogScalarFieldEnum[]
 }
 

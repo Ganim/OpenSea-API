@@ -241,7 +241,7 @@ export type EmailToEntryConfigGroupByOutputType = {
   _max: EmailToEntryConfigMaxAggregateOutputType | null
 }
 
-type GetEmailToEntryConfigGroupByPayload<T extends EmailToEntryConfigGroupByArgs> = Prisma.PrismaPromise<
+export type GetEmailToEntryConfigGroupByPayload<T extends EmailToEntryConfigGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<EmailToEntryConfigGroupByOutputType, T['by']> &
       {
@@ -1340,6 +1340,11 @@ export type EmailToEntryConfigFindManyArgs<ExtArgs extends runtime.Types.Extensi
    * Skip the first `n` EmailToEntryConfigs.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of EmailToEntryConfigs.
+   */
   distinct?: Prisma.EmailToEntryConfigScalarFieldEnum | Prisma.EmailToEntryConfigScalarFieldEnum[]
 }
 

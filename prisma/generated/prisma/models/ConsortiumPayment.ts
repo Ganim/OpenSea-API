@@ -242,7 +242,7 @@ export type ConsortiumPaymentGroupByOutputType = {
   _max: ConsortiumPaymentMaxAggregateOutputType | null
 }
 
-type GetConsortiumPaymentGroupByPayload<T extends ConsortiumPaymentGroupByArgs> = Prisma.PrismaPromise<
+export type GetConsortiumPaymentGroupByPayload<T extends ConsortiumPaymentGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ConsortiumPaymentGroupByOutputType, T['by']> &
       {
@@ -1550,6 +1550,11 @@ export type ConsortiumPaymentFindManyArgs<ExtArgs extends runtime.Types.Extensio
    * Skip the first `n` ConsortiumPayments.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ConsortiumPayments.
+   */
   distinct?: Prisma.ConsortiumPaymentScalarFieldEnum | Prisma.ConsortiumPaymentScalarFieldEnum[]
 }
 

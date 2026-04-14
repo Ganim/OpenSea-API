@@ -207,7 +207,7 @@ export type FiscalCertificateGroupByOutputType = {
   _max: FiscalCertificateMaxAggregateOutputType | null
 }
 
-type GetFiscalCertificateGroupByPayload<T extends FiscalCertificateGroupByArgs> = Prisma.PrismaPromise<
+export type GetFiscalCertificateGroupByPayload<T extends FiscalCertificateGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<FiscalCertificateGroupByOutputType, T['by']> &
       {
@@ -1514,6 +1514,11 @@ export type FiscalCertificateFindManyArgs<ExtArgs extends runtime.Types.Extensio
    * Skip the first `n` FiscalCertificates.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of FiscalCertificates.
+   */
   distinct?: Prisma.FiscalCertificateScalarFieldEnum | Prisma.FiscalCertificateScalarFieldEnum[]
 }
 

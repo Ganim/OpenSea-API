@@ -224,7 +224,7 @@ export type ProductionMaterialReservationGroupByOutputType = {
   _max: ProductionMaterialReservationMaxAggregateOutputType | null
 }
 
-type GetProductionMaterialReservationGroupByPayload<T extends ProductionMaterialReservationGroupByArgs> = Prisma.PrismaPromise<
+export type GetProductionMaterialReservationGroupByPayload<T extends ProductionMaterialReservationGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ProductionMaterialReservationGroupByOutputType, T['by']> &
       {
@@ -1316,6 +1316,11 @@ export type ProductionMaterialReservationFindManyArgs<ExtArgs extends runtime.Ty
    * Skip the first `n` ProductionMaterialReservations.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ProductionMaterialReservations.
+   */
   distinct?: Prisma.ProductionMaterialReservationScalarFieldEnum | Prisma.ProductionMaterialReservationScalarFieldEnum[]
 }
 

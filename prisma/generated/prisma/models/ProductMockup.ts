@@ -231,7 +231,7 @@ export type ProductMockupGroupByOutputType = {
   _max: ProductMockupMaxAggregateOutputType | null
 }
 
-type GetProductMockupGroupByPayload<T extends ProductMockupGroupByArgs> = Prisma.PrismaPromise<
+export type GetProductMockupGroupByPayload<T extends ProductMockupGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ProductMockupGroupByOutputType, T['by']> &
       {
@@ -2249,6 +2249,11 @@ export type ProductMockupFindManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Skip the first `n` ProductMockups.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ProductMockups.
+   */
   distinct?: Prisma.ProductMockupScalarFieldEnum | Prisma.ProductMockupScalarFieldEnum[]
 }
 

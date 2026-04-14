@@ -238,7 +238,7 @@ export type FlexBenefitAllocationGroupByOutputType = {
   _max: FlexBenefitAllocationMaxAggregateOutputType | null
 }
 
-type GetFlexBenefitAllocationGroupByPayload<T extends FlexBenefitAllocationGroupByArgs> = Prisma.PrismaPromise<
+export type GetFlexBenefitAllocationGroupByPayload<T extends FlexBenefitAllocationGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<FlexBenefitAllocationGroupByOutputType, T['by']> &
       {
@@ -1546,6 +1546,11 @@ export type FlexBenefitAllocationFindManyArgs<ExtArgs extends runtime.Types.Exte
    * Skip the first `n` FlexBenefitAllocations.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of FlexBenefitAllocations.
+   */
   distinct?: Prisma.FlexBenefitAllocationScalarFieldEnum | Prisma.FlexBenefitAllocationScalarFieldEnum[]
 }
 

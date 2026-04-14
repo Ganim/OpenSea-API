@@ -311,7 +311,7 @@ export type StorageFolderGroupByOutputType = {
   _max: StorageFolderMaxAggregateOutputType | null
 }
 
-type GetStorageFolderGroupByPayload<T extends StorageFolderGroupByArgs> = Prisma.PrismaPromise<
+export type GetStorageFolderGroupByPayload<T extends StorageFolderGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<StorageFolderGroupByOutputType, T['by']> &
       {
@@ -2946,6 +2946,11 @@ export type StorageFolderFindManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Skip the first `n` StorageFolders.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of StorageFolders.
+   */
   distinct?: Prisma.StorageFolderScalarFieldEnum | Prisma.StorageFolderScalarFieldEnum[]
 }
 

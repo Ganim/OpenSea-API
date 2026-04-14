@@ -274,7 +274,7 @@ export type BinGroupByOutputType = {
   _max: BinMaxAggregateOutputType | null
 }
 
-type GetBinGroupByPayload<T extends BinGroupByArgs> = Prisma.PrismaPromise<
+export type GetBinGroupByPayload<T extends BinGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<BinGroupByOutputType, T['by']> &
       {
@@ -2497,6 +2497,11 @@ export type BinFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Skip the first `n` Bins.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Bins.
+   */
   distinct?: Prisma.BinScalarFieldEnum | Prisma.BinScalarFieldEnum[]
 }
 

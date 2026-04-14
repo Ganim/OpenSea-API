@@ -292,7 +292,7 @@ export type SkillPricingGroupByOutputType = {
   _max: SkillPricingMaxAggregateOutputType | null
 }
 
-type GetSkillPricingGroupByPayload<T extends SkillPricingGroupByArgs> = Prisma.PrismaPromise<
+export type GetSkillPricingGroupByPayload<T extends SkillPricingGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<SkillPricingGroupByOutputType, T['by']> &
       {
@@ -1528,6 +1528,11 @@ export type SkillPricingFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Skip the first `n` SkillPricings.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of SkillPricings.
+   */
   distinct?: Prisma.SkillPricingScalarFieldEnum | Prisma.SkillPricingScalarFieldEnum[]
 }
 

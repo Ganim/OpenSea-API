@@ -237,7 +237,7 @@ export type BankWebhookEventGroupByOutputType = {
   _max: BankWebhookEventMaxAggregateOutputType | null
 }
 
-type GetBankWebhookEventGroupByPayload<T extends BankWebhookEventGroupByArgs> = Prisma.PrismaPromise<
+export type GetBankWebhookEventGroupByPayload<T extends BankWebhookEventGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<BankWebhookEventGroupByOutputType, T['by']> &
       {
@@ -1567,6 +1567,11 @@ export type BankWebhookEventFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Skip the first `n` BankWebhookEvents.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of BankWebhookEvents.
+   */
   distinct?: Prisma.BankWebhookEventScalarFieldEnum | Prisma.BankWebhookEventScalarFieldEnum[]
 }
 

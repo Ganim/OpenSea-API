@@ -216,7 +216,7 @@ export type DealPredictionGroupByOutputType = {
   _max: DealPredictionMaxAggregateOutputType | null
 }
 
-type GetDealPredictionGroupByPayload<T extends DealPredictionGroupByArgs> = Prisma.PrismaPromise<
+export type GetDealPredictionGroupByPayload<T extends DealPredictionGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<DealPredictionGroupByOutputType, T['by']> &
       {
@@ -1444,6 +1444,11 @@ export type DealPredictionFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Skip the first `n` DealPredictions.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of DealPredictions.
+   */
   distinct?: Prisma.DealPredictionScalarFieldEnum | Prisma.DealPredictionScalarFieldEnum[]
 }
 

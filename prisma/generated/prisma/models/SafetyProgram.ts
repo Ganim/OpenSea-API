@@ -214,7 +214,7 @@ export type SafetyProgramGroupByOutputType = {
   _max: SafetyProgramMaxAggregateOutputType | null
 }
 
-type GetSafetyProgramGroupByPayload<T extends SafetyProgramGroupByArgs> = Prisma.PrismaPromise<
+export type GetSafetyProgramGroupByPayload<T extends SafetyProgramGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<SafetyProgramGroupByOutputType, T['by']> &
       {
@@ -1547,6 +1547,11 @@ export type SafetyProgramFindManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Skip the first `n` SafetyPrograms.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of SafetyPrograms.
+   */
   distinct?: Prisma.SafetyProgramScalarFieldEnum | Prisma.SafetyProgramScalarFieldEnum[]
 }
 

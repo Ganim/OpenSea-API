@@ -188,7 +188,7 @@ export type CardActivityGroupByOutputType = {
   _max: CardActivityMaxAggregateOutputType | null
 }
 
-type GetCardActivityGroupByPayload<T extends CardActivityGroupByArgs> = Prisma.PrismaPromise<
+export type GetCardActivityGroupByPayload<T extends CardActivityGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CardActivityGroupByOutputType, T['by']> &
       {
@@ -1630,6 +1630,11 @@ export type CardActivityFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Skip the first `n` CardActivities.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CardActivities.
+   */
   distinct?: Prisma.CardActivityScalarFieldEnum | Prisma.CardActivityScalarFieldEnum[]
 }
 

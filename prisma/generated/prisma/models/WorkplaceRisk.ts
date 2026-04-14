@@ -214,7 +214,7 @@ export type WorkplaceRiskGroupByOutputType = {
   _max: WorkplaceRiskMaxAggregateOutputType | null
 }
 
-type GetWorkplaceRiskGroupByPayload<T extends WorkplaceRiskGroupByArgs> = Prisma.PrismaPromise<
+export type GetWorkplaceRiskGroupByPayload<T extends WorkplaceRiskGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<WorkplaceRiskGroupByOutputType, T['by']> &
       {
@@ -1570,6 +1570,11 @@ export type WorkplaceRiskFindManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Skip the first `n` WorkplaceRisks.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of WorkplaceRisks.
+   */
   distinct?: Prisma.WorkplaceRiskScalarFieldEnum | Prisma.WorkplaceRiskScalarFieldEnum[]
 }
 

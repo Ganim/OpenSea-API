@@ -225,7 +225,7 @@ export type CashflowSnapshotGroupByOutputType = {
   _max: CashflowSnapshotMaxAggregateOutputType | null
 }
 
-type GetCashflowSnapshotGroupByPayload<T extends CashflowSnapshotGroupByArgs> = Prisma.PrismaPromise<
+export type GetCashflowSnapshotGroupByPayload<T extends CashflowSnapshotGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CashflowSnapshotGroupByOutputType, T['by']> &
       {
@@ -1295,6 +1295,11 @@ export type CashflowSnapshotFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Skip the first `n` CashflowSnapshots.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CashflowSnapshots.
+   */
   distinct?: Prisma.CashflowSnapshotScalarFieldEnum | Prisma.CashflowSnapshotScalarFieldEnum[]
 }
 

@@ -242,7 +242,7 @@ export type BidDocumentGroupByOutputType = {
   _max: BidDocumentMaxAggregateOutputType | null
 }
 
-type GetBidDocumentGroupByPayload<T extends BidDocumentGroupByArgs> = Prisma.PrismaPromise<
+export type GetBidDocumentGroupByPayload<T extends BidDocumentGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<BidDocumentGroupByOutputType, T['by']> &
       {
@@ -1934,6 +1934,11 @@ export type BidDocumentFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` BidDocuments.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of BidDocuments.
+   */
   distinct?: Prisma.BidDocumentScalarFieldEnum | Prisma.BidDocumentScalarFieldEnum[]
 }
 

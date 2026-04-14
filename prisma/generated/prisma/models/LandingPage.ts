@@ -265,7 +265,7 @@ export type LandingPageGroupByOutputType = {
   _max: LandingPageMaxAggregateOutputType | null
 }
 
-type GetLandingPageGroupByPayload<T extends LandingPageGroupByArgs> = Prisma.PrismaPromise<
+export type GetLandingPageGroupByPayload<T extends LandingPageGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<LandingPageGroupByOutputType, T['by']> &
       {
@@ -1741,6 +1741,11 @@ export type LandingPageFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` LandingPages.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of LandingPages.
+   */
   distinct?: Prisma.LandingPageScalarFieldEnum | Prisma.LandingPageScalarFieldEnum[]
 }
 

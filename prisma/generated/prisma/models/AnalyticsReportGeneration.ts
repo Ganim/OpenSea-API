@@ -203,7 +203,7 @@ export type AnalyticsReportGenerationGroupByOutputType = {
   _max: AnalyticsReportGenerationMaxAggregateOutputType | null
 }
 
-type GetAnalyticsReportGenerationGroupByPayload<T extends AnalyticsReportGenerationGroupByArgs> = Prisma.PrismaPromise<
+export type GetAnalyticsReportGenerationGroupByPayload<T extends AnalyticsReportGenerationGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AnalyticsReportGenerationGroupByOutputType, T['by']> &
       {
@@ -1698,6 +1698,11 @@ export type AnalyticsReportGenerationFindManyArgs<ExtArgs extends runtime.Types.
    * Skip the first `n` AnalyticsReportGenerations.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of AnalyticsReportGenerations.
+   */
   distinct?: Prisma.AnalyticsReportGenerationScalarFieldEnum | Prisma.AnalyticsReportGenerationScalarFieldEnum[]
 }
 

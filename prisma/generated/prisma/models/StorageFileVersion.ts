@@ -224,7 +224,7 @@ export type StorageFileVersionGroupByOutputType = {
   _max: StorageFileVersionMaxAggregateOutputType | null
 }
 
-type GetStorageFileVersionGroupByPayload<T extends StorageFileVersionGroupByArgs> = Prisma.PrismaPromise<
+export type GetStorageFileVersionGroupByPayload<T extends StorageFileVersionGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<StorageFileVersionGroupByOutputType, T['by']> &
       {
@@ -1318,6 +1318,11 @@ export type StorageFileVersionFindManyArgs<ExtArgs extends runtime.Types.Extensi
    * Skip the first `n` StorageFileVersions.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of StorageFileVersions.
+   */
   distinct?: Prisma.StorageFileVersionScalarFieldEnum | Prisma.StorageFileVersionScalarFieldEnum[]
 }
 

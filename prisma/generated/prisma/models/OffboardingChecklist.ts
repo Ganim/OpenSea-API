@@ -223,7 +223,7 @@ export type OffboardingChecklistGroupByOutputType = {
   _max: OffboardingChecklistMaxAggregateOutputType | null
 }
 
-type GetOffboardingChecklistGroupByPayload<T extends OffboardingChecklistGroupByArgs> = Prisma.PrismaPromise<
+export type GetOffboardingChecklistGroupByPayload<T extends OffboardingChecklistGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<OffboardingChecklistGroupByOutputType, T['by']> &
       {
@@ -1491,6 +1491,11 @@ export type OffboardingChecklistFindManyArgs<ExtArgs extends runtime.Types.Exten
    * Skip the first `n` OffboardingChecklists.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of OffboardingChecklists.
+   */
   distinct?: Prisma.OffboardingChecklistScalarFieldEnum | Prisma.OffboardingChecklistScalarFieldEnum[]
 }
 

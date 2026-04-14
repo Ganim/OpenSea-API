@@ -200,7 +200,7 @@ export type NotificationTemplateGroupByOutputType = {
   _max: NotificationTemplateMaxAggregateOutputType | null
 }
 
-type GetNotificationTemplateGroupByPayload<T extends NotificationTemplateGroupByArgs> = Prisma.PrismaPromise<
+export type GetNotificationTemplateGroupByPayload<T extends NotificationTemplateGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<NotificationTemplateGroupByOutputType, T['by']> &
       {
@@ -1126,6 +1126,11 @@ export type NotificationTemplateFindManyArgs<ExtArgs extends runtime.Types.Exten
    * Skip the first `n` NotificationTemplates.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of NotificationTemplates.
+   */
   distinct?: Prisma.NotificationTemplateScalarFieldEnum | Prisma.NotificationTemplateScalarFieldEnum[]
 }
 

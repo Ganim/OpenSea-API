@@ -277,7 +277,7 @@ export type PosSessionGroupByOutputType = {
   _max: PosSessionMaxAggregateOutputType | null
 }
 
-type GetPosSessionGroupByPayload<T extends PosSessionGroupByArgs> = Prisma.PrismaPromise<
+export type GetPosSessionGroupByPayload<T extends PosSessionGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<PosSessionGroupByOutputType, T['by']> &
       {
@@ -2411,6 +2411,11 @@ export type PosSessionFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Skip the first `n` PosSessions.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of PosSessions.
+   */
   distinct?: Prisma.PosSessionScalarFieldEnum | Prisma.PosSessionScalarFieldEnum[]
 }
 

@@ -175,7 +175,7 @@ export type CrmTimelineEventGroupByOutputType = {
   _max: CrmTimelineEventMaxAggregateOutputType | null
 }
 
-type GetCrmTimelineEventGroupByPayload<T extends CrmTimelineEventGroupByArgs> = Prisma.PrismaPromise<
+export type GetCrmTimelineEventGroupByPayload<T extends CrmTimelineEventGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CrmTimelineEventGroupByOutputType, T['by']> &
       {
@@ -1501,6 +1501,11 @@ export type CrmTimelineEventFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Skip the first `n` CrmTimelineEvents.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CrmTimelineEvents.
+   */
   distinct?: Prisma.CrmTimelineEventScalarFieldEnum | Prisma.CrmTimelineEventScalarFieldEnum[]
 }
 

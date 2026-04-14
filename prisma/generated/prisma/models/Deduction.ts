@@ -263,7 +263,7 @@ export type DeductionGroupByOutputType = {
   _max: DeductionMaxAggregateOutputType | null
 }
 
-type GetDeductionGroupByPayload<T extends DeductionGroupByArgs> = Prisma.PrismaPromise<
+export type GetDeductionGroupByPayload<T extends DeductionGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<DeductionGroupByOutputType, T['by']> &
       {
@@ -1667,6 +1667,11 @@ export type DeductionFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Skip the first `n` Deductions.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Deductions.
+   */
   distinct?: Prisma.DeductionScalarFieldEnum | Prisma.DeductionScalarFieldEnum[]
 }
 

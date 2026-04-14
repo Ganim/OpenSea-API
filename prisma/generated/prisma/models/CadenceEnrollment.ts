@@ -234,7 +234,7 @@ export type CadenceEnrollmentGroupByOutputType = {
   _max: CadenceEnrollmentMaxAggregateOutputType | null
 }
 
-type GetCadenceEnrollmentGroupByPayload<T extends CadenceEnrollmentGroupByArgs> = Prisma.PrismaPromise<
+export type GetCadenceEnrollmentGroupByPayload<T extends CadenceEnrollmentGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CadenceEnrollmentGroupByOutputType, T['by']> &
       {
@@ -1536,6 +1536,11 @@ export type CadenceEnrollmentFindManyArgs<ExtArgs extends runtime.Types.Extensio
    * Skip the first `n` CadenceEnrollments.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CadenceEnrollments.
+   */
   distinct?: Prisma.CadenceEnrollmentScalarFieldEnum | Prisma.CadenceEnrollmentScalarFieldEnum[]
 }
 

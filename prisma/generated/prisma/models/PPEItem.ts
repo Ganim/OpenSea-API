@@ -270,7 +270,7 @@ export type PPEItemGroupByOutputType = {
   _max: PPEItemMaxAggregateOutputType | null
 }
 
-type GetPPEItemGroupByPayload<T extends PPEItemGroupByArgs> = Prisma.PrismaPromise<
+export type GetPPEItemGroupByPayload<T extends PPEItemGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<PPEItemGroupByOutputType, T['by']> &
       {
@@ -1681,6 +1681,11 @@ export type PPEItemFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Skip the first `n` PPEItems.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of PPEItems.
+   */
   distinct?: Prisma.PPEItemScalarFieldEnum | Prisma.PPEItemScalarFieldEnum[]
 }
 

@@ -216,7 +216,7 @@ export type BoardCustomFieldGroupByOutputType = {
   _max: BoardCustomFieldMaxAggregateOutputType | null
 }
 
-type GetBoardCustomFieldGroupByPayload<T extends BoardCustomFieldGroupByArgs> = Prisma.PrismaPromise<
+export type GetBoardCustomFieldGroupByPayload<T extends BoardCustomFieldGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<BoardCustomFieldGroupByOutputType, T['by']> &
       {
@@ -1433,6 +1433,11 @@ export type BoardCustomFieldFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Skip the first `n` BoardCustomFields.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of BoardCustomFields.
+   */
   distinct?: Prisma.BoardCustomFieldScalarFieldEnum | Prisma.BoardCustomFieldScalarFieldEnum[]
 }
 

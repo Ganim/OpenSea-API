@@ -158,7 +158,7 @@ export type VolumeItemGroupByOutputType = {
   _max: VolumeItemMaxAggregateOutputType | null
 }
 
-type GetVolumeItemGroupByPayload<T extends VolumeItemGroupByArgs> = Prisma.PrismaPromise<
+export type GetVolumeItemGroupByPayload<T extends VolumeItemGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<VolumeItemGroupByOutputType, T['by']> &
       {
@@ -1248,6 +1248,11 @@ export type VolumeItemFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Skip the first `n` VolumeItems.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of VolumeItems.
+   */
   distinct?: Prisma.VolumeItemScalarFieldEnum | Prisma.VolumeItemScalarFieldEnum[]
 }
 

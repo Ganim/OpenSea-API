@@ -206,7 +206,7 @@ export type SupportTicketAttachmentGroupByOutputType = {
   _max: SupportTicketAttachmentMaxAggregateOutputType | null
 }
 
-type GetSupportTicketAttachmentGroupByPayload<T extends SupportTicketAttachmentGroupByArgs> = Prisma.PrismaPromise<
+export type GetSupportTicketAttachmentGroupByPayload<T extends SupportTicketAttachmentGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<SupportTicketAttachmentGroupByOutputType, T['by']> &
       {
@@ -1236,6 +1236,11 @@ export type SupportTicketAttachmentFindManyArgs<ExtArgs extends runtime.Types.Ex
    * Skip the first `n` SupportTicketAttachments.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of SupportTicketAttachments.
+   */
   distinct?: Prisma.SupportTicketAttachmentScalarFieldEnum | Prisma.SupportTicketAttachmentScalarFieldEnum[]
 }
 

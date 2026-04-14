@@ -318,7 +318,7 @@ export type AbsenceGroupByOutputType = {
   _max: AbsenceMaxAggregateOutputType | null
 }
 
-type GetAbsenceGroupByPayload<T extends AbsenceGroupByArgs> = Prisma.PrismaPromise<
+export type GetAbsenceGroupByPayload<T extends AbsenceGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AbsenceGroupByOutputType, T['by']> &
       {
@@ -2260,6 +2260,11 @@ export type AbsenceFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Skip the first `n` Absences.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Absences.
+   */
   distinct?: Prisma.AbsenceScalarFieldEnum | Prisma.AbsenceScalarFieldEnum[]
 }
 

@@ -175,7 +175,7 @@ export type CardCommentGroupByOutputType = {
   _max: CardCommentMaxAggregateOutputType | null
 }
 
-type GetCardCommentGroupByPayload<T extends CardCommentGroupByArgs> = Prisma.PrismaPromise<
+export type GetCardCommentGroupByPayload<T extends CardCommentGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CardCommentGroupByOutputType, T['by']> &
       {
@@ -1488,6 +1488,11 @@ export type CardCommentFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` CardComments.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CardComments.
+   */
   distinct?: Prisma.CardCommentScalarFieldEnum | Prisma.CardCommentScalarFieldEnum[]
 }
 

@@ -266,7 +266,7 @@ export type TenantSubscriptionGroupByOutputType = {
   _max: TenantSubscriptionMaxAggregateOutputType | null
 }
 
-type GetTenantSubscriptionGroupByPayload<T extends TenantSubscriptionGroupByArgs> = Prisma.PrismaPromise<
+export type GetTenantSubscriptionGroupByPayload<T extends TenantSubscriptionGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<TenantSubscriptionGroupByOutputType, T['by']> &
       {
@@ -1712,6 +1712,11 @@ export type TenantSubscriptionFindManyArgs<ExtArgs extends runtime.Types.Extensi
    * Skip the first `n` TenantSubscriptions.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of TenantSubscriptions.
+   */
   distinct?: Prisma.TenantSubscriptionScalarFieldEnum | Prisma.TenantSubscriptionScalarFieldEnum[]
 }
 

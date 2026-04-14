@@ -241,7 +241,7 @@ export type SignatureAuditEventGroupByOutputType = {
   _max: SignatureAuditEventMaxAggregateOutputType | null
 }
 
-type GetSignatureAuditEventGroupByPayload<T extends SignatureAuditEventGroupByArgs> = Prisma.PrismaPromise<
+export type GetSignatureAuditEventGroupByPayload<T extends SignatureAuditEventGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<SignatureAuditEventGroupByOutputType, T['by']> &
       {
@@ -1415,6 +1415,11 @@ export type SignatureAuditEventFindManyArgs<ExtArgs extends runtime.Types.Extens
    * Skip the first `n` SignatureAuditEvents.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of SignatureAuditEvents.
+   */
   distinct?: Prisma.SignatureAuditEventScalarFieldEnum | Prisma.SignatureAuditEventScalarFieldEnum[]
 }
 

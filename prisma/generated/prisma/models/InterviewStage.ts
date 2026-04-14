@@ -220,7 +220,7 @@ export type InterviewStageGroupByOutputType = {
   _max: InterviewStageMaxAggregateOutputType | null
 }
 
-type GetInterviewStageGroupByPayload<T extends InterviewStageGroupByArgs> = Prisma.PrismaPromise<
+export type GetInterviewStageGroupByPayload<T extends InterviewStageGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<InterviewStageGroupByOutputType, T['by']> &
       {
@@ -1708,6 +1708,11 @@ export type InterviewStageFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Skip the first `n` InterviewStages.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of InterviewStages.
+   */
   distinct?: Prisma.InterviewStageScalarFieldEnum | Prisma.InterviewStageScalarFieldEnum[]
 }
 

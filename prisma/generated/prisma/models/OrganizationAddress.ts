@@ -241,7 +241,7 @@ export type OrganizationAddressGroupByOutputType = {
   _max: OrganizationAddressMaxAggregateOutputType | null
 }
 
-type GetOrganizationAddressGroupByPayload<T extends OrganizationAddressGroupByArgs> = Prisma.PrismaPromise<
+export type GetOrganizationAddressGroupByPayload<T extends OrganizationAddressGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<OrganizationAddressGroupByOutputType, T['by']> &
       {
@@ -1576,6 +1576,11 @@ export type OrganizationAddressFindManyArgs<ExtArgs extends runtime.Types.Extens
    * Skip the first `n` OrganizationAddresses.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of OrganizationAddresses.
+   */
   distinct?: Prisma.OrganizationAddressScalarFieldEnum | Prisma.OrganizationAddressScalarFieldEnum[]
 }
 

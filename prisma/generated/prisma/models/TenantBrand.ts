@@ -241,7 +241,7 @@ export type TenantBrandGroupByOutputType = {
   _max: TenantBrandMaxAggregateOutputType | null
 }
 
-type GetTenantBrandGroupByPayload<T extends TenantBrandGroupByArgs> = Prisma.PrismaPromise<
+export type GetTenantBrandGroupByPayload<T extends TenantBrandGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<TenantBrandGroupByOutputType, T['by']> &
       {
@@ -2298,6 +2298,11 @@ export type TenantBrandFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` TenantBrands.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of TenantBrands.
+   */
   distinct?: Prisma.TenantBrandScalarFieldEnum | Prisma.TenantBrandScalarFieldEnum[]
 }
 

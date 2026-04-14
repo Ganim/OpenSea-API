@@ -295,7 +295,7 @@ export type VacationPeriodGroupByOutputType = {
   _max: VacationPeriodMaxAggregateOutputType | null
 }
 
-type GetVacationPeriodGroupByPayload<T extends VacationPeriodGroupByArgs> = Prisma.PrismaPromise<
+export type GetVacationPeriodGroupByPayload<T extends VacationPeriodGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<VacationPeriodGroupByOutputType, T['by']> &
       {
@@ -2006,6 +2006,11 @@ export type VacationPeriodFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Skip the first `n` VacationPeriods.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of VacationPeriods.
+   */
   distinct?: Prisma.VacationPeriodScalarFieldEnum | Prisma.VacationPeriodScalarFieldEnum[]
 }
 

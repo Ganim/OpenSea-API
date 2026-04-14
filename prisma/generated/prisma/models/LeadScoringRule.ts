@@ -234,7 +234,7 @@ export type LeadScoringRuleGroupByOutputType = {
   _max: LeadScoringRuleMaxAggregateOutputType | null
 }
 
-type GetLeadScoringRuleGroupByPayload<T extends LeadScoringRuleGroupByArgs> = Prisma.PrismaPromise<
+export type GetLeadScoringRuleGroupByPayload<T extends LeadScoringRuleGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<LeadScoringRuleGroupByOutputType, T['by']> &
       {
@@ -1376,6 +1376,11 @@ export type LeadScoringRuleFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` LeadScoringRules.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of LeadScoringRules.
+   */
   distinct?: Prisma.LeadScoringRuleScalarFieldEnum | Prisma.LeadScoringRuleScalarFieldEnum[]
 }
 

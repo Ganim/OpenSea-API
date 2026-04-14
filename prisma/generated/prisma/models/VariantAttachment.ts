@@ -238,7 +238,7 @@ export type VariantAttachmentGroupByOutputType = {
   _max: VariantAttachmentMaxAggregateOutputType | null
 }
 
-type GetVariantAttachmentGroupByPayload<T extends VariantAttachmentGroupByArgs> = Prisma.PrismaPromise<
+export type GetVariantAttachmentGroupByPayload<T extends VariantAttachmentGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<VariantAttachmentGroupByOutputType, T['by']> &
       {
@@ -1538,6 +1538,11 @@ export type VariantAttachmentFindManyArgs<ExtArgs extends runtime.Types.Extensio
    * Skip the first `n` VariantAttachments.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of VariantAttachments.
+   */
   distinct?: Prisma.VariantAttachmentScalarFieldEnum | Prisma.VariantAttachmentScalarFieldEnum[]
 }
 

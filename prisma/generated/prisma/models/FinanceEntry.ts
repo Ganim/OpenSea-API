@@ -567,7 +567,7 @@ export type FinanceEntryGroupByOutputType = {
   _max: FinanceEntryMaxAggregateOutputType | null
 }
 
-type GetFinanceEntryGroupByPayload<T extends FinanceEntryGroupByArgs> = Prisma.PrismaPromise<
+export type GetFinanceEntryGroupByPayload<T extends FinanceEntryGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<FinanceEntryGroupByOutputType, T['by']> &
       {
@@ -10207,6 +10207,11 @@ export type FinanceEntryFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Skip the first `n` FinanceEntries.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of FinanceEntries.
+   */
   distinct?: Prisma.FinanceEntryScalarFieldEnum | Prisma.FinanceEntryScalarFieldEnum[]
 }
 

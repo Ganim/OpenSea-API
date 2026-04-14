@@ -255,7 +255,7 @@ export type AiInsightGroupByOutputType = {
   _max: AiInsightMaxAggregateOutputType | null
 }
 
-type GetAiInsightGroupByPayload<T extends AiInsightGroupByArgs> = Prisma.PrismaPromise<
+export type GetAiInsightGroupByPayload<T extends AiInsightGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AiInsightGroupByOutputType, T['by']> &
       {
@@ -1656,6 +1656,11 @@ export type AiInsightFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Skip the first `n` AiInsights.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of AiInsights.
+   */
   distinct?: Prisma.AiInsightScalarFieldEnum | Prisma.AiInsightScalarFieldEnum[]
 }
 

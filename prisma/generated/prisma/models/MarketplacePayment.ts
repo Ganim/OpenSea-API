@@ -291,7 +291,7 @@ export type MarketplacePaymentGroupByOutputType = {
   _max: MarketplacePaymentMaxAggregateOutputType | null
 }
 
-type GetMarketplacePaymentGroupByPayload<T extends MarketplacePaymentGroupByArgs> = Prisma.PrismaPromise<
+export type GetMarketplacePaymentGroupByPayload<T extends MarketplacePaymentGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<MarketplacePaymentGroupByOutputType, T['by']> &
       {
@@ -2037,6 +2037,11 @@ export type MarketplacePaymentFindManyArgs<ExtArgs extends runtime.Types.Extensi
    * Skip the first `n` MarketplacePayments.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of MarketplacePayments.
+   */
   distinct?: Prisma.MarketplacePaymentScalarFieldEnum | Prisma.MarketplacePaymentScalarFieldEnum[]
 }
 

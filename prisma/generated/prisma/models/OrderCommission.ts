@@ -256,7 +256,7 @@ export type OrderCommissionGroupByOutputType = {
   _max: OrderCommissionMaxAggregateOutputType | null
 }
 
-type GetOrderCommissionGroupByPayload<T extends OrderCommissionGroupByArgs> = Prisma.PrismaPromise<
+export type GetOrderCommissionGroupByPayload<T extends OrderCommissionGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<OrderCommissionGroupByOutputType, T['by']> &
       {
@@ -1634,6 +1634,11 @@ export type OrderCommissionFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` OrderCommissions.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of OrderCommissions.
+   */
   distinct?: Prisma.OrderCommissionScalarFieldEnum | Prisma.OrderCommissionScalarFieldEnum[]
 }
 

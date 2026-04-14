@@ -259,7 +259,7 @@ export type ProductionWorkstationGroupByOutputType = {
   _max: ProductionWorkstationMaxAggregateOutputType | null
 }
 
-type GetProductionWorkstationGroupByPayload<T extends ProductionWorkstationGroupByArgs> = Prisma.PrismaPromise<
+export type GetProductionWorkstationGroupByPayload<T extends ProductionWorkstationGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ProductionWorkstationGroupByOutputType, T['by']> &
       {
@@ -2447,6 +2447,11 @@ export type ProductionWorkstationFindManyArgs<ExtArgs extends runtime.Types.Exte
    * Skip the first `n` ProductionWorkstations.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ProductionWorkstations.
+   */
   distinct?: Prisma.ProductionWorkstationScalarFieldEnum | Prisma.ProductionWorkstationScalarFieldEnum[]
 }
 

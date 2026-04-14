@@ -186,7 +186,7 @@ export type ProductionDefectTypeGroupByOutputType = {
   _max: ProductionDefectTypeMaxAggregateOutputType | null
 }
 
-type GetProductionDefectTypeGroupByPayload<T extends ProductionDefectTypeGroupByArgs> = Prisma.PrismaPromise<
+export type GetProductionDefectTypeGroupByPayload<T extends ProductionDefectTypeGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ProductionDefectTypeGroupByOutputType, T['by']> &
       {
@@ -1401,6 +1401,11 @@ export type ProductionDefectTypeFindManyArgs<ExtArgs extends runtime.Types.Exten
    * Skip the first `n` ProductionDefectTypes.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ProductionDefectTypes.
+   */
   distinct?: Prisma.ProductionDefectTypeScalarFieldEnum | Prisma.ProductionDefectTypeScalarFieldEnum[]
 }
 

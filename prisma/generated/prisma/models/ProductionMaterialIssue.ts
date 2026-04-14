@@ -220,7 +220,7 @@ export type ProductionMaterialIssueGroupByOutputType = {
   _max: ProductionMaterialIssueMaxAggregateOutputType | null
 }
 
-type GetProductionMaterialIssueGroupByPayload<T extends ProductionMaterialIssueGroupByArgs> = Prisma.PrismaPromise<
+export type GetProductionMaterialIssueGroupByPayload<T extends ProductionMaterialIssueGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ProductionMaterialIssueGroupByOutputType, T['by']> &
       {
@@ -1306,6 +1306,11 @@ export type ProductionMaterialIssueFindManyArgs<ExtArgs extends runtime.Types.Ex
    * Skip the first `n` ProductionMaterialIssues.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ProductionMaterialIssues.
+   */
   distinct?: Prisma.ProductionMaterialIssueScalarFieldEnum | Prisma.ProductionMaterialIssueScalarFieldEnum[]
 }
 

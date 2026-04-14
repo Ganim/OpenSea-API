@@ -260,7 +260,7 @@ export type CashierSessionGroupByOutputType = {
   _max: CashierSessionMaxAggregateOutputType | null
 }
 
-type GetCashierSessionGroupByPayload<T extends CashierSessionGroupByArgs> = Prisma.PrismaPromise<
+export type GetCashierSessionGroupByPayload<T extends CashierSessionGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CashierSessionGroupByOutputType, T['by']> &
       {
@@ -1785,6 +1785,11 @@ export type CashierSessionFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Skip the first `n` CashierSessions.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CashierSessions.
+   */
   distinct?: Prisma.CashierSessionScalarFieldEnum | Prisma.CashierSessionScalarFieldEnum[]
 }
 

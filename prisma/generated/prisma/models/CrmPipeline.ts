@@ -262,7 +262,7 @@ export type CrmPipelineGroupByOutputType = {
   _max: CrmPipelineMaxAggregateOutputType | null
 }
 
-type GetCrmPipelineGroupByPayload<T extends CrmPipelineGroupByArgs> = Prisma.PrismaPromise<
+export type GetCrmPipelineGroupByPayload<T extends CrmPipelineGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CrmPipelineGroupByOutputType, T['by']> &
       {
@@ -1949,6 +1949,11 @@ export type CrmPipelineFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` CrmPipelines.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CrmPipelines.
+   */
   distinct?: Prisma.CrmPipelineScalarFieldEnum | Prisma.CrmPipelineScalarFieldEnum[]
 }
 

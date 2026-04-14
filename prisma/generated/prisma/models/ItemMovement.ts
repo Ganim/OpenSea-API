@@ -277,7 +277,7 @@ export type ItemMovementGroupByOutputType = {
   _max: ItemMovementMaxAggregateOutputType | null
 }
 
-type GetItemMovementGroupByPayload<T extends ItemMovementGroupByArgs> = Prisma.PrismaPromise<
+export type GetItemMovementGroupByPayload<T extends ItemMovementGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ItemMovementGroupByOutputType, T['by']> &
       {
@@ -2311,6 +2311,11 @@ export type ItemMovementFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Skip the first `n` ItemMovements.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ItemMovements.
+   */
   distinct?: Prisma.ItemMovementScalarFieldEnum | Prisma.ItemMovementScalarFieldEnum[]
 }
 

@@ -235,7 +235,7 @@ export type FinanceBudgetGroupByOutputType = {
   _max: FinanceBudgetMaxAggregateOutputType | null
 }
 
-type GetFinanceBudgetGroupByPayload<T extends FinanceBudgetGroupByArgs> = Prisma.PrismaPromise<
+export type GetFinanceBudgetGroupByPayload<T extends FinanceBudgetGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<FinanceBudgetGroupByOutputType, T['by']> &
       {
@@ -1662,6 +1662,11 @@ export type FinanceBudgetFindManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Skip the first `n` FinanceBudgets.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of FinanceBudgets.
+   */
   distinct?: Prisma.FinanceBudgetScalarFieldEnum | Prisma.FinanceBudgetScalarFieldEnum[]
 }
 

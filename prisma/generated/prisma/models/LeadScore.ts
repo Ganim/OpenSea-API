@@ -209,7 +209,7 @@ export type LeadScoreGroupByOutputType = {
   _max: LeadScoreMaxAggregateOutputType | null
 }
 
-type GetLeadScoreGroupByPayload<T extends LeadScoreGroupByArgs> = Prisma.PrismaPromise<
+export type GetLeadScoreGroupByPayload<T extends LeadScoreGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<LeadScoreGroupByOutputType, T['by']> &
       {
@@ -1409,6 +1409,11 @@ export type LeadScoreFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Skip the first `n` LeadScores.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of LeadScores.
+   */
   distinct?: Prisma.LeadScoreScalarFieldEnum | Prisma.LeadScoreScalarFieldEnum[]
 }
 

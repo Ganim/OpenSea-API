@@ -252,7 +252,7 @@ export type PosTerminalGroupByOutputType = {
   _max: PosTerminalMaxAggregateOutputType | null
 }
 
-type GetPosTerminalGroupByPayload<T extends PosTerminalGroupByArgs> = Prisma.PrismaPromise<
+export type GetPosTerminalGroupByPayload<T extends PosTerminalGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<PosTerminalGroupByOutputType, T['by']> &
       {
@@ -3065,6 +3065,11 @@ export type PosTerminalFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` PosTerminals.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of PosTerminals.
+   */
   distinct?: Prisma.PosTerminalScalarFieldEnum | Prisma.PosTerminalScalarFieldEnum[]
 }
 

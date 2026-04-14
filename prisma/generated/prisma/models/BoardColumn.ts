@@ -238,7 +238,7 @@ export type BoardColumnGroupByOutputType = {
   _max: BoardColumnMaxAggregateOutputType | null
 }
 
-type GetBoardColumnGroupByPayload<T extends BoardColumnGroupByArgs> = Prisma.PrismaPromise<
+export type GetBoardColumnGroupByPayload<T extends BoardColumnGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<BoardColumnGroupByOutputType, T['by']> &
       {
@@ -1519,6 +1519,11 @@ export type BoardColumnFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` BoardColumns.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of BoardColumns.
+   */
   distinct?: Prisma.BoardColumnScalarFieldEnum | Prisma.BoardColumnScalarFieldEnum[]
 }
 

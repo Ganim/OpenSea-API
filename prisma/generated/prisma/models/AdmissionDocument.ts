@@ -207,7 +207,7 @@ export type AdmissionDocumentGroupByOutputType = {
   _max: AdmissionDocumentMaxAggregateOutputType | null
 }
 
-type GetAdmissionDocumentGroupByPayload<T extends AdmissionDocumentGroupByArgs> = Prisma.PrismaPromise<
+export type GetAdmissionDocumentGroupByPayload<T extends AdmissionDocumentGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AdmissionDocumentGroupByOutputType, T['by']> &
       {
@@ -1367,6 +1367,11 @@ export type AdmissionDocumentFindManyArgs<ExtArgs extends runtime.Types.Extensio
    * Skip the first `n` AdmissionDocuments.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of AdmissionDocuments.
+   */
   distinct?: Prisma.AdmissionDocumentScalarFieldEnum | Prisma.AdmissionDocumentScalarFieldEnum[]
 }
 

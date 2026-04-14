@@ -192,7 +192,7 @@ export type BoardAutomationGroupByOutputType = {
   _max: BoardAutomationMaxAggregateOutputType | null
 }
 
-type GetBoardAutomationGroupByPayload<T extends BoardAutomationGroupByArgs> = Prisma.PrismaPromise<
+export type GetBoardAutomationGroupByPayload<T extends BoardAutomationGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<BoardAutomationGroupByOutputType, T['by']> &
       {
@@ -1328,6 +1328,11 @@ export type BoardAutomationFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` BoardAutomations.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of BoardAutomations.
+   */
   distinct?: Prisma.BoardAutomationScalarFieldEnum | Prisma.BoardAutomationScalarFieldEnum[]
 }
 

@@ -182,7 +182,7 @@ export type TenantIntegrationGroupByOutputType = {
   _max: TenantIntegrationMaxAggregateOutputType | null
 }
 
-type GetTenantIntegrationGroupByPayload<T extends TenantIntegrationGroupByArgs> = Prisma.PrismaPromise<
+export type GetTenantIntegrationGroupByPayload<T extends TenantIntegrationGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<TenantIntegrationGroupByOutputType, T['by']> &
       {
@@ -1406,6 +1406,11 @@ export type TenantIntegrationFindManyArgs<ExtArgs extends runtime.Types.Extensio
    * Skip the first `n` TenantIntegrations.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of TenantIntegrations.
+   */
   distinct?: Prisma.TenantIntegrationScalarFieldEnum | Prisma.TenantIntegrationScalarFieldEnum[]
 }
 

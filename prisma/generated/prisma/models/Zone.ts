@@ -199,7 +199,7 @@ export type ZoneGroupByOutputType = {
   _max: ZoneMaxAggregateOutputType | null
 }
 
-type GetZoneGroupByPayload<T extends ZoneGroupByArgs> = Prisma.PrismaPromise<
+export type GetZoneGroupByPayload<T extends ZoneGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ZoneGroupByOutputType, T['by']> &
       {
@@ -1802,6 +1802,11 @@ export type ZoneFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Skip the first `n` Zones.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Zones.
+   */
   distinct?: Prisma.ZoneScalarFieldEnum | Prisma.ZoneScalarFieldEnum[]
 }
 

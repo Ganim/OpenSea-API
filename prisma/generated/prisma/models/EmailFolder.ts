@@ -217,7 +217,7 @@ export type EmailFolderGroupByOutputType = {
   _max: EmailFolderMaxAggregateOutputType | null
 }
 
-type GetEmailFolderGroupByPayload<T extends EmailFolderGroupByArgs> = Prisma.PrismaPromise<
+export type GetEmailFolderGroupByPayload<T extends EmailFolderGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<EmailFolderGroupByOutputType, T['by']> &
       {
@@ -1412,6 +1412,11 @@ export type EmailFolderFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` EmailFolders.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of EmailFolders.
+   */
   distinct?: Prisma.EmailFolderScalarFieldEnum | Prisma.EmailFolderScalarFieldEnum[]
 }
 

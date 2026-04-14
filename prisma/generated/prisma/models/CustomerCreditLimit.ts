@@ -238,7 +238,7 @@ export type CustomerCreditLimitGroupByOutputType = {
   _max: CustomerCreditLimitMaxAggregateOutputType | null
 }
 
-type GetCustomerCreditLimitGroupByPayload<T extends CustomerCreditLimitGroupByArgs> = Prisma.PrismaPromise<
+export type GetCustomerCreditLimitGroupByPayload<T extends CustomerCreditLimitGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CustomerCreditLimitGroupByOutputType, T['by']> &
       {
@@ -1700,6 +1700,11 @@ export type CustomerCreditLimitFindManyArgs<ExtArgs extends runtime.Types.Extens
    * Skip the first `n` CustomerCreditLimits.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CustomerCreditLimits.
+   */
   distinct?: Prisma.CustomerCreditLimitScalarFieldEnum | Prisma.CustomerCreditLimitScalarFieldEnum[]
 }
 

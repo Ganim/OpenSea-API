@@ -307,7 +307,7 @@ export type CrmDealGroupByOutputType = {
   _max: CrmDealMaxAggregateOutputType | null
 }
 
-type GetCrmDealGroupByPayload<T extends CrmDealGroupByArgs> = Prisma.PrismaPromise<
+export type GetCrmDealGroupByPayload<T extends CrmDealGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CrmDealGroupByOutputType, T['by']> &
       {
@@ -3272,6 +3272,11 @@ export type CrmDealFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Skip the first `n` CrmDeals.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CrmDeals.
+   */
   distinct?: Prisma.CrmDealScalarFieldEnum | Prisma.CrmDealScalarFieldEnum[]
 }
 

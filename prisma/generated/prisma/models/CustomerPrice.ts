@@ -234,7 +234,7 @@ export type CustomerPriceGroupByOutputType = {
   _max: CustomerPriceMaxAggregateOutputType | null
 }
 
-type GetCustomerPriceGroupByPayload<T extends CustomerPriceGroupByArgs> = Prisma.PrismaPromise<
+export type GetCustomerPriceGroupByPayload<T extends CustomerPriceGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CustomerPriceGroupByOutputType, T['by']> &
       {
@@ -1851,6 +1851,11 @@ export type CustomerPriceFindManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Skip the first `n` CustomerPrices.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CustomerPrices.
+   */
   distinct?: Prisma.CustomerPriceScalarFieldEnum | Prisma.CustomerPriceScalarFieldEnum[]
 }
 

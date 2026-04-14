@@ -301,7 +301,7 @@ export type HrTenantConfigGroupByOutputType = {
   _max: HrTenantConfigMaxAggregateOutputType | null
 }
 
-type GetHrTenantConfigGroupByPayload<T extends HrTenantConfigGroupByArgs> = Prisma.PrismaPromise<
+export type GetHrTenantConfigGroupByPayload<T extends HrTenantConfigGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<HrTenantConfigGroupByOutputType, T['by']> &
       {
@@ -1516,6 +1516,11 @@ export type HrTenantConfigFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Skip the first `n` HrTenantConfigs.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of HrTenantConfigs.
+   */
   distinct?: Prisma.HrTenantConfigScalarFieldEnum | Prisma.HrTenantConfigScalarFieldEnum[]
 }
 

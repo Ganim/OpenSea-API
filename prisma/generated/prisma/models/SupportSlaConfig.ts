@@ -203,7 +203,7 @@ export type SupportSlaConfigGroupByOutputType = {
   _max: SupportSlaConfigMaxAggregateOutputType | null
 }
 
-type GetSupportSlaConfigGroupByPayload<T extends SupportSlaConfigGroupByArgs> = Prisma.PrismaPromise<
+export type GetSupportSlaConfigGroupByPayload<T extends SupportSlaConfigGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<SupportSlaConfigGroupByOutputType, T['by']> &
       {
@@ -1032,6 +1032,11 @@ export type SupportSlaConfigFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Skip the first `n` SupportSlaConfigs.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of SupportSlaConfigs.
+   */
   distinct?: Prisma.SupportSlaConfigScalarFieldEnum | Prisma.SupportSlaConfigScalarFieldEnum[]
 }
 

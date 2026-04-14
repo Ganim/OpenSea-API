@@ -220,7 +220,7 @@ export type PosCashMovementGroupByOutputType = {
   _max: PosCashMovementMaxAggregateOutputType | null
 }
 
-type GetPosCashMovementGroupByPayload<T extends PosCashMovementGroupByArgs> = Prisma.PrismaPromise<
+export type GetPosCashMovementGroupByPayload<T extends PosCashMovementGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<PosCashMovementGroupByOutputType, T['by']> &
       {
@@ -1598,6 +1598,11 @@ export type PosCashMovementFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` PosCashMovements.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of PosCashMovements.
+   */
   distinct?: Prisma.PosCashMovementScalarFieldEnum | Prisma.PosCashMovementScalarFieldEnum[]
 }
 

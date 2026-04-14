@@ -214,7 +214,7 @@ export type FolderAccessRuleGroupByOutputType = {
   _max: FolderAccessRuleMaxAggregateOutputType | null
 }
 
-type GetFolderAccessRuleGroupByPayload<T extends FolderAccessRuleGroupByArgs> = Prisma.PrismaPromise<
+export type GetFolderAccessRuleGroupByPayload<T extends FolderAccessRuleGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<FolderAccessRuleGroupByOutputType, T['by']> &
       {
@@ -2092,6 +2092,11 @@ export type FolderAccessRuleFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Skip the first `n` FolderAccessRules.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of FolderAccessRules.
+   */
   distinct?: Prisma.FolderAccessRuleScalarFieldEnum | Prisma.FolderAccessRuleScalarFieldEnum[]
 }
 

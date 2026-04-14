@@ -172,7 +172,7 @@ export type OverdueEscalationGroupByOutputType = {
   _max: OverdueEscalationMaxAggregateOutputType | null
 }
 
-type GetOverdueEscalationGroupByPayload<T extends OverdueEscalationGroupByArgs> = Prisma.PrismaPromise<
+export type GetOverdueEscalationGroupByPayload<T extends OverdueEscalationGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<OverdueEscalationGroupByOutputType, T['by']> &
       {
@@ -1319,6 +1319,11 @@ export type OverdueEscalationFindManyArgs<ExtArgs extends runtime.Types.Extensio
    * Skip the first `n` OverdueEscalations.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of OverdueEscalations.
+   */
   distinct?: Prisma.OverdueEscalationScalarFieldEnum | Prisma.OverdueEscalationScalarFieldEnum[]
 }
 

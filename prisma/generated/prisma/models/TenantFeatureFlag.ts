@@ -196,7 +196,7 @@ export type TenantFeatureFlagGroupByOutputType = {
   _max: TenantFeatureFlagMaxAggregateOutputType | null
 }
 
-type GetTenantFeatureFlagGroupByPayload<T extends TenantFeatureFlagGroupByArgs> = Prisma.PrismaPromise<
+export type GetTenantFeatureFlagGroupByPayload<T extends TenantFeatureFlagGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<TenantFeatureFlagGroupByOutputType, T['by']> &
       {
@@ -1336,6 +1336,11 @@ export type TenantFeatureFlagFindManyArgs<ExtArgs extends runtime.Types.Extensio
    * Skip the first `n` TenantFeatureFlags.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of TenantFeatureFlags.
+   */
   distinct?: Prisma.TenantFeatureFlagScalarFieldEnum | Prisma.TenantFeatureFlagScalarFieldEnum[]
 }
 

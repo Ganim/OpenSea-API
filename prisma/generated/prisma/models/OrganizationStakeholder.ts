@@ -227,7 +227,7 @@ export type OrganizationStakeholderGroupByOutputType = {
   _max: OrganizationStakeholderMaxAggregateOutputType | null
 }
 
-type GetOrganizationStakeholderGroupByPayload<T extends OrganizationStakeholderGroupByArgs> = Prisma.PrismaPromise<
+export type GetOrganizationStakeholderGroupByPayload<T extends OrganizationStakeholderGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<OrganizationStakeholderGroupByOutputType, T['by']> &
       {
@@ -1514,6 +1514,11 @@ export type OrganizationStakeholderFindManyArgs<ExtArgs extends runtime.Types.Ex
    * Skip the first `n` OrganizationStakeholders.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of OrganizationStakeholders.
+   */
   distinct?: Prisma.OrganizationStakeholderScalarFieldEnum | Prisma.OrganizationStakeholderScalarFieldEnum[]
 }
 

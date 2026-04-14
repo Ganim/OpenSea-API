@@ -273,7 +273,7 @@ export type PosVisitLogGroupByOutputType = {
   _max: PosVisitLogMaxAggregateOutputType | null
 }
 
-type GetPosVisitLogGroupByPayload<T extends PosVisitLogGroupByArgs> = Prisma.PrismaPromise<
+export type GetPosVisitLogGroupByPayload<T extends PosVisitLogGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<PosVisitLogGroupByOutputType, T['by']> &
       {
@@ -2314,6 +2314,11 @@ export type PosVisitLogFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` PosVisitLogs.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of PosVisitLogs.
+   */
   distinct?: Prisma.PosVisitLogScalarFieldEnum | Prisma.PosVisitLogScalarFieldEnum[]
 }
 

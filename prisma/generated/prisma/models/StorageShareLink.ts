@@ -245,7 +245,7 @@ export type StorageShareLinkGroupByOutputType = {
   _max: StorageShareLinkMaxAggregateOutputType | null
 }
 
-type GetStorageShareLinkGroupByPayload<T extends StorageShareLinkGroupByArgs> = Prisma.PrismaPromise<
+export type GetStorageShareLinkGroupByPayload<T extends StorageShareLinkGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<StorageShareLinkGroupByOutputType, T['by']> &
       {
@@ -1579,6 +1579,11 @@ export type StorageShareLinkFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Skip the first `n` StorageShareLinks.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of StorageShareLinks.
+   */
   distinct?: Prisma.StorageShareLinkScalarFieldEnum | Prisma.StorageShareLinkScalarFieldEnum[]
 }
 

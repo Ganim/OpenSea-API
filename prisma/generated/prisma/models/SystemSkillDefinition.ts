@@ -265,7 +265,7 @@ export type SystemSkillDefinitionGroupByOutputType = {
   _max: SystemSkillDefinitionMaxAggregateOutputType | null
 }
 
-type GetSystemSkillDefinitionGroupByPayload<T extends SystemSkillDefinitionGroupByArgs> = Prisma.PrismaPromise<
+export type GetSystemSkillDefinitionGroupByPayload<T extends SystemSkillDefinitionGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<SystemSkillDefinitionGroupByOutputType, T['by']> &
       {
@@ -1992,6 +1992,11 @@ export type SystemSkillDefinitionFindManyArgs<ExtArgs extends runtime.Types.Exte
    * Skip the first `n` SystemSkillDefinitions.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of SystemSkillDefinitions.
+   */
   distinct?: Prisma.SystemSkillDefinitionScalarFieldEnum | Prisma.SystemSkillDefinitionScalarFieldEnum[]
 }
 

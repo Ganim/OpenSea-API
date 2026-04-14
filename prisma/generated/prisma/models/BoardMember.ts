@@ -158,7 +158,7 @@ export type BoardMemberGroupByOutputType = {
   _max: BoardMemberMaxAggregateOutputType | null
 }
 
-type GetBoardMemberGroupByPayload<T extends BoardMemberGroupByArgs> = Prisma.PrismaPromise<
+export type GetBoardMemberGroupByPayload<T extends BoardMemberGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<BoardMemberGroupByOutputType, T['by']> &
       {
@@ -1252,6 +1252,11 @@ export type BoardMemberFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` BoardMembers.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of BoardMembers.
+   */
   distinct?: Prisma.BoardMemberScalarFieldEnum | Prisma.BoardMemberScalarFieldEnum[]
 }
 

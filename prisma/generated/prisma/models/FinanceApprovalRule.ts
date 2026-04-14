@@ -245,7 +245,7 @@ export type FinanceApprovalRuleGroupByOutputType = {
   _max: FinanceApprovalRuleMaxAggregateOutputType | null
 }
 
-type GetFinanceApprovalRuleGroupByPayload<T extends FinanceApprovalRuleGroupByArgs> = Prisma.PrismaPromise<
+export type GetFinanceApprovalRuleGroupByPayload<T extends FinanceApprovalRuleGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<FinanceApprovalRuleGroupByOutputType, T['by']> &
       {
@@ -1427,6 +1427,11 @@ export type FinanceApprovalRuleFindManyArgs<ExtArgs extends runtime.Types.Extens
    * Skip the first `n` FinanceApprovalRules.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of FinanceApprovalRules.
+   */
   distinct?: Prisma.FinanceApprovalRuleScalarFieldEnum | Prisma.FinanceApprovalRuleScalarFieldEnum[]
 }
 

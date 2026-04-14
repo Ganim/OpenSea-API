@@ -172,7 +172,7 @@ export type CentralUserGroupByOutputType = {
   _max: CentralUserMaxAggregateOutputType | null
 }
 
-type GetCentralUserGroupByPayload<T extends CentralUserGroupByArgs> = Prisma.PrismaPromise<
+export type GetCentralUserGroupByPayload<T extends CentralUserGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CentralUserGroupByOutputType, T['by']> &
       {
@@ -1140,6 +1140,11 @@ export type CentralUserFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` CentralUsers.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CentralUsers.
+   */
   distinct?: Prisma.CentralUserScalarFieldEnum | Prisma.CentralUserScalarFieldEnum[]
 }
 

@@ -235,7 +235,7 @@ export type TimeBankGroupByOutputType = {
   _max: TimeBankMaxAggregateOutputType | null
 }
 
-type GetTimeBankGroupByPayload<T extends TimeBankGroupByArgs> = Prisma.PrismaPromise<
+export type GetTimeBankGroupByPayload<T extends TimeBankGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<TimeBankGroupByOutputType, T['by']> &
       {
@@ -1509,6 +1509,11 @@ export type TimeBankFindManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Skip the first `n` TimeBanks.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of TimeBanks.
+   */
   distinct?: Prisma.TimeBankScalarFieldEnum | Prisma.TimeBankScalarFieldEnum[]
 }
 

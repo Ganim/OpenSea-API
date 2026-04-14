@@ -172,7 +172,7 @@ export type TenantPlanGroupByOutputType = {
   _max: TenantPlanMaxAggregateOutputType | null
 }
 
-type GetTenantPlanGroupByPayload<T extends TenantPlanGroupByArgs> = Prisma.PrismaPromise<
+export type GetTenantPlanGroupByPayload<T extends TenantPlanGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<TenantPlanGroupByOutputType, T['by']> &
       {
@@ -1324,6 +1324,11 @@ export type TenantPlanFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Skip the first `n` TenantPlans.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of TenantPlans.
+   */
   distinct?: Prisma.TenantPlanScalarFieldEnum | Prisma.TenantPlanScalarFieldEnum[]
 }
 

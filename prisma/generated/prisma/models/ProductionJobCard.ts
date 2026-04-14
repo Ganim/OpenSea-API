@@ -270,7 +270,7 @@ export type ProductionJobCardGroupByOutputType = {
   _max: ProductionJobCardMaxAggregateOutputType | null
 }
 
-type GetProductionJobCardGroupByPayload<T extends ProductionJobCardGroupByArgs> = Prisma.PrismaPromise<
+export type GetProductionJobCardGroupByPayload<T extends ProductionJobCardGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ProductionJobCardGroupByOutputType, T['by']> &
       {
@@ -2195,6 +2195,11 @@ export type ProductionJobCardFindManyArgs<ExtArgs extends runtime.Types.Extensio
    * Skip the first `n` ProductionJobCards.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ProductionJobCards.
+   */
   distinct?: Prisma.ProductionJobCardScalarFieldEnum | Prisma.ProductionJobCardScalarFieldEnum[]
 }
 

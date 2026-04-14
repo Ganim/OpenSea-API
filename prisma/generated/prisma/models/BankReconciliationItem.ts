@@ -238,7 +238,7 @@ export type BankReconciliationItemGroupByOutputType = {
   _max: BankReconciliationItemMaxAggregateOutputType | null
 }
 
-type GetBankReconciliationItemGroupByPayload<T extends BankReconciliationItemGroupByArgs> = Prisma.PrismaPromise<
+export type GetBankReconciliationItemGroupByPayload<T extends BankReconciliationItemGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<BankReconciliationItemGroupByOutputType, T['by']> &
       {
@@ -1689,6 +1689,11 @@ export type BankReconciliationItemFindManyArgs<ExtArgs extends runtime.Types.Ext
    * Skip the first `n` BankReconciliationItems.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of BankReconciliationItems.
+   */
   distinct?: Prisma.BankReconciliationItemScalarFieldEnum | Prisma.BankReconciliationItemScalarFieldEnum[]
 }
 

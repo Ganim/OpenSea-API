@@ -186,7 +186,7 @@ export type AlertGroupByOutputType = {
   _max: AlertMaxAggregateOutputType | null
 }
 
-type GetAlertGroupByPayload<T extends AlertGroupByArgs> = Prisma.PrismaPromise<
+export type GetAlertGroupByPayload<T extends AlertGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AlertGroupByOutputType, T['by']> &
       {
@@ -1270,6 +1270,11 @@ export type AlertFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Skip the first `n` Alerts.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Alerts.
+   */
   distinct?: Prisma.AlertScalarFieldEnum | Prisma.AlertScalarFieldEnum[]
 }
 

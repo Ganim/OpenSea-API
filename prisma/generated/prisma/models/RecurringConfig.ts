@@ -416,7 +416,7 @@ export type RecurringConfigGroupByOutputType = {
   _max: RecurringConfigMaxAggregateOutputType | null
 }
 
-type GetRecurringConfigGroupByPayload<T extends RecurringConfigGroupByArgs> = Prisma.PrismaPromise<
+export type GetRecurringConfigGroupByPayload<T extends RecurringConfigGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<RecurringConfigGroupByOutputType, T['by']> &
       {
@@ -2200,6 +2200,11 @@ export type RecurringConfigFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` RecurringConfigs.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of RecurringConfigs.
+   */
   distinct?: Prisma.RecurringConfigScalarFieldEnum | Prisma.RecurringConfigScalarFieldEnum[]
 }
 

@@ -200,7 +200,7 @@ export type PosDevicePairingGroupByOutputType = {
   _max: PosDevicePairingMaxAggregateOutputType | null
 }
 
-type GetPosDevicePairingGroupByPayload<T extends PosDevicePairingGroupByArgs> = Prisma.PrismaPromise<
+export type GetPosDevicePairingGroupByPayload<T extends PosDevicePairingGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<PosDevicePairingGroupByOutputType, T['by']> &
       {
@@ -1447,6 +1447,11 @@ export type PosDevicePairingFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Skip the first `n` PosDevicePairings.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of PosDevicePairings.
+   */
   distinct?: Prisma.PosDevicePairingScalarFieldEnum | Prisma.PosDevicePairingScalarFieldEnum[]
 }
 

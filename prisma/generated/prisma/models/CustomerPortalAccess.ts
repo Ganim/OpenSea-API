@@ -203,7 +203,7 @@ export type CustomerPortalAccessGroupByOutputType = {
   _max: CustomerPortalAccessMaxAggregateOutputType | null
 }
 
-type GetCustomerPortalAccessGroupByPayload<T extends CustomerPortalAccessGroupByArgs> = Prisma.PrismaPromise<
+export type GetCustomerPortalAccessGroupByPayload<T extends CustomerPortalAccessGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CustomerPortalAccessGroupByOutputType, T['by']> &
       {
@@ -1685,6 +1685,11 @@ export type CustomerPortalAccessFindManyArgs<ExtArgs extends runtime.Types.Exten
    * Skip the first `n` CustomerPortalAccesses.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CustomerPortalAccesses.
+   */
   distinct?: Prisma.CustomerPortalAccessScalarFieldEnum | Prisma.CustomerPortalAccessScalarFieldEnum[]
 }
 

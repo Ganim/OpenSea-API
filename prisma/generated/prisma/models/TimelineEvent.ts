@@ -196,7 +196,7 @@ export type TimelineEventGroupByOutputType = {
   _max: TimelineEventMaxAggregateOutputType | null
 }
 
-type GetTimelineEventGroupByPayload<T extends TimelineEventGroupByArgs> = Prisma.PrismaPromise<
+export type GetTimelineEventGroupByPayload<T extends TimelineEventGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<TimelineEventGroupByOutputType, T['by']> &
       {
@@ -1798,6 +1798,11 @@ export type TimelineEventFindManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Skip the first `n` TimelineEvents.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of TimelineEvents.
+   */
   distinct?: Prisma.TimelineEventScalarFieldEnum | Prisma.TimelineEventScalarFieldEnum[]
 }
 

@@ -151,7 +151,7 @@ export type PosTerminalWarehouseGroupByOutputType = {
   _max: PosTerminalWarehouseMaxAggregateOutputType | null
 }
 
-type GetPosTerminalWarehouseGroupByPayload<T extends PosTerminalWarehouseGroupByArgs> = Prisma.PrismaPromise<
+export type GetPosTerminalWarehouseGroupByPayload<T extends PosTerminalWarehouseGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<PosTerminalWarehouseGroupByOutputType, T['by']> &
       {
@@ -1207,6 +1207,11 @@ export type PosTerminalWarehouseFindManyArgs<ExtArgs extends runtime.Types.Exten
    * Skip the first `n` PosTerminalWarehouses.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of PosTerminalWarehouses.
+   */
   distinct?: Prisma.PosTerminalWarehouseScalarFieldEnum | Prisma.PosTerminalWarehouseScalarFieldEnum[]
 }
 

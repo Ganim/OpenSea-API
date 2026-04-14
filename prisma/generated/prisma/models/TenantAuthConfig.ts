@@ -209,7 +209,7 @@ export type TenantAuthConfigGroupByOutputType = {
   _max: TenantAuthConfigMaxAggregateOutputType | null
 }
 
-type GetTenantAuthConfigGroupByPayload<T extends TenantAuthConfigGroupByArgs> = Prisma.PrismaPromise<
+export type GetTenantAuthConfigGroupByPayload<T extends TenantAuthConfigGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<TenantAuthConfigGroupByOutputType, T['by']> &
       {
@@ -1206,6 +1206,11 @@ export type TenantAuthConfigFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Skip the first `n` TenantAuthConfigs.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of TenantAuthConfigs.
+   */
   distinct?: Prisma.TenantAuthConfigScalarFieldEnum | Prisma.TenantAuthConfigScalarFieldEnum[]
 }
 

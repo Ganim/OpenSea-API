@@ -223,7 +223,7 @@ export type TenantBillingGroupByOutputType = {
   _max: TenantBillingMaxAggregateOutputType | null
 }
 
-type GetTenantBillingGroupByPayload<T extends TenantBillingGroupByArgs> = Prisma.PrismaPromise<
+export type GetTenantBillingGroupByPayload<T extends TenantBillingGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<TenantBillingGroupByOutputType, T['by']> &
       {
@@ -1339,6 +1339,11 @@ export type TenantBillingFindManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Skip the first `n` TenantBillings.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of TenantBillings.
+   */
   distinct?: Prisma.TenantBillingScalarFieldEnum | Prisma.TenantBillingScalarFieldEnum[]
 }
 

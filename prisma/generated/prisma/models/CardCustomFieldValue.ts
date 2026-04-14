@@ -147,7 +147,7 @@ export type CardCustomFieldValueGroupByOutputType = {
   _max: CardCustomFieldValueMaxAggregateOutputType | null
 }
 
-type GetCardCustomFieldValueGroupByPayload<T extends CardCustomFieldValueGroupByArgs> = Prisma.PrismaPromise<
+export type GetCardCustomFieldValueGroupByPayload<T extends CardCustomFieldValueGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CardCustomFieldValueGroupByOutputType, T['by']> &
       {
@@ -1201,6 +1201,11 @@ export type CardCustomFieldValueFindManyArgs<ExtArgs extends runtime.Types.Exten
    * Skip the first `n` CardCustomFieldValues.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CardCustomFieldValues.
+   */
   distinct?: Prisma.CardCustomFieldValueScalarFieldEnum | Prisma.CardCustomFieldValueScalarFieldEnum[]
 }
 

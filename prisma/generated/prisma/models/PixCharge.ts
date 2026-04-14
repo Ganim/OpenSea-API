@@ -279,7 +279,7 @@ export type PixChargeGroupByOutputType = {
   _max: PixChargeMaxAggregateOutputType | null
 }
 
-type GetPixChargeGroupByPayload<T extends PixChargeGroupByArgs> = Prisma.PrismaPromise<
+export type GetPixChargeGroupByPayload<T extends PixChargeGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<PixChargeGroupByOutputType, T['by']> &
       {
@@ -1782,6 +1782,11 @@ export type PixChargeFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Skip the first `n` PixCharges.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of PixCharges.
+   */
   distinct?: Prisma.PixChargeScalarFieldEnum | Prisma.PixChargeScalarFieldEnum[]
 }
 

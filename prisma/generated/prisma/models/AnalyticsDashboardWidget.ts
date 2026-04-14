@@ -154,7 +154,7 @@ export type AnalyticsDashboardWidgetGroupByOutputType = {
   _max: AnalyticsDashboardWidgetMaxAggregateOutputType | null
 }
 
-type GetAnalyticsDashboardWidgetGroupByPayload<T extends AnalyticsDashboardWidgetGroupByArgs> = Prisma.PrismaPromise<
+export type GetAnalyticsDashboardWidgetGroupByPayload<T extends AnalyticsDashboardWidgetGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AnalyticsDashboardWidgetGroupByOutputType, T['by']> &
       {
@@ -1242,6 +1242,11 @@ export type AnalyticsDashboardWidgetFindManyArgs<ExtArgs extends runtime.Types.E
    * Skip the first `n` AnalyticsDashboardWidgets.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of AnalyticsDashboardWidgets.
+   */
   distinct?: Prisma.AnalyticsDashboardWidgetScalarFieldEnum | Prisma.AnalyticsDashboardWidgetScalarFieldEnum[]
 }
 

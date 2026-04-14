@@ -315,7 +315,7 @@ export type ManufacturerGroupByOutputType = {
   _max: ManufacturerMaxAggregateOutputType | null
 }
 
-type GetManufacturerGroupByPayload<T extends ManufacturerGroupByArgs> = Prisma.PrismaPromise<
+export type GetManufacturerGroupByPayload<T extends ManufacturerGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ManufacturerGroupByOutputType, T['by']> &
       {
@@ -1956,6 +1956,11 @@ export type ManufacturerFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Skip the first `n` Manufacturers.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Manufacturers.
+   */
   distinct?: Prisma.ManufacturerScalarFieldEnum | Prisma.ManufacturerScalarFieldEnum[]
 }
 

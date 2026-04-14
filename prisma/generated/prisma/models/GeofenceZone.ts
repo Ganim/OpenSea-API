@@ -235,7 +235,7 @@ export type GeofenceZoneGroupByOutputType = {
   _max: GeofenceZoneMaxAggregateOutputType | null
 }
 
-type GetGeofenceZoneGroupByPayload<T extends GeofenceZoneGroupByArgs> = Prisma.PrismaPromise<
+export type GetGeofenceZoneGroupByPayload<T extends GeofenceZoneGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<GeofenceZoneGroupByOutputType, T['by']> &
       {
@@ -1353,6 +1353,11 @@ export type GeofenceZoneFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Skip the first `n` GeofenceZones.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of GeofenceZones.
+   */
   distinct?: Prisma.GeofenceZoneScalarFieldEnum | Prisma.GeofenceZoneScalarFieldEnum[]
 }
 

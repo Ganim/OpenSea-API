@@ -252,7 +252,7 @@ export type CostCenterGroupByOutputType = {
   _max: CostCenterMaxAggregateOutputType | null
 }
 
-type GetCostCenterGroupByPayload<T extends CostCenterGroupByArgs> = Prisma.PrismaPromise<
+export type GetCostCenterGroupByPayload<T extends CostCenterGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CostCenterGroupByOutputType, T['by']> &
       {
@@ -2709,6 +2709,11 @@ export type CostCenterFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Skip the first `n` CostCenters.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CostCenters.
+   */
   distinct?: Prisma.CostCenterScalarFieldEnum | Prisma.CostCenterScalarFieldEnum[]
 }
 

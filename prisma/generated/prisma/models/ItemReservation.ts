@@ -220,7 +220,7 @@ export type ItemReservationGroupByOutputType = {
   _max: ItemReservationMaxAggregateOutputType | null
 }
 
-type GetItemReservationGroupByPayload<T extends ItemReservationGroupByArgs> = Prisma.PrismaPromise<
+export type GetItemReservationGroupByPayload<T extends ItemReservationGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ItemReservationGroupByOutputType, T['by']> &
       {
@@ -1450,6 +1450,11 @@ export type ItemReservationFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` ItemReservations.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ItemReservations.
+   */
   distinct?: Prisma.ItemReservationScalarFieldEnum | Prisma.ItemReservationScalarFieldEnum[]
 }
 

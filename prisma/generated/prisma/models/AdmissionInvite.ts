@@ -300,7 +300,7 @@ export type AdmissionInviteGroupByOutputType = {
   _max: AdmissionInviteMaxAggregateOutputType | null
 }
 
-type GetAdmissionInviteGroupByPayload<T extends AdmissionInviteGroupByArgs> = Prisma.PrismaPromise<
+export type GetAdmissionInviteGroupByPayload<T extends AdmissionInviteGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AdmissionInviteGroupByOutputType, T['by']> &
       {
@@ -2510,6 +2510,11 @@ export type AdmissionInviteFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` AdmissionInvites.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of AdmissionInvites.
+   */
   distinct?: Prisma.AdmissionInviteScalarFieldEnum | Prisma.AdmissionInviteScalarFieldEnum[]
 }
 

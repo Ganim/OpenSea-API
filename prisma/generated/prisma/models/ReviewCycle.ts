@@ -207,7 +207,7 @@ export type ReviewCycleGroupByOutputType = {
   _max: ReviewCycleMaxAggregateOutputType | null
 }
 
-type GetReviewCycleGroupByPayload<T extends ReviewCycleGroupByArgs> = Prisma.PrismaPromise<
+export type GetReviewCycleGroupByPayload<T extends ReviewCycleGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ReviewCycleGroupByOutputType, T['by']> &
       {
@@ -1508,6 +1508,11 @@ export type ReviewCycleFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` ReviewCycles.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ReviewCycles.
+   */
   distinct?: Prisma.ReviewCycleScalarFieldEnum | Prisma.ReviewCycleScalarFieldEnum[]
 }
 

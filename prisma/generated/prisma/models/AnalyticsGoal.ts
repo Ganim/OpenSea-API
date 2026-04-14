@@ -294,7 +294,7 @@ export type AnalyticsGoalGroupByOutputType = {
   _max: AnalyticsGoalMaxAggregateOutputType | null
 }
 
-type GetAnalyticsGoalGroupByPayload<T extends AnalyticsGoalGroupByArgs> = Prisma.PrismaPromise<
+export type GetAnalyticsGoalGroupByPayload<T extends AnalyticsGoalGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AnalyticsGoalGroupByOutputType, T['by']> &
       {
@@ -2290,6 +2290,11 @@ export type AnalyticsGoalFindManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Skip the first `n` AnalyticsGoals.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of AnalyticsGoals.
+   */
   distinct?: Prisma.AnalyticsGoalScalarFieldEnum | Prisma.AnalyticsGoalScalarFieldEnum[]
 }
 

@@ -255,7 +255,7 @@ export type ObjectiveGroupByOutputType = {
   _max: ObjectiveMaxAggregateOutputType | null
 }
 
-type GetObjectiveGroupByPayload<T extends ObjectiveGroupByArgs> = Prisma.PrismaPromise<
+export type GetObjectiveGroupByPayload<T extends ObjectiveGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ObjectiveGroupByOutputType, T['by']> &
       {
@@ -2139,6 +2139,11 @@ export type ObjectiveFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Skip the first `n` Objectives.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Objectives.
+   */
   distinct?: Prisma.ObjectiveScalarFieldEnum | Prisma.ObjectiveScalarFieldEnum[]
 }
 

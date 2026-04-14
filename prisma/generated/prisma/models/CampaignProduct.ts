@@ -224,7 +224,7 @@ export type CampaignProductGroupByOutputType = {
   _max: CampaignProductMaxAggregateOutputType | null
 }
 
-type GetCampaignProductGroupByPayload<T extends CampaignProductGroupByArgs> = Prisma.PrismaPromise<
+export type GetCampaignProductGroupByPayload<T extends CampaignProductGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CampaignProductGroupByOutputType, T['by']> &
       {
@@ -1604,6 +1604,11 @@ export type CampaignProductFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` CampaignProducts.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CampaignProducts.
+   */
   distinct?: Prisma.CampaignProductScalarFieldEnum | Prisma.CampaignProductScalarFieldEnum[]
 }
 

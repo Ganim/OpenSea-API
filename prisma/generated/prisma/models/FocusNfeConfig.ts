@@ -200,7 +200,7 @@ export type FocusNfeConfigGroupByOutputType = {
   _max: FocusNfeConfigMaxAggregateOutputType | null
 }
 
-type GetFocusNfeConfigGroupByPayload<T extends FocusNfeConfigGroupByArgs> = Prisma.PrismaPromise<
+export type GetFocusNfeConfigGroupByPayload<T extends FocusNfeConfigGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<FocusNfeConfigGroupByOutputType, T['by']> &
       {
@@ -1264,6 +1264,11 @@ export type FocusNfeConfigFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Skip the first `n` FocusNfeConfigs.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of FocusNfeConfigs.
+   */
   distinct?: Prisma.FocusNfeConfigScalarFieldEnum | Prisma.FocusNfeConfigScalarFieldEnum[]
 }
 

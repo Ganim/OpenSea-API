@@ -207,7 +207,7 @@ export type EsocialCertificateGroupByOutputType = {
   _max: EsocialCertificateMaxAggregateOutputType | null
 }
 
-type GetEsocialCertificateGroupByPayload<T extends EsocialCertificateGroupByArgs> = Prisma.PrismaPromise<
+export type GetEsocialCertificateGroupByPayload<T extends EsocialCertificateGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<EsocialCertificateGroupByOutputType, T['by']> &
       {
@@ -1296,6 +1296,11 @@ export type EsocialCertificateFindManyArgs<ExtArgs extends runtime.Types.Extensi
    * Skip the first `n` EsocialCertificates.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of EsocialCertificates.
+   */
   distinct?: Prisma.EsocialCertificateScalarFieldEnum | Prisma.EsocialCertificateScalarFieldEnum[]
 }
 

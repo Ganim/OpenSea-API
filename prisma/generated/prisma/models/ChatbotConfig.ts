@@ -193,7 +193,7 @@ export type ChatbotConfigGroupByOutputType = {
   _max: ChatbotConfigMaxAggregateOutputType | null
 }
 
-type GetChatbotConfigGroupByPayload<T extends ChatbotConfigGroupByArgs> = Prisma.PrismaPromise<
+export type GetChatbotConfigGroupByPayload<T extends ChatbotConfigGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ChatbotConfigGroupByOutputType, T['by']> &
       {
@@ -1232,6 +1232,11 @@ export type ChatbotConfigFindManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Skip the first `n` ChatbotConfigs.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ChatbotConfigs.
+   */
   distinct?: Prisma.ChatbotConfigScalarFieldEnum | Prisma.ChatbotConfigScalarFieldEnum[]
 }
 

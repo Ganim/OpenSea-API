@@ -281,7 +281,7 @@ export type EsocialBatchGroupByOutputType = {
   _max: EsocialBatchMaxAggregateOutputType | null
 }
 
-type GetEsocialBatchGroupByPayload<T extends EsocialBatchGroupByArgs> = Prisma.PrismaPromise<
+export type GetEsocialBatchGroupByPayload<T extends EsocialBatchGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<EsocialBatchGroupByOutputType, T['by']> &
       {
@@ -1732,6 +1732,11 @@ export type EsocialBatchFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Skip the first `n` EsocialBatches.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of EsocialBatches.
+   */
   distinct?: Prisma.EsocialBatchScalarFieldEnum | Prisma.EsocialBatchScalarFieldEnum[]
 }
 

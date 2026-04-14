@@ -283,7 +283,7 @@ export type AiMessageGroupByOutputType = {
   _max: AiMessageMaxAggregateOutputType | null
 }
 
-type GetAiMessageGroupByPayload<T extends AiMessageGroupByArgs> = Prisma.PrismaPromise<
+export type GetAiMessageGroupByPayload<T extends AiMessageGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AiMessageGroupByOutputType, T['by']> &
       {
@@ -1629,6 +1629,11 @@ export type AiMessageFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Skip the first `n` AiMessages.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of AiMessages.
+   */
   distinct?: Prisma.AiMessageScalarFieldEnum | Prisma.AiMessageScalarFieldEnum[]
 }
 

@@ -289,7 +289,7 @@ export type CompanyFiscalSettingsGroupByOutputType = {
   _max: CompanyFiscalSettingsMaxAggregateOutputType | null
 }
 
-type GetCompanyFiscalSettingsGroupByPayload<T extends CompanyFiscalSettingsGroupByArgs> = Prisma.PrismaPromise<
+export type GetCompanyFiscalSettingsGroupByPayload<T extends CompanyFiscalSettingsGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CompanyFiscalSettingsGroupByOutputType, T['by']> &
       {
@@ -1592,6 +1592,11 @@ export type CompanyFiscalSettingsFindManyArgs<ExtArgs extends runtime.Types.Exte
    * Skip the first `n` CompanyFiscalSettings.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CompanyFiscalSettings.
+   */
   distinct?: Prisma.CompanyFiscalSettingsScalarFieldEnum | Prisma.CompanyFiscalSettingsScalarFieldEnum[]
 }
 

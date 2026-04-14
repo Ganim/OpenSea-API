@@ -267,7 +267,7 @@ export type KeyResultGroupByOutputType = {
   _max: KeyResultMaxAggregateOutputType | null
 }
 
-type GetKeyResultGroupByPayload<T extends KeyResultGroupByArgs> = Prisma.PrismaPromise<
+export type GetKeyResultGroupByPayload<T extends KeyResultGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<KeyResultGroupByOutputType, T['by']> &
       {
@@ -1826,6 +1826,11 @@ export type KeyResultFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Skip the first `n` KeyResults.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of KeyResults.
+   */
   distinct?: Prisma.KeyResultScalarFieldEnum | Prisma.KeyResultScalarFieldEnum[]
 }
 

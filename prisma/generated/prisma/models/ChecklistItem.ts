@@ -220,7 +220,7 @@ export type ChecklistItemGroupByOutputType = {
   _max: ChecklistItemMaxAggregateOutputType | null
 }
 
-type GetChecklistItemGroupByPayload<T extends ChecklistItemGroupByArgs> = Prisma.PrismaPromise<
+export type GetChecklistItemGroupByPayload<T extends ChecklistItemGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ChecklistItemGroupByOutputType, T['by']> &
       {
@@ -1450,6 +1450,11 @@ export type ChecklistItemFindManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Skip the first `n` ChecklistItems.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ChecklistItems.
+   */
   distinct?: Prisma.ChecklistItemScalarFieldEnum | Prisma.ChecklistItemScalarFieldEnum[]
 }
 

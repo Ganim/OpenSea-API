@@ -199,7 +199,7 @@ export type StoreCreditUsageGroupByOutputType = {
   _max: StoreCreditUsageMaxAggregateOutputType | null
 }
 
-type GetStoreCreditUsageGroupByPayload<T extends StoreCreditUsageGroupByArgs> = Prisma.PrismaPromise<
+export type GetStoreCreditUsageGroupByPayload<T extends StoreCreditUsageGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<StoreCreditUsageGroupByOutputType, T['by']> &
       {
@@ -1327,6 +1327,11 @@ export type StoreCreditUsageFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Skip the first `n` StoreCreditUsages.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of StoreCreditUsages.
+   */
   distinct?: Prisma.StoreCreditUsageScalarFieldEnum | Prisma.StoreCreditUsageScalarFieldEnum[]
 }
 

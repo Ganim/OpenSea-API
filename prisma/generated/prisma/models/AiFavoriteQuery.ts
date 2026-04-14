@@ -220,7 +220,7 @@ export type AiFavoriteQueryGroupByOutputType = {
   _max: AiFavoriteQueryMaxAggregateOutputType | null
 }
 
-type GetAiFavoriteQueryGroupByPayload<T extends AiFavoriteQueryGroupByArgs> = Prisma.PrismaPromise<
+export type GetAiFavoriteQueryGroupByPayload<T extends AiFavoriteQueryGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AiFavoriteQueryGroupByOutputType, T['by']> &
       {
@@ -1454,6 +1454,11 @@ export type AiFavoriteQueryFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` AiFavoriteQueries.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of AiFavoriteQueries.
+   */
   distinct?: Prisma.AiFavoriteQueryScalarFieldEnum | Prisma.AiFavoriteQueryScalarFieldEnum[]
 }
 

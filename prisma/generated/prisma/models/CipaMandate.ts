@@ -193,7 +193,7 @@ export type CipaMandateGroupByOutputType = {
   _max: CipaMandateMaxAggregateOutputType | null
 }
 
-type GetCipaMandateGroupByPayload<T extends CipaMandateGroupByArgs> = Prisma.PrismaPromise<
+export type GetCipaMandateGroupByPayload<T extends CipaMandateGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CipaMandateGroupByOutputType, T['by']> &
       {
@@ -1430,6 +1430,11 @@ export type CipaMandateFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` CipaMandates.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CipaMandates.
+   */
   distinct?: Prisma.CipaMandateScalarFieldEnum | Prisma.CipaMandateScalarFieldEnum[]
 }
 

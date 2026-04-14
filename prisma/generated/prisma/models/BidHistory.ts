@@ -189,7 +189,7 @@ export type BidHistoryGroupByOutputType = {
   _max: BidHistoryMaxAggregateOutputType | null
 }
 
-type GetBidHistoryGroupByPayload<T extends BidHistoryGroupByArgs> = Prisma.PrismaPromise<
+export type GetBidHistoryGroupByPayload<T extends BidHistoryGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<BidHistoryGroupByOutputType, T['by']> &
       {
@@ -1595,6 +1595,11 @@ export type BidHistoryFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Skip the first `n` BidHistories.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of BidHistories.
+   */
   distinct?: Prisma.BidHistoryScalarFieldEnum | Prisma.BidHistoryScalarFieldEnum[]
 }
 

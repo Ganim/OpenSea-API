@@ -302,7 +302,7 @@ export type DiscountRuleGroupByOutputType = {
   _max: DiscountRuleMaxAggregateOutputType | null
 }
 
-type GetDiscountRuleGroupByPayload<T extends DiscountRuleGroupByArgs> = Prisma.PrismaPromise<
+export type GetDiscountRuleGroupByPayload<T extends DiscountRuleGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<DiscountRuleGroupByOutputType, T['by']> &
       {
@@ -1674,6 +1674,11 @@ export type DiscountRuleFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Skip the first `n` DiscountRules.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of DiscountRules.
+   */
   distinct?: Prisma.DiscountRuleScalarFieldEnum | Prisma.DiscountRuleScalarFieldEnum[]
 }
 

@@ -210,7 +210,7 @@ export type AuthLinkGroupByOutputType = {
   _max: AuthLinkMaxAggregateOutputType | null
 }
 
-type GetAuthLinkGroupByPayload<T extends AuthLinkGroupByArgs> = Prisma.PrismaPromise<
+export type GetAuthLinkGroupByPayload<T extends AuthLinkGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AuthLinkGroupByOutputType, T['by']> &
       {
@@ -1579,6 +1579,11 @@ export type AuthLinkFindManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Skip the first `n` AuthLinks.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of AuthLinks.
+   */
   distinct?: Prisma.AuthLinkScalarFieldEnum | Prisma.AuthLinkScalarFieldEnum[]
 }
 

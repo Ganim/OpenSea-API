@@ -227,7 +227,7 @@ export type OccupationalExamRequirementGroupByOutputType = {
   _max: OccupationalExamRequirementMaxAggregateOutputType | null
 }
 
-type GetOccupationalExamRequirementGroupByPayload<T extends OccupationalExamRequirementGroupByArgs> = Prisma.PrismaPromise<
+export type GetOccupationalExamRequirementGroupByPayload<T extends OccupationalExamRequirementGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<OccupationalExamRequirementGroupByOutputType, T['by']> &
       {
@@ -1491,6 +1491,11 @@ export type OccupationalExamRequirementFindManyArgs<ExtArgs extends runtime.Type
    * Skip the first `n` OccupationalExamRequirements.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of OccupationalExamRequirements.
+   */
   distinct?: Prisma.OccupationalExamRequirementScalarFieldEnum | Prisma.OccupationalExamRequirementScalarFieldEnum[]
 }
 

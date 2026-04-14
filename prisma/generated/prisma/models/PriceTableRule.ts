@@ -172,7 +172,7 @@ export type PriceTableRuleGroupByOutputType = {
   _max: PriceTableRuleMaxAggregateOutputType | null
 }
 
-type GetPriceTableRuleGroupByPayload<T extends PriceTableRuleGroupByArgs> = Prisma.PrismaPromise<
+export type GetPriceTableRuleGroupByPayload<T extends PriceTableRuleGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<PriceTableRuleGroupByOutputType, T['by']> &
       {
@@ -1200,6 +1200,11 @@ export type PriceTableRuleFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Skip the first `n` PriceTableRules.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of PriceTableRules.
+   */
   distinct?: Prisma.PriceTableRuleScalarFieldEnum | Prisma.PriceTableRuleScalarFieldEnum[]
 }
 

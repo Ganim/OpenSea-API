@@ -224,7 +224,7 @@ export type BidMonitorEventGroupByOutputType = {
   _max: BidMonitorEventMaxAggregateOutputType | null
 }
 
-type GetBidMonitorEventGroupByPayload<T extends BidMonitorEventGroupByArgs> = Prisma.PrismaPromise<
+export type GetBidMonitorEventGroupByPayload<T extends BidMonitorEventGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<BidMonitorEventGroupByOutputType, T['by']> &
       {
@@ -1830,6 +1830,11 @@ export type BidMonitorEventFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` BidMonitorEvents.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of BidMonitorEvents.
+   */
   distinct?: Prisma.BidMonitorEventScalarFieldEnum | Prisma.BidMonitorEventScalarFieldEnum[]
 }
 

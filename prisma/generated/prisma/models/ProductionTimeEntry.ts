@@ -220,7 +220,7 @@ export type ProductionTimeEntryGroupByOutputType = {
   _max: ProductionTimeEntryMaxAggregateOutputType | null
 }
 
-type GetProductionTimeEntryGroupByPayload<T extends ProductionTimeEntryGroupByArgs> = Prisma.PrismaPromise<
+export type GetProductionTimeEntryGroupByPayload<T extends ProductionTimeEntryGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ProductionTimeEntryGroupByOutputType, T['by']> &
       {
@@ -1310,6 +1310,11 @@ export type ProductionTimeEntryFindManyArgs<ExtArgs extends runtime.Types.Extens
    * Skip the first `n` ProductionTimeEntries.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ProductionTimeEntries.
+   */
   distinct?: Prisma.ProductionTimeEntryScalarFieldEnum | Prisma.ProductionTimeEntryScalarFieldEnum[]
 }
 

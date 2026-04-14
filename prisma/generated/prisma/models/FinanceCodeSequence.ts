@@ -185,7 +185,7 @@ export type FinanceCodeSequenceGroupByOutputType = {
   _max: FinanceCodeSequenceMaxAggregateOutputType | null
 }
 
-type GetFinanceCodeSequenceGroupByPayload<T extends FinanceCodeSequenceGroupByArgs> = Prisma.PrismaPromise<
+export type GetFinanceCodeSequenceGroupByPayload<T extends FinanceCodeSequenceGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<FinanceCodeSequenceGroupByOutputType, T['by']> &
       {
@@ -976,6 +976,11 @@ export type FinanceCodeSequenceFindManyArgs<ExtArgs extends runtime.Types.Extens
    * Skip the first `n` FinanceCodeSequences.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of FinanceCodeSequences.
+   */
   distinct?: Prisma.FinanceCodeSequenceScalarFieldEnum | Prisma.FinanceCodeSequenceScalarFieldEnum[]
 }
 

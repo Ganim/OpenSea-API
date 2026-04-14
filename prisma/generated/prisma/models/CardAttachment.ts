@@ -158,7 +158,7 @@ export type CardAttachmentGroupByOutputType = {
   _max: CardAttachmentMaxAggregateOutputType | null
 }
 
-type GetCardAttachmentGroupByPayload<T extends CardAttachmentGroupByArgs> = Prisma.PrismaPromise<
+export type GetCardAttachmentGroupByPayload<T extends CardAttachmentGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CardAttachmentGroupByOutputType, T['by']> &
       {
@@ -1242,6 +1242,11 @@ export type CardAttachmentFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Skip the first `n` CardAttachments.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CardAttachments.
+   */
   distinct?: Prisma.CardAttachmentScalarFieldEnum | Prisma.CardAttachmentScalarFieldEnum[]
 }
 

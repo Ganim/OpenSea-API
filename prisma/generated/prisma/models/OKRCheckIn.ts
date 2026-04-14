@@ -224,7 +224,7 @@ export type OKRCheckInGroupByOutputType = {
   _max: OKRCheckInMaxAggregateOutputType | null
 }
 
-type GetOKRCheckInGroupByPayload<T extends OKRCheckInGroupByArgs> = Prisma.PrismaPromise<
+export type GetOKRCheckInGroupByPayload<T extends OKRCheckInGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<OKRCheckInGroupByOutputType, T['by']> &
       {
@@ -1600,6 +1600,11 @@ export type OKRCheckInFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Skip the first `n` OKRCheckIns.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of OKRCheckIns.
+   */
   distinct?: Prisma.OKRCheckInScalarFieldEnum | Prisma.OKRCheckInScalarFieldEnum[]
 }
 

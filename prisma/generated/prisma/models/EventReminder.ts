@@ -213,7 +213,7 @@ export type EventReminderGroupByOutputType = {
   _max: EventReminderMaxAggregateOutputType | null
 }
 
-type GetEventReminderGroupByPayload<T extends EventReminderGroupByArgs> = Prisma.PrismaPromise<
+export type GetEventReminderGroupByPayload<T extends EventReminderGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<EventReminderGroupByOutputType, T['by']> &
       {
@@ -1554,6 +1554,11 @@ export type EventReminderFindManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Skip the first `n` EventReminders.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of EventReminders.
+   */
   distinct?: Prisma.EventReminderScalarFieldEnum | Prisma.EventReminderScalarFieldEnum[]
 }
 

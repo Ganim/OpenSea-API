@@ -299,7 +299,7 @@ export type TaxRuleGroupByOutputType = {
   _max: TaxRuleMaxAggregateOutputType | null
 }
 
-type GetTaxRuleGroupByPayload<T extends TaxRuleGroupByArgs> = Prisma.PrismaPromise<
+export type GetTaxRuleGroupByPayload<T extends TaxRuleGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<TaxRuleGroupByOutputType, T['by']> &
       {
@@ -1653,6 +1653,11 @@ export type TaxRuleFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Skip the first `n` TaxRules.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of TaxRules.
+   */
   distinct?: Prisma.TaxRuleScalarFieldEnum | Prisma.TaxRuleScalarFieldEnum[]
 }
 

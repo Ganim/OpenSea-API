@@ -214,7 +214,7 @@ export type DigitalSignatureGroupByOutputType = {
   _max: DigitalSignatureMaxAggregateOutputType | null
 }
 
-type GetDigitalSignatureGroupByPayload<T extends DigitalSignatureGroupByArgs> = Prisma.PrismaPromise<
+export type GetDigitalSignatureGroupByPayload<T extends DigitalSignatureGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<DigitalSignatureGroupByOutputType, T['by']> &
       {
@@ -1402,6 +1402,11 @@ export type DigitalSignatureFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Skip the first `n` DigitalSignatures.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of DigitalSignatures.
+   */
   distinct?: Prisma.DigitalSignatureScalarFieldEnum | Prisma.DigitalSignatureScalarFieldEnum[]
 }
 

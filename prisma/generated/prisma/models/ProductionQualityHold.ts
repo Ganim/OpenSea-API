@@ -200,7 +200,7 @@ export type ProductionQualityHoldGroupByOutputType = {
   _max: ProductionQualityHoldMaxAggregateOutputType | null
 }
 
-type GetProductionQualityHoldGroupByPayload<T extends ProductionQualityHoldGroupByArgs> = Prisma.PrismaPromise<
+export type GetProductionQualityHoldGroupByPayload<T extends ProductionQualityHoldGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ProductionQualityHoldGroupByOutputType, T['by']> &
       {
@@ -1336,6 +1336,11 @@ export type ProductionQualityHoldFindManyArgs<ExtArgs extends runtime.Types.Exte
    * Skip the first `n` ProductionQualityHolds.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ProductionQualityHolds.
+   */
   distinct?: Prisma.ProductionQualityHoldScalarFieldEnum | Prisma.ProductionQualityHoldScalarFieldEnum[]
 }
 

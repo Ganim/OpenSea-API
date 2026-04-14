@@ -223,7 +223,7 @@ export type PosOfflineQueueGroupByOutputType = {
   _max: PosOfflineQueueMaxAggregateOutputType | null
 }
 
-type GetPosOfflineQueueGroupByPayload<T extends PosOfflineQueueGroupByArgs> = Prisma.PrismaPromise<
+export type GetPosOfflineQueueGroupByPayload<T extends PosOfflineQueueGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<PosOfflineQueueGroupByOutputType, T['by']> &
       {
@@ -1343,6 +1343,11 @@ export type PosOfflineQueueFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` PosOfflineQueues.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of PosOfflineQueues.
+   */
   distinct?: Prisma.PosOfflineQueueScalarFieldEnum | Prisma.PosOfflineQueueScalarFieldEnum[]
 }
 

@@ -363,7 +363,7 @@ export type AiTenantConfigGroupByOutputType = {
   _max: AiTenantConfigMaxAggregateOutputType | null
 }
 
-type GetAiTenantConfigGroupByPayload<T extends AiTenantConfigGroupByArgs> = Prisma.PrismaPromise<
+export type GetAiTenantConfigGroupByPayload<T extends AiTenantConfigGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AiTenantConfigGroupByOutputType, T['by']> &
       {
@@ -1927,6 +1927,11 @@ export type AiTenantConfigFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Skip the first `n` AiTenantConfigs.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of AiTenantConfigs.
+   */
   distinct?: Prisma.AiTenantConfigScalarFieldEnum | Prisma.AiTenantConfigScalarFieldEnum[]
 }
 

@@ -193,7 +193,7 @@ export type ShiftAssignmentGroupByOutputType = {
   _max: ShiftAssignmentMaxAggregateOutputType | null
 }
 
-type GetShiftAssignmentGroupByPayload<T extends ShiftAssignmentGroupByArgs> = Prisma.PrismaPromise<
+export type GetShiftAssignmentGroupByPayload<T extends ShiftAssignmentGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ShiftAssignmentGroupByOutputType, T['by']> &
       {
@@ -1597,6 +1597,11 @@ export type ShiftAssignmentFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` ShiftAssignments.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ShiftAssignments.
+   */
   distinct?: Prisma.ShiftAssignmentScalarFieldEnum | Prisma.ShiftAssignmentScalarFieldEnum[]
 }
 

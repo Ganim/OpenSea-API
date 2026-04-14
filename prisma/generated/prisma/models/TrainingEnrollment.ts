@@ -248,7 +248,7 @@ export type TrainingEnrollmentGroupByOutputType = {
   _max: TrainingEnrollmentMaxAggregateOutputType | null
 }
 
-type GetTrainingEnrollmentGroupByPayload<T extends TrainingEnrollmentGroupByArgs> = Prisma.PrismaPromise<
+export type GetTrainingEnrollmentGroupByPayload<T extends TrainingEnrollmentGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<TrainingEnrollmentGroupByOutputType, T['by']> &
       {
@@ -1788,6 +1788,11 @@ export type TrainingEnrollmentFindManyArgs<ExtArgs extends runtime.Types.Extensi
    * Skip the first `n` TrainingEnrollments.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of TrainingEnrollments.
+   */
   distinct?: Prisma.TrainingEnrollmentScalarFieldEnum | Prisma.TrainingEnrollmentScalarFieldEnum[]
 }
 

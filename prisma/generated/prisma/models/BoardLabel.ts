@@ -199,7 +199,7 @@ export type BoardLabelGroupByOutputType = {
   _max: BoardLabelMaxAggregateOutputType | null
 }
 
-type GetBoardLabelGroupByPayload<T extends BoardLabelGroupByArgs> = Prisma.PrismaPromise<
+export type GetBoardLabelGroupByPayload<T extends BoardLabelGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<BoardLabelGroupByOutputType, T['by']> &
       {
@@ -1318,6 +1318,11 @@ export type BoardLabelFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Skip the first `n` BoardLabels.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of BoardLabels.
+   */
   distinct?: Prisma.BoardLabelScalarFieldEnum | Prisma.BoardLabelScalarFieldEnum[]
 }
 

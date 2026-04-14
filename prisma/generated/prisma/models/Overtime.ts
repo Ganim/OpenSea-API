@@ -262,7 +262,7 @@ export type OvertimeGroupByOutputType = {
   _max: OvertimeMaxAggregateOutputType | null
 }
 
-type GetOvertimeGroupByPayload<T extends OvertimeGroupByArgs> = Prisma.PrismaPromise<
+export type GetOvertimeGroupByPayload<T extends OvertimeGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<OvertimeGroupByOutputType, T['by']> &
       {
@@ -2056,6 +2056,11 @@ export type OvertimeFindManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Skip the first `n` Overtimes.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Overtimes.
+   */
   distinct?: Prisma.OvertimeScalarFieldEnum | Prisma.OvertimeScalarFieldEnum[]
 }
 

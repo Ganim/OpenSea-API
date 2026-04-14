@@ -281,7 +281,7 @@ export type PosTransactionPaymentGroupByOutputType = {
   _max: PosTransactionPaymentMaxAggregateOutputType | null
 }
 
-type GetPosTransactionPaymentGroupByPayload<T extends PosTransactionPaymentGroupByArgs> = Prisma.PrismaPromise<
+export type GetPosTransactionPaymentGroupByPayload<T extends PosTransactionPaymentGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<PosTransactionPaymentGroupByOutputType, T['by']> &
       {
@@ -1577,6 +1577,11 @@ export type PosTransactionPaymentFindManyArgs<ExtArgs extends runtime.Types.Exte
    * Skip the first `n` PosTransactionPayments.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of PosTransactionPayments.
+   */
   distinct?: Prisma.PosTransactionPaymentScalarFieldEnum | Prisma.PosTransactionPaymentScalarFieldEnum[]
 }
 

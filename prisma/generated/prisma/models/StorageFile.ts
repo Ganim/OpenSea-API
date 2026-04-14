@@ -329,7 +329,7 @@ export type StorageFileGroupByOutputType = {
   _max: StorageFileMaxAggregateOutputType | null
 }
 
-type GetStorageFileGroupByPayload<T extends StorageFileGroupByArgs> = Prisma.PrismaPromise<
+export type GetStorageFileGroupByPayload<T extends StorageFileGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<StorageFileGroupByOutputType, T['by']> &
       {
@@ -8704,6 +8704,11 @@ export type StorageFileFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` StorageFiles.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of StorageFiles.
+   */
   distinct?: Prisma.StorageFileScalarFieldEnum | Prisma.StorageFileScalarFieldEnum[]
 }
 

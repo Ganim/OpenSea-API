@@ -196,7 +196,7 @@ export type EmployeeRequestGroupByOutputType = {
   _max: EmployeeRequestMaxAggregateOutputType | null
 }
 
-type GetEmployeeRequestGroupByPayload<T extends EmployeeRequestGroupByArgs> = Prisma.PrismaPromise<
+export type GetEmployeeRequestGroupByPayload<T extends EmployeeRequestGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<EmployeeRequestGroupByOutputType, T['by']> &
       {
@@ -1326,6 +1326,11 @@ export type EmployeeRequestFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` EmployeeRequests.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of EmployeeRequests.
+   */
   distinct?: Prisma.EmployeeRequestScalarFieldEnum | Prisma.EmployeeRequestScalarFieldEnum[]
 }
 

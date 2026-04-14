@@ -227,7 +227,7 @@ export type ProductionInspectionPlanGroupByOutputType = {
   _max: ProductionInspectionPlanMaxAggregateOutputType | null
 }
 
-type GetProductionInspectionPlanGroupByPayload<T extends ProductionInspectionPlanGroupByArgs> = Prisma.PrismaPromise<
+export type GetProductionInspectionPlanGroupByPayload<T extends ProductionInspectionPlanGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ProductionInspectionPlanGroupByOutputType, T['by']> &
       {
@@ -1474,6 +1474,11 @@ export type ProductionInspectionPlanFindManyArgs<ExtArgs extends runtime.Types.E
    * Skip the first `n` ProductionInspectionPlans.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ProductionInspectionPlans.
+   */
   distinct?: Prisma.ProductionInspectionPlanScalarFieldEnum | Prisma.ProductionInspectionPlanScalarFieldEnum[]
 }
 

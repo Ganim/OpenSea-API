@@ -299,7 +299,7 @@ export type ProductionOperationRoutingGroupByOutputType = {
   _max: ProductionOperationRoutingMaxAggregateOutputType | null
 }
 
-type GetProductionOperationRoutingGroupByPayload<T extends ProductionOperationRoutingGroupByArgs> = Prisma.PrismaPromise<
+export type GetProductionOperationRoutingGroupByPayload<T extends ProductionOperationRoutingGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ProductionOperationRoutingGroupByOutputType, T['by']> &
       {
@@ -2374,6 +2374,11 @@ export type ProductionOperationRoutingFindManyArgs<ExtArgs extends runtime.Types
    * Skip the first `n` ProductionOperationRoutings.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ProductionOperationRoutings.
+   */
   distinct?: Prisma.ProductionOperationRoutingScalarFieldEnum | Prisma.ProductionOperationRoutingScalarFieldEnum[]
 }
 

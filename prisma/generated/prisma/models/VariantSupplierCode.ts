@@ -179,7 +179,7 @@ export type VariantSupplierCodeGroupByOutputType = {
   _max: VariantSupplierCodeMaxAggregateOutputType | null
 }
 
-type GetVariantSupplierCodeGroupByPayload<T extends VariantSupplierCodeGroupByArgs> = Prisma.PrismaPromise<
+export type GetVariantSupplierCodeGroupByPayload<T extends VariantSupplierCodeGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<VariantSupplierCodeGroupByOutputType, T['by']> &
       {
@@ -1377,6 +1377,11 @@ export type VariantSupplierCodeFindManyArgs<ExtArgs extends runtime.Types.Extens
    * Skip the first `n` VariantSupplierCodes.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of VariantSupplierCodes.
+   */
   distinct?: Prisma.VariantSupplierCodeScalarFieldEnum | Prisma.VariantSupplierCodeScalarFieldEnum[]
 }
 

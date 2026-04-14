@@ -175,7 +175,7 @@ export type OrderHistoryGroupByOutputType = {
   _max: OrderHistoryMaxAggregateOutputType | null
 }
 
-type GetOrderHistoryGroupByPayload<T extends OrderHistoryGroupByArgs> = Prisma.PrismaPromise<
+export type GetOrderHistoryGroupByPayload<T extends OrderHistoryGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<OrderHistoryGroupByOutputType, T['by']> &
       {
@@ -1363,6 +1363,11 @@ export type OrderHistoryFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Skip the first `n` OrderHistories.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of OrderHistories.
+   */
   distinct?: Prisma.OrderHistoryScalarFieldEnum | Prisma.OrderHistoryScalarFieldEnum[]
 }
 

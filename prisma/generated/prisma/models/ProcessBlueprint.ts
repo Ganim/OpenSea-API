@@ -179,7 +179,7 @@ export type ProcessBlueprintGroupByOutputType = {
   _max: ProcessBlueprintMaxAggregateOutputType | null
 }
 
-type GetProcessBlueprintGroupByPayload<T extends ProcessBlueprintGroupByArgs> = Prisma.PrismaPromise<
+export type GetProcessBlueprintGroupByPayload<T extends ProcessBlueprintGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ProcessBlueprintGroupByOutputType, T['by']> &
       {
@@ -1494,6 +1494,11 @@ export type ProcessBlueprintFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Skip the first `n` ProcessBlueprints.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ProcessBlueprints.
+   */
   distinct?: Prisma.ProcessBlueprintScalarFieldEnum | Prisma.ProcessBlueprintScalarFieldEnum[]
 }
 

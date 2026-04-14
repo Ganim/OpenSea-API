@@ -288,7 +288,7 @@ export type ComboGroupByOutputType = {
   _max: ComboMaxAggregateOutputType | null
 }
 
-type GetComboGroupByPayload<T extends ComboGroupByArgs> = Prisma.PrismaPromise<
+export type GetComboGroupByPayload<T extends ComboGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ComboGroupByOutputType, T['by']> &
       {
@@ -1922,6 +1922,11 @@ export type ComboFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Skip the first `n` Combos.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Combos.
+   */
   distinct?: Prisma.ComboScalarFieldEnum | Prisma.ComboScalarFieldEnum[]
 }
 

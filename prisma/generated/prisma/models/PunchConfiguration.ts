@@ -288,7 +288,7 @@ export type PunchConfigurationGroupByOutputType = {
   _max: PunchConfigurationMaxAggregateOutputType | null
 }
 
-type GetPunchConfigurationGroupByPayload<T extends PunchConfigurationGroupByArgs> = Prisma.PrismaPromise<
+export type GetPunchConfigurationGroupByPayload<T extends PunchConfigurationGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<PunchConfigurationGroupByOutputType, T['by']> &
       {
@@ -1518,6 +1518,11 @@ export type PunchConfigurationFindManyArgs<ExtArgs extends runtime.Types.Extensi
    * Skip the first `n` PunchConfigurations.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of PunchConfigurations.
+   */
   distinct?: Prisma.PunchConfigurationScalarFieldEnum | Prisma.PunchConfigurationScalarFieldEnum[]
 }
 

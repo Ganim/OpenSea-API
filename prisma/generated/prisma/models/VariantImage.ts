@@ -213,7 +213,7 @@ export type VariantImageGroupByOutputType = {
   _max: VariantImageMaxAggregateOutputType | null
 }
 
-type GetVariantImageGroupByPayload<T extends VariantImageGroupByArgs> = Prisma.PrismaPromise<
+export type GetVariantImageGroupByPayload<T extends VariantImageGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<VariantImageGroupByOutputType, T['by']> &
       {
@@ -1271,6 +1271,11 @@ export type VariantImageFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Skip the first `n` VariantImages.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of VariantImages.
+   */
   distinct?: Prisma.VariantImageScalarFieldEnum | Prisma.VariantImageScalarFieldEnum[]
 }
 

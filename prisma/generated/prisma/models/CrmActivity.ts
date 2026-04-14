@@ -262,7 +262,7 @@ export type CrmActivityGroupByOutputType = {
   _max: CrmActivityMaxAggregateOutputType | null
 }
 
-type GetCrmActivityGroupByPayload<T extends CrmActivityGroupByArgs> = Prisma.PrismaPromise<
+export type GetCrmActivityGroupByPayload<T extends CrmActivityGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CrmActivityGroupByOutputType, T['by']> &
       {
@@ -2064,6 +2064,11 @@ export type CrmActivityFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` CrmActivities.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CrmActivities.
+   */
   distinct?: Prisma.CrmActivityScalarFieldEnum | Prisma.CrmActivityScalarFieldEnum[]
 }
 

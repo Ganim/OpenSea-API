@@ -386,7 +386,7 @@ export type SignatureEnvelopeSignerGroupByOutputType = {
   _max: SignatureEnvelopeSignerMaxAggregateOutputType | null
 }
 
-type GetSignatureEnvelopeSignerGroupByPayload<T extends SignatureEnvelopeSignerGroupByArgs> = Prisma.PrismaPromise<
+export type GetSignatureEnvelopeSignerGroupByPayload<T extends SignatureEnvelopeSignerGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<SignatureEnvelopeSignerGroupByOutputType, T['by']> &
       {
@@ -3206,6 +3206,11 @@ export type SignatureEnvelopeSignerFindManyArgs<ExtArgs extends runtime.Types.Ex
    * Skip the first `n` SignatureEnvelopeSigners.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of SignatureEnvelopeSigners.
+   */
   distinct?: Prisma.SignatureEnvelopeSignerScalarFieldEnum | Prisma.SignatureEnvelopeSignerScalarFieldEnum[]
 }
 

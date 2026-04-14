@@ -252,7 +252,7 @@ export type CertidaoScheduleGroupByOutputType = {
   _max: CertidaoScheduleMaxAggregateOutputType | null
 }
 
-type GetCertidaoScheduleGroupByPayload<T extends CertidaoScheduleGroupByArgs> = Prisma.PrismaPromise<
+export type GetCertidaoScheduleGroupByPayload<T extends CertidaoScheduleGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CertidaoScheduleGroupByOutputType, T['by']> &
       {
@@ -1456,6 +1456,11 @@ export type CertidaoScheduleFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Skip the first `n` CertidaoSchedules.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CertidaoSchedules.
+   */
   distinct?: Prisma.CertidaoScheduleScalarFieldEnum | Prisma.CertidaoScheduleScalarFieldEnum[]
 }
 

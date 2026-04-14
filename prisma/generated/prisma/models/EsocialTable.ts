@@ -172,7 +172,7 @@ export type EsocialTableGroupByOutputType = {
   _max: EsocialTableMaxAggregateOutputType | null
 }
 
-type GetEsocialTableGroupByPayload<T extends EsocialTableGroupByArgs> = Prisma.PrismaPromise<
+export type GetEsocialTableGroupByPayload<T extends EsocialTableGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<EsocialTableGroupByOutputType, T['by']> &
       {
@@ -1016,6 +1016,11 @@ export type EsocialTableFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Skip the first `n` EsocialTables.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of EsocialTables.
+   */
   distinct?: Prisma.EsocialTableScalarFieldEnum | Prisma.EsocialTableScalarFieldEnum[]
 }
 

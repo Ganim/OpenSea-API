@@ -311,7 +311,7 @@ export type WorkScheduleGroupByOutputType = {
   _max: WorkScheduleMaxAggregateOutputType | null
 }
 
-type GetWorkScheduleGroupByPayload<T extends WorkScheduleGroupByArgs> = Prisma.PrismaPromise<
+export type GetWorkScheduleGroupByPayload<T extends WorkScheduleGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<WorkScheduleGroupByOutputType, T['by']> &
       {
@@ -1761,6 +1761,11 @@ export type WorkScheduleFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Skip the first `n` WorkSchedules.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of WorkSchedules.
+   */
   distinct?: Prisma.WorkScheduleScalarFieldEnum | Prisma.WorkScheduleScalarFieldEnum[]
 }
 

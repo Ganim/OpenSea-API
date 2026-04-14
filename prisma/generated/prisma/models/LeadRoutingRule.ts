@@ -237,7 +237,7 @@ export type LeadRoutingRuleGroupByOutputType = {
   _max: LeadRoutingRuleMaxAggregateOutputType | null
 }
 
-type GetLeadRoutingRuleGroupByPayload<T extends LeadRoutingRuleGroupByArgs> = Prisma.PrismaPromise<
+export type GetLeadRoutingRuleGroupByPayload<T extends LeadRoutingRuleGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<LeadRoutingRuleGroupByOutputType, T['by']> &
       {
@@ -1418,6 +1418,11 @@ export type LeadRoutingRuleFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` LeadRoutingRules.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of LeadRoutingRules.
+   */
   distinct?: Prisma.LeadRoutingRuleScalarFieldEnum | Prisma.LeadRoutingRuleScalarFieldEnum[]
 }
 

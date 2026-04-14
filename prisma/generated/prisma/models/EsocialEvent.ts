@@ -346,7 +346,7 @@ export type EsocialEventGroupByOutputType = {
   _max: EsocialEventMaxAggregateOutputType | null
 }
 
-type GetEsocialEventGroupByPayload<T extends EsocialEventGroupByArgs> = Prisma.PrismaPromise<
+export type GetEsocialEventGroupByPayload<T extends EsocialEventGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<EsocialEventGroupByOutputType, T['by']> &
       {
@@ -2397,6 +2397,11 @@ export type EsocialEventFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Skip the first `n` EsocialEvents.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of EsocialEvents.
+   */
   distinct?: Prisma.EsocialEventScalarFieldEnum | Prisma.EsocialEventScalarFieldEnum[]
 }
 

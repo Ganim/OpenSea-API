@@ -220,7 +220,7 @@ export type ProductionDowntimeRecordGroupByOutputType = {
   _max: ProductionDowntimeRecordMaxAggregateOutputType | null
 }
 
-type GetProductionDowntimeRecordGroupByPayload<T extends ProductionDowntimeRecordGroupByArgs> = Prisma.PrismaPromise<
+export type GetProductionDowntimeRecordGroupByPayload<T extends ProductionDowntimeRecordGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ProductionDowntimeRecordGroupByOutputType, T['by']> &
       {
@@ -1450,6 +1450,11 @@ export type ProductionDowntimeRecordFindManyArgs<ExtArgs extends runtime.Types.E
    * Skip the first `n` ProductionDowntimeRecords.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ProductionDowntimeRecords.
+   */
   distinct?: Prisma.ProductionDowntimeRecordScalarFieldEnum | Prisma.ProductionDowntimeRecordScalarFieldEnum[]
 }
 

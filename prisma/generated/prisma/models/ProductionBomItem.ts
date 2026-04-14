@@ -249,7 +249,7 @@ export type ProductionBomItemGroupByOutputType = {
   _max: ProductionBomItemMaxAggregateOutputType | null
 }
 
-type GetProductionBomItemGroupByPayload<T extends ProductionBomItemGroupByArgs> = Prisma.PrismaPromise<
+export type GetProductionBomItemGroupByPayload<T extends ProductionBomItemGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ProductionBomItemGroupByOutputType, T['by']> &
       {
@@ -1738,6 +1738,11 @@ export type ProductionBomItemFindManyArgs<ExtArgs extends runtime.Types.Extensio
    * Skip the first `n` ProductionBomItems.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ProductionBomItems.
+   */
   distinct?: Prisma.ProductionBomItemScalarFieldEnum | Prisma.ProductionBomItemScalarFieldEnum[]
 }
 

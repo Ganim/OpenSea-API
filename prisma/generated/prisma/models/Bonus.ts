@@ -227,7 +227,7 @@ export type BonusGroupByOutputType = {
   _max: BonusMaxAggregateOutputType | null
 }
 
-type GetBonusGroupByPayload<T extends BonusGroupByArgs> = Prisma.PrismaPromise<
+export type GetBonusGroupByPayload<T extends BonusGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<BonusGroupByOutputType, T['by']> &
       {
@@ -1491,6 +1491,11 @@ export type BonusFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Skip the first `n` Bonuses.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Bonuses.
+   */
   distinct?: Prisma.BonusScalarFieldEnum | Prisma.BonusScalarFieldEnum[]
 }
 

@@ -234,7 +234,7 @@ export type WorkflowGroupByOutputType = {
   _max: WorkflowMaxAggregateOutputType | null
 }
 
-type GetWorkflowGroupByPayload<T extends WorkflowGroupByArgs> = Prisma.PrismaPromise<
+export type GetWorkflowGroupByPayload<T extends WorkflowGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<WorkflowGroupByOutputType, T['by']> &
       {
@@ -1517,6 +1517,11 @@ export type WorkflowFindManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Skip the first `n` Workflows.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Workflows.
+   */
   distinct?: Prisma.WorkflowScalarFieldEnum | Prisma.WorkflowScalarFieldEnum[]
 }
 

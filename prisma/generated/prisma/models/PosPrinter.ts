@@ -322,7 +322,7 @@ export type PosPrinterGroupByOutputType = {
   _max: PosPrinterMaxAggregateOutputType | null
 }
 
-type GetPosPrinterGroupByPayload<T extends PosPrinterGroupByArgs> = Prisma.PrismaPromise<
+export type GetPosPrinterGroupByPayload<T extends PosPrinterGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<PosPrinterGroupByOutputType, T['by']> &
       {
@@ -2231,6 +2231,11 @@ export type PosPrinterFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Skip the first `n` PosPrinters.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of PosPrinters.
+   */
   distinct?: Prisma.PosPrinterScalarFieldEnum | Prisma.PosPrinterScalarFieldEnum[]
 }
 

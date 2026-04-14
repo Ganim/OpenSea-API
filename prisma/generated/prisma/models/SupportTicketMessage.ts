@@ -179,7 +179,7 @@ export type SupportTicketMessageGroupByOutputType = {
   _max: SupportTicketMessageMaxAggregateOutputType | null
 }
 
-type GetSupportTicketMessageGroupByPayload<T extends SupportTicketMessageGroupByArgs> = Prisma.PrismaPromise<
+export type GetSupportTicketMessageGroupByPayload<T extends SupportTicketMessageGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<SupportTicketMessageGroupByOutputType, T['by']> &
       {
@@ -1369,6 +1369,11 @@ export type SupportTicketMessageFindManyArgs<ExtArgs extends runtime.Types.Exten
    * Skip the first `n` SupportTicketMessages.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of SupportTicketMessages.
+   */
   distinct?: Prisma.SupportTicketMessageScalarFieldEnum | Prisma.SupportTicketMessageScalarFieldEnum[]
 }
 

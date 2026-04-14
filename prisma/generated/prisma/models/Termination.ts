@@ -409,7 +409,7 @@ export type TerminationGroupByOutputType = {
   _max: TerminationMaxAggregateOutputType | null
 }
 
-type GetTerminationGroupByPayload<T extends TerminationGroupByArgs> = Prisma.PrismaPromise<
+export type GetTerminationGroupByPayload<T extends TerminationGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<TerminationGroupByOutputType, T['by']> &
       {
@@ -2238,6 +2238,11 @@ export type TerminationFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` Terminations.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Terminations.
+   */
   distinct?: Prisma.TerminationScalarFieldEnum | Prisma.TerminationScalarFieldEnum[]
 }
 

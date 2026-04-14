@@ -241,7 +241,7 @@ export type BidEmpenhoGroupByOutputType = {
   _max: BidEmpenhoMaxAggregateOutputType | null
 }
 
-type GetBidEmpenhoGroupByPayload<T extends BidEmpenhoGroupByArgs> = Prisma.PrismaPromise<
+export type GetBidEmpenhoGroupByPayload<T extends BidEmpenhoGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<BidEmpenhoGroupByOutputType, T['by']> &
       {
@@ -1587,6 +1587,11 @@ export type BidEmpenhoFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Skip the first `n` BidEmpenhos.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of BidEmpenhos.
+   */
   distinct?: Prisma.BidEmpenhoScalarFieldEnum | Prisma.BidEmpenhoScalarFieldEnum[]
 }
 

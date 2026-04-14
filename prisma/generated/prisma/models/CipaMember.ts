@@ -193,7 +193,7 @@ export type CipaMemberGroupByOutputType = {
   _max: CipaMemberMaxAggregateOutputType | null
 }
 
-type GetCipaMemberGroupByPayload<T extends CipaMemberGroupByArgs> = Prisma.PrismaPromise<
+export type GetCipaMemberGroupByPayload<T extends CipaMemberGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CipaMemberGroupByOutputType, T['by']> &
       {
@@ -1603,6 +1603,11 @@ export type CipaMemberFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Skip the first `n` CipaMembers.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CipaMembers.
+   */
   distinct?: Prisma.CipaMemberScalarFieldEnum | Prisma.CipaMemberScalarFieldEnum[]
 }
 

@@ -273,7 +273,7 @@ export type InterviewGroupByOutputType = {
   _max: InterviewMaxAggregateOutputType | null
 }
 
-type GetInterviewGroupByPayload<T extends InterviewGroupByArgs> = Prisma.PrismaPromise<
+export type GetInterviewGroupByPayload<T extends InterviewGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<InterviewGroupByOutputType, T['by']> &
       {
@@ -2123,6 +2123,11 @@ export type InterviewFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Skip the first `n` Interviews.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Interviews.
+   */
   distinct?: Prisma.InterviewScalarFieldEnum | Prisma.InterviewScalarFieldEnum[]
 }
 

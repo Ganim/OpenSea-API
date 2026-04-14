@@ -203,7 +203,7 @@ export type CompanyAnnouncementGroupByOutputType = {
   _max: CompanyAnnouncementMaxAggregateOutputType | null
 }
 
-type GetCompanyAnnouncementGroupByPayload<T extends CompanyAnnouncementGroupByArgs> = Prisma.PrismaPromise<
+export type GetCompanyAnnouncementGroupByPayload<T extends CompanyAnnouncementGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CompanyAnnouncementGroupByOutputType, T['by']> &
       {
@@ -1361,6 +1361,11 @@ export type CompanyAnnouncementFindManyArgs<ExtArgs extends runtime.Types.Extens
    * Skip the first `n` CompanyAnnouncements.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CompanyAnnouncements.
+   */
   distinct?: Prisma.CompanyAnnouncementScalarFieldEnum | Prisma.CompanyAnnouncementScalarFieldEnum[]
 }
 

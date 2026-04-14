@@ -189,7 +189,7 @@ export type EsocialRubricaGroupByOutputType = {
   _max: EsocialRubricaMaxAggregateOutputType | null
 }
 
-type GetEsocialRubricaGroupByPayload<T extends EsocialRubricaGroupByArgs> = Prisma.PrismaPromise<
+export type GetEsocialRubricaGroupByPayload<T extends EsocialRubricaGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<EsocialRubricaGroupByOutputType, T['by']> &
       {
@@ -1297,6 +1297,11 @@ export type EsocialRubricaFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Skip the first `n` EsocialRubricas.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of EsocialRubricas.
+   */
   distinct?: Prisma.EsocialRubricaScalarFieldEnum | Prisma.EsocialRubricaScalarFieldEnum[]
 }
 

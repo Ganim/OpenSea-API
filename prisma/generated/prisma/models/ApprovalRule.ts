@@ -255,7 +255,7 @@ export type ApprovalRuleGroupByOutputType = {
   _max: ApprovalRuleMaxAggregateOutputType | null
 }
 
-type GetApprovalRuleGroupByPayload<T extends ApprovalRuleGroupByArgs> = Prisma.PrismaPromise<
+export type GetApprovalRuleGroupByPayload<T extends ApprovalRuleGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ApprovalRuleGroupByOutputType, T['by']> &
       {
@@ -1485,6 +1485,11 @@ export type ApprovalRuleFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Skip the first `n` ApprovalRules.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ApprovalRules.
+   */
   distinct?: Prisma.ApprovalRuleScalarFieldEnum | Prisma.ApprovalRuleScalarFieldEnum[]
 }
 

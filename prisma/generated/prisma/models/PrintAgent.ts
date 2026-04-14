@@ -245,7 +245,7 @@ export type PrintAgentGroupByOutputType = {
   _max: PrintAgentMaxAggregateOutputType | null
 }
 
-type GetPrintAgentGroupByPayload<T extends PrintAgentGroupByArgs> = Prisma.PrismaPromise<
+export type GetPrintAgentGroupByPayload<T extends PrintAgentGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<PrintAgentGroupByOutputType, T['by']> &
       {
@@ -1742,6 +1742,11 @@ export type PrintAgentFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Skip the first `n` PrintAgents.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of PrintAgents.
+   */
   distinct?: Prisma.PrintAgentScalarFieldEnum | Prisma.PrintAgentScalarFieldEnum[]
 }
 

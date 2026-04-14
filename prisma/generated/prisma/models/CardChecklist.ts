@@ -192,7 +192,7 @@ export type CardChecklistGroupByOutputType = {
   _max: CardChecklistMaxAggregateOutputType | null
 }
 
-type GetCardChecklistGroupByPayload<T extends CardChecklistGroupByArgs> = Prisma.PrismaPromise<
+export type GetCardChecklistGroupByPayload<T extends CardChecklistGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CardChecklistGroupByOutputType, T['by']> &
       {
@@ -1279,6 +1279,11 @@ export type CardChecklistFindManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Skip the first `n` CardChecklists.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CardChecklists.
+   */
   distinct?: Prisma.CardChecklistScalarFieldEnum | Prisma.CardChecklistScalarFieldEnum[]
 }
 

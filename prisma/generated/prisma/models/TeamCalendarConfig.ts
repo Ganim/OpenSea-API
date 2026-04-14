@@ -291,7 +291,7 @@ export type TeamCalendarConfigGroupByOutputType = {
   _max: TeamCalendarConfigMaxAggregateOutputType | null
 }
 
-type GetTeamCalendarConfigGroupByPayload<T extends TeamCalendarConfigGroupByArgs> = Prisma.PrismaPromise<
+export type GetTeamCalendarConfigGroupByPayload<T extends TeamCalendarConfigGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<TeamCalendarConfigGroupByOutputType, T['by']> &
       {
@@ -2261,6 +2261,11 @@ export type TeamCalendarConfigFindManyArgs<ExtArgs extends runtime.Types.Extensi
    * Skip the first `n` TeamCalendarConfigs.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of TeamCalendarConfigs.
+   */
   distinct?: Prisma.TeamCalendarConfigScalarFieldEnum | Prisma.TeamCalendarConfigScalarFieldEnum[]
 }
 

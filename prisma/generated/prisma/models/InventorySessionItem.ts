@@ -214,7 +214,7 @@ export type InventorySessionItemGroupByOutputType = {
   _max: InventorySessionItemMaxAggregateOutputType | null
 }
 
-type GetInventorySessionItemGroupByPayload<T extends InventorySessionItemGroupByArgs> = Prisma.PrismaPromise<
+export type GetInventorySessionItemGroupByPayload<T extends InventorySessionItemGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<InventorySessionItemGroupByOutputType, T['by']> &
       {
@@ -2082,6 +2082,11 @@ export type InventorySessionItemFindManyArgs<ExtArgs extends runtime.Types.Exten
    * Skip the first `n` InventorySessionItems.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of InventorySessionItems.
+   */
   distinct?: Prisma.InventorySessionItemScalarFieldEnum | Prisma.InventorySessionItemScalarFieldEnum[]
 }
 

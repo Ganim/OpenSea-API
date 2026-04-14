@@ -307,7 +307,7 @@ export type DigitalCertificateGroupByOutputType = {
   _max: DigitalCertificateMaxAggregateOutputType | null
 }
 
-type GetDigitalCertificateGroupByPayload<T extends DigitalCertificateGroupByArgs> = Prisma.PrismaPromise<
+export type GetDigitalCertificateGroupByPayload<T extends DigitalCertificateGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<DigitalCertificateGroupByOutputType, T['by']> &
       {
@@ -2181,6 +2181,11 @@ export type DigitalCertificateFindManyArgs<ExtArgs extends runtime.Types.Extensi
    * Skip the first `n` DigitalCertificates.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of DigitalCertificates.
+   */
   distinct?: Prisma.DigitalCertificateScalarFieldEnum | Prisma.DigitalCertificateScalarFieldEnum[]
 }
 

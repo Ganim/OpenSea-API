@@ -210,7 +210,7 @@ export type VariantPriceHistoryGroupByOutputType = {
   _max: VariantPriceHistoryMaxAggregateOutputType | null
 }
 
-type GetVariantPriceHistoryGroupByPayload<T extends VariantPriceHistoryGroupByArgs> = Prisma.PrismaPromise<
+export type GetVariantPriceHistoryGroupByPayload<T extends VariantPriceHistoryGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<VariantPriceHistoryGroupByOutputType, T['by']> &
       {
@@ -1374,6 +1374,11 @@ export type VariantPriceHistoryFindManyArgs<ExtArgs extends runtime.Types.Extens
    * Skip the first `n` VariantPriceHistories.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of VariantPriceHistories.
+   */
   distinct?: Prisma.VariantPriceHistoryScalarFieldEnum | Prisma.VariantPriceHistoryScalarFieldEnum[]
 }
 

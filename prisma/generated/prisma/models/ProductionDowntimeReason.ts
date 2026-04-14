@@ -172,7 +172,7 @@ export type ProductionDowntimeReasonGroupByOutputType = {
   _max: ProductionDowntimeReasonMaxAggregateOutputType | null
 }
 
-type GetProductionDowntimeReasonGroupByPayload<T extends ProductionDowntimeReasonGroupByArgs> = Prisma.PrismaPromise<
+export type GetProductionDowntimeReasonGroupByPayload<T extends ProductionDowntimeReasonGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ProductionDowntimeReasonGroupByOutputType, T['by']> &
       {
@@ -1323,6 +1323,11 @@ export type ProductionDowntimeReasonFindManyArgs<ExtArgs extends runtime.Types.E
    * Skip the first `n` ProductionDowntimeReasons.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ProductionDowntimeReasons.
+   */
   distinct?: Prisma.ProductionDowntimeReasonScalarFieldEnum | Prisma.ProductionDowntimeReasonScalarFieldEnum[]
 }
 

@@ -213,7 +213,7 @@ export type CadenceStepGroupByOutputType = {
   _max: CadenceStepMaxAggregateOutputType | null
 }
 
-type GetCadenceStepGroupByPayload<T extends CadenceStepGroupByArgs> = Prisma.PrismaPromise<
+export type GetCadenceStepGroupByPayload<T extends CadenceStepGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CadenceStepGroupByOutputType, T['by']> &
       {
@@ -1275,6 +1275,11 @@ export type CadenceStepFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` CadenceSteps.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CadenceSteps.
+   */
   distinct?: Prisma.CadenceStepScalarFieldEnum | Prisma.CadenceStepScalarFieldEnum[]
 }
 

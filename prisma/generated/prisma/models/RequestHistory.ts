@@ -171,7 +171,7 @@ export type RequestHistoryGroupByOutputType = {
   _max: RequestHistoryMaxAggregateOutputType | null
 }
 
-type GetRequestHistoryGroupByPayload<T extends RequestHistoryGroupByArgs> = Prisma.PrismaPromise<
+export type GetRequestHistoryGroupByPayload<T extends RequestHistoryGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<RequestHistoryGroupByOutputType, T['by']> &
       {
@@ -1353,6 +1353,11 @@ export type RequestHistoryFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Skip the first `n` RequestHistories.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of RequestHistories.
+   */
   distinct?: Prisma.RequestHistoryScalarFieldEnum | Prisma.RequestHistoryScalarFieldEnum[]
 }
 

@@ -172,7 +172,7 @@ export type CardIntegrationGroupByOutputType = {
   _max: CardIntegrationMaxAggregateOutputType | null
 }
 
-type GetCardIntegrationGroupByPayload<T extends CardIntegrationGroupByArgs> = Prisma.PrismaPromise<
+export type GetCardIntegrationGroupByPayload<T extends CardIntegrationGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CardIntegrationGroupByOutputType, T['by']> &
       {
@@ -1335,6 +1335,11 @@ export type CardIntegrationFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` CardIntegrations.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CardIntegrations.
+   */
   distinct?: Prisma.CardIntegrationScalarFieldEnum | Prisma.CardIntegrationScalarFieldEnum[]
 }
 

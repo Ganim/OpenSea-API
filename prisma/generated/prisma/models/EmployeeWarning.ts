@@ -297,7 +297,7 @@ export type EmployeeWarningGroupByOutputType = {
   _max: EmployeeWarningMaxAggregateOutputType | null
 }
 
-type GetEmployeeWarningGroupByPayload<T extends EmployeeWarningGroupByArgs> = Prisma.PrismaPromise<
+export type GetEmployeeWarningGroupByPayload<T extends EmployeeWarningGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<EmployeeWarningGroupByOutputType, T['by']> &
       {
@@ -2111,6 +2111,11 @@ export type EmployeeWarningFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` EmployeeWarnings.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of EmployeeWarnings.
+   */
   distinct?: Prisma.EmployeeWarningScalarFieldEnum | Prisma.EmployeeWarningScalarFieldEnum[]
 }
 

@@ -158,7 +158,7 @@ export type ContactDealGroupByOutputType = {
   _max: ContactDealMaxAggregateOutputType | null
 }
 
-type GetContactDealGroupByPayload<T extends ContactDealGroupByArgs> = Prisma.PrismaPromise<
+export type GetContactDealGroupByPayload<T extends ContactDealGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ContactDealGroupByOutputType, T['by']> &
       {
@@ -1248,6 +1248,11 @@ export type ContactDealFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` ContactDeals.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ContactDeals.
+   */
   distinct?: Prisma.ContactDealScalarFieldEnum | Prisma.ContactDealScalarFieldEnum[]
 }
 

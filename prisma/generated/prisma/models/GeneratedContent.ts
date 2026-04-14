@@ -371,7 +371,7 @@ export type GeneratedContentGroupByOutputType = {
   _max: GeneratedContentMaxAggregateOutputType | null
 }
 
-type GetGeneratedContentGroupByPayload<T extends GeneratedContentGroupByArgs> = Prisma.PrismaPromise<
+export type GetGeneratedContentGroupByPayload<T extends GeneratedContentGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<GeneratedContentGroupByOutputType, T['by']> &
       {
@@ -3963,6 +3963,11 @@ export type GeneratedContentFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Skip the first `n` GeneratedContents.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of GeneratedContents.
+   */
   distinct?: Prisma.GeneratedContentScalarFieldEnum | Prisma.GeneratedContentScalarFieldEnum[]
 }
 

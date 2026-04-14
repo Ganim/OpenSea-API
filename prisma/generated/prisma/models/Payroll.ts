@@ -285,7 +285,7 @@ export type PayrollGroupByOutputType = {
   _max: PayrollMaxAggregateOutputType | null
 }
 
-type GetPayrollGroupByPayload<T extends PayrollGroupByArgs> = Prisma.PrismaPromise<
+export type GetPayrollGroupByPayload<T extends PayrollGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<PayrollGroupByOutputType, T['by']> &
       {
@@ -2313,6 +2313,11 @@ export type PayrollFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Skip the first `n` Payrolls.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Payrolls.
+   */
   distinct?: Prisma.PayrollScalarFieldEnum | Prisma.PayrollScalarFieldEnum[]
 }
 

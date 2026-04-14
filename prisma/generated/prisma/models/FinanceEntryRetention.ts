@@ -235,7 +235,7 @@ export type FinanceEntryRetentionGroupByOutputType = {
   _max: FinanceEntryRetentionMaxAggregateOutputType | null
 }
 
-type GetFinanceEntryRetentionGroupByPayload<T extends FinanceEntryRetentionGroupByArgs> = Prisma.PrismaPromise<
+export type GetFinanceEntryRetentionGroupByPayload<T extends FinanceEntryRetentionGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<FinanceEntryRetentionGroupByOutputType, T['by']> &
       {
@@ -1507,6 +1507,11 @@ export type FinanceEntryRetentionFindManyArgs<ExtArgs extends runtime.Types.Exte
    * Skip the first `n` FinanceEntryRetentions.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of FinanceEntryRetentions.
+   */
   distinct?: Prisma.FinanceEntryRetentionScalarFieldEnum | Prisma.FinanceEntryRetentionScalarFieldEnum[]
 }
 

@@ -333,7 +333,7 @@ export type BidAiConfigGroupByOutputType = {
   _max: BidAiConfigMaxAggregateOutputType | null
 }
 
-type GetBidAiConfigGroupByPayload<T extends BidAiConfigGroupByArgs> = Prisma.PrismaPromise<
+export type GetBidAiConfigGroupByPayload<T extends BidAiConfigGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<BidAiConfigGroupByOutputType, T['by']> &
       {
@@ -1772,6 +1772,11 @@ export type BidAiConfigFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` BidAiConfigs.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of BidAiConfigs.
+   */
   distinct?: Prisma.BidAiConfigScalarFieldEnum | Prisma.BidAiConfigScalarFieldEnum[]
 }
 

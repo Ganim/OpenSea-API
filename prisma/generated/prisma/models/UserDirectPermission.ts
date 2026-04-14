@@ -175,7 +175,7 @@ export type UserDirectPermissionGroupByOutputType = {
   _max: UserDirectPermissionMaxAggregateOutputType | null
 }
 
-type GetUserDirectPermissionGroupByPayload<T extends UserDirectPermissionGroupByArgs> = Prisma.PrismaPromise<
+export type GetUserDirectPermissionGroupByPayload<T extends UserDirectPermissionGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UserDirectPermissionGroupByOutputType, T['by']> &
       {
@@ -1503,6 +1503,11 @@ export type UserDirectPermissionFindManyArgs<ExtArgs extends runtime.Types.Exten
    * Skip the first `n` UserDirectPermissions.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of UserDirectPermissions.
+   */
   distinct?: Prisma.UserDirectPermissionScalarFieldEnum | Prisma.UserDirectPermissionScalarFieldEnum[]
 }
 

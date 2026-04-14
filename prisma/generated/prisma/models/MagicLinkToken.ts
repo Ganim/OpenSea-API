@@ -172,7 +172,7 @@ export type MagicLinkTokenGroupByOutputType = {
   _max: MagicLinkTokenMaxAggregateOutputType | null
 }
 
-type GetMagicLinkTokenGroupByPayload<T extends MagicLinkTokenGroupByArgs> = Prisma.PrismaPromise<
+export type GetMagicLinkTokenGroupByPayload<T extends MagicLinkTokenGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<MagicLinkTokenGroupByOutputType, T['by']> &
       {
@@ -1192,6 +1192,11 @@ export type MagicLinkTokenFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Skip the first `n` MagicLinkTokens.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of MagicLinkTokens.
+   */
   distinct?: Prisma.MagicLinkTokenScalarFieldEnum | Prisma.MagicLinkTokenScalarFieldEnum[]
 }
 

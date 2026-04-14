@@ -344,7 +344,7 @@ export type ConsortiumGroupByOutputType = {
   _max: ConsortiumMaxAggregateOutputType | null
 }
 
-type GetConsortiumGroupByPayload<T extends ConsortiumGroupByArgs> = Prisma.PrismaPromise<
+export type GetConsortiumGroupByPayload<T extends ConsortiumGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ConsortiumGroupByOutputType, T['by']> &
       {
@@ -2569,6 +2569,11 @@ export type ConsortiumFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Skip the first `n` Consortiums.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Consortiums.
+   */
   distinct?: Prisma.ConsortiumScalarFieldEnum | Prisma.ConsortiumScalarFieldEnum[]
 }
 

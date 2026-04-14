@@ -199,7 +199,7 @@ export type ProductCareInstructionGroupByOutputType = {
   _max: ProductCareInstructionMaxAggregateOutputType | null
 }
 
-type GetProductCareInstructionGroupByPayload<T extends ProductCareInstructionGroupByArgs> = Prisma.PrismaPromise<
+export type GetProductCareInstructionGroupByPayload<T extends ProductCareInstructionGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ProductCareInstructionGroupByOutputType, T['by']> &
       {
@@ -1333,6 +1333,11 @@ export type ProductCareInstructionFindManyArgs<ExtArgs extends runtime.Types.Ext
    * Skip the first `n` ProductCareInstructions.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ProductCareInstructions.
+   */
   distinct?: Prisma.ProductCareInstructionScalarFieldEnum | Prisma.ProductCareInstructionScalarFieldEnum[]
 }
 

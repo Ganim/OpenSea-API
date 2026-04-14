@@ -137,7 +137,7 @@ export type CardLabelGroupByOutputType = {
   _max: CardLabelMaxAggregateOutputType | null
 }
 
-type GetCardLabelGroupByPayload<T extends CardLabelGroupByArgs> = Prisma.PrismaPromise<
+export type GetCardLabelGroupByPayload<T extends CardLabelGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CardLabelGroupByOutputType, T['by']> &
       {
@@ -1126,6 +1126,11 @@ export type CardLabelFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Skip the first `n` CardLabels.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CardLabels.
+   */
   distinct?: Prisma.CardLabelScalarFieldEnum | Prisma.CardLabelScalarFieldEnum[]
 }
 

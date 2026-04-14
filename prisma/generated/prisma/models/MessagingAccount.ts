@@ -245,7 +245,7 @@ export type MessagingAccountGroupByOutputType = {
   _max: MessagingAccountMaxAggregateOutputType | null
 }
 
-type GetMessagingAccountGroupByPayload<T extends MessagingAccountGroupByArgs> = Prisma.PrismaPromise<
+export type GetMessagingAccountGroupByPayload<T extends MessagingAccountGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<MessagingAccountGroupByOutputType, T['by']> &
       {
@@ -2051,6 +2051,11 @@ export type MessagingAccountFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Skip the first `n` MessagingAccounts.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of MessagingAccounts.
+   */
   distinct?: Prisma.MessagingAccountScalarFieldEnum | Prisma.MessagingAccountScalarFieldEnum[]
 }
 

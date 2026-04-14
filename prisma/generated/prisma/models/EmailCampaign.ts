@@ -387,7 +387,7 @@ export type EmailCampaignGroupByOutputType = {
   _max: EmailCampaignMaxAggregateOutputType | null
 }
 
-type GetEmailCampaignGroupByPayload<T extends EmailCampaignGroupByArgs> = Prisma.PrismaPromise<
+export type GetEmailCampaignGroupByPayload<T extends EmailCampaignGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<EmailCampaignGroupByOutputType, T['by']> &
       {
@@ -3172,6 +3172,11 @@ export type EmailCampaignFindManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Skip the first `n` EmailCampaigns.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of EmailCampaigns.
+   */
   distinct?: Prisma.EmailCampaignScalarFieldEnum | Prisma.EmailCampaignScalarFieldEnum[]
 }
 

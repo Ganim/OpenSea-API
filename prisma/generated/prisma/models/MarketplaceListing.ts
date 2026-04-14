@@ -418,7 +418,7 @@ export type MarketplaceListingGroupByOutputType = {
   _max: MarketplaceListingMaxAggregateOutputType | null
 }
 
-type GetMarketplaceListingGroupByPayload<T extends MarketplaceListingGroupByArgs> = Prisma.PrismaPromise<
+export type GetMarketplaceListingGroupByPayload<T extends MarketplaceListingGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<MarketplaceListingGroupByOutputType, T['by']> &
       {
@@ -3205,6 +3205,11 @@ export type MarketplaceListingFindManyArgs<ExtArgs extends runtime.Types.Extensi
    * Skip the first `n` MarketplaceListings.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of MarketplaceListings.
+   */
   distinct?: Prisma.MarketplaceListingScalarFieldEnum | Prisma.MarketplaceListingScalarFieldEnum[]
 }
 

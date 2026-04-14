@@ -241,7 +241,7 @@ export type AiActionLogGroupByOutputType = {
   _max: AiActionLogMaxAggregateOutputType | null
 }
 
-type GetAiActionLogGroupByPayload<T extends AiActionLogGroupByArgs> = Prisma.PrismaPromise<
+export type GetAiActionLogGroupByPayload<T extends AiActionLogGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AiActionLogGroupByOutputType, T['by']> &
       {
@@ -1965,6 +1965,11 @@ export type AiActionLogFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` AiActionLogs.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of AiActionLogs.
+   */
   distinct?: Prisma.AiActionLogScalarFieldEnum | Prisma.AiActionLogScalarFieldEnum[]
 }
 
