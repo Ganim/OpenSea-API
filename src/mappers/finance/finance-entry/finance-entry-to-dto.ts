@@ -57,6 +57,8 @@ export interface FinanceEntryDTO {
   currency?: string;
   exchangeRate?: number;
   originalAmount?: number;
+  threeWayMatchStatus?: 'FULL_MATCH' | 'PARTIAL_MATCH' | 'NO_MATCH';
+  threeWayMatchedAt?: Date;
   tags: string[];
   createdBy?: string;
   createdAt: Date;
@@ -116,6 +118,8 @@ export function financeEntryToDTO(entry: FinanceEntry): FinanceEntryDTO {
     currency: entry.currency,
     exchangeRate: entry.exchangeRate,
     originalAmount: entry.originalAmount,
+    threeWayMatchStatus: entry.threeWayMatchStatus,
+    threeWayMatchedAt: entry.threeWayMatchedAt,
     tags: entry.tags,
     createdBy: entry.createdBy,
     createdAt: entry.createdAt,

@@ -412,6 +412,18 @@ export const financeEntryResponseSchema = z.object({
     .optional()
     .nullable()
     .describe('Data de exclusão (soft delete)'),
+  threeWayMatchStatus: z
+    .enum(['FULL_MATCH', 'PARTIAL_MATCH', 'NO_MATCH'])
+    .optional()
+    .nullable()
+    .describe(
+      'Status do three-way match (PO/Recebimento/Nota) quando computado',
+    ),
+  threeWayMatchedAt: z.coerce
+    .date()
+    .optional()
+    .nullable()
+    .describe('Data da última verificação de three-way match'),
 });
 
 export const parseBoletoSchema = z.object({

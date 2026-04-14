@@ -62,6 +62,13 @@ export function financeEntryPrismaToDomain(
       originalAmount: raw.originalAmount
         ? Number(raw.originalAmount)
         : undefined,
+      threeWayMatchStatus:
+        (raw.threeWayMatchStatus as
+          | 'FULL_MATCH'
+          | 'PARTIAL_MATCH'
+          | 'NO_MATCH'
+          | null) ?? undefined,
+      threeWayMatchedAt: raw.threeWayMatchedAt ?? undefined,
       metadata: (raw.metadata as Record<string, unknown>) ?? {},
       tags: raw.tags ?? [],
       createdBy: raw.createdBy ?? undefined,

@@ -7,6 +7,7 @@ vi.mock('@/lib/prisma', () => ({
     financeEntry: {
       findFirst: vi.fn(),
       findMany: vi.fn(),
+      update: vi.fn(),
     },
     fiscalDocument: {
       findUnique: vi.fn(),
@@ -25,6 +26,7 @@ const mockPrisma = prisma as unknown as {
   financeEntry: {
     findFirst: ReturnType<typeof vi.fn>;
     findMany: ReturnType<typeof vi.fn>;
+    update: ReturnType<typeof vi.fn>;
   };
   fiscalDocument: {
     findUnique: ReturnType<typeof vi.fn>;
@@ -85,6 +87,7 @@ function makeMovement(overrides = {}) {
 describe('ThreeWayMatchUseCase', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    mockPrisma.financeEntry.update.mockResolvedValue({});
     sut = new ThreeWayMatchUseCase();
   });
 

@@ -65,6 +65,8 @@ export interface FinanceEntryProps {
   currency?: string;
   exchangeRate?: number;
   originalAmount?: number;
+  threeWayMatchStatus?: 'FULL_MATCH' | 'PARTIAL_MATCH' | 'NO_MATCH';
+  threeWayMatchedAt?: Date;
   metadata: Record<string, unknown>;
   tags: string[];
   createdBy?: string;
@@ -409,6 +411,28 @@ export class FinanceEntry extends Entity<FinanceEntryProps> {
   }
   set originalAmount(value: number | undefined) {
     this.props.originalAmount = value;
+    this.touch();
+  }
+
+  get threeWayMatchStatus():
+    | 'FULL_MATCH'
+    | 'PARTIAL_MATCH'
+    | 'NO_MATCH'
+    | undefined {
+    return this.props.threeWayMatchStatus;
+  }
+  set threeWayMatchStatus(
+    value: 'FULL_MATCH' | 'PARTIAL_MATCH' | 'NO_MATCH' | undefined,
+  ) {
+    this.props.threeWayMatchStatus = value;
+    this.touch();
+  }
+
+  get threeWayMatchedAt(): Date | undefined {
+    return this.props.threeWayMatchedAt;
+  }
+  set threeWayMatchedAt(value: Date | undefined) {
+    this.props.threeWayMatchedAt = value;
     this.touch();
   }
 

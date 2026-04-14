@@ -6781,6 +6781,11 @@ model FinanceEntry {
   exchangeRate   Decimal? @map("exchange_rate") @db.Decimal(12, 6)
   originalAmount Decimal? @map("original_amount") @db.Decimal(15, 2)
 
+  // Three-way matching (PO / Receipt / Invoice). Nullable = not yet computed.
+  // Values: FULL_MATCH | PARTIAL_MATCH | NO_MATCH
+  threeWayMatchStatus   String?   @map("three_way_match_status") @db.VarChar(20)
+  threeWayMatchedAt     DateTime? @map("three_way_matched_at")
+
   metadata Json     @default("{}")
   tags     String[] @default([])
 

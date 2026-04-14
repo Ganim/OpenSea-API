@@ -233,6 +233,15 @@ export class ThreeWayMatchUseCase {
         break;
     }
 
+    // 7. Persist computed status on entry for fast read on listings
+    await prisma.financeEntry.update({
+      where: { id: entryId },
+      data: {
+        threeWayMatchStatus: matchStatus,
+        threeWayMatchedAt: new Date(),
+      },
+    });
+
     return {
       entryId,
       matchStatus,
