@@ -166,6 +166,11 @@ export class InMemoryBankReconciliationsRepository
 
     if (data.matchStatus === 'MANUAL_MATCHED' && data.matchedEntryId) {
       item.manualMatch(new UniqueEntityID(data.matchedEntryId));
+    } else if (data.matchStatus === 'AUTO_MATCHED' && data.matchedEntryId) {
+      item.autoMatch(
+        new UniqueEntityID(data.matchedEntryId),
+        data.matchConfidence ?? 0,
+      );
     } else if (data.matchStatus === 'IGNORED') {
       item.ignore();
     } else if (data.matchStatus === 'CREATED' && data.matchedEntryId) {

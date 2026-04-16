@@ -97,13 +97,17 @@ export class SyncBankTransactionsUseCase {
         totalTransactions: transactions.length,
       });
 
-      // Create reconciliation items
+      // Create reconciliation items.
+      // Pluggy returns negative amounts for debits and positive for credits.
+      // Persist `amount` as the absolute value and keep the credit/debit sign
+      // in `type` so auto-match (which compares magnitudes against
+      // entry.expectedAmount) can find DEBIT/PAYABLE pairs.
       const items = await this.bankReconciliationsRepository.createItems(
         transactions.map((tx) => ({
           reconciliationId: reconciliation.id.toString(),
           fitId: tx.id,
           transactionDate: new Date(tx.date),
-          amount: tx.amount,
+          amount: Math.abs(tx.amount),
           description: tx.description,
           type: tx.amount < 0 ? 'DEBIT' : 'CREDIT',
         })),

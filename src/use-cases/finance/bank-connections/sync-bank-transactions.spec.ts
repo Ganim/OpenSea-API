@@ -218,4 +218,53 @@ describe('SyncBankTransactionsUseCase', () => {
     );
     expect(diffDays).toBe(30);
   });
+
+  it('should store DEBIT transactions with positive amount so auto-match can pair them with PAYABLE entries', async () => {
+    // Pluggy returns amount=-500 for debits; if the repo stored -500, auto-match
+    // would compare -500 against entry.expectedAmount=500 and never match.
+    const today = new Date();
+    vi.mocked(pluggyProvider.getTransactions).mockResolvedValueOnce([
+      {
+        id: 'pluggy-tx-debit',
+        accountId: 'account-1',
+        date: today.toISOString().split('T')[0],
+        description: 'Pagamento Fornecedor ACME',
+        amount: -500,
+        type: 'DEBIT',
+      },
+    ]);
+
+    await financeEntriesRepo.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAG-MATCH',
+      description: 'Pagamento Fornecedor ACME',
+      categoryId: 'cat-1',
+      expectedAmount: 500,
+      supplierName: 'ACME',
+      bankAccountId: 'bank-account-1',
+      issueDate: today,
+      dueDate: today,
+    });
+
+    const connection = await bankConnectionsRepo.create({
+      tenantId: 'tenant-1',
+      bankAccountId: 'bank-account-1',
+      externalItemId: 'external-item-1',
+      accessToken: 'access-token-abc',
+    });
+
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      connectionId: connection.id,
+    });
+
+    // Stored amount must be absolute so amount comparison works
+    const storedItem = bankReconciliationsRepo.items[0];
+    expect(storedItem.amount).toBe(500);
+    expect(storedItem.type).toBe('DEBIT');
+
+    // And auto-match should have paired the debit with the PAYABLE entry
+    expect(result.matchedCount).toBe(1);
+  });
 });
