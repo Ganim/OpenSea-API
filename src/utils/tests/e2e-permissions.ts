@@ -567,6 +567,10 @@ export const ALL_PERMISSIONS: Record<string, Record<string, string[]>> = {
     surveys: ['access', 'register', 'modify', 'remove'],
     okrs: ['access', 'register', 'modify', 'remove'],
     warnings: ['access', 'register', 'modify', 'remove', 'admin'],
+    'contract-templates': ['access', 'register', 'modify', 'remove'],
+    contracts: ['access', 'register'],
+    salary: ['access', 'modify', 'admin'],
+    'one-on-ones': ['access', 'register', 'modify', 'remove', 'admin'],
   },
   // ADMIN module (tenant-scoped admin operations)
   admin: {
