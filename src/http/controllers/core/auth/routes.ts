@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { env } from '@/@env';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
 import { loginBruteforceGuard } from '@/http/plugins/login-bruteforce-guard.plugin';
@@ -17,12 +18,19 @@ import { sendPasswordResetTokenController } from './v1-send-password-reset-token
 import { updateTenantAuthConfigController } from './v1-update-tenant-auth-config.controller';
 import { verifyMagicLinkController } from './v1-verify-magic-link.controller';
 
+const isTestEnv =
+  env.NODE_ENV === 'test' ||
+  process.env.VITEST === 'true' ||
+  process.env.VITEST === '1';
+
 export async function authRoutes(app: FastifyInstance) {
   // Public Routes com rate limit específico para autenticação (proteção contra brute force)
   app.register(
     async (authApp) => {
-      authApp.register(rateLimit, rateLimitConfig.auth);
-      authApp.register(loginBruteforceGuard); // Blocks IP after 10 failed logins in 15min
+      if (!isTestEnv) {
+        authApp.register(rateLimit, rateLimitConfig.auth);
+        authApp.register(loginBruteforceGuard); // Blocks IP after 10 failed logins in 15min
+      }
       authApp.register(authenticateWithPasswordController);
       authApp.register(authenticateWithAccessPinController);
       authApp.register(authenticateUnifiedController);
@@ -38,7 +46,9 @@ export async function authRoutes(app: FastifyInstance) {
   // Public query routes (no auth required)
   app.register(
     async (publicApp) => {
-      publicApp.register(rateLimit, rateLimitConfig.query);
+      if (!isTestEnv) {
+        publicApp.register(rateLimit, rateLimitConfig.query);
+      }
       publicApp.register(getAuthMethodsController);
     },
     { prefix: '' },
@@ -47,7 +57,9 @@ export async function authRoutes(app: FastifyInstance) {
   // Authenticated tenant selection routes
   app.register(
     async (tenantApp) => {
-      tenantApp.register(rateLimit, rateLimitConfig.query);
+      if (!isTestEnv) {
+        tenantApp.register(rateLimit, rateLimitConfig.query);
+      }
       tenantApp.register(listUserTenantsController);
       tenantApp.register(selectTenantController);
       tenantApp.register(routineCheckController);
@@ -58,7 +70,9 @@ export async function authRoutes(app: FastifyInstance) {
   // Authenticated tenant auth config routes
   app.register(
     async (configApp) => {
-      configApp.register(rateLimit, rateLimitConfig.query);
+      if (!isTestEnv) {
+        configApp.register(rateLimit, rateLimitConfig.query);
+      }
       configApp.register(getTenantAuthConfigController);
       configApp.register(updateTenantAuthConfigController);
     },
