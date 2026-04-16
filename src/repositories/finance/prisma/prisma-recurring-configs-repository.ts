@@ -151,6 +151,8 @@ export class PrismaRecurringConfigsRepository
     if (data.frequencyInterval !== undefined)
       updateData.frequencyInterval = data.frequencyInterval;
     if (data.endDate !== undefined) updateData.endDate = data.endDate;
+    if (data.totalOccurrences !== undefined)
+      updateData.totalOccurrences = data.totalOccurrences;
     if (data.interestRate !== undefined)
       updateData.interestRate = data.interestRate;
     if (data.penaltyRate !== undefined)

@@ -154,6 +154,8 @@ export class InMemoryRecurringConfigsRepository
     if (data.frequencyInterval !== undefined)
       config.frequencyInterval = data.frequencyInterval;
     if (data.endDate !== undefined) config.endDate = data.endDate ?? undefined;
+    if (data.totalOccurrences !== undefined)
+      config.totalOccurrences = data.totalOccurrences ?? undefined;
     if (data.interestRate !== undefined)
       config.interestRate = data.interestRate ?? undefined;
     if (data.penaltyRate !== undefined)

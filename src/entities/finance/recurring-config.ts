@@ -171,6 +171,10 @@ export class RecurringConfig extends Entity<RecurringConfigProps> {
   get totalOccurrences(): number | undefined {
     return this.props.totalOccurrences;
   }
+  set totalOccurrences(value: number | undefined) {
+    this.props.totalOccurrences = value;
+    this.touch();
+  }
 
   get generatedCount(): number {
     return this.props.generatedCount;

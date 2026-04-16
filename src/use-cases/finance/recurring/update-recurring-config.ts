@@ -14,6 +14,7 @@ interface UpdateRecurringConfigUseCaseRequest {
   frequencyUnit?: string;
   frequencyInterval?: number;
   endDate?: Date | null;
+  totalOccurrences?: number | null;
   interestRate?: number | null;
   penaltyRate?: number | null;
   notes?: string | null;
@@ -52,6 +53,7 @@ export class UpdateRecurringConfigUseCase {
       frequencyUnit: request.frequencyUnit,
       frequencyInterval: request.frequencyInterval,
       endDate: request.endDate,
+      totalOccurrences: request.totalOccurrences,
       interestRate: request.interestRate,
       penaltyRate: request.penaltyRate,
       notes: request.notes,

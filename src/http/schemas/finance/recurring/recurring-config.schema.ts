@@ -49,6 +49,7 @@ export const updateRecurringConfigSchema = z.object({
     .optional(),
   frequencyInterval: z.number().int().positive().optional(),
   endDate: z.coerce.date().nullable().optional(),
+  totalOccurrences: z.number().int().positive().nullable().optional(),
   interestRate: z.number().min(0).nullable().optional(),
   penaltyRate: z.number().min(0).nullable().optional(),
   indexationType: z

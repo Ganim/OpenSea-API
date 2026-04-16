@@ -37,6 +37,7 @@ export interface UpdateRecurringConfigSchema {
   frequencyUnit?: string;
   frequencyInterval?: number;
   endDate?: Date | null;
+  totalOccurrences?: number | null;
   interestRate?: number | null;
   penaltyRate?: number | null;
   indexationType?: string | null;
