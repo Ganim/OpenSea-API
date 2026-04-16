@@ -259,7 +259,12 @@ export class InMemoryFinanceEntriesRepository
     data: UpdateFinanceEntrySchema,
     _tx?: unknown,
   ): Promise<FinanceEntry | null> {
-    const item = this.items.find((i) => !i.deletedAt && i.id.equals(data.id));
+    const item = this.items.find(
+      (i) =>
+        !i.deletedAt &&
+        i.id.equals(data.id) &&
+        i.tenantId.toString() === data.tenantId,
+    );
     if (!item) return null;
 
     if (data.description !== undefined) item.description = data.description;
@@ -322,8 +327,11 @@ export class InMemoryFinanceEntriesRepository
     return item;
   }
 
-  async delete(id: UniqueEntityID, _tenantId?: string): Promise<void> {
-    const item = this.items.find((i) => !i.deletedAt && i.id.equals(id));
+  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+    const item = this.items.find(
+      (i) =>
+        !i.deletedAt && i.id.equals(id) && i.tenantId.toString() === tenantId,
+    );
     if (item) item.delete();
   }
 

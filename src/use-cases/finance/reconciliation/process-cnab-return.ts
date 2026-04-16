@@ -125,6 +125,7 @@ export class ProcessCnabReturnUseCase {
 
       await this.financeEntriesRepository.update({
         id: matchedEntry.id,
+        tenantId,
         status: matchedEntry.status,
         actualAmount: matchedEntry.actualAmount,
         paymentDate: record.paymentDate,

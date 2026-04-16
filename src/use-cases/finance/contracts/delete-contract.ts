@@ -37,6 +37,7 @@ export class DeleteContractUseCase {
     for (const entry of linkedEntries.entries) {
       await this.financeEntriesRepository.update({
         id: entry.id,
+        tenantId,
         status: 'CANCELLED',
       });
     }

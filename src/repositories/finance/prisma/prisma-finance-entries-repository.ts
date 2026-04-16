@@ -488,18 +488,30 @@ export class PrismaFinanceEntriesRepository
       ? cipher.encryptFields(updateData, encryptedFields)
       : updateData;
 
-    const whereClause: { id: string; tenantId?: string } = {
-      id: data.id.toString(),
-    };
-    if (data.tenantId) {
-      whereClause.tenantId = data.tenantId;
+    const client = tx ?? prisma;
+
+    // Tenant-scoped update — guarantees we never mutate another tenant's row
+    const updateResult = await client.financeEntry.updateMany({
+      where: {
+        id: data.id.toString(),
+        tenantId: data.tenantId,
+        deletedAt: null,
+      },
+      data: encryptedUpdateData as Prisma.FinanceEntryUpdateManyMutationInput,
+    });
+
+    if (updateResult.count === 0) {
+      return null;
     }
 
-    const client = tx ?? prisma;
-    const entry = await client.financeEntry.update({
-      where: whereClause,
-      data: encryptedUpdateData,
+    const entry = await client.financeEntry.findFirst({
+      where: {
+        id: data.id.toString(),
+        tenantId: data.tenantId,
+      },
     });
+
+    if (!entry) return null;
 
     // Decrypt before passing to mapper
     const decrypted = cipher
@@ -509,16 +521,13 @@ export class PrismaFinanceEntriesRepository
     return financeEntryPrismaToDomain(decrypted as typeof entry);
   }
 
-  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
-    const whereClause: { id: string; tenantId?: string } = {
-      id: id.toString(),
-    };
-    if (tenantId) {
-      whereClause.tenantId = tenantId;
-    }
-
-    await prisma.financeEntry.update({
-      where: whereClause,
+  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+    await prisma.financeEntry.updateMany({
+      where: {
+        id: id.toString(),
+        tenantId,
+        deletedAt: null,
+      },
       data: { deletedAt: new Date() },
     });
   }

@@ -60,7 +60,7 @@ export interface CreateFinanceEntrySchema {
 
 export interface UpdateFinanceEntrySchema {
   id: UniqueEntityID;
-  tenantId?: string;
+  tenantId: string;
   description?: string;
   notes?: string | null;
   categoryId?: string;
@@ -193,7 +193,7 @@ export interface FinanceEntriesRepository {
     data: UpdateFinanceEntrySchema,
     tx?: TransactionClient,
   ): Promise<FinanceEntry | null>;
-  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
+  delete(id: UniqueEntityID, tenantId: string): Promise<void>;
   generateNextCode(
     tenantId: string,
     type: string,

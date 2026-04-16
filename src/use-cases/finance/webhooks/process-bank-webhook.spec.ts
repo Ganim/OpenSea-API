@@ -168,6 +168,7 @@ describe('ProcessBankWebhookUseCase', () => {
     // Update the entry amount to match the webhook
     await financeEntriesRepository.update({
       id: entry.id,
+      tenantId: TENANT_ID,
       expectedAmount: 1500,
     });
 
