@@ -114,20 +114,23 @@ describe('CreateTenantAdminUseCase', () => {
     ).rejects.toBeInstanceOf(BadRequestError);
   });
 
-  it('should create Admin and User permission groups for the new tenant', async () => {
+  it('should create Admin, User and Accountant permission groups for the new tenant', async () => {
     const { tenant } = await sut.execute({ name: 'My Company' });
 
     const groups = permissionGroupsRepository.items.filter(
       (g) => g.tenantId?.toString() === tenant.id,
     );
 
-    expect(groups).toHaveLength(2);
+    expect(groups).toHaveLength(3);
 
     const adminGroup = groups.find((g) =>
       g.slug.startsWith(PermissionGroupSlugs.ADMIN),
     );
     const userGroup = groups.find((g) =>
       g.slug.startsWith(PermissionGroupSlugs.USER),
+    );
+    const accountantGroup = groups.find((g) =>
+      g.slug.startsWith(PermissionGroupSlugs.ACCOUNTANT),
     );
 
     expect(adminGroup).toBeDefined();
@@ -148,6 +151,16 @@ describe('CreateTenantAdminUseCase', () => {
     );
     expect(userGroup!.color).toBe(
       PermissionGroupColors[PermissionGroupSlugs.USER],
+    );
+
+    expect(accountantGroup).toBeDefined();
+    expect(accountantGroup!.name).toBe('Contador');
+    expect(accountantGroup!.isSystem).toBe(false);
+    expect(accountantGroup!.priority).toBe(
+      PermissionGroupPriorities[PermissionGroupSlugs.ACCOUNTANT],
+    );
+    expect(accountantGroup!.color).toBe(
+      PermissionGroupColors[PermissionGroupSlugs.ACCOUNTANT],
     );
   });
 

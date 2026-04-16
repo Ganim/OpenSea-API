@@ -1294,6 +1294,35 @@ export const DEFAULT_USER_PERMISSIONS: string[] = [
 ];
 
 // =============================================================================
+// DEFAULT_ACCOUNTANT_PERMISSIONS — read-only Finance + exportações contábeis
+// =============================================================================
+export const DEFAULT_ACCOUNTANT_PERMISSIONS: string[] = [
+  // self (básico)
+  PermissionCodes.SYSTEM.SELF.ACCESS,
+  PermissionCodes.SYSTEM.SELF.MODIFY,
+
+  // finance — leitura completa (sem REGISTER/MODIFY/REMOVE)
+  PermissionCodes.FINANCE.CHART_OF_ACCOUNTS.ACCESS,
+  PermissionCodes.FINANCE.CATEGORIES.ACCESS,
+  PermissionCodes.FINANCE.COST_CENTERS.ACCESS,
+  PermissionCodes.FINANCE.BANK_ACCOUNTS.ACCESS,
+  PermissionCodes.FINANCE.SUPPLIERS.ACCESS,
+  PermissionCodes.FINANCE.CONTRACTS.ACCESS,
+  PermissionCodes.FINANCE.ENTRIES.ACCESS,
+  PermissionCodes.FINANCE.ENTRIES.EXPORT,
+  PermissionCodes.FINANCE.ENTRIES.PRINT,
+  PermissionCodes.FINANCE.CONSORTIA.ACCESS,
+  PermissionCodes.FINANCE.LOANS.ACCESS,
+  PermissionCodes.FINANCE.RECURRING.ACCESS,
+  PermissionCodes.FINANCE.REPORTS.ACCESS,
+  PermissionCodes.FINANCE.REPORTS.EXPORT,
+  PermissionCodes.FINANCE.PERIOD_LOCKS.ACCESS,
+  PermissionCodes.FINANCE.ACCOUNTANT.ACCESS,
+  PermissionCodes.FINANCE.SUPPLIERS.EXPORT,
+  PermissionCodes.FINANCE.CONTRACTS.EXPORT,
+];
+
+// =============================================================================
 // isValidPermissionCode — Validação de formato
 // =============================================================================
 export function isValidPermissionCode(code: string): boolean {

@@ -16,7 +16,10 @@ import {
   PermissionGroupColors,
   PermissionGroupPriorities,
 } from '@/constants/rbac/permission-groups';
-import { DEFAULT_USER_PERMISSIONS } from '@/constants/rbac/permission-codes';
+import {
+  DEFAULT_ACCOUNTANT_PERMISSIONS,
+  DEFAULT_USER_PERMISSIONS,
+} from '@/constants/rbac/permission-codes';
 
 interface CreateTenantAdminUseCaseRequest {
   name: string;
@@ -131,6 +134,40 @@ export class CreateTenantAdminUseCase {
       await this.permissionGroupPermissionsRepository.addMany(
         userPermissions.map((p) => ({
           groupId: userGroup.id,
+          permissionId: p.id,
+          effect: PermissionEffect.allow(),
+          conditions: null,
+        })),
+      );
+    }
+
+    // 5. Create Accountant group for this tenant (Contador — read-only + exports)
+    const accountantGroup = await this.permissionGroupsRepository.create({
+      name: 'Contador',
+      slug: `${PermissionGroupSlugs.ACCOUNTANT}-${tenantIdPrefix}`,
+      description:
+        'Acesso de leitura ao módulo Finance e exportações contábeis (DRE, DFC, SPED, Razão).',
+      isSystem: false,
+      isActive: true,
+      color: PermissionGroupColors[PermissionGroupSlugs.ACCOUNTANT],
+      priority: PermissionGroupPriorities[PermissionGroupSlugs.ACCOUNTANT],
+      parentId: null,
+      tenantId,
+    });
+
+    const accountantPermissionCodes = DEFAULT_ACCOUNTANT_PERMISSIONS.map(
+      (code) => PermissionCode.create(code),
+    );
+
+    const accountantPermissions =
+      await this.permissionsRepository.findManyByCodes(
+        accountantPermissionCodes,
+      );
+
+    if (accountantPermissions.length > 0) {
+      await this.permissionGroupPermissionsRepository.addMany(
+        accountantPermissions.map((p) => ({
+          groupId: accountantGroup.id,
           permissionId: p.id,
           effect: PermissionEffect.allow(),
           conditions: null,

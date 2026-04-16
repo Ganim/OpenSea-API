@@ -27,6 +27,14 @@ export const PermissionGroupSlugs = {
    * implícitas à autenticação e não precisam de permissão.
    */
   USER: 'user',
+
+  /**
+   * Grupo Contador - Acesso read-only ao módulo Finance + exportações
+   * contábeis (DRE, DFC, SPED, Razão, Balancete) e relatórios fiscais.
+   * Não pode criar, editar ou excluir lançamentos — apenas consultar
+   * e exportar. Uso típico: CPA externo ligado ao tenant.
+   */
+  ACCOUNTANT: 'accountant',
 } as const;
 
 export type PermissionGroupSlug =
@@ -39,6 +47,7 @@ export type PermissionGroupSlug =
 export const PermissionGroupColors = {
   [PermissionGroupSlugs.ADMIN]: '#DC2626', // red-600
   [PermissionGroupSlugs.USER]: '#2563EB', // blue-600
+  [PermissionGroupSlugs.ACCOUNTANT]: '#D97706', // amber-600
 } as const;
 
 /**
@@ -48,6 +57,7 @@ export const PermissionGroupColors = {
 export const PermissionGroupPriorities = {
   [PermissionGroupSlugs.ADMIN]: 100,
   [PermissionGroupSlugs.USER]: 10,
+  [PermissionGroupSlugs.ACCOUNTANT]: 50,
 } as const;
 
 /**
