@@ -376,6 +376,8 @@ export const PermissionCodes = {
     KUDOS: {
       ACCESS: 'hr.kudos.access' as const,
       REGISTER: 'hr.kudos.register' as const,
+      MODIFY: 'hr.kudos.modify' as const,
+      ADMIN: 'hr.kudos.admin' as const,
     },
     DELEGATIONS: {
       ACCESS: 'hr.delegations.access' as const,
