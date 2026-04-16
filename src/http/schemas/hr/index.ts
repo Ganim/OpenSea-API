@@ -14,3 +14,5 @@ export * from './onboarding';
 export * from './warnings';
 export * from './reviews';
 export * from './contracts';
+export * from './salary-history';
+export * from './one-on-ones';

@@ -318,6 +318,8 @@ import { vacationPeriodsRoutes } from './controllers/hr/vacation-periods/routes'
 import { warningsRoutes } from './controllers/hr/warnings/routes';
 import { workSchedulesRoutes } from './controllers/hr/work-schedules/routes';
 import { workplaceRisksRoutes } from './controllers/hr/workplace-risks/routes';
+import { salaryHistoryRoutes } from './controllers/hr/salary-history/routes';
+import { oneOnOnesRoutes } from './controllers/hr/one-on-ones/routes';
 
 export async function registerRoutes(app: FastifyInstance) {
   // Core routes
@@ -555,6 +557,8 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(okrsRoutes);
   await app.register(hrAnalyticsRoutes);
   await app.register(hrContractsRoutes);
+  await app.register(salaryHistoryRoutes);
+  await app.register(oneOnOnesRoutes);
 
   // Tasks routes
   await app.register(taskBoardsRoutes);
