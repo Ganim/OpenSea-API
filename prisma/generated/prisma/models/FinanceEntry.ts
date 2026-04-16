@@ -102,6 +102,8 @@ export type FinanceEntryMinAggregateOutputType = {
   currency: string | null
   exchangeRate: runtime.Decimal | null
   originalAmount: runtime.Decimal | null
+  threeWayMatchStatus: string | null
+  threeWayMatchedAt: Date | null
   deletedAt: Date | null
   createdBy: string | null
   createdAt: Date | null
@@ -157,6 +159,8 @@ export type FinanceEntryMaxAggregateOutputType = {
   currency: string | null
   exchangeRate: runtime.Decimal | null
   originalAmount: runtime.Decimal | null
+  threeWayMatchStatus: string | null
+  threeWayMatchedAt: Date | null
   deletedAt: Date | null
   createdBy: string | null
   createdAt: Date | null
@@ -212,6 +216,8 @@ export type FinanceEntryCountAggregateOutputType = {
   currency: number
   exchangeRate: number
   originalAmount: number
+  threeWayMatchStatus: number
+  threeWayMatchedAt: number
   metadata: number
   tags: number
   deletedAt: number
@@ -299,6 +305,8 @@ export type FinanceEntryMinAggregateInputType = {
   currency?: true
   exchangeRate?: true
   originalAmount?: true
+  threeWayMatchStatus?: true
+  threeWayMatchedAt?: true
   deletedAt?: true
   createdBy?: true
   createdAt?: true
@@ -354,6 +362,8 @@ export type FinanceEntryMaxAggregateInputType = {
   currency?: true
   exchangeRate?: true
   originalAmount?: true
+  threeWayMatchStatus?: true
+  threeWayMatchedAt?: true
   deletedAt?: true
   createdBy?: true
   createdAt?: true
@@ -409,6 +419,8 @@ export type FinanceEntryCountAggregateInputType = {
   currency?: true
   exchangeRate?: true
   originalAmount?: true
+  threeWayMatchStatus?: true
+  threeWayMatchedAt?: true
   metadata?: true
   tags?: true
   deletedAt?: true
@@ -553,6 +565,8 @@ export type FinanceEntryGroupByOutputType = {
   currency: string
   exchangeRate: runtime.Decimal | null
   originalAmount: runtime.Decimal | null
+  threeWayMatchStatus: string | null
+  threeWayMatchedAt: Date | null
   metadata: runtime.JsonValue
   tags: string[]
   deletedAt: Date | null
@@ -633,6 +647,8 @@ export type FinanceEntryWhereInput = {
   currency?: Prisma.StringFilter<"FinanceEntry"> | string
   exchangeRate?: Prisma.DecimalNullableFilter<"FinanceEntry"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.DecimalNullableFilter<"FinanceEntry"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  threeWayMatchedAt?: Prisma.DateTimeNullableFilter<"FinanceEntry"> | Date | string | null
   metadata?: Prisma.JsonFilter<"FinanceEntry">
   tags?: Prisma.StringNullableListFilter<"FinanceEntry">
   deletedAt?: Prisma.DateTimeNullableFilter<"FinanceEntry"> | Date | string | null
@@ -710,6 +726,8 @@ export type FinanceEntryOrderByWithRelationInput = {
   currency?: Prisma.SortOrder
   exchangeRate?: Prisma.SortOrderInput | Prisma.SortOrder
   originalAmount?: Prisma.SortOrderInput | Prisma.SortOrder
+  threeWayMatchStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  threeWayMatchedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrder
   tags?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -791,6 +809,8 @@ export type FinanceEntryWhereUniqueInput = Prisma.AtLeast<{
   currency?: Prisma.StringFilter<"FinanceEntry"> | string
   exchangeRate?: Prisma.DecimalNullableFilter<"FinanceEntry"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.DecimalNullableFilter<"FinanceEntry"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  threeWayMatchedAt?: Prisma.DateTimeNullableFilter<"FinanceEntry"> | Date | string | null
   metadata?: Prisma.JsonFilter<"FinanceEntry">
   tags?: Prisma.StringNullableListFilter<"FinanceEntry">
   deletedAt?: Prisma.DateTimeNullableFilter<"FinanceEntry"> | Date | string | null
@@ -868,6 +888,8 @@ export type FinanceEntryOrderByWithAggregationInput = {
   currency?: Prisma.SortOrder
   exchangeRate?: Prisma.SortOrderInput | Prisma.SortOrder
   originalAmount?: Prisma.SortOrderInput | Prisma.SortOrder
+  threeWayMatchStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  threeWayMatchedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrder
   tags?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -933,6 +955,8 @@ export type FinanceEntryScalarWhereWithAggregatesInput = {
   currency?: Prisma.StringWithAggregatesFilter<"FinanceEntry"> | string
   exchangeRate?: Prisma.DecimalNullableWithAggregatesFilter<"FinanceEntry"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.DecimalNullableWithAggregatesFilter<"FinanceEntry"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.StringNullableWithAggregatesFilter<"FinanceEntry"> | string | null
+  threeWayMatchedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"FinanceEntry"> | Date | string | null
   metadata?: Prisma.JsonWithAggregatesFilter<"FinanceEntry">
   tags?: Prisma.StringNullableListFilter<"FinanceEntry">
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"FinanceEntry"> | Date | string | null
@@ -982,6 +1006,8 @@ export type FinanceEntryCreateInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -1058,6 +1084,8 @@ export type FinanceEntryUncheckedCreateInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -1118,6 +1146,8 @@ export type FinanceEntryUpdateInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1194,6 +1224,8 @@ export type FinanceEntryUncheckedUpdateInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1262,6 +1294,8 @@ export type FinanceEntryCreateManyInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -1311,6 +1345,8 @@ export type FinanceEntryUpdateManyMutationInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1367,6 +1403,8 @@ export type FinanceEntryUncheckedUpdateManyInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1445,6 +1483,8 @@ export type FinanceEntryCountOrderByAggregateInput = {
   currency?: Prisma.SortOrder
   exchangeRate?: Prisma.SortOrder
   originalAmount?: Prisma.SortOrder
+  threeWayMatchStatus?: Prisma.SortOrder
+  threeWayMatchedAt?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
   tags?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -1516,6 +1556,8 @@ export type FinanceEntryMaxOrderByAggregateInput = {
   currency?: Prisma.SortOrder
   exchangeRate?: Prisma.SortOrder
   originalAmount?: Prisma.SortOrder
+  threeWayMatchStatus?: Prisma.SortOrder
+  threeWayMatchedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -1571,6 +1613,8 @@ export type FinanceEntryMinOrderByAggregateInput = {
   currency?: Prisma.SortOrder
   exchangeRate?: Prisma.SortOrder
   originalAmount?: Prisma.SortOrder
+  threeWayMatchStatus?: Prisma.SortOrder
+  threeWayMatchedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -2202,6 +2246,8 @@ export type FinanceEntryCreateWithoutCompanyInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2276,6 +2322,8 @@ export type FinanceEntryUncheckedCreateWithoutCompanyInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2373,6 +2421,8 @@ export type FinanceEntryScalarWhereInput = {
   currency?: Prisma.StringFilter<"FinanceEntry"> | string
   exchangeRate?: Prisma.DecimalNullableFilter<"FinanceEntry"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.DecimalNullableFilter<"FinanceEntry"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.StringNullableFilter<"FinanceEntry"> | string | null
+  threeWayMatchedAt?: Prisma.DateTimeNullableFilter<"FinanceEntry"> | Date | string | null
   metadata?: Prisma.JsonFilter<"FinanceEntry">
   tags?: Prisma.StringNullableListFilter<"FinanceEntry">
   deletedAt?: Prisma.DateTimeNullableFilter<"FinanceEntry"> | Date | string | null
@@ -2422,6 +2472,8 @@ export type FinanceEntryCreateWithoutTenantInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2496,6 +2548,8 @@ export type FinanceEntryUncheckedCreateWithoutTenantInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2582,6 +2636,8 @@ export type FinanceEntryCreateWithoutCostCenterInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2656,6 +2712,8 @@ export type FinanceEntryUncheckedCreateWithoutCostCenterInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2742,6 +2800,8 @@ export type FinanceEntryCreateWithoutChartOfAccountInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2816,6 +2876,8 @@ export type FinanceEntryUncheckedCreateWithoutChartOfAccountInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2902,6 +2964,8 @@ export type FinanceEntryCreateWithoutBankAccountInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -2976,6 +3040,8 @@ export type FinanceEntryUncheckedCreateWithoutBankAccountInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -3062,6 +3128,8 @@ export type FinanceEntryCreateWithoutCategoryInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -3136,6 +3204,8 @@ export type FinanceEntryUncheckedCreateWithoutCategoryInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -3222,6 +3292,8 @@ export type FinanceEntryCreateWithoutChildEntriesInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -3297,6 +3369,8 @@ export type FinanceEntryUncheckedCreateWithoutChildEntriesInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -3361,6 +3435,8 @@ export type FinanceEntryCreateWithoutParentEntryInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -3435,6 +3511,8 @@ export type FinanceEntryUncheckedCreateWithoutParentEntryInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -3516,6 +3594,8 @@ export type FinanceEntryUpdateWithoutChildEntriesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3591,6 +3671,8 @@ export type FinanceEntryUncheckedUpdateWithoutChildEntriesInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3666,6 +3748,8 @@ export type FinanceEntryCreateWithoutRetentionsInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -3741,6 +3825,8 @@ export type FinanceEntryUncheckedCreateWithoutRetentionsInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -3816,6 +3902,8 @@ export type FinanceEntryUpdateWithoutRetentionsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3891,6 +3979,8 @@ export type FinanceEntryUncheckedUpdateWithoutRetentionsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3950,6 +4040,8 @@ export type FinanceEntryCreateWithoutPaymentsInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -4025,6 +4117,8 @@ export type FinanceEntryUncheckedCreateWithoutPaymentsInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -4100,6 +4194,8 @@ export type FinanceEntryUpdateWithoutPaymentsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4175,6 +4271,8 @@ export type FinanceEntryUncheckedUpdateWithoutPaymentsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4234,6 +4332,8 @@ export type FinanceEntryCreateWithoutCostCenterAllocationsInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -4309,6 +4409,8 @@ export type FinanceEntryUncheckedCreateWithoutCostCenterAllocationsInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -4384,6 +4486,8 @@ export type FinanceEntryUpdateWithoutCostCenterAllocationsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4459,6 +4563,8 @@ export type FinanceEntryUncheckedUpdateWithoutCostCenterAllocationsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4518,6 +4624,8 @@ export type FinanceEntryCreateWithoutAttachmentsInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -4593,6 +4701,8 @@ export type FinanceEntryUncheckedCreateWithoutAttachmentsInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -4668,6 +4778,8 @@ export type FinanceEntryUpdateWithoutAttachmentsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4743,6 +4855,8 @@ export type FinanceEntryUncheckedUpdateWithoutAttachmentsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4802,6 +4916,8 @@ export type FinanceEntryCreateWithoutReconciliationItemsInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -4877,6 +4993,8 @@ export type FinanceEntryUncheckedCreateWithoutReconciliationItemsInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -4952,6 +5070,8 @@ export type FinanceEntryUpdateWithoutReconciliationItemsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5027,6 +5147,8 @@ export type FinanceEntryUncheckedUpdateWithoutReconciliationItemsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5086,6 +5208,8 @@ export type FinanceEntryCreateWithoutReconciliationSuggestionsInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -5161,6 +5285,8 @@ export type FinanceEntryUncheckedCreateWithoutReconciliationSuggestionsInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -5236,6 +5362,8 @@ export type FinanceEntryUpdateWithoutReconciliationSuggestionsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5311,6 +5439,8 @@ export type FinanceEntryUncheckedUpdateWithoutReconciliationSuggestionsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5370,6 +5500,8 @@ export type FinanceEntryCreateWithoutFiscalDocumentInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -5445,6 +5577,8 @@ export type FinanceEntryUncheckedCreateWithoutFiscalDocumentInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -5530,6 +5664,8 @@ export type FinanceEntryCreateWithoutPixChargeInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -5604,6 +5740,8 @@ export type FinanceEntryUncheckedCreateWithoutPixChargeInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -5690,6 +5828,8 @@ export type FinanceEntryCreateWithoutOverdueActionsInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -5765,6 +5905,8 @@ export type FinanceEntryUncheckedCreateWithoutOverdueActionsInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -5840,6 +5982,8 @@ export type FinanceEntryUpdateWithoutOverdueActionsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5915,6 +6059,8 @@ export type FinanceEntryUncheckedUpdateWithoutOverdueActionsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5974,6 +6120,8 @@ export type FinanceEntryCreateWithoutTaxObligationsInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -6049,6 +6197,8 @@ export type FinanceEntryUncheckedCreateWithoutTaxObligationsInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -6124,6 +6274,8 @@ export type FinanceEntryUpdateWithoutTaxObligationsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6199,6 +6351,8 @@ export type FinanceEntryUncheckedUpdateWithoutTaxObligationsInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6258,6 +6412,8 @@ export type FinanceEntryCreateWithoutPaymentOrdersInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -6333,6 +6489,8 @@ export type FinanceEntryUncheckedCreateWithoutPaymentOrdersInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -6408,6 +6566,8 @@ export type FinanceEntryUpdateWithoutPaymentOrdersInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6483,6 +6643,8 @@ export type FinanceEntryUncheckedUpdateWithoutPaymentOrdersInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6542,6 +6704,8 @@ export type FinanceEntryCreateWithoutPaymentLinksInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -6617,6 +6781,8 @@ export type FinanceEntryUncheckedCreateWithoutPaymentLinksInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -6692,6 +6858,8 @@ export type FinanceEntryUpdateWithoutPaymentLinksInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6767,6 +6935,8 @@ export type FinanceEntryUncheckedUpdateWithoutPaymentLinksInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6833,6 +7003,8 @@ export type FinanceEntryCreateManyCompanyInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -6882,6 +7054,8 @@ export type FinanceEntryUpdateWithoutCompanyInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6956,6 +7130,8 @@ export type FinanceEntryUncheckedUpdateWithoutCompanyInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7023,6 +7199,8 @@ export type FinanceEntryUncheckedUpdateManyWithoutCompanyInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7079,6 +7257,8 @@ export type FinanceEntryCreateManyTenantInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -7128,6 +7308,8 @@ export type FinanceEntryUpdateWithoutTenantInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7202,6 +7384,8 @@ export type FinanceEntryUncheckedUpdateWithoutTenantInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7269,6 +7453,8 @@ export type FinanceEntryUncheckedUpdateManyWithoutTenantInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7325,6 +7511,8 @@ export type FinanceEntryCreateManyCostCenterInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -7374,6 +7562,8 @@ export type FinanceEntryUpdateWithoutCostCenterInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7448,6 +7638,8 @@ export type FinanceEntryUncheckedUpdateWithoutCostCenterInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7515,6 +7707,8 @@ export type FinanceEntryUncheckedUpdateManyWithoutCostCenterInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7571,6 +7765,8 @@ export type FinanceEntryCreateManyChartOfAccountInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -7620,6 +7816,8 @@ export type FinanceEntryUpdateWithoutChartOfAccountInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7694,6 +7892,8 @@ export type FinanceEntryUncheckedUpdateWithoutChartOfAccountInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7761,6 +7961,8 @@ export type FinanceEntryUncheckedUpdateManyWithoutChartOfAccountInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7817,6 +8019,8 @@ export type FinanceEntryCreateManyBankAccountInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -7866,6 +8070,8 @@ export type FinanceEntryUpdateWithoutBankAccountInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7940,6 +8146,8 @@ export type FinanceEntryUncheckedUpdateWithoutBankAccountInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8007,6 +8215,8 @@ export type FinanceEntryUncheckedUpdateManyWithoutBankAccountInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8063,6 +8273,8 @@ export type FinanceEntryCreateManyCategoryInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -8112,6 +8324,8 @@ export type FinanceEntryUpdateWithoutCategoryInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8186,6 +8400,8 @@ export type FinanceEntryUncheckedUpdateWithoutCategoryInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8253,6 +8469,8 @@ export type FinanceEntryUncheckedUpdateManyWithoutCategoryInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8309,6 +8527,8 @@ export type FinanceEntryCreateManyParentEntryInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -8358,6 +8578,8 @@ export type FinanceEntryUpdateWithoutParentEntryInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8432,6 +8654,8 @@ export type FinanceEntryUncheckedUpdateWithoutParentEntryInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8499,6 +8723,8 @@ export type FinanceEntryUncheckedUpdateManyWithoutParentEntryInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8556,6 +8782,8 @@ export type FinanceEntryCreateManyFiscalDocumentInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -8604,6 +8832,8 @@ export type FinanceEntryUpdateWithoutFiscalDocumentInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8679,6 +8909,8 @@ export type FinanceEntryUncheckedUpdateWithoutFiscalDocumentInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8746,6 +8978,8 @@ export type FinanceEntryUncheckedUpdateManyWithoutFiscalDocumentInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8801,6 +9035,8 @@ export type FinanceEntryCreateManyPixChargeInput = {
   currency?: string
   exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: string | null
+  threeWayMatchedAt?: Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryCreatetagsInput | string[]
   deletedAt?: Date | string | null
@@ -8850,6 +9086,8 @@ export type FinanceEntryUpdateWithoutPixChargeInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8924,6 +9162,8 @@ export type FinanceEntryUncheckedUpdateWithoutPixChargeInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8991,6 +9231,8 @@ export type FinanceEntryUncheckedUpdateManyWithoutPixChargeInput = {
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   originalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  threeWayMatchStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threeWayMatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   tags?: Prisma.FinanceEntryUpdatetagsInput | string[]
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9169,6 +9411,8 @@ export type FinanceEntrySelect<ExtArgs extends runtime.Types.Extensions.Internal
   currency?: boolean
   exchangeRate?: boolean
   originalAmount?: boolean
+  threeWayMatchStatus?: boolean
+  threeWayMatchedAt?: boolean
   metadata?: boolean
   tags?: boolean
   deletedAt?: boolean
@@ -9247,6 +9491,8 @@ export type FinanceEntrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   currency?: boolean
   exchangeRate?: boolean
   originalAmount?: boolean
+  threeWayMatchStatus?: boolean
+  threeWayMatchedAt?: boolean
   metadata?: boolean
   tags?: boolean
   deletedAt?: boolean
@@ -9313,6 +9559,8 @@ export type FinanceEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   currency?: boolean
   exchangeRate?: boolean
   originalAmount?: boolean
+  threeWayMatchStatus?: boolean
+  threeWayMatchedAt?: boolean
   metadata?: boolean
   tags?: boolean
   deletedAt?: boolean
@@ -9379,6 +9627,8 @@ export type FinanceEntrySelectScalar = {
   currency?: boolean
   exchangeRate?: boolean
   originalAmount?: boolean
+  threeWayMatchStatus?: boolean
+  threeWayMatchedAt?: boolean
   metadata?: boolean
   tags?: boolean
   deletedAt?: boolean
@@ -9388,7 +9638,7 @@ export type FinanceEntrySelectScalar = {
   fiscalDocumentId?: boolean
 }
 
-export type FinanceEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "type" | "code" | "description" | "notes" | "categoryId" | "chartOfAccountId" | "companyId" | "costCenterId" | "bankAccountId" | "supplierName" | "customerName" | "supplierId" | "customerId" | "salesOrderId" | "expectedAmount" | "actualAmount" | "discount" | "interest" | "penalty" | "issueDate" | "dueDate" | "competenceDate" | "paymentDate" | "status" | "recurrenceType" | "recurrenceInterval" | "recurrenceUnit" | "totalInstallments" | "currentInstallment" | "parentEntryId" | "contractId" | "pixChargeId" | "boletoBarcode" | "boletoDigitLine" | "boletoChargeId" | "boletoBarcodeNumber" | "boletoDigitableLine" | "boletoPdfUrl" | "beneficiaryName" | "beneficiaryCpfCnpj" | "pixKey" | "pixKeyType" | "currency" | "exchangeRate" | "originalAmount" | "metadata" | "tags" | "deletedAt" | "createdBy" | "createdAt" | "updatedAt" | "fiscalDocumentId", ExtArgs["result"]["financeEntry"]>
+export type FinanceEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "type" | "code" | "description" | "notes" | "categoryId" | "chartOfAccountId" | "companyId" | "costCenterId" | "bankAccountId" | "supplierName" | "customerName" | "supplierId" | "customerId" | "salesOrderId" | "expectedAmount" | "actualAmount" | "discount" | "interest" | "penalty" | "issueDate" | "dueDate" | "competenceDate" | "paymentDate" | "status" | "recurrenceType" | "recurrenceInterval" | "recurrenceUnit" | "totalInstallments" | "currentInstallment" | "parentEntryId" | "contractId" | "pixChargeId" | "boletoBarcode" | "boletoDigitLine" | "boletoChargeId" | "boletoBarcodeNumber" | "boletoDigitableLine" | "boletoPdfUrl" | "beneficiaryName" | "beneficiaryCpfCnpj" | "pixKey" | "pixKeyType" | "currency" | "exchangeRate" | "originalAmount" | "threeWayMatchStatus" | "threeWayMatchedAt" | "metadata" | "tags" | "deletedAt" | "createdBy" | "createdAt" | "updatedAt" | "fiscalDocumentId", ExtArgs["result"]["financeEntry"]>
 export type FinanceEntryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   category?: boolean | Prisma.FinanceCategoryDefaultArgs<ExtArgs>
@@ -9507,6 +9757,8 @@ export type $FinanceEntryPayload<ExtArgs extends runtime.Types.Extensions.Intern
     currency: string
     exchangeRate: runtime.Decimal | null
     originalAmount: runtime.Decimal | null
+    threeWayMatchStatus: string | null
+    threeWayMatchedAt: Date | null
     metadata: runtime.JsonValue
     tags: string[]
     deletedAt: Date | null
@@ -10004,6 +10256,8 @@ export interface FinanceEntryFieldRefs {
   readonly currency: Prisma.FieldRef<"FinanceEntry", 'String'>
   readonly exchangeRate: Prisma.FieldRef<"FinanceEntry", 'Decimal'>
   readonly originalAmount: Prisma.FieldRef<"FinanceEntry", 'Decimal'>
+  readonly threeWayMatchStatus: Prisma.FieldRef<"FinanceEntry", 'String'>
+  readonly threeWayMatchedAt: Prisma.FieldRef<"FinanceEntry", 'DateTime'>
   readonly metadata: Prisma.FieldRef<"FinanceEntry", 'Json'>
   readonly tags: Prisma.FieldRef<"FinanceEntry", 'String[]'>
   readonly deletedAt: Prisma.FieldRef<"FinanceEntry", 'DateTime'>

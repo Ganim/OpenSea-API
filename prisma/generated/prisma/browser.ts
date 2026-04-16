@@ -1718,6 +1718,46 @@ export type PPEAssignment = Prisma.PPEAssignmentModel
  */
 export type OffboardingChecklist = Prisma.OffboardingChecklistModel
 /**
+ * Model ReviewCompetency
+ * 
+ */
+export type ReviewCompetency = Prisma.ReviewCompetencyModel
+/**
+ * Model KudosReaction
+ * 
+ */
+export type KudosReaction = Prisma.KudosReactionModel
+/**
+ * Model KudosReply
+ * 
+ */
+export type KudosReply = Prisma.KudosReplyModel
+/**
+ * Model AnnouncementReadReceipt
+ * 
+ */
+export type AnnouncementReadReceipt = Prisma.AnnouncementReadReceiptModel
+/**
+ * Model SalaryHistory
+ * 
+ */
+export type SalaryHistory = Prisma.SalaryHistoryModel
+/**
+ * Model OneOnOneMeeting
+ * 
+ */
+export type OneOnOneMeeting = Prisma.OneOnOneMeetingModel
+/**
+ * Model TalkingPoint
+ * 
+ */
+export type TalkingPoint = Prisma.TalkingPointModel
+/**
+ * Model OneOnOneActionItem
+ * 
+ */
+export type OneOnOneActionItem = Prisma.OneOnOneActionItemModel
+/**
  * Model AdmissionInvite
  * 
  */
@@ -1927,3 +1967,13 @@ export type ProductionQualityHold = Prisma.ProductionQualityHoldModel
  * 
  */
 export type ProductionCost = Prisma.ProductionCostModel
+/**
+ * Model ContractTemplate
+ * 
+ */
+export type ContractTemplate = Prisma.ContractTemplateModel
+/**
+ * Model GeneratedEmploymentContract
+ * 
+ */
+export type GeneratedEmploymentContract = Prisma.GeneratedEmploymentContractModel

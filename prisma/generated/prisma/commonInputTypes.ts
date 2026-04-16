@@ -5202,6 +5202,40 @@ export type EnumLeadRoutingStrategyWithAggregatesFilter<$PrismaModel = never> = 
   _max?: Prisma.NestedEnumLeadRoutingStrategyFilter<$PrismaModel>
 }
 
+export type EnumSalaryChangeReasonFilter<$PrismaModel = never> = {
+  equals?: $Enums.SalaryChangeReason | Prisma.EnumSalaryChangeReasonFieldRefInput<$PrismaModel>
+  in?: $Enums.SalaryChangeReason[] | Prisma.ListEnumSalaryChangeReasonFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SalaryChangeReason[] | Prisma.ListEnumSalaryChangeReasonFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSalaryChangeReasonFilter<$PrismaModel> | $Enums.SalaryChangeReason
+}
+
+export type EnumSalaryChangeReasonWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.SalaryChangeReason | Prisma.EnumSalaryChangeReasonFieldRefInput<$PrismaModel>
+  in?: $Enums.SalaryChangeReason[] | Prisma.ListEnumSalaryChangeReasonFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SalaryChangeReason[] | Prisma.ListEnumSalaryChangeReasonFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSalaryChangeReasonWithAggregatesFilter<$PrismaModel> | $Enums.SalaryChangeReason
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSalaryChangeReasonFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSalaryChangeReasonFilter<$PrismaModel>
+}
+
+export type EnumOneOnOneStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.OneOnOneStatus | Prisma.EnumOneOnOneStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.OneOnOneStatus[] | Prisma.ListEnumOneOnOneStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.OneOnOneStatus[] | Prisma.ListEnumOneOnOneStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumOneOnOneStatusFilter<$PrismaModel> | $Enums.OneOnOneStatus
+}
+
+export type EnumOneOnOneStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.OneOnOneStatus | Prisma.EnumOneOnOneStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.OneOnOneStatus[] | Prisma.ListEnumOneOnOneStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.OneOnOneStatus[] | Prisma.ListEnumOneOnOneStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumOneOnOneStatusWithAggregatesFilter<$PrismaModel> | $Enums.OneOnOneStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumOneOnOneStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumOneOnOneStatusFilter<$PrismaModel>
+}
+
 export type EnumAuthLinkProviderFilter<$PrismaModel = never> = {
   equals?: $Enums.AuthLinkProvider | Prisma.EnumAuthLinkProviderFieldRefInput<$PrismaModel>
   in?: $Enums.AuthLinkProvider[] | Prisma.ListEnumAuthLinkProviderFieldRefInput<$PrismaModel>
@@ -5676,6 +5710,23 @@ export type EnumQualityHoldStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumQualityHoldStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumQualityHoldStatusFilter<$PrismaModel>
+}
+
+export type EnumContractTemplateTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ContractTemplateType | Prisma.EnumContractTemplateTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ContractTemplateType[] | Prisma.ListEnumContractTemplateTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ContractTemplateType[] | Prisma.ListEnumContractTemplateTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumContractTemplateTypeFilter<$PrismaModel> | $Enums.ContractTemplateType
+}
+
+export type EnumContractTemplateTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ContractTemplateType | Prisma.EnumContractTemplateTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ContractTemplateType[] | Prisma.ListEnumContractTemplateTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ContractTemplateType[] | Prisma.ListEnumContractTemplateTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumContractTemplateTypeWithAggregatesFilter<$PrismaModel> | $Enums.ContractTemplateType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumContractTemplateTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumContractTemplateTypeFilter<$PrismaModel>
 }
 
 export type NestedStringFilter<$PrismaModel = never> = {
@@ -10803,6 +10854,40 @@ export type NestedEnumLeadRoutingStrategyWithAggregatesFilter<$PrismaModel = nev
   _max?: Prisma.NestedEnumLeadRoutingStrategyFilter<$PrismaModel>
 }
 
+export type NestedEnumSalaryChangeReasonFilter<$PrismaModel = never> = {
+  equals?: $Enums.SalaryChangeReason | Prisma.EnumSalaryChangeReasonFieldRefInput<$PrismaModel>
+  in?: $Enums.SalaryChangeReason[] | Prisma.ListEnumSalaryChangeReasonFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SalaryChangeReason[] | Prisma.ListEnumSalaryChangeReasonFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSalaryChangeReasonFilter<$PrismaModel> | $Enums.SalaryChangeReason
+}
+
+export type NestedEnumSalaryChangeReasonWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.SalaryChangeReason | Prisma.EnumSalaryChangeReasonFieldRefInput<$PrismaModel>
+  in?: $Enums.SalaryChangeReason[] | Prisma.ListEnumSalaryChangeReasonFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SalaryChangeReason[] | Prisma.ListEnumSalaryChangeReasonFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSalaryChangeReasonWithAggregatesFilter<$PrismaModel> | $Enums.SalaryChangeReason
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSalaryChangeReasonFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSalaryChangeReasonFilter<$PrismaModel>
+}
+
+export type NestedEnumOneOnOneStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.OneOnOneStatus | Prisma.EnumOneOnOneStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.OneOnOneStatus[] | Prisma.ListEnumOneOnOneStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.OneOnOneStatus[] | Prisma.ListEnumOneOnOneStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumOneOnOneStatusFilter<$PrismaModel> | $Enums.OneOnOneStatus
+}
+
+export type NestedEnumOneOnOneStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.OneOnOneStatus | Prisma.EnumOneOnOneStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.OneOnOneStatus[] | Prisma.ListEnumOneOnOneStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.OneOnOneStatus[] | Prisma.ListEnumOneOnOneStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumOneOnOneStatusWithAggregatesFilter<$PrismaModel> | $Enums.OneOnOneStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumOneOnOneStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumOneOnOneStatusFilter<$PrismaModel>
+}
+
 export type NestedEnumAuthLinkProviderFilter<$PrismaModel = never> = {
   equals?: $Enums.AuthLinkProvider | Prisma.EnumAuthLinkProviderFieldRefInput<$PrismaModel>
   in?: $Enums.AuthLinkProvider[] | Prisma.ListEnumAuthLinkProviderFieldRefInput<$PrismaModel>
@@ -11277,6 +11362,23 @@ export type NestedEnumQualityHoldStatusWithAggregatesFilter<$PrismaModel = never
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumQualityHoldStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumQualityHoldStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumContractTemplateTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ContractTemplateType | Prisma.EnumContractTemplateTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ContractTemplateType[] | Prisma.ListEnumContractTemplateTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ContractTemplateType[] | Prisma.ListEnumContractTemplateTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumContractTemplateTypeFilter<$PrismaModel> | $Enums.ContractTemplateType
+}
+
+export type NestedEnumContractTemplateTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ContractTemplateType | Prisma.EnumContractTemplateTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ContractTemplateType[] | Prisma.ListEnumContractTemplateTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ContractTemplateType[] | Prisma.ListEnumContractTemplateTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumContractTemplateTypeWithAggregatesFilter<$PrismaModel> | $Enums.ContractTemplateType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumContractTemplateTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumContractTemplateTypeFilter<$PrismaModel>
 }
 
 

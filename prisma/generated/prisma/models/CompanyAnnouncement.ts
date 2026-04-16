@@ -235,6 +235,7 @@ export type CompanyAnnouncementWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"CompanyAnnouncement"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CompanyAnnouncement"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  readReceipts?: Prisma.AnnouncementReadReceiptListRelationFilter
 }
 
 export type CompanyAnnouncementOrderByWithRelationInput = {
@@ -251,6 +252,7 @@ export type CompanyAnnouncementOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
+  readReceipts?: Prisma.AnnouncementReadReceiptOrderByRelationAggregateInput
 }
 
 export type CompanyAnnouncementWhereUniqueInput = Prisma.AtLeast<{
@@ -270,6 +272,7 @@ export type CompanyAnnouncementWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"CompanyAnnouncement"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CompanyAnnouncement"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  readReceipts?: Prisma.AnnouncementReadReceiptListRelationFilter
 }, "id">
 
 export type CompanyAnnouncementOrderByWithAggregationInput = {
@@ -321,6 +324,7 @@ export type CompanyAnnouncementCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutCompanyAnnouncementsInput
+  readReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutAnnouncementInput
 }
 
 export type CompanyAnnouncementUncheckedCreateInput = {
@@ -336,6 +340,7 @@ export type CompanyAnnouncementUncheckedCreateInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  readReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutAnnouncementInput
 }
 
 export type CompanyAnnouncementUpdateInput = {
@@ -351,6 +356,7 @@ export type CompanyAnnouncementUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCompanyAnnouncementsNestedInput
+  readReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutAnnouncementNestedInput
 }
 
 export type CompanyAnnouncementUncheckedUpdateInput = {
@@ -366,6 +372,7 @@ export type CompanyAnnouncementUncheckedUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutAnnouncementNestedInput
 }
 
 export type CompanyAnnouncementCreateManyInput = {
@@ -465,6 +472,11 @@ export type CompanyAnnouncementMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type CompanyAnnouncementScalarRelationFilter = {
+  is?: Prisma.CompanyAnnouncementWhereInput
+  isNot?: Prisma.CompanyAnnouncementWhereInput
+}
+
 export type CompanyAnnouncementCreateNestedManyWithoutTenantInput = {
   create?: Prisma.XOR<Prisma.CompanyAnnouncementCreateWithoutTenantInput, Prisma.CompanyAnnouncementUncheckedCreateWithoutTenantInput> | Prisma.CompanyAnnouncementCreateWithoutTenantInput[] | Prisma.CompanyAnnouncementUncheckedCreateWithoutTenantInput[]
   connectOrCreate?: Prisma.CompanyAnnouncementCreateOrConnectWithoutTenantInput | Prisma.CompanyAnnouncementCreateOrConnectWithoutTenantInput[]
@@ -507,6 +519,20 @@ export type CompanyAnnouncementUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.CompanyAnnouncementScalarWhereInput | Prisma.CompanyAnnouncementScalarWhereInput[]
 }
 
+export type CompanyAnnouncementCreateNestedOneWithoutReadReceiptsInput = {
+  create?: Prisma.XOR<Prisma.CompanyAnnouncementCreateWithoutReadReceiptsInput, Prisma.CompanyAnnouncementUncheckedCreateWithoutReadReceiptsInput>
+  connectOrCreate?: Prisma.CompanyAnnouncementCreateOrConnectWithoutReadReceiptsInput
+  connect?: Prisma.CompanyAnnouncementWhereUniqueInput
+}
+
+export type CompanyAnnouncementUpdateOneRequiredWithoutReadReceiptsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyAnnouncementCreateWithoutReadReceiptsInput, Prisma.CompanyAnnouncementUncheckedCreateWithoutReadReceiptsInput>
+  connectOrCreate?: Prisma.CompanyAnnouncementCreateOrConnectWithoutReadReceiptsInput
+  upsert?: Prisma.CompanyAnnouncementUpsertWithoutReadReceiptsInput
+  connect?: Prisma.CompanyAnnouncementWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyAnnouncementUpdateToOneWithWhereWithoutReadReceiptsInput, Prisma.CompanyAnnouncementUpdateWithoutReadReceiptsInput>, Prisma.CompanyAnnouncementUncheckedUpdateWithoutReadReceiptsInput>
+}
+
 export type CompanyAnnouncementCreateWithoutTenantInput = {
   id?: string
   title: string
@@ -519,6 +545,7 @@ export type CompanyAnnouncementCreateWithoutTenantInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  readReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutAnnouncementInput
 }
 
 export type CompanyAnnouncementUncheckedCreateWithoutTenantInput = {
@@ -533,6 +560,7 @@ export type CompanyAnnouncementUncheckedCreateWithoutTenantInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  readReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutAnnouncementInput
 }
 
 export type CompanyAnnouncementCreateOrConnectWithoutTenantInput = {
@@ -579,6 +607,82 @@ export type CompanyAnnouncementScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"CompanyAnnouncement"> | Date | string
 }
 
+export type CompanyAnnouncementCreateWithoutReadReceiptsInput = {
+  id?: string
+  title: string
+  content: string
+  priority?: string
+  publishedAt?: Date | string | null
+  expiresAt?: Date | string | null
+  authorEmployeeId?: string | null
+  targetDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutCompanyAnnouncementsInput
+}
+
+export type CompanyAnnouncementUncheckedCreateWithoutReadReceiptsInput = {
+  id?: string
+  tenantId: string
+  title: string
+  content: string
+  priority?: string
+  publishedAt?: Date | string | null
+  expiresAt?: Date | string | null
+  authorEmployeeId?: string | null
+  targetDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type CompanyAnnouncementCreateOrConnectWithoutReadReceiptsInput = {
+  where: Prisma.CompanyAnnouncementWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyAnnouncementCreateWithoutReadReceiptsInput, Prisma.CompanyAnnouncementUncheckedCreateWithoutReadReceiptsInput>
+}
+
+export type CompanyAnnouncementUpsertWithoutReadReceiptsInput = {
+  update: Prisma.XOR<Prisma.CompanyAnnouncementUpdateWithoutReadReceiptsInput, Prisma.CompanyAnnouncementUncheckedUpdateWithoutReadReceiptsInput>
+  create: Prisma.XOR<Prisma.CompanyAnnouncementCreateWithoutReadReceiptsInput, Prisma.CompanyAnnouncementUncheckedCreateWithoutReadReceiptsInput>
+  where?: Prisma.CompanyAnnouncementWhereInput
+}
+
+export type CompanyAnnouncementUpdateToOneWithWhereWithoutReadReceiptsInput = {
+  where?: Prisma.CompanyAnnouncementWhereInput
+  data: Prisma.XOR<Prisma.CompanyAnnouncementUpdateWithoutReadReceiptsInput, Prisma.CompanyAnnouncementUncheckedUpdateWithoutReadReceiptsInput>
+}
+
+export type CompanyAnnouncementUpdateWithoutReadReceiptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  priority?: Prisma.StringFieldUpdateOperationsInput | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  authorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutCompanyAnnouncementsNestedInput
+}
+
+export type CompanyAnnouncementUncheckedUpdateWithoutReadReceiptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  priority?: Prisma.StringFieldUpdateOperationsInput | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  authorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type CompanyAnnouncementCreateManyTenantInput = {
   id?: string
   title: string
@@ -605,6 +709,7 @@ export type CompanyAnnouncementUpdateWithoutTenantInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutAnnouncementNestedInput
 }
 
 export type CompanyAnnouncementUncheckedUpdateWithoutTenantInput = {
@@ -619,6 +724,7 @@ export type CompanyAnnouncementUncheckedUpdateWithoutTenantInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutAnnouncementNestedInput
 }
 
 export type CompanyAnnouncementUncheckedUpdateManyWithoutTenantInput = {
@@ -636,6 +742,35 @@ export type CompanyAnnouncementUncheckedUpdateManyWithoutTenantInput = {
 }
 
 
+/**
+ * Count Type CompanyAnnouncementCountOutputType
+ */
+
+export type CompanyAnnouncementCountOutputType = {
+  readReceipts: number
+}
+
+export type CompanyAnnouncementCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  readReceipts?: boolean | CompanyAnnouncementCountOutputTypeCountReadReceiptsArgs
+}
+
+/**
+ * CompanyAnnouncementCountOutputType without action
+ */
+export type CompanyAnnouncementCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CompanyAnnouncementCountOutputType
+   */
+  select?: Prisma.CompanyAnnouncementCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * CompanyAnnouncementCountOutputType without action
+ */
+export type CompanyAnnouncementCountOutputTypeCountReadReceiptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AnnouncementReadReceiptWhereInput
+}
+
 
 export type CompanyAnnouncementSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -651,6 +786,8 @@ export type CompanyAnnouncementSelect<ExtArgs extends runtime.Types.Extensions.I
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  readReceipts?: boolean | Prisma.CompanyAnnouncement$readReceiptsArgs<ExtArgs>
+  _count?: boolean | Prisma.CompanyAnnouncementCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["companyAnnouncement"]>
 
 export type CompanyAnnouncementSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -703,6 +840,8 @@ export type CompanyAnnouncementSelectScalar = {
 export type CompanyAnnouncementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "title" | "content" | "priority" | "publishedAt" | "expiresAt" | "authorEmployeeId" | "targetDepartmentIds" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["companyAnnouncement"]>
 export type CompanyAnnouncementInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  readReceipts?: boolean | Prisma.CompanyAnnouncement$readReceiptsArgs<ExtArgs>
+  _count?: boolean | Prisma.CompanyAnnouncementCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CompanyAnnouncementIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -715,6 +854,7 @@ export type $CompanyAnnouncementPayload<ExtArgs extends runtime.Types.Extensions
   name: "CompanyAnnouncement"
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
+    readReceipts: Prisma.$AnnouncementReadReceiptPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1124,6 +1264,7 @@ readonly fields: CompanyAnnouncementFieldRefs;
 export interface Prisma__CompanyAnnouncementClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  readReceipts<T extends Prisma.CompanyAnnouncement$readReceiptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyAnnouncement$readReceiptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnnouncementReadReceiptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1563,6 +1704,30 @@ export type CompanyAnnouncementDeleteManyArgs<ExtArgs extends runtime.Types.Exte
    * Limit how many CompanyAnnouncements to delete.
    */
   limit?: number
+}
+
+/**
+ * CompanyAnnouncement.readReceipts
+ */
+export type CompanyAnnouncement$readReceiptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AnnouncementReadReceipt
+   */
+  select?: Prisma.AnnouncementReadReceiptSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AnnouncementReadReceipt
+   */
+  omit?: Prisma.AnnouncementReadReceiptOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AnnouncementReadReceiptInclude<ExtArgs> | null
+  where?: Prisma.AnnouncementReadReceiptWhereInput
+  orderBy?: Prisma.AnnouncementReadReceiptOrderByWithRelationInput | Prisma.AnnouncementReadReceiptOrderByWithRelationInput[]
+  cursor?: Prisma.AnnouncementReadReceiptWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AnnouncementReadReceiptScalarFieldEnum | Prisma.AnnouncementReadReceiptScalarFieldEnum[]
 }
 
 /**

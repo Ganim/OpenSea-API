@@ -32,6 +32,9 @@ export type EmployeeKudosMinAggregateOutputType = {
   message: string | null
   category: string | null
   isPublic: boolean | null
+  isPinned: boolean | null
+  pinnedAt: Date | null
+  pinnedBy: string | null
   createdAt: Date | null
 }
 
@@ -43,6 +46,9 @@ export type EmployeeKudosMaxAggregateOutputType = {
   message: string | null
   category: string | null
   isPublic: boolean | null
+  isPinned: boolean | null
+  pinnedAt: Date | null
+  pinnedBy: string | null
   createdAt: Date | null
 }
 
@@ -54,6 +60,9 @@ export type EmployeeKudosCountAggregateOutputType = {
   message: number
   category: number
   isPublic: number
+  isPinned: number
+  pinnedAt: number
+  pinnedBy: number
   createdAt: number
   _all: number
 }
@@ -67,6 +76,9 @@ export type EmployeeKudosMinAggregateInputType = {
   message?: true
   category?: true
   isPublic?: true
+  isPinned?: true
+  pinnedAt?: true
+  pinnedBy?: true
   createdAt?: true
 }
 
@@ -78,6 +90,9 @@ export type EmployeeKudosMaxAggregateInputType = {
   message?: true
   category?: true
   isPublic?: true
+  isPinned?: true
+  pinnedAt?: true
+  pinnedBy?: true
   createdAt?: true
 }
 
@@ -89,6 +104,9 @@ export type EmployeeKudosCountAggregateInputType = {
   message?: true
   category?: true
   isPublic?: true
+  isPinned?: true
+  pinnedAt?: true
+  pinnedBy?: true
   createdAt?: true
   _all?: true
 }
@@ -173,6 +191,9 @@ export type EmployeeKudosGroupByOutputType = {
   message: string
   category: string
   isPublic: boolean
+  isPinned: boolean
+  pinnedAt: Date | null
+  pinnedBy: string | null
   createdAt: Date
   _count: EmployeeKudosCountAggregateOutputType | null
   _min: EmployeeKudosMinAggregateOutputType | null
@@ -205,8 +226,13 @@ export type EmployeeKudosWhereInput = {
   message?: Prisma.StringFilter<"EmployeeKudos"> | string
   category?: Prisma.StringFilter<"EmployeeKudos"> | string
   isPublic?: Prisma.BoolFilter<"EmployeeKudos"> | boolean
+  isPinned?: Prisma.BoolFilter<"EmployeeKudos"> | boolean
+  pinnedAt?: Prisma.DateTimeNullableFilter<"EmployeeKudos"> | Date | string | null
+  pinnedBy?: Prisma.StringNullableFilter<"EmployeeKudos"> | string | null
   createdAt?: Prisma.DateTimeFilter<"EmployeeKudos"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  reactions?: Prisma.KudosReactionListRelationFilter
+  replies?: Prisma.KudosReplyListRelationFilter
 }
 
 export type EmployeeKudosOrderByWithRelationInput = {
@@ -217,8 +243,13 @@ export type EmployeeKudosOrderByWithRelationInput = {
   message?: Prisma.SortOrder
   category?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
+  isPinned?: Prisma.SortOrder
+  pinnedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  pinnedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
+  reactions?: Prisma.KudosReactionOrderByRelationAggregateInput
+  replies?: Prisma.KudosReplyOrderByRelationAggregateInput
 }
 
 export type EmployeeKudosWhereUniqueInput = Prisma.AtLeast<{
@@ -232,8 +263,13 @@ export type EmployeeKudosWhereUniqueInput = Prisma.AtLeast<{
   message?: Prisma.StringFilter<"EmployeeKudos"> | string
   category?: Prisma.StringFilter<"EmployeeKudos"> | string
   isPublic?: Prisma.BoolFilter<"EmployeeKudos"> | boolean
+  isPinned?: Prisma.BoolFilter<"EmployeeKudos"> | boolean
+  pinnedAt?: Prisma.DateTimeNullableFilter<"EmployeeKudos"> | Date | string | null
+  pinnedBy?: Prisma.StringNullableFilter<"EmployeeKudos"> | string | null
   createdAt?: Prisma.DateTimeFilter<"EmployeeKudos"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  reactions?: Prisma.KudosReactionListRelationFilter
+  replies?: Prisma.KudosReplyListRelationFilter
 }, "id">
 
 export type EmployeeKudosOrderByWithAggregationInput = {
@@ -244,6 +280,9 @@ export type EmployeeKudosOrderByWithAggregationInput = {
   message?: Prisma.SortOrder
   category?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
+  isPinned?: Prisma.SortOrder
+  pinnedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  pinnedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.EmployeeKudosCountOrderByAggregateInput
   _max?: Prisma.EmployeeKudosMaxOrderByAggregateInput
@@ -261,6 +300,9 @@ export type EmployeeKudosScalarWhereWithAggregatesInput = {
   message?: Prisma.StringWithAggregatesFilter<"EmployeeKudos"> | string
   category?: Prisma.StringWithAggregatesFilter<"EmployeeKudos"> | string
   isPublic?: Prisma.BoolWithAggregatesFilter<"EmployeeKudos"> | boolean
+  isPinned?: Prisma.BoolWithAggregatesFilter<"EmployeeKudos"> | boolean
+  pinnedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EmployeeKudos"> | Date | string | null
+  pinnedBy?: Prisma.StringNullableWithAggregatesFilter<"EmployeeKudos"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"EmployeeKudos"> | Date | string
 }
 
@@ -271,8 +313,13 @@ export type EmployeeKudosCreateInput = {
   message: string
   category: string
   isPublic?: boolean
+  isPinned?: boolean
+  pinnedAt?: Date | string | null
+  pinnedBy?: string | null
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeeKudosInput
+  reactions?: Prisma.KudosReactionCreateNestedManyWithoutKudosInput
+  replies?: Prisma.KudosReplyCreateNestedManyWithoutKudosInput
 }
 
 export type EmployeeKudosUncheckedCreateInput = {
@@ -283,7 +330,12 @@ export type EmployeeKudosUncheckedCreateInput = {
   message: string
   category: string
   isPublic?: boolean
+  isPinned?: boolean
+  pinnedAt?: Date | string | null
+  pinnedBy?: string | null
   createdAt?: Date | string
+  reactions?: Prisma.KudosReactionUncheckedCreateNestedManyWithoutKudosInput
+  replies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutKudosInput
 }
 
 export type EmployeeKudosUpdateInput = {
@@ -293,8 +345,13 @@ export type EmployeeKudosUpdateInput = {
   message?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pinnedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeeKudosNestedInput
+  reactions?: Prisma.KudosReactionUpdateManyWithoutKudosNestedInput
+  replies?: Prisma.KudosReplyUpdateManyWithoutKudosNestedInput
 }
 
 export type EmployeeKudosUncheckedUpdateInput = {
@@ -305,7 +362,12 @@ export type EmployeeKudosUncheckedUpdateInput = {
   message?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pinnedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reactions?: Prisma.KudosReactionUncheckedUpdateManyWithoutKudosNestedInput
+  replies?: Prisma.KudosReplyUncheckedUpdateManyWithoutKudosNestedInput
 }
 
 export type EmployeeKudosCreateManyInput = {
@@ -316,6 +378,9 @@ export type EmployeeKudosCreateManyInput = {
   message: string
   category: string
   isPublic?: boolean
+  isPinned?: boolean
+  pinnedAt?: Date | string | null
+  pinnedBy?: string | null
   createdAt?: Date | string
 }
 
@@ -326,6 +391,9 @@ export type EmployeeKudosUpdateManyMutationInput = {
   message?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pinnedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -337,6 +405,9 @@ export type EmployeeKudosUncheckedUpdateManyInput = {
   message?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pinnedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -358,6 +429,9 @@ export type EmployeeKudosCountOrderByAggregateInput = {
   message?: Prisma.SortOrder
   category?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
+  isPinned?: Prisma.SortOrder
+  pinnedAt?: Prisma.SortOrder
+  pinnedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -369,6 +443,9 @@ export type EmployeeKudosMaxOrderByAggregateInput = {
   message?: Prisma.SortOrder
   category?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
+  isPinned?: Prisma.SortOrder
+  pinnedAt?: Prisma.SortOrder
+  pinnedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -380,7 +457,15 @@ export type EmployeeKudosMinOrderByAggregateInput = {
   message?: Prisma.SortOrder
   category?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
+  isPinned?: Prisma.SortOrder
+  pinnedAt?: Prisma.SortOrder
+  pinnedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type EmployeeKudosScalarRelationFilter = {
+  is?: Prisma.EmployeeKudosWhereInput
+  isNot?: Prisma.EmployeeKudosWhereInput
 }
 
 export type EmployeeKudosCreateNestedManyWithoutTenantInput = {
@@ -425,6 +510,34 @@ export type EmployeeKudosUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.EmployeeKudosScalarWhereInput | Prisma.EmployeeKudosScalarWhereInput[]
 }
 
+export type EmployeeKudosCreateNestedOneWithoutReactionsInput = {
+  create?: Prisma.XOR<Prisma.EmployeeKudosCreateWithoutReactionsInput, Prisma.EmployeeKudosUncheckedCreateWithoutReactionsInput>
+  connectOrCreate?: Prisma.EmployeeKudosCreateOrConnectWithoutReactionsInput
+  connect?: Prisma.EmployeeKudosWhereUniqueInput
+}
+
+export type EmployeeKudosUpdateOneRequiredWithoutReactionsNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeKudosCreateWithoutReactionsInput, Prisma.EmployeeKudosUncheckedCreateWithoutReactionsInput>
+  connectOrCreate?: Prisma.EmployeeKudosCreateOrConnectWithoutReactionsInput
+  upsert?: Prisma.EmployeeKudosUpsertWithoutReactionsInput
+  connect?: Prisma.EmployeeKudosWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeKudosUpdateToOneWithWhereWithoutReactionsInput, Prisma.EmployeeKudosUpdateWithoutReactionsInput>, Prisma.EmployeeKudosUncheckedUpdateWithoutReactionsInput>
+}
+
+export type EmployeeKudosCreateNestedOneWithoutRepliesInput = {
+  create?: Prisma.XOR<Prisma.EmployeeKudosCreateWithoutRepliesInput, Prisma.EmployeeKudosUncheckedCreateWithoutRepliesInput>
+  connectOrCreate?: Prisma.EmployeeKudosCreateOrConnectWithoutRepliesInput
+  connect?: Prisma.EmployeeKudosWhereUniqueInput
+}
+
+export type EmployeeKudosUpdateOneRequiredWithoutRepliesNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeKudosCreateWithoutRepliesInput, Prisma.EmployeeKudosUncheckedCreateWithoutRepliesInput>
+  connectOrCreate?: Prisma.EmployeeKudosCreateOrConnectWithoutRepliesInput
+  upsert?: Prisma.EmployeeKudosUpsertWithoutRepliesInput
+  connect?: Prisma.EmployeeKudosWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeKudosUpdateToOneWithWhereWithoutRepliesInput, Prisma.EmployeeKudosUpdateWithoutRepliesInput>, Prisma.EmployeeKudosUncheckedUpdateWithoutRepliesInput>
+}
+
 export type EmployeeKudosCreateWithoutTenantInput = {
   id?: string
   fromEmployeeId: string
@@ -432,7 +545,12 @@ export type EmployeeKudosCreateWithoutTenantInput = {
   message: string
   category: string
   isPublic?: boolean
+  isPinned?: boolean
+  pinnedAt?: Date | string | null
+  pinnedBy?: string | null
   createdAt?: Date | string
+  reactions?: Prisma.KudosReactionCreateNestedManyWithoutKudosInput
+  replies?: Prisma.KudosReplyCreateNestedManyWithoutKudosInput
 }
 
 export type EmployeeKudosUncheckedCreateWithoutTenantInput = {
@@ -442,7 +560,12 @@ export type EmployeeKudosUncheckedCreateWithoutTenantInput = {
   message: string
   category: string
   isPublic?: boolean
+  isPinned?: boolean
+  pinnedAt?: Date | string | null
+  pinnedBy?: string | null
   createdAt?: Date | string
+  reactions?: Prisma.KudosReactionUncheckedCreateNestedManyWithoutKudosInput
+  replies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutKudosInput
 }
 
 export type EmployeeKudosCreateOrConnectWithoutTenantInput = {
@@ -482,7 +605,162 @@ export type EmployeeKudosScalarWhereInput = {
   message?: Prisma.StringFilter<"EmployeeKudos"> | string
   category?: Prisma.StringFilter<"EmployeeKudos"> | string
   isPublic?: Prisma.BoolFilter<"EmployeeKudos"> | boolean
+  isPinned?: Prisma.BoolFilter<"EmployeeKudos"> | boolean
+  pinnedAt?: Prisma.DateTimeNullableFilter<"EmployeeKudos"> | Date | string | null
+  pinnedBy?: Prisma.StringNullableFilter<"EmployeeKudos"> | string | null
   createdAt?: Prisma.DateTimeFilter<"EmployeeKudos"> | Date | string
+}
+
+export type EmployeeKudosCreateWithoutReactionsInput = {
+  id?: string
+  fromEmployeeId: string
+  toEmployeeId: string
+  message: string
+  category: string
+  isPublic?: boolean
+  isPinned?: boolean
+  pinnedAt?: Date | string | null
+  pinnedBy?: string | null
+  createdAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeeKudosInput
+  replies?: Prisma.KudosReplyCreateNestedManyWithoutKudosInput
+}
+
+export type EmployeeKudosUncheckedCreateWithoutReactionsInput = {
+  id?: string
+  tenantId: string
+  fromEmployeeId: string
+  toEmployeeId: string
+  message: string
+  category: string
+  isPublic?: boolean
+  isPinned?: boolean
+  pinnedAt?: Date | string | null
+  pinnedBy?: string | null
+  createdAt?: Date | string
+  replies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutKudosInput
+}
+
+export type EmployeeKudosCreateOrConnectWithoutReactionsInput = {
+  where: Prisma.EmployeeKudosWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeKudosCreateWithoutReactionsInput, Prisma.EmployeeKudosUncheckedCreateWithoutReactionsInput>
+}
+
+export type EmployeeKudosUpsertWithoutReactionsInput = {
+  update: Prisma.XOR<Prisma.EmployeeKudosUpdateWithoutReactionsInput, Prisma.EmployeeKudosUncheckedUpdateWithoutReactionsInput>
+  create: Prisma.XOR<Prisma.EmployeeKudosCreateWithoutReactionsInput, Prisma.EmployeeKudosUncheckedCreateWithoutReactionsInput>
+  where?: Prisma.EmployeeKudosWhereInput
+}
+
+export type EmployeeKudosUpdateToOneWithWhereWithoutReactionsInput = {
+  where?: Prisma.EmployeeKudosWhereInput
+  data: Prisma.XOR<Prisma.EmployeeKudosUpdateWithoutReactionsInput, Prisma.EmployeeKudosUncheckedUpdateWithoutReactionsInput>
+}
+
+export type EmployeeKudosUpdateWithoutReactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fromEmployeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  toEmployeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pinnedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeeKudosNestedInput
+  replies?: Prisma.KudosReplyUpdateManyWithoutKudosNestedInput
+}
+
+export type EmployeeKudosUncheckedUpdateWithoutReactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  fromEmployeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  toEmployeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pinnedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  replies?: Prisma.KudosReplyUncheckedUpdateManyWithoutKudosNestedInput
+}
+
+export type EmployeeKudosCreateWithoutRepliesInput = {
+  id?: string
+  fromEmployeeId: string
+  toEmployeeId: string
+  message: string
+  category: string
+  isPublic?: boolean
+  isPinned?: boolean
+  pinnedAt?: Date | string | null
+  pinnedBy?: string | null
+  createdAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeeKudosInput
+  reactions?: Prisma.KudosReactionCreateNestedManyWithoutKudosInput
+}
+
+export type EmployeeKudosUncheckedCreateWithoutRepliesInput = {
+  id?: string
+  tenantId: string
+  fromEmployeeId: string
+  toEmployeeId: string
+  message: string
+  category: string
+  isPublic?: boolean
+  isPinned?: boolean
+  pinnedAt?: Date | string | null
+  pinnedBy?: string | null
+  createdAt?: Date | string
+  reactions?: Prisma.KudosReactionUncheckedCreateNestedManyWithoutKudosInput
+}
+
+export type EmployeeKudosCreateOrConnectWithoutRepliesInput = {
+  where: Prisma.EmployeeKudosWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeKudosCreateWithoutRepliesInput, Prisma.EmployeeKudosUncheckedCreateWithoutRepliesInput>
+}
+
+export type EmployeeKudosUpsertWithoutRepliesInput = {
+  update: Prisma.XOR<Prisma.EmployeeKudosUpdateWithoutRepliesInput, Prisma.EmployeeKudosUncheckedUpdateWithoutRepliesInput>
+  create: Prisma.XOR<Prisma.EmployeeKudosCreateWithoutRepliesInput, Prisma.EmployeeKudosUncheckedCreateWithoutRepliesInput>
+  where?: Prisma.EmployeeKudosWhereInput
+}
+
+export type EmployeeKudosUpdateToOneWithWhereWithoutRepliesInput = {
+  where?: Prisma.EmployeeKudosWhereInput
+  data: Prisma.XOR<Prisma.EmployeeKudosUpdateWithoutRepliesInput, Prisma.EmployeeKudosUncheckedUpdateWithoutRepliesInput>
+}
+
+export type EmployeeKudosUpdateWithoutRepliesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fromEmployeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  toEmployeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pinnedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeeKudosNestedInput
+  reactions?: Prisma.KudosReactionUpdateManyWithoutKudosNestedInput
+}
+
+export type EmployeeKudosUncheckedUpdateWithoutRepliesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  fromEmployeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  toEmployeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pinnedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reactions?: Prisma.KudosReactionUncheckedUpdateManyWithoutKudosNestedInput
 }
 
 export type EmployeeKudosCreateManyTenantInput = {
@@ -492,6 +770,9 @@ export type EmployeeKudosCreateManyTenantInput = {
   message: string
   category: string
   isPublic?: boolean
+  isPinned?: boolean
+  pinnedAt?: Date | string | null
+  pinnedBy?: string | null
   createdAt?: Date | string
 }
 
@@ -502,7 +783,12 @@ export type EmployeeKudosUpdateWithoutTenantInput = {
   message?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pinnedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reactions?: Prisma.KudosReactionUpdateManyWithoutKudosNestedInput
+  replies?: Prisma.KudosReplyUpdateManyWithoutKudosNestedInput
 }
 
 export type EmployeeKudosUncheckedUpdateWithoutTenantInput = {
@@ -512,7 +798,12 @@ export type EmployeeKudosUncheckedUpdateWithoutTenantInput = {
   message?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pinnedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reactions?: Prisma.KudosReactionUncheckedUpdateManyWithoutKudosNestedInput
+  replies?: Prisma.KudosReplyUncheckedUpdateManyWithoutKudosNestedInput
 }
 
 export type EmployeeKudosUncheckedUpdateManyWithoutTenantInput = {
@@ -522,9 +813,50 @@ export type EmployeeKudosUncheckedUpdateManyWithoutTenantInput = {
   message?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pinnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pinnedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type EmployeeKudosCountOutputType
+ */
+
+export type EmployeeKudosCountOutputType = {
+  reactions: number
+  replies: number
+}
+
+export type EmployeeKudosCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  reactions?: boolean | EmployeeKudosCountOutputTypeCountReactionsArgs
+  replies?: boolean | EmployeeKudosCountOutputTypeCountRepliesArgs
+}
+
+/**
+ * EmployeeKudosCountOutputType without action
+ */
+export type EmployeeKudosCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EmployeeKudosCountOutputType
+   */
+  select?: Prisma.EmployeeKudosCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * EmployeeKudosCountOutputType without action
+ */
+export type EmployeeKudosCountOutputTypeCountReactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.KudosReactionWhereInput
+}
+
+/**
+ * EmployeeKudosCountOutputType without action
+ */
+export type EmployeeKudosCountOutputTypeCountRepliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.KudosReplyWhereInput
+}
 
 
 export type EmployeeKudosSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -535,8 +867,14 @@ export type EmployeeKudosSelect<ExtArgs extends runtime.Types.Extensions.Interna
   message?: boolean
   category?: boolean
   isPublic?: boolean
+  isPinned?: boolean
+  pinnedAt?: boolean
+  pinnedBy?: boolean
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  reactions?: boolean | Prisma.EmployeeKudos$reactionsArgs<ExtArgs>
+  replies?: boolean | Prisma.EmployeeKudos$repliesArgs<ExtArgs>
+  _count?: boolean | Prisma.EmployeeKudosCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["employeeKudos"]>
 
 export type EmployeeKudosSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -547,6 +885,9 @@ export type EmployeeKudosSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   message?: boolean
   category?: boolean
   isPublic?: boolean
+  isPinned?: boolean
+  pinnedAt?: boolean
+  pinnedBy?: boolean
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["employeeKudos"]>
@@ -559,6 +900,9 @@ export type EmployeeKudosSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   message?: boolean
   category?: boolean
   isPublic?: boolean
+  isPinned?: boolean
+  pinnedAt?: boolean
+  pinnedBy?: boolean
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["employeeKudos"]>
@@ -571,12 +915,18 @@ export type EmployeeKudosSelectScalar = {
   message?: boolean
   category?: boolean
   isPublic?: boolean
+  isPinned?: boolean
+  pinnedAt?: boolean
+  pinnedBy?: boolean
   createdAt?: boolean
 }
 
-export type EmployeeKudosOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "fromEmployeeId" | "toEmployeeId" | "message" | "category" | "isPublic" | "createdAt", ExtArgs["result"]["employeeKudos"]>
+export type EmployeeKudosOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "fromEmployeeId" | "toEmployeeId" | "message" | "category" | "isPublic" | "isPinned" | "pinnedAt" | "pinnedBy" | "createdAt", ExtArgs["result"]["employeeKudos"]>
 export type EmployeeKudosInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  reactions?: boolean | Prisma.EmployeeKudos$reactionsArgs<ExtArgs>
+  replies?: boolean | Prisma.EmployeeKudos$repliesArgs<ExtArgs>
+  _count?: boolean | Prisma.EmployeeKudosCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EmployeeKudosIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -589,6 +939,8 @@ export type $EmployeeKudosPayload<ExtArgs extends runtime.Types.Extensions.Inter
   name: "EmployeeKudos"
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
+    reactions: Prisma.$KudosReactionPayload<ExtArgs>[]
+    replies: Prisma.$KudosReplyPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -598,6 +950,9 @@ export type $EmployeeKudosPayload<ExtArgs extends runtime.Types.Extensions.Inter
     message: string
     category: string
     isPublic: boolean
+    isPinned: boolean
+    pinnedAt: Date | null
+    pinnedBy: string | null
     createdAt: Date
   }, ExtArgs["result"]["employeeKudos"]>
   composites: {}
@@ -994,6 +1349,8 @@ readonly fields: EmployeeKudosFieldRefs;
 export interface Prisma__EmployeeKudosClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  reactions<T extends Prisma.EmployeeKudos$reactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeKudos$reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KudosReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  replies<T extends Prisma.EmployeeKudos$repliesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeKudos$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KudosReplyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1030,6 +1387,9 @@ export interface EmployeeKudosFieldRefs {
   readonly message: Prisma.FieldRef<"EmployeeKudos", 'String'>
   readonly category: Prisma.FieldRef<"EmployeeKudos", 'String'>
   readonly isPublic: Prisma.FieldRef<"EmployeeKudos", 'Boolean'>
+  readonly isPinned: Prisma.FieldRef<"EmployeeKudos", 'Boolean'>
+  readonly pinnedAt: Prisma.FieldRef<"EmployeeKudos", 'DateTime'>
+  readonly pinnedBy: Prisma.FieldRef<"EmployeeKudos", 'String'>
   readonly createdAt: Prisma.FieldRef<"EmployeeKudos", 'DateTime'>
 }
     
@@ -1429,6 +1789,54 @@ export type EmployeeKudosDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many EmployeeKudos to delete.
    */
   limit?: number
+}
+
+/**
+ * EmployeeKudos.reactions
+ */
+export type EmployeeKudos$reactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the KudosReaction
+   */
+  select?: Prisma.KudosReactionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the KudosReaction
+   */
+  omit?: Prisma.KudosReactionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.KudosReactionInclude<ExtArgs> | null
+  where?: Prisma.KudosReactionWhereInput
+  orderBy?: Prisma.KudosReactionOrderByWithRelationInput | Prisma.KudosReactionOrderByWithRelationInput[]
+  cursor?: Prisma.KudosReactionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.KudosReactionScalarFieldEnum | Prisma.KudosReactionScalarFieldEnum[]
+}
+
+/**
+ * EmployeeKudos.replies
+ */
+export type EmployeeKudos$repliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the KudosReply
+   */
+  select?: Prisma.KudosReplySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the KudosReply
+   */
+  omit?: Prisma.KudosReplyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.KudosReplyInclude<ExtArgs> | null
+  where?: Prisma.KudosReplyWhereInput
+  orderBy?: Prisma.KudosReplyOrderByWithRelationInput | Prisma.KudosReplyOrderByWithRelationInput[]
+  cursor?: Prisma.KudosReplyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.KudosReplyScalarFieldEnum | Prisma.KudosReplyScalarFieldEnum[]
 }
 
 /**

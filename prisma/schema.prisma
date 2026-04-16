@@ -4151,6 +4151,25 @@ model Employee {
   // Recruitment
   conductedInterviews Interview[] @relation("InterviewerInterviews")
 
+  // Salary History
+  salaryHistory SalaryHistory[]
+
+  // 1:1 Meetings
+  managerOneOnOnes   OneOnOneMeeting[]    @relation("ManagerOneOnOnes")
+  reportOneOnOnes    OneOnOneMeeting[]    @relation("ReportOneOnOnes")
+  addedTalkingPoints TalkingPoint[]
+  ownedActionItems   OneOnOneActionItem[]
+
+  // Kudos Social
+  kudosReactions KudosReaction[]
+  kudosReplies   KudosReply[]
+
+  // Announcement Read Receipts
+  announcementReadReceipts AnnouncementReadReceipt[]
+
+  // HR Contracts (generated employment contracts)
+  generatedContracts GeneratedEmploymentContract[]
+
   @@unique([registrationNumber, tenantId, deletedAt], name: "employees_registration_tenant_unique_active")
   @@unique([cpfHash, tenantId, deletedAt], name: "employees_cpf_tenant_unique_active")
   @@unique([pisHash, tenantId, deletedAt], name: "employees_pis_tenant_unique_active")
@@ -5247,10 +5266,11 @@ model PerformanceReview {
   createdAt            DateTime  @default(now()) @map("created_at")
   updatedAt            DateTime  @updatedAt @map("updated_at")
 
-  tenant      Tenant      @relation(fields: [tenantId], references: [id])
-  reviewCycle ReviewCycle @relation(fields: [reviewCycleId], references: [id])
-  employee    Employee    @relation("ReviewEmployee", fields: [employeeId], references: [id])
-  reviewer    Employee    @relation("ReviewReviewer", fields: [reviewerId], references: [id])
+  tenant       Tenant             @relation(fields: [tenantId], references: [id])
+  reviewCycle  ReviewCycle        @relation(fields: [reviewCycleId], references: [id])
+  employee     Employee           @relation("ReviewEmployee", fields: [employeeId], references: [id])
+  reviewer     Employee           @relation("ReviewReviewer", fields: [reviewerId], references: [id])
+  competencies ReviewCompetency[]
 
   @@unique([reviewCycleId, employeeId])
   @@index([tenantId])
@@ -6308,6 +6328,18 @@ model Tenant {
   onboardingChecklists  OnboardingChecklist[]
   offboardingChecklists OffboardingChecklist[]
 
+  // HR Phase 5-6 expansion
+  reviewCompetencies       ReviewCompetency[]
+  kudosReactions           KudosReaction[]
+  kudosReplies             KudosReply[]
+  announcementReadReceipts AnnouncementReadReceipt[]
+  salaryHistory            SalaryHistory[]
+  oneOnOneMeetings         OneOnOneMeeting[]
+
+  // HR Contracts (templates + generated contracts)
+  contractTemplates           ContractTemplate[]
+  generatedEmploymentContracts GeneratedEmploymentContract[]
+
   // PPE / EPI domain
   ppeItems       PPEItem[]
   ppeAssignments PPEAssignment[]
@@ -6334,15 +6366,15 @@ model Tenant {
   focusNfeConfig FocusNfeConfig?
 
   // Production domain
-  workstationTypes       ProductionWorkstationType[]
-  workstations           ProductionWorkstation[]
-  workCenters            ProductionWorkCenter[]
-  billsOfMaterials       ProductionBom[]
-  operationRoutings      ProductionOperationRouting[]
-  downtimeReasons        ProductionDowntimeReason[]
-  productionOrders       ProductionOrder[]
-  productionSchedules    ProductionSchedule[]
-  defectTypes            ProductionDefectType[]
+  workstationTypes    ProductionWorkstationType[]
+  workstations        ProductionWorkstation[]
+  workCenters         ProductionWorkCenter[]
+  billsOfMaterials    ProductionBom[]
+  operationRoutings   ProductionOperationRouting[]
+  downtimeReasons     ProductionDowntimeReason[]
+  productionOrders    ProductionOrder[]
+  productionSchedules ProductionSchedule[]
+  defectTypes         ProductionDefectType[]
 
   @@index([status])
   @@index([deletedAt])
@@ -6783,8 +6815,8 @@ model FinanceEntry {
 
   // Three-way matching (PO / Receipt / Invoice). Nullable = not yet computed.
   // Values: FULL_MATCH | PARTIAL_MATCH | NO_MATCH
-  threeWayMatchStatus   String?   @map("three_way_match_status") @db.VarChar(20)
-  threeWayMatchedAt     DateTime? @map("three_way_matched_at")
+  threeWayMatchStatus String?   @map("three_way_match_status") @db.VarChar(20)
+  threeWayMatchedAt   DateTime? @map("three_way_matched_at")
 
   metadata Json     @default("{}")
   tags     String[] @default([])
@@ -14677,23 +14709,29 @@ model CompanyAnnouncement {
   createdAt           DateTime  @default(now()) @map("created_at")
   updatedAt           DateTime  @updatedAt @map("updated_at")
 
-  tenant Tenant @relation(fields: [tenantId], references: [id])
+  tenant       Tenant                    @relation(fields: [tenantId], references: [id])
+  readReceipts AnnouncementReadReceipt[]
 
   @@index([tenantId, isActive])
   @@map("company_announcements")
 }
 
 model EmployeeKudos {
-  id             String   @id @default(cuid())
-  tenantId       String   @map("tenant_id")
-  fromEmployeeId String   @map("from_employee_id")
-  toEmployeeId   String   @map("to_employee_id")
-  message        String   @db.Text
-  category       String   @db.VarChar(30) // TEAMWORK, INNOVATION, LEADERSHIP, EXCELLENCE, HELPFULNESS
-  isPublic       Boolean  @default(true) @map("is_public")
-  createdAt      DateTime @default(now()) @map("created_at")
+  id             String    @id @default(cuid())
+  tenantId       String    @map("tenant_id")
+  fromEmployeeId String    @map("from_employee_id")
+  toEmployeeId   String    @map("to_employee_id")
+  message        String    @db.Text
+  category       String    @db.VarChar(30) // TEAMWORK, INNOVATION, LEADERSHIP, EXCELLENCE, HELPFULNESS
+  isPublic       Boolean   @default(true) @map("is_public")
+  isPinned       Boolean   @default(false) @map("is_pinned")
+  pinnedAt       DateTime? @map("pinned_at")
+  pinnedBy       String?   @map("pinned_by")
+  createdAt      DateTime  @default(now()) @map("created_at")
 
-  tenant Tenant @relation(fields: [tenantId], references: [id])
+  tenant    Tenant          @relation(fields: [tenantId], references: [id])
+  reactions KudosReaction[]
+  replies   KudosReply[]
 
   @@index([tenantId, toEmployeeId])
   @@index([tenantId, createdAt])
@@ -14789,6 +14827,205 @@ model OffboardingChecklist {
   @@index([tenantId])
   @@index([tenantId, deletedAt])
   @@map("offboarding_checklists")
+}
+
+// ============================================================================
+// HR — Phase 5-6: Performance Competencies, Kudos Social, Read Receipts,
+//                 Salary History, 1:1 Meetings
+// ============================================================================
+
+// Competencies inside a performance review (1-5 score per competency).
+// Defaults: Tecnica, Comunicacao, Lideranca, Ownership, Entrega.
+model ReviewCompetency {
+  id           String  @id @default(cuid())
+  tenantId     String  @map("tenant_id")
+  reviewId     String  @map("review_id")
+  name         String  @db.VarChar(64)
+  selfScore    Float?  @map("self_score") // 1.0 to 5.0
+  managerScore Float?  @map("manager_score") // 1.0 to 5.0
+  weight       Float   @default(1.0)
+  comments     String? @db.Text
+
+  review PerformanceReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  tenant Tenant            @relation(fields: [tenantId], references: [id])
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@index([tenantId])
+  @@index([reviewId])
+  @@map("hr_review_competencies")
+}
+
+// Emoji reactions on kudos posts.
+model KudosReaction {
+  id         String @id @default(cuid())
+  tenantId   String @map("tenant_id")
+  kudosId    String @map("kudos_id")
+  employeeId String @map("employee_id")
+  emoji      String @db.VarChar(16)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  kudos    EmployeeKudos @relation(fields: [kudosId], references: [id], onDelete: Cascade)
+  employee Employee      @relation(fields: [employeeId], references: [id])
+  tenant   Tenant        @relation(fields: [tenantId], references: [id])
+
+  @@unique([kudosId, employeeId, emoji])
+  @@index([tenantId])
+  @@index([kudosId])
+  @@map("hr_kudos_reactions")
+}
+
+// Threaded replies on kudos posts.
+model KudosReply {
+  id         String @id @default(cuid())
+  tenantId   String @map("tenant_id")
+  kudosId    String @map("kudos_id")
+  employeeId String @map("employee_id")
+  content    String @db.Text
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  kudos    EmployeeKudos @relation(fields: [kudosId], references: [id], onDelete: Cascade)
+  employee Employee      @relation(fields: [employeeId], references: [id])
+  tenant   Tenant        @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([kudosId])
+  @@map("hr_kudos_replies")
+}
+
+// Read receipts on company announcements.
+model AnnouncementReadReceipt {
+  id             String   @id @default(cuid())
+  tenantId       String   @map("tenant_id")
+  announcementId String   @map("announcement_id")
+  employeeId     String   @map("employee_id")
+  readAt         DateTime @default(now()) @map("read_at")
+
+  announcement CompanyAnnouncement @relation(fields: [announcementId], references: [id], onDelete: Cascade)
+  employee     Employee            @relation(fields: [employeeId], references: [id])
+  tenant       Tenant              @relation(fields: [tenantId], references: [id])
+
+  @@unique([announcementId, employeeId])
+  @@index([tenantId])
+  @@index([announcementId])
+  @@map("hr_announcement_read_receipts")
+}
+
+// Salary change reasons for SalaryHistory.
+enum SalaryChangeReason {
+  ADMISSION // first salary definition
+  ADJUSTMENT // general adjustment / dissidio
+  PROMOTION // promotion
+  MERIT // individual merit
+  ROLE_CHANGE // lateral role change
+  CORRECTION // error correction
+}
+
+// Historical record of salary changes per employee.
+model SalaryHistory {
+  id             String             @id @default(cuid())
+  tenantId       String             @map("tenant_id")
+  employeeId     String             @map("employee_id")
+  previousSalary Decimal?           @map("previous_salary") @db.Decimal(15, 2)
+  newSalary      Decimal            @map("new_salary") @db.Decimal(15, 2)
+  reason         SalaryChangeReason
+  notes          String?            @db.Text
+  effectiveDate  DateTime           @map("effective_date")
+  changedBy      String             @map("changed_by") // userId
+
+  employee Employee @relation(fields: [employeeId], references: [id])
+  tenant   Tenant   @relation(fields: [tenantId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([tenantId])
+  @@index([employeeId])
+  @@index([effectiveDate])
+  @@map("hr_salary_history")
+}
+
+// 1:1 meeting status (Lattice / 15Five inspired).
+enum OneOnOneStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+}
+
+// Recurring 1:1 meetings between manager and direct report.
+model OneOnOneMeeting {
+  id                  String         @id @default(cuid())
+  tenantId            String         @map("tenant_id")
+  managerId           String         @map("manager_id") // employeeId of manager
+  reportId            String         @map("report_id") // employeeId of direct report
+  scheduledAt         DateTime       @map("scheduled_at")
+  durationMinutes     Int            @default(30) @map("duration_minutes")
+  status              OneOnOneStatus @default(SCHEDULED)
+  privateNotesManager String?        @map("private_notes_manager") @db.Text // manager-only
+  privateNotesReport  String?        @map("private_notes_report") @db.Text // report-only
+  sharedNotes         String?        @map("shared_notes") @db.Text // both can see
+  cancelledReason     String?        @map("cancelled_reason") @db.VarChar(255)
+
+  talkingPoints TalkingPoint[]
+  actionItems   OneOnOneActionItem[]
+
+  manager Employee @relation("ManagerOneOnOnes", fields: [managerId], references: [id])
+  report  Employee @relation("ReportOneOnOnes", fields: [reportId], references: [id])
+  tenant  Tenant   @relation(fields: [tenantId], references: [id])
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@index([tenantId])
+  @@index([managerId])
+  @@index([reportId])
+  @@index([scheduledAt])
+  @@map("hr_one_on_one_meetings")
+}
+
+// Talking points added by either participant before / during a 1:1.
+model TalkingPoint {
+  id                String  @id @default(cuid())
+  meetingId         String  @map("meeting_id")
+  addedByEmployeeId String  @map("added_by_employee_id")
+  content           String  @db.Text
+  isResolved        Boolean @default(false) @map("is_resolved")
+  position          Int     @default(0)
+
+  meeting OneOnOneMeeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  addedBy Employee        @relation(fields: [addedByEmployeeId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([meetingId])
+  @@map("hr_one_on_one_talking_points")
+}
+
+// Action items assigned during a 1:1.
+model OneOnOneActionItem {
+  id          String    @id @default(cuid())
+  meetingId   String    @map("meeting_id")
+  ownerId     String    @map("owner_id") // employeeId responsible
+  content     String    @db.Text
+  isCompleted Boolean   @default(false) @map("is_completed")
+  dueDate     DateTime? @map("due_date")
+  completedAt DateTime? @map("completed_at")
+
+  meeting OneOnOneMeeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  owner   Employee        @relation(fields: [ownerId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([meetingId])
+  @@index([ownerId])
+  @@map("hr_one_on_one_action_items")
 }
 
 // ============================================================================
@@ -15420,10 +15657,10 @@ model PrintJob {
   templateData Json?
 
   // Agent integration
-  agentId     String?  @map("agent_id")
-  copies      Int      @default(1)
-  printerName String?  @map("printer_name") @db.VarChar(255)
-  labelData   Json?    @map("label_data")
+  agentId     String?   @map("agent_id")
+  copies      Int       @default(1)
+  printerName String?   @map("printer_name") @db.VarChar(255)
+  labelData   Json?     @map("label_data")
   startedAt   DateTime? @map("started_at")
 
   // Error handling
@@ -15581,13 +15818,13 @@ model ProductionWorkstation {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  tenant          Tenant                        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  workstationType ProductionWorkstationType     @relation(fields: [workstationTypeId], references: [id])
-  workCenter      ProductionWorkCenter?         @relation(fields: [workCenterId], references: [id])
+  tenant            Tenant                       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  workstationType   ProductionWorkstationType    @relation(fields: [workstationTypeId], references: [id])
+  workCenter        ProductionWorkCenter?        @relation(fields: [workCenterId], references: [id])
   operationRoutings ProductionOperationRouting[]
-  jobCards        ProductionJobCard[]
-  scheduleEntries ProductionScheduleEntry[]
-  downtimeRecords ProductionDowntimeRecord[]
+  jobCards          ProductionJobCard[]
+  scheduleEntries   ProductionScheduleEntry[]
+  downtimeRecords   ProductionDowntimeRecord[]
 
   @@unique([tenantId, code])
   @@index([tenantId])
@@ -15634,10 +15871,10 @@ model ProductionBom {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  tenant           Tenant                        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  items            ProductionBomItem[]
+  tenant            Tenant                       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  items             ProductionBomItem[]
   operationRoutings ProductionOperationRouting[]
-  productionOrders ProductionOrder[]
+  productionOrders  ProductionOrder[]
 
   @@unique([tenantId, productId, version])
   @@index([tenantId])
@@ -15660,8 +15897,8 @@ model ProductionBomItem {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  bom           ProductionBom      @relation(fields: [bomId], references: [id], onDelete: Cascade)
-  substituteFor ProductionBomItem? @relation("BomSubstitute", fields: [substituteForId], references: [id])
+  bom           ProductionBom       @relation(fields: [bomId], references: [id], onDelete: Cascade)
+  substituteFor ProductionBomItem?  @relation("BomSubstitute", fields: [substituteForId], references: [id])
   substitutes   ProductionBomItem[] @relation("BomSubstitute")
 
   @@unique([bomId, sequence])
@@ -15671,30 +15908,30 @@ model ProductionBomItem {
 }
 
 model ProductionOperationRouting {
-  id              String  @id @default(cuid())
-  tenantId        String  @map("tenant_id")
-  bomId           String  @map("bom_id")
-  workstationId   String? @map("workstation_id")
-  sequence        Int
-  operationName   String  @map("operation_name") @db.VarChar(128)
-  description     String? @db.VarChar(500)
-  setupTime       Int     @default(0) @map("setup_time")
-  executionTime   Decimal @map("execution_time") @db.Decimal(10, 2)
-  waitTime        Int     @default(0) @map("wait_time")
-  moveTime        Int     @default(0) @map("move_time")
-  isQualityCheck  Boolean @default(false) @map("is_quality_check")
-  isOptional      Boolean @default(false) @map("is_optional")
-  skillRequired   String? @map("skill_required") @db.VarChar(128)
-  instructions    String? @db.Text
-  imageUrl        String? @map("image_url") @db.VarChar(512)
+  id             String  @id @default(cuid())
+  tenantId       String  @map("tenant_id")
+  bomId          String  @map("bom_id")
+  workstationId  String? @map("workstation_id")
+  sequence       Int
+  operationName  String  @map("operation_name") @db.VarChar(128)
+  description    String? @db.VarChar(500)
+  setupTime      Int     @default(0) @map("setup_time")
+  executionTime  Decimal @map("execution_time") @db.Decimal(10, 2)
+  waitTime       Int     @default(0) @map("wait_time")
+  moveTime       Int     @default(0) @map("move_time")
+  isQualityCheck Boolean @default(false) @map("is_quality_check")
+  isOptional     Boolean @default(false) @map("is_optional")
+  skillRequired  String? @map("skill_required") @db.VarChar(128)
+  instructions   String? @db.Text
+  imageUrl       String? @map("image_url") @db.VarChar(512)
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  tenant      Tenant                 @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  bom         ProductionBom          @relation(fields: [bomId], references: [id], onDelete: Cascade)
-  workstation ProductionWorkstation? @relation(fields: [workstationId], references: [id])
-  jobCards    ProductionJobCard[]
+  tenant          Tenant                     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  bom             ProductionBom              @relation(fields: [bomId], references: [id], onDelete: Cascade)
+  workstation     ProductionWorkstation?     @relation(fields: [workstationId], references: [id])
+  jobCards        ProductionJobCard[]
   inspectionPlans ProductionInspectionPlan[]
 
   @@unique([bomId, sequence])
@@ -15731,10 +15968,10 @@ model ProductionOrder {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  tenant               Tenant                       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  bom                  ProductionBom                @relation(fields: [bomId], references: [id])
-  parentOrder          ProductionOrder?             @relation("SubOrders", fields: [parentOrderId], references: [id])
-  subOrders            ProductionOrder[]            @relation("SubOrders")
+  tenant               Tenant                          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  bom                  ProductionBom                   @relation(fields: [bomId], references: [id])
+  parentOrder          ProductionOrder?                @relation("SubOrders", fields: [parentOrderId], references: [id])
+  subOrders            ProductionOrder[]               @relation("SubOrders")
   materialReservations ProductionMaterialReservation[]
   materialIssues       ProductionMaterialIssue[]
   materialReturns      ProductionMaterialReturn[]
@@ -15823,10 +16060,10 @@ model ProductionJobCard {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  productionOrder  ProductionOrder          @relation(fields: [productionOrderId], references: [id], onDelete: Cascade)
-  operationRouting ProductionOperationRouting @relation(fields: [operationRoutingId], references: [id])
-  workstation      ProductionWorkstation?   @relation(fields: [workstationId], references: [id])
-  timeEntries      ProductionTimeEntry[]
+  productionOrder   ProductionOrder            @relation(fields: [productionOrderId], references: [id], onDelete: Cascade)
+  operationRouting  ProductionOperationRouting @relation(fields: [operationRoutingId], references: [id])
+  workstation       ProductionWorkstation?     @relation(fields: [workstationId], references: [id])
+  timeEntries       ProductionTimeEntry[]
   productionEntries ProductionEntry[]
 
   @@index([productionOrderId])
@@ -15836,14 +16073,14 @@ model ProductionJobCard {
 }
 
 model ProductionTimeEntry {
-  id           String        @id @default(cuid())
-  jobCardId    String        @map("job_card_id")
-  operatorId   String        @map("operator_id")
-  startTime    DateTime      @map("start_time")
-  endTime      DateTime?     @map("end_time")
-  breakMinutes Int           @default(0) @map("break_minutes")
+  id           String                  @id @default(cuid())
+  jobCardId    String                  @map("job_card_id")
+  operatorId   String                  @map("operator_id")
+  startTime    DateTime                @map("start_time")
+  endTime      DateTime?               @map("end_time")
+  breakMinutes Int                     @default(0) @map("break_minutes")
   entryType    ProductionTimeEntryType @default(PRODUCTION)
-  notes        String?       @db.VarChar(500)
+  notes        String?                 @db.VarChar(500)
 
   createdAt DateTime @default(now()) @map("created_at")
 
@@ -15881,7 +16118,7 @@ model ProductionDowntimeReason {
 
   createdAt DateTime @default(now()) @map("created_at")
 
-  tenant  Tenant                       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenant  Tenant                     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   records ProductionDowntimeRecord[]
 
   @@unique([tenantId, code])
@@ -15912,10 +16149,10 @@ model ProductionDowntimeRecord {
 // --- Planejamento / Scheduling (Phase 4) ---
 
 model ProductionSchedule {
-  id          String  @id @default(cuid())
-  tenantId    String  @map("tenant_id")
-  name        String  @db.VarChar(128)
-  description String? @db.VarChar(500)
+  id          String   @id @default(cuid())
+  tenantId    String   @map("tenant_id")
+  name        String   @db.VarChar(128)
+  description String?  @db.VarChar(500)
   startDate   DateTime @map("start_date")
   endDate     DateTime @map("end_date")
   isActive    Boolean  @default(true) @map("is_active")
@@ -16019,14 +16256,14 @@ model ProductionInspectionResult {
 }
 
 model ProductionDefectRecord {
-  id                   String         @id @default(cuid())
-  inspectionResultId   String?        @map("inspection_result_id")
-  defectTypeId         String         @map("defect_type_id")
-  operatorId           String?        @map("operator_id")
-  quantity             Int            @default(1)
-  severity             DefectSeverity
-  description          String?        @db.VarChar(500)
-  imageUrl             String?        @map("image_url") @db.VarChar(512)
+  id                 String         @id @default(cuid())
+  inspectionResultId String?        @map("inspection_result_id")
+  defectTypeId       String         @map("defect_type_id")
+  operatorId         String?        @map("operator_id")
+  quantity           Int            @default(1)
+  severity           DefectSeverity
+  description        String?        @db.VarChar(500)
+  imageUrl           String?        @map("image_url") @db.VarChar(512)
 
   createdAt DateTime @default(now()) @map("created_at")
 
@@ -16076,4 +16313,65 @@ model ProductionCost {
 
   @@index([productionOrderId])
   @@map("production_costs")
+}
+
+// ============================================================================
+// HR — Contract Templates & Generated Employment Contracts
+// ============================================================================
+
+enum ContractTemplateType {
+  CLT
+  PJ
+  INTERN
+  TEMPORARY
+  EXPERIENCE
+  CUSTOM
+}
+
+model ContractTemplate {
+  id        String               @id @default(cuid())
+  tenantId  String               @map("tenant_id")
+  name      String               @db.VarChar(256)
+  type      ContractTemplateType
+  content   String               @db.Text
+  isActive  Boolean              @default(true) @map("is_active")
+  isDefault Boolean              @default(false) @map("is_default")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  tenant             Tenant                        @relation(fields: [tenantId], references: [id])
+  generatedContracts GeneratedEmploymentContract[]
+
+  @@index([tenantId])
+  @@index([type])
+  @@index([isActive])
+  @@index([deletedAt])
+  @@map("hr_contract_templates")
+}
+
+model GeneratedEmploymentContract {
+  id            String  @id @default(cuid())
+  tenantId      String  @map("tenant_id")
+  templateId    String  @map("template_id")
+  employeeId    String  @map("employee_id")
+  storageFileId String? @map("storage_file_id")
+  pdfUrl        String? @map("pdf_url") @db.VarChar(1024)
+  pdfKey        String? @map("pdf_key") @db.VarChar(512)
+  generatedBy   String  @map("generated_by")
+  variables     Json    @default("{}")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  tenant   Tenant           @relation(fields: [tenantId], references: [id])
+  template ContractTemplate @relation(fields: [templateId], references: [id])
+  employee Employee         @relation(fields: [employeeId], references: [id])
+
+  @@index([tenantId])
+  @@index([employeeId])
+  @@index([templateId])
+  @@index([generatedBy])
+  @@index([createdAt])
+  @@map("hr_generated_employment_contracts")
 }

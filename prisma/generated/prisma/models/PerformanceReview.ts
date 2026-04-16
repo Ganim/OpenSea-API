@@ -340,6 +340,7 @@ export type PerformanceReviewWhereInput = {
   reviewCycle?: Prisma.XOR<Prisma.ReviewCycleScalarRelationFilter, Prisma.ReviewCycleWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
   reviewer?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
+  competencies?: Prisma.ReviewCompetencyListRelationFilter
 }
 
 export type PerformanceReviewOrderByWithRelationInput = {
@@ -366,6 +367,7 @@ export type PerformanceReviewOrderByWithRelationInput = {
   reviewCycle?: Prisma.ReviewCycleOrderByWithRelationInput
   employee?: Prisma.EmployeeOrderByWithRelationInput
   reviewer?: Prisma.EmployeeOrderByWithRelationInput
+  competencies?: Prisma.ReviewCompetencyOrderByRelationAggregateInput
 }
 
 export type PerformanceReviewWhereUniqueInput = Prisma.AtLeast<{
@@ -396,6 +398,7 @@ export type PerformanceReviewWhereUniqueInput = Prisma.AtLeast<{
   reviewCycle?: Prisma.XOR<Prisma.ReviewCycleScalarRelationFilter, Prisma.ReviewCycleWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
   reviewer?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
+  competencies?: Prisma.ReviewCompetencyListRelationFilter
 }, "id" | "reviewCycleId_employeeId">
 
 export type PerformanceReviewOrderByWithAggregationInput = {
@@ -470,6 +473,7 @@ export type PerformanceReviewCreateInput = {
   reviewCycle: Prisma.ReviewCycleCreateNestedOneWithoutReviewsInput
   employee: Prisma.EmployeeCreateNestedOneWithoutPerformanceReviewsInput
   reviewer: Prisma.EmployeeCreateNestedOneWithoutConductedPerformanceReviewsInput
+  competencies?: Prisma.ReviewCompetencyCreateNestedManyWithoutReviewInput
 }
 
 export type PerformanceReviewUncheckedCreateInput = {
@@ -492,6 +496,7 @@ export type PerformanceReviewUncheckedCreateInput = {
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  competencies?: Prisma.ReviewCompetencyUncheckedCreateNestedManyWithoutReviewInput
 }
 
 export type PerformanceReviewUpdateInput = {
@@ -514,6 +519,7 @@ export type PerformanceReviewUpdateInput = {
   reviewCycle?: Prisma.ReviewCycleUpdateOneRequiredWithoutReviewsNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutPerformanceReviewsNestedInput
   reviewer?: Prisma.EmployeeUpdateOneRequiredWithoutConductedPerformanceReviewsNestedInput
+  competencies?: Prisma.ReviewCompetencyUpdateManyWithoutReviewNestedInput
 }
 
 export type PerformanceReviewUncheckedUpdateInput = {
@@ -536,6 +542,7 @@ export type PerformanceReviewUncheckedUpdateInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  competencies?: Prisma.ReviewCompetencyUncheckedUpdateManyWithoutReviewNestedInput
 }
 
 export type PerformanceReviewCreateManyInput = {
@@ -691,6 +698,11 @@ export type PerformanceReviewSumOrderByAggregateInput = {
   selfScore?: Prisma.SortOrder
   managerScore?: Prisma.SortOrder
   finalScore?: Prisma.SortOrder
+}
+
+export type PerformanceReviewScalarRelationFilter = {
+  is?: Prisma.PerformanceReviewWhereInput
+  isNot?: Prisma.PerformanceReviewWhereInput
 }
 
 export type PerformanceReviewCreateNestedManyWithoutEmployeeInput = {
@@ -861,6 +873,20 @@ export type PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.PerformanceReviewScalarWhereInput | Prisma.PerformanceReviewScalarWhereInput[]
 }
 
+export type PerformanceReviewCreateNestedOneWithoutCompetenciesInput = {
+  create?: Prisma.XOR<Prisma.PerformanceReviewCreateWithoutCompetenciesInput, Prisma.PerformanceReviewUncheckedCreateWithoutCompetenciesInput>
+  connectOrCreate?: Prisma.PerformanceReviewCreateOrConnectWithoutCompetenciesInput
+  connect?: Prisma.PerformanceReviewWhereUniqueInput
+}
+
+export type PerformanceReviewUpdateOneRequiredWithoutCompetenciesNestedInput = {
+  create?: Prisma.XOR<Prisma.PerformanceReviewCreateWithoutCompetenciesInput, Prisma.PerformanceReviewUncheckedCreateWithoutCompetenciesInput>
+  connectOrCreate?: Prisma.PerformanceReviewCreateOrConnectWithoutCompetenciesInput
+  upsert?: Prisma.PerformanceReviewUpsertWithoutCompetenciesInput
+  connect?: Prisma.PerformanceReviewWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PerformanceReviewUpdateToOneWithWhereWithoutCompetenciesInput, Prisma.PerformanceReviewUpdateWithoutCompetenciesInput>, Prisma.PerformanceReviewUncheckedUpdateWithoutCompetenciesInput>
+}
+
 export type PerformanceReviewCreateWithoutEmployeeInput = {
   id?: string
   status?: string
@@ -880,6 +906,7 @@ export type PerformanceReviewCreateWithoutEmployeeInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutPerformanceReviewsInput
   reviewCycle: Prisma.ReviewCycleCreateNestedOneWithoutReviewsInput
   reviewer: Prisma.EmployeeCreateNestedOneWithoutConductedPerformanceReviewsInput
+  competencies?: Prisma.ReviewCompetencyCreateNestedManyWithoutReviewInput
 }
 
 export type PerformanceReviewUncheckedCreateWithoutEmployeeInput = {
@@ -901,6 +928,7 @@ export type PerformanceReviewUncheckedCreateWithoutEmployeeInput = {
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  competencies?: Prisma.ReviewCompetencyUncheckedCreateNestedManyWithoutReviewInput
 }
 
 export type PerformanceReviewCreateOrConnectWithoutEmployeeInput = {
@@ -932,6 +960,7 @@ export type PerformanceReviewCreateWithoutReviewerInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutPerformanceReviewsInput
   reviewCycle: Prisma.ReviewCycleCreateNestedOneWithoutReviewsInput
   employee: Prisma.EmployeeCreateNestedOneWithoutPerformanceReviewsInput
+  competencies?: Prisma.ReviewCompetencyCreateNestedManyWithoutReviewInput
 }
 
 export type PerformanceReviewUncheckedCreateWithoutReviewerInput = {
@@ -953,6 +982,7 @@ export type PerformanceReviewUncheckedCreateWithoutReviewerInput = {
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  competencies?: Prisma.ReviewCompetencyUncheckedCreateNestedManyWithoutReviewInput
 }
 
 export type PerformanceReviewCreateOrConnectWithoutReviewerInput = {
@@ -1041,6 +1071,7 @@ export type PerformanceReviewCreateWithoutReviewCycleInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutPerformanceReviewsInput
   employee: Prisma.EmployeeCreateNestedOneWithoutPerformanceReviewsInput
   reviewer: Prisma.EmployeeCreateNestedOneWithoutConductedPerformanceReviewsInput
+  competencies?: Prisma.ReviewCompetencyCreateNestedManyWithoutReviewInput
 }
 
 export type PerformanceReviewUncheckedCreateWithoutReviewCycleInput = {
@@ -1062,6 +1093,7 @@ export type PerformanceReviewUncheckedCreateWithoutReviewCycleInput = {
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  competencies?: Prisma.ReviewCompetencyUncheckedCreateNestedManyWithoutReviewInput
 }
 
 export type PerformanceReviewCreateOrConnectWithoutReviewCycleInput = {
@@ -1109,6 +1141,7 @@ export type PerformanceReviewCreateWithoutTenantInput = {
   reviewCycle: Prisma.ReviewCycleCreateNestedOneWithoutReviewsInput
   employee: Prisma.EmployeeCreateNestedOneWithoutPerformanceReviewsInput
   reviewer: Prisma.EmployeeCreateNestedOneWithoutConductedPerformanceReviewsInput
+  competencies?: Prisma.ReviewCompetencyCreateNestedManyWithoutReviewInput
 }
 
 export type PerformanceReviewUncheckedCreateWithoutTenantInput = {
@@ -1130,6 +1163,7 @@ export type PerformanceReviewUncheckedCreateWithoutTenantInput = {
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  competencies?: Prisma.ReviewCompetencyUncheckedCreateNestedManyWithoutReviewInput
 }
 
 export type PerformanceReviewCreateOrConnectWithoutTenantInput = {
@@ -1156,6 +1190,110 @@ export type PerformanceReviewUpdateWithWhereUniqueWithoutTenantInput = {
 export type PerformanceReviewUpdateManyWithWhereWithoutTenantInput = {
   where: Prisma.PerformanceReviewScalarWhereInput
   data: Prisma.XOR<Prisma.PerformanceReviewUpdateManyMutationInput, Prisma.PerformanceReviewUncheckedUpdateManyWithoutTenantInput>
+}
+
+export type PerformanceReviewCreateWithoutCompetenciesInput = {
+  id?: string
+  status?: string
+  selfScore?: number | null
+  managerScore?: number | null
+  finalScore?: number | null
+  selfComments?: string | null
+  managerComments?: string | null
+  strengths?: string | null
+  improvements?: string | null
+  goals?: string | null
+  employeeAcknowledged?: boolean
+  acknowledgedAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutPerformanceReviewsInput
+  reviewCycle: Prisma.ReviewCycleCreateNestedOneWithoutReviewsInput
+  employee: Prisma.EmployeeCreateNestedOneWithoutPerformanceReviewsInput
+  reviewer: Prisma.EmployeeCreateNestedOneWithoutConductedPerformanceReviewsInput
+}
+
+export type PerformanceReviewUncheckedCreateWithoutCompetenciesInput = {
+  id?: string
+  tenantId: string
+  reviewCycleId: string
+  employeeId: string
+  reviewerId: string
+  status?: string
+  selfScore?: number | null
+  managerScore?: number | null
+  finalScore?: number | null
+  selfComments?: string | null
+  managerComments?: string | null
+  strengths?: string | null
+  improvements?: string | null
+  goals?: string | null
+  employeeAcknowledged?: boolean
+  acknowledgedAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PerformanceReviewCreateOrConnectWithoutCompetenciesInput = {
+  where: Prisma.PerformanceReviewWhereUniqueInput
+  create: Prisma.XOR<Prisma.PerformanceReviewCreateWithoutCompetenciesInput, Prisma.PerformanceReviewUncheckedCreateWithoutCompetenciesInput>
+}
+
+export type PerformanceReviewUpsertWithoutCompetenciesInput = {
+  update: Prisma.XOR<Prisma.PerformanceReviewUpdateWithoutCompetenciesInput, Prisma.PerformanceReviewUncheckedUpdateWithoutCompetenciesInput>
+  create: Prisma.XOR<Prisma.PerformanceReviewCreateWithoutCompetenciesInput, Prisma.PerformanceReviewUncheckedCreateWithoutCompetenciesInput>
+  where?: Prisma.PerformanceReviewWhereInput
+}
+
+export type PerformanceReviewUpdateToOneWithWhereWithoutCompetenciesInput = {
+  where?: Prisma.PerformanceReviewWhereInput
+  data: Prisma.XOR<Prisma.PerformanceReviewUpdateWithoutCompetenciesInput, Prisma.PerformanceReviewUncheckedUpdateWithoutCompetenciesInput>
+}
+
+export type PerformanceReviewUpdateWithoutCompetenciesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  selfScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  managerScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  finalScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  selfComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  strengths?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  goals?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employeeAcknowledged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  acknowledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutPerformanceReviewsNestedInput
+  reviewCycle?: Prisma.ReviewCycleUpdateOneRequiredWithoutReviewsNestedInput
+  employee?: Prisma.EmployeeUpdateOneRequiredWithoutPerformanceReviewsNestedInput
+  reviewer?: Prisma.EmployeeUpdateOneRequiredWithoutConductedPerformanceReviewsNestedInput
+}
+
+export type PerformanceReviewUncheckedUpdateWithoutCompetenciesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewCycleId?: Prisma.StringFieldUpdateOperationsInput | string
+  employeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewerId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  selfScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  managerScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  finalScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  selfComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerComments?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  strengths?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  goals?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employeeAcknowledged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  acknowledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PerformanceReviewCreateManyEmployeeInput = {
@@ -1219,6 +1357,7 @@ export type PerformanceReviewUpdateWithoutEmployeeInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPerformanceReviewsNestedInput
   reviewCycle?: Prisma.ReviewCycleUpdateOneRequiredWithoutReviewsNestedInput
   reviewer?: Prisma.EmployeeUpdateOneRequiredWithoutConductedPerformanceReviewsNestedInput
+  competencies?: Prisma.ReviewCompetencyUpdateManyWithoutReviewNestedInput
 }
 
 export type PerformanceReviewUncheckedUpdateWithoutEmployeeInput = {
@@ -1240,6 +1379,7 @@ export type PerformanceReviewUncheckedUpdateWithoutEmployeeInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  competencies?: Prisma.ReviewCompetencyUncheckedUpdateManyWithoutReviewNestedInput
 }
 
 export type PerformanceReviewUncheckedUpdateManyWithoutEmployeeInput = {
@@ -1282,6 +1422,7 @@ export type PerformanceReviewUpdateWithoutReviewerInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPerformanceReviewsNestedInput
   reviewCycle?: Prisma.ReviewCycleUpdateOneRequiredWithoutReviewsNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutPerformanceReviewsNestedInput
+  competencies?: Prisma.ReviewCompetencyUpdateManyWithoutReviewNestedInput
 }
 
 export type PerformanceReviewUncheckedUpdateWithoutReviewerInput = {
@@ -1303,6 +1444,7 @@ export type PerformanceReviewUncheckedUpdateWithoutReviewerInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  competencies?: Prisma.ReviewCompetencyUncheckedUpdateManyWithoutReviewNestedInput
 }
 
 export type PerformanceReviewUncheckedUpdateManyWithoutReviewerInput = {
@@ -1366,6 +1508,7 @@ export type PerformanceReviewUpdateWithoutReviewCycleInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPerformanceReviewsNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutPerformanceReviewsNestedInput
   reviewer?: Prisma.EmployeeUpdateOneRequiredWithoutConductedPerformanceReviewsNestedInput
+  competencies?: Prisma.ReviewCompetencyUpdateManyWithoutReviewNestedInput
 }
 
 export type PerformanceReviewUncheckedUpdateWithoutReviewCycleInput = {
@@ -1387,6 +1530,7 @@ export type PerformanceReviewUncheckedUpdateWithoutReviewCycleInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  competencies?: Prisma.ReviewCompetencyUncheckedUpdateManyWithoutReviewNestedInput
 }
 
 export type PerformanceReviewUncheckedUpdateManyWithoutReviewCycleInput = {
@@ -1450,6 +1594,7 @@ export type PerformanceReviewUpdateWithoutTenantInput = {
   reviewCycle?: Prisma.ReviewCycleUpdateOneRequiredWithoutReviewsNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutPerformanceReviewsNestedInput
   reviewer?: Prisma.EmployeeUpdateOneRequiredWithoutConductedPerformanceReviewsNestedInput
+  competencies?: Prisma.ReviewCompetencyUpdateManyWithoutReviewNestedInput
 }
 
 export type PerformanceReviewUncheckedUpdateWithoutTenantInput = {
@@ -1471,6 +1616,7 @@ export type PerformanceReviewUncheckedUpdateWithoutTenantInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  competencies?: Prisma.ReviewCompetencyUncheckedUpdateManyWithoutReviewNestedInput
 }
 
 export type PerformanceReviewUncheckedUpdateManyWithoutTenantInput = {
@@ -1494,6 +1640,35 @@ export type PerformanceReviewUncheckedUpdateManyWithoutTenantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type PerformanceReviewCountOutputType
+ */
+
+export type PerformanceReviewCountOutputType = {
+  competencies: number
+}
+
+export type PerformanceReviewCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  competencies?: boolean | PerformanceReviewCountOutputTypeCountCompetenciesArgs
+}
+
+/**
+ * PerformanceReviewCountOutputType without action
+ */
+export type PerformanceReviewCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PerformanceReviewCountOutputType
+   */
+  select?: Prisma.PerformanceReviewCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * PerformanceReviewCountOutputType without action
+ */
+export type PerformanceReviewCountOutputTypeCountCompetenciesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewCompetencyWhereInput
+}
 
 
 export type PerformanceReviewSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1520,6 +1695,8 @@ export type PerformanceReviewSelect<ExtArgs extends runtime.Types.Extensions.Int
   reviewCycle?: boolean | Prisma.ReviewCycleDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   reviewer?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
+  competencies?: boolean | Prisma.PerformanceReview$competenciesArgs<ExtArgs>
+  _count?: boolean | Prisma.PerformanceReviewCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["performanceReview"]>
 
 export type PerformanceReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1602,6 +1779,8 @@ export type PerformanceReviewInclude<ExtArgs extends runtime.Types.Extensions.In
   reviewCycle?: boolean | Prisma.ReviewCycleDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   reviewer?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
+  competencies?: boolean | Prisma.PerformanceReview$competenciesArgs<ExtArgs>
+  _count?: boolean | Prisma.PerformanceReviewCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PerformanceReviewIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -1623,6 +1802,7 @@ export type $PerformanceReviewPayload<ExtArgs extends runtime.Types.Extensions.I
     reviewCycle: Prisma.$ReviewCyclePayload<ExtArgs>
     employee: Prisma.$EmployeePayload<ExtArgs>
     reviewer: Prisma.$EmployeePayload<ExtArgs>
+    competencies: Prisma.$ReviewCompetencyPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2042,6 +2222,7 @@ export interface Prisma__PerformanceReviewClient<T, Null = never, ExtArgs extend
   reviewCycle<T extends Prisma.ReviewCycleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ReviewCycleDefaultArgs<ExtArgs>>): Prisma.Prisma__ReviewCycleClient<runtime.Types.Result.GetResult<Prisma.$ReviewCyclePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   employee<T extends Prisma.EmployeeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeDefaultArgs<ExtArgs>>): Prisma.Prisma__EmployeeClient<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   reviewer<T extends Prisma.EmployeeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeDefaultArgs<ExtArgs>>): Prisma.Prisma__EmployeeClient<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  competencies<T extends Prisma.PerformanceReview$competenciesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PerformanceReview$competenciesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewCompetencyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2488,6 +2669,30 @@ export type PerformanceReviewDeleteManyArgs<ExtArgs extends runtime.Types.Extens
    * Limit how many PerformanceReviews to delete.
    */
   limit?: number
+}
+
+/**
+ * PerformanceReview.competencies
+ */
+export type PerformanceReview$competenciesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReviewCompetency
+   */
+  select?: Prisma.ReviewCompetencySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReviewCompetency
+   */
+  omit?: Prisma.ReviewCompetencyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewCompetencyInclude<ExtArgs> | null
+  where?: Prisma.ReviewCompetencyWhereInput
+  orderBy?: Prisma.ReviewCompetencyOrderByWithRelationInput | Prisma.ReviewCompetencyOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewCompetencyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewCompetencyScalarFieldEnum | Prisma.ReviewCompetencyScalarFieldEnum[]
 }
 
 /**

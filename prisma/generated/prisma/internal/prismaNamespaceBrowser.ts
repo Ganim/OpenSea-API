@@ -391,6 +391,14 @@ export const ModelName = {
   PPEItem: 'PPEItem',
   PPEAssignment: 'PPEAssignment',
   OffboardingChecklist: 'OffboardingChecklist',
+  ReviewCompetency: 'ReviewCompetency',
+  KudosReaction: 'KudosReaction',
+  KudosReply: 'KudosReply',
+  AnnouncementReadReceipt: 'AnnouncementReadReceipt',
+  SalaryHistory: 'SalaryHistory',
+  OneOnOneMeeting: 'OneOnOneMeeting',
+  TalkingPoint: 'TalkingPoint',
+  OneOnOneActionItem: 'OneOnOneActionItem',
   AdmissionInvite: 'AdmissionInvite',
   AdmissionDocument: 'AdmissionDocument',
   DigitalSignature: 'DigitalSignature',
@@ -432,7 +440,9 @@ export const ModelName = {
   ProductionInspectionResult: 'ProductionInspectionResult',
   ProductionDefectRecord: 'ProductionDefectRecord',
   ProductionQualityHold: 'ProductionQualityHold',
-  ProductionCost: 'ProductionCost'
+  ProductionCost: 'ProductionCost',
+  ContractTemplate: 'ContractTemplate',
+  GeneratedEmploymentContract: 'GeneratedEmploymentContract'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -3166,6 +3176,8 @@ export const FinanceEntryScalarFieldEnum = {
   currency: 'currency',
   exchangeRate: 'exchangeRate',
   originalAmount: 'originalAmount',
+  threeWayMatchStatus: 'threeWayMatchStatus',
+  threeWayMatchedAt: 'threeWayMatchedAt',
   metadata: 'metadata',
   tags: 'tags',
   deletedAt: 'deletedAt',
@@ -7266,6 +7278,9 @@ export const EmployeeKudosScalarFieldEnum = {
   message: 'message',
   category: 'category',
   isPublic: 'isPublic',
+  isPinned: 'isPinned',
+  pinnedAt: 'pinnedAt',
+  pinnedBy: 'pinnedBy',
   createdAt: 'createdAt'
 } as const
 
@@ -7342,6 +7357,124 @@ export const OffboardingChecklistScalarFieldEnum = {
 } as const
 
 export type OffboardingChecklistScalarFieldEnum = (typeof OffboardingChecklistScalarFieldEnum)[keyof typeof OffboardingChecklistScalarFieldEnum]
+
+
+export const ReviewCompetencyScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  reviewId: 'reviewId',
+  name: 'name',
+  selfScore: 'selfScore',
+  managerScore: 'managerScore',
+  weight: 'weight',
+  comments: 'comments',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ReviewCompetencyScalarFieldEnum = (typeof ReviewCompetencyScalarFieldEnum)[keyof typeof ReviewCompetencyScalarFieldEnum]
+
+
+export const KudosReactionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  kudosId: 'kudosId',
+  employeeId: 'employeeId',
+  emoji: 'emoji',
+  createdAt: 'createdAt'
+} as const
+
+export type KudosReactionScalarFieldEnum = (typeof KudosReactionScalarFieldEnum)[keyof typeof KudosReactionScalarFieldEnum]
+
+
+export const KudosReplyScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  kudosId: 'kudosId',
+  employeeId: 'employeeId',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type KudosReplyScalarFieldEnum = (typeof KudosReplyScalarFieldEnum)[keyof typeof KudosReplyScalarFieldEnum]
+
+
+export const AnnouncementReadReceiptScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  announcementId: 'announcementId',
+  employeeId: 'employeeId',
+  readAt: 'readAt'
+} as const
+
+export type AnnouncementReadReceiptScalarFieldEnum = (typeof AnnouncementReadReceiptScalarFieldEnum)[keyof typeof AnnouncementReadReceiptScalarFieldEnum]
+
+
+export const SalaryHistoryScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  employeeId: 'employeeId',
+  previousSalary: 'previousSalary',
+  newSalary: 'newSalary',
+  reason: 'reason',
+  notes: 'notes',
+  effectiveDate: 'effectiveDate',
+  changedBy: 'changedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type SalaryHistoryScalarFieldEnum = (typeof SalaryHistoryScalarFieldEnum)[keyof typeof SalaryHistoryScalarFieldEnum]
+
+
+export const OneOnOneMeetingScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  managerId: 'managerId',
+  reportId: 'reportId',
+  scheduledAt: 'scheduledAt',
+  durationMinutes: 'durationMinutes',
+  status: 'status',
+  privateNotesManager: 'privateNotesManager',
+  privateNotesReport: 'privateNotesReport',
+  sharedNotes: 'sharedNotes',
+  cancelledReason: 'cancelledReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type OneOnOneMeetingScalarFieldEnum = (typeof OneOnOneMeetingScalarFieldEnum)[keyof typeof OneOnOneMeetingScalarFieldEnum]
+
+
+export const TalkingPointScalarFieldEnum = {
+  id: 'id',
+  meetingId: 'meetingId',
+  addedByEmployeeId: 'addedByEmployeeId',
+  content: 'content',
+  isResolved: 'isResolved',
+  position: 'position',
+  createdAt: 'createdAt'
+} as const
+
+export type TalkingPointScalarFieldEnum = (typeof TalkingPointScalarFieldEnum)[keyof typeof TalkingPointScalarFieldEnum]
+
+
+export const OneOnOneActionItemScalarFieldEnum = {
+  id: 'id',
+  meetingId: 'meetingId',
+  ownerId: 'ownerId',
+  content: 'content',
+  isCompleted: 'isCompleted',
+  dueDate: 'dueDate',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OneOnOneActionItemScalarFieldEnum = (typeof OneOnOneActionItemScalarFieldEnum)[keyof typeof OneOnOneActionItemScalarFieldEnum]
 
 
 export const AdmissionInviteScalarFieldEnum = {
@@ -8126,6 +8259,38 @@ export const ProductionCostScalarFieldEnum = {
 } as const
 
 export type ProductionCostScalarFieldEnum = (typeof ProductionCostScalarFieldEnum)[keyof typeof ProductionCostScalarFieldEnum]
+
+
+export const ContractTemplateScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  type: 'type',
+  content: 'content',
+  isActive: 'isActive',
+  isDefault: 'isDefault',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ContractTemplateScalarFieldEnum = (typeof ContractTemplateScalarFieldEnum)[keyof typeof ContractTemplateScalarFieldEnum]
+
+
+export const GeneratedEmploymentContractScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  templateId: 'templateId',
+  employeeId: 'employeeId',
+  storageFileId: 'storageFileId',
+  pdfUrl: 'pdfUrl',
+  pdfKey: 'pdfKey',
+  generatedBy: 'generatedBy',
+  variables: 'variables',
+  createdAt: 'createdAt'
+} as const
+
+export type GeneratedEmploymentContractScalarFieldEnum = (typeof GeneratedEmploymentContractScalarFieldEnum)[keyof typeof GeneratedEmploymentContractScalarFieldEnum]
 
 
 export const SortOrder = {

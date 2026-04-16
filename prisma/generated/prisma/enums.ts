@@ -3426,6 +3426,27 @@ export const LandingPageStatus = {
 export type LandingPageStatus = (typeof LandingPageStatus)[keyof typeof LandingPageStatus]
 
 
+export const SalaryChangeReason = {
+  ADMISSION: 'ADMISSION',
+  ADJUSTMENT: 'ADJUSTMENT',
+  PROMOTION: 'PROMOTION',
+  MERIT: 'MERIT',
+  ROLE_CHANGE: 'ROLE_CHANGE',
+  CORRECTION: 'CORRECTION'
+} as const
+
+export type SalaryChangeReason = (typeof SalaryChangeReason)[keyof typeof SalaryChangeReason]
+
+
+export const OneOnOneStatus = {
+  SCHEDULED: 'SCHEDULED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type OneOnOneStatus = (typeof OneOnOneStatus)[keyof typeof OneOnOneStatus]
+
+
 export const AuthLinkProvider = {
   EMAIL: 'EMAIL',
   CPF: 'CPF',
@@ -3717,3 +3738,15 @@ export const ScheduleEntryStatus = {
 } as const
 
 export type ScheduleEntryStatus = (typeof ScheduleEntryStatus)[keyof typeof ScheduleEntryStatus]
+
+
+export const ContractTemplateType = {
+  CLT: 'CLT',
+  PJ: 'PJ',
+  INTERN: 'INTERN',
+  TEMPORARY: 'TEMPORARY',
+  EXPERIENCE: 'EXPERIENCE',
+  CUSTOM: 'CUSTOM'
+} as const
+
+export type ContractTemplateType = (typeof ContractTemplateType)[keyof typeof ContractTemplateType]
