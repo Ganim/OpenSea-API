@@ -55,9 +55,25 @@ export const createLoanSchema = z.object({
 
 export const updateLoanSchema = z.object({
   name: z.string().min(1).max(128).optional(),
+  type: z
+    .enum([
+      'PERSONAL',
+      'BUSINESS',
+      'WORKING_CAPITAL',
+      'EQUIPMENT',
+      'REAL_ESTATE',
+      'CREDIT_LINE',
+      'OTHER',
+    ])
+    .optional(),
   contractNumber: z.string().max(64).nullable().optional(),
   notes: z.string().nullable().optional(),
   endDate: z.coerce.date().nullable().optional(),
+  interestRate: z.number().min(0).optional(),
+  interestType: z.enum(['SAC', 'PRICE']).nullable().optional(),
+  installmentDay: z.number().int().min(1).max(31).optional(),
+  bankAccountId: z.string().uuid().optional(),
+  costCenterId: z.string().uuid().optional(),
 });
 
 export const loanResponseSchema = z.object({

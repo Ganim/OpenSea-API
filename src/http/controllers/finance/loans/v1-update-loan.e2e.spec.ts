@@ -55,4 +55,75 @@ describe('Update Loan (E2E)', () => {
     const response = await request(app.server).put('/v1/finance/loans/some-id');
     expect(response.status).toBe(401);
   });
+
+  it('should update the amortization metadata fields', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+    const { costCenter, bankAccount } =
+      await createFinancePrerequisites(tenantId);
+
+    const createRes = await request(app.server)
+      .post('/v1/finance/loans')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        name: `Loan ${Date.now()}`,
+        type: 'PERSONAL',
+        bankAccountId: bankAccount.id,
+        costCenterId: costCenter.id,
+        principalAmount: 10000,
+        interestRate: 1.5,
+        startDate: new Date().toISOString(),
+        totalInstallments: 12,
+      });
+
+    const loanId = createRes.body.loan.id;
+
+    const response = await request(app.server)
+      .put(`/v1/finance/loans/${loanId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        type: 'BUSINESS',
+        interestRate: 12.5,
+        interestType: 'SAC',
+        installmentDay: 15,
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.loan).toEqual(
+      expect.objectContaining({
+        type: 'BUSINESS',
+        interestRate: 12.5,
+        interestType: 'SAC',
+        installmentDay: 15,
+      }),
+    );
+  });
+
+  it('should reject SIMPLE/COMPOUND legacy values for interestType', async () => {
+    const { token } = await createAndAuthenticateUser(app, { tenantId });
+    const { costCenter, bankAccount } =
+      await createFinancePrerequisites(tenantId);
+
+    const createRes = await request(app.server)
+      .post('/v1/finance/loans')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        name: `Loan ${Date.now()}`,
+        type: 'PERSONAL',
+        bankAccountId: bankAccount.id,
+        costCenterId: costCenter.id,
+        principalAmount: 5000,
+        interestRate: 1.0,
+        startDate: new Date().toISOString(),
+        totalInstallments: 6,
+      });
+
+    const loanId = createRes.body.loan.id;
+
+    const response = await request(app.server)
+      .put(`/v1/finance/loans/${loanId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ interestType: 'SIMPLE' });
+
+    expect(response.status).toBe(400);
+  });
 });

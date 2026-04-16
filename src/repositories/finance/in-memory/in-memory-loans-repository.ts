@@ -110,6 +110,7 @@ export class InMemoryLoansRepository implements LoansRepository {
     if (!item) return null;
 
     if (data.name !== undefined) item.name = data.name;
+    if (data.type !== undefined) item.type = data.type as LoanType;
     if (data.contractNumber !== undefined)
       item.contractNumber = data.contractNumber ?? undefined;
     if (data.status !== undefined) item.status = data.status as LoanStatus;
@@ -119,6 +120,15 @@ export class InMemoryLoansRepository implements LoansRepository {
       item.paidInstallments = data.paidInstallments;
     if (data.notes !== undefined) item.notes = data.notes ?? undefined;
     if (data.endDate !== undefined) item.endDate = data.endDate ?? undefined;
+    if (data.interestRate !== undefined) item.interestRate = data.interestRate;
+    if (data.interestType !== undefined)
+      item.interestType = data.interestType ?? undefined;
+    if (data.installmentDay !== undefined)
+      item.installmentDay = data.installmentDay;
+    if (data.bankAccountId !== undefined)
+      item.bankAccountId = new UniqueEntityID(data.bankAccountId);
+    if (data.costCenterId !== undefined)
+      item.costCenterId = new UniqueEntityID(data.costCenterId);
 
     return item;
   }

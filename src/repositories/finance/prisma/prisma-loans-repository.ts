@@ -205,6 +205,7 @@ export class PrismaLoansRepository implements LoansRepository {
     // Build update data
     const updateData: Record<string, unknown> = {
       ...(data.name !== undefined && { name: data.name }),
+      ...(data.type !== undefined && { type: data.type as LoanType }),
       ...(data.contractNumber !== undefined && {
         contractNumber: data.contractNumber,
       }),
@@ -217,6 +218,21 @@ export class PrismaLoansRepository implements LoansRepository {
       }),
       ...(data.notes !== undefined && { notes: data.notes }),
       ...(data.endDate !== undefined && { endDate: data.endDate }),
+      ...(data.interestRate !== undefined && {
+        interestRate: new Prisma.Decimal(data.interestRate),
+      }),
+      ...(data.interestType !== undefined && {
+        interestType: data.interestType,
+      }),
+      ...(data.installmentDay !== undefined && {
+        installmentDay: data.installmentDay,
+      }),
+      ...(data.bankAccountId !== undefined && {
+        bankAccountId: data.bankAccountId,
+      }),
+      ...(data.costCenterId !== undefined && {
+        costCenterId: data.costCenterId,
+      }),
     };
 
     // Encrypt the sensitive fields in updateData

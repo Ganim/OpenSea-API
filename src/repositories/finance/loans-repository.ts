@@ -26,12 +26,18 @@ export interface UpdateLoanSchema {
   id: UniqueEntityID;
   tenantId?: string;
   name?: string;
+  type?: string;
   contractNumber?: string | null;
   status?: string;
   outstandingBalance?: number;
   paidInstallments?: number;
   notes?: string | null;
   endDate?: Date | null;
+  interestRate?: number;
+  interestType?: string | null;
+  installmentDay?: number;
+  bankAccountId?: string;
+  costCenterId?: string;
 }
 
 export interface FindManyLoansOptions {

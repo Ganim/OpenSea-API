@@ -63,6 +63,10 @@ export class Loan extends Entity<LoanProps> {
   get type(): LoanType {
     return this.props.type;
   }
+  set type(value: LoanType) {
+    this.props.type = value;
+    this.touch();
+  }
 
   get contractNumber(): string | undefined {
     return this.props.contractNumber;
@@ -134,6 +138,10 @@ export class Loan extends Entity<LoanProps> {
 
   get installmentDay(): number | undefined {
     return this.props.installmentDay;
+  }
+  set installmentDay(value: number | undefined) {
+    this.props.installmentDay = value;
+    this.touch();
   }
 
   get notes(): string | undefined {

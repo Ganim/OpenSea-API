@@ -58,4 +58,70 @@ describe('UpdateLoanUseCase', () => {
       }),
     ).rejects.toThrow(BadRequestError);
   });
+
+  it('should update interest rate, type and amortization system', async () => {
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      id: seededLoanId,
+      type: 'BUSINESS',
+      interestRate: 15.5,
+      interestType: 'SAC',
+      installmentDay: 10,
+    });
+
+    expect(result.loan.type).toBe('BUSINESS');
+    expect(result.loan.interestRate).toBe(15.5);
+    expect(result.loan.interestType).toBe('SAC');
+    expect(result.loan.installmentDay).toBe(10);
+  });
+
+  it('should block structural changes when there are paid installments', async () => {
+    const loan = loansRepository.items.find(
+      (i) => i.id.toString() === seededLoanId,
+    )!;
+    loan.paidInstallments = 1;
+
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        id: seededLoanId,
+        interestRate: 20,
+      }),
+    ).rejects.toThrow(/paid installments/i);
+
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        id: seededLoanId,
+        interestType: 'SAC',
+      }),
+    ).rejects.toThrow(/paid installments/i);
+
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        id: seededLoanId,
+        installmentDay: 5,
+      }),
+    ).rejects.toThrow(/paid installments/i);
+  });
+
+  it('should still allow non-structural edits when there are paid installments', async () => {
+    const loan = loansRepository.items.find(
+      (i) => i.id.toString() === seededLoanId,
+    )!;
+    loan.paidInstallments = 1;
+
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      id: seededLoanId,
+      name: 'Apelido Atualizado',
+      contractNumber: 'CT-XYZ',
+      notes: 'Renegociado em 2026',
+    });
+
+    expect(result.loan.name).toBe('Apelido Atualizado');
+    expect(result.loan.contractNumber).toBe('CT-XYZ');
+    expect(result.loan.notes).toBe('Renegociado em 2026');
+  });
 });
