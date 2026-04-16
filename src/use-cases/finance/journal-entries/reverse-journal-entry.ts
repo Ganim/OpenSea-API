@@ -61,6 +61,7 @@ export class ReverseJournalEntryUseCase {
 
     await this.journalEntriesRepository.markReversed(
       new UniqueEntityID(journalEntryId),
+      tenantId,
       reversalEntry.id,
     );
 

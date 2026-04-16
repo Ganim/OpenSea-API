@@ -160,9 +160,13 @@ export class PrismaJournalEntriesRepository
     return `LC-${nextNumber}`;
   }
 
-  async markReversed(id: UniqueEntityID, reversedById: string): Promise<void> {
-    await prisma.journalEntry.update({
-      where: { id: id.toString() },
+  async markReversed(
+    id: UniqueEntityID,
+    tenantId: string,
+    reversedById: string,
+  ): Promise<void> {
+    await prisma.journalEntry.updateMany({
+      where: { id: id.toString(), tenantId },
       data: {
         status: 'REVERSED',
         reversedById,

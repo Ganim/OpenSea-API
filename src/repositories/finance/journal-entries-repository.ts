@@ -89,7 +89,11 @@ export interface JournalEntriesRepository {
     sourceId: string,
   ): Promise<JournalEntryWithLines[]>;
   generateNextCode(tenantId: string): Promise<string>;
-  markReversed(id: UniqueEntityID, reversedById: string): Promise<void>;
+  markReversed(
+    id: UniqueEntityID,
+    tenantId: string,
+    reversedById: string,
+  ): Promise<void>;
   getLedger(
     tenantId: string,
     chartOfAccountId: string,

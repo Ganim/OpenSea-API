@@ -136,8 +136,14 @@ export class InMemoryJournalEntriesRepository
     return `LC-${String(count + 1).padStart(6, '0')}`;
   }
 
-  async markReversed(id: UniqueEntityID, reversedById: string): Promise<void> {
-    const entry = this.items.find((i) => i.id === id.toString());
+  async markReversed(
+    id: UniqueEntityID,
+    tenantId: string,
+    reversedById: string,
+  ): Promise<void> {
+    const entry = this.items.find(
+      (i) => i.id === id.toString() && i.tenantId === tenantId,
+    );
     if (entry) {
       entry.status = 'REVERSED';
       entry.reversedById = reversedById;
