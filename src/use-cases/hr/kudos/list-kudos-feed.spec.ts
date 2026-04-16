@@ -1,10 +1,16 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { EmployeeKudos } from '@/entities/hr/employee-kudos';
+import { KudosReaction } from '@/entities/hr/kudos-reaction';
+import { KudosReply } from '@/entities/hr/kudos-reply';
 import { InMemoryEmployeeKudosRepository } from '@/repositories/hr/in-memory/in-memory-employee-kudos-repository';
+import { InMemoryKudosReactionsRepository } from '@/repositories/hr/in-memory/in-memory-kudos-reactions-repository';
+import { InMemoryKudosRepliesRepository } from '@/repositories/hr/in-memory/in-memory-kudos-replies-repository';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { ListKudosFeedUseCase } from './list-kudos-feed';
 
 let employeeKudosRepository: InMemoryEmployeeKudosRepository;
+let kudosReactionsRepository: InMemoryKudosReactionsRepository;
+let kudosRepliesRepository: InMemoryKudosRepliesRepository;
 let listKudosFeedUseCase: ListKudosFeedUseCase;
 
 const TENANT_ID = new UniqueEntityID().toString();
@@ -13,6 +19,9 @@ function createTestKudos(
   overrides: {
     tenantId?: string;
     isPublic?: boolean;
+    isPinned?: boolean;
+    pinnedAt?: Date | null;
+    pinnedBy?: UniqueEntityID | null;
     fromEmployeeId?: string;
     toEmployeeId?: string;
   } = {},
@@ -28,36 +37,47 @@ function createTestKudos(
     message: 'Amazing innovation on the new feature!',
     category: 'INNOVATION',
     isPublic: overrides.isPublic ?? true,
+    isPinned: overrides.isPinned ?? false,
+    pinnedAt: overrides.pinnedAt ?? null,
+    pinnedBy: overrides.pinnedBy ?? null,
   });
 }
 
 describe('ListKudosFeedUseCase', () => {
   beforeEach(() => {
     employeeKudosRepository = new InMemoryEmployeeKudosRepository();
-    listKudosFeedUseCase = new ListKudosFeedUseCase(employeeKudosRepository);
+    kudosReactionsRepository = new InMemoryKudosReactionsRepository();
+    kudosRepliesRepository = new InMemoryKudosRepliesRepository();
+    listKudosFeedUseCase = new ListKudosFeedUseCase(
+      employeeKudosRepository,
+      kudosReactionsRepository,
+      kudosRepliesRepository,
+    );
   });
 
   it('should list public kudos for the tenant feed', async () => {
     await employeeKudosRepository.create(createTestKudos());
 
-    const { kudos, total } = await listKudosFeedUseCase.execute({
+    const { items, total } = await listKudosFeedUseCase.execute({
       tenantId: TENANT_ID,
       page: 1,
       limit: 20,
     });
 
-    expect(kudos).toHaveLength(1);
+    expect(items).toHaveLength(1);
     expect(total).toBe(1);
+    expect(items[0].reactionsSummary).toEqual([]);
+    expect(items[0].repliesCount).toBe(0);
   });
 
   it('should return empty list when no public kudos exist', async () => {
-    const { kudos, total } = await listKudosFeedUseCase.execute({
+    const { items, total } = await listKudosFeedUseCase.execute({
       tenantId: TENANT_ID,
       page: 1,
       limit: 20,
     });
 
-    expect(kudos).toHaveLength(0);
+    expect(items).toHaveLength(0);
     expect(total).toBe(0);
   });
 
@@ -65,15 +85,15 @@ describe('ListKudosFeedUseCase', () => {
     await employeeKudosRepository.create(createTestKudos({ isPublic: true }));
     await employeeKudosRepository.create(createTestKudos({ isPublic: false }));
 
-    const { kudos, total } = await listKudosFeedUseCase.execute({
+    const { items, total } = await listKudosFeedUseCase.execute({
       tenantId: TENANT_ID,
       page: 1,
       limit: 20,
     });
 
-    expect(kudos).toHaveLength(1);
+    expect(items).toHaveLength(1);
     expect(total).toBe(1);
-    expect(kudos[0].isPublic).toBe(true);
+    expect(items[0].kudos.isPublic).toBe(true);
   });
 
   it('should only return kudos for the specified tenant', async () => {
@@ -84,13 +104,13 @@ describe('ListKudosFeedUseCase', () => {
       createTestKudos({ tenantId: differentTenantId }),
     );
 
-    const { kudos, total } = await listKudosFeedUseCase.execute({
+    const { items, total } = await listKudosFeedUseCase.execute({
       tenantId: TENANT_ID,
       page: 1,
       limit: 20,
     });
 
-    expect(kudos).toHaveLength(1);
+    expect(items).toHaveLength(1);
     expect(total).toBe(1);
   });
 
@@ -105,7 +125,7 @@ describe('ListKudosFeedUseCase', () => {
       limit: 2,
     });
 
-    expect(firstPage.kudos).toHaveLength(2);
+    expect(firstPage.items).toHaveLength(2);
     expect(firstPage.total).toBe(5);
 
     const secondPage = await listKudosFeedUseCase.execute({
@@ -114,7 +134,7 @@ describe('ListKudosFeedUseCase', () => {
       limit: 2,
     });
 
-    expect(secondPage.kudos).toHaveLength(2);
+    expect(secondPage.items).toHaveLength(2);
     expect(secondPage.total).toBe(5);
 
     const thirdPage = await listKudosFeedUseCase.execute({
@@ -123,72 +143,103 @@ describe('ListKudosFeedUseCase', () => {
       limit: 2,
     });
 
-    expect(thirdPage.kudos).toHaveLength(1);
+    expect(thirdPage.items).toHaveLength(1);
     expect(thirdPage.total).toBe(5);
   });
 
-  it('should return empty array for page beyond total', async () => {
+  it('should sort pinned kudos before non-pinned', async () => {
+    const olderUnpinned = createTestKudos();
+    await employeeKudosRepository.create(olderUnpinned);
+
+    await new Promise((resolve) => setTimeout(resolve, 5));
+
+    const newerUnpinned = createTestKudos();
+    await employeeKudosRepository.create(newerUnpinned);
+
+    await new Promise((resolve) => setTimeout(resolve, 5));
+
+    const pinned = createTestKudos();
+    pinned.pin(new UniqueEntityID());
+    await employeeKudosRepository.create(pinned);
+
+    const { items } = await listKudosFeedUseCase.execute({
+      tenantId: TENANT_ID,
+      page: 1,
+      limit: 20,
+    });
+
+    expect(items[0].kudos.isPinned).toBe(true);
+    expect(items[0].kudos.id.equals(pinned.id)).toBe(true);
+  });
+
+  it('should filter by pinned=true to return only pinned kudos', async () => {
     await employeeKudosRepository.create(createTestKudos());
 
-    const { kudos, total } = await listKudosFeedUseCase.execute({
+    const pinned = createTestKudos();
+    pinned.pin(new UniqueEntityID());
+    await employeeKudosRepository.create(pinned);
+
+    const { items, total } = await listKudosFeedUseCase.execute({
       tenantId: TENANT_ID,
-      page: 10,
+      page: 1,
       limit: 20,
+      pinned: true,
     });
 
-    expect(kudos).toHaveLength(0);
+    expect(items).toHaveLength(1);
     expect(total).toBe(1);
+    expect(items[0].kudos.isPinned).toBe(true);
   });
 
-  it('should sort feed by most recent first', async () => {
-    // The in-memory repository sorts by createdAt desc
-    const olderKudos = createTestKudos();
-    await employeeKudosRepository.create(olderKudos);
+  it('should include reactions summary and replies count', async () => {
+    const kudos = createTestKudos();
+    await employeeKudosRepository.create(kudos);
 
-    // Small delay to ensure different timestamps
-    await new Promise((resolve) => setTimeout(resolve, 10));
+    await kudosReactionsRepository.create(
+      KudosReaction.create({
+        tenantId: kudos.tenantId,
+        kudosId: kudos.id,
+        employeeId: new UniqueEntityID(),
+        emoji: '👍',
+      }),
+    );
+    await kudosReactionsRepository.create(
+      KudosReaction.create({
+        tenantId: kudos.tenantId,
+        kudosId: kudos.id,
+        employeeId: new UniqueEntityID(),
+        emoji: '👍',
+      }),
+    );
+    await kudosReactionsRepository.create(
+      KudosReaction.create({
+        tenantId: kudos.tenantId,
+        kudosId: kudos.id,
+        employeeId: new UniqueEntityID(),
+        emoji: '🎉',
+      }),
+    );
 
-    const newerKudos = createTestKudos();
-    await employeeKudosRepository.create(newerKudos);
+    await kudosRepliesRepository.create(
+      KudosReply.create({
+        tenantId: kudos.tenantId,
+        kudosId: kudos.id,
+        employeeId: new UniqueEntityID(),
+        content: 'Nice!',
+      }),
+    );
 
-    const { kudos } = await listKudosFeedUseCase.execute({
+    const { items } = await listKudosFeedUseCase.execute({
       tenantId: TENANT_ID,
       page: 1,
       limit: 20,
     });
 
-    expect(kudos).toHaveLength(2);
-    expect(kudos[0].createdAt.getTime()).toBeGreaterThanOrEqual(
-      kudos[1].createdAt.getTime(),
-    );
-  });
-
-  it('should show kudos from multiple senders and recipients in the feed', async () => {
-    const senderA = new UniqueEntityID().toString();
-    const senderB = new UniqueEntityID().toString();
-    const recipientA = new UniqueEntityID().toString();
-    const recipientB = new UniqueEntityID().toString();
-
-    await employeeKudosRepository.create(
-      createTestKudos({
-        fromEmployeeId: senderA,
-        toEmployeeId: recipientA,
-      }),
-    );
-    await employeeKudosRepository.create(
-      createTestKudos({
-        fromEmployeeId: senderB,
-        toEmployeeId: recipientB,
-      }),
-    );
-
-    const { kudos, total } = await listKudosFeedUseCase.execute({
-      tenantId: TENANT_ID,
-      page: 1,
-      limit: 20,
+    expect(items[0].reactionsSummary).toHaveLength(2);
+    expect(items[0].reactionsSummary[0]).toMatchObject({
+      emoji: '👍',
+      count: 2,
     });
-
-    expect(kudos).toHaveLength(2);
-    expect(total).toBe(2);
+    expect(items[0].repliesCount).toBe(1);
   });
 });

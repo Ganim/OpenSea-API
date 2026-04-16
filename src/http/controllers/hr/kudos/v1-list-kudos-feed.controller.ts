@@ -6,6 +6,14 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
+const reactionSummarySchema = z.array(
+  z.object({
+    emoji: z.string(),
+    count: z.number().int().nonnegative(),
+    employeeIds: z.array(z.string()),
+  }),
+);
+
 export async function v1ListKudosFeedController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
@@ -14,10 +22,12 @@ export async function v1ListKudosFeedController(app: FastifyInstance) {
     schema: {
       tags: ['HR - Kudos'],
       summary: 'Public kudos feed',
-      description: 'Returns a paginated feed of public kudos across the tenant',
+      description:
+        'Returns a paginated feed of public kudos across the tenant. Each item is enriched with reactions summary, replies count and pinned flag. Pinned kudos are returned first.',
       querystring: z.object({
         page: z.coerce.number().int().positive().default(1),
         limit: z.coerce.number().int().positive().max(100).default(20),
+        pinned: z.coerce.boolean().optional(),
       }),
       response: {
         200: z.object({
@@ -29,7 +39,12 @@ export async function v1ListKudosFeedController(app: FastifyInstance) {
               message: z.string(),
               category: z.string(),
               isPublic: z.boolean(),
+              isPinned: z.boolean(),
+              pinnedAt: z.date().nullable(),
+              pinnedBy: z.string().nullable(),
               createdAt: z.date(),
+              reactionsSummary: reactionSummarySchema,
+              repliesCount: z.number().int().nonnegative(),
             }),
           ),
           meta: z.object({
@@ -45,17 +60,22 @@ export async function v1ListKudosFeedController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { page, limit } = request.query;
+      const { page, limit, pinned } = request.query;
 
       const listKudosFeedUseCase = makeListKudosFeedUseCase();
-      const { kudos, total } = await listKudosFeedUseCase.execute({
+      const { items, total } = await listKudosFeedUseCase.execute({
         tenantId,
         page,
         limit,
+        pinned,
       });
 
       return reply.status(200).send({
-        kudos: kudos.map(employeeKudosToDTO),
+        kudos: items.map((item) => ({
+          ...employeeKudosToDTO(item.kudos),
+          reactionsSummary: item.reactionsSummary.slice(0, 5),
+          repliesCount: item.repliesCount,
+        })),
         meta: {
           total,
           page,
