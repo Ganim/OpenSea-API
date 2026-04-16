@@ -2,6 +2,10 @@ import { CannotDeletePaidEntryError } from '@/@errors/use-cases/cannot-delete-pa
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
+import {
+  assertPeriodNotLocked,
+  type PeriodLockChecker,
+} from '@/utils/finance/period-lock-guard';
 import { queueAuditLog } from '@/workers/queues/audit.queue';
 
 interface DeleteFinanceEntryUseCaseRequest {
@@ -11,7 +15,10 @@ interface DeleteFinanceEntryUseCaseRequest {
 }
 
 export class DeleteFinanceEntryUseCase {
-  constructor(private financeEntriesRepository: FinanceEntriesRepository) {}
+  constructor(
+    private financeEntriesRepository: FinanceEntriesRepository,
+    private periodLockChecker?: PeriodLockChecker,
+  ) {}
 
   async execute({
     tenantId,
@@ -31,6 +38,8 @@ export class DeleteFinanceEntryUseCase {
     if (undeletableStatuses.includes(entry.status)) {
       throw new CannotDeletePaidEntryError(entry.status);
     }
+
+    await assertPeriodNotLocked(tenantId, entry.dueDate, this.periodLockChecker);
 
     await this.financeEntriesRepository.delete(
       new UniqueEntityID(id),

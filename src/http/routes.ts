@@ -170,6 +170,7 @@ import { loansRoutes } from './controllers/finance/loans/routes';
 import { paymentLinksRoutes } from './controllers/finance/payment-links/routes';
 import { paymentOrdersRoutes } from './controllers/finance/payment-orders/routes';
 import { pixRoutes } from './controllers/finance/pix/routes';
+import { financePeriodLockRoutes } from './controllers/finance/period-locks/routes';
 import { reconciliationRoutes } from './controllers/finance/reconciliation/routes';
 import { financeRecurringRoutes } from './controllers/finance/recurring/routes';
 import { financeReportsRoutes } from './controllers/finance/reports/routes';
@@ -476,6 +477,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(bankWebhookRoutes);
   await app.register(journalEntriesRoutes);
   await app.register(financeReportsRoutes);
+  await app.register(financePeriodLockRoutes);
 
   // Accountant Portal routes (token-based auth, no JWT)
   await app.register(accountantPortalRoutes);

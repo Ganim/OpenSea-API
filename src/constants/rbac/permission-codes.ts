@@ -224,6 +224,12 @@ export const PermissionCodes = {
       ACCESS: 'finance.reports.access' as const,
       EXPORT: 'finance.reports.export' as const,
     },
+    PERIOD_LOCKS: {
+      ACCESS: 'finance.period-locks.access' as const,
+      REGISTER: 'finance.period-locks.register' as const,
+      REMOVE: 'finance.period-locks.remove' as const,
+      ADMIN: 'finance.period-locks.admin' as const,
+    },
     ACCOUNTANT: {
       ACCESS: 'finance.accountant.access' as const,
       REGISTER: 'finance.accountant.register' as const,

@@ -504,4 +504,18 @@ export const FINANCE_AUDIT_MESSAGES = {
     module: AuditModule.FINANCE,
     description: '{{userName}} cancelou a recorrência {{configName}}',
   } satisfies AuditMessage,
+
+  PERIOD_LOCK_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.FINANCE_PERIOD_LOCK,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} travou o período {{period}}',
+  } satisfies AuditMessage,
+
+  PERIOD_LOCK_RELEASE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.FINANCE_PERIOD_LOCK,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} liberou o período {{period}}',
+  } satisfies AuditMessage,
 } as const;

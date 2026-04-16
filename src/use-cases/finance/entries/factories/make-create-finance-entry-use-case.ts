@@ -10,6 +10,7 @@ import { PrismaChartOfAccountsRepository } from '@/repositories/finance/prisma/p
 import { makeCalendarSyncService } from '@/services/calendar/make-calendar-sync-service';
 import { makeEvaluateAutoApprovalUseCase } from '@/use-cases/finance/approval-rules/factories/make-evaluate-auto-approval-use-case';
 import { AutoJournalFromEntryUseCase } from '@/use-cases/finance/journal-entries/auto-journal-from-entry';
+import { buildPrismaPeriodLockChecker } from '@/utils/finance/period-lock-guard';
 import { CreateFinanceEntryUseCase } from '../create-finance-entry';
 
 export function makeCreateFinanceEntryUseCase() {
@@ -45,6 +46,8 @@ export function makeCreateFinanceEntryUseCase() {
     journalEntriesRepository,
   );
 
+  const periodLockChecker = buildPrismaPeriodLockChecker();
+
   return new CreateFinanceEntryUseCase(
     entriesRepository,
     categoriesRepository,
@@ -56,5 +59,6 @@ export function makeCreateFinanceEntryUseCase() {
     evaluateAutoApproval,
     retentionsRepository,
     autoJournalFromEntry,
+    periodLockChecker,
   );
 }

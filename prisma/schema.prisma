@@ -6131,6 +6131,7 @@ model Tenant {
   consortia                    Consortium[]
   recurringConfigs             RecurringConfig[]
   financeBudgets               FinanceBudget[]
+  financePeriodLocks           FinancePeriodLock[]
   contracts                    Contract[]
   bankReconciliations          BankReconciliation[]
   reconciliationSuggestions    ReconciliationSuggestion[]
@@ -7033,6 +7034,33 @@ model FinanceBudget {
   @@index([categoryId])
   @@index([costCenterId])
   @@map("finance_budgets")
+}
+
+// ============================================================================
+// FINANCE PERIOD LOCKS — Fechamento contábil por mês
+// ============================================================================
+
+model FinancePeriodLock {
+  id String @id @default(uuid())
+
+  tenantId String @map("tenant_id")
+  year     Int
+  month    Int
+
+  lockedBy   String    @map("locked_by")
+  lockedAt   DateTime  @default(now()) @map("locked_at")
+  releasedBy String?   @map("released_by")
+  releasedAt DateTime? @map("released_at")
+  reason     String?   @db.VarChar(500)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@unique([tenantId, year, month], name: "finance_period_lock_unique")
+  @@index([tenantId, releasedAt])
+  @@map("finance_period_locks")
 }
 
 model FinanceAttachment {

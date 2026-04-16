@@ -6,6 +6,10 @@ import {
   financeEntryToDTO,
 } from '@/mappers/finance/finance-entry/finance-entry-to-dto';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
+import {
+  assertPeriodNotLocked,
+  type PeriodLockChecker,
+} from '@/utils/finance/period-lock-guard';
 import { queueAuditLog } from '@/workers/queues/audit.queue';
 
 interface UpdateFinanceEntryUseCaseRequest {
@@ -39,7 +43,10 @@ interface UpdateFinanceEntryUseCaseResponse {
 }
 
 export class UpdateFinanceEntryUseCase {
-  constructor(private financeEntriesRepository: FinanceEntriesRepository) {}
+  constructor(
+    private financeEntriesRepository: FinanceEntriesRepository,
+    private periodLockChecker?: PeriodLockChecker,
+  ) {}
 
   async execute(
     request: UpdateFinanceEntryUseCaseRequest,
@@ -58,6 +65,22 @@ export class UpdateFinanceEntryUseCase {
     if (immutableStatuses.includes(existingEntry.status)) {
       throw new BadRequestError(
         'Cannot update an entry with status ' + existingEntry.status,
+      );
+    }
+
+    await assertPeriodNotLocked(
+      tenantId,
+      existingEntry.dueDate,
+      this.periodLockChecker
+    );
+    if (
+      request.dueDate &&
+      request.dueDate.getTime() !== existingEntry.dueDate.getTime()
+    ) {
+      await assertPeriodNotLocked(
+        tenantId,
+        request.dueDate,
+        this.periodLockChecker
       );
     }
 

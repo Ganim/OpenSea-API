@@ -163,7 +163,7 @@ export async function getDfcController(app: FastifyInstance) {
         const signed = e.type === 'RECEIVABLE' ? amount : -amount;
         const monthIdx = new Date(e.dueDate).getMonth();
 
-        const cat = categoryById.get(e.categoryId);
+        const cat = categoryById.get(e.categoryId.toString());
         const activity = classifyActivity(cat?.name ?? '', cat?.slug ?? null);
 
         monthlyAcc[monthIdx][activity] += signed;
@@ -172,16 +172,16 @@ export async function getDfcController(app: FastifyInstance) {
         else if (activity === 'INVESTING') investing += signed;
         else financing += signed;
 
-        const existing = categoryAcc.get(e.categoryId) ?? {
+        const existing = categoryAcc.get(e.categoryId.toString()) ?? {
           activity,
-          categoryId: e.categoryId,
+          categoryId: e.categoryId.toString(),
           categoryName: cat?.name ?? 'Sem categoria',
           inflow: 0,
           outflow: 0,
         };
         if (e.type === 'RECEIVABLE') existing.inflow += amount;
         else existing.outflow += amount;
-        categoryAcc.set(e.categoryId, existing);
+        categoryAcc.set(e.categoryId.toString(), existing);
       }
 
       const monthly = monthlyAcc.map((row, i) => ({

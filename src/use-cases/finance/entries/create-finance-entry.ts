@@ -27,6 +27,10 @@ import {
   calculateAllRetentions,
 } from '@/services/finance/tax-calculation.service';
 import { calculateNextDate } from '@/utils/finance/calculate-next-date';
+import {
+  assertPeriodNotLocked,
+  type PeriodLockChecker,
+} from '@/utils/finance/period-lock-guard';
 
 interface CostCenterAllocation {
   costCenterId: string;
@@ -100,6 +104,7 @@ export class CreateFinanceEntryUseCase {
         createdBy?: string;
       }): Promise<unknown>;
     },
+    private periodLockChecker?: PeriodLockChecker,
   ) {}
 
   async execute(
@@ -118,6 +123,8 @@ export class CreateFinanceEntryUseCase {
     if (!description || description.trim().length === 0) {
       throw new BadRequestError('Description is required');
     }
+
+    await assertPeriodNotLocked(tenantId, request.dueDate, this.periodLockChecker);
 
     if (type !== 'PAYABLE' && type !== 'RECEIVABLE') {
       throw new BadRequestError('Type must be PAYABLE or RECEIVABLE');
