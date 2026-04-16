@@ -279,6 +279,7 @@ import { bonusesRoutes } from './controllers/hr/bonuses/routes';
 import { cipaMandatesRoutes } from './controllers/hr/cipa-mandates/routes';
 import { cipaMembersRoutes } from './controllers/hr/cipa-members/routes';
 import { companiesRoutes } from './controllers/hr/companies/routes';
+import { contractsRoutes as hrContractsRoutes } from './controllers/hr/contracts/routes';
 import { deductionsRoutes } from './controllers/hr/deductions/routes';
 import { departmentsRoutes } from './controllers/hr/departments/routes';
 import { dependantsRoutes } from './controllers/hr/dependants/routes';
@@ -551,6 +552,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(surveysRoutes);
   await app.register(okrsRoutes);
   await app.register(hrAnalyticsRoutes);
+  await app.register(hrContractsRoutes);
 
   // Tasks routes
   await app.register(taskBoardsRoutes);

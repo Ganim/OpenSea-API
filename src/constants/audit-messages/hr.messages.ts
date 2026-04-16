@@ -1465,6 +1465,43 @@ export const HR_AUDIT_MESSAGES = {
     description:
       '{{userName}} reordenou as etapas de entrevista da vaga {{jobPostingId}}',
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // CONTRACT TEMPLATES & GENERATED EMPLOYMENT CONTRACTS
+  // ============================================================================
+
+  /** Modelo de contrato criado */
+  CONTRACT_TEMPLATE_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.CONTRACT,
+    module: AuditModule.HR,
+    description: '{{userName}} criou o modelo de contrato {{templateName}}',
+  } satisfies AuditMessage,
+
+  /** Modelo de contrato atualizado */
+  CONTRACT_TEMPLATE_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.CONTRACT,
+    module: AuditModule.HR,
+    description: '{{userName}} atualizou o modelo de contrato {{templateName}}',
+  } satisfies AuditMessage,
+
+  /** Modelo de contrato removido */
+  CONTRACT_TEMPLATE_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.CONTRACT,
+    module: AuditModule.HR,
+    description: '{{userName}} removeu o modelo de contrato {{templateName}}',
+  } satisfies AuditMessage,
+
+  /** Contrato de trabalho gerado para o funcionário */
+  EMPLOYEE_CONTRACT_GENERATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.CONTRACT,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} gerou o contrato {{templateName}} para {{employeeName}}',
+  } satisfies AuditMessage,
 } as const;
 
 export type HrAuditMessageKey = keyof typeof HR_AUDIT_MESSAGES;
