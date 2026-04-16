@@ -28,14 +28,17 @@ export async function v1UpdateAnnouncementController(app: FastifyInstance) {
       summary: 'Update an announcement',
       description: 'Updates an existing company announcement',
       params: z.object({
-        id: z.string().uuid(),
+        id: z.string(),
       }),
       body: z.object({
         title: z.string().min(1).optional(),
         content: z.string().min(1).optional(),
         priority: z.enum(['NORMAL', 'IMPORTANT', 'URGENT']).optional(),
         expiresAt: z.coerce.date().optional(),
-        targetDepartmentIds: z.array(z.string().uuid()).optional(),
+        targetDepartmentIds: z.array(z.string()).optional(),
+        targetTeamIds: z.array(z.string()).optional(),
+        targetRoleIds: z.array(z.string()).optional(),
+        targetEmployeeIds: z.array(z.string()).optional(),
       }),
       response: {
         200: z.object({
@@ -48,6 +51,12 @@ export async function v1UpdateAnnouncementController(app: FastifyInstance) {
             expiresAt: z.date().nullable(),
             authorEmployeeId: z.string().nullable(),
             targetDepartmentIds: z.array(z.string()).nullable(),
+            audienceTargets: z.object({
+              departments: z.array(z.string()).optional(),
+              teams: z.array(z.string()).optional(),
+              roles: z.array(z.string()).optional(),
+              employees: z.array(z.string()).optional(),
+            }),
             isActive: z.boolean(),
             createdAt: z.date(),
             updatedAt: z.date(),

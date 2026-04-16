@@ -6,6 +6,15 @@ export interface PaginatedAnnouncementsResult {
   total: number;
 }
 
+export interface FindManyActiveFilters {
+  /**
+   * When supplied along with {@link unreadOnly} `true`, excludes every
+   * announcement that already has a read receipt for this employee.
+   */
+  currentEmployeeId?: UniqueEntityID;
+  unreadOnly?: boolean;
+}
+
 export interface CompanyAnnouncementsRepository {
   create(announcement: CompanyAnnouncement): Promise<void>;
   findById(
@@ -16,6 +25,7 @@ export interface CompanyAnnouncementsRepository {
     tenantId: string,
     skip: number,
     take: number,
+    filters?: FindManyActiveFilters,
   ): Promise<PaginatedAnnouncementsResult>;
   save(announcement: CompanyAnnouncement): Promise<void>;
   delete(id: UniqueEntityID, tenantId: string): Promise<void>;

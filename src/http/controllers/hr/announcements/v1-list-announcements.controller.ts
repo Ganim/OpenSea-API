@@ -14,10 +14,12 @@ export async function v1ListAnnouncementsController(app: FastifyInstance) {
     schema: {
       tags: ['HR - Announcements'],
       summary: 'List active announcements',
-      description: 'Returns a paginated list of active company announcements',
+      description:
+        'Returns a paginated list of active company announcements. Each item is enriched with `isReadByMe`, `readCount` and `audienceCount`.',
       querystring: z.object({
         page: z.coerce.number().int().positive().default(1),
         limit: z.coerce.number().int().positive().max(100).default(20),
+        unreadOnly: z.coerce.boolean().optional(),
       }),
       response: {
         200: z.object({
@@ -31,9 +33,18 @@ export async function v1ListAnnouncementsController(app: FastifyInstance) {
               expiresAt: z.date().nullable(),
               authorEmployeeId: z.string().nullable(),
               targetDepartmentIds: z.array(z.string()).nullable(),
+              audienceTargets: z.object({
+                departments: z.array(z.string()).optional(),
+                teams: z.array(z.string()).optional(),
+                roles: z.array(z.string()).optional(),
+                employees: z.array(z.string()).optional(),
+              }),
               isActive: z.boolean(),
               createdAt: z.date(),
               updatedAt: z.date(),
+              isReadByMe: z.boolean(),
+              readCount: z.number(),
+              audienceCount: z.number(),
             }),
           ),
           meta: z.object({
@@ -49,17 +60,25 @@ export async function v1ListAnnouncementsController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { page, limit } = request.query;
+      const userId = request.user.sub;
+      const { page, limit, unreadOnly } = request.query;
 
       const listAnnouncementsUseCase = makeListAnnouncementsUseCase();
-      const { announcements, total } = await listAnnouncementsUseCase.execute({
+      const { items, total } = await listAnnouncementsUseCase.execute({
         tenantId,
         page,
         limit,
+        unreadOnly,
+        currentUserId: userId,
       });
 
       return reply.status(200).send({
-        announcements: announcements.map(companyAnnouncementToDTO),
+        announcements: items.map((item) => ({
+          ...companyAnnouncementToDTO(item.announcement),
+          isReadByMe: item.isReadByMe,
+          readCount: item.readCount,
+          audienceCount: item.audienceCount,
+        })),
         meta: {
           total,
           page,

@@ -2,8 +2,10 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { CompanyAnnouncement } from '@/entities/hr/company-announcement';
 import { prisma } from '@/lib/prisma';
 import { mapCompanyAnnouncementPrismaToDomain } from '@/mappers/hr/company-announcement';
+import type { Prisma } from '@prisma/generated/client.js';
 import type {
   CompanyAnnouncementsRepository,
+  FindManyActiveFilters,
   PaginatedAnnouncementsResult,
 } from '../company-announcements-repository';
 
@@ -21,7 +23,9 @@ export class PrismaCompanyAnnouncementsRepository
         publishedAt: announcement.publishedAt,
         expiresAt: announcement.expiresAt,
         authorEmployeeId: announcement.authorEmployeeId?.toString(),
-        targetDepartmentIds: announcement.targetDepartmentIds ?? undefined,
+        targetDepartmentIds:
+          (announcement.audiencePayload as Prisma.InputJsonValue | undefined) ??
+          undefined,
         isActive: announcement.isActive,
       },
     });
@@ -47,11 +51,20 @@ export class PrismaCompanyAnnouncementsRepository
     tenantId: string,
     skip: number,
     take: number,
+    filters: FindManyActiveFilters = {},
   ): Promise<PaginatedAnnouncementsResult> {
-    const where = {
+    const where: Record<string, unknown> = {
       tenantId,
       isActive: true,
     };
+
+    if (filters.unreadOnly && filters.currentEmployeeId) {
+      where.readReceipts = {
+        none: {
+          employeeId: filters.currentEmployeeId.toString(),
+        },
+      };
+    }
 
     const [rawItems, total] = await Promise.all([
       prisma.companyAnnouncement.findMany({
@@ -85,7 +98,9 @@ export class PrismaCompanyAnnouncementsRepository
         priority: announcement.priority,
         publishedAt: announcement.publishedAt,
         expiresAt: announcement.expiresAt,
-        targetDepartmentIds: announcement.targetDepartmentIds ?? undefined,
+        targetDepartmentIds:
+          (announcement.audiencePayload as Prisma.InputJsonValue | undefined) ??
+          undefined,
         isActive: announcement.isActive,
       },
     });
