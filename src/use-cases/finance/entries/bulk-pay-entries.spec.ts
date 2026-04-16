@@ -158,13 +158,13 @@ describe('BulkPayEntriesUseCase', () => {
     const approvalRulesRepository =
       new InMemoryFinanceApprovalRulesRepository();
 
-    // Create a FLAG_REVIEW rule for all entries up to 50000
+    // Create a FLAG_REVIEW rule: entries OVER R$1000 require approval
     await approvalRulesRepository.create({
       tenantId: 'tenant-1',
-      name: 'Review all entries',
+      name: 'Review entries above R$1000',
       isActive: true,
       action: 'FLAG_REVIEW',
-      maxAmount: 50000,
+      maxAmount: 1000,
     });
 
     const sutWithApproval = new BulkPayEntriesUseCase(
@@ -174,7 +174,7 @@ describe('BulkPayEntriesUseCase', () => {
       approvalRulesRepository,
     );
 
-    // Create entry WITHOUT approval tag
+    // Entry ABOVE threshold WITHOUT approval tag — should be blocked
     const unapprovedEntry = await entriesRepository.create({
       tenantId: 'tenant-1',
       type: 'PAYABLE',
@@ -186,7 +186,7 @@ describe('BulkPayEntriesUseCase', () => {
       dueDate: new Date('2026-02-01'),
     });
 
-    // Create entry WITH approval tag
+    // Entry ABOVE threshold WITH approval tag — should succeed
     const approvedEntry = await entriesRepository.create({
       tenantId: 'tenant-1',
       type: 'PAYABLE',
@@ -208,6 +208,133 @@ describe('BulkPayEntriesUseCase', () => {
 
     // Approved entry should succeed, unapproved should fail
     expect(result.succeeded).toBe(1);
+    expect(result.failed).toBe(1);
+    expect(result.errors[0].error).toContain('aprovação');
+  });
+
+  it('should require approval for entries ABOVE the rule maxAmount threshold', async () => {
+    const approvalRulesRepository =
+      new InMemoryFinanceApprovalRulesRepository();
+
+    // FLAG_REVIEW rule: any entry > R$500 requires approval
+    await approvalRulesRepository.create({
+      tenantId: 'tenant-1',
+      name: 'Review above R$500',
+      isActive: true,
+      action: 'FLAG_REVIEW',
+      maxAmount: 500,
+    });
+
+    const sutWithApproval = new BulkPayEntriesUseCase(
+      entriesRepository,
+      paymentsRepository,
+      fakeTransactionManager,
+      approvalRulesRepository,
+    );
+
+    const largeEntryAboveThreshold = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAG-LARGE',
+      description: 'R$1000 entry — must require approval',
+      categoryId: 'category-1',
+      expectedAmount: 1000,
+      issueDate: new Date('2026-01-01'),
+      dueDate: new Date('2026-02-01'),
+    });
+
+    const result = await sutWithApproval.execute({
+      tenantId: 'tenant-1',
+      entryIds: [largeEntryAboveThreshold.id.toString()],
+      bankAccountId: 'bank-1',
+      method: 'PIX',
+    });
+
+    expect(result.succeeded).toBe(0);
+    expect(result.failed).toBe(1);
+    expect(result.errors[0].error).toContain('aprovação');
+  });
+
+  it('should NOT require approval for entries below the rule maxAmount threshold', async () => {
+    const approvalRulesRepository =
+      new InMemoryFinanceApprovalRulesRepository();
+
+    // FLAG_REVIEW rule: any entry > R$500 requires approval
+    await approvalRulesRepository.create({
+      tenantId: 'tenant-1',
+      name: 'Review above R$500',
+      isActive: true,
+      action: 'FLAG_REVIEW',
+      maxAmount: 500,
+    });
+
+    const sutWithApproval = new BulkPayEntriesUseCase(
+      entriesRepository,
+      paymentsRepository,
+      fakeTransactionManager,
+      approvalRulesRepository,
+    );
+
+    const smallEntryBelowThreshold = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAG-SMALL',
+      description: 'R$100 entry — should pay without approval',
+      categoryId: 'category-1',
+      expectedAmount: 100,
+      issueDate: new Date('2026-01-01'),
+      dueDate: new Date('2026-02-01'),
+    });
+
+    const result = await sutWithApproval.execute({
+      tenantId: 'tenant-1',
+      entryIds: [smallEntryBelowThreshold.id.toString()],
+      bankAccountId: 'bank-1',
+      method: 'PIX',
+    });
+
+    expect(result.succeeded).toBe(1);
+    expect(result.failed).toBe(0);
+  });
+
+  it('should require approval when rule has no maxAmount (blanket rule)', async () => {
+    const approvalRulesRepository =
+      new InMemoryFinanceApprovalRulesRepository();
+
+    // Blanket FLAG_REVIEW rule: every entry must be approved
+    await approvalRulesRepository.create({
+      tenantId: 'tenant-1',
+      name: 'Review every entry',
+      isActive: true,
+      action: 'FLAG_REVIEW',
+    });
+
+    const sutWithApproval = new BulkPayEntriesUseCase(
+      entriesRepository,
+      paymentsRepository,
+      fakeTransactionManager,
+      approvalRulesRepository,
+    );
+
+    const tinyEntry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAG-TINY',
+      description: 'R$10 entry — blanket rule must still require approval',
+      categoryId: 'category-1',
+      expectedAmount: 10,
+      issueDate: new Date('2026-01-01'),
+      dueDate: new Date('2026-02-01'),
+    });
+
+    const result = await sutWithApproval.execute({
+      tenantId: 'tenant-1',
+      entryIds: [tinyEntry.id.toString()],
+      bankAccountId: 'bank-1',
+      method: 'PIX',
+    });
+
+    expect(result.succeeded).toBe(0);
     expect(result.failed).toBe(1);
     expect(result.errors[0].error).toContain('aprovação');
   });

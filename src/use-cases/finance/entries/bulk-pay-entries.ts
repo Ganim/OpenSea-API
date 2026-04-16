@@ -76,7 +76,10 @@ export class BulkPayEntriesUseCase {
             continue;
           }
 
-          // Check approval rules: skip entries that require approval but haven't been approved
+          // Check approval rules: entries above the configured threshold require
+          // explicit approval before bulk payment. A FLAG_REVIEW rule with
+          // maxAmount=500 means "any entry over R$500 must be approved first".
+          // Rules without maxAmount act as a blanket approval requirement.
           if (this.approvalRulesRepository) {
             const approvalRules =
               await this.approvalRulesRepository.findActiveByTenant(tenantId);
@@ -84,7 +87,9 @@ export class BulkPayEntriesUseCase {
             const requiresApproval = approvalRules.some(
               (rule) =>
                 rule.action === 'FLAG_REVIEW' &&
-                (!rule.maxAmount || entry.expectedAmount <= rule.maxAmount),
+                (rule.maxAmount === undefined ||
+                  rule.maxAmount === null ||
+                  entry.expectedAmount > rule.maxAmount),
             );
 
             if (
