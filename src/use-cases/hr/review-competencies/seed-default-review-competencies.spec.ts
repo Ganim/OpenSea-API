@@ -36,9 +36,13 @@ describe('Seed Default Review Competencies Use Case', () => {
 
     expect(result.createdCount).toBe(DEFAULT_REVIEW_COMPETENCIES.length);
     expect(result.alreadyExistedCount).toBe(0);
-    expect(result.competencies).toHaveLength(DEFAULT_REVIEW_COMPETENCIES.length);
+    expect(result.competencies).toHaveLength(
+      DEFAULT_REVIEW_COMPETENCIES.length,
+    );
 
-    const names = result.competencies.map((competency) => competency.name).sort();
+    const names = result.competencies
+      .map((competency) => competency.name)
+      .sort();
     expect(names).toEqual([...DEFAULT_REVIEW_COMPETENCIES].sort());
   });
 

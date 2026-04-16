@@ -7,7 +7,12 @@
  */
 
 import { z } from 'zod';
-import { cuidSchema, dateSchema, idSchema, queryBooleanSchema } from '../../common.schema';
+import {
+  cuidSchema,
+  dateSchema,
+  idSchema,
+  queryBooleanSchema,
+} from '../../common.schema';
 
 export const contractTemplateTypeSchema = z.enum([
   'CLT',

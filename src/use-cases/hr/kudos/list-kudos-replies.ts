@@ -19,9 +19,7 @@ export class ListKudosRepliesUseCase {
     private readonly kudosRepliesRepository: KudosRepliesRepository,
   ) {}
 
-  async execute(
-    input: ListKudosRepliesInput,
-  ): Promise<ListKudosRepliesOutput> {
+  async execute(input: ListKudosRepliesInput): Promise<ListKudosRepliesOutput> {
     const kudosId = new UniqueEntityID(input.kudosId);
 
     const kudos = await this.employeeKudosRepository.findById(

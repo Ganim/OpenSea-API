@@ -65,7 +65,10 @@ export class InMemoryAnnouncementReadReceiptsRepository
     announcementId: UniqueEntityID,
     tenantId: string,
   ): Promise<number> {
-    const matching = await this.findManyByAnnouncement(announcementId, tenantId);
+    const matching = await this.findManyByAnnouncement(
+      announcementId,
+      tenantId,
+    );
     return matching.length;
   }
 

@@ -90,7 +90,9 @@ export class ListAnnouncementReceiptsUseCase {
     // them. We omit those from the output rather than fetching extra rows —
     // the controller can decide if it needs to load them by id.
 
-    readers.sort((left, right) => right.readAt.getTime() - left.readAt.getTime());
+    readers.sort(
+      (left, right) => right.readAt.getTime() - left.readAt.getTime(),
+    );
 
     return { readers, nonReaders };
   }

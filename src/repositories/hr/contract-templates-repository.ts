@@ -49,9 +49,7 @@ export interface ContractTemplatesRepository {
   findMany(
     params: FindManyContractTemplatesParams,
   ): Promise<FindManyContractTemplatesResult>;
-  update(
-    data: UpdateContractTemplateSchema,
-  ): Promise<ContractTemplate | null>;
+  update(data: UpdateContractTemplateSchema): Promise<ContractTemplate | null>;
   save(template: ContractTemplate): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;
 }

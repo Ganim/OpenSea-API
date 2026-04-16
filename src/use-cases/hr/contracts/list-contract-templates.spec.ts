@@ -90,8 +90,8 @@ describe('List Contract Templates Use Case', () => {
     });
 
     const result = await sut.execute({ tenantId });
-    expect(result.templates.every((t) => t.tenantId.toString() === tenantId)).toBe(
-      true,
-    );
+    expect(
+      result.templates.every((t) => t.tenantId.toString() === tenantId),
+    ).toBe(true);
   });
 });

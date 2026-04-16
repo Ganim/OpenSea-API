@@ -69,10 +69,7 @@ export { GeneratedEmploymentContract } from './generated-employment-contract';
 export type { GeneratedEmploymentContractProps } from './generated-employment-contract';
 
 export { SalaryHistory } from './salary-history';
-export type {
-  SalaryChangeReason,
-  SalaryHistoryProps,
-} from './salary-history';
+export type { SalaryChangeReason, SalaryHistoryProps } from './salary-history';
 
 export { OneOnOneMeeting } from './one-on-one-meeting';
 export type {

@@ -83,7 +83,9 @@ export async function v1PinKudosController(app: FastifyInstance) {
           newData: { isPinned: true },
         });
 
-        return reply.status(200).send({ kudos: employeeKudosToDTO(pinnedKudos) });
+        return reply
+          .status(200)
+          .send({ kudos: employeeKudosToDTO(pinnedKudos) });
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return reply.status(404).send({ message: error.message });

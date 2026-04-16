@@ -10,7 +10,5 @@ export interface KudosRepliesRepository {
    * Returns the active (non-deleted) reply count for many kudos in one query.
    * Used by the list endpoint to render the "X replies" indicator.
    */
-  countActiveForKudosIds(
-    kudosIds: string[],
-  ): Promise<Record<string, number>>;
+  countActiveForKudosIds(kudosIds: string[]): Promise<Record<string, number>>;
 }

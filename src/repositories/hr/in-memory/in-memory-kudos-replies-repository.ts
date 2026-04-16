@@ -34,8 +34,7 @@ export class InMemoryKudosRepliesRepository implements KudosRepliesRepository {
 
     for (const kudosId of kudosIds) {
       counts[kudosId] = this.items.filter(
-        (item) =>
-          item.kudosId.toString() === kudosId && !item.isDeleted(),
+        (item) => item.kudosId.toString() === kudosId && !item.isDeleted(),
       ).length;
     }
 

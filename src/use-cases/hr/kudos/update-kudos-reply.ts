@@ -21,9 +21,7 @@ export class UpdateKudosReplyUseCase {
     private readonly kudosRepliesRepository: KudosRepliesRepository,
   ) {}
 
-  async execute(
-    input: UpdateKudosReplyInput,
-  ): Promise<UpdateKudosReplyOutput> {
+  async execute(input: UpdateKudosReplyInput): Promise<UpdateKudosReplyOutput> {
     const trimmedContent = input.content.trim();
 
     if (!trimmedContent) {
@@ -42,12 +40,8 @@ export class UpdateKudosReplyUseCase {
       throw new KudosReplyNotFoundError();
     }
 
-    if (
-      !reply.isAuthoredBy(new UniqueEntityID(input.requesterEmployeeId))
-    ) {
-      throw new ForbiddenError(
-        'Only the author can edit this reply',
-      );
+    if (!reply.isAuthoredBy(new UniqueEntityID(input.requesterEmployeeId))) {
+      throw new ForbiddenError('Only the author can edit this reply');
     }
 
     reply.content = trimmedContent;

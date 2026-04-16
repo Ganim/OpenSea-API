@@ -33,8 +33,6 @@ export interface ReviewCompetenciesRepository {
     reviewId: UniqueEntityID,
     tenantId: string,
   ): Promise<ReviewCompetency[]>;
-  update(
-    data: UpdateReviewCompetencySchema,
-  ): Promise<ReviewCompetency | null>;
+  update(data: UpdateReviewCompetencySchema): Promise<ReviewCompetency | null>;
   softDelete(id: UniqueEntityID): Promise<void>;
 }

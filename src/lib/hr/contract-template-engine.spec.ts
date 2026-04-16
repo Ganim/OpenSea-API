@@ -1,8 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  renderTemplate,
-  templateReferences,
-} from './contract-template-engine';
+import { renderTemplate, templateReferences } from './contract-template-engine';
 
 describe('contract template engine', () => {
   describe('renderTemplate — placeholders', () => {
@@ -90,8 +87,7 @@ describe('contract template engine', () => {
 
   describe('renderTemplate — conditional blocks', () => {
     it('renders {{#if}} block when value is truthy', () => {
-      const template =
-        '{{#if employee.hasBenefits}}Inclui benefícios{{/if}}';
+      const template = '{{#if employee.hasBenefits}}Inclui benefícios{{/if}}';
       const rendered = renderTemplate(template, {
         employee: { hasBenefits: true },
       });
@@ -108,7 +104,8 @@ describe('contract template engine', () => {
     });
 
     it('renders {{#unless}} block when value is falsy', () => {
-      const template = '{{#unless probation}}Sem período de experiência{{/unless}}';
+      const template =
+        '{{#unless probation}}Sem período de experiência{{/unless}}';
       const rendered = renderTemplate(template, { probation: false });
       expect(rendered).toBe('Sem período de experiência');
     });

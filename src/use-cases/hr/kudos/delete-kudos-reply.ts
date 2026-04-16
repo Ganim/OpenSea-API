@@ -23,9 +23,7 @@ export class DeleteKudosReplyUseCase {
     private readonly kudosRepliesRepository: KudosRepliesRepository,
   ) {}
 
-  async execute(
-    input: DeleteKudosReplyInput,
-  ): Promise<DeleteKudosReplyOutput> {
+  async execute(input: DeleteKudosReplyInput): Promise<DeleteKudosReplyOutput> {
     const reply = await this.kudosRepliesRepository.findById(
       new UniqueEntityID(input.replyId),
     );

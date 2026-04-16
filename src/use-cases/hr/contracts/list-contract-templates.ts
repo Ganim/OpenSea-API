@@ -31,7 +31,14 @@ export class ListContractTemplatesUseCase {
   async execute(
     request: ListContractTemplatesRequest,
   ): Promise<ListContractTemplatesResponse> {
-    const { tenantId, page = 1, perPage = 20, search, type, isActive } = request;
+    const {
+      tenantId,
+      page = 1,
+      perPage = 20,
+      search,
+      type,
+      isActive,
+    } = request;
 
     const { templates, total } =
       await this.contractTemplatesRepository.findMany({

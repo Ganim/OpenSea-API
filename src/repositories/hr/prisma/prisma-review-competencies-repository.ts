@@ -11,9 +11,7 @@ import type {
 export class PrismaReviewCompetenciesRepository
   implements ReviewCompetenciesRepository
 {
-  async create(
-    data: CreateReviewCompetencySchema,
-  ): Promise<ReviewCompetency> {
+  async create(data: CreateReviewCompetencySchema): Promise<ReviewCompetency> {
     const competencyData = await prisma.reviewCompetency.create({
       data: {
         tenantId: data.tenantId,

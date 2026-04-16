@@ -135,10 +135,11 @@ export class NotifyDocExpiryUseCase {
     const upperBound = new Date(referenceDate);
     upperBound.setDate(upperBound.getDate() + lookaheadDays);
 
-    const completedTrainings = await this.trainingEnrollmentsRepository.findMany(
-      tenantId,
-      { status: 'COMPLETED', perPage: 1000 },
-    );
+    const completedTrainings =
+      await this.trainingEnrollmentsRepository.findMany(tenantId, {
+        status: 'COMPLETED',
+        perPage: 1000,
+      });
 
     const programCache = new Map<
       string,

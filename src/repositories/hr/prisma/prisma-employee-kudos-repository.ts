@@ -10,7 +10,10 @@ import type {
 
 function buildKudosFromRaw(raw: Record<string, unknown>): EmployeeKudos {
   const domainProps = mapEmployeeKudosPrismaToDomain(raw);
-  return EmployeeKudos.create(domainProps, new UniqueEntityID(raw.id as string));
+  return EmployeeKudos.create(
+    domainProps,
+    new UniqueEntityID(raw.id as string),
+  );
 }
 
 export class PrismaEmployeeKudosRepository implements EmployeeKudosRepository {

@@ -11,9 +11,7 @@ export class InMemoryReviewCompetenciesRepository
 {
   public items: ReviewCompetency[] = [];
 
-  async create(
-    data: CreateReviewCompetencySchema,
-  ): Promise<ReviewCompetency> {
+  async create(data: CreateReviewCompetencySchema): Promise<ReviewCompetency> {
     const competency = ReviewCompetency.create({
       tenantId: new UniqueEntityID(data.tenantId),
       reviewId: data.reviewId,
@@ -64,7 +62,10 @@ export class InMemoryReviewCompetenciesRepository
           competency.tenantId.toString() === tenantId &&
           !competency.isDeleted(),
       )
-      .sort((first, second) => first.createdAt.getTime() - second.createdAt.getTime());
+      .sort(
+        (first, second) =>
+          first.createdAt.getTime() - second.createdAt.getTime(),
+      );
   }
 
   async update(
@@ -88,7 +89,9 @@ export class InMemoryReviewCompetenciesRepository
   }
 
   async softDelete(id: UniqueEntityID): Promise<void> {
-    const index = this.items.findIndex((competency) => competency.id.equals(id));
+    const index = this.items.findIndex((competency) =>
+      competency.id.equals(id),
+    );
     if (index === -1) return;
     this.items[index].softDelete();
   }

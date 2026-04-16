@@ -3,7 +3,9 @@ import type { ContractTemplateTypeValue } from '@/entities/hr/contract-template'
 import type { Prisma } from '@prisma/generated/client.js';
 
 export function mapContractTemplatePrismaToDomain(
-  templateDb: Prisma.ContractTemplateGetPayload<{ include: Record<string, never> }>,
+  templateDb: Prisma.ContractTemplateGetPayload<{
+    include: Record<string, never>;
+  }>,
 ) {
   return {
     tenantId: new UniqueEntityID(templateDb.tenantId),

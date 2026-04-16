@@ -58,20 +58,22 @@ export class SeedDefaultReviewCompetenciesUseCase {
       (defaultName) => !existingNames.has(defaultName.toLowerCase()),
     );
 
-    const createdCompetencies = await this.reviewCompetenciesRepository.bulkCreate(
-      missingDefaults.map((defaultName) => ({
-        tenantId,
-        reviewId: new UniqueEntityID(performanceReviewId),
-        name: defaultName,
-      })),
-    );
+    const createdCompetencies =
+      await this.reviewCompetenciesRepository.bulkCreate(
+        missingDefaults.map((defaultName) => ({
+          tenantId,
+          reviewId: new UniqueEntityID(performanceReviewId),
+          name: defaultName,
+        })),
+      );
 
     const allCompetencies = [...existing, ...createdCompetencies];
 
     return {
       competencies: allCompetencies,
       createdCount: createdCompetencies.length,
-      alreadyExistedCount: DEFAULT_REVIEW_COMPETENCIES.length - missingDefaults.length,
+      alreadyExistedCount:
+        DEFAULT_REVIEW_COMPETENCIES.length - missingDefaults.length,
     };
   }
 }

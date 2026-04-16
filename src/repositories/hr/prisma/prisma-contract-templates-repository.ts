@@ -16,9 +16,7 @@ import type {
 export class PrismaContractTemplatesRepository
   implements ContractTemplatesRepository
 {
-  async create(
-    data: CreateContractTemplateSchema,
-  ): Promise<ContractTemplate> {
+  async create(data: CreateContractTemplateSchema): Promise<ContractTemplate> {
     const templateData = await prisma.contractTemplate.create({
       data: {
         tenantId: data.tenantId,

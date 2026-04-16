@@ -109,9 +109,7 @@ describe('Resolve Announcement Audience Use Case', () => {
 
     expect(employees).toHaveLength(2);
     expect(
-      employees.every((employee) =>
-        employee.departmentId?.equals(departmentA),
-      ),
+      employees.every((employee) => employee.departmentId?.equals(departmentA)),
     ).toBe(true);
   });
 

@@ -31,7 +31,8 @@ function weightedAverage(
   let weightSum = 0;
 
   for (const competency of competencies) {
-    const score = type === 'self' ? competency.selfScore : competency.managerScore;
+    const score =
+      type === 'self' ? competency.selfScore : competency.managerScore;
     if (score === undefined || score === null) continue;
     weightedSum += score * competency.weight;
     weightSum += competency.weight;

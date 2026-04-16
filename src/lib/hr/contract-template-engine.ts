@@ -147,7 +147,8 @@ export function renderTemplate(
   // Resolve conditional blocks iteratively to support nesting.
   // We deliberately use non-greedy matches and re-run until the body
   // stabilises.
-  const conditionalPattern = /\{\{#(if|unless)\s+([^}]+)\}\}([\s\S]*?)\{\{\/\1\}\}/;
+  const conditionalPattern =
+    /\{\{#(if|unless)\s+([^}]+)\}\}([\s\S]*?)\{\{\/\1\}\}/;
   let safetyIterations = 0;
   while (conditionalPattern.test(output) && safetyIterations < 100) {
     output = output.replace(
@@ -175,10 +176,7 @@ export function renderTemplate(
  * path. Useful for validating that a template covers all required fields
  * before allowing it to be activated.
  */
-export function templateReferences(
-  content: string,
-  path: string,
-): boolean {
+export function templateReferences(content: string, path: string): boolean {
   const escaped = path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const pattern = new RegExp(`\\{\\{[^}]*${escaped}[^}]*\\}\\}`);
   return pattern.test(content);

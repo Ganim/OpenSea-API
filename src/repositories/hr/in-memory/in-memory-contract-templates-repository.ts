@@ -16,9 +16,7 @@ export class InMemoryContractTemplatesRepository
 {
   public items: ContractTemplate[] = [];
 
-  async create(
-    data: CreateContractTemplateSchema,
-  ): Promise<ContractTemplate> {
+  async create(data: CreateContractTemplateSchema): Promise<ContractTemplate> {
     const id = new UniqueEntityID();
     const template = ContractTemplate.create(
       {

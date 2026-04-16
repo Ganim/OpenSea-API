@@ -94,10 +94,7 @@ export class ReviewCompetency extends Entity<ReviewCompetencyProps> {
   }
 
   static create(
-    props: Omit<
-      ReviewCompetencyProps,
-      'createdAt' | 'updatedAt' | 'weight'
-    > & {
+    props: Omit<ReviewCompetencyProps, 'createdAt' | 'updatedAt' | 'weight'> & {
       weight?: number;
       createdAt?: Date;
       updatedAt?: Date;

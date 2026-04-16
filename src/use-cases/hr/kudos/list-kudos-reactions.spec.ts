@@ -38,12 +38,10 @@ describe('ListKudosReactionsUseCase', () => {
     const kudos = createKudos();
     await employeeKudosRepository.create(kudos);
 
-    const { groups, totalReactions } = await listKudosReactionsUseCase.execute(
-      {
-        tenantId: TENANT_ID,
-        kudosId: kudos.id.toString(),
-      },
-    );
+    const { groups, totalReactions } = await listKudosReactionsUseCase.execute({
+      tenantId: TENANT_ID,
+      kudosId: kudos.id.toString(),
+    });
 
     expect(groups).toEqual([]);
     expect(totalReactions).toBe(0);
@@ -72,12 +70,10 @@ describe('ListKudosReactionsUseCase', () => {
       }),
     );
 
-    const { groups, totalReactions } = await listKudosReactionsUseCase.execute(
-      {
-        tenantId: TENANT_ID,
-        kudosId: kudos.id.toString(),
-      },
-    );
+    const { groups, totalReactions } = await listKudosReactionsUseCase.execute({
+      tenantId: TENANT_ID,
+      kudosId: kudos.id.toString(),
+    });
 
     expect(groups).toHaveLength(2);
     expect(groups[0].emoji).toBe('👏');
