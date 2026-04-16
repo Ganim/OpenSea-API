@@ -193,6 +193,13 @@ export const PermissionCodes = {
       APPROVE: 'finance.payment-orders.approve' as const,
       ADMIN: 'finance.payment-orders.admin' as const,
     },
+    PAYMENT_LINKS: {
+      ACCESS: 'finance.payment-links.access' as const,
+      REGISTER: 'finance.payment-links.register' as const,
+      MODIFY: 'finance.payment-links.modify' as const,
+      REMOVE: 'finance.payment-links.remove' as const,
+      ADMIN: 'finance.payment-links.admin' as const,
+    },
     BOLETO: {
       ACCESS: 'finance.boleto.access' as const,
       REGISTER: 'finance.boleto.register' as const,

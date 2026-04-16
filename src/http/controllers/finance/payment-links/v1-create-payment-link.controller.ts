@@ -15,8 +15,8 @@ export async function createPaymentLinkController(app: FastifyInstance) {
       verifyJwt,
       verifyTenant,
       createPermissionMiddleware({
-        permissionCode: PermissionCodes.FINANCE.BANK_ACCOUNTS.ADMIN,
-        resource: 'bank-accounts',
+        permissionCode: PermissionCodes.FINANCE.PAYMENT_LINKS.REGISTER,
+        resource: 'payment-links',
       }),
     ],
     schema: {
