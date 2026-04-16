@@ -127,6 +127,11 @@ export class SyncBankTransactionsUseCase {
 
       const matchResults = autoMatchTransactions(items, candidateEntries);
 
+      // Track matches scoped to THIS account/reconciliation only.
+      // Using the global counter would leak prior accounts' matches into
+      // every reconciliation row.
+      let accountMatched = 0;
+
       for (const [itemId, match] of matchResults) {
         await this.bankReconciliationsRepository.updateItem({
           id: new UniqueEntityID(itemId),
@@ -134,15 +139,17 @@ export class SyncBankTransactionsUseCase {
           matchConfidence: match.confidence,
           matchStatus: 'AUTO_MATCHED',
         });
-        totalMatched++;
+        accountMatched++;
       }
 
-      // Update reconciliation
+      totalMatched += accountMatched;
+
+      // Update reconciliation with this account's own match counts
       await this.bankReconciliationsRepository.update({
         id: reconciliation.id,
         tenantId,
-        matchedCount: totalMatched,
-        unmatchedCount: transactions.length - totalMatched,
+        matchedCount: accountMatched,
+        unmatchedCount: transactions.length - accountMatched,
         status: 'IN_PROGRESS',
       });
     }

@@ -219,6 +219,96 @@ describe('SyncBankTransactionsUseCase', () => {
     expect(diffDays).toBe(30);
   });
 
+  it('should isolate matchedCount per reconciliation when syncing multiple accounts', async () => {
+    // Two accounts: first has 1 transaction that matches, second has 1 that
+    // does NOT match. With the previous accumulator bug, the second
+    // reconciliation would inherit matchedCount=1 from the first.
+    const today = new Date();
+    vi.mocked(pluggyProvider.getAccounts).mockResolvedValueOnce([
+      {
+        id: 'account-1',
+        itemId: 'item-1',
+        type: 'BANK',
+        subtype: 'CHECKING',
+        name: 'Account 1',
+        number: '1',
+        balance: 0,
+        currencyCode: 'BRL',
+      },
+      {
+        id: 'account-2',
+        itemId: 'item-1',
+        type: 'BANK',
+        subtype: 'CHECKING',
+        name: 'Account 2',
+        number: '2',
+        balance: 0,
+        currencyCode: 'BRL',
+      },
+    ]);
+    vi.mocked(pluggyProvider.getTransactions)
+      .mockResolvedValueOnce([
+        {
+          id: 'tx-match',
+          accountId: 'account-1',
+          date: today.toISOString().split('T')[0],
+          description: 'Pagamento ACME',
+          amount: -250,
+          type: 'DEBIT',
+        },
+      ])
+      .mockResolvedValueOnce([
+        {
+          id: 'tx-orphan',
+          accountId: 'account-2',
+          date: today.toISOString().split('T')[0],
+          description: 'Random unmatched transaction',
+          amount: -77,
+          type: 'DEBIT',
+        },
+      ]);
+
+    await financeEntriesRepo.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAG-AC1',
+      description: 'Pagamento ACME',
+      categoryId: 'cat-1',
+      expectedAmount: 250,
+      supplierName: 'ACME',
+      bankAccountId: 'bank-account-1',
+      issueDate: today,
+      dueDate: today,
+    });
+
+    const connection = await bankConnectionsRepo.create({
+      tenantId: 'tenant-1',
+      bankAccountId: 'bank-account-1',
+      externalItemId: 'external-item-1',
+      accessToken: 'access-token-abc',
+    });
+
+    await sut.execute({
+      tenantId: 'tenant-1',
+      connectionId: connection.id,
+    });
+
+    // Two reconciliations, one per account
+    expect(bankReconciliationsRepo.reconciliations).toHaveLength(2);
+
+    const [firstReconciliation, secondReconciliation] =
+      bankReconciliationsRepo.reconciliations;
+
+    // First account had a real match
+    expect(firstReconciliation.matchedCount).toBe(1);
+    expect(firstReconciliation.unmatchedCount).toBe(0);
+
+    // Second account had no matches; matchedCount must NOT inherit the 1
+    // from the first account's reconciliation.
+    expect(secondReconciliation.matchedCount).toBe(0);
+    expect(secondReconciliation.unmatchedCount).toBe(1);
+  });
+
   it('should store DEBIT transactions with positive amount so auto-match can pair them with PAYABLE entries', async () => {
     // Pluggy returns amount=-500 for debits; if the repo stored -500, auto-match
     // would compare -500 against entry.expectedAmount=500 and never match.
