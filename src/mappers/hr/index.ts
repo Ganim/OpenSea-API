@@ -10,3 +10,7 @@ export * from './time-entry';
 export * from './vacation-period';
 export * from './termination';
 export * from './work-schedule';
+export * from './salary-history';
+export * from './one-on-one-meeting';
+export * from './one-on-one-talking-point';
+export * from './one-on-one-action-item';

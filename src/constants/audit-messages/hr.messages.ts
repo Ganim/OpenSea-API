@@ -1358,6 +1358,46 @@ export const HR_AUDIT_MESSAGES = {
   } satisfies AuditMessage,
 
   // ============================================================================
+  // REVIEW COMPETENCIES - Competências em Avaliações de Desempenho
+  // ============================================================================
+
+  /** Competência adicionada à avaliação */
+  REVIEW_COMPETENCY_CREATE: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.REVIEW_COMPETENCY,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} adicionou a competência {{competencyName}} à avaliação',
+  } satisfies AuditMessage,
+
+  /** Competência atualizada na avaliação */
+  REVIEW_COMPETENCY_UPDATE: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.REVIEW_COMPETENCY,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} atualizou a competência {{competencyName}} da avaliação',
+  } satisfies AuditMessage,
+
+  /** Competência removida da avaliação */
+  REVIEW_COMPETENCY_DELETE: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.REVIEW_COMPETENCY,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} removeu uma competência da avaliação de desempenho',
+  } satisfies AuditMessage,
+
+  /** Competências padrão semeadas na avaliação */
+  REVIEW_COMPETENCY_SEED_DEFAULTS: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.REVIEW_COMPETENCY,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} adicionou {{createdCount}} competências padrão à avaliação',
+  } satisfies AuditMessage,
+
+  // ============================================================================
   // DELEGAÇÃO DE APROVAÇÃO
   // ============================================================================
 
@@ -1557,6 +1597,122 @@ export const HR_AUDIT_MESSAGES = {
     module: AuditModule.HR,
     description:
       '{{userName}} gerou o contrato {{templateName}} para {{employeeName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // SALARY HISTORY - Histórico de mudanças salariais
+  // ============================================================================
+
+  /** Mudança salarial registrada manualmente */
+  SALARY_CHANGE_REGISTER: {
+    action: AuditAction.SALARY_CHANGE,
+    entity: AuditEntity.SALARY_HISTORY,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} registrou alteração salarial de {{employeeName}}: {{previousSalary}} → {{newSalary}} ({{reason}})',
+  } satisfies AuditMessage,
+
+  /** Mudança salarial automática a partir de update no funcionário */
+  SALARY_CHANGE_AUTO: {
+    action: AuditAction.SALARY_CHANGE,
+    entity: AuditEntity.SALARY_HISTORY,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} alterou o salário de {{employeeName}}: {{previousSalary}} → {{newSalary}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // ONE-ON-ONE MEETINGS - Reuniões 1:1 entre gestor e liderado
+  // ============================================================================
+
+  /** Reunião 1:1 agendada */
+  ONE_ON_ONE_SCHEDULE: {
+    action: AuditAction.ONE_ON_ONE_SCHEDULE,
+    entity: AuditEntity.ONE_ON_ONE_MEETING,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} agendou uma reunião 1:1 com {{reportName}} para {{scheduledAt}}',
+  } satisfies AuditMessage,
+
+  /** Reunião 1:1 atualizada */
+  ONE_ON_ONE_UPDATE: {
+    action: AuditAction.ONE_ON_ONE_UPDATE,
+    entity: AuditEntity.ONE_ON_ONE_MEETING,
+    module: AuditModule.HR,
+    description: '{{userName}} atualizou a reunião 1:1 com {{counterpartName}}',
+  } satisfies AuditMessage,
+
+  /** Reunião 1:1 cancelada */
+  ONE_ON_ONE_CANCEL: {
+    action: AuditAction.ONE_ON_ONE_CANCEL,
+    entity: AuditEntity.ONE_ON_ONE_MEETING,
+    module: AuditModule.HR,
+    description: '{{userName}} cancelou a reunião 1:1 com {{counterpartName}}',
+  } satisfies AuditMessage,
+
+  /** Reunião 1:1 concluída */
+  ONE_ON_ONE_COMPLETE: {
+    action: AuditAction.ONE_ON_ONE_COMPLETE,
+    entity: AuditEntity.ONE_ON_ONE_MEETING,
+    module: AuditModule.HR,
+    description: '{{userName}} concluiu a reunião 1:1 com {{counterpartName}}',
+  } satisfies AuditMessage,
+
+  /** Reunião 1:1 removida */
+  ONE_ON_ONE_DELETE: {
+    action: AuditAction.ONE_ON_ONE_DELETE,
+    entity: AuditEntity.ONE_ON_ONE_MEETING,
+    module: AuditModule.HR,
+    description: '{{userName}} removeu a reunião 1:1 com {{counterpartName}}',
+  } satisfies AuditMessage,
+
+  /** Talking point adicionado a uma reunião 1:1 */
+  TALKING_POINT_ADD: {
+    action: AuditAction.TALKING_POINT_ADD,
+    entity: AuditEntity.ONE_ON_ONE_TALKING_POINT,
+    module: AuditModule.HR,
+    description: '{{userName}} adicionou um tópico de discussão à reunião 1:1',
+  } satisfies AuditMessage,
+
+  /** Talking point atualizado */
+  TALKING_POINT_UPDATE: {
+    action: AuditAction.TALKING_POINT_UPDATE,
+    entity: AuditEntity.ONE_ON_ONE_TALKING_POINT,
+    module: AuditModule.HR,
+    description: '{{userName}} atualizou um tópico de discussão da reunião 1:1',
+  } satisfies AuditMessage,
+
+  /** Talking point removido */
+  TALKING_POINT_DELETE: {
+    action: AuditAction.TALKING_POINT_DELETE,
+    entity: AuditEntity.ONE_ON_ONE_TALKING_POINT,
+    module: AuditModule.HR,
+    description: '{{userName}} removeu um tópico de discussão da reunião 1:1',
+  } satisfies AuditMessage,
+
+  /** Action item criado em uma reunião 1:1 */
+  ACTION_ITEM_ADD: {
+    action: AuditAction.ACTION_ITEM_ADD,
+    entity: AuditEntity.ONE_ON_ONE_ACTION_ITEM,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} adicionou uma ação para {{ownerName}} na reunião 1:1',
+  } satisfies AuditMessage,
+
+  /** Action item atualizado */
+  ACTION_ITEM_UPDATE: {
+    action: AuditAction.ACTION_ITEM_UPDATE,
+    entity: AuditEntity.ONE_ON_ONE_ACTION_ITEM,
+    module: AuditModule.HR,
+    description: '{{userName}} atualizou uma ação da reunião 1:1',
+  } satisfies AuditMessage,
+
+  /** Action item removido */
+  ACTION_ITEM_DELETE: {
+    action: AuditAction.ACTION_ITEM_DELETE,
+    entity: AuditEntity.ONE_ON_ONE_ACTION_ITEM,
+    module: AuditModule.HR,
+    description: '{{userName}} removeu uma ação da reunião 1:1',
   } satisfies AuditMessage,
 } as const;
 

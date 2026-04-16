@@ -67,3 +67,21 @@ export type {
 
 export { GeneratedEmploymentContract } from './generated-employment-contract';
 export type { GeneratedEmploymentContractProps } from './generated-employment-contract';
+
+export { SalaryHistory } from './salary-history';
+export type {
+  SalaryChangeReason,
+  SalaryHistoryProps,
+} from './salary-history';
+
+export { OneOnOneMeeting } from './one-on-one-meeting';
+export type {
+  OneOnOneMeetingProps,
+  OneOnOneStatus,
+} from './one-on-one-meeting';
+
+export { OneOnOneTalkingPoint } from './one-on-one-talking-point';
+export type { OneOnOneTalkingPointProps } from './one-on-one-talking-point';
+
+export { OneOnOneActionItem } from './one-on-one-action-item';
+export type { OneOnOneActionItemProps } from './one-on-one-action-item';
