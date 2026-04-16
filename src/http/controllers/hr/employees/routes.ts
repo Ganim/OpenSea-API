@@ -10,6 +10,7 @@ import { v1GetEmployeeByUserIdController } from './v1-get-employee-by-user-id.co
 import { v1LinkUserToEmployeeController } from './v1-link-user-to-employee.controller';
 import { v1UnlinkUserFromEmployeeController } from './v1-unlink-user-from-employee.controller';
 import { v1ListEmployeesController } from './v1-list-employees.controller';
+import { v1AnonymizeEmployeeController } from './v1-anonymize-employee.controller';
 import { v1DeleteEmployeeController } from './v1-delete-employee.controller';
 import { v1ReactivateEmployeeController } from './v1-reactivate-employee.controller';
 import { v1SetEmployeeOnLeaveController } from './v1-set-employee-on-leave.controller';
@@ -41,6 +42,7 @@ export async function employeesRoutes(app: FastifyInstance) {
       managerApp.register(v1UnlinkUserFromEmployeeController);
       managerApp.register(v1TransferEmployeeController);
       managerApp.register(v1DeleteEmployeeController);
+      managerApp.register(v1AnonymizeEmployeeController);
       managerApp.register(v1UploadEmployeePhotoController);
       managerApp.register(v1DeleteEmployeePhotoController);
     },

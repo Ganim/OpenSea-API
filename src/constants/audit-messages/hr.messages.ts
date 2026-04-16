@@ -109,6 +109,15 @@ export const HR_AUDIT_MESSAGES = {
       '{{adminName}} registrou licença para o funcionário {{employeeName}}',
   } satisfies AuditMessage,
 
+  /** Funcionário anonimizado (LGPD Art. 18 VI) */
+  EMPLOYEE_ANONYMIZED: {
+    action: AuditAction.EMPLOYEE_ANONYMIZED,
+    entity: AuditEntity.EMPLOYEE,
+    module: AuditModule.HR,
+    description:
+      '{{adminName}} anonimizou os dados pessoais do funcionário {{employeeName}} (LGPD Art. 18 VI)',
+  } satisfies AuditMessage,
+
   /** Verificação de CPF */
   EMPLOYEE_CHECK_CPF: {
     action: AuditAction.CHECK_CPF,

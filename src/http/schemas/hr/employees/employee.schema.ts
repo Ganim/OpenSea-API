@@ -179,6 +179,22 @@ export const terminateEmployeeSchema = z.object({
 });
 
 /**
+ * Schema para anonimização (LGPD Art. 18 VI) de um funcionário.
+ *
+ * Requer PIN de ação do solicitante e confirmação textual literal
+ * "ANONIMIZAR" para evitar acionamentos acidentais.
+ */
+export const anonymizeEmployeeSchema = z.object({
+  pin: z
+    .string()
+    .regex(/^\d{4}$/, 'PIN deve conter exatamente 4 dígitos numéricos.'),
+  confirmation: z.literal('ANONIMIZAR', {
+    message: 'A confirmação deve ser exatamente "ANONIMIZAR".',
+  }),
+  reason: z.string().max(500).optional(),
+});
+
+/**
  * Schema para vincular usuário ao funcionário
  */
 export const linkUserToEmployeeSchema = z.object({
@@ -360,6 +376,7 @@ export type CreateEmployeeWithUserInput = z.infer<
 >;
 export type UpdateEmployeeInput = z.infer<typeof updateEmployeeSchema>;
 export type TerminateEmployeeInput = z.infer<typeof terminateEmployeeSchema>;
+export type AnonymizeEmployeeInput = z.infer<typeof anonymizeEmployeeSchema>;
 export type LinkUserToEmployeeInput = z.infer<typeof linkUserToEmployeeSchema>;
 export type TransferEmployeeInput = z.infer<typeof transferEmployeeSchema>;
 export type ListEmployeesQuery = z.infer<typeof listEmployeesQuerySchema>;
