@@ -298,6 +298,7 @@ import { onboardingRoutes } from './controllers/hr/onboarding/routes';
 import { overtimeRoutes } from './controllers/hr/overtime/routes';
 import { payrollsRoutes } from './controllers/hr/payrolls/routes';
 import { performanceReviewsRoutes } from './controllers/hr/performance-reviews/routes';
+import { reviewCompetenciesRoutes } from './controllers/hr/review-competencies/routes';
 import { positionsRoutes } from './controllers/hr/positions/routes';
 import { ppeAssignmentsRoutes } from './controllers/hr/ppe-assignments/routes';
 import { ppeItemsRoutes } from './controllers/hr/ppe-items/routes';
@@ -547,6 +548,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(trainingEnrollmentsRoutes);
   await app.register(reviewCyclesRoutes);
   await app.register(performanceReviewsRoutes);
+  await app.register(reviewCompetenciesRoutes);
   await app.register(warningsRoutes);
   await app.register(recruitmentRoutes);
   await app.register(surveysRoutes);

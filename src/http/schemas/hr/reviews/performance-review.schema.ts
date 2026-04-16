@@ -84,3 +84,13 @@ export const performanceReviewResponseSchema = z.object({
   createdAt: dateSchema,
   updatedAt: dateSchema,
 });
+
+/**
+ * Schema para resposta de avaliação de desempenho com agregados de competências.
+ * Estende a resposta padrão adicionando os scores agregados (média ponderada).
+ */
+export const performanceReviewWithAggregatesResponseSchema =
+  performanceReviewResponseSchema.extend({
+    aggregatedSelfScore: z.number().nullable(),
+    aggregatedManagerScore: z.number().nullable(),
+  });

@@ -981,6 +981,62 @@ export const HR_AUDIT_MESSAGES = {
       '{{userName}} enviou um kudos de {{category}} para {{recipientName}}',
   } satisfies AuditMessage,
 
+  /** Reação adicionada a um kudos */
+  KUDOS_REACT: {
+    action: AuditAction.KUDOS_REACT,
+    entity: AuditEntity.EMPLOYEE_KUDOS,
+    module: AuditModule.HR,
+    description: '{{userName}} reagiu com {{emoji}} ao kudos',
+  } satisfies AuditMessage,
+
+  /** Reação removida de um kudos */
+  KUDOS_UNREACT: {
+    action: AuditAction.KUDOS_UNREACT,
+    entity: AuditEntity.EMPLOYEE_KUDOS,
+    module: AuditModule.HR,
+    description: '{{userName}} removeu a reação {{emoji}} do kudos',
+  } satisfies AuditMessage,
+
+  /** Resposta criada em um kudos */
+  KUDOS_REPLY_CREATE: {
+    action: AuditAction.KUDOS_REPLY_CREATE,
+    entity: AuditEntity.EMPLOYEE_KUDOS,
+    module: AuditModule.HR,
+    description: '{{userName}} respondeu ao kudos',
+  } satisfies AuditMessage,
+
+  /** Resposta editada em um kudos */
+  KUDOS_REPLY_UPDATE: {
+    action: AuditAction.KUDOS_REPLY_UPDATE,
+    entity: AuditEntity.EMPLOYEE_KUDOS,
+    module: AuditModule.HR,
+    description: '{{userName}} editou uma resposta do kudos',
+  } satisfies AuditMessage,
+
+  /** Resposta removida de um kudos */
+  KUDOS_REPLY_DELETE: {
+    action: AuditAction.KUDOS_REPLY_DELETE,
+    entity: AuditEntity.EMPLOYEE_KUDOS,
+    module: AuditModule.HR,
+    description: '{{userName}} removeu uma resposta do kudos',
+  } satisfies AuditMessage,
+
+  /** Kudos fixado no topo do feed */
+  KUDOS_PIN: {
+    action: AuditAction.KUDOS_PIN,
+    entity: AuditEntity.EMPLOYEE_KUDOS,
+    module: AuditModule.HR,
+    description: '{{userName}} fixou um kudos no topo do feed',
+  } satisfies AuditMessage,
+
+  /** Kudos desafixado do topo do feed */
+  KUDOS_UNPIN: {
+    action: AuditAction.KUDOS_UNPIN,
+    entity: AuditEntity.EMPLOYEE_KUDOS,
+    module: AuditModule.HR,
+    description: '{{userName}} desafixou um kudos do topo do feed',
+  } satisfies AuditMessage,
+
   // ============================================================================
   // PORTAL DO COLABORADOR - Onboarding
   // ============================================================================

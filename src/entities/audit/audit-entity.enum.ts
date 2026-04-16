@@ -186,6 +186,14 @@ export enum AuditEntity {
   EMPLOYEE_WARNING = 'EMPLOYEE_WARNING',
 
   // ==========================================
+  // HR - Histórico Salarial e 1:1 Meetings
+  // ==========================================
+  SALARY_HISTORY = 'SALARY_HISTORY',
+  ONE_ON_ONE_MEETING = 'ONE_ON_ONE_MEETING',
+  ONE_ON_ONE_TALKING_POINT = 'ONE_ON_ONE_TALKING_POINT',
+  ONE_ON_ONE_ACTION_ITEM = 'ONE_ON_ONE_ACTION_ITEM',
+
+  // ==========================================
   // HR - Ausências e Férias
   // ==========================================
   ABSENCE = 'ABSENCE',
@@ -208,6 +216,7 @@ export enum AuditEntity {
   TRAINING_ENROLLMENT = 'TRAINING_ENROLLMENT',
   REVIEW_CYCLE = 'REVIEW_CYCLE',
   PERFORMANCE_REVIEW = 'PERFORMANCE_REVIEW',
+  REVIEW_COMPETENCY = 'REVIEW_COMPETENCY',
   EMPLOYEE_REQUEST = 'EMPLOYEE_REQUEST',
   EMPLOYEE_KUDOS = 'EMPLOYEE_KUDOS',
   COMPANY_ANNOUNCEMENT = 'COMPANY_ANNOUNCEMENT',
