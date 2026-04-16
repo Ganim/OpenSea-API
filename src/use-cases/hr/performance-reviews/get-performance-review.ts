@@ -1,7 +1,10 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { PerformanceReview } from '@/entities/hr/performance-review';
+import type { ReviewCompetency } from '@/entities/hr/review-competency';
 import type { PerformanceReviewsRepository } from '@/repositories/hr/performance-reviews-repository';
+import type { ReviewCompetenciesRepository } from '@/repositories/hr/review-competencies-repository';
+import { aggregateCompetencyScores } from '../review-competencies/aggregate-competency-scores';
 
 export interface GetPerformanceReviewRequest {
   tenantId: string;
@@ -10,11 +13,15 @@ export interface GetPerformanceReviewRequest {
 
 export interface GetPerformanceReviewResponse {
   review: PerformanceReview;
+  competencies: ReviewCompetency[];
+  aggregatedSelfScore: number | null;
+  aggregatedManagerScore: number | null;
 }
 
 export class GetPerformanceReviewUseCase {
   constructor(
     private performanceReviewsRepository: PerformanceReviewsRepository,
+    private reviewCompetenciesRepository?: ReviewCompetenciesRepository,
   ) {}
 
   async execute(
@@ -31,6 +38,21 @@ export class GetPerformanceReviewUseCase {
       throw new ResourceNotFoundError('Avaliação de desempenho não encontrada');
     }
 
-    return { review };
+    const competencies = this.reviewCompetenciesRepository
+      ? await this.reviewCompetenciesRepository.findManyByReview(
+          new UniqueEntityID(performanceReviewId),
+          tenantId,
+        )
+      : [];
+
+    const { aggregatedSelfScore, aggregatedManagerScore } =
+      aggregateCompetencyScores(competencies);
+
+    return {
+      review,
+      competencies,
+      aggregatedSelfScore,
+      aggregatedManagerScore,
+    };
   }
 }
