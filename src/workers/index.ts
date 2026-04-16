@@ -12,6 +12,18 @@ import {
   startEsocialBatchScheduler,
   stopEsocialBatchScheduler,
 } from './esocial-batch-scheduler';
+import {
+  startHrDocExpiryScheduler,
+  stopHrDocExpiryScheduler,
+} from './hr-doc-expiry-scheduler';
+import {
+  startHrPayrollGenerationScheduler,
+  stopHrPayrollGenerationScheduler,
+} from './hr-payroll-generation-scheduler';
+import {
+  startHrVacationAccrualScheduler,
+  stopHrVacationAccrualScheduler,
+} from './hr-vacation-accrual-scheduler';
 import { stopNotificationsScheduler } from './notifications-scheduler';
 import {
   startPaymentReconciliationScheduler,
@@ -123,6 +135,36 @@ export async function startAllWorkers(): Promise<void> {
     );
   }
 
+  // Start HR vacation accrual scheduler (monthly, day 1 at 02:00 UTC)
+  try {
+    await startHrVacationAccrualScheduler();
+  } catch (err) {
+    console.error(
+      '[Workers] Failed to start HR vacation accrual scheduler:',
+      err,
+    );
+  }
+
+  // Start HR document expiry scheduler (daily 08:00 UTC)
+  try {
+    await startHrDocExpiryScheduler();
+  } catch (err) {
+    console.error(
+      '[Workers] Failed to start HR document expiry scheduler:',
+      err,
+    );
+  }
+
+  // Start HR monthly payroll draft generation scheduler (monthly, day 25 at 03:00 UTC)
+  try {
+    await startHrPayrollGenerationScheduler();
+  } catch (err) {
+    console.error(
+      '[Workers] Failed to start HR payroll generation scheduler:',
+      err,
+    );
+  }
+
   workersStarted = true;
   console.log('[Workers] All workers started successfully');
 }
@@ -142,6 +184,9 @@ export async function stopAllWorkers(): Promise<void> {
   stopEsocialBatchScheduler();
   stopNotificationsScheduler();
   stopPaymentReconciliationScheduler();
+  stopHrVacationAccrualScheduler();
+  stopHrDocExpiryScheduler();
+  stopHrPayrollGenerationScheduler();
 
   // Then close BullMQ queues and workers
   await closeAllQueues();
