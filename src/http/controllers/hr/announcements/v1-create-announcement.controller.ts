@@ -34,7 +34,10 @@ export async function v1CreateAnnouncementController(app: FastifyInstance) {
         content: z.string().min(1),
         priority: z.enum(['NORMAL', 'IMPORTANT', 'URGENT']).default('NORMAL'),
         expiresAt: z.coerce.date().optional(),
-        targetDepartmentIds: z.array(z.string().uuid()).optional(),
+        targetDepartmentIds: z.array(z.string()).optional(),
+        targetTeamIds: z.array(z.string()).optional(),
+        targetRoleIds: z.array(z.string()).optional(),
+        targetEmployeeIds: z.array(z.string()).optional(),
         publishNow: z.boolean().default(true),
       }),
       response: {
@@ -48,10 +51,17 @@ export async function v1CreateAnnouncementController(app: FastifyInstance) {
             expiresAt: z.date().nullable(),
             authorEmployeeId: z.string().nullable(),
             targetDepartmentIds: z.array(z.string()).nullable(),
+            audienceTargets: z.object({
+              departments: z.array(z.string()).optional(),
+              teams: z.array(z.string()).optional(),
+              roles: z.array(z.string()).optional(),
+              employees: z.array(z.string()).optional(),
+            }),
             isActive: z.boolean(),
             createdAt: z.date(),
             updatedAt: z.date(),
           }),
+          notificationsCreated: z.number(),
         }),
         400: z.object({ message: z.string() }),
       },
@@ -67,6 +77,9 @@ export async function v1CreateAnnouncementController(app: FastifyInstance) {
         priority,
         expiresAt,
         targetDepartmentIds,
+        targetTeamIds,
+        targetRoleIds,
+        targetEmployeeIds,
         publishNow,
       } = request.body;
 
@@ -79,26 +92,38 @@ export async function v1CreateAnnouncementController(app: FastifyInstance) {
 
       try {
         const createAnnouncementUseCase = makeCreateAnnouncementUseCase();
-        const { announcement } = await createAnnouncementUseCase.execute({
-          tenantId,
-          title,
-          content,
-          priority,
-          expiresAt,
-          authorEmployeeId: authorEmployee?.id.toString(),
-          targetDepartmentIds,
-          publishNow,
-        });
+        const { announcement, notificationsCreated } =
+          await createAnnouncementUseCase.execute({
+            tenantId,
+            title,
+            content,
+            priority,
+            expiresAt,
+            authorEmployeeId: authorEmployee?.id.toString(),
+            targetDepartmentIds,
+            targetTeamIds,
+            targetRoleIds,
+            targetEmployeeIds,
+            publishNow,
+          });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.HR.ANNOUNCEMENT_CREATE,
           entityId: announcement.id.toString(),
           placeholders: { userName: userId, announcementTitle: title },
-          newData: { title, priority, targetDepartmentIds },
+          newData: {
+            title,
+            priority,
+            targetDepartmentIds,
+            targetTeamIds,
+            targetRoleIds,
+            targetEmployeeIds,
+          },
         });
 
         return reply.status(201).send({
           announcement: companyAnnouncementToDTO(announcement),
+          notificationsCreated,
         });
       } catch (error) {
         if (error instanceof BadRequestError) {

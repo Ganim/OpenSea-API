@@ -198,6 +198,40 @@ describe('Create Announcement Use Case', () => {
     expect(result.announcement.isTargetedToAll()).toBe(false);
   });
 
+  it('should accept all extended audience dimensions', async () => {
+    const targetDepartmentIds = [new UniqueEntityID().toString()];
+    const targetTeamIds = [new UniqueEntityID().toString()];
+    const targetRoleIds = [new UniqueEntityID().toString()];
+    const targetEmployeeIds = [new UniqueEntityID().toString()];
+
+    const result = await sut.execute({
+      tenantId,
+      title: 'Multi-target Announcement',
+      content: 'Targets across multiple dimensions.',
+      targetDepartmentIds,
+      targetTeamIds,
+      targetRoleIds,
+      targetEmployeeIds,
+    });
+
+    const audienceTargets = result.announcement.audienceTargets;
+    expect(audienceTargets.departments).toEqual(targetDepartmentIds);
+    expect(audienceTargets.teams).toEqual(targetTeamIds);
+    expect(audienceTargets.roles).toEqual(targetRoleIds);
+    expect(audienceTargets.employees).toEqual(targetEmployeeIds);
+    expect(result.announcement.isTargetedToAll()).toBe(false);
+  });
+
+  it('should report zero notifications created when no notifier is wired', async () => {
+    const result = await sut.execute({
+      tenantId,
+      title: 'No notifier',
+      content: 'Without notifier wired.',
+    });
+
+    expect(result.notificationsCreated).toBe(0);
+  });
+
   it('should target all departments when targetDepartmentIds is not provided', async () => {
     const result = await sut.execute({
       tenantId,
