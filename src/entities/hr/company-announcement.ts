@@ -3,6 +3,20 @@ import { UniqueEntityID } from '../domain/unique-entity-id';
 
 export type AnnouncementPriority = 'NORMAL' | 'IMPORTANT' | 'URGENT';
 
+/**
+ * Structured audience targeting persisted inside the
+ * {@link CompanyAnnouncement.targetDepartmentIds} Json column.
+ *
+ * Backward compatible — legacy records that store a plain `string[]` are
+ * interpreted as `{ departments: string[] }` by {@link parseAudienceTargets}.
+ */
+export interface AnnouncementAudienceTargets {
+  departments?: string[];
+  teams?: string[];
+  roles?: string[];
+  employees?: string[];
+}
+
 export interface CompanyAnnouncementProps {
   tenantId: UniqueEntityID;
   title: string;
@@ -11,10 +25,36 @@ export interface CompanyAnnouncementProps {
   publishedAt?: Date;
   expiresAt?: Date;
   authorEmployeeId?: UniqueEntityID;
-  targetDepartmentIds?: string[];
+  /**
+   * Raw audience payload as stored on the database. Can either be a legacy
+   * `string[]` (treated as `departments`) or an object containing any of the
+   * supported audience dimensions: departments, teams, roles, employees.
+   */
+  targetDepartmentIds?: string[] | AnnouncementAudienceTargets;
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
+}
+
+/**
+ * Normalises the raw `targetDepartmentIds` payload into a structured
+ * {@link AnnouncementAudienceTargets} object regardless of legacy/new format.
+ */
+export function parseAudienceTargets(
+  raw: string[] | AnnouncementAudienceTargets | null | undefined,
+): AnnouncementAudienceTargets {
+  if (!raw) return {};
+
+  if (Array.isArray(raw)) {
+    return raw.length > 0 ? { departments: raw } : {};
+  }
+
+  return {
+    departments: raw.departments ?? [],
+    teams: raw.teams ?? [],
+    roles: raw.roles ?? [],
+    employees: raw.employees ?? [],
+  };
 }
 
 export class CompanyAnnouncement extends Entity<CompanyAnnouncementProps> {
@@ -46,7 +86,30 @@ export class CompanyAnnouncement extends Entity<CompanyAnnouncementProps> {
     return this.props.authorEmployeeId;
   }
 
+  /**
+   * Legacy accessor — returns the `departments` slice of the structured
+   * audience targets. Prefer {@link audienceTargets} for new callers.
+   */
   get targetDepartmentIds(): string[] | undefined {
+    const targets = parseAudienceTargets(this.props.targetDepartmentIds);
+    return targets.departments && targets.departments.length > 0
+      ? targets.departments
+      : undefined;
+  }
+
+  /**
+   * Structured audience targets — always returns a fully populated object
+   * (empty arrays when a dimension is not set).
+   */
+  get audienceTargets(): AnnouncementAudienceTargets {
+    return parseAudienceTargets(this.props.targetDepartmentIds);
+  }
+
+  /**
+   * Raw audience payload as it should be persisted. Already normalised when
+   * the announcement was created/updated through this entity.
+   */
+  get audiencePayload(): string[] | AnnouncementAudienceTargets | undefined {
     return this.props.targetDepartmentIds;
   }
 
@@ -71,13 +134,24 @@ export class CompanyAnnouncement extends Entity<CompanyAnnouncementProps> {
     return new Date() > this.expiresAt;
   }
 
+  /**
+   * Returns `true` when no audience dimension is set — the announcement is
+   * visible to every active employee in the tenant.
+   */
   isTargetedToAll(): boolean {
-    return !this.targetDepartmentIds || this.targetDepartmentIds.length === 0;
+    const targets = this.audienceTargets;
+    return (
+      (!targets.departments || targets.departments.length === 0) &&
+      (!targets.teams || targets.teams.length === 0) &&
+      (!targets.roles || targets.roles.length === 0) &&
+      (!targets.employees || targets.employees.length === 0)
+    );
   }
 
   isVisibleToDepartment(departmentId: string): boolean {
     if (this.isTargetedToAll()) return true;
-    return this.targetDepartmentIds!.includes(departmentId);
+    const targets = this.audienceTargets;
+    return targets.departments?.includes(departmentId) ?? false;
   }
 
   publish(): void {
@@ -96,7 +170,7 @@ export class CompanyAnnouncement extends Entity<CompanyAnnouncementProps> {
     content?: string;
     priority?: AnnouncementPriority;
     expiresAt?: Date;
-    targetDepartmentIds?: string[];
+    targetDepartmentIds?: string[] | AnnouncementAudienceTargets;
   }): void {
     if (params.title !== undefined) this.props.title = params.title;
     if (params.content !== undefined) this.props.content = params.content;
