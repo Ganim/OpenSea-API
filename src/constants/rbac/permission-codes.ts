@@ -434,6 +434,18 @@ export const PermissionCodes = {
       MODIFY: 'hr.contracts.modify' as const,
       REMOVE: 'hr.contracts.remove' as const,
     },
+    SALARY: {
+      ACCESS: 'hr.salary.access' as const,
+      MODIFY: 'hr.salary.modify' as const,
+      ADMIN: 'hr.salary.admin' as const,
+    },
+    ONE_ON_ONES: {
+      ACCESS: 'hr.one-on-ones.access' as const,
+      REGISTER: 'hr.one-on-ones.register' as const,
+      MODIFY: 'hr.one-on-ones.modify' as const,
+      REMOVE: 'hr.one-on-ones.remove' as const,
+      ADMIN: 'hr.one-on-ones.admin' as const,
+    },
   },
 
   // ============================================================================
