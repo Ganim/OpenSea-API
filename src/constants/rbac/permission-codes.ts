@@ -426,6 +426,12 @@ export const PermissionCodes = {
       MODIFY: 'hr.okrs.modify' as const,
       REMOVE: 'hr.okrs.remove' as const,
     },
+    CONTRACTS: {
+      ACCESS: 'hr.contracts.access' as const,
+      REGISTER: 'hr.contracts.register' as const,
+      MODIFY: 'hr.contracts.modify' as const,
+      REMOVE: 'hr.contracts.remove' as const,
+    },
   },
 
   // ============================================================================
