@@ -1,5 +1,20 @@
 # fly.toml - OpenSea API Configuration
 # Documentation: https://fly.io/docs/reference/configuration/
+#
+# Scheduled jobs (cron):
+#   The application image ships with standalone cron scripts under `scripts/`
+#   exposed as npm scripts. They are designed to be invoked by an external
+#   scheduler (Fly Machines `--schedule`, Kubernetes CronJob, GitHub Actions
+#   `schedule:`, systemd timer, etc.). They are NOT registered here as a Fly
+#   process because Fly machine processes are long-running and would conflict
+#   with the in-process schedulers already running inside `app`.
+#
+#   To run them on Fly.io, create a dedicated machine per job, e.g.:
+#     fly machine run . --schedule daily      --command "npm run cron:hr-doc-expiry"          --region gru -a opensea-api
+#     fly machine run . --schedule monthly    --command "npm run cron:hr-vacation-accrual"    --region gru -a opensea-api
+#     fly machine run . --schedule monthly    --command "npm run cron:hr-payroll-generation"  --region gru -a opensea-api
+#
+#   Full docs and per-job behaviour: docs/guides/hr-cron-jobs.md
 
 app = 'opensea-api'
 primary_region = 'gru'
