@@ -827,6 +827,35 @@ RECEBIMENTOS OPERACIONAIS
 (=) CAIXA LÍQUIDO OPERACIONAL  R$ X.XXX,XX
 ```
 
+### DFC — Demonstração dos Fluxos de Caixa (`GET /v1/finance/reports/dfc?year=YYYY`)
+
+Agrupa lançamentos pagos do ano em três atividades:
+- **Operacional** (default)
+- **Investimento** quando `nome|slug` da categoria contém `imobiliz, investiment, ativo-fixo, aquisic, venda-ativo, equipamento, capex`
+- **Financiamento** quando contém `emprest, financiam, mutuo, dividend, aporte, capital, juros-emprest, principal-emprest, consortio`
+
+Normaliza acentos e case antes da comparação. Para customizar, renomear categoria ou ajustar slug. Resposta inclui:
+- `operating`, `investing`, `financing`, `netCashFlow` (totais anuais)
+- `monthly[]` (12 linhas com os 3 fluxos + `net`)
+- `categories[]` (ordenadas por `Math.abs(net)` desc) para drill-down
+
+Permission: `finance.reports.access`.
+
+---
+
+## Period Locks — Fechamento Contábil
+
+Endpoints em `/v1/finance/period-locks`:
+- `GET` — lista locks do tenant (filtros `year`, `activeOnly`)
+- `POST` — cria ou reativa lock de um mês (body: `year, month, reason?`). Retorna 409 se já ativo.
+- `DELETE /:id` — libera lock (marca `releasedAt` e `releasedBy`, mantém histórico)
+
+**Write guard (`PeriodLockChecker`):** interface injetada via DI nos use-cases de create/update/delete FinanceEntry. Em produção, factories wireiam `buildPrismaPeriodLockChecker()`; testes unitários passam `undefined` → guard é no-op. Quando o `dueDate` cai em um período travado, o use-case lança `BadRequestError`.
+
+Permissions: `finance.period-locks.{access, register, remove, admin}`.
+
+Model Prisma: `FinancePeriodLock { tenantId, year, month, lockedBy, lockedAt, releasedBy, releasedAt, reason, ... }` com `@@unique([tenantId, year, month])`.
+
 ---
 
 ## Loan Workflow
@@ -982,8 +1011,21 @@ O `PayrollToFinanceUseCase` converte uma folha de pagamento aprovada em lançame
 | `finance.contracts.delete` | Remover contrato | Contracts |
 | `finance.contracts.list` | Listar contratos | Contracts |
 | `finance.contracts.manage` | Gerar lançamentos do contrato | Contracts |
+| `finance.period-locks.access` | Visualizar locks de período | Period Locks |
+| `finance.period-locks.register` | Travar um período | Period Locks |
+| `finance.period-locks.remove` | Liberar um período travado | Period Locks |
+| `finance.period-locks.admin` | Administrar locks (overrides) | Period Locks |
 
-**Total: 48 códigos de permissão**
+**Total: 52 códigos de permissão** (48 originais + 4 `period-locks.*`)
+
+### Preset Contador (Accountant)
+
+Grupo criado automaticamente no `CreateTenantAdminUseCase` alongside Admin+User com slug `accountant-{tenantPrefix}`, cor amber-600 (`#D97706`), prioridade 50. Permissions em `DEFAULT_ACCOUNTANT_PERMISSIONS` incluem:
+- Todos os `ACCESS` do Finance (leitura completa)
+- `REPORTS.EXPORT`, `ENTRIES.EXPORT`, `ENTRIES.PRINT`, `SUPPLIERS.EXPORT`, `CONTRACTS.EXPORT`
+- `PERIOD_LOCKS.ACCESS`, `ACCOUNTANT.ACCESS`
+
+Não há permissions de `REGISTER/MODIFY/REMOVE` — só leitura + exports para CPA externo.
 
 ---
 
