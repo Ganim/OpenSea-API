@@ -1,11 +1,13 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Employee } from '@/entities/hr/employee';
-import { prisma, type Prisma } from '@/lib/prisma';
+import { ANONYMIZED_CPF_PREFIX } from '@/entities/hr/value-objects/cpf';
+import { prisma, Prisma } from '@/lib/prisma';
 import type { TransactionClient } from '@/lib/transaction-manager';
 import { mapEmployeePrismaToDomain } from '@/mappers/hr/employee/employee-prisma-to-domain';
 import { getFieldCipherService } from '@/services/security/field-cipher-service';
 import { ENCRYPTED_FIELD_CONFIG } from '@/services/security/encrypted-field-config';
 import type {
+  AnonymizeEmployeeSchema,
   CreateEmployeeSchema,
   EmployeesRepository,
   EmployeeWithRawRelations,
@@ -1008,5 +1010,114 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
       where: { id: id.toString() },
       data: { deletedAt: new Date() },
     });
+  }
+
+  async anonymize(data: AnonymizeEmployeeSchema): Promise<Employee | null> {
+    const employeeId = data.id.toString();
+    const placeholder = 'REDACTED';
+    const anonymizedCpf = `${ANONYMIZED_CPF_PREFIX}${data.cpfHashedValue}`;
+
+    try {
+      const updatedEmployeeData = await prisma.$transaction(async (tx) => {
+        const existing = await tx.employee.findUnique({
+          where: { id: employeeId },
+          select: { metadata: true },
+        });
+
+        if (!existing) return null;
+
+        const previousMetadata =
+          (existing.metadata as Record<string, unknown> | null) ?? {};
+        const nextMetadata = {
+          ...previousMetadata,
+          anonymized: true,
+          anonymizedAt: data.anonymizedAt.toISOString(),
+          anonymizedByUserId: data.anonymizedByUserId,
+          anonymizationReason: data.reason ?? 'LGPD Art. 18 VI',
+        };
+
+        const anonymizedFields: Prisma.EmployeeUpdateInput = {
+          fullName: `${placeholder} ${placeholder}`,
+          socialName: null,
+          birthDate: null,
+          gender: null,
+          maritalStatus: null,
+          nationality: null,
+          birthPlace: null,
+          motherName: null,
+          emergencyContactInfo: Prisma.DbNull,
+          healthConditions: Prisma.DbNull,
+          cpf: anonymizedCpf,
+          rg: null,
+          rgIssuer: null,
+          rgIssueDate: null,
+          pis: null,
+          ctpsNumber: null,
+          ctpsSeries: null,
+          ctpsState: null,
+          voterTitle: null,
+          militaryDoc: null,
+          email: null,
+          personalEmail: null,
+          phone: null,
+          mobilePhone: null,
+          emergencyContact: null,
+          emergencyPhone: null,
+          address: null,
+          addressNumber: null,
+          complement: null,
+          neighborhood: null,
+          city: null,
+          state: null,
+          zipCode: null,
+          bankCode: null,
+          bankName: null,
+          bankAgency: null,
+          bankAccount: null,
+          bankAccountType: null,
+          pixKey: null,
+          photoUrl: null,
+          cpfHash: data.cpfBlindIndex ?? null,
+          rgHash: null,
+          pisHash: null,
+          pixKeyHash: null,
+          bankAccountHash: null,
+          metadata: nextMetadata as Prisma.InputJsonValue,
+          deletedAt: data.anonymizedAt,
+          updatedAt: data.anonymizedAt,
+          user: { disconnect: true },
+        };
+
+        await tx.employeeDependant.updateMany({
+          where: { employeeId },
+          data: {
+            name: placeholder,
+            cpf: null,
+            cpfHash: null,
+          },
+        });
+
+        return tx.employee.update({
+          where: { id: employeeId },
+          data: anonymizedFields,
+          include: {
+            user: true,
+            department: true,
+            position: true,
+            supervisor: true,
+          },
+        });
+      });
+
+      if (!updatedEmployeeData) return null;
+
+      // Anonymized records skip decryption (cpf column already holds the hash)
+      return Employee.create(
+        mapEmployeePrismaToDomain(updatedEmployeeData),
+        new UniqueEntityID(updatedEmployeeData.id),
+      );
+    } catch {
+      return null;
+    }
   }
 }

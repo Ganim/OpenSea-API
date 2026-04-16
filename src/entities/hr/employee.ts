@@ -403,6 +403,79 @@ export class Employee extends Entity<EmployeeProps> {
     this.props.updatedAt = new Date();
   }
 
+  /**
+   * Replaces every PII property with anonymized placeholder values, preserving
+   * only fiscal-relevant fields (registration number, hire/termination dates,
+   * salary, contract type) so that payroll, audit and eSocial relations
+   * remain intact for the legal retention period (LGPD Art. 18 VI).
+   *
+   * The CPF is replaced with a hashed placeholder built via
+   * {@link CPF.fromAnonymizedHash} so the unique constraint on `cpfHash`
+   * keeps holding without exposing the original document.
+   */
+  anonymize(params: {
+    cpf: CPF;
+    anonymizedAt: Date;
+    anonymizedByUserId: string;
+    reason?: string;
+  }): void {
+    const placeholder = 'REDACTED';
+
+    this.props.cpf = params.cpf;
+    this.props.fullName = `${placeholder} ${placeholder}`;
+    this.props.socialName = undefined;
+    this.props.userId = undefined;
+    this.props.email = undefined;
+    this.props.personalEmail = undefined;
+    this.props.phone = undefined;
+    this.props.mobilePhone = undefined;
+    this.props.emergencyContact = undefined;
+    this.props.emergencyPhone = undefined;
+    this.props.emergencyContactInfo = undefined;
+    this.props.healthConditions = undefined;
+    this.props.rg = undefined;
+    this.props.rgIssuer = undefined;
+    this.props.rgIssueDate = undefined;
+    this.props.pis = undefined;
+    this.props.ctpsNumber = undefined;
+    this.props.ctpsSeries = undefined;
+    this.props.ctpsState = undefined;
+    this.props.voterTitle = undefined;
+    this.props.militaryDoc = undefined;
+    this.props.address = undefined;
+    this.props.addressNumber = undefined;
+    this.props.complement = undefined;
+    this.props.neighborhood = undefined;
+    this.props.city = undefined;
+    this.props.state = undefined;
+    this.props.zipCode = undefined;
+    this.props.birthDate = undefined;
+    this.props.birthPlace = undefined;
+    this.props.maritalStatus = undefined;
+    this.props.nationality = undefined;
+    this.props.gender = undefined;
+    this.props.photoUrl = undefined;
+    this.props.bankCode = undefined;
+    this.props.bankName = undefined;
+    this.props.bankAgency = undefined;
+    this.props.bankAccount = undefined;
+    this.props.bankAccountType = undefined;
+    this.props.pixKey = undefined;
+    this.props.metadata = {
+      ...this.props.metadata,
+      anonymized: true,
+      anonymizedAt: params.anonymizedAt.toISOString(),
+      anonymizedByUserId: params.anonymizedByUserId,
+      anonymizationReason: params.reason ?? 'LGPD Art. 18 VI',
+    };
+    this.props.deletedAt = params.anonymizedAt;
+    this.props.updatedAt = params.anonymizedAt;
+  }
+
+  get isAnonymized(): boolean {
+    return this.props.metadata?.anonymized === true;
+  }
+
   private constructor(props: EmployeeProps, id?: UniqueEntityID) {
     super(props, id);
   }

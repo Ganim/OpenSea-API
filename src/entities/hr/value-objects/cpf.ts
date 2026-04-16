@@ -10,12 +10,25 @@ export abstract class ValueObject<T> {
   }
 }
 
+/**
+ * Prefix used to flag CPFs that have been anonymized for LGPD compliance.
+ *
+ * Stored values follow the pattern `ANON:<sha256-hash>`. The prefix lets the
+ * mapper distinguish between regular CPFs (which must pass the check digit
+ * validation) and anonymized records (which intentionally carry a hash).
+ */
+export const ANONYMIZED_CPF_PREFIX = 'ANON:';
+
 export class CPF extends ValueObject<string> {
   private constructor(value: string) {
     super(value);
   }
 
   static create(cpf: string): CPF {
+    if (cpf?.startsWith(ANONYMIZED_CPF_PREFIX)) {
+      return new CPF(cpf);
+    }
+
     if (!this.isValid(cpf)) {
       throw new Error('CPF inválido');
     }
@@ -24,6 +37,26 @@ export class CPF extends ValueObject<string> {
     const cleanCPF = cpf.replace(/\D/g, '');
 
     return new CPF(cleanCPF);
+  }
+
+  /**
+   * Builds a CPF instance from an anonymized hash without running validation.
+   *
+   * Intended ONLY for the LGPD anonymization flow — never use to bypass
+   * regular validation.
+   */
+  static fromAnonymizedHash(hashedValue: string): CPF {
+    const stored = hashedValue.startsWith(ANONYMIZED_CPF_PREFIX)
+      ? hashedValue
+      : `${ANONYMIZED_CPF_PREFIX}${hashedValue}`;
+    return new CPF(stored);
+  }
+
+  /**
+   * Indicates whether this CPF instance represents an anonymized record.
+   */
+  get isAnonymized(): boolean {
+    return this._value.startsWith(ANONYMIZED_CPF_PREFIX);
   }
 
   static isValid(cpf: string): boolean {

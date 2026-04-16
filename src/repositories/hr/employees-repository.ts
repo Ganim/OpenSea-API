@@ -169,6 +169,30 @@ export interface PaginatedEmployeesResult {
   total: number;
 }
 
+/**
+ * Payload to anonymize an employee in compliance with LGPD Art. 18 VI.
+ *
+ * The repository is expected to BYPASS the regular Employee value-object
+ * validations (e.g. CPF check digit) because anonymized records intentionally
+ * carry placeholder/derived values for the affected PII columns.
+ *
+ * Fiscal data (payroll, terminations), audit logs and eSocial events MUST
+ * remain intact for the legal retention period (5+ years).
+ */
+export interface AnonymizeEmployeeSchema {
+  id: UniqueEntityID;
+  /** SHA-256 hash of the original CPF — preserves uniqueness without exposing PII. */
+  cpfHashedValue: string;
+  /** Blind-index hash for the new placeholder CPF (optional, only when cipher is configured). */
+  cpfBlindIndex?: string;
+  /** ISO timestamp recorded inside metadata.anonymizedAt. */
+  anonymizedAt: Date;
+  /** Subject identifier of the user who triggered the anonymization. */
+  anonymizedByUserId: string;
+  /** Anonymization reason recorded inside metadata.anonymizationReason. */
+  reason?: string;
+}
+
 export interface EmployeesRepository {
   create(data: CreateEmployeeSchema, tx?: TransactionClient): Promise<Employee>;
   findById(
@@ -246,4 +270,14 @@ export interface EmployeesRepository {
   update(data: UpdateEmployeeSchema): Promise<Employee | null>;
   save(employee: Employee): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;
+  /**
+   * Anonymizes an employee record (LGPD Art. 18 VI — conservative strategy).
+   *
+   * Replaces every PII column with placeholder/hashed values while keeping the
+   * row intact so that fiscal, payroll, audit and eSocial relations remain
+   * referenceable for the legal retention period.
+   *
+   * Cascades to {@link EmployeeDependant} rows belonging to the employee.
+   */
+  anonymize(data: AnonymizeEmployeeSchema): Promise<Employee | null>;
 }

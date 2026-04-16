@@ -2,6 +2,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Employee } from '@/entities/hr/employee';
 import { CPF, EmployeeStatus, PIS } from '@/entities/hr/value-objects';
 import type {
+  AnonymizeEmployeeSchema,
   CreateEmployeeSchema,
   EmployeesRepository,
   EmployeeWithRawRelations,
@@ -565,5 +566,24 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
       const employee = this.items[employeeIndex];
       employee.softDelete();
     }
+  }
+
+  async anonymize(data: AnonymizeEmployeeSchema): Promise<Employee | null> {
+    const employeeIndex = this.items.findIndex((item) =>
+      item.id.equals(data.id),
+    );
+
+    if (employeeIndex === -1) return null;
+
+    const employee = this.items[employeeIndex];
+    employee.anonymize({
+      cpf: CPF.fromAnonymizedHash(data.cpfHashedValue),
+      anonymizedAt: data.anonymizedAt,
+      anonymizedByUserId: data.anonymizedByUserId,
+      reason: data.reason,
+    });
+
+    this.items[employeeIndex] = employee;
+    return employee;
   }
 }
