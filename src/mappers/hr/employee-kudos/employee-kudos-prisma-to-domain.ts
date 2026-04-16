@@ -9,6 +9,11 @@ export function mapEmployeeKudosPrismaToDomain(raw: Record<string, unknown>) {
     message: raw.message as string,
     category: raw.category as KudosCategory,
     isPublic: raw.isPublic as boolean,
+    isPinned: (raw.isPinned as boolean) ?? false,
+    pinnedAt: (raw.pinnedAt as Date | null) ?? null,
+    pinnedBy: raw.pinnedBy
+      ? new UniqueEntityID(raw.pinnedBy as string)
+      : null,
     createdAt: raw.createdAt as Date,
   };
 }

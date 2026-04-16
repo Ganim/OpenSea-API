@@ -15,6 +15,9 @@ export interface EmployeeKudosProps {
   message: string;
   category: KudosCategory;
   isPublic: boolean;
+  isPinned: boolean;
+  pinnedAt?: Date | null;
+  pinnedBy?: UniqueEntityID | null;
   createdAt: Date;
 }
 
@@ -43,6 +46,18 @@ export class EmployeeKudos extends Entity<EmployeeKudosProps> {
     return this.props.isPublic;
   }
 
+  get isPinned(): boolean {
+    return this.props.isPinned;
+  }
+
+  get pinnedAt(): Date | null | undefined {
+    return this.props.pinnedAt;
+  }
+
+  get pinnedBy(): UniqueEntityID | null | undefined {
+    return this.props.pinnedBy;
+  }
+
   get createdAt(): Date {
     return this.props.createdAt;
   }
@@ -51,18 +66,43 @@ export class EmployeeKudos extends Entity<EmployeeKudosProps> {
     return this.fromEmployeeId.equals(this.toEmployeeId);
   }
 
+  pin(pinnedByEmployeeId: UniqueEntityID): void {
+    this.props.isPinned = true;
+    this.props.pinnedAt = new Date();
+    this.props.pinnedBy = pinnedByEmployeeId;
+  }
+
+  unpin(): void {
+    this.props.isPinned = false;
+    this.props.pinnedAt = null;
+    this.props.pinnedBy = null;
+  }
+
   private constructor(props: EmployeeKudosProps, id?: UniqueEntityID) {
     super(props, id);
   }
 
   static create(
-    props: Omit<EmployeeKudosProps, 'createdAt'>,
+    props: Omit<EmployeeKudosProps, 'createdAt' | 'isPinned'> & {
+      createdAt?: Date;
+      isPinned?: boolean;
+      pinnedAt?: Date | null;
+      pinnedBy?: UniqueEntityID | null;
+    },
     id?: UniqueEntityID,
   ): EmployeeKudos {
     return new EmployeeKudos(
       {
-        ...props,
-        createdAt: new Date(),
+        tenantId: props.tenantId,
+        fromEmployeeId: props.fromEmployeeId,
+        toEmployeeId: props.toEmployeeId,
+        message: props.message,
+        category: props.category,
+        isPublic: props.isPublic,
+        isPinned: props.isPinned ?? false,
+        pinnedAt: props.pinnedAt ?? null,
+        pinnedBy: props.pinnedBy ?? null,
+        createdAt: props.createdAt ?? new Date(),
       },
       id,
     );

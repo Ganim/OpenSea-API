@@ -4,8 +4,14 @@ import { prisma } from '@/lib/prisma';
 import { mapEmployeeKudosPrismaToDomain } from '@/mappers/hr/employee-kudos';
 import type {
   EmployeeKudosRepository,
+  ListPublicKudosFeedFilters,
   PaginatedKudosResult,
 } from '../employee-kudos-repository';
+
+function buildKudosFromRaw(raw: Record<string, unknown>): EmployeeKudos {
+  const domainProps = mapEmployeeKudosPrismaToDomain(raw);
+  return EmployeeKudos.create(domainProps, new UniqueEntityID(raw.id as string));
+}
 
 export class PrismaEmployeeKudosRepository implements EmployeeKudosRepository {
   async create(kudos: EmployeeKudos): Promise<void> {
@@ -18,6 +24,35 @@ export class PrismaEmployeeKudosRepository implements EmployeeKudosRepository {
         message: kudos.message,
         category: kudos.category,
         isPublic: kudos.isPublic,
+        isPinned: kudos.isPinned,
+        pinnedAt: kudos.pinnedAt ?? null,
+        pinnedBy: kudos.pinnedBy ? kudos.pinnedBy.toString() : null,
+      },
+    });
+  }
+
+  async findById(
+    kudosId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<EmployeeKudos | null> {
+    const raw = await prisma.employeeKudos.findFirst({
+      where: { id: kudosId.toString(), tenantId },
+    });
+
+    if (!raw) return null;
+    return buildKudosFromRaw(raw as unknown as Record<string, unknown>);
+  }
+
+  async save(kudos: EmployeeKudos): Promise<void> {
+    await prisma.employeeKudos.update({
+      where: { id: kudos.id.toString() },
+      data: {
+        message: kudos.message,
+        category: kudos.category,
+        isPublic: kudos.isPublic,
+        isPinned: kudos.isPinned,
+        pinnedAt: kudos.pinnedAt ?? null,
+        pinnedBy: kudos.pinnedBy ? kudos.pinnedBy.toString() : null,
       },
     });
   }
@@ -43,12 +78,9 @@ export class PrismaEmployeeKudosRepository implements EmployeeKudosRepository {
       prisma.employeeKudos.count({ where }),
     ]);
 
-    const kudos = rawItems.map((raw) => {
-      const domainProps = mapEmployeeKudosPrismaToDomain(
-        raw as unknown as Record<string, unknown>,
-      );
-      return EmployeeKudos.create(domainProps, new UniqueEntityID(raw.id));
-    });
+    const kudos = rawItems.map((raw) =>
+      buildKudosFromRaw(raw as unknown as Record<string, unknown>),
+    );
 
     return { kudos, total };
   }
@@ -74,12 +106,9 @@ export class PrismaEmployeeKudosRepository implements EmployeeKudosRepository {
       prisma.employeeKudos.count({ where }),
     ]);
 
-    const kudos = rawItems.map((raw) => {
-      const domainProps = mapEmployeeKudosPrismaToDomain(
-        raw as unknown as Record<string, unknown>,
-      );
-      return EmployeeKudos.create(domainProps, new UniqueEntityID(raw.id));
-    });
+    const kudos = rawItems.map((raw) =>
+      buildKudosFromRaw(raw as unknown as Record<string, unknown>),
+    );
 
     return { kudos, total };
   }
@@ -88,28 +117,34 @@ export class PrismaEmployeeKudosRepository implements EmployeeKudosRepository {
     tenantId: string,
     skip: number,
     take: number,
+    filters?: ListPublicKudosFeedFilters,
   ): Promise<PaginatedKudosResult> {
-    const where = {
+    const where: Record<string, unknown> = {
       tenantId,
       isPublic: true,
     };
+
+    if (filters?.pinned !== undefined) {
+      where.isPinned = filters.pinned;
+    }
 
     const [rawItems, total] = await Promise.all([
       prisma.employeeKudos.findMany({
         where,
         skip,
         take,
-        orderBy: { createdAt: 'desc' },
+        orderBy: [
+          { isPinned: 'desc' },
+          { pinnedAt: 'desc' },
+          { createdAt: 'desc' },
+        ],
       }),
       prisma.employeeKudos.count({ where }),
     ]);
 
-    const kudos = rawItems.map((raw) => {
-      const domainProps = mapEmployeeKudosPrismaToDomain(
-        raw as unknown as Record<string, unknown>,
-      );
-      return EmployeeKudos.create(domainProps, new UniqueEntityID(raw.id));
-    });
+    const kudos = rawItems.map((raw) =>
+      buildKudosFromRaw(raw as unknown as Record<string, unknown>),
+    );
 
     return { kudos, total };
   }

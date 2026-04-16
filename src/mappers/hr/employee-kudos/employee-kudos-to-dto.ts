@@ -7,6 +7,9 @@ export interface EmployeeKudosDTO {
   message: string;
   category: string;
   isPublic: boolean;
+  isPinned: boolean;
+  pinnedAt: Date | null;
+  pinnedBy: string | null;
   createdAt: Date;
 }
 
@@ -18,6 +21,9 @@ export function employeeKudosToDTO(kudos: EmployeeKudos): EmployeeKudosDTO {
     message: kudos.message,
     category: kudos.category,
     isPublic: kudos.isPublic,
+    isPinned: kudos.isPinned,
+    pinnedAt: kudos.pinnedAt ?? null,
+    pinnedBy: kudos.pinnedBy ? kudos.pinnedBy.toString() : null,
     createdAt: kudos.createdAt,
   };
 }
