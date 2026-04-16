@@ -58,3 +58,12 @@ export type { ReviewCycleProps } from './review-cycle';
 
 export { PerformanceReview } from './performance-review';
 export type { PerformanceReviewProps } from './performance-review';
+
+export { ContractTemplate } from './contract-template';
+export type {
+  ContractTemplateProps,
+  ContractTemplateTypeValue,
+} from './contract-template';
+
+export { GeneratedEmploymentContract } from './generated-employment-contract';
+export type { GeneratedEmploymentContractProps } from './generated-employment-contract';
