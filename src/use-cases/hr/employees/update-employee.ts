@@ -10,11 +10,14 @@ import {
   WorkRegime,
 } from '@/entities/hr/value-objects';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
+import type { SalaryHistoryRepository } from '@/repositories/hr/salary-history-repository';
 import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
 
 export interface UpdateEmployeeRequest {
   tenantId: string;
   employeeId: string;
+  /** When provided, automatic salary history records will reference this user. */
+  changedByUserId?: string;
   registrationNumber?: string;
   userId?: string | null;
   fullName?: string;
@@ -86,12 +89,13 @@ export class UpdateEmployeeUseCase {
   constructor(
     private employeesRepository: EmployeesRepository,
     private calendarSyncService?: CalendarSyncService,
+    private salaryHistoryRepository?: SalaryHistoryRepository,
   ) {}
 
   async execute(
     request: UpdateEmployeeRequest,
   ): Promise<UpdateEmployeeResponse> {
-    const { tenantId, employeeId, ...updateData } = request;
+    const { tenantId, employeeId, changedByUserId, ...updateData } = request;
 
     // Find existing employee
     const existingEmployee = await this.employeesRepository.findById(
@@ -410,6 +414,30 @@ export class UpdateEmployeeUseCase {
 
     if (!updatedEmployee) {
       throw new BadRequestError('Failed to update employee');
+    }
+
+    // Auto-record salary history when baseSalary changed (non-blocking).
+    if (
+      this.salaryHistoryRepository &&
+      updateData.baseSalary !== undefined &&
+      updateData.baseSalary !== existingEmployee.baseSalary
+    ) {
+      try {
+        await this.salaryHistoryRepository.create({
+          tenantId,
+          employeeId: new UniqueEntityID(employeeId),
+          previousSalary: existingEmployee.baseSalary ?? undefined,
+          newSalary: updateData.baseSalary,
+          reason: 'ADJUSTMENT',
+          notes: 'Registro automático via atualização de funcionário',
+          effectiveDate: new Date(),
+          changedBy: new UniqueEntityID(
+            changedByUserId ?? updatedEmployee.userId?.toString() ?? employeeId,
+          ),
+        });
+      } catch {
+        // History sync failure should not block the operation.
+      }
     }
 
     // Sync birthday to calendar if birthDate changed (non-blocking)

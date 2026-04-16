@@ -73,6 +73,7 @@ export async function v1UpdateEmployeeController(app: FastifyInstance) {
         const { employee } = await updateEmployeeUseCase.execute({
           tenantId,
           employeeId,
+          changedByUserId: adminId,
           ...data,
         });
 
