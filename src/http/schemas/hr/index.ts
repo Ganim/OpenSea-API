@@ -13,3 +13,4 @@ export * from './benefits';
 export * from './onboarding';
 export * from './warnings';
 export * from './reviews';
+export * from './contracts';

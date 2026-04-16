@@ -1,9 +1,12 @@
-import type { ContractTemplate } from '@/entities/hr/contract-template';
+import type {
+  ContractTemplate,
+  ContractTemplateTypeValue,
+} from '@/entities/hr/contract-template';
 
 export interface ContractTemplateDTO {
   id: string;
   name: string;
-  type: string;
+  type: ContractTemplateTypeValue;
   content: string;
   isActive: boolean;
   isDefault: boolean;
@@ -35,7 +38,7 @@ export function contractTemplateToDTO(
 export interface ContractTemplateSummaryDTO {
   id: string;
   name: string;
-  type: string;
+  type: ContractTemplateTypeValue;
   isActive: boolean;
   isDefault: boolean;
   createdAt: Date;

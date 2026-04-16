@@ -5,9 +5,9 @@ export interface GeneratedEmploymentContractDTO {
   templateId: string;
   employeeId: string;
   generatedBy: string;
-  storageFileId?: string | null;
-  pdfUrl?: string | null;
-  pdfKey?: string | null;
+  storageFileId: string | null;
+  pdfUrl: string | null;
+  pdfKey: string | null;
   variables: Record<string, unknown>;
   createdAt: Date;
 }
