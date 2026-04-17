@@ -141,7 +141,7 @@ export class InMemoryTrainingProgramsRepository
     return program;
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     const index = this.items.findIndex((program) => program.id.equals(id));
     if (index >= 0) {
       this.items[index].softDelete();
