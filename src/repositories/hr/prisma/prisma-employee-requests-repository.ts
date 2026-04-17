@@ -106,7 +106,10 @@ export class PrismaEmployeeRequestsRepository
 
   async save(request: EmployeeRequest): Promise<void> {
     await prisma.employeeRequest.update({
-      where: { id: request.id.toString() },
+      where: {
+        id: request.id.toString(),
+        tenantId: request.tenantId.toString(),
+      },
       data: {
         status: request.status,
         approverEmployeeId: request.approverEmployeeId?.toString(),
@@ -116,9 +119,12 @@ export class PrismaEmployeeRequestsRepository
     });
   }
 
-  async delete(id: UniqueEntityID, _tenantId: string): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.employeeRequest.delete({
-      where: { id: id.toString() },
+      where: {
+        id: id.toString(),
+        ...(tenantId && { tenantId }),
+      },
     });
   }
 }

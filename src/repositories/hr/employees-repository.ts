@@ -188,6 +188,13 @@ export interface PaginatedEmployeesResult {
  */
 export interface AnonymizeEmployeeSchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so the underlying Prisma `where` clause is scoped and cannot update a
+   * record belonging to another tenant.
+   */
+  tenantId?: string;
   /** SHA-256 hash of the original CPF — preserves uniqueness without exposing PII. */
   cpfHashedValue: string;
   /** Blind-index hash for the new placeholder CPF (optional, only when cipher is configured). */
@@ -276,7 +283,7 @@ export interface EmployeesRepository {
   ): Promise<Employee[]>;
   update(data: UpdateEmployeeSchema): Promise<Employee | null>;
   save(employee: Employee): Promise<void>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
   /**
    * Anonymizes an employee record (LGPD Art. 18 VI — conservative strategy).
    *

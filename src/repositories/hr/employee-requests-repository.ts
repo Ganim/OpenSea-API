@@ -35,5 +35,5 @@ export interface EmployeeRequestsRepository {
     take: number,
   ): Promise<PaginatedEmployeeRequestsResult>;
   save(request: EmployeeRequest): Promise<void>;
-  delete(id: UniqueEntityID, tenantId: string): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

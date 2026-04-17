@@ -559,8 +559,12 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
     }
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
-    const employeeIndex = this.items.findIndex((item) => item.id.equals(id));
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
+    const employeeIndex = this.items.findIndex(
+      (item) =>
+        item.id.equals(id) &&
+        (!tenantId || item.tenantId.toString() === tenantId),
+    );
 
     if (employeeIndex !== -1) {
       const employee = this.items[employeeIndex];

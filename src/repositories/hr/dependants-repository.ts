@@ -16,6 +16,13 @@ export interface CreateDependantSchema {
 
 export interface UpdateDependantSchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so the underlying Prisma `where` clause is scoped and cannot update a
+   * record belonging to another tenant.
+   */
+  tenantId?: string;
   name?: string;
   cpf?: string;
   cpfHash?: string;
@@ -47,5 +54,5 @@ export interface DependantsRepository {
     filters?: FindDependantFilters,
   ): Promise<EmployeeDependant[]>;
   update(data: UpdateDependantSchema): Promise<EmployeeDependant | null>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

@@ -101,7 +101,7 @@ export class PrismaGeneratedEmploymentContractsRepository
 
   async save(contract: GeneratedEmploymentContract): Promise<void> {
     await prisma.generatedEmploymentContract.update({
-      where: { id: contract.id.toString() },
+      where: { id: contract.id.toString(), tenantId: contract.tenantId.toString(), },
       data: {
         pdfUrl: contract.pdfUrl,
         pdfKey: contract.pdfKey,

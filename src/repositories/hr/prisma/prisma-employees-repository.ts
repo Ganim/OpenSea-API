@@ -1003,27 +1003,31 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
     }
 
     await prisma.employee.update({
-      where: { id: employee.id.toString() },
+      where: { id: employee.id.toString(), tenantId: employee.tenantId.toString(), },
       data: saveData as Parameters<typeof prisma.employee.update>[0]['data'],
     });
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.employee.update({
-      where: { id: id.toString() },
+      where: { id: id.toString(), ...(tenantId && { tenantId }), },
       data: { deletedAt: new Date() },
     });
   }
 
   async anonymize(data: AnonymizeEmployeeSchema): Promise<Employee | null> {
     const employeeId = data.id.toString();
+    const tenantId = data.tenantId;
     const placeholder = 'REDACTED';
     const anonymizedCpf = `${ANONYMIZED_CPF_PREFIX}${data.cpfHashedValue}`;
 
     try {
       const updatedEmployeeData = await prisma.$transaction(async (tx) => {
-        const existing = await tx.employee.findUnique({
-          where: { id: employeeId },
+        const existing = await tx.employee.findFirst({
+          where: {
+            id: employeeId,
+            ...(tenantId && { tenantId }),
+          },
           select: { metadata: true },
         });
 
@@ -1092,7 +1096,10 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
         };
 
         await tx.employeeDependant.updateMany({
-          where: { employeeId },
+          where: {
+            employeeId,
+            ...(tenantId && { tenantId }),
+          },
           data: {
             name: placeholder,
             cpf: null,
@@ -1101,7 +1108,10 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
         });
 
         return tx.employee.update({
-          where: { id: employeeId },
+          where: {
+            id: employeeId,
+            ...(tenantId && { tenantId }),
+          },
           data: anonymizedFields,
           include: {
             user: true,

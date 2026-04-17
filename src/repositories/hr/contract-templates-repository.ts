@@ -15,6 +15,13 @@ export interface CreateContractTemplateSchema {
 
 export interface UpdateContractTemplateSchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so the underlying Prisma `where` clause is scoped and cannot update a
+   * record belonging to another tenant.
+   */
+  tenantId?: string;
   name?: string;
   type?: ContractTemplateTypeValue;
   content?: string;
@@ -51,5 +58,5 @@ export interface ContractTemplatesRepository {
   ): Promise<FindManyContractTemplatesResult>;
   update(data: UpdateContractTemplateSchema): Promise<ContractTemplate | null>;
   save(template: ContractTemplate): Promise<void>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

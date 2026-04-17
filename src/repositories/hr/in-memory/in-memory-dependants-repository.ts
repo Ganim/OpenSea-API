@@ -75,7 +75,11 @@ export class InMemoryDependantsRepository implements DependantsRepository {
   }
 
   async update(data: UpdateDependantSchema): Promise<EmployeeDependant | null> {
-    const index = this.items.findIndex((item) => item.id.equals(data.id));
+    const index = this.items.findIndex(
+      (item) =>
+        item.id.equals(data.id) &&
+        (!data.tenantId || item.tenantId.toString() === data.tenantId),
+    );
     if (index < 0) return null;
 
     const existing = this.items[index];
@@ -102,7 +106,7 @@ export class InMemoryDependantsRepository implements DependantsRepository {
     return updated;
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     this.items = this.items.filter((item) => !item.id.equals(id));
   }
 }
