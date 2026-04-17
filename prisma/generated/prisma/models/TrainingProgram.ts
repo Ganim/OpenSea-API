@@ -50,6 +50,7 @@ export type TrainingProgramMinAggregateOutputType = {
   maxParticipants: number | null
   isActive: boolean | null
   isMandatory: boolean | null
+  isMandatoryForESocial: boolean | null
   validityMonths: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -68,6 +69,7 @@ export type TrainingProgramMaxAggregateOutputType = {
   maxParticipants: number | null
   isActive: boolean | null
   isMandatory: boolean | null
+  isMandatoryForESocial: boolean | null
   validityMonths: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -86,6 +88,7 @@ export type TrainingProgramCountAggregateOutputType = {
   maxParticipants: number
   isActive: number
   isMandatory: number
+  isMandatoryForESocial: number
   validityMonths: number
   createdAt: number
   updatedAt: number
@@ -118,6 +121,7 @@ export type TrainingProgramMinAggregateInputType = {
   maxParticipants?: true
   isActive?: true
   isMandatory?: true
+  isMandatoryForESocial?: true
   validityMonths?: true
   createdAt?: true
   updatedAt?: true
@@ -136,6 +140,7 @@ export type TrainingProgramMaxAggregateInputType = {
   maxParticipants?: true
   isActive?: true
   isMandatory?: true
+  isMandatoryForESocial?: true
   validityMonths?: true
   createdAt?: true
   updatedAt?: true
@@ -154,6 +159,7 @@ export type TrainingProgramCountAggregateInputType = {
   maxParticipants?: true
   isActive?: true
   isMandatory?: true
+  isMandatoryForESocial?: true
   validityMonths?: true
   createdAt?: true
   updatedAt?: true
@@ -259,6 +265,7 @@ export type TrainingProgramGroupByOutputType = {
   maxParticipants: number | null
   isActive: boolean
   isMandatory: boolean
+  isMandatoryForESocial: boolean
   validityMonths: number | null
   createdAt: Date
   updatedAt: Date
@@ -300,6 +307,7 @@ export type TrainingProgramWhereInput = {
   maxParticipants?: Prisma.IntNullableFilter<"TrainingProgram"> | number | null
   isActive?: Prisma.BoolFilter<"TrainingProgram"> | boolean
   isMandatory?: Prisma.BoolFilter<"TrainingProgram"> | boolean
+  isMandatoryForESocial?: Prisma.BoolFilter<"TrainingProgram"> | boolean
   validityMonths?: Prisma.IntNullableFilter<"TrainingProgram"> | number | null
   createdAt?: Prisma.DateTimeFilter<"TrainingProgram"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TrainingProgram"> | Date | string
@@ -320,6 +328,7 @@ export type TrainingProgramOrderByWithRelationInput = {
   maxParticipants?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isMandatory?: Prisma.SortOrder
+  isMandatoryForESocial?: Prisma.SortOrder
   validityMonths?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -343,6 +352,7 @@ export type TrainingProgramWhereUniqueInput = Prisma.AtLeast<{
   maxParticipants?: Prisma.IntNullableFilter<"TrainingProgram"> | number | null
   isActive?: Prisma.BoolFilter<"TrainingProgram"> | boolean
   isMandatory?: Prisma.BoolFilter<"TrainingProgram"> | boolean
+  isMandatoryForESocial?: Prisma.BoolFilter<"TrainingProgram"> | boolean
   validityMonths?: Prisma.IntNullableFilter<"TrainingProgram"> | number | null
   createdAt?: Prisma.DateTimeFilter<"TrainingProgram"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TrainingProgram"> | Date | string
@@ -363,6 +373,7 @@ export type TrainingProgramOrderByWithAggregationInput = {
   maxParticipants?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isMandatory?: Prisma.SortOrder
+  isMandatoryForESocial?: Prisma.SortOrder
   validityMonths?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -389,6 +400,7 @@ export type TrainingProgramScalarWhereWithAggregatesInput = {
   maxParticipants?: Prisma.IntNullableWithAggregatesFilter<"TrainingProgram"> | number | null
   isActive?: Prisma.BoolWithAggregatesFilter<"TrainingProgram"> | boolean
   isMandatory?: Prisma.BoolWithAggregatesFilter<"TrainingProgram"> | boolean
+  isMandatoryForESocial?: Prisma.BoolWithAggregatesFilter<"TrainingProgram"> | boolean
   validityMonths?: Prisma.IntNullableWithAggregatesFilter<"TrainingProgram"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TrainingProgram"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TrainingProgram"> | Date | string
@@ -406,6 +418,7 @@ export type TrainingProgramCreateInput = {
   maxParticipants?: number | null
   isActive?: boolean
   isMandatory?: boolean
+  isMandatoryForESocial?: boolean
   validityMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -426,6 +439,7 @@ export type TrainingProgramUncheckedCreateInput = {
   maxParticipants?: number | null
   isActive?: boolean
   isMandatory?: boolean
+  isMandatoryForESocial?: boolean
   validityMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -444,6 +458,7 @@ export type TrainingProgramUpdateInput = {
   maxParticipants?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isMandatoryForESocial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -464,6 +479,7 @@ export type TrainingProgramUncheckedUpdateInput = {
   maxParticipants?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isMandatoryForESocial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -483,6 +499,7 @@ export type TrainingProgramCreateManyInput = {
   maxParticipants?: number | null
   isActive?: boolean
   isMandatory?: boolean
+  isMandatoryForESocial?: boolean
   validityMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -500,6 +517,7 @@ export type TrainingProgramUpdateManyMutationInput = {
   maxParticipants?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isMandatoryForESocial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -518,6 +536,7 @@ export type TrainingProgramUncheckedUpdateManyInput = {
   maxParticipants?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isMandatoryForESocial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -536,6 +555,7 @@ export type TrainingProgramCountOrderByAggregateInput = {
   maxParticipants?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isMandatory?: Prisma.SortOrder
+  isMandatoryForESocial?: Prisma.SortOrder
   validityMonths?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -560,6 +580,7 @@ export type TrainingProgramMaxOrderByAggregateInput = {
   maxParticipants?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isMandatory?: Prisma.SortOrder
+  isMandatoryForESocial?: Prisma.SortOrder
   validityMonths?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -578,6 +599,7 @@ export type TrainingProgramMinOrderByAggregateInput = {
   maxParticipants?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isMandatory?: Prisma.SortOrder
+  isMandatoryForESocial?: Prisma.SortOrder
   validityMonths?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -672,6 +694,7 @@ export type TrainingProgramCreateWithoutEnrollmentsInput = {
   maxParticipants?: number | null
   isActive?: boolean
   isMandatory?: boolean
+  isMandatoryForESocial?: boolean
   validityMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -691,6 +714,7 @@ export type TrainingProgramUncheckedCreateWithoutEnrollmentsInput = {
   maxParticipants?: number | null
   isActive?: boolean
   isMandatory?: boolean
+  isMandatoryForESocial?: boolean
   validityMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -724,6 +748,7 @@ export type TrainingProgramUpdateWithoutEnrollmentsInput = {
   maxParticipants?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isMandatoryForESocial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -743,6 +768,7 @@ export type TrainingProgramUncheckedUpdateWithoutEnrollmentsInput = {
   maxParticipants?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isMandatoryForESocial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -760,6 +786,7 @@ export type TrainingProgramCreateWithoutTenantInput = {
   maxParticipants?: number | null
   isActive?: boolean
   isMandatory?: boolean
+  isMandatoryForESocial?: boolean
   validityMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -778,6 +805,7 @@ export type TrainingProgramUncheckedCreateWithoutTenantInput = {
   maxParticipants?: number | null
   isActive?: boolean
   isMandatory?: boolean
+  isMandatoryForESocial?: boolean
   validityMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -826,6 +854,7 @@ export type TrainingProgramScalarWhereInput = {
   maxParticipants?: Prisma.IntNullableFilter<"TrainingProgram"> | number | null
   isActive?: Prisma.BoolFilter<"TrainingProgram"> | boolean
   isMandatory?: Prisma.BoolFilter<"TrainingProgram"> | boolean
+  isMandatoryForESocial?: Prisma.BoolFilter<"TrainingProgram"> | boolean
   validityMonths?: Prisma.IntNullableFilter<"TrainingProgram"> | number | null
   createdAt?: Prisma.DateTimeFilter<"TrainingProgram"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TrainingProgram"> | Date | string
@@ -843,6 +872,7 @@ export type TrainingProgramCreateManyTenantInput = {
   maxParticipants?: number | null
   isActive?: boolean
   isMandatory?: boolean
+  isMandatoryForESocial?: boolean
   validityMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -860,6 +890,7 @@ export type TrainingProgramUpdateWithoutTenantInput = {
   maxParticipants?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isMandatoryForESocial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -878,6 +909,7 @@ export type TrainingProgramUncheckedUpdateWithoutTenantInput = {
   maxParticipants?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isMandatoryForESocial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -896,6 +928,7 @@ export type TrainingProgramUncheckedUpdateManyWithoutTenantInput = {
   maxParticipants?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isMandatory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isMandatoryForESocial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   validityMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -945,6 +978,7 @@ export type TrainingProgramSelect<ExtArgs extends runtime.Types.Extensions.Inter
   maxParticipants?: boolean
   isActive?: boolean
   isMandatory?: boolean
+  isMandatoryForESocial?: boolean
   validityMonths?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -966,6 +1000,7 @@ export type TrainingProgramSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   maxParticipants?: boolean
   isActive?: boolean
   isMandatory?: boolean
+  isMandatoryForESocial?: boolean
   validityMonths?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -985,6 +1020,7 @@ export type TrainingProgramSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   maxParticipants?: boolean
   isActive?: boolean
   isMandatory?: boolean
+  isMandatoryForESocial?: boolean
   validityMonths?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1004,13 +1040,14 @@ export type TrainingProgramSelectScalar = {
   maxParticipants?: boolean
   isActive?: boolean
   isMandatory?: boolean
+  isMandatoryForESocial?: boolean
   validityMonths?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type TrainingProgramOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "description" | "category" | "format" | "durationHours" | "instructor" | "maxParticipants" | "isActive" | "isMandatory" | "validityMonths" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["trainingProgram"]>
+export type TrainingProgramOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "description" | "category" | "format" | "durationHours" | "instructor" | "maxParticipants" | "isActive" | "isMandatory" | "isMandatoryForESocial" | "validityMonths" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["trainingProgram"]>
 export type TrainingProgramInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   enrollments?: boolean | Prisma.TrainingProgram$enrollmentsArgs<ExtArgs>
@@ -1041,6 +1078,7 @@ export type $TrainingProgramPayload<ExtArgs extends runtime.Types.Extensions.Int
     maxParticipants: number | null
     isActive: boolean
     isMandatory: boolean
+    isMandatoryForESocial: boolean
     validityMonths: number | null
     createdAt: Date
     updatedAt: Date
@@ -1481,6 +1519,7 @@ export interface TrainingProgramFieldRefs {
   readonly maxParticipants: Prisma.FieldRef<"TrainingProgram", 'Int'>
   readonly isActive: Prisma.FieldRef<"TrainingProgram", 'Boolean'>
   readonly isMandatory: Prisma.FieldRef<"TrainingProgram", 'Boolean'>
+  readonly isMandatoryForESocial: Prisma.FieldRef<"TrainingProgram", 'Boolean'>
   readonly validityMonths: Prisma.FieldRef<"TrainingProgram", 'Int'>
   readonly createdAt: Prisma.FieldRef<"TrainingProgram", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"TrainingProgram", 'DateTime'>

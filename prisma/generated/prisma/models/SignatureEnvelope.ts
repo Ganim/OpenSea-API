@@ -44,6 +44,7 @@ export type SignatureEnvelopeMinAggregateOutputType = {
   status: $Enums.EnvelopeStatus | null
   signatureLevel: $Enums.SignatureLevel | null
   minSignatureLevel: $Enums.SignatureLevel | null
+  verificationCode: string | null
   documentFileId: string | null
   documentHash: string | null
   signedFileId: string | null
@@ -72,6 +73,7 @@ export type SignatureEnvelopeMaxAggregateOutputType = {
   status: $Enums.EnvelopeStatus | null
   signatureLevel: $Enums.SignatureLevel | null
   minSignatureLevel: $Enums.SignatureLevel | null
+  verificationCode: string | null
   documentFileId: string | null
   documentHash: string | null
   signedFileId: string | null
@@ -100,6 +102,7 @@ export type SignatureEnvelopeCountAggregateOutputType = {
   status: number
   signatureLevel: number
   minSignatureLevel: number
+  verificationCode: number
   documentFileId: number
   documentHash: number
   signedFileId: number
@@ -142,6 +145,7 @@ export type SignatureEnvelopeMinAggregateInputType = {
   status?: true
   signatureLevel?: true
   minSignatureLevel?: true
+  verificationCode?: true
   documentFileId?: true
   documentHash?: true
   signedFileId?: true
@@ -170,6 +174,7 @@ export type SignatureEnvelopeMaxAggregateInputType = {
   status?: true
   signatureLevel?: true
   minSignatureLevel?: true
+  verificationCode?: true
   documentFileId?: true
   documentHash?: true
   signedFileId?: true
@@ -198,6 +203,7 @@ export type SignatureEnvelopeCountAggregateInputType = {
   status?: true
   signatureLevel?: true
   minSignatureLevel?: true
+  verificationCode?: true
   documentFileId?: true
   documentHash?: true
   signedFileId?: true
@@ -315,6 +321,7 @@ export type SignatureEnvelopeGroupByOutputType = {
   status: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel: $Enums.SignatureLevel | null
+  verificationCode: string | null
   documentFileId: string
   documentHash: string
   signedFileId: string | null
@@ -368,6 +375,7 @@ export type SignatureEnvelopeWhereInput = {
   status?: Prisma.EnumEnvelopeStatusFilter<"SignatureEnvelope"> | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFilter<"SignatureEnvelope"> | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.EnumSignatureLevelNullableFilter<"SignatureEnvelope"> | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.StringNullableFilter<"SignatureEnvelope"> | string | null
   documentFileId?: Prisma.StringFilter<"SignatureEnvelope"> | string
   documentHash?: Prisma.StringFilter<"SignatureEnvelope"> | string
   signedFileId?: Prisma.StringNullableFilter<"SignatureEnvelope"> | string | null
@@ -406,6 +414,7 @@ export type SignatureEnvelopeOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   signatureLevel?: Prisma.SortOrder
   minSignatureLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  verificationCode?: Prisma.SortOrderInput | Prisma.SortOrder
   documentFileId?: Prisma.SortOrder
   documentHash?: Prisma.SortOrder
   signedFileId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -438,6 +447,7 @@ export type SignatureEnvelopeOrderByWithRelationInput = {
 
 export type SignatureEnvelopeWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  tenantId_verificationCode?: Prisma.SignatureEnvelopeTenantIdVerificationCodeCompoundUniqueInput
   AND?: Prisma.SignatureEnvelopeWhereInput | Prisma.SignatureEnvelopeWhereInput[]
   OR?: Prisma.SignatureEnvelopeWhereInput[]
   NOT?: Prisma.SignatureEnvelopeWhereInput | Prisma.SignatureEnvelopeWhereInput[]
@@ -447,6 +457,7 @@ export type SignatureEnvelopeWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumEnvelopeStatusFilter<"SignatureEnvelope"> | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFilter<"SignatureEnvelope"> | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.EnumSignatureLevelNullableFilter<"SignatureEnvelope"> | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.StringNullableFilter<"SignatureEnvelope"> | string | null
   documentFileId?: Prisma.StringFilter<"SignatureEnvelope"> | string
   documentHash?: Prisma.StringFilter<"SignatureEnvelope"> | string
   signedFileId?: Prisma.StringNullableFilter<"SignatureEnvelope"> | string | null
@@ -475,7 +486,7 @@ export type SignatureEnvelopeWhereUniqueInput = Prisma.AtLeast<{
   auditTrail?: Prisma.SignatureAuditEventListRelationFilter
   quote?: Prisma.XOR<Prisma.QuoteNullableScalarRelationFilter, Prisma.QuoteWhereInput> | null
   proposal?: Prisma.XOR<Prisma.ProposalNullableScalarRelationFilter, Prisma.ProposalWhereInput> | null
-}, "id">
+}, "id" | "tenantId_verificationCode">
 
 export type SignatureEnvelopeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -485,6 +496,7 @@ export type SignatureEnvelopeOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   signatureLevel?: Prisma.SortOrder
   minSignatureLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  verificationCode?: Prisma.SortOrderInput | Prisma.SortOrder
   documentFileId?: Prisma.SortOrder
   documentHash?: Prisma.SortOrder
   signedFileId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -523,6 +535,7 @@ export type SignatureEnvelopeScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumEnvelopeStatusWithAggregatesFilter<"SignatureEnvelope"> | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelWithAggregatesFilter<"SignatureEnvelope"> | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.EnumSignatureLevelNullableWithAggregatesFilter<"SignatureEnvelope"> | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.StringNullableWithAggregatesFilter<"SignatureEnvelope"> | string | null
   documentFileId?: Prisma.StringWithAggregatesFilter<"SignatureEnvelope"> | string
   documentHash?: Prisma.StringWithAggregatesFilter<"SignatureEnvelope"> | string
   signedFileId?: Prisma.StringNullableWithAggregatesFilter<"SignatureEnvelope"> | string | null
@@ -552,6 +565,7 @@ export type SignatureEnvelopeCreateInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentHash: string
   documentType?: string
   sourceModule: string
@@ -587,6 +601,7 @@ export type SignatureEnvelopeUncheckedCreateInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentFileId: string
   documentHash: string
   signedFileId?: string | null
@@ -620,6 +635,7 @@ export type SignatureEnvelopeUpdateInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   documentType?: Prisma.StringFieldUpdateOperationsInput | string
   sourceModule?: Prisma.StringFieldUpdateOperationsInput | string
@@ -655,6 +671,7 @@ export type SignatureEnvelopeUncheckedUpdateInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentFileId?: Prisma.StringFieldUpdateOperationsInput | string
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   signedFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -689,6 +706,7 @@ export type SignatureEnvelopeCreateManyInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentFileId: string
   documentHash: string
   signedFileId?: string | null
@@ -718,6 +736,7 @@ export type SignatureEnvelopeUpdateManyMutationInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   documentType?: Prisma.StringFieldUpdateOperationsInput | string
   sourceModule?: Prisma.StringFieldUpdateOperationsInput | string
@@ -745,6 +764,7 @@ export type SignatureEnvelopeUncheckedUpdateManyInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentFileId?: Prisma.StringFieldUpdateOperationsInput | string
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   signedFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -777,6 +797,11 @@ export type SignatureEnvelopeOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type SignatureEnvelopeTenantIdVerificationCodeCompoundUniqueInput = {
+  tenantId: string
+  verificationCode: string
+}
+
 export type SignatureEnvelopeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
@@ -785,6 +810,7 @@ export type SignatureEnvelopeCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   signatureLevel?: Prisma.SortOrder
   minSignatureLevel?: Prisma.SortOrder
+  verificationCode?: Prisma.SortOrder
   documentFileId?: Prisma.SortOrder
   documentHash?: Prisma.SortOrder
   signedFileId?: Prisma.SortOrder
@@ -820,6 +846,7 @@ export type SignatureEnvelopeMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   signatureLevel?: Prisma.SortOrder
   minSignatureLevel?: Prisma.SortOrder
+  verificationCode?: Prisma.SortOrder
   documentFileId?: Prisma.SortOrder
   documentHash?: Prisma.SortOrder
   signedFileId?: Prisma.SortOrder
@@ -848,6 +875,7 @@ export type SignatureEnvelopeMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   signatureLevel?: Prisma.SortOrder
   minSignatureLevel?: Prisma.SortOrder
+  verificationCode?: Prisma.SortOrder
   documentFileId?: Prisma.SortOrder
   documentHash?: Prisma.SortOrder
   signedFileId?: Prisma.SortOrder
@@ -1143,6 +1171,7 @@ export type SignatureEnvelopeCreateWithoutCreatedByInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentHash: string
   documentType?: string
   sourceModule: string
@@ -1177,6 +1206,7 @@ export type SignatureEnvelopeUncheckedCreateWithoutCreatedByInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentFileId: string
   documentHash: string
   signedFileId?: string | null
@@ -1239,6 +1269,7 @@ export type SignatureEnvelopeScalarWhereInput = {
   status?: Prisma.EnumEnvelopeStatusFilter<"SignatureEnvelope"> | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFilter<"SignatureEnvelope"> | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.EnumSignatureLevelNullableFilter<"SignatureEnvelope"> | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.StringNullableFilter<"SignatureEnvelope"> | string | null
   documentFileId?: Prisma.StringFilter<"SignatureEnvelope"> | string
   documentHash?: Prisma.StringFilter<"SignatureEnvelope"> | string
   signedFileId?: Prisma.StringNullableFilter<"SignatureEnvelope"> | string | null
@@ -1268,6 +1299,7 @@ export type SignatureEnvelopeCreateWithoutTenantInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentHash: string
   documentType?: string
   sourceModule: string
@@ -1301,6 +1333,7 @@ export type SignatureEnvelopeUncheckedCreateWithoutTenantInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentFileId: string
   documentHash: string
   signedFileId?: string | null
@@ -1360,6 +1393,7 @@ export type SignatureEnvelopeCreateWithoutDocumentFileInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentHash: string
   documentType?: string
   sourceModule: string
@@ -1394,6 +1428,7 @@ export type SignatureEnvelopeUncheckedCreateWithoutDocumentFileInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentHash: string
   signedFileId?: string | null
   documentType?: string
@@ -1436,6 +1471,7 @@ export type SignatureEnvelopeCreateWithoutSignedFileInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentHash: string
   documentType?: string
   sourceModule: string
@@ -1470,6 +1506,7 @@ export type SignatureEnvelopeUncheckedCreateWithoutSignedFileInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentFileId: string
   documentHash: string
   documentType?: string
@@ -1544,6 +1581,7 @@ export type SignatureEnvelopeCreateWithoutSignersInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentHash: string
   documentType?: string
   sourceModule: string
@@ -1578,6 +1616,7 @@ export type SignatureEnvelopeUncheckedCreateWithoutSignersInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentFileId: string
   documentHash: string
   signedFileId?: string | null
@@ -1626,6 +1665,7 @@ export type SignatureEnvelopeUpdateWithoutSignersInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   documentType?: Prisma.StringFieldUpdateOperationsInput | string
   sourceModule?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1660,6 +1700,7 @@ export type SignatureEnvelopeUncheckedUpdateWithoutSignersInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentFileId?: Prisma.StringFieldUpdateOperationsInput | string
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   signedFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1692,6 +1733,7 @@ export type SignatureEnvelopeCreateWithoutAuditTrailInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentHash: string
   documentType?: string
   sourceModule: string
@@ -1726,6 +1768,7 @@ export type SignatureEnvelopeUncheckedCreateWithoutAuditTrailInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentFileId: string
   documentHash: string
   signedFileId?: string | null
@@ -1774,6 +1817,7 @@ export type SignatureEnvelopeUpdateWithoutAuditTrailInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   documentType?: Prisma.StringFieldUpdateOperationsInput | string
   sourceModule?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1808,6 +1852,7 @@ export type SignatureEnvelopeUncheckedUpdateWithoutAuditTrailInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentFileId?: Prisma.StringFieldUpdateOperationsInput | string
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   signedFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1840,6 +1885,7 @@ export type SignatureEnvelopeCreateWithoutQuoteInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentHash: string
   documentType?: string
   sourceModule: string
@@ -1874,6 +1920,7 @@ export type SignatureEnvelopeUncheckedCreateWithoutQuoteInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentFileId: string
   documentHash: string
   signedFileId?: string | null
@@ -1922,6 +1969,7 @@ export type SignatureEnvelopeUpdateWithoutQuoteInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   documentType?: Prisma.StringFieldUpdateOperationsInput | string
   sourceModule?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1956,6 +2004,7 @@ export type SignatureEnvelopeUncheckedUpdateWithoutQuoteInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentFileId?: Prisma.StringFieldUpdateOperationsInput | string
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   signedFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1988,6 +2037,7 @@ export type SignatureEnvelopeCreateWithoutProposalInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentHash: string
   documentType?: string
   sourceModule: string
@@ -2022,6 +2072,7 @@ export type SignatureEnvelopeUncheckedCreateWithoutProposalInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentFileId: string
   documentHash: string
   signedFileId?: string | null
@@ -2070,6 +2121,7 @@ export type SignatureEnvelopeUpdateWithoutProposalInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   documentType?: Prisma.StringFieldUpdateOperationsInput | string
   sourceModule?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2104,6 +2156,7 @@ export type SignatureEnvelopeUncheckedUpdateWithoutProposalInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentFileId?: Prisma.StringFieldUpdateOperationsInput | string
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   signedFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2137,6 +2190,7 @@ export type SignatureEnvelopeCreateManyCreatedByInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentFileId: string
   documentHash: string
   signedFileId?: string | null
@@ -2165,6 +2219,7 @@ export type SignatureEnvelopeUpdateWithoutCreatedByInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   documentType?: Prisma.StringFieldUpdateOperationsInput | string
   sourceModule?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2199,6 +2254,7 @@ export type SignatureEnvelopeUncheckedUpdateWithoutCreatedByInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentFileId?: Prisma.StringFieldUpdateOperationsInput | string
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   signedFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2232,6 +2288,7 @@ export type SignatureEnvelopeUncheckedUpdateManyWithoutCreatedByInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentFileId?: Prisma.StringFieldUpdateOperationsInput | string
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   signedFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2260,6 +2317,7 @@ export type SignatureEnvelopeCreateManyTenantInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentFileId: string
   documentHash: string
   signedFileId?: string | null
@@ -2289,6 +2347,7 @@ export type SignatureEnvelopeUpdateWithoutTenantInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   documentType?: Prisma.StringFieldUpdateOperationsInput | string
   sourceModule?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2322,6 +2381,7 @@ export type SignatureEnvelopeUncheckedUpdateWithoutTenantInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentFileId?: Prisma.StringFieldUpdateOperationsInput | string
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   signedFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2355,6 +2415,7 @@ export type SignatureEnvelopeUncheckedUpdateManyWithoutTenantInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentFileId?: Prisma.StringFieldUpdateOperationsInput | string
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   signedFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2385,6 +2446,7 @@ export type SignatureEnvelopeCreateManyDocumentFileInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentHash: string
   signedFileId?: string | null
   documentType?: string
@@ -2414,6 +2476,7 @@ export type SignatureEnvelopeCreateManySignedFileInput = {
   status?: $Enums.EnvelopeStatus
   signatureLevel: $Enums.SignatureLevel
   minSignatureLevel?: $Enums.SignatureLevel | null
+  verificationCode?: string | null
   documentFileId: string
   documentHash: string
   documentType?: string
@@ -2442,6 +2505,7 @@ export type SignatureEnvelopeUpdateWithoutDocumentFileInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   documentType?: Prisma.StringFieldUpdateOperationsInput | string
   sourceModule?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2476,6 +2540,7 @@ export type SignatureEnvelopeUncheckedUpdateWithoutDocumentFileInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   signedFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2509,6 +2574,7 @@ export type SignatureEnvelopeUncheckedUpdateManyWithoutDocumentFileInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   signedFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2537,6 +2603,7 @@ export type SignatureEnvelopeUpdateWithoutSignedFileInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   documentType?: Prisma.StringFieldUpdateOperationsInput | string
   sourceModule?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2571,6 +2638,7 @@ export type SignatureEnvelopeUncheckedUpdateWithoutSignedFileInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentFileId?: Prisma.StringFieldUpdateOperationsInput | string
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   documentType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2604,6 +2672,7 @@ export type SignatureEnvelopeUncheckedUpdateManyWithoutSignedFileInput = {
   status?: Prisma.EnumEnvelopeStatusFieldUpdateOperationsInput | $Enums.EnvelopeStatus
   signatureLevel?: Prisma.EnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel
   minSignatureLevel?: Prisma.NullableEnumSignatureLevelFieldUpdateOperationsInput | $Enums.SignatureLevel | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentFileId?: Prisma.StringFieldUpdateOperationsInput | string
   documentHash?: Prisma.StringFieldUpdateOperationsInput | string
   documentType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2673,6 +2742,7 @@ export type SignatureEnvelopeSelect<ExtArgs extends runtime.Types.Extensions.Int
   status?: boolean
   signatureLevel?: boolean
   minSignatureLevel?: boolean
+  verificationCode?: boolean
   documentFileId?: boolean
   documentHash?: boolean
   signedFileId?: boolean
@@ -2712,6 +2782,7 @@ export type SignatureEnvelopeSelectCreateManyAndReturn<ExtArgs extends runtime.T
   status?: boolean
   signatureLevel?: boolean
   minSignatureLevel?: boolean
+  verificationCode?: boolean
   documentFileId?: boolean
   documentHash?: boolean
   signedFileId?: boolean
@@ -2746,6 +2817,7 @@ export type SignatureEnvelopeSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   status?: boolean
   signatureLevel?: boolean
   minSignatureLevel?: boolean
+  verificationCode?: boolean
   documentFileId?: boolean
   documentHash?: boolean
   signedFileId?: boolean
@@ -2780,6 +2852,7 @@ export type SignatureEnvelopeSelectScalar = {
   status?: boolean
   signatureLevel?: boolean
   minSignatureLevel?: boolean
+  verificationCode?: boolean
   documentFileId?: boolean
   documentHash?: boolean
   signedFileId?: boolean
@@ -2802,7 +2875,7 @@ export type SignatureEnvelopeSelectScalar = {
   updatedAt?: boolean
 }
 
-export type SignatureEnvelopeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "title" | "description" | "status" | "signatureLevel" | "minSignatureLevel" | "documentFileId" | "documentHash" | "signedFileId" | "documentType" | "sourceModule" | "sourceEntityType" | "sourceEntityId" | "routingType" | "expiresAt" | "reminderDays" | "autoExpireDays" | "completedAt" | "cancelledAt" | "cancelReason" | "createdByUserId" | "tags" | "metadata" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["signatureEnvelope"]>
+export type SignatureEnvelopeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "title" | "description" | "status" | "signatureLevel" | "minSignatureLevel" | "verificationCode" | "documentFileId" | "documentHash" | "signedFileId" | "documentType" | "sourceModule" | "sourceEntityType" | "sourceEntityId" | "routingType" | "expiresAt" | "reminderDays" | "autoExpireDays" | "completedAt" | "cancelledAt" | "cancelReason" | "createdByUserId" | "tags" | "metadata" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["signatureEnvelope"]>
 export type SignatureEnvelopeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   documentFile?: boolean | Prisma.StorageFileDefaultArgs<ExtArgs>
@@ -2847,6 +2920,7 @@ export type $SignatureEnvelopePayload<ExtArgs extends runtime.Types.Extensions.I
     status: $Enums.EnvelopeStatus
     signatureLevel: $Enums.SignatureLevel
     minSignatureLevel: $Enums.SignatureLevel | null
+    verificationCode: string | null
     documentFileId: string
     documentHash: string
     signedFileId: string | null
@@ -3305,6 +3379,7 @@ export interface SignatureEnvelopeFieldRefs {
   readonly status: Prisma.FieldRef<"SignatureEnvelope", 'EnvelopeStatus'>
   readonly signatureLevel: Prisma.FieldRef<"SignatureEnvelope", 'SignatureLevel'>
   readonly minSignatureLevel: Prisma.FieldRef<"SignatureEnvelope", 'SignatureLevel'>
+  readonly verificationCode: Prisma.FieldRef<"SignatureEnvelope", 'String'>
   readonly documentFileId: Prisma.FieldRef<"SignatureEnvelope", 'String'>
   readonly documentHash: Prisma.FieldRef<"SignatureEnvelope", 'String'>
   readonly signedFileId: Prisma.FieldRef<"SignatureEnvelope", 'String'>

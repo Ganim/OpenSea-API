@@ -53,6 +53,7 @@ export type EmployeeWarningMinAggregateOutputType = {
   revokedAt: Date | null
   revokeReason: string | null
   deletedAt: Date | null
+  deletedBy: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -76,6 +77,7 @@ export type EmployeeWarningMaxAggregateOutputType = {
   revokedAt: Date | null
   revokeReason: string | null
   deletedAt: Date | null
+  deletedBy: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -99,6 +101,7 @@ export type EmployeeWarningCountAggregateOutputType = {
   revokedAt: number
   revokeReason: number
   deletedAt: number
+  deletedBy: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -132,6 +135,7 @@ export type EmployeeWarningMinAggregateInputType = {
   revokedAt?: true
   revokeReason?: true
   deletedAt?: true
+  deletedBy?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -155,6 +159,7 @@ export type EmployeeWarningMaxAggregateInputType = {
   revokedAt?: true
   revokeReason?: true
   deletedAt?: true
+  deletedBy?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -178,6 +183,7 @@ export type EmployeeWarningCountAggregateInputType = {
   revokedAt?: true
   revokeReason?: true
   deletedAt?: true
+  deletedBy?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -288,6 +294,7 @@ export type EmployeeWarningGroupByOutputType = {
   revokedAt: Date | null
   revokeReason: string | null
   deletedAt: Date | null
+  deletedBy: string | null
   createdAt: Date
   updatedAt: Date
   _count: EmployeeWarningCountAggregateOutputType | null
@@ -334,6 +341,7 @@ export type EmployeeWarningWhereInput = {
   revokedAt?: Prisma.DateTimeNullableFilter<"EmployeeWarning"> | Date | string | null
   revokeReason?: Prisma.StringNullableFilter<"EmployeeWarning"> | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"EmployeeWarning"> | Date | string | null
+  deletedBy?: Prisma.StringNullableFilter<"EmployeeWarning"> | string | null
   createdAt?: Prisma.DateTimeFilter<"EmployeeWarning"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EmployeeWarning"> | Date | string
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
@@ -360,6 +368,7 @@ export type EmployeeWarningOrderByWithRelationInput = {
   revokedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   revokeReason?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   employee?: Prisma.EmployeeOrderByWithRelationInput
@@ -389,6 +398,7 @@ export type EmployeeWarningWhereUniqueInput = Prisma.AtLeast<{
   revokedAt?: Prisma.DateTimeNullableFilter<"EmployeeWarning"> | Date | string | null
   revokeReason?: Prisma.StringNullableFilter<"EmployeeWarning"> | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"EmployeeWarning"> | Date | string | null
+  deletedBy?: Prisma.StringNullableFilter<"EmployeeWarning"> | string | null
   createdAt?: Prisma.DateTimeFilter<"EmployeeWarning"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EmployeeWarning"> | Date | string
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
@@ -415,6 +425,7 @@ export type EmployeeWarningOrderByWithAggregationInput = {
   revokedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   revokeReason?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.EmployeeWarningCountOrderByAggregateInput
@@ -446,6 +457,7 @@ export type EmployeeWarningScalarWhereWithAggregatesInput = {
   revokedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EmployeeWarning"> | Date | string | null
   revokeReason?: Prisma.StringNullableWithAggregatesFilter<"EmployeeWarning"> | string | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"EmployeeWarning"> | Date | string | null
+  deletedBy?: Prisma.StringNullableWithAggregatesFilter<"EmployeeWarning"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"EmployeeWarning"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"EmployeeWarning"> | Date | string
 }
@@ -466,6 +478,7 @@ export type EmployeeWarningCreateInput = {
   revokedAt?: Date | string | null
   revokeReason?: string | null
   deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   employee: Prisma.EmployeeCreateNestedOneWithoutWarningsInput
@@ -492,6 +505,7 @@ export type EmployeeWarningUncheckedCreateInput = {
   revokedAt?: Date | string | null
   revokeReason?: string | null
   deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -512,6 +526,7 @@ export type EmployeeWarningUpdateInput = {
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokeReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutWarningsNestedInput
@@ -538,6 +553,7 @@ export type EmployeeWarningUncheckedUpdateInput = {
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokeReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -561,6 +577,7 @@ export type EmployeeWarningCreateManyInput = {
   revokedAt?: Date | string | null
   revokeReason?: string | null
   deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -581,6 +598,7 @@ export type EmployeeWarningUpdateManyMutationInput = {
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokeReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -604,6 +622,7 @@ export type EmployeeWarningUncheckedUpdateManyInput = {
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokeReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -637,6 +656,7 @@ export type EmployeeWarningCountOrderByAggregateInput = {
   revokedAt?: Prisma.SortOrder
   revokeReason?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  deletedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -664,6 +684,7 @@ export type EmployeeWarningMaxOrderByAggregateInput = {
   revokedAt?: Prisma.SortOrder
   revokeReason?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  deletedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -687,6 +708,7 @@ export type EmployeeWarningMinOrderByAggregateInput = {
   revokedAt?: Prisma.SortOrder
   revokeReason?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  deletedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -837,6 +859,7 @@ export type EmployeeWarningCreateWithoutEmployeeInput = {
   revokedAt?: Date | string | null
   revokeReason?: string | null
   deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   issuer: Prisma.EmployeeCreateNestedOneWithoutIssuedWarningsInput
@@ -861,6 +884,7 @@ export type EmployeeWarningUncheckedCreateWithoutEmployeeInput = {
   revokedAt?: Date | string | null
   revokeReason?: string | null
   deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -891,6 +915,7 @@ export type EmployeeWarningCreateWithoutIssuerInput = {
   revokedAt?: Date | string | null
   revokeReason?: string | null
   deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   employee: Prisma.EmployeeCreateNestedOneWithoutWarningsInput
@@ -915,6 +940,7 @@ export type EmployeeWarningUncheckedCreateWithoutIssuerInput = {
   revokedAt?: Date | string | null
   revokeReason?: string | null
   deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -967,6 +993,7 @@ export type EmployeeWarningScalarWhereInput = {
   revokedAt?: Prisma.DateTimeNullableFilter<"EmployeeWarning"> | Date | string | null
   revokeReason?: Prisma.StringNullableFilter<"EmployeeWarning"> | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"EmployeeWarning"> | Date | string | null
+  deletedBy?: Prisma.StringNullableFilter<"EmployeeWarning"> | string | null
   createdAt?: Prisma.DateTimeFilter<"EmployeeWarning"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EmployeeWarning"> | Date | string
 }
@@ -1003,6 +1030,7 @@ export type EmployeeWarningCreateWithoutTenantInput = {
   revokedAt?: Date | string | null
   revokeReason?: string | null
   deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   employee: Prisma.EmployeeCreateNestedOneWithoutWarningsInput
@@ -1027,6 +1055,7 @@ export type EmployeeWarningUncheckedCreateWithoutTenantInput = {
   revokedAt?: Date | string | null
   revokeReason?: string | null
   deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1075,6 +1104,7 @@ export type EmployeeWarningCreateManyEmployeeInput = {
   revokedAt?: Date | string | null
   revokeReason?: string | null
   deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1097,6 +1127,7 @@ export type EmployeeWarningCreateManyIssuerInput = {
   revokedAt?: Date | string | null
   revokeReason?: string | null
   deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1117,6 +1148,7 @@ export type EmployeeWarningUpdateWithoutEmployeeInput = {
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokeReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   issuer?: Prisma.EmployeeUpdateOneRequiredWithoutIssuedWarningsNestedInput
@@ -1141,6 +1173,7 @@ export type EmployeeWarningUncheckedUpdateWithoutEmployeeInput = {
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokeReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1163,6 +1196,7 @@ export type EmployeeWarningUncheckedUpdateManyWithoutEmployeeInput = {
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokeReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1183,6 +1217,7 @@ export type EmployeeWarningUpdateWithoutIssuerInput = {
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokeReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutWarningsNestedInput
@@ -1207,6 +1242,7 @@ export type EmployeeWarningUncheckedUpdateWithoutIssuerInput = {
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokeReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1229,6 +1265,7 @@ export type EmployeeWarningUncheckedUpdateManyWithoutIssuerInput = {
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokeReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1251,6 +1288,7 @@ export type EmployeeWarningCreateManyTenantInput = {
   revokedAt?: Date | string | null
   revokeReason?: string | null
   deletedAt?: Date | string | null
+  deletedBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1271,6 +1309,7 @@ export type EmployeeWarningUpdateWithoutTenantInput = {
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokeReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutWarningsNestedInput
@@ -1295,6 +1334,7 @@ export type EmployeeWarningUncheckedUpdateWithoutTenantInput = {
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokeReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1317,6 +1357,7 @@ export type EmployeeWarningUncheckedUpdateManyWithoutTenantInput = {
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokeReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1342,6 +1383,7 @@ export type EmployeeWarningSelect<ExtArgs extends runtime.Types.Extensions.Inter
   revokedAt?: boolean
   revokeReason?: boolean
   deletedAt?: boolean
+  deletedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
@@ -1368,6 +1410,7 @@ export type EmployeeWarningSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   revokedAt?: boolean
   revokeReason?: boolean
   deletedAt?: boolean
+  deletedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
@@ -1394,6 +1437,7 @@ export type EmployeeWarningSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   revokedAt?: boolean
   revokeReason?: boolean
   deletedAt?: boolean
+  deletedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
@@ -1420,11 +1464,12 @@ export type EmployeeWarningSelectScalar = {
   revokedAt?: boolean
   revokeReason?: boolean
   deletedAt?: boolean
+  deletedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type EmployeeWarningOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "issuedBy" | "type" | "severity" | "reason" | "description" | "incidentDate" | "witnessName" | "employeeAcknowledged" | "acknowledgedAt" | "suspensionDays" | "attachmentUrl" | "status" | "revokedAt" | "revokeReason" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["employeeWarning"]>
+export type EmployeeWarningOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "issuedBy" | "type" | "severity" | "reason" | "description" | "incidentDate" | "witnessName" | "employeeAcknowledged" | "acknowledgedAt" | "suspensionDays" | "attachmentUrl" | "status" | "revokedAt" | "revokeReason" | "deletedAt" | "deletedBy" | "createdAt" | "updatedAt", ExtArgs["result"]["employeeWarning"]>
 export type EmployeeWarningInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   issuer?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
@@ -1467,6 +1512,7 @@ export type $EmployeeWarningPayload<ExtArgs extends runtime.Types.Extensions.Int
     revokedAt: Date | null
     revokeReason: string | null
     deletedAt: Date | null
+    deletedBy: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["employeeWarning"]>
@@ -1913,6 +1959,7 @@ export interface EmployeeWarningFieldRefs {
   readonly revokedAt: Prisma.FieldRef<"EmployeeWarning", 'DateTime'>
   readonly revokeReason: Prisma.FieldRef<"EmployeeWarning", 'String'>
   readonly deletedAt: Prisma.FieldRef<"EmployeeWarning", 'DateTime'>
+  readonly deletedBy: Prisma.FieldRef<"EmployeeWarning", 'String'>
   readonly createdAt: Prisma.FieldRef<"EmployeeWarning", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"EmployeeWarning", 'DateTime'>
 }

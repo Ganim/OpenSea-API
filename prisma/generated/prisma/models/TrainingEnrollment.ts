@@ -43,6 +43,7 @@ export type TrainingEnrollmentMinAggregateOutputType = {
   enrolledAt: Date | null
   startedAt: Date | null
   completedAt: Date | null
+  expirationDate: Date | null
   score: number | null
   certificateUrl: string | null
   notes: string | null
@@ -59,6 +60,7 @@ export type TrainingEnrollmentMaxAggregateOutputType = {
   enrolledAt: Date | null
   startedAt: Date | null
   completedAt: Date | null
+  expirationDate: Date | null
   score: number | null
   certificateUrl: string | null
   notes: string | null
@@ -75,6 +77,7 @@ export type TrainingEnrollmentCountAggregateOutputType = {
   enrolledAt: number
   startedAt: number
   completedAt: number
+  expirationDate: number
   score: number
   certificateUrl: number
   notes: number
@@ -101,6 +104,7 @@ export type TrainingEnrollmentMinAggregateInputType = {
   enrolledAt?: true
   startedAt?: true
   completedAt?: true
+  expirationDate?: true
   score?: true
   certificateUrl?: true
   notes?: true
@@ -117,6 +121,7 @@ export type TrainingEnrollmentMaxAggregateInputType = {
   enrolledAt?: true
   startedAt?: true
   completedAt?: true
+  expirationDate?: true
   score?: true
   certificateUrl?: true
   notes?: true
@@ -133,6 +138,7 @@ export type TrainingEnrollmentCountAggregateInputType = {
   enrolledAt?: true
   startedAt?: true
   completedAt?: true
+  expirationDate?: true
   score?: true
   certificateUrl?: true
   notes?: true
@@ -236,6 +242,7 @@ export type TrainingEnrollmentGroupByOutputType = {
   enrolledAt: Date
   startedAt: Date | null
   completedAt: Date | null
+  expirationDate: Date | null
   score: number | null
   certificateUrl: string | null
   notes: string | null
@@ -275,6 +282,7 @@ export type TrainingEnrollmentWhereInput = {
   enrolledAt?: Prisma.DateTimeFilter<"TrainingEnrollment"> | Date | string
   startedAt?: Prisma.DateTimeNullableFilter<"TrainingEnrollment"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"TrainingEnrollment"> | Date | string | null
+  expirationDate?: Prisma.DateTimeNullableFilter<"TrainingEnrollment"> | Date | string | null
   score?: Prisma.FloatNullableFilter<"TrainingEnrollment"> | number | null
   certificateUrl?: Prisma.StringNullableFilter<"TrainingEnrollment"> | string | null
   notes?: Prisma.StringNullableFilter<"TrainingEnrollment"> | string | null
@@ -294,6 +302,7 @@ export type TrainingEnrollmentOrderByWithRelationInput = {
   enrolledAt?: Prisma.SortOrder
   startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  expirationDate?: Prisma.SortOrderInput | Prisma.SortOrder
   score?: Prisma.SortOrderInput | Prisma.SortOrder
   certificateUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -317,6 +326,7 @@ export type TrainingEnrollmentWhereUniqueInput = Prisma.AtLeast<{
   enrolledAt?: Prisma.DateTimeFilter<"TrainingEnrollment"> | Date | string
   startedAt?: Prisma.DateTimeNullableFilter<"TrainingEnrollment"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"TrainingEnrollment"> | Date | string | null
+  expirationDate?: Prisma.DateTimeNullableFilter<"TrainingEnrollment"> | Date | string | null
   score?: Prisma.FloatNullableFilter<"TrainingEnrollment"> | number | null
   certificateUrl?: Prisma.StringNullableFilter<"TrainingEnrollment"> | string | null
   notes?: Prisma.StringNullableFilter<"TrainingEnrollment"> | string | null
@@ -336,6 +346,7 @@ export type TrainingEnrollmentOrderByWithAggregationInput = {
   enrolledAt?: Prisma.SortOrder
   startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  expirationDate?: Prisma.SortOrderInput | Prisma.SortOrder
   score?: Prisma.SortOrderInput | Prisma.SortOrder
   certificateUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -360,6 +371,7 @@ export type TrainingEnrollmentScalarWhereWithAggregatesInput = {
   enrolledAt?: Prisma.DateTimeWithAggregatesFilter<"TrainingEnrollment"> | Date | string
   startedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"TrainingEnrollment"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"TrainingEnrollment"> | Date | string | null
+  expirationDate?: Prisma.DateTimeNullableWithAggregatesFilter<"TrainingEnrollment"> | Date | string | null
   score?: Prisma.FloatNullableWithAggregatesFilter<"TrainingEnrollment"> | number | null
   certificateUrl?: Prisma.StringNullableWithAggregatesFilter<"TrainingEnrollment"> | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"TrainingEnrollment"> | string | null
@@ -373,6 +385,7 @@ export type TrainingEnrollmentCreateInput = {
   enrolledAt?: Date | string
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  expirationDate?: Date | string | null
   score?: number | null
   certificateUrl?: string | null
   notes?: string | null
@@ -392,6 +405,7 @@ export type TrainingEnrollmentUncheckedCreateInput = {
   enrolledAt?: Date | string
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  expirationDate?: Date | string | null
   score?: number | null
   certificateUrl?: string | null
   notes?: string | null
@@ -405,6 +419,7 @@ export type TrainingEnrollmentUpdateInput = {
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   certificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -424,6 +439,7 @@ export type TrainingEnrollmentUncheckedUpdateInput = {
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   certificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -440,6 +456,7 @@ export type TrainingEnrollmentCreateManyInput = {
   enrolledAt?: Date | string
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  expirationDate?: Date | string | null
   score?: number | null
   certificateUrl?: string | null
   notes?: string | null
@@ -453,6 +470,7 @@ export type TrainingEnrollmentUpdateManyMutationInput = {
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   certificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -469,6 +487,7 @@ export type TrainingEnrollmentUncheckedUpdateManyInput = {
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   certificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -500,6 +519,7 @@ export type TrainingEnrollmentCountOrderByAggregateInput = {
   enrolledAt?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
+  expirationDate?: Prisma.SortOrder
   score?: Prisma.SortOrder
   certificateUrl?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -520,6 +540,7 @@ export type TrainingEnrollmentMaxOrderByAggregateInput = {
   enrolledAt?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
+  expirationDate?: Prisma.SortOrder
   score?: Prisma.SortOrder
   certificateUrl?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -536,6 +557,7 @@ export type TrainingEnrollmentMinOrderByAggregateInput = {
   enrolledAt?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
+  expirationDate?: Prisma.SortOrder
   score?: Prisma.SortOrder
   certificateUrl?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -679,6 +701,7 @@ export type TrainingEnrollmentCreateWithoutEmployeeInput = {
   enrolledAt?: Date | string
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  expirationDate?: Date | string | null
   score?: number | null
   certificateUrl?: string | null
   notes?: string | null
@@ -696,6 +719,7 @@ export type TrainingEnrollmentUncheckedCreateWithoutEmployeeInput = {
   enrolledAt?: Date | string
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  expirationDate?: Date | string | null
   score?: number | null
   certificateUrl?: string | null
   notes?: string | null
@@ -741,6 +765,7 @@ export type TrainingEnrollmentScalarWhereInput = {
   enrolledAt?: Prisma.DateTimeFilter<"TrainingEnrollment"> | Date | string
   startedAt?: Prisma.DateTimeNullableFilter<"TrainingEnrollment"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"TrainingEnrollment"> | Date | string | null
+  expirationDate?: Prisma.DateTimeNullableFilter<"TrainingEnrollment"> | Date | string | null
   score?: Prisma.FloatNullableFilter<"TrainingEnrollment"> | number | null
   certificateUrl?: Prisma.StringNullableFilter<"TrainingEnrollment"> | string | null
   notes?: Prisma.StringNullableFilter<"TrainingEnrollment"> | string | null
@@ -754,6 +779,7 @@ export type TrainingEnrollmentCreateWithoutTrainingProgramInput = {
   enrolledAt?: Date | string
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  expirationDate?: Date | string | null
   score?: number | null
   certificateUrl?: string | null
   notes?: string | null
@@ -771,6 +797,7 @@ export type TrainingEnrollmentUncheckedCreateWithoutTrainingProgramInput = {
   enrolledAt?: Date | string
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  expirationDate?: Date | string | null
   score?: number | null
   certificateUrl?: string | null
   notes?: string | null
@@ -810,6 +837,7 @@ export type TrainingEnrollmentCreateWithoutTenantInput = {
   enrolledAt?: Date | string
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  expirationDate?: Date | string | null
   score?: number | null
   certificateUrl?: string | null
   notes?: string | null
@@ -827,6 +855,7 @@ export type TrainingEnrollmentUncheckedCreateWithoutTenantInput = {
   enrolledAt?: Date | string
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  expirationDate?: Date | string | null
   score?: number | null
   certificateUrl?: string | null
   notes?: string | null
@@ -868,6 +897,7 @@ export type TrainingEnrollmentCreateManyEmployeeInput = {
   enrolledAt?: Date | string
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  expirationDate?: Date | string | null
   score?: number | null
   certificateUrl?: string | null
   notes?: string | null
@@ -881,6 +911,7 @@ export type TrainingEnrollmentUpdateWithoutEmployeeInput = {
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   certificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -898,6 +929,7 @@ export type TrainingEnrollmentUncheckedUpdateWithoutEmployeeInput = {
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   certificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -913,6 +945,7 @@ export type TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeInput = {
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   certificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -928,6 +961,7 @@ export type TrainingEnrollmentCreateManyTrainingProgramInput = {
   enrolledAt?: Date | string
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  expirationDate?: Date | string | null
   score?: number | null
   certificateUrl?: string | null
   notes?: string | null
@@ -941,6 +975,7 @@ export type TrainingEnrollmentUpdateWithoutTrainingProgramInput = {
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   certificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -958,6 +993,7 @@ export type TrainingEnrollmentUncheckedUpdateWithoutTrainingProgramInput = {
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   certificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -973,6 +1009,7 @@ export type TrainingEnrollmentUncheckedUpdateManyWithoutTrainingProgramInput = {
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   certificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -988,6 +1025,7 @@ export type TrainingEnrollmentCreateManyTenantInput = {
   enrolledAt?: Date | string
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  expirationDate?: Date | string | null
   score?: number | null
   certificateUrl?: string | null
   notes?: string | null
@@ -1001,6 +1039,7 @@ export type TrainingEnrollmentUpdateWithoutTenantInput = {
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   certificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1018,6 +1057,7 @@ export type TrainingEnrollmentUncheckedUpdateWithoutTenantInput = {
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   certificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1033,6 +1073,7 @@ export type TrainingEnrollmentUncheckedUpdateManyWithoutTenantInput = {
   enrolledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   certificateUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1051,6 +1092,7 @@ export type TrainingEnrollmentSelect<ExtArgs extends runtime.Types.Extensions.In
   enrolledAt?: boolean
   startedAt?: boolean
   completedAt?: boolean
+  expirationDate?: boolean
   score?: boolean
   certificateUrl?: boolean
   notes?: boolean
@@ -1070,6 +1112,7 @@ export type TrainingEnrollmentSelectCreateManyAndReturn<ExtArgs extends runtime.
   enrolledAt?: boolean
   startedAt?: boolean
   completedAt?: boolean
+  expirationDate?: boolean
   score?: boolean
   certificateUrl?: boolean
   notes?: boolean
@@ -1089,6 +1132,7 @@ export type TrainingEnrollmentSelectUpdateManyAndReturn<ExtArgs extends runtime.
   enrolledAt?: boolean
   startedAt?: boolean
   completedAt?: boolean
+  expirationDate?: boolean
   score?: boolean
   certificateUrl?: boolean
   notes?: boolean
@@ -1108,6 +1152,7 @@ export type TrainingEnrollmentSelectScalar = {
   enrolledAt?: boolean
   startedAt?: boolean
   completedAt?: boolean
+  expirationDate?: boolean
   score?: boolean
   certificateUrl?: boolean
   notes?: boolean
@@ -1115,7 +1160,7 @@ export type TrainingEnrollmentSelectScalar = {
   updatedAt?: boolean
 }
 
-export type TrainingEnrollmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "trainingProgramId" | "employeeId" | "status" | "enrolledAt" | "startedAt" | "completedAt" | "score" | "certificateUrl" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["trainingEnrollment"]>
+export type TrainingEnrollmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "trainingProgramId" | "employeeId" | "status" | "enrolledAt" | "startedAt" | "completedAt" | "expirationDate" | "score" | "certificateUrl" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["trainingEnrollment"]>
 export type TrainingEnrollmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   trainingProgram?: boolean | Prisma.TrainingProgramDefaultArgs<ExtArgs>
@@ -1148,6 +1193,7 @@ export type $TrainingEnrollmentPayload<ExtArgs extends runtime.Types.Extensions.
     enrolledAt: Date
     startedAt: Date | null
     completedAt: Date | null
+    expirationDate: Date | null
     score: number | null
     certificateUrl: string | null
     notes: string | null
@@ -1587,6 +1633,7 @@ export interface TrainingEnrollmentFieldRefs {
   readonly enrolledAt: Prisma.FieldRef<"TrainingEnrollment", 'DateTime'>
   readonly startedAt: Prisma.FieldRef<"TrainingEnrollment", 'DateTime'>
   readonly completedAt: Prisma.FieldRef<"TrainingEnrollment", 'DateTime'>
+  readonly expirationDate: Prisma.FieldRef<"TrainingEnrollment", 'DateTime'>
   readonly score: Prisma.FieldRef<"TrainingEnrollment", 'Float'>
   readonly certificateUrl: Prisma.FieldRef<"TrainingEnrollment", 'String'>
   readonly notes: Prisma.FieldRef<"TrainingEnrollment", 'String'>

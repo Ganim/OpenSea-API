@@ -31,6 +31,7 @@ export type SignatureEnvelopeSignerAvgAggregateOutputType = {
   group: number | null
   geoLatitude: runtime.Decimal | null
   geoLongitude: runtime.Decimal | null
+  otpAttempts: number | null
   notificationCount: number | null
 }
 
@@ -39,6 +40,7 @@ export type SignatureEnvelopeSignerSumAggregateOutputType = {
   group: number | null
   geoLatitude: runtime.Decimal | null
   geoLongitude: runtime.Decimal | null
+  otpAttempts: number | null
   notificationCount: number | null
 }
 
@@ -67,6 +69,10 @@ export type SignatureEnvelopeSignerMinAggregateOutputType = {
   geoLatitude: runtime.Decimal | null
   geoLongitude: runtime.Decimal | null
   otpVerified: boolean | null
+  otpCodeHash: string | null
+  otpExpiresAt: Date | null
+  otpAttempts: number | null
+  otpSentAt: Date | null
   rejectedAt: Date | null
   rejectedReason: string | null
   lastNotifiedAt: Date | null
@@ -100,6 +106,10 @@ export type SignatureEnvelopeSignerMaxAggregateOutputType = {
   geoLatitude: runtime.Decimal | null
   geoLongitude: runtime.Decimal | null
   otpVerified: boolean | null
+  otpCodeHash: string | null
+  otpExpiresAt: Date | null
+  otpAttempts: number | null
+  otpSentAt: Date | null
   rejectedAt: Date | null
   rejectedReason: string | null
   lastNotifiedAt: Date | null
@@ -134,6 +144,10 @@ export type SignatureEnvelopeSignerCountAggregateOutputType = {
   geoLatitude: number
   geoLongitude: number
   otpVerified: number
+  otpCodeHash: number
+  otpExpiresAt: number
+  otpAttempts: number
+  otpSentAt: number
   rejectedAt: number
   rejectedReason: number
   lastNotifiedAt: number
@@ -149,6 +163,7 @@ export type SignatureEnvelopeSignerAvgAggregateInputType = {
   group?: true
   geoLatitude?: true
   geoLongitude?: true
+  otpAttempts?: true
   notificationCount?: true
 }
 
@@ -157,6 +172,7 @@ export type SignatureEnvelopeSignerSumAggregateInputType = {
   group?: true
   geoLatitude?: true
   geoLongitude?: true
+  otpAttempts?: true
   notificationCount?: true
 }
 
@@ -185,6 +201,10 @@ export type SignatureEnvelopeSignerMinAggregateInputType = {
   geoLatitude?: true
   geoLongitude?: true
   otpVerified?: true
+  otpCodeHash?: true
+  otpExpiresAt?: true
+  otpAttempts?: true
+  otpSentAt?: true
   rejectedAt?: true
   rejectedReason?: true
   lastNotifiedAt?: true
@@ -218,6 +238,10 @@ export type SignatureEnvelopeSignerMaxAggregateInputType = {
   geoLatitude?: true
   geoLongitude?: true
   otpVerified?: true
+  otpCodeHash?: true
+  otpExpiresAt?: true
+  otpAttempts?: true
+  otpSentAt?: true
   rejectedAt?: true
   rejectedReason?: true
   lastNotifiedAt?: true
@@ -252,6 +276,10 @@ export type SignatureEnvelopeSignerCountAggregateInputType = {
   geoLatitude?: true
   geoLongitude?: true
   otpVerified?: true
+  otpCodeHash?: true
+  otpExpiresAt?: true
+  otpAttempts?: true
+  otpSentAt?: true
   rejectedAt?: true
   rejectedReason?: true
   lastNotifiedAt?: true
@@ -373,6 +401,10 @@ export type SignatureEnvelopeSignerGroupByOutputType = {
   geoLatitude: runtime.Decimal | null
   geoLongitude: runtime.Decimal | null
   otpVerified: boolean
+  otpCodeHash: string | null
+  otpExpiresAt: Date | null
+  otpAttempts: number
+  otpSentAt: Date | null
   rejectedAt: Date | null
   rejectedReason: string | null
   lastNotifiedAt: Date | null
@@ -430,6 +462,10 @@ export type SignatureEnvelopeSignerWhereInput = {
   geoLatitude?: Prisma.DecimalNullableFilter<"SignatureEnvelopeSigner"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.DecimalNullableFilter<"SignatureEnvelopeSigner"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFilter<"SignatureEnvelopeSigner"> | boolean
+  otpCodeHash?: Prisma.StringNullableFilter<"SignatureEnvelopeSigner"> | string | null
+  otpExpiresAt?: Prisma.DateTimeNullableFilter<"SignatureEnvelopeSigner"> | Date | string | null
+  otpAttempts?: Prisma.IntFilter<"SignatureEnvelopeSigner"> | number
+  otpSentAt?: Prisma.DateTimeNullableFilter<"SignatureEnvelopeSigner"> | Date | string | null
   rejectedAt?: Prisma.DateTimeNullableFilter<"SignatureEnvelopeSigner"> | Date | string | null
   rejectedReason?: Prisma.StringNullableFilter<"SignatureEnvelopeSigner"> | string | null
   lastNotifiedAt?: Prisma.DateTimeNullableFilter<"SignatureEnvelopeSigner"> | Date | string | null
@@ -469,6 +505,10 @@ export type SignatureEnvelopeSignerOrderByWithRelationInput = {
   geoLatitude?: Prisma.SortOrderInput | Prisma.SortOrder
   geoLongitude?: Prisma.SortOrderInput | Prisma.SortOrder
   otpVerified?: Prisma.SortOrder
+  otpCodeHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  otpExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  otpAttempts?: Prisma.SortOrder
+  otpSentAt?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectedReason?: Prisma.SortOrderInput | Prisma.SortOrder
   lastNotifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -511,6 +551,10 @@ export type SignatureEnvelopeSignerWhereUniqueInput = Prisma.AtLeast<{
   geoLatitude?: Prisma.DecimalNullableFilter<"SignatureEnvelopeSigner"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.DecimalNullableFilter<"SignatureEnvelopeSigner"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFilter<"SignatureEnvelopeSigner"> | boolean
+  otpCodeHash?: Prisma.StringNullableFilter<"SignatureEnvelopeSigner"> | string | null
+  otpExpiresAt?: Prisma.DateTimeNullableFilter<"SignatureEnvelopeSigner"> | Date | string | null
+  otpAttempts?: Prisma.IntFilter<"SignatureEnvelopeSigner"> | number
+  otpSentAt?: Prisma.DateTimeNullableFilter<"SignatureEnvelopeSigner"> | Date | string | null
   rejectedAt?: Prisma.DateTimeNullableFilter<"SignatureEnvelopeSigner"> | Date | string | null
   rejectedReason?: Prisma.StringNullableFilter<"SignatureEnvelopeSigner"> | string | null
   lastNotifiedAt?: Prisma.DateTimeNullableFilter<"SignatureEnvelopeSigner"> | Date | string | null
@@ -550,6 +594,10 @@ export type SignatureEnvelopeSignerOrderByWithAggregationInput = {
   geoLatitude?: Prisma.SortOrderInput | Prisma.SortOrder
   geoLongitude?: Prisma.SortOrderInput | Prisma.SortOrder
   otpVerified?: Prisma.SortOrder
+  otpCodeHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  otpExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  otpAttempts?: Prisma.SortOrder
+  otpSentAt?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectedReason?: Prisma.SortOrderInput | Prisma.SortOrder
   lastNotifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -592,6 +640,10 @@ export type SignatureEnvelopeSignerScalarWhereWithAggregatesInput = {
   geoLatitude?: Prisma.DecimalNullableWithAggregatesFilter<"SignatureEnvelopeSigner"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.DecimalNullableWithAggregatesFilter<"SignatureEnvelopeSigner"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolWithAggregatesFilter<"SignatureEnvelopeSigner"> | boolean
+  otpCodeHash?: Prisma.StringNullableWithAggregatesFilter<"SignatureEnvelopeSigner"> | string | null
+  otpExpiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"SignatureEnvelopeSigner"> | Date | string | null
+  otpAttempts?: Prisma.IntWithAggregatesFilter<"SignatureEnvelopeSigner"> | number
+  otpSentAt?: Prisma.DateTimeNullableWithAggregatesFilter<"SignatureEnvelopeSigner"> | Date | string | null
   rejectedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"SignatureEnvelopeSigner"> | Date | string | null
   rejectedReason?: Prisma.StringNullableWithAggregatesFilter<"SignatureEnvelopeSigner"> | string | null
   lastNotifiedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"SignatureEnvelopeSigner"> | Date | string | null
@@ -621,6 +673,10 @@ export type SignatureEnvelopeSignerCreateInput = {
   geoLatitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: boolean
+  otpCodeHash?: string | null
+  otpExpiresAt?: Date | string | null
+  otpAttempts?: number
+  otpSentAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedReason?: string | null
   lastNotifiedAt?: Date | string | null
@@ -660,6 +716,10 @@ export type SignatureEnvelopeSignerUncheckedCreateInput = {
   geoLatitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: boolean
+  otpCodeHash?: string | null
+  otpExpiresAt?: Date | string | null
+  otpAttempts?: number
+  otpSentAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedReason?: string | null
   lastNotifiedAt?: Date | string | null
@@ -689,6 +749,10 @@ export type SignatureEnvelopeSignerUpdateInput = {
   geoLatitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpCodeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  otpAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  otpSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -728,6 +792,10 @@ export type SignatureEnvelopeSignerUncheckedUpdateInput = {
   geoLatitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpCodeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  otpAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  otpSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -762,6 +830,10 @@ export type SignatureEnvelopeSignerCreateManyInput = {
   geoLatitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: boolean
+  otpCodeHash?: string | null
+  otpExpiresAt?: Date | string | null
+  otpAttempts?: number
+  otpSentAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedReason?: string | null
   lastNotifiedAt?: Date | string | null
@@ -791,6 +863,10 @@ export type SignatureEnvelopeSignerUpdateManyMutationInput = {
   geoLatitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpCodeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  otpAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  otpSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -825,6 +901,10 @@ export type SignatureEnvelopeSignerUncheckedUpdateManyInput = {
   geoLatitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpCodeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  otpAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  otpSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -869,6 +949,10 @@ export type SignatureEnvelopeSignerCountOrderByAggregateInput = {
   geoLatitude?: Prisma.SortOrder
   geoLongitude?: Prisma.SortOrder
   otpVerified?: Prisma.SortOrder
+  otpCodeHash?: Prisma.SortOrder
+  otpExpiresAt?: Prisma.SortOrder
+  otpAttempts?: Prisma.SortOrder
+  otpSentAt?: Prisma.SortOrder
   rejectedAt?: Prisma.SortOrder
   rejectedReason?: Prisma.SortOrder
   lastNotifiedAt?: Prisma.SortOrder
@@ -882,6 +966,7 @@ export type SignatureEnvelopeSignerAvgOrderByAggregateInput = {
   group?: Prisma.SortOrder
   geoLatitude?: Prisma.SortOrder
   geoLongitude?: Prisma.SortOrder
+  otpAttempts?: Prisma.SortOrder
   notificationCount?: Prisma.SortOrder
 }
 
@@ -910,6 +995,10 @@ export type SignatureEnvelopeSignerMaxOrderByAggregateInput = {
   geoLatitude?: Prisma.SortOrder
   geoLongitude?: Prisma.SortOrder
   otpVerified?: Prisma.SortOrder
+  otpCodeHash?: Prisma.SortOrder
+  otpExpiresAt?: Prisma.SortOrder
+  otpAttempts?: Prisma.SortOrder
+  otpSentAt?: Prisma.SortOrder
   rejectedAt?: Prisma.SortOrder
   rejectedReason?: Prisma.SortOrder
   lastNotifiedAt?: Prisma.SortOrder
@@ -943,6 +1032,10 @@ export type SignatureEnvelopeSignerMinOrderByAggregateInput = {
   geoLatitude?: Prisma.SortOrder
   geoLongitude?: Prisma.SortOrder
   otpVerified?: Prisma.SortOrder
+  otpCodeHash?: Prisma.SortOrder
+  otpExpiresAt?: Prisma.SortOrder
+  otpAttempts?: Prisma.SortOrder
+  otpSentAt?: Prisma.SortOrder
   rejectedAt?: Prisma.SortOrder
   rejectedReason?: Prisma.SortOrder
   lastNotifiedAt?: Prisma.SortOrder
@@ -956,6 +1049,7 @@ export type SignatureEnvelopeSignerSumOrderByAggregateInput = {
   group?: Prisma.SortOrder
   geoLatitude?: Prisma.SortOrder
   geoLongitude?: Prisma.SortOrder
+  otpAttempts?: Prisma.SortOrder
   notificationCount?: Prisma.SortOrder
 }
 
@@ -1198,6 +1292,10 @@ export type SignatureEnvelopeSignerCreateWithoutUserInput = {
   geoLatitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: boolean
+  otpCodeHash?: string | null
+  otpExpiresAt?: Date | string | null
+  otpAttempts?: number
+  otpSentAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedReason?: string | null
   lastNotifiedAt?: Date | string | null
@@ -1235,6 +1333,10 @@ export type SignatureEnvelopeSignerUncheckedCreateWithoutUserInput = {
   geoLatitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: boolean
+  otpCodeHash?: string | null
+  otpExpiresAt?: Date | string | null
+  otpAttempts?: number
+  otpSentAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedReason?: string | null
   lastNotifiedAt?: Date | string | null
@@ -1298,6 +1400,10 @@ export type SignatureEnvelopeSignerScalarWhereInput = {
   geoLatitude?: Prisma.DecimalNullableFilter<"SignatureEnvelopeSigner"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.DecimalNullableFilter<"SignatureEnvelopeSigner"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFilter<"SignatureEnvelopeSigner"> | boolean
+  otpCodeHash?: Prisma.StringNullableFilter<"SignatureEnvelopeSigner"> | string | null
+  otpExpiresAt?: Prisma.DateTimeNullableFilter<"SignatureEnvelopeSigner"> | Date | string | null
+  otpAttempts?: Prisma.IntFilter<"SignatureEnvelopeSigner"> | number
+  otpSentAt?: Prisma.DateTimeNullableFilter<"SignatureEnvelopeSigner"> | Date | string | null
   rejectedAt?: Prisma.DateTimeNullableFilter<"SignatureEnvelopeSigner"> | Date | string | null
   rejectedReason?: Prisma.StringNullableFilter<"SignatureEnvelopeSigner"> | string | null
   lastNotifiedAt?: Prisma.DateTimeNullableFilter<"SignatureEnvelopeSigner"> | Date | string | null
@@ -1327,6 +1433,10 @@ export type SignatureEnvelopeSignerCreateWithoutContactInput = {
   geoLatitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: boolean
+  otpCodeHash?: string | null
+  otpExpiresAt?: Date | string | null
+  otpAttempts?: number
+  otpSentAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedReason?: string | null
   lastNotifiedAt?: Date | string | null
@@ -1364,6 +1474,10 @@ export type SignatureEnvelopeSignerUncheckedCreateWithoutContactInput = {
   geoLatitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: boolean
+  otpCodeHash?: string | null
+  otpExpiresAt?: Date | string | null
+  otpAttempts?: number
+  otpSentAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedReason?: string | null
   lastNotifiedAt?: Date | string | null
@@ -1419,6 +1533,10 @@ export type SignatureEnvelopeSignerCreateWithoutSignatureImageInput = {
   geoLatitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: boolean
+  otpCodeHash?: string | null
+  otpExpiresAt?: Date | string | null
+  otpAttempts?: number
+  otpSentAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedReason?: string | null
   lastNotifiedAt?: Date | string | null
@@ -1456,6 +1574,10 @@ export type SignatureEnvelopeSignerUncheckedCreateWithoutSignatureImageInput = {
   geoLatitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: boolean
+  otpCodeHash?: string | null
+  otpExpiresAt?: Date | string | null
+  otpAttempts?: number
+  otpSentAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedReason?: string | null
   lastNotifiedAt?: Date | string | null
@@ -1511,6 +1633,10 @@ export type SignatureEnvelopeSignerCreateWithoutCertificateInput = {
   geoLatitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: boolean
+  otpCodeHash?: string | null
+  otpExpiresAt?: Date | string | null
+  otpAttempts?: number
+  otpSentAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedReason?: string | null
   lastNotifiedAt?: Date | string | null
@@ -1548,6 +1674,10 @@ export type SignatureEnvelopeSignerUncheckedCreateWithoutCertificateInput = {
   geoLatitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: boolean
+  otpCodeHash?: string | null
+  otpExpiresAt?: Date | string | null
+  otpAttempts?: number
+  otpSentAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedReason?: string | null
   lastNotifiedAt?: Date | string | null
@@ -1603,6 +1733,10 @@ export type SignatureEnvelopeSignerCreateWithoutEnvelopeInput = {
   geoLatitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: boolean
+  otpCodeHash?: string | null
+  otpExpiresAt?: Date | string | null
+  otpAttempts?: number
+  otpSentAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedReason?: string | null
   lastNotifiedAt?: Date | string | null
@@ -1640,6 +1774,10 @@ export type SignatureEnvelopeSignerUncheckedCreateWithoutEnvelopeInput = {
   geoLatitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: boolean
+  otpCodeHash?: string | null
+  otpExpiresAt?: Date | string | null
+  otpAttempts?: number
+  otpSentAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedReason?: string | null
   lastNotifiedAt?: Date | string | null
@@ -1699,6 +1837,10 @@ export type SignatureEnvelopeSignerCreateManyUserInput = {
   geoLatitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: boolean
+  otpCodeHash?: string | null
+  otpExpiresAt?: Date | string | null
+  otpAttempts?: number
+  otpSentAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedReason?: string | null
   lastNotifiedAt?: Date | string | null
@@ -1728,6 +1870,10 @@ export type SignatureEnvelopeSignerUpdateWithoutUserInput = {
   geoLatitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpCodeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  otpAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  otpSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1765,6 +1911,10 @@ export type SignatureEnvelopeSignerUncheckedUpdateWithoutUserInput = {
   geoLatitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpCodeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  otpAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  otpSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1798,6 +1948,10 @@ export type SignatureEnvelopeSignerUncheckedUpdateManyWithoutUserInput = {
   geoLatitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpCodeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  otpAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  otpSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1831,6 +1985,10 @@ export type SignatureEnvelopeSignerCreateManyContactInput = {
   geoLatitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: boolean
+  otpCodeHash?: string | null
+  otpExpiresAt?: Date | string | null
+  otpAttempts?: number
+  otpSentAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedReason?: string | null
   lastNotifiedAt?: Date | string | null
@@ -1860,6 +2018,10 @@ export type SignatureEnvelopeSignerUpdateWithoutContactInput = {
   geoLatitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpCodeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  otpAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  otpSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1897,6 +2059,10 @@ export type SignatureEnvelopeSignerUncheckedUpdateWithoutContactInput = {
   geoLatitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpCodeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  otpAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  otpSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1930,6 +2096,10 @@ export type SignatureEnvelopeSignerUncheckedUpdateManyWithoutContactInput = {
   geoLatitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpCodeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  otpAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  otpSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1963,6 +2133,10 @@ export type SignatureEnvelopeSignerCreateManySignatureImageInput = {
   geoLatitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: boolean
+  otpCodeHash?: string | null
+  otpExpiresAt?: Date | string | null
+  otpAttempts?: number
+  otpSentAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedReason?: string | null
   lastNotifiedAt?: Date | string | null
@@ -1992,6 +2166,10 @@ export type SignatureEnvelopeSignerUpdateWithoutSignatureImageInput = {
   geoLatitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpCodeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  otpAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  otpSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2029,6 +2207,10 @@ export type SignatureEnvelopeSignerUncheckedUpdateWithoutSignatureImageInput = {
   geoLatitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpCodeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  otpAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  otpSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2062,6 +2244,10 @@ export type SignatureEnvelopeSignerUncheckedUpdateManyWithoutSignatureImageInput
   geoLatitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpCodeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  otpAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  otpSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2095,6 +2281,10 @@ export type SignatureEnvelopeSignerCreateManyCertificateInput = {
   geoLatitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: boolean
+  otpCodeHash?: string | null
+  otpExpiresAt?: Date | string | null
+  otpAttempts?: number
+  otpSentAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedReason?: string | null
   lastNotifiedAt?: Date | string | null
@@ -2124,6 +2314,10 @@ export type SignatureEnvelopeSignerUpdateWithoutCertificateInput = {
   geoLatitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpCodeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  otpAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  otpSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2161,6 +2355,10 @@ export type SignatureEnvelopeSignerUncheckedUpdateWithoutCertificateInput = {
   geoLatitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpCodeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  otpAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  otpSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2194,6 +2392,10 @@ export type SignatureEnvelopeSignerUncheckedUpdateManyWithoutCertificateInput = 
   geoLatitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpCodeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  otpAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  otpSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2227,6 +2429,10 @@ export type SignatureEnvelopeSignerCreateManyEnvelopeInput = {
   geoLatitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: boolean
+  otpCodeHash?: string | null
+  otpExpiresAt?: Date | string | null
+  otpAttempts?: number
+  otpSentAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedReason?: string | null
   lastNotifiedAt?: Date | string | null
@@ -2256,6 +2462,10 @@ export type SignatureEnvelopeSignerUpdateWithoutEnvelopeInput = {
   geoLatitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpCodeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  otpAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  otpSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2293,6 +2503,10 @@ export type SignatureEnvelopeSignerUncheckedUpdateWithoutEnvelopeInput = {
   geoLatitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpCodeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  otpAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  otpSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2326,6 +2540,10 @@ export type SignatureEnvelopeSignerUncheckedUpdateManyWithoutEnvelopeInput = {
   geoLatitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   geoLongitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otpVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  otpCodeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  otpAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  otpSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2362,6 +2580,10 @@ export type SignatureEnvelopeSignerSelect<ExtArgs extends runtime.Types.Extensio
   geoLatitude?: boolean
   geoLongitude?: boolean
   otpVerified?: boolean
+  otpCodeHash?: boolean
+  otpExpiresAt?: boolean
+  otpAttempts?: boolean
+  otpSentAt?: boolean
   rejectedAt?: boolean
   rejectedReason?: boolean
   lastNotifiedAt?: boolean
@@ -2401,6 +2623,10 @@ export type SignatureEnvelopeSignerSelectCreateManyAndReturn<ExtArgs extends run
   geoLatitude?: boolean
   geoLongitude?: boolean
   otpVerified?: boolean
+  otpCodeHash?: boolean
+  otpExpiresAt?: boolean
+  otpAttempts?: boolean
+  otpSentAt?: boolean
   rejectedAt?: boolean
   rejectedReason?: boolean
   lastNotifiedAt?: boolean
@@ -2440,6 +2666,10 @@ export type SignatureEnvelopeSignerSelectUpdateManyAndReturn<ExtArgs extends run
   geoLatitude?: boolean
   geoLongitude?: boolean
   otpVerified?: boolean
+  otpCodeHash?: boolean
+  otpExpiresAt?: boolean
+  otpAttempts?: boolean
+  otpSentAt?: boolean
   rejectedAt?: boolean
   rejectedReason?: boolean
   lastNotifiedAt?: boolean
@@ -2479,6 +2709,10 @@ export type SignatureEnvelopeSignerSelectScalar = {
   geoLatitude?: boolean
   geoLongitude?: boolean
   otpVerified?: boolean
+  otpCodeHash?: boolean
+  otpExpiresAt?: boolean
+  otpAttempts?: boolean
+  otpSentAt?: boolean
   rejectedAt?: boolean
   rejectedReason?: boolean
   lastNotifiedAt?: boolean
@@ -2487,7 +2721,7 @@ export type SignatureEnvelopeSignerSelectScalar = {
   updatedAt?: boolean
 }
 
-export type SignatureEnvelopeSignerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "envelopeId" | "order" | "group" | "role" | "status" | "userId" | "contactId" | "externalName" | "externalEmail" | "externalPhone" | "externalDocument" | "signatureLevel" | "certificateId" | "accessToken" | "accessTokenExpiresAt" | "signedAt" | "signatureImageFileId" | "signatureData" | "ipAddress" | "userAgent" | "geoLatitude" | "geoLongitude" | "otpVerified" | "rejectedAt" | "rejectedReason" | "lastNotifiedAt" | "notificationCount" | "createdAt" | "updatedAt", ExtArgs["result"]["signatureEnvelopeSigner"]>
+export type SignatureEnvelopeSignerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "envelopeId" | "order" | "group" | "role" | "status" | "userId" | "contactId" | "externalName" | "externalEmail" | "externalPhone" | "externalDocument" | "signatureLevel" | "certificateId" | "accessToken" | "accessTokenExpiresAt" | "signedAt" | "signatureImageFileId" | "signatureData" | "ipAddress" | "userAgent" | "geoLatitude" | "geoLongitude" | "otpVerified" | "otpCodeHash" | "otpExpiresAt" | "otpAttempts" | "otpSentAt" | "rejectedAt" | "rejectedReason" | "lastNotifiedAt" | "notificationCount" | "createdAt" | "updatedAt", ExtArgs["result"]["signatureEnvelopeSigner"]>
 export type SignatureEnvelopeSignerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   envelope?: boolean | Prisma.SignatureEnvelopeDefaultArgs<ExtArgs>
   user?: boolean | Prisma.SignatureEnvelopeSigner$userArgs<ExtArgs>
@@ -2545,6 +2779,10 @@ export type $SignatureEnvelopeSignerPayload<ExtArgs extends runtime.Types.Extens
     geoLatitude: runtime.Decimal | null
     geoLongitude: runtime.Decimal | null
     otpVerified: boolean
+    otpCodeHash: string | null
+    otpExpiresAt: Date | null
+    otpAttempts: number
+    otpSentAt: Date | null
     rejectedAt: Date | null
     rejectedReason: string | null
     lastNotifiedAt: Date | null
@@ -3004,6 +3242,10 @@ export interface SignatureEnvelopeSignerFieldRefs {
   readonly geoLatitude: Prisma.FieldRef<"SignatureEnvelopeSigner", 'Decimal'>
   readonly geoLongitude: Prisma.FieldRef<"SignatureEnvelopeSigner", 'Decimal'>
   readonly otpVerified: Prisma.FieldRef<"SignatureEnvelopeSigner", 'Boolean'>
+  readonly otpCodeHash: Prisma.FieldRef<"SignatureEnvelopeSigner", 'String'>
+  readonly otpExpiresAt: Prisma.FieldRef<"SignatureEnvelopeSigner", 'DateTime'>
+  readonly otpAttempts: Prisma.FieldRef<"SignatureEnvelopeSigner", 'Int'>
+  readonly otpSentAt: Prisma.FieldRef<"SignatureEnvelopeSigner", 'DateTime'>
   readonly rejectedAt: Prisma.FieldRef<"SignatureEnvelopeSigner", 'DateTime'>
   readonly rejectedReason: Prisma.FieldRef<"SignatureEnvelopeSigner", 'String'>
   readonly lastNotifiedAt: Prisma.FieldRef<"SignatureEnvelopeSigner", 'DateTime'>
