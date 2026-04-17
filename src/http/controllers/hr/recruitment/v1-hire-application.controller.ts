@@ -1,4 +1,6 @@
+import { ConflictError } from '@/@errors/use-cases/conflict-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { UnprocessableEntityError } from '@/@errors/use-cases/unprocessable-entity-error';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { PermissionCodes } from '@/constants/rbac';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -31,9 +33,15 @@ export async function v1HireApplicationController(app: FastifyInstance) {
       description: 'Marks an application as hired',
       params: z.object({ applicationId: cuidSchema }),
       response: {
-        200: z.object({ application: applicationResponseSchema }),
+        200: z.object({
+          application: applicationResponseSchema,
+          employeeId: z.string().nullable(),
+          admissionId: z.string().nullable(),
+        }),
         400: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
+        409: z.object({ message: z.string() }),
+        422: z.object({ message: z.string() }),
       },
       security: [{ bearerAuth: [] }],
     },
@@ -42,7 +50,7 @@ export async function v1HireApplicationController(app: FastifyInstance) {
       const { applicationId } = request.params;
       try {
         const useCase = makeHireApplicationUseCase();
-        const { application } = await useCase.execute({
+        const { application, employee, admissionId } = await useCase.execute({
           tenantId,
           applicationId,
         });
@@ -54,12 +62,18 @@ export async function v1HireApplicationController(app: FastifyInstance) {
             candidateName: application.candidateId.toString(),
           },
         });
-        return reply
-          .status(200)
-          .send({ application: applicationToDTO(application) });
+        return reply.status(200).send({
+          application: applicationToDTO(application),
+          employeeId: employee ? employee.id.toString() : null,
+          admissionId,
+        });
       } catch (error) {
         if (error instanceof ResourceNotFoundError)
           return reply.status(404).send({ message: error.message });
+        if (error instanceof UnprocessableEntityError)
+          return reply.status(422).send({ message: error.message });
+        if (error instanceof ConflictError)
+          return reply.status(409).send({ message: error.message });
         if (error instanceof Error)
           return reply.status(400).send({ message: error.message });
         throw error;
