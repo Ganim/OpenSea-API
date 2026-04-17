@@ -225,6 +225,21 @@ export const createTemplateSchema = z.object({
   reminderDays: z.number().int().min(0).optional(),
 });
 
+export const updateTemplateSchema = z
+  .object({
+    name: z.string().min(1).max(255).optional(),
+    description: z.string().nullable().optional(),
+    signatureLevel: z.string().min(1).optional(),
+    routingType: z.string().min(1).optional(),
+    signerSlots: z.unknown().optional(),
+    expirationDays: z.number().int().min(1).nullable().optional(),
+    reminderDays: z.number().int().min(0).optional(),
+    isActive: z.boolean().optional(),
+  })
+  .refine((obj) => Object.keys(obj).length > 0, {
+    message: 'At least one field must be provided',
+  });
+
 export const listTemplatesQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(100).default(20),

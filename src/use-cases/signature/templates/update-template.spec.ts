@@ -21,9 +21,7 @@ function seedTemplate(
     description: 'Original description',
     signatureLevel: 'ADVANCED',
     routingType: 'SEQUENTIAL',
-    signerSlots: [
-      { order: 1, group: 1, role: 'SIGNER', label: 'Signatário' },
-    ],
+    signerSlots: [{ order: 1, group: 1, role: 'SIGNER', label: 'Signatário' }],
     expirationDays: 30,
     reminderDays: 7,
     isActive: true,
