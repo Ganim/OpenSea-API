@@ -7,8 +7,10 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { actionPinSchema } from '@/http/schemas/core/auth/pin.schema';
 import { employeeRequestToDTO } from '@/mappers/hr/employee-request';
 import { PrismaEmployeesRepository } from '@/repositories/hr/prisma/prisma-employees-repository';
+import { makeVerifyActionPinUseCase } from '@/use-cases/core/auth/factories/make-verify-action-pin-use-case';
 import { makeApproveRequestUseCase } from '@/use-cases/hr/employee-requests/factories/make-approve-request-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -29,9 +31,13 @@ export async function v1ApproveRequestController(app: FastifyInstance) {
     schema: {
       tags: ['HR - Employee Portal'],
       summary: 'Approve a request',
-      description: 'Approves a pending employee request',
+      description:
+        'Approves a pending employee request. Requires the caller to confirm their action PIN — the HR CLAUDE.md mandates PIN for approve/reject on vacation requests and the same protection is applied to every request type for consistency.',
       params: z.object({
         id: z.string().uuid(),
+      }),
+      body: z.object({
+        pin: actionPinSchema,
       }),
       response: {
         200: z.object({
@@ -49,6 +55,7 @@ export async function v1ApproveRequestController(app: FastifyInstance) {
           }),
         }),
         400: z.object({ message: z.string() }),
+        401: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },
       security: [{ bearerAuth: [] }],
@@ -58,6 +65,22 @@ export async function v1ApproveRequestController(app: FastifyInstance) {
       const tenantId = request.user.tenantId!;
       const userId = request.user.sub;
       const { id: requestId } = request.params;
+      const { pin } = request.body;
+
+      // Confirm the approver's action PIN before committing the approval.
+      // Without this, any user with `hr.employee-requests.admin` could approve
+      // requests silently — the HR CLAUDE.md explicitly requires PIN on
+      // approve/reject vacation requests (extended here to all request types
+      // for consistency).
+      const verifyActionPinUseCase = makeVerifyActionPinUseCase();
+      const { valid: pinIsValid } = await verifyActionPinUseCase.execute({
+        userId,
+        actionPin: pin,
+      });
+
+      if (!pinIsValid) {
+        return reply.status(401).send({ message: 'PIN de ação inválido.' });
+      }
 
       const employeesRepository = new PrismaEmployeesRepository();
       const approverEmployee = await employeesRepository.findByUserId(
