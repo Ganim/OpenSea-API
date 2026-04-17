@@ -122,6 +122,13 @@ export interface FindManyFinanceEntriesOptions {
   contractId?: string;
   search?: string;
   createdByUserId?: string;
+  /**
+   * P1-35: Filter by soft-deletion status.
+   *   - undefined/false → only active entries (default legacy behavior)
+   *   - true → both active and soft-deleted entries
+   *   - 'only' → only soft-deleted entries (recycle-bin view)
+   */
+  includeDeleted?: boolean | 'only';
 }
 
 export interface FindManyResult {

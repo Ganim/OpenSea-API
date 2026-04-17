@@ -213,8 +213,16 @@ export class PrismaFinanceEntriesRepository
 
     const where: Prisma.FinanceEntryWhereInput = {
       tenantId: options.tenantId,
-      deletedAt: null,
     };
+
+    // P1-35: respect the includeDeleted flag from the query. The default
+    // (undefined/false) keeps the legacy "hide soft-deleted" behavior; `true`
+    // lifts the filter entirely; `'only'` flips it to the recycle-bin view.
+    if (options.includeDeleted === 'only') {
+      where.deletedAt = { not: null };
+    } else if (options.includeDeleted !== true) {
+      where.deletedAt = null;
+    }
 
     if (options.type) {
       where.type = options.type as FinanceEntryType;

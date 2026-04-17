@@ -125,7 +125,13 @@ export class InMemoryFinanceEntriesRepository
     const limit = options.limit ?? 20;
 
     const filtered = this.items.filter((i) => {
-      if (i.deletedAt) return false;
+      // P1-35: mirror the Prisma repo's includeDeleted semantics so unit
+      // tests exercising the same flag behave identically.
+      if (options.includeDeleted === 'only') {
+        if (!i.deletedAt) return false;
+      } else if (options.includeDeleted !== true) {
+        if (i.deletedAt) return false;
+      }
       if (i.tenantId.toString() !== options.tenantId) return false;
 
       if (options.type && i.type !== options.type) return false;

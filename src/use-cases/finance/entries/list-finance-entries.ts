@@ -28,6 +28,8 @@ interface ListFinanceEntriesUseCaseRequest {
   overdueRange?: string;
   search?: string;
   createdByUserId?: string;
+  // P1-35: forwarded from the controller — see repository for semantics.
+  includeDeleted?: boolean | 'only';
 }
 
 interface ListFinanceEntriesUseCaseResponse {
@@ -68,6 +70,7 @@ export class ListFinanceEntriesUseCase {
       overdueRange: request.overdueRange,
       search: request.search,
       createdByUserId: request.createdByUserId,
+      includeDeleted: request.includeDeleted,
     });
 
     return {

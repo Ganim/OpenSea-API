@@ -574,4 +574,14 @@ export const listFinanceEntriesQuerySchema = z.object({
     .string()
     .optional()
     .describe('Busca textual por descrição, código, fornecedor ou cliente'),
+  // P1-35: allow listing only soft-deleted entries (recycle-bin view) or
+  // include them alongside the active ones. The frontend already sent this
+  // flag but the schema stripped it and the repo forced deletedAt:null.
+  includeDeleted: z
+    .enum(['true', 'false', 'only'])
+    .transform((v) => (v === 'only' ? 'only' : v === 'true'))
+    .optional()
+    .describe(
+      'Incluir lançamentos excluídos: "true" = todos, "only" = apenas excluídos, omitido = apenas ativos',
+    ),
 });
