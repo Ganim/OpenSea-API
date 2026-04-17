@@ -93,7 +93,13 @@ export const terminationResponseSchema = z.object({
 });
 
 /**
- * Schema para resposta de cálculo (inclui breakdown)
+ * Schema para resposta de cálculo (inclui breakdown).
+ *
+ * O breakdown expõe, além dos totais, detalhamento fiscal por regime
+ * tributário (`taxBreakdown`) — exigido pelo holerite rescisório e TRCT
+ * conforme Súmula 215 STF e Lei 8.212/91 Art. 28 §9º 'e' — e o detalhamento
+ * de regras trabalhistas aplicadas às férias (`vacationRules`), conforme
+ * CLT Art. 130 e Art. 132.
  */
 export const terminationCalculationResponseSchema = z.object({
   termination: terminationResponseSchema,
@@ -112,5 +118,20 @@ export const terminationCalculationResponseSchema = z.object({
     totalBruto: z.number(),
     totalDescontos: z.number(),
     totalLiquido: z.number(),
+    taxBreakdown: z.object({
+      inssRegular: z.number(),
+      inss13th: z.number(),
+      taxableBase: z.number(),
+      irrfRegular: z.number(),
+      thirteenthTaxableBase: z.number(),
+      irrf13th: z.number(),
+      exemptEarnings: z.number(),
+    }),
+    vacationRules: z.object({
+      vencidasDays: z.number(),
+      proporcionaisDays: z.number(),
+      proporcionaisMonths: z.number(),
+      unjustifiedAbsences: z.number(),
+    }),
   }),
 });

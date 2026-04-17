@@ -105,8 +105,11 @@ describe('[Integration] Termination Flow', () => {
 
     // Total bruto should include all items
     expect(breakdown.totalBruto).toBeGreaterThan(0);
-    expect(breakdown.totalLiquido).toBe(
+    // totalLiquido is rounded to 2 decimals — use toBeCloseTo to avoid
+    // floating-point precision noise from the naive subtraction.
+    expect(breakdown.totalLiquido).toBeCloseTo(
       breakdown.totalBruto - breakdown.totalDescontos,
+      2,
     );
 
     // Employee should be terminated
