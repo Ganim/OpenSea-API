@@ -112,7 +112,7 @@ export class InMemoryReviewCyclesRepository implements ReviewCyclesRepository {
     return cycle;
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     const index = this.items.findIndex((cycle) => cycle.id.equals(id));
     if (index >= 0) {
       this.items[index].softDelete();

@@ -13,6 +13,13 @@ export interface CreateReviewCompetencySchema {
 
 export interface UpdateReviewCompetencySchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so the underlying Prisma `where` clause is scoped and cannot update a
+   * record belonging to another tenant.
+   */
+  tenantId?: string;
   name?: string;
   selfScore?: number | null;
   managerScore?: number | null;

@@ -85,13 +85,13 @@ export class PrismaObjectivesRepository implements ObjectivesRepository {
 
   async update(data: UpdateObjectiveSchema): Promise<Objective | null> {
     const existing = await prisma.objective.findUnique({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
     });
 
     if (!existing) return null;
 
     const objectiveData = await prisma.objective.update({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
       data: {
         title: data.title,
         description: data.description,
@@ -112,9 +112,9 @@ export class PrismaObjectivesRepository implements ObjectivesRepository {
     );
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.objective.delete({
-      where: { id: id.toString() },
+      where: { id: id.toString(), ...(tenantId && { tenantId }), },
     });
   }
 }

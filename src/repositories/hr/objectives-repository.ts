@@ -17,6 +17,13 @@ export interface CreateObjectiveSchema {
 
 export interface UpdateObjectiveSchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so the underlying Prisma `where` clause is scoped and cannot update a
+   * record belonging to another tenant.
+   */
+  tenantId?: string;
   title?: string;
   description?: string;
   ownerId?: UniqueEntityID;
@@ -47,5 +54,5 @@ export interface ObjectivesRepository {
     filters?: FindObjectiveFilters,
   ): Promise<{ objectives: Objective[]; total: number }>;
   update(data: UpdateObjectiveSchema): Promise<Objective | null>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

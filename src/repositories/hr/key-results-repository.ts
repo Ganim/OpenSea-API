@@ -17,6 +17,13 @@ export interface CreateKeyResultSchema {
 
 export interface UpdateKeyResultSchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so the underlying Prisma `where` clause is scoped and cannot update a
+   * record belonging to another tenant.
+   */
+  tenantId?: string;
   title?: string;
   description?: string;
   type?: string;
@@ -47,5 +54,5 @@ export interface KeyResultsRepository {
     filters?: FindKeyResultFilters,
   ): Promise<{ keyResults: KeyResult[]; total: number }>;
   update(data: UpdateKeyResultSchema): Promise<KeyResult | null>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }
