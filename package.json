@@ -18,6 +18,7 @@
     "test:coverage": "vitest run --coverage",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
+    "check:tenant-scope": "tsx scripts/check-tenant-scoped-writes.ts",
     "prisma:reset": "npx prisma migrate reset --force",
     "prisma:seed": "tsx --env-file=.env prisma/seed.ts",
     "prisma:check-db": "tsx --env-file=.env prisma/check-db.ts",
