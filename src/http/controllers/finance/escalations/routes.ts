@@ -8,6 +8,8 @@ import { listOverdueEscalationsController } from './v1-list-overdue-escalations.
 import { getOverdueEscalationByIdController } from './v1-get-overdue-escalation-by-id.controller';
 import { updateOverdueEscalationController } from './v1-update-overdue-escalation.controller';
 import { deleteOverdueEscalationController } from './v1-delete-overdue-escalation.controller';
+import { duplicateOverdueEscalationController } from './v1-duplicate-overdue-escalation.controller';
+import { toggleOverdueEscalationActiveController } from './v1-toggle-overdue-escalation-active.controller';
 import { processOverdueEscalationsController } from './v1-process-overdue-escalations.controller';
 import { getCustomerScoreController } from './v1-get-customer-score.controller';
 import { getEntryEscalationHistoryController } from './v1-get-entry-escalation-history.controller';
@@ -36,6 +38,8 @@ export async function financeEscalationsRoutes(app: FastifyInstance) {
       mutationApp.register(createOverdueEscalationController);
       mutationApp.register(updateOverdueEscalationController);
       mutationApp.register(deleteOverdueEscalationController);
+      mutationApp.register(duplicateOverdueEscalationController);
+      mutationApp.register(toggleOverdueEscalationActiveController);
     },
     { prefix: '' },
   );
