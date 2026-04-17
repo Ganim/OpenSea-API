@@ -13824,6 +13824,7 @@ model BankWebhookEvent {
   tenant      Tenant      @relation(fields: [tenantId], references: [id])
   bankAccount BankAccount @relation(fields: [bankAccountId], references: [id])
 
+  @@unique([tenantId, externalId], name: "bank_webhook_events_tenant_external_unique")
   @@index([tenantId])
   @@index([bankAccountId])
   @@index([externalId])

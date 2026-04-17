@@ -291,6 +291,7 @@ export type BankWebhookEventOrderByWithRelationInput = {
 
 export type BankWebhookEventWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  bank_webhook_events_tenant_external_unique?: Prisma.BankWebhookEventBank_webhook_events_tenant_external_uniqueCompoundUniqueInput
   AND?: Prisma.BankWebhookEventWhereInput | Prisma.BankWebhookEventWhereInput[]
   OR?: Prisma.BankWebhookEventWhereInput[]
   NOT?: Prisma.BankWebhookEventWhereInput | Prisma.BankWebhookEventWhereInput[]
@@ -307,7 +308,7 @@ export type BankWebhookEventWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"BankWebhookEvent"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   bankAccount?: Prisma.XOR<Prisma.BankAccountScalarRelationFilter, Prisma.BankAccountWhereInput>
-}, "id">
+}, "id" | "bank_webhook_events_tenant_external_unique">
 
 export type BankWebhookEventOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -458,6 +459,11 @@ export type BankWebhookEventListRelationFilter = {
 
 export type BankWebhookEventOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type BankWebhookEventBank_webhook_events_tenant_external_uniqueCompoundUniqueInput = {
+  tenantId: string
+  externalId: string
 }
 
 export type BankWebhookEventCountOrderByAggregateInput = {

@@ -8,6 +8,20 @@ import type {
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 import type { BankingProvider } from '@/services/banking/banking-provider.interface';
 
+function isUniqueConstraintError(err: unknown): boolean {
+  if (typeof err !== 'object' || err === null) return false;
+  const candidate = err as { code?: string; name?: string };
+  // Prisma throws PrismaClientKnownRequestError with code P2002 on unique
+  // constraint violation. In-memory repos throw a generic Error with a
+  // well-known message — we support both shapes.
+  if (candidate.code === 'P2002') return true;
+  if ('message' in (err as object)) {
+    const message = String((err as { message: string }).message ?? '');
+    return /unique constraint|duplicate key|UNIQUE/i.test(message);
+  }
+  return false;
+}
+
 export interface ProcessBankWebhookRequest {
   tenantId: string;
   bankAccountId: string;
@@ -149,19 +163,40 @@ export class ProcessBankWebhookUseCase {
       }
     }
 
-    // 7. Persist the webhook event
-    const event = await this.webhookEventsRepository.create({
-      tenantId,
-      bankAccountId,
-      provider,
-      eventType,
-      externalId,
-      amount,
-      payload: webhookResult.rawPayload,
-      matchedEntryId,
-      autoSettled: shouldAutoSettle,
-      processedAt: new Date(),
-    });
+    // 7. Persist the webhook event. A race-safe fallback catches the DB-level
+    // unique constraint (tenantId, externalId) for concurrent webhook deliveries
+    // that passed the check in step 3 simultaneously.
+    let event: BankWebhookEventRecord;
+    try {
+      event = await this.webhookEventsRepository.create({
+        tenantId,
+        bankAccountId,
+        provider,
+        eventType,
+        externalId,
+        amount,
+        payload: webhookResult.rawPayload,
+        matchedEntryId,
+        autoSettled: shouldAutoSettle,
+        processedAt: new Date(),
+      });
+    } catch (err) {
+      if (isUniqueConstraintError(err)) {
+        const existingAfterRace =
+          await this.webhookEventsRepository.findByExternalId(
+            externalId,
+            tenantId,
+          );
+        if (existingAfterRace) {
+          return {
+            event: existingAfterRace,
+            matched: existingAfterRace.matchedEntryId !== null,
+            autoSettled: existingAfterRace.autoSettled,
+          };
+        }
+      }
+      throw err;
+    }
 
     return {
       event,

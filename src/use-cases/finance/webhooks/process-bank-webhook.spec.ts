@@ -362,4 +362,80 @@ describe('ProcessBankWebhookUseCase', () => {
     );
     expect(updatedEntry?.status).toBe('RECEIVED');
   });
+
+  it('should return the existing event when the DB raises P2002 during create (race)', async () => {
+    // Simula duas entregas concorrentes: ambas passam pelo check de
+    // idempotencia em step 3, mas a segunda create() bate no unique index.
+    const bankAccount = await setupBankAccount();
+
+    const provider = makeProviderWithResult({
+      eventType: 'PIX_RECEIVED',
+      externalId: 'RACE-001',
+      amount: 100,
+      paidAt: new Date().toISOString(),
+      rawPayload: { raw: true },
+    });
+
+    webhookEventsRepository = new InMemoryBankWebhookEventsRepository();
+
+    // Pre-popula o registro que "outra chamada concorrente" teria criado.
+    const existing = await webhookEventsRepository.create({
+      tenantId: TENANT_ID,
+      bankAccountId: bankAccount.id.toString(),
+      provider: 'SICOOB',
+      eventType: 'PIX_RECEIVED',
+      externalId: 'RACE-001',
+      amount: 100,
+      payload: { raw: true },
+      autoSettled: false,
+      processedAt: new Date(),
+    });
+
+    // Intercepta a chamada findByExternalId para retornar null na primeira
+    // vez (simulando concorrencia) e o registro real na segunda vez
+    // (apos o P2002).
+    let checkCount = 0;
+    const originalFind =
+      webhookEventsRepository.findByExternalId.bind(webhookEventsRepository);
+    webhookEventsRepository.findByExternalId = vi
+      .fn()
+      .mockImplementation(async (externalId: string, tenantId: string) => {
+        checkCount++;
+        if (checkCount === 1) return null;
+        return originalFind(externalId, tenantId);
+      });
+
+    // Forca create() a lancar erro de unique constraint.
+    const originalCreate =
+      webhookEventsRepository.create.bind(webhookEventsRepository);
+    webhookEventsRepository.create = vi
+      .fn()
+      .mockImplementation(async () => {
+        const err = new Error(
+          'Unique constraint failed on the fields: (`tenant_id`,`external_id`)',
+        );
+        (err as unknown as { code: string }).code = 'P2002';
+        throw err;
+      });
+
+    sut = new TestProcessBankWebhookUseCase(
+      webhookEventsRepository,
+      financeEntriesRepository,
+      bankAccountsRepository,
+      async () => provider,
+    );
+    sut.mockThreshold = null;
+
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+      bankAccountId: bankAccount.id.toString(),
+      provider: 'SICOOB',
+      payload: {},
+    });
+
+    expect(result.event.id).toBe(existing.id);
+
+    // Keep TS happy — the "original" helpers are only used for the narrative.
+    void originalCreate;
+  });
 });
