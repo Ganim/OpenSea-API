@@ -134,12 +134,20 @@ export class BulkPayEntriesUseCase {
           const fullyPaidStatus =
             entry.type === 'PAYABLE' ? 'PAID' : 'RECEIVED';
 
+          // actualAmount must reflect the sum of all payments applied —
+          // previously-registered partial payments PLUS the remaining balance
+          // just settled. Using entry.totalDue in isolation was mathematically
+          // equivalent when totalDue never changed, but it hid the real sum
+          // and could drift if totalDue were edited mid-flight. Compute it
+          // explicitly from the payments we just accounted for.
+          const newActualAmount = existingPaymentsSum + remainingBalance;
+
           await this.financeEntriesRepository.update(
             {
               id: new UniqueEntityID(entryId),
               tenantId,
               status: fullyPaidStatus,
-              actualAmount: entry.totalDue,
+              actualAmount: newActualAmount,
               paymentDate,
             },
             tx,

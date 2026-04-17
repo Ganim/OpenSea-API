@@ -362,4 +362,52 @@ describe('BulkPayEntriesUseCase', () => {
     expect(result.failed).toBe(1);
     expect(result.errors[0].error).toBe('Entry not found');
   });
+
+  // Regression: P1-10 — actualAmount must account for previously-registered
+  // partial payments. The final value should be (existing payments sum +
+  // remaining balance settled), not the raw totalDue lookup.
+  it('should compute actualAmount as existing partial payments plus the new settlement', async () => {
+    const entry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAG-100',
+      description: 'Entrada com pagamento parcial prévio',
+      categoryId: 'category-1',
+      expectedAmount: 1000,
+      issueDate: new Date('2026-01-01'),
+      dueDate: new Date('2026-02-01'),
+    });
+
+    // Prior partial payment of 400 (manually registered, e.g. via another flow)
+    await paymentsRepository.create({
+      entryId: entry.id.toString(),
+      amount: 400,
+      paidAt: new Date('2026-01-15'),
+      method: 'PIX',
+    });
+
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      entryIds: [entry.id.toString()],
+      bankAccountId: 'bank-1',
+      method: 'PIX',
+    });
+
+    expect(result.succeeded).toBe(1);
+    expect(result.failed).toBe(0);
+
+    const updated = await entriesRepository.findById(entry.id, 'tenant-1');
+    expect(updated!.status).toBe('PAID');
+    // 400 (existing) + 600 (bulk-pay settled) = 1000 = totalDue
+    expect(updated!.actualAmount).toBe(1000);
+
+    // Bulk-pay should have created exactly one new payment covering the
+    // 600 remaining balance — not the full 1000.
+    const paymentsForEntry = paymentsRepository.items.filter(
+      (p) => p.entryId.toString() === entry.id.toString(),
+    );
+    expect(paymentsForEntry).toHaveLength(2);
+    const bulkPayment = paymentsForEntry.find((p) => p.bankAccountId);
+    expect(bulkPayment!.amount).toBe(600);
+  });
 });
