@@ -2,7 +2,10 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Payroll } from '@/entities/hr/payroll';
-import type { TransactionManager } from '@/lib/transaction-manager';
+import type {
+  TransactionClient,
+  TransactionManager,
+} from '@/lib/transaction-manager';
 import { BonusesRepository } from '@/repositories/hr/bonuses-repository';
 import { DeductionsRepository } from '@/repositories/hr/deductions-repository';
 import { PayrollItemsRepository } from '@/repositories/hr/payroll-items-repository';
@@ -49,21 +52,21 @@ export class ProcessPayrollPaymentUseCase {
     // Mark as paid
     payroll.markAsPaid(new UniqueEntityID(paidBy));
 
-    const processPayment = async (): Promise<ProcessPayrollPaymentResponse> => {
-      // Update related records
-      await this.markRelatedItemsAsPaid(payroll.id, tenantId);
+    const processPayment = async (
+      tx?: TransactionClient,
+    ): Promise<ProcessPayrollPaymentResponse> => {
+      // Update related records within the same transaction
+      await this.markRelatedItemsAsPaid(payroll.id, tenantId, tx);
 
-      // Save
-      await this.payrollsRepository.save(payroll);
+      // Save payroll within the same transaction
+      await this.payrollsRepository.save(payroll, tx);
 
       return { payroll };
     };
 
     // Wrap all mutations in a transaction when available
     if (this.transactionManager) {
-      return this.transactionManager.run(async () => {
-        return processPayment();
-      });
+      return this.transactionManager.run((tx) => processPayment(tx));
     }
 
     // Fallback without transaction (in-memory tests)
@@ -73,10 +76,13 @@ export class ProcessPayrollPaymentUseCase {
   private async markRelatedItemsAsPaid(
     payrollId: UniqueEntityID,
     tenantId: string,
+    tx?: TransactionClient,
   ): Promise<void> {
     // Get all payroll items
-    const items =
-      await this.payrollItemsRepository.findManyByPayroll(payrollId);
+    const items = await this.payrollItemsRepository.findManyByPayroll(
+      payrollId,
+      tx,
+    );
 
     // Mark bonuses as paid
     for (const item of items) {
@@ -84,10 +90,11 @@ export class ProcessPayrollPaymentUseCase {
         const bonus = await this.bonusesRepository.findById(
           new UniqueEntityID(item.referenceId),
           tenantId,
+          tx,
         );
         if (bonus) {
           bonus.markAsPaid();
-          await this.bonusesRepository.save(bonus);
+          await this.bonusesRepository.save(bonus, tx);
         }
       }
 
@@ -96,10 +103,11 @@ export class ProcessPayrollPaymentUseCase {
         const deduction = await this.deductionsRepository.findById(
           new UniqueEntityID(item.referenceId),
           tenantId,
+          tx,
         );
         if (deduction && deduction.isRecurring) {
           deduction.markAsApplied(payrollId);
-          await this.deductionsRepository.save(deduction);
+          await this.deductionsRepository.save(deduction, tx);
         }
       }
     }

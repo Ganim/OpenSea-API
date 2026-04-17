@@ -9,7 +9,10 @@ import type { Employee } from '@/entities/hr/employee';
 import type { Overtime } from '@/entities/hr/overtime';
 import type { Payroll } from '@/entities/hr/payroll';
 import type { PayrollItem } from '@/entities/hr/payroll-item';
-import type { TransactionManager } from '@/lib/transaction-manager';
+import type {
+  TransactionClient,
+  TransactionManager,
+} from '@/lib/transaction-manager';
 import { AbsencesRepository } from '@/repositories/hr/absences-repository';
 import { BonusesRepository } from '@/repositories/hr/bonuses-repository';
 import { DeductionsRepository } from '@/repositories/hr/deductions-repository';
@@ -130,7 +133,9 @@ export class CalculatePayrollUseCase {
     // Start processing
     payroll.startProcessing(new UniqueEntityID(processedBy));
 
-    const calculateAll = async (): Promise<CalculatePayrollResponse> => {
+    const calculateAll = async (
+      tx?: TransactionClient,
+    ): Promise<CalculatePayrollResponse> => {
       // Get all active employees
       const employees = await this.employeesRepository.findManyActive(tenantId);
 
@@ -199,19 +204,20 @@ export class CalculatePayrollUseCase {
             hazardPayGrade: hazardPayByEmployee.get(empId),
             hasDangerPay: dangerPayEmployees.has(empId),
           },
+          tx,
         );
         createdItems.push(...employeeItems);
       }
 
       // Calculate totals
       const { totalGross, totalDeductions } =
-        await this.payrollItemsRepository.sumByPayroll(payroll.id);
+        await this.payrollItemsRepository.sumByPayroll(payroll.id, tx);
 
       // Finish calculation
       payroll.finishCalculation(totalGross, totalDeductions);
 
       // Save payroll
-      await this.payrollsRepository.save(payroll);
+      await this.payrollsRepository.save(payroll, tx);
 
       return {
         payroll,
@@ -221,9 +227,7 @@ export class CalculatePayrollUseCase {
 
     // Wrap all mutations in a transaction when available
     if (this.transactionManager) {
-      return this.transactionManager.run(async () => {
-        return calculateAll();
-      });
+      return this.transactionManager.run((tx) => calculateAll(tx));
     }
 
     // Fallback without transaction (in-memory tests)
@@ -250,6 +254,7 @@ export class CalculatePayrollUseCase {
       hasTransportVoucher: false,
       hasDangerPay: false,
     },
+    tx?: TransactionClient,
   ): Promise<PayrollItem[]> {
     const items: PayrollItem[] = [];
     const employeeId = employee.id;
@@ -267,7 +272,7 @@ export class CalculatePayrollUseCase {
       description: 'Salário Base',
       amount: baseSalary,
       isDeduction: false,
-    });
+    }, tx);
     items.push(baseSalaryItem);
 
     // 2. Calculate overtime (from prefetched data)
@@ -298,7 +303,7 @@ export class CalculatePayrollUseCase {
           isDeduction: false,
           referenceId: overtime.id.toString(),
           referenceType: 'overtime',
-        });
+        }, tx);
         items.push(overtimeItem);
       }
     }
@@ -328,7 +333,7 @@ export class CalculatePayrollUseCase {
           description: `Adicional Noturno (${totalNightHours.toFixed(2)}h reduzidas)`,
           amount: totalNightPremium,
           isDeduction: false,
-        });
+        }, tx);
         items.push(nightShiftItem);
       }
     }
@@ -360,7 +365,7 @@ export class CalculatePayrollUseCase {
           description: 'DSR sobre Horas Extras',
           amount: dsrAmount,
           isDeduction: false,
-        });
+        }, tx);
         items.push(dsrItem);
       }
     }
@@ -373,7 +378,7 @@ export class CalculatePayrollUseCase {
           payrollId: payroll.id,
           employeeId,
           type: 'HAZARD_PAY',
-          description: `Adicional de Insalubridade (${extras.hazardPayGrade === 'MIN' ? 'mínimo' : extras.hazardPayGrade === 'MED' ? 'médio' : 'máximo'})`,
+          description: `Adicional de Insalubridade (${extras.hazardPayGrade === 'MIN' ? 'mínimo' : extras.hazardPayGrade === 'MED' ? 'médio' : 'máximo'}, tx)`,
           amount: hazardAmount,
           isDeduction: false,
         });
@@ -392,7 +397,7 @@ export class CalculatePayrollUseCase {
           description: 'Adicional de Periculosidade (30%)',
           amount: dangerAmount,
           isDeduction: false,
-        });
+        }, tx);
         items.push(dangerItem);
       }
     }
@@ -413,7 +418,7 @@ export class CalculatePayrollUseCase {
           isDeduction: true,
           referenceId: absence.id.toString(),
           referenceType: 'absence',
-        });
+        }, tx);
         items.push(absenceItem);
       }
     }
@@ -430,7 +435,7 @@ export class CalculatePayrollUseCase {
           isDeduction: false,
           referenceId: bonus.id.toString(),
           referenceType: 'bonus',
-        });
+        }, tx);
         items.push(bonusItem);
       }
     }
@@ -446,7 +451,7 @@ export class CalculatePayrollUseCase {
         isDeduction: true,
         referenceId: deduction.id.toString(),
         referenceType: 'deduction',
-      });
+      }, tx);
       items.push(deductionItem);
     }
 
@@ -462,7 +467,7 @@ export class CalculatePayrollUseCase {
           description: 'Vale-Transporte (6%)',
           amount: vtDeduction,
           isDeduction: true,
-        });
+        }, tx);
         items.push(vtItem);
       }
     }
@@ -482,7 +487,7 @@ export class CalculatePayrollUseCase {
         description: 'INSS',
         amount: inssAmount,
         isDeduction: true,
-      });
+      }, tx);
       items.push(inssItem);
     }
 
@@ -500,7 +505,7 @@ export class CalculatePayrollUseCase {
         description: 'IRRF',
         amount: irrfAmount,
         isDeduction: true,
-      });
+      }, tx);
       items.push(irrfItem);
     }
 
@@ -514,7 +519,7 @@ export class CalculatePayrollUseCase {
         description: 'FGTS (contribuição patronal)',
         amount: fgtsAmount,
         isDeduction: false,
-      });
+      }, tx);
       items.push(fgtsItem);
     }
 
