@@ -215,11 +215,29 @@ export class PrismaConsortiaRepository implements ConsortiaRepository {
     const cipher = tryGetCipher();
 
     // Build update data
+    // P1-39: persist every new field the expanded UpdateConsortiumSchema now
+    // carries (bank/cost-center, plan dates, installment plan, group data).
     const updateData: Record<string, unknown> = {
       ...(data.name !== undefined && { name: data.name }),
       ...(data.administrator !== undefined && {
         administrator: data.administrator,
       }),
+      ...(data.bankAccountId !== undefined && {
+        bankAccountId: data.bankAccountId,
+      }),
+      ...(data.costCenterId !== undefined && {
+        costCenterId: data.costCenterId,
+      }),
+      ...(data.monthlyPayment !== undefined && {
+        monthlyPayment: data.monthlyPayment,
+      }),
+      ...(data.totalInstallments !== undefined && {
+        totalInstallments: data.totalInstallments,
+      }),
+      ...(data.startDate !== undefined && { startDate: data.startDate }),
+      ...(data.paymentDay !== undefined && { paymentDay: data.paymentDay }),
+      ...(data.groupNumber !== undefined && { groupNumber: data.groupNumber }),
+      ...(data.quotaNumber !== undefined && { quotaNumber: data.quotaNumber }),
       ...(data.contractNumber !== undefined && {
         contractNumber: data.contractNumber,
       }),

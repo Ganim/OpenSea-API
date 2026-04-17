@@ -123,6 +123,22 @@ export class InMemoryConsortiaRepository implements ConsortiaRepository {
     if (data.name !== undefined) item.name = data.name;
     if (data.administrator !== undefined)
       item.administrator = data.administrator;
+    // P1-39: persist every new editable field.
+    if (data.bankAccountId !== undefined)
+      item.bankAccountId = new UniqueEntityID(data.bankAccountId);
+    if (data.costCenterId !== undefined)
+      item.costCenterId = new UniqueEntityID(data.costCenterId);
+    if (data.monthlyPayment !== undefined)
+      item.monthlyPayment = data.monthlyPayment;
+    if (data.totalInstallments !== undefined)
+      item.totalInstallments = data.totalInstallments;
+    if (data.startDate !== undefined) item.startDate = data.startDate;
+    if (data.paymentDay !== undefined)
+      item.paymentDay = data.paymentDay ?? undefined;
+    if (data.groupNumber !== undefined)
+      item.groupNumber = data.groupNumber ?? undefined;
+    if (data.quotaNumber !== undefined)
+      item.quotaNumber = data.quotaNumber ?? undefined;
     if (data.contractNumber !== undefined)
       item.contractNumber = data.contractNumber ?? undefined;
     if (data.status !== undefined)

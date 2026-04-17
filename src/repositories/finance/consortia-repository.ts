@@ -28,6 +28,17 @@ export interface UpdateConsortiumSchema {
   tenantId?: string;
   name?: string;
   administrator?: string;
+  // P1-39: extended with every field the create form also collects, mirrored
+  // from the CreateConsortiumSchema except creditValue (immutable once the
+  // consortium has paid installments).
+  bankAccountId?: string;
+  costCenterId?: string;
+  monthlyPayment?: number;
+  totalInstallments?: number;
+  startDate?: Date;
+  paymentDay?: number | null;
+  groupNumber?: string | null;
+  quotaNumber?: string | null;
   contractNumber?: string | null;
   status?: string;
   paidInstallments?: number;

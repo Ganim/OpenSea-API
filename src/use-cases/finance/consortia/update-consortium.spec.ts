@@ -59,4 +59,38 @@ describe('UpdateConsortiumUseCase', () => {
       }),
     ).rejects.toThrow(BadRequestError);
   });
+
+  // P1-39: expanded update body now mirrors create (minus creditValue).
+  it('should update monthlyPayment, totalInstallments, startDate, and paymentDay', async () => {
+    const newStart = new Date('2026-06-01');
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      id: seededConsortiumId,
+      monthlyPayment: 1500,
+      totalInstallments: 60,
+      startDate: newStart,
+      paymentDay: 15,
+      groupNumber: 'G-42',
+      quotaNumber: 'Q-7',
+    });
+
+    expect(result.consortium.monthlyPayment).toBe(1500);
+    expect(result.consortium.totalInstallments).toBe(60);
+    expect(result.consortium.startDate).toEqual(newStart);
+    expect(result.consortium.paymentDay).toBe(15);
+    expect(result.consortium.groupNumber).toBe('G-42');
+    expect(result.consortium.quotaNumber).toBe('Q-7');
+  });
+
+  it('should update bankAccountId and costCenterId', async () => {
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      id: seededConsortiumId,
+      bankAccountId: 'bank-2',
+      costCenterId: 'cc-2',
+    });
+
+    expect(result.consortium.bankAccountId).toBe('bank-2');
+    expect(result.consortium.costCenterId).toBe('cc-2');
+  });
 });

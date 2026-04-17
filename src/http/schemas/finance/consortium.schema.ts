@@ -40,12 +40,25 @@ export const createConsortiumSchema = z.object({
   notes: z.string().optional().describe('Observações adicionais'),
 });
 
+// P1-39: update schema previously accepted only 5 fields but the edit form
+// sends the full create payload (monthlyPayment, totalInstallments, startDate,
+// bankAccountId, etc.). Mirror the create schema so every editable field
+// round-trips. `creditValue` remains immutable since changing it after
+// installments exist would break calculated balances.
 export const updateConsortiumSchema = z.object({
   name: z.string().min(1).max(128).optional(),
   administrator: z.string().min(1).max(128).optional(),
+  bankAccountId: z.string().uuid().optional(),
+  costCenterId: z.string().uuid().optional(),
+  monthlyPayment: z.number().positive().optional(),
+  totalInstallments: z.number().int().positive().optional(),
+  startDate: z.coerce.date().optional(),
+  endDate: z.coerce.date().nullable().optional(),
+  paymentDay: z.number().int().min(1).max(31).nullable().optional(),
+  groupNumber: z.string().max(32).nullable().optional(),
+  quotaNumber: z.string().max(32).nullable().optional(),
   contractNumber: z.string().max(64).nullable().optional(),
   notes: z.string().nullable().optional(),
-  endDate: z.coerce.date().nullable().optional(),
 });
 
 export const consortiumResponseSchema = z.object({

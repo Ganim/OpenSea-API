@@ -109,8 +109,19 @@ export class Consortium extends Entity<ConsortiumProps> {
   get monthlyPayment(): number {
     return this.props.monthlyPayment;
   }
+  // P1-39: the edit form now sends monthlyPayment/totalInstallments/startDate
+  // again, so the in-memory repo needs to be able to mutate them through
+  // entity setters (Prisma writes directly, so it already worked there).
+  set monthlyPayment(value: number) {
+    this.props.monthlyPayment = value;
+    this.touch();
+  }
   get totalInstallments(): number {
     return this.props.totalInstallments;
+  }
+  set totalInstallments(value: number) {
+    this.props.totalInstallments = value;
+    this.touch();
   }
 
   get paidInstallments(): number {
@@ -148,6 +159,11 @@ export class Consortium extends Entity<ConsortiumProps> {
   get startDate(): Date {
     return this.props.startDate;
   }
+  // P1-39: allow edits to startDate (restricted to admins in the UI).
+  set startDate(value: Date) {
+    this.props.startDate = value;
+    this.touch();
+  }
 
   get endDate(): Date | undefined {
     return this.props.endDate;
@@ -159,6 +175,10 @@ export class Consortium extends Entity<ConsortiumProps> {
 
   get paymentDay(): number | undefined {
     return this.props.paymentDay;
+  }
+  set paymentDay(value: number | undefined) {
+    this.props.paymentDay = value;
+    this.touch();
   }
 
   get notes(): string | undefined {

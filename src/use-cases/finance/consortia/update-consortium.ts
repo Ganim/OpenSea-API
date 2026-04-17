@@ -12,6 +12,16 @@ interface UpdateConsortiumUseCaseRequest {
   id: string;
   name?: string;
   administrator?: string;
+  // P1-39: match the updateConsortiumSchema body so every editable field
+  // persists. creditValue stays read-only.
+  bankAccountId?: string;
+  costCenterId?: string;
+  monthlyPayment?: number;
+  totalInstallments?: number;
+  startDate?: Date;
+  paymentDay?: number | null;
+  groupNumber?: string | null;
+  quotaNumber?: string | null;
   contractNumber?: string | null;
   notes?: string | null;
   endDate?: Date | null;
@@ -50,6 +60,14 @@ export class UpdateConsortiumUseCase {
       tenantId,
       name: request.name?.trim(),
       administrator: request.administrator?.trim(),
+      bankAccountId: request.bankAccountId,
+      costCenterId: request.costCenterId,
+      monthlyPayment: request.monthlyPayment,
+      totalInstallments: request.totalInstallments,
+      startDate: request.startDate,
+      paymentDay: request.paymentDay,
+      groupNumber: request.groupNumber,
+      quotaNumber: request.quotaNumber,
       contractNumber: request.contractNumber,
       notes: request.notes,
       endDate: request.endDate,
