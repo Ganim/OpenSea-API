@@ -213,4 +213,132 @@ describe('ApplyIndexationUseCase', () => {
     // Config must NOT have been adjusted
     expect(recurringConfigsRepository.items[0].expectedAmount).toBe(1000);
   });
+
+  // ─── P2-55: Edge cases — IPCA/IGPM provider returns zero or negative ──
+  // Deflation (negative IPCA) is rare but possible (BR had it in 2017-2018).
+  // Zero IPCA is also possible in a flat month. Neither should raise an
+  // amount — the contract term "reajuste" only applies for positive inflation
+  // indexes in BR leasing law. The use case's `if (adjustmentRate <= 0)
+  // continue;` guard protects against both; these tests lock that behavior.
+  it('should skip IPCA adjustment when the provider returns zero', async () => {
+    const zeroIndexProvider = {
+      getIndex: vi.fn().mockResolvedValue(0),
+    };
+    const sutWithZeroProvider = new ApplyIndexationUseCase(
+      recurringConfigsRepository,
+      zeroIndexProvider,
+    );
+
+    await recurringConfigsRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      description: 'Aluguel IPCA - zero month',
+      categoryId: 'cat-1',
+      expectedAmount: 1500,
+      frequencyUnit: 'MONTHLY',
+      startDate: new Date('2026-01-01'),
+      nextDueDate: new Date('2026-04-01'),
+      indexationType: 'IPCA',
+      adjustmentMonth: 3,
+    });
+
+    const result = await sutWithZeroProvider.execute({
+      tenantId: 'tenant-1',
+      referenceDate: new Date('2026-03-15'),
+    });
+
+    expect(result.adjustedCount).toBe(0);
+    expect(zeroIndexProvider.getIndex).toHaveBeenCalled();
+    expect(recurringConfigsRepository.items[0].expectedAmount).toBe(1500);
+    // lastAdjustmentDate must NOT be set — so the next month's run still has
+    // a chance to re-evaluate (crucial for contracts that use cumulative
+    // 12-month indexes, not single-month snapshots).
+    expect(
+      recurringConfigsRepository.items[0].lastAdjustmentDate,
+    ).toBeUndefined();
+  });
+
+  it('should skip IGPM adjustment when the provider returns a negative rate (deflation)', async () => {
+    const deflationProvider = {
+      getIndex: vi.fn().mockResolvedValue(-0.0025), // -0.25% deflation
+    };
+    const sutWithDeflationProvider = new ApplyIndexationUseCase(
+      recurringConfigsRepository,
+      deflationProvider,
+    );
+
+    await recurringConfigsRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      description: 'Contrato IGPM - deflação',
+      categoryId: 'cat-1',
+      expectedAmount: 3200,
+      frequencyUnit: 'MONTHLY',
+      startDate: new Date('2026-01-01'),
+      nextDueDate: new Date('2026-04-01'),
+      indexationType: 'IGPM',
+      adjustmentMonth: 3,
+    });
+
+    const result = await sutWithDeflationProvider.execute({
+      tenantId: 'tenant-1',
+      referenceDate: new Date('2026-03-15'),
+    });
+
+    expect(result.adjustedCount).toBe(0);
+    // Contract amount must be preserved — BR lease law does not allow
+    // automatic downward adjustment (tenant would need to renegotiate).
+    expect(recurringConfigsRepository.items[0].expectedAmount).toBe(3200);
+    expect(
+      recurringConfigsRepository.items[0].lastAdjustmentDate,
+    ).toBeUndefined();
+  });
+
+  it('should skip FIXED_RATE adjustment when fixedAdjustmentRate is zero', async () => {
+    await recurringConfigsRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      description: 'Aluguel sem reajuste este ano',
+      categoryId: 'cat-1',
+      expectedAmount: 1800,
+      frequencyUnit: 'MONTHLY',
+      startDate: new Date('2026-01-01'),
+      nextDueDate: new Date('2026-04-01'),
+      indexationType: 'FIXED_RATE',
+      fixedAdjustmentRate: 0,
+      adjustmentMonth: 3,
+    });
+
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      referenceDate: new Date('2026-03-15'),
+    });
+
+    expect(result.adjustedCount).toBe(0);
+    expect(recurringConfigsRepository.items[0].expectedAmount).toBe(1800);
+  });
+
+  it('should skip FIXED_RATE adjustment when fixedAdjustmentRate is negative', async () => {
+    await recurringConfigsRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      description: 'Aluguel com taxa negativa (config inválida)',
+      categoryId: 'cat-1',
+      expectedAmount: 2500,
+      frequencyUnit: 'MONTHLY',
+      startDate: new Date('2026-01-01'),
+      nextDueDate: new Date('2026-04-01'),
+      indexationType: 'FIXED_RATE',
+      fixedAdjustmentRate: -0.02,
+      adjustmentMonth: 3,
+    });
+
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      referenceDate: new Date('2026-03-15'),
+    });
+
+    expect(result.adjustedCount).toBe(0);
+    expect(recurringConfigsRepository.items[0].expectedAmount).toBe(2500);
+  });
 });
