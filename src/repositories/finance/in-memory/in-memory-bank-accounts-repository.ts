@@ -3,6 +3,8 @@ import { BankAccount } from '@/entities/finance/bank-account';
 import type {
   BankAccountsRepository,
   CreateBankAccountSchema,
+  FindManyBankAccountsOptions,
+  FindManyBankAccountsResult,
   UpdateBankAccountSchema,
 } from '../bank-accounts-repository';
 
@@ -50,6 +52,68 @@ export class InMemoryBankAccountsRepository implements BankAccountsRepository {
     return this.items.filter(
       (i) => !i.deletedAt && i.tenantId.toString() === tenantId,
     );
+  }
+
+  async findManyPaginated(
+    options: FindManyBankAccountsOptions,
+  ): Promise<FindManyBankAccountsResult> {
+    const {
+      tenantId,
+      page = 1,
+      limit = 20,
+      search,
+      companyId,
+      accountType,
+      status,
+      sortBy = 'name',
+      sortOrder = 'asc',
+    } = options;
+
+    let filtered = this.items.filter(
+      (i) => !i.deletedAt && i.tenantId.toString() === tenantId,
+    );
+
+    if (companyId) {
+      filtered = filtered.filter(
+        (i) => i.companyId?.toString() === companyId,
+      );
+    }
+    if (accountType) {
+      filtered = filtered.filter((i) => i.accountType === accountType);
+    }
+    if (status) {
+      filtered = filtered.filter((i) => i.status === status);
+    }
+    if (search && search.trim()) {
+      const q = search.trim().toLowerCase();
+      filtered = filtered.filter(
+        (i) =>
+          i.name.toLowerCase().includes(q) ||
+          (i.bankName ?? '').toLowerCase().includes(q) ||
+          i.bankCode.toLowerCase().includes(q),
+      );
+    }
+
+    const direction = sortOrder === 'desc' ? -1 : 1;
+    filtered.sort((a, b) => {
+      const av =
+        sortBy === 'createdAt'
+          ? a.createdAt.getTime()
+          : (a as unknown as Record<string, string>)[sortBy] ?? '';
+      const bv =
+        sortBy === 'createdAt'
+          ? b.createdAt.getTime()
+          : (b as unknown as Record<string, string>)[sortBy] ?? '';
+      if (av < bv) return -1 * direction;
+      if (av > bv) return 1 * direction;
+      return 0;
+    });
+
+    const total = filtered.length;
+    const start = (page - 1) * limit;
+    const bankAccounts = filtered.slice(start, start + limit);
+
+    return { bankAccounts, total };
   }
 
   async update(data: UpdateBankAccountSchema): Promise<BankAccount | null> {

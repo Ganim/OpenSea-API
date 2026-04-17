@@ -7,6 +7,8 @@ import { ENCRYPTED_FIELD_CONFIG } from '@/services/security/encrypted-field-conf
 import type {
   BankAccountsRepository,
   CreateBankAccountSchema,
+  FindManyBankAccountsOptions,
+  FindManyBankAccountsResult,
   UpdateBankAccountSchema,
 } from '../bank-accounts-repository';
 import type {
@@ -132,6 +134,64 @@ export class PrismaBankAccountsRepository implements BankAccountsRepository {
         : ba;
       return bankAccountPrismaToDomain(decrypted as typeof ba);
     });
+  }
+
+  async findManyPaginated(
+    options: FindManyBankAccountsOptions,
+  ): Promise<FindManyBankAccountsResult> {
+    const {
+      tenantId,
+      page = 1,
+      limit = 20,
+      search,
+      companyId,
+      accountType,
+      status,
+      sortBy = 'name',
+      sortOrder = 'asc',
+    } = options;
+
+    const where: Record<string, unknown> = {
+      tenantId,
+      deletedAt: null,
+    };
+
+    if (companyId) where.companyId = companyId;
+    if (accountType) where.accountType = accountType as BankAccountType;
+    if (status) where.status = status as BankAccountStatus;
+    if (search && search.trim()) {
+      const q = search.trim();
+      where.OR = [
+        { name: { contains: q, mode: 'insensitive' } },
+        { bankName: { contains: q, mode: 'insensitive' } },
+        { bankCode: { contains: q, mode: 'insensitive' } },
+      ];
+    }
+
+    const orderBy: Record<string, 'asc' | 'desc'> = {};
+    orderBy[sortBy] = sortOrder;
+
+    const [bankAccounts, total] = await Promise.all([
+      prisma.bankAccount.findMany({
+        where,
+        orderBy,
+        skip: (page - 1) * limit,
+        take: limit,
+      }),
+      prisma.bankAccount.count({ where }),
+    ]);
+
+    const cipher = tryGetCipher();
+
+    return {
+      bankAccounts: bankAccounts.map((ba) => {
+        const decrypted = cipher
+          ? cipher.decryptFields(ba as Record<string, unknown>, encryptedFields)
+          : ba;
+        return bankAccountPrismaToDomain(decrypted as typeof ba);
+      }),
+      total,
+    };
   }
 
   async update(data: UpdateBankAccountSchema): Promise<BankAccount | null> {

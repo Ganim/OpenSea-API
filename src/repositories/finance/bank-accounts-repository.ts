@@ -38,10 +38,30 @@ export interface UpdateBankAccountSchema {
   isDefault?: boolean;
 }
 
+export interface FindManyBankAccountsOptions {
+  tenantId: string;
+  page?: number;
+  limit?: number;
+  search?: string;
+  companyId?: string;
+  accountType?: string;
+  status?: string;
+  sortBy?: 'name' | 'bankName' | 'createdAt';
+  sortOrder?: 'asc' | 'desc';
+}
+
+export interface FindManyBankAccountsResult {
+  bankAccounts: BankAccount[];
+  total: number;
+}
+
 export interface BankAccountsRepository {
   create(data: CreateBankAccountSchema): Promise<BankAccount>;
   findById(id: UniqueEntityID, tenantId: string): Promise<BankAccount | null>;
   findMany(tenantId: string): Promise<BankAccount[]>;
+  findManyPaginated(
+    options: FindManyBankAccountsOptions,
+  ): Promise<FindManyBankAccountsResult>;
   update(data: UpdateBankAccountSchema): Promise<BankAccount | null>;
   delete(id: UniqueEntityID, tenantId: string): Promise<void>;
 }
