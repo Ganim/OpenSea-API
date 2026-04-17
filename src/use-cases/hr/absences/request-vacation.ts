@@ -66,6 +66,13 @@ export class RequestVacationUseCase {
       throw new ResourceNotFoundError('VacationPeriod not found');
     }
 
+    // Security: ensure the vacation period belongs to the target employee.
+    // Without this check, an authenticated user could consume a colleague's
+    // vacation balance by passing another employee's vacationPeriodId.
+    if (vacationPeriod.employeeId.toString() !== employeeId) {
+      throw new ResourceNotFoundError('VacationPeriod not found');
+    }
+
     // Calculate total days
     const totalDays = this.calculateBusinessDays(startDate, endDate);
 

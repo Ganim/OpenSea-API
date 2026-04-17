@@ -231,4 +231,37 @@ describe('Request Vacation Use Case', () => {
       }),
     ).rejects.toThrow('Funcionário não está ativo');
   });
+
+  it('should reject vacation request when vacationPeriodId belongs to another employee', async () => {
+    const otherEmployee = await employeesRepository.create({
+      tenantId,
+      registrationNumber: 'EMP002',
+      fullName: 'Other Employee',
+      cpf: CPF.create('390.533.447-05'),
+      hireDate: new Date('2022-01-01'),
+      status: EmployeeStatus.ACTIVE(),
+      baseSalary: 3000,
+      contractType: ContractType.CLT(),
+      workRegime: WorkRegime.FULL_TIME(),
+      weeklyHours: 44,
+      country: 'Brasil',
+    });
+
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() + 35);
+    const endDate = new Date(startDate);
+    endDate.setDate(endDate.getDate() + 9);
+
+    // otherEmployee tries to consume testEmployee's vacation period
+    await expect(
+      sut.execute({
+        tenantId,
+        employeeId: otherEmployee.id.toString(),
+        vacationPeriodId: testVacationPeriod.id.toString(),
+        startDate,
+        endDate,
+        reason: 'Tentativa de uso indevido',
+      }),
+    ).rejects.toThrow('VacationPeriod not found');
+  });
 });
