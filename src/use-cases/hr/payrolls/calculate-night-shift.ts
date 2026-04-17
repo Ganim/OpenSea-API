@@ -1,23 +1,19 @@
 /**
  * Adicional Noturno — CLT Art. 73
  *
- * Urban workers: night period is 22:00 to 05:00
+ * Urban workers: night period is 22:00 to 05:00 (BRT — civil local time)
  * Night hour = 52min 30sec (reduced hour)
  * Factor: 60 / 52.5 = 1.142857
  * Premium: 20% over hourly rate
  */
+
+import { isWithinNightShiftBRT } from '@/utils/hr/brt-timezone';
 
 /** Night hour reduction factor (60min / 52.5min) */
 export const NIGHT_HOUR_FACTOR = 60 / 52.5; // 1.142857...
 
 /** Night shift premium rate (20%) */
 export const NIGHT_SHIFT_PREMIUM = 0.2;
-
-/** Night period start hour (22:00) */
-const NIGHT_START_HOUR = 22;
-
-/** Night period end hour (05:00 next day) */
-const NIGHT_END_HOUR = 5;
 
 export interface NightShiftCalculation {
   /** Hours worked between 22:00-05:00 (clock hours) */
@@ -55,8 +51,7 @@ export function calculateNightHours(clockIn: Date, clockOut: Date): number {
   const stepMs = 60 * 1000; // 1 minute
 
   while (current.getTime() < endTime) {
-    const hour = current.getHours();
-    if (hour >= NIGHT_START_HOUR || hour < NIGHT_END_HOUR) {
+    if (isWithinNightShiftBRT(current)) {
       // How much of this minute falls within the shift
       const remaining = endTime - current.getTime();
       const minuteFraction = Math.min(remaining, stepMs) / stepMs;

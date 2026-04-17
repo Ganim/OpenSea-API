@@ -2,6 +2,7 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import { TimeEntriesRepository } from '@/repositories/hr/time-entries-repository';
+import { fromBRTDateKey, toBRTDateKey } from '@/utils/hr/brt-timezone';
 
 export interface CalculateWorkedHoursRequest {
   tenantId: string;
@@ -58,10 +59,12 @@ export class CalculateWorkedHoursUseCase {
         tenantId,
       );
 
-    // Group entries by date
+    // Group entries by BRT calendar day (the employee's civil workday).
+    // Using UTC here would split 20:00 BRT onwards into the next day in
+    // production servers that run in UTC.
     const entriesByDate = new Map<string, typeof timeEntries>();
     for (const entry of timeEntries) {
-      const dateKey = entry.timestamp.toISOString().split('T')[0];
+      const dateKey = toBRTDateKey(entry.timestamp);
       if (!entriesByDate.has(dateKey)) {
         entriesByDate.set(dateKey, []);
       }
@@ -77,7 +80,7 @@ export class CalculateWorkedHoursUseCase {
     for (const [dateKey, entries] of entriesByDate) {
       const dayHours = this.calculateDayHours(entries);
       dailyBreakdown.push({
-        date: new Date(dateKey),
+        date: fromBRTDateKey(dateKey),
         ...dayHours,
       });
       totalWorkedHours += dayHours.workedHours;

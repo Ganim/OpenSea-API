@@ -13,6 +13,7 @@ import type {
   TransactionClient,
   TransactionManager,
 } from '@/lib/transaction-manager';
+import { isWithinNightShiftBRT } from '@/utils/hr/brt-timezone';
 import { AbsencesRepository } from '@/repositories/hr/absences-repository';
 import { BonusesRepository } from '@/repositories/hr/bonuses-repository';
 import { DeductionsRepository } from '@/repositories/hr/deductions-repository';
@@ -597,8 +598,7 @@ export class CalculatePayrollUseCase {
     const stepMs = 60 * 1000;
 
     while (current.getTime() < endTime) {
-      const hour = current.getHours();
-      if (hour >= 22 || hour < 5) {
+      if (isWithinNightShiftBRT(current)) {
         const remaining = endTime - current.getTime();
         const minuteFraction = Math.min(remaining, stepMs) / stepMs;
         nightMinutes += minuteFraction;
