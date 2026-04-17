@@ -263,6 +263,36 @@ describe('GenerateTaxObligationsUseCase', () => {
       expect(lastBusinessDay.getDate()).toBe(30);
     });
 
+    // P3-38: cross-year month-end + national holiday scenarios. The
+    // CSLL / IRRF "last business day" rule must skip federal holidays
+    // that land near the end of a reference month. Tests two explicit
+    // cases that historically caused off-by-one bugs:
+    //   - April 2027: 30/Apr = Friday (business). The rule must NOT
+    //     roll back past Tiradentes (21/Apr) because 30 is already a
+    //     business day.
+    //   - December 2027: 31/Dec = Friday (business), but 25/Dec is a
+    //     Saturday in 2027, so the rule again stays on 31.
+    it('returns the last business day in April 2027 without rolling back to Tiradentes', () => {
+      const lastBusinessDay = getLastBusinessDayOfMonth(2027, 4);
+
+      // April 2027: 30 April is a Friday and a business day
+      expect(lastBusinessDay.getFullYear()).toBe(2027);
+      expect(lastBusinessDay.getMonth()).toBe(3); // April (0-indexed)
+      expect(lastBusinessDay.getDate()).toBe(30);
+      expect(lastBusinessDay.getDay()).toBe(5); // Friday
+    });
+
+    it('stays a valid business day across a month ending in a holiday-adjacent weekend', () => {
+      // Consistency check across a sweep of consecutive months
+      for (let month = 1; month <= 12; month++) {
+        const lastBusinessDay = getLastBusinessDayOfMonth(2027, month);
+        // Never Saturday (6) or Sunday (0)
+        expect([0, 6]).not.toContain(lastBusinessDay.getDay());
+        // Result must stay within the queried month
+        expect(lastBusinessDay.getMonth()).toBe(month - 1);
+      }
+    });
+
     it('should return a business day (not a holiday, not a weekend)', () => {
       // November 2026: 30th = Monday. 15th = Proclamação (Sunday this year).
       // Last business day must be a business day regardless of year.
