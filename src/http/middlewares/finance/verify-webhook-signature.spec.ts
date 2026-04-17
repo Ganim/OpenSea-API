@@ -356,6 +356,99 @@ describe('verifyWebhookSignature middleware', () => {
     expect(sentPayload()).toEqual({ message: 'Invalid webhook signature' });
   });
 
+  // P2-50 (a): timing attack surface. The middleware uses timingSafeEqual,
+  // which requires both buffers to be the same length. A signature that
+  // hex-decodes to a different length must be rejected WITHOUT falling
+  // through to a byte-by-byte loose equality check.
+  it('rejects signatures whose decoded length differs from the expected length (timing-attack guard)', async () => {
+    const secret = 'timing-secret';
+    const rawBody = '{"event":"PIX_RECEIVED","amount":1}';
+
+    mockFindUnique.mockResolvedValue({
+      apiWebhookSecret: secret,
+      tenantId: 'tenant-timing',
+    });
+
+    // Valid HMAC-SHA256 is 64 hex chars → 32 bytes. A 2-byte signature
+    // would fail any byte-wise early-return loose compare that peeks
+    // the first byte, but timingSafeEqual aborts on length mismatch.
+    const tooShortSig = 'ab';
+
+    const request = makeRequest({
+      headers: { 'x-webhook-signature': tooShortSig },
+      body: { event: 'PIX_RECEIVED', amount: 1 },
+      rawBody,
+    });
+    const { reply, statusCode, sentPayload } = makeReply();
+
+    await verifyWebhookSignature(request, reply);
+
+    expect(statusCode()).toBe(401);
+    expect(sentPayload()).toEqual({ message: 'Invalid webhook signature' });
+  });
+
+  it('rejects signatures with non-hex characters without leaking the expected length', async () => {
+    const secret = 'timing-secret';
+    const rawBody = '{"event":"PIX_RECEIVED","amount":1}';
+
+    mockFindUnique.mockResolvedValue({
+      apiWebhookSecret: secret,
+      tenantId: 'tenant-timing-2',
+    });
+
+    // Garbage signature (letters outside 0-9a-f). Buffer.from('zz...', 'hex')
+    // yields an empty buffer rather than throwing, so the length mismatch
+    // path in the middleware must still reject this as 401, not 500.
+    const garbageSig = 'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz';
+
+    const request = makeRequest({
+      headers: { 'x-webhook-signature': garbageSig },
+      body: { event: 'PIX_RECEIVED', amount: 1 },
+      rawBody,
+    });
+    const { reply, statusCode, sentPayload } = makeReply();
+
+    await verifyWebhookSignature(request, reply);
+
+    expect(statusCode()).toBe(401);
+    expect(sentPayload()).toEqual({ message: 'Invalid webhook signature' });
+  });
+
+  // P2-50 (b): raw body preservation. If the middleware ever regressed
+  // to JSON.stringify(request.body), the signature would match even
+  // though the bytes Sicoob signed are different. This pins the contract
+  // that request.body is NEVER used to compute the HMAC.
+  it('must not use request.body as fallback when rawBody is present', async () => {
+    const secret = 'rawbody-secret';
+
+    // Bytes Sicoob actually signed — includes trailing whitespace, which
+    // JSON.stringify(parsed) would strip.
+    const rawBody = '{"event":"PIX_RECEIVED","amount":1}   ';
+    const validSig = makeSignatureFromRaw(secret, rawBody);
+
+    mockFindUnique.mockResolvedValue({
+      apiWebhookSecret: secret,
+      tenantId: 'tenant-rawbody-preserve',
+    });
+
+    // Parsed body is the canonical form without whitespace
+    const parsedBody = { event: 'PIX_RECEIVED', amount: 1 };
+
+    const request = makeRequest({
+      headers: { 'x-webhook-signature': validSig },
+      body: parsedBody,
+      rawBody, // exact bytes signed
+    });
+    const { reply, statusCode } = makeReply();
+
+    await verifyWebhookSignature(request, reply);
+
+    // Signature must pass because the middleware hashed rawBody, not
+    // JSON.stringify(parsedBody). If it had used the parsed body, the
+    // whitespace difference would have caused a 401.
+    expect(statusCode()).toBeUndefined();
+  });
+
   it('returns 500 when raw body is missing (plugin not registered for this route)', async () => {
     mockFindUnique.mockResolvedValue({
       apiWebhookSecret: 'some-secret',
