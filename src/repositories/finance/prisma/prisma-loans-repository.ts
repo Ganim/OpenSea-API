@@ -161,17 +161,16 @@ export class PrismaLoansRepository implements LoansRepository {
       ];
     }
 
-    // P1-40: schema now exposes the real model columns (principalAmount,
-    // name) directly. Legacy aliases kept for one release so any cached
-    // frontend bundle that still sends them keeps working.
+    // P1-40: sortBy enum is now strictly the real Loan model columns. We
+    // used to alias `totalAmount`/`institution` to cover cached frontend
+    // bundles, but those aliases shipped for one release and are now
+    // removed — the Zod enum will 400 anything outside the whitelist.
     const sortFieldMap: Record<string, string> = {
       createdAt: 'createdAt',
+      startDate: 'startDate',
       principalAmount: 'principalAmount',
       name: 'name',
       status: 'status',
-      // Deprecated aliases:
-      totalAmount: 'principalAmount',
-      institution: 'name',
     };
 
     const orderBy: Record<string, 'asc' | 'desc'> = {};

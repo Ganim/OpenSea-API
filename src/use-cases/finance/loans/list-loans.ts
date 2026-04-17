@@ -5,7 +5,8 @@ interface ListLoansUseCaseRequest {
   tenantId: string;
   page?: number;
   limit?: number;
-  sortBy?: 'createdAt' | 'principalAmount' | 'name' | 'status';
+  // P1-40: aligned with the real Loan model columns only.
+  sortBy?: 'createdAt' | 'startDate' | 'principalAmount' | 'name' | 'status';
   sortOrder?: 'asc' | 'desc';
   bankAccountId?: string;
   costCenterId?: string;

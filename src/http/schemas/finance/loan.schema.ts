@@ -132,9 +132,10 @@ export const listLoansQuerySchema = z.object({
   limit: z.coerce.number().int().positive().max(100).optional().default(20),
   // P1-40: enum used to expose `totalAmount` and `institution` which are not
   // columns on the Loan model. Sorting by them blew up at the Prisma level
-  // ("unknown field"). Aligned with actual schema (`principalAmount`, `name`).
+  // ("unknown field"). Aligned with actual schema — `startDate` added so the
+  // frontend can sort by loan start without falling back to createdAt.
   sortBy: z
-    .enum(['createdAt', 'principalAmount', 'name', 'status'])
+    .enum(['createdAt', 'startDate', 'principalAmount', 'name', 'status'])
     .optional()
     .default('createdAt'),
   sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
