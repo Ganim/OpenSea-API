@@ -188,4 +188,45 @@ describe('ImportOfxReconciliationUseCase', () => {
     expect(result.reconciliation.periodStart).toBeInstanceOf(Date);
     expect(result.reconciliation.periodEnd).toBeInstanceOf(Date);
   });
+
+  it('should recompute unmatchedCount from persisted items (not total - matched)', async () => {
+    const bankAccount = await bankAccountsRepository.create({
+      tenantId: 'tenant-1',
+      name: 'Conta',
+      bankCode: '001',
+      agency: '1234',
+      accountNumber: '123456',
+      accountType: 'CHECKING',
+    });
+
+    const fileBuffer = Buffer.from(VALID_OFX_CONTENT, 'utf-8');
+
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      bankAccountId: bankAccount.id.toString(),
+      fileName: 'extrato.ofx',
+      fileBuffer,
+    });
+
+    const persistedItems = reconciliationsRepository.items.filter(
+      (reconciliationItem) =>
+        reconciliationItem.reconciliationId.toString() ===
+        result.reconciliation.id,
+    );
+
+    const expectedMatchedCount = persistedItems.filter(
+      (reconciliationItem) => reconciliationItem.isMatched,
+    ).length;
+    const expectedUnmatchedCount = persistedItems.filter(
+      (reconciliationItem) => reconciliationItem.matchStatus === 'UNMATCHED',
+    ).length;
+
+    expect(result.reconciliation.matchedCount).toBe(expectedMatchedCount);
+    expect(result.reconciliation.unmatchedCount).toBe(expectedUnmatchedCount);
+    // Without any finance entries present, every imported transaction stays
+    // UNMATCHED. Unmatched count must equal persisted unmatched items, not
+    // total - matched (which would mask suggestion/manual transitions).
+    expect(result.reconciliation.unmatchedCount).toBe(persistedItems.length);
+    expect(result.reconciliation.matchedCount).toBe(0);
+  });
 });

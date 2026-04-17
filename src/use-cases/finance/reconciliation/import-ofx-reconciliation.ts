@@ -122,8 +122,6 @@ export class ImportOfxReconciliationUseCase {
     );
 
     // Apply matches
-    let matchedCount = 0;
-
     for (const [itemId, match] of matchResults) {
       await this.bankReconciliationsRepository.updateItem({
         id: new UniqueEntityID(itemId),
@@ -132,10 +130,27 @@ export class ImportOfxReconciliationUseCase {
         matchConfidence: match.confidence,
         matchStatus: 'AUTO_MATCHED',
       });
-      matchedCount++;
     }
 
-    const unmatchedCount = parsedOfx.transactions.length - matchedCount;
+    // Recompute counts from the persisted items so that any downstream
+    // transitions (suggestions accepted, manual/ignored status, etc.) that
+    // may have happened during the loop are correctly reflected.
+    // unmatchedCount must count only items still in UNMATCHED status — items
+    // for which a suggestion was created are no longer pending.
+    const reconciliationWithItems =
+      await this.bankReconciliationsRepository.findById(
+        reconciliation.id,
+        tenantId,
+        true,
+      );
+
+    const persistedItems = reconciliationWithItems?.items ?? [];
+    const matchedCount = persistedItems.filter(
+      (reconciliationItem) => reconciliationItem.isMatched,
+    ).length;
+    const unmatchedCount = persistedItems.filter(
+      (reconciliationItem) => reconciliationItem.matchStatus === 'UNMATCHED',
+    ).length;
 
     // Update reconciliation counts and status
     const updatedReconciliation =
@@ -147,8 +162,9 @@ export class ImportOfxReconciliationUseCase {
         status: 'IN_PROGRESS',
       });
 
-    // Re-fetch with items to return complete data
-    const reconciliationWithItems =
+    // Re-fetch with items to return complete data reflecting the updated
+    // status/counts set above.
+    const finalReconciliation =
       await this.bankReconciliationsRepository.findById(
         reconciliation.id,
         tenantId,
@@ -157,7 +173,7 @@ export class ImportOfxReconciliationUseCase {
 
     return {
       reconciliation: bankReconciliationToDTO(
-        reconciliationWithItems ?? updatedReconciliation!,
+        finalReconciliation ?? updatedReconciliation!,
       ),
     };
   }
