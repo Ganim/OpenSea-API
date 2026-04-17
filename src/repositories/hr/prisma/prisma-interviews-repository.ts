@@ -101,13 +101,13 @@ export class PrismaInterviewsRepository implements InterviewsRepository {
 
   async update(data: UpdateInterviewSchema): Promise<Interview | null> {
     const existingInterview = await prisma.interview.findUnique({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
     });
 
     if (!existingInterview) return null;
 
     const interviewData = await prisma.interview.update({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
       data: {
         status: data.status as 'SCHEDULED' | undefined,
         feedback: data.feedback,

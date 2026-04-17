@@ -11,6 +11,13 @@ export interface CreateApplicationSchema {
 
 export interface UpdateApplicationSchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so the underlying Prisma `where` clause is scoped and cannot update a
+   * record belonging to another tenant.
+   */
+  tenantId?: string;
   status?: string;
   currentStageId?: string;
   rejectedAt?: Date;

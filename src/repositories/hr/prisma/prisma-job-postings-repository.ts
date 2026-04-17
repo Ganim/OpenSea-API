@@ -98,13 +98,13 @@ export class PrismaJobPostingsRepository implements JobPostingsRepository {
 
   async update(data: UpdateJobPostingSchema): Promise<JobPosting | null> {
     const existingPosting = await prisma.jobPosting.findUnique({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
     });
 
     if (!existingPosting) return null;
 
     const postingData = await prisma.jobPosting.update({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
       data: {
         title: data.title,
         description: data.description,
@@ -129,9 +129,9 @@ export class PrismaJobPostingsRepository implements JobPostingsRepository {
     );
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.jobPosting.update({
-      where: { id: id.toString() },
+      where: { id: id.toString(), ...(tenantId && { tenantId }), },
       data: { deletedAt: new Date() },
     });
   }

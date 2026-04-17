@@ -145,7 +145,7 @@ export class InMemoryAdmissionsRepository implements AdmissionsRepository {
     return updated;
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: string, tenantId?: string): Promise<void> {
     this.invites = this.invites.filter((invite) => invite.id !== id);
   }
 

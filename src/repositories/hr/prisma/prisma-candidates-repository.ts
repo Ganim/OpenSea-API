@@ -121,13 +121,13 @@ export class PrismaCandidatesRepository implements CandidatesRepository {
 
   async update(data: UpdateCandidateSchema): Promise<Candidate | null> {
     const existingCandidate = await prisma.candidate.findUnique({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
     });
 
     if (!existingCandidate) return null;
 
     const candidateData = await prisma.candidate.update({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
       data: {
         fullName: data.fullName,
         email: data.email,
@@ -147,9 +147,9 @@ export class PrismaCandidatesRepository implements CandidatesRepository {
     );
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.candidate.update({
-      where: { id: id.toString() },
+      where: { id: id.toString(), ...(tenantId && { tenantId }), },
       data: { deletedAt: new Date() },
     });
   }

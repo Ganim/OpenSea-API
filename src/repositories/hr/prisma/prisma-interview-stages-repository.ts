@@ -66,16 +66,19 @@ export class PrismaInterviewStagesRepository
     await prisma.$transaction(
       stages.map((stage) =>
         prisma.interviewStage.update({
-          where: { id: stage.id.toString() },
+          where: {
+            id: stage.id.toString(),
+            ...(stage.tenantId && { tenantId: stage.tenantId }),
+          },
           data: { order: stage.order },
         }),
       ),
     );
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.interviewStage.delete({
-      where: { id: id.toString() },
+      where: { id: id.toString(), ...(tenantId && { tenantId }), },
     });
   }
 

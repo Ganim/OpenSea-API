@@ -175,7 +175,7 @@ export class PrismaAdmissionsRepository implements AdmissionsRepository {
 
     try {
       const updated = await prisma.admissionInvite.update({
-        where: { id: data.id },
+        where: { id: data.id, ...(data.tenantId && { tenantId: data.tenantId }), },
         data: updateData,
         include: {
           documents: true,
@@ -189,9 +189,12 @@ export class PrismaAdmissionsRepository implements AdmissionsRepository {
     }
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: string, tenantId?: string): Promise<void> {
     await prisma.admissionInvite.delete({
-      where: { id },
+      where: {
+        id,
+        ...(tenantId && { tenantId }),
+      },
     });
   }
 

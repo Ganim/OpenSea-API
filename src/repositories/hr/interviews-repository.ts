@@ -14,6 +14,13 @@ export interface CreateInterviewSchema {
 
 export interface UpdateInterviewSchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so the underlying Prisma `where` clause is scoped and cannot update a
+   * record belonging to another tenant.
+   */
+  tenantId?: string;
   status?: string;
   feedback?: string;
   rating?: number;

@@ -97,13 +97,13 @@ export class PrismaApplicationsRepository implements ApplicationsRepository {
 
   async update(data: UpdateApplicationSchema): Promise<Application | null> {
     const existingApplication = await prisma.application.findUnique({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
     });
 
     if (!existingApplication) return null;
 
     const applicationData = await prisma.application.update({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
       data: {
         status: data.status as 'APPLIED' | undefined,
         currentStageId: data.currentStageId,

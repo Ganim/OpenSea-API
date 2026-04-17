@@ -19,6 +19,13 @@ export interface CreateJobPostingSchema {
 
 export interface UpdateJobPostingSchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so the underlying Prisma `where` clause is scoped and cannot update a
+   * record belonging to another tenant.
+   */
+  tenantId?: string;
   title?: string;
   description?: string;
   departmentId?: string;
@@ -53,5 +60,5 @@ export interface JobPostingsRepository {
     filters?: FindJobPostingFilters,
   ): Promise<{ jobPostings: JobPosting[]; total: number }>;
   update(data: UpdateJobPostingSchema): Promise<JobPosting | null>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }
