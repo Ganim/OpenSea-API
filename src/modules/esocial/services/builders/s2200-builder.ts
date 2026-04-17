@@ -249,9 +249,10 @@ export class S2200Builder extends EsocialXmlBuilder<S2200Input> {
     content += this.tag('vrSalFx', this.formatMoney(c.vrSalFx));
     content += this.tag('undSalFixo', c.undSalFixo);
     if (c.dscSalVar) content += this.tag('dscSalVar', c.dscSalVar);
-    content += this.tag('tpContr', c.tpContr);
 
-    // duracao
+    // duracao — per eSocial S-2200 schema, tpContr belongs inside <duracao>
+    // exactly once (not directly under <infoContrato>). Emitting it twice
+    // breaks XSD validation at the gov.br receiver.
     let duracaoContent = '';
     duracaoContent += this.tag('tpContr', c.tpContr);
     if (c.tpContr === 2 && c.dtTerm) {

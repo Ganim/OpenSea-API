@@ -221,13 +221,30 @@ describe('S2200Builder', () => {
     expect(xml).toContain('<CBOCargo>212405</CBOCargo>');
     expect(xml).toContain('<vrSalFx>8000.00</vrSalFx>');
     expect(xml).toContain('<undSalFixo>5</undSalFixo>');
-    expect(xml).toContain('<tpContr>1</tpContr>');
   });
 
-  it('should include duracao block', () => {
+  it('should include duracao block with tpContr emitted exactly once', () => {
     const xml = builder.build(baseInput);
     expect(xml).toContain('<duracao>');
     expect(xml).toContain('<tpContr>1</tpContr>');
+
+    // Regression: tpContr must appear exactly once in the XML (inside duracao).
+    // Emitting it twice (directly under infoContrato AND inside duracao)
+    // breaks eSocial XSD validation — see P0-11 ops fix.
+    const occurrences = (xml.match(/<tpContr>/g) || []).length;
+    expect(occurrences).toBe(1);
+  });
+
+  it('should NOT emit tpContr directly under infoContrato (only inside duracao)', () => {
+    const xml = builder.build(baseInput);
+    // Confirm tpContr lives inside duracao, not as a direct sibling of nmCargo.
+    const directUnderInfoContrato = xml.match(
+      /<undSalFixo>[^<]*<\/undSalFixo>\s*<tpContr>/,
+    );
+    expect(directUnderInfoContrato).toBeNull();
+
+    const insideDuracao = xml.match(/<duracao>\s*<tpContr>/);
+    expect(insideDuracao).not.toBeNull();
   });
 
   it('should include dtTerm in duracao for fixed-term contracts', () => {
