@@ -69,6 +69,16 @@ const envSchema = z.object({
 
   // Ollama (local AI fallback)
   OLLAMA_HOST: z.string().optional(),
+
+  // BullMQ feature flag — when "true", durable BullMQ-backed schedulers
+  // (currently only payment-reconciliation, P3-05) are used instead of the
+  // in-process setInterval-based fallback. Disabled by default so the
+  // existing scheduler keeps running until production rollout. The Redis
+  // connection is shared with the rest of the app (REDIS_HOST/PORT/etc.).
+  BULLMQ_ENABLED: z
+    .string()
+    .default('false')
+    .transform((v) => v === 'true' || v === '1'),
 });
 
 const _env = envSchema.safeParse(process.env);

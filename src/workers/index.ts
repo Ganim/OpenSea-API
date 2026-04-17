@@ -1,3 +1,4 @@
+import { env } from '@/@env';
 import { prisma } from '@/lib/prisma';
 import { closeAllQueues } from '@/lib/queue';
 import { PrismaEmailAccountsRepository } from '@/repositories/email/prisma/prisma-email-accounts-repository';
@@ -32,6 +33,11 @@ import {
 import { startEmailSyncWorker } from './queues/email-sync.queue';
 import { startEsocialBatchPollingWorker } from './queues/esocial-batch-polling.queue';
 import { startNotificationWorker } from './queues/notification.queue';
+import {
+  schedulePaymentReconciliationRepeatable,
+  startPaymentReconciliationQueueWorker,
+  unschedulePaymentReconciliationRepeatable,
+} from './queues/payment-reconciliation.queue';
 
 let workersStarted = false;
 let isShuttingDown = false;
@@ -125,14 +131,32 @@ export async function startAllWorkers(): Promise<void> {
     console.error('[Workers] Failed to start IDLE monitoring:', err);
   }
 
-  // Start payment reconciliation scheduler (daily 02:00 UTC)
-  try {
-    await startPaymentReconciliationScheduler();
-  } catch (err) {
-    console.error(
-      '[Workers] Failed to start payment reconciliation scheduler:',
-      err,
-    );
+  // Start payment reconciliation scheduler (daily 02:00 UTC).
+  // P3-05: when BULLMQ_ENABLED=true, use the durable BullMQ-backed worker +
+  // repeatable job. Otherwise fall back to the legacy in-process setInterval
+  // scheduler so production keeps working until the flag is rolled out.
+  if (env.BULLMQ_ENABLED) {
+    try {
+      startPaymentReconciliationQueueWorker();
+      await schedulePaymentReconciliationRepeatable();
+      console.log(
+        '[Workers] Payment reconciliation queue worker started (BullMQ)',
+      );
+    } catch (err) {
+      console.error(
+        '[Workers] Failed to start payment reconciliation queue worker:',
+        err,
+      );
+    }
+  } else {
+    try {
+      await startPaymentReconciliationScheduler();
+    } catch (err) {
+      console.error(
+        '[Workers] Failed to start payment reconciliation scheduler:',
+        err,
+      );
+    }
   }
 
   // Start HR vacation accrual scheduler (monthly, day 1 at 02:00 UTC)
@@ -187,6 +211,19 @@ export async function stopAllWorkers(): Promise<void> {
   stopHrVacationAccrualScheduler();
   stopHrDocExpiryScheduler();
   stopHrPayrollGenerationScheduler();
+
+  // P3-05: when running on the BullMQ path, also tear down the repeatable
+  // schedule so a redeploy does not leave orphaned cron entries in Redis.
+  if (env.BULLMQ_ENABLED) {
+    try {
+      await unschedulePaymentReconciliationRepeatable();
+    } catch (err) {
+      console.error(
+        '[Workers] Failed to unschedule payment reconciliation repeatable:',
+        err,
+      );
+    }
+  }
 
   // Then close BullMQ queues and workers
   await closeAllQueues();
