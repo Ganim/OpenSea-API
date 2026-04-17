@@ -1,42 +1,60 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { prisma } from '@/lib/prisma';
+import {
+  formatDateDDMMYYYYInBRT,
+  formatDateYYYYMMDDInBRT,
+  formatTimeHHMMInBRT,
+  formatTimeHHMMSSInBRT,
+} from '@/utils/hr/brt-timezone';
 
 /**
- * Geração de AFDT — Arquivo Fonte de Dados Tratados (Portaria 671 Anexo III)
+ * Geração de AFDT — Arquivo Fonte de Dados Tratados (Portaria 671/2021, Anexo III).
  *
- * Similar ao AFD, mas inclui dados tratados/ajustados:
- * - Timestamp original + timestamp ajustado (se corrigido manualmente)
- * - Justificativa para ajustes
- * - Quem aprovou o ajuste
+ * O AFDT carrega as marcações já tratadas (pré-aprovadas) pelo empregador,
+ * incluindo timestamp original, timestamp ajustado, justificativa e flag de
+ * ajuste. O layout complementa o AFD: mesmo separador (LF), mesmas regras de
+ * BRT e normalização ASCII para a Razão Social, e campos NSR de 9 dígitos
+ * alinhados com a versão vigente da Portaria.
  *
- * Layout de registros (texto fixo):
+ * Tipo 1 — Cabeçalho (230 bytes):
+ *   Pos 1         (1): "1"
+ *   Pos 2         (1): "2"   (identificador AFDT)
+ *   Pos 3-16     (14): CNPJ
+ *   Pos 17-30    (14): CEI/CAEPF
+ *   Pos 31-180  (150): Razão Social
+ *   Pos 181-188   (8): Data inicial do período (ddmmaaaa, BRT)
+ *   Pos 189-196   (8): Data final do período (ddmmaaaa, BRT)
+ *   Pos 197-204   (8): Data de geração (ddmmaaaa, BRT)
+ *   Pos 205-210   (6): Hora de geração (hhmmss, BRT)
  *
- * Tipo 1 (Header):
- *   Pos 1     : "1" (tipo do registro)
- *   Pos 2     : "2" (identificador AFDT)
- *   Pos 3-16  : CNPJ (14 dígitos)
- *   Pos 17-30 : CEI/CAEPF (14 dígitos, zeros se vazio)
- *   Pos 31-42 : Razão Social (12 chars)
- *   Pos 43-50 : Data início período (ddmmaaaa)
- *   Pos 51-58 : Data fim período (ddmmaaaa)
- *   Pos 59-66 : Data geração (ddmmaaaa)
- *   Pos 67-72 : Hora geração (hhmmss)
+ * Tipo 4 — Marcação tratada (114 bytes):
+ *   Pos 1         (1): "4"
+ *   Pos 2-10      (9): NSR
+ *   Pos 11-18     (8): Data original (ddmmaaaa, BRT)
+ *   Pos 19-22     (4): Hora original (hhmm, BRT)
+ *   Pos 23-26     (4): Hora tratada (hhmm, BRT)
+ *   Pos 27        (1): Flag de ajuste ("S" ou "N")
+ *   Pos 28-38    (11): PIS do empregado
+ *   Pos 39-52    (14): CPF do empregado (espaços à direita se ausente)
+ *   Pos 53-92    (40): Justificativa do ajuste (espaços à direita)
  *
- * Tipo 4 (Detalhe tratado):
- *   Pos 1     : "4" (tipo do registro)
- *   Pos 2-11  : NSR (10 dígitos)
- *   Pos 12-19 : Data original (ddmmaaaa)
- *   Pos 20-23 : Hora original (hhmm)
- *   Pos 24-27 : Hora tratada (hhmm) — igual à original se sem ajuste
- *   Pos 28-28 : Flag de ajuste ("S" ou "N")
- *   Pos 29-39 : PIS do empregado (11 dígitos)
- *   Pos 40-53 : CPF do empregado (14 chars, espaço se vazio)
- *   Pos 54-93 : Justificativa (40 chars, espaço se vazio)
+ * Tipo 9 — Trailer (10 bytes):
+ *   Pos 1         (1): "9"
+ *   Pos 2-10      (9): Quantidade total de registros Tipo 4
  *
- * Tipo 9 (Trailer):
- *   Pos 1     : "9" (tipo do registro)
- *   Pos 2-11  : Quantidade total de registros tipo 4 (10 dígitos)
+ * Observações:
+ *  - Separador de linha: LF (\n).
+ *  - Datas/horas em BRT (UTC-3), não no timezone do servidor.
+ *  - Razão Social normalizada para ASCII sem diacríticos (ISO-8859-1).
  */
+
+const RECORD_SEPARATOR = '\n';
+const RAZAO_SOCIAL_LENGTH = 150;
+const NSR_LENGTH = 9;
+const COUNTER_LENGTH = 9;
+const CPF_FIELD_LENGTH = 14;
+const JUSTIFICATION_FIELD_LENGTH = 40;
+const ADJUSTMENT_NOTE_PREFIX = '[AJUSTE]';
 
 export interface GenerateAFDTRequest {
   tenantId: string;
@@ -59,7 +77,6 @@ export class GenerateAFDTUseCase {
       );
     }
 
-    // Busca a empresa do tenant para CNPJ / Razão Social
     const company = await prisma.company.findFirst({
       where: { tenantId, deletedAt: null },
       orderBy: { createdAt: 'asc' },
@@ -68,11 +85,8 @@ export class GenerateAFDTUseCase {
     const cnpj = company?.cnpj
       ? company.cnpj.replace(/\D/g, '').padStart(14, '0')
       : '0'.repeat(14);
-    const razaoSocial = (company?.legalName ?? 'EMPRESA')
-      .substring(0, 12)
-      .padEnd(12, ' ');
+    const razaoSocial = padRazaoSocial(company?.legalName ?? 'EMPRESA');
 
-    // Busca todos os registros de ponto no período, ordenados por NSR
     const timeEntries = await prisma.timeEntry.findMany({
       where: {
         tenantId,
@@ -90,109 +104,122 @@ export class GenerateAFDTUseCase {
       );
     }
 
-    const now = new Date();
-    const lines: string[] = [];
+    const generatedAt = new Date();
 
-    // Header (Tipo 1)
-    const header =
-      '1' + // Pos 1: tipo
-      '2' + // Pos 2: AFDT identifier
-      cnpj + // Pos 3-16: CNPJ
-      '0'.repeat(14) + // Pos 17-30: CEI/CAEPF
-      razaoSocial + // Pos 31-42: Razão Social
-      formatDate(startDate) + // Pos 43-50: Data início período
-      formatDate(endDate) + // Pos 51-58: Data fim período
-      formatDate(now) + // Pos 59-66: Data geração
-      formatTime(now); // Pos 67-72: Hora geração
+    const headerRecord = buildHeaderRecord({
+      cnpj,
+      razaoSocial,
+      periodStart: startDate,
+      periodEnd: endDate,
+      generatedAt,
+    });
 
-    lines.push(header);
+    const treatedRecords = timeEntries.map((entry) =>
+      buildTreatedPunchRecord({
+        nsrNumber: entry.nsrNumber ?? 0,
+        timestamp: entry.timestamp,
+        employeePis: entry.employee.pis ?? '',
+        employeeCpf: entry.employee.cpf ?? '',
+        notes: entry.notes ?? null,
+      }),
+    );
 
-    // Detail records (Tipo 4)
-    for (const entry of timeEntries) {
-      const nsr = String(entry.nsrNumber ?? 0).padStart(10, '0');
-      const dateStr = formatDate(entry.timestamp);
-      const originalTime = formatHourMinute(entry.timestamp);
+    const trailerRecord =
+      '9' + String(treatedRecords.length).padStart(COUNTER_LENGTH, '0');
 
-      // Se houver notas indicando ajuste, considera como ajustado.
-      // No modelo atual, não há campo separado de "hora ajustada",
-      // então usamos a mesma hora. Futuras versões podem ter adjusted_timestamp.
-      const hasAdjustment = entry.notes?.startsWith('[AJUSTE]') ?? false;
-      const treatedTime = originalTime; // Mesmo valor por enquanto
-      const adjustFlag = hasAdjustment ? 'S' : 'N';
+    const content = [headerRecord, ...treatedRecords, trailerRecord].join(
+      RECORD_SEPARATOR,
+    );
 
-      const pis = (entry.employee.pis ?? '')
-        .replace(/\D/g, '')
-        .padStart(11, '0');
-      const cpf = (entry.employee.cpf ?? '')
-        .replace(/\D/g, '')
-        .padEnd(14, ' ')
-        .substring(0, 14);
-      const justification = (
-        hasAdjustment ? (entry.notes?.replace('[AJUSTE]', '').trim() ?? '') : ''
-      )
-        .padEnd(40, ' ')
-        .substring(0, 40);
-
-      const detail =
-        '4' + // Pos 1: tipo
-        nsr + // Pos 2-11: NSR
-        dateStr + // Pos 12-19: Data original
-        originalTime + // Pos 20-23: Hora original
-        treatedTime + // Pos 24-27: Hora tratada
-        adjustFlag + // Pos 28: Flag de ajuste
-        pis + // Pos 29-39: PIS
-        cpf + // Pos 40-53: CPF
-        justification; // Pos 54-93: Justificativa
-
-      lines.push(detail);
-    }
-
-    // Trailer (Tipo 9)
-    const trailer =
-      '9' + // Pos 1: tipo
-      String(timeEntries.length).padStart(10, '0'); // Pos 2-11: total registros
-
-    lines.push(trailer);
-
-    const content = lines.join('\r\n');
-
-    const startStr = formatDateISO(startDate);
-    const endStr = formatDateISO(endDate);
-    const filename = `AFDT_${cnpj}_${startStr}_${endStr}.txt`;
+    const startIso = formatDateYYYYMMDDInBRT(startDate);
+    const endIso = formatDateYYYYMMDDInBRT(endDate);
+    const filename = `AFDT_${cnpj}_${startIso}_${endIso}.txt`;
 
     return { content, filename };
   }
 }
 
-// ─── Helpers ───────────────────────────────────────────────────────────────────
+// ─── Record builders ──────────────────────────────────────────────────────────
 
-/** ddmmaaaa */
-function formatDate(d: Date): string {
-  const dd = String(d.getDate()).padStart(2, '0');
-  const mm = String(d.getMonth() + 1).padStart(2, '0');
-  const yyyy = String(d.getFullYear());
-  return `${dd}${mm}${yyyy}`;
+function buildHeaderRecord(params: {
+  cnpj: string;
+  razaoSocial: string;
+  periodStart: Date;
+  periodEnd: Date;
+  generatedAt: Date;
+}): string {
+  const { cnpj, razaoSocial, periodStart, periodEnd, generatedAt } = params;
+
+  return (
+    '1' + // Pos 1
+    '2' + // Pos 2 (AFDT)
+    cnpj + // Pos 3-16
+    '0'.repeat(14) + // Pos 17-30 (CEI/CAEPF)
+    razaoSocial + // Pos 31-180
+    formatDateDDMMYYYYInBRT(periodStart) + // Pos 181-188
+    formatDateDDMMYYYYInBRT(periodEnd) + // Pos 189-196
+    formatDateDDMMYYYYInBRT(generatedAt) + // Pos 197-204
+    formatTimeHHMMSSInBRT(generatedAt) // Pos 205-210
+  );
 }
 
-/** hhmmss */
-function formatTime(d: Date): string {
-  const hh = String(d.getHours()).padStart(2, '0');
-  const mm = String(d.getMinutes()).padStart(2, '0');
-  const ss = String(d.getSeconds()).padStart(2, '0');
-  return `${hh}${mm}${ss}`;
+function buildTreatedPunchRecord(params: {
+  nsrNumber: number;
+  timestamp: Date;
+  employeePis: string;
+  employeeCpf: string;
+  notes: string | null;
+}): string {
+  const { nsrNumber, timestamp, employeePis, employeeCpf, notes } = params;
+
+  const hasAdjustment = notes?.startsWith(ADJUSTMENT_NOTE_PREFIX) ?? false;
+  const adjustFlag = hasAdjustment ? 'S' : 'N';
+
+  const originalTime = formatTimeHHMMInBRT(timestamp);
+  // Without a separate adjusted_timestamp column we mirror the original time.
+  // TODO(hr): store adjusted_timestamp on TimeEntry and emit it here.
+  const treatedTime = originalTime;
+
+  const pis = employeePis.replace(/\D/g, '').padStart(11, '0').slice(-11);
+
+  const cpfDigits = employeeCpf.replace(/\D/g, '');
+  const cpfField = cpfDigits
+    .padEnd(CPF_FIELD_LENGTH, ' ')
+    .slice(0, CPF_FIELD_LENGTH);
+
+  const justificationText = hasAdjustment
+    ? (notes?.replace(ADJUSTMENT_NOTE_PREFIX, '').trim() ?? '')
+    : '';
+  const justificationField = sanitiseJustification(justificationText)
+    .padEnd(JUSTIFICATION_FIELD_LENGTH, ' ')
+    .slice(0, JUSTIFICATION_FIELD_LENGTH);
+
+  return (
+    '4' + // Pos 1
+    String(nsrNumber).padStart(NSR_LENGTH, '0') + // Pos 2-10
+    formatDateDDMMYYYYInBRT(timestamp) + // Pos 11-18
+    originalTime + // Pos 19-22
+    treatedTime + // Pos 23-26
+    adjustFlag + // Pos 27
+    pis + // Pos 28-38
+    cpfField + // Pos 39-52
+    justificationField // Pos 53-92
+  );
 }
 
-/** hhmm */
-function formatHourMinute(d: Date): string {
-  const hh = String(d.getHours()).padStart(2, '0');
-  const mm = String(d.getMinutes()).padStart(2, '0');
-  return `${hh}${mm}`;
+// ─── Formatting helpers ───────────────────────────────────────────────────────
+
+function padRazaoSocial(legalName: string): string {
+  const ascii = legalName
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\x20-\x7E]/g, '');
+  return ascii.slice(0, RAZAO_SOCIAL_LENGTH).padEnd(RAZAO_SOCIAL_LENGTH, ' ');
 }
 
-/** yyyymmdd */
-function formatDateISO(d: Date): string {
-  const yyyy = String(d.getFullYear());
-  const mm = String(d.getMonth() + 1).padStart(2, '0');
-  const dd = String(d.getDate()).padStart(2, '0');
-  return `${yyyy}${mm}${dd}`;
+function sanitiseJustification(text: string): string {
+  return text
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\x20-\x7E]/g, '');
 }

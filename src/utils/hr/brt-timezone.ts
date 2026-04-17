@@ -60,3 +60,49 @@ export function isWithinNightShiftBRT(date: Date): boolean {
   const hour = getHourInBRT(date);
   return hour >= 22 || hour < 5;
 }
+
+/**
+ * Formats a Date as `ddmmaaaa` using BRT. Used by Portaria 671 AFD/AFDT
+ * exports, where all timestamps must be expressed in Brasília civil time
+ * regardless of the server timezone.
+ */
+export function formatDateDDMMYYYYInBRT(date: Date): string {
+  const brt = new Date(date.getTime() + BRT_OFFSET_MS);
+  const day = String(brt.getUTCDate()).padStart(2, '0');
+  const month = String(brt.getUTCMonth() + 1).padStart(2, '0');
+  const year = String(brt.getUTCFullYear());
+  return `${day}${month}${year}`;
+}
+
+/**
+ * Formats a Date as `yyyymmdd` using BRT. Handy for ISO-like filenames that
+ * embed the punch period.
+ */
+export function formatDateYYYYMMDDInBRT(date: Date): string {
+  const brt = new Date(date.getTime() + BRT_OFFSET_MS);
+  const year = String(brt.getUTCFullYear());
+  const month = String(brt.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(brt.getUTCDate()).padStart(2, '0');
+  return `${year}${month}${day}`;
+}
+
+/**
+ * Formats a Date as `hhmm` using BRT.
+ */
+export function formatTimeHHMMInBRT(date: Date): string {
+  const brt = new Date(date.getTime() + BRT_OFFSET_MS);
+  const hour = String(brt.getUTCHours()).padStart(2, '0');
+  const minute = String(brt.getUTCMinutes()).padStart(2, '0');
+  return `${hour}${minute}`;
+}
+
+/**
+ * Formats a Date as `hhmmss` using BRT.
+ */
+export function formatTimeHHMMSSInBRT(date: Date): string {
+  const brt = new Date(date.getTime() + BRT_OFFSET_MS);
+  const hour = String(brt.getUTCHours()).padStart(2, '0');
+  const minute = String(brt.getUTCMinutes()).padStart(2, '0');
+  const second = String(brt.getUTCSeconds()).padStart(2, '0');
+  return `${hour}${minute}${second}`;
+}

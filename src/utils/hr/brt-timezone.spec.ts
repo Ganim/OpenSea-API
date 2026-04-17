@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import {
+  formatDateDDMMYYYYInBRT,
+  formatDateYYYYMMDDInBRT,
+  formatTimeHHMMInBRT,
+  formatTimeHHMMSSInBRT,
   fromBRTDateKey,
   getDayOfWeekInBRT,
   getHourInBRT,
@@ -64,6 +68,46 @@ describe('BRT timezone helpers', () => {
     it('14:00 BRT is NOT night shift', () => {
       const utc = new Date(Date.UTC(2026, 3, 16, 17, 0)); // 14:00 BRT
       expect(isWithinNightShiftBRT(utc)).toBe(false);
+    });
+  });
+
+  describe('formatDateDDMMYYYYInBRT', () => {
+    it('rolls back to the previous BRT calendar day when UTC already crossed midnight', () => {
+      // 2026-04-17 02:30 UTC == 2026-04-16 23:30 BRT — ddmmaaaa must read the
+      // BRT civil day, not the UTC one.
+      const utc = new Date(Date.UTC(2026, 3, 17, 2, 30));
+      expect(formatDateDDMMYYYYInBRT(utc)).toBe('16042026');
+    });
+
+    it('keeps the same day when the BRT boundary has not been crossed', () => {
+      const utc = new Date(Date.UTC(2026, 3, 16, 15, 0)); // 12:00 BRT
+      expect(formatDateDDMMYYYYInBRT(utc)).toBe('16042026');
+    });
+  });
+
+  describe('formatDateYYYYMMDDInBRT', () => {
+    it('formats the BRT calendar day as yyyymmdd', () => {
+      const utc = new Date(Date.UTC(2026, 3, 17, 2, 30)); // 23:30 BRT on Apr 16
+      expect(formatDateYYYYMMDDInBRT(utc)).toBe('20260416');
+    });
+  });
+
+  describe('formatTimeHHMMInBRT', () => {
+    it('reads the BRT hour and minute from a UTC instant', () => {
+      const utc = new Date(Date.UTC(2026, 3, 17, 2, 30));
+      expect(formatTimeHHMMInBRT(utc)).toBe('2330');
+    });
+
+    it('renders midnight BRT as 0000', () => {
+      const utc = new Date(Date.UTC(2026, 3, 16, 3, 0));
+      expect(formatTimeHHMMInBRT(utc)).toBe('0000');
+    });
+  });
+
+  describe('formatTimeHHMMSSInBRT', () => {
+    it('reads the BRT hour, minute and second', () => {
+      const utc = new Date(Date.UTC(2026, 3, 17, 2, 30, 45));
+      expect(formatTimeHHMMSSInBRT(utc)).toBe('233045');
     });
   });
 });
