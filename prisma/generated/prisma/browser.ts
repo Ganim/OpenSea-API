@@ -713,6 +713,11 @@ export type RecurringConfig = Prisma.RecurringConfigModel
  */
 export type FinanceBudget = Prisma.FinanceBudgetModel
 /**
+ * Model FinancePeriodLock
+ * 
+ */
+export type FinancePeriodLock = Prisma.FinancePeriodLockModel
+/**
  * Model FinanceAttachment
  * 
  */

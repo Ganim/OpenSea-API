@@ -145,12 +145,12 @@ if (!isTestEnv) {
   app.register(rateLimit, rateLimitConfig.global);
 }
 
-// Swagger: disabled in tests (hangs), disabled in dev by default (takes 3min+ on Windows).
-// In dev, set ENABLE_SWAGGER=true in .env to opt-in when you need /docs.
-// In production, Swagger is always enabled.
+// Swagger: disabled in tests (hangs), disabled by default (takes 3min+ to compile
+// and blocks app.listen(), which in production makes the Fly proxy refuse
+// connections for minutes on every boot). Set ENABLE_SWAGGER=true to opt in
+// (dev when you need /docs, or a dedicated staging machine).
 const shouldEnableSwagger =
-  !isTestEnv &&
-  (env.NODE_ENV === 'production' || process.env.ENABLE_SWAGGER === 'true');
+  !isTestEnv && process.env.ENABLE_SWAGGER === 'true';
 
 if (shouldEnableSwagger) {
   // Register named schemas for OpenAPI $ref support (must be before swagger registration)

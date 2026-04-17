@@ -10,6 +10,7 @@ import { manualMatchItemController } from './v1-manual-match-item.controller';
 import { ignoreReconciliationItemController } from './v1-ignore-reconciliation-item.controller';
 import { createEntryFromItemController } from './v1-create-entry-from-item.controller';
 import { completeReconciliationController } from './v1-complete-reconciliation.controller';
+import { cancelReconciliationController } from './v1-cancel-reconciliation.controller';
 import { listReconciliationSuggestionsController } from './v1-list-reconciliation-suggestions.controller';
 import { acceptReconciliationSuggestionController } from './v1-accept-reconciliation-suggestion.controller';
 import { rejectReconciliationSuggestionController } from './v1-reject-reconciliation-suggestion.controller';
@@ -37,6 +38,7 @@ export async function reconciliationRoutes(app: FastifyInstance) {
       mutationApp.register(ignoreReconciliationItemController);
       mutationApp.register(createEntryFromItemController);
       mutationApp.register(completeReconciliationController);
+      mutationApp.register(cancelReconciliationController);
       mutationApp.register(acceptReconciliationSuggestionController);
       mutationApp.register(rejectReconciliationSuggestionController);
     },

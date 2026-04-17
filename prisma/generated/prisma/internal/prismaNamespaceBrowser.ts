@@ -190,6 +190,7 @@ export const ModelName = {
   FinanceEntryCostCenter: 'FinanceEntryCostCenter',
   RecurringConfig: 'RecurringConfig',
   FinanceBudget: 'FinanceBudget',
+  FinancePeriodLock: 'FinancePeriodLock',
   FinanceAttachment: 'FinanceAttachment',
   BankReconciliation: 'BankReconciliation',
   BankReconciliationItem: 'BankReconciliationItem',
@@ -3298,6 +3299,23 @@ export const FinanceBudgetScalarFieldEnum = {
 } as const
 
 export type FinanceBudgetScalarFieldEnum = (typeof FinanceBudgetScalarFieldEnum)[keyof typeof FinanceBudgetScalarFieldEnum]
+
+
+export const FinancePeriodLockScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  year: 'year',
+  month: 'month',
+  lockedBy: 'lockedBy',
+  lockedAt: 'lockedAt',
+  releasedBy: 'releasedBy',
+  releasedAt: 'releasedAt',
+  reason: 'reason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FinancePeriodLockScalarFieldEnum = (typeof FinancePeriodLockScalarFieldEnum)[keyof typeof FinancePeriodLockScalarFieldEnum]
 
 
 export const FinanceAttachmentScalarFieldEnum = {

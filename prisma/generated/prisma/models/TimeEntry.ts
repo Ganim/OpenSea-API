@@ -339,6 +339,7 @@ export type TimeEntryOrderByWithRelationInput = {
 
 export type TimeEntryWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  time_entries_tenant_nsr_unique?: Prisma.TimeEntryTime_entries_tenant_nsr_uniqueCompoundUniqueInput
   AND?: Prisma.TimeEntryWhereInput | Prisma.TimeEntryWhereInput[]
   OR?: Prisma.TimeEntryWhereInput[]
   NOT?: Prisma.TimeEntryWhereInput | Prisma.TimeEntryWhereInput[]
@@ -359,7 +360,7 @@ export type TimeEntryWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"TimeEntry"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
-}, "id">
+}, "id" | "time_entries_tenant_nsr_unique">
 
 export type TimeEntryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -546,6 +547,11 @@ export type TimeEntryListRelationFilter = {
 
 export type TimeEntryOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type TimeEntryTime_entries_tenant_nsr_uniqueCompoundUniqueInput = {
+  tenantId: string
+  nsrNumber: number
 }
 
 export type TimeEntryCountOrderByAggregateInput = {

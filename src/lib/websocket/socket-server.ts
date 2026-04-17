@@ -1,6 +1,8 @@
 import type { Server as HTTPServer } from 'node:http';
+import { createAdapter } from '@socket.io/redis-adapter';
 import { Server as SocketIOServer } from 'socket.io';
 
+import { getRedisClient } from '../redis';
 import { authenticateSocket } from './socket-auth';
 import { registerSocketHandlers } from './socket-handlers';
 import type { SocketData } from './types';
@@ -19,7 +21,19 @@ export function initializeSocketServer(httpServer: HTTPServer): SocketIOServer {
     },
     pingInterval: 25_000,
     pingTimeout: 10_000,
+    // Fly.io proxy doesn't negotiate permessage-deflate reliably — disabling
+    // prevents "Invalid frame header" errors on wss:// upgrades.
+    perMessageDeflate: false,
+    transports: ['websocket', 'polling'],
+    allowEIO3: true,
   });
+
+  // Redis adapter: required when running multiple Fly machines, otherwise
+  // polling sessions break because round-robin routes XHR requests to a
+  // machine that doesn't know the sid (400 Bad Request).
+  const pubClient = getRedisClient().duplicate();
+  const subClient = getRedisClient().duplicate();
+  io.adapter(createAdapter(pubClient, subClient));
 
   io.use(authenticateSocket);
 

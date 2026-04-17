@@ -381,6 +381,13 @@ export const FINANCE_AUDIT_MESSAGES = {
     description: '{{userName}} finalizou a conciliação bancária {{fileName}}',
   } satisfies AuditMessage,
 
+  RECONCILIATION_CANCEL: {
+    action: AuditAction.RECONCILIATION_CANCEL,
+    entity: AuditEntity.BANK_RECONCILIATION,
+    module: AuditModule.FINANCE,
+    description: '{{userName}} cancelou a conciliação bancária {{fileName}}',
+  } satisfies AuditMessage,
+
   RECONCILIATION_SUGGESTION_ACCEPT: {
     action: AuditAction.RECONCILIATION_SUGGESTION_ACCEPT,
     entity: AuditEntity.RECONCILIATION_SUGGESTION,

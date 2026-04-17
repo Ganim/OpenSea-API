@@ -246,6 +246,18 @@ async function start() {
     const financeScheduler = getFinanceScheduler();
     financeScheduler.start();
 
+    // Neon keep-alive ping — prevents Neon Free tier from suspending the
+    // compute after 5 minutes of idle, which causes 1–3s cold-start latency
+    // on the next query. Runs every 4 minutes with a lightweight SELECT 1.
+    const NEON_KEEPALIVE_MS = 4 * 60 * 1000;
+    setInterval(async () => {
+      try {
+        await prisma.$queryRaw`SELECT 1`;
+      } catch (err) {
+        console.error('[neon-keepalive] ping failed:', err);
+      }
+    }, NEON_KEEPALIVE_MS).unref();
+
     // Start business snapshot refresh (every 1 hour for active tenants)
     const snapshotService = new BusinessSnapshotService();
     const SNAPSHOT_INTERVAL_MS = 60 * 60 * 1000; // 1 hour
