@@ -30,5 +30,5 @@ export interface ShiftAssignmentsRepository {
     tenantId: string,
   ): Promise<ShiftAssignment[]>;
   deactivate(id: UniqueEntityID): Promise<ShiftAssignment | null>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

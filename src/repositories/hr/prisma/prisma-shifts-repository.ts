@@ -100,13 +100,13 @@ export class PrismaShiftsRepository implements ShiftsRepository {
 
   async update(data: UpdateShiftSchema): Promise<Shift | null> {
     const existing = await prisma.shift.findFirst({
-      where: { id: data.id.toString(), deletedAt: null },
+      where: { id: data.id.toString(), deletedAt: null, ...(data.tenantId && { tenantId: data.tenantId }), },
     });
 
     if (!existing) return null;
 
     const shiftData = await prisma.shift.update({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
       data: {
         name: data.name,
         code: data.code,
@@ -126,9 +126,12 @@ export class PrismaShiftsRepository implements ShiftsRepository {
     );
   }
 
-  async softDelete(id: UniqueEntityID): Promise<void> {
+  async softDelete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.shift.update({
-      where: { id: id.toString() },
+      where: {
+        id: id.toString(),
+        ...(tenantId && { tenantId }),
+      },
       data: { deletedAt: new Date(), isActive: false },
     });
   }

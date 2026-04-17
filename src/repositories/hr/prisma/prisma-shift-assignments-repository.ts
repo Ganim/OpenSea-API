@@ -96,15 +96,25 @@ export class PrismaShiftAssignmentsRepository
     );
   }
 
-  async deactivate(id: UniqueEntityID): Promise<ShiftAssignment | null> {
-    const existing = await prisma.shiftAssignment.findUnique({
-      where: { id: id.toString() },
+  async deactivate(
+    id: UniqueEntityID,
+    tenantId?: string,
+  ): Promise<ShiftAssignment | null> {
+    const existing = await prisma.shiftAssignment.findFirst({
+      where: {
+        id: id.toString(),
+        ...(tenantId && { tenantId }),
+      },
+      select: { id: true },
     });
 
     if (!existing) return null;
 
     const assignmentData = await prisma.shiftAssignment.update({
-      where: { id: id.toString() },
+      where: {
+        id: id.toString(),
+        ...(tenantId && { tenantId }),
+      },
       data: { isActive: false, endDate: new Date() },
     });
 
@@ -114,9 +124,9 @@ export class PrismaShiftAssignmentsRepository
     );
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.shiftAssignment.delete({
-      where: { id: id.toString() },
+      where: { id: id.toString(), ...(tenantId && { tenantId }), },
     });
   }
 }

@@ -25,6 +25,13 @@ export interface CreateWorkScheduleSchema {
 
 export interface UpdateWorkScheduleSchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so the underlying Prisma `where` clause is scoped and cannot update a
+   * record belonging to another tenant.
+   */
+  tenantId?: string;
   name?: string;
   description?: string | null;
   mondayStart?: string | null;
@@ -53,5 +60,5 @@ export interface WorkSchedulesRepository {
   findManyActive(tenantId: string): Promise<WorkSchedule[]>;
   update(data: UpdateWorkScheduleSchema): Promise<WorkSchedule | null>;
   save(workSchedule: WorkSchedule): Promise<void>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }
