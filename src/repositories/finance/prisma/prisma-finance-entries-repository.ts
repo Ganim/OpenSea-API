@@ -204,6 +204,83 @@ export class PrismaFinanceEntriesRepository
     return financeEntryPrismaToDomain(decrypted as typeof entry);
   }
 
+  async findByBoletoIdentifiers(
+    tenantId: string,
+    bankAccountId: string,
+    boletoIdentifier: string,
+  ): Promise<FinanceEntry | null> {
+    if (!boletoIdentifier) return null;
+
+    // P3-01: direct indexed lookup on boletoBarcodeNumber / boletoDigitableLine
+    // (plaintext columns). boletoBarcode and boletoDigitLine are the legacy
+    // encrypted columns; matching those requires decrypting the
+    // bank-account-scoped candidate set and comparing in memory.
+    const plaintextMatch = await prisma.financeEntry.findFirst({
+      where: {
+        tenantId,
+        bankAccountId,
+        deletedAt: null,
+        OR: [
+          { boletoBarcodeNumber: boletoIdentifier },
+          { boletoDigitableLine: boletoIdentifier },
+        ],
+      },
+    });
+
+    if (plaintextMatch) {
+      const cipher = tryGetCipher();
+      const decrypted = cipher
+        ? cipher.decryptFields(
+            plaintextMatch as Record<string, unknown>,
+            encryptedFields,
+          )
+        : plaintextMatch;
+      return financeEntryPrismaToDomain(decrypted as typeof plaintextMatch);
+    }
+
+    // Fallback: scan the bank-account-scoped (encrypted) rows and match after
+    // decryption. The candidate set is bounded by bankAccountId, not the
+    // historical 1000-row global page.
+    const candidates = await prisma.financeEntry.findMany({
+      where: {
+        tenantId,
+        bankAccountId,
+        deletedAt: null,
+        OR: [
+          { boletoBarcode: { not: null } },
+          { boletoDigitLine: { not: null } },
+        ],
+      },
+    });
+
+    if (candidates.length === 0) return null;
+
+    const cipher = tryGetCipher();
+    const encryptedMatch = candidates.find((candidate) => {
+      const decrypted = cipher
+        ? cipher.decryptFields(
+            candidate as Record<string, unknown>,
+            encryptedFields,
+          )
+        : (candidate as Record<string, unknown>);
+      return (
+        decrypted.boletoBarcode === boletoIdentifier ||
+        decrypted.boletoDigitLine === boletoIdentifier
+      );
+    });
+
+    if (!encryptedMatch) return null;
+
+    const decryptedMatch = cipher
+      ? cipher.decryptFields(
+          encryptedMatch as Record<string, unknown>,
+          encryptedFields,
+        )
+      : encryptedMatch;
+
+    return financeEntryPrismaToDomain(decryptedMatch as typeof encryptedMatch);
+  }
+
   async findMany(
     options: FindManyFinanceEntriesOptions,
     tx?: TransactionClient,

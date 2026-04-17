@@ -166,24 +166,15 @@ export class ProcessCnabReturnUseCase {
     bankAccountId: string,
     boletoNumber: string,
   ) {
-    // Scope the lookup to the CNAB-owning bank account. Two entries from
-    // different banks can share the same boleto digit line (different
-    // "nosso número" namespaces), so without this filter a return file
-    // from bank A could mark an entry of bank B as paid.
-    const entriesResult = await this.financeEntriesRepository.findMany({
+    // P3-01: delegate to an indexed repository lookup instead of paging
+    // up to 1000 entries and filtering in memory. The method scopes the
+    // search to the CNAB-owning bank account so a return file from bank
+    // A can never mark an entry from bank B as paid (different "nosso
+    // número" namespaces can legitimately share a digit line).
+    return this.financeEntriesRepository.findByBoletoIdentifiers(
       tenantId,
       bankAccountId,
-      limit: 1000,
-    });
-
-    const matchedEntry = entriesResult.entries.find(
-      (entry) =>
-        entry.boletoBarcodeNumber === boletoNumber ||
-        entry.boletoBarcode === boletoNumber ||
-        entry.boletoDigitLine === boletoNumber ||
-        entry.boletoDigitableLine === boletoNumber,
+      boletoNumber,
     );
-
-    return matchedEntry ?? null;
   }
 }

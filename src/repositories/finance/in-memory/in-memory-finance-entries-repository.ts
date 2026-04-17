@@ -117,6 +117,27 @@ export class InMemoryFinanceEntriesRepository
     return item ?? null;
   }
 
+  async findByBoletoIdentifiers(
+    tenantId: string,
+    bankAccountId: string,
+    boletoIdentifier: string,
+  ): Promise<FinanceEntry | null> {
+    if (!boletoIdentifier) return null;
+
+    const matchedEntry = this.items.find(
+      (entry) =>
+        !entry.deletedAt &&
+        entry.tenantId.toString() === tenantId &&
+        entry.bankAccountId?.toString() === bankAccountId &&
+        (entry.boletoBarcodeNumber === boletoIdentifier ||
+          entry.boletoBarcode === boletoIdentifier ||
+          entry.boletoDigitLine === boletoIdentifier ||
+          entry.boletoDigitableLine === boletoIdentifier),
+    );
+
+    return matchedEntry ?? null;
+  }
+
   async findMany(
     options: FindManyFinanceEntriesOptions,
     _tx?: unknown,

@@ -198,6 +198,22 @@ export interface FinanceEntriesRepository {
     tx: TransactionClient,
   ): Promise<FinanceEntry | null>;
   findByCode(code: string, tenantId: string): Promise<FinanceEntry | null>;
+  /**
+   * P3-01: Locate a FinanceEntry by any of its boleto identifier fields
+   * (barcode, barcodeNumber, digitLine or digitableLine) scoped to the
+   * tenant and to the owning bank account. Replaces the O(N) in-memory
+   * scan the CNAB return pipeline used to perform against the full paged
+   * list of entries.
+   *
+   * Returns the first entry whose *plaintext* boleto identifier matches.
+   * Implementations that store boleto fields encrypted at rest must
+   * decrypt on a bounded candidate set.
+   */
+  findByBoletoIdentifiers(
+    tenantId: string,
+    bankAccountId: string,
+    boletoIdentifier: string,
+  ): Promise<FinanceEntry | null>;
   findMany(
     options: FindManyFinanceEntriesOptions,
     tx?: TransactionClient,
