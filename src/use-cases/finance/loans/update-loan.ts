@@ -15,7 +15,10 @@ interface UpdateLoanUseCaseRequest {
   notes?: string | null;
   endDate?: Date | null;
   interestRate?: number;
-  interestType?: 'SAC' | 'PRICE' | null;
+  // P0-32: kept loose to mirror createLoanSchema. The form sends values
+  // like 'MONTHLY' / 'ANNUAL' today; tightening only here would 400 every
+  // edit while leaving create unchanged.
+  interestType?: string | null;
   installmentDay?: number;
   bankAccountId?: string;
   costCenterId?: string;

@@ -70,7 +70,12 @@ export const updateLoanSchema = z.object({
   notes: z.string().nullable().optional(),
   endDate: z.coerce.date().nullable().optional(),
   interestRate: z.number().min(0).optional(),
-  interestType: z.enum(['SAC', 'PRICE']).nullable().optional(),
+  // P0-32: createLoanSchema accepts the looser `string().max(16)` (so values
+  // like 'MONTHLY' / 'ANNUAL' that the form sends today are valid on create).
+  // The previous `enum(['SAC','PRICE'])` here rejected the same payload on
+  // update, so editing any existing loan returned 400. Aligned both with
+  // the same loose type until we migrate the form to a strict enum.
+  interestType: z.string().max(16).nullable().optional(),
   installmentDay: z.number().int().min(1).max(31).optional(),
   bankAccountId: z.string().uuid().optional(),
   costCenterId: z.string().uuid().optional(),
@@ -125,8 +130,11 @@ export const loanInstallmentResponseSchema = z.object({
 export const listLoansQuerySchema = z.object({
   page: z.coerce.number().int().positive().optional().default(1),
   limit: z.coerce.number().int().positive().max(100).optional().default(20),
+  // P1-40: enum used to expose `totalAmount` and `institution` which are not
+  // columns on the Loan model. Sorting by them blew up at the Prisma level
+  // ("unknown field"). Aligned with actual schema (`principalAmount`, `name`).
   sortBy: z
-    .enum(['createdAt', 'totalAmount', 'institution', 'status'])
+    .enum(['createdAt', 'principalAmount', 'name', 'status'])
     .optional()
     .default('createdAt'),
   sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),

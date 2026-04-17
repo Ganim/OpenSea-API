@@ -7,20 +7,39 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-const previewRecurringDatesBodySchema = z.object({
-  startDate: z.coerce.date(),
-  frequency: z.enum([
-    'DAILY',
-    'WEEKLY',
-    'BIWEEKLY',
-    'MONTHLY',
-    'QUARTERLY',
-    'ANNUAL',
-  ]),
-  count: z.number().int().min(1).max(60).optional().default(12),
-  skipWeekends: z.boolean().optional().default(false),
-  skipHolidays: z.boolean().optional().default(false),
-});
+// P0-31 + P1-42: align preview enum with create/update (BIWEEKLY +
+// SEMIANNUAL must be valid here too, otherwise saving SEMIANNUAL works
+// but preview returns 400 for the same payload). Also accept the legacy
+// `interval` and `adjustBusinessDays` payload the frontend sends today;
+// `adjustBusinessDays=true` maps to "skip both weekends and holidays" so
+// the date list keeps obeying business-day shifts.
+const previewRecurringDatesBodySchema = z
+  .object({
+    startDate: z.coerce.date(),
+    frequency: z.enum([
+      'DAILY',
+      'WEEKLY',
+      'BIWEEKLY',
+      'MONTHLY',
+      'QUARTERLY',
+      'SEMIANNUAL',
+      'ANNUAL',
+    ]),
+    interval: z.number().int().min(1).max(12).optional(),
+    count: z.number().int().min(1).max(60).optional().default(12),
+    skipWeekends: z.boolean().optional(),
+    skipHolidays: z.boolean().optional(),
+    adjustBusinessDays: z.boolean().optional(),
+  })
+  .transform(input => ({
+    startDate: input.startDate,
+    frequency: input.frequency,
+    count: input.count,
+    skipWeekends:
+      input.skipWeekends ?? input.adjustBusinessDays ?? false,
+    skipHolidays:
+      input.skipHolidays ?? input.adjustBusinessDays ?? false,
+  }));
 
 const previewDateEntrySchema = z.object({
   date: z.string(),

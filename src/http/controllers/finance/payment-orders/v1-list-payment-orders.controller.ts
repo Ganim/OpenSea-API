@@ -66,7 +66,12 @@ export async function listPaymentOrdersController(app: FastifyInstance) {
       response: {
         200: z.object({
           orders: z.array(paymentOrderResponseSchema),
-          total: z.number(),
+          meta: z.object({
+            total: z.number(),
+            page: z.number(),
+            limit: z.number(),
+            pages: z.number(),
+          }),
         }),
       },
     },
@@ -82,7 +87,17 @@ export async function listPaymentOrdersController(app: FastifyInstance) {
         status,
       });
 
-      return reply.status(200).send(result);
+      // P0-30: standardize on the project-wide `{ data, meta }` pagination
+      // shape so the frontend can read `meta.pages` (was undefined before).
+      return reply.status(200).send({
+        orders: result.orders,
+        meta: {
+          total: result.total,
+          page,
+          limit,
+          pages: Math.max(1, Math.ceil(result.total / limit)),
+        },
+      });
     },
   });
 }

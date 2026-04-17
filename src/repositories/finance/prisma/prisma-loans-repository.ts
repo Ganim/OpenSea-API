@@ -161,11 +161,17 @@ export class PrismaLoansRepository implements LoansRepository {
       ];
     }
 
+    // P1-40: schema now exposes the real model columns (principalAmount,
+    // name) directly. Legacy aliases kept for one release so any cached
+    // frontend bundle that still sends them keeps working.
     const sortFieldMap: Record<string, string> = {
       createdAt: 'createdAt',
+      principalAmount: 'principalAmount',
+      name: 'name',
+      status: 'status',
+      // Deprecated aliases:
       totalAmount: 'principalAmount',
       institution: 'name',
-      status: 'status',
     };
 
     const orderBy: Record<string, 'asc' | 'desc'> = {};

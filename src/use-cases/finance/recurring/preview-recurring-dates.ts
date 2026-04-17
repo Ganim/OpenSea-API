@@ -7,6 +7,7 @@ type RecurringFrequency =
   | 'BIWEEKLY'
   | 'MONTHLY'
   | 'QUARTERLY'
+  | 'SEMIANNUAL'
   | 'ANNUAL';
 
 interface PreviewRecurringDatesUseCaseRequest {
