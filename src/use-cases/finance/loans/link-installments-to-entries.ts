@@ -44,27 +44,35 @@ export class LinkInstallmentsToEntriesUseCase {
       new UniqueEntityID(loanId),
     );
 
-    // Get existing entries to check for already-linked installments (idempotency)
+    // Get existing PAYABLE entries and index the set of installment ids
+    // already linked via metadata.loanInstallmentId. Using the installment id
+    // as the idempotency key (instead of the rendered description) is stable
+    // across loan renames — renaming a loan used to duplicate every entry.
     const existingEntries = await this.financeEntriesRepository.findMany({
       tenantId,
       type: 'PAYABLE',
       limit: 1000,
     });
 
-    // Build a set of descriptions that already exist to detect linked installments
-    const existingDescriptions = new Set(
-      existingEntries.entries.map((e) => e.description),
-    );
+    const linkedInstallmentIds = new Set<string>();
+    for (const existing of existingEntries.entries) {
+      const linkedId = existing.metadata?.loanInstallmentId;
+      if (typeof linkedId === 'string' && linkedId.length > 0) {
+        linkedInstallmentIds.add(linkedId);
+      }
+    }
 
     let entriesCreated = 0;
 
     for (const installment of installments) {
       if (installment.status === 'PAID') continue;
 
-      const description = `Parcela ${installment.installmentNumber}/${loan.totalInstallments} - ${loan.name}`;
+      const installmentId = installment.id.toString();
 
-      // Skip if already linked (idempotent)
-      if (existingDescriptions.has(description)) continue;
+      // Skip if already linked (idempotent by installment id)
+      if (linkedInstallmentIds.has(installmentId)) continue;
+
+      const description = `Parcela ${installment.installmentNumber}/${loan.totalInstallments} - ${loan.name}`;
 
       const code = await this.financeEntriesRepository.generateNextCode(
         tenantId,
@@ -82,6 +90,10 @@ export class LinkInstallmentsToEntriesUseCase {
         expectedAmount: installment.totalAmount,
         issueDate: new Date(),
         dueDate: installment.dueDate,
+        metadata: {
+          loanId: loan.id.toString(),
+          loanInstallmentId: installmentId,
+        },
       });
 
       entriesCreated++;

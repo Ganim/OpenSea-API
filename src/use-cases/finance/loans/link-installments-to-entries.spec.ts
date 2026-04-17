@@ -163,4 +163,52 @@ describe('LinkInstallmentsToEntriesUseCase', () => {
     expect(firstEntry.description).toContain('Empréstimo Itau');
     expect(firstEntry.description).toContain('1/3');
   });
+
+  // Regression: P1-04 — idempotency must be keyed off the installment id (in
+  // metadata.loanInstallmentId), not the rendered description. Renaming the
+  // loan used to change the description and re-running link-installments
+  // created duplicate entries. It must not.
+  it('should stay idempotent after the loan is renamed', async () => {
+    const { loan } = await createLoanUseCase.execute({
+      tenantId: 'tenant-1',
+      bankAccountId: seededBankAccountId,
+      costCenterId: seededCostCenterId,
+      name: 'Empréstimo Original',
+      type: 'PERSONAL',
+      principalAmount: 6000,
+      interestRate: 0,
+      startDate: new Date('2026-01-01'),
+      totalInstallments: 3,
+    });
+
+    await sut.execute({
+      tenantId: 'tenant-1',
+      loanId: loan.id,
+      categoryId: seededCategoryId,
+    });
+
+    expect(entriesRepository.items).toHaveLength(3);
+    expect(entriesRepository.items[0].description).toContain(
+      'Empréstimo Original',
+    );
+    expect(entriesRepository.items[0].metadata.loanInstallmentId).toBeTruthy();
+
+    // Rename the loan on the domain entity (simulates an updateLoan call)
+    await loansRepository.update({
+      id: new (await import('@/entities/domain/unique-entity-id')).UniqueEntityID(
+        loan.id,
+      ),
+      tenantId: 'tenant-1',
+      name: 'Empréstimo Renomeado',
+    });
+
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      loanId: loan.id,
+      categoryId: seededCategoryId,
+    });
+
+    expect(result.entriesCreated).toBe(0);
+    expect(entriesRepository.items).toHaveLength(3);
+  });
 });
