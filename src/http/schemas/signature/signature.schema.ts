@@ -171,6 +171,48 @@ export const signingPageResponseSchema = z.object({
   signatureLevel: z.string(),
 });
 
+// ─── OTP Schemas (Public) ──────────────────────────────────────────────
+
+export const requestOTPResponseSchema = z.object({
+  otpExpiresAt: z.coerce.date(),
+  emailDeliveryError: z.string().optional(),
+});
+
+export const verifyOTPBodySchema = z.object({
+  otpCode: z
+    .string()
+    .min(6)
+    .max(6)
+    .regex(/^\d{6}$/, 'Código OTP deve conter 6 dígitos numéricos'),
+});
+
+export const verifyOTPResponseSchema = z.object({
+  verified: z.boolean(),
+});
+
+// ─── Public Verification Schemas ───────────────────────────────────────
+
+export const verifyByCodeParamsSchema = z.object({
+  code: z.string().min(1).max(32).describe('Envelope verification code'),
+});
+
+export const verifyByCodeResponseSchema = z.object({
+  status: z.string(),
+  envelopeTitle: z.string(),
+  verificationCode: z.string(),
+  documentHash: z.string(),
+  completedAt: z.coerce.date().nullable(),
+  isValid: z.boolean(),
+  signers: z.array(
+    z.object({
+      name: z.string().nullable(),
+      role: z.string(),
+      status: z.string(),
+      signedAt: z.coerce.date().nullable(),
+    }),
+  ),
+});
+
 // ─── Template Schemas ──────────────────────────────────────────────────
 
 export const createTemplateSchema = z.object({

@@ -189,6 +189,28 @@ export const rateLimitConfig = {
     message:
       'Muitas tentativas no portal. Aguarde antes de tentar novamente.',
   },
+
+  /**
+   * Signature OTP endpoints (request + verify)
+   * Limite restritivo por IP para prevenir abuso/brute-force de OTP de 6 dígitos.
+   */
+  signatureOtp: {
+    max: 5, // 5 tentativas por 10 minutos
+    timeWindow: '10 minutes',
+    message:
+      'Muitas tentativas de OTP. Aguarde 10 minutos antes de tentar novamente.',
+  },
+
+  /**
+   * Public signature verification endpoint (verify-by-code)
+   * Limite moderado para consulta pública da autenticidade do documento.
+   */
+  signaturePublicVerify: {
+    max: 30, // 30 requisições por minuto
+    timeWindow: '1 minute',
+    message:
+      'Muitas consultas de verificação. Aguarde antes de tentar novamente.',
+  },
 } as const;
 
 /**
