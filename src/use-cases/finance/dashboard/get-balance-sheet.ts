@@ -47,6 +47,16 @@ export class GetBalanceSheetUseCase {
 
     const allAccounts = await this.chartOfAccountsRepository.findMany(tenantId);
 
+    // P0-09: balance-sheet aggregates everything currently outstanding
+    // (PENDING / PARTIALLY_PAID / OVERDUE / SCHEDULED). Including PAID
+    // and CANCELLED used to inflate accounts receivable/payable totals.
+    const OPEN_STATUSES = [
+      'PENDING',
+      'PARTIALLY_PAID',
+      'OVERDUE',
+      'SCHEDULED',
+    ];
+
     // Aggregate finance entries within the period
     const [receivableSums, payableSums] = await Promise.all([
       this.financeEntriesRepository.sumByDateRange(
@@ -55,6 +65,7 @@ export class GetBalanceSheetUseCase {
         startDate,
         endDate,
         'month',
+        OPEN_STATUSES,
       ),
       this.financeEntriesRepository.sumByDateRange(
         tenantId,
@@ -62,6 +73,7 @@ export class GetBalanceSheetUseCase {
         startDate,
         endDate,
         'month',
+        OPEN_STATUSES,
       ),
     ]);
 

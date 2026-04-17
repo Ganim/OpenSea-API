@@ -207,6 +207,14 @@ export interface FinanceEntriesRepository {
     from: Date,
     to: Date,
     groupBy: 'day' | 'week' | 'month',
+    /**
+     * Optional whitelist of statuses to include. When omitted (undefined)
+     * the query keeps the historical behavior of returning every status,
+     * but P0-09 callers (cashflow / predictive / balance-sheet) should
+     * pass at least `['PENDING','PARTIALLY_PAID','OVERDUE']` to exclude
+     * cancelled and already-settled entries from forward-looking totals.
+     */
+    statusIn?: string[],
   ): Promise<DateRangeSum[]>;
   sumByCategory(
     tenantId: string,

@@ -39,6 +39,16 @@ export class GetCashflowUseCase {
   ): Promise<GetCashflowUseCaseResponse> {
     const { tenantId, startDate, endDate, groupBy, bankAccountId } = request;
 
+    // P0-09: forward-looking cashflow must exclude cancelled and already
+    // settled entries — they were inflating both totals before. Includes
+    // PARTIALLY_PAID so the still-due remainder is reflected.
+    const FORECAST_STATUSES = [
+      'PENDING',
+      'PARTIALLY_PAID',
+      'OVERDUE',
+      'SCHEDULED',
+    ];
+
     // Get inflows (RECEIVABLE) and outflows (PAYABLE) grouped by date
     const [inflowData, outflowData, bankAccounts] = await Promise.all([
       this.financeEntriesRepository.sumByDateRange(
@@ -47,6 +57,7 @@ export class GetCashflowUseCase {
         startDate,
         endDate,
         groupBy,
+        FORECAST_STATUSES,
       ),
       this.financeEntriesRepository.sumByDateRange(
         tenantId,
@@ -54,6 +65,7 @@ export class GetCashflowUseCase {
         startDate,
         endDate,
         groupBy,
+        FORECAST_STATUSES,
       ),
       this.bankAccountsRepository.findMany(tenantId),
     ]);

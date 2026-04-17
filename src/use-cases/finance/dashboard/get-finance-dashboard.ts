@@ -61,12 +61,17 @@ export class GetFinanceDashboardUseCase {
     ] = await Promise.all([
       this.financeEntriesRepository.sumOverdue(tenantId, 'PAYABLE'),
       this.financeEntriesRepository.sumOverdue(tenantId, 'RECEIVABLE'),
+      // P0-09: month-total and upcoming-7-days totals should reflect what
+      // is still due (PENDING / PARTIALLY_PAID / OVERDUE / SCHEDULED) — the
+      // realized side comes separately via `getPaidThisMonth`. Without the
+      // status filter, every chart was double-counting paid + cancelled.
       this.financeEntriesRepository.sumByDateRange(
         tenantId,
         'PAYABLE',
         startOfMonth,
         endOfMonth,
         'month',
+        ['PENDING', 'PARTIALLY_PAID', 'OVERDUE', 'SCHEDULED'],
       ),
       this.financeEntriesRepository.sumByDateRange(
         tenantId,
@@ -74,6 +79,7 @@ export class GetFinanceDashboardUseCase {
         startOfMonth,
         endOfMonth,
         'month',
+        ['PENDING', 'PARTIALLY_PAID', 'OVERDUE', 'SCHEDULED'],
       ),
       this.getPaidThisMonth(tenantId, startOfMonth, endOfMonth, 'PAYABLE'),
       this.getPaidThisMonth(tenantId, startOfMonth, endOfMonth, 'RECEIVABLE'),
@@ -83,6 +89,7 @@ export class GetFinanceDashboardUseCase {
         now,
         in7Days,
         'month',
+        ['PENDING', 'PARTIALLY_PAID', 'OVERDUE', 'SCHEDULED'],
       ),
       this.financeEntriesRepository.sumByDateRange(
         tenantId,
@@ -90,6 +97,7 @@ export class GetFinanceDashboardUseCase {
         now,
         in7Days,
         'month',
+        ['PENDING', 'PARTIALLY_PAID', 'OVERDUE', 'SCHEDULED'],
       ),
       this.bankAccountsRepository.findMany(tenantId),
       this.financeEntriesRepository.countByStatus(tenantId),

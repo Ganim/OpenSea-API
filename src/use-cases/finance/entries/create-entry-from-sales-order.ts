@@ -46,11 +46,15 @@ export class CreateEntryFromSalesOrderUseCase {
     );
 
     if (!salesCategory) {
+      // P0-13: FinanceCategoryType is REVENUE | EXPENSE | BOTH — there is
+      // no RECEIVABLE value (RECEIVABLE/PAYABLE belongs to FinanceEntryType).
+      // The previous value crashed Prisma the first time a tenant tried to
+      // generate a finance entry from a sales order.
       salesCategory = await this.financeCategoriesRepository.create({
         tenantId,
         name: 'Vendas',
         slug: 'vendas',
-        type: 'RECEIVABLE',
+        type: 'REVENUE',
         color: '#10B981',
         isSystem: true,
       });

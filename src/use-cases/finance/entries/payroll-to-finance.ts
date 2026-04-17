@@ -172,7 +172,7 @@ export class PayrollToFinanceUseCase {
         code,
         description: `Salário líquido - ${employeeName} (${referencePeriod}) [FOLHA-${payrollId}]`,
         categoryId: salaryCategory,
-        costCenterId: salaryCategory,
+        // P0-12: see comment in the tax block above — categoryId !== costCenterId.
         supplierName: employeeName,
         expectedAmount: netSalary,
         issueDate,
@@ -214,7 +214,11 @@ export class PayrollToFinanceUseCase {
         code,
         description: `${taxLabels[taxType]} - Folha ${referencePeriod} [FOLHA-${payrollId}]`,
         categoryId: catId,
-        costCenterId: catId,
+        // P0-12: do NOT assign categoryId to costCenterId. They reference
+        // different tables (FinanceCategory vs CostCenter); the previous
+        // code violated the FK and broke payroll → finance generation.
+        // costCenterId is optional on the model — leaving it null until
+        // the request supports an explicit cost center is correct.
         supplierName: taxLabels[taxType],
         expectedAmount: taxTotal,
         issueDate,
@@ -264,7 +268,11 @@ export class PayrollToFinanceUseCase {
         code,
         description: `${benefitLabels[benefitType]} - Folha ${referencePeriod} [FOLHA-${payrollId}]`,
         categoryId: catId,
-        costCenterId: catId,
+        // P0-12: do NOT assign categoryId to costCenterId. They reference
+        // different tables (FinanceCategory vs CostCenter); the previous
+        // code violated the FK and broke payroll → finance generation.
+        // costCenterId is optional on the model — leaving it null until
+        // the request supports an explicit cost center is correct.
         supplierName: benefitLabels[benefitType],
         expectedAmount: benefitTotal,
         issueDate,

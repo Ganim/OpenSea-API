@@ -377,9 +377,12 @@ export class InMemoryFinanceEntriesRepository
     from: Date,
     to: Date,
     groupBy: 'day' | 'week' | 'month',
+    statusIn?: string[],
   ): Promise<DateRangeSum[]> {
     const entries = this.getActiveEntries(tenantId).filter((i) => {
       if (type && i.type !== type) return false;
+      if (statusIn && statusIn.length > 0 && !statusIn.includes(i.status))
+        return false;
       return i.dueDate >= from && i.dueDate <= to;
     });
 

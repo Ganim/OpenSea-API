@@ -560,8 +560,16 @@ export class PrismaFinanceEntriesRepository
     from: Date,
     to: Date,
     groupBy: 'day' | 'week' | 'month',
+    statusIn?: string[],
   ): Promise<DateRangeSum[]> {
     type RawDateSum = { date: Date; total: Prisma.Decimal };
+
+    // P0-09: build a status filter clause when callers pass it. Without
+    // this, cashflow / predictive / balance-sheet were summing CANCELLED
+    // and already-PAID entries as forward-looking obligations.
+    const statusClause = statusIn && statusIn.length > 0
+      ? Prisma.sql`AND "status"::text = ANY(${statusIn}::text[])`
+      : Prisma.empty;
 
     const baseQuery = (truncExpr: Prisma.Sql) =>
       type
@@ -573,6 +581,7 @@ export class PrismaFinanceEntriesRepository
               AND "due_date" >= ${from}
               AND "due_date" <= ${to}
               AND "type" = ${type}::"FinanceEntryType"
+              ${statusClause}
             GROUP BY date
             ORDER BY date ASC`
         : prisma.$queryRaw<RawDateSum[]>`
@@ -582,6 +591,7 @@ export class PrismaFinanceEntriesRepository
               AND "deleted_at" IS NULL
               AND "due_date" >= ${from}
               AND "due_date" <= ${to}
+              ${statusClause}
             GROUP BY date
             ORDER BY date ASC`;
 
