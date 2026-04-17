@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import type {
   CreatePaymentOrderData,
   PaymentOrderRecord,
@@ -50,8 +51,10 @@ export class PrismaPaymentOrdersRepository implements PaymentOrdersRepository {
   async findById(
     id: { toString(): string },
     tenantId: string,
+    tx?: TransactionClient,
   ): Promise<PaymentOrderRecord | null> {
-    const record = await prisma.paymentOrder.findFirst({
+    const client = tx ?? prisma;
+    const record = await client.paymentOrder.findFirst({
       where: { id: id.toString(), tenantId },
     });
 
@@ -108,7 +111,9 @@ export class PrismaPaymentOrdersRepository implements PaymentOrdersRepository {
 
   async update(
     data: UpdatePaymentOrderData,
+    tx?: TransactionClient,
   ): Promise<PaymentOrderRecord | null> {
+    const client = tx ?? prisma;
     const updateData: Record<string, unknown> = {};
     if (data.status !== undefined) updateData.status = data.status;
     if (data.approvedById !== undefined)
@@ -124,14 +129,20 @@ export class PrismaPaymentOrdersRepository implements PaymentOrdersRepository {
     if (data.errorMessage !== undefined)
       updateData.errorMessage = data.errorMessage;
 
-    const result = await prisma.paymentOrder.updateMany({
-      where: { id: data.id.toString(), tenantId: data.tenantId },
+    const where: Record<string, unknown> = {
+      id: data.id.toString(),
+      tenantId: data.tenantId,
+    };
+    if (data.expectedStatus !== undefined) where.status = data.expectedStatus;
+
+    const result = await client.paymentOrder.updateMany({
+      where,
       data: updateData,
     });
 
     if (result.count === 0) return null;
 
-    const record = await prisma.paymentOrder.findUnique({
+    const record = await client.paymentOrder.findUnique({
       where: { id: data.id.toString() },
     });
 

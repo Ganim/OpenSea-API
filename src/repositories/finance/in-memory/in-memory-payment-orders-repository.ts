@@ -93,6 +93,15 @@ export class InMemoryPaymentOrdersRepository
     if (index === -1) return null;
 
     const existing = this.items[index];
+
+    // CAS guard: bail out if the caller expected a different status.
+    if (
+      data.expectedStatus !== undefined &&
+      existing.status !== data.expectedStatus
+    ) {
+      return null;
+    }
+
     const updated: PaymentOrderRecord = {
       ...existing,
       status: data.status ?? existing.status,

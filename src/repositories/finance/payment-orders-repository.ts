@@ -1,4 +1,5 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import type {
   BankPaymentMethod,
   PaymentOrderStatus,
@@ -38,6 +39,13 @@ export interface CreatePaymentOrderData {
 export interface UpdatePaymentOrderData {
   id: UniqueEntityID;
   tenantId: string;
+  /**
+   * Optional compare-and-swap guard. When provided, the update only applies
+   * if the current row still has this status. Used to serialize concurrent
+   * approvers: if two requests race to mark PENDING_APPROVAL → APPROVED,
+   * only one wins; the loser receives `null` and must abort.
+   */
+  expectedStatus?: PaymentOrderStatus;
   status?: PaymentOrderStatus;
   approvedById?: string;
   approvedAt?: Date;
@@ -53,6 +61,7 @@ export interface PaymentOrdersRepository {
   findById(
     id: UniqueEntityID,
     tenantId: string,
+    tx?: TransactionClient,
   ): Promise<PaymentOrderRecord | null>;
   findByEntryId(
     entryId: string,
@@ -66,5 +75,8 @@ export interface PaymentOrdersRepository {
       limit?: number;
     },
   ): Promise<{ orders: PaymentOrderRecord[]; total: number }>;
-  update(data: UpdatePaymentOrderData): Promise<PaymentOrderRecord | null>;
+  update(
+    data: UpdatePaymentOrderData,
+    tx?: TransactionClient,
+  ): Promise<PaymentOrderRecord | null>;
 }
