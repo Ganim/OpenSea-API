@@ -2,29 +2,23 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { RECURRING_FREQUENCIES } from '@/http/schemas/finance/recurring/recurring-config.schema';
 import { makePreviewRecurringDatesUseCase } from '@/use-cases/finance/recurring/factories/make-preview-recurring-dates';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-// P0-31 + P1-42: align preview enum with create/update (BIWEEKLY +
-// SEMIANNUAL must be valid here too, otherwise saving SEMIANNUAL works
-// but preview returns 400 for the same payload). Also accept the legacy
+// P0-31 + P1-42: the frequency enum is now imported from the shared
+// RECURRING_FREQUENCIES tuple so the create, update, and preview schemas
+// cannot drift again (BIWEEKLY / SEMIANNUAL went missing here previously,
+// causing "save works but preview 400s" bugs). Also keep the legacy
 // `interval` and `adjustBusinessDays` payload the frontend sends today;
 // `adjustBusinessDays=true` maps to "skip both weekends and holidays" so
 // the date list keeps obeying business-day shifts.
 const previewRecurringDatesBodySchema = z
   .object({
     startDate: z.coerce.date(),
-    frequency: z.enum([
-      'DAILY',
-      'WEEKLY',
-      'BIWEEKLY',
-      'MONTHLY',
-      'QUARTERLY',
-      'SEMIANNUAL',
-      'ANNUAL',
-    ]),
+    frequency: z.enum(RECURRING_FREQUENCIES),
     interval: z.number().int().min(1).max(12).optional(),
     count: z.number().int().min(1).max(60).optional().default(12),
     skipWeekends: z.boolean().optional(),

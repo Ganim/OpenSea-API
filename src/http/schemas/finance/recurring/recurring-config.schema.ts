@@ -1,5 +1,21 @@
 import { z } from 'zod';
 
+// P1-42: single source of truth for recurring frequencies. The create and
+// update schemas used this enum inline, but the preview-dates controller
+// kept a drifting copy that missed BIWEEKLY/SEMIANNUAL — so a config saved
+// with SEMIANNUAL would 400 at preview time. Exported so every recurring
+// endpoint imports the exact same list.
+export const RECURRING_FREQUENCIES = [
+  'DAILY',
+  'WEEKLY',
+  'BIWEEKLY',
+  'MONTHLY',
+  'QUARTERLY',
+  'SEMIANNUAL',
+  'ANNUAL',
+] as const;
+export type RecurringFrequency = (typeof RECURRING_FREQUENCIES)[number];
+
 export const createRecurringConfigSchema = z.object({
   type: z.enum(['PAYABLE', 'RECEIVABLE']),
   description: z.string().min(1).max(500),
@@ -12,15 +28,7 @@ export const createRecurringConfigSchema = z.object({
   customerId: z.string().uuid().optional(),
   expectedAmount: z.number().positive(),
   isVariable: z.boolean().optional().default(false),
-  frequencyUnit: z.enum([
-    'DAILY',
-    'WEEKLY',
-    'BIWEEKLY',
-    'MONTHLY',
-    'QUARTERLY',
-    'SEMIANNUAL',
-    'ANNUAL',
-  ]),
+  frequencyUnit: z.enum(RECURRING_FREQUENCIES),
   frequencyInterval: z.number().int().positive().optional().default(1),
   startDate: z.coerce.date(),
   endDate: z.coerce.date().optional(),
@@ -36,17 +44,7 @@ export const createRecurringConfigSchema = z.object({
 export const updateRecurringConfigSchema = z.object({
   description: z.string().min(1).max(500).optional(),
   expectedAmount: z.number().positive().optional(),
-  frequencyUnit: z
-    .enum([
-      'DAILY',
-      'WEEKLY',
-      'BIWEEKLY',
-      'MONTHLY',
-      'QUARTERLY',
-      'SEMIANNUAL',
-      'ANNUAL',
-    ])
-    .optional(),
+  frequencyUnit: z.enum(RECURRING_FREQUENCIES).optional(),
   frequencyInterval: z.number().int().positive().optional(),
   endDate: z.coerce.date().nullable().optional(),
   totalOccurrences: z.number().int().positive().nullable().optional(),
