@@ -4,6 +4,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { logAudit } from '@/http/helpers/audit.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { cuidSchema } from '@/http/schemas/common.schema';
 import { employeeKudosToDTO } from '@/mappers/hr/employee-kudos';
 import { PrismaEmployeesRepository } from '@/repositories/hr/prisma/prisma-employees-repository';
 import { makeSendKudosUseCase } from '@/use-cases/hr/kudos/factories/make-send-kudos-use-case';
@@ -22,7 +23,10 @@ export async function v1SendKudosController(app: FastifyInstance) {
       description:
         'Sends a recognition (kudos) to another employee in the same tenant',
       body: z.object({
-        toEmployeeId: z.string().uuid(),
+        // Employees use `@default(cuid())` — never `uuid()`. Validating with
+        // .uuid() made this endpoint reject every legitimate recipient and
+        // effectively broke kudos creation end-to-end.
+        toEmployeeId: cuidSchema,
         message: z.string().min(1),
         category: z.enum([
           'TEAMWORK',
