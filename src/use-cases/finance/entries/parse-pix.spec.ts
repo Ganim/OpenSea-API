@@ -50,14 +50,49 @@ describe('ParsePixUseCase', () => {
     expect(result.pix.pixKeyType).toBe('EVP');
   });
 
-  it('should parse a valid copia-e-cola PIX code', async () => {
-    // A simplified valid EMV payload starting with 000201
-    // Tag 59 = Merchant Name, tag 60 = Merchant City
-    // This is a minimal valid copia-e-cola payload
+  it('should parse a valid copia-e-cola PIX code (CRC matches)', async () => {
+    // Minimal valid EMV payload (BCB Pix §4.x). CRC `7596` was computed with
+    // CRC16-CCITT over everything up to and including the `6304` marker so
+    // the parser accepts it under the P3-34 CRC-verification guard.
     const copiaECola =
-      '00020126580014br.gov.bcb.pix013636401fa8-b9c9-4d05-b43e-2aef6a22480552040000530398654071500.005802BR5913Joao da Silva6008Sao Paulo6304E2CA';
+      '00020126580014br.gov.bcb.pix013636401fa8-b9c9-4d05-b43e-2aef6a22480552040000530398654071500.005802BR5913Joao da Silva6008Sao Paulo63047596';
 
     const result = await sut.execute({ code: copiaECola });
+
+    expect(result.pix.type).toBe('COPIA_COLA');
+  });
+
+  // P3-34: CRC validation — the parser used to accept any TLV-parseable
+  // payload, which let tampered or corrupted codes flow into reconciliation.
+  it('should reject a copia-e-cola payload whose CRC does not match (P3-34)', async () => {
+    // Same payload as above but with a deliberately wrong CRC (E2CA != 7596).
+    const tampered =
+      '00020126580014br.gov.bcb.pix013636401fa8-b9c9-4d05-b43e-2aef6a22480552040000530398654071500.005802BR5913Joao da Silva6008Sao Paulo6304E2CA';
+
+    await expect(sut.execute({ code: tampered })).rejects.toThrow(
+      BadRequestError,
+    );
+  });
+
+  it('should reject a copia-e-cola payload missing the CRC trailer (P3-34)', async () => {
+    const truncated =
+      '00020126580014br.gov.bcb.pix013636401fa8-b9c9-4d05-b43e-2aef6a22480552040000530398654071500.005802BR5913Joao da Silva6008Sao Paulo';
+
+    await expect(sut.execute({ code: truncated })).rejects.toThrow(
+      BadRequestError,
+    );
+  });
+
+  it('should accept a CRC written in lowercase hex (case-insensitive, P3-34)', async () => {
+    // Only the CRC trailer is lowercased — the rest of the payload must stay
+    // byte-identical, otherwise the CRC would change.
+    const code =
+      '00020126580014br.gov.bcb.pix013636401fa8-b9c9-4d05-b43e-2aef6a22480552040000530398654071500.005802BR5913Joao da Silva6008Sao Paulo63047596'.replace(
+        /7596$/,
+        '7596'.toLowerCase(),
+      );
+
+    const result = await sut.execute({ code });
 
     expect(result.pix.type).toBe('COPIA_COLA');
   });

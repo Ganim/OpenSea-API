@@ -27,6 +27,12 @@ export class PixCode {
   }
 
   private static parseCopiaECola(payload: string): PixParseResult | null {
+    // P3-34: validate the CRC16-CCITT trailer (tag 63, always 4 hex chars)
+    // before trusting any field. A tampered / corrupt payload must NOT be
+    // accepted silently — that was the pre-fix behavior and let garbage or
+    // malicious codes flow into reconciliation and payment orders.
+    if (!PixCode.verifyCrc(payload)) return null;
+
     const tlv = PixCode.parseTLV(payload);
     if (!tlv) return null;
 
@@ -171,6 +177,35 @@ export class PixCode {
   private static tlv(tag: string, value: string): string {
     const length = value.length.toString().padStart(2, '0');
     return `${tag}${length}${value}`;
+  }
+
+  /**
+   * Validates that the payload's last 4 hex chars (tag 63 value) match the
+   * CRC16-CCITT of everything that precedes them — including the literal
+   * "6304" tag+length marker, per BCB Pix spec §4.6.
+   *
+   * Returns true when:
+   *   - the payload has at least 8 chars (`...6304XXXX`);
+   *   - the trailer is exactly `6304` followed by 4 uppercase-hex chars;
+   *   - the CRC computed over everything up to (and including) `6304`
+   *     equals the trailer (case-insensitive compare).
+   *
+   * Anything else (missing tag 63, non-hex CRC, mismatched CRC) returns false
+   * so `parseCopiaECola` can reject the payload.
+   */
+  private static verifyCrc(payload: string): boolean {
+    if (payload.length < 8) return false;
+
+    // The last 4 chars are the CRC value; the 4 chars before them must be
+    // exactly "6304" (tag 63 + length 04).
+    const crcValue = payload.slice(-4);
+    const tagMarker = payload.slice(-8, -4);
+    if (tagMarker !== '6304') return false;
+    if (!/^[0-9A-Fa-f]{4}$/.test(crcValue)) return false;
+
+    const covered = payload.slice(0, -4);
+    const expected = PixCode.crc16Ccitt(covered);
+    return crcValue.toUpperCase() === expected;
   }
 
   private static crc16Ccitt(data: string): string {

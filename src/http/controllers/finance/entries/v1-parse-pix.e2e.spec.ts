@@ -19,7 +19,7 @@ describe('Parse Pix (E2E)', () => {
 
     // Valid BR Code (Pix Copia e Cola) with CPF key, merchant name, city and amount
     const copiaECola =
-      '00020126580014br.gov.bcb.pix0136123.456.789-09520400005303986540510.005802BR5913Fulano de Tal6008Brasilia62070503***6304B13E';
+      '00020126580014br.gov.bcb.pix0136123.456.789-09520400005303986540510.005802BR5913Fulano de Tal6008Brasilia62070503***63046120';
 
     const response = await request(app.server)
       .post('/v1/finance/parse-pix')

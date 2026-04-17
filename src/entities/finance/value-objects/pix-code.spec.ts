@@ -6,7 +6,7 @@ describe('PixCode', () => {
     it('should detect Copia e Cola input and extract merchant name', () => {
       // Use a valid EMV QR string starting with 000201
       const input =
-        '00020126580014br.gov.bcb.pix0136a1b2c3d4-e5f6-7890-abcd-ef1234567890520400005303986540510.005802BR5913EMPRESA TESTE6008BRASILIA62070503***6304ABCD';
+        '00020126580014br.gov.bcb.pix0136a1b2c3d4-e5f6-7890-abcd-ef1234567890520400005303986540510.005802BR5913EMPRESA TESTE6008BRASILIA62070503***6304411A';
       const result = PixCode.parse(input);
       expect(result).not.toBeNull();
       expect(result!.type).toBe('COPIA_COLA');
@@ -79,7 +79,7 @@ describe('PixCode', () => {
   describe('parseCopiaECola edge cases', () => {
     it('should extract merchant city', () => {
       const input =
-        '00020126580014br.gov.bcb.pix0136a1b2c3d4-e5f6-7890-abcd-ef1234567890520400005303986540510.005802BR5913EMPRESA TESTE6008BRASILIA62070503***6304ABCD';
+        '00020126580014br.gov.bcb.pix0136a1b2c3d4-e5f6-7890-abcd-ef1234567890520400005303986540510.005802BR5913EMPRESA TESTE6008BRASILIA62070503***6304411A';
       const result = PixCode.parse(input);
       expect(result!.merchantCity).toBe('BRASILIA');
     });
@@ -87,7 +87,7 @@ describe('PixCode', () => {
     it('should handle Copia e Cola without amount', () => {
       // Build a minimal EMV payload without tag 54
       const input =
-        '00020126580014br.gov.bcb.pix0136a1b2c3d4-e5f6-7890-abcd-ef12345678905204000053039865802BR5913EMPRESA TESTE6008BRASILIA62070503***6304ABCD';
+        '00020126580014br.gov.bcb.pix0136a1b2c3d4-e5f6-7890-abcd-ef12345678905204000053039865802BR5913EMPRESA TESTE6008BRASILIA62070503***6304C796';
       const result = PixCode.parse(input);
       expect(result).not.toBeNull();
       expect(result!.type).toBe('COPIA_COLA');
@@ -96,7 +96,7 @@ describe('PixCode', () => {
 
     it('should extract the pix key from Copia e Cola', () => {
       const input =
-        '00020126580014br.gov.bcb.pix0136a1b2c3d4-e5f6-7890-abcd-ef1234567890520400005303986540510.005802BR5913EMPRESA TESTE6008BRASILIA62070503***6304ABCD';
+        '00020126580014br.gov.bcb.pix0136a1b2c3d4-e5f6-7890-abcd-ef1234567890520400005303986540510.005802BR5913EMPRESA TESTE6008BRASILIA62070503***6304411A';
       const result = PixCode.parse(input);
       expect(result!.pixKey).toBe('a1b2c3d4-e5f6-7890-abcd-ef1234567890');
       expect(result!.pixKeyType).toBe('EVP');
