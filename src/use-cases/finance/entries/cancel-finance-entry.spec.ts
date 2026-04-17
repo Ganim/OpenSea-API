@@ -99,4 +99,71 @@ describe('CancelFinanceEntryUseCase', () => {
       }),
     ).rejects.toThrow(BadRequestError);
   });
+
+  // Regression: P1-01 — the cancel + journal reversal pair must run inside
+  // a single transaction. When the reversal fails, the cancel must be rolled
+  // back so the entry does not end up CANCELLED with its journal still
+  // POSTED. The InMemoryTransactionManager serializes the work chain and
+  // propagates failures, giving us the same sequencing as PrismaTransaction.
+  it('should roll back the cancel when journal reversal fails inside the same transaction', async () => {
+    const { InMemoryTransactionManager } = await import(
+      '@/lib/in-memory-transaction-manager'
+    );
+
+    const createdEntry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAG-100',
+      description: 'Entrada com journal para estornar',
+      categoryId: 'category-1',
+      costCenterId: 'cost-center-1',
+      expectedAmount: 800,
+      issueDate: new Date('2026-02-01'),
+      dueDate: new Date('2026-02-28'),
+    });
+
+    const fakeJournalRepo = {
+      findBySource: vi.fn().mockResolvedValue([
+        {
+          id: 'journal-1',
+          status: 'POSTED',
+          tenantId: 'tenant-1',
+          code: 'JE-001',
+          date: new Date(),
+          description: 'lançamento-1',
+          sourceType: 'FINANCE_ENTRY',
+          sourceId: createdEntry.id.toString(),
+          reversedById: null,
+          createdBy: null,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          lines: [],
+        },
+      ]),
+    };
+
+    const failingReverse = {
+      execute: vi.fn().mockRejectedValue(new Error('reversal simulated failure')),
+    };
+
+    const transactionalSut = new CancelFinanceEntryUseCase(
+      entriesRepository,
+      fakeJournalRepo as never,
+      failingReverse,
+      new InMemoryTransactionManager(),
+    );
+
+    await expect(
+      transactionalSut.execute({
+        id: createdEntry.id.toString(),
+        tenantId: 'tenant-1',
+      }),
+    ).rejects.toThrowError('reversal simulated failure');
+
+    // Note: the in-memory repo doesn't support true rollback of side
+    // effects, so this spec primarily asserts the failure surfaces instead
+    // of being swallowed. In production, PrismaTransactionManager rolls the
+    // update back at the DB layer.
+    expect(failingReverse.execute).toHaveBeenCalled();
+  });
 });

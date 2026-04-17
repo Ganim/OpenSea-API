@@ -2,6 +2,10 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { logger } from '@/lib/logger';
+import type {
+  TransactionClient,
+  TransactionManager,
+} from '@/lib/transaction-manager';
 import {
   type FinanceEntryDTO,
   financeEntryToDTO,
@@ -29,8 +33,10 @@ export class CancelFinanceEntryUseCase {
         tenantId: string;
         journalEntryId: string;
         createdBy?: string;
+        tx?: TransactionClient;
       }): Promise<unknown>;
     },
+    private transactionManager?: TransactionManager,
   ) {}
 
   async execute({
@@ -53,15 +59,50 @@ export class CancelFinanceEntryUseCase {
       );
     }
 
-    const cancelled = await this.financeEntriesRepository.update({
-      id: new UniqueEntityID(id),
-      tenantId,
-      status: 'CANCELLED',
-    });
+    const runCancel = async (tx?: TransactionClient) => {
+      const cancelled = await this.financeEntriesRepository.update(
+        {
+          id: new UniqueEntityID(id),
+          tenantId,
+          status: 'CANCELLED',
+        },
+        tx,
+      );
 
-    if (!cancelled) {
-      throw new ResourceNotFoundError('Finance entry not found');
-    }
+      if (!cancelled) {
+        throw new ResourceNotFoundError('Finance entry not found');
+      }
+
+      // Reverse any posted journal entries linked to this finance entry.
+      // The reversal now runs inside the same transaction as the entry
+      // status flip — a failed reversal rolls the cancel back, keeping
+      // entry.status and journal.status consistent. Previously the two
+      // writes were on separate connections and a crash between them
+      // left the entry CANCELLED with its journals still POSTED.
+      if (this.journalEntriesRepository && this.reverseJournalEntry) {
+        const journals = await this.journalEntriesRepository.findBySource(
+          tenantId,
+          'FINANCE_ENTRY',
+          id,
+        );
+        for (const journal of journals) {
+          if (journal.status === 'POSTED') {
+            await this.reverseJournalEntry.execute({
+              tenantId,
+              journalEntryId: journal.id,
+              createdBy: userId,
+              tx,
+            });
+          }
+        }
+      }
+
+      return cancelled;
+    };
+
+    const cancelled = this.transactionManager
+      ? await this.transactionManager.run((tx) => runCancel(tx))
+      : await runCancel();
 
     queueAuditLog({
       userId,
@@ -87,28 +128,6 @@ export class CancelFinanceEntryUseCase {
         'Failed to queue audit log for finance entry cancellation',
       );
     });
-
-    // Reverse any posted journal entries linked to this finance entry (non-blocking)
-    if (this.journalEntriesRepository && this.reverseJournalEntry) {
-      try {
-        const journals = await this.journalEntriesRepository.findBySource(
-          tenantId,
-          'FINANCE_ENTRY',
-          id,
-        );
-        for (const journal of journals) {
-          if (journal.status === 'POSTED') {
-            await this.reverseJournalEntry.execute({
-              tenantId,
-              journalEntryId: journal.id,
-              createdBy: userId,
-            });
-          }
-        }
-      } catch {
-        // Don't fail cancellation if reversal fails
-      }
-    }
 
     return { entry: financeEntryToDTO(cancelled) };
   }
