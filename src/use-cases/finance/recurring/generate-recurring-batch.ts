@@ -10,6 +10,11 @@ import { calculateNextDate } from '@/utils/finance/calculate-next-date';
 
 const NEAR_EXPIRY_DAYS = 30;
 const TREND_SAMPLE_SIZE = 3;
+// P1-12: cap trend buffer so configs with thousands of generated entries
+// (e.g. daily recurring over several years) don't grow `recentAmounts`
+// unbounded inside a single batch run. We only need the last few entries
+// for the linear trend extrapolation, so keep a rolling window.
+const TREND_BUFFER_MAX_SIZE = 30;
 
 interface GenerateRecurringBatchUseCaseRequest {
   tenantId: string;
@@ -186,8 +191,13 @@ export class GenerateRecurringBatchUseCase {
           },
         });
 
-        // Track the amount for ongoing trend detection within this batch
+        // Track the amount for ongoing trend detection within this batch.
+        // P1-12: keep only the last TREND_BUFFER_MAX_SIZE samples so the
+        // array doesn't grow unbounded on long-running configs.
         recentAmounts.push(entryAmount);
+        if (recentAmounts.length > TREND_BUFFER_MAX_SIZE) {
+          recentAmounts.splice(0, recentAmounts.length - TREND_BUFFER_MAX_SIZE);
+        }
 
         generatedForConfig++;
         currentDueDate = calculateNextDate(
