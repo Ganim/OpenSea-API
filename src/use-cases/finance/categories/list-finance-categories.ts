@@ -6,6 +6,10 @@ import type { FinanceCategoriesRepository } from '@/repositories/finance/finance
 
 interface ListFinanceCategoriesUseCaseRequest {
   tenantId: string;
+  // P1-36: filters forwarded from the controller.
+  type?: string;
+  isActive?: boolean;
+  parentId?: string;
 }
 
 interface ListFinanceCategoriesUseCaseResponse {
@@ -17,8 +21,15 @@ export class ListFinanceCategoriesUseCase {
 
   async execute({
     tenantId,
+    type,
+    isActive,
+    parentId,
   }: ListFinanceCategoriesUseCaseRequest): Promise<ListFinanceCategoriesUseCaseResponse> {
-    const categories = await this.categoriesRepository.findMany(tenantId);
+    const categories = await this.categoriesRepository.findMany(tenantId, {
+      type,
+      isActive,
+      parentId,
+    });
     return { categories: categories.map(financeCategoryToDTO) };
   }
 }

@@ -41,3 +41,22 @@ export const updateFinanceCategorySchema =
 export const deleteFinanceCategoryBodySchema = z.object({
   replacementCategoryId: z.string().uuid().optional(),
 });
+
+// P1-36: the frontend sends type/isActive/parentId filters but the
+// controller previously accepted no querystring and dropped them silently.
+export const listFinanceCategoriesQuerySchema = z.object({
+  type: z
+    .enum(['EXPENSE', 'REVENUE', 'BOTH'])
+    .optional()
+    .describe('Filtrar por tipo da categoria'),
+  isActive: z
+    .enum(['true', 'false'])
+    .transform((v) => v === 'true')
+    .optional()
+    .describe('Filtrar por estado ativo/inativo'),
+  parentId: z
+    .string()
+    .uuid()
+    .optional()
+    .describe('Filtrar filhas de uma categoria pai'),
+});

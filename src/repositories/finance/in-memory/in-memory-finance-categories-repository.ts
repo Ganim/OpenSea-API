@@ -3,6 +3,7 @@ import { FinanceCategory } from '@/entities/finance/finance-category';
 import type {
   FinanceCategoriesRepository,
   CreateFinanceCategorySchema,
+  FindManyFinanceCategoriesFilters,
   UpdateFinanceCategorySchema,
 } from '../finance-categories-repository';
 
@@ -66,10 +67,24 @@ export class InMemoryFinanceCategoriesRepository
     return item ?? null;
   }
 
-  async findMany(tenantId: string): Promise<FinanceCategory[]> {
-    return this.items.filter(
-      (i) => !i.deletedAt && i.tenantId.toString() === tenantId,
-    );
+  async findMany(
+    tenantId: string,
+    filters?: FindManyFinanceCategoriesFilters,
+  ): Promise<FinanceCategory[]> {
+    return this.items.filter((i) => {
+      if (i.deletedAt) return false;
+      if (i.tenantId.toString() !== tenantId) return false;
+      // P1-36: mirror Prisma filters so unit specs behave identically.
+      if (filters?.type && i.type !== filters.type) return false;
+      if (filters?.isActive !== undefined && i.isActive !== filters.isActive)
+        return false;
+      if (
+        filters?.parentId &&
+        i.parentId?.toString() !== filters.parentId
+      )
+        return false;
+      return true;
+    });
   }
 
   async findByParentId(

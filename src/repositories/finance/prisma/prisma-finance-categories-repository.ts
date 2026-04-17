@@ -5,6 +5,7 @@ import { prisma } from '@/lib/prisma';
 import type {
   FinanceCategoriesRepository,
   CreateFinanceCategorySchema,
+  FindManyFinanceCategoriesFilters,
   UpdateFinanceCategorySchema,
 } from '../finance-categories-repository';
 import type { FinanceCategoryType } from '@prisma/generated/client.js';
@@ -82,12 +83,28 @@ export class PrismaFinanceCategoriesRepository
     return financeCategoryPrismaToDomain(category);
   }
 
-  async findMany(tenantId: string): Promise<FinanceCategory[]> {
+  async findMany(
+    tenantId: string,
+    filters?: FindManyFinanceCategoriesFilters,
+  ): Promise<FinanceCategory[]> {
+    // P1-36: apply optional filters that previously arrived silently from
+    // the frontend and were dropped by the controller.
+    const where: Record<string, unknown> = {
+      tenantId,
+      deletedAt: null,
+    };
+    if (filters?.type) {
+      where.type = filters.type as FinanceCategoryType;
+    }
+    if (filters?.isActive !== undefined) {
+      where.isActive = filters.isActive;
+    }
+    if (filters?.parentId) {
+      where.parentId = filters.parentId;
+    }
+
     const categories = await prisma.financeCategory.findMany({
-      where: {
-        tenantId,
-        deletedAt: null,
-      },
+      where,
       orderBy: [{ displayOrder: 'asc' }, { name: 'asc' }],
     });
 

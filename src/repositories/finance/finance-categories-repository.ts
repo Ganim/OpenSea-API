@@ -35,6 +35,13 @@ export interface UpdateFinanceCategorySchema {
   penaltyRate?: number;
 }
 
+// P1-36: optional filters honored by `findMany`. Legacy callers pass none.
+export interface FindManyFinanceCategoriesFilters {
+  type?: string;
+  isActive?: boolean;
+  parentId?: string;
+}
+
 export interface FinanceCategoriesRepository {
   create(data: CreateFinanceCategorySchema): Promise<FinanceCategory>;
   findById(
@@ -43,7 +50,10 @@ export interface FinanceCategoriesRepository {
   ): Promise<FinanceCategory | null>;
   findBySlug(slug: string, tenantId: string): Promise<FinanceCategory | null>;
   findByName(name: string, tenantId: string): Promise<FinanceCategory | null>;
-  findMany(tenantId: string): Promise<FinanceCategory[]>;
+  findMany(
+    tenantId: string,
+    filters?: FindManyFinanceCategoriesFilters,
+  ): Promise<FinanceCategory[]>;
   findByParentId(
     parentId: UniqueEntityID,
     tenantId: string,
