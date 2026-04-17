@@ -2,13 +2,15 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { TimeEntry } from '@/entities/hr/time-entry';
 import { prisma } from '@/lib/prisma';
 import { mapTimeEntryPrismaToDomain } from '@/mappers/hr/time-entry';
-import type { TimeEntryType as PrismaTimeEntryType } from '@prisma/generated/client.js';
+import { Prisma, TimeEntryType as PrismaTimeEntryType } from '@prisma/generated/client.js';
 import type {
   CreateTimeEntrySchema,
   FindManyTimeEntriesResult,
   FindTimeEntriesFilters,
   TimeEntriesRepository,
 } from '../time-entries-repository';
+
+const NSR_MAX_RETRIES = 10;
 
 export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
   async create(data: CreateTimeEntrySchema): Promise<TimeEntry> {
@@ -31,6 +33,38 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
       new UniqueEntityID(timeEntryData.id),
     );
     return timeEntry;
+  }
+
+  async createWithSequentialNsr(
+    data: Omit<CreateTimeEntrySchema, 'nsrNumber'>,
+  ): Promise<TimeEntry> {
+    // Portaria 671 Anexo III requires unique, strictly increasing NSR per
+    // tenant. The DB enforces @@unique([tenantId, nsrNumber]); if two
+    // concurrent punches compute the same next NSR, the loser retries.
+    let attempt = 0;
+    let currentMax = await this.findMaxNsrNumber(data.tenantId);
+
+    while (attempt < NSR_MAX_RETRIES) {
+      const nsrNumber = currentMax + 1;
+      try {
+        return await this.create({ ...data, nsrNumber });
+      } catch (err) {
+        if (
+          err instanceof Prisma.PrismaClientKnownRequestError &&
+          err.code === 'P2002'
+        ) {
+          attempt += 1;
+          // Refresh max and retry with next value
+          currentMax = await this.findMaxNsrNumber(data.tenantId);
+          continue;
+        }
+        throw err;
+      }
+    }
+
+    throw new Error(
+      `Não foi possível alocar NSR único após ${NSR_MAX_RETRIES} tentativas.`,
+    );
   }
 
   async findById(
@@ -148,9 +182,9 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
     return timeEntry;
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.timeEntry.delete({
-      where: { id: id.toString() },
+      where: { id: id.toString(), ...(tenantId && { tenantId }), },
     });
   }
 

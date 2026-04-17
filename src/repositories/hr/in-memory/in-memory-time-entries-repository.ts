@@ -9,6 +9,7 @@ import type {
 
 export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
   private items: TimeEntry[] = [];
+  private nsrCounters: Map<string, number> = new Map();
 
   async create(data: CreateTimeEntrySchema): Promise<TimeEntry> {
     const id = new UniqueEntityID();
@@ -26,8 +27,22 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
       id,
     );
 
+    if (data.nsrNumber != null) {
+      const current = this.nsrCounters.get(data.tenantId) ?? 0;
+      if (data.nsrNumber > current) {
+        this.nsrCounters.set(data.tenantId, data.nsrNumber);
+      }
+    }
+
     this.items.push(timeEntry);
     return timeEntry;
+  }
+
+  async createWithSequentialNsr(
+    data: Omit<CreateTimeEntrySchema, 'nsrNumber'>,
+  ): Promise<TimeEntry> {
+    const next = (this.nsrCounters.get(data.tenantId) ?? 0) + 1;
+    return this.create({ ...data, nsrNumber: next });
   }
 
   async findById(
@@ -123,14 +138,18 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
     return entries[0] || null;
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
-    const index = this.items.findIndex((item) => item.id.equals(id));
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
+    const index = this.items.findIndex(
+      (item) =>
+        item.id.equals(id) &&
+        (!tenantId || item.tenantId.toString() === tenantId),
+    );
     if (index !== -1) {
       this.items.splice(index, 1);
     }
   }
 
-  async findMaxNsrNumber(_tenantId: string): Promise<number> {
-    return 0;
+  async findMaxNsrNumber(tenantId: string): Promise<number> {
+    return this.nsrCounters.get(tenantId) ?? 0;
   }
 }

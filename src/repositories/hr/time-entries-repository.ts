@@ -31,6 +31,15 @@ export interface FindManyTimeEntriesResult {
 
 export interface TimeEntriesRepository {
   create(data: CreateTimeEntrySchema): Promise<TimeEntry>;
+  /**
+   * Creates a TimeEntry with a sequential NSR number, retrying on unique
+   * constraint violation (@@unique([tenantId, nsrNumber])) to handle
+   * concurrent punches safely. Required by Portaria 671 Anexo III — NSR
+   * duplicates invalidate the AFD.
+   */
+  createWithSequentialNsr(
+    data: Omit<CreateTimeEntrySchema, 'nsrNumber'>,
+  ): Promise<TimeEntry>;
   findById(id: UniqueEntityID, tenantId: string): Promise<TimeEntry | null>;
   findMany(filters: FindTimeEntriesFilters): Promise<FindManyTimeEntriesResult>;
   findManyByEmployee(
@@ -47,6 +56,6 @@ export interface TimeEntriesRepository {
     employeeId: UniqueEntityID,
     tenantId: string,
   ): Promise<TimeEntry | null>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
   findMaxNsrNumber(tenantId: string): Promise<number>;
 }

@@ -108,12 +108,9 @@ export class ClockInUseCase {
       }
     }
 
-    // Auto-generate NSR number
-    const maxNsr = await this.timeEntriesRepository.findMaxNsrNumber(tenantId);
-    const nsrNumber = maxNsr + 1;
-
-    // Create clock in entry
-    const timeEntry = await this.timeEntriesRepository.create({
+    // Auto-generate NSR atomically (retries on (tenantId, nsrNumber) collisions
+    // — @@unique enforces Portaria 671's NSR uniqueness requirement).
+    const timeEntry = await this.timeEntriesRepository.createWithSequentialNsr({
       tenantId,
       employeeId: new UniqueEntityID(employeeId),
       entryType: TimeEntryType.CLOCK_IN(),
@@ -122,8 +119,11 @@ export class ClockInUseCase {
       longitude,
       ipAddress,
       notes,
-      nsrNumber,
     });
+
+    const nsrNumber = await this.timeEntriesRepository.findMaxNsrNumber(
+      tenantId,
+    );
 
     return {
       timeEntry,

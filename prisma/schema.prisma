@@ -4317,6 +4317,7 @@ model TimeEntry {
   tenant   Tenant   @relation(fields: [tenantId], references: [id])
   employee Employee @relation(fields: [employeeId], references: [id])
 
+  @@unique([tenantId, nsrNumber], name: "time_entries_tenant_nsr_unique")
   @@index([tenantId])
   @@index([employeeId])
   @@index([timestamp])
