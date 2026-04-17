@@ -2313,6 +2313,7 @@ export const EmployeeWarningScalarFieldEnum = {
   revokedAt: 'revokedAt',
   revokeReason: 'revokeReason',
   deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2538,6 +2539,7 @@ export const TrainingProgramScalarFieldEnum = {
   maxParticipants: 'maxParticipants',
   isActive: 'isActive',
   isMandatory: 'isMandatory',
+  isMandatoryForESocial: 'isMandatoryForESocial',
   validityMonths: 'validityMonths',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -2556,6 +2558,7 @@ export const TrainingEnrollmentScalarFieldEnum = {
   enrolledAt: 'enrolledAt',
   startedAt: 'startedAt',
   completedAt: 'completedAt',
+  expirationDate: 'expirationDate',
   score: 'score',
   certificateUrl: 'certificateUrl',
   notes: 'notes',

@@ -50,6 +50,22 @@ export class PrismaGeneratedEmploymentContractsRepository
     );
   }
 
+  async findBySignatureEnvelopeId(
+    envelopeId: string,
+    tenantId: string,
+  ): Promise<GeneratedEmploymentContract | null> {
+    const contractData = await prisma.generatedEmploymentContract.findFirst({
+      where: { signatureEnvelopeId: envelopeId, tenantId },
+    });
+
+    if (!contractData) return null;
+
+    return GeneratedEmploymentContract.create(
+      mapGeneratedEmploymentContractPrismaToDomain(contractData),
+      new UniqueEntityID(contractData.id),
+    );
+  }
+
   async findManyByEmployee(
     employeeId: UniqueEntityID,
     tenantId: string,
@@ -101,13 +117,28 @@ export class PrismaGeneratedEmploymentContractsRepository
 
   async save(contract: GeneratedEmploymentContract): Promise<void> {
     await prisma.generatedEmploymentContract.update({
-      where: { id: contract.id.toString(), tenantId: contract.tenantId.toString(), },
+      where: {
+        id: contract.id.toString(),
+        tenantId: contract.tenantId.toString(),
+      },
       data: {
         pdfUrl: contract.pdfUrl,
         pdfKey: contract.pdfKey,
         storageFileId: contract.storageFileId?.toString(),
         variables: contract.variables as object,
+        signatureEnvelopeId: contract.signatureEnvelopeId ?? null,
       },
+    });
+  }
+
+  async updateSignatureEnvelopeId(
+    id: UniqueEntityID,
+    envelopeId: string | null,
+    tenantId: string,
+  ): Promise<void> {
+    await prisma.generatedEmploymentContract.updateMany({
+      where: { id: id.toString(), tenantId },
+      data: { signatureEnvelopeId: envelopeId },
     });
   }
 }

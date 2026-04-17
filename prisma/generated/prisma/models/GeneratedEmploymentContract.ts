@@ -33,6 +33,7 @@ export type GeneratedEmploymentContractMinAggregateOutputType = {
   pdfUrl: string | null
   pdfKey: string | null
   generatedBy: string | null
+  signatureEnvelopeId: string | null
   createdAt: Date | null
 }
 
@@ -45,6 +46,7 @@ export type GeneratedEmploymentContractMaxAggregateOutputType = {
   pdfUrl: string | null
   pdfKey: string | null
   generatedBy: string | null
+  signatureEnvelopeId: string | null
   createdAt: Date | null
 }
 
@@ -58,6 +60,7 @@ export type GeneratedEmploymentContractCountAggregateOutputType = {
   pdfKey: number
   generatedBy: number
   variables: number
+  signatureEnvelopeId: number
   createdAt: number
   _all: number
 }
@@ -72,6 +75,7 @@ export type GeneratedEmploymentContractMinAggregateInputType = {
   pdfUrl?: true
   pdfKey?: true
   generatedBy?: true
+  signatureEnvelopeId?: true
   createdAt?: true
 }
 
@@ -84,6 +88,7 @@ export type GeneratedEmploymentContractMaxAggregateInputType = {
   pdfUrl?: true
   pdfKey?: true
   generatedBy?: true
+  signatureEnvelopeId?: true
   createdAt?: true
 }
 
@@ -97,6 +102,7 @@ export type GeneratedEmploymentContractCountAggregateInputType = {
   pdfKey?: true
   generatedBy?: true
   variables?: true
+  signatureEnvelopeId?: true
   createdAt?: true
   _all?: true
 }
@@ -183,6 +189,7 @@ export type GeneratedEmploymentContractGroupByOutputType = {
   pdfKey: string | null
   generatedBy: string
   variables: runtime.JsonValue
+  signatureEnvelopeId: string | null
   createdAt: Date
   _count: GeneratedEmploymentContractCountAggregateOutputType | null
   _min: GeneratedEmploymentContractMinAggregateOutputType | null
@@ -217,6 +224,7 @@ export type GeneratedEmploymentContractWhereInput = {
   pdfKey?: Prisma.StringNullableFilter<"GeneratedEmploymentContract"> | string | null
   generatedBy?: Prisma.StringFilter<"GeneratedEmploymentContract"> | string
   variables?: Prisma.JsonFilter<"GeneratedEmploymentContract">
+  signatureEnvelopeId?: Prisma.StringNullableFilter<"GeneratedEmploymentContract"> | string | null
   createdAt?: Prisma.DateTimeFilter<"GeneratedEmploymentContract"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   template?: Prisma.XOR<Prisma.ContractTemplateScalarRelationFilter, Prisma.ContractTemplateWhereInput>
@@ -233,6 +241,7 @@ export type GeneratedEmploymentContractOrderByWithRelationInput = {
   pdfKey?: Prisma.SortOrderInput | Prisma.SortOrder
   generatedBy?: Prisma.SortOrder
   variables?: Prisma.SortOrder
+  signatureEnvelopeId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   template?: Prisma.ContractTemplateOrderByWithRelationInput
@@ -252,6 +261,7 @@ export type GeneratedEmploymentContractWhereUniqueInput = Prisma.AtLeast<{
   pdfKey?: Prisma.StringNullableFilter<"GeneratedEmploymentContract"> | string | null
   generatedBy?: Prisma.StringFilter<"GeneratedEmploymentContract"> | string
   variables?: Prisma.JsonFilter<"GeneratedEmploymentContract">
+  signatureEnvelopeId?: Prisma.StringNullableFilter<"GeneratedEmploymentContract"> | string | null
   createdAt?: Prisma.DateTimeFilter<"GeneratedEmploymentContract"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   template?: Prisma.XOR<Prisma.ContractTemplateScalarRelationFilter, Prisma.ContractTemplateWhereInput>
@@ -268,6 +278,7 @@ export type GeneratedEmploymentContractOrderByWithAggregationInput = {
   pdfKey?: Prisma.SortOrderInput | Prisma.SortOrder
   generatedBy?: Prisma.SortOrder
   variables?: Prisma.SortOrder
+  signatureEnvelopeId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.GeneratedEmploymentContractCountOrderByAggregateInput
   _max?: Prisma.GeneratedEmploymentContractMaxOrderByAggregateInput
@@ -287,6 +298,7 @@ export type GeneratedEmploymentContractScalarWhereWithAggregatesInput = {
   pdfKey?: Prisma.StringNullableWithAggregatesFilter<"GeneratedEmploymentContract"> | string | null
   generatedBy?: Prisma.StringWithAggregatesFilter<"GeneratedEmploymentContract"> | string
   variables?: Prisma.JsonWithAggregatesFilter<"GeneratedEmploymentContract">
+  signatureEnvelopeId?: Prisma.StringNullableWithAggregatesFilter<"GeneratedEmploymentContract"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"GeneratedEmploymentContract"> | Date | string
 }
 
@@ -297,6 +309,7 @@ export type GeneratedEmploymentContractCreateInput = {
   pdfKey?: string | null
   generatedBy: string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: string | null
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutGeneratedEmploymentContractsInput
   template: Prisma.ContractTemplateCreateNestedOneWithoutGeneratedContractsInput
@@ -313,6 +326,7 @@ export type GeneratedEmploymentContractUncheckedCreateInput = {
   pdfKey?: string | null
   generatedBy: string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: string | null
   createdAt?: Date | string
 }
 
@@ -323,6 +337,7 @@ export type GeneratedEmploymentContractUpdateInput = {
   pdfKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   generatedBy?: Prisma.StringFieldUpdateOperationsInput | string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutGeneratedEmploymentContractsNestedInput
   template?: Prisma.ContractTemplateUpdateOneRequiredWithoutGeneratedContractsNestedInput
@@ -339,6 +354,7 @@ export type GeneratedEmploymentContractUncheckedUpdateInput = {
   pdfKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   generatedBy?: Prisma.StringFieldUpdateOperationsInput | string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -352,6 +368,7 @@ export type GeneratedEmploymentContractCreateManyInput = {
   pdfKey?: string | null
   generatedBy: string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: string | null
   createdAt?: Date | string
 }
 
@@ -362,6 +379,7 @@ export type GeneratedEmploymentContractUpdateManyMutationInput = {
   pdfKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   generatedBy?: Prisma.StringFieldUpdateOperationsInput | string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -375,6 +393,7 @@ export type GeneratedEmploymentContractUncheckedUpdateManyInput = {
   pdfKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   generatedBy?: Prisma.StringFieldUpdateOperationsInput | string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -398,6 +417,7 @@ export type GeneratedEmploymentContractCountOrderByAggregateInput = {
   pdfKey?: Prisma.SortOrder
   generatedBy?: Prisma.SortOrder
   variables?: Prisma.SortOrder
+  signatureEnvelopeId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -410,6 +430,7 @@ export type GeneratedEmploymentContractMaxOrderByAggregateInput = {
   pdfUrl?: Prisma.SortOrder
   pdfKey?: Prisma.SortOrder
   generatedBy?: Prisma.SortOrder
+  signatureEnvelopeId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -422,6 +443,7 @@ export type GeneratedEmploymentContractMinOrderByAggregateInput = {
   pdfUrl?: Prisma.SortOrder
   pdfKey?: Prisma.SortOrder
   generatedBy?: Prisma.SortOrder
+  signatureEnvelopeId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -558,6 +580,7 @@ export type GeneratedEmploymentContractCreateWithoutEmployeeInput = {
   pdfKey?: string | null
   generatedBy: string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: string | null
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutGeneratedEmploymentContractsInput
   template: Prisma.ContractTemplateCreateNestedOneWithoutGeneratedContractsInput
@@ -572,6 +595,7 @@ export type GeneratedEmploymentContractUncheckedCreateWithoutEmployeeInput = {
   pdfKey?: string | null
   generatedBy: string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: string | null
   createdAt?: Date | string
 }
 
@@ -614,6 +638,7 @@ export type GeneratedEmploymentContractScalarWhereInput = {
   pdfKey?: Prisma.StringNullableFilter<"GeneratedEmploymentContract"> | string | null
   generatedBy?: Prisma.StringFilter<"GeneratedEmploymentContract"> | string
   variables?: Prisma.JsonFilter<"GeneratedEmploymentContract">
+  signatureEnvelopeId?: Prisma.StringNullableFilter<"GeneratedEmploymentContract"> | string | null
   createdAt?: Prisma.DateTimeFilter<"GeneratedEmploymentContract"> | Date | string
 }
 
@@ -624,6 +649,7 @@ export type GeneratedEmploymentContractCreateWithoutTenantInput = {
   pdfKey?: string | null
   generatedBy: string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: string | null
   createdAt?: Date | string
   template: Prisma.ContractTemplateCreateNestedOneWithoutGeneratedContractsInput
   employee: Prisma.EmployeeCreateNestedOneWithoutGeneratedContractsInput
@@ -638,6 +664,7 @@ export type GeneratedEmploymentContractUncheckedCreateWithoutTenantInput = {
   pdfKey?: string | null
   generatedBy: string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: string | null
   createdAt?: Date | string
 }
 
@@ -674,6 +701,7 @@ export type GeneratedEmploymentContractCreateWithoutTemplateInput = {
   pdfKey?: string | null
   generatedBy: string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: string | null
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutGeneratedEmploymentContractsInput
   employee: Prisma.EmployeeCreateNestedOneWithoutGeneratedContractsInput
@@ -688,6 +716,7 @@ export type GeneratedEmploymentContractUncheckedCreateWithoutTemplateInput = {
   pdfKey?: string | null
   generatedBy: string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: string | null
   createdAt?: Date | string
 }
 
@@ -726,6 +755,7 @@ export type GeneratedEmploymentContractCreateManyEmployeeInput = {
   pdfKey?: string | null
   generatedBy: string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: string | null
   createdAt?: Date | string
 }
 
@@ -736,6 +766,7 @@ export type GeneratedEmploymentContractUpdateWithoutEmployeeInput = {
   pdfKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   generatedBy?: Prisma.StringFieldUpdateOperationsInput | string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutGeneratedEmploymentContractsNestedInput
   template?: Prisma.ContractTemplateUpdateOneRequiredWithoutGeneratedContractsNestedInput
@@ -750,6 +781,7 @@ export type GeneratedEmploymentContractUncheckedUpdateWithoutEmployeeInput = {
   pdfKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   generatedBy?: Prisma.StringFieldUpdateOperationsInput | string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -762,6 +794,7 @@ export type GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeInput =
   pdfKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   generatedBy?: Prisma.StringFieldUpdateOperationsInput | string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -774,6 +807,7 @@ export type GeneratedEmploymentContractCreateManyTenantInput = {
   pdfKey?: string | null
   generatedBy: string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: string | null
   createdAt?: Date | string
 }
 
@@ -784,6 +818,7 @@ export type GeneratedEmploymentContractUpdateWithoutTenantInput = {
   pdfKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   generatedBy?: Prisma.StringFieldUpdateOperationsInput | string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   template?: Prisma.ContractTemplateUpdateOneRequiredWithoutGeneratedContractsNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutGeneratedContractsNestedInput
@@ -798,6 +833,7 @@ export type GeneratedEmploymentContractUncheckedUpdateWithoutTenantInput = {
   pdfKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   generatedBy?: Prisma.StringFieldUpdateOperationsInput | string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -810,6 +846,7 @@ export type GeneratedEmploymentContractUncheckedUpdateManyWithoutTenantInput = {
   pdfKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   generatedBy?: Prisma.StringFieldUpdateOperationsInput | string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -822,6 +859,7 @@ export type GeneratedEmploymentContractCreateManyTemplateInput = {
   pdfKey?: string | null
   generatedBy: string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: string | null
   createdAt?: Date | string
 }
 
@@ -832,6 +870,7 @@ export type GeneratedEmploymentContractUpdateWithoutTemplateInput = {
   pdfKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   generatedBy?: Prisma.StringFieldUpdateOperationsInput | string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutGeneratedEmploymentContractsNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutGeneratedContractsNestedInput
@@ -846,6 +885,7 @@ export type GeneratedEmploymentContractUncheckedUpdateWithoutTemplateInput = {
   pdfKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   generatedBy?: Prisma.StringFieldUpdateOperationsInput | string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -858,6 +898,7 @@ export type GeneratedEmploymentContractUncheckedUpdateManyWithoutTemplateInput =
   pdfKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   generatedBy?: Prisma.StringFieldUpdateOperationsInput | string
   variables?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signatureEnvelopeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -873,6 +914,7 @@ export type GeneratedEmploymentContractSelect<ExtArgs extends runtime.Types.Exte
   pdfKey?: boolean
   generatedBy?: boolean
   variables?: boolean
+  signatureEnvelopeId?: boolean
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   template?: boolean | Prisma.ContractTemplateDefaultArgs<ExtArgs>
@@ -889,6 +931,7 @@ export type GeneratedEmploymentContractSelectCreateManyAndReturn<ExtArgs extends
   pdfKey?: boolean
   generatedBy?: boolean
   variables?: boolean
+  signatureEnvelopeId?: boolean
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   template?: boolean | Prisma.ContractTemplateDefaultArgs<ExtArgs>
@@ -905,6 +948,7 @@ export type GeneratedEmploymentContractSelectUpdateManyAndReturn<ExtArgs extends
   pdfKey?: boolean
   generatedBy?: boolean
   variables?: boolean
+  signatureEnvelopeId?: boolean
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   template?: boolean | Prisma.ContractTemplateDefaultArgs<ExtArgs>
@@ -921,10 +965,11 @@ export type GeneratedEmploymentContractSelectScalar = {
   pdfKey?: boolean
   generatedBy?: boolean
   variables?: boolean
+  signatureEnvelopeId?: boolean
   createdAt?: boolean
 }
 
-export type GeneratedEmploymentContractOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "templateId" | "employeeId" | "storageFileId" | "pdfUrl" | "pdfKey" | "generatedBy" | "variables" | "createdAt", ExtArgs["result"]["generatedEmploymentContract"]>
+export type GeneratedEmploymentContractOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "templateId" | "employeeId" | "storageFileId" | "pdfUrl" | "pdfKey" | "generatedBy" | "variables" | "signatureEnvelopeId" | "createdAt", ExtArgs["result"]["generatedEmploymentContract"]>
 export type GeneratedEmploymentContractInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   template?: boolean | Prisma.ContractTemplateDefaultArgs<ExtArgs>
@@ -958,6 +1003,7 @@ export type $GeneratedEmploymentContractPayload<ExtArgs extends runtime.Types.Ex
     pdfKey: string | null
     generatedBy: string
     variables: runtime.JsonValue
+    signatureEnvelopeId: string | null
     createdAt: Date
   }, ExtArgs["result"]["generatedEmploymentContract"]>
   composites: {}
@@ -1394,6 +1440,7 @@ export interface GeneratedEmploymentContractFieldRefs {
   readonly pdfKey: Prisma.FieldRef<"GeneratedEmploymentContract", 'String'>
   readonly generatedBy: Prisma.FieldRef<"GeneratedEmploymentContract", 'String'>
   readonly variables: Prisma.FieldRef<"GeneratedEmploymentContract", 'Json'>
+  readonly signatureEnvelopeId: Prisma.FieldRef<"GeneratedEmploymentContract", 'String'>
   readonly createdAt: Prisma.FieldRef<"GeneratedEmploymentContract", 'DateTime'>
 }
     

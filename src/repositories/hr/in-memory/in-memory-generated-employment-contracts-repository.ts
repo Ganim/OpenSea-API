@@ -40,6 +40,18 @@ export class InMemoryGeneratedEmploymentContractsRepository
     return contract ?? null;
   }
 
+  async findBySignatureEnvelopeId(
+    envelopeId: string,
+    tenantId: string,
+  ): Promise<GeneratedEmploymentContract | null> {
+    const contract = this.items.find(
+      (item) =>
+        item.signatureEnvelopeId === envelopeId &&
+        item.tenantId.toString() === tenantId,
+    );
+    return contract ?? null;
+  }
+
   async findManyByEmployee(
     employeeId: UniqueEntityID,
     tenantId: string,
@@ -86,6 +98,18 @@ export class InMemoryGeneratedEmploymentContractsRepository
     } else {
       this.items.push(contract);
     }
+  }
+
+  async updateSignatureEnvelopeId(
+    id: UniqueEntityID,
+    envelopeId: string | null,
+    tenantId: string,
+  ): Promise<void> {
+    const contract = this.items.find(
+      (item) => item.id.equals(id) && item.tenantId.toString() === tenantId,
+    );
+    if (!contract) return;
+    contract.signatureEnvelopeId = envelopeId;
   }
 
   clear(): void {

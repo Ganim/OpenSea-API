@@ -33,6 +33,10 @@ export interface GeneratedEmploymentContractsRepository {
     id: UniqueEntityID,
     tenantId: string,
   ): Promise<GeneratedEmploymentContract | null>;
+  findBySignatureEnvelopeId(
+    envelopeId: string,
+    tenantId: string,
+  ): Promise<GeneratedEmploymentContract | null>;
   findManyByEmployee(
     employeeId: UniqueEntityID,
     tenantId: string,
@@ -41,4 +45,9 @@ export interface GeneratedEmploymentContractsRepository {
     params: FindManyGeneratedContractsParams,
   ): Promise<FindManyGeneratedContractsResult>;
   save(contract: GeneratedEmploymentContract): Promise<void>;
+  updateSignatureEnvelopeId(
+    id: UniqueEntityID,
+    envelopeId: string | null,
+    tenantId: string,
+  ): Promise<void>;
 }

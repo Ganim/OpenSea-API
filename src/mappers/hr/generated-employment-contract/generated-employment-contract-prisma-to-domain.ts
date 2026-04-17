@@ -17,6 +17,7 @@ export function mapGeneratedEmploymentContractPrismaToDomain(
     pdfUrl: contractDb.pdfUrl ?? undefined,
     pdfKey: contractDb.pdfKey ?? undefined,
     variables: (contractDb.variables ?? {}) as Record<string, unknown>,
+    signatureEnvelopeId: contractDb.signatureEnvelopeId ?? null,
     createdAt: contractDb.createdAt,
   };
 }

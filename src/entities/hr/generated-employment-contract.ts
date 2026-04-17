@@ -10,6 +10,7 @@ export interface GeneratedEmploymentContractProps {
   pdfUrl?: string;
   pdfKey?: string;
   variables: Record<string, unknown>;
+  signatureEnvelopeId?: string | null;
   createdAt: Date;
 }
 
@@ -46,6 +47,14 @@ export class GeneratedEmploymentContract extends Entity<GeneratedEmploymentContr
     return this.props.variables;
   }
 
+  get signatureEnvelopeId(): string | null | undefined {
+    return this.props.signatureEnvelopeId;
+  }
+
+  set signatureEnvelopeId(value: string | null | undefined) {
+    this.props.signatureEnvelopeId = value;
+  }
+
   get createdAt(): Date {
     return this.props.createdAt;
   }
@@ -60,6 +69,10 @@ export class GeneratedEmploymentContract extends Entity<GeneratedEmploymentContr
     if (params.storageFileId) {
       this.props.storageFileId = params.storageFileId;
     }
+  }
+
+  attachStorageFile(storageFileId: UniqueEntityID): void {
+    this.props.storageFileId = storageFileId;
   }
 
   private constructor(

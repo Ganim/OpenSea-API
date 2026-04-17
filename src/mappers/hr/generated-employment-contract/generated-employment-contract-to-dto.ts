@@ -9,6 +9,7 @@ export interface GeneratedEmploymentContractDTO {
   pdfUrl: string | null;
   pdfKey: string | null;
   variables: Record<string, unknown>;
+  signatureEnvelopeId: string | null;
   createdAt: Date;
 }
 
@@ -24,6 +25,7 @@ export function generatedEmploymentContractToDTO(
     pdfUrl: contract.pdfUrl ?? null,
     pdfKey: contract.pdfKey ?? null,
     variables: contract.variables,
+    signatureEnvelopeId: contract.signatureEnvelopeId ?? null,
     createdAt: contract.createdAt,
   };
 }
