@@ -48,6 +48,70 @@ describe('GeneratePortalPaymentUseCase', () => {
     expect(result.amount).toBe(1500);
   });
 
+  it('should return pixCopiaECola as a real EMV BR Code (not the raw key) when invoice has a pixKey', async () => {
+    await portalRepository.create({
+      tenantId: 'tenant-1',
+      customerId: 'customer-1',
+      customerName: 'Acme Corporation',
+      accessToken: 'cpt_valid_token',
+    });
+
+    const entry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'RECEIVABLE',
+      code: 'REC-001',
+      description: 'Fatura Fevereiro',
+      categoryId: 'cat-1',
+      expectedAmount: 250.5,
+      issueDate: new Date(),
+      dueDate: new Date(),
+      customerName: 'Acme Corporation',
+      pixKey: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+    });
+
+    const result = await sut.execute({
+      token: 'cpt_valid_token',
+      invoiceId: entry.id.toString(),
+      method: 'PIX',
+    });
+
+    expect(result.pixKey).toBe('a1b2c3d4-e5f6-7890-abcd-ef1234567890');
+    expect(result.pixCopiaECola).not.toBeNull();
+    expect(result.pixCopiaECola).not.toBe(result.pixKey);
+    expect(result.pixCopiaECola!.startsWith('000201')).toBe(true);
+    expect(result.pixCopiaECola).toContain('br.gov.bcb.pix');
+  });
+
+  it('should return pixCopiaECola as null when invoice has no pixKey', async () => {
+    await portalRepository.create({
+      tenantId: 'tenant-1',
+      customerId: 'customer-1',
+      customerName: 'Acme Corporation',
+      accessToken: 'cpt_valid_token',
+    });
+
+    const entry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'RECEIVABLE',
+      code: 'REC-001',
+      description: 'Fatura sem PIX',
+      categoryId: 'cat-1',
+      expectedAmount: 100,
+      issueDate: new Date(),
+      dueDate: new Date(),
+      customerName: 'Acme Corporation',
+    });
+
+    const result = await sut.execute({
+      token: 'cpt_valid_token',
+      invoiceId: entry.id.toString(),
+      method: 'PIX',
+    });
+
+    expect(result.pixKey).toBeNull();
+    expect(result.pixCopiaECola).toBeNull();
+  });
+
   it('should generate a BOLETO payment for a pending invoice', async () => {
     await portalRepository.create({
       tenantId: 'tenant-1',

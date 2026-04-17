@@ -102,4 +102,74 @@ describe('PixCode', () => {
       expect(result!.pixKeyType).toBe('EVP');
     });
   });
+
+  describe('buildEmv', () => {
+    it('should build a dynamic EMV payload with amount and parse back successfully', () => {
+      const emv = PixCode.buildEmv({
+        pixKey: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+        merchantName: 'Empresa Teste',
+        merchantCity: 'Sao Paulo',
+        amount: 99.9,
+        txId: 'INV001',
+      });
+
+      expect(emv).not.toBeNull();
+      expect(emv!.startsWith('000201')).toBe(true);
+      expect(emv!.includes('br.gov.bcb.pix')).toBe(true);
+      expect(emv!.includes('a1b2c3d4-e5f6-7890-abcd-ef1234567890')).toBe(true);
+
+      const parsed = PixCode.parse(emv!);
+      expect(parsed).not.toBeNull();
+      expect(parsed!.type).toBe('COPIA_COLA');
+      expect(parsed!.amount).toBe(99.9);
+      expect(parsed!.pixKey).toBe('a1b2c3d4-e5f6-7890-abcd-ef1234567890');
+    });
+
+    it('should build a static EMV payload when no amount is provided', () => {
+      const emv = PixCode.buildEmv({
+        pixKey: '12345678901',
+        merchantName: 'Jose da Silva',
+        merchantCity: 'Rio',
+      });
+
+      expect(emv).not.toBeNull();
+      // POI Method 11 for static
+      expect(emv!.substring(6, 12)).toBe('010211');
+
+      const parsed = PixCode.parse(emv!);
+      expect(parsed!.amount).toBeUndefined();
+      expect(parsed!.pixKey).toBe('12345678901');
+    });
+
+    it('should produce deterministic output (same input -> same CRC)', () => {
+      const input = {
+        pixKey: 'test@example.com',
+        merchantName: 'Loja XYZ',
+        merchantCity: 'Curitiba',
+        amount: 10,
+        txId: 'TX1',
+      };
+      expect(PixCode.buildEmv(input)).toBe(PixCode.buildEmv(input));
+    });
+
+    it('should return null for empty pix key', () => {
+      expect(
+        PixCode.buildEmv({
+          pixKey: '',
+          merchantName: 'X',
+          merchantCity: 'Y',
+        }),
+      ).toBeNull();
+    });
+
+    it('should end with a 4-char CRC after the 6304 tag', () => {
+      const emv = PixCode.buildEmv({
+        pixKey: '12345678901',
+        merchantName: 'Teste',
+        merchantCity: 'SP',
+      });
+      expect(emv!.slice(-8, -4)).toBe('6304');
+      expect(emv!.slice(-4)).toMatch(/^[0-9A-F]{4}$/);
+    });
+  });
 });

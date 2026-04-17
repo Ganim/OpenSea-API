@@ -104,6 +104,90 @@ export class PixCode {
     return 'EVP';
   }
 
+  /**
+   * Constroi um BR Code EMV (Padrao BCB 1.0) a partir dos dados do recebedor.
+   * Usado quando o sistema precisa oferecer "pix copia e cola" sem integracao
+   * com PSP, por exemplo no portal do cliente.
+   *
+   * Gera um codigo ESTATICO (POI=11) ou DINAMICO (POI=12, com amount).
+   */
+  static buildEmv(input: {
+    pixKey: string;
+    merchantName: string;
+    merchantCity: string;
+    amount?: number;
+    txId?: string;
+    description?: string;
+  }): string | null {
+    const pixKey = input.pixKey?.trim();
+    if (!pixKey) return null;
+
+    const sanitize = (value: string, max: number): string =>
+      value
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^\w\s.-]/g, '')
+        .trim()
+        .slice(0, max)
+        .toUpperCase();
+
+    const merchantName = sanitize(input.merchantName ?? 'RECEBEDOR', 25);
+    const merchantCity = sanitize(input.merchantCity ?? 'SAO PAULO', 15);
+    const isDynamic = typeof input.amount === 'number' && input.amount > 0;
+
+    // Merchant Account Information (tag 26)
+    const maiParts = [PixCode.tlv('00', 'br.gov.bcb.pix'), PixCode.tlv('01', pixKey)];
+    if (input.description) {
+      const desc = sanitize(input.description, 25);
+      if (desc) maiParts.push(PixCode.tlv('02', desc));
+    }
+    const mai = maiParts.join('');
+
+    // Additional Data Field (tag 62)
+    const txId = input.txId
+      ? input.txId.replace(/[^A-Za-z0-9]/g, '').slice(0, 25) || '***'
+      : '***';
+    const adf = PixCode.tlv('05', txId);
+
+    const parts: string[] = [];
+    parts.push(PixCode.tlv('00', '01'));
+    parts.push(PixCode.tlv('01', isDynamic ? '12' : '11'));
+    parts.push(PixCode.tlv('26', mai));
+    parts.push(PixCode.tlv('52', '0000'));
+    parts.push(PixCode.tlv('53', '986'));
+    if (isDynamic) {
+      parts.push(PixCode.tlv('54', (input.amount as number).toFixed(2)));
+    }
+    parts.push(PixCode.tlv('58', 'BR'));
+    parts.push(PixCode.tlv('59', merchantName));
+    parts.push(PixCode.tlv('60', merchantCity));
+    parts.push(PixCode.tlv('62', adf));
+
+    const payloadWithoutCrc = parts.join('') + '6304';
+    const crc = PixCode.crc16Ccitt(payloadWithoutCrc);
+    return payloadWithoutCrc + crc;
+  }
+
+  private static tlv(tag: string, value: string): string {
+    const length = value.length.toString().padStart(2, '0');
+    return `${tag}${length}${value}`;
+  }
+
+  private static crc16Ccitt(data: string): string {
+    let crc = 0xffff;
+    for (let i = 0; i < data.length; i++) {
+      crc ^= data.charCodeAt(i) << 8;
+      for (let j = 0; j < 8; j++) {
+        if ((crc & 0x8000) !== 0) {
+          crc = ((crc << 1) ^ 0x1021) & 0xffff;
+        } else {
+          crc = (crc << 1) & 0xffff;
+        }
+      }
+    }
+    return crc.toString(16).padStart(4, '0').toUpperCase();
+  }
+
   private static parseTLV(data: string): Map<string, string> | null {
     const result = new Map<string, string>();
     let pos = 0;

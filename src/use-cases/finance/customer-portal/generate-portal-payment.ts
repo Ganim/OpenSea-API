@@ -2,6 +2,8 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { PixCode } from '@/entities/finance/value-objects/pix-code';
+import type { CompaniesRepository } from '@/repositories/core/companies-repository';
 import type { CustomerPortalAccessesRepository } from '@/repositories/finance/customer-portal-accesses-repository';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 
@@ -25,6 +27,7 @@ export class GeneratePortalPaymentUseCase {
   constructor(
     private customerPortalAccessesRepository: CustomerPortalAccessesRepository,
     private financeEntriesRepository: FinanceEntriesRepository,
+    private companiesRepository?: CompaniesRepository,
   ) {}
 
   async execute(
@@ -74,14 +77,36 @@ export class GeneratePortalPaymentUseCase {
       throw new BadRequestError('Esta fatura já foi paga.');
     }
 
-    // Return existing payment data from the invoice
-    // In a real integration, this would call PIX/Boleto APIs
+    let pixCopiaECola: string | null = null;
+    const pixKey = method === 'PIX' ? (invoice.pixKey ?? null) : null;
+
+    if (method === 'PIX' && pixKey) {
+      let merchantName = 'RECEBEDOR';
+      if (invoice.companyId && this.companiesRepository) {
+        const company = await this.companiesRepository.findById(
+          invoice.companyId,
+          access.tenantId,
+        );
+        if (company) {
+          merchantName = company.tradeName || company.legalName || merchantName;
+        }
+      }
+
+      pixCopiaECola = PixCode.buildEmv({
+        pixKey,
+        merchantName,
+        merchantCity: 'SAO PAULO',
+        amount: invoice.expectedAmount,
+        txId: invoice.id.toString().replace(/-/g, '').slice(0, 25),
+      });
+    }
+
     return {
       invoiceId: invoice.id.toString(),
       method,
       amount: invoice.expectedAmount,
-      pixCopiaECola: method === 'PIX' ? (invoice.pixKey ?? null) : null,
-      pixKey: method === 'PIX' ? (invoice.pixKey ?? null) : null,
+      pixCopiaECola,
+      pixKey,
       boletoDigitableLine:
         method === 'BOLETO' ? (invoice.boletoDigitableLine ?? null) : null,
       boletoPdfUrl: method === 'BOLETO' ? (invoice.boletoPdfUrl ?? null) : null,
