@@ -24,5 +24,5 @@ export interface VacationSplitsRepository {
   ): Promise<VacationSplit[]>;
   countActiveByVacationPeriodId(vacationPeriodId: string): Promise<number>;
   save(split: VacationSplit): Promise<void>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

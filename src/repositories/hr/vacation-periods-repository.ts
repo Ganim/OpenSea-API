@@ -18,6 +18,13 @@ export interface CreateVacationPeriodSchema {
 
 export interface UpdateVacationPeriodSchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so the underlying Prisma `where` clause is scoped and cannot update a
+   * record belonging to another tenant.
+   */
+  tenantId?: string;
   acquisitionStart?: Date;
   acquisitionEnd?: Date;
   concessionStart?: Date;
@@ -70,5 +77,5 @@ export interface VacationPeriodsRepository {
   findExpiredPeriods(tenantId: string): Promise<VacationPeriod[]>;
   update(data: UpdateVacationPeriodSchema): Promise<VacationPeriod | null>;
   save(vacationPeriod: VacationPeriod): Promise<void>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

@@ -21,6 +21,13 @@ export interface CreateTerminationSchema {
 
 export interface UpdateTerminationSchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so the underlying Prisma `where` clause is scoped and cannot update a
+   * record belonging to another tenant.
+   */
+  tenantId?: string;
   status?: TerminationStatus;
   paidAt?: Date;
   notes?: string;
@@ -71,5 +78,5 @@ export interface TerminationsRepository {
   ): Promise<number>;
   update(data: UpdateTerminationSchema): Promise<Termination | null>;
   save(termination: Termination, tx?: TransactionClient): Promise<void>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

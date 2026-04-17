@@ -226,7 +226,11 @@ export class InMemoryAbsencesRepository implements AbsencesRepository {
   }
 
   async update(data: UpdateAbsenceSchema): Promise<Absence | null> {
-    const index = this.items.findIndex((item) => item.id.equals(data.id));
+    const index = this.items.findIndex(
+      (item) =>
+        item.id.equals(data.id) &&
+        (!data.tenantId || item.tenantId.toString() === data.tenantId),
+    );
     if (index === -1) return null;
 
     const absence = this.items[index];

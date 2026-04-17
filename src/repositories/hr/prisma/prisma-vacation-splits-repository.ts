@@ -97,7 +97,7 @@ export class PrismaVacationSplitsRepository
 
   async save(split: VacationSplit): Promise<void> {
     await prisma.vacationSplit.update({
-      where: { id: split.id.toString() },
+      where: { id: split.id.toString(), tenantId: split.tenantId.toString(), },
       data: {
         status: split.status,
         paymentDate: split.paymentDate,
@@ -106,9 +106,9 @@ export class PrismaVacationSplitsRepository
     });
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.vacationSplit.delete({
-      where: { id: id.toString() },
+      where: { id: id.toString(), ...(tenantId && { tenantId }), },
     });
   }
 }

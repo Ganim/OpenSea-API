@@ -119,13 +119,13 @@ export class PrismaTerminationsRepository implements TerminationsRepository {
 
   async update(data: UpdateTerminationSchema): Promise<Termination | null> {
     const existing = await prisma.termination.findUnique({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
     });
 
     if (!existing) return null;
 
     const record = await prisma.termination.update({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
       data: {
         status: data.status,
         paidAt: data.paidAt,
@@ -156,7 +156,7 @@ export class PrismaTerminationsRepository implements TerminationsRepository {
   async save(termination: Termination, tx?: TransactionClient): Promise<void> {
     const client = tx ?? prisma;
     await client.termination.update({
-      where: { id: termination.id.toString() },
+      where: { id: termination.id.toString(), tenantId: termination.tenantId.toString(), },
       data: {
         type: termination.type,
         terminationDate: termination.terminationDate,
@@ -185,9 +185,9 @@ export class PrismaTerminationsRepository implements TerminationsRepository {
     });
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.termination.delete({
-      where: { id: id.toString() },
+      where: { id: id.toString(), ...(tenantId && { tenantId }), },
     });
   }
 }

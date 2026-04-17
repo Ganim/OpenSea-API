@@ -367,7 +367,7 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
       absence.cid && cipher ? cipher.encrypt(absence.cid) : absence.cid;
 
     await prisma.absence.update({
-      where: { id: absence.id.toString() },
+      where: { id: absence.id.toString(), tenantId: absence.tenantId.toString(), },
       data: {
         status: absence.status.value,
         reason: absence.reason,
