@@ -12,9 +12,9 @@ describe('S2300Builder', () => {
     nmTrab: 'João Diretor',
     sexo: 'M',
     racaCor: 1,
-    dtNascto: new Date('1980-03-20'),
+    dtNascto: new Date('1980-03-20T12:00:00Z'),
     codCateg: 721,
-    dtInicio: new Date('2026-01-01'),
+    dtInicio: new Date('2026-01-01T12:00:00Z'),
     natAtividade: 1,
     nmCargo: 'Diretor Financeiro',
     CBOCargo: '123105',
@@ -96,7 +96,7 @@ describe('S2300Builder', () => {
         {
           tpDep: '03',
           nmDep: 'Maria Filha',
-          dtNascDep: new Date('2010-08-15'),
+          dtNascDep: new Date('2010-08-15T12:00:00Z'),
           cpfDep: '11122233344',
           depIRRF: 'S',
           depSF: 'S',
@@ -122,9 +122,9 @@ describe('S2300Builder', () => {
       nmTrab: 'João Estagiário',
       sexo: 'M',
       racaCor: 1,
-      dtNascto: new Date('2000-01-01'),
+      dtNascto: new Date('2000-01-01T12:00:00Z'),
       codCateg: 901,
-      dtInicio: new Date('2026-06-01'),
+      dtInicio: new Date('2026-06-01T12:00:00Z'),
     };
     const xml = builder.build(minimalInput);
 

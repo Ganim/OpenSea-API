@@ -18,7 +18,7 @@ describe('S2200Builder', () => {
     paisNac: 105,
 
     nascimento: {
-      dtNascto: new Date('1990-06-15'),
+      dtNascto: new Date('1990-06-15T12:00:00Z'),
       paisNascto: 105,
       nmMunic: 'São Paulo',
       uf: 'SP',
@@ -39,7 +39,7 @@ describe('S2200Builder', () => {
       {
         tpDep: '03',
         nmDep: 'Maria da Silva',
-        dtNascDep: new Date('2020-01-10'),
+        dtNascDep: new Date('2020-01-10T12:00:00Z'),
         cpfDep: '98765432100',
         depIRRF: 'S',
         depSF: 'S',
@@ -52,7 +52,7 @@ describe('S2200Builder', () => {
     cadIni: 'S',
 
     celetista: {
-      dtAdm: new Date('2026-04-01'),
+      dtAdm: new Date('2026-04-01T12:00:00Z'),
       tpAdmissao: 1,
       indAdmissao: 1,
       natAtividade: 1,
@@ -253,7 +253,7 @@ describe('S2200Builder', () => {
       contrato: {
         ...baseInput.contrato,
         tpContr: 2,
-        dtTerm: new Date('2027-03-31'),
+        dtTerm: new Date('2027-03-31T12:00:00Z'),
       },
     };
     const xml = builder.build(input);

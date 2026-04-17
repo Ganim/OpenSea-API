@@ -11,11 +11,11 @@ describe('S2220Builder', () => {
     cpfTrab: '12345678909',
     matricula: 'EMP001',
     tpAso: 0,
-    dtAso: new Date('2026-05-10'),
+    dtAso: new Date('2026-05-10T12:00:00Z'),
     resAso: 1,
     exames: [
       {
-        dtExam: new Date('2026-05-09'),
+        dtExam: new Date('2026-05-09T12:00:00Z'),
         procRealizado: '0211070270',
         ordExame: 1,
         indResult: 1,
@@ -79,13 +79,13 @@ describe('S2220Builder', () => {
       ...baseInput,
       exames: [
         {
-          dtExam: new Date('2026-05-08'),
+          dtExam: new Date('2026-05-08T12:00:00Z'),
           procRealizado: '0211070270',
           ordExame: 1,
           indResult: 1,
         },
         {
-          dtExam: new Date('2026-05-09'),
+          dtExam: new Date('2026-05-09T12:00:00Z'),
           procRealizado: '0202031071',
           obsProc: 'Audiometria tonal',
           ordExame: 2,
@@ -105,7 +105,7 @@ describe('S2220Builder', () => {
       ...baseInput,
       exames: [
         {
-          dtExam: new Date('2026-05-09'),
+          dtExam: new Date('2026-05-09T12:00:00Z'),
           procRealizado: '0211070270',
           ordExame: 1,
         },

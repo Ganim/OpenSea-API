@@ -10,7 +10,7 @@ describe('S2206Builder', () => {
     nrInsc: '12345678000195',
     cpfTrab: '12345678909',
     matricula: 'EMP001',
-    dtAlteracao: new Date('2026-05-01'),
+    dtAlteracao: new Date('2026-05-01T12:00:00Z'),
     nmCargo: 'Analista Sênior',
     CBOCargo: '212405',
     vrSalFx: 10000,
@@ -74,7 +74,7 @@ describe('S2206Builder', () => {
     const input: S2206Input = {
       ...baseInput,
       tpContr: 2,
-      dtTerm: new Date('2027-04-30'),
+      dtTerm: new Date('2027-04-30T12:00:00Z'),
     };
     const xml = builder.build(input);
     expect(xml).toContain('<dtTerm>2027-04-30</dtTerm>');

@@ -11,7 +11,7 @@ describe('S2399Builder', () => {
     cpfTrab: '12345678909',
     matricula: 'TSV001',
     codCateg: 721,
-    dtTerm: new Date('2026-12-31'),
+    dtTerm: new Date('2026-12-31T12:00:00Z'),
     mtvDesligTSV: '02',
   };
 

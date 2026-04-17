@@ -9,13 +9,13 @@ describe('S2205Builder', () => {
     tpInsc: 1,
     nrInsc: '12345678000195',
     cpfTrab: '12345678909',
-    dtAlteracao: new Date('2026-04-01'),
+    dtAlteracao: new Date('2026-04-01T12:00:00Z'),
     nmTrab: 'Maria da Silva',
     sexo: 'F',
     racaCor: 1,
     estCiv: 2,
     grauInstr: '09',
-    dtNascto: new Date('1990-06-15'),
+    dtNascto: new Date('1990-06-15T12:00:00Z'),
   };
 
   it('should generate valid S-2205 XML with correct namespace', () => {
@@ -114,11 +114,11 @@ describe('S2205Builder', () => {
       tpInsc: 1,
       nrInsc: '12345678000195',
       cpfTrab: '12345678909',
-      dtAlteracao: new Date('2026-04-01'),
+      dtAlteracao: new Date('2026-04-01T12:00:00Z'),
       nmTrab: 'Maria da Silva',
       sexo: 'F',
       racaCor: 1,
-      dtNascto: new Date('1990-06-15'),
+      dtNascto: new Date('1990-06-15T12:00:00Z'),
     };
     const xml = builder.build(minimalInput);
 

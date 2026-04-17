@@ -15,7 +15,7 @@ describe('S2299Builder', () => {
     cpfTrab: '12345678909',
     matricula: 'EMP001',
     mtvDeslig: '02', // Sem justa causa
-    dtDeslig: new Date('2026-06-30'),
+    dtDeslig: new Date('2026-06-30T12:00:00Z'),
   };
 
   it('should generate valid S-2299 XML with correct namespace', () => {
@@ -88,7 +88,7 @@ describe('S2299Builder', () => {
     const input: S2299Input = {
       ...baseInput,
       indPagtoAPI: 2,
-      dtProjFimAPI: new Date('2026-07-30'),
+      dtProjFimAPI: new Date('2026-07-30T12:00:00Z'),
       pensAlim: 'N',
       percAliment: 40,
     };

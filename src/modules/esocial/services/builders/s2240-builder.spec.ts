@@ -10,7 +10,7 @@ describe('S2240Builder', () => {
     nrInsc: '12345678000195',
     cpfTrab: '12345678909',
     matricula: 'EMP001',
-    dtIniCondicao: new Date('2026-01-15'),
+    dtIniCondicao: new Date('2026-01-15T12:00:00Z'),
     infoAmb: {
       codAmb: 'PROD-01',
       dscSetor: 'Linha de Produção',

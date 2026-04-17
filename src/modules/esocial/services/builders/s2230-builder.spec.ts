@@ -10,7 +10,7 @@ describe('S2230Builder', () => {
     nrInsc: '12345678000195',
     cpfTrab: '12345678909',
     matricula: 'EMP001',
-    dtIniAfast: new Date('2026-05-10'),
+    dtIniAfast: new Date('2026-05-10T12:00:00Z'),
     codMotAfast: '03', // Doença
     codCID: 'J11',
   };
@@ -51,7 +51,7 @@ describe('S2230Builder', () => {
   it('should include fimAfastamento when dtTermAfast is provided', () => {
     const input: S2230Input = {
       ...baseInput,
-      dtTermAfast: new Date('2026-05-20'),
+      dtTermAfast: new Date('2026-05-20T12:00:00Z'),
     };
     const xml = builder.build(input);
 

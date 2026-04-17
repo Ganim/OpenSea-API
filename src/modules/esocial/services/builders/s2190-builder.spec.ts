@@ -9,8 +9,8 @@ describe('S2190Builder', () => {
     tpInsc: 1,
     nrInsc: '12345678000195',
     cpfTrab: '123.456.789-09',
-    dtNascto: new Date('1990-06-15'),
-    dtAdm: new Date('2026-04-01'),
+    dtNascto: new Date('1990-06-15T12:00:00Z'),
+    dtAdm: new Date('2026-04-01T12:00:00Z'),
   };
 
   it('should generate valid S-2190 XML', () => {
@@ -87,8 +87,8 @@ describe('S2190Builder', () => {
   it('should accept ISO string dates', () => {
     const input: S2190Input = {
       ...baseInput,
-      dtNascto: '1985-12-31T00:00:00.000Z',
-      dtAdm: '2026-06-01T00:00:00.000Z',
+      dtNascto: '1985-12-31T12:00:00.000Z',
+      dtAdm: '2026-06-01T12:00:00.000Z',
     };
     const xml = builder.build(input);
 

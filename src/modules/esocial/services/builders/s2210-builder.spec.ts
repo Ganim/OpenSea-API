@@ -10,7 +10,7 @@ describe('S2210Builder', () => {
     nrInsc: '12345678000195',
     cpfTrab: '12345678909',
     matricula: 'EMP001',
-    dtAcid: new Date('2026-05-15'),
+    dtAcid: new Date('2026-05-15T12:00:00Z'),
     hrAcid: '14:30',
     tpAcid: 1,
     tpCat: 1,
@@ -100,7 +100,7 @@ describe('S2210Builder', () => {
     const input: S2210Input = {
       ...baseInput,
       atestado: {
-        dtAtend: new Date('2026-05-15'),
+        dtAtend: new Date('2026-05-15T12:00:00Z'),
         hrAtend: '15:00',
         indInternacao: 'N',
         durTrat: 15,
@@ -131,7 +131,7 @@ describe('S2210Builder', () => {
       nrInsc: '12345678000195',
       cpfTrab: '12345678909',
       matricula: 'EMP001',
-      dtAcid: new Date('2026-05-15'),
+      dtAcid: new Date('2026-05-15T12:00:00Z'),
       tpAcid: 1,
       tpCat: 1,
       codSitGeradora: '200014000',

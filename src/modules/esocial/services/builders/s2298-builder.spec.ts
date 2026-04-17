@@ -12,8 +12,8 @@ describe('S2298Builder', () => {
     matricula: 'EMP001',
     tpReint: 1,
     nrProcJud: '0001234-56.2026.5.01.0001',
-    dtReint: new Date('2026-07-01'),
-    dtEfetRetorno: new Date('2026-07-15'),
+    dtReint: new Date('2026-07-01T12:00:00Z'),
+    dtEfetRetorno: new Date('2026-07-15T12:00:00Z'),
   };
 
   it('should generate valid S-2298 XML with correct namespace', () => {

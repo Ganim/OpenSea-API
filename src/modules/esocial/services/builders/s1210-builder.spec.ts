@@ -17,7 +17,7 @@ describe('S1210Builder', () => {
     },
     infoPgto: [
       {
-        dtPgto: new Date('2026-04-05'),
+        dtPgto: new Date('2026-04-05T12:00:00Z'),
         tpPgto: 1,
         indResBr: 'S',
         detPgtoFl: [
@@ -113,7 +113,7 @@ describe('S1210Builder', () => {
       ...baseInput,
       infoPgto: [
         {
-          dtPgto: new Date('2026-04-05'),
+          dtPgto: new Date('2026-04-05T12:00:00Z'),
           tpPgto: 2,
           indResBr: 'S',
           detPgtoFl: [
@@ -138,7 +138,7 @@ describe('S1210Builder', () => {
       ...baseInput,
       infoPgto: [
         {
-          dtPgto: new Date('2026-04-05'),
+          dtPgto: new Date('2026-04-05T12:00:00Z'),
           tpPgto: 5,
           indResBr: 'S',
           detPgtoBenPr: [
@@ -164,7 +164,7 @@ describe('S1210Builder', () => {
       ...baseInput,
       infoPgto: [
         {
-          dtPgto: new Date('2026-04-05'),
+          dtPgto: new Date('2026-04-05T12:00:00Z'),
           tpPgto: 1,
           indResBr: 'S',
           detPgtoFl: [
@@ -172,7 +172,7 @@ describe('S1210Builder', () => {
           ],
         },
         {
-          dtPgto: new Date('2026-04-20'),
+          dtPgto: new Date('2026-04-20T12:00:00Z'),
           tpPgto: 1,
           indResBr: 'S',
           detPgtoFl: [
@@ -194,7 +194,7 @@ describe('S1210Builder', () => {
       ...baseInput,
       infoPgto: [
         {
-          dtPgto: new Date('2026-04-05'),
+          dtPgto: new Date('2026-04-05T12:00:00Z'),
           tpPgto: 1,
           indResBr: 'S',
           detPgtoFl: [

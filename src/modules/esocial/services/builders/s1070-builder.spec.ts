@@ -82,7 +82,7 @@ describe('S1070Builder', () => {
         {
           codSusp: '01',
           indSusp: '01',
-          dtDecisao: new Date('2025-06-15'),
+          dtDecisao: new Date('2025-06-15T12:00:00Z'),
           indDeposito: 'N',
         },
       ],
@@ -103,12 +103,12 @@ describe('S1070Builder', () => {
         {
           codSusp: '01',
           indSusp: '01',
-          dtDecisao: new Date('2025-03-10'),
+          dtDecisao: new Date('2025-03-10T12:00:00Z'),
         },
         {
           codSusp: '02',
           indSusp: '03',
-          dtDecisao: new Date('2025-09-20'),
+          dtDecisao: new Date('2025-09-20T12:00:00Z'),
           indDeposito: 'S',
         },
       ],
@@ -186,7 +186,7 @@ describe('S1070Builder', () => {
         {
           codSusp: '01',
           indSusp: '02',
-          dtDecisao: '2025-11-30T00:00:00.000Z',
+          dtDecisao: '2025-11-30T12:00:00.000Z',
         },
       ],
     };
