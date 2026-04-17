@@ -42,7 +42,10 @@ export async function listRecurringConfigsController(app: FastifyInstance) {
       });
 
       reply.header('Cache-Control', 'private, max-age=120');
+      // P1-43: dual-key envelope. `data` is the new standard across every
+      // paginated finance endpoint; `configs` kept for back-compat.
       return reply.status(200).send({
+        data: result.configs,
         configs: result.configs,
         meta: {
           total: result.total,

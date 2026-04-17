@@ -64,7 +64,10 @@ export async function listPaymentOrdersController(app: FastifyInstance) {
           .optional(),
       }),
       response: {
+        // P1-43: standardized `{ data, meta }` shape. `orders` kept as
+        // transitional alias until the APP migration lands in prod.
         200: z.object({
+          data: z.array(paymentOrderResponseSchema),
           orders: z.array(paymentOrderResponseSchema),
           meta: z.object({
             total: z.number(),
@@ -87,9 +90,10 @@ export async function listPaymentOrdersController(app: FastifyInstance) {
         status,
       });
 
-      // P0-30: standardize on the project-wide `{ data, meta }` pagination
-      // shape so the frontend can read `meta.pages` (was undefined before).
+      // P0-30 + P1-43: standard `{ data, meta }` envelope with the legacy
+      // `orders` key served in parallel until the APP fully migrates.
       return reply.status(200).send({
+        data: result.orders,
         orders: result.orders,
         meta: {
           total: result.total,

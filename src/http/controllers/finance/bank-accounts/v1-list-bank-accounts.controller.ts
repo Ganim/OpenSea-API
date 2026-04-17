@@ -39,7 +39,12 @@ export async function listBankAccountsController(app: FastifyInstance) {
       security: [{ bearerAuth: [] }],
       querystring: listQuerySchema,
       response: {
+        // P1-43: standardized `{ data, meta }` shape shared by every
+        // paginated finance list. `bankAccounts` kept as a transitional
+        // alias so older frontend bundles that still read it stay working
+        // until the migration on the APP side is confirmed in production.
         200: z.object({
+          data: z.array(bankAccountResponseSchema),
           bankAccounts: z.array(bankAccountResponseSchema),
           meta: z.object({
             total: z.number(),
@@ -77,7 +82,13 @@ export async function listBankAccountsController(app: FastifyInstance) {
       });
 
       reply.header('Cache-Control', 'private, max-age=300');
-      return reply.status(200).send(result);
+      // P1-43: serve both the new `data` key and the legacy `bankAccounts`
+      // key from the same payload; frontend will flip to `data`.
+      return reply.status(200).send({
+        data: result.bankAccounts,
+        bankAccounts: result.bankAccounts,
+        meta: result.meta,
+      });
     },
   });
 }
