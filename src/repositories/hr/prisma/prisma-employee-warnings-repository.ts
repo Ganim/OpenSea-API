@@ -7,6 +7,7 @@ import type {
   EmployeeWarningsRepository,
   FindEmployeeWarningFilters,
   PaginatedEmployeeWarningsResult,
+  SoftDeleteEmployeeWarningSchema,
   UpdateEmployeeWarningSchema,
 } from '../employee-warnings-repository';
 
@@ -40,9 +41,15 @@ export class PrismaEmployeeWarningsRepository
   async findById(
     id: UniqueEntityID,
     tenantId: string,
+    options?: { includeDeleted?: boolean },
   ): Promise<EmployeeWarning | null> {
+    const includeDeleted = options?.includeDeleted ?? false;
     const warningData = await prisma.employeeWarning.findUnique({
-      where: { id: id.toString(), tenantId, deletedAt: null },
+      where: {
+        id: id.toString(),
+        tenantId,
+        ...(includeDeleted ? {} : { deletedAt: null }),
+      },
     });
 
     if (!warningData) return null;
@@ -59,9 +66,10 @@ export class PrismaEmployeeWarningsRepository
     skip: number,
     take: number,
   ): Promise<PaginatedEmployeeWarningsResult> {
+    const includeDeleted = filters.includeDeleted ?? false;
     const whereClause = {
       tenantId,
-      deletedAt: null,
+      ...(includeDeleted ? {} : { deletedAt: null }),
       employeeId: filters.employeeId?.toString(),
       type: filters.type,
       severity: filters.severity,
@@ -91,12 +99,14 @@ export class PrismaEmployeeWarningsRepository
   async findManyByEmployee(
     employeeId: UniqueEntityID,
     tenantId: string,
+    options?: { includeDeleted?: boolean },
   ): Promise<EmployeeWarning[]> {
+    const includeDeleted = options?.includeDeleted ?? false;
     const warningsData = await prisma.employeeWarning.findMany({
       where: {
         employeeId: employeeId.toString(),
         tenantId,
-        deletedAt: null,
+        ...(includeDeleted ? {} : { deletedAt: null }),
       },
       orderBy: { incidentDate: 'desc' },
     });
@@ -119,6 +129,20 @@ export class PrismaEmployeeWarningsRepository
         tenantId,
         status: 'ACTIVE',
         deletedAt: null,
+      },
+    });
+  }
+
+  async softDelete(data: SoftDeleteEmployeeWarningSchema): Promise<void> {
+    await prisma.employeeWarning.updateMany({
+      where: {
+        id: data.id.toString(),
+        tenantId: data.tenantId,
+        deletedAt: null,
+      },
+      data: {
+        deletedAt: new Date(),
+        deletedBy: data.deletedBy,
       },
     });
   }
@@ -169,13 +193,4 @@ export class PrismaEmployeeWarningsRepository
     });
   }
 
-  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
-    await prisma.employeeWarning.update({
-      where: {
-        id: id.toString(),
-        ...(tenantId && { tenantId }),
-      },
-      data: { deletedAt: new Date() },
-    });
-  }
 }

@@ -19,6 +19,18 @@ export interface EmployeeWarningProps {
   attachmentUrl?: string;
   revokedAt?: Date;
   revokeReason?: string;
+  /**
+   * Soft-delete marker. Present only when the warning has been deleted but
+   * still persists in the DB for CLT Art. 474 compliance (labor-court
+   * auditability of disciplinary history).
+   */
+  deletedAt?: Date;
+  /**
+   * User id (not employee id) that triggered the soft-delete. Optional
+   * because legacy warnings soft-deleted before this audit field was added
+   * may not carry it.
+   */
+  deletedBy?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -86,6 +98,31 @@ export class EmployeeWarning extends Entity<EmployeeWarningProps> {
 
   get revokeReason(): string | undefined {
     return this.props.revokeReason;
+  }
+
+  get deletedAt(): Date | undefined {
+    return this.props.deletedAt;
+  }
+
+  get deletedBy(): string | undefined {
+    return this.props.deletedBy;
+  }
+
+  isDeleted(): boolean {
+    return this.props.deletedAt !== undefined;
+  }
+
+  /**
+   * Soft-delete the warning. Leaves the row in place for CLT Art. 474
+   * compliance and stamps who triggered it.
+   */
+  softDelete(deletedBy: string): void {
+    if (this.props.deletedAt) {
+      throw new Error('Warning has already been deleted');
+    }
+    this.props.deletedAt = new Date();
+    this.props.deletedBy = deletedBy;
+    this.props.updatedAt = this.props.deletedAt;
   }
 
   get createdAt(): Date {

@@ -10,6 +10,7 @@ import type {
   EmployeeWarningsRepository,
   FindEmployeeWarningFilters,
   PaginatedEmployeeWarningsResult,
+  SoftDeleteEmployeeWarningSchema,
   UpdateEmployeeWarningSchema,
 } from '../employee-warnings-repository';
 
@@ -42,10 +43,15 @@ export class InMemoryEmployeeWarningsRepository
   async findById(
     id: UniqueEntityID,
     tenantId: string,
+    options?: { includeDeleted?: boolean },
   ): Promise<EmployeeWarning | null> {
+    const includeDeleted = options?.includeDeleted ?? false;
     return (
       this.items.find(
-        (item) => item.id.equals(id) && item.tenantId.toString() === tenantId,
+        (item) =>
+          item.id.equals(id) &&
+          item.tenantId.toString() === tenantId &&
+          (includeDeleted || !item.deletedAt),
       ) ?? null
     );
   }
@@ -56,8 +62,11 @@ export class InMemoryEmployeeWarningsRepository
     skip: number,
     take: number,
   ): Promise<PaginatedEmployeeWarningsResult> {
+    const includeDeleted = filters.includeDeleted ?? false;
     let filtered = this.items.filter(
-      (item) => item.tenantId.toString() === tenantId,
+      (item) =>
+        item.tenantId.toString() === tenantId &&
+        (includeDeleted || !item.deletedAt),
     );
 
     if (filters.employeeId) {
@@ -90,12 +99,15 @@ export class InMemoryEmployeeWarningsRepository
   async findManyByEmployee(
     employeeId: UniqueEntityID,
     tenantId: string,
+    options?: { includeDeleted?: boolean },
   ): Promise<EmployeeWarning[]> {
+    const includeDeleted = options?.includeDeleted ?? false;
     return this.items
       .filter(
         (item) =>
           item.employeeId.equals(employeeId) &&
-          item.tenantId.toString() === tenantId,
+          item.tenantId.toString() === tenantId &&
+          (includeDeleted || !item.deletedAt),
       )
       .sort((a, b) => b.incidentDate.getTime() - a.incidentDate.getTime());
   }
@@ -108,7 +120,8 @@ export class InMemoryEmployeeWarningsRepository
       (item) =>
         item.employeeId.equals(employeeId) &&
         item.tenantId.toString() === tenantId &&
-        item.status.isActive(),
+        item.status.isActive() &&
+        !item.deletedAt,
     ).length;
   }
 
@@ -147,10 +160,14 @@ export class InMemoryEmployeeWarningsRepository
     }
   }
 
-  async delete(id: UniqueEntityID, _tenantId?: string): Promise<void> {
-    const index = this.items.findIndex((item) => item.id.equals(id));
-    if (index >= 0) {
-      this.items.splice(index, 1);
-    }
+  async softDelete(data: SoftDeleteEmployeeWarningSchema): Promise<void> {
+    const warning = this.items.find(
+      (item) =>
+        item.id.equals(data.id) &&
+        item.tenantId.toString() === data.tenantId &&
+        !item.deletedAt,
+    );
+    if (!warning) return;
+    warning.softDelete(data.deletedBy);
   }
 }

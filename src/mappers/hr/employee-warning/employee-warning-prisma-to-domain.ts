@@ -26,6 +26,8 @@ export function mapEmployeeWarningPrismaToDomain(
     attachmentUrl: warning.attachmentUrl ?? undefined,
     revokedAt: warning.revokedAt ?? undefined,
     revokeReason: warning.revokeReason ?? undefined,
+    deletedAt: warning.deletedAt ?? undefined,
+    deletedBy: warning.deletedBy ?? undefined,
     createdAt: warning.createdAt,
     updatedAt: warning.updatedAt,
   };

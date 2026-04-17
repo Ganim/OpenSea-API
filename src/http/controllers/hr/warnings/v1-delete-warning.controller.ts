@@ -41,10 +41,15 @@ export async function v1DeleteWarningController(app: FastifyInstance) {
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
       const { warningId } = request.params;
+      const deletedBy = request.user.sub;
 
       try {
         const deleteWarningUseCase = makeDeleteWarningUseCase();
-        await deleteWarningUseCase.execute({ tenantId, warningId });
+        await deleteWarningUseCase.execute({
+          tenantId,
+          warningId,
+          deletedBy,
+        });
 
         await logAudit(request, {
           message: AUDIT_MESSAGES.HR.WARNING_DELETE,

@@ -4842,8 +4842,12 @@ model EmployeeWarning {
   revokedAt    DateTime? @map("revoked_at")
   revokeReason String?   @map("revoke_reason") @db.Text
 
-  // Soft Delete
+  // Soft Delete — P0 compliance: CLT art. 474 and MTE guidance require
+  // disciplinary history to remain retrievable even after a "delete" for
+  // ongoing labor-court investigation. deletedBy is the user id (not
+  // employee id) that triggered the soft-delete, captured for audit.
   deletedAt DateTime? @map("deleted_at")
+  deletedBy String?   @map("deleted_by")
 
   // Audit
   createdAt DateTime @default(now()) @map("created_at")

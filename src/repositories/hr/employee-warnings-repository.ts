@@ -33,6 +33,13 @@ export interface FindEmployeeWarningFilters {
   type?: string;
   severity?: string;
   status?: string;
+  /**
+   * Include soft-deleted warnings in the result set. Defaults to `false` —
+   * controllers MUST NOT expose this flag to end users yet; it exists so a
+   * future admin-only endpoint can surface deleted history for labor-court
+   * audits (CLT Art. 474).
+   */
+  includeDeleted?: boolean;
 }
 
 export interface PaginatedEmployeeWarningsResult {
@@ -40,11 +47,19 @@ export interface PaginatedEmployeeWarningsResult {
   total: number;
 }
 
+export interface SoftDeleteEmployeeWarningSchema {
+  id: UniqueEntityID;
+  tenantId: string;
+  /** User id (not employee id) that triggered the delete. */
+  deletedBy: string;
+}
+
 export interface EmployeeWarningsRepository {
   create(data: CreateEmployeeWarningSchema): Promise<EmployeeWarning>;
   findById(
     id: UniqueEntityID,
     tenantId: string,
+    options?: { includeDeleted?: boolean },
   ): Promise<EmployeeWarning | null>;
   findManyPaginated(
     tenantId: string,
@@ -55,6 +70,7 @@ export interface EmployeeWarningsRepository {
   findManyByEmployee(
     employeeId: UniqueEntityID,
     tenantId: string,
+    options?: { includeDeleted?: boolean },
   ): Promise<EmployeeWarning[]>;
   countActiveByEmployee(
     employeeId: UniqueEntityID,
@@ -62,5 +78,10 @@ export interface EmployeeWarningsRepository {
   ): Promise<number>;
   update(data: UpdateEmployeeWarningSchema): Promise<EmployeeWarning | null>;
   save(warning: EmployeeWarning): Promise<void>;
-  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
+  /**
+   * Soft-deletes the warning: sets deleted_at + deleted_by but leaves the
+   * row in place. Controllers must call this instead of a hard delete so
+   * disciplinary history remains auditable (CLT Art. 474).
+   */
+  softDelete(data: SoftDeleteEmployeeWarningSchema): Promise<void>;
 }
