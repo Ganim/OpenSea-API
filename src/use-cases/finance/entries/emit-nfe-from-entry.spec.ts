@@ -285,4 +285,203 @@ describe('EmitNfeFromEntryUseCase', () => {
       'At least one item is required to emit a fiscal document',
     );
   });
+
+  // ─── P2-58: SEFAZ timeout / cStat ≠ 100 edge cases ───────────────────
+  // SEFAZ is the government-run NF-e authorizing service; in practice it
+  // fails in two ways that the use case MUST handle distinctly:
+  //
+  // 1. Returns a cStat != 100 (rejection code) — e.g. 539 (CNPJ inválido),
+  //    215 (falha schema), 670 (nota em contingência). The provider maps
+  //    these to `success: false, errorMessage` and we must persist the
+  //    document as DENIED before throwing so the tenant sees the history.
+  //
+  // 2. Times out / network error — the provider throws. We must propagate
+  //    the error; the document is already persisted in DRAFT state so the
+  //    user can retry emission later. Crucially the finance entry must
+  //    NOT be linked (no fiscalDocumentId update), otherwise the entry
+  //    would block subsequent retries with "already has fiscal document".
+  it('should mark document as DENIED and throw when SEFAZ rejects with cStat 539 (duplicate note)', async () => {
+    const rejectingProvider = createMockFiscalProvider({
+      success: false,
+      errorCode: '539',
+      errorMessage: 'Rejeição 539: Duplicidade de NF-e',
+    });
+
+    const rejectingSut = new EmitNfeFromEntryUseCase(
+      entriesRepo,
+      fiscalConfigsRepo,
+      fiscalDocumentsRepo,
+      fiscalDocItemsRepo,
+      rejectingProvider,
+    );
+
+    const entryId = await createReceivableEntry();
+
+    await expect(
+      rejectingSut.execute({
+        entryId,
+        tenantId: TENANT_ID,
+        documentType: 'NFE',
+        items: defaultItems,
+      }),
+    ).rejects.toThrow(/Rejeição 539/);
+
+    // Document persisted with DENIED status for auditability
+    expect(fiscalDocumentsRepo.items).toHaveLength(1);
+    expect(fiscalDocumentsRepo.items[0].status).toBe('DENIED');
+
+    // Entry MUST NOT be linked — user can retry after fixing the root cause
+    const updatedEntry = await entriesRepo.findById(
+      new UniqueEntityID(entryId),
+      TENANT_ID,
+    );
+    expect(updatedEntry?.fiscalDocumentId).toBeUndefined();
+  });
+
+  it('should mark document as DENIED and throw when SEFAZ rejects with cStat 215 (schema failure)', async () => {
+    const rejectingProvider = createMockFiscalProvider({
+      success: false,
+      errorCode: '215',
+      errorMessage: 'Rejeição 215: Falha no schema XML',
+    });
+
+    const rejectingSut = new EmitNfeFromEntryUseCase(
+      entriesRepo,
+      fiscalConfigsRepo,
+      fiscalDocumentsRepo,
+      fiscalDocItemsRepo,
+      rejectingProvider,
+    );
+
+    const entryId = await createReceivableEntry();
+
+    await expect(
+      rejectingSut.execute({
+        entryId,
+        tenantId: TENANT_ID,
+        documentType: 'NFE',
+        items: defaultItems,
+      }),
+    ).rejects.toThrow(/Rejeição 215/);
+
+    expect(fiscalDocumentsRepo.items[0].status).toBe('DENIED');
+  });
+
+  it('should propagate SEFAZ timeout errors without marking the document as DENIED', async () => {
+    // Provider throws (simulates socket timeout / ECONNABORTED) BEFORE
+    // returning a structured EmissionResult. The use case should let the
+    // error propagate so the caller knows the state is undetermined.
+    const timingOutProvider: FiscalProvider = {
+      providerName: 'MOCK',
+      emitNFe: vi
+        .fn()
+        .mockRejectedValue(
+          Object.assign(new Error('SEFAZ timeout: ETIMEDOUT'), {
+            code: 'ETIMEDOUT',
+          }),
+        ),
+      emitNFCe: vi.fn(),
+      cancelDocument: vi.fn(),
+      correctionLetter: vi.fn(),
+      voidNumberRange: vi.fn(),
+      queryDocument: vi.fn(),
+      generateDanfe: vi.fn(),
+      checkSefazStatus: vi.fn(),
+    };
+
+    const timingOutSut = new EmitNfeFromEntryUseCase(
+      entriesRepo,
+      fiscalConfigsRepo,
+      fiscalDocumentsRepo,
+      fiscalDocItemsRepo,
+      timingOutProvider,
+    );
+
+    const entryId = await createReceivableEntry();
+
+    await expect(
+      timingOutSut.execute({
+        entryId,
+        tenantId: TENANT_ID,
+        documentType: 'NFE',
+        items: defaultItems,
+      }),
+    ).rejects.toThrow(/SEFAZ timeout|ETIMEDOUT/);
+
+    // Document persisted at the pre-provider step — its status stays at
+    // DRAFT (NOT DENIED — the emission was not actually refused, it was
+    // lost in transit). This preserves the retry path.
+    expect(fiscalDocumentsRepo.items).toHaveLength(1);
+    expect(fiscalDocumentsRepo.items[0].status).toBe('DRAFT');
+
+    // Entry must NOT have been linked — the caller must be able to
+    // retry emission without hitting the "already has fiscal document"
+    // guard.
+    const updatedEntry = await entriesRepo.findById(
+      new UniqueEntityID(entryId),
+      TENANT_ID,
+    );
+    expect(updatedEntry?.fiscalDocumentId).toBeUndefined();
+  });
+
+  it('should allow retry after a previous timeout (document stays in DRAFT, entry unlinked)', async () => {
+    // First emission times out — leaves a DRAFT document behind and no
+    // link on the entry.
+    const timingOutProvider: FiscalProvider = {
+      providerName: 'MOCK',
+      emitNFe: vi.fn().mockRejectedValueOnce(new Error('SEFAZ timeout')),
+      emitNFCe: vi.fn(),
+      cancelDocument: vi.fn(),
+      correctionLetter: vi.fn(),
+      voidNumberRange: vi.fn(),
+      queryDocument: vi.fn(),
+      generateDanfe: vi.fn(),
+      checkSefazStatus: vi.fn(),
+    };
+
+    const timingOutSut = new EmitNfeFromEntryUseCase(
+      entriesRepo,
+      fiscalConfigsRepo,
+      fiscalDocumentsRepo,
+      fiscalDocItemsRepo,
+      timingOutProvider,
+    );
+
+    const entryId = await createReceivableEntry();
+
+    await expect(
+      timingOutSut.execute({
+        entryId,
+        tenantId: TENANT_ID,
+        documentType: 'NFE',
+        items: defaultItems,
+      }),
+    ).rejects.toThrow(/SEFAZ timeout/);
+
+    // Now retry with a working provider — should succeed. Entry must have
+    // stayed unlinked through the timeout, so the "already linked" guard
+    // does not block the retry.
+    const retrySut = new EmitNfeFromEntryUseCase(
+      entriesRepo,
+      fiscalConfigsRepo,
+      fiscalDocumentsRepo,
+      fiscalDocItemsRepo,
+      createMockFiscalProvider(),
+    );
+
+    const retryResult = await retrySut.execute({
+      entryId,
+      tenantId: TENANT_ID,
+      documentType: 'NFE',
+      items: defaultItems,
+    });
+
+    expect(retryResult.fiscalDocument.status).toBe('AUTHORIZED');
+
+    const updatedEntry = await entriesRepo.findById(
+      new UniqueEntityID(entryId),
+      TENANT_ID,
+    );
+    expect(updatedEntry?.fiscalDocumentId).toBe(retryResult.fiscalDocument.id);
+  });
 });
