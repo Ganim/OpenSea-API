@@ -190,16 +190,17 @@ export class CreateLoanUseCase {
     const installments = [];
     let remainingBalance = principalAmount;
 
+    const baseDay = installmentDay ?? startDate.getUTCDate();
+
     for (let i = 1; i <= totalInstallments; i++) {
       const interestAmount = remainingBalance * monthlyRate;
       const installmentPrincipal = fixedPayment - interestAmount;
 
-      // Calculate due date
-      const dueDate = new Date(startDate);
-      dueDate.setUTCMonth(dueDate.getUTCMonth() + i);
-      if (installmentDay) {
-        dueDate.setUTCDate(installmentDay);
-      }
+      // Calculate due date by clamping the target day to the last valid day of
+      // the target month. Using `setUTCMonth(m + i)` alone overflows (e.g. 31/01
+      // + 1 month becomes 03/03 instead of 28/02), producing duplicate months
+      // and skipping February entirely. Clamping keeps one installment per month.
+      const dueDate = addMonthsClampedUtc(startDate, i, baseDay);
 
       installments.push({
         loanId,
@@ -215,4 +216,33 @@ export class CreateLoanUseCase {
 
     return installments;
   }
+}
+
+/**
+ * Returns the last day (1..31) of the given UTC year/month.
+ * Day 0 of month+1 equals the last day of month.
+ */
+function lastDayOfMonthUtc(year: number, monthIndexZeroBased: number): number {
+  return new Date(Date.UTC(year, monthIndexZeroBased + 1, 0)).getUTCDate();
+}
+
+/**
+ * Adds `monthsToAdd` to `startDate`, targeting `targetDay` inside the resulting
+ * month. If `targetDay` exceeds the month's last day (e.g. Feb 31 → Feb 28/29),
+ * the date is clamped to that last day. Returns a new Date at UTC midnight.
+ */
+function addMonthsClampedUtc(
+  startDate: Date,
+  monthsToAdd: number,
+  targetDay: number,
+): Date {
+  const targetYearRaw = startDate.getUTCFullYear();
+  const targetMonthRaw = startDate.getUTCMonth() + monthsToAdd;
+  const targetYear = targetYearRaw + Math.floor(targetMonthRaw / 12);
+  const targetMonth = ((targetMonthRaw % 12) + 12) % 12;
+
+  const maxDay = lastDayOfMonthUtc(targetYear, targetMonth);
+  const clampedDay = Math.min(targetDay, maxDay);
+
+  return new Date(Date.UTC(targetYear, targetMonth, clampedDay));
 }

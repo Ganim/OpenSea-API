@@ -138,4 +138,47 @@ describe('CreateLoanUseCase', () => {
       }),
     ).rejects.toThrow(BadRequestError);
   });
+
+  // Regression: P1-02 — startDate on day 31 must not overflow into the next
+  // month (e.g. Feb 31 → Mar 3). Each installment must fall in a distinct
+  // calendar month, clamped to the last valid day.
+  it('should generate one installment per distinct month when startDate is day 31', async () => {
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      bankAccountId: seededBankAccountId,
+      costCenterId: seededCostCenterId,
+      name: 'Emprestimo dia 31',
+      type: 'PERSONAL',
+      principalAmount: 12000,
+      interestRate: 0,
+      startDate: new Date(Date.UTC(2026, 0, 31)), // 31/01/2026
+      totalInstallments: 12,
+    });
+
+    expect(result.installments).toHaveLength(12);
+
+    const monthKeys = result.installments.map((inst) => {
+      const d = new Date(inst.dueDate);
+      return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
+    });
+
+    const uniqueMonths = new Set(monthKeys);
+    expect(uniqueMonths.size).toBe(12);
+
+    // February 2026 has 28 days → Feb parcel must be on day 28, not overflow
+    // to March. March must still come next and on its own month.
+    const february = result.installments.find((inst) => {
+      const d = new Date(inst.dueDate);
+      return d.getUTCMonth() === 1 && d.getUTCFullYear() === 2026;
+    });
+    expect(february).toBeDefined();
+    expect(new Date(february!.dueDate).getUTCDate()).toBe(28);
+
+    const march = result.installments.find((inst) => {
+      const d = new Date(inst.dueDate);
+      return d.getUTCMonth() === 2 && d.getUTCFullYear() === 2026;
+    });
+    expect(march).toBeDefined();
+    expect(new Date(march!.dueDate).getUTCDate()).toBe(31);
+  });
 });
