@@ -1,5 +1,6 @@
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 import type { BankAccountsRepository } from '@/repositories/finance/bank-accounts-repository';
+import type { FinanceEntryPaymentsRepository } from '@/repositories/finance/finance-entry-payments-repository';
 
 interface GetCashflowUseCaseRequest {
   tenantId: string;
@@ -32,12 +33,14 @@ export class GetCashflowUseCase {
   constructor(
     private financeEntriesRepository: FinanceEntriesRepository,
     private bankAccountsRepository: BankAccountsRepository,
+    private financeEntryPaymentsRepository?: FinanceEntryPaymentsRepository,
   ) {}
 
   async execute(
     request: GetCashflowUseCaseRequest,
   ): Promise<GetCashflowUseCaseResponse> {
     const { tenantId, startDate, endDate, groupBy, bankAccountId } = request;
+    const now = new Date();
 
     // P0-09: forward-looking cashflow must exclude cancelled and already
     // settled entries — they were inflating both totals before. Includes
@@ -70,14 +73,44 @@ export class GetCashflowUseCase {
       this.bankAccountsRepository.findMany(tenantId),
     ]);
 
-    // Calculate opening balance from active bank accounts
-    const openingBalance = bankAccounts
+    // Current (today's) total from the active bank accounts selected.
+    const currentBalance = bankAccounts
       .filter((a) => {
         if (!a.isActive) return false;
         if (bankAccountId && a.id.toString() !== bankAccountId) return false;
         return true;
       })
       .reduce((sum, a) => sum + a.currentBalance, 0);
+
+    // P0-11: the opening balance must reflect the bank balance AT startDate,
+    // not today's balance. When startDate ≤ now, subtract the net cash
+    // settled between startDate and now — those movements are already baked
+    // into currentBalance. For startDate in the future we can only show
+    // today's balance (no "future actuals" to roll forward).
+    let openingBalance = currentBalance;
+    if (this.financeEntryPaymentsRepository && startDate <= now) {
+      const capTo = new Date(Math.min(endDate.getTime(), now.getTime()));
+      const [receivedSinceStart, paidSinceStart] = await Promise.all([
+        this.financeEntryPaymentsRepository.sumSettledBetween(
+          tenantId,
+          startDate,
+          capTo,
+          'RECEIVABLE',
+          bankAccountId,
+        ),
+        this.financeEntryPaymentsRepository.sumSettledBetween(
+          tenantId,
+          startDate,
+          capTo,
+          'PAYABLE',
+          bankAccountId,
+        ),
+      ]);
+      // netSettled was added to currentBalance since startDate, so remove it
+      // to recover the historical opening.
+      const netSettled = receivedSinceStart - paidSinceStart;
+      openingBalance = currentBalance - netSettled;
+    }
 
     // Merge inflow and outflow data into a unified timeline
     const dateSet = new Set<string>();

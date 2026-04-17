@@ -5,11 +5,20 @@ import type {
   FinanceEntryPaymentsRepository,
   CreateFinanceEntryPaymentSchema,
 } from '../finance-entry-payments-repository';
+import type { InMemoryFinanceEntriesRepository } from './in-memory-finance-entries-repository';
 
 export class InMemoryFinanceEntryPaymentsRepository
   implements FinanceEntryPaymentsRepository
 {
   public items: FinanceEntryPayment[] = [];
+
+  /**
+   * Optional back-reference to the entries repo used by `sumSettledBetween`
+   * to resolve entry.type / tenantId / bankAccountId (a JOIN in the Prisma
+   * implementation). Test setups wire it when they exercise paths that need
+   * that information; otherwise the method returns 0 safely.
+   */
+  public entriesRepository?: InMemoryFinanceEntriesRepository;
 
   async create(
     data: CreateFinanceEntryPaymentSchema,
@@ -56,5 +65,36 @@ export class InMemoryFinanceEntryPaymentsRepository
     return this.items
       .filter((i) => i.entryId.toString() === entryId.toString())
       .reduce((sum, i) => sum + i.amount, 0);
+  }
+
+  async sumSettledBetween(
+    tenantId: string,
+    from: Date,
+    to: Date,
+    entryType: 'RECEIVABLE' | 'PAYABLE',
+    bankAccountId?: string,
+  ): Promise<number> {
+    if (!this.entriesRepository) return 0;
+    const entries = this.entriesRepository.items;
+
+    return this.items
+      .filter((p) => p.paidAt >= from && p.paidAt <= to)
+      .filter((p) => {
+        const entry = entries.find(
+          (e) => e.id.toString() === p.entryId.toString(),
+        );
+        if (!entry) return false;
+        if (entry.tenantId.toString() !== tenantId) return false;
+        if (entry.type !== entryType) return false;
+        if (bankAccountId) {
+          const paymentBank = p.bankAccountId?.toString();
+          const entryBank = entry.bankAccountId?.toString();
+          if (paymentBank !== bankAccountId && entryBank !== bankAccountId) {
+            return false;
+          }
+        }
+        return true;
+      })
+      .reduce((sum, p) => sum + p.amount, 0);
   }
 }

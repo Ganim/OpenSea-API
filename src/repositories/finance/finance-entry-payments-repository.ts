@@ -29,4 +29,18 @@ export interface FinanceEntryPaymentsRepository {
     entryId: UniqueEntityID,
     tx?: TransactionClient,
   ): Promise<number>;
+  /**
+   * Sum of payment amounts whose `paidAt` falls in [from, to], joined with
+   * their parent finance_entries so the caller can isolate inflows
+   * (RECEIVABLE) from outflows (PAYABLE) and optionally filter by
+   * bank account. Used by the cashflow use-case to derive a historical
+   * opening balance (currentBalance − netSettled([startDate, now])).
+   */
+  sumSettledBetween(
+    tenantId: string,
+    from: Date,
+    to: Date,
+    entryType: 'RECEIVABLE' | 'PAYABLE',
+    bankAccountId?: string,
+  ): Promise<number>;
 }

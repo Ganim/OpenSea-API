@@ -1,17 +1,25 @@
 import { InMemoryBankAccountsRepository } from '@/repositories/finance/in-memory/in-memory-bank-accounts-repository';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { InMemoryFinanceEntryPaymentsRepository } from '@/repositories/finance/in-memory/in-memory-finance-entry-payments-repository';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { GetCashflowUseCase } from './get-cashflow';
 
 let entriesRepository: InMemoryFinanceEntriesRepository;
 let bankAccountsRepository: InMemoryBankAccountsRepository;
+let paymentsRepository: InMemoryFinanceEntryPaymentsRepository;
 let sut: GetCashflowUseCase;
 
 describe('GetCashflowUseCase', () => {
   beforeEach(async () => {
     entriesRepository = new InMemoryFinanceEntriesRepository();
     bankAccountsRepository = new InMemoryBankAccountsRepository();
-    sut = new GetCashflowUseCase(entriesRepository, bankAccountsRepository);
+    paymentsRepository = new InMemoryFinanceEntryPaymentsRepository();
+    paymentsRepository.entriesRepository = entriesRepository;
+    sut = new GetCashflowUseCase(
+      entriesRepository,
+      bankAccountsRepository,
+      paymentsRepository,
+    );
   });
 
   it('should return empty cashflow when no entries', async () => {
@@ -129,5 +137,105 @@ describe('GetCashflowUseCase', () => {
     // Closing: 50000 - 10000 = 40000
     expect(result.summary.closingBalance).toBe(40000);
     expect(result.data[0].cumulativeBalance).toBe(40000);
+  });
+
+  describe('historical opening balance (P0-11)', () => {
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it('should roll current balance back to startDate by subtracting net settled movements', async () => {
+      // Fake today = 2026-04-30
+      vi.useFakeTimers();
+      vi.setSystemTime(new Date('2026-04-30T12:00:00Z'));
+
+      const account = await bankAccountsRepository.create({
+        tenantId: 'tenant-1',
+        companyId: 'company-1',
+        name: 'Conta Corrente',
+        bankCode: '001',
+        agency: '1234',
+        accountNumber: '12345',
+        accountType: 'CHECKING',
+      });
+      // Current (today's) balance
+      account.currentBalance = 50000;
+
+      // A RECEIVABLE was paid on 2026-02-10 — already baked into 50k today
+      const receivable = await entriesRepository.create({
+        tenantId: 'tenant-1',
+        type: 'RECEIVABLE',
+        code: 'REC-100',
+        description: 'Venda paga em fev',
+        categoryId: 'cat-1',
+        costCenterId: 'cc-1',
+        expectedAmount: 20000,
+        issueDate: new Date('2026-02-01'),
+        dueDate: new Date('2026-02-08'),
+        status: 'RECEIVED',
+      });
+      await paymentsRepository.create({
+        entryId: receivable.id.toString(),
+        amount: 20000,
+        paidAt: new Date('2026-02-10'),
+      });
+
+      // A PAYABLE paid on 2026-03-05 — already baked into 50k today
+      const payable = await entriesRepository.create({
+        tenantId: 'tenant-1',
+        type: 'PAYABLE',
+        code: 'PAG-100',
+        description: 'Aluguel mar',
+        categoryId: 'cat-1',
+        costCenterId: 'cc-1',
+        expectedAmount: 5000,
+        issueDate: new Date('2026-03-01'),
+        dueDate: new Date('2026-03-05'),
+        status: 'PAID',
+      });
+      await paymentsRepository.create({
+        entryId: payable.id.toString(),
+        amount: 5000,
+        paidAt: new Date('2026-03-05'),
+      });
+
+      // Ask for a report starting 2026-01-01 — openingBalance should be the
+      // balance BEFORE the feb + mar movements:
+      // 50000 − (20000 − 5000) = 35000
+      const result = await sut.execute({
+        tenantId: 'tenant-1',
+        startDate: new Date('2026-01-01'),
+        endDate: new Date('2026-04-30'),
+        groupBy: 'month',
+      });
+
+      expect(result.summary.openingBalance).toBe(35000);
+    });
+
+    it('should use current balance as opening when startDate is in the future', async () => {
+      vi.useFakeTimers();
+      vi.setSystemTime(new Date('2026-04-30T12:00:00Z'));
+
+      const account = await bankAccountsRepository.create({
+        tenantId: 'tenant-1',
+        companyId: 'company-1',
+        name: 'Conta Corrente',
+        bankCode: '001',
+        agency: '1234',
+        accountNumber: '12345',
+        accountType: 'CHECKING',
+      });
+      account.currentBalance = 50000;
+
+      const result = await sut.execute({
+        tenantId: 'tenant-1',
+        startDate: new Date('2026-05-01'),
+        endDate: new Date('2026-07-31'),
+        groupBy: 'month',
+      });
+
+      // startDate > now → we can't roll forward; use today's balance.
+      expect(result.summary.openingBalance).toBe(50000);
+    });
   });
 });
