@@ -1,7 +1,9 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { PerformanceReview } from '@/entities/hr/performance-review';
+import type { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import type { PerformanceReviewsRepository } from '@/repositories/hr/performance-reviews-repository';
 
 export interface SubmitManagerReviewRequest {
@@ -12,6 +14,19 @@ export interface SubmitManagerReviewRequest {
   strengths?: string;
   improvements?: string;
   goals?: string;
+  /**
+   * `userId` do chamador autenticado (JWT `sub`). A submissão da avaliação do
+   * gestor só pode ser feita pelo funcionário designado como avaliador
+   * (`review.reviewerId`) ou pelo supervisor direto do avaliado. Callers com
+   * a permissão `hr.reviews.admin` devem ser autorizados no controller —
+   * passe `bypassOwnership: true` apenas nesse caso.
+   */
+  callerUserId: string;
+  /**
+   * Quando `true`, pula a verificação de propriedade (usar apenas quando o
+   * chamador tem `hr.reviews.admin`). Controle desta flag fica no controller.
+   */
+  bypassOwnership?: boolean;
 }
 
 export interface SubmitManagerReviewResponse {
@@ -21,6 +36,7 @@ export interface SubmitManagerReviewResponse {
 export class SubmitManagerReviewUseCase {
   constructor(
     private performanceReviewsRepository: PerformanceReviewsRepository,
+    private employeesRepository: EmployeesRepository,
   ) {}
 
   async execute(
@@ -34,6 +50,8 @@ export class SubmitManagerReviewUseCase {
       strengths,
       improvements,
       goals,
+      callerUserId,
+      bypassOwnership = false,
     } = request;
 
     const review = await this.performanceReviewsRepository.findById(
@@ -43,6 +61,40 @@ export class SubmitManagerReviewUseCase {
 
     if (!review) {
       throw new ResourceNotFoundError('Avaliação de desempenho não encontrada');
+    }
+
+    if (!bypassOwnership) {
+      const reviewee = await this.employeesRepository.findById(
+        review.employeeId,
+        tenantId,
+      );
+
+      if (!reviewee) {
+        throw new ResourceNotFoundError('Funcionário avaliado não encontrado');
+      }
+
+      const reviewer = await this.employeesRepository.findById(
+        review.reviewerId,
+        tenantId,
+      );
+
+      const supervisor = reviewee.supervisorId
+        ? await this.employeesRepository.findById(
+            reviewee.supervisorId,
+            tenantId,
+          )
+        : null;
+
+      const authorizedUserIds = [
+        reviewer?.userId?.toString(),
+        supervisor?.userId?.toString(),
+      ].filter((id): id is string => Boolean(id));
+
+      if (!authorizedUserIds.includes(callerUserId)) {
+        throw new ForbiddenError(
+          'Apenas o avaliador designado ou o supervisor direto pode submeter a avaliação do gestor',
+        );
+      }
     }
 
     if (review.status !== 'MANAGER_REVIEW') {

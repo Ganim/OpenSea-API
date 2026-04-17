@@ -1,7 +1,9 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { PerformanceReview } from '@/entities/hr/performance-review';
+import type { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import type { PerformanceReviewsRepository } from '@/repositories/hr/performance-reviews-repository';
 
 export interface SubmitSelfAssessmentRequest {
@@ -12,6 +14,11 @@ export interface SubmitSelfAssessmentRequest {
   strengths?: string;
   improvements?: string;
   goals?: string;
+  /**
+   * `userId` do chamador autenticado (JWT `sub`). Somente o próprio avaliado
+   * (funcionário vinculado ao `review.employeeId`) pode submeter a autoavaliação.
+   */
+  callerUserId: string;
 }
 
 export interface SubmitSelfAssessmentResponse {
@@ -21,6 +28,7 @@ export interface SubmitSelfAssessmentResponse {
 export class SubmitSelfAssessmentUseCase {
   constructor(
     private performanceReviewsRepository: PerformanceReviewsRepository,
+    private employeesRepository: EmployeesRepository,
   ) {}
 
   async execute(
@@ -34,6 +42,7 @@ export class SubmitSelfAssessmentUseCase {
       strengths,
       improvements,
       goals,
+      callerUserId,
     } = request;
 
     const review = await this.performanceReviewsRepository.findById(
@@ -43,6 +52,21 @@ export class SubmitSelfAssessmentUseCase {
 
     if (!review) {
       throw new ResourceNotFoundError('Avaliação de desempenho não encontrada');
+    }
+
+    const reviewee = await this.employeesRepository.findById(
+      review.employeeId,
+      tenantId,
+    );
+
+    if (!reviewee) {
+      throw new ResourceNotFoundError('Funcionário avaliado não encontrado');
+    }
+
+    if (!reviewee.userId || reviewee.userId.toString() !== callerUserId) {
+      throw new ForbiddenError(
+        'Apenas o próprio avaliado pode submeter a autoavaliação',
+      );
     }
 
     if (review.status !== 'PENDING' && review.status !== 'SELF_ASSESSMENT') {
