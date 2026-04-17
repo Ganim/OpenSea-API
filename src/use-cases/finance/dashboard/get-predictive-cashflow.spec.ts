@@ -310,6 +310,51 @@ describe('GetPredictiveCashflowUseCase', () => {
     }
   });
 
+  it('should carry the running balance continuously across month boundaries (P0-10)', async () => {
+    await seedBankAccount(10000);
+    await seedMonthlyData(6, 5000, 2000);
+
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      months: 3,
+    });
+
+    // For every consecutive pair of daily projections, the jump must equal
+    // the intra-month daily net flow (no big step at month boundaries).
+    // Group projections by month and assert:
+    //   lastDay(monthN).balance === firstDay(monthN+1).balance - dailyNet(monthN+1)
+    const byMonth = new Map<string, typeof result.dailyProjection>();
+    for (const dp of result.dailyProjection) {
+      const key = dp.date.slice(0, 7);
+      if (!byMonth.has(key)) byMonth.set(key, []);
+      byMonth.get(key)!.push(dp);
+    }
+    const monthKeys = Array.from(byMonth.keys()).sort();
+    expect(monthKeys.length).toBeGreaterThanOrEqual(2);
+
+    for (let i = 1; i < monthKeys.length; i++) {
+      const prev = byMonth.get(monthKeys[i - 1])!;
+      const curr = byMonth.get(monthKeys[i])!;
+      const prevMonth = result.projectedMonths.find(
+        (p) => p.month === monthKeys[i - 1],
+      )!;
+      const currMonth = result.projectedMonths.find(
+        (p) => p.month === monthKeys[i],
+      )!;
+
+      const lastDayPrev = prev[prev.length - 1].balance;
+      const firstDayCurr = curr[0].balance;
+      const currDailyNet =
+        (currMonth.projectedRevenue - currMonth.projectedExpenses) /
+        curr.length;
+
+      // End-of-previous-month must equal the projectedBalance for that month.
+      expect(lastDayPrev).toBeCloseTo(prevMonth.projectedBalance, 1);
+      // First day of next month must be prev end-of-month + one day of net flow.
+      expect(firstDayCurr).toBeCloseTo(lastDayPrev + currDailyNet, 1);
+    }
+  });
+
   it('should generate surplus suggestion when balance grows significantly', async () => {
     await seedBankAccount(100000);
     await seedMonthlyData(6, 30000, 5000); // Very high revenue vs expenses

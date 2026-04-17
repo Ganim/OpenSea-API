@@ -252,6 +252,12 @@ export class GetPredictiveCashflowUseCase {
 
     // 5. Project each future month
     const projectedMonths: ProjectedMonth[] = [];
+    // P0-10: runningBalance is the unrounded carry across months. The
+    // daily projection of month i must start from the END of month i-1,
+    // which is `runningBalance` BEFORE we add month i's net flow.
+    // Using `projectedMonths[i-2].projectedBalance` (rounded to 2 cents)
+    // was drifting over long horizons and producing discontinuities at
+    // the month boundary.
     let runningBalance = currentBalance;
     const dailyProjection: DailyProjection[] = [];
     const dangerZones: DangerZone[] = [];
@@ -275,6 +281,8 @@ export class GetPredictiveCashflowUseCase {
       const projectedExpenses =
         pendingExp + avgExpense * seasonalExpIdx * (pendingExp > 0 ? 0.3 : 1.0);
 
+      // Snapshot balance at the start of this month BEFORE mutating it.
+      const monthStartBalance = runningBalance;
       runningBalance += projectedRevenue - projectedExpenses;
 
       // Confidence: decreases with projection distance, improves with data quality
@@ -297,8 +305,7 @@ export class GetPredictiveCashflowUseCase {
       const daysInMonth = new Date(projYear, projMonth + 1, 0).getDate();
       const dailyRevenue = projectedRevenue / daysInMonth;
       const dailyExpense = projectedExpenses / daysInMonth;
-      const startBalance =
-        i === 1 ? currentBalance : projectedMonths[i - 2].projectedBalance;
+      const startBalance = monthStartBalance;
 
       const dailyNetPredicted = dailyRevenue - dailyExpense;
       const monthlySeasonalComponent =
