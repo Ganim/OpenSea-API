@@ -126,6 +126,59 @@ describe('AutoRegisterPixPaymentUseCase', () => {
     expect(result.entry!.status).toBe('PARTIALLY_PAID');
   });
 
+  // P3-29: the PIX webhook may legitimately be re-delivered with the same
+  // endToEndId (bank retries after timeout, operator reprocessing, etc.).
+  // When a prior payment covering the same amount has already been
+  // recorded, the use case must detect the totalDue is already met inside
+  // the locked critical section and bail WITHOUT creating a duplicate
+  // payment — protecting against double-settlement.
+  it('should not create a duplicate payment when endToEndId webhook is redelivered after full settlement', async () => {
+    const entry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'RECEIVABLE',
+      code: 'REC-IDEMP',
+      description: 'Cobrança com retry',
+      categoryId: 'category-1',
+      expectedAmount: 100,
+      issueDate: new Date('2026-01-01'),
+      dueDate: new Date('2026-02-01'),
+    });
+
+    // Simulate a prior successful PIX payment recorded with the same
+    // endToEndId. The second webhook delivery must find totalDue already
+    // met and refuse to create another payment.
+    await paymentsRepository.create({
+      entryId: entry.id.toString(),
+      amount: 100,
+      paidAt: new Date('2026-01-20'),
+      method: 'PIX',
+      reference: 'E00000000202601200000',
+    });
+    entry.status = 'RECEIVED';
+
+    const { prisma } = await import('@/lib/prisma');
+    vi.mocked(prisma.financeEntry.findFirst).mockResolvedValue({
+      id: entry.id.toString(),
+    } as never);
+
+    const { financeEntryPrismaToDomain } = await import(
+      '@/mappers/finance/finance-entry/finance-entry-prisma-to-domain'
+    );
+    vi.mocked(financeEntryPrismaToDomain).mockReturnValue(entry);
+
+    const result = await sut.execute({
+      txId: 'tx-retry',
+      amount: 100,
+      paidAt: new Date('2026-01-20'),
+      endToEndId: 'E00000000202601200000',
+    });
+
+    // Entry stayed at RECEIVED (already-settled short-circuit)
+    expect(result.registered).toBe(false);
+    // Exactly one payment remains — not two.
+    expect(paymentsRepository.items).toHaveLength(1);
+  });
+
   it('should return registered: false when entry is already RECEIVED', async () => {
     const entry = await entriesRepository.create({
       tenantId: 'tenant-1',

@@ -485,6 +485,46 @@ describe('autoMatchTransactions', () => {
     expect(results.size).toBe(0);
   });
 
+  // P3-37: divide-by-zero / zero-expected-amount edge case. An entry whose
+  // expectedAmount is 0 (e.g. a fully-discounted receivable template)
+  // must not throw or produce NaN confidence. The scorer computes a
+  // 1% tolerance bounded by a minimum of R$1.00, so a 0.50 cent bank
+  // movement is still within tolerance — but nothing should divide by
+  // expectedAmount anywhere on the hot path.
+  it('should not throw or emit NaN when the entry expectedAmount is zero', () => {
+    const item = createTestItem({
+      id: 'item-zero',
+      amount: 0.5,
+      transactionDate: new Date('2026-03-05'),
+      description: 'ESTORNO AJUSTE',
+      type: 'DEBIT',
+    });
+
+    const entry = createTestEntry({
+      id: 'entry-zero',
+      expectedAmount: 0,
+      dueDate: new Date('2026-03-05'),
+      type: 'PAYABLE',
+      description: 'Ajuste contábil',
+    });
+
+    const score = calculateMatchScore(item, entry);
+
+    expect(Number.isFinite(score)).toBe(true);
+    expect(Number.isNaN(score)).toBe(false);
+
+    const results = autoMatchTransactions([item], [entry]);
+
+    // Whether or not the pair auto-matches depends on thresholds; the
+    // invariant we care about is that every emitted confidence is a
+    // finite number in [0..1].
+    for (const [, { confidence }] of results) {
+      expect(Number.isFinite(confidence)).toBe(true);
+      expect(confidence).toBeGreaterThanOrEqual(0);
+      expect(confidence).toBeLessThanOrEqual(1);
+    }
+  });
+
   it('should pick the nearest-date candidate when two entries share identical amount but different dates', () => {
     const item = createTestItem({
       id: 'item-pick',
