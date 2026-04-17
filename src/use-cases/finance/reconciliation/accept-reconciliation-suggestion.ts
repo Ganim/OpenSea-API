@@ -2,6 +2,10 @@ import { ErrorCodes } from '@/@errors/error-codes';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type {
+  TransactionClient,
+  TransactionManager,
+} from '@/lib/transaction-manager';
 import type { ReconciliationSuggestionDTO } from '@/mappers/finance/reconciliation-suggestion/reconciliation-suggestion-to-dto';
 import { reconciliationSuggestionToDTO } from '@/mappers/finance/reconciliation-suggestion/reconciliation-suggestion-to-dto';
 import type { BankReconciliationsRepository } from '@/repositories/finance/bank-reconciliations-repository';
@@ -25,6 +29,7 @@ export class AcceptReconciliationSuggestionUseCase {
     private bankReconciliationsRepository: BankReconciliationsRepository,
     private financeEntriesRepository: FinanceEntriesRepository,
     private financeEntryPaymentsRepository: FinanceEntryPaymentsRepository,
+    private transactionManager?: TransactionManager,
   ) {}
 
   async execute(
@@ -32,7 +37,6 @@ export class AcceptReconciliationSuggestionUseCase {
   ): Promise<AcceptReconciliationSuggestionUseCaseResponse> {
     const { tenantId, suggestionId, userId } = request;
 
-    // Find the suggestion
     const suggestion = await this.reconciliationSuggestionsRepository.findById(
       new UniqueEntityID(suggestionId),
       tenantId,
@@ -52,84 +56,108 @@ export class AcceptReconciliationSuggestionUseCase {
       );
     }
 
-    // Validate the entry still exists
-    const entry = await this.financeEntriesRepository.findById(
-      suggestion.entryId,
-      tenantId,
-    );
+    const runAccept = async (tx?: TransactionClient) => {
+      const lockedEntry = tx
+        ? await this.financeEntriesRepository.findByIdForUpdate(
+            suggestion.entryId,
+            tenantId,
+            tx,
+          )
+        : await this.financeEntriesRepository.findById(
+            suggestion.entryId,
+            tenantId,
+          );
 
-    if (!entry) {
-      throw new ResourceNotFoundError(
-        'Finance entry not found',
-        ErrorCodes.RESOURCE_NOT_FOUND,
-      );
-    }
-
-    // Mark the bank reconciliation item as matched
-    await this.bankReconciliationsRepository.updateItem({
-      id: suggestion.transactionId,
-      tenantId: suggestion.tenantId.toString(),
-      matchedEntryId: suggestion.entryId.toString(),
-      matchConfidence: suggestion.score / 110,
-      matchStatus: 'SUGGESTION_ACCEPTED',
-    });
-
-    // Register payment on the entry if the transaction matches.
-    // NOTE: This use case lacks a TransactionManager — the payment + status
-    // update is NOT atomic. A future improvement should wrap this in a
-    // transaction with findByIdForUpdate to prevent concurrent races.
-    const existingPaymentsSum =
-      await this.financeEntryPaymentsRepository.sumByEntryId(
-        suggestion.entryId,
-      );
-
-    const remainingBalance = entry.totalDue - existingPaymentsSum;
-
-    if (remainingBalance > 0) {
-      const paymentAmount = Math.min(entry.expectedAmount, remainingBalance);
-
-      await this.financeEntryPaymentsRepository.create({
-        entryId: suggestion.entryId.toString(),
-        amount: paymentAmount,
-        paidAt: new Date(),
-        method: 'BANK_RECONCILIATION',
-        notes: `Auto-conciliação aceita (score: ${suggestion.score})`,
-        createdBy: userId,
-      });
-
-      // Check if entry is fully paid
-      const newTotal = existingPaymentsSum + paymentAmount;
-      const isFullyPaid = newTotal >= entry.totalDue;
-
-      if (isFullyPaid) {
-        const fullyPaidStatus = entry.type === 'PAYABLE' ? 'PAID' : 'RECEIVED';
-        await this.financeEntriesRepository.update({
-          id: suggestion.entryId,
-          tenantId,
-          status: fullyPaidStatus,
-          actualAmount: newTotal,
-          paymentDate: new Date(),
-        });
-      } else {
-        await this.financeEntriesRepository.update({
-          id: suggestion.entryId,
-          tenantId,
-          status: 'PARTIALLY_PAID',
-          actualAmount: newTotal,
-        });
+      if (!lockedEntry) {
+        throw new ResourceNotFoundError(
+          'Finance entry not found',
+          ErrorCodes.RESOURCE_NOT_FOUND,
+        );
       }
-    }
 
-    // Mark suggestion as accepted
-    const updatedSuggestion =
-      await this.reconciliationSuggestionsRepository.updateStatus(
-        new UniqueEntityID(suggestionId),
-        'ACCEPTED',
-        userId,
+      await this.bankReconciliationsRepository.updateItem(
+        {
+          id: suggestion.transactionId,
+          tenantId: suggestion.tenantId.toString(),
+          matchedEntryId: suggestion.entryId.toString(),
+          matchConfidence: suggestion.score / 110,
+          matchStatus: 'SUGGESTION_ACCEPTED',
+        },
+        tx,
       );
+
+      const existingPaymentsSum =
+        await this.financeEntryPaymentsRepository.sumByEntryId(
+          suggestion.entryId,
+          tx,
+        );
+
+      const remainingBalance = lockedEntry.totalDue - existingPaymentsSum;
+
+      if (remainingBalance > 0) {
+        const paymentAmount = Math.min(
+          lockedEntry.expectedAmount,
+          remainingBalance,
+        );
+
+        await this.financeEntryPaymentsRepository.create(
+          {
+            entryId: suggestion.entryId.toString(),
+            amount: paymentAmount,
+            paidAt: new Date(),
+            method: 'BANK_RECONCILIATION',
+            notes: `Auto-conciliação aceita (score: ${suggestion.score})`,
+            createdBy: userId,
+          },
+          tx,
+        );
+
+        const newTotal = existingPaymentsSum + paymentAmount;
+        const isFullyPaid = newTotal >= lockedEntry.totalDue;
+
+        if (isFullyPaid) {
+          const fullyPaidStatus =
+            lockedEntry.type === 'PAYABLE' ? 'PAID' : 'RECEIVED';
+          await this.financeEntriesRepository.update(
+            {
+              id: suggestion.entryId,
+              tenantId,
+              status: fullyPaidStatus,
+              actualAmount: newTotal,
+              paymentDate: new Date(),
+            },
+            tx,
+          );
+        } else {
+          await this.financeEntriesRepository.update(
+            {
+              id: suggestion.entryId,
+              tenantId,
+              status: 'PARTIALLY_PAID',
+              actualAmount: newTotal,
+            },
+            tx,
+          );
+        }
+      }
+
+      const updatedSuggestion =
+        await this.reconciliationSuggestionsRepository.updateStatus(
+          new UniqueEntityID(suggestionId),
+          'ACCEPTED',
+          userId,
+          tx,
+        );
+
+      return updatedSuggestion!;
+    };
+
+    const updated = this.transactionManager
+      ? await this.transactionManager.run((tx) => runAccept(tx))
+      : await runAccept();
 
     return {
-      suggestion: reconciliationSuggestionToDTO(updatedSuggestion!),
+      suggestion: reconciliationSuggestionToDTO(updated),
     };
   }
 }

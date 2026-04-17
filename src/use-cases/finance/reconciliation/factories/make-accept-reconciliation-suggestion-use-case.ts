@@ -1,3 +1,4 @@
+import { PrismaTransactionManager } from '@/lib/transaction-manager';
 import { PrismaBankReconciliationsRepository } from '@/repositories/finance/prisma/prisma-bank-reconciliations-repository';
 import { PrismaFinanceEntriesRepository } from '@/repositories/finance/prisma/prisma-finance-entries-repository';
 import { PrismaFinanceEntryPaymentsRepository } from '@/repositories/finance/prisma/prisma-finance-entry-payments-repository';
@@ -9,11 +10,13 @@ export function makeAcceptReconciliationSuggestionUseCase() {
   const reconciliationsRepository = new PrismaBankReconciliationsRepository();
   const entriesRepository = new PrismaFinanceEntriesRepository();
   const paymentsRepository = new PrismaFinanceEntryPaymentsRepository();
+  const transactionManager = new PrismaTransactionManager();
 
   return new AcceptReconciliationSuggestionUseCase(
     suggestionsRepository,
     reconciliationsRepository,
     entriesRepository,
     paymentsRepository,
+    transactionManager,
   );
 }
