@@ -106,7 +106,11 @@ export class InMemoryApprovalDelegationsRepository
   }
 
   async save(delegation: ApprovalDelegation): Promise<void> {
-    const index = this.items.findIndex((item) => item.id.equals(delegation.id));
+    const index = this.items.findIndex(
+      (item) =>
+        item.id.equals(delegation.id) &&
+        item.tenantId.toString() === delegation.tenantId.toString(),
+    );
     if (index >= 0) {
       this.items[index] = delegation;
     }
