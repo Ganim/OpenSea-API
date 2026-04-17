@@ -80,13 +80,15 @@ describe('Calculate Thirteenth Salary Use Case', () => {
         (item) => item.type.value === 'THIRTEENTH_SALARY',
       );
       expect(thirteenthItem).toBeDefined();
-      // Full year worked: 12/12 × 6000 = 6000, 1st installment = 3000
-      expect(thirteenthItem!.amount).toBe(3000);
+      // 1st installment (Nov) advances only months ALREADY worked (Jan-Oct),
+      // never projecting Nov-Dec. Full-year hire: 10/12 × 6000 = 5000,
+      // 1st installment = 2500.
+      expect(thirteenthItem!.amount).toBe(2500);
       expect(thirteenthItem!.isDeduction).toBe(false);
     });
 
     it('should calculate proportional 1st installment for mid-year hire', async () => {
-      // Hired July 1st 2024 → 6 months worked in 2024
+      // Hired July 1st 2024 → 4 months counted up to Oct for 1st installment
       await createActiveEmployee({
         baseSalary: 4800,
         hireDate: new Date('2024-07-01'),
@@ -110,8 +112,38 @@ describe('Calculate Thirteenth Salary Use Case', () => {
         (item) => item.type.value === 'THIRTEENTH_SALARY',
       );
       expect(thirteenthItem).toBeDefined();
-      // 6 months: (4800 * 6/12) / 2 = 1200
-      expect(thirteenthItem!.amount).toBe(1200);
+      // Jul-Oct = 4 months: (4800 * 4/12) / 2 = 800
+      expect(thirteenthItem!.amount).toBe(800);
+    });
+
+    it('does not project future months for 1st installment (audit regression)', async () => {
+      // Audit reported: employee hired in May counted 8 months in the 1st
+      // parcela — paying an advance for months not yet worked.
+      await createActiveEmployee({
+        baseSalary: 3000,
+        hireDate: new Date('2024-05-01'),
+      });
+
+      const payroll = await payrollsRepository.create({
+        tenantId,
+        referenceMonth: 11,
+        referenceYear: 2024,
+      });
+
+      const result = await sut.execute({
+        tenantId,
+        payrollId: payroll.id.toString(),
+        processedBy: new UniqueEntityID().toString(),
+        installment: 1,
+        referenceYear: 2024,
+      });
+
+      const thirteenthItem = result.items.find(
+        (item) => item.type.value === 'THIRTEENTH_SALARY',
+      );
+      // Before fix: counted May-Dec = 8 → (3000 * 8/12) / 2 = 1000.
+      // After fix: counts May-Oct = 6 → (3000 * 6/12) / 2 = 750.
+      expect(thirteenthItem!.amount).toBe(750);
     });
 
     it('should not include deductions in 1st installment', async () => {

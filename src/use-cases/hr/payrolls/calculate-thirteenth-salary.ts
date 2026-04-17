@@ -104,24 +104,40 @@ export class CalculateThirteenthSalaryUseCase {
   }
 
   /**
-   * Calculates the proportional months worked in the reference year.
-   * A month counts if the employee worked more than 15 days in it.
+   * Calculates the proportional months worked in the reference year up to
+   * the cut-off month of the current installment.
+   *
+   * The 1st installment is paid by Nov 30 (Decreto 57.155/65 Art. 3), so
+   * only months already worked *up to October* can be counted — otherwise
+   * the advance would be inflated for employees hired mid-year.
+   * The 2nd installment settles the full year (Jan-Dec).
+   *
+   * Art. 130 §CLT (via Decreto 57.155) — month counts only if ≥15 days
+   * were worked in it.
    */
   private calculateProportionalMonths(
     hireDate: Date,
     referenceYear: number,
+    installment: 1 | 2,
   ): number {
     const yearStart = new Date(referenceYear, 0, 1);
-    const yearEnd = new Date(referenceYear, 11, 31);
+    // 1st installment considers months through October (index 9);
+    // 2nd installment considers all months through December (index 11).
+    const cutOffMonthIndex = installment === 1 ? 9 : 11;
+    const cutOffEnd = new Date(referenceYear, cutOffMonthIndex + 1, 0);
 
     // Employee hired after this year? Start from hire month
     const effectiveStart = hireDate > yearStart ? hireDate : yearStart;
 
-    if (effectiveStart > yearEnd) return 0;
+    if (effectiveStart > cutOffEnd) return 0;
 
     let months = 0;
 
-    for (let month = effectiveStart.getMonth(); month <= 11; month++) {
+    for (
+      let month = effectiveStart.getMonth();
+      month <= cutOffMonthIndex;
+      month++
+    ) {
       const monthStart = new Date(referenceYear, month, 1);
       const monthEnd = new Date(referenceYear, month + 1, 0); // Last day of month
 
@@ -133,8 +149,8 @@ export class CalculateThirteenthSalaryUseCase {
       const daysInMonth = monthEnd.getDate();
       const daysWorked = daysInMonth - startDay + 1;
 
-      // >15 days worked counts as a full month
-      if (daysWorked > 15) {
+      // ≥15 days worked counts as a full month
+      if (daysWorked >= 15) {
         months++;
       }
     }
@@ -160,6 +176,7 @@ export class CalculateThirteenthSalaryUseCase {
     const proportionalMonths = this.calculateProportionalMonths(
       employee.hireDate,
       referenceYear,
+      installment,
     );
 
     if (proportionalMonths <= 0) return items;
