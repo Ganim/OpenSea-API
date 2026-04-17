@@ -50,13 +50,23 @@ export class GetBudgetVsActualUseCase {
     const totalBudget = rows.reduce((sum, row) => sum + row.budgetAmount, 0);
     const totalActual = rows.reduce((sum, row) => sum + row.actualAmount, 0);
     const totalVariance = Math.round((totalActual - totalBudget) * 100) / 100;
+    // P2-12: previously, a zero budget with non-zero actual spend returned 0%
+    // variance, which hid real overruns (e.g. "budget = 0, spent R$ 10k →
+    // 0% over"). Returning Infinity keeps the math honest and lets the UI
+    // render a distinct "sem orçamento" state rather than a misleading 0%.
+    // Zero budget with zero actual is a true 0% (no deviation).
     const totalVariancePercent =
-      totalBudget !== 0
-        ? Math.round(((totalActual - totalBudget) / totalBudget) * 10000) / 100
-        : 0;
+      totalBudget === 0
+        ? totalActual === 0
+          ? 0
+          : Infinity
+        : Math.round(((totalActual - totalBudget) / totalBudget) * 10000) / 100;
 
     let overallStatus: 'UNDER_BUDGET' | 'ON_BUDGET' | 'OVER_BUDGET';
-    if (totalVariancePercent > 10) {
+    if (
+      totalVariancePercent === Infinity ||
+      totalVariancePercent > 10
+    ) {
       overallStatus = 'OVER_BUDGET';
     } else if (totalVariancePercent < -10) {
       overallStatus = 'UNDER_BUDGET';
