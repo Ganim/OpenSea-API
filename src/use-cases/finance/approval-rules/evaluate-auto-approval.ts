@@ -5,6 +5,7 @@ import type {
   FinanceApprovalRuleConditions,
 } from '@/entities/finance/finance-approval-rule';
 import type { FinanceEntry } from '@/entities/finance/finance-entry';
+import { logger } from '@/lib/logger';
 import {
   type FinanceApprovalRuleDTO,
   financeApprovalRuleToDTO,
@@ -84,7 +85,17 @@ export class EvaluateAutoApprovalUseCase {
             action: rule.action,
             entryCode: entry.code,
           },
-        }).catch(() => {});
+        }).catch((err) => {
+          logger.warn(
+            {
+              err,
+              context: 'EvaluateAutoApprovalUseCase.queueAuditLog',
+              entryId,
+              ruleId: rule.id.toString(),
+            },
+            'Failed to queue audit log for auto-approval rule application',
+          );
+        });
 
         return {
           matched: true,
@@ -177,8 +188,17 @@ export class EvaluateAutoApprovalUseCase {
               notes: `Pagamento automático via regra: ${rule.name}`,
               createdBy,
             });
-          } catch {
-            // Auto-pay failure should not block entry creation
+          } catch (err) {
+            logger.warn(
+              {
+                err,
+                context: 'EvaluateAutoApprovalUseCase.AUTO_PAY',
+                entryId: entry.id.toString(),
+                ruleId: rule.id.toString(),
+                ruleName: rule.name,
+              },
+              'Auto-pay failed while applying approval rule; entry remained unpaid.',
+            );
           }
         }
         break;

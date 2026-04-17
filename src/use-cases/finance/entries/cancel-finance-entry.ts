@@ -1,6 +1,7 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { logger } from '@/lib/logger';
 import {
   type FinanceEntryDTO,
   financeEntryToDTO,
@@ -80,7 +81,12 @@ export class CancelFinanceEntryUseCase {
         type: entry.type,
         expectedAmount: entry.expectedAmount,
       },
-    }).catch(() => {});
+    }).catch((err) => {
+      logger.warn(
+        { err, context: 'CancelFinanceEntryUseCase.queueAuditLog', entryId: id },
+        'Failed to queue audit log for finance entry cancellation',
+      );
+    });
 
     // Reverse any posted journal entries linked to this finance entry (non-blocking)
     if (this.journalEntriesRepository && this.reverseJournalEntry) {

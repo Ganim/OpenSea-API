@@ -2,6 +2,7 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { FinanceEntry } from '@/entities/finance/finance-entry';
+import { logger } from '@/lib/logger';
 import type {
   TransactionClient,
   TransactionManager,
@@ -313,8 +314,11 @@ export class RegisterPaymentUseCase {
           description: result.entryForPayment.description,
           status: newStatus,
         });
-      } catch {
-        // Calendar sync failure should not block the operation
+      } catch (err) {
+        logger.warn(
+          { err, context: 'RegisterPaymentUseCase.calendarSync', entryId },
+          'Calendar sync failed after payment registration; payment persisted.',
+        );
       }
     }
 
@@ -343,7 +347,12 @@ export class RegisterPaymentUseCase {
         method: request.method,
         isFullyPaid: result.isFullyPaid,
       },
-    }).catch(() => {});
+    }).catch((err) => {
+      logger.warn(
+        { err, context: 'RegisterPaymentUseCase.queueAuditLog', entryId },
+        'Failed to queue audit log for payment registration',
+      );
+    });
 
     // Generate journal entry for payment (non-blocking)
     if (this.autoJournalFromPayment && request.bankAccountId) {
@@ -357,8 +366,16 @@ export class RegisterPaymentUseCase {
           paidAt: request.paidAt ?? new Date(),
           createdBy: request.createdBy,
         });
-      } catch {
-        // Don't fail payment if journal generation fails
+      } catch (err) {
+        logger.warn(
+          {
+            err,
+            context: 'RegisterPaymentUseCase.autoJournalFromPayment',
+            entryId,
+            paymentId: result.payment.id.toString(),
+          },
+          'Journal generation failed after payment registration; payment persisted.',
+        );
       }
     }
 

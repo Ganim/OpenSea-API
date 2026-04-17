@@ -2,12 +2,18 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryFinanceApprovalRulesRepository } from '@/repositories/finance/in-memory/in-memory-finance-approval-rules-repository';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
-import { EvaluateAutoApprovalUseCase } from './evaluate-auto-approval';
+
+// Mock logger to avoid loading @/@env validation during unit tests
+vi.mock('@/lib/logger', () => ({
+  logger: { info: vi.fn(), debug: vi.fn(), warn: vi.fn(), error: vi.fn() },
+}));
 
 // Mock audit queue
 vi.mock('@/workers/queues/audit.queue', () => ({
   queueAuditLog: vi.fn().mockResolvedValue(undefined),
 }));
+
+import { EvaluateAutoApprovalUseCase } from './evaluate-auto-approval';
 
 const TENANT_ID = 'test-tenant-id';
 const CATEGORY_ID = new UniqueEntityID();

@@ -2,12 +2,18 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { CancelFinanceEntryUseCase } from './cancel-finance-entry';
+
+// Mock logger to avoid loading @/@env validation during unit tests
+vi.mock('@/lib/logger', () => ({
+  logger: { info: vi.fn(), debug: vi.fn(), warn: vi.fn(), error: vi.fn() },
+}));
 
 // Mock audit queue to avoid Redis connection in tests
 vi.mock('@/workers/queues/audit.queue', () => ({
   queueAuditLog: vi.fn().mockResolvedValue(undefined),
 }));
+
+import { CancelFinanceEntryUseCase } from './cancel-finance-entry';
 
 let entriesRepository: InMemoryFinanceEntriesRepository;
 let sut: CancelFinanceEntryUseCase;

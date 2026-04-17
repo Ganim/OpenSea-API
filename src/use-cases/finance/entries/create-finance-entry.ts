@@ -6,6 +6,7 @@ import type {
   RecurrenceType,
   RecurrenceUnit,
 } from '@/entities/finance/finance-entry-types';
+import { logger } from '@/lib/logger';
 import type {
   TransactionClient,
   TransactionManager,
@@ -424,8 +425,16 @@ export class CreateFinanceEntryUseCase {
           entryId: entry.id.toString(),
           createdBy: request.createdBy,
         });
-      } catch {
-        // Don't fail entry creation if journal generation fails
+      } catch (err) {
+        logger.warn(
+          {
+            err,
+            context: 'CreateFinanceEntryUseCase.autoJournalFromEntry',
+            entryId: entry.id.toString(),
+            tenantId: request.tenantId,
+          },
+          'Journal generation failed after entry creation; entry persisted.',
+        );
       }
     }
 
