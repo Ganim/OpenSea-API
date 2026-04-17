@@ -149,19 +149,17 @@ export const createFinanceEntrySchema = z
       .enum(['CPF', 'CNPJ', 'EMAIL', 'PHONE', 'EVP'])
       .optional()
       .describe('Tipo da chave Pix'),
+    // P2-48: tags default to an empty array so downstream code can rely on
+    // the field always being iterable (the DB column is non-null, and an
+    // empty [] maps cleanly to `deleteMany + createMany` patterns). The
+    // transform still deduplicates, lowercases and strips blanks.
     tags: z
       .array(z.string())
-      .optional()
+      .default([])
       .describe('Tags para categorização')
-      .transform((tags) =>
-        tags
-          ? [
-              ...new Set(
-                tags.map((t) => t.trim().toLowerCase()).filter(Boolean),
-              ),
-            ]
-          : undefined,
-      ),
+      .transform((tags) => [
+        ...new Set(tags.map((t) => t.trim().toLowerCase()).filter(Boolean)),
+      ]),
     applyRetentions: z
       .boolean()
       .optional()
@@ -226,13 +224,16 @@ export const updateFinanceEntrySchema = z.object({
     .enum(['CPF', 'CNPJ', 'EMAIL', 'PHONE', 'EVP'])
     .nullable()
     .optional(),
+  // P2-48: keep update tags truly optional (undefined = "do not change"),
+  // but when an array is sent make sure we always pass a concrete,
+  // deduplicated array — never undefined after the transform.
   tags: z
     .array(z.string())
     .optional()
     .transform((tags) =>
-      tags
-        ? [...new Set(tags.map((t) => t.trim().toLowerCase()).filter(Boolean))]
-        : undefined,
+      tags === undefined
+        ? undefined
+        : [...new Set(tags.map((t) => t.trim().toLowerCase()).filter(Boolean))],
     ),
 });
 
