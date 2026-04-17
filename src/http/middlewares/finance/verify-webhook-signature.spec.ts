@@ -449,6 +449,57 @@ describe('verifyWebhookSignature middleware', () => {
     expect(statusCode()).toBeUndefined();
   });
 
+  // P3-26 / P3-36: GitHub-style and Pluggy sandbox webhooks prefix the hex
+  // digest with "sha256=". The middleware must accept both the bare digest
+  // and the prefixed form so we don't reject legitimate provider requests.
+  it('accepts signature header prefixed with "sha256=" (GitHub-style convention)', async () => {
+    const secret = 'prefixed-secret';
+    const rawBody = '{"event":"PIX_RECEIVED","amount":321}';
+    const bareDigest = makeSignatureFromRaw(secret, rawBody);
+    const prefixedDigest = `sha256=${bareDigest}`;
+
+    mockFindUnique.mockResolvedValue({
+      apiWebhookSecret: secret,
+      tenantId: 'tenant-prefixed',
+    });
+
+    const request = makeRequest({
+      headers: { 'x-webhook-signature': prefixedDigest },
+      body: { event: 'PIX_RECEIVED', amount: 321 },
+      rawBody,
+    });
+    const { reply, statusCode } = makeReply();
+
+    await verifyWebhookSignature(request, reply);
+
+    expect(statusCode()).toBeUndefined();
+  });
+
+  it('rejects signature with "sha256=" prefix but invalid digest', async () => {
+    const secret = 'prefixed-secret-2';
+    const rawBody = '{"event":"PIX_RECEIVED","amount":1}';
+
+    mockFindUnique.mockResolvedValue({
+      apiWebhookSecret: secret,
+      tenantId: 'tenant-prefixed-bad',
+    });
+
+    // Valid prefix but forged digest — must still be rejected
+    const forgedPrefixed = `sha256=${'0'.repeat(64)}`;
+
+    const request = makeRequest({
+      headers: { 'x-webhook-signature': forgedPrefixed },
+      body: { event: 'PIX_RECEIVED', amount: 1 },
+      rawBody,
+    });
+    const { reply, statusCode, sentPayload } = makeReply();
+
+    await verifyWebhookSignature(request, reply);
+
+    expect(statusCode()).toBe(401);
+    expect(sentPayload()).toEqual({ message: 'Invalid webhook signature' });
+  });
+
   it('returns 500 when raw body is missing (plugin not registered for this route)', async () => {
     mockFindUnique.mockResolvedValue({
       apiWebhookSecret: 'some-secret',

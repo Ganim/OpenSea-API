@@ -68,16 +68,23 @@ export async function verifyWebhookSignature(
   }
 
   // Try multiple header names used by PIX / Sicoob ecosystem
-  const signature =
+  const rawSignatureHeader =
     (request.headers['x-webhook-signature'] as string | undefined) ??
     (request.headers['x-sicoob-signature'] as string | undefined) ??
     (request.headers['webhook-signature'] as string | undefined);
 
-  if (!signature) {
+  if (!rawSignatureHeader) {
     return reply
       .status(401)
       .send({ message: 'Missing webhook signature header' });
   }
+
+  // P3-26 / P3-36: some providers (GitHub-style HMAC conventions and the
+  // Pluggy/Belvo sandbox) prefix the hex digest with "sha256=". Accept both
+  // forms by stripping the well-known prefix before decoding.
+  const signature = rawSignatureHeader.startsWith('sha256=')
+    ? rawSignatureHeader.slice('sha256='.length)
+    : rawSignatureHeader;
 
   // Compute expected HMAC-SHA256 over the RAW body bytes (not the parsed/
   // re-serialized JSON). fastify-raw-body populates request.rawBody for routes
