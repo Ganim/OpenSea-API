@@ -5,6 +5,9 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { prisma } from '@/lib/prisma';
+// P2-49: shared period-lock schema so create/list/delete responses agree
+// on the date shape (z.coerce.date() everywhere).
+import { periodLockSchema } from '@/http/schemas/finance/period-locks/period-lock.schema';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
@@ -32,19 +35,7 @@ export async function createPeriodLockController(app: FastifyInstance) {
       }),
       response: {
         201: z.object({
-          lock: z.object({
-            id: z.string(),
-            tenantId: z.string(),
-            year: z.number().int(),
-            month: z.number().int(),
-            lockedBy: z.string(),
-            lockedAt: z.coerce.date(),
-            releasedBy: z.string().nullable(),
-            releasedAt: z.coerce.date().nullable(),
-            reason: z.string().nullable(),
-            createdAt: z.coerce.date(),
-            updatedAt: z.coerce.date(),
-          }),
+          lock: periodLockSchema,
         }),
         409: z.object({ message: z.string() }),
       },
