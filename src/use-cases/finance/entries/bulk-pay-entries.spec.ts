@@ -363,6 +363,114 @@ describe('BulkPayEntriesUseCase', () => {
     expect(result.errors[0].error).toBe('Entry not found');
   });
 
+  // ─── P2-59: Multi-tenant isolation edge cases ──────────────────────
+  // A compromised / malicious request that mixes ids from two tenants
+  // (leaked UUIDs, speculative id guessing) must not be able to settle
+  // entries from a different tenant. `findByIdForUpdate(id, tenantId, tx)`
+  // is the guard — these tests regress that contract end-to-end.
+  it('should isolate tenants when entryIds mix own and foreign ids', async () => {
+    // Own entry (tenant-1) — valid, should be paid
+    const ownEntry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAG-OWN',
+      description: 'Conta própria',
+      categoryId: 'category-1',
+      expectedAmount: 1000,
+      issueDate: new Date('2026-01-01'),
+      dueDate: new Date('2026-02-01'),
+    });
+
+    // Foreign entry (tenant-2) — must be rejected as "not found"
+    const foreignEntry = await entriesRepository.create({
+      tenantId: 'tenant-2',
+      type: 'PAYABLE',
+      code: 'PAG-FOREIGN',
+      description: 'Conta de outro tenant',
+      categoryId: 'category-2',
+      expectedAmount: 5000,
+      issueDate: new Date('2026-01-01'),
+      dueDate: new Date('2026-02-01'),
+    });
+
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      entryIds: [ownEntry.id.toString(), foreignEntry.id.toString()],
+      bankAccountId: 'bank-1',
+      method: 'PIX',
+    });
+
+    expect(result.succeeded).toBe(1);
+    expect(result.failed).toBe(1);
+
+    const foreignError = result.errors.find(
+      (bulkError) => bulkError.entryId === foreignEntry.id.toString(),
+    );
+    expect(foreignError?.error).toBe('Entry not found');
+
+    // Foreign entry must remain PENDING in its own tenant
+    const foreignRefreshed = await entriesRepository.findById(
+      foreignEntry.id,
+      'tenant-2',
+    );
+    expect(foreignRefreshed!.status).toBe('PENDING');
+    expect(foreignRefreshed!.actualAmount).toBeUndefined();
+
+    // Own entry was paid successfully
+    const ownRefreshed = await entriesRepository.findById(
+      ownEntry.id,
+      'tenant-1',
+    );
+    expect(ownRefreshed!.status).toBe('PAID');
+  });
+
+  it('should reject ALL foreign entries when every id belongs to another tenant', async () => {
+    const foreignEntry1 = await entriesRepository.create({
+      tenantId: 'tenant-2',
+      type: 'PAYABLE',
+      code: 'PAG-F1',
+      description: 'Foreign 1',
+      categoryId: 'category-1',
+      expectedAmount: 500,
+      issueDate: new Date('2026-01-01'),
+      dueDate: new Date('2026-02-01'),
+    });
+
+    const foreignEntry2 = await entriesRepository.create({
+      tenantId: 'tenant-2',
+      type: 'PAYABLE',
+      code: 'PAG-F2',
+      description: 'Foreign 2',
+      categoryId: 'category-1',
+      expectedAmount: 750,
+      issueDate: new Date('2026-01-01'),
+      dueDate: new Date('2026-02-01'),
+    });
+
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      entryIds: [foreignEntry1.id.toString(), foreignEntry2.id.toString()],
+      bankAccountId: 'bank-1',
+      method: 'PIX',
+    });
+
+    expect(result.succeeded).toBe(0);
+    expect(result.failed).toBe(2);
+    expect(result.errors.every((e) => e.error === 'Entry not found')).toBe(
+      true,
+    );
+
+    // No payments created for either foreign entry
+    const payments1 = paymentsRepository.items.filter(
+      (p) => p.entryId.toString() === foreignEntry1.id.toString(),
+    );
+    const payments2 = paymentsRepository.items.filter(
+      (p) => p.entryId.toString() === foreignEntry2.id.toString(),
+    );
+    expect(payments1).toHaveLength(0);
+    expect(payments2).toHaveLength(0);
+  });
+
   // Regression: P1-10 — actualAmount must account for previously-registered
   // partial payments. The final value should be (existing payments sum +
   // remaining balance settled), not the raw totalDue lookup.
