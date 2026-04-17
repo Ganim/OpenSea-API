@@ -4,9 +4,11 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Termination } from '@/entities/hr/termination';
 import { NoticeType, TerminationType } from '@/entities/hr/termination';
 import { EmployeeStatus } from '@/entities/hr/value-objects';
+import { CipaMembersRepository } from '@/repositories/hr/cipa-members-repository';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import { TerminationsRepository } from '@/repositories/hr/terminations-repository';
 import { checkEmploymentStability } from '../employees/check-employment-stability';
+import { isStabilityExemptType } from '../employees/stability-exempt-reasons';
 
 export interface CreateTerminationRequest {
   tenantId: string;
@@ -22,18 +24,11 @@ export interface CreateTerminationResponse {
   termination: Termination;
 }
 
-/** Tipos de rescisão que ignoram estabilidade provisória */
-const STABILITY_EXEMPT_TYPES = [
-  TerminationType.JUSTA_CAUSA,
-  TerminationType.PEDIDO_DEMISSAO,
-  TerminationType.FALECIMENTO,
-  TerminationType.RESCISAO_INDIRETA,
-];
-
 export class CreateTerminationUseCase {
   constructor(
     private terminationsRepository: TerminationsRepository,
     private employeesRepository: EmployeesRepository,
+    private cipaMembersRepository?: CipaMembersRepository,
   ) {}
 
   async execute(
@@ -76,8 +71,11 @@ export class CreateTerminationUseCase {
     }
 
     // Check employment stability for non-exempt termination types
-    if (!STABILITY_EXEMPT_TYPES.includes(type)) {
-      const stability = checkEmploymentStability(employee);
+    if (!isStabilityExemptType(type)) {
+      const activeCipaMembers = await this.cipaMembersRepository
+        ?.findActiveByEmployeeId(new UniqueEntityID(employeeId), tenantId)
+        .catch(() => undefined);
+      const stability = checkEmploymentStability(employee, activeCipaMembers);
       if (stability.isStable) {
         const stableUntilMsg = stability.stableUntil
           ? ` Estável até ${stability.stableUntil.toLocaleDateString('pt-BR')}.`

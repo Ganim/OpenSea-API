@@ -3,8 +3,10 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Employee } from '@/entities/hr/employee';
 import { EmployeeStatus } from '@/entities/hr/value-objects';
+import { CipaMembersRepository } from '@/repositories/hr/cipa-members-repository';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import { checkEmploymentStability } from './check-employment-stability';
+import { isStabilityExemptReason } from './stability-exempt-reasons';
 
 export interface TerminateEmployeeRequest {
   tenantId: string;
@@ -19,11 +21,11 @@ export interface TerminateEmployeeResponse {
   employee: Employee;
 }
 
-/** Tipos de rescisão que não respeitam estabilidade provisória */
-const STABILITY_EXEMPT_REASONS = ['JUSTA_CAUSA', 'FALECIMENTO'];
-
 export class TerminateEmployeeUseCase {
-  constructor(private employeesRepository: EmployeesRepository) {}
+  constructor(
+    private employeesRepository: EmployeesRepository,
+    private cipaMembersRepository?: CipaMembersRepository,
+  ) {}
 
   async execute(
     request: TerminateEmployeeRequest,
@@ -51,8 +53,11 @@ export class TerminateEmployeeUseCase {
     }
 
     // Check employment stability (gestante, acidente de trabalho, CIPA)
-    if (!forceTermination && !STABILITY_EXEMPT_REASONS.includes(reason ?? '')) {
-      const stability = checkEmploymentStability(employee);
+    if (!forceTermination && !isStabilityExemptReason(reason)) {
+      const activeCipaMembers = await this.cipaMembersRepository
+        ?.findActiveByEmployeeId(new UniqueEntityID(employeeId), tenantId)
+        .catch(() => undefined);
+      const stability = checkEmploymentStability(employee, activeCipaMembers);
       if (stability.isStable) {
         const stableUntilMsg = stability.stableUntil
           ? ` Estável até ${stability.stableUntil.toLocaleDateString('pt-BR')}.`
