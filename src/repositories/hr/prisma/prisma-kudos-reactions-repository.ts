@@ -24,9 +24,12 @@ export class PrismaKudosReactionsRepository
     });
   }
 
-  async delete(reactionId: UniqueEntityID): Promise<void> {
+  async delete(reactionId: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.kudosReaction.delete({
-      where: { id: reactionId.toString() },
+      where: {
+        id: reactionId.toString(),
+        ...(tenantId && { tenantId }),
+      },
     });
   }
 

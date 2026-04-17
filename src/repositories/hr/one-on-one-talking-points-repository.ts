@@ -13,6 +13,6 @@ export interface OneOnOneTalkingPointsRepository {
   findById(id: UniqueEntityID): Promise<OneOnOneTalkingPoint | null>;
   findManyByMeeting(meetingId: UniqueEntityID): Promise<OneOnOneTalkingPoint[]>;
   save(point: OneOnOneTalkingPoint): Promise<void>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
   countByMeeting(meetingId: UniqueEntityID): Promise<number>;
 }

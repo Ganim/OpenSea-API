@@ -29,5 +29,5 @@ export interface OnboardingChecklistsRepository {
     params: FindManyOnboardingChecklistsParams,
   ): Promise<FindManyOnboardingChecklistsResult>;
   save(checklist: OnboardingChecklist): Promise<void>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

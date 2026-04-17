@@ -106,9 +106,12 @@ export class PrismaCompanyAnnouncementsRepository
     });
   }
 
-  async delete(id: UniqueEntityID, _tenantId: string): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.companyAnnouncement.delete({
-      where: { id: id.toString() },
+      where: {
+        id: id.toString(),
+        ...(tenantId && { tenantId }),
+      },
     });
   }
 }

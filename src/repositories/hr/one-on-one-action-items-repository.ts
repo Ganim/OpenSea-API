@@ -13,5 +13,5 @@ export interface OneOnOneActionItemsRepository {
   findById(id: UniqueEntityID): Promise<OneOnOneActionItem | null>;
   findManyByMeeting(meetingId: UniqueEntityID): Promise<OneOnOneActionItem[]>;
   save(item: OneOnOneActionItem): Promise<void>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

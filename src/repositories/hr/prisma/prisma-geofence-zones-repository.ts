@@ -89,16 +89,19 @@ export class PrismaGeofenceZonesRepository implements GeofenceZonesRepository {
     data: UpdateGeofenceZoneData,
   ): Promise<GeofenceZone> {
     const record = await prisma.geofenceZone.update({
-      where: { id: id.toString() },
+      where: { id: id.toString(), ...(tenantId && { tenantId }), },
       data,
     });
 
     return mapPrismaToDomain(record);
   }
 
-  async delete(id: UniqueEntityID, _tenantId: string): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.geofenceZone.delete({
-      where: { id: id.toString() },
+      where: {
+        id: id.toString(),
+        ...(tenantId && { tenantId }),
+      },
     });
   }
 }

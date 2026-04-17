@@ -69,7 +69,7 @@ export class InMemorySurveyQuestionsRepository
     return question;
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     const index = this.items.findIndex((q) => q.id.equals(id));
     if (index >= 0) this.items.splice(index, 1);
   }

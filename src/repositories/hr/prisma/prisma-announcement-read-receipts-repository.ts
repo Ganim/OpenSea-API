@@ -17,21 +17,41 @@ export class PrismaAnnouncementReadReceiptsRepository
     const tenantId = params.tenantId.toString();
     const readAt = params.readAt ?? new Date();
 
-    const persisted = await prisma.announcementReadReceipt.upsert({
-      where: {
-        announcementId_employeeId: {
-          announcementId,
-          employeeId,
-        },
-      },
-      create: {
-        tenantId,
-        announcementId,
-        employeeId,
-        readAt,
-      },
-      update: {},
+    // Defense-in-depth: verify the announcement itself belongs to the tenant
+    // before creating/updating a read receipt for it. Prevents cross-tenant
+    // write via knowledge of the (announcementId, employeeId) pair — we
+    // cannot inject tenantId into the `announcementId_employeeId` composite
+    // unique, so we scope via a tenant-aware findFirst + create/update.
+    const announcementBelongsToTenant =
+      await prisma.companyAnnouncement.findFirst({
+        where: { id: announcementId, tenantId },
+        select: { id: true },
+      });
+
+    if (!announcementBelongsToTenant) {
+      throw new Error(
+        `Announcement ${announcementId} does not belong to tenant ${tenantId}`,
+      );
+    }
+
+    const existingReceipt = await prisma.announcementReadReceipt.findFirst({
+      where: { announcementId, employeeId, tenantId },
+      select: { id: true },
     });
+
+    const persisted = existingReceipt
+      ? await prisma.announcementReadReceipt.update({
+          where: { id: existingReceipt.id, tenantId },
+          data: {},
+        })
+      : await prisma.announcementReadReceipt.create({
+          data: {
+            tenantId,
+            announcementId,
+            employeeId,
+            readAt,
+          },
+        });
 
     return AnnouncementReadReceipt.create(
       {

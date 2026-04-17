@@ -85,7 +85,7 @@ export class InMemoryOffboardingChecklistsRepository
     }
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     const checklist = this.items.find((item) => item.id.equals(id));
     if (checklist) {
       checklist.softDelete();

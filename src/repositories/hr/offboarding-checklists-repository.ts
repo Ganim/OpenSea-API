@@ -29,5 +29,5 @@ export interface OffboardingChecklistsRepository {
     params: FindManyOffboardingChecklistsParams,
   ): Promise<FindManyOffboardingChecklistsResult>;
   save(checklist: OffboardingChecklist): Promise<void>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

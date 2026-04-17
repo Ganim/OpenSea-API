@@ -68,13 +68,13 @@ export class PrismaSurveyQuestionsRepository
     data: UpdateSurveyQuestionSchema,
   ): Promise<SurveyQuestion | null> {
     const existing = await prisma.surveyQuestion.findUnique({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
     });
 
     if (!existing) return null;
 
     const questionData = await prisma.surveyQuestion.update({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
       data: {
         text: data.text,
         type: data.type,
@@ -91,9 +91,9 @@ export class PrismaSurveyQuestionsRepository
     );
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.surveyQuestion.delete({
-      where: { id: id.toString() },
+      where: { id: id.toString(), ...(tenantId && { tenantId }), },
     });
   }
 

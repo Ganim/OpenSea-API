@@ -9,7 +9,7 @@ export interface KudosReactionSummaryItem {
 
 export interface KudosReactionsRepository {
   create(reaction: KudosReaction): Promise<void>;
-  delete(reactionId: UniqueEntityID): Promise<void>;
+  delete(reactionId: UniqueEntityID, tenantId?: string): Promise<void>;
   findByKudosEmployeeEmoji(
     kudosId: UniqueEntityID,
     employeeId: UniqueEntityID,

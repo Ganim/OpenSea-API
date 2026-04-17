@@ -15,6 +15,13 @@ export interface CreateSurveySchema {
 
 export interface UpdateSurveySchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so the underlying Prisma `where` clause is scoped and cannot update a
+   * record belonging to another tenant.
+   */
+  tenantId?: string;
   title?: string;
   description?: string;
   type?: string;
@@ -40,5 +47,5 @@ export interface SurveysRepository {
     filters?: FindSurveyFilters,
   ): Promise<{ surveys: Survey[]; total: number }>;
   update(data: UpdateSurveySchema): Promise<Survey | null>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }
