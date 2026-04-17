@@ -94,27 +94,48 @@ export const contractResponseSchema = z.object({
   deletedAt: z.coerce.date().optional().nullable(),
 });
 
-export const listContractsQuerySchema = z.object({
-  page: z.coerce.number().int().positive().optional().default(1),
-  limit: z.coerce.number().int().positive().max(100).optional().default(20),
-  // P1-41: enum previously advertised `monthlyValue`, but the Contract model
-  // column is `paymentAmount`. Renamed to match the real column name (the
-  // repo used to alias `monthlyValue` → `paymentAmount`; alias dropped).
-  sortBy: z
-    .enum(['createdAt', 'startDate', 'endDate', 'paymentAmount', 'status'])
-    .optional()
-    .default('createdAt'),
-  sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
-  status: z
-    .enum(['DRAFT', 'ACTIVE', 'EXPIRED', 'RENEWED', 'CANCELLED'])
-    .optional(),
-  companyName: z.string().optional(),
-  search: z.string().optional(),
-  startDateFrom: z.coerce.date().optional(),
-  startDateTo: z.coerce.date().optional(),
-  endDateFrom: z.coerce.date().optional(),
-  endDateTo: z.coerce.date().optional(),
-});
+// P2-45: contracts accept the canonical `startDateFrom/To` +
+// `endDateFrom/To` filters. For UI consistency the generic aliases
+// `dateFrom/To` are also accepted and collapsed into `startDateFrom/To`
+// post-parse (contracts are typically filtered by their start date on
+// list pages).
+export const listContractsQuerySchema = z
+  .object({
+    page: z.coerce.number().int().positive().optional().default(1),
+    limit: z.coerce.number().int().positive().max(100).optional().default(20),
+    // P1-41: enum previously advertised `monthlyValue`, but the Contract
+    // model column is `paymentAmount`. Renamed to match the real column
+    // name (the repo used to alias `monthlyValue` → `paymentAmount`;
+    // alias dropped).
+    sortBy: z
+      .enum(['createdAt', 'startDate', 'endDate', 'paymentAmount', 'status'])
+      .optional()
+      .default('createdAt'),
+    sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
+    status: z
+      .enum(['DRAFT', 'ACTIVE', 'EXPIRED', 'RENEWED', 'CANCELLED'])
+      .optional(),
+    companyName: z.string().optional(),
+    search: z.string().optional(),
+    startDateFrom: z.coerce.date().optional(),
+    startDateTo: z.coerce.date().optional(),
+    endDateFrom: z.coerce.date().optional(),
+    endDateTo: z.coerce.date().optional(),
+    // P2-45: generic aliases collapsed below
+    dateFrom: z.coerce
+      .date()
+      .optional()
+      .describe('Alias genérico de startDateFrom'),
+    dateTo: z.coerce
+      .date()
+      .optional()
+      .describe('Alias genérico de startDateTo'),
+  })
+  .transform((query) => ({
+    ...query,
+    startDateFrom: query.startDateFrom ?? query.dateFrom,
+    startDateTo: query.startDateTo ?? query.dateTo,
+  }));
 
 export const supplierHistoryQuerySchema = z.object({
   companyId: z.string().uuid().optional(),

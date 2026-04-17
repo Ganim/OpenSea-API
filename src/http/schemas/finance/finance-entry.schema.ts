@@ -526,6 +526,12 @@ export const bulkOperationResultSchema = z.object({
   ),
 });
 
+// P2-45: date-range query params are aliased across list endpoints so the
+// frontend can use a shared `dateFrom/dateTo` convention. For finance
+// entries, the underlying column is dueDate, so we accept both
+// `dueDateFrom/To` (the canonical names used by the repository) and
+// `dateFrom/To` (the shared generic aliases). When both are provided, the
+// canonical dueDate* names win.
 export const listFinanceEntriesQuerySchema = z.object({
   page: z.coerce.number().int().positive().optional().default(1),
   limit: z.coerce.number().int().positive().max(100).optional().default(20),
@@ -557,6 +563,15 @@ export const listFinanceEntriesQuerySchema = z.object({
     .optional()
     .describe('Vencimento a partir de (YYYY-MM-DD)'),
   dueDateTo: z.coerce.date().optional().describe('Vencimento até (YYYY-MM-DD)'),
+  // P2-45: generic aliases
+  dateFrom: z.coerce
+    .date()
+    .optional()
+    .describe('Alias genérico de dueDateFrom (YYYY-MM-DD)'),
+  dateTo: z.coerce
+    .date()
+    .optional()
+    .describe('Alias genérico de dueDateTo (YYYY-MM-DD)'),
   isOverdue: z
     .enum(['true', 'false'])
     .transform((v) => v === 'true')
@@ -585,4 +600,11 @@ export const listFinanceEntriesQuerySchema = z.object({
     .describe(
       'Incluir lançamentos excluídos: "true" = todos, "only" = apenas excluídos, omitido = apenas ativos',
     ),
-});
+  })
+  // P2-45: collapse `dateFrom/To` aliases into `dueDateFrom/To` after the
+  // object has parsed. Canonical dueDate* wins when both are present.
+  .transform((query) => ({
+    ...query,
+    dueDateFrom: query.dueDateFrom ?? query.dateFrom,
+    dueDateTo: query.dueDateTo ?? query.dateTo,
+  }));
