@@ -6,6 +6,8 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { ErrorCodes } from '@/@errors/error-codes';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 import {
   reconciliationItemResponseSchema,
   manualMatchBodySchema,
@@ -38,8 +40,8 @@ export async function manualMatchItemController(app: FastifyInstance) {
       body: manualMatchBodySchema,
       response: {
         200: z.object({ item: reconciliationItemResponseSchema }),
-        400: z.object({ message: z.string() }),
-        404: z.object({ message: z.string() }),
+        400: errorResponseSchema,
+        404: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -73,10 +75,18 @@ export async function manualMatchItemController(app: FastifyInstance) {
         return reply.status(200).send(result);
       } catch (error) {
         if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
+          return reply.status(400).send({
+            code: error.code ?? ErrorCodes.BAD_REQUEST,
+            message: error.message,
+            requestId: request.requestId,
+          });
         }
         if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
+          return reply.status(404).send({
+            code: error.code ?? ErrorCodes.RESOURCE_NOT_FOUND,
+            message: error.message,
+            requestId: request.requestId,
+          });
         }
         throw error;
       }

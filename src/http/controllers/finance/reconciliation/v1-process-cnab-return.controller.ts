@@ -9,6 +9,8 @@ import { makeProcessCnabReturnUseCase } from '@/use-cases/finance/reconciliation
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
+import { ErrorCodes } from '@/@errors/error-codes';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 
 const cnabReturnBodySchema = z.object({
   fileContent: z.string().min(1, 'File content is required'),
@@ -52,7 +54,7 @@ export async function processCnabReturnController(app: FastifyInstance) {
       body: cnabReturnBodySchema,
       response: {
         200: cnabReturnResponseSchema,
-        400: z.object({ message: z.string() }),
+        400: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -87,7 +89,11 @@ export async function processCnabReturnController(app: FastifyInstance) {
         return reply.status(200).send(cnabResult);
       } catch (error) {
         if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
+          return reply.status(400).send({
+            code: error.code ?? ErrorCodes.BAD_REQUEST,
+            message: error.message,
+            requestId: request.requestId,
+          });
         }
         throw error;
       }

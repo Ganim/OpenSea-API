@@ -8,6 +8,8 @@ import { makeGetLedgerUseCase } from '@/use-cases/finance/journal-entries/factor
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
+import { ErrorCodes } from '@/@errors/error-codes';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 
 const ledgerEntrySchema = z.object({
   date: z.coerce.date(),
@@ -56,7 +58,7 @@ export async function getLedgerController(app: FastifyInstance) {
           totalDebits: z.number(),
           totalCredits: z.number(),
         }),
-        404: z.object({ message: z.string() }),
+        404: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -75,7 +77,11 @@ export async function getLedgerController(app: FastifyInstance) {
         return reply.status(200).send(result);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
+          return reply.status(404).send({
+            code: error.code ?? ErrorCodes.RESOURCE_NOT_FOUND,
+            message: error.message,
+            requestId: request.requestId,
+          });
         }
         throw error;
       }

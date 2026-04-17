@@ -4,6 +4,7 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 import {
   bulkDeleteEntriesSchema,
   bulkOperationResultSchema,
@@ -12,7 +13,6 @@ import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-ge
 import { makeBulkDeleteEntriesUseCase } from '@/use-cases/finance/entries/factories/make-bulk-delete-entries-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { z } from 'zod';
 
 export async function bulkDeleteEntriesController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -35,7 +35,7 @@ export async function bulkDeleteEntriesController(app: FastifyInstance) {
       body: bulkDeleteEntriesSchema,
       response: {
         200: bulkOperationResultSchema,
-        400: z.object({ message: z.string() }),
+        400: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {

@@ -7,6 +7,8 @@ import { makeOcrExtractDataUseCase } from '@/use-cases/finance/entries/factories
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
+import { ErrorCodes } from '@/@errors/error-codes';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 
 const ALLOWED_MIME_TYPES = [
   'image/jpeg',
@@ -37,7 +39,7 @@ export async function ocrUploadBatchController(app: FastifyInstance) {
       consumes: ['multipart/form-data'],
       response: {
         200: ocrBatchResponseSchema,
-        400: z.object({ message: z.string() }),
+        400: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -52,7 +54,9 @@ export async function ocrUploadBatchController(app: FastifyInstance) {
 
         if (fileCount > MAX_FILES) {
           return reply.status(400).send({
+            code: ErrorCodes.BAD_REQUEST,
             message: `Limite de ${MAX_FILES} arquivos por lote excedido.`,
+            requestId: request.requestId,
           });
         }
 
@@ -109,7 +113,9 @@ export async function ocrUploadBatchController(app: FastifyInstance) {
 
       if (fileCount === 0) {
         return reply.status(400).send({
+          code: ErrorCodes.BAD_REQUEST,
           message: 'Nenhum arquivo enviado.',
+          requestId: request.requestId,
         });
       }
 

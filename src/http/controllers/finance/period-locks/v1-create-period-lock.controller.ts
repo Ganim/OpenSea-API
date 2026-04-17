@@ -1,3 +1,4 @@
+import { ErrorCodes } from '@/@errors/error-codes';
 import { PermissionCodes } from '@/constants/rbac';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { logAudit } from '@/http/helpers/audit.helper';
@@ -5,6 +6,7 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { prisma } from '@/lib/prisma';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 // P2-49: shared period-lock schema so create/list/delete responses agree
 // on the date shape (z.coerce.date() everywhere).
 import { periodLockSchema } from '@/http/schemas/finance/period-locks/period-lock.schema';
@@ -37,7 +39,7 @@ export async function createPeriodLockController(app: FastifyInstance) {
         201: z.object({
           lock: periodLockSchema,
         }),
-        409: z.object({ message: z.string() }),
+        409: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -57,7 +59,9 @@ export async function createPeriodLockController(app: FastifyInstance) {
 
       if (existing && existing.releasedAt === null) {
         return reply.status(409).send({
+          code: ErrorCodes.OPTIMISTIC_LOCK_CONFLICT,
           message: `Período ${String(month).padStart(2, '0')}/${year} já está travado`,
+          requestId: request.requestId,
         });
       }
 

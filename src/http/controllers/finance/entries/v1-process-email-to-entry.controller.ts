@@ -6,7 +6,7 @@ import { processEmailToEntryResponseSchema } from '@/http/schemas/finance';
 import { makeProcessEmailToEntryUseCase } from '@/use-cases/finance/entries/factories/make-process-email-to-entry-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { z } from 'zod';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 
 export async function processEmailToEntryController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -26,7 +26,7 @@ export async function processEmailToEntryController(app: FastifyInstance) {
       security: [{ bearerAuth: [] }],
       response: {
         200: processEmailToEntryResponseSchema,
-        400: z.object({ message: z.string() }),
+        400: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {

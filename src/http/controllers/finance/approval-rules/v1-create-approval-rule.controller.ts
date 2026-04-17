@@ -7,6 +7,8 @@ import { makeCreateApprovalRuleUseCase } from '@/use-cases/finance/approval-rule
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
+import { ErrorCodes } from '@/@errors/error-codes';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 
 const conditionsSchema = z
   .object({
@@ -43,7 +45,7 @@ export async function createApprovalRuleController(app: FastifyInstance) {
       }),
       response: {
         201: z.object({ rule: z.any() }),
-        400: z.object({ message: z.string() }),
+        400: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -59,7 +61,11 @@ export async function createApprovalRuleController(app: FastifyInstance) {
         return reply.status(201).send(result);
       } catch (error) {
         if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
+          return reply.status(400).send({
+            code: error.code ?? ErrorCodes.BAD_REQUEST,
+            message: error.message,
+            requestId: request.requestId,
+          });
         }
         throw error;
       }

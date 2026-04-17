@@ -9,6 +9,8 @@ import { makeDeleteAttachmentUseCase } from '@/use-cases/finance/attachments/fac
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
+import { ErrorCodes } from '@/@errors/error-codes';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 
 export async function deleteAttachmentController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -32,7 +34,7 @@ export async function deleteAttachmentController(app: FastifyInstance) {
       }),
       response: {
         204: z.null().describe('Attachment deleted successfully'),
-        404: z.object({ message: z.string() }),
+        404: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -63,7 +65,11 @@ export async function deleteAttachmentController(app: FastifyInstance) {
         return reply.status(204).send(null);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
+          return reply.status(404).send({
+            code: error.code ?? ErrorCodes.RESOURCE_NOT_FOUND,
+            message: error.message,
+            requestId: request.requestId,
+          });
         }
         throw error;
       }

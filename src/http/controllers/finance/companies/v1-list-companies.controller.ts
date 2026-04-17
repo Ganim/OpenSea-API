@@ -8,6 +8,8 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 import { listCompaniesQuerySchema } from '@/http/schemas/core/companies/company.schema';
+import { ErrorCodes } from '@/@errors/error-codes';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 
 export async function v1ListFinanceCompaniesController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -29,9 +31,7 @@ export async function v1ListFinanceCompaniesController(app: FastifyInstance) {
       querystring: listCompaniesQuerySchema,
       response: {
         200: z.array(z.any()),
-        400: z.object({
-          message: z.string(),
-        }),
+        400: errorResponseSchema,
       },
       security: [{ bearerAuth: [] }],
     },
@@ -54,7 +54,11 @@ export async function v1ListFinanceCompaniesController(app: FastifyInstance) {
         return reply.status(200).send(companies.map((c) => companyToDTO(c)));
       } catch (error) {
         if (error instanceof Error) {
-          return reply.status(400).send({ message: error.message });
+          return reply.status(400).send({
+            code: ErrorCodes.BAD_REQUEST,
+            message: error.message,
+            requestId: request.requestId,
+          });
         }
         throw error;
       }

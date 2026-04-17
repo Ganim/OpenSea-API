@@ -2,6 +2,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 import {
   suggestCategoryQuerySchema,
   suggestCategoryResponseSchema,
@@ -9,7 +10,6 @@ import {
 import { makeSuggestCategoryUseCase } from '@/use-cases/finance/entries/factories/make-suggest-category-use-case';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { z } from 'zod';
 
 export async function suggestCategoryController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -32,7 +32,7 @@ export async function suggestCategoryController(app: FastifyInstance) {
       querystring: suggestCategoryQuerySchema,
       response: {
         200: suggestCategoryResponseSchema,
-        400: z.object({ message: z.string() }),
+        400: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {

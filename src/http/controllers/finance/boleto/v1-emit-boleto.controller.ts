@@ -8,6 +8,8 @@ import { makeEmitBoletoUseCase } from '@/use-cases/finance/boleto/factories/make
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
+import { ErrorCodes } from '@/@errors/error-codes';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 
 const emitBoletoBodySchema = z.object({
   entryId: z.string().uuid(),
@@ -43,8 +45,8 @@ export async function emitBoletoController(app: FastifyInstance) {
       body: emitBoletoBodySchema,
       response: {
         201: z.object({ boleto: boletoResultSchema }),
-        400: z.object({ message: z.string() }),
-        404: z.object({ message: z.string() }),
+        400: errorResponseSchema,
+        404: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -60,10 +62,18 @@ export async function emitBoletoController(app: FastifyInstance) {
         return reply.status(201).send(result);
       } catch (error) {
         if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
+          return reply.status(400).send({
+            code: error.code ?? ErrorCodes.BAD_REQUEST,
+            message: error.message,
+            requestId: request.requestId,
+          });
         }
         if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
+          return reply.status(404).send({
+            code: error.code ?? ErrorCodes.RESOURCE_NOT_FOUND,
+            message: error.message,
+            requestId: request.requestId,
+          });
         }
         throw error;
       }

@@ -1,7 +1,9 @@
+import { ErrorCodes } from '@/@errors/error-codes';
 import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 import {
   upsertEmailToEntryConfigSchema,
   emailToEntryConfigResponseSchema,
@@ -63,7 +65,7 @@ export async function emailToEntryConfigController(app: FastifyInstance) {
       body: upsertEmailToEntryConfigSchema,
       response: {
         200: z.object({ config: emailToEntryConfigResponseSchema }),
-        400: z.object({ message: z.string() }),
+        400: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -76,9 +78,11 @@ export async function emailToEntryConfigController(app: FastifyInstance) {
       });
 
       if (!account) {
-        return reply
-          .status(400)
-          .send({ message: 'Conta de e-mail não encontrada.' });
+        return reply.status(400).send({
+          code: ErrorCodes.BAD_REQUEST,
+          message: 'Conta de e-mail não encontrada.',
+          requestId: request.requestId,
+        });
       }
 
       // Validate category if provided
@@ -88,9 +92,11 @@ export async function emailToEntryConfigController(app: FastifyInstance) {
         });
 
         if (!category) {
-          return reply
-            .status(400)
-            .send({ message: 'Categoria financeira não encontrada.' });
+          return reply.status(400).send({
+            code: ErrorCodes.BAD_REQUEST,
+            message: 'Categoria financeira não encontrada.',
+            requestId: request.requestId,
+          });
         }
       }
 

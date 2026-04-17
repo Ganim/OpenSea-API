@@ -8,6 +8,8 @@ import { prisma } from '@/lib/prisma';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
+import { ErrorCodes } from '@/@errors/error-codes';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 
 export async function deletePeriodLockController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -28,7 +30,7 @@ export async function deletePeriodLockController(app: FastifyInstance) {
       params: z.object({ id: z.string().uuid() }),
       response: {
         200: z.object({ released: z.literal(true) }),
-        404: z.object({ message: z.string() }),
+        404: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -41,7 +43,11 @@ export async function deletePeriodLockController(app: FastifyInstance) {
       });
 
       if (!lock) {
-        return reply.status(404).send({ message: 'Lock not found' });
+        return reply.status(404).send({
+          code: ErrorCodes.RESOURCE_NOT_FOUND,
+          message: 'Lock not found',
+          requestId: request.requestId,
+        });
       }
 
       await prisma.financePeriodLock.update({

@@ -11,6 +11,7 @@ import { makeDeleteFinanceCategoryUseCase } from '@/use-cases/finance/categories
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 
 export async function deleteFinanceCategoryController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -37,16 +38,8 @@ export async function deleteFinanceCategoryController(app: FastifyInstance) {
         .optional(),
       response: {
         204: z.null(),
-        400: z.object({
-          code: z.string(),
-          message: z.string(),
-          requestId: z.string().optional(),
-        }),
-        404: z.object({
-          code: z.string(),
-          message: z.string(),
-          requestId: z.string().optional(),
-        }),
+        400: errorResponseSchema,
+        404: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {

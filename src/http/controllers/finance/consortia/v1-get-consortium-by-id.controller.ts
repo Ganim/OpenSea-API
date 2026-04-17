@@ -3,6 +3,8 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { ErrorCodes } from '@/@errors/error-codes';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 import {
   consortiumResponseSchema,
   consortiumPaymentResponseSchema,
@@ -34,7 +36,7 @@ export async function getConsortiumByIdController(app: FastifyInstance) {
           consortium: consortiumResponseSchema,
           payments: z.array(consortiumPaymentResponseSchema),
         }),
-        404: z.object({ message: z.string() }),
+        404: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -48,7 +50,11 @@ export async function getConsortiumByIdController(app: FastifyInstance) {
         return reply.status(200).send(result);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
+          return reply.status(404).send({
+            code: error.code ?? ErrorCodes.RESOURCE_NOT_FOUND,
+            message: error.message,
+            requestId: request.requestId,
+          });
         }
         throw error;
       }

@@ -2,6 +2,8 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { ErrorCodes } from '@/@errors/error-codes';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 import {
   ocrExtractTextSchema,
   ocrExtractResponseSchema,
@@ -9,7 +11,6 @@ import {
 import { makeOcrExtractDataUseCase } from '@/use-cases/finance/entries/factories/make-ocr-extract-data';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { z } from 'zod';
 
 export async function ocrExtractDataController(app: FastifyInstance) {
   // JSON text endpoint
@@ -31,7 +32,7 @@ export async function ocrExtractDataController(app: FastifyInstance) {
       body: ocrExtractTextSchema,
       response: {
         200: ocrExtractResponseSchema,
-        400: z.object({ message: z.string() }),
+        400: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -64,7 +65,7 @@ export async function ocrExtractDataController(app: FastifyInstance) {
       consumes: ['multipart/form-data'],
       response: {
         200: ocrExtractResponseSchema,
-        400: z.object({ message: z.string() }),
+        400: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -73,7 +74,11 @@ export async function ocrExtractDataController(app: FastifyInstance) {
       const data = await request.file();
 
       if (!data) {
-        return reply.status(400).send({ message: 'Nenhum arquivo enviado.' });
+        return reply.status(400).send({
+          code: ErrorCodes.BAD_REQUEST,
+          message: 'Nenhum arquivo enviado.',
+          requestId: request.requestId,
+        });
       }
 
       const allowedMimeTypes = [
@@ -85,8 +90,10 @@ export async function ocrExtractDataController(app: FastifyInstance) {
 
       if (!allowedMimeTypes.includes(data.mimetype)) {
         return reply.status(400).send({
+          code: ErrorCodes.BAD_REQUEST,
           message:
             'Tipo de arquivo não suportado. Envie JPEG, PNG, WebP ou PDF.',
+          requestId: request.requestId,
         });
       }
 
@@ -95,7 +102,9 @@ export async function ocrExtractDataController(app: FastifyInstance) {
       // 10MB limit
       if (buffer.length > 10 * 1024 * 1024) {
         return reply.status(400).send({
+          code: ErrorCodes.BAD_REQUEST,
           message: 'Arquivo muito grande. Limite de 10MB.',
+          requestId: request.requestId,
         });
       }
 

@@ -7,6 +7,8 @@ import { makeCalculateEntryRetentionsUseCase } from '@/use-cases/finance/entries
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
+import { ErrorCodes } from '@/@errors/error-codes';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 
 const retentionConfigSchema = z.object({
   applyIRRF: z.boolean().optional(),
@@ -53,7 +55,7 @@ export async function calculateEntryRetentionsController(app: FastifyInstance) {
       body: retentionConfigSchema,
       response: {
         200: z.object({ summary: retentionSummarySchema }),
-        404: z.object({ message: z.string() }),
+        404: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -72,7 +74,11 @@ export async function calculateEntryRetentionsController(app: FastifyInstance) {
         return reply.status(200).send(result);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
+          return reply.status(404).send({
+            code: error.code ?? ErrorCodes.RESOURCE_NOT_FOUND,
+            message: error.message,
+            requestId: request.requestId,
+          });
         }
         throw error;
       }

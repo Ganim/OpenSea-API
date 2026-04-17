@@ -3,6 +3,8 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { ErrorCodes } from '@/@errors/error-codes';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 import {
   createJournalEntrySchema,
   journalEntryResponseSchema,
@@ -31,7 +33,7 @@ export async function createJournalEntryController(app: FastifyInstance) {
       body: createJournalEntrySchema,
       response: {
         201: z.object({ journalEntry: journalEntryResponseSchema }),
-        400: z.object({ message: z.string() }),
+        400: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -49,7 +51,11 @@ export async function createJournalEntryController(app: FastifyInstance) {
         return reply.status(201).send(result);
       } catch (error) {
         if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
+          return reply.status(400).send({
+            code: error.code ?? ErrorCodes.BAD_REQUEST,
+            message: error.message,
+            requestId: request.requestId,
+          });
         }
         throw error;
       }

@@ -11,6 +11,8 @@ import { makeGenerateContractEntriesUseCase } from '@/use-cases/finance/contract
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
+import { ErrorCodes } from '@/@errors/error-codes';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 
 export async function generateContractEntriesController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -34,8 +36,8 @@ export async function generateContractEntriesController(app: FastifyInstance) {
           entriesCreated: z.number(),
           totalEntries: z.number(),
         }),
-        400: z.object({ message: z.string() }),
-        404: z.object({ message: z.string() }),
+        400: errorResponseSchema,
+        404: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -62,10 +64,18 @@ export async function generateContractEntriesController(app: FastifyInstance) {
         return reply.status(200).send(result);
       } catch (error) {
         if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
+          return reply.status(400).send({
+            code: error.code ?? ErrorCodes.BAD_REQUEST,
+            message: error.message,
+            requestId: request.requestId,
+          });
         }
         if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
+          return reply.status(404).send({
+            code: error.code ?? ErrorCodes.RESOURCE_NOT_FOUND,
+            message: error.message,
+            requestId: request.requestId,
+          });
         }
         throw error;
       }

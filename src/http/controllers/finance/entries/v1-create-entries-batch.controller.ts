@@ -5,6 +5,8 @@ import { logAudit } from '@/http/helpers/audit.helper';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { ErrorCodes } from '@/@errors/error-codes';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 import {
   batchCreateResponseSchema,
   createFinanceEntriesBatchSchema,
@@ -12,7 +14,6 @@ import {
 import { makeCreateFinanceEntriesBatchUseCase } from '@/use-cases/finance/entries/factories/make-create-finance-entries-batch';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { z } from 'zod';
 
 export async function createEntriesBatchController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -33,7 +34,7 @@ export async function createEntriesBatchController(app: FastifyInstance) {
       body: createFinanceEntriesBatchSchema,
       response: {
         201: batchCreateResponseSchema,
-        400: z.object({ message: z.string() }),
+        400: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -60,7 +61,11 @@ export async function createEntriesBatchController(app: FastifyInstance) {
         return reply.status(201).send(result);
       } catch (error) {
         if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
+          return reply.status(400).send({
+            code: error.code ?? ErrorCodes.BAD_REQUEST,
+            message: error.message,
+            requestId: request.requestId,
+          });
         }
         throw error;
       }

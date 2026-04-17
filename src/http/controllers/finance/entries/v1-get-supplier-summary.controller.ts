@@ -2,6 +2,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 import {
   supplierSummaryQuerySchema,
   supplierSummaryResponseSchema,
@@ -32,7 +33,7 @@ export async function getSupplierSummaryController(app: FastifyInstance) {
       querystring: supplierSummaryQuerySchema,
       response: {
         200: z.object({ summary: supplierSummaryResponseSchema }),
-        400: z.object({ message: z.string() }),
+        400: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {

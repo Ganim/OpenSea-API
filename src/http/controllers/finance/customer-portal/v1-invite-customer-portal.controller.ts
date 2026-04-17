@@ -7,6 +7,8 @@ import { makeInviteCustomerPortalUseCase } from '@/use-cases/finance/customer-po
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
+import { ErrorCodes } from '@/@errors/error-codes';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 
 export async function inviteCustomerPortalController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -42,7 +44,7 @@ export async function inviteCustomerPortalController(app: FastifyInstance) {
           }),
           portalUrl: z.string(),
         }),
-        409: z.object({ message: z.string() }),
+        409: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -72,7 +74,11 @@ export async function inviteCustomerPortalController(app: FastifyInstance) {
         });
       } catch (error) {
         if (error instanceof ConflictError) {
-          return reply.status(409).send({ message: error.message });
+          return reply.status(409).send({
+            code: error.code ?? ErrorCodes.OPTIMISTIC_LOCK_CONFLICT,
+            message: error.message,
+            requestId: request.requestId,
+          });
         }
         throw error;
       }

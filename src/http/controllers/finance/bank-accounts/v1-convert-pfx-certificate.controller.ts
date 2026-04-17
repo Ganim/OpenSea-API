@@ -5,6 +5,8 @@ import { createPermissionMiddleware } from '@/http/middlewares/rbac/verify-permi
 import { makeConvertPfxCertificateUseCase } from '@/use-cases/finance/bank-accounts/factories/make-convert-pfx-certificate-use-case';
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
+import { ErrorCodes } from '@/@errors/error-codes';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 
 export async function convertPfxCertificateController(app: FastifyInstance) {
   app.route({
@@ -21,7 +23,7 @@ export async function convertPfxCertificateController(app: FastifyInstance) {
           certFileId: z.string(),
           keyFileId: z.string(),
         }),
-        400: z.object({ message: z.string() }),
+        400: errorResponseSchema,
       },
     },
     preHandler: [
@@ -38,7 +40,9 @@ export async function convertPfxCertificateController(app: FastifyInstance) {
 
       if (!data) {
         return reply.status(400).send({
+          code: ErrorCodes.BAD_REQUEST,
           message: 'Nenhum arquivo enviado. Envie o .pfx como multipart.',
+          requestId: request.requestId,
         });
       }
 

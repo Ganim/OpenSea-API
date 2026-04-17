@@ -2,6 +2,7 @@ import { PermissionCodes } from '@/constants/rbac';
 import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 import {
   lastSupplierEntryQuerySchema,
   lastSupplierEntryResponseSchema,
@@ -31,7 +32,7 @@ export async function getLastSupplierEntryController(app: FastifyInstance) {
       querystring: lastSupplierEntryQuerySchema,
       response: {
         200: z.object({ suggestion: lastSupplierEntryResponseSchema }),
-        400: z.object({ message: z.string() }),
+        400: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {

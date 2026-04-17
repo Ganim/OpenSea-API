@@ -7,6 +7,8 @@ import { makeToggleOverdueEscalationActiveUseCase } from '@/use-cases/finance/es
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
+import { ErrorCodes } from '@/@errors/error-codes';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 
 export async function toggleOverdueEscalationActiveController(
   app: FastifyInstance,
@@ -29,7 +31,7 @@ export async function toggleOverdueEscalationActiveController(
       params: z.object({ id: z.string().uuid() }),
       response: {
         200: z.object({ escalation: z.any() }),
-        404: z.object({ message: z.string() }),
+        404: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -42,7 +44,11 @@ export async function toggleOverdueEscalationActiveController(
         return reply.status(200).send(result);
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
+          return reply.status(404).send({
+            code: error.code ?? ErrorCodes.RESOURCE_NOT_FOUND,
+            message: error.message,
+            requestId: request.requestId,
+          });
         }
         throw error;
       }

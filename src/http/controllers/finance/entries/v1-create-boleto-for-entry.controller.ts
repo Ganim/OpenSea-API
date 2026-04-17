@@ -12,6 +12,8 @@ import { makeCreateBoletoForEntryUseCase } from '@/use-cases/finance/entries/fac
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
+import { ErrorCodes } from '@/@errors/error-codes';
+import { errorResponseSchema } from '@/http/schemas/common/error-response.schema';
 
 const createBoletoBodySchema = z.object({
   customerCpfCnpj: z
@@ -58,8 +60,8 @@ export async function createBoletoForEntryController(app: FastifyInstance) {
           entry: financeEntryResponseSchema,
           boleto: boletoResultSchema,
         }),
-        400: z.object({ message: z.string() }),
-        404: z.object({ message: z.string() }),
+        400: errorResponseSchema,
+        404: errorResponseSchema,
       },
     },
     handler: async (request, reply) => {
@@ -99,10 +101,18 @@ export async function createBoletoForEntryController(app: FastifyInstance) {
         return reply.status(201).send(result);
       } catch (error) {
         if (error instanceof BadRequestError) {
-          return reply.status(400).send({ message: error.message });
+          return reply.status(400).send({
+            code: error.code ?? ErrorCodes.BAD_REQUEST,
+            message: error.message,
+            requestId: request.requestId,
+          });
         }
         if (error instanceof ResourceNotFoundError) {
-          return reply.status(404).send({ message: error.message });
+          return reply.status(404).send({
+            code: error.code ?? ErrorCodes.RESOURCE_NOT_FOUND,
+            message: error.message,
+            requestId: request.requestId,
+          });
         }
         throw error;
       }
