@@ -16,10 +16,26 @@ export class InMemorySurveyResponsesRepository
       tenantId: new UniqueEntityID(data.tenantId),
       surveyId: data.surveyId,
       employeeId: data.employeeId,
+      respondentHash: data.respondentHash,
     });
 
     this.items.push(response);
     return response;
+  }
+
+  async findByRespondentHash(
+    surveyId: UniqueEntityID,
+    respondentHash: string,
+    tenantId: string,
+  ): Promise<SurveyResponse | null> {
+    return (
+      this.items.find(
+        (response) =>
+          response.surveyId.equals(surveyId) &&
+          response.respondentHash === respondentHash &&
+          response.tenantId.toString() === tenantId,
+      ) ?? null
+    );
   }
 
   async findById(

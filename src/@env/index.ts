@@ -35,6 +35,12 @@ const envSchema = z.object({
   // Audit HMAC (opcional - deriva de JWT_SECRET se não definido)
   AUDIT_HMAC_SECRET: z.string().optional(),
 
+  // Secret used to salt the respondent hash for anonymous survey submissions
+  // (HR P0-02 safety). Kept optional for dev/test; derives from JWT_SECRET at
+  // runtime when not set so the hash remains non-reversible by anyone with
+  // DB-only access.
+  ANON_HASH_SECRET: z.string().optional(),
+
   // S3/R2 Storage (opcional - usa local storage se não configurado)
   S3_ENDPOINT: z.string().optional(),
   S3_ACCESS_KEY_ID: z.string().optional(),

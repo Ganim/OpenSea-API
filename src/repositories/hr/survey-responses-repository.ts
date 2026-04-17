@@ -5,6 +5,12 @@ export interface CreateSurveyResponseSchema {
   tenantId: string;
   surveyId: UniqueEntityID;
   employeeId?: UniqueEntityID;
+  /**
+   * Dedupe hash populated only for anonymous submissions. When present it
+   * replaces employeeId-based uniqueness (which is impossible once the
+   * employeeId is scrubbed). Never returned through any DTO.
+   */
+  respondentHash?: string;
 }
 
 export interface FindSurveyResponseFilters {
@@ -27,6 +33,15 @@ export interface SurveyResponsesRepository {
   findByEmployeeAndSurvey(
     employeeId: UniqueEntityID,
     surveyId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<SurveyResponse | null>;
+  /**
+   * Looks up an anonymous response by its respondent hash. Used only to
+   * enforce "one response per respondent" when the survey is anonymous.
+   */
+  findByRespondentHash(
+    surveyId: UniqueEntityID,
+    respondentHash: string,
     tenantId: string,
   ): Promise<SurveyResponse | null>;
   countBySurvey(surveyId: UniqueEntityID, tenantId: string): Promise<number>;

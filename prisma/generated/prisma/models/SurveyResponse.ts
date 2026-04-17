@@ -31,6 +31,7 @@ export type SurveyResponseMinAggregateOutputType = {
   employeeId: string | null
   submittedAt: Date | null
   createdAt: Date | null
+  respondentHash: string | null
 }
 
 export type SurveyResponseMaxAggregateOutputType = {
@@ -40,6 +41,7 @@ export type SurveyResponseMaxAggregateOutputType = {
   employeeId: string | null
   submittedAt: Date | null
   createdAt: Date | null
+  respondentHash: string | null
 }
 
 export type SurveyResponseCountAggregateOutputType = {
@@ -49,6 +51,7 @@ export type SurveyResponseCountAggregateOutputType = {
   employeeId: number
   submittedAt: number
   createdAt: number
+  respondentHash: number
   _all: number
 }
 
@@ -60,6 +63,7 @@ export type SurveyResponseMinAggregateInputType = {
   employeeId?: true
   submittedAt?: true
   createdAt?: true
+  respondentHash?: true
 }
 
 export type SurveyResponseMaxAggregateInputType = {
@@ -69,6 +73,7 @@ export type SurveyResponseMaxAggregateInputType = {
   employeeId?: true
   submittedAt?: true
   createdAt?: true
+  respondentHash?: true
 }
 
 export type SurveyResponseCountAggregateInputType = {
@@ -78,6 +83,7 @@ export type SurveyResponseCountAggregateInputType = {
   employeeId?: true
   submittedAt?: true
   createdAt?: true
+  respondentHash?: true
   _all?: true
 }
 
@@ -160,6 +166,7 @@ export type SurveyResponseGroupByOutputType = {
   employeeId: string | null
   submittedAt: Date
   createdAt: Date
+  respondentHash: string | null
   _count: SurveyResponseCountAggregateOutputType | null
   _min: SurveyResponseMinAggregateOutputType | null
   _max: SurveyResponseMaxAggregateOutputType | null
@@ -190,6 +197,7 @@ export type SurveyResponseWhereInput = {
   employeeId?: Prisma.StringNullableFilter<"SurveyResponse"> | string | null
   submittedAt?: Prisma.DateTimeFilter<"SurveyResponse"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"SurveyResponse"> | Date | string
+  respondentHash?: Prisma.StringNullableFilter<"SurveyResponse"> | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   survey?: Prisma.XOR<Prisma.SurveyScalarRelationFilter, Prisma.SurveyWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeNullableScalarRelationFilter, Prisma.EmployeeWhereInput> | null
@@ -203,6 +211,7 @@ export type SurveyResponseOrderByWithRelationInput = {
   employeeId?: Prisma.SortOrderInput | Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  respondentHash?: Prisma.SortOrderInput | Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   survey?: Prisma.SurveyOrderByWithRelationInput
   employee?: Prisma.EmployeeOrderByWithRelationInput
@@ -211,6 +220,7 @@ export type SurveyResponseOrderByWithRelationInput = {
 
 export type SurveyResponseWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  surveyId_respondentHash?: Prisma.SurveyResponseSurveyIdRespondentHashCompoundUniqueInput
   AND?: Prisma.SurveyResponseWhereInput | Prisma.SurveyResponseWhereInput[]
   OR?: Prisma.SurveyResponseWhereInput[]
   NOT?: Prisma.SurveyResponseWhereInput | Prisma.SurveyResponseWhereInput[]
@@ -219,11 +229,12 @@ export type SurveyResponseWhereUniqueInput = Prisma.AtLeast<{
   employeeId?: Prisma.StringNullableFilter<"SurveyResponse"> | string | null
   submittedAt?: Prisma.DateTimeFilter<"SurveyResponse"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"SurveyResponse"> | Date | string
+  respondentHash?: Prisma.StringNullableFilter<"SurveyResponse"> | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   survey?: Prisma.XOR<Prisma.SurveyScalarRelationFilter, Prisma.SurveyWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeNullableScalarRelationFilter, Prisma.EmployeeWhereInput> | null
   answers?: Prisma.SurveyAnswerListRelationFilter
-}, "id">
+}, "id" | "surveyId_respondentHash">
 
 export type SurveyResponseOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -232,6 +243,7 @@ export type SurveyResponseOrderByWithAggregationInput = {
   employeeId?: Prisma.SortOrderInput | Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  respondentHash?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.SurveyResponseCountOrderByAggregateInput
   _max?: Prisma.SurveyResponseMaxOrderByAggregateInput
   _min?: Prisma.SurveyResponseMinOrderByAggregateInput
@@ -247,12 +259,14 @@ export type SurveyResponseScalarWhereWithAggregatesInput = {
   employeeId?: Prisma.StringNullableWithAggregatesFilter<"SurveyResponse"> | string | null
   submittedAt?: Prisma.DateTimeWithAggregatesFilter<"SurveyResponse"> | Date | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"SurveyResponse"> | Date | string
+  respondentHash?: Prisma.StringNullableWithAggregatesFilter<"SurveyResponse"> | string | null
 }
 
 export type SurveyResponseCreateInput = {
   id?: string
   submittedAt?: Date | string
   createdAt?: Date | string
+  respondentHash?: string | null
   tenant: Prisma.TenantCreateNestedOneWithoutSurveyResponsesInput
   survey: Prisma.SurveyCreateNestedOneWithoutResponsesInput
   employee?: Prisma.EmployeeCreateNestedOneWithoutSurveyResponsesInput
@@ -266,6 +280,7 @@ export type SurveyResponseUncheckedCreateInput = {
   employeeId?: string | null
   submittedAt?: Date | string
   createdAt?: Date | string
+  respondentHash?: string | null
   answers?: Prisma.SurveyAnswerUncheckedCreateNestedManyWithoutResponseInput
 }
 
@@ -273,6 +288,7 @@ export type SurveyResponseUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutSurveyResponsesNestedInput
   survey?: Prisma.SurveyUpdateOneRequiredWithoutResponsesNestedInput
   employee?: Prisma.EmployeeUpdateOneWithoutSurveyResponsesNestedInput
@@ -286,6 +302,7 @@ export type SurveyResponseUncheckedUpdateInput = {
   employeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   answers?: Prisma.SurveyAnswerUncheckedUpdateManyWithoutResponseNestedInput
 }
 
@@ -296,12 +313,14 @@ export type SurveyResponseCreateManyInput = {
   employeeId?: string | null
   submittedAt?: Date | string
   createdAt?: Date | string
+  respondentHash?: string | null
 }
 
 export type SurveyResponseUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SurveyResponseUncheckedUpdateManyInput = {
@@ -311,6 +330,7 @@ export type SurveyResponseUncheckedUpdateManyInput = {
   employeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SurveyResponseListRelationFilter = {
@@ -323,6 +343,11 @@ export type SurveyResponseOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type SurveyResponseSurveyIdRespondentHashCompoundUniqueInput = {
+  surveyId: string
+  respondentHash: string
+}
+
 export type SurveyResponseCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
@@ -330,6 +355,7 @@ export type SurveyResponseCountOrderByAggregateInput = {
   employeeId?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  respondentHash?: Prisma.SortOrder
 }
 
 export type SurveyResponseMaxOrderByAggregateInput = {
@@ -339,6 +365,7 @@ export type SurveyResponseMaxOrderByAggregateInput = {
   employeeId?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  respondentHash?: Prisma.SortOrder
 }
 
 export type SurveyResponseMinOrderByAggregateInput = {
@@ -348,6 +375,7 @@ export type SurveyResponseMinOrderByAggregateInput = {
   employeeId?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  respondentHash?: Prisma.SortOrder
 }
 
 export type SurveyResponseScalarRelationFilter = {
@@ -499,6 +527,7 @@ export type SurveyResponseCreateWithoutEmployeeInput = {
   id?: string
   submittedAt?: Date | string
   createdAt?: Date | string
+  respondentHash?: string | null
   tenant: Prisma.TenantCreateNestedOneWithoutSurveyResponsesInput
   survey: Prisma.SurveyCreateNestedOneWithoutResponsesInput
   answers?: Prisma.SurveyAnswerCreateNestedManyWithoutResponseInput
@@ -510,6 +539,7 @@ export type SurveyResponseUncheckedCreateWithoutEmployeeInput = {
   surveyId: string
   submittedAt?: Date | string
   createdAt?: Date | string
+  respondentHash?: string | null
   answers?: Prisma.SurveyAnswerUncheckedCreateNestedManyWithoutResponseInput
 }
 
@@ -549,12 +579,14 @@ export type SurveyResponseScalarWhereInput = {
   employeeId?: Prisma.StringNullableFilter<"SurveyResponse"> | string | null
   submittedAt?: Prisma.DateTimeFilter<"SurveyResponse"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"SurveyResponse"> | Date | string
+  respondentHash?: Prisma.StringNullableFilter<"SurveyResponse"> | string | null
 }
 
 export type SurveyResponseCreateWithoutSurveyInput = {
   id?: string
   submittedAt?: Date | string
   createdAt?: Date | string
+  respondentHash?: string | null
   tenant: Prisma.TenantCreateNestedOneWithoutSurveyResponsesInput
   employee?: Prisma.EmployeeCreateNestedOneWithoutSurveyResponsesInput
   answers?: Prisma.SurveyAnswerCreateNestedManyWithoutResponseInput
@@ -566,6 +598,7 @@ export type SurveyResponseUncheckedCreateWithoutSurveyInput = {
   employeeId?: string | null
   submittedAt?: Date | string
   createdAt?: Date | string
+  respondentHash?: string | null
   answers?: Prisma.SurveyAnswerUncheckedCreateNestedManyWithoutResponseInput
 }
 
@@ -599,6 +632,7 @@ export type SurveyResponseCreateWithoutAnswersInput = {
   id?: string
   submittedAt?: Date | string
   createdAt?: Date | string
+  respondentHash?: string | null
   tenant: Prisma.TenantCreateNestedOneWithoutSurveyResponsesInput
   survey: Prisma.SurveyCreateNestedOneWithoutResponsesInput
   employee?: Prisma.EmployeeCreateNestedOneWithoutSurveyResponsesInput
@@ -611,6 +645,7 @@ export type SurveyResponseUncheckedCreateWithoutAnswersInput = {
   employeeId?: string | null
   submittedAt?: Date | string
   createdAt?: Date | string
+  respondentHash?: string | null
 }
 
 export type SurveyResponseCreateOrConnectWithoutAnswersInput = {
@@ -633,6 +668,7 @@ export type SurveyResponseUpdateWithoutAnswersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutSurveyResponsesNestedInput
   survey?: Prisma.SurveyUpdateOneRequiredWithoutResponsesNestedInput
   employee?: Prisma.EmployeeUpdateOneWithoutSurveyResponsesNestedInput
@@ -645,12 +681,14 @@ export type SurveyResponseUncheckedUpdateWithoutAnswersInput = {
   employeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SurveyResponseCreateWithoutTenantInput = {
   id?: string
   submittedAt?: Date | string
   createdAt?: Date | string
+  respondentHash?: string | null
   survey: Prisma.SurveyCreateNestedOneWithoutResponsesInput
   employee?: Prisma.EmployeeCreateNestedOneWithoutSurveyResponsesInput
   answers?: Prisma.SurveyAnswerCreateNestedManyWithoutResponseInput
@@ -662,6 +700,7 @@ export type SurveyResponseUncheckedCreateWithoutTenantInput = {
   employeeId?: string | null
   submittedAt?: Date | string
   createdAt?: Date | string
+  respondentHash?: string | null
   answers?: Prisma.SurveyAnswerUncheckedCreateNestedManyWithoutResponseInput
 }
 
@@ -697,12 +736,14 @@ export type SurveyResponseCreateManyEmployeeInput = {
   surveyId: string
   submittedAt?: Date | string
   createdAt?: Date | string
+  respondentHash?: string | null
 }
 
 export type SurveyResponseUpdateWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutSurveyResponsesNestedInput
   survey?: Prisma.SurveyUpdateOneRequiredWithoutResponsesNestedInput
   answers?: Prisma.SurveyAnswerUpdateManyWithoutResponseNestedInput
@@ -714,6 +755,7 @@ export type SurveyResponseUncheckedUpdateWithoutEmployeeInput = {
   surveyId?: Prisma.StringFieldUpdateOperationsInput | string
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   answers?: Prisma.SurveyAnswerUncheckedUpdateManyWithoutResponseNestedInput
 }
 
@@ -723,6 +765,7 @@ export type SurveyResponseUncheckedUpdateManyWithoutEmployeeInput = {
   surveyId?: Prisma.StringFieldUpdateOperationsInput | string
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SurveyResponseCreateManySurveyInput = {
@@ -731,12 +774,14 @@ export type SurveyResponseCreateManySurveyInput = {
   employeeId?: string | null
   submittedAt?: Date | string
   createdAt?: Date | string
+  respondentHash?: string | null
 }
 
 export type SurveyResponseUpdateWithoutSurveyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutSurveyResponsesNestedInput
   employee?: Prisma.EmployeeUpdateOneWithoutSurveyResponsesNestedInput
   answers?: Prisma.SurveyAnswerUpdateManyWithoutResponseNestedInput
@@ -748,6 +793,7 @@ export type SurveyResponseUncheckedUpdateWithoutSurveyInput = {
   employeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   answers?: Prisma.SurveyAnswerUncheckedUpdateManyWithoutResponseNestedInput
 }
 
@@ -757,6 +803,7 @@ export type SurveyResponseUncheckedUpdateManyWithoutSurveyInput = {
   employeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type SurveyResponseCreateManyTenantInput = {
@@ -765,12 +812,14 @@ export type SurveyResponseCreateManyTenantInput = {
   employeeId?: string | null
   submittedAt?: Date | string
   createdAt?: Date | string
+  respondentHash?: string | null
 }
 
 export type SurveyResponseUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   survey?: Prisma.SurveyUpdateOneRequiredWithoutResponsesNestedInput
   employee?: Prisma.EmployeeUpdateOneWithoutSurveyResponsesNestedInput
   answers?: Prisma.SurveyAnswerUpdateManyWithoutResponseNestedInput
@@ -782,6 +831,7 @@ export type SurveyResponseUncheckedUpdateWithoutTenantInput = {
   employeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   answers?: Prisma.SurveyAnswerUncheckedUpdateManyWithoutResponseNestedInput
 }
 
@@ -791,6 +841,7 @@ export type SurveyResponseUncheckedUpdateManyWithoutTenantInput = {
   employeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -831,6 +882,7 @@ export type SurveyResponseSelect<ExtArgs extends runtime.Types.Extensions.Intern
   employeeId?: boolean
   submittedAt?: boolean
   createdAt?: boolean
+  respondentHash?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   survey?: boolean | Prisma.SurveyDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.SurveyResponse$employeeArgs<ExtArgs>
@@ -845,6 +897,7 @@ export type SurveyResponseSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   employeeId?: boolean
   submittedAt?: boolean
   createdAt?: boolean
+  respondentHash?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   survey?: boolean | Prisma.SurveyDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.SurveyResponse$employeeArgs<ExtArgs>
@@ -857,6 +910,7 @@ export type SurveyResponseSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   employeeId?: boolean
   submittedAt?: boolean
   createdAt?: boolean
+  respondentHash?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   survey?: boolean | Prisma.SurveyDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.SurveyResponse$employeeArgs<ExtArgs>
@@ -869,9 +923,10 @@ export type SurveyResponseSelectScalar = {
   employeeId?: boolean
   submittedAt?: boolean
   createdAt?: boolean
+  respondentHash?: boolean
 }
 
-export type SurveyResponseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "surveyId" | "employeeId" | "submittedAt" | "createdAt", ExtArgs["result"]["surveyResponse"]>
+export type SurveyResponseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "surveyId" | "employeeId" | "submittedAt" | "createdAt" | "respondentHash", ExtArgs["result"]["surveyResponse"]>
 export type SurveyResponseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   survey?: boolean | Prisma.SurveyDefaultArgs<ExtArgs>
@@ -905,6 +960,7 @@ export type $SurveyResponsePayload<ExtArgs extends runtime.Types.Extensions.Inte
     employeeId: string | null
     submittedAt: Date
     createdAt: Date
+    respondentHash: string | null
   }, ExtArgs["result"]["surveyResponse"]>
   composites: {}
 }
@@ -1338,6 +1394,7 @@ export interface SurveyResponseFieldRefs {
   readonly employeeId: Prisma.FieldRef<"SurveyResponse", 'String'>
   readonly submittedAt: Prisma.FieldRef<"SurveyResponse", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"SurveyResponse", 'DateTime'>
+  readonly respondentHash: Prisma.FieldRef<"SurveyResponse", 'String'>
 }
     
 

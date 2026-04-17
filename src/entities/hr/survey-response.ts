@@ -5,6 +5,14 @@ export interface SurveyResponseProps {
   tenantId: UniqueEntityID;
   surveyId: UniqueEntityID;
   employeeId?: UniqueEntityID;
+  /**
+   * Anonymity-preserving dedupe hash.
+   * Only populated when the survey is anonymous; in that case employeeId is
+   * forced to undefined and this hash is the only way the server can detect
+   * duplicate submissions by the same respondent. Internal only — never
+   * exposed through any API layer.
+   */
+  respondentHash?: string;
   submittedAt: Date;
   createdAt: Date;
 }
@@ -20,6 +28,10 @@ export class SurveyResponse extends Entity<SurveyResponseProps> {
 
   get employeeId(): UniqueEntityID | undefined {
     return this.props.employeeId;
+  }
+
+  get respondentHash(): string | undefined {
+    return this.props.respondentHash;
   }
 
   get submittedAt(): Date {

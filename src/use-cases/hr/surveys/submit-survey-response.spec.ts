@@ -125,4 +125,84 @@ describe('Submit Survey Response Use Case', () => {
 
     expect(answersRepository.items).toHaveLength(2);
   });
+
+  it('should drop employeeId and store respondentHash when survey is anonymous', async () => {
+    const survey = await surveysRepository.create({
+      tenantId,
+      title: 'Anonymous Engagement',
+      type: 'ENGAGEMENT',
+      status: 'ACTIVE',
+      isAnonymous: true,
+      startDate: new Date(),
+      endDate: new Date(Date.now() + 86400000),
+      createdBy: new UniqueEntityID(),
+    });
+
+    const { surveyResponse } = await sut.execute({
+      tenantId,
+      surveyId: survey.id.toString(),
+      employeeId,
+      answers: [{ questionId: new UniqueEntityID().toString(), ratingValue: 5 }],
+    });
+
+    expect(surveyResponse.employeeId).toBeUndefined();
+    expect(surveyResponse.respondentHash).toBeDefined();
+    expect(surveyResponse.respondentHash).toHaveLength(64); // sha256 hex
+    expect(responsesRepository.items).toHaveLength(1);
+    expect(responsesRepository.items[0].employeeId).toBeUndefined();
+    expect(responsesRepository.items[0].respondentHash).toBe(
+      surveyResponse.respondentHash,
+    );
+  });
+
+  it('should prevent duplicate submissions by same respondent in anonymous surveys via hash', async () => {
+    const survey = await surveysRepository.create({
+      tenantId,
+      title: 'Anonymous Pulse',
+      type: 'PULSE',
+      status: 'ACTIVE',
+      isAnonymous: true,
+      startDate: new Date(),
+      endDate: new Date(Date.now() + 86400000),
+      createdBy: new UniqueEntityID(),
+    });
+
+    await sut.execute({
+      tenantId,
+      surveyId: survey.id.toString(),
+      employeeId,
+      answers: [],
+    });
+
+    await expect(
+      sut.execute({
+        tenantId,
+        surveyId: survey.id.toString(),
+        employeeId,
+        answers: [],
+      }),
+    ).rejects.toThrow('Employee has already submitted a response');
+  });
+
+  it('should accept anonymous submission with no employeeId (public link)', async () => {
+    const survey = await surveysRepository.create({
+      tenantId,
+      title: 'Open Exit Survey',
+      type: 'EXIT',
+      status: 'ACTIVE',
+      isAnonymous: true,
+      startDate: new Date(),
+      endDate: new Date(Date.now() + 86400000),
+      createdBy: new UniqueEntityID(),
+    });
+
+    const { surveyResponse } = await sut.execute({
+      tenantId,
+      surveyId: survey.id.toString(),
+      answers: [],
+    });
+
+    expect(surveyResponse.employeeId).toBeUndefined();
+    expect(surveyResponse.respondentHash).toBeUndefined();
+  });
 });

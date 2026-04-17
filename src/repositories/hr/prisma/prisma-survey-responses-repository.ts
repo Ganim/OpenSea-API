@@ -17,8 +17,30 @@ export class PrismaSurveyResponsesRepository
         tenantId: data.tenantId,
         surveyId: data.surveyId.toString(),
         employeeId: data.employeeId?.toString() ?? null,
+        respondentHash: data.respondentHash ?? null,
       },
     });
+
+    return SurveyResponse.create(
+      mapSurveyResponsePrismaToDomain(responseData),
+      new UniqueEntityID(responseData.id),
+    );
+  }
+
+  async findByRespondentHash(
+    surveyId: UniqueEntityID,
+    respondentHash: string,
+    tenantId: string,
+  ): Promise<SurveyResponse | null> {
+    const responseData = await prisma.surveyResponse.findFirst({
+      where: {
+        surveyId: surveyId.toString(),
+        respondentHash,
+        tenantId,
+      },
+    });
+
+    if (!responseData) return null;
 
     return SurveyResponse.create(
       mapSurveyResponsePrismaToDomain(responseData),

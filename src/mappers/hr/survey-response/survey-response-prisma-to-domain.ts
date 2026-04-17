@@ -10,6 +10,7 @@ export function mapSurveyResponsePrismaToDomain(
     employeeId: response.employeeId
       ? new UniqueEntityID(response.employeeId)
       : undefined,
+    respondentHash: response.respondentHash ?? undefined,
     submittedAt: response.submittedAt,
     createdAt: response.createdAt,
   };
