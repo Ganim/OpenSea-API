@@ -123,10 +123,18 @@ export class PrismaBankReconciliationsRepository
       };
     }
 
+    // P1-38: honor the sortBy/sortOrder pair from the controller. The
+    // schema-level enum keeps the whitelist (createdAt | periodStart | status)
+    // so we can safely build the orderBy object from runtime input.
+    const sortField = options.sortBy ?? 'importDate';
+    const orderBy: Record<string, 'asc' | 'desc'> = {
+      [sortField]: options.sortOrder ?? 'desc',
+    };
+
     const [reconciliations, total] = await Promise.all([
       prisma.bankReconciliation.findMany({
         where,
-        orderBy: { importDate: 'desc' },
+        orderBy,
         skip: (page - 1) * limit,
         take: limit,
       }),

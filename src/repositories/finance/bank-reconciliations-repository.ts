@@ -51,6 +51,9 @@ export interface FindManyReconciliationsOptions {
   status?: string;
   dateFrom?: Date;
   dateTo?: Date;
+  // P1-38: whitelist enforced by the schema (createdAt | periodStart | status).
+  sortBy?: 'createdAt' | 'periodStart' | 'status';
+  sortOrder?: 'asc' | 'desc';
 }
 
 export interface FindManyReconciliationsResult {

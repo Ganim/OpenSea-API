@@ -118,6 +118,21 @@ export class InMemoryBankReconciliationsRepository
       filtered = filtered.filter((r) => r.importDate <= options.dateTo!);
     }
 
+    // P1-38: mirror the dynamic orderBy the Prisma repo now supports.
+    const sortField = options.sortBy ?? 'importDate';
+    const direction = options.sortOrder === 'asc' ? 1 : -1;
+    filtered = filtered.slice().sort((a, b) => {
+      const av = (a as Record<string, unknown>)[sortField];
+      const bv = (b as Record<string, unknown>)[sortField];
+      if (av instanceof Date && bv instanceof Date) {
+        return (av.getTime() - bv.getTime()) * direction;
+      }
+      if (typeof av === 'string' && typeof bv === 'string') {
+        return av.localeCompare(bv) * direction;
+      }
+      return 0;
+    });
+
     const total = filtered.length;
     const page = options.page ?? 1;
     const limit = options.limit ?? 20;

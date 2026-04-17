@@ -12,6 +12,9 @@ interface ListReconciliationsUseCaseRequest {
   status?: string;
   dateFrom?: Date;
   dateTo?: Date;
+  // P1-38: forwarded from the controller after schema validation.
+  sortBy?: 'createdAt' | 'periodStart' | 'status';
+  sortOrder?: 'asc' | 'desc';
 }
 
 interface ListReconciliationsUseCaseResponse {
@@ -44,6 +47,8 @@ export class ListReconciliationsUseCase {
         status: request.status,
         dateFrom: request.dateFrom,
         dateTo: request.dateTo,
+        sortBy: request.sortBy,
+        sortOrder: request.sortOrder,
       });
 
     return {

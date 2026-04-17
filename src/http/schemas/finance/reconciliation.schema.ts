@@ -30,6 +30,17 @@ export const reconciliationResponseSchema = z.object({
   items: z.array(reconciliationItemResponseSchema).optional(),
 });
 
+// P1-38: sortBy/sortOrder were arriving from the frontend but were not in
+// the schema, so Fastify+Zod stripped them before the repo saw them. Added
+// an explicit whitelist to guard the dynamic orderBy below.
+export const RECONCILIATION_SORT_FIELDS = [
+  'createdAt',
+  'periodStart',
+  'status',
+] as const;
+export type ReconciliationSortField =
+  (typeof RECONCILIATION_SORT_FIELDS)[number];
+
 export const listReconciliationsQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(100).default(20),
@@ -39,6 +50,8 @@ export const listReconciliationsQuerySchema = z.object({
     .optional(),
   dateFrom: z.coerce.date().optional(),
   dateTo: z.coerce.date().optional(),
+  sortBy: z.enum(RECONCILIATION_SORT_FIELDS).optional(),
+  sortOrder: z.enum(['asc', 'desc']).optional(),
 });
 
 export const manualMatchBodySchema = z.object({
