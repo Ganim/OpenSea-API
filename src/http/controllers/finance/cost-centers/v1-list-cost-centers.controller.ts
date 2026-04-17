@@ -16,6 +16,12 @@ const querySchema = z.object({
     .enum(['true', 'false'])
     .transform((v) => v === 'true')
     .optional(),
+  // P1-37: frontend sends both; they were previously dropped as orphan params.
+  companyId: z.string().uuid().optional(),
+  includeDeleted: z
+    .enum(['true', 'false', 'only'])
+    .transform((v) => (v === 'only' ? 'only' : v === 'true'))
+    .optional(),
   sortBy: z
     .enum(['name', 'code', 'createdAt', 'monthlyBudget', 'annualBudget'])
     .optional(),
@@ -53,8 +59,16 @@ export async function listCostCentersController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
-      const { page, limit, search, isActive, sortBy, sortOrder } =
-        request.query as z.infer<typeof querySchema>;
+      const {
+        page,
+        limit,
+        search,
+        isActive,
+        companyId,
+        includeDeleted,
+        sortBy,
+        sortOrder,
+      } = request.query as z.infer<typeof querySchema>;
 
       const useCase = makeListCostCentersUseCase();
       const result = await useCase.execute({
@@ -63,6 +77,8 @@ export async function listCostCentersController(app: FastifyInstance) {
         limit,
         search,
         isActive,
+        companyId,
+        includeDeleted,
         sortBy,
         sortOrder,
       });

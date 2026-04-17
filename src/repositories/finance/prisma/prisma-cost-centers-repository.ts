@@ -5,6 +5,7 @@ import { prisma } from '@/lib/prisma';
 import type {
   CostCentersRepository,
   CreateCostCenterSchema,
+  FindManyCostCentersFilters,
   FindManyPaginatedResult,
   UpdateCostCenterSchema,
 } from '../cost-centers-repository';
@@ -73,12 +74,39 @@ export class PrismaCostCentersRepository implements CostCentersRepository {
     tenantId: string,
     page: number,
     limit: number,
+    filters?: FindManyCostCentersFilters,
   ): Promise<FindManyPaginatedResult> {
-    const where = { tenantId, deletedAt: null };
+    // P1-37: honor the orphan query params the frontend was already sending.
+    const where: Record<string, unknown> = { tenantId };
+
+    if (filters?.includeDeleted === 'only') {
+      where.deletedAt = { not: null };
+    } else if (filters?.includeDeleted !== true) {
+      where.deletedAt = null;
+    }
+
+    if (filters?.isActive !== undefined) {
+      where.isActive = filters.isActive;
+    }
+    if (filters?.companyId) {
+      where.companyId = filters.companyId;
+    }
+    if (filters?.search) {
+      where.OR = [
+        { name: { contains: filters.search, mode: 'insensitive' } },
+        { code: { contains: filters.search, mode: 'insensitive' } },
+      ];
+    }
+
+    const sortField = filters?.sortBy ?? 'name';
+    const orderBy: Record<string, 'asc' | 'desc'> = {
+      [sortField]: filters?.sortOrder ?? 'asc',
+    };
+
     const [costCenters, total] = await Promise.all([
       prisma.costCenter.findMany({
         where,
-        orderBy: { name: 'asc' },
+        orderBy,
         skip: (page - 1) * limit,
         take: limit,
       }),

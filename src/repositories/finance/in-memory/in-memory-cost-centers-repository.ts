@@ -3,6 +3,7 @@ import { CostCenter } from '@/entities/finance/cost-center';
 import type {
   CostCentersRepository,
   CreateCostCenterSchema,
+  FindManyCostCentersFilters,
   FindManyPaginatedResult,
   UpdateCostCenterSchema,
 } from '../cost-centers-repository';
@@ -58,10 +59,31 @@ export class InMemoryCostCentersRepository implements CostCentersRepository {
     tenantId: string,
     page: number,
     limit: number,
+    filters?: FindManyCostCentersFilters,
   ): Promise<FindManyPaginatedResult> {
-    const all = this.items.filter(
-      (i) => !i.deletedAt && i.tenantId.toString() === tenantId,
-    );
+    // P1-37: mirror Prisma filter semantics so specs written against the
+    // in-memory repo exercise the same logic.
+    const all = this.items.filter((i) => {
+      if (filters?.includeDeleted === 'only') {
+        if (!i.deletedAt) return false;
+      } else if (filters?.includeDeleted !== true) {
+        if (i.deletedAt) return false;
+      }
+      if (i.tenantId.toString() !== tenantId) return false;
+      if (filters?.isActive !== undefined && i.isActive !== filters.isActive)
+        return false;
+      if (
+        filters?.companyId &&
+        i.companyId?.toString() !== filters.companyId
+      )
+        return false;
+      if (filters?.search) {
+        const needle = filters.search.toLowerCase();
+        const haystack = `${i.name} ${i.code}`.toLowerCase();
+        if (!haystack.includes(needle)) return false;
+      }
+      return true;
+    });
     const total = all.length;
     const offset = (page - 1) * limit;
     const costCenters = all.slice(offset, offset + limit);

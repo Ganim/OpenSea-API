@@ -31,6 +31,16 @@ export interface FindManyPaginatedResult {
   total: number;
 }
 
+// P1-37: optional filters from the controller. Legacy callers omit them.
+export interface FindManyCostCentersFilters {
+  search?: string;
+  isActive?: boolean;
+  companyId?: string;
+  includeDeleted?: boolean | 'only';
+  sortBy?: 'name' | 'code' | 'createdAt' | 'monthlyBudget' | 'annualBudget';
+  sortOrder?: 'asc' | 'desc';
+}
+
 export interface CostCentersRepository {
   create(data: CreateCostCenterSchema): Promise<CostCenter>;
   findById(id: UniqueEntityID, tenantId: string): Promise<CostCenter | null>;
@@ -40,6 +50,7 @@ export interface CostCentersRepository {
     tenantId: string,
     page: number,
     limit: number,
+    filters?: FindManyCostCentersFilters,
   ): Promise<FindManyPaginatedResult>;
   update(data: UpdateCostCenterSchema): Promise<CostCenter | null>;
   delete(id: UniqueEntityID, tenantId: string): Promise<void>;

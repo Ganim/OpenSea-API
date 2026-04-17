@@ -10,6 +10,9 @@ interface ListCostCentersUseCaseRequest {
   limit?: number;
   search?: string;
   isActive?: boolean;
+  // P1-37: orphan params plumbed end-to-end.
+  companyId?: string;
+  includeDeleted?: boolean | 'only';
   sortBy?: 'name' | 'code' | 'createdAt' | 'monthlyBudget' | 'annualBudget';
   sortOrder?: 'asc' | 'desc';
 }
@@ -33,6 +36,12 @@ export class ListCostCentersUseCase {
     tenantId,
     page = 1,
     limit = 20,
+    search,
+    isActive,
+    companyId,
+    includeDeleted,
+    sortBy,
+    sortOrder,
   }: ListCostCentersUseCaseRequest): Promise<ListCostCentersUseCaseResponse> {
     const safeLimit = Math.min(Math.max(limit, 1), 100);
     const safePage = Math.max(page, 1);
@@ -42,6 +51,14 @@ export class ListCostCentersUseCase {
         tenantId,
         safePage,
         safeLimit,
+        {
+          search,
+          isActive,
+          companyId,
+          includeDeleted,
+          sortBy,
+          sortOrder,
+        },
       );
 
     return {
