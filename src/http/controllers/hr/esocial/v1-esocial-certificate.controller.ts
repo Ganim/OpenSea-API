@@ -1,3 +1,5 @@
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
@@ -8,6 +10,13 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
+/**
+ * Legacy HR eSocial certificate controller. Kept as defense-in-depth —
+ * the live certificate endpoints now live under controllers/esocial/certificates
+ * with full RBAC. If this controller is ever re-registered, the middleware
+ * below ensures only users with ESOCIAL.CERTIFICATES permissions can access
+ * or upload a PFX certificate (P0-08 ops).
+ */
 export async function v1EsocialCertificateController(app: FastifyInstance) {
   const uploadUseCase = new UploadEsocialCertificateUseCase();
   const getUseCase = new GetEsocialCertificateUseCase();
@@ -16,7 +25,14 @@ export async function v1EsocialCertificateController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/esocial/certificate',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.ESOCIAL.CERTIFICATES.ACCESS,
+        resource: 'esocial-certificates',
+      }),
+    ],
     schema: {
       tags: ['HR - eSocial'],
       summary: 'Get eSocial certificate info',
@@ -52,7 +68,14 @@ export async function v1EsocialCertificateController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/esocial/certificate',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.ESOCIAL.CERTIFICATES.ADMIN,
+        resource: 'esocial-certificates',
+      }),
+    ],
     schema: {
       tags: ['HR - eSocial'],
       summary: 'Upload eSocial certificate',

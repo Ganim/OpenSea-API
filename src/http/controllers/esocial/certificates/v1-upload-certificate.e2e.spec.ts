@@ -32,4 +32,17 @@ describe('Upload eSocial Certificate (E2E)', () => {
     // Multipart expected but not sent — should fail
     expect(response.status).toBeGreaterThanOrEqual(400);
   });
+
+  it('should return 403 when caller lacks esocial.certificates.admin (P0-08 ops)', async () => {
+    const { token } = await createAndAuthenticateUser(app, {
+      tenantId,
+      permissions: [],
+    });
+
+    const response = await request(app.server)
+      .post('/v1/esocial/certificates')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(403);
+  });
 });

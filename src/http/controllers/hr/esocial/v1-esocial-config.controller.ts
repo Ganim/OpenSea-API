@@ -1,3 +1,5 @@
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
@@ -9,6 +11,13 @@ import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 import { updateConfigBodySchema } from './esocial-api-schemas';
 
+/**
+ * Legacy HR eSocial config controller. Kept as defense-in-depth —
+ * the live config endpoints now live under controllers/esocial/config with
+ * full RBAC. If this controller is ever re-registered, the middleware below
+ * ensures only users with ESOCIAL.CONFIG permissions can read/mutate the
+ * environment setting and auto-generation flags (P0-08 ops).
+ */
 export async function v1EsocialConfigController(app: FastifyInstance) {
   const getUseCase = new GetEsocialConfigUseCase();
   const updateUseCase = new UpdateEsocialConfigUseCase();
@@ -17,7 +26,14 @@ export async function v1EsocialConfigController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/esocial/config',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.ESOCIAL.CONFIG.ACCESS,
+        resource: 'esocial-config',
+      }),
+    ],
     schema: {
       tags: ['HR - eSocial'],
       summary: 'Get eSocial configuration',
@@ -44,7 +60,14 @@ export async function v1EsocialConfigController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PATCH',
     url: '/v1/esocial/config',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.ESOCIAL.CONFIG.ADMIN,
+        resource: 'esocial-config',
+      }),
+    ],
     schema: {
       tags: ['HR - eSocial'],
       summary: 'Update eSocial configuration',

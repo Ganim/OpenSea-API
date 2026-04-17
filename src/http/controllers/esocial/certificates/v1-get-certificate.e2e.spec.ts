@@ -30,4 +30,17 @@ describe('Get eSocial Certificate (E2E)', () => {
 
     expect(response.status).toBe(401);
   });
+
+  it('should return 403 when caller lacks esocial.certificates.access (P0-08 ops)', async () => {
+    const { token } = await createAndAuthenticateUser(app, {
+      tenantId,
+      permissions: [],
+    });
+
+    const response = await request(app.server)
+      .get('/v1/esocial/certificates')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(403);
+  });
 });
