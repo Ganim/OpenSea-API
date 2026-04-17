@@ -2,8 +2,11 @@ import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { CannotDeletePaidEntryError } from '@/@errors/use-cases/cannot-delete-paid-entry-error';
 import { ConflictError } from '@/@errors/use-cases/conflict-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
+import { GoneError } from '@/@errors/use-cases/gone-error';
+import { NotImplementedError } from '@/@errors/use-cases/not-implemented-error';
 import { PasswordResetRequiredError } from '@/@errors/use-cases/password-reset-required-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { TooManyRequestsError } from '@/@errors/use-cases/too-many-requests-error';
 import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
 import { errorLogger } from '@/lib/logger';
 import { captureException } from '@/lib/sentry';
@@ -114,6 +117,30 @@ export const errorHandler = (
   if (error instanceof ConflictError) {
     return reply.status(409).send({
       code: error.code ?? ErrorCodes.OPTIMISTIC_LOCK_CONFLICT,
+      message: error.message,
+      requestId,
+    });
+  }
+
+  if (error instanceof GoneError) {
+    return reply.status(410).send({
+      code: ErrorCodes.BAD_REQUEST,
+      message: error.message,
+      requestId,
+    });
+  }
+
+  if (error instanceof TooManyRequestsError) {
+    return reply.status(429).send({
+      code: ErrorCodes.RATE_LIMITED,
+      message: error.message,
+      requestId,
+    });
+  }
+
+  if (error instanceof NotImplementedError) {
+    return reply.status(501).send({
+      code: ErrorCodes.INTERNAL_ERROR,
       message: error.message,
       requestId,
     });
