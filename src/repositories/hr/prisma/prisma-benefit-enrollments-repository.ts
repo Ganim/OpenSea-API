@@ -166,13 +166,13 @@ export class PrismaBenefitEnrollmentsRepository
     data: UpdateBenefitEnrollmentSchema,
   ): Promise<BenefitEnrollment | null> {
     const existingEnrollment = await prisma.benefitEnrollment.findUnique({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
     });
 
     if (!existingEnrollment) return null;
 
     const enrollmentData = await prisma.benefitEnrollment.update({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
       data: {
         startDate: data.startDate,
         endDate: data.endDate,
@@ -190,9 +190,9 @@ export class PrismaBenefitEnrollmentsRepository
     );
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.benefitEnrollment.delete({
-      where: { id: id.toString() },
+      where: { id: id.toString(), ...(tenantId && { tenantId }), },
     });
   }
 }

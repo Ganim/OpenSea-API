@@ -112,13 +112,13 @@ export class PrismaFlexBenefitAllocationsRepository
     data: UpdateFlexBenefitAllocationSchema,
   ): Promise<FlexBenefitAllocation | null> {
     const existingAllocation = await prisma.flexBenefitAllocation.findUnique({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
     });
 
     if (!existingAllocation) return null;
 
     const allocationData = await prisma.flexBenefitAllocation.update({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
       data: {
         allocations: data.allocations ?? undefined,
         status: data.status,

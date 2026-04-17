@@ -85,13 +85,13 @@ export class PrismaBenefitPlansRepository implements BenefitPlansRepository {
 
   async update(data: UpdateBenefitPlanSchema): Promise<BenefitPlan | null> {
     const existingPlan = await prisma.benefitPlan.findUnique({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
     });
 
     if (!existingPlan) return null;
 
     const planData = await prisma.benefitPlan.update({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
       data: {
         name: data.name,
         type: data.type,
@@ -109,9 +109,9 @@ export class PrismaBenefitPlansRepository implements BenefitPlansRepository {
     );
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.benefitPlan.delete({
-      where: { id: id.toString() },
+      where: { id: id.toString(), ...(tenantId && { tenantId }), },
     });
   }
 }

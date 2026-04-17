@@ -16,6 +16,13 @@ export interface CreateBenefitEnrollmentSchema {
 
 export interface UpdateBenefitEnrollmentSchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so the underlying Prisma `where` clause is scoped and cannot update a
+   * record belonging to another tenant.
+   */
+  tenantId?: string;
   startDate?: Date;
   endDate?: Date;
   status?: string;
@@ -57,5 +64,5 @@ export interface BenefitEnrollmentsRepository {
   update(
     data: UpdateBenefitEnrollmentSchema,
   ): Promise<BenefitEnrollment | null>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

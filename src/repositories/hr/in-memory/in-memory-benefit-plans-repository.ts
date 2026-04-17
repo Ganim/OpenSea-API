@@ -101,7 +101,7 @@ export class InMemoryBenefitPlansRepository implements BenefitPlansRepository {
     return plan;
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     const index = this.items.findIndex((plan) => plan.id.equals(id));
     if (index >= 0) {
       this.items.splice(index, 1);
