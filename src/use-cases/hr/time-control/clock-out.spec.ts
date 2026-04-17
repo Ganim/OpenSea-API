@@ -8,12 +8,16 @@ import {
   WorkRegime,
 } from '@/entities/hr/value-objects';
 import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';
+import { InMemoryGeofenceZonesRepository } from '@/repositories/hr/in-memory/in-memory-geofence-zones-repository';
+import { InMemoryPunchConfigRepository } from '@/repositories/hr/in-memory/in-memory-punch-config-repository';
 import { InMemoryTimeEntriesRepository } from '@/repositories/hr/in-memory/in-memory-time-entries-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ClockOutUseCase } from './clock-out';
 
 let timeEntriesRepository: InMemoryTimeEntriesRepository;
 let employeesRepository: InMemoryEmployeesRepository;
+let punchConfigRepository: InMemoryPunchConfigRepository;
+let geofenceZonesRepository: InMemoryGeofenceZonesRepository;
 let sut: ClockOutUseCase;
 let testEmployee: Employee;
 const tenantId = new UniqueEntityID().toString();
@@ -22,7 +26,14 @@ describe('Clock Out Use Case', () => {
   beforeEach(async () => {
     timeEntriesRepository = new InMemoryTimeEntriesRepository();
     employeesRepository = new InMemoryEmployeesRepository();
-    sut = new ClockOutUseCase(timeEntriesRepository, employeesRepository);
+    punchConfigRepository = new InMemoryPunchConfigRepository();
+    geofenceZonesRepository = new InMemoryGeofenceZonesRepository();
+    sut = new ClockOutUseCase(
+      timeEntriesRepository,
+      employeesRepository,
+      punchConfigRepository,
+      geofenceZonesRepository,
+    );
 
     // Create test employee
     testEmployee = await employeesRepository.create({
@@ -151,5 +162,91 @@ describe('Clock Out Use Case', () => {
         employeeId: testEmployee.id.toString(),
       }),
     ).rejects.toThrow('Employee has not clocked in. Please clock in first');
+  });
+
+  // ---------------------------------------------------------------------------
+  // Geofence enforcement (P0 safety — mirror clock-in)
+  // ---------------------------------------------------------------------------
+
+  it('should clock out when geofence is enabled and location is inside an active zone', async () => {
+    // Seed clock-in so clock-out has something to pair with.
+    await timeEntriesRepository.create({
+      tenantId,
+      employeeId: testEmployee.id,
+      entryType: TimeEntryType.CLOCK_IN(),
+      timestamp: new Date(),
+    });
+
+    await punchConfigRepository.create(tenantId);
+    await punchConfigRepository.update(tenantId, { geofenceEnabled: true });
+    await geofenceZonesRepository.create({
+      tenantId,
+      name: 'Sede',
+      latitude: -23.5505,
+      longitude: -46.6333,
+      radiusMeters: 100,
+      isActive: true,
+    });
+
+    const result = await sut.execute({
+      tenantId,
+      employeeId: testEmployee.id.toString(),
+      // Exactly on the centroid — distance=0, well within the 100m radius.
+      latitude: -23.5505,
+      longitude: -46.6333,
+    });
+
+    expect(result.timeEntry.entryType.value).toBe('CLOCK_OUT');
+  });
+
+  it('should reject clock out when geofence is enabled and location is outside all zones', async () => {
+    await timeEntriesRepository.create({
+      tenantId,
+      employeeId: testEmployee.id,
+      entryType: TimeEntryType.CLOCK_IN(),
+      timestamp: new Date(),
+    });
+
+    await punchConfigRepository.create(tenantId);
+    await punchConfigRepository.update(tenantId, { geofenceEnabled: true });
+    await geofenceZonesRepository.create({
+      tenantId,
+      name: 'Sede',
+      latitude: -23.5505,
+      longitude: -46.6333,
+      radiusMeters: 100,
+      isActive: true,
+    });
+
+    await expect(
+      sut.execute({
+        tenantId,
+        employeeId: testEmployee.id.toString(),
+        // Far away from the zone (>1km).
+        latitude: -23.6,
+        longitude: -46.7,
+      }),
+    ).rejects.toThrow(
+      'Clock-out rejected: location is outside all allowed geofence zones',
+    );
+  });
+
+  it('should clock out normally when tenant has no geofence configuration (feature disabled)', async () => {
+    await timeEntriesRepository.create({
+      tenantId,
+      employeeId: testEmployee.id,
+      entryType: TimeEntryType.CLOCK_IN(),
+      timestamp: new Date(),
+    });
+
+    // Intentionally skip punchConfig + geofence-zone seeding — the use case
+    // must treat a missing config as "geofence off" and accept the punch.
+    const result = await sut.execute({
+      tenantId,
+      employeeId: testEmployee.id.toString(),
+      // No lat/long provided either — must not throw.
+    });
+
+    expect(result.timeEntry.entryType.value).toBe('CLOCK_OUT');
   });
 });

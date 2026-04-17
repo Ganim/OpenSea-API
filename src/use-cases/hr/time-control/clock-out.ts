@@ -4,7 +4,10 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { TimeEntry } from '@/entities/hr/time-entry';
 import { TimeEntryType } from '@/entities/hr/value-objects';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
+import { GeofenceZonesRepository } from '@/repositories/hr/geofence-zones-repository';
+import { PunchConfigRepository } from '@/repositories/hr/punch-config-repository';
 import { TimeEntriesRepository } from '@/repositories/hr/time-entries-repository';
+import { haversineDistance } from '@/use-cases/hr/geofence-zones/validate-geofence';
 
 export interface ClockOutRequest {
   tenantId: string;
@@ -24,6 +27,8 @@ export class ClockOutUseCase {
   constructor(
     private timeEntriesRepository: TimeEntriesRepository,
     private employeesRepository: EmployeesRepository,
+    private punchConfigRepository?: PunchConfigRepository,
+    private geofenceZonesRepository?: GeofenceZonesRepository,
   ) {}
 
   async execute(request: ClockOutRequest): Promise<ClockOutResponse> {
@@ -61,6 +66,48 @@ export class ClockOutUseCase {
       throw new BadRequestError(
         'Employee has not clocked in. Please clock in first',
       );
+    }
+
+    // Mirror the clock-in geofence check (P0 safety): without this the
+    // perimeter enforcement was half-open — an employee could punch out from
+    // anywhere, which breaks the audit story for geofenced jobsites and
+    // silently invalidates the clock-in's location proof.
+    if (this.punchConfigRepository && this.geofenceZonesRepository) {
+      const punchConfig =
+        await this.punchConfigRepository.findByTenantId(tenantId);
+
+      if (punchConfig?.geofenceEnabled) {
+        if (latitude == null || longitude == null) {
+          throw new BadRequestError(
+            'Location is required when geofence is enabled',
+          );
+        }
+
+        const activeZones =
+          await this.geofenceZonesRepository.findActiveByTenantId(tenantId);
+
+        if (activeZones.length > 0) {
+          let isWithin = false;
+          for (const zone of activeZones) {
+            const distance = haversineDistance(
+              latitude,
+              longitude,
+              zone.latitude,
+              zone.longitude,
+            );
+            if (distance <= zone.radiusMeters) {
+              isWithin = true;
+              break;
+            }
+          }
+
+          if (!isWithin) {
+            throw new BadRequestError(
+              'Clock-out rejected: location is outside all allowed geofence zones',
+            );
+          }
+        }
+      }
     }
 
     // Create clock out entry with sequential NSR (Portaria 671 requires a
