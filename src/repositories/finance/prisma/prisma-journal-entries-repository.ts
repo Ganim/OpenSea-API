@@ -11,6 +11,29 @@ import type {
 } from '../journal-entries-repository';
 import { Prisma } from '@prisma/generated/client.js';
 
+/**
+ * Safely converts a Prisma.Decimal (or raw SQL numeric value that Prisma casts
+ * back as Decimal/string/number/null) to a number rounded to 2 decimals.
+ *
+ * Using \`.toNumber()\` on a Decimal is the canonical path — previously the
+ * repo relied on \`parseFloat(String(decimal))\` which round-trips through
+ * locale-sensitive string formatting and hides nulls as NaN.
+ */
+function decimalToNumber(value: Prisma.Decimal | number | string | null): number {
+  if (value === null || value === undefined) {
+    return 0;
+  }
+  if (value instanceof Prisma.Decimal) {
+    return Number(value.toFixed(2));
+  }
+  if (typeof value === 'number') {
+    return Number(value.toFixed(2));
+  }
+  // Fallback: some Prisma drivers return the raw numeric as string
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? Number(parsed.toFixed(2)) : 0;
+}
+
 export class PrismaJournalEntriesRepository
   implements JournalEntriesRepository
 {
@@ -213,8 +236,8 @@ export class PrismaJournalEntriesRepository
 
     let runningBalance = 0;
     return rows.map((row) => {
-      const debit = Number(parseFloat(String(row.debit)).toFixed(2));
-      const credit = Number(parseFloat(String(row.credit)).toFixed(2));
+      const debit = decimalToNumber(row.debit);
+      const credit = decimalToNumber(row.credit);
       runningBalance += debit - credit;
 
       return {
@@ -268,10 +291,8 @@ export class PrismaJournalEntriesRepository
     `;
 
     return rows.map((row) => {
-      const debitTotal = Number(parseFloat(String(row.debitTotal)).toFixed(2));
-      const creditTotal = Number(
-        parseFloat(String(row.creditTotal)).toFixed(2),
-      );
+      const debitTotal = decimalToNumber(row.debitTotal);
+      const creditTotal = decimalToNumber(row.creditTotal);
       const level = (row.code.match(/\./g) ?? []).length + 1;
       const balance =
         row.nature === 'DEBIT'
