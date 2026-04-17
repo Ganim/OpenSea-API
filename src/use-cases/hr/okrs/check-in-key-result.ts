@@ -1,4 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { calculateKrProgress } from '@/entities/hr/key-result';
 import type { OKRCheckIn } from '@/entities/hr/okr-check-in';
 import type { KeyResultsRepository } from '@/repositories/hr/key-results-repository';
 import type { ObjectivesRepository } from '@/repositories/hr/objectives-repository';
@@ -63,20 +64,21 @@ export class CheckInKeyResultUseCase {
     );
 
     const totalWeight = allKeyResults.reduce((sum, kr) => sum + kr.weight, 0);
-    const weightedProgress = allKeyResults.reduce((sum, kr) => {
-      const krCurrentValue = kr.id.equals(keyResultId)
-        ? request.newValue
-        : kr.currentValue;
-      const range = kr.targetValue - kr.startValue;
-      const progress =
-        range === 0
-          ? krCurrentValue >= kr.targetValue
-            ? 100
-            : 0
-          : ((krCurrentValue - kr.startValue) / range) * 100;
-      const clampedProgress = Math.min(100, Math.max(0, progress));
-      return sum + clampedProgress * (kr.weight / totalWeight);
-    }, 0);
+    const weightedProgress =
+      totalWeight === 0
+        ? 0
+        : allKeyResults.reduce((sum, kr) => {
+            const krCurrentValue = kr.id.equals(keyResultId)
+              ? request.newValue
+              : kr.currentValue;
+            const krProgress = calculateKrProgress({
+              startValue: kr.startValue,
+              targetValue: kr.targetValue,
+              currentValue: krCurrentValue,
+              direction: kr.direction,
+            });
+            return sum + krProgress * (kr.weight / totalWeight);
+          }, 0);
 
     await this.objectivesRepository.update({
       id: keyResult.objectiveId,

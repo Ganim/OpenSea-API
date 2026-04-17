@@ -1,6 +1,16 @@
 import { Entity } from '../domain/entities';
 import { UniqueEntityID } from '../domain/unique-entity-id';
 
+/**
+ * Indicates whether the KR's target is reached by going UP from `startValue`
+ * (e.g. "increase revenue from 0 to 100") or DOWN from `startValue`
+ * (e.g. "reduce churn from 10% to 2%").
+ *
+ * NOTE: Not currently persisted in the `key_results` table — inferred from
+ * the relative position of `startValue` vs `targetValue` when missing.
+ */
+export type KeyResultDirection = 'increase' | 'decrease';
+
 export interface KeyResultProps {
   tenantId: UniqueEntityID;
   objectiveId: UniqueEntityID;
@@ -13,8 +23,64 @@ export interface KeyResultProps {
   unit?: string;
   status: string;
   weight: number;
+  direction?: KeyResultDirection;
   createdAt: Date;
   updatedAt: Date;
+}
+
+/**
+ * Infers the KR direction when not explicitly set:
+ *   targetValue <  startValue → 'decrease'
+ *   targetValue >= startValue → 'increase'
+ */
+export function inferKrDirection(
+  startValue: number,
+  targetValue: number,
+): KeyResultDirection {
+  return targetValue < startValue ? 'decrease' : 'increase';
+}
+
+export interface CalculateKrProgressInput {
+  startValue: number;
+  targetValue: number;
+  currentValue: number;
+  direction?: KeyResultDirection;
+}
+
+/**
+ * Computes the 0..100 progress percentage of a Key Result.
+ *
+ * Guarantees:
+ *  - NaN-safe: when `startValue === targetValue` (zero range) the function
+ *    returns 100 when the target has been met, 0 otherwise — never NaN.
+ *  - Direction-aware: 'decrease' KRs use `(start - current) / (start - target)`
+ *    because progress grows as the current value DROPS toward the target.
+ *  - Clamped to the `[0, 100]` interval and rounded to 2 decimals.
+ */
+export function calculateKrProgress({
+  startValue,
+  targetValue,
+  currentValue,
+  direction,
+}: CalculateKrProgressInput): number {
+  const resolvedDirection =
+    direction ?? inferKrDirection(startValue, targetValue);
+
+  if (startValue === targetValue) {
+    if (resolvedDirection === 'decrease') {
+      return currentValue <= targetValue ? 100 : 0;
+    }
+    return currentValue >= targetValue ? 100 : 0;
+  }
+
+  const rawProgress =
+    resolvedDirection === 'decrease'
+      ? ((startValue - currentValue) / (startValue - targetValue)) * 100
+      : ((currentValue - startValue) / (targetValue - startValue)) * 100;
+
+  const clampedProgress = Math.min(100, Math.max(0, rawProgress));
+
+  return Number(clampedProgress.toFixed(2));
 }
 
 export class KeyResult extends Entity<KeyResultProps> {
@@ -70,13 +136,20 @@ export class KeyResult extends Entity<KeyResultProps> {
     return this.props.updatedAt;
   }
 
+  get direction(): KeyResultDirection {
+    return (
+      this.props.direction ??
+      inferKrDirection(this.props.startValue, this.props.targetValue)
+    );
+  }
+
   get progressPercentage(): number {
-    const range = this.props.targetValue - this.props.startValue;
-    if (range === 0)
-      return this.props.currentValue >= this.props.targetValue ? 100 : 0;
-    const progress =
-      ((this.props.currentValue - this.props.startValue) / range) * 100;
-    return Math.min(100, Math.max(0, Number(progress.toFixed(2))));
+    return calculateKrProgress({
+      startValue: this.props.startValue,
+      targetValue: this.props.targetValue,
+      currentValue: this.props.currentValue,
+      direction: this.direction,
+    });
   }
 
   updateCurrentValue(newValue: number): void {
