@@ -215,8 +215,12 @@ export class InMemoryPositionsRepository implements PositionsRepository {
     }
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
-    const index = this.items.findIndex((item) => item.id.equals(id));
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
+    const index = this.items.findIndex(
+      (item) =>
+        item.id.equals(id) &&
+        (!tenantId || item.tenantId.toString() === tenantId),
+    );
 
     if (index !== -1) {
       this.items[index].softDelete();

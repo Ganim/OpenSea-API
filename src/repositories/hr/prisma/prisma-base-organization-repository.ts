@@ -408,6 +408,7 @@ export abstract class PrismaBaseOrganizationRepository<T extends Organization>
     await prisma.organization.update({
       where: {
         id: organization.id.toString(),
+        tenantId: organization.tenantId.toString(),
       },
       data: saveData as Prisma.OrganizationUpdateInput,
     });
@@ -428,7 +429,7 @@ export abstract class PrismaBaseOrganizationRepository<T extends Organization>
 
     if (organization && organization.deletedAt) {
       await prisma.organization.update({
-        where: { id: id.toString() },
+        where: { id: id.toString(), ...(tenantId && { tenantId }), },
         data: { deletedAt: null, updatedAt: new Date() },
       });
     }

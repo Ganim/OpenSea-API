@@ -266,6 +266,7 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
       where: {
         id: data.id.toString(),
         deletedAt: null,
+        ...(data.tenantId && { tenantId: data.tenantId }),
       },
     });
 
@@ -284,7 +285,7 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
     if (data.isActive !== undefined) updateData.isActive = data.isActive;
 
     const departmentData = await prisma.department.update({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
       data: updateData,
       include: {
         parent: true,
@@ -301,7 +302,7 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
 
   async save(department: Department): Promise<void> {
     await prisma.department.update({
-      where: { id: department.id.toString() },
+      where: { id: department.id.toString(), tenantId: department.tenantId.toString(), },
       data: {
         name: department.name,
         code: department.code,
@@ -315,9 +316,9 @@ export class PrismaDepartmentsRepository implements DepartmentsRepository {
     });
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.department.update({
-      where: { id: id.toString() },
+      where: { id: id.toString(), ...(tenantId && { tenantId }), },
       data: { deletedAt: new Date(), isActive: false },
     });
   }

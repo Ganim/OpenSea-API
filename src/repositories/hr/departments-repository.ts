@@ -14,6 +14,13 @@ export interface CreateDepartmentSchema {
 
 export interface UpdateDepartmentSchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so the underlying Prisma `where` clause is scoped and cannot update a
+   * record belonging to another tenant.
+   */
+  tenantId?: string;
   name?: string;
   code?: string;
   description?: string | null;
@@ -65,5 +72,5 @@ export interface DepartmentsRepository {
   hasEmployees(id: UniqueEntityID): Promise<boolean>;
   update(data: UpdateDepartmentSchema): Promise<Department | null>;
   save(department: Department): Promise<void>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

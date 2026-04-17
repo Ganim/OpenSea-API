@@ -249,6 +249,7 @@ export class PrismaPositionsRepository implements PositionsRepository {
       where: {
         id: data.id.toString(),
         deletedAt: null,
+        ...(data.tenantId && { tenantId: data.tenantId }),
       },
     });
 
@@ -269,7 +270,7 @@ export class PrismaPositionsRepository implements PositionsRepository {
     if (data.isActive !== undefined) updateData.isActive = data.isActive;
 
     const positionData = await prisma.position.update({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
       data: updateData,
       include: {
         department: true,
@@ -284,7 +285,7 @@ export class PrismaPositionsRepository implements PositionsRepository {
 
   async save(position: Position): Promise<void> {
     await prisma.position.update({
-      where: { id: position.id.toString() },
+      where: { id: position.id.toString(), tenantId: position.tenantId.toString(), },
       data: {
         name: position.name,
         code: position.code,
@@ -300,9 +301,9 @@ export class PrismaPositionsRepository implements PositionsRepository {
     });
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.position.update({
-      where: { id: id.toString() },
+      where: { id: id.toString(), ...(tenantId && { tenantId }), },
       data: { deletedAt: new Date(), isActive: false },
     });
   }
