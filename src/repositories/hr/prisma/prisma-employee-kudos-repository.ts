@@ -48,7 +48,7 @@ export class PrismaEmployeeKudosRepository implements EmployeeKudosRepository {
 
   async save(kudos: EmployeeKudos): Promise<void> {
     await prisma.employeeKudos.update({
-      where: { id: kudos.id.toString() },
+      where: { id: kudos.id.toString(), tenantId: kudos.tenantId.toString() },
       data: {
         message: kudos.message,
         category: kudos.category,

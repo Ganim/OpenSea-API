@@ -78,6 +78,13 @@ export interface CreateEmployeeSchema {
 
 export interface UpdateEmployeeSchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so that the underlying Prisma `where` clause is scoped and cannot
+   * update a record belonging to another tenant.
+   */
+  tenantId?: string;
   registrationNumber?: string;
   userId?: UniqueEntityID | null; // null para desvincular
   fullName?: string;

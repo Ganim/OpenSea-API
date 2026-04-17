@@ -19,7 +19,7 @@ export class PrismaKudosRepliesRepository implements KudosRepliesRepository {
 
   async save(reply: KudosReply): Promise<void> {
     await prisma.kudosReply.update({
-      where: { id: reply.id.toString() },
+      where: { id: reply.id.toString(), tenantId: reply.tenantId.toString() },
       data: {
         content: reply.content,
         deletedAt: reply.deletedAt ?? null,

@@ -889,7 +889,10 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
       }
 
       const updatedEmployeeData = await prisma.employee.update({
-        where: { id: data.id.toString() },
+        where: {
+          id: data.id.toString(),
+          ...(data.tenantId && { tenantId: data.tenantId }),
+        },
         data: updateData as Parameters<
           typeof prisma.employee.update
         >[0]['data'],

@@ -112,7 +112,7 @@ export class PrismaOffboardingChecklistsRepository
 
   async save(checklist: OffboardingChecklist): Promise<void> {
     await prisma.offboardingChecklist.update({
-      where: { id: checklist.id.toString() },
+      where: { id: checklist.id.toString(), tenantId: checklist.tenantId.toString() },
       data: {
         title: checklist.title,
         items: checklist.items as unknown as object,

@@ -91,7 +91,7 @@ export class PrismaCompanyAnnouncementsRepository
 
   async save(announcement: CompanyAnnouncement): Promise<void> {
     await prisma.companyAnnouncement.update({
-      where: { id: announcement.id.toString() },
+      where: { id: announcement.id.toString(), tenantId: announcement.tenantId.toString() },
       data: {
         title: announcement.title,
         content: announcement.content,

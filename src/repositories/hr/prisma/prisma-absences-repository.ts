@@ -311,8 +311,12 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
   }
 
   async update(data: UpdateAbsenceSchema): Promise<Absence | null> {
-    const existingAbsence = await prisma.absence.findUnique({
-      where: { id: data.id.toString() },
+    const existingAbsence = await prisma.absence.findFirst({
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
+      select: { id: true },
     });
 
     if (!existingAbsence) return null;

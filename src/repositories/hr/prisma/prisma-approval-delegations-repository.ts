@@ -196,7 +196,7 @@ export class PrismaApprovalDelegationsRepository
 
   async save(delegation: ApprovalDelegation): Promise<void> {
     await prisma.approvalDelegation.update({
-      where: { id: delegation.id.toString() },
+      where: { id: delegation.id.toString(), tenantId: delegation.tenantId.toString() },
       data: {
         scope: delegation.scope,
         startDate: delegation.startDate,
