@@ -1,8 +1,18 @@
 import { randomBytes } from 'node:crypto';
+import { customAlphabet } from 'nanoid';
 import type { SignatureEnvelope } from '@/entities/signature/signature-envelope';
 import type { SignatureEnvelopesRepository } from '@/repositories/signature/signature-envelopes-repository';
 import type { SignatureEnvelopeSignersRepository } from '@/repositories/signature/signature-envelope-signers-repository';
 import type { SignatureAuditEventsRepository } from '@/repositories/signature/signature-audit-events-repository';
+import type { SignatureEmailService } from '@/services/signature/signature-email-service';
+
+// Human-legible alphabet: excludes I, O, 0, 1 to avoid confusion
+const VERIFICATION_CODE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+const VERIFICATION_CODE_LENGTH = 10;
+const generateVerificationCode = customAlphabet(
+  VERIFICATION_CODE_ALPHABET,
+  VERIFICATION_CODE_LENGTH,
+);
 
 interface SignerInput {
   userId?: string;
@@ -42,6 +52,7 @@ interface CreateEnvelopeUseCaseRequest {
 
 interface CreateEnvelopeUseCaseResponse {
   envelope: SignatureEnvelope;
+  emailDeliveryErrors: string[];
 }
 
 export class CreateEnvelopeUseCase {
@@ -49,17 +60,21 @@ export class CreateEnvelopeUseCase {
     private envelopesRepository: SignatureEnvelopesRepository,
     private signersRepository: SignatureEnvelopeSignersRepository,
     private auditEventsRepository: SignatureAuditEventsRepository,
+    private signatureEmailService?: SignatureEmailService,
   ) {}
 
   async execute(
     request: CreateEnvelopeUseCaseRequest,
   ): Promise<CreateEnvelopeUseCaseResponse> {
+    const verificationCode = generateVerificationCode();
+
     const envelope = await this.envelopesRepository.create({
       tenantId: request.tenantId,
       title: request.title,
       description: request.description,
       signatureLevel: request.signatureLevel,
       minSignatureLevel: request.minSignatureLevel,
+      verificationCode,
       documentFileId: request.documentFileId,
       documentHash: request.documentHash,
       documentType: request.documentType,
@@ -96,7 +111,7 @@ export class CreateEnvelopeUseCase {
         : null,
     }));
 
-    await this.signersRepository.createMany(signerData);
+    const createdSigners = await this.signersRepository.createMany(signerData);
 
     // Create audit event
     await this.auditEventsRepository.create({
@@ -106,6 +121,49 @@ export class CreateEnvelopeUseCase {
       description: `Envelope "${request.title}" created with ${request.signers.length} signer(s)`,
     });
 
-    return { envelope };
+    // Send signature request emails to external signers (fail-soft)
+    const emailDeliveryErrors: string[] = [];
+    if (this.signatureEmailService) {
+      const externalSigners = createdSigners.filter(
+        (signer) =>
+          signer.userId === null &&
+          signer.externalEmail !== null &&
+          signer.accessToken !== null,
+      );
+
+      for (const externalSigner of externalSigners) {
+        try {
+          const deliveryResult =
+            await this.signatureEmailService.sendSignatureRequest({
+              to: externalSigner.externalEmail as string,
+              signerName: externalSigner.displayName,
+              envelopeTitle: request.title,
+              accessToken: externalSigner.accessToken as string,
+              verificationCode,
+              expiresAt: request.expiresAt ?? null,
+            });
+
+          if (deliveryResult.success) {
+            await this.auditEventsRepository.create({
+              envelopeId: envelope.id.toString(),
+              tenantId: request.tenantId,
+              type: 'SENT',
+              signerId: externalSigner.signerId.toString(),
+              description: `Signature request email sent to ${externalSigner.externalEmail}`,
+            });
+          } else {
+            emailDeliveryErrors.push(
+              `Failed to send email to ${externalSigner.externalEmail}: ${deliveryResult.message ?? 'unknown error'}`,
+            );
+          }
+        } catch (error) {
+          emailDeliveryErrors.push(
+            `Email delivery error for ${externalSigner.externalEmail}: ${error instanceof Error ? error.message : 'unknown error'}`,
+          );
+        }
+      }
+    }
+
+    return { envelope, emailDeliveryErrors };
   }
 }

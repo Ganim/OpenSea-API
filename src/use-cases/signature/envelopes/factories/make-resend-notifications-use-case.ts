@@ -1,6 +1,7 @@
 import { PrismaSignatureEnvelopesRepository } from '@/repositories/signature/prisma/prisma-signature-envelopes-repository';
 import { PrismaSignatureEnvelopeSignersRepository } from '@/repositories/signature/prisma/prisma-signature-envelope-signers-repository';
 import { PrismaSignatureAuditEventsRepository } from '@/repositories/signature/prisma/prisma-signature-audit-events-repository';
+import { SignatureEmailService } from '@/services/signature/signature-email-service';
 import { ResendNotificationsUseCase } from '../resend-notifications';
 
 export function makeResendNotificationsUseCase() {
@@ -8,5 +9,6 @@ export function makeResendNotificationsUseCase() {
     new PrismaSignatureEnvelopesRepository(),
     new PrismaSignatureEnvelopeSignersRepository(),
     new PrismaSignatureAuditEventsRepository(),
+    new SignatureEmailService(),
   );
 }
