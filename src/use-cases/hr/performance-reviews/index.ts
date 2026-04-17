@@ -4,3 +4,4 @@ export * from './list-performance-reviews';
 export * from './submit-self-assessment';
 export * from './submit-manager-review';
 export * from './acknowledge-review';
+export * from './advance-status';

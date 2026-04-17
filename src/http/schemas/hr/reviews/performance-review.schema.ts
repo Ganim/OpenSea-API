@@ -50,6 +50,14 @@ export const submitManagerReviewSchema = z.object({
 });
 
 /**
+ * Schema para avanço de status da avaliação (PENDING → SELF_ASSESSMENT →
+ * MANAGER_REVIEW → COMPLETED). STRICT: rejeita qualquer campo no body, em
+ * especial `selfScore`/`managerScore` que historicamente eram backfilled
+ * com `0` pela UI e zeravam avaliações já preenchidas (regressão P0).
+ */
+export const advanceReviewStatusSchema = z.object({}).strict();
+
+/**
  * Schema para filtros de listagem de avaliações de desempenho
  */
 export const listPerformanceReviewsQuerySchema = z.object({

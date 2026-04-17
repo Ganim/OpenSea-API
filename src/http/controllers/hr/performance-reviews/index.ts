@@ -5,3 +5,4 @@ export * from './v1-list-performance-reviews.controller';
 export * from './v1-submit-self-assessment.controller';
 export * from './v1-submit-manager-review.controller';
 export * from './v1-acknowledge-review.controller';
+export * from './v1-advance-review-status.controller';

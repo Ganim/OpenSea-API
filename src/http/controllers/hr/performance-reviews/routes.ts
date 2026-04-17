@@ -8,6 +8,7 @@ import { v1ListPerformanceReviewsController } from './v1-list-performance-review
 import { v1SubmitSelfAssessmentController } from './v1-submit-self-assessment.controller';
 import { v1SubmitManagerReviewController } from './v1-submit-manager-review.controller';
 import { v1AcknowledgeReviewController } from './v1-acknowledge-review.controller';
+import { v1AdvanceReviewStatusController } from './v1-advance-review-status.controller';
 
 export async function performanceReviewsRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('HR'));
@@ -20,6 +21,7 @@ export async function performanceReviewsRoutes(app: FastifyInstance) {
       mutationApp.register(v1SubmitSelfAssessmentController);
       mutationApp.register(v1SubmitManagerReviewController);
       mutationApp.register(v1AcknowledgeReviewController);
+      mutationApp.register(v1AdvanceReviewStatusController);
     },
     { prefix: '' },
   );

@@ -1357,6 +1357,15 @@ export const HR_AUDIT_MESSAGES = {
     description: '{{userName}} reconheceu a avaliação de desempenho',
   } satisfies AuditMessage,
 
+  /** Status da avaliação avançado sem alteração de notas ou comentários */
+  PERFORMANCE_REVIEW_ADVANCE_STATUS: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PERFORMANCE_REVIEW,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} avançou o status da avaliação para {{nextStatus}}',
+  } satisfies AuditMessage,
+
   // ============================================================================
   // REVIEW COMPETENCIES - Competências em Avaliações de Desempenho
   // ============================================================================
