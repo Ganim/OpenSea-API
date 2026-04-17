@@ -64,6 +64,32 @@ export class UpdateBankAccountUseCase {
       }
     }
 
+    // P2-47: accountType and accountNumber are immutable post-creation.
+    // Mutating them retroactively would invalidate every historical
+    // payment/reconciliation/boleto that referenced the old identifiers,
+    // and would leave the linked BankConnection pointing at the wrong
+    // external account. Users who really need to change these must create
+    // a new bank account and archive the old one.
+    if (
+      request.accountType !== undefined &&
+      request.accountType !== bankAccount.accountType
+    ) {
+      throw new BadRequestError(
+        'accountType é imutável; crie uma nova conta bancária para alterar o tipo',
+        ErrorCodes.BAD_REQUEST,
+      );
+    }
+
+    if (
+      request.accountNumber !== undefined &&
+      request.accountNumber !== bankAccount.accountNumber
+    ) {
+      throw new BadRequestError(
+        'accountNumber é imutável; crie uma nova conta bancária para alterar o número',
+        ErrorCodes.BAD_REQUEST,
+      );
+    }
+
     const updated = await this.bankAccountsRepository.update({
       id: new UniqueEntityID(id),
       tenantId,
@@ -71,9 +97,11 @@ export class UpdateBankAccountUseCase {
       bankName: request.bankName,
       agency: request.agency,
       agencyDigit: request.agencyDigit,
-      accountNumber: request.accountNumber,
+      // P2-47: accountNumber and accountType are guarded above; we
+      // deliberately do NOT forward them to the repository so that even
+      // if the guard is bypassed in the future, the repository call
+      // remains a no-op for these fields.
       accountDigit: request.accountDigit,
-      accountType: request.accountType,
       status: request.status,
       pixKeyType: request.pixKeyType,
       pixKey: request.pixKey,

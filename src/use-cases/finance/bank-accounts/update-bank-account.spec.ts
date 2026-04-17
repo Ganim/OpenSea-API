@@ -64,4 +64,66 @@ describe('UpdateBankAccountUseCase', () => {
       }),
     ).rejects.toBeInstanceOf(BadRequestError);
   });
+
+  // P2-47: accountType and accountNumber are immutable — mutating them
+  // would orphan historical payments and misalign the linked bank
+  // connection's external account.
+  it('should reject changes to accountType', async () => {
+    const bankAccount = await repository.create({
+      tenantId: 'tenant-1',
+      name: 'Conta Corrente',
+      bankCode: '001',
+      agency: '1234',
+      accountNumber: '12345-6',
+      accountType: 'CHECKING',
+    });
+
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        id: bankAccount.id.toString(),
+        accountType: 'SAVINGS',
+      }),
+    ).rejects.toThrow(/accountType é imutável/);
+  });
+
+  it('should reject changes to accountNumber', async () => {
+    const bankAccount = await repository.create({
+      tenantId: 'tenant-1',
+      name: 'Conta Corrente',
+      bankCode: '001',
+      agency: '1234',
+      accountNumber: '12345-6',
+      accountType: 'CHECKING',
+    });
+
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        id: bankAccount.id.toString(),
+        accountNumber: '99999-9',
+      }),
+    ).rejects.toThrow(/accountNumber é imutável/);
+  });
+
+  it('should accept the same accountType/accountNumber (no-op passthrough)', async () => {
+    const bankAccount = await repository.create({
+      tenantId: 'tenant-1',
+      name: 'Conta Corrente',
+      bankCode: '001',
+      agency: '1234',
+      accountNumber: '12345-6',
+      accountType: 'CHECKING',
+    });
+
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      id: bankAccount.id.toString(),
+      accountType: 'CHECKING',
+      accountNumber: '12345-6',
+      name: 'Conta Corrente Principal',
+    });
+
+    expect(result.bankAccount.name).toBe('Conta Corrente Principal');
+  });
 });
