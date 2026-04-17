@@ -1,4 +1,10 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import {
+  getBrazilianHolidays,
+  getNextBusinessDay,
+  isBusinessDay,
+  type BrazilianHoliday,
+} from '@/utils/brazilian-holidays';
 import { calculateNextDate } from '@/utils/finance/calculate-next-date';
 
 type RecurringFrequency =
@@ -30,25 +36,6 @@ interface PreviewRecurringDatesUseCaseResponse {
   dates: PreviewDateEntry[];
 }
 
-/**
- * Brazilian national holidays (fixed dates only).
- * Floating holidays (Carnival, Easter, Corpus Christi) are not included.
- */
-const BRAZILIAN_NATIONAL_HOLIDAYS: {
-  month: number;
-  day: number;
-  name: string;
-}[] = [
-  { month: 1, day: 1, name: 'Confraternização Universal' },
-  { month: 4, day: 21, name: 'Tiradentes' },
-  { month: 5, day: 1, name: 'Dia do Trabalho' },
-  { month: 9, day: 7, name: 'Independência do Brasil' },
-  { month: 10, day: 12, name: 'Nossa Senhora Aparecida' },
-  { month: 11, day: 2, name: 'Finados' },
-  { month: 11, day: 15, name: 'Proclamação da República' },
-  { month: 12, day: 25, name: 'Natal' },
-];
-
 function isWeekend(date: Date): boolean {
   const day = date.getDay();
   return day === 0 || day === 6;
@@ -56,20 +43,20 @@ function isWeekend(date: Date): boolean {
 
 function findHoliday(
   date: Date,
-): { month: number; day: number; name: string } | undefined {
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  return BRAZILIAN_NATIONAL_HOLIDAYS.find(
-    (h) => h.month === month && h.day === day,
-  );
-}
-
-function adjustToNextBusinessDay(date: Date): Date {
-  const adjusted = new Date(date);
-  while (isWeekend(adjusted) || findHoliday(adjusted)) {
-    adjusted.setDate(adjusted.getDate() + 1);
+  holidaysByYear: Map<number, BrazilianHoliday[]>,
+): BrazilianHoliday | undefined {
+  const year = date.getFullYear();
+  let holidays = holidaysByYear.get(year);
+  if (!holidays) {
+    holidays = getBrazilianHolidays(year);
+    holidaysByYear.set(year, holidays);
   }
-  return adjusted;
+  return holidays.find(
+    (h) =>
+      h.date.getFullYear() === date.getFullYear() &&
+      h.date.getMonth() === date.getMonth() &&
+      h.date.getDate() === date.getDate(),
+  );
 }
 
 function formatDateISO(date: Date): string {
@@ -95,6 +82,8 @@ export class PreviewRecurringDatesUseCase {
     }
 
     const dates: PreviewDateEntry[] = [];
+    // Cache holidays per year so we don't recompute Easter 60 times in a loop
+    const holidaysByYear = new Map<number, BrazilianHoliday[]>();
 
     for (let i = 0; i < count; i++) {
       const generatedDate =
@@ -103,14 +92,17 @@ export class PreviewRecurringDatesUseCase {
           : calculateNextDate(startDate, 1, frequency, i);
 
       const dateIsWeekend = isWeekend(generatedDate);
-      const holiday = findHoliday(generatedDate);
+      const holiday = findHoliday(generatedDate, holidaysByYear);
       const dateIsHoliday = !!holiday;
 
       const needsAdjustment =
-        (skipWeekends && dateIsWeekend) || (skipHolidays && dateIsHoliday);
+        (skipWeekends && dateIsWeekend) ||
+        (skipHolidays && dateIsHoliday) ||
+        // If both flags are on, use the shared isBusinessDay check
+        (skipWeekends && skipHolidays && !isBusinessDay(generatedDate));
 
       const adjustedDate = needsAdjustment
-        ? adjustToNextBusinessDay(generatedDate)
+        ? getNextBusinessDay(generatedDate)
         : undefined;
 
       const previewEntry: PreviewDateEntry = {
