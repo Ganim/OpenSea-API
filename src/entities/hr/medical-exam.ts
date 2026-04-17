@@ -33,6 +33,12 @@ export interface MedicalExamProps {
   aptitude?: MedicalExamAptitude;
   restrictions?: string;
   nextExamDate?: Date;
+  /**
+   * NR-7 20-year retention flag (P0-02).
+   * When set, the ASO must not appear in any read path — but the record
+   * itself stays in the database for audit/compliance purposes.
+   */
+  deletedAt?: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -112,6 +118,10 @@ export class MedicalExam extends Entity<MedicalExamProps> {
 
   get nextExamDate(): Date | undefined {
     return this.props.nextExamDate;
+  }
+
+  get deletedAt(): Date | undefined {
+    return this.props.deletedAt;
   }
 
   get createdAt(): Date {

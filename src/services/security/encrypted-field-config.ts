@@ -193,6 +193,15 @@ export const ENCRYPTED_FIELD_CONFIG: Record<string, EncryptedModelConfig> = {
     hashFields: {},
   },
 
+  MedicalExam: {
+    // P0-12: sensitive occupational-health data (Art. 11 LGPD + CLT Art. 169).
+    // The plaintext columns `observations` / `restrictions` are kept
+    // temporarily for backfill — the repository reads/writes exclusively
+    // from the `*Encrypted` columns listed here.
+    encryptedFields: ['observationsEncrypted', 'restrictionsEncrypted'],
+    hashFields: {},
+  },
+
   StorageShareLink: {
     encryptedFields: ['password'],
     hashFields: {},

@@ -236,6 +236,7 @@ export type OverdueActionOrderByWithRelationInput = {
 
 export type OverdueActionWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  tenantId_entryId_stepId?: Prisma.OverdueActionTenantIdEntryIdStepIdCompoundUniqueInput
   AND?: Prisma.OverdueActionWhereInput | Prisma.OverdueActionWhereInput[]
   OR?: Prisma.OverdueActionWhereInput[]
   NOT?: Prisma.OverdueActionWhereInput | Prisma.OverdueActionWhereInput[]
@@ -250,7 +251,7 @@ export type OverdueActionWhereUniqueInput = Prisma.AtLeast<{
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   entry?: Prisma.XOR<Prisma.FinanceEntryScalarRelationFilter, Prisma.FinanceEntryWhereInput>
   step?: Prisma.XOR<Prisma.OverdueEscalationStepNullableScalarRelationFilter, Prisma.OverdueEscalationStepWhereInput> | null
-}, "id">
+}, "id" | "tenantId_entryId_stepId">
 
 export type OverdueActionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -371,6 +372,12 @@ export type OverdueActionListRelationFilter = {
 
 export type OverdueActionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type OverdueActionTenantIdEntryIdStepIdCompoundUniqueInput = {
+  tenantId: string
+  entryId: string
+  stepId: string
 }
 
 export type OverdueActionCountOrderByAggregateInput = {

@@ -2394,6 +2394,9 @@ export const MedicalExamScalarFieldEnum = {
   aptitude: 'aptitude',
   restrictions: 'restrictions',
   nextExamDate: 'nextExamDate',
+  observationsEncrypted: 'observationsEncrypted',
+  restrictionsEncrypted: 'restrictionsEncrypted',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

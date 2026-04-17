@@ -77,5 +77,20 @@ export interface MedicalExamsRepository {
   findExpiring(tenantId: string, daysThreshold: number): Promise<MedicalExam[]>;
   findOverdue(tenantId: string): Promise<MedicalExam[]>;
   update(data: UpdateMedicalExamSchema): Promise<MedicalExam | null>;
-  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
+
+  /**
+   * Soft-deletes an ASO (P0-02 / NR-7 item 7.4.4.3). The record remains in
+   * the database with `deletedAt` set, and every read path filters it out
+   * automatically. Use this for every user-initiated delete — NR-7 requires
+   * the ASO to be retained for at least 20 years after the employee leaves.
+   */
+  softDelete(id: UniqueEntityID, tenantId: string): Promise<void>;
+
+  /**
+   * Physical delete — RESTRICTED. Bypasses the NR-7 20-year retention
+   * guarantee, so callers must prove the retention period has elapsed or
+   * that this is a GDPR/LGPD Art. 18 erasure request. Only `HR.MEDICAL_EXAMS.ADMIN`
+   * should reach this method; regular "remove" actions MUST use `softDelete`.
+   */
+  hardDelete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

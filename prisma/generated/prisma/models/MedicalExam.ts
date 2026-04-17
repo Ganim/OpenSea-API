@@ -55,6 +55,9 @@ export type MedicalExamMinAggregateOutputType = {
   aptitude: string | null
   restrictions: string | null
   nextExamDate: Date | null
+  observationsEncrypted: string | null
+  restrictionsEncrypted: string | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -80,6 +83,9 @@ export type MedicalExamMaxAggregateOutputType = {
   aptitude: string | null
   restrictions: string | null
   nextExamDate: Date | null
+  observationsEncrypted: string | null
+  restrictionsEncrypted: string | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -105,6 +111,9 @@ export type MedicalExamCountAggregateOutputType = {
   aptitude: number
   restrictions: number
   nextExamDate: number
+  observationsEncrypted: number
+  restrictionsEncrypted: number
+  deletedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -140,6 +149,9 @@ export type MedicalExamMinAggregateInputType = {
   aptitude?: true
   restrictions?: true
   nextExamDate?: true
+  observationsEncrypted?: true
+  restrictionsEncrypted?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -165,6 +177,9 @@ export type MedicalExamMaxAggregateInputType = {
   aptitude?: true
   restrictions?: true
   nextExamDate?: true
+  observationsEncrypted?: true
+  restrictionsEncrypted?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -190,6 +205,9 @@ export type MedicalExamCountAggregateInputType = {
   aptitude?: true
   restrictions?: true
   nextExamDate?: true
+  observationsEncrypted?: true
+  restrictionsEncrypted?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -302,6 +320,9 @@ export type MedicalExamGroupByOutputType = {
   aptitude: string | null
   restrictions: string | null
   nextExamDate: Date | null
+  observationsEncrypted: string | null
+  restrictionsEncrypted: string | null
+  deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: MedicalExamCountAggregateOutputType | null
@@ -350,6 +371,9 @@ export type MedicalExamWhereInput = {
   aptitude?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
   restrictions?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
   nextExamDate?: Prisma.DateTimeNullableFilter<"MedicalExam"> | Date | string | null
+  observationsEncrypted?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  restrictionsEncrypted?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"MedicalExam"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"MedicalExam"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MedicalExam"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -377,6 +401,9 @@ export type MedicalExamOrderByWithRelationInput = {
   aptitude?: Prisma.SortOrderInput | Prisma.SortOrder
   restrictions?: Prisma.SortOrderInput | Prisma.SortOrder
   nextExamDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  observationsEncrypted?: Prisma.SortOrderInput | Prisma.SortOrder
+  restrictionsEncrypted?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
@@ -407,6 +434,9 @@ export type MedicalExamWhereUniqueInput = Prisma.AtLeast<{
   aptitude?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
   restrictions?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
   nextExamDate?: Prisma.DateTimeNullableFilter<"MedicalExam"> | Date | string | null
+  observationsEncrypted?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  restrictionsEncrypted?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"MedicalExam"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"MedicalExam"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MedicalExam"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -434,6 +464,9 @@ export type MedicalExamOrderByWithAggregationInput = {
   aptitude?: Prisma.SortOrderInput | Prisma.SortOrder
   restrictions?: Prisma.SortOrderInput | Prisma.SortOrder
   nextExamDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  observationsEncrypted?: Prisma.SortOrderInput | Prisma.SortOrder
+  restrictionsEncrypted?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.MedicalExamCountOrderByAggregateInput
@@ -467,6 +500,9 @@ export type MedicalExamScalarWhereWithAggregatesInput = {
   aptitude?: Prisma.StringNullableWithAggregatesFilter<"MedicalExam"> | string | null
   restrictions?: Prisma.StringNullableWithAggregatesFilter<"MedicalExam"> | string | null
   nextExamDate?: Prisma.DateTimeNullableWithAggregatesFilter<"MedicalExam"> | Date | string | null
+  observationsEncrypted?: Prisma.StringNullableWithAggregatesFilter<"MedicalExam"> | string | null
+  restrictionsEncrypted?: Prisma.StringNullableWithAggregatesFilter<"MedicalExam"> | string | null
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"MedicalExam"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"MedicalExam"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"MedicalExam"> | Date | string
 }
@@ -490,6 +526,9 @@ export type MedicalExamCreateInput = {
   aptitude?: string | null
   restrictions?: string | null
   nextExamDate?: Date | string | null
+  observationsEncrypted?: string | null
+  restrictionsEncrypted?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutMedicalExamsInput
@@ -517,6 +556,9 @@ export type MedicalExamUncheckedCreateInput = {
   aptitude?: string | null
   restrictions?: string | null
   nextExamDate?: Date | string | null
+  observationsEncrypted?: string | null
+  restrictionsEncrypted?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -540,6 +582,9 @@ export type MedicalExamUpdateInput = {
   aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  observationsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictionsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutMedicalExamsNestedInput
@@ -567,6 +612,9 @@ export type MedicalExamUncheckedUpdateInput = {
   aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  observationsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictionsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -592,6 +640,9 @@ export type MedicalExamCreateManyInput = {
   aptitude?: string | null
   restrictions?: string | null
   nextExamDate?: Date | string | null
+  observationsEncrypted?: string | null
+  restrictionsEncrypted?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -615,6 +666,9 @@ export type MedicalExamUpdateManyMutationInput = {
   aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  observationsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictionsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -640,6 +694,9 @@ export type MedicalExamUncheckedUpdateManyInput = {
   aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  observationsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictionsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -675,6 +732,9 @@ export type MedicalExamCountOrderByAggregateInput = {
   aptitude?: Prisma.SortOrder
   restrictions?: Prisma.SortOrder
   nextExamDate?: Prisma.SortOrder
+  observationsEncrypted?: Prisma.SortOrder
+  restrictionsEncrypted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -704,6 +764,9 @@ export type MedicalExamMaxOrderByAggregateInput = {
   aptitude?: Prisma.SortOrder
   restrictions?: Prisma.SortOrder
   nextExamDate?: Prisma.SortOrder
+  observationsEncrypted?: Prisma.SortOrder
+  restrictionsEncrypted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -729,6 +792,9 @@ export type MedicalExamMinOrderByAggregateInput = {
   aptitude?: Prisma.SortOrder
   restrictions?: Prisma.SortOrder
   nextExamDate?: Prisma.SortOrder
+  observationsEncrypted?: Prisma.SortOrder
+  restrictionsEncrypted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -840,6 +906,9 @@ export type MedicalExamCreateWithoutEmployeeInput = {
   aptitude?: string | null
   restrictions?: string | null
   nextExamDate?: Date | string | null
+  observationsEncrypted?: string | null
+  restrictionsEncrypted?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutMedicalExamsInput
@@ -865,6 +934,9 @@ export type MedicalExamUncheckedCreateWithoutEmployeeInput = {
   aptitude?: string | null
   restrictions?: string | null
   nextExamDate?: Date | string | null
+  observationsEncrypted?: string | null
+  restrictionsEncrypted?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -919,6 +991,9 @@ export type MedicalExamScalarWhereInput = {
   aptitude?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
   restrictions?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
   nextExamDate?: Prisma.DateTimeNullableFilter<"MedicalExam"> | Date | string | null
+  observationsEncrypted?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  restrictionsEncrypted?: Prisma.StringNullableFilter<"MedicalExam"> | string | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"MedicalExam"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"MedicalExam"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MedicalExam"> | Date | string
 }
@@ -942,6 +1017,9 @@ export type MedicalExamCreateWithoutTenantInput = {
   aptitude?: string | null
   restrictions?: string | null
   nextExamDate?: Date | string | null
+  observationsEncrypted?: string | null
+  restrictionsEncrypted?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   employee: Prisma.EmployeeCreateNestedOneWithoutMedicalExamsInput
@@ -967,6 +1045,9 @@ export type MedicalExamUncheckedCreateWithoutTenantInput = {
   aptitude?: string | null
   restrictions?: string | null
   nextExamDate?: Date | string | null
+  observationsEncrypted?: string | null
+  restrictionsEncrypted?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1017,6 +1098,9 @@ export type MedicalExamCreateManyEmployeeInput = {
   aptitude?: string | null
   restrictions?: string | null
   nextExamDate?: Date | string | null
+  observationsEncrypted?: string | null
+  restrictionsEncrypted?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1040,6 +1124,9 @@ export type MedicalExamUpdateWithoutEmployeeInput = {
   aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  observationsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictionsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutMedicalExamsNestedInput
@@ -1065,6 +1152,9 @@ export type MedicalExamUncheckedUpdateWithoutEmployeeInput = {
   aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  observationsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictionsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1089,6 +1179,9 @@ export type MedicalExamUncheckedUpdateManyWithoutEmployeeInput = {
   aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  observationsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictionsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1113,6 +1206,9 @@ export type MedicalExamCreateManyTenantInput = {
   aptitude?: string | null
   restrictions?: string | null
   nextExamDate?: Date | string | null
+  observationsEncrypted?: string | null
+  restrictionsEncrypted?: string | null
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1136,6 +1232,9 @@ export type MedicalExamUpdateWithoutTenantInput = {
   aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  observationsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictionsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutMedicalExamsNestedInput
@@ -1161,6 +1260,9 @@ export type MedicalExamUncheckedUpdateWithoutTenantInput = {
   aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  observationsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictionsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1185,6 +1287,9 @@ export type MedicalExamUncheckedUpdateManyWithoutTenantInput = {
   aptitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   restrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nextExamDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  observationsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  restrictionsEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1212,6 +1317,9 @@ export type MedicalExamSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   aptitude?: boolean
   restrictions?: boolean
   nextExamDate?: boolean
+  observationsEncrypted?: boolean
+  restrictionsEncrypted?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -1239,6 +1347,9 @@ export type MedicalExamSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   aptitude?: boolean
   restrictions?: boolean
   nextExamDate?: boolean
+  observationsEncrypted?: boolean
+  restrictionsEncrypted?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -1266,6 +1377,9 @@ export type MedicalExamSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   aptitude?: boolean
   restrictions?: boolean
   nextExamDate?: boolean
+  observationsEncrypted?: boolean
+  restrictionsEncrypted?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -1293,11 +1407,14 @@ export type MedicalExamSelectScalar = {
   aptitude?: boolean
   restrictions?: boolean
   nextExamDate?: boolean
+  observationsEncrypted?: boolean
+  restrictionsEncrypted?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type MedicalExamOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "type" | "examDate" | "expirationDate" | "doctorName" | "doctorCrm" | "result" | "observations" | "documentUrl" | "examCategory" | "validityMonths" | "clinicName" | "clinicAddress" | "physicianName" | "physicianCRM" | "aptitude" | "restrictions" | "nextExamDate" | "createdAt" | "updatedAt", ExtArgs["result"]["medicalExam"]>
+export type MedicalExamOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "type" | "examDate" | "expirationDate" | "doctorName" | "doctorCrm" | "result" | "observations" | "documentUrl" | "examCategory" | "validityMonths" | "clinicName" | "clinicAddress" | "physicianName" | "physicianCRM" | "aptitude" | "restrictions" | "nextExamDate" | "observationsEncrypted" | "restrictionsEncrypted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["medicalExam"]>
 export type MedicalExamInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
@@ -1338,6 +1455,9 @@ export type $MedicalExamPayload<ExtArgs extends runtime.Types.Extensions.Interna
     aptitude: string | null
     restrictions: string | null
     nextExamDate: Date | null
+    observationsEncrypted: string | null
+    restrictionsEncrypted: string | null
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["medicalExam"]>
@@ -1785,6 +1905,9 @@ export interface MedicalExamFieldRefs {
   readonly aptitude: Prisma.FieldRef<"MedicalExam", 'String'>
   readonly restrictions: Prisma.FieldRef<"MedicalExam", 'String'>
   readonly nextExamDate: Prisma.FieldRef<"MedicalExam", 'DateTime'>
+  readonly observationsEncrypted: Prisma.FieldRef<"MedicalExam", 'String'>
+  readonly restrictionsEncrypted: Prisma.FieldRef<"MedicalExam", 'String'>
+  readonly deletedAt: Prisma.FieldRef<"MedicalExam", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"MedicalExam", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"MedicalExam", 'DateTime'>
 }
