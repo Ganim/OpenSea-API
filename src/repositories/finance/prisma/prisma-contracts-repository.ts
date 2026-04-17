@@ -176,11 +176,14 @@ export class PrismaContractsRepository implements ContractsRepository {
       if (options.endDateTo) where.endDate.lte = options.endDateTo;
     }
 
+    // P1-41: sortBy enum now uses the real column name `paymentAmount`
+    // directly. The legacy `monthlyValue` → `paymentAmount` alias was
+    // dropped because the schema enum no longer accepts it.
     const sortFieldMap: Record<string, string> = {
       createdAt: 'createdAt',
       startDate: 'startDate',
       endDate: 'endDate',
-      monthlyValue: 'paymentAmount',
+      paymentAmount: 'paymentAmount',
       status: 'status',
     };
 

@@ -97,8 +97,11 @@ export const contractResponseSchema = z.object({
 export const listContractsQuerySchema = z.object({
   page: z.coerce.number().int().positive().optional().default(1),
   limit: z.coerce.number().int().positive().max(100).optional().default(20),
+  // P1-41: enum previously advertised `monthlyValue`, but the Contract model
+  // column is `paymentAmount`. Renamed to match the real column name (the
+  // repo used to alias `monthlyValue` → `paymentAmount`; alias dropped).
   sortBy: z
-    .enum(['createdAt', 'startDate', 'endDate', 'monthlyValue', 'status'])
+    .enum(['createdAt', 'startDate', 'endDate', 'paymentAmount', 'status'])
     .optional()
     .default('createdAt'),
   sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
