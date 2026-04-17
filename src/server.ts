@@ -20,6 +20,7 @@ import { getInsightScheduler } from './services/ai-insights/insight-scheduler';
 import { getFinanceScheduler } from './services/finance/finance-scheduler';
 import { BusinessSnapshotService } from './services/ai-tools/business-snapshot.service';
 import { startHrJobs, startSignatureJobs } from './jobs';
+import { startAllWorkers, stopAllWorkers } from './workers';
 
 let isShuttingDown = false;
 const SHUTDOWN_TIMEOUT_MS = 15_000;
@@ -156,13 +157,14 @@ async function gracefulShutdown(signal: string) {
     await app.close();
     console.log('[shutdown] HTTP server closed');
 
-    // Close any BullMQ queues that may have been lazily created
+    // Stop BullMQ workers + schedulers and close queues. Also unschedules
+    // repeatable jobs when BULLMQ_ENABLED=true so redeploys don't leave
+    // orphan cron entries in Redis.
     try {
-      const { closeAllQueues } = await import('@/lib/queue');
-      await closeAllQueues();
-      console.log('[shutdown] Queue connections closed');
-    } catch {
-      // Queue module may not have been loaded
+      await stopAllWorkers();
+      console.log('[shutdown] Workers stopped');
+    } catch (err) {
+      console.error('[shutdown] Error stopping workers:', err);
     }
 
     // Disconnect Prisma (release DB connections)
@@ -256,6 +258,18 @@ async function start() {
     // Signature module crons — auto-expire past-due envelopes at 02:00 BRT
     // and remind pending signers at 09:00 BRT. Same ENABLE_CRONS gate.
     startSignatureJobs();
+
+    // Start BullMQ queue workers + legacy scheduler fallbacks (payment
+    // reconciliation, HR vacation/doc/payroll, calendar reminders, scheduled
+    // notifications, email sync, notifications, eSocial batch polling,
+    // IMAP IDLE). When BULLMQ_ENABLED=true these run via durable BullMQ
+    // repeatable jobs with Redis-backed locking, safe across multiple Fly
+    // instances. Skipped in test env to avoid timer leaks between specs.
+    if (env.NODE_ENV !== 'test') {
+      startAllWorkers().catch((err) => {
+        console.error('[startup] Failed to start workers:', err);
+      });
+    }
 
     // Neon keep-alive ping — prevents Neon Free tier from suspending the
     // compute after 5 minutes of idle, which causes 1–3s cold-start latency

@@ -271,9 +271,7 @@ export async function startAllWorkers(): Promise<void> {
     try {
       startCalendarRemindersQueueWorker();
       await scheduleCalendarRemindersRepeatable();
-      console.log(
-        '[Workers] Calendar reminders queue worker started (BullMQ)',
-      );
+      console.log('[Workers] Calendar reminders queue worker started (BullMQ)');
     } catch (err) {
       console.error(
         '[Workers] Failed to start calendar reminders queue worker:',
@@ -309,10 +307,7 @@ export async function startAllWorkers(): Promise<void> {
     try {
       await startNotificationsScheduler();
     } catch (err) {
-      console.error(
-        '[Workers] Failed to start notifications scheduler:',
-        err,
-      );
+      console.error('[Workers] Failed to start notifications scheduler:', err);
     }
   }
 
@@ -394,12 +389,21 @@ async function gracefulShutdown(signal: string) {
   }
 }
 
-// Graceful shutdown
-process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
-process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+// Standalone entrypoint support: when this file is the process's main module
+// (legacy Dockerfile.worker path), self-bootstrap the workers and register
+// signal handlers. When imported by server.ts (co-located deployment), skip
+// auto-start so the API server owns the lifecycle and signal handlers.
+const isStandaloneEntrypoint =
+  typeof process.argv[1] === 'string' &&
+  (process.argv[1].endsWith('workers/index.js') ||
+    process.argv[1].endsWith('workers\\index.js'));
 
-// Start workers when this entrypoint runs (Dockerfile.worker: node build/workers/index.js)
-startAllWorkers().catch((err) => {
-  console.error('[Workers] Fatal error starting workers:', err);
-  process.exit(1);
-});
+if (isStandaloneEntrypoint) {
+  process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+  process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+
+  startAllWorkers().catch((err) => {
+    console.error('[Workers] Fatal error starting workers:', err);
+    process.exit(1);
+  });
+}
