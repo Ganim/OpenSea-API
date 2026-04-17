@@ -3,6 +3,7 @@ import { Candidate } from '@/entities/hr/candidate';
 import { prisma } from '@/lib/prisma';
 import { mapCandidatePrismaToDomain } from '@/mappers/hr/candidate';
 import type {
+  AnonymizeCandidateSchema,
   CandidatesRepository,
   CreateCandidateSchema,
   FindCandidateFilters,
@@ -152,5 +153,45 @@ export class PrismaCandidatesRepository implements CandidatesRepository {
       where: { id: id.toString(), ...(tenantId && { tenantId }), },
       data: { deletedAt: new Date() },
     });
+  }
+
+  async anonymize(
+    data: AnonymizeCandidateSchema,
+  ): Promise<Candidate | null> {
+    const existing = await prisma.candidate.findFirst({
+      where: { id: data.id.toString(), tenantId: data.tenantId },
+    });
+
+    if (!existing) return null;
+
+    // Idempotent: already-anonymized rows are returned unchanged so repeated
+    // calls (e.g. reject → delete sequence) never double-scrub.
+    if (existing.anonymizedAt) {
+      return Candidate.create(
+        mapCandidatePrismaToDomain(existing),
+        new UniqueEntityID(existing.id),
+      );
+    }
+
+    const updated = await prisma.candidate.update({
+      where: { id: data.id.toString(), tenantId: data.tenantId },
+      data: {
+        fullName: data.fullName,
+        email: data.email,
+        cpf: null,
+        phone: null,
+        resumeUrl: null,
+        linkedinUrl: null,
+        notes: null,
+        tags: null as unknown as undefined,
+        anonymizedAt: data.anonymizedAt,
+        anonymizedBy: data.anonymizedByUserId,
+      },
+    });
+
+    return Candidate.create(
+      mapCandidatePrismaToDomain(updated),
+      new UniqueEntityID(updated.id),
+    );
   }
 }

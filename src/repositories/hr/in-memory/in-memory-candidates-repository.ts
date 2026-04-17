@@ -1,6 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Candidate } from '@/entities/hr/candidate';
 import type {
+  AnonymizeCandidateSchema,
   CandidatesRepository,
   CreateCandidateSchema,
   FindCandidateFilters,
@@ -147,5 +148,32 @@ export class InMemoryCandidatesRepository implements CandidatesRepository {
     if (index >= 0) {
       this.items[index].softDelete();
     }
+  }
+
+  async anonymize(
+    data: AnonymizeCandidateSchema,
+  ): Promise<Candidate | null> {
+    const candidate = this.items.find(
+      (item) =>
+        item.id.equals(data.id) &&
+        item.tenantId.toString() === data.tenantId,
+    );
+
+    if (!candidate) return null;
+
+    // Idempotent: already anonymized records are returned unchanged.
+    if (candidate.isAnonymized) return candidate;
+
+    candidate.anonymize({
+      anonymizedAt: data.anonymizedAt,
+      anonymizedByUserId: data.anonymizedByUserId,
+    });
+
+    // The caller passes the expected placeholder fullName/email so the
+    // in-memory repo mirrors exactly what the Prisma one would persist.
+    candidate.props.fullName = data.fullName;
+    candidate.props.email = data.email;
+
+    return candidate;
   }
 }

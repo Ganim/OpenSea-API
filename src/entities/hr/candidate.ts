@@ -15,6 +15,13 @@ export interface CandidateProps {
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
+  /**
+   * Timestamp recorded when every PII field was scrubbed under LGPD Art. 18
+   * VI. Absence means the candidate row still carries identifiable data.
+   */
+  anonymizedAt?: Date;
+  /** Subject identifier of the user who triggered the anonymization. */
+  anonymizedBy?: string;
 }
 
 export class Candidate extends Entity<CandidateProps> {
@@ -70,9 +77,44 @@ export class Candidate extends Entity<CandidateProps> {
     return this.props.deletedAt;
   }
 
+  get anonymizedAt(): Date | undefined {
+    return this.props.anonymizedAt;
+  }
+
+  get anonymizedBy(): string | undefined {
+    return this.props.anonymizedBy;
+  }
+
+  get isAnonymized(): boolean {
+    return Boolean(this.props.anonymizedAt);
+  }
+
   softDelete(): void {
     this.props.deletedAt = new Date();
     this.props.updatedAt = new Date();
+  }
+
+  /**
+   * Scrubs every PII property in-place and marks the candidate as
+   * anonymized. Intended ONLY for LGPD Art. 18 VI compliance — the caller
+   * remains responsible for persisting the changes.
+   *
+   * Non-PII analytics fields (source channel, createdAt) are preserved so
+   * recruitment-funnel metrics remain accurate.
+   */
+  anonymize(params: { anonymizedAt: Date; anonymizedByUserId: string }): void {
+    const idHash8 = this.id.toString().slice(-8);
+    this.props.fullName = `ANONIMIZADO-${idHash8}`;
+    this.props.email = `anon-${idHash8}@redacted.local`;
+    this.props.cpf = undefined;
+    this.props.phone = undefined;
+    this.props.resumeUrl = undefined;
+    this.props.linkedinUrl = undefined;
+    this.props.notes = undefined;
+    this.props.tags = undefined;
+    this.props.anonymizedAt = params.anonymizedAt;
+    this.props.anonymizedBy = params.anonymizedByUserId;
+    this.props.updatedAt = params.anonymizedAt;
   }
 
   updateName(fullName: string): void {

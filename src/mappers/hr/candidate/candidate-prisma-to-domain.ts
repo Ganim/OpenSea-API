@@ -16,5 +16,7 @@ export function mapCandidatePrismaToDomain(candidate: PrismaCandidate) {
     createdAt: candidate.createdAt,
     updatedAt: candidate.updatedAt,
     deletedAt: candidate.deletedAt ?? undefined,
+    anonymizedAt: candidate.anonymizedAt ?? undefined,
+    anonymizedBy: candidate.anonymizedBy ?? undefined,
   };
 }

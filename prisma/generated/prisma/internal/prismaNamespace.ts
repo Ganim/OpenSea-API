@@ -34596,6 +34596,7 @@ export const SignatureEnvelopeScalarFieldEnum = {
   status: 'status',
   signatureLevel: 'signatureLevel',
   minSignatureLevel: 'minSignatureLevel',
+  verificationCode: 'verificationCode',
   documentFileId: 'documentFileId',
   documentHash: 'documentHash',
   signedFileId: 'signedFileId',
@@ -34647,6 +34648,10 @@ export const SignatureEnvelopeSignerScalarFieldEnum = {
   geoLatitude: 'geoLatitude',
   geoLongitude: 'geoLongitude',
   otpVerified: 'otpVerified',
+  otpCodeHash: 'otpCodeHash',
+  otpExpiresAt: 'otpExpiresAt',
+  otpAttempts: 'otpAttempts',
+  otpSentAt: 'otpSentAt',
   rejectedAt: 'rejectedAt',
   rejectedReason: 'rejectedReason',
   lastNotifiedAt: 'lastNotifiedAt',
@@ -37127,7 +37132,9 @@ export const CandidateScalarFieldEnum = {
   tags: 'tags',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  anonymizedAt: 'anonymizedAt',
+  anonymizedBy: 'anonymizedBy'
 } as const
 
 export type CandidateScalarFieldEnum = (typeof CandidateScalarFieldEnum)[keyof typeof CandidateScalarFieldEnum]

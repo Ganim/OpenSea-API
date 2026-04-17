@@ -10464,6 +10464,9 @@ model SignatureEnvelope {
   signatureLevel    SignatureLevel  @map("signature_level")
   minSignatureLevel SignatureLevel? @map("min_signature_level")
 
+  // Verification code (human-legible ID shown in sign emails)
+  verificationCode String? @map("verification_code") @db.VarChar(16)
+
   // Document
   documentFileId String  @map("document_file_id")
   documentHash   String  @map("document_hash") @db.VarChar(64)
@@ -10508,6 +10511,7 @@ model SignatureEnvelope {
   quote        Quote?
   proposal     Proposal?
 
+  @@unique([tenantId, verificationCode], map: "signature_envelopes_tenant_verification_code_key")
   @@index([tenantId])
   @@index([tenantId, status])
   @@index([tenantId, sourceModule, sourceEntityId])
@@ -10552,6 +10556,12 @@ model SignatureEnvelopeSigner {
   geoLatitude  Decimal? @map("geo_latitude") @db.Decimal(8, 6)
   geoLongitude Decimal? @map("geo_longitude") @db.Decimal(8, 6)
   otpVerified  Boolean  @default(false) @map("otp_verified")
+
+  // OTP (Lei 14.063 ADVANCED level — code sent by email before signing)
+  otpCodeHash   String?   @map("otp_code_hash") @db.VarChar(128)
+  otpExpiresAt  DateTime? @map("otp_expires_at")
+  otpAttempts   Int       @default(0) @map("otp_attempts")
+  otpSentAt     DateTime? @map("otp_sent_at")
 
   // Rejection
   rejectedAt     DateTime? @map("rejected_at")
@@ -15384,20 +15394,22 @@ model JobPosting {
 }
 
 model Candidate {
-  id          String          @id @default(cuid())
-  tenantId    String          @map("tenant_id")
-  fullName    String          @map("full_name") @db.VarChar(256)
-  email       String          @db.VarChar(254)
-  phone       String?         @db.VarChar(20)
-  cpf         String?         @db.VarChar(14)
-  resumeUrl   String?         @map("resume_url") @db.VarChar(500)
-  linkedinUrl String?         @map("linkedin_url") @db.VarChar(500)
-  source      CandidateSource @default(OTHER)
-  notes       String?         @db.Text
-  tags        Json?
-  createdAt   DateTime        @default(now()) @map("created_at")
-  updatedAt   DateTime        @updatedAt @map("updated_at")
-  deletedAt   DateTime?       @map("deleted_at")
+  id           String          @id @default(cuid())
+  tenantId     String          @map("tenant_id")
+  fullName     String          @map("full_name") @db.VarChar(256)
+  email        String          @db.VarChar(254)
+  phone        String?         @db.VarChar(20)
+  cpf          String?         @db.VarChar(14)
+  resumeUrl    String?         @map("resume_url") @db.VarChar(500)
+  linkedinUrl  String?         @map("linkedin_url") @db.VarChar(500)
+  source       CandidateSource @default(OTHER)
+  notes        String?         @db.Text
+  tags         Json?
+  createdAt    DateTime        @default(now()) @map("created_at")
+  updatedAt    DateTime        @updatedAt @map("updated_at")
+  deletedAt    DateTime?       @map("deleted_at")
+  anonymizedAt DateTime?       @map("anonymized_at")
+  anonymizedBy String?         @map("anonymized_by")
 
   tenant       Tenant        @relation(fields: [tenantId], references: [id])
   applications Application[]
@@ -15405,6 +15417,7 @@ model Candidate {
   @@unique([tenantId, email])
   @@index([tenantId, deletedAt])
   @@index([tenantId, source])
+  @@index([anonymizedAt])
   @@map("candidates")
 }
 
