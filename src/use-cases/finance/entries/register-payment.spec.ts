@@ -563,6 +563,89 @@ describe('RegisterPaymentUseCase', () => {
     expect(paymentsRepository.items).toHaveLength(1);
   });
 
+  // P2-54 — edge-case coverage
+  it('should reject when amount > expectedAmount (over-due cap)', async () => {
+    const createdEntry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAG-OVER',
+      description: 'Conta com over-payment',
+      categoryId: 'category-1',
+      expectedAmount: 1000,
+      issueDate: new Date('2026-02-01'),
+      dueDate: new Date('2026-02-28'),
+    });
+
+    await expect(
+      sut.execute({
+        entryId: createdEntry.id.toString(),
+        tenantId: 'tenant-1',
+        amount: 1500, // 50% above totalDue
+        paidAt: new Date('2026-02-15'),
+        method: 'PIX',
+      }),
+    ).rejects.toThrow(BadRequestError);
+  });
+
+  // P2-54 — a future paidAt must still be accepted: the bank sometimes
+  // sends the posting-date a few hours ahead of UTC now(). The use case
+  // should not crash, and the entry should land as PAID.
+  it('should accept a paidAt in the near future without crashing', async () => {
+    const createdEntry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAG-FUTURE',
+      description: 'Pagamento com paidAt no futuro',
+      categoryId: 'category-1',
+      expectedAmount: 1000,
+      issueDate: new Date('2026-02-01'),
+      dueDate: new Date('2026-02-28'),
+    });
+
+    const nearFuture = new Date(Date.now() + 6 * 60 * 60 * 1000); // +6h
+
+    const result = await sut.execute({
+      entryId: createdEntry.id.toString(),
+      tenantId: 'tenant-1',
+      amount: 1000,
+      paidAt: nearFuture,
+      method: 'PIX',
+    });
+
+    expect(result.entry.status).toBe('PAID');
+    expect(result.payment.paidAt.toISOString()).toBe(nearFuture.toISOString());
+  });
+
+  // P2-54 — paidAt inside a locked period. The use case itself does NOT
+  // own period-lock enforcement (that lives in the controller / create &
+  // update entry flows), but we document the current contract here: a
+  // past paidAt in a "would-be-locked" month still goes through at the
+  // use-case level. If / when period-lock enforcement is pushed down
+  // into the use case, this spec will break and force the decision to
+  // be revisited explicitly.
+  it('should currently register a payment dated inside a historical period (period-lock enforced upstream)', async () => {
+    const createdEntry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'PAYABLE',
+      code: 'PAG-LOCKED',
+      description: 'Pagamento retroativo',
+      categoryId: 'category-1',
+      expectedAmount: 2000,
+      issueDate: new Date('2025-01-01'),
+      dueDate: new Date('2025-01-31'),
+    });
+
+    const result = await sut.execute({
+      entryId: createdEntry.id.toString(),
+      tenantId: 'tenant-1',
+      amount: 2000,
+      paidAt: new Date('2025-01-15'), // well inside a "would be locked" month
+      method: 'PIX',
+    });
+
+    expect(result.entry.status).toBe('PAID');
+  });
+
   it('should not calculate interest/penalty when category has no rates', async () => {
     // Category without rates
     const category = await categoriesRepository.create({

@@ -284,6 +284,49 @@ export class RegisterPaymentUseCase {
         await this.checkAndMarkMasterAsPaid(entryForPayment, tenantId, tx);
       }
 
+      // P1-18: emit the audit log INSIDE the transaction so a rolled-back
+      // payment never produces a phantom "payment registered" audit entry.
+      // Trade-off: queueAuditLog is currently a structured-log write
+      // (fire-and-forget, non-persistent); awaiting it inside the tx does
+      // NOT make it transactional on a database level, but it guarantees
+      // the audit signal is emitted ONLY if the status update path
+      // completed up to here. If this project later swaps queueAuditLog
+      // for an AuditLogsRepository.create(tx) call, the ordering here is
+      // already correct — no caller changes needed.
+      await queueAuditLog({
+        userId: request.createdBy,
+        action: 'FINANCE_PAYMENT_REGISTER',
+        entity: 'FINANCE_ENTRY',
+        entityId: entryId,
+        module: 'FINANCE',
+        description: `Registered payment of ${amount} for entry ${entry.code}`,
+        oldData: {
+          status: entry.status,
+          actualAmount: entry.actualAmount,
+        },
+        newData: {
+          status: updatedEntry?.status,
+          actualAmount: newTotal,
+          paymentId: payment.id.toString(),
+        },
+        metadata: {
+          code: entry.code,
+          type: entry.type,
+          paymentAmount: amount,
+          paidAt: paidAt.toISOString(),
+          method: request.method,
+          isFullyPaid,
+        },
+      }).catch((err) => {
+        // Never let a logger failure abort the financial write. We log at
+        // warn level and continue; the status update has already committed
+        // inside this tx and cannot be undone by a rejected audit write.
+        logger.warn(
+          { err, context: 'RegisterPaymentUseCase.queueAuditLog', entryId },
+          'Failed to emit audit log for payment registration',
+        );
+      });
+
       return {
         updatedEntry: updatedEntry!,
         payment,
@@ -322,37 +365,9 @@ export class RegisterPaymentUseCase {
       }
     }
 
-    // Audit log outside transaction (non-blocking, fire-and-forget)
-    queueAuditLog({
-      userId: request.createdBy,
-      action: 'FINANCE_PAYMENT_REGISTER',
-      entity: 'FINANCE_ENTRY',
-      entityId: entryId,
-      module: 'FINANCE',
-      description: `Registered payment of ${amount} for entry ${entry.code}`,
-      oldData: {
-        status: entry.status,
-        actualAmount: entry.actualAmount,
-      },
-      newData: {
-        status: result.updatedEntry.status,
-        actualAmount: result.newTotal,
-        paymentId: result.payment.id.toString(),
-      },
-      metadata: {
-        code: entry.code,
-        type: entry.type,
-        paymentAmount: amount,
-        paidAt: paidAt.toISOString(),
-        method: request.method,
-        isFullyPaid: result.isFullyPaid,
-      },
-    }).catch((err) => {
-      logger.warn(
-        { err, context: 'RegisterPaymentUseCase.queueAuditLog', entryId },
-        'Failed to queue audit log for payment registration',
-      );
-    });
+    // P1-18: audit log is now emitted INSIDE the transaction (see
+    // executePayment). The block that used to live here has been removed
+    // so a rolled-back transaction no longer leaves a phantom audit record.
 
     // Generate journal entry for payment (non-blocking)
     if (this.autoJournalFromPayment && request.bankAccountId) {
