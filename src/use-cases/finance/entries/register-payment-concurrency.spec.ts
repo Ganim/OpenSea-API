@@ -1,4 +1,5 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { InMemoryTransactionManager } from '@/lib/in-memory-transaction-manager';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
 import { InMemoryFinanceEntryPaymentsRepository } from '@/repositories/finance/in-memory/in-memory-finance-entry-payments-repository';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -11,26 +12,33 @@ vi.mock('@/workers/queues/audit.queue', () => ({
 
 let entriesRepository: InMemoryFinanceEntriesRepository;
 let paymentsRepository: InMemoryFinanceEntryPaymentsRepository;
+let transactionManager: InMemoryTransactionManager;
 let sut: RegisterPaymentUseCase;
 
 describe('Register Payment - Concurrency', () => {
   beforeEach(() => {
     entriesRepository = new InMemoryFinanceEntriesRepository();
     paymentsRepository = new InMemoryFinanceEntryPaymentsRepository();
-    sut = new RegisterPaymentUseCase(entriesRepository, paymentsRepository);
+    transactionManager = new InMemoryTransactionManager();
+    sut = new RegisterPaymentUseCase(
+      entriesRepository,
+      paymentsRepository,
+      undefined, // calendarSyncService
+      undefined, // categoriesRepository
+      transactionManager,
+    );
   });
 
-  it('should allow double-payment in-memory (documents lack of DB-level locking)', async () => {
-    // IMPORTANT: This test documents that the in-memory repository has NO
-    // concurrency control. In production, PostgreSQL row-level locking
-    // (SELECT FOR UPDATE or serializable isolation) should prevent this.
-    // The test serves as a regression marker: if concurrency control is
-    // added to the use case layer, this test should be updated.
+  it('should reject the second of two concurrent full payments', async () => {
+    // Two PIX webhooks arrive within the same tick for the same entry.
+    // With Serializable isolation + SELECT FOR UPDATE in production, only
+    // one transaction wins; the other reads the freshly committed state
+    // and fails the totalDue guard.
     const entry = await entriesRepository.create({
       tenantId: 'tenant-1',
       type: 'PAYABLE',
       code: 'PAG-001',
-      description: 'Double payment test',
+      description: 'Double payment guard',
       categoryId: 'category-1',
       expectedAmount: 1000,
       issueDate: new Date('2026-01-01'),
@@ -57,22 +65,22 @@ describe('Register Payment - Concurrency', () => {
     ]);
 
     const fulfilled = results.filter((r) => r.status === 'fulfilled');
+    const rejected = results.filter((r) => r.status === 'rejected');
 
-    // Both succeed because the in-memory repo reads stale state for both calls
-    // before either writes. This is a concurrency gap that DB locking would fix.
-    expect(fulfilled).toHaveLength(2);
+    expect(fulfilled).toHaveLength(1);
+    expect(rejected).toHaveLength(1);
+    expect((rejected[0] as PromiseRejectedResult).reason).toBeInstanceOf(
+      BadRequestError,
+    );
 
-    // Document the overpayment: totalPaid = 2000 but totalDue = 1000
+    // Total paid must equal totalDue exactly — no overpayment.
     const totalPaid = await paymentsRepository.sumByEntryId(entry.id);
-    expect(totalPaid).toBe(2000);
-
-    // BUG: In production, this must be prevented by database-level locking
+    expect(totalPaid).toBe(1000);
   });
 
-  it('should allow concurrent partial overpayments in-memory (documents concurrency gap)', async () => {
-    // IMPORTANT: Documents the same concurrency gap as the double-payment test.
-    // Both calls read sumByEntryId=0 before either creates a payment record,
-    // so both pass the overpayment check.
+  it('should allow concurrent partial payments only up to the remaining balance', async () => {
+    // 600 + 600 against a 1000 entry: serialized, the first commits 600,
+    // the second sees sum=600 and rejects (would push total to 1200).
     const entry = await entriesRepository.create({
       tenantId: 'tenant-1',
       type: 'PAYABLE',
@@ -104,15 +112,13 @@ describe('Register Payment - Concurrency', () => {
     ]);
 
     const fulfilled = results.filter((r) => r.status === 'fulfilled');
+    const rejected = results.filter((r) => r.status === 'rejected');
 
-    // Both succeed in-memory — concurrency gap
-    expect(fulfilled).toHaveLength(2);
+    expect(fulfilled).toHaveLength(1);
+    expect(rejected).toHaveLength(1);
 
-    // Total overpaid: 1200 > 1000
     const totalPaid = await paymentsRepository.sumByEntryId(entry.id);
-    expect(totalPaid).toBe(1200);
-
-    // BUG: In production, DB locking must prevent this
+    expect(totalPaid).toBe(600);
   });
 
   it('should reject a payment that arrives after entry is already fully paid', async () => {
@@ -148,10 +154,10 @@ describe('Register Payment - Concurrency', () => {
     ).rejects.toThrow(BadRequestError);
   });
 
-  it('should allow triple concurrent overpayments in-memory (documents concurrency gap)', async () => {
-    // IMPORTANT: Documents that 3 concurrent payments all read stale sum=0
-    // and all pass the overpayment guard. In production, only 2 should succeed
-    // (400+400=800 <= 1000), the third should be rejected.
+  it('should allow only payments that do not exceed totalDue across 3 concurrent attempts', async () => {
+    // With the transaction manager serializing access, the third payment of
+    // R$400 (which would push total to R$1200, exceeding R$1000) is rejected.
+    // The first two payments (R$800 total) fit within the limit and succeed.
     const entry = await entriesRepository.create({
       tenantId: 'tenant-1',
       type: 'RECEIVABLE',
@@ -190,13 +196,16 @@ describe('Register Payment - Concurrency', () => {
     ]);
 
     const fulfilled = results.filter((r) => r.status === 'fulfilled');
+    const rejected = results.filter((r) => r.status === 'rejected');
 
-    // All 3 succeed in-memory — concurrency gap
-    expect(fulfilled).toHaveLength(3);
+    expect(fulfilled).toHaveLength(2);
+    expect(rejected).toHaveLength(1);
+    expect((rejected[0] as PromiseRejectedResult).reason).toBeInstanceOf(
+      BadRequestError,
+    );
+
     const totalPaid = await paymentsRepository.sumByEntryId(entry.id);
-    expect(totalPaid).toBe(1200);
-
-    // BUG: In production, DB locking must limit to at most 2 successful payments
+    expect(totalPaid).toBe(800);
   });
 
   it('should allow sequential partial payments that sum to exactly totalDue', async () => {

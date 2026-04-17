@@ -10,7 +10,13 @@ export async function sicoobWebhookController(app: FastifyInstance) {
     method: 'POST',
     url: '/v1/finance/webhooks/sicoob',
     // No JWT auth — Sicoob calls this endpoint directly.
-    // Authenticity is verified via HMAC-SHA256 webhook signature.
+    // Authenticity is verified via HMAC-SHA256 webhook signature over the raw body.
+    config: {
+      // Opt this route into raw body capture so the HMAC signature in
+      // verifyWebhookSignature can be computed against the byte-stream Sicoob
+      // actually signed (key order / whitespace preserved).
+      rawBody: true,
+    },
     schema: {
       tags: ['Finance - Webhooks'],
       summary: 'Receive Sicoob bank webhook events (PIX received, boleto paid)',

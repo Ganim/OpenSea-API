@@ -18,21 +18,37 @@ import { verifyWebhookSignature } from './verify-webhook-signature';
 // Helpers
 // ---------------------------------------------------------------------------
 
-function makeSignature(secret: string, body: unknown): string {
-  return createHmac('sha256', secret)
-    .update(JSON.stringify(body))
-    .digest('hex');
+function makeSignatureFromRaw(secret: string, rawBody: string): string {
+  return createHmac('sha256', secret).update(rawBody).digest('hex');
 }
 
 function makeRequest(overrides: {
   bankAccountId?: string;
   headers?: Record<string, string>;
   body?: Record<string, unknown>;
+  rawBody?: string;
 }): Parameters<typeof verifyWebhookSignature>[0] {
+  const parsedBody = overrides.body ?? { event: 'PIX_RECEIVED', amount: 100 };
+  const rawBody = overrides.rawBody ?? JSON.stringify(parsedBody);
+
+  // Minimal Fastify-compatible logger stub. Several code paths use
+  // request.log.warn / request.log.error and would otherwise throw.
+  const log = {
+    info: vi.fn(),
+    warn: vi.fn(),
+    error: vi.fn(),
+    debug: vi.fn(),
+    fatal: vi.fn(),
+    trace: vi.fn(),
+    child: vi.fn(),
+  };
+
   return {
     query: { bankAccountId: overrides.bankAccountId ?? 'test-account-id' },
     headers: overrides.headers ?? {},
-    body: overrides.body ?? { event: 'PIX_RECEIVED', amount: 100 },
+    body: parsedBody,
+    rawBody,
+    log,
   } as unknown as Parameters<typeof verifyWebhookSignature>[0];
 }
 
@@ -87,10 +103,31 @@ describe('verifyWebhookSignature middleware', () => {
     expect(sentPayload()).toEqual({ message: 'Bank account not found' });
   });
 
-  it('passes through when no secret is configured (backwards-compatible)', async () => {
+  it('returns 503 when no secret is configured (fail-closed)', async () => {
     mockFindUnique.mockResolvedValue({
       apiWebhookSecret: null,
       tenantId: 'tenant-1',
+    });
+
+    const request = makeRequest({});
+    const { reply, statusCode, sentPayload } = makeReply();
+
+    await verifyWebhookSignature(request, reply);
+
+    expect(statusCode()).toBe(503);
+    expect(sentPayload()).toEqual({
+      message: 'Webhook secret not configured for this tenant',
+    });
+    // tenantId is still attached for downstream observability
+    expect(
+      (request as unknown as Record<string, unknown>).bankAccountTenantId,
+    ).toBe('tenant-1');
+  });
+
+  it('returns 503 when secret is empty string', async () => {
+    mockFindUnique.mockResolvedValue({
+      apiWebhookSecret: '',
+      tenantId: 'tenant-empty',
     });
 
     const request = makeRequest({});
@@ -98,12 +135,7 @@ describe('verifyWebhookSignature middleware', () => {
 
     await verifyWebhookSignature(request, reply);
 
-    // No status set — middleware passed through
-    expect(statusCode()).toBeUndefined();
-    // tenantId was attached to the request
-    expect(
-      (request as unknown as Record<string, unknown>).bankAccountTenantId,
-    ).toBe('tenant-1');
+    expect(statusCode()).toBe(503);
   });
 
   it('attaches bankAccountTenantId to request even when secret is null', async () => {
@@ -122,10 +154,10 @@ describe('verifyWebhookSignature middleware', () => {
     ).toBe('tenant-abc');
   });
 
-  it('passes through when signature matches (x-webhook-signature header)', async () => {
+  it('passes through when signature matches over the raw body (x-webhook-signature header)', async () => {
     const secret = 'my-super-secret';
-    const body = { event: 'PIX_RECEIVED', amount: 250 };
-    const sig = makeSignature(secret, body);
+    const rawBody = '{"event":"PIX_RECEIVED","amount":250}';
+    const sig = makeSignatureFromRaw(secret, rawBody);
 
     mockFindUnique.mockResolvedValue({
       apiWebhookSecret: secret,
@@ -134,7 +166,8 @@ describe('verifyWebhookSignature middleware', () => {
 
     const request = makeRequest({
       headers: { 'x-webhook-signature': sig },
-      body,
+      body: { event: 'PIX_RECEIVED', amount: 250 },
+      rawBody,
     });
     const { reply, statusCode } = makeReply();
 
@@ -148,8 +181,8 @@ describe('verifyWebhookSignature middleware', () => {
 
   it('passes through when signature matches (x-sicoob-signature header)', async () => {
     const secret = 'sicoob-secret-key';
-    const body = { event: 'BOLETO_PAID', value: 500 };
-    const sig = makeSignature(secret, body);
+    const rawBody = '{"event":"BOLETO_PAID","value":500}';
+    const sig = makeSignatureFromRaw(secret, rawBody);
 
     mockFindUnique.mockResolvedValue({
       apiWebhookSecret: secret,
@@ -158,7 +191,8 @@ describe('verifyWebhookSignature middleware', () => {
 
     const request = makeRequest({
       headers: { 'x-sicoob-signature': sig },
-      body,
+      body: { event: 'BOLETO_PAID', value: 500 },
+      rawBody,
     });
     const { reply, statusCode } = makeReply();
 
@@ -169,8 +203,8 @@ describe('verifyWebhookSignature middleware', () => {
 
   it('passes through when signature matches (webhook-signature header)', async () => {
     const secret = 'fallback-secret';
-    const body = { event: 'TED_RECEIVED' };
-    const sig = makeSignature(secret, body);
+    const rawBody = '{"event":"TED_RECEIVED"}';
+    const sig = makeSignatureFromRaw(secret, rawBody);
 
     mockFindUnique.mockResolvedValue({
       apiWebhookSecret: secret,
@@ -179,7 +213,8 @@ describe('verifyWebhookSignature middleware', () => {
 
     const request = makeRequest({
       headers: { 'webhook-signature': sig },
-      body,
+      body: { event: 'TED_RECEIVED' },
+      rawBody,
     });
     const { reply, statusCode } = makeReply();
 
@@ -227,9 +262,9 @@ describe('verifyWebhookSignature middleware', () => {
 
   it('returns 401 when signature is for different body (tampered payload)', async () => {
     const secret = 'signing-secret';
-    const originalBody = { event: 'PIX_RECEIVED', amount: 100 };
-    const tamperedBody = { event: 'PIX_RECEIVED', amount: 99999 };
-    const sig = makeSignature(secret, originalBody);
+    const originalRaw = '{"event":"PIX_RECEIVED","amount":100}';
+    const tamperedRaw = '{"event":"PIX_RECEIVED","amount":99999}';
+    const sig = makeSignatureFromRaw(secret, originalRaw);
 
     mockFindUnique.mockResolvedValue({
       apiWebhookSecret: secret,
@@ -238,7 +273,8 @@ describe('verifyWebhookSignature middleware', () => {
 
     const request = makeRequest({
       headers: { 'x-webhook-signature': sig },
-      body: tamperedBody,
+      body: { event: 'PIX_RECEIVED', amount: 99999 },
+      rawBody: tamperedRaw,
     });
     const { reply, statusCode, sentPayload } = makeReply();
 
@@ -246,5 +282,113 @@ describe('verifyWebhookSignature middleware', () => {
 
     expect(statusCode()).toBe(401);
     expect(sentPayload()).toEqual({ message: 'Invalid webhook signature' });
+  });
+
+  // Regression test for P0-19: HMAC must be computed over the raw byte-stream
+  // Sicoob signed, NOT over a re-serialized JSON. Two payloads can be
+  // semantically equivalent (same keys, same values) yet produce different
+  // signatures because Sicoob signs key order, whitespace, etc. The middleware
+  // must reject the request whose raw body does not match the signature even
+  // when the parsed body has been "re-ordered" (e.g. by Fastify's JSON parser).
+  it('validates signature against raw body even when parsed body keys are reordered', async () => {
+    const secret = 'sicoob-secret-2026';
+    // Sicoob sends this exact byte-stream and signs it
+    const rawBody = '{"amount":100,"event":"PIX_RECEIVED","txId":"abc"}';
+    const sig = makeSignatureFromRaw(secret, rawBody);
+
+    mockFindUnique.mockResolvedValue({
+      apiWebhookSecret: secret,
+      tenantId: 'tenant-rawbody',
+    });
+
+    // Fastify parsed the body and re-stringifying it would yield a different
+    // key order. The middleware must still validate against the raw bytes.
+    const reorderedParsedBody = {
+      txId: 'abc',
+      event: 'PIX_RECEIVED',
+      amount: 100,
+    };
+
+    const request = makeRequest({
+      headers: { 'x-sicoob-signature': sig },
+      body: reorderedParsedBody,
+      rawBody,
+    });
+    const { reply, statusCode } = makeReply();
+
+    await verifyWebhookSignature(request, reply);
+
+    // Signature must match because we hash the raw body, not the parsed one.
+    expect(statusCode()).toBeUndefined();
+  });
+
+  it('rejects signature computed over re-serialized parsed body (anti-regression)', async () => {
+    const secret = 'sicoob-secret-2026';
+    const reorderedParsedBody = {
+      txId: 'abc',
+      event: 'PIX_RECEIVED',
+      amount: 100,
+    };
+    // Sign what JSON.stringify(parsed) would produce — this should NOT match
+    // because the actual transmitted bytes had a different key order.
+    const sigFromReordered = makeSignatureFromRaw(
+      secret,
+      JSON.stringify(reorderedParsedBody),
+    );
+    const actualRawBody =
+      '{"amount":100,"event":"PIX_RECEIVED","txId":"abc"}';
+
+    mockFindUnique.mockResolvedValue({
+      apiWebhookSecret: secret,
+      tenantId: 'tenant-rawbody-2',
+    });
+
+    const request = makeRequest({
+      headers: { 'x-sicoob-signature': sigFromReordered },
+      body: reorderedParsedBody,
+      rawBody: actualRawBody,
+    });
+    const { reply, statusCode, sentPayload } = makeReply();
+
+    await verifyWebhookSignature(request, reply);
+
+    expect(statusCode()).toBe(401);
+    expect(sentPayload()).toEqual({ message: 'Invalid webhook signature' });
+  });
+
+  it('returns 500 when raw body is missing (plugin not registered for this route)', async () => {
+    mockFindUnique.mockResolvedValue({
+      apiWebhookSecret: 'some-secret',
+      tenantId: 'tenant-no-raw',
+    });
+
+    const sig = makeSignatureFromRaw('some-secret', '{"event":"X"}');
+
+    // Build a request without rawBody (simulates routes where the plugin
+    // wasn't enabled — fail closed instead of falling back to JSON.stringify).
+    const log = {
+      info: vi.fn(),
+      warn: vi.fn(),
+      error: vi.fn(),
+      debug: vi.fn(),
+      fatal: vi.fn(),
+      trace: vi.fn(),
+      child: vi.fn(),
+    };
+    const request = {
+      query: { bankAccountId: 'test-account-id' },
+      headers: { 'x-webhook-signature': sig },
+      body: { event: 'X' },
+      log,
+    } as unknown as Parameters<typeof verifyWebhookSignature>[0];
+
+    const { reply, statusCode, sentPayload } = makeReply();
+
+    await verifyWebhookSignature(request, reply);
+
+    expect(statusCode()).toBe(500);
+    expect(sentPayload()).toEqual({
+      message: 'Webhook raw body capture is not configured',
+    });
   });
 });
