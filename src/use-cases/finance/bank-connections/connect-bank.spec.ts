@@ -99,6 +99,68 @@ describe('ConnectBankUseCase', () => {
     ).rejects.toThrow(BadRequestError);
   });
 
+  // P2-13: cap active connections per tenant so one account can't fan-out
+  // to the banking provider beyond a sane SMB ceiling.
+  it('should reject when tenant already has 10 active bank connections', async () => {
+    // Seed 10 ACTIVE connections on other bank accounts for tenant-1
+    for (let i = 0; i < 10; i++) {
+      await bankConnectionsRepository.create({
+        tenantId: 'tenant-1',
+        bankAccountId: `other-account-${i}`,
+        externalItemId: `item-${i}`,
+        accessToken: `token-${i}`,
+      });
+    }
+
+    // An 11th bank account tries to connect — should fail at the limit
+    const bankAccount = await bankAccountsRepository.create({
+      tenantId: 'tenant-1',
+      name: 'Conta extra',
+      bankCode: '001',
+      agency: '1234',
+      accountNumber: '11111',
+      accountType: 'CHECKING',
+    });
+
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        bankAccountId: bankAccount.id.toString(),
+        externalItemId: 'item-new',
+      }),
+    ).rejects.toThrow(/Limite de 10 conexões bancárias ativas/);
+  });
+
+  it('should NOT count other tenants toward the 10-connection limit', async () => {
+    // Seed 10 ACTIVE connections for tenant-2
+    for (let i = 0; i < 10; i++) {
+      await bankConnectionsRepository.create({
+        tenantId: 'tenant-2',
+        bankAccountId: `tenant2-account-${i}`,
+        externalItemId: `t2-item-${i}`,
+        accessToken: `t2-token-${i}`,
+      });
+    }
+
+    const bankAccount = await bankAccountsRepository.create({
+      tenantId: 'tenant-1',
+      name: 'Conta tenant-1',
+      bankCode: '001',
+      agency: '1234',
+      accountNumber: '22222',
+      accountType: 'CHECKING',
+    });
+
+    // tenant-1 still has 0 active connections → must succeed
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      bankAccountId: bankAccount.id.toString(),
+      externalItemId: 'item-ok',
+    });
+
+    expect(result.connection.status).toBe('ACTIVE');
+  });
+
   it('should reject when provider reports login error', async () => {
     const bankAccount = await bankAccountsRepository.create({
       tenantId: 'tenant-1',

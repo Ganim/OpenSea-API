@@ -40,6 +40,12 @@ export interface BankConnectionsRepository {
     tenantId: string,
   ): Promise<BankConnectionRecord | null>;
   findMany(tenantId: string): Promise<BankConnectionRecord[]>;
+  /**
+   * Counts active (non-revoked, non-error) bank connections for the tenant.
+   * Used by the per-tenant rate limit that prevents runaway fan-out to the
+   * banking provider (P2-13).
+   */
+  countActiveByTenant(tenantId: string): Promise<number>;
   update(
     data: UpdateBankConnectionSchema,
   ): Promise<BankConnectionRecord | null>;

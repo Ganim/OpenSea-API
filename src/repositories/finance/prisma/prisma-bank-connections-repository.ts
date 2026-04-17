@@ -82,6 +82,14 @@ export class PrismaBankConnectionsRepository
     );
   }
 
+  async countActiveByTenant(tenantId: string): Promise<number> {
+    // ACTIVE is the happy-path state; we exclude REVOKED/ERROR from the
+    // per-tenant rate-limit count (P2-13).
+    return prisma.bankConnection.count({
+      where: { tenantId, status: 'ACTIVE' },
+    });
+  }
+
   async update(
     data: UpdateBankConnectionSchema,
   ): Promise<BankConnectionRecord | null> {

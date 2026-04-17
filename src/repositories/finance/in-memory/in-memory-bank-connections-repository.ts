@@ -61,6 +61,12 @@ export class InMemoryBankConnectionsRepository
     return this.items.filter((item) => item.tenantId === tenantId);
   }
 
+  async countActiveByTenant(tenantId: string): Promise<number> {
+    return this.items.filter(
+      (item) => item.tenantId === tenantId && item.status === 'ACTIVE',
+    ).length;
+  }
+
   async update(
     data: UpdateBankConnectionSchema,
   ): Promise<BankConnectionRecord | null> {
