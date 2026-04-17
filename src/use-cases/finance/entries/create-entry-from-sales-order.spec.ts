@@ -51,11 +51,14 @@ describe('CreateEntryFromSalesOrderUseCase', () => {
       description: 'Test order',
     });
 
-    // Category "Vendas" should have been auto-created
+    // Category "Vendas" should have been auto-created.
+    // P0-13: type is REVENUE — FinanceCategoryType is REVENUE/EXPENSE/BOTH;
+    // the legacy 'RECEIVABLE' value was an enum that doesn't exist on the
+    // category model and caused Prisma to throw on first invocation.
     const vendas = await categoriesRepository.findByName('Vendas', 'tenant-1');
     expect(vendas).toBeDefined();
     expect(vendas!.name).toBe('Vendas');
-    expect(vendas!.type).toBe('RECEIVABLE');
+    expect(vendas!.type).toBe('REVENUE');
   });
 
   it('should reuse existing Vendas category', async () => {
