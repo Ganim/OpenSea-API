@@ -4946,6 +4946,9 @@ model MedicalExam {
   doctorName     String    @map("doctor_name") @db.VarChar(256)
   doctorCrm      String    @map("doctor_crm") @db.VarChar(32)
   result         String    @db.VarChar(32) // APTO, INAPTO, APTO_COM_RESTRICOES
+  // DEPRECATED (P0-12): kept for backfill; encrypted copy lives in
+  // observationsEncrypted. Will be dropped in a follow-up migration once
+  // all historical rows have been re-encrypted.
   observations   String?
   documentUrl    String?   @map("document_url")
 
@@ -4957,8 +4960,23 @@ model MedicalExam {
   physicianName  String?   @map("physician_name") @db.VarChar(256) // Coordinating physician (PCMSO)
   physicianCRM   String?   @map("physician_crm") @db.VarChar(32)
   aptitude       String?   @db.VarChar(32) // APTO, INAPTO, APTO_COM_RESTRICOES
+  // DEPRECATED (P0-12): kept for backfill; encrypted copy lives in
+  // restrictionsEncrypted.
   restrictions   String?   @db.Text
   nextExamDate   DateTime? @map("next_exam_date")
+
+  // ---- Sensitive health data (encrypted at rest — P0-12) ----
+  // AES-256-GCM base64 blobs (IV + AuthTag + Ciphertext bundled).
+  // Read path decrypts only when the caller has HR.MEDICAL_EXAMS.ADMIN.
+  observationsEncrypted String? @map("observations_encrypted")
+  restrictionsEncrypted String? @map("restrictions_encrypted")
+
+  // ---- NR-7 retention (P0-02) ----
+  // ASO records must be retained for 20 years after the employee leaves
+  // the company (NR-7 item 7.4.4.3). Instead of hard-deleting, flag with
+  // deletedAt and enforce purge-only-after-20-years business rule at the
+  // application layer.
+  deletedAt DateTime? @map("deleted_at")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -4972,6 +4990,8 @@ model MedicalExam {
   @@index([examDate])
   @@index([expirationDate])
   @@index([aptitude])
+  @@index([deletedAt])
+  @@index([tenantId, deletedAt])
   @@map("medical_exams")
 }
 
@@ -13280,6 +13300,12 @@ model OverdueAction {
   entry  FinanceEntry           @relation(fields: [entryId], references: [id])
   step   OverdueEscalationStep? @relation(fields: [stepId], references: [id])
 
+  // P2-08: two concurrent overdue cron workers could both check-then-create
+  // a duplicate action. The use case still performs the "is there already
+  // an action" check for the fast path, but a DB-level unique constraint
+  // guarantees that at most one action per escalation step per entry per
+  // tenant ever exists — the loser races with P2002 and is caught & skipped.
+  @@unique([tenantId, entryId, stepId])
   @@index([tenantId])
   @@index([entryId])
   @@index([stepId])

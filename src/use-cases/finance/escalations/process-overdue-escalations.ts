@@ -123,16 +123,41 @@ export class ProcessOverdueEscalationsUseCase {
             continue; // Already executed, skip
           }
 
-          // Create the overdue action with PENDING status
-          const action = await this.overdueActionsRepository.create({
-            tenantId,
-            entryId: entry.id.toString(),
-            stepId: step.id.toString(),
-            channel: step.channel,
-            status: 'PENDING',
-          });
+          // Create the overdue action with PENDING status.
+          // P2-08: Guard against a create-race with another concurrent worker.
+          // The new DB-level unique constraint (tenantId, entryId, stepId)
+          // throws P2002 when two ticks create simultaneously. Re-read the
+          // existing action and continue to the next step silently.
+          let action;
+          try {
+            action = await this.overdueActionsRepository.create({
+              tenantId,
+              entryId: entry.id.toString(),
+              stepId: step.id.toString(),
+              channel: step.channel,
+              status: 'PENDING',
+            });
+            actionsCreated++;
+          } catch (createError) {
+            const isUniqueConstraintViolation =
+              createError instanceof Error &&
+              'code' in createError &&
+              (createError as { code?: string }).code === 'P2002';
 
-          actionsCreated++;
+            if (isUniqueConstraintViolation) {
+              logger.info(
+                {
+                  tenantId,
+                  entryId: entry.id.toString(),
+                  stepId: step.id.toString(),
+                },
+                '[process-escalations] skipped duplicate action from concurrent worker',
+              );
+              continue;
+            }
+
+            throw createError;
+          }
 
           // Resolve recipient(s) for SYSTEM_ALERT: prefer notifyUserIds, fall back to createdBy
           const alertRecipients =
