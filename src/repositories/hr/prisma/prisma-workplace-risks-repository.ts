@@ -81,13 +81,13 @@ export class PrismaWorkplaceRisksRepository
 
   async update(data: UpdateWorkplaceRiskSchema): Promise<WorkplaceRisk | null> {
     const existing = await prisma.workplaceRisk.findUnique({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
     });
 
     if (!existing) return null;
 
     const record = await prisma.workplaceRisk.update({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
       data: {
         name: data.name,
         category: data.category,
@@ -106,9 +106,9 @@ export class PrismaWorkplaceRisksRepository
     );
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.workplaceRisk.delete({
-      where: { id: id.toString() },
+      where: { id: id.toString(), ...(tenantId && { tenantId }), },
     });
   }
 }

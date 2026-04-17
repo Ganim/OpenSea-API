@@ -35,5 +35,5 @@ export interface OccupationalExamRequirementsRepository {
     positionId: UniqueEntityID,
     tenantId: string,
   ): Promise<OccupationalExamRequirement[]>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

@@ -136,13 +136,13 @@ export class PrismaPPEItemsRepository implements PPEItemsRepository {
 
   async update(data: UpdatePPEItemSchema): Promise<PPEItem | null> {
     const existing = await prisma.pPEItem.findFirst({
-      where: { id: data.id.toString(), deletedAt: null },
+      where: { id: data.id.toString(), deletedAt: null, ...(data.tenantId && { tenantId: data.tenantId }), },
     });
 
     if (!existing) return null;
 
     const record = await prisma.pPEItem.update({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
       data: {
         name: data.name,
         category: data.category,
@@ -164,7 +164,7 @@ export class PrismaPPEItemsRepository implements PPEItemsRepository {
 
   async adjustStock(data: AdjustPPEItemStockSchema): Promise<PPEItem | null> {
     const existing = await prisma.pPEItem.findFirst({
-      where: { id: data.id.toString(), deletedAt: null },
+      where: { id: data.id.toString(), deletedAt: null, ...(data.tenantId && { tenantId: data.tenantId }), },
     });
 
     if (!existing) return null;
@@ -172,7 +172,7 @@ export class PrismaPPEItemsRepository implements PPEItemsRepository {
     const newStock = Math.max(0, existing.currentStock + data.adjustment);
 
     const record = await prisma.pPEItem.update({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
       data: { currentStock: newStock },
     });
 
@@ -182,9 +182,12 @@ export class PrismaPPEItemsRepository implements PPEItemsRepository {
     );
   }
 
-  async softDelete(id: UniqueEntityID): Promise<void> {
+  async softDelete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.pPEItem.update({
-      where: { id: id.toString() },
+      where: {
+        id: id.toString(),
+        ...(tenantId && { tenantId }),
+      },
       data: { deletedAt: new Date() },
     });
   }

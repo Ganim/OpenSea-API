@@ -93,7 +93,11 @@ export class InMemoryPPEItemsRepository implements PPEItemsRepository {
   }
 
   async update(data: UpdatePPEItemSchema): Promise<PPEItem | null> {
-    const index = this.items.findIndex((item) => item.id.equals(data.id));
+    const index = this.items.findIndex(
+      (item) =>
+        item.id.equals(data.id) &&
+        (!data.tenantId || item.tenantId.toString() === data.tenantId),
+    );
     if (index === -1) return null;
 
     const existing = this.items[index];

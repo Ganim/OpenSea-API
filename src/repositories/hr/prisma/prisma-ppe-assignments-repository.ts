@@ -135,13 +135,13 @@ export class PrismaPPEAssignmentsRepository
     data: ReturnPPEAssignmentSchema,
   ): Promise<PPEAssignment | null> {
     const existing = await prisma.pPEAssignment.findUnique({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
     });
 
     if (!existing || existing.status !== 'ACTIVE') return null;
 
     const record = await prisma.pPEAssignment.update({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
       data: {
         returnedAt: new Date(),
         returnCondition: data.returnCondition,

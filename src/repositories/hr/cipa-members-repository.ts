@@ -34,5 +34,5 @@ export interface CipaMembersRepository {
     employeeId: UniqueEntityID,
     tenantId: string,
   ): Promise<CipaMember[]>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

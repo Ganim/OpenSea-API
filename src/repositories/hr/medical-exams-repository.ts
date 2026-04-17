@@ -26,6 +26,13 @@ export interface CreateMedicalExamSchema {
 
 export interface UpdateMedicalExamSchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so the underlying Prisma `where` clause is scoped and cannot update a
+   * record belonging to another tenant.
+   */
+  tenantId?: string;
   type?: string;
   examDate?: Date;
   expirationDate?: Date;
@@ -70,5 +77,5 @@ export interface MedicalExamsRepository {
   findExpiring(tenantId: string, daysThreshold: number): Promise<MedicalExam[]>;
   findOverdue(tenantId: string): Promise<MedicalExam[]>;
   update(data: UpdateMedicalExamSchema): Promise<MedicalExam | null>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

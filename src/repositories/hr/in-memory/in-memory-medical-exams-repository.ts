@@ -145,7 +145,11 @@ export class InMemoryMedicalExamsRepository implements MedicalExamsRepository {
   }
 
   async update(data: UpdateMedicalExamSchema): Promise<MedicalExam | null> {
-    const index = this.items.findIndex((item) => item.id.equals(data.id));
+    const index = this.items.findIndex(
+      (item) =>
+        item.id.equals(data.id) &&
+        (!data.tenantId || item.tenantId.toString() === data.tenantId),
+    );
 
     if (index === -1) return null;
 
@@ -183,8 +187,12 @@ export class InMemoryMedicalExamsRepository implements MedicalExamsRepository {
     return updatedExam;
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
-    const index = this.items.findIndex((item) => item.id.equals(id));
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
+    const index = this.items.findIndex(
+      (item) =>
+        item.id.equals(id) &&
+        (!tenantId || item.tenantId.toString() === tenantId),
+    );
     if (index !== -1) {
       this.items.splice(index, 1);
     }

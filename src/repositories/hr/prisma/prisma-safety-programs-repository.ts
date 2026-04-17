@@ -79,13 +79,13 @@ export class PrismaSafetyProgramsRepository
 
   async update(data: UpdateSafetyProgramSchema): Promise<SafetyProgram | null> {
     const existing = await prisma.safetyProgram.findUnique({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
     });
 
     if (!existing) return null;
 
     const record = await prisma.safetyProgram.update({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
       data: {
         type: data.type,
         name: data.name,
@@ -105,9 +105,9 @@ export class PrismaSafetyProgramsRepository
     );
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.safetyProgram.delete({
-      where: { id: id.toString() },
+      where: { id: id.toString(), ...(tenantId && { tenantId }), },
     });
   }
 }

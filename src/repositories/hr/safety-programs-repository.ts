@@ -16,6 +16,13 @@ export interface CreateSafetyProgramSchema {
 
 export interface UpdateSafetyProgramSchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so the underlying Prisma `where` clause is scoped and cannot update a
+   * record belonging to another tenant.
+   */
+  tenantId?: string;
   type?: string;
   name?: string;
   validFrom?: Date;
@@ -42,5 +49,5 @@ export interface SafetyProgramsRepository {
     filters?: FindSafetyProgramFilters,
   ): Promise<SafetyProgram[]>;
   update(data: UpdateSafetyProgramSchema): Promise<SafetyProgram | null>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }
