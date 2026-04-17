@@ -5,6 +5,7 @@ import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
 import type { SignatureEnvelopesRepository } from '@/repositories/signature/signature-envelopes-repository';
 import type { SignatureEnvelopeSignersRepository } from '@/repositories/signature/signature-envelope-signers-repository';
 import type { SignatureAuditEventsRepository } from '@/repositories/signature/signature-audit-events-repository';
+import type { GenerateSignedPDFUseCase } from '../envelopes/generate-signed-pdf';
 
 interface SignDocumentUseCaseRequest {
   accessToken: string;
@@ -21,6 +22,7 @@ export class SignDocumentUseCase {
     private envelopesRepository: SignatureEnvelopesRepository,
     private signersRepository: SignatureEnvelopeSignersRepository,
     private auditEventsRepository: SignatureAuditEventsRepository,
+    private generateSignedPDFUseCase?: GenerateSignedPDFUseCase,
   ) {}
 
   async execute(request: SignDocumentUseCaseRequest): Promise<void> {
@@ -112,6 +114,14 @@ export class SignDocumentUseCase {
           status: 'COMPLETED',
           completedAt: new Date(),
         });
+
+        // Generate signed PDF with certificate page (fail-soft)
+        if (this.generateSignedPDFUseCase) {
+          await this.generateSignedPDFUseCase.executeSafely({
+            tenantId: signer.tenantId.toString(),
+            envelopeId: signer.envelopeId,
+          });
+        }
       } else if (allCompleted) {
         // Some rejected
         await this.envelopesRepository.update({
