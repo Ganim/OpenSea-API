@@ -62,17 +62,42 @@ export class AutoRegisterPixPaymentUseCase {
       return { registered: false };
     }
 
+    // P2-15: mirror register-payment ordering to avoid racing the webhook
+    // against a concurrent manual payment. Steps:
+    //   (1) lock the entry row FOR UPDATE
+    //   (2) sum existing payments under the lock
+    //   (3) validate the new total doesn't exceed totalDue
+    //   (4) create the payment record
+    //   (5) update the entry status
     const executePayment = async (tx?: TransactionClient) => {
-      // Acquire row-level lock to prevent concurrent payment races
-      if (tx) {
-        await this.financeEntriesRepository.findByIdForUpdate(
-          entry.id,
-          entry.tenantId.toString(),
+      // (1) Row-level lock — any concurrent payer must wait until we commit.
+      const lockedEntry = tx
+        ? await this.financeEntriesRepository.findByIdForUpdate(
+            entry.id,
+            entry.tenantId.toString(),
+            tx,
+          )
+        : entry;
+
+      const entryForPayment = lockedEntry ?? entry;
+
+      // (2) Sum existing payments while the lock is held.
+      const existingPaymentsSum =
+        await this.financeEntryPaymentsRepository.sumByEntryId(
+          new UniqueEntityID(entry.id.toString()),
           tx,
         );
+
+      // (3) Validate — protect against overpayment when a manual payment
+      // happened between our initial status check and the lock acquisition.
+      const newTotal = existingPaymentsSum + amount;
+      if (newTotal > entryForPayment.totalDue) {
+        // Overpayment: bail without creating the payment record. The webhook
+        // will still be marked processed via the caller's idempotency layer.
+        return entryForPayment;
       }
 
-      // Create payment record
+      // (4) Create the payment record.
       await this.financeEntryPaymentsRepository.create(
         {
           entryId: entry.id.toString(),
@@ -87,17 +112,8 @@ export class AutoRegisterPixPaymentUseCase {
         tx,
       );
 
-      // Calculate new total (safe — row is locked)
-      const existingPaymentsSum =
-        await this.financeEntryPaymentsRepository.sumByEntryId(
-          new UniqueEntityID(entry.id.toString()),
-          tx,
-        );
-
-      const newTotal = existingPaymentsSum;
-      const isFullyPaid = newTotal >= entry.totalDue;
-
-      // Update entry status
+      // (5) Update entry status now that totals are recomputed.
+      const isFullyPaid = newTotal >= entryForPayment.totalDue;
       const newStatus = isFullyPaid ? 'RECEIVED' : 'PARTIALLY_PAID';
       const updatedEntry = await this.financeEntriesRepository.update(
         {
