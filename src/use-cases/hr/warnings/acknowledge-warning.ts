@@ -1,12 +1,20 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { EmployeeWarning } from '@/entities/hr/employee-warning';
+import type { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import type { EmployeeWarningsRepository } from '@/repositories/hr/employee-warnings-repository';
 
 export interface AcknowledgeWarningRequest {
   tenantId: string;
   warningId: string;
+  /**
+   * `userId` do chamador autenticado (JWT `sub`). Obrigatório para garantir
+   * que apenas o próprio funcionário advertido possa reconhecer a advertência
+   * — evita falsificação de ciência em casos de Art. 482 CLT.
+   */
+  callerUserId: string;
 }
 
 export interface AcknowledgeWarningResponse {
@@ -14,12 +22,15 @@ export interface AcknowledgeWarningResponse {
 }
 
 export class AcknowledgeWarningUseCase {
-  constructor(private employeeWarningsRepository: EmployeeWarningsRepository) {}
+  constructor(
+    private employeeWarningsRepository: EmployeeWarningsRepository,
+    private employeesRepository: EmployeesRepository,
+  ) {}
 
   async execute(
     request: AcknowledgeWarningRequest,
   ): Promise<AcknowledgeWarningResponse> {
-    const { tenantId, warningId } = request;
+    const { tenantId, warningId, callerUserId } = request;
 
     const warning = await this.employeeWarningsRepository.findById(
       new UniqueEntityID(warningId),
@@ -28,6 +39,24 @@ export class AcknowledgeWarningUseCase {
 
     if (!warning) {
       throw new ResourceNotFoundError('Warning');
+    }
+
+    const warningEmployee = await this.employeesRepository.findById(
+      warning.employeeId,
+      tenantId,
+    );
+
+    if (!warningEmployee) {
+      throw new ResourceNotFoundError('Employee');
+    }
+
+    if (
+      !warningEmployee.userId ||
+      warningEmployee.userId.toString() !== callerUserId
+    ) {
+      throw new ForbiddenError(
+        'Apenas o funcionário advertido pode reconhecer esta advertência',
+      );
     }
 
     if (!warning.isActive()) {
