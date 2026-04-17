@@ -1,5 +1,5 @@
 import type { ChartOfAccountsRepository } from '@/repositories/finance/chart-of-accounts-repository';
-import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
+import type { JournalEntriesRepository } from '@/repositories/finance/journal-entries-repository';
 
 interface GetBalanceSheetUseCaseRequest {
   tenantId: string;
@@ -34,10 +34,23 @@ export interface GetBalanceSheetUseCaseResponse {
   isBalanced: boolean;
 }
 
+/**
+ * Balance Sheet (Balanço Patrimonial) derived from the general ledger.
+ *
+ * P0-08 fix: the previous implementation distributed receivable/payable
+ * totals proportionally across every leaf account, producing numbers that
+ * had no relationship to the actual journal. This version reads per-account
+ * balances directly from `journalEntriesRepository.getTrialBalance`, the
+ * single source of truth once double-entry journals are posted.
+ *
+ * Retained earnings = net income of the period (revenue − expenses), posted
+ * into the first EQUITY leaf (Conselho Federal de Contabilidade, NBC TG 26
+ * and NBC TG 03).
+ */
 export class GetBalanceSheetUseCase {
   constructor(
     private chartOfAccountsRepository: ChartOfAccountsRepository,
-    private financeEntriesRepository: FinanceEntriesRepository,
+    private journalEntriesRepository: JournalEntriesRepository,
   ) {}
 
   async execute(
@@ -45,90 +58,81 @@ export class GetBalanceSheetUseCase {
   ): Promise<GetBalanceSheetUseCaseResponse> {
     const { tenantId, startDate, endDate } = request;
 
-    const allAccounts = await this.chartOfAccountsRepository.findMany(tenantId);
-
-    // P0-09: balance-sheet aggregates everything currently outstanding
-    // (PENDING / PARTIALLY_PAID / OVERDUE / SCHEDULED). Including PAID
-    // and CANCELLED used to inflate accounts receivable/payable totals.
-    const OPEN_STATUSES = [
-      'PENDING',
-      'PARTIALLY_PAID',
-      'OVERDUE',
-      'SCHEDULED',
-    ];
-
-    // Aggregate finance entries within the period
-    const [receivableSums, payableSums] = await Promise.all([
-      this.financeEntriesRepository.sumByDateRange(
+    const [allAccounts, trialBalance] = await Promise.all([
+      this.chartOfAccountsRepository.findMany(tenantId),
+      this.journalEntriesRepository.getTrialBalance(
         tenantId,
-        'RECEIVABLE',
         startDate,
         endDate,
-        'month',
-        OPEN_STATUSES,
-      ),
-      this.financeEntriesRepository.sumByDateRange(
-        tenantId,
-        'PAYABLE',
-        startDate,
-        endDate,
-        'month',
-        OPEN_STATUSES,
       ),
     ]);
 
-    const totalReceivable = receivableSums.reduce((acc, s) => acc + s.total, 0);
-    const totalPayable = payableSums.reduce((acc, s) => acc + s.total, 0);
+    const balancesByAccountId = new Map<string, number>();
+    for (const tb of trialBalance) {
+      balancesByAccountId.set(tb.id, tb.balance);
+    }
 
-    // Build balance sheet structure from chart of accounts
     const assetAccounts = allAccounts.filter((a) => a.type === 'ASSET');
     const liabilityAccounts = allAccounts.filter((a) => a.type === 'LIABILITY');
     const equityAccounts = allAccounts.filter((a) => a.type === 'EQUITY');
-    // Revenue and expense accounts are used for P&L, not directly in balance sheet
-    // but their net effect flows into equity as retained earnings
+    const revenueAccounts = allAccounts.filter((a) => a.type === 'REVENUE');
+    const expenseAccounts = allAccounts.filter((a) => a.type === 'EXPENSE');
 
-    // Distribute totals proportionally across leaf accounts
-    const assetLeafs = assetAccounts.filter(
-      (a) => !allAccounts.some((c) => c.parentId?.equals(a.id)),
-    );
-    const liabilityLeafs = liabilityAccounts.filter(
-      (a) => !allAccounts.some((c) => c.parentId?.equals(a.id)),
-    );
-    const equityLeafs = equityAccounts.filter(
-      (a) => !allAccounts.some((c) => c.parentId?.equals(a.id)),
-    );
+    const isLeaf = (
+      account: { id: { equals: (other: { id: unknown }['id']) => boolean } },
+      pool: { parentId?: { equals: (other: unknown) => boolean } | null }[],
+    ) => !pool.some((c) => c.parentId?.equals(account.id));
 
-    // Net profit/loss goes to equity
-    const netProfit = totalReceivable - totalPayable;
+    const assetLeafs = assetAccounts.filter((a) => isLeaf(a, allAccounts));
+    const liabilityLeafs = liabilityAccounts.filter((a) =>
+      isLeaf(a, allAccounts),
+    );
+    const equityLeafs = equityAccounts.filter((a) => isLeaf(a, allAccounts));
 
-    // For assets: receivable amounts represent asset increases
+    const sumBalances = (
+      accounts: { id: { toString: () => string } }[],
+    ): number =>
+      accounts.reduce(
+        (acc, a) => acc + (balancesByAccountId.get(a.id.toString()) ?? 0),
+        0,
+      );
+
+    // Period net income: revenues minus expenses. Both nature types are
+    // CREDIT vs DEBIT; getTrialBalance already produces `balance` with the
+    // correct natural sign, so we can sum directly.
+    const totalRevenue = sumBalances(revenueAccounts);
+    const totalExpense = sumBalances(expenseAccounts);
+    const netIncome = totalRevenue - totalExpense;
+
     const assetCurrentAccounts = this.buildAccountBalances(
       assetLeafs.filter((a) => a.accountClass === 'CURRENT'),
-      totalReceivable,
+      balancesByAccountId,
     );
     const assetNonCurrentAccounts = this.buildAccountBalances(
       assetLeafs.filter((a) => a.accountClass !== 'CURRENT'),
-      0,
+      balancesByAccountId,
     );
     const totalAssets =
       assetCurrentAccounts.reduce((acc, a) => acc + a.balance, 0) +
       assetNonCurrentAccounts.reduce((acc, a) => acc + a.balance, 0);
 
-    // For liabilities: payable amounts represent liability increases
     const liabilityCurrentAccounts = this.buildAccountBalances(
       liabilityLeafs.filter((a) => a.accountClass === 'CURRENT'),
-      totalPayable,
+      balancesByAccountId,
     );
     const liabilityNonCurrentAccounts = this.buildAccountBalances(
       liabilityLeafs.filter((a) => a.accountClass !== 'CURRENT'),
-      0,
+      balancesByAccountId,
     );
     const totalLiabilities =
       liabilityCurrentAccounts.reduce((acc, a) => acc + a.balance, 0) +
       liabilityNonCurrentAccounts.reduce((acc, a) => acc + a.balance, 0);
 
-    // Equity includes net profit
-    const equityItems = this.buildAccountBalances(equityLeafs, netProfit);
+    const equityItems = this.buildEquityWithRetainedEarnings(
+      equityLeafs,
+      balancesByAccountId,
+      netIncome,
+    );
     const totalEquity = equityItems.reduce((acc, a) => acc + a.balance, 0);
 
     const totalLiabilitiesAndEquity = totalLiabilities + totalEquity;
@@ -157,20 +161,46 @@ export class GetBalanceSheetUseCase {
 
   private buildAccountBalances(
     accounts: { id: { toString: () => string }; code: string; name: string }[],
-    totalToDistribute: number,
+    balancesByAccountId: Map<string, number>,
   ): AccountBalance[] {
-    if (accounts.length === 0) return [];
-
-    const balancePerAccount =
-      accounts.length > 0
-        ? Math.round((totalToDistribute / accounts.length) * 100) / 100
-        : 0;
-
     return accounts.map((account) => ({
       accountId: account.id.toString(),
       code: account.code,
       name: account.name,
-      balance: balancePerAccount,
+      balance: balancesByAccountId.get(account.id.toString()) ?? 0,
     }));
+  }
+
+  /**
+   * Equity leafs carry their own opening balance (capital social, reservas,
+   * etc). The period's net income is added to the first equity leaf as
+   * "Lucros/Prejuízos Acumulados" so the balance sheet equation holds
+   * without requiring a closing journal entry.
+   */
+  private buildEquityWithRetainedEarnings(
+    accounts: { id: { toString: () => string }; code: string; name: string }[],
+    balancesByAccountId: Map<string, number>,
+    netIncome: number,
+  ): AccountBalance[] {
+    const items = this.buildAccountBalances(accounts, balancesByAccountId);
+
+    if (items.length === 0) {
+      if (netIncome !== 0) {
+        items.push({
+          accountId: 'retained-earnings',
+          code: '3.9',
+          name: 'Lucros/Prejuízos Acumulados',
+          balance: netIncome,
+        });
+      }
+      return items;
+    }
+
+    items[0] = {
+      ...items[0],
+      balance:
+        Math.round((items[0].balance + netIncome + Number.EPSILON) * 100) / 100,
+    };
+    return items;
   }
 }
