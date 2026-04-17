@@ -8,12 +8,16 @@ export interface CreateJournalEntryData {
   description: string;
   sourceType: JournalSourceType;
   sourceId?: string;
+  companyId?: string | null;
+  costCenterId?: string | null;
   createdBy?: string;
   lines: Array<{
     chartOfAccountId: string;
     type: 'DEBIT' | 'CREDIT';
     amount: number;
     description?: string;
+    companyId?: string | null;
+    costCenterId?: string | null;
   }>;
 }
 
@@ -25,6 +29,8 @@ export interface JournalEntryWithLines {
   description: string;
   sourceType: JournalSourceType;
   sourceId: string | null;
+  companyId: string | null;
+  costCenterId: string | null;
   status: string;
   reversedById: string | null;
   createdBy: string | null;
@@ -38,6 +44,8 @@ export interface JournalEntryWithLines {
     type: 'DEBIT' | 'CREDIT';
     amount: number;
     description: string | null;
+    companyId: string | null;
+    costCenterId: string | null;
   }>;
 }
 

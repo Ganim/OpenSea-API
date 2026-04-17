@@ -38,6 +38,9 @@ export class PrismaJournalEntriesRepository
   implements JournalEntriesRepository
 {
   async create(data: CreateJournalEntryData): Promise<JournalEntryWithLines> {
+    const headerCompanyId = data.companyId ?? null;
+    const headerCostCenterId = data.costCenterId ?? null;
+
     const entry = await prisma.journalEntry.create({
       data: {
         tenantId: data.tenantId,
@@ -46,6 +49,8 @@ export class PrismaJournalEntriesRepository
         description: data.description,
         sourceType: data.sourceType,
         sourceId: data.sourceId,
+        companyId: headerCompanyId,
+        costCenterId: headerCostCenterId,
         createdBy: data.createdBy,
         lines: {
           create: data.lines.map((line) => ({
@@ -53,6 +58,8 @@ export class PrismaJournalEntriesRepository
             type: line.type,
             amount: new Prisma.Decimal(line.amount),
             description: line.description,
+            companyId: line.companyId ?? headerCompanyId,
+            costCenterId: line.costCenterId ?? headerCostCenterId,
           })),
         },
       },

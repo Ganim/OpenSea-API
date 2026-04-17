@@ -41,6 +41,8 @@ export type JournalEntryLineMinAggregateOutputType = {
   type: $Enums.EntryLineType | null
   amount: runtime.Decimal | null
   description: string | null
+  companyId: string | null
+  costCenterId: string | null
 }
 
 export type JournalEntryLineMaxAggregateOutputType = {
@@ -50,6 +52,8 @@ export type JournalEntryLineMaxAggregateOutputType = {
   type: $Enums.EntryLineType | null
   amount: runtime.Decimal | null
   description: string | null
+  companyId: string | null
+  costCenterId: string | null
 }
 
 export type JournalEntryLineCountAggregateOutputType = {
@@ -59,6 +63,8 @@ export type JournalEntryLineCountAggregateOutputType = {
   type: number
   amount: number
   description: number
+  companyId: number
+  costCenterId: number
   _all: number
 }
 
@@ -78,6 +84,8 @@ export type JournalEntryLineMinAggregateInputType = {
   type?: true
   amount?: true
   description?: true
+  companyId?: true
+  costCenterId?: true
 }
 
 export type JournalEntryLineMaxAggregateInputType = {
@@ -87,6 +95,8 @@ export type JournalEntryLineMaxAggregateInputType = {
   type?: true
   amount?: true
   description?: true
+  companyId?: true
+  costCenterId?: true
 }
 
 export type JournalEntryLineCountAggregateInputType = {
@@ -96,6 +106,8 @@ export type JournalEntryLineCountAggregateInputType = {
   type?: true
   amount?: true
   description?: true
+  companyId?: true
+  costCenterId?: true
   _all?: true
 }
 
@@ -192,6 +204,8 @@ export type JournalEntryLineGroupByOutputType = {
   type: $Enums.EntryLineType
   amount: runtime.Decimal
   description: string | null
+  companyId: string | null
+  costCenterId: string | null
   _count: JournalEntryLineCountAggregateOutputType | null
   _avg: JournalEntryLineAvgAggregateOutputType | null
   _sum: JournalEntryLineSumAggregateOutputType | null
@@ -224,6 +238,8 @@ export type JournalEntryLineWhereInput = {
   type?: Prisma.EnumEntryLineTypeFilter<"JournalEntryLine"> | $Enums.EntryLineType
   amount?: Prisma.DecimalFilter<"JournalEntryLine"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.StringNullableFilter<"JournalEntryLine"> | string | null
+  companyId?: Prisma.StringNullableFilter<"JournalEntryLine"> | string | null
+  costCenterId?: Prisma.StringNullableFilter<"JournalEntryLine"> | string | null
   journalEntry?: Prisma.XOR<Prisma.JournalEntryScalarRelationFilter, Prisma.JournalEntryWhereInput>
   chartOfAccount?: Prisma.XOR<Prisma.ChartOfAccountScalarRelationFilter, Prisma.ChartOfAccountWhereInput>
 }
@@ -235,6 +251,8 @@ export type JournalEntryLineOrderByWithRelationInput = {
   type?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
+  costCenterId?: Prisma.SortOrderInput | Prisma.SortOrder
   journalEntry?: Prisma.JournalEntryOrderByWithRelationInput
   chartOfAccount?: Prisma.ChartOfAccountOrderByWithRelationInput
 }
@@ -249,6 +267,8 @@ export type JournalEntryLineWhereUniqueInput = Prisma.AtLeast<{
   type?: Prisma.EnumEntryLineTypeFilter<"JournalEntryLine"> | $Enums.EntryLineType
   amount?: Prisma.DecimalFilter<"JournalEntryLine"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.StringNullableFilter<"JournalEntryLine"> | string | null
+  companyId?: Prisma.StringNullableFilter<"JournalEntryLine"> | string | null
+  costCenterId?: Prisma.StringNullableFilter<"JournalEntryLine"> | string | null
   journalEntry?: Prisma.XOR<Prisma.JournalEntryScalarRelationFilter, Prisma.JournalEntryWhereInput>
   chartOfAccount?: Prisma.XOR<Prisma.ChartOfAccountScalarRelationFilter, Prisma.ChartOfAccountWhereInput>
 }, "id">
@@ -260,6 +280,8 @@ export type JournalEntryLineOrderByWithAggregationInput = {
   type?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
+  costCenterId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.JournalEntryLineCountOrderByAggregateInput
   _avg?: Prisma.JournalEntryLineAvgOrderByAggregateInput
   _max?: Prisma.JournalEntryLineMaxOrderByAggregateInput
@@ -277,6 +299,8 @@ export type JournalEntryLineScalarWhereWithAggregatesInput = {
   type?: Prisma.EnumEntryLineTypeWithAggregatesFilter<"JournalEntryLine"> | $Enums.EntryLineType
   amount?: Prisma.DecimalWithAggregatesFilter<"JournalEntryLine"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.StringNullableWithAggregatesFilter<"JournalEntryLine"> | string | null
+  companyId?: Prisma.StringNullableWithAggregatesFilter<"JournalEntryLine"> | string | null
+  costCenterId?: Prisma.StringNullableWithAggregatesFilter<"JournalEntryLine"> | string | null
 }
 
 export type JournalEntryLineCreateInput = {
@@ -284,6 +308,8 @@ export type JournalEntryLineCreateInput = {
   type: $Enums.EntryLineType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
   journalEntry: Prisma.JournalEntryCreateNestedOneWithoutLinesInput
   chartOfAccount: Prisma.ChartOfAccountCreateNestedOneWithoutJournalEntryLinesInput
 }
@@ -295,6 +321,8 @@ export type JournalEntryLineUncheckedCreateInput = {
   type: $Enums.EntryLineType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
 }
 
 export type JournalEntryLineUpdateInput = {
@@ -302,6 +330,8 @@ export type JournalEntryLineUpdateInput = {
   type?: Prisma.EnumEntryLineTypeFieldUpdateOperationsInput | $Enums.EntryLineType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   journalEntry?: Prisma.JournalEntryUpdateOneRequiredWithoutLinesNestedInput
   chartOfAccount?: Prisma.ChartOfAccountUpdateOneRequiredWithoutJournalEntryLinesNestedInput
 }
@@ -313,6 +343,8 @@ export type JournalEntryLineUncheckedUpdateInput = {
   type?: Prisma.EnumEntryLineTypeFieldUpdateOperationsInput | $Enums.EntryLineType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type JournalEntryLineCreateManyInput = {
@@ -322,6 +354,8 @@ export type JournalEntryLineCreateManyInput = {
   type: $Enums.EntryLineType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
 }
 
 export type JournalEntryLineUpdateManyMutationInput = {
@@ -329,6 +363,8 @@ export type JournalEntryLineUpdateManyMutationInput = {
   type?: Prisma.EnumEntryLineTypeFieldUpdateOperationsInput | $Enums.EntryLineType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type JournalEntryLineUncheckedUpdateManyInput = {
@@ -338,6 +374,8 @@ export type JournalEntryLineUncheckedUpdateManyInput = {
   type?: Prisma.EnumEntryLineTypeFieldUpdateOperationsInput | $Enums.EntryLineType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type JournalEntryLineListRelationFilter = {
@@ -357,6 +395,8 @@ export type JournalEntryLineCountOrderByAggregateInput = {
   type?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
+  costCenterId?: Prisma.SortOrder
 }
 
 export type JournalEntryLineAvgOrderByAggregateInput = {
@@ -370,6 +410,8 @@ export type JournalEntryLineMaxOrderByAggregateInput = {
   type?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
+  costCenterId?: Prisma.SortOrder
 }
 
 export type JournalEntryLineMinOrderByAggregateInput = {
@@ -379,6 +421,8 @@ export type JournalEntryLineMinOrderByAggregateInput = {
   type?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
+  costCenterId?: Prisma.SortOrder
 }
 
 export type JournalEntryLineSumOrderByAggregateInput = {
@@ -478,6 +522,8 @@ export type JournalEntryLineCreateWithoutChartOfAccountInput = {
   type: $Enums.EntryLineType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
   journalEntry: Prisma.JournalEntryCreateNestedOneWithoutLinesInput
 }
 
@@ -487,6 +533,8 @@ export type JournalEntryLineUncheckedCreateWithoutChartOfAccountInput = {
   type: $Enums.EntryLineType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
 }
 
 export type JournalEntryLineCreateOrConnectWithoutChartOfAccountInput = {
@@ -525,6 +573,8 @@ export type JournalEntryLineScalarWhereInput = {
   type?: Prisma.EnumEntryLineTypeFilter<"JournalEntryLine"> | $Enums.EntryLineType
   amount?: Prisma.DecimalFilter<"JournalEntryLine"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.StringNullableFilter<"JournalEntryLine"> | string | null
+  companyId?: Prisma.StringNullableFilter<"JournalEntryLine"> | string | null
+  costCenterId?: Prisma.StringNullableFilter<"JournalEntryLine"> | string | null
 }
 
 export type JournalEntryLineCreateWithoutJournalEntryInput = {
@@ -532,6 +582,8 @@ export type JournalEntryLineCreateWithoutJournalEntryInput = {
   type: $Enums.EntryLineType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
   chartOfAccount: Prisma.ChartOfAccountCreateNestedOneWithoutJournalEntryLinesInput
 }
 
@@ -541,6 +593,8 @@ export type JournalEntryLineUncheckedCreateWithoutJournalEntryInput = {
   type: $Enums.EntryLineType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
 }
 
 export type JournalEntryLineCreateOrConnectWithoutJournalEntryInput = {
@@ -575,6 +629,8 @@ export type JournalEntryLineCreateManyChartOfAccountInput = {
   type: $Enums.EntryLineType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
 }
 
 export type JournalEntryLineUpdateWithoutChartOfAccountInput = {
@@ -582,6 +638,8 @@ export type JournalEntryLineUpdateWithoutChartOfAccountInput = {
   type?: Prisma.EnumEntryLineTypeFieldUpdateOperationsInput | $Enums.EntryLineType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   journalEntry?: Prisma.JournalEntryUpdateOneRequiredWithoutLinesNestedInput
 }
 
@@ -591,6 +649,8 @@ export type JournalEntryLineUncheckedUpdateWithoutChartOfAccountInput = {
   type?: Prisma.EnumEntryLineTypeFieldUpdateOperationsInput | $Enums.EntryLineType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type JournalEntryLineUncheckedUpdateManyWithoutChartOfAccountInput = {
@@ -599,6 +659,8 @@ export type JournalEntryLineUncheckedUpdateManyWithoutChartOfAccountInput = {
   type?: Prisma.EnumEntryLineTypeFieldUpdateOperationsInput | $Enums.EntryLineType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type JournalEntryLineCreateManyJournalEntryInput = {
@@ -607,6 +669,8 @@ export type JournalEntryLineCreateManyJournalEntryInput = {
   type: $Enums.EntryLineType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
 }
 
 export type JournalEntryLineUpdateWithoutJournalEntryInput = {
@@ -614,6 +678,8 @@ export type JournalEntryLineUpdateWithoutJournalEntryInput = {
   type?: Prisma.EnumEntryLineTypeFieldUpdateOperationsInput | $Enums.EntryLineType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   chartOfAccount?: Prisma.ChartOfAccountUpdateOneRequiredWithoutJournalEntryLinesNestedInput
 }
 
@@ -623,6 +689,8 @@ export type JournalEntryLineUncheckedUpdateWithoutJournalEntryInput = {
   type?: Prisma.EnumEntryLineTypeFieldUpdateOperationsInput | $Enums.EntryLineType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type JournalEntryLineUncheckedUpdateManyWithoutJournalEntryInput = {
@@ -631,6 +699,8 @@ export type JournalEntryLineUncheckedUpdateManyWithoutJournalEntryInput = {
   type?: Prisma.EnumEntryLineTypeFieldUpdateOperationsInput | $Enums.EntryLineType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -642,6 +712,8 @@ export type JournalEntryLineSelect<ExtArgs extends runtime.Types.Extensions.Inte
   type?: boolean
   amount?: boolean
   description?: boolean
+  companyId?: boolean
+  costCenterId?: boolean
   journalEntry?: boolean | Prisma.JournalEntryDefaultArgs<ExtArgs>
   chartOfAccount?: boolean | Prisma.ChartOfAccountDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["journalEntryLine"]>
@@ -653,6 +725,8 @@ export type JournalEntryLineSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   type?: boolean
   amount?: boolean
   description?: boolean
+  companyId?: boolean
+  costCenterId?: boolean
   journalEntry?: boolean | Prisma.JournalEntryDefaultArgs<ExtArgs>
   chartOfAccount?: boolean | Prisma.ChartOfAccountDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["journalEntryLine"]>
@@ -664,6 +738,8 @@ export type JournalEntryLineSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   type?: boolean
   amount?: boolean
   description?: boolean
+  companyId?: boolean
+  costCenterId?: boolean
   journalEntry?: boolean | Prisma.JournalEntryDefaultArgs<ExtArgs>
   chartOfAccount?: boolean | Prisma.ChartOfAccountDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["journalEntryLine"]>
@@ -675,9 +751,11 @@ export type JournalEntryLineSelectScalar = {
   type?: boolean
   amount?: boolean
   description?: boolean
+  companyId?: boolean
+  costCenterId?: boolean
 }
 
-export type JournalEntryLineOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "journalEntryId" | "chartOfAccountId" | "type" | "amount" | "description", ExtArgs["result"]["journalEntryLine"]>
+export type JournalEntryLineOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "journalEntryId" | "chartOfAccountId" | "type" | "amount" | "description" | "companyId" | "costCenterId", ExtArgs["result"]["journalEntryLine"]>
 export type JournalEntryLineInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   journalEntry?: boolean | Prisma.JournalEntryDefaultArgs<ExtArgs>
   chartOfAccount?: boolean | Prisma.ChartOfAccountDefaultArgs<ExtArgs>
@@ -704,6 +782,8 @@ export type $JournalEntryLinePayload<ExtArgs extends runtime.Types.Extensions.In
     type: $Enums.EntryLineType
     amount: runtime.Decimal
     description: string | null
+    companyId: string | null
+    costCenterId: string | null
   }, ExtArgs["result"]["journalEntryLine"]>
   composites: {}
 }
@@ -1135,6 +1215,8 @@ export interface JournalEntryLineFieldRefs {
   readonly type: Prisma.FieldRef<"JournalEntryLine", 'EntryLineType'>
   readonly amount: Prisma.FieldRef<"JournalEntryLine", 'Decimal'>
   readonly description: Prisma.FieldRef<"JournalEntryLine", 'String'>
+  readonly companyId: Prisma.FieldRef<"JournalEntryLine", 'String'>
+  readonly costCenterId: Prisma.FieldRef<"JournalEntryLine", 'String'>
 }
     
 

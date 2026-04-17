@@ -32,6 +32,8 @@ export type JournalEntryMinAggregateOutputType = {
   description: string | null
   sourceType: $Enums.JournalSourceType | null
   sourceId: string | null
+  companyId: string | null
+  costCenterId: string | null
   status: $Enums.JournalStatus | null
   reversedById: string | null
   createdBy: string | null
@@ -47,6 +49,8 @@ export type JournalEntryMaxAggregateOutputType = {
   description: string | null
   sourceType: $Enums.JournalSourceType | null
   sourceId: string | null
+  companyId: string | null
+  costCenterId: string | null
   status: $Enums.JournalStatus | null
   reversedById: string | null
   createdBy: string | null
@@ -62,6 +66,8 @@ export type JournalEntryCountAggregateOutputType = {
   description: number
   sourceType: number
   sourceId: number
+  companyId: number
+  costCenterId: number
   status: number
   reversedById: number
   createdBy: number
@@ -79,6 +85,8 @@ export type JournalEntryMinAggregateInputType = {
   description?: true
   sourceType?: true
   sourceId?: true
+  companyId?: true
+  costCenterId?: true
   status?: true
   reversedById?: true
   createdBy?: true
@@ -94,6 +102,8 @@ export type JournalEntryMaxAggregateInputType = {
   description?: true
   sourceType?: true
   sourceId?: true
+  companyId?: true
+  costCenterId?: true
   status?: true
   reversedById?: true
   createdBy?: true
@@ -109,6 +119,8 @@ export type JournalEntryCountAggregateInputType = {
   description?: true
   sourceType?: true
   sourceId?: true
+  companyId?: true
+  costCenterId?: true
   status?: true
   reversedById?: true
   createdBy?: true
@@ -197,6 +209,8 @@ export type JournalEntryGroupByOutputType = {
   description: string
   sourceType: $Enums.JournalSourceType
   sourceId: string | null
+  companyId: string | null
+  costCenterId: string | null
   status: $Enums.JournalStatus
   reversedById: string | null
   createdBy: string | null
@@ -233,6 +247,8 @@ export type JournalEntryWhereInput = {
   description?: Prisma.StringFilter<"JournalEntry"> | string
   sourceType?: Prisma.EnumJournalSourceTypeFilter<"JournalEntry"> | $Enums.JournalSourceType
   sourceId?: Prisma.StringNullableFilter<"JournalEntry"> | string | null
+  companyId?: Prisma.StringNullableFilter<"JournalEntry"> | string | null
+  costCenterId?: Prisma.StringNullableFilter<"JournalEntry"> | string | null
   status?: Prisma.EnumJournalStatusFilter<"JournalEntry"> | $Enums.JournalStatus
   reversedById?: Prisma.StringNullableFilter<"JournalEntry"> | string | null
   createdBy?: Prisma.StringNullableFilter<"JournalEntry"> | string | null
@@ -252,6 +268,8 @@ export type JournalEntryOrderByWithRelationInput = {
   description?: Prisma.SortOrder
   sourceType?: Prisma.SortOrder
   sourceId?: Prisma.SortOrderInput | Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
+  costCenterId?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   reversedById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -276,6 +294,8 @@ export type JournalEntryWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringFilter<"JournalEntry"> | string
   sourceType?: Prisma.EnumJournalSourceTypeFilter<"JournalEntry"> | $Enums.JournalSourceType
   sourceId?: Prisma.StringNullableFilter<"JournalEntry"> | string | null
+  companyId?: Prisma.StringNullableFilter<"JournalEntry"> | string | null
+  costCenterId?: Prisma.StringNullableFilter<"JournalEntry"> | string | null
   status?: Prisma.EnumJournalStatusFilter<"JournalEntry"> | $Enums.JournalStatus
   createdBy?: Prisma.StringNullableFilter<"JournalEntry"> | string | null
   createdAt?: Prisma.DateTimeFilter<"JournalEntry"> | Date | string
@@ -294,6 +314,8 @@ export type JournalEntryOrderByWithAggregationInput = {
   description?: Prisma.SortOrder
   sourceType?: Prisma.SortOrder
   sourceId?: Prisma.SortOrderInput | Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
+  costCenterId?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   reversedById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -315,6 +337,8 @@ export type JournalEntryScalarWhereWithAggregatesInput = {
   description?: Prisma.StringWithAggregatesFilter<"JournalEntry"> | string
   sourceType?: Prisma.EnumJournalSourceTypeWithAggregatesFilter<"JournalEntry"> | $Enums.JournalSourceType
   sourceId?: Prisma.StringNullableWithAggregatesFilter<"JournalEntry"> | string | null
+  companyId?: Prisma.StringNullableWithAggregatesFilter<"JournalEntry"> | string | null
+  costCenterId?: Prisma.StringNullableWithAggregatesFilter<"JournalEntry"> | string | null
   status?: Prisma.EnumJournalStatusWithAggregatesFilter<"JournalEntry"> | $Enums.JournalStatus
   reversedById?: Prisma.StringNullableWithAggregatesFilter<"JournalEntry"> | string | null
   createdBy?: Prisma.StringNullableWithAggregatesFilter<"JournalEntry"> | string | null
@@ -329,6 +353,8 @@ export type JournalEntryCreateInput = {
   description: string
   sourceType: $Enums.JournalSourceType
   sourceId?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
   status?: $Enums.JournalStatus
   createdBy?: string | null
   createdAt?: Date | string
@@ -347,6 +373,8 @@ export type JournalEntryUncheckedCreateInput = {
   description: string
   sourceType: $Enums.JournalSourceType
   sourceId?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
   status?: $Enums.JournalStatus
   reversedById?: string | null
   createdBy?: string | null
@@ -363,6 +391,8 @@ export type JournalEntryUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumJournalSourceTypeFieldUpdateOperationsInput | $Enums.JournalSourceType
   sourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumJournalStatusFieldUpdateOperationsInput | $Enums.JournalStatus
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -381,6 +411,8 @@ export type JournalEntryUncheckedUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumJournalSourceTypeFieldUpdateOperationsInput | $Enums.JournalSourceType
   sourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumJournalStatusFieldUpdateOperationsInput | $Enums.JournalStatus
   reversedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -398,6 +430,8 @@ export type JournalEntryCreateManyInput = {
   description: string
   sourceType: $Enums.JournalSourceType
   sourceId?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
   status?: $Enums.JournalStatus
   reversedById?: string | null
   createdBy?: string | null
@@ -412,6 +446,8 @@ export type JournalEntryUpdateManyMutationInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumJournalSourceTypeFieldUpdateOperationsInput | $Enums.JournalSourceType
   sourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumJournalStatusFieldUpdateOperationsInput | $Enums.JournalStatus
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -426,6 +462,8 @@ export type JournalEntryUncheckedUpdateManyInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumJournalSourceTypeFieldUpdateOperationsInput | $Enums.JournalSourceType
   sourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumJournalStatusFieldUpdateOperationsInput | $Enums.JournalStatus
   reversedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -461,6 +499,8 @@ export type JournalEntryCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   sourceType?: Prisma.SortOrder
   sourceId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
+  costCenterId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   reversedById?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
@@ -476,6 +516,8 @@ export type JournalEntryMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   sourceType?: Prisma.SortOrder
   sourceId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
+  costCenterId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   reversedById?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
@@ -491,6 +533,8 @@ export type JournalEntryMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   sourceType?: Prisma.SortOrder
   sourceId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
+  costCenterId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   reversedById?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
@@ -622,6 +666,8 @@ export type JournalEntryCreateWithoutTenantInput = {
   description: string
   sourceType: $Enums.JournalSourceType
   sourceId?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
   status?: $Enums.JournalStatus
   createdBy?: string | null
   createdAt?: Date | string
@@ -638,6 +684,8 @@ export type JournalEntryUncheckedCreateWithoutTenantInput = {
   description: string
   sourceType: $Enums.JournalSourceType
   sourceId?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
   status?: $Enums.JournalStatus
   reversedById?: string | null
   createdBy?: string | null
@@ -684,6 +732,8 @@ export type JournalEntryScalarWhereInput = {
   description?: Prisma.StringFilter<"JournalEntry"> | string
   sourceType?: Prisma.EnumJournalSourceTypeFilter<"JournalEntry"> | $Enums.JournalSourceType
   sourceId?: Prisma.StringNullableFilter<"JournalEntry"> | string | null
+  companyId?: Prisma.StringNullableFilter<"JournalEntry"> | string | null
+  costCenterId?: Prisma.StringNullableFilter<"JournalEntry"> | string | null
   status?: Prisma.EnumJournalStatusFilter<"JournalEntry"> | $Enums.JournalStatus
   reversedById?: Prisma.StringNullableFilter<"JournalEntry"> | string | null
   createdBy?: Prisma.StringNullableFilter<"JournalEntry"> | string | null
@@ -698,6 +748,8 @@ export type JournalEntryCreateWithoutReversalOfInput = {
   description: string
   sourceType: $Enums.JournalSourceType
   sourceId?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
   status?: $Enums.JournalStatus
   createdBy?: string | null
   createdAt?: Date | string
@@ -715,6 +767,8 @@ export type JournalEntryUncheckedCreateWithoutReversalOfInput = {
   description: string
   sourceType: $Enums.JournalSourceType
   sourceId?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
   status?: $Enums.JournalStatus
   reversedById?: string | null
   createdBy?: string | null
@@ -735,6 +789,8 @@ export type JournalEntryCreateWithoutReversedByInput = {
   description: string
   sourceType: $Enums.JournalSourceType
   sourceId?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
   status?: $Enums.JournalStatus
   createdBy?: string | null
   createdAt?: Date | string
@@ -752,6 +808,8 @@ export type JournalEntryUncheckedCreateWithoutReversedByInput = {
   description: string
   sourceType: $Enums.JournalSourceType
   sourceId?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
   status?: $Enums.JournalStatus
   createdBy?: string | null
   createdAt?: Date | string
@@ -783,6 +841,8 @@ export type JournalEntryUpdateWithoutReversalOfInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumJournalSourceTypeFieldUpdateOperationsInput | $Enums.JournalSourceType
   sourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumJournalStatusFieldUpdateOperationsInput | $Enums.JournalStatus
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -800,6 +860,8 @@ export type JournalEntryUncheckedUpdateWithoutReversalOfInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumJournalSourceTypeFieldUpdateOperationsInput | $Enums.JournalSourceType
   sourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumJournalStatusFieldUpdateOperationsInput | $Enums.JournalStatus
   reversedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -826,6 +888,8 @@ export type JournalEntryUpdateWithoutReversedByInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumJournalSourceTypeFieldUpdateOperationsInput | $Enums.JournalSourceType
   sourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumJournalStatusFieldUpdateOperationsInput | $Enums.JournalStatus
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -843,6 +907,8 @@ export type JournalEntryUncheckedUpdateWithoutReversedByInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumJournalSourceTypeFieldUpdateOperationsInput | $Enums.JournalSourceType
   sourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumJournalStatusFieldUpdateOperationsInput | $Enums.JournalStatus
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -858,6 +924,8 @@ export type JournalEntryCreateWithoutLinesInput = {
   description: string
   sourceType: $Enums.JournalSourceType
   sourceId?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
   status?: $Enums.JournalStatus
   createdBy?: string | null
   createdAt?: Date | string
@@ -875,6 +943,8 @@ export type JournalEntryUncheckedCreateWithoutLinesInput = {
   description: string
   sourceType: $Enums.JournalSourceType
   sourceId?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
   status?: $Enums.JournalStatus
   reversedById?: string | null
   createdBy?: string | null
@@ -906,6 +976,8 @@ export type JournalEntryUpdateWithoutLinesInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumJournalSourceTypeFieldUpdateOperationsInput | $Enums.JournalSourceType
   sourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumJournalStatusFieldUpdateOperationsInput | $Enums.JournalStatus
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -923,6 +995,8 @@ export type JournalEntryUncheckedUpdateWithoutLinesInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumJournalSourceTypeFieldUpdateOperationsInput | $Enums.JournalSourceType
   sourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumJournalStatusFieldUpdateOperationsInput | $Enums.JournalStatus
   reversedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -938,6 +1012,8 @@ export type JournalEntryCreateManyTenantInput = {
   description: string
   sourceType: $Enums.JournalSourceType
   sourceId?: string | null
+  companyId?: string | null
+  costCenterId?: string | null
   status?: $Enums.JournalStatus
   reversedById?: string | null
   createdBy?: string | null
@@ -952,6 +1028,8 @@ export type JournalEntryUpdateWithoutTenantInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumJournalSourceTypeFieldUpdateOperationsInput | $Enums.JournalSourceType
   sourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumJournalStatusFieldUpdateOperationsInput | $Enums.JournalStatus
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -968,6 +1046,8 @@ export type JournalEntryUncheckedUpdateWithoutTenantInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumJournalSourceTypeFieldUpdateOperationsInput | $Enums.JournalSourceType
   sourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumJournalStatusFieldUpdateOperationsInput | $Enums.JournalStatus
   reversedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -984,6 +1064,8 @@ export type JournalEntryUncheckedUpdateManyWithoutTenantInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumJournalSourceTypeFieldUpdateOperationsInput | $Enums.JournalSourceType
   sourceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  costCenterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumJournalStatusFieldUpdateOperationsInput | $Enums.JournalStatus
   reversedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1030,6 +1112,8 @@ export type JournalEntrySelect<ExtArgs extends runtime.Types.Extensions.Internal
   description?: boolean
   sourceType?: boolean
   sourceId?: boolean
+  companyId?: boolean
+  costCenterId?: boolean
   status?: boolean
   reversedById?: boolean
   createdBy?: boolean
@@ -1050,6 +1134,8 @@ export type JournalEntrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   description?: boolean
   sourceType?: boolean
   sourceId?: boolean
+  companyId?: boolean
+  costCenterId?: boolean
   status?: boolean
   reversedById?: boolean
   createdBy?: boolean
@@ -1067,6 +1153,8 @@ export type JournalEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   description?: boolean
   sourceType?: boolean
   sourceId?: boolean
+  companyId?: boolean
+  costCenterId?: boolean
   status?: boolean
   reversedById?: boolean
   createdBy?: boolean
@@ -1084,6 +1172,8 @@ export type JournalEntrySelectScalar = {
   description?: boolean
   sourceType?: boolean
   sourceId?: boolean
+  companyId?: boolean
+  costCenterId?: boolean
   status?: boolean
   reversedById?: boolean
   createdBy?: boolean
@@ -1091,7 +1181,7 @@ export type JournalEntrySelectScalar = {
   updatedAt?: boolean
 }
 
-export type JournalEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "code" | "date" | "description" | "sourceType" | "sourceId" | "status" | "reversedById" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["journalEntry"]>
+export type JournalEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "code" | "date" | "description" | "sourceType" | "sourceId" | "companyId" | "costCenterId" | "status" | "reversedById" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["journalEntry"]>
 export type JournalEntryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   reversedBy?: boolean | Prisma.JournalEntry$reversedByArgs<ExtArgs>
@@ -1124,6 +1214,8 @@ export type $JournalEntryPayload<ExtArgs extends runtime.Types.Extensions.Intern
     description: string
     sourceType: $Enums.JournalSourceType
     sourceId: string | null
+    companyId: string | null
+    costCenterId: string | null
     status: $Enums.JournalStatus
     reversedById: string | null
     createdBy: string | null
@@ -1563,6 +1655,8 @@ export interface JournalEntryFieldRefs {
   readonly description: Prisma.FieldRef<"JournalEntry", 'String'>
   readonly sourceType: Prisma.FieldRef<"JournalEntry", 'JournalSourceType'>
   readonly sourceId: Prisma.FieldRef<"JournalEntry", 'String'>
+  readonly companyId: Prisma.FieldRef<"JournalEntry", 'String'>
+  readonly costCenterId: Prisma.FieldRef<"JournalEntry", 'String'>
   readonly status: Prisma.FieldRef<"JournalEntry", 'JournalStatus'>
   readonly reversedById: Prisma.FieldRef<"JournalEntry", 'String'>
   readonly createdBy: Prisma.FieldRef<"JournalEntry", 'String'>

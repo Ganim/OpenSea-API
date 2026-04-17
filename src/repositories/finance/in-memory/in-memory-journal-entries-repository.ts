@@ -25,6 +25,8 @@ export class InMemoryJournalEntriesRepository
 
   async create(data: CreateJournalEntryData): Promise<JournalEntryWithLines> {
     const now = new Date();
+    const headerCompanyId = data.companyId ?? null;
+    const headerCostCenterId = data.costCenterId ?? null;
     const entry: JournalEntryWithLines = {
       id: randomUUID(),
       tenantId: data.tenantId,
@@ -33,6 +35,8 @@ export class InMemoryJournalEntriesRepository
       description: data.description,
       sourceType: data.sourceType,
       sourceId: data.sourceId ?? null,
+      companyId: headerCompanyId,
+      costCenterId: headerCostCenterId,
       status: 'POSTED',
       reversedById: null,
       createdBy: data.createdBy ?? null,
@@ -50,6 +54,8 @@ export class InMemoryJournalEntriesRepository
           type: line.type,
           amount: line.amount,
           description: line.description ?? null,
+          companyId: line.companyId ?? headerCompanyId,
+          costCenterId: line.costCenterId ?? headerCostCenterId,
         };
       }),
     };

@@ -136,6 +136,8 @@ export class AutoJournalFromPaymentUseCase {
       description,
       sourceType: 'FINANCE_PAYMENT',
       sourceId: paymentId,
+      companyId: entry.companyId?.toString() ?? null,
+      costCenterId: entry.costCenterId?.toString() ?? null,
       lines,
       createdBy,
     });

@@ -135,6 +135,8 @@ export class AutoJournalFromEntryUseCase {
       description,
       sourceType: 'FINANCE_ENTRY',
       sourceId: entryId,
+      companyId: entry.companyId?.toString() ?? null,
+      costCenterId: entry.costCenterId?.toString() ?? null,
       lines,
       createdBy,
     });

@@ -250,6 +250,42 @@ describe('AutoJournalFromPaymentUseCase', () => {
     expect(result).toBeNull();
   });
 
+  it('should propagate companyId/costCenterId from parent entry to settlement journal (P1-13)', async () => {
+    const companyId = 'company-xyz';
+    const costCenterId = 'cc-vendas';
+
+    const entry = await financeEntriesRepository.create({
+      tenantId: TENANT_ID,
+      type: 'RECEIVABLE',
+      code: 'REC-PROP-001',
+      description: 'Venda com contexto',
+      categoryId: categoryReceivableId,
+      companyId,
+      costCenterId,
+      expectedAmount: 700,
+      issueDate: new Date('2025-01-05'),
+      dueDate: new Date('2025-01-15'),
+    });
+
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+      entryId: entry.id.toString(),
+      paymentId: 'payment-uuid-prop-1',
+      bankAccountId,
+      amount: 700,
+      paidAt: new Date('2025-01-12'),
+    });
+
+    expect(result).not.toBeNull();
+    const { journalEntry } = result!;
+    expect(journalEntry.companyId).toBe(companyId);
+    expect(journalEntry.costCenterId).toBe(costCenterId);
+    for (const line of journalEntry.lines) {
+      expect(line.companyId).toBe(companyId);
+      expect(line.costCenterId).toBe(costCenterId);
+    }
+  });
+
   it('should use payment amount, not entry expected amount (supports partial payments)', async () => {
     const entry = await financeEntriesRepository.create({
       tenantId: TENANT_ID,

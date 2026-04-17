@@ -8,6 +8,8 @@ interface PrismaJournalEntryLine {
   type: string;
   amount: Prisma.Decimal;
   description: string | null;
+  companyId: string | null;
+  costCenterId: string | null;
   chartOfAccount?: {
     code: string;
     name: string;
@@ -22,6 +24,8 @@ interface PrismaJournalEntry {
   description: string;
   sourceType: string;
   sourceId: string | null;
+  companyId: string | null;
+  costCenterId: string | null;
   status: string;
   reversedById: string | null;
   createdBy: string | null;
@@ -41,6 +45,8 @@ export function journalEntryToDTO(
     description: entry.description,
     sourceType: entry.sourceType as JournalSourceType,
     sourceId: entry.sourceId,
+    companyId: entry.companyId,
+    costCenterId: entry.costCenterId,
     status: entry.status,
     reversedById: entry.reversedById,
     createdBy: entry.createdBy,
@@ -54,6 +60,8 @@ export function journalEntryToDTO(
       type: line.type as 'DEBIT' | 'CREDIT',
       amount: Number(parseFloat(String(line.amount)).toFixed(2)),
       description: line.description,
+      companyId: line.companyId,
+      costCenterId: line.costCenterId,
     })),
   };
 }

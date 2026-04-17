@@ -2650,7 +2650,8 @@ export const SurveyResponseScalarFieldEnum = {
   surveyId: 'surveyId',
   employeeId: 'employeeId',
   submittedAt: 'submittedAt',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  respondentHash: 'respondentHash'
 } as const
 
 export type SurveyResponseScalarFieldEnum = (typeof SurveyResponseScalarFieldEnum)[keyof typeof SurveyResponseScalarFieldEnum]
@@ -3034,6 +3035,8 @@ export const JournalEntryScalarFieldEnum = {
   description: 'description',
   sourceType: 'sourceType',
   sourceId: 'sourceId',
+  companyId: 'companyId',
+  costCenterId: 'costCenterId',
   status: 'status',
   reversedById: 'reversedById',
   createdBy: 'createdBy',
@@ -3050,7 +3053,9 @@ export const JournalEntryLineScalarFieldEnum = {
   chartOfAccountId: 'chartOfAccountId',
   type: 'type',
   amount: 'amount',
-  description: 'description'
+  description: 'description',
+  companyId: 'companyId',
+  costCenterId: 'costCenterId'
 } as const
 
 export type JournalEntryLineScalarFieldEnum = (typeof JournalEntryLineScalarFieldEnum)[keyof typeof JournalEntryLineScalarFieldEnum]
@@ -8311,6 +8316,7 @@ export const GeneratedEmploymentContractScalarFieldEnum = {
   pdfKey: 'pdfKey',
   generatedBy: 'generatedBy',
   variables: 'variables',
+  signatureEnvelopeId: 'signatureEnvelopeId',
   createdAt: 'createdAt'
 } as const
 

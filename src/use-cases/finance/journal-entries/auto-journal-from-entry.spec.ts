@@ -259,6 +259,66 @@ describe('AutoJournalFromEntryUseCase', () => {
     expect(debitLine?.chartOfAccountId).toBe(expenseAccountId);
   });
 
+  it('should propagate companyId and costCenterId from entry to header and lines (P1-13)', async () => {
+    const companyId = 'company-abc';
+    const costCenterId = 'cc-marketing';
+
+    const entry = await financeEntriesRepository.create({
+      tenantId: TENANT_ID,
+      type: 'PAYABLE',
+      code: 'PAG-PROP-001',
+      description: 'Aluguel com contexto',
+      categoryId: categoryPayableId,
+      companyId,
+      costCenterId,
+      expectedAmount: 1000,
+      issueDate: new Date('2025-01-01'),
+      dueDate: new Date('2025-01-10'),
+    });
+
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+      entryId: entry.id.toString(),
+    });
+
+    expect(result).not.toBeNull();
+    const { journalEntry } = result!;
+
+    expect(journalEntry.companyId).toBe(companyId);
+    expect(journalEntry.costCenterId).toBe(costCenterId);
+    for (const line of journalEntry.lines) {
+      expect(line.companyId).toBe(companyId);
+      expect(line.costCenterId).toBe(costCenterId);
+    }
+  });
+
+  it('should keep companyId/costCenterId null when entry omits them', async () => {
+    const entry = await financeEntriesRepository.create({
+      tenantId: TENANT_ID,
+      type: 'RECEIVABLE',
+      code: 'REC-PROP-NULL',
+      description: 'Venda sem contexto',
+      categoryId: categoryReceivableId,
+      expectedAmount: 200,
+      issueDate: new Date('2025-01-05'),
+      dueDate: new Date('2025-01-15'),
+    });
+
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+      entryId: entry.id.toString(),
+    });
+
+    expect(result).not.toBeNull();
+    const { journalEntry } = result!;
+    expect(journalEntry.companyId).toBeNull();
+    expect(journalEntry.costCenterId).toBeNull();
+    for (const line of journalEntry.lines) {
+      expect(line.companyId).toBeNull();
+      expect(line.costCenterId).toBeNull();
+    }
+  });
+
   it('should return null when no account mapping exists', async () => {
     // Create category with no chartOfAccountId
     const unmappedCategory = await financeCategoriesRepository.create({

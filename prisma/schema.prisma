@@ -5357,15 +5357,25 @@ model SurveyResponse {
   id          String   @id @default(cuid())
   tenantId    String   @map("tenant_id")
   surveyId    String   @map("survey_id")
-  employeeId  String?  @map("employee_id") // Nullable if anonymous
+  employeeId  String?  @map("employee_id") // Nullable if anonymous — MUST be NULL when survey.isAnonymous=true
   submittedAt DateTime @default(now()) @map("submitted_at")
   createdAt   DateTime @default(now()) @map("created_at")
+
+  // Anonymity-preserving dedupe hash.
+  // When the survey is anonymous, we cannot persist employeeId (psychological
+  // safety guarantee) but we still need to reject duplicate submissions from
+  // the same respondent. We store sha256(tenantId || surveyId || employeeId ||
+  // ANON_HASH_SECRET) here so the server can check "already submitted?" without
+  // being able to reverse-engineer the employee identity. This field is NEVER
+  // returned through any API — internal dedupe only.
+  respondentHash String? @map("respondent_hash") @db.VarChar(64)
 
   tenant   Tenant         @relation(fields: [tenantId], references: [id])
   survey   Survey         @relation(fields: [surveyId], references: [id], onDelete: Cascade)
   employee Employee?      @relation("SurveyResponseEmployee", fields: [employeeId], references: [id])
   answers  SurveyAnswer[]
 
+  @@unique([surveyId, respondentHash])
   @@index([tenantId, surveyId])
   @@index([tenantId, employeeId])
   @@map("survey_responses")
@@ -6613,6 +6623,8 @@ model JournalEntry {
   description  String            @db.VarChar(256)
   sourceType   JournalSourceType @map("source_type")
   sourceId     String?           @map("source_id")
+  companyId    String?           @map("company_id")
+  costCenterId String?           @map("cost_center_id")
   status       JournalStatus     @default(POSTED)
   reversedById String?           @unique @map("reversed_by_id")
   createdBy    String?           @map("created_by")
@@ -6627,6 +6639,8 @@ model JournalEntry {
   @@unique([tenantId, code])
   @@index([tenantId, date])
   @@index([tenantId, sourceType, sourceId])
+  @@index([tenantId, companyId])
+  @@index([tenantId, costCenterId])
   @@map("journal_entries")
 }
 
@@ -6637,12 +6651,16 @@ model JournalEntryLine {
   type             EntryLineType
   amount           Decimal       @db.Decimal(18, 2)
   description      String?       @db.VarChar(256)
+  companyId        String?       @map("company_id")
+  costCenterId     String?       @map("cost_center_id")
 
   journalEntry   JournalEntry   @relation(fields: [journalEntryId], references: [id], onDelete: Cascade)
   chartOfAccount ChartOfAccount @relation(fields: [chartOfAccountId], references: [id])
 
   @@index([journalEntryId])
   @@index([chartOfAccountId])
+  @@index([companyId])
+  @@index([costCenterId])
   @@map("journal_entry_lines")
 }
 
@@ -16417,15 +16435,16 @@ model ContractTemplate {
 }
 
 model GeneratedEmploymentContract {
-  id            String  @id @default(cuid())
-  tenantId      String  @map("tenant_id")
-  templateId    String  @map("template_id")
-  employeeId    String  @map("employee_id")
-  storageFileId String? @map("storage_file_id")
-  pdfUrl        String? @map("pdf_url") @db.VarChar(1024)
-  pdfKey        String? @map("pdf_key") @db.VarChar(512)
-  generatedBy   String  @map("generated_by")
-  variables     Json    @default("{}")
+  id                  String  @id @default(cuid())
+  tenantId            String  @map("tenant_id")
+  templateId          String  @map("template_id")
+  employeeId          String  @map("employee_id")
+  storageFileId       String? @map("storage_file_id")
+  pdfUrl              String? @map("pdf_url") @db.VarChar(1024)
+  pdfKey              String? @map("pdf_key") @db.VarChar(512)
+  generatedBy         String  @map("generated_by")
+  variables           Json    @default("{}")
+  signatureEnvelopeId String? @map("signature_envelope_id")
 
   createdAt DateTime @default(now()) @map("created_at")
 
@@ -16438,5 +16457,6 @@ model GeneratedEmploymentContract {
   @@index([templateId])
   @@index([generatedBy])
   @@index([createdAt])
+  @@index([signatureEnvelopeId])
   @@map("hr_generated_employment_contracts")
 }
