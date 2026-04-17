@@ -7,6 +7,7 @@ import {
   bankReconciliationItemPrismaToDomain,
 } from '@/mappers/finance/bank-reconciliation/bank-reconciliation-prisma-to-domain';
 import type { TransactionClient } from '@/lib/transaction-manager';
+import type { Prisma } from '@prisma/generated/client.js';
 import type {
   ReconciliationStatus,
   ReconciliationMatchStatus,
@@ -106,7 +107,7 @@ export class PrismaBankReconciliationsRepository
     const page = options.page ?? 1;
     const limit = options.limit ?? 20;
 
-    const where: Record<string, unknown> = {
+    const where: Prisma.BankReconciliationWhereInput = {
       tenantId: options.tenantId,
     };
 
@@ -127,7 +128,7 @@ export class PrismaBankReconciliationsRepository
     // schema-level enum keeps the whitelist (createdAt | periodStart | status)
     // so we can safely build the orderBy object from runtime input.
     const sortField = options.sortBy ?? 'importDate';
-    const orderBy: Record<string, 'asc' | 'desc'> = {
+    const orderBy: Prisma.BankReconciliationOrderByWithRelationInput = {
       [sortField]: options.sortOrder ?? 'desc',
     };
 
@@ -169,7 +170,8 @@ export class PrismaBankReconciliationsRepository
   ): Promise<BankReconciliation | null> {
     const db = tx ?? prisma;
 
-    const updateData: Record<string, unknown> = {};
+    // updateMany expects scalar-only updates; use UncheckedUpdateMany variant.
+    const updateData: Prisma.BankReconciliationUncheckedUpdateManyInput = {};
     if (data.matchedCount !== undefined)
       updateData.matchedCount = data.matchedCount;
     if (data.unmatchedCount !== undefined)
@@ -200,7 +202,10 @@ export class PrismaBankReconciliationsRepository
   ): Promise<BankReconciliationItem | null> {
     const db = tx ?? prisma;
 
-    const updateData: Record<string, unknown> = {};
+    // Use Unchecked* because updateMany works with scalar fields (no relation
+    // connect/disconnect). This keeps \`matchedEntryId\` as a straightforward
+    // foreign-key write.
+    const updateData: Prisma.BankReconciliationItemUncheckedUpdateManyInput = {};
     if (data.matchedEntryId !== undefined)
       updateData.matchedEntryId = data.matchedEntryId;
     if (data.matchConfidence !== undefined)
