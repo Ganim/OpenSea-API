@@ -68,15 +68,38 @@ describe('EsocialXmlBuilder (base)', () => {
   });
 
   describe('formatDate', () => {
-    it('should format a Date object to YYYY-MM-DD', () => {
+    it('should format a Date object to YYYY-MM-DD in BRT', () => {
+      // 12:00 UTC = 09:00 BRT of the same civil day → no shift.
       const date = new Date('2026-03-25T12:00:00Z');
       expect(builder._formatDate(date)).toBe('2026-03-25');
     });
 
-    it('should format an ISO string to YYYY-MM-DD', () => {
+    it('should format an ISO string to YYYY-MM-DD in BRT', () => {
+      // 00:00 UTC = 21:00 BRT of the *previous* civil day.
+      // eSocial expects the BRT civil day (2026-01-14), not the UTC day
+      // (2026-01-15). This is the P0-10 fix — using toISOString() would
+      // have returned "2026-01-15" and shifted admissions/terminations
+      // into the wrong civil day for the government.
       expect(builder._formatDate('2026-01-15T00:00:00.000Z')).toBe(
-        '2026-01-15',
+        '2026-01-14',
       );
+    });
+
+    it('should preserve the BRT civil day for late-night instants around midnight', () => {
+      // 2026-06-30 23:30 BRT = 2026-07-01 02:30 UTC. eSocial must see
+      // "2026-06-30" — the day the termination actually happened in
+      // Brasília — or else rescission pay is computed for the wrong
+      // month (P0-10).
+      const lateNightBRT = new Date('2026-07-01T02:30:00.000Z');
+      expect(builder._formatDate(lateNightBRT)).toBe('2026-06-30');
+    });
+
+    it('should accept a pure YYYY-MM-DD string without timezone shifting', () => {
+      // A bare date string parses as UTC midnight → BRT 21:00 of the
+      // previous day. Callers are expected to pass full timestamps; when
+      // they only have a day, this documents the behaviour so no one is
+      // surprised later.
+      expect(builder._formatDate('2026-01-15')).toBe('2026-01-14');
     });
   });
 

@@ -8,6 +8,7 @@ const {
   mockEventFindMany,
   mockEventUpdate,
   mockEventUpdateMany,
+  mockEventCount,
   mockBatchCreate,
   mockBatchUpdate,
 } = vi.hoisted(() => ({
@@ -16,6 +17,7 @@ const {
   mockEventFindMany: vi.fn(),
   mockEventUpdate: vi.fn(),
   mockEventUpdateMany: vi.fn(),
+  mockEventCount: vi.fn(),
   mockBatchCreate: vi.fn(),
   mockBatchUpdate: vi.fn(),
 }));
@@ -28,6 +30,7 @@ vi.mock('@/lib/prisma', () => ({
       findMany: mockEventFindMany,
       update: mockEventUpdate,
       updateMany: mockEventUpdateMany,
+      count: mockEventCount,
     },
     esocialBatch: {
       create: mockBatchCreate,
@@ -145,6 +148,9 @@ describe('TransmitBatchUseCase', () => {
     mockSign.mockImplementation(async (xml: string) => `signed:${xml}`);
     mockEventUpdate.mockResolvedValue({});
     mockBatchUpdate.mockResolvedValue({});
+    // Default: no stale TRANSMITTING rows when checking for concurrent
+    // runs. Tests that simulate the lock-held scenario override this.
+    mockEventCount.mockResolvedValue(0);
   });
 
   it('should throw when config is not found', async () => {
@@ -178,20 +184,42 @@ describe('TransmitBatchUseCase', () => {
     mockConfigFindUnique.mockResolvedValue(makeConfig());
     mockCertFindUnique.mockResolvedValue(makeCertificate());
     mockIsExpired.mockReturnValue(false);
-    mockEventFindMany.mockResolvedValue([]);
+    // Lock claim returns 0 — nothing to transmit AND no parallel run in
+    // flight either.
+    mockEventUpdateMany.mockResolvedValueOnce({ count: 0 });
+    mockEventCount.mockResolvedValueOnce(0);
 
     await expect(
       sut.execute({ tenantId: TENANT_ID, userId: USER_ID }),
     ).rejects.toThrow('Nenhum evento aprovado encontrado para transmissão.');
   });
 
+  it('should throw with a clear message when another transmission is already in flight', async () => {
+    mockConfigFindUnique.mockResolvedValue(makeConfig());
+    mockCertFindUnique.mockResolvedValue(makeCertificate());
+    mockIsExpired.mockReturnValue(false);
+    // Lock claim grabbed 0 rows — everything is already claimed by a
+    // concurrent caller (count > 0 in TRANSMITTING state).
+    mockEventUpdateMany.mockResolvedValueOnce({ count: 0 });
+    mockEventCount.mockResolvedValueOnce(5);
+
+    await expect(
+      sut.execute({ tenantId: TENANT_ID, userId: USER_ID }),
+    ).rejects.toThrow('Transmissão já em andamento');
+  });
+
   it('should transmit a batch of approved events successfully', async () => {
     mockConfigFindUnique.mockResolvedValue(makeConfig());
     mockCertFindUnique.mockResolvedValue(makeCertificate());
     mockIsExpired.mockReturnValue(false);
+    // First updateMany (lock claim) grabs 2 rows; the trailing
+    // updateMany in the cleanup step returns 0.
+    mockEventUpdateMany
+      .mockResolvedValueOnce({ count: 2 })
+      .mockResolvedValueOnce({ count: 0 });
     mockEventFindMany.mockResolvedValue([
-      makeApprovedEvent('ev-1'),
-      makeApprovedEvent('ev-2'),
+      makeApprovedEvent('ev-1', { status: 'TRANSMITTING' }),
+      makeApprovedEvent('ev-2', { status: 'TRANSMITTING' }),
     ]);
     mockBatchCreate.mockResolvedValue({
       id: 'batch-new-1',
@@ -236,7 +264,12 @@ describe('TransmitBatchUseCase', () => {
     mockConfigFindUnique.mockResolvedValue(makeConfig());
     mockCertFindUnique.mockResolvedValue(makeCertificate());
     mockIsExpired.mockReturnValue(false);
-    mockEventFindMany.mockResolvedValue([makeApprovedEvent('ev-1')]);
+    mockEventUpdateMany
+      .mockResolvedValueOnce({ count: 1 })
+      .mockResolvedValueOnce({ count: 0 });
+    mockEventFindMany.mockResolvedValue([
+      makeApprovedEvent('ev-1', { status: 'TRANSMITTING' }),
+    ]);
     mockBatchCreate.mockResolvedValue({ id: 'batch-1' });
     mockSendBatch.mockResolvedValue({ protocol: 'P-1' });
 
@@ -264,9 +297,12 @@ describe('TransmitBatchUseCase', () => {
     mockConfigFindUnique.mockResolvedValue(makeConfig());
     mockCertFindUnique.mockResolvedValue(makeCertificate());
     mockIsExpired.mockReturnValue(false);
+    mockEventUpdateMany
+      .mockResolvedValueOnce({ count: 2 })
+      .mockResolvedValueOnce({ count: 0 });
     mockEventFindMany.mockResolvedValue([
-      makeApprovedEvent('ev-1'),
-      makeApprovedEvent('ev-2', { xmlContent: null }),
+      makeApprovedEvent('ev-1', { status: 'TRANSMITTING' }),
+      makeApprovedEvent('ev-2', { status: 'TRANSMITTING', xmlContent: null }),
     ]);
     mockBatchCreate.mockResolvedValue({ id: 'batch-1' });
     mockSendBatch.mockResolvedValue({ protocol: 'P-1' });
@@ -285,12 +321,19 @@ describe('TransmitBatchUseCase', () => {
     mockConfigFindUnique.mockResolvedValue(makeConfig());
     mockCertFindUnique.mockResolvedValue(makeCertificate());
     mockIsExpired.mockReturnValue(false);
-    mockEventFindMany.mockResolvedValue([makeApprovedEvent('ev-1')]);
+    // 1st updateMany = lock claim (1 row), 2nd = revert on SOAP error,
+    // 3rd = cleanup of stale TRANSMITTING rows at end.
+    mockEventUpdateMany
+      .mockResolvedValueOnce({ count: 1 })
+      .mockResolvedValueOnce({ count: 1 })
+      .mockResolvedValueOnce({ count: 0 });
+    mockEventFindMany.mockResolvedValue([
+      makeApprovedEvent('ev-1', { status: 'TRANSMITTING' }),
+    ]);
     mockBatchCreate.mockResolvedValue({ id: 'batch-err' });
     mockSendBatch.mockRejectedValue(
       new Error('Connection timeout to government API'),
     );
-    mockEventUpdateMany.mockResolvedValue({ count: 1 });
 
     const results = await sut.execute({
       tenantId: TENANT_ID,
@@ -322,19 +365,23 @@ describe('TransmitBatchUseCase', () => {
     });
   });
 
-  it('should query only APPROVED events for the tenant', async () => {
+  it('should lock APPROVED events for the tenant via updateMany (idempotency guard)', async () => {
     mockConfigFindUnique.mockResolvedValue(makeConfig());
     mockCertFindUnique.mockResolvedValue(makeCertificate());
     mockIsExpired.mockReturnValue(false);
-    mockEventFindMany.mockResolvedValue([]);
+    mockEventUpdateMany.mockResolvedValueOnce({ count: 0 });
+    mockEventCount.mockResolvedValueOnce(0);
 
     await expect(
       sut.execute({ tenantId: TENANT_ID, userId: USER_ID }),
     ).rejects.toThrow('Nenhum evento aprovado');
 
-    expect(mockEventFindMany).toHaveBeenCalledWith({
+    // The FIRST write must be the atomic APPROVED → TRANSMITTING claim.
+    // This is the P0-07 lock: two concurrent callers cannot both pass
+    // this point with the same events.
+    expect(mockEventUpdateMany).toHaveBeenCalledWith({
       where: { tenantId: TENANT_ID, status: 'APPROVED' },
-      orderBy: { createdAt: 'asc' },
+      data: { status: 'TRANSMITTING' },
     });
   });
 });

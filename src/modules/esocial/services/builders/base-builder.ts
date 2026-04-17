@@ -1,3 +1,5 @@
+import { toBRTDateKey } from '@/utils/hr/brt-timezone';
+
 /**
  * Base class for all eSocial XML event builders.
  *
@@ -38,10 +40,20 @@ export abstract class EsocialXmlBuilder<TInput> {
 
   /**
    * Format a Date (or ISO string) to YYYY-MM-DD for eSocial.
+   *
+   * eSocial expects dates in the civil Brazilian calendar (America/Sao_Paulo).
+   * Using `toISOString()` for a Date created from a BRT civil day at 23:00
+   * would shift into the next UTC day — e.g. a termination recorded at
+   * 2026-06-30 23:30 BRT (02:30 UTC of 2026-07-01) would be submitted as
+   * "2026-07-01", pushing payroll, rescission and period-of-apuracao
+   * calculations into the wrong month (see audit P0-10).
+   *
+   * Always delegate to the BRT helper so the government receives the
+   * date the employer actually experienced.
    */
   protected formatDate(date: Date | string): string {
-    const d = new Date(date);
-    return d.toISOString().split('T')[0]; // YYYY-MM-DD
+    const d = date instanceof Date ? date : new Date(date);
+    return toBRTDateKey(d);
   }
 
   /**
