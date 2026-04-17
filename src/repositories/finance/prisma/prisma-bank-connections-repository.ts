@@ -91,12 +91,20 @@ export class PrismaBankConnectionsRepository
       updateData.accessToken = data.accessToken;
     if (data.lastSyncAt !== undefined) updateData.lastSyncAt = data.lastSyncAt;
 
-    const record = await prisma.bankConnection.update({
-      where: { id: data.id.toString() },
+    const result = await prisma.bankConnection.updateMany({
+      where: { id: data.id.toString(), tenantId: data.tenantId },
       data: updateData,
     });
 
-    return toPersisted(record as unknown as Record<string, unknown>);
+    if (result.count === 0) return null;
+
+    const record = await prisma.bankConnection.findUnique({
+      where: { id: data.id.toString() },
+    });
+
+    return record
+      ? toPersisted(record as unknown as Record<string, unknown>)
+      : null;
   }
 
   async delete(id: UniqueEntityID, tenantId: string): Promise<void> {

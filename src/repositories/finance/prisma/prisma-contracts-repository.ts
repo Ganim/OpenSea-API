@@ -267,24 +267,39 @@ export class PrismaContractsRepository implements ContractsRepository {
     if (data.folderPath !== undefined) updateData.folderPath = data.folderPath;
     if (data.notes !== undefined) updateData.notes = data.notes;
 
-    const contract = await prisma.contract.update({
-      where: { id: data.id.toString() },
+    const where: Record<string, unknown> = {
+      id: data.id.toString(),
+      deletedAt: null,
+    };
+    if (data.tenantId) {
+      where.tenantId = data.tenantId;
+    }
+
+    const result = await prisma.contract.updateMany({
+      where,
       data: updateData,
     });
 
-    return contractPrismaToDomain(contract);
+    if (result.count === 0) return null;
+
+    const contract = await prisma.contract.findUnique({
+      where: { id: data.id.toString() },
+    });
+
+    return contract ? contractPrismaToDomain(contract) : null;
   }
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
-    const whereClause: { id: string; tenantId?: string } = {
+    const where: Record<string, unknown> = {
       id: id.toString(),
+      deletedAt: null,
     };
     if (tenantId) {
-      whereClause.tenantId = tenantId;
+      where.tenantId = tenantId;
     }
 
-    await prisma.contract.update({
-      where: whereClause,
+    await prisma.contract.updateMany({
+      where,
       data: { deletedAt: new Date() },
     });
   }

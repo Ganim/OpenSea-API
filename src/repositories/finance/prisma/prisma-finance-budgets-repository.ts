@@ -79,23 +79,23 @@ export class PrismaFinanceBudgetsRepository
   }
 
   async update(data: UpdateFinanceBudgetSchema): Promise<FinanceBudget | null> {
-    const existing = await prisma.financeBudget.findFirst({
-      where: { id: data.id, tenantId: data.tenantId },
-    });
-
-    if (!existing) return null;
-
     const updateData: Record<string, unknown> = {};
     if (data.budgetAmount !== undefined)
       updateData.budgetAmount = data.budgetAmount;
     if (data.notes !== undefined) updateData.notes = data.notes;
 
-    const raw = await prisma.financeBudget.update({
-      where: { id: data.id },
+    const result = await prisma.financeBudget.updateMany({
+      where: { id: data.id, tenantId: data.tenantId },
       data: updateData,
     });
 
-    return financeBudgetPrismaToDomain(raw);
+    if (result.count === 0) return null;
+
+    const raw = await prisma.financeBudget.findUnique({
+      where: { id: data.id },
+    });
+
+    return raw ? financeBudgetPrismaToDomain(raw) : null;
   }
 
   async delete(id: string, tenantId: string): Promise<void> {

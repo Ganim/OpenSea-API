@@ -120,13 +120,19 @@ export class PrismaOverdueEscalationsRepository
   ): Promise<OverdueEscalation | null> {
     const client = this.getClient(tx);
 
+    // Multi-tenant guard: verify ownership before any write.
+    const owned = await client.overdueEscalation.findFirst({
+      where: { id: data.id.toString(), tenantId: data.tenantId },
+      select: { id: true },
+    });
+    if (!owned) return null;
+
     const updateData: Record<string, unknown> = {};
     if (data.name !== undefined) updateData.name = data.name;
     if (data.isDefault !== undefined) updateData.isDefault = data.isDefault;
     if (data.isActive !== undefined) updateData.isActive = data.isActive;
 
     if (data.steps !== undefined) {
-      // Delete existing steps and recreate
       await client.overdueEscalationStep.deleteMany({
         where: { escalationId: data.id.toString() },
       });
@@ -153,9 +159,9 @@ export class PrismaOverdueEscalationsRepository
     return overdueEscalationPrismaToDomain(raw);
   }
 
-  async delete(id: UniqueEntityID, _tenantId: string): Promise<void> {
-    await prisma.overdueEscalation.update({
-      where: { id: id.toString() },
+  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+    await prisma.overdueEscalation.updateMany({
+      where: { id: id.toString(), tenantId },
       data: { isActive: false },
     });
   }

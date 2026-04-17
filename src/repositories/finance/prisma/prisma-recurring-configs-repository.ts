@@ -178,17 +178,27 @@ export class PrismaRecurringConfigsRepository
     if (data.costCenterId !== undefined)
       updateData.costCenterId = data.costCenterId;
 
-    const raw = await prisma.recurringConfig.update({
-      where: { id: data.id },
+    const result = await prisma.recurringConfig.updateMany({
+      where: {
+        id: data.id,
+        tenantId: data.tenantId,
+        deletedAt: null,
+      },
       data: updateData,
     });
 
-    return recurringConfigPrismaToDomain(raw);
+    if (result.count === 0) return null;
+
+    const raw = await prisma.recurringConfig.findUnique({
+      where: { id: data.id },
+    });
+
+    return raw ? recurringConfigPrismaToDomain(raw) : null;
   }
 
-  async delete(id: string, _tenantId: string): Promise<void> {
-    await prisma.recurringConfig.update({
-      where: { id },
+  async delete(id: string, tenantId: string): Promise<void> {
+    await prisma.recurringConfig.updateMany({
+      where: { id, tenantId, deletedAt: null },
       data: { deletedAt: new Date() },
     });
   }

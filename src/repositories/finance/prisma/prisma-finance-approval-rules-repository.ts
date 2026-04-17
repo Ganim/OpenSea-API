@@ -129,12 +129,22 @@ export class PrismaFinanceApprovalRulesRepository
     if (data.conditions !== undefined) updateData.conditions = data.conditions;
     if (data.priority !== undefined) updateData.priority = data.priority;
 
-    const raw = await client.financeApprovalRule.update({
-      where: { id: data.id.toString() },
+    const result = await client.financeApprovalRule.updateMany({
+      where: {
+        id: data.id.toString(),
+        tenantId: data.tenantId,
+        deletedAt: null,
+      },
       data: updateData,
     });
 
-    return financeApprovalRulePrismaToDomain(raw);
+    if (result.count === 0) return null;
+
+    const raw = await client.financeApprovalRule.findUnique({
+      where: { id: data.id.toString() },
+    });
+
+    return raw ? financeApprovalRulePrismaToDomain(raw) : null;
   }
 
   async incrementAppliedCount(
@@ -148,9 +158,9 @@ export class PrismaFinanceApprovalRulesRepository
     });
   }
 
-  async delete(id: UniqueEntityID, _tenantId: string): Promise<void> {
-    await prisma.financeApprovalRule.update({
-      where: { id: id.toString() },
+  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+    await prisma.financeApprovalRule.updateMany({
+      where: { id: id.toString(), tenantId, deletedAt: null },
       data: { deletedAt: new Date() },
     });
   }

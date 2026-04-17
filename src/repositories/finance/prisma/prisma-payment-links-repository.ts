@@ -110,11 +110,19 @@ export class PrismaPaymentLinksRepository implements PaymentLinksRepository {
     if (data.boletoPdfUrl !== undefined)
       updateData.boletoPdfUrl = data.boletoPdfUrl;
 
-    const record = await prisma.paymentLink.update({
-      where: { id: data.id.toString() },
+    const result = await prisma.paymentLink.updateMany({
+      where: { id: data.id.toString(), tenantId: data.tenantId },
       data: updateData,
     });
 
-    return toPersisted(record as unknown as Record<string, unknown>);
+    if (result.count === 0) return null;
+
+    const record = await prisma.paymentLink.findUnique({
+      where: { id: data.id.toString() },
+    });
+
+    return record
+      ? toPersisted(record as unknown as Record<string, unknown>)
+      : null;
   }
 }
