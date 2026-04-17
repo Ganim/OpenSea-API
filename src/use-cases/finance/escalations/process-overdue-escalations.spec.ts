@@ -247,4 +247,185 @@ describe('ProcessOverdueEscalationsUseCase', () => {
     expect(result.actionsCreated).toBe(1);
     expect(actionsRepository.items[0].channel).toBe('EMAIL');
   });
+
+  // P3-28: when SendEscalationMessageUseCase is injected, the cron must
+  // record gateway failures (Evolution down, missing customer phone) into
+  // the response counters and not bubble them up as crashes.
+  describe('integration with SendEscalationMessageUseCase (P3-28)', () => {
+    it('should record messagesFailed when WhatsApp gateway fails (Evolution error)', async () => {
+      const sendUseCase = {
+        execute: vi.fn().mockResolvedValue({
+          success: false,
+          error: 'Evolution API error (500)',
+        }),
+      };
+
+      const sutWithSend = new ProcessOverdueEscalationsUseCase(
+        entriesRepository,
+        escalationsRepository,
+        actionsRepository,
+        notificationsRepository,
+        sendUseCase as never,
+      );
+
+      await escalationsRepository.create({
+        tenantId,
+        name: 'Padrão',
+        isDefault: true,
+        steps: [
+          {
+            daysOverdue: 1,
+            channel: 'WHATSAPP',
+            templateType: 'FRIENDLY_REMINDER',
+            message: 'Olá {customerName}',
+            order: 1,
+          },
+        ],
+      });
+
+      await entriesRepository.create({
+        tenantId,
+        type: 'RECEIVABLE',
+        code: 'REC-EVO-1',
+        description: 'Cliente com WhatsApp',
+        categoryId,
+        costCenterId,
+        expectedAmount: 1000,
+        customerName: 'Cliente Teste',
+        issueDate: daysAgo(10),
+        dueDate: daysAgo(5),
+        status: 'OVERDUE',
+      });
+
+      const result = await sutWithSend.execute({
+        tenantId,
+        createdBy: userId,
+      });
+
+      expect(result.processed).toBe(1);
+      expect(result.actionsCreated).toBe(1); // action was created
+      expect(result.messagesFailed).toBe(1);
+      expect(result.messagesSent).toBe(0);
+      expect(result.errors[0]).toMatch(/Evolution API error/);
+      expect(sendUseCase.execute).toHaveBeenCalledTimes(1);
+    });
+
+    it('should record messagesFailed when customer has no phone for WhatsApp', async () => {
+      const sendUseCase = {
+        execute: vi.fn().mockResolvedValue({
+          success: false,
+          error:
+            'Número de telefone não encontrado para o cliente da entrada REC-NOPHONE',
+        }),
+      };
+
+      const sutWithSend = new ProcessOverdueEscalationsUseCase(
+        entriesRepository,
+        escalationsRepository,
+        actionsRepository,
+        notificationsRepository,
+        sendUseCase as never,
+      );
+
+      await escalationsRepository.create({
+        tenantId,
+        name: 'Padrão',
+        isDefault: true,
+        steps: [
+          {
+            daysOverdue: 1,
+            channel: 'WHATSAPP',
+            templateType: 'FRIENDLY_REMINDER',
+            message: 'Olá',
+            order: 1,
+          },
+        ],
+      });
+
+      await entriesRepository.create({
+        tenantId,
+        type: 'RECEIVABLE',
+        code: 'REC-NOPHONE',
+        description: 'Cliente sem telefone',
+        categoryId,
+        costCenterId,
+        expectedAmount: 500,
+        customerName: 'Sem Telefone',
+        issueDate: daysAgo(10),
+        dueDate: daysAgo(3),
+        status: 'OVERDUE',
+      });
+
+      const result = await sutWithSend.execute({
+        tenantId,
+        createdBy: userId,
+      });
+
+      expect(result.messagesFailed).toBe(1);
+      expect(result.messagesSent).toBe(0);
+      expect(result.errors[0]).toMatch(/telefone não encontrado/);
+    });
+
+    it('should fan out SYSTEM_ALERT to each notifyUserId and aggregate failures per recipient', async () => {
+      // Two recipients, the gateway fails for one of them — process must
+      // count one success + one failure rather than abort the whole step.
+      let callCount = 0;
+      const sendUseCase = {
+        execute: vi.fn().mockImplementation(async () => {
+          callCount++;
+          if (callCount === 1) {
+            return { success: true };
+          }
+          return { success: false, error: 'Notification store unavailable' };
+        }),
+      };
+
+      const sutWithSend = new ProcessOverdueEscalationsUseCase(
+        entriesRepository,
+        escalationsRepository,
+        actionsRepository,
+        notificationsRepository,
+        sendUseCase as never,
+      );
+
+      await escalationsRepository.create({
+        tenantId,
+        name: 'Padrão',
+        isDefault: true,
+        steps: [
+          {
+            daysOverdue: 1,
+            channel: 'SYSTEM_ALERT',
+            templateType: 'URGENT_NOTICE',
+            message: 'Alerta de cobrança',
+            order: 1,
+          },
+        ],
+      });
+
+      await entriesRepository.create({
+        tenantId,
+        type: 'RECEIVABLE',
+        code: 'REC-FANOUT',
+        description: 'Fan-out test',
+        categoryId,
+        costCenterId,
+        expectedAmount: 200,
+        issueDate: daysAgo(10),
+        dueDate: daysAgo(2),
+        status: 'OVERDUE',
+      });
+
+      const result = await sutWithSend.execute({
+        tenantId,
+        createdBy: userId,
+        notifyUserIds: ['admin-1', 'admin-2'],
+      });
+
+      expect(sendUseCase.execute).toHaveBeenCalledTimes(2);
+      expect(result.messagesSent).toBe(1);
+      expect(result.messagesFailed).toBe(1);
+      expect(result.errors).toHaveLength(1);
+    });
+  });
 });

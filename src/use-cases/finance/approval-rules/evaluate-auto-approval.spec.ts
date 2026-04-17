@@ -393,4 +393,80 @@ describe('EvaluateAutoApprovalUseCase', () => {
 
     expect(result.matched).toBe(true);
   });
+
+  // P3-43: a rule defined with `maxAmount: 0` is degenerate (admin error or
+  // a "block everything" guard) — it must NEVER auto-approve real-world
+  // entries because every PAYABLE has expectedAmount > 0. The current
+  // implementation evaluates `entry.expectedAmount > rule.maxAmount` which
+  // returns true for any positive amount → rule does not match. This pins
+  // that contract: a maxAmount=0 rule effectively disables itself.
+  it('should never match a rule with maxAmount=0 against a positive-amount entry', async () => {
+    await approvalRulesRepo.create({
+      tenantId: TENANT_ID,
+      name: 'Zero ceiling',
+      action: 'AUTO_APPROVE',
+      maxAmount: 0,
+    });
+
+    const entry = await createTestEntry(entriesRepo, { expectedAmount: 0.01 });
+
+    const result = await sut.execute({
+      entryId: entry.id.toString(),
+      tenantId: TENANT_ID,
+    });
+
+    expect(result.matched).toBe(false);
+  });
+
+  it('should not match a rule with maxAmount=0 even with very small entries', async () => {
+    await approvalRulesRepo.create({
+      tenantId: TENANT_ID,
+      name: 'Strict zero ceiling',
+      action: 'AUTO_PAY',
+      maxAmount: 0,
+    });
+
+    // Even R$ 0.50 must be rejected by the maxAmount=0 rule
+    const entry = await createTestEntry(entriesRepo, { expectedAmount: 0.5 });
+
+    const result = await sut.execute({
+      entryId: entry.id.toString(),
+      tenantId: TENANT_ID,
+      createdBy: 'user-1',
+    });
+
+    expect(result.matched).toBe(false);
+    expect(mockRegisterPayment.execute).not.toHaveBeenCalled();
+  });
+
+  it('should fall back to lower-priority rule when maxAmount=0 rule fails to match', async () => {
+    // High-priority maxAmount=0 rule must NOT block lower-priority rules.
+    // The evaluator iterates through rules and stops at the first match;
+    // since maxAmount=0 never matches, the next valid rule wins.
+    await approvalRulesRepo.create({
+      tenantId: TENANT_ID,
+      name: 'Misconfigured zero',
+      action: 'FLAG_REVIEW',
+      priority: 100,
+      maxAmount: 0,
+    });
+
+    await approvalRulesRepo.create({
+      tenantId: TENANT_ID,
+      name: 'Real auto-approve',
+      action: 'AUTO_APPROVE',
+      priority: 10,
+      maxAmount: 1000,
+    });
+
+    const entry = await createTestEntry(entriesRepo, { expectedAmount: 250 });
+
+    const result = await sut.execute({
+      entryId: entry.id.toString(),
+      tenantId: TENANT_ID,
+    });
+
+    expect(result.matched).toBe(true);
+    expect(result.rule?.name).toBe('Real auto-approve');
+  });
 });

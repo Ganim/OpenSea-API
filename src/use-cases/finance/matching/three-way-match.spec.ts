@@ -194,4 +194,90 @@ describe('ThreeWayMatchUseCase', () => {
       sut.execute({ tenantId: TENANT_ID, entryId: ENTRY_ID }),
     ).rejects.toThrow('contas a pagar');
   });
+
+  // P3-44: the AMOUNT_TOLERANCE constant defines the band within which an
+  // invoice and a PO/entry are considered to match. Boundary behaviour
+  // matters for auditors: an invoice within ~1% must be a FULL_MATCH (no
+  // discrepancy), and one well above must be flagged. Today the tolerance
+  // is hardcoded to 0.01 (1%) — these tests pin that contract until/unless
+  // the constant becomes configurable per tenant.
+  it('should consider amount within 1% tolerance as a full amount match (no discrepancy)', async () => {
+    const entry = makeEntry({
+      fiscalDocumentId: 'doc-1',
+      expectedAmount: 5000,
+    });
+    mockPrisma.financeEntry.findFirst.mockResolvedValue(entry);
+    // 5000 vs 5040 → diff/avg = 40/5020 ≈ 0.797% → within tolerance
+    mockPrisma.fiscalDocument.findUnique.mockResolvedValue(
+      makeFiscalDocument({ totalValue: 5040 }),
+    );
+    mockPrisma.financeEntry.findMany.mockResolvedValue([
+      makeEntry({ id: 'entry-2', code: 'PAG-002', expectedAmount: 5040 }),
+    ]);
+    mockPrisma.itemMovement.findMany.mockResolvedValue([makeMovement()]);
+
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+      entryId: ENTRY_ID,
+    });
+
+    const amountDiscrepancies = result.discrepancies.filter(
+      (d) => d.field === 'amount',
+    );
+    expect(amountDiscrepancies).toHaveLength(0);
+    expect(result.matchStatus).toBe('FULL_MATCH');
+  });
+
+  it('should flag amount discrepancy when invoice is well above the 1% tolerance band', async () => {
+    const entry = makeEntry({
+      fiscalDocumentId: 'doc-1',
+      expectedAmount: 1000,
+    });
+    mockPrisma.financeEntry.findFirst.mockResolvedValue(entry);
+    // 1000 vs 1100 → diff/avg = 100/1050 ≈ 9.5% → well outside the 1% band
+    mockPrisma.fiscalDocument.findUnique.mockResolvedValue(
+      makeFiscalDocument({ totalValue: 1100 }),
+    );
+    mockPrisma.financeEntry.findMany.mockResolvedValue([
+      makeEntry({ id: 'entry-2', code: 'PAG-002', expectedAmount: 1100 }),
+    ]);
+    mockPrisma.itemMovement.findMany.mockResolvedValue([makeMovement()]);
+
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+      entryId: ENTRY_ID,
+    });
+
+    const amountDiscrepancies = result.discrepancies.filter(
+      (d) => d.field === 'amount',
+    );
+    expect(amountDiscrepancies).toHaveLength(1);
+    expect(amountDiscrepancies[0].tolerance).toBe('1%');
+  });
+
+  it('should treat zero-amount invoice and zero-amount entry as a match (avoid div-by-zero)', async () => {
+    const entry = makeEntry({
+      fiscalDocumentId: 'doc-1',
+      expectedAmount: 0,
+    });
+    mockPrisma.financeEntry.findFirst.mockResolvedValue(entry);
+    mockPrisma.fiscalDocument.findUnique.mockResolvedValue(
+      makeFiscalDocument({ totalValue: 0 }),
+    );
+    mockPrisma.financeEntry.findMany.mockResolvedValue([
+      makeEntry({ id: 'entry-2', code: 'PAG-002', expectedAmount: 0 }),
+    ]);
+    mockPrisma.itemMovement.findMany.mockResolvedValue([makeMovement()]);
+
+    const result = await sut.execute({
+      tenantId: TENANT_ID,
+      entryId: ENTRY_ID,
+    });
+
+    // amountMatches(0, 0) returns true → no discrepancy
+    const amountDiscrepancies = result.discrepancies.filter(
+      (d) => d.field === 'amount',
+    );
+    expect(amountDiscrepancies).toHaveLength(0);
+  });
 });

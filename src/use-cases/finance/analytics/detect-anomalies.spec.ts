@@ -351,4 +351,57 @@ describe('DetectAnomaliesUseCase', () => {
       expect(spike.description).toContain('R$');
     }
   });
+
+  // P3-41: a caller may legitimately request a tight window (1 or 2 months)
+  // — for example to scan only the most recent invoices. The use case must
+  // not crash, must clamp analyzedPeriod to the requested window, and must
+  // return zero spike anomalies when the trimmed window cannot satisfy the
+  // statistical floor (need >= 3 entries per category to compute stddev).
+  it('should accept months=1 without crashing and return a valid period', async () => {
+    const cat = await createCategory('cat-1', 'Energia', 'tenant-1');
+    const catId = cat.id.toString();
+
+    // 1 entry inside the 1-month window
+    await createEntry({
+      categoryId: catId,
+      expectedAmount: 1500,
+      dueDate: new Date(Date.UTC(2026, 2, 10)), // March 10, 2026 (current month)
+    });
+
+    const result = await sut.execute({ tenantId: 'tenant-1', months: 1 });
+
+    // Window should start at the previous month (Feb) — current month is
+    // March, months: 1 → from = March - 1 = February.
+    expect(result.analyzedPeriod.from).toBe('2026-02-01');
+    expect(result.analyzedPeriod.to).toBe('2026-03-31');
+
+    // Below the 3-entry minimum for stddev — no spike anomalies emitted.
+    const spikes = result.anomalies.filter((a) => a.type === 'EXPENSE_SPIKE');
+    expect(spikes).toHaveLength(0);
+  });
+
+  it('should accept months=2 and still respect the 3-entry minimum', async () => {
+    const cat = await createCategory('cat-1', 'Material', 'tenant-1');
+    const catId = cat.id.toString();
+
+    // Only 2 entries in the 2-month window — not enough for spike detection
+    await createEntry({
+      categoryId: catId,
+      expectedAmount: 100,
+      dueDate: new Date(Date.UTC(2026, 1, 5)), // Feb 2026
+    });
+    await createEntry({
+      categoryId: catId,
+      expectedAmount: 5000,
+      dueDate: new Date(Date.UTC(2026, 2, 10)), // March 2026
+    });
+
+    const result = await sut.execute({ tenantId: 'tenant-1', months: 2 });
+
+    expect(result.analyzedPeriod.from).toBe('2026-01-01');
+    expect(result.analyzedPeriod.to).toBe('2026-03-31');
+
+    const spikes = result.anomalies.filter((a) => a.type === 'EXPENSE_SPIKE');
+    expect(spikes).toHaveLength(0); // <3 entries → guard rejects analysis
+  });
 });

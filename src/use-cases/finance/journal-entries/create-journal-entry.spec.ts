@@ -143,4 +143,111 @@ describe('CreateJournalEntryUseCase', () => {
 
     expect(result.journalEntry).toBeDefined();
   });
+
+  // P3-40: serial Promise.all execution must produce strictly sequential
+  // codes (LC-000001, LC-000002, ...). This is the happy path — each
+  // create awaits its predecessor so the count-based generator sees the
+  // updated state before the next call.
+  it('should generate strictly sequential codes when calls are serialized', async () => {
+    const codes: string[] = [];
+    for (let i = 0; i < 5; i++) {
+      const result = await sut.execute({
+        tenantId: 'tenant-1',
+        date: new Date('2026-04-01'),
+        description: `Lançamento ${i}`,
+        sourceType: 'MANUAL',
+        lines: [
+          { chartOfAccountId: 'account-1', type: 'DEBIT', amount: 100 },
+          { chartOfAccountId: 'account-2', type: 'CREDIT', amount: 100 },
+        ],
+      });
+      codes.push(result.journalEntry.code!);
+    }
+
+    expect(codes).toEqual([
+      'LC-000001',
+      'LC-000002',
+      'LC-000003',
+      'LC-000004',
+      'LC-000005',
+    ]);
+
+    // No two journal entries share the same code.
+    expect(new Set(codes).size).toBe(codes.length);
+  });
+
+  // P3-40: documents the known race in the in-memory generator. When two
+  // generateNextCode() calls resolve before either commit reaches the
+  // repository, both observe the same count and return the same code.
+  // The Prisma counterpart relies on a unique index + retry to protect
+  // production. This test pins the in-memory limitation so anyone touching
+  // generateNextCode notices the divergence.
+  it('demonstrates that in-memory generateNextCode is not concurrency-safe (regression baseline)', async () => {
+    const repo = new InMemoryJournalEntriesRepository();
+
+    const [code1, code2] = await Promise.all([
+      repo.generateNextCode('tenant-1'),
+      repo.generateNextCode('tenant-1'),
+    ]);
+
+    // Both calls observed an empty repository → both return LC-000001.
+    // Production (Prisma) holds a unique index that surfaces the conflict
+    // on insert; the in-memory repo has no such guard. If this assertion
+    // ever flips it means someone added concurrency protection — update
+    // the Prisma side too.
+    expect(code1).toBe('LC-000001');
+    expect(code2).toBe('LC-000001');
+  });
+
+  it('should resume sequential numbering across separate use-case calls in same tenant', async () => {
+    const tenantId = 'tenant-resume';
+
+    for (let i = 0; i < 3; i++) {
+      await sut.execute({
+        tenantId,
+        date: new Date('2026-04-01'),
+        description: `Initial ${i}`,
+        sourceType: 'MANUAL',
+        lines: [
+          { chartOfAccountId: 'account-1', type: 'DEBIT', amount: 10 },
+          { chartOfAccountId: 'account-2', type: 'CREDIT', amount: 10 },
+        ],
+      });
+    }
+
+    // Next code from a fresh generateNextCode call — must continue numbering.
+    const next = await repository.generateNextCode(tenantId);
+    expect(next).toBe('LC-000004');
+  });
+
+  it('should isolate code sequence per tenant', async () => {
+    const tenantA = 'tenant-A';
+    const tenantB = 'tenant-B';
+
+    const a1 = await sut.execute({
+      tenantId: tenantA,
+      date: new Date('2026-04-01'),
+      description: 'A1',
+      sourceType: 'MANUAL',
+      lines: [
+        { chartOfAccountId: 'account-1', type: 'DEBIT', amount: 100 },
+        { chartOfAccountId: 'account-2', type: 'CREDIT', amount: 100 },
+      ],
+    });
+
+    const b1 = await sut.execute({
+      tenantId: tenantB,
+      date: new Date('2026-04-01'),
+      description: 'B1',
+      sourceType: 'MANUAL',
+      lines: [
+        { chartOfAccountId: 'account-1', type: 'DEBIT', amount: 200 },
+        { chartOfAccountId: 'account-2', type: 'CREDIT', amount: 200 },
+      ],
+    });
+
+    // Both tenants start from LC-000001 — sequence is per-tenant.
+    expect(a1.journalEntry.code).toBe('LC-000001');
+    expect(b1.journalEntry.code).toBe('LC-000001');
+  });
 });

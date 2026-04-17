@@ -367,4 +367,162 @@ describe('ProcessEmailToEntryUseCase', () => {
     expect(result.created).toBe(1);
     expect(ocrUseCase.execute).toHaveBeenCalledTimes(2);
   });
+
+  // P3-31: emails carrying disallowed MIME types (zip, exe, executables, etc.)
+  // must be skipped without invoking OCR or the create-entry pipeline. The
+  // findAttachmentParts whitelist is the gatekeeper — if it ever regresses
+  // to accept arbitrary types we'd start running OCR on archives or shells.
+  it('should skip emails whose only attachment has a disallowed MIME type (zip)', async () => {
+    mockPrismaEmailToEntryConfig.findUnique.mockResolvedValue(makeConfig());
+    mockPrismaEmailAccount.findFirst.mockResolvedValue(makeAccount());
+
+    const mockLock = { release: vi.fn() };
+    mockImapClient.getMailboxLock.mockResolvedValue(mockLock);
+
+    const message = {
+      uid: 1,
+      flags: new Set<string>(),
+      envelope: {
+        subject: 'Documentos compactados',
+        messageId: '<msg-zip@test.com>',
+      },
+      bodyStructure: {
+        type: 'multipart',
+        subtype: 'mixed',
+        childNodes: [
+          {
+            type: 'application',
+            subtype: 'zip',
+            part: '2',
+            parameters: { name: 'arquivos.zip' },
+            disposition: { type: 'attachment' },
+          },
+        ],
+      },
+    };
+
+    mockImapClient.fetch.mockReturnValue({
+      [Symbol.asyncIterator]: async function* () {
+        yield message;
+      },
+    });
+
+    mockPrismaEmailToEntryConfig.update.mockResolvedValue(makeConfig());
+
+    const result = await sut.execute({ tenantId: 'tenant-1' });
+
+    expect(result.skipped).toBe(1);
+    expect(result.created).toBe(0);
+    expect(ocrUseCase.execute).not.toHaveBeenCalled();
+    expect(createEntryUseCase.execute).not.toHaveBeenCalled();
+  });
+
+  it('should reject executable attachments (application/octet-stream)', async () => {
+    mockPrismaEmailToEntryConfig.findUnique.mockResolvedValue(makeConfig());
+    mockPrismaEmailAccount.findFirst.mockResolvedValue(makeAccount());
+
+    const mockLock = { release: vi.fn() };
+    mockImapClient.getMailboxLock.mockResolvedValue(mockLock);
+
+    const message = {
+      uid: 1,
+      flags: new Set<string>(),
+      envelope: {
+        subject: 'Possivel malware',
+        messageId: '<msg-exe@test.com>',
+      },
+      bodyStructure: {
+        type: 'multipart',
+        subtype: 'mixed',
+        childNodes: [
+          {
+            type: 'application',
+            subtype: 'octet-stream',
+            part: '2',
+            parameters: { name: 'documento.exe' },
+            disposition: { type: 'attachment' },
+          },
+        ],
+      },
+    };
+
+    mockImapClient.fetch.mockReturnValue({
+      [Symbol.asyncIterator]: async function* () {
+        yield message;
+      },
+    });
+
+    mockPrismaEmailToEntryConfig.update.mockResolvedValue(makeConfig());
+
+    const result = await sut.execute({ tenantId: 'tenant-1' });
+
+    expect(result.skipped).toBe(1);
+    expect(result.created).toBe(0);
+    expect(ocrUseCase.execute).not.toHaveBeenCalled();
+  });
+
+  it('should pick the first allowed attachment when message mixes allowed and disallowed MIME types', async () => {
+    mockPrismaEmailToEntryConfig.findUnique.mockResolvedValue(makeConfig());
+    mockPrismaEmailAccount.findFirst.mockResolvedValue(makeAccount());
+    mockPrismaCostCenter.findFirst.mockResolvedValue({
+      id: 'cc-1',
+      isActive: true,
+    });
+
+    const mockLock = { release: vi.fn() };
+    mockImapClient.getMailboxLock.mockResolvedValue(mockLock);
+
+    const message = {
+      uid: 1,
+      flags: new Set<string>(),
+      envelope: {
+        subject: 'Boleto + assinatura',
+        messageId: '<msg-mixed@test.com>',
+      },
+      bodyStructure: {
+        type: 'multipart',
+        subtype: 'mixed',
+        childNodes: [
+          // Disallowed first — must be ignored.
+          {
+            type: 'application',
+            subtype: 'zip',
+            part: '2',
+            parameters: { name: 'logos.zip' },
+          },
+          // Allowed PDF — must be the one OCR sees.
+          {
+            type: 'application',
+            subtype: 'pdf',
+            part: '3',
+            parameters: { name: 'boleto.pdf' },
+            disposition: { type: 'attachment' },
+          },
+        ],
+      },
+    };
+
+    mockImapClient.fetch.mockReturnValue({
+      [Symbol.asyncIterator]: async function* () {
+        yield message;
+      },
+    });
+
+    mockImapClient.download.mockResolvedValue({
+      content: {
+        [Symbol.asyncIterator]: async function* () {
+          yield Buffer.from('PDF content');
+        },
+      },
+    });
+
+    mockPrismaEmailToEntryConfig.update.mockResolvedValue(makeConfig());
+
+    const result = await sut.execute({ tenantId: 'tenant-1' });
+
+    expect(result.created).toBe(1);
+    expect(ocrUseCase.execute).toHaveBeenCalledWith(
+      expect.objectContaining({ mimeType: 'application/pdf' }),
+    );
+  });
 });
