@@ -57,6 +57,20 @@ export class AcceptReconciliationSuggestionUseCase {
       );
     }
 
+    // P2-07: Belt-and-suspenders cross-tenant guard. The repository-level
+    // findById already scopes by tenantId, but a defensive equality check
+    // here ensures that if the repo interface is ever swapped for one that
+    // forgets the filter, we still refuse to accept a suggestion from a
+    // different tenant. The item/reconciliation tenant match is enforced
+    // downstream by \`updateItem\`, which uses a nested
+    // \`reconciliation: { tenantId }\` clause on updateMany.
+    if (suggestion.tenantId.toString() !== tenantId) {
+      throw new ResourceNotFoundError(
+        'Reconciliation suggestion not found',
+        ErrorCodes.RESOURCE_NOT_FOUND,
+      );
+    }
+
     const runAccept = async (tx?: TransactionClient) => {
       const lockedEntry = tx
         ? await this.financeEntriesRepository.findByIdForUpdate(
@@ -76,16 +90,30 @@ export class AcceptReconciliationSuggestionUseCase {
         );
       }
 
-      await this.bankReconciliationsRepository.updateItem(
+      const updatedItem = await this.bankReconciliationsRepository.updateItem(
         {
           id: suggestion.transactionId,
-          tenantId: suggestion.tenantId.toString(),
+          // Use the request tenantId (verified above to match the
+          // suggestion's tenant). Passing this through to the repo enforces
+          // that the transaction item's parent reconciliation also belongs
+          // to the requesting tenant — otherwise \`updateItem\` returns null
+          // and we abort.
+          tenantId,
           matchedEntryId: suggestion.entryId.toString(),
           matchConfidence: suggestion.score / MAX_POSSIBLE_SCORE,
           matchStatus: 'SUGGESTION_ACCEPTED',
         },
         tx,
       );
+
+      if (!updatedItem) {
+        // Happens when the transaction item was hard-deleted, or — the real
+        // defense — when it belongs to a reconciliation in another tenant.
+        throw new ResourceNotFoundError(
+          'Reconciliation item not found for the requesting tenant',
+          ErrorCodes.RESOURCE_NOT_FOUND,
+        );
+      }
 
       const existingPaymentsSum =
         await this.financeEntryPaymentsRepository.sumByEntryId(

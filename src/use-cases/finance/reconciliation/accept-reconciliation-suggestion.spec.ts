@@ -39,10 +39,31 @@ describe('AcceptReconciliationSuggestionUseCase', () => {
       issueDate: new Date('2026-01-01'),
     });
 
-    // Create a suggestion
+    // Seed a reconciliation + item so the tenant guard on updateItem passes
+    const reconciliation = await reconciliationsRepository.create({
+      tenantId: 'tenant-1',
+      bankAccountId: 'bank-1',
+      fileName: 'extract.ofx',
+      periodStart: new Date('2026-01-01'),
+      periodEnd: new Date('2026-01-31'),
+      totalTransactions: 1,
+    });
+
+    const [item] = await reconciliationsRepository.createItems([
+      {
+        reconciliationId: reconciliation.id.toString(),
+        fitId: 'FIT-1',
+        transactionDate: new Date('2026-01-15'),
+        amount: 1500,
+        description: 'Pagamento fornecedor',
+        type: 'DEBIT',
+      },
+    ]);
+
+    // Create a suggestion pointing to that item
     const suggestion = await suggestionsRepository.create({
       tenantId: 'tenant-1',
-      transactionId: 'tx-1',
+      transactionId: item.id.toString(),
       entryId: entry.id.toString(),
       score: 85,
       matchReasons: ['AMOUNT_EXACT', 'DATE_WITHIN_1_DAY'],
@@ -57,6 +78,38 @@ describe('AcceptReconciliationSuggestionUseCase', () => {
     expect(result.suggestion.status).toBe('ACCEPTED');
     expect(result.suggestion.reviewedBy).toBe('user-1');
     expect(result.suggestion.reviewedAt).toBeDefined();
+  });
+
+  it('should refuse to accept a suggestion from another tenant (P2-07)', async () => {
+    const entry = await entriesRepository.create({
+      tenantId: 'tenant-B',
+      type: 'PAYABLE',
+      code: 'CP-002',
+      description: 'Pagamento fornecedor',
+      categoryId: 'cat-1',
+      expectedAmount: 500,
+      dueDate: new Date('2026-01-15'),
+      issueDate: new Date('2026-01-01'),
+    });
+
+    // Suggestion belongs to tenant-B
+    const suggestion = await suggestionsRepository.create({
+      tenantId: 'tenant-B',
+      transactionId: 'tx-foreign',
+      entryId: entry.id.toString(),
+      score: 85,
+      matchReasons: ['AMOUNT_EXACT'],
+    });
+
+    // Caller is tenant-A — the repo-level findById already scopes by tenant,
+    // so the guard surfaces as the generic "not found" error.
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-A',
+        suggestionId: suggestion.id.toString(),
+        userId: 'user-A',
+      }),
+    ).rejects.toThrow('Reconciliation suggestion not found');
   });
 
   it('should throw when suggestion not found', async () => {
