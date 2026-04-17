@@ -1,4 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { medicalExamResponseSchema } from '@/http/schemas';
@@ -14,7 +16,14 @@ export async function v1GetMedicalExamController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/medical-exams/:examId',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.MEDICAL_EXAMS.ACCESS,
+        resource: 'medical-exams',
+      }),
+    ],
     schema: {
       tags: ['HR - Medical Exams'],
       summary: 'Get medical exam',

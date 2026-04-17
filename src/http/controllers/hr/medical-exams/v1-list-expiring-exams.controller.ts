@@ -1,3 +1,5 @@
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
@@ -15,7 +17,14 @@ export async function v1ListExpiringExamsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/medical-exams/expiring',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.MEDICAL_EXAMS.ACCESS,
+        resource: 'medical-exams',
+      }),
+    ],
     schema: {
       tags: ['HR - Medical Exams'],
       summary: 'List expiring medical exams',

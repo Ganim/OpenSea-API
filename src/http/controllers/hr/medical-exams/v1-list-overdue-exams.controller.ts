@@ -1,3 +1,5 @@
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { medicalExamResponseSchema } from '@/http/schemas';
@@ -12,7 +14,14 @@ export async function v1ListOverdueExamsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/medical-exams/overdue',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.MEDICAL_EXAMS.ACCESS,
+        resource: 'medical-exams',
+      }),
+    ],
     schema: {
       tags: ['HR - Medical Exams'],
       summary: 'List overdue medical exams',
