@@ -19,7 +19,7 @@ import { getWorkflowScheduler } from './services/ai-workflows/workflow-scheduler
 import { getInsightScheduler } from './services/ai-insights/insight-scheduler';
 import { getFinanceScheduler } from './services/finance/finance-scheduler';
 import { BusinessSnapshotService } from './services/ai-tools/business-snapshot.service';
-import { startHrJobs } from './jobs';
+import { startHrJobs, startSignatureJobs } from './jobs';
 
 let isShuttingDown = false;
 const SHUTDOWN_TIMEOUT_MS = 15_000;
@@ -252,6 +252,10 @@ async function start() {
     // in-process scheduling and external schedulers (Fly machines, k8s
     // CronJob etc.) without restarting the API.
     startHrJobs();
+
+    // Signature module crons — auto-expire past-due envelopes at 02:00 BRT
+    // and remind pending signers at 09:00 BRT. Same ENABLE_CRONS gate.
+    startSignatureJobs();
 
     // Neon keep-alive ping — prevents Neon Free tier from suspending the
     // compute after 5 minutes of idle, which causes 1–3s cold-start latency
