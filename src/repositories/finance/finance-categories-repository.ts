@@ -20,6 +20,7 @@ export interface CreateFinanceCategorySchema {
 
 export interface UpdateFinanceCategorySchema {
   id: UniqueEntityID;
+  tenantId: string;
   name?: string;
   slug?: string;
   description?: string;
@@ -57,5 +58,5 @@ export interface FinanceCategoriesRepository {
     tenantId: string,
   ): Promise<void>;
   update(data: UpdateFinanceCategorySchema): Promise<FinanceCategory | null>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId: string): Promise<void>;
 }

@@ -88,6 +88,7 @@ export class UpdateFinanceCategoryUseCase {
 
     const updated = await this.categoriesRepository.update({
       id: new UniqueEntityID(id),
+      tenantId,
       name: name?.trim(),
       slug,
       description: request.description,

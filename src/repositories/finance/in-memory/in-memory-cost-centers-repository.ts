@@ -69,7 +69,12 @@ export class InMemoryCostCentersRepository implements CostCentersRepository {
   }
 
   async update(data: UpdateCostCenterSchema): Promise<CostCenter | null> {
-    const item = this.items.find((i) => !i.deletedAt && i.id.equals(data.id));
+    const item = this.items.find(
+      (i) =>
+        !i.deletedAt &&
+        i.id.equals(data.id) &&
+        i.tenantId.toString() === data.tenantId,
+    );
     if (!item) return null;
 
     if (data.code !== undefined) item.code = data.code;
@@ -91,8 +96,13 @@ export class InMemoryCostCentersRepository implements CostCentersRepository {
     return item;
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
-    const item = this.items.find((i) => !i.deletedAt && i.id.equals(id));
+  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+    const item = this.items.find(
+      (i) =>
+        !i.deletedAt &&
+        i.id.equals(id) &&
+        i.tenantId.toString() === tenantId,
+    );
     if (item) item.delete();
   }
 }

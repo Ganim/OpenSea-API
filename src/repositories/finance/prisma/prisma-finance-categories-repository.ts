@@ -141,42 +141,45 @@ export class PrismaFinanceCategoriesRepository
   async update(
     data: UpdateFinanceCategorySchema,
   ): Promise<FinanceCategory | null> {
-    const category = await prisma.financeCategory.update({
-      where: { id: data.id.toString() },
-      data: {
-        ...(data.name !== undefined && { name: data.name }),
-        ...(data.slug !== undefined && { slug: data.slug }),
-        ...(data.description !== undefined && {
-          description: data.description,
-        }),
-        ...(data.iconUrl !== undefined && { iconUrl: data.iconUrl }),
-        ...(data.color !== undefined && { color: data.color }),
-        ...(data.type !== undefined && {
-          type: data.type as FinanceCategoryType,
-        }),
-        ...(data.parentId !== undefined && { parentId: data.parentId }),
-        ...(data.chartOfAccountId !== undefined && {
-          chartOfAccountId: data.chartOfAccountId,
-        }),
-        ...(data.displayOrder !== undefined && {
-          displayOrder: data.displayOrder,
-        }),
-        ...(data.isActive !== undefined && { isActive: data.isActive }),
-        ...(data.interestRate !== undefined && {
-          interestRate: data.interestRate,
-        }),
-        ...(data.penaltyRate !== undefined && {
-          penaltyRate: data.penaltyRate,
-        }),
+    const updateData: Record<string, unknown> = {};
+    if (data.name !== undefined) updateData.name = data.name;
+    if (data.slug !== undefined) updateData.slug = data.slug;
+    if (data.description !== undefined) updateData.description = data.description;
+    if (data.iconUrl !== undefined) updateData.iconUrl = data.iconUrl;
+    if (data.color !== undefined) updateData.color = data.color;
+    if (data.type !== undefined) updateData.type = data.type as FinanceCategoryType;
+    if (data.parentId !== undefined) updateData.parentId = data.parentId;
+    if (data.chartOfAccountId !== undefined)
+      updateData.chartOfAccountId = data.chartOfAccountId;
+    if (data.displayOrder !== undefined)
+      updateData.displayOrder = data.displayOrder;
+    if (data.isActive !== undefined) updateData.isActive = data.isActive;
+    if (data.interestRate !== undefined)
+      updateData.interestRate = data.interestRate;
+    if (data.penaltyRate !== undefined)
+      updateData.penaltyRate = data.penaltyRate;
+
+    const result = await prisma.financeCategory.updateMany({
+      where: {
+        id: data.id.toString(),
+        tenantId: data.tenantId,
+        deletedAt: null,
       },
+      data: updateData,
     });
 
-    return financeCategoryPrismaToDomain(category);
+    if (result.count === 0) return null;
+
+    const category = await prisma.financeCategory.findUnique({
+      where: { id: data.id.toString() },
+    });
+
+    return category ? financeCategoryPrismaToDomain(category) : null;
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
-    await prisma.financeCategory.update({
-      where: { id: id.toString() },
+  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+    await prisma.financeCategory.updateMany({
+      where: { id: id.toString(), tenantId, deletedAt: null },
       data: { deletedAt: new Date() },
     });
   }

@@ -80,6 +80,7 @@ export class UpdateCostCenterUseCase {
 
     const updated = await this.costCentersRepository.update({
       id: new UniqueEntityID(id),
+      tenantId,
       companyId: request.companyId,
       code: code?.trim(),
       name: name?.trim(),

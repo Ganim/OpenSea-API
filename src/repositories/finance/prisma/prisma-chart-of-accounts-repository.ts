@@ -119,29 +119,38 @@ export class PrismaChartOfAccountsRepository
   async update(
     data: UpdateChartOfAccountSchema,
   ): Promise<ChartOfAccount | null> {
-    const chartOfAccount = await prisma.chartOfAccount.update({
-      where: { id: data.id.toString() },
-      data: {
-        ...(data.code !== undefined && { code: data.code }),
-        ...(data.name !== undefined && { name: data.name }),
-        ...(data.type !== undefined && { type: data.type as AccountType }),
-        ...(data.accountClass !== undefined && {
-          class: data.accountClass as AccountClass,
-        }),
-        ...(data.nature !== undefined && {
-          nature: data.nature as AccountNature,
-        }),
-        ...(data.parentId !== undefined && { parentId: data.parentId }),
-        ...(data.isActive !== undefined && { isActive: data.isActive }),
+    const updateData: Record<string, unknown> = {};
+    if (data.code !== undefined) updateData.code = data.code;
+    if (data.name !== undefined) updateData.name = data.name;
+    if (data.type !== undefined) updateData.type = data.type as AccountType;
+    if (data.accountClass !== undefined)
+      updateData.class = data.accountClass as AccountClass;
+    if (data.nature !== undefined)
+      updateData.nature = data.nature as AccountNature;
+    if (data.parentId !== undefined) updateData.parentId = data.parentId;
+    if (data.isActive !== undefined) updateData.isActive = data.isActive;
+
+    const result = await prisma.chartOfAccount.updateMany({
+      where: {
+        id: data.id.toString(),
+        tenantId: data.tenantId,
+        deletedAt: null,
       },
+      data: updateData,
     });
 
-    return chartOfAccountPrismaToDomain(chartOfAccount);
+    if (result.count === 0) return null;
+
+    const chartOfAccount = await prisma.chartOfAccount.findUnique({
+      where: { id: data.id.toString() },
+    });
+
+    return chartOfAccount ? chartOfAccountPrismaToDomain(chartOfAccount) : null;
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
-    await prisma.chartOfAccount.update({
-      where: { id: id.toString() },
+  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+    await prisma.chartOfAccount.updateMany({
+      where: { id: id.toString(), tenantId, deletedAt: null },
       data: { deletedAt: new Date() },
     });
   }

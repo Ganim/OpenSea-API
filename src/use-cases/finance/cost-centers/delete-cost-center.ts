@@ -72,6 +72,6 @@ export class DeleteCostCenterUseCase {
       );
     }
 
-    await this.costCentersRepository.delete(new UniqueEntityID(id));
+    await this.costCentersRepository.delete(new UniqueEntityID(id), tenantId);
   }
 }

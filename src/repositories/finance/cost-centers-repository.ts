@@ -15,6 +15,7 @@ export interface CreateCostCenterSchema {
 
 export interface UpdateCostCenterSchema {
   id: UniqueEntityID;
+  tenantId: string;
   companyId?: string;
   code?: string;
   name?: string;
@@ -41,5 +42,5 @@ export interface CostCentersRepository {
     limit: number,
   ): Promise<FindManyPaginatedResult>;
   update(data: UpdateCostCenterSchema): Promise<CostCenter | null>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId: string): Promise<void>;
 }

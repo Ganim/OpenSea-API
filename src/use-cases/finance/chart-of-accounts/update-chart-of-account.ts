@@ -114,6 +114,7 @@ export class UpdateChartOfAccountUseCase {
 
     const updated = await this.chartOfAccountsRepository.update({
       id: new UniqueEntityID(id),
+      tenantId,
       code: code?.trim(),
       name: name?.trim(),
       type: request.type,

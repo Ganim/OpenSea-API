@@ -92,32 +92,39 @@ export class PrismaCostCentersRepository implements CostCentersRepository {
   }
 
   async update(data: UpdateCostCenterSchema): Promise<CostCenter | null> {
-    const costCenter = await prisma.costCenter.update({
-      where: { id: data.id.toString() },
-      data: {
-        ...(data.companyId !== undefined && { companyId: data.companyId }),
-        ...(data.code !== undefined && { code: data.code }),
-        ...(data.name !== undefined && { name: data.name }),
-        ...(data.description !== undefined && {
-          description: data.description,
-        }),
-        ...(data.isActive !== undefined && { isActive: data.isActive }),
-        ...(data.monthlyBudget !== undefined && {
-          monthlyBudget: data.monthlyBudget,
-        }),
-        ...(data.annualBudget !== undefined && {
-          annualBudget: data.annualBudget,
-        }),
-        ...(data.parentId !== undefined && { parentId: data.parentId }),
+    const updateData: Record<string, unknown> = {};
+    if (data.companyId !== undefined) updateData.companyId = data.companyId;
+    if (data.code !== undefined) updateData.code = data.code;
+    if (data.name !== undefined) updateData.name = data.name;
+    if (data.description !== undefined) updateData.description = data.description;
+    if (data.isActive !== undefined) updateData.isActive = data.isActive;
+    if (data.monthlyBudget !== undefined)
+      updateData.monthlyBudget = data.monthlyBudget;
+    if (data.annualBudget !== undefined)
+      updateData.annualBudget = data.annualBudget;
+    if (data.parentId !== undefined) updateData.parentId = data.parentId;
+
+    const result = await prisma.costCenter.updateMany({
+      where: {
+        id: data.id.toString(),
+        tenantId: data.tenantId,
+        deletedAt: null,
       },
+      data: updateData,
     });
 
-    return costCenterPrismaToDomain(costCenter);
+    if (result.count === 0) return null;
+
+    const costCenter = await prisma.costCenter.findUnique({
+      where: { id: data.id.toString() },
+    });
+
+    return costCenter ? costCenterPrismaToDomain(costCenter) : null;
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
-    await prisma.costCenter.update({
-      where: { id: id.toString() },
+  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+    await prisma.costCenter.updateMany({
+      where: { id: id.toString(), tenantId, deletedAt: null },
       data: { deletedAt: new Date() },
     });
   }

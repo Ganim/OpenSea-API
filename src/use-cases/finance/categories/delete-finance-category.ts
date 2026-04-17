@@ -91,6 +91,6 @@ export class DeleteFinanceCategoryUseCase {
       );
     }
 
-    await this.categoriesRepository.delete(new UniqueEntityID(id));
+    await this.categoriesRepository.delete(new UniqueEntityID(id), tenantId);
   }
 }

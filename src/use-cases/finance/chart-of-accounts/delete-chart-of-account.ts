@@ -49,6 +49,6 @@ export class DeleteChartOfAccountUseCase {
       );
     }
 
-    await this.chartOfAccountsRepository.delete(uniqueId);
+    await this.chartOfAccountsRepository.delete(uniqueId, tenantId);
   }
 }

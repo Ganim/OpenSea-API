@@ -87,7 +87,10 @@ export class InMemoryChartOfAccountsRepository
     data: UpdateChartOfAccountSchema,
   ): Promise<ChartOfAccount | null> {
     const account = this.items.find(
-      (i) => !i.deletedAt && i.id.equals(data.id),
+      (i) =>
+        !i.deletedAt &&
+        i.id.equals(data.id) &&
+        i.tenantId.toString() === data.tenantId,
     );
     if (!account) return null;
 
@@ -106,8 +109,13 @@ export class InMemoryChartOfAccountsRepository
     return account;
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
-    const account = this.items.find((i) => !i.deletedAt && i.id.equals(id));
+  async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
+    const account = this.items.find(
+      (i) =>
+        !i.deletedAt &&
+        i.id.equals(id) &&
+        i.tenantId.toString() === tenantId,
+    );
     if (account) account.delete();
   }
 }

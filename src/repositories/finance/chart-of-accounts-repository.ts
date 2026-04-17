@@ -15,6 +15,7 @@ export interface CreateChartOfAccountSchema {
 
 export interface UpdateChartOfAccountSchema {
   id: UniqueEntityID;
+  tenantId: string;
   code?: string;
   name?: string;
   type?: string;
@@ -47,5 +48,5 @@ export interface ChartOfAccountsRepository {
     tenantId: string,
   ): Promise<ChartOfAccount[]>;
   update(data: UpdateChartOfAccountSchema): Promise<ChartOfAccount | null>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId: string): Promise<void>;
 }
