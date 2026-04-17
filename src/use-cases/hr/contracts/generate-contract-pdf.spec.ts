@@ -18,7 +18,7 @@ import type {
   UploadOptions,
   UploadResult,
 } from '@/services/storage/file-upload-service';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { GenerateContractPDFUseCase } from './generate-contract-pdf';
 
 // Mock pdfkit to avoid the binary-font dependency in unit tests.
@@ -119,6 +119,8 @@ const generatedByUserId = new UniqueEntityID().toString();
 
 describe('Generate Contract PDF Use Case', () => {
   beforeEach(() => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2026-04-16T12:00:00Z'));
     employeesRepository = new InMemoryEmployeesRepository();
     contractTemplatesRepository = new InMemoryContractTemplatesRepository();
     generatedContractsRepository =
@@ -130,6 +132,10 @@ describe('Generate Contract PDF Use Case', () => {
       generatedContractsRepository,
       fileUploadService,
     );
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
   async function createTestEmployee() {
