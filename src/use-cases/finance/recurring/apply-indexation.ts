@@ -80,16 +80,20 @@ export class ApplyIndexationUseCase {
       }
 
       let adjustmentRate = 0;
-      const isExternalIndex =
-        config.indexationType === 'IPCA' || config.indexationType === 'IGPM';
+      const externalIndexType: 'IPCA' | 'IGPM' | null =
+        config.indexationType === 'IPCA'
+          ? 'IPCA'
+          : config.indexationType === 'IGPM'
+            ? 'IGPM'
+            : null;
 
-      if (isExternalIndex && this.indexRateProvider) {
+      if (externalIndexType && this.indexRateProvider) {
         // Real provider is wired — any failure must surface. Silently falling
         // back to the fixed placeholder would silently underpay/overpay rent
         // or contract installments for every tenant that relies on the real
         // index (common in BR leasing contracts).
         adjustmentRate = await this.indexRateProvider.getIndex(
-          config.indexationType,
+          externalIndexType,
           referenceDate,
         );
       } else {
