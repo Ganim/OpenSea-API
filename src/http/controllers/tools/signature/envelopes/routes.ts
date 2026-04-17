@@ -6,6 +6,7 @@ import { listEnvelopesController } from './v1-list-envelopes.controller';
 import { getEnvelopeByIdController } from './v1-get-envelope-by-id.controller';
 import { cancelEnvelopeController } from './v1-cancel-envelope.controller';
 import { resendNotificationsController } from './v1-resend-notifications.controller';
+import { downloadSignedPdfController } from './v1-download-signed-pdf.controller';
 
 export async function signatureEnvelopesRoutes(app: FastifyInstance) {
   // Admin routes with elevated rate limit
@@ -33,6 +34,7 @@ export async function signatureEnvelopesRoutes(app: FastifyInstance) {
       queryApp.register(rateLimit, rateLimitConfig.query);
       queryApp.register(listEnvelopesController);
       queryApp.register(getEnvelopeByIdController);
+      queryApp.register(downloadSignedPdfController);
     },
     { prefix: '' },
   );

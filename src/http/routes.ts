@@ -216,6 +216,7 @@ import { messagingRoutes } from './controllers/messaging/routes';
 // Signature routes
 import { signatureCertificatesRoutes } from './controllers/tools/signature/certificates/routes';
 import { signatureEnvelopesRoutes } from './controllers/tools/signature/envelopes/routes';
+import { signaturePublicRoutes } from './controllers/tools/signature/public/routes';
 import { signatureSigningRoutes } from './controllers/tools/signature/signing/routes';
 import { signatureTemplatesRoutes } from './controllers/tools/signature/templates/routes';
 
@@ -581,6 +582,7 @@ export async function registerRoutes(app: FastifyInstance) {
   // Signature routes
   await app.register(signatureCertificatesRoutes);
   await app.register(signatureEnvelopesRoutes);
+  await app.register(signaturePublicRoutes);
   await app.register(signatureSigningRoutes);
   await app.register(signatureTemplatesRoutes);
 

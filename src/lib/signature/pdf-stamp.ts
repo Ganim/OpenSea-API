@@ -27,9 +27,7 @@ const COLOR_ACCENT = rgb(0.486, 0.227, 0.929); // violet-600
 const COLOR_BORDER = rgb(0.85, 0.87, 0.92);
 
 function truncate(value: string, maxLength: number): string {
-  return value.length > maxLength
-    ? `${value.slice(0, maxLength - 1)}…`
-    : value;
+  return value.length > maxLength ? `${value.slice(0, maxLength - 1)}…` : value;
 }
 
 function formatSignedAtUTC(date: Date): string {
@@ -287,16 +285,13 @@ export async function appendSignatureCertificate(
     thickness: 0.5,
     color: COLOR_BORDER,
   });
-  page.drawText(
-    'Este documento foi assinado eletronicamente.',
-    {
-      x: MARGIN_X,
-      y: 44,
-      size: 9,
-      font: helveticaBold,
-      color: COLOR_DARK,
-    },
-  );
+  page.drawText('Este documento foi assinado eletronicamente.', {
+    x: MARGIN_X,
+    y: 44,
+    size: 9,
+    font: helveticaBold,
+    color: COLOR_DARK,
+  });
   page.drawText(`Verifique em: ${truncate(params.verifyUrl, 80)}`, {
     x: MARGIN_X,
     y: 30,
