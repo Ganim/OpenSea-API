@@ -3,7 +3,13 @@ import { InMemoryCostCentersRepository } from '@/repositories/finance/in-memory/
 import { InMemoryFinanceCategoriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-categories-repository';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
 import { InMemoryFinanceEntryCostCentersRepository } from '@/repositories/finance/in-memory/in-memory-finance-entry-cost-centers-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+// Mock logger to avoid loading @/@env validation during unit tests
+vi.mock('@/lib/logger', () => ({
+  logger: { info: vi.fn(), debug: vi.fn(), warn: vi.fn(), error: vi.fn() },
+}));
+
 import { CreateFinanceEntriesBatchUseCase } from './create-finance-entries-batch';
 import { CreateFinanceEntryUseCase } from './create-finance-entry';
 

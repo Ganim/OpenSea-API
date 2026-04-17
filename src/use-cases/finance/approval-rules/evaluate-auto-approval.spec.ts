@@ -322,4 +322,75 @@ describe('EvaluateAutoApprovalUseCase', () => {
     const updated = await approvalRulesRepo.findById(rule.id, TENANT_ID);
     expect(updated?.appliedCount).toBe(1);
   });
+
+  // Regression: P1-14 — minRecurrence must only count non-CANCELLED entries.
+  // Previously a supplier with 2 cancelled invoices + 1 new one would
+  // auto-approve under a rule that requires 3 prior entries.
+  it('should exclude CANCELLED entries from minRecurrence count', async () => {
+    await approvalRulesRepo.create({
+      tenantId: TENANT_ID,
+      name: 'Recurrent supplier rule',
+      action: 'AUTO_APPROVE',
+      conditions: {
+        supplierNames: ['Fornecedor Recorrente'],
+        minRecurrence: 3,
+      },
+    });
+
+    // Two previous CANCELLED entries with the same supplier
+    for (let i = 0; i < 2; i++) {
+      const cancelled = await createTestEntry(entriesRepo, {
+        supplierName: 'Fornecedor Recorrente',
+      });
+      await entriesRepo.update({
+        id: cancelled.id,
+        tenantId: TENANT_ID,
+        status: 'CANCELLED',
+      });
+    }
+
+    // Current entry (PENDING)
+    const currentEntry = await createTestEntry(entriesRepo, {
+      supplierName: 'Fornecedor Recorrente',
+    });
+
+    const result = await sut.execute({
+      entryId: currentEntry.id.toString(),
+      tenantId: TENANT_ID,
+    });
+
+    // Only 1 non-CANCELLED entry (the current one). 1 - 1 = 0 < 3 → no match.
+    expect(result.matched).toBe(false);
+  });
+
+  it('should match minRecurrence when enough non-CANCELLED entries exist', async () => {
+    await approvalRulesRepo.create({
+      tenantId: TENANT_ID,
+      name: 'Recurrent supplier rule',
+      action: 'AUTO_APPROVE',
+      conditions: {
+        supplierNames: ['Fornecedor Leal'],
+        minRecurrence: 2,
+      },
+    });
+
+    // 3 previous valid entries
+    for (let i = 0; i < 3; i++) {
+      await createTestEntry(entriesRepo, {
+        supplierName: 'Fornecedor Leal',
+      });
+    }
+
+    // Current entry (PENDING) — 4 total, minus 1 = 3 ≥ 2 → match
+    const currentEntry = await createTestEntry(entriesRepo, {
+      supplierName: 'Fornecedor Leal',
+    });
+
+    const result = await sut.execute({
+      entryId: currentEntry.id.toString(),
+      tenantId: TENANT_ID,
+    });
+
+    expect(result.matched).toBe(true);
+  });
 });

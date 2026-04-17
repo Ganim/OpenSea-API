@@ -148,7 +148,10 @@ export class EvaluateAutoApprovalUseCase {
       }
     }
 
-    // Check minRecurrence: supplier must have >= N previous entries
+    // Check minRecurrence: supplier must have >= N previous entries.
+    // CANCELLED entries must be excluded — otherwise a rule that requires,
+    // say, 3 previous invoices from this supplier would auto-approve after
+    // only one real invoice if two prior ones had been cancelled.
     if (conditions.minRecurrence && conditions.minRecurrence > 0) {
       if (!entry.supplierName) {
         return false;
@@ -157,6 +160,7 @@ export class EvaluateAutoApprovalUseCase {
       const { total } = await this.entriesRepository.findMany({
         tenantId,
         supplierName: entry.supplierName,
+        statusNotIn: ['CANCELLED'],
         limit: 1,
       });
 

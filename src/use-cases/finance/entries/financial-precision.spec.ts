@@ -5,13 +5,19 @@ import { InMemoryFinanceEntryPaymentsRepository } from '@/repositories/finance/i
 import { InMemoryCostCentersRepository } from '@/repositories/finance/in-memory/in-memory-cost-centers-repository';
 import { InMemoryFinanceEntryCostCentersRepository } from '@/repositories/finance/in-memory/in-memory-finance-entry-cost-centers-repository';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { RegisterPaymentUseCase } from './register-payment';
-import { CreateFinanceEntryUseCase } from './create-finance-entry';
+
+// Mock logger to avoid loading @/@env validation during unit tests
+vi.mock('@/lib/logger', () => ({
+  logger: { info: vi.fn(), debug: vi.fn(), warn: vi.fn(), error: vi.fn() },
+}));
 
 // Mock audit queue to avoid Redis connection in tests
 vi.mock('@/workers/queues/audit.queue', () => ({
   queueAuditLog: vi.fn().mockResolvedValue(undefined),
 }));
+
+import { RegisterPaymentUseCase } from './register-payment';
+import { CreateFinanceEntryUseCase } from './create-finance-entry';
 
 let entriesRepository: InMemoryFinanceEntriesRepository;
 let paymentsRepository: InMemoryFinanceEntryPaymentsRepository;

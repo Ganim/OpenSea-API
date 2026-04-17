@@ -105,6 +105,12 @@ export interface FindManyFinanceEntriesOptions {
   sortOrder?: 'asc' | 'desc';
   type?: string;
   status?: string;
+  /**
+   * Excludes entries whose status is in this list. Useful for rules that
+   * need to filter out CANCELLED entries when counting recurrence or
+   * historical activity.
+   */
+  statusNotIn?: string[];
   categoryId?: string;
   companyId?: string;
   costCenterId?: string;

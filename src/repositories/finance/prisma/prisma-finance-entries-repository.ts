@@ -239,6 +239,25 @@ export class PrismaFinanceEntriesRepository
       }
     }
 
+    if (options.statusNotIn && options.statusNotIn.length > 0) {
+      // Preserve any existing equality/in filter (e.g. from options.status)
+      // by merging notIn into the same status where clause.
+      const existing = where.status;
+      if (typeof existing === 'string') {
+        where.status = {
+          equals: existing,
+          notIn: options.statusNotIn as FinanceEntryStatus[],
+        };
+      } else if (existing && typeof existing === 'object') {
+        where.status = {
+          ...existing,
+          notIn: options.statusNotIn as FinanceEntryStatus[],
+        };
+      } else {
+        where.status = { notIn: options.statusNotIn as FinanceEntryStatus[] };
+      }
+    }
+
     if (options.categoryId) {
       where.categoryId = options.categoryId;
     }

@@ -136,6 +136,12 @@ export class InMemoryFinanceEntriesRepository
 
       if (options.type && i.type !== options.type) return false;
       if (options.status && i.status !== options.status) return false;
+      if (
+        options.statusNotIn &&
+        options.statusNotIn.length > 0 &&
+        options.statusNotIn.includes(i.status)
+      )
+        return false;
       if (options.categoryId && i.categoryId.toString() !== options.categoryId)
         return false;
       if (options.companyId && i.companyId?.toString() !== options.companyId)
