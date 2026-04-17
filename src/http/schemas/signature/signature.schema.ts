@@ -124,6 +124,7 @@ export const envelopeResponseSchema = z.object({
   description: z.string().nullable(),
   status: z.string(),
   signatureLevel: z.string(),
+  verificationCode: z.string().nullable(),
   documentFileId: z.string(),
   documentHash: z.string(),
   documentType: z.string().nullable(),

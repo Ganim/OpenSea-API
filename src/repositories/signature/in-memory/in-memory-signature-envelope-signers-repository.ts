@@ -101,6 +101,13 @@ export class InMemorySignatureEnvelopeSignersRepository
       signer.props.geoLongitude = data.geoLongitude;
     if (data.otpVerified !== undefined)
       signer.props.otpVerified = data.otpVerified;
+    if (data.otpCodeHash !== undefined)
+      signer.props.otpCodeHash = data.otpCodeHash;
+    if (data.otpExpiresAt !== undefined)
+      signer.props.otpExpiresAt = data.otpExpiresAt;
+    if (data.otpAttempts !== undefined)
+      signer.props.otpAttempts = data.otpAttempts;
+    if (data.otpSentAt !== undefined) signer.props.otpSentAt = data.otpSentAt;
     if (data.rejectedAt !== undefined)
       signer.props.rejectedAt = data.rejectedAt;
     if (data.rejectedReason !== undefined)

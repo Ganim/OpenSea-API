@@ -109,6 +109,13 @@ export class PrismaSignatureEnvelopeSignersRepository
       updateData.geoLongitude = data.geoLongitude;
     if (data.otpVerified !== undefined)
       updateData.otpVerified = data.otpVerified;
+    if (data.otpCodeHash !== undefined)
+      updateData.otpCodeHash = data.otpCodeHash;
+    if (data.otpExpiresAt !== undefined)
+      updateData.otpExpiresAt = data.otpExpiresAt;
+    if (data.otpAttempts !== undefined)
+      updateData.otpAttempts = data.otpAttempts;
+    if (data.otpSentAt !== undefined) updateData.otpSentAt = data.otpSentAt;
     if (data.rejectedAt !== undefined) updateData.rejectedAt = data.rejectedAt;
     if (data.rejectedReason !== undefined)
       updateData.rejectedReason = data.rejectedReason;

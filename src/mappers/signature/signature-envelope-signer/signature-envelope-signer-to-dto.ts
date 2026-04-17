@@ -20,6 +20,9 @@ export interface SignatureEnvelopeSignerDTO {
   signatureImageFileId: string | null;
   ipAddress: string | null;
   otpVerified: boolean;
+  otpExpiresAt: Date | null;
+  otpAttempts: number;
+  otpSentAt: Date | null;
   rejectedAt: Date | null;
   rejectedReason: string | null;
   lastNotifiedAt: Date | null;
@@ -51,6 +54,9 @@ export function signatureEnvelopeSignerToDTO(
     signatureImageFileId: signer.signatureImageFileId,
     ipAddress: signer.ipAddress,
     otpVerified: signer.otpVerified,
+    otpExpiresAt: signer.otpExpiresAt,
+    otpAttempts: signer.otpAttempts,
+    otpSentAt: signer.otpSentAt,
     rejectedAt: signer.rejectedAt,
     rejectedReason: signer.rejectedReason,
     lastNotifiedAt: signer.lastNotifiedAt,

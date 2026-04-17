@@ -12,6 +12,7 @@ export interface SignatureEnvelopeDTO {
   status: string;
   signatureLevel: string;
   minSignatureLevel: string | null;
+  verificationCode: string | null;
   documentFileId: string;
   documentHash: string;
   signedFileId: string | null;
@@ -46,6 +47,7 @@ export function signatureEnvelopeToDTO(
     status: envelope.status,
     signatureLevel: envelope.signatureLevel,
     minSignatureLevel: envelope.minSignatureLevel,
+    verificationCode: envelope.verificationCode,
     documentFileId: envelope.documentFileId,
     documentHash: envelope.documentHash,
     signedFileId: envelope.signedFileId,

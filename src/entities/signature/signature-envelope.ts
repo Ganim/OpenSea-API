@@ -25,6 +25,7 @@ export interface SignatureEnvelopeProps {
   status: EnvelopeStatusValue;
   signatureLevel: SignatureLevelValue;
   minSignatureLevel: SignatureLevelValue | null;
+  verificationCode: string | null;
   documentFileId: string;
   documentHash: string;
   signedFileId: string | null;
@@ -76,6 +77,10 @@ export class SignatureEnvelope extends Entity<SignatureEnvelopeProps> {
 
   get minSignatureLevel(): SignatureLevelValue | null {
     return this.props.minSignatureLevel;
+  }
+
+  get verificationCode(): string | null {
+    return this.props.verificationCode;
   }
 
   get documentFileId(): string {
@@ -202,6 +207,7 @@ export class SignatureEnvelope extends Entity<SignatureEnvelopeProps> {
       | 'status'
       | 'description'
       | 'minSignatureLevel'
+      | 'verificationCode'
       | 'signedFileId'
       | 'documentType'
       | 'expiresAt'
@@ -225,6 +231,7 @@ export class SignatureEnvelope extends Entity<SignatureEnvelopeProps> {
         status: props.status ?? 'DRAFT',
         description: props.description ?? null,
         minSignatureLevel: props.minSignatureLevel ?? null,
+        verificationCode: props.verificationCode ?? null,
         signedFileId: props.signedFileId ?? null,
         documentType: props.documentType ?? 'PDF',
         expiresAt: props.expiresAt ?? null,

@@ -29,6 +29,7 @@ export class PrismaSignatureEnvelopesRepository
         status: (data.status as EnvelopeStatus) ?? 'DRAFT',
         signatureLevel: data.signatureLevel as SignatureLevel,
         minSignatureLevel: (data.minSignatureLevel as SignatureLevel) ?? null,
+        verificationCode: data.verificationCode ?? null,
         documentFileId: data.documentFileId,
         documentHash: data.documentHash,
         documentType: data.documentType ?? 'PDF',

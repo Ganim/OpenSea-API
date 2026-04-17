@@ -39,6 +39,10 @@ export interface SignatureEnvelopeSignerProps {
   geoLatitude: number | null;
   geoLongitude: number | null;
   otpVerified: boolean;
+  otpCodeHash: string | null;
+  otpExpiresAt: Date | null;
+  otpAttempts: number;
+  otpSentAt: Date | null;
   rejectedAt: Date | null;
   rejectedReason: string | null;
   lastNotifiedAt: Date | null;
@@ -146,6 +150,22 @@ export class SignatureEnvelopeSigner extends Entity<SignatureEnvelopeSignerProps
 
   get otpVerified(): boolean {
     return this.props.otpVerified;
+  }
+
+  get otpCodeHash(): string | null {
+    return this.props.otpCodeHash;
+  }
+
+  get otpExpiresAt(): Date | null {
+    return this.props.otpExpiresAt;
+  }
+
+  get otpAttempts(): number {
+    return this.props.otpAttempts;
+  }
+
+  get otpSentAt(): Date | null {
+    return this.props.otpSentAt;
   }
 
   get rejectedAt(): Date | null {
@@ -256,6 +276,10 @@ export class SignatureEnvelopeSigner extends Entity<SignatureEnvelopeSignerProps
       | 'geoLatitude'
       | 'geoLongitude'
       | 'otpVerified'
+      | 'otpCodeHash'
+      | 'otpExpiresAt'
+      | 'otpAttempts'
+      | 'otpSentAt'
       | 'rejectedAt'
       | 'rejectedReason'
       | 'lastNotifiedAt'
@@ -290,6 +314,10 @@ export class SignatureEnvelopeSigner extends Entity<SignatureEnvelopeSignerProps
         geoLatitude: props.geoLatitude ?? null,
         geoLongitude: props.geoLongitude ?? null,
         otpVerified: props.otpVerified ?? false,
+        otpCodeHash: props.otpCodeHash ?? null,
+        otpExpiresAt: props.otpExpiresAt ?? null,
+        otpAttempts: props.otpAttempts ?? 0,
+        otpSentAt: props.otpSentAt ?? null,
         rejectedAt: props.rejectedAt ?? null,
         rejectedReason: props.rejectedReason ?? null,
         lastNotifiedAt: props.lastNotifiedAt ?? null,

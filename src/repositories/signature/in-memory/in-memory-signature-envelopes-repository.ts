@@ -26,6 +26,7 @@ export class InMemorySignatureEnvelopesRepository
       minSignatureLevel:
         (data.minSignatureLevel as SignatureEnvelope['signatureLevel']) ??
         undefined,
+      verificationCode: data.verificationCode ?? null,
       documentFileId: data.documentFileId,
       documentHash: data.documentHash,
       documentType: data.documentType,

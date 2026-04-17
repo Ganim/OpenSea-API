@@ -31,6 +31,10 @@ export interface UpdateSignerSchema {
   geoLatitude?: number | null;
   geoLongitude?: number | null;
   otpVerified?: boolean;
+  otpCodeHash?: string | null;
+  otpExpiresAt?: Date | null;
+  otpAttempts?: number;
+  otpSentAt?: Date | null;
   rejectedAt?: Date | null;
   rejectedReason?: string | null;
   lastNotifiedAt?: Date | null;

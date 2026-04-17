@@ -30,6 +30,7 @@ export function signatureEnvelopePrismaToDomain(
       status: db.status as EnvelopeStatusValue,
       signatureLevel: db.signatureLevel as SignatureLevelValue,
       minSignatureLevel: db.minSignatureLevel as SignatureLevelValue | null,
+      verificationCode: db.verificationCode ?? null,
       documentFileId: db.documentFileId,
       documentHash: db.documentHash,
       signedFileId: db.signedFileId,

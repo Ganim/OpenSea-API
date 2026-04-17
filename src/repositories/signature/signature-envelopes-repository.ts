@@ -8,6 +8,7 @@ export interface CreateSignatureEnvelopeSchema {
   status?: string;
   signatureLevel: string;
   minSignatureLevel?: string | null;
+  verificationCode?: string | null;
   documentFileId: string;
   documentHash: string;
   documentType?: string;
