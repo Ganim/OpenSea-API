@@ -1,5 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { NotImplementedError } from '@/@errors/use-cases/not-implemented-error';
+import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
 import type { SignatureEnvelopesRepository } from '@/repositories/signature/signature-envelopes-repository';
 import type { SignatureEnvelopeSignersRepository } from '@/repositories/signature/signature-envelope-signers-repository';
 import type { SignatureAuditEventsRepository } from '@/repositories/signature/signature-audit-events-repository';
@@ -47,6 +49,18 @@ export class SignDocumentUseCase {
       signer.accessTokenExpiresAt < new Date()
     ) {
       throw new BadRequestError('Signing link has expired');
+    }
+
+    if (signer.signatureLevel === 'QUALIFIED') {
+      throw new NotImplementedError(
+        'Assinatura qualificada (ICP-Brasil) ainda não implementada.',
+      );
+    }
+
+    if (signer.signatureLevel === 'ADVANCED' && !signer.otpVerified) {
+      throw new UnauthorizedError(
+        'OTP não verificado. Solicite e valide o código antes de assinar.',
+      );
     }
 
     // Update signer

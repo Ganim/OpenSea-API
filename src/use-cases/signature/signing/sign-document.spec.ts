@@ -1,5 +1,7 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { NotImplementedError } from '@/@errors/use-cases/not-implemented-error';
+import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
 import { InMemorySignatureEnvelopesRepository } from '@/repositories/signature/in-memory/in-memory-signature-envelopes-repository';
 import { InMemorySignatureEnvelopeSignersRepository } from '@/repositories/signature/in-memory/in-memory-signature-envelope-signers-repository';
 import { InMemorySignatureAuditEventsRepository } from '@/repositories/signature/in-memory/in-memory-signature-audit-events-repository';
@@ -116,5 +118,118 @@ describe('SignDocumentUseCase', () => {
     await expect(sut.execute({ accessToken: 'token-signed' })).rejects.toThrow(
       BadRequestError,
     );
+  });
+
+  it('should reject ADVANCED signature without OTP verified', async () => {
+    const envelope = await envelopesRepo.create({
+      tenantId: TENANT_ID,
+      title: 'Advanced Contract',
+      signatureLevel: 'ADVANCED',
+      documentFileId: 'f-1',
+      documentHash: 'hash',
+      sourceModule: 'sales',
+      sourceEntityType: 'contract',
+      sourceEntityId: 'c-1',
+      routingType: 'PARALLEL',
+      createdByUserId: 'user-1',
+      status: 'PENDING',
+    });
+
+    await signersRepo.create({
+      tenantId: TENANT_ID,
+      envelopeId: envelope.id.toString(),
+      signatureLevel: 'ADVANCED',
+      accessToken: 'advanced-token-no-otp',
+      accessTokenExpiresAt: new Date(Date.now() + 86400000),
+    });
+
+    await expect(
+      sut.execute({ accessToken: 'advanced-token-no-otp' }),
+    ).rejects.toThrow(UnauthorizedError);
+  });
+
+  it('should allow ADVANCED signature when OTP was verified', async () => {
+    const envelope = await envelopesRepo.create({
+      tenantId: TENANT_ID,
+      title: 'Advanced Contract',
+      signatureLevel: 'ADVANCED',
+      documentFileId: 'f-1',
+      documentHash: 'hash',
+      sourceModule: 'sales',
+      sourceEntityType: 'contract',
+      sourceEntityId: 'c-1',
+      routingType: 'PARALLEL',
+      createdByUserId: 'user-1',
+      status: 'PENDING',
+    });
+
+    await signersRepo.create({
+      tenantId: TENANT_ID,
+      envelopeId: envelope.id.toString(),
+      signatureLevel: 'ADVANCED',
+      accessToken: 'advanced-token-verified',
+      accessTokenExpiresAt: new Date(Date.now() + 86400000),
+    });
+    signersRepo.items[0].props.otpVerified = true;
+
+    await sut.execute({ accessToken: 'advanced-token-verified' });
+
+    expect(signersRepo.items[0].status).toBe('SIGNED');
+  });
+
+  it('should allow SIMPLE signature without OTP (legacy behavior)', async () => {
+    const envelope = await envelopesRepo.create({
+      tenantId: TENANT_ID,
+      title: 'Simple Contract',
+      signatureLevel: 'SIMPLE',
+      documentFileId: 'f-1',
+      documentHash: 'hash',
+      sourceModule: 'sales',
+      sourceEntityType: 'contract',
+      sourceEntityId: 'c-1',
+      routingType: 'PARALLEL',
+      createdByUserId: 'user-1',
+      status: 'PENDING',
+    });
+
+    await signersRepo.create({
+      tenantId: TENANT_ID,
+      envelopeId: envelope.id.toString(),
+      signatureLevel: 'SIMPLE',
+      accessToken: 'simple-token-no-otp',
+      accessTokenExpiresAt: new Date(Date.now() + 86400000),
+    });
+
+    await sut.execute({ accessToken: 'simple-token-no-otp' });
+
+    expect(signersRepo.items[0].status).toBe('SIGNED');
+  });
+
+  it('should reject QUALIFIED signature level with NotImplementedError', async () => {
+    const envelope = await envelopesRepo.create({
+      tenantId: TENANT_ID,
+      title: 'Qualified Contract',
+      signatureLevel: 'QUALIFIED',
+      documentFileId: 'f-1',
+      documentHash: 'hash',
+      sourceModule: 'sales',
+      sourceEntityType: 'contract',
+      sourceEntityId: 'c-1',
+      routingType: 'PARALLEL',
+      createdByUserId: 'user-1',
+      status: 'PENDING',
+    });
+
+    await signersRepo.create({
+      tenantId: TENANT_ID,
+      envelopeId: envelope.id.toString(),
+      signatureLevel: 'QUALIFIED',
+      accessToken: 'qualified-token',
+      accessTokenExpiresAt: new Date(Date.now() + 86400000),
+    });
+
+    await expect(
+      sut.execute({ accessToken: 'qualified-token' }),
+    ).rejects.toThrow(NotImplementedError);
   });
 });
