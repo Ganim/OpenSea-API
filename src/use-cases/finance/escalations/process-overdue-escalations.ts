@@ -90,8 +90,12 @@ export class ProcessOverdueEscalationsUseCase {
       '[process-escalations] overdue entries found',
     );
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    // Use UTC boundary so the escalation cron behaves identically regardless of
+    // server timezone (avoids off-by-one daysOverdue drift).
+    const now = new Date();
+    const today = new Date(
+      Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()),
+    );
 
     for (const entry of overdueEntries) {
       processed++;
@@ -307,9 +311,9 @@ export class ProcessOverdueEscalationsUseCase {
   }
 
   private formatDate(date: Date): string {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const year = date.getUTCFullYear();
     return `${day}/${month}/${year}`;
   }
 }

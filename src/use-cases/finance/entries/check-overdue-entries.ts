@@ -37,16 +37,22 @@ export class CheckOverdueEntriesUseCase {
     logger.info({ tenantId, createdBy }, '[check-overdue] starting');
 
     // Step 1: Find PENDING entries with dueDate < today and mark as OVERDUE
+    // Use UTC boundaries so the cron behaves identically regardless of the
+    // server's local timezone (avoids drift in tenants across regions).
+    const todayUtc = new Date(
+      Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()),
+    );
+
     const { entries: overdueEntries } =
       await this.financeEntriesRepository.findMany({
         tenantId,
         status: 'PENDING',
-        dueDateTo: new Date(now.getFullYear(), now.getMonth(), now.getDate()), // today start
+        dueDateTo: todayUtc,
         limit: 1000,
       });
 
     // Filter only actually overdue (dueDate strictly before today)
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const today = todayUtc;
     const actuallyOverdue = overdueEntries.filter((e) => e.dueDate < today);
 
     logger.info(
@@ -104,7 +110,7 @@ export class CheckOverdueEntriesUseCase {
 
     // Step 2: Find PENDING entries due within dueSoonDays and create DUE_SOON alerts
     const dueSoonDate = new Date(today);
-    dueSoonDate.setDate(dueSoonDate.getDate() + dueSoonDays);
+    dueSoonDate.setUTCDate(dueSoonDate.getUTCDate() + dueSoonDays);
 
     const { entries: dueSoonEntries } =
       await this.financeEntriesRepository.findMany({
@@ -175,9 +181,9 @@ export class CheckOverdueEntriesUseCase {
   }
 
   private formatDate(date: Date): string {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const year = date.getUTCFullYear();
     return `${day}/${month}/${year}`;
   }
 }

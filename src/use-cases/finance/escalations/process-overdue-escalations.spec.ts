@@ -23,10 +23,14 @@ const categoryId = new UniqueEntityID().toString();
 const costCenterId = new UniqueEntityID().toString();
 
 function daysAgo(days: number): Date {
-  const d = new Date();
-  d.setDate(d.getDate() - days);
-  d.setHours(0, 0, 0, 0);
-  return d;
+  const now = new Date();
+  return new Date(
+    Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate() - days,
+    ),
+  );
 }
 
 describe('ProcessOverdueEscalationsUseCase', () => {
