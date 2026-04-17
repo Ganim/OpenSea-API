@@ -178,6 +178,17 @@ export const rateLimitConfig = {
     message:
       'Limite de webhooks de pagamento atingido. Aguarde antes de continuar.',
   },
+
+  /**
+   * Customer portal token endpoints (validate, list invoices, get invoice, generate payment)
+   * Limite restritivo por token+IP para prevenir brute-force de tokens.
+   */
+  customerPortal: {
+    max: 10, // 10 tentativas por minuto por token+IP
+    timeWindow: '1 minute',
+    message:
+      'Muitas tentativas no portal. Aguarde antes de tentar novamente.',
+  },
 } as const;
 
 /**

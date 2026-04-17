@@ -64,4 +64,13 @@ describe('ValidatePortalTokenUseCase', () => {
       sut.execute({ token: 'cpt_expired_token' }),
     ).rejects.toBeInstanceOf(UnauthorizedError);
   });
+
+  it('should take at least 300ms even on invalid token (brute-force timing mitigation)', async () => {
+    const startedAt = Date.now();
+    await expect(
+      sut.execute({ token: 'cpt_nope' }),
+    ).rejects.toBeInstanceOf(UnauthorizedError);
+    const elapsed = Date.now() - startedAt;
+    expect(elapsed).toBeGreaterThanOrEqual(290);
+  });
 });
