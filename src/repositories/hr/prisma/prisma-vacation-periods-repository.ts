@@ -246,13 +246,19 @@ export class PrismaVacationPeriodsRepository
     data: UpdateVacationPeriodSchema,
   ): Promise<VacationPeriod | null> {
     const existingVacationPeriod = await prisma.vacationPeriod.findUnique({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
     });
 
     if (!existingVacationPeriod) return null;
 
     const vacationPeriodData = await prisma.vacationPeriod.update({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
       data: {
         acquisitionStart: data.acquisitionStart,
         acquisitionEnd: data.acquisitionEnd,
@@ -278,7 +284,10 @@ export class PrismaVacationPeriodsRepository
 
   async save(vacationPeriod: VacationPeriod): Promise<void> {
     await prisma.vacationPeriod.update({
-      where: { id: vacationPeriod.id.toString(), tenantId: vacationPeriod.tenantId.toString(), },
+      where: {
+        id: vacationPeriod.id.toString(),
+        tenantId: vacationPeriod.tenantId.toString(),
+      },
       data: {
         usedDays: vacationPeriod.usedDays,
         soldDays: vacationPeriod.soldDays,
@@ -294,7 +303,7 @@ export class PrismaVacationPeriodsRepository
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.vacationPeriod.update({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
       data: { deletedAt: new Date() },
     });
   }

@@ -33,12 +33,18 @@ vi.mock('@/lib/telemetry/payment-reconciliation-telemetry', () => ({
 vi.mock('@/repositories/sales/prisma/prisma-orders-repository', () => ({
   PrismaOrdersRepository: vi.fn().mockImplementation(() => ({})),
 }));
-vi.mock('@/repositories/sales/prisma/prisma-payment-charges-repository', () => ({
-  PrismaPaymentChargesRepository: vi.fn().mockImplementation(() => ({})),
-}));
-vi.mock('@/repositories/sales/prisma/prisma-payment-configs-repository', () => ({
-  PrismaPaymentConfigsRepository: vi.fn().mockImplementation(() => ({})),
-}));
+vi.mock(
+  '@/repositories/sales/prisma/prisma-payment-charges-repository',
+  () => ({
+    PrismaPaymentChargesRepository: vi.fn().mockImplementation(() => ({})),
+  }),
+);
+vi.mock(
+  '@/repositories/sales/prisma/prisma-payment-configs-repository',
+  () => ({
+    PrismaPaymentConfigsRepository: vi.fn().mockImplementation(() => ({})),
+  }),
+);
 vi.mock(
   '@/repositories/sales/prisma/prisma-pos-transaction-payments-repository',
   () => ({
@@ -47,9 +53,12 @@ vi.mock(
       .mockImplementation(() => ({})),
   }),
 );
-vi.mock('@/repositories/sales/prisma/prisma-pos-transactions-repository', () => ({
-  PrismaPosTransactionsRepository: vi.fn().mockImplementation(() => ({})),
-}));
+vi.mock(
+  '@/repositories/sales/prisma/prisma-pos-transactions-repository',
+  () => ({
+    PrismaPosTransactionsRepository: vi.fn().mockImplementation(() => ({})),
+  }),
+);
 vi.mock('@/services/payment/payment-provider.factory', () => ({
   PaymentProviderFactory: vi.fn().mockImplementation(() => ({})),
 }));

@@ -149,13 +149,19 @@ export class PrismaPayrollsRepository implements PayrollsRepository {
 
   async update(data: UpdatePayrollSchema): Promise<Payroll | null> {
     const existingPayroll = await prisma.payroll.findUnique({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
     });
 
     if (!existingPayroll) return null;
 
     const payrollData = await prisma.payroll.update({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
       data: {
         status: data.status as PayrollStatus | undefined,
         totalGross: data.totalGross,
@@ -185,7 +191,10 @@ export class PrismaPayrollsRepository implements PayrollsRepository {
   async save(payroll: Payroll, tx?: TransactionClient): Promise<void> {
     const client = tx ?? prisma;
     await client.payroll.update({
-      where: { id: payroll.id.toString(), tenantId: payroll.tenantId.toString(), },
+      where: {
+        id: payroll.id.toString(),
+        tenantId: payroll.tenantId.toString(),
+      },
       data: {
         status: payroll.status.value as PayrollStatus,
         totalGross: payroll.totalGross,
@@ -204,7 +213,7 @@ export class PrismaPayrollsRepository implements PayrollsRepository {
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.payroll.delete({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
     });
   }
 }

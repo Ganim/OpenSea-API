@@ -1,4 +1,7 @@
-import type { TransactionClient, TransactionManager } from './transaction-manager';
+import type {
+  TransactionClient,
+  TransactionManager,
+} from './transaction-manager';
 
 /**
  * Test-only TransactionManager that serializes concurrent transactions

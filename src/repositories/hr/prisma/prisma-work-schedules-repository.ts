@@ -105,13 +105,19 @@ export class PrismaWorkSchedulesRepository implements WorkSchedulesRepository {
 
   async update(data: UpdateWorkScheduleSchema): Promise<WorkSchedule | null> {
     const existingSchedule = await prisma.workSchedule.findUnique({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
     });
 
     if (!existingSchedule) return null;
 
     const workScheduleData = await prisma.workSchedule.update({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
       data: {
         name: data.name,
         description: data.description,
@@ -143,7 +149,10 @@ export class PrismaWorkSchedulesRepository implements WorkSchedulesRepository {
 
   async save(workSchedule: WorkSchedule): Promise<void> {
     await prisma.workSchedule.update({
-      where: { id: workSchedule.id.toString(), tenantId: workSchedule.tenantId.toString(), },
+      where: {
+        id: workSchedule.id.toString(),
+        tenantId: workSchedule.tenantId.toString(),
+      },
       data: {
         name: workSchedule.name,
         description: workSchedule.description,
@@ -169,7 +178,7 @@ export class PrismaWorkSchedulesRepository implements WorkSchedulesRepository {
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.workSchedule.delete({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
     });
   }
 }

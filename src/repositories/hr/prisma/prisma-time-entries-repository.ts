@@ -2,7 +2,10 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { TimeEntry } from '@/entities/hr/time-entry';
 import { prisma } from '@/lib/prisma';
 import { mapTimeEntryPrismaToDomain } from '@/mappers/hr/time-entry';
-import { Prisma, TimeEntryType as PrismaTimeEntryType } from '@prisma/generated/client.js';
+import {
+  Prisma,
+  TimeEntryType as PrismaTimeEntryType,
+} from '@prisma/generated/client.js';
 import type {
   CreateTimeEntrySchema,
   FindManyTimeEntriesResult,
@@ -184,7 +187,7 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.timeEntry.delete({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
     });
   }
 

@@ -58,9 +58,9 @@ export async function v1CheckInKeyResultController(app: FastifyInstance) {
       );
 
       if (!authorEmployee) {
-        return reply
-          .status(404)
-          .send({ message: 'No employee linked to the current user in this tenant' });
+        return reply.status(404).send({
+          message: 'No employee linked to the current user in this tenant',
+        });
       }
 
       const useCase = makeCheckInKeyResultUseCase();

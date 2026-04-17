@@ -112,9 +112,7 @@ export class InMemoryChartOfAccountsRepository
   async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
     const account = this.items.find(
       (i) =>
-        !i.deletedAt &&
-        i.id.equals(id) &&
-        i.tenantId.toString() === tenantId,
+        !i.deletedAt && i.id.equals(id) && i.tenantId.toString() === tenantId,
     );
     if (account) account.delete();
   }

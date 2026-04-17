@@ -117,7 +117,7 @@ export class PrismaCipaMembersRepository implements CipaMembersRepository {
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.cipaMember.delete({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
     });
   }
 }

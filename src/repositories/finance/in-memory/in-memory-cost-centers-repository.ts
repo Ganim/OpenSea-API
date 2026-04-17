@@ -72,10 +72,7 @@ export class InMemoryCostCentersRepository implements CostCentersRepository {
       if (i.tenantId.toString() !== tenantId) return false;
       if (filters?.isActive !== undefined && i.isActive !== filters.isActive)
         return false;
-      if (
-        filters?.companyId &&
-        i.companyId?.toString() !== filters.companyId
-      )
+      if (filters?.companyId && i.companyId?.toString() !== filters.companyId)
         return false;
       if (filters?.search) {
         const needle = filters.search.toLowerCase();
@@ -121,9 +118,7 @@ export class InMemoryCostCentersRepository implements CostCentersRepository {
   async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
     const item = this.items.find(
       (i) =>
-        !i.deletedAt &&
-        i.id.equals(id) &&
-        i.tenantId.toString() === tenantId,
+        !i.deletedAt && i.id.equals(id) && i.tenantId.toString() === tenantId,
     );
     if (item) item.delete();
   }

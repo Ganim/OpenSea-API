@@ -195,9 +195,9 @@ describe('LinkInstallmentsToEntriesUseCase', () => {
 
     // Rename the loan on the domain entity (simulates an updateLoan call)
     await loansRepository.update({
-      id: new (await import('@/entities/domain/unique-entity-id')).UniqueEntityID(
-        loan.id,
-      ),
+      id: new (
+        await import('@/entities/domain/unique-entity-id')
+      ).UniqueEntityID(loan.id),
       tenantId: 'tenant-1',
       name: 'Empréstimo Renomeado',
     });

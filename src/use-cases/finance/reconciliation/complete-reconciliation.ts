@@ -56,8 +56,7 @@ export class CompleteReconciliationUseCase {
 
     if (!force) {
       const pendingItemsCount = (reconciliationWithItems.items ?? []).filter(
-        (reconciliationItem) =>
-          reconciliationItem.matchStatus === 'UNMATCHED',
+        (reconciliationItem) => reconciliationItem.matchStatus === 'UNMATCHED',
       ).length;
 
       const hasPendingItems =

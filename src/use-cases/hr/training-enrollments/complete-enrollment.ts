@@ -112,10 +112,7 @@ export class CompleteEnrollmentUseCase {
     // is enough to unblock the 30-day compliance deadline and kick off the
     // manual review.
     let esocialEventQueued = false;
-    if (
-      program?.isMandatoryForESocial &&
-      this.esocialEventsRepository
-    ) {
+    if (program?.isMandatoryForESocial && this.esocialEventsRepository) {
       // Placeholder XML — the final XML is assembled when HR fills in infoAmb
       // + fatRisco via the S-2240 review UI. We store a minimal marker so
       // the DRAFT row is valid and discoverable by referenceId.

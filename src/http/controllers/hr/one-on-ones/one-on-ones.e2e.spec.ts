@@ -279,9 +279,7 @@ describe('1:1 Meetings — CRUD, talking points and action items (E2E)', () => {
       const { token } = await createAndAuthenticateUser(app, { tenantId });
 
       const response = await request(app.server)
-        .patch(
-          `/v1/hr/one-on-ones/action-items/${NON_EXISTENT_ACTION_ITEM_ID}`,
-        )
+        .patch(`/v1/hr/one-on-ones/action-items/${NON_EXISTENT_ACTION_ITEM_ID}`)
         .set('Authorization', `Bearer ${token}`)
         .send({ isCompleted: true });
 
@@ -291,9 +289,7 @@ describe('1:1 Meetings — CRUD, talking points and action items (E2E)', () => {
 
     it('should reject unauthenticated request', async () => {
       const response = await request(app.server)
-        .patch(
-          `/v1/hr/one-on-ones/action-items/${NON_EXISTENT_ACTION_ITEM_ID}`,
-        )
+        .patch(`/v1/hr/one-on-ones/action-items/${NON_EXISTENT_ACTION_ITEM_ID}`)
         .send({ isCompleted: true });
 
       expect([400, 401]).toContain(response.status);

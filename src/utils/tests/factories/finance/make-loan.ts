@@ -27,14 +27,15 @@ export function makeLoan(
 
   return {
     tenantId: overrides.tenantId ?? new UniqueEntityID().toString(),
-    bankAccountId:
-      overrides.bankAccountId ?? new UniqueEntityID().toString(),
-    costCenterId:
-      overrides.costCenterId ?? new UniqueEntityID().toString(),
-    name: overrides.name ?? `${faker.company.name()} - ${faker.finance.accountName()}`,
-    type: overrides.type ?? faker.helpers.arrayElement(['CDC', 'FINANCING', 'WORKING_CAPITAL']),
-    contractNumber:
-      overrides.contractNumber ?? faker.finance.accountNumber(10),
+    bankAccountId: overrides.bankAccountId ?? new UniqueEntityID().toString(),
+    costCenterId: overrides.costCenterId ?? new UniqueEntityID().toString(),
+    name:
+      overrides.name ??
+      `${faker.company.name()} - ${faker.finance.accountName()}`,
+    type:
+      overrides.type ??
+      faker.helpers.arrayElement(['CDC', 'FINANCING', 'WORKING_CAPITAL']),
+    contractNumber: overrides.contractNumber ?? faker.finance.accountNumber(10),
     principalAmount,
     outstandingBalance,
     interestRate:
@@ -45,8 +46,7 @@ export function makeLoan(
       faker.helpers.arrayElement(['FIXED', 'VARIABLE']),
     startDate,
     endDate:
-      overrides.endDate ??
-      faker.date.future({ years: 5, refDate: startDate }),
+      overrides.endDate ?? faker.date.future({ years: 5, refDate: startDate }),
     totalInstallments:
       overrides.totalInstallments ??
       faker.helpers.arrayElement([12, 24, 36, 48, 60]),

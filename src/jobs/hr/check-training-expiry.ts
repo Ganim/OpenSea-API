@@ -52,7 +52,8 @@ export async function checkTrainingExpiry(options?: {
     options?.expiredSince ??
     new Date(referenceDate.getTime() - 24 * 60 * 60 * 1000);
 
-  const trainingEnrollmentsRepository = new PrismaTrainingEnrollmentsRepository();
+  const trainingEnrollmentsRepository =
+    new PrismaTrainingEnrollmentsRepository();
   const trainingProgramsRepository = new PrismaTrainingProgramsRepository();
   const employeesRepository = new PrismaEmployeesRepository();
   const createNotificationUseCase = makeCreateNotificationUseCase();
@@ -62,12 +63,10 @@ export async function checkTrainingExpiry(options?: {
     `${LOG_PREFIX} starting`,
   );
 
-  const upcoming = await trainingEnrollmentsRepository.findExpiringWithin(
-    lookaheadDays,
-  );
-  const expired = await trainingEnrollmentsRepository.findExpiredSince(
-    expiredSince,
-  );
+  const upcoming =
+    await trainingEnrollmentsRepository.findExpiringWithin(lookaheadDays);
+  const expired =
+    await trainingEnrollmentsRepository.findExpiredSince(expiredSince);
 
   let upcomingNotified = 0;
   let expiredNotified = 0;
@@ -89,8 +88,9 @@ export async function checkTrainingExpiry(options?: {
       await createNotificationUseCase.execute({
         userId,
         title: 'Treinamento próximo do vencimento',
-        message: `A certificação de "${program.name}" vence em ${enrollment
-          .expirationDate!.toLocaleDateString('pt-BR')}.`,
+        message: `A certificação de "${program.name}" vence em ${enrollment.expirationDate!.toLocaleDateString(
+          'pt-BR',
+        )}.`,
         type: 'WARNING',
         priority: 'HIGH',
         channel: 'IN_APP',
@@ -120,10 +120,9 @@ export async function checkTrainingExpiry(options?: {
       await createNotificationUseCase.execute({
         userId,
         title: 'Re-inscrição necessária',
-        message: `A certificação de "${program.name}" expirou em ${enrollment
-          .expirationDate!.toLocaleDateString(
-            'pt-BR',
-          )}. É necessário realizar uma nova inscrição no treinamento.`,
+        message: `A certificação de "${program.name}" expirou em ${enrollment.expirationDate!.toLocaleDateString(
+          'pt-BR',
+        )}. É necessário realizar uma nova inscrição no treinamento.`,
         type: 'ERROR',
         priority: 'HIGH',
         channel: 'IN_APP',
@@ -136,10 +135,7 @@ export async function checkTrainingExpiry(options?: {
     }
   }
 
-  logger.info(
-    { upcomingNotified, expiredNotified },
-    `${LOG_PREFIX} finished`,
-  );
+  logger.info({ upcomingNotified, expiredNotified }, `${LOG_PREFIX} finished`);
 
   return { upcomingNotified, expiredNotified };
 }

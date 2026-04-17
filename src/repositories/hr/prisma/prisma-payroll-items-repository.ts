@@ -220,13 +220,19 @@ export class PrismaPayrollItemsRepository implements PayrollItemsRepository {
 
   async update(data: UpdatePayrollItemSchema): Promise<PayrollItem | null> {
     const existingItem = await prisma.payrollItem.findUnique({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
     });
 
     if (!existingItem) return null;
 
     const itemData = await prisma.payrollItem.update({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
       data: {
         description: data.description,
         amount: data.amount,
@@ -241,7 +247,7 @@ export class PrismaPayrollItemsRepository implements PayrollItemsRepository {
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.payrollItem.delete({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
     });
   }
 

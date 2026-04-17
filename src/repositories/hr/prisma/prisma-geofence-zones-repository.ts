@@ -89,7 +89,7 @@ export class PrismaGeofenceZonesRepository implements GeofenceZonesRepository {
     data: UpdateGeofenceZoneData,
   ): Promise<GeofenceZone> {
     const record = await prisma.geofenceZone.update({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
       data,
     });
 

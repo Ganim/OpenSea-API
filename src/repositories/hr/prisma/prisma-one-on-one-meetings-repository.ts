@@ -104,7 +104,10 @@ export class PrismaOneOnOneMeetingsRepository
 
   async save(meeting: OneOnOneMeeting): Promise<void> {
     await prisma.oneOnOneMeeting.update({
-      where: { id: meeting.id.toString(), tenantId: meeting.tenantId.toString(), },
+      where: {
+        id: meeting.id.toString(),
+        tenantId: meeting.tenantId.toString(),
+      },
       data: {
         scheduledAt: meeting.scheduledAt,
         durationMinutes: meeting.durationMinutes,

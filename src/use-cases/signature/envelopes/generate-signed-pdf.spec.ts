@@ -137,9 +137,9 @@ describe('GenerateSignedPDFUseCase', () => {
     expect(response.signedFileId).not.toBeNull();
     expect(response.signedPdfUrl).not.toBeNull();
     expect(uploadService.uploadedBuffers).toHaveLength(1);
-    expect(
-      uploadService.uploadedBuffers[0].subarray(0, 4).toString(),
-    ).toBe('%PDF');
+    expect(uploadService.uploadedBuffers[0].subarray(0, 4).toString()).toBe(
+      '%PDF',
+    );
     expect(createdStorageFiles).toHaveLength(1);
     expect(createdFileVersions).toHaveLength(1);
     expect(envelopesRepo.items[0].signedFileId).toBe(response.signedFileId);

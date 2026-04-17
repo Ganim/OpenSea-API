@@ -73,10 +73,7 @@ describe('runDocExpiryJob (P3-05)', () => {
   });
 
   it('returns zero counts when no tenants need scanning', async () => {
-    const result = await runDocExpiryJob(
-      {},
-      { listTenants: async () => [] },
-    );
+    const result = await runDocExpiryJob({}, { listTenants: async () => [] });
 
     expect(useCaseExecuteSpy).not.toHaveBeenCalled();
     expect(result.tenantsProcessed).toBe(0);

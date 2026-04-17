@@ -186,8 +186,7 @@ export const rateLimitConfig = {
   customerPortal: {
     max: 10, // 10 tentativas por minuto por token+IP
     timeWindow: '1 minute',
-    message:
-      'Muitas tentativas no portal. Aguarde antes de tentar novamente.',
+    message: 'Muitas tentativas no portal. Aguarde antes de tentar novamente.',
   },
 
   /**

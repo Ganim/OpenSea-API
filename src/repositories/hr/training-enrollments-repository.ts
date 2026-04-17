@@ -68,9 +68,7 @@ export interface TrainingEnrollmentsRepository {
    * the window is exclusive of the upper bound so consecutive daily runs
    * don't double-fire the same notification.
    */
-  findExpiringWithin(
-    daysAhead: number,
-  ): Promise<TrainingEnrollment[]>;
+  findExpiringWithin(daysAhead: number): Promise<TrainingEnrollment[]>;
   /**
    * COMPLETED enrollments that already expired since the previous cron run.
    * Caller must persist its own "last-seen" cursor; the repo stays

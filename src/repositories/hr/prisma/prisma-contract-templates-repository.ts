@@ -116,7 +116,11 @@ export class PrismaContractTemplatesRepository
     data: UpdateContractTemplateSchema,
   ): Promise<ContractTemplate | null> {
     const existing = await prisma.contractTemplate.findFirst({
-      where: { id: data.id.toString(), deletedAt: null, ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        deletedAt: null,
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
     });
 
     if (!existing) return null;
@@ -129,7 +133,10 @@ export class PrismaContractTemplatesRepository
     if (data.isDefault !== undefined) updateData.isDefault = data.isDefault;
 
     const templateData = await prisma.contractTemplate.update({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
       data: updateData,
     });
 
@@ -141,7 +148,10 @@ export class PrismaContractTemplatesRepository
 
   async save(template: ContractTemplate): Promise<void> {
     await prisma.contractTemplate.update({
-      where: { id: template.id.toString(), tenantId: template.tenantId.toString(), },
+      where: {
+        id: template.id.toString(),
+        tenantId: template.tenantId.toString(),
+      },
       data: {
         name: template.name,
         type: template.type,
@@ -155,7 +165,7 @@ export class PrismaContractTemplatesRepository
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.contractTemplate.update({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
       data: { deletedAt: new Date(), isActive: false, isDefault: false },
     });
   }

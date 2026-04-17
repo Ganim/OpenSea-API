@@ -21,18 +21,14 @@ export function makeConsortium(
 
   const monthlyPayment =
     overrides.monthlyPayment ??
-    Number(
-      (creditValue / totalInstallments + creditValue * 0.002).toFixed(2),
-    );
+    Number((creditValue / totalInstallments + creditValue * 0.002).toFixed(2));
 
   const startDate = overrides.startDate ?? faker.date.past({ years: 2 });
 
   return {
     tenantId: overrides.tenantId ?? new UniqueEntityID().toString(),
-    bankAccountId:
-      overrides.bankAccountId ?? new UniqueEntityID().toString(),
-    costCenterId:
-      overrides.costCenterId ?? new UniqueEntityID().toString(),
+    bankAccountId: overrides.bankAccountId ?? new UniqueEntityID().toString(),
+    costCenterId: overrides.costCenterId ?? new UniqueEntityID().toString(),
     name: overrides.name ?? `Consórcio ${faker.vehicle.type()}`,
     administrator:
       overrides.administrator ??
@@ -44,8 +40,7 @@ export function makeConsortium(
       ]),
     groupNumber: overrides.groupNumber ?? faker.string.numeric(4),
     quotaNumber: overrides.quotaNumber ?? faker.string.numeric(3),
-    contractNumber:
-      overrides.contractNumber ?? faker.finance.accountNumber(10),
+    contractNumber: overrides.contractNumber ?? faker.finance.accountNumber(10),
     creditValue,
     monthlyPayment,
     totalInstallments,
@@ -53,8 +48,7 @@ export function makeConsortium(
     isContemplated: overrides.isContemplated ?? false,
     startDate,
     endDate: overrides.endDate,
-    paymentDay:
-      overrides.paymentDay ?? faker.number.int({ min: 1, max: 28 }),
+    paymentDay: overrides.paymentDay ?? faker.number.int({ min: 1, max: 28 }),
     notes: overrides.notes,
     metadata: overrides.metadata ?? {},
   };

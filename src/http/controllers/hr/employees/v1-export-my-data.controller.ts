@@ -54,9 +54,10 @@ export async function v1ExportMyDataController(app: FastifyInstance) {
       });
 
       if (!employee) {
-        return reply
-          .status(404)
-          .send({ message: 'Nenhum registro de colaborador vinculado à sua conta de usuário.' });
+        return reply.status(404).send({
+          message:
+            'Nenhum registro de colaborador vinculado à sua conta de usuário.',
+        });
       }
 
       const employeeId = employee.id;

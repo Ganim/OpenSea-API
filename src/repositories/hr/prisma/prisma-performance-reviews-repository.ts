@@ -135,13 +135,19 @@ export class PrismaPerformanceReviewsRepository
     data: UpdatePerformanceReviewSchema,
   ): Promise<PerformanceReview | null> {
     const existingReview = await prisma.performanceReview.findUnique({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
     });
 
     if (!existingReview) return null;
 
     const reviewData = await prisma.performanceReview.update({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
       data: {
         status: data.status,
         selfScore: data.selfScore,
@@ -166,7 +172,7 @@ export class PrismaPerformanceReviewsRepository
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.performanceReview.delete({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
     });
   }
 }

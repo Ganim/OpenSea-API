@@ -223,8 +223,7 @@ describe('Hire Application Use Case', () => {
   it('should keep the application status unchanged if the Employee cannot be created', async () => {
     const { application } = await seedHireableApplication();
 
-    const originalCreate =
-      employeesRepository.create.bind(employeesRepository);
+    const originalCreate = employeesRepository.create.bind(employeesRepository);
     employeesRepository.create = async () => {
       throw new Error('Simulated DB failure');
     };

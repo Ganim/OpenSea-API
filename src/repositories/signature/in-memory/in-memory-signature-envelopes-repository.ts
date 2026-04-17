@@ -72,8 +72,7 @@ export class InMemorySignatureEnvelopesRepository
   ): Promise<SignatureEnvelope | null> {
     return (
       this.items.find(
-        (item) =>
-          item.verificationCode === verificationCode && !item.deletedAt,
+        (item) => item.verificationCode === verificationCode && !item.deletedAt,
       ) ?? null
     );
   }

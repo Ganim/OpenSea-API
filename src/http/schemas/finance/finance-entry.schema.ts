@@ -532,74 +532,78 @@ export const bulkOperationResultSchema = z.object({
 // `dueDateFrom/To` (the canonical names used by the repository) and
 // `dateFrom/To` (the shared generic aliases). When both are provided, the
 // canonical dueDate* names win.
-export const listFinanceEntriesQuerySchema = z.object({
-  page: z.coerce.number().int().positive().optional().default(1),
-  limit: z.coerce.number().int().positive().max(100).optional().default(20),
-  sortBy: z
-    .enum(['createdAt', 'dueDate', 'expectedAmount', 'description', 'status'])
-    .optional()
-    .default('createdAt'),
-  sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
-  type: z.enum(['PAYABLE', 'RECEIVABLE']).optional(),
-  status: z
-    .string()
-    .optional()
-    .describe(
-      'Status do lançamento (pode ser um valor ou comma-separated: PENDING,OVERDUE)',
-    ),
-  categoryId: z.string().uuid().optional().describe('Filtrar por categoria'),
-  costCenterId: z
-    .string()
-    .uuid()
-    .optional()
-    .describe('Filtrar por centro de custo'),
-  bankAccountId: z
-    .string()
-    .uuid()
-    .optional()
-    .describe('Filtrar por conta bancária'),
-  dueDateFrom: z.coerce
-    .date()
-    .optional()
-    .describe('Vencimento a partir de (YYYY-MM-DD)'),
-  dueDateTo: z.coerce.date().optional().describe('Vencimento até (YYYY-MM-DD)'),
-  // P2-45: generic aliases
-  dateFrom: z.coerce
-    .date()
-    .optional()
-    .describe('Alias genérico de dueDateFrom (YYYY-MM-DD)'),
-  dateTo: z.coerce
-    .date()
-    .optional()
-    .describe('Alias genérico de dueDateTo (YYYY-MM-DD)'),
-  isOverdue: z
-    .enum(['true', 'false'])
-    .transform((v) => v === 'true')
-    .optional()
-    .describe('Apenas lançamentos vencidos'),
-  customerName: z.string().optional().describe('Filtrar por nome do cliente'),
-  supplierName: z
-    .string()
-    .optional()
-    .describe('Filtrar por nome do fornecedor'),
-  overdueRange: z
-    .enum(['1-7', '8-30', '31-60', '60+'])
-    .optional()
-    .describe('Faixa de atraso em dias'),
-  search: z
-    .string()
-    .optional()
-    .describe('Busca textual por descrição, código, fornecedor ou cliente'),
-  // P1-35: allow listing only soft-deleted entries (recycle-bin view) or
-  // include them alongside the active ones. The frontend already sent this
-  // flag but the schema stripped it and the repo forced deletedAt:null.
-  includeDeleted: z
-    .enum(['true', 'false', 'only'])
-    .transform((v) => (v === 'only' ? 'only' : v === 'true'))
-    .optional()
-    .describe(
-      'Incluir lançamentos excluídos: "true" = todos, "only" = apenas excluídos, omitido = apenas ativos',
-    ),
+export const listFinanceEntriesQuerySchema = z
+  .object({
+    page: z.coerce.number().int().positive().optional().default(1),
+    limit: z.coerce.number().int().positive().max(100).optional().default(20),
+    sortBy: z
+      .enum(['createdAt', 'dueDate', 'expectedAmount', 'description', 'status'])
+      .optional()
+      .default('createdAt'),
+    sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
+    type: z.enum(['PAYABLE', 'RECEIVABLE']).optional(),
+    status: z
+      .string()
+      .optional()
+      .describe(
+        'Status do lançamento (pode ser um valor ou comma-separated: PENDING,OVERDUE)',
+      ),
+    categoryId: z.string().uuid().optional().describe('Filtrar por categoria'),
+    costCenterId: z
+      .string()
+      .uuid()
+      .optional()
+      .describe('Filtrar por centro de custo'),
+    bankAccountId: z
+      .string()
+      .uuid()
+      .optional()
+      .describe('Filtrar por conta bancária'),
+    dueDateFrom: z.coerce
+      .date()
+      .optional()
+      .describe('Vencimento a partir de (YYYY-MM-DD)'),
+    dueDateTo: z.coerce
+      .date()
+      .optional()
+      .describe('Vencimento até (YYYY-MM-DD)'),
+    // P2-45: generic aliases
+    dateFrom: z.coerce
+      .date()
+      .optional()
+      .describe('Alias genérico de dueDateFrom (YYYY-MM-DD)'),
+    dateTo: z.coerce
+      .date()
+      .optional()
+      .describe('Alias genérico de dueDateTo (YYYY-MM-DD)'),
+    isOverdue: z
+      .enum(['true', 'false'])
+      .transform((v) => v === 'true')
+      .optional()
+      .describe('Apenas lançamentos vencidos'),
+    customerName: z.string().optional().describe('Filtrar por nome do cliente'),
+    supplierName: z
+      .string()
+      .optional()
+      .describe('Filtrar por nome do fornecedor'),
+    overdueRange: z
+      .enum(['1-7', '8-30', '31-60', '60+'])
+      .optional()
+      .describe('Faixa de atraso em dias'),
+    search: z
+      .string()
+      .optional()
+      .describe('Busca textual por descrição, código, fornecedor ou cliente'),
+    // P1-35: allow listing only soft-deleted entries (recycle-bin view) or
+    // include them alongside the active ones. The frontend already sent this
+    // flag but the schema stripped it and the repo forced deletedAt:null.
+    includeDeleted: z
+      .enum(['true', 'false', 'only'])
+      .transform((v) => (v === 'only' ? 'only' : v === 'true'))
+      .optional()
+      .describe(
+        'Incluir lançamentos excluídos: "true" = todos, "only" = apenas excluídos, omitido = apenas ativos',
+      ),
   })
   // P2-45: collapse `dateFrom/To` aliases into `dueDateFrom/To` after the
   // object has parsed. Canonical dueDate* wins when both are present.

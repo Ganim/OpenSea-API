@@ -48,9 +48,9 @@ describe('ListBankConnectionsUseCase', () => {
     const result = await sut.execute({ tenantId: 'tenant-1' });
 
     expect(result.connections).toHaveLength(2);
-    expect(
-      result.connections.every((c) => c.tenantId === 'tenant-1'),
-    ).toBe(true);
+    expect(result.connections.every((c) => c.tenantId === 'tenant-1')).toBe(
+      true,
+    );
     const externalIds = result.connections.map((c) => c.externalItemId);
     expect(externalIds).toEqual(expect.arrayContaining(['item-a', 'item-b']));
     expect(externalIds).not.toContain('item-c');

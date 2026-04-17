@@ -74,12 +74,13 @@ export class AssignPPEUseCase {
     const runAssign = async (
       tx?: Parameters<Parameters<TransactionManager['run']>[0]>[0],
     ): Promise<PPEAssignment> => {
-      const decrementResult = await this.ppeItemsRepository.atomicDecrementStock(
-        new UniqueEntityID(ppeItemId),
-        quantity,
-        tenantId,
-        tx,
-      );
+      const decrementResult =
+        await this.ppeItemsRepository.atomicDecrementStock(
+          new UniqueEntityID(ppeItemId),
+          quantity,
+          tenantId,
+          tx,
+        );
 
       if (decrementResult.count === 0) {
         // Either the row was deleted between the findById above and this

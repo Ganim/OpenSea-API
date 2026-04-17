@@ -71,7 +71,7 @@ export class UpdateFinanceEntryUseCase {
     await assertPeriodNotLocked(
       tenantId,
       existingEntry.dueDate,
-      this.periodLockChecker
+      this.periodLockChecker,
     );
     if (
       request.dueDate &&
@@ -80,7 +80,7 @@ export class UpdateFinanceEntryUseCase {
       await assertPeriodNotLocked(
         tenantId,
         request.dueDate,
-        this.periodLockChecker
+        this.periodLockChecker,
       );
     }
 

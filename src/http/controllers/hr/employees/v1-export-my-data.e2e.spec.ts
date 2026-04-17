@@ -109,7 +109,9 @@ describe('Export My Data — LGPD SAR (E2E)', () => {
     const { tenantId: otherTenantId } = await createAndSetupTenant();
 
     const { user: userA } = await createAndAuthenticateUser(app, { tenantId });
-    const { token: tokenA } = await createAndAuthenticateUser(app, { tenantId });
+    const { token: tokenA } = await createAndAuthenticateUser(app, {
+      tenantId,
+    });
 
     await createEmployeeE2E({ tenantId, userId: userA.user.id });
 

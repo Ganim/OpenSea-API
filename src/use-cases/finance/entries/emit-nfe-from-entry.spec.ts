@@ -373,13 +373,11 @@ describe('EmitNfeFromEntryUseCase', () => {
     // error propagate so the caller knows the state is undetermined.
     const timingOutProvider: FiscalProvider = {
       providerName: 'MOCK',
-      emitNFe: vi
-        .fn()
-        .mockRejectedValue(
-          Object.assign(new Error('SEFAZ timeout: ETIMEDOUT'), {
-            code: 'ETIMEDOUT',
-          }),
-        ),
+      emitNFe: vi.fn().mockRejectedValue(
+        Object.assign(new Error('SEFAZ timeout: ETIMEDOUT'), {
+          code: 'ETIMEDOUT',
+        }),
+      ),
       emitNFCe: vi.fn(),
       cancelDocument: vi.fn(),
       correctionLetter: vi.fn(),

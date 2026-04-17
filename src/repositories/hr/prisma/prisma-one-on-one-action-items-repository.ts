@@ -60,7 +60,7 @@ export class PrismaOneOnOneActionItemsRepository
 
   async save(item: OneOnOneActionItem): Promise<void> {
     await prisma.oneOnOneActionItem.update({
-      where: { id: item.id.toString(), tenantId: item.tenantId.toString(), },
+      where: { id: item.id.toString(), tenantId: item.tenantId.toString() },
       data: {
         content: item.content,
         ownerId: item.ownerId.toString(),
@@ -73,6 +73,8 @@ export class PrismaOneOnOneActionItemsRepository
   }
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
-    await prisma.oneOnOneActionItem.delete({ where: { id: id.toString(), ...(tenantId && { tenantId }), } });
+    await prisma.oneOnOneActionItem.delete({
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
+    });
   }
 }

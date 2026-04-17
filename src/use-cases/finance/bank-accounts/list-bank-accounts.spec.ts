@@ -72,7 +72,10 @@ describe('ListBankAccountsUseCase', () => {
     });
     b.status = 'INACTIVE';
 
-    const result = await sut.execute({ tenantId: 'tenant-1', status: 'ACTIVE' });
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      status: 'ACTIVE',
+    });
     expect(result.bankAccounts).toHaveLength(1);
     expect(result.bankAccounts[0].name).toBe('A');
   });

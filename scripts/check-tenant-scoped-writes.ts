@@ -57,9 +57,18 @@ const GLOBAL_MODELS = new Set([
   'jobStatus',
 ]);
 
-const WRITE_METHODS = ['update', 'updateMany', 'delete', 'deleteMany', 'upsert'];
+const _WRITE_METHODS = [
+  'update',
+  'updateMany',
+  'delete',
+  'deleteMany',
+  'upsert',
+];
 
-async function collectFiles(dir: string, acc: string[] = []): Promise<string[]> {
+async function collectFiles(
+  dir: string,
+  acc: string[] = [],
+): Promise<string[]> {
   const entries = await readdir(dir);
   for (const entry of entries) {
     const full = join(dir, entry);

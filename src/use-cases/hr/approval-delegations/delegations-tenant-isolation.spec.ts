@@ -82,9 +82,7 @@ describe('Approval Delegations — tenant isolation (P0 regression)', () => {
       }),
     );
 
-    const useCase = new ListMyDelegationsUseCase(
-      approvalDelegationsRepository,
-    );
+    const useCase = new ListMyDelegationsUseCase(approvalDelegationsRepository);
 
     const { delegations, total } = await useCase.execute({
       tenantId: TENANT_B,
@@ -133,9 +131,7 @@ describe('Approval Delegations — tenant isolation (P0 regression)', () => {
     });
     approvalDelegationsRepository.items.push(delegationInTenantA);
 
-    const useCase = new RevokeDelegationUseCase(
-      approvalDelegationsRepository,
-    );
+    const useCase = new RevokeDelegationUseCase(approvalDelegationsRepository);
 
     await expect(
       useCase.execute({

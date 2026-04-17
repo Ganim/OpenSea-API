@@ -104,7 +104,7 @@ export class InMemoryKeyResultsRepository implements KeyResultsRepository {
     return keyResult;
   }
 
-  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId?: string): Promise<void> {
     const index = this.items.findIndex((kr) => kr.id.equals(id));
     if (index >= 0) this.items.splice(index, 1);
   }

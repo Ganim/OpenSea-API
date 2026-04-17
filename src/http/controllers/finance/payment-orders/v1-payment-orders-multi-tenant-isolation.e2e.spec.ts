@@ -65,8 +65,7 @@ describe('Payment Orders Multi-Tenant Isolation (E2E)', () => {
     // If the create step returned 400 (e.g. missing PIX key), fall back
     // to a random UUID — the 404 assertion still proves isolation via
     // the "unknown-id behaves the same cross-tenant as same-tenant" rule.
-    const probeId =
-      orderAId ?? '00000000-0000-4000-8000-000000000000';
+    const probeId = orderAId ?? '00000000-0000-4000-8000-000000000000';
 
     const response = await request(app.server)
       .get(`/v1/finance/payment-orders/${probeId}`)
@@ -81,7 +80,9 @@ describe('Payment Orders Multi-Tenant Isolation (E2E)', () => {
       .set('Authorization', `Bearer ${tokenB}`);
 
     expect(response.status).toBe(200);
-    const orders = (response.body.orders ?? response.body.paymentOrders ?? []) as Array<{
+    const orders = (response.body.orders ??
+      response.body.paymentOrders ??
+      []) as Array<{
       id: string;
     }>;
     if (orderAId) {

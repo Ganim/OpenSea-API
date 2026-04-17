@@ -78,7 +78,7 @@ describe('Loans Multi-Tenant Isolation (E2E)', () => {
       .set('Authorization', `Bearer ${tokenB}`);
 
     expect(response.status).toBe(200);
-    const ids = (response.body.loans as Array<{ id: string }>).map(l => l.id);
+    const ids = (response.body.loans as Array<{ id: string }>).map((l) => l.id);
     expect(ids).not.toContain(loanAId);
   });
 

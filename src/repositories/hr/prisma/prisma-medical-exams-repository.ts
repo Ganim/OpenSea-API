@@ -169,13 +169,19 @@ export class PrismaMedicalExamsRepository implements MedicalExamsRepository {
 
   async update(data: UpdateMedicalExamSchema): Promise<MedicalExam | null> {
     const existing = await prisma.medicalExam.findUnique({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
     });
 
     if (!existing) return null;
 
     const record = await prisma.medicalExam.update({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
       data: {
         type: data.type,
         examDate: data.examDate,
@@ -205,7 +211,7 @@ export class PrismaMedicalExamsRepository implements MedicalExamsRepository {
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.medicalExam.delete({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
     });
   }
 }

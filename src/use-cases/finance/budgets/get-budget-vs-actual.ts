@@ -63,10 +63,7 @@ export class GetBudgetVsActualUseCase {
         : Math.round(((totalActual - totalBudget) / totalBudget) * 10000) / 100;
 
     let overallStatus: 'UNDER_BUDGET' | 'ON_BUDGET' | 'OVER_BUDGET';
-    if (
-      totalVariancePercent === Infinity ||
-      totalVariancePercent > 10
-    ) {
+    if (totalVariancePercent === Infinity || totalVariancePercent > 10) {
       overallStatus = 'OVER_BUDGET';
     } else if (totalVariancePercent < -10) {
       overallStatus = 'UNDER_BUDGET';

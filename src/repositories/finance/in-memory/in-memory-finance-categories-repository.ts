@@ -78,10 +78,7 @@ export class InMemoryFinanceCategoriesRepository
       if (filters?.type && i.type !== filters.type) return false;
       if (filters?.isActive !== undefined && i.isActive !== filters.isActive)
         return false;
-      if (
-        filters?.parentId &&
-        i.parentId?.toString() !== filters.parentId
-      )
+      if (filters?.parentId && i.parentId?.toString() !== filters.parentId)
         return false;
       return true;
     });
@@ -166,9 +163,7 @@ export class InMemoryFinanceCategoriesRepository
   async delete(id: UniqueEntityID, tenantId: string): Promise<void> {
     const item = this.items.find(
       (i) =>
-        !i.deletedAt &&
-        i.id.equals(id) &&
-        i.tenantId.toString() === tenantId,
+        !i.deletedAt && i.id.equals(id) && i.tenantId.toString() === tenantId,
     );
     if (item) item.delete();
   }

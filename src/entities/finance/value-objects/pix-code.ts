@@ -142,7 +142,10 @@ export class PixCode {
     const isDynamic = typeof input.amount === 'number' && input.amount > 0;
 
     // Merchant Account Information (tag 26)
-    const maiParts = [PixCode.tlv('00', 'br.gov.bcb.pix'), PixCode.tlv('01', pixKey)];
+    const maiParts = [
+      PixCode.tlv('00', 'br.gov.bcb.pix'),
+      PixCode.tlv('01', pixKey),
+    ];
     if (input.description) {
       const desc = sanitize(input.description, 25);
       if (desc) maiParts.push(PixCode.tlv('02', desc));

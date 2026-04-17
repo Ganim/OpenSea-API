@@ -1,7 +1,11 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 
 export interface PeriodLockChecker {
-  isPeriodLocked(tenantId: string, year: number, month: number): Promise<boolean>;
+  isPeriodLocked(
+    tenantId: string,
+    year: number,
+    month: number,
+  ): Promise<boolean>;
 }
 
 /**
@@ -32,7 +36,7 @@ export function buildPrismaPeriodLockChecker(): PeriodLockChecker {
 export async function assertPeriodNotLocked(
   tenantId: string,
   dueDate: Date,
-  checker?: PeriodLockChecker
+  checker?: PeriodLockChecker,
 ): Promise<void> {
   if (!checker) return;
   const year = dueDate.getFullYear();
@@ -40,7 +44,7 @@ export async function assertPeriodNotLocked(
   const locked = await checker.isPeriodLocked(tenantId, year, month);
   if (locked) {
     throw new BadRequestError(
-      `Período ${String(month).padStart(2, '0')}/${year} está fechado. Libere o lock antes de editar lançamentos dessa competência.`
+      `Período ${String(month).padStart(2, '0')}/${year} está fechado. Libere o lock antes de editar lançamentos dessa competência.`,
     );
   }
 }

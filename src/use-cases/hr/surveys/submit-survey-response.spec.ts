@@ -142,7 +142,9 @@ describe('Submit Survey Response Use Case', () => {
       tenantId,
       surveyId: survey.id.toString(),
       employeeId,
-      answers: [{ questionId: new UniqueEntityID().toString(), ratingValue: 5 }],
+      answers: [
+        { questionId: new UniqueEntityID().toString(), ratingValue: 5 },
+      ],
     });
 
     expect(surveyResponse.employeeId).toBeUndefined();

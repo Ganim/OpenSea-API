@@ -171,13 +171,19 @@ export class PrismaBonusesRepository implements BonusesRepository {
 
   async update(data: UpdateBonusSchema): Promise<Bonus | null> {
     const existingBonus = await prisma.bonus.findUnique({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
     });
 
     if (!existingBonus) return null;
 
     const bonusData = await prisma.bonus.update({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
       data: {
         name: data.name,
         amount: data.amount,
@@ -195,14 +201,14 @@ export class PrismaBonusesRepository implements BonusesRepository {
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.bonus.delete({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
     });
   }
 
   async save(bonus: Bonus, tx?: TransactionClient): Promise<void> {
     const client = tx ?? prisma;
     await client.bonus.update({
-      where: { id: bonus.id.toString(), tenantId: bonus.tenantId.toString(), },
+      where: { id: bonus.id.toString(), tenantId: bonus.tenantId.toString() },
       data: {
         name: bonus.name,
         amount: bonus.amount,

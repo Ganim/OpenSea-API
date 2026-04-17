@@ -34,7 +34,9 @@ export function isStabilityExemptType(type: TerminationType): boolean {
   return STABILITY_EXEMPT_TERMINATION_TYPES.includes(type);
 }
 
-export function isStabilityExemptReason(reason: string | null | undefined): boolean {
+export function isStabilityExemptReason(
+  reason: string | null | undefined,
+): boolean {
   if (!reason) return false;
   return STABILITY_EXEMPT_REASONS.includes(reason);
 }

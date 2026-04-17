@@ -1,9 +1,6 @@
 import type { Queue } from 'bullmq';
 import { Job } from 'bullmq';
-import {
-  runDocExpiryJob,
-  DocExpiryJobData,
-} from '@/jobs/hr/doc-expiry.job';
+import { runDocExpiryJob, DocExpiryJobData } from '@/jobs/hr/doc-expiry.job';
 import { logger } from '@/lib/logger';
 import { createQueue, createWorker, QUEUE_NAMES } from '@/lib/queue';
 

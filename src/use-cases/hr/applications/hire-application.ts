@@ -193,9 +193,7 @@ export class HireApplicationUseCase {
         true,
       );
       if (employeeWithSameCpf) {
-        throw new ConflictError(
-          'Funcionário com este CPF já existe',
-        );
+        throw new ConflictError('Funcionário com este CPF já existe');
       }
 
       const jobPosting = await this.jobPostingsRepository.findById(
@@ -294,9 +292,10 @@ export class HireApplicationUseCase {
   private generateRegistrationNumber(cpfDigits?: string): string {
     const timestampSuffix = Date.now().toString(36).toUpperCase();
     const cleanCpf = (cpfDigits ?? '').replace(/\D/g, '');
-    const cpfPrefix = cleanCpf.length >= 3
-      ? cleanCpf.slice(0, 3)
-      : Math.floor(Math.random() * 900 + 100).toString();
+    const cpfPrefix =
+      cleanCpf.length >= 3
+        ? cleanCpf.slice(0, 3)
+        : Math.floor(Math.random() * 900 + 100).toString();
     return `EMP-${timestampSuffix}-${cpfPrefix}`;
   }
 }

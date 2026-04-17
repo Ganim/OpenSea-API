@@ -111,7 +111,10 @@ export class PrismaOnboardingChecklistsRepository
 
   async save(checklist: OnboardingChecklist): Promise<void> {
     await prisma.onboardingChecklist.update({
-      where: { id: checklist.id.toString(), tenantId: checklist.tenantId.toString() },
+      where: {
+        id: checklist.id.toString(),
+        tenantId: checklist.tenantId.toString(),
+      },
       data: {
         title: checklist.title,
         items: checklist.items as unknown as object,
@@ -123,7 +126,7 @@ export class PrismaOnboardingChecklistsRepository
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.onboardingChecklist.update({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
       data: { deletedAt: new Date() },
     });
   }

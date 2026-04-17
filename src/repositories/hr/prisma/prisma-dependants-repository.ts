@@ -96,13 +96,19 @@ export class PrismaDependantsRepository implements DependantsRepository {
 
   async update(data: UpdateDependantSchema): Promise<EmployeeDependant | null> {
     const existing = await prisma.employeeDependant.findUnique({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
     });
 
     if (!existing) return null;
 
     const record = await prisma.employeeDependant.update({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
       data: {
         name: data.name,
         cpf: data.cpf,
@@ -123,7 +129,7 @@ export class PrismaDependantsRepository implements DependantsRepository {
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.employeeDependant.delete({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
     });
   }
 }

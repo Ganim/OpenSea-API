@@ -429,7 +429,7 @@ export abstract class PrismaBaseOrganizationRepository<T extends Organization>
 
     if (organization && organization.deletedAt) {
       await prisma.organization.update({
-        where: { id: id.toString(), ...(tenantId && { tenantId }), },
+        where: { id: id.toString(), ...(tenantId && { tenantId }) },
         data: { deletedAt: null, updatedAt: new Date() },
       });
     }

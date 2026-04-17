@@ -21,10 +21,7 @@ interface ApplyIndexationUseCaseResponse {
  * wired a real index provider yet).
  */
 export interface IndexRateProvider {
-  getIndex(
-    indexType: 'IPCA' | 'IGPM',
-    referenceDate: Date,
-  ): Promise<number>;
+  getIndex(indexType: 'IPCA' | 'IGPM', referenceDate: Date): Promise<number>;
 }
 
 /**

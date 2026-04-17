@@ -27,14 +27,12 @@ export function makeBankAccount(
     tenantId: overrides.tenantId ?? new UniqueEntityID().toString(),
     companyId: overrides.companyId,
     name:
-      overrides.name ??
-      `${selectedBank.name} - ${faker.finance.accountName()}`,
+      overrides.name ?? `${selectedBank.name} - ${faker.finance.accountName()}`,
     bankCode: overrides.bankCode ?? selectedBank.code,
     bankName: overrides.bankName ?? selectedBank.name,
     agency: overrides.agency ?? faker.string.numeric(4),
     agencyDigit: overrides.agencyDigit,
-    accountNumber:
-      overrides.accountNumber ?? faker.string.numeric(7),
+    accountNumber: overrides.accountNumber ?? faker.string.numeric(7),
     accountDigit: overrides.accountDigit ?? faker.string.numeric(1),
     accountType:
       overrides.accountType ??

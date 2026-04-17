@@ -124,7 +124,8 @@ export class PrismaCostCentersRepository implements CostCentersRepository {
     if (data.companyId !== undefined) updateData.companyId = data.companyId;
     if (data.code !== undefined) updateData.code = data.code;
     if (data.name !== undefined) updateData.name = data.name;
-    if (data.description !== undefined) updateData.description = data.description;
+    if (data.description !== undefined)
+      updateData.description = data.description;
     if (data.isActive !== undefined) updateData.isActive = data.isActive;
     if (data.monthlyBudget !== undefined)
       updateData.monthlyBudget = data.monthlyBudget;

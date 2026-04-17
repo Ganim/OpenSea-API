@@ -16,11 +16,15 @@ export function makeFinanceEntry(
   const issueDate = overrides.issueDate ?? faker.date.recent({ days: 30 });
   const dueDate =
     overrides.dueDate ??
-    faker.date.soon({ days: faker.number.int({ min: 5, max: 60 }), refDate: issueDate });
+    faker.date.soon({
+      days: faker.number.int({ min: 5, max: 60 }),
+      refDate: issueDate,
+    });
 
   return {
     tenantId: overrides.tenantId ?? new UniqueEntityID().toString(),
-    type: overrides.type ?? faker.helpers.arrayElement(['PAYABLE', 'RECEIVABLE']),
+    type:
+      overrides.type ?? faker.helpers.arrayElement(['PAYABLE', 'RECEIVABLE']),
     code:
       overrides.code ??
       `FIN-${faker.string.alphanumeric({ length: 6, casing: 'upper' })}`,

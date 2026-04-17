@@ -74,9 +74,7 @@ export class InMemoryBankAccountsRepository implements BankAccountsRepository {
     );
 
     if (companyId) {
-      filtered = filtered.filter(
-        (i) => i.companyId?.toString() === companyId,
-      );
+      filtered = filtered.filter((i) => i.companyId?.toString() === companyId);
     }
     if (accountType) {
       filtered = filtered.filter((i) => i.accountType === accountType);
@@ -99,11 +97,11 @@ export class InMemoryBankAccountsRepository implements BankAccountsRepository {
       const av =
         sortBy === 'createdAt'
           ? a.createdAt.getTime()
-          : (a as unknown as Record<string, string>)[sortBy] ?? '';
+          : ((a as unknown as Record<string, string>)[sortBy] ?? '');
       const bv =
         sortBy === 'createdAt'
           ? b.createdAt.getTime()
-          : (b as unknown as Record<string, string>)[sortBy] ?? '';
+          : ((b as unknown as Record<string, string>)[sortBy] ?? '');
       if (av < bv) return -1 * direction;
       if (av > bv) return 1 * direction;
       return 0;

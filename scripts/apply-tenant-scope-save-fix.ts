@@ -47,7 +47,10 @@ type Change = {
   occurrences: number;
 };
 
-async function collectFiles(dir: string, acc: string[] = []): Promise<string[]> {
+async function collectFiles(
+  dir: string,
+  acc: string[] = [],
+): Promise<string[]> {
   const entries = await readdir(dir);
   for (const entry of entries) {
     const full = join(dir, entry);
@@ -108,9 +111,7 @@ function isDomainEntityType(typeName: string): boolean {
   return true;
 }
 
-function transformSource(
-  source: string,
-): { next: string; count: number } {
+function transformSource(source: string): { next: string; count: number } {
   let count = 0;
   // Pattern: where: { id: VAR.id.toString() [,other:...] } — we accept the
   // simplest, most common form in HR repos.

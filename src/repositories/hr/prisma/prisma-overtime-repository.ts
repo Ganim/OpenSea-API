@@ -181,13 +181,19 @@ export class PrismaOvertimeRepository implements OvertimeRepository {
 
   async update(data: UpdateOvertimeSchema): Promise<Overtime | null> {
     const existingOvertime = await prisma.overtime.findUnique({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
     });
 
     if (!existingOvertime) return null;
 
     const overtimeData = await prisma.overtime.update({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
       data: {
         date: data.date,
         hours: data.hours,
@@ -207,7 +213,10 @@ export class PrismaOvertimeRepository implements OvertimeRepository {
 
   async save(overtime: Overtime): Promise<void> {
     await prisma.overtime.update({
-      where: { id: overtime.id.toString(), tenantId: overtime.tenantId.toString(), },
+      where: {
+        id: overtime.id.toString(),
+        tenantId: overtime.tenantId.toString(),
+      },
       data: {
         date: overtime.date,
         hours: overtime.hours,
@@ -225,7 +234,7 @@ export class PrismaOvertimeRepository implements OvertimeRepository {
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.overtime.delete({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
     });
   }
 }

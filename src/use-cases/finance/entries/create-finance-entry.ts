@@ -125,7 +125,11 @@ export class CreateFinanceEntryUseCase {
       throw new BadRequestError('Description is required');
     }
 
-    await assertPeriodNotLocked(tenantId, request.dueDate, this.periodLockChecker);
+    await assertPeriodNotLocked(
+      tenantId,
+      request.dueDate,
+      this.periodLockChecker,
+    );
 
     if (type !== 'PAYABLE' && type !== 'RECEIVABLE') {
       throw new BadRequestError('Type must be PAYABLE or RECEIVABLE');

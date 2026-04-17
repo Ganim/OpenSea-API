@@ -19,7 +19,9 @@ import { Prisma } from '@prisma/generated/client.js';
  * repo relied on \`parseFloat(String(decimal))\` which round-trips through
  * locale-sensitive string formatting and hides nulls as NaN.
  */
-function decimalToNumber(value: Prisma.Decimal | number | string | null): number {
+function decimalToNumber(
+  value: Prisma.Decimal | number | string | null,
+): number {
   if (value === null || value === undefined) {
     return 0;
   }

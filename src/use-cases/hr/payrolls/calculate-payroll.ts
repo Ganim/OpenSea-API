@@ -266,14 +266,17 @@ export class CalculatePayrollUseCase {
     const hourlyRate = baseSalary / MONTHLY_HOURS;
 
     // 1. Base salary item
-    const baseSalaryItem = await this.payrollItemsRepository.create({
-      payrollId: payroll.id,
-      employeeId,
-      type: 'BASE_SALARY',
-      description: 'Salário Base',
-      amount: baseSalary,
-      isDeduction: false,
-    }, tx);
+    const baseSalaryItem = await this.payrollItemsRepository.create(
+      {
+        payrollId: payroll.id,
+        employeeId,
+        type: 'BASE_SALARY',
+        description: 'Salário Base',
+        amount: baseSalary,
+        isDeduction: false,
+      },
+      tx,
+    );
     items.push(baseSalaryItem);
 
     // 2. Calculate overtime (from prefetched data)
@@ -295,16 +298,19 @@ export class CalculatePayrollUseCase {
         const itemType = isSundayOrHoliday ? 'OVERTIME_100' : 'OVERTIME';
         const rateLabel = isSundayOrHoliday ? '100%' : '50%';
 
-        const overtimeItem = await this.payrollItemsRepository.create({
-          payrollId: payroll.id,
-          employeeId,
-          type: itemType,
-          description: `Hora Extra ${rateLabel} (${overtime.hours}h)`,
-          amount: overtimeAmount,
-          isDeduction: false,
-          referenceId: overtime.id.toString(),
-          referenceType: 'overtime',
-        }, tx);
+        const overtimeItem = await this.payrollItemsRepository.create(
+          {
+            payrollId: payroll.id,
+            employeeId,
+            type: itemType,
+            description: `Hora Extra ${rateLabel} (${overtime.hours}h)`,
+            amount: overtimeAmount,
+            isDeduction: false,
+            referenceId: overtime.id.toString(),
+            referenceType: 'overtime',
+          },
+          tx,
+        );
         items.push(overtimeItem);
       }
     }
@@ -327,14 +333,17 @@ export class CalculatePayrollUseCase {
       }
 
       if (totalNightPremium > 0) {
-        const nightShiftItem = await this.payrollItemsRepository.create({
-          payrollId: payroll.id,
-          employeeId,
-          type: 'NIGHT_SHIFT',
-          description: `Adicional Noturno (${totalNightHours.toFixed(2)}h reduzidas)`,
-          amount: totalNightPremium,
-          isDeduction: false,
-        }, tx);
+        const nightShiftItem = await this.payrollItemsRepository.create(
+          {
+            payrollId: payroll.id,
+            employeeId,
+            type: 'NIGHT_SHIFT',
+            description: `Adicional Noturno (${totalNightHours.toFixed(2)}h reduzidas)`,
+            amount: totalNightPremium,
+            isDeduction: false,
+          },
+          tx,
+        );
         items.push(nightShiftItem);
       }
     }
@@ -359,14 +368,17 @@ export class CalculatePayrollUseCase {
       );
 
       if (dsrAmount > 0) {
-        const dsrItem = await this.payrollItemsRepository.create({
-          payrollId: payroll.id,
-          employeeId,
-          type: 'DSR',
-          description: 'DSR sobre Horas Extras',
-          amount: dsrAmount,
-          isDeduction: false,
-        }, tx);
+        const dsrItem = await this.payrollItemsRepository.create(
+          {
+            payrollId: payroll.id,
+            employeeId,
+            type: 'DSR',
+            description: 'DSR sobre Horas Extras',
+            amount: dsrAmount,
+            isDeduction: false,
+          },
+          tx,
+        );
         items.push(dsrItem);
       }
     }
@@ -391,14 +403,17 @@ export class CalculatePayrollUseCase {
     if (extras.hasDangerPay && !extras.hazardPayGrade) {
       const dangerAmount = this.calculateDangerPay(baseSalary);
       if (dangerAmount > 0) {
-        const dangerItem = await this.payrollItemsRepository.create({
-          payrollId: payroll.id,
-          employeeId,
-          type: 'DANGER_PAY',
-          description: 'Adicional de Periculosidade (30%)',
-          amount: dangerAmount,
-          isDeduction: false,
-        }, tx);
+        const dangerItem = await this.payrollItemsRepository.create(
+          {
+            payrollId: payroll.id,
+            employeeId,
+            type: 'DANGER_PAY',
+            description: 'Adicional de Periculosidade (30%)',
+            amount: dangerAmount,
+            isDeduction: false,
+          },
+          tx,
+        );
         items.push(dangerItem);
       }
     }
@@ -410,16 +425,19 @@ export class CalculatePayrollUseCase {
         const deductionAmount =
           Math.round(dailyRate * absence.totalDays * 100) / 100;
 
-        const absenceItem = await this.payrollItemsRepository.create({
-          payrollId: payroll.id,
-          employeeId,
-          type: 'OTHER_DEDUCTION',
-          description: `Desconto Falta (${absence.totalDays} dias)`,
-          amount: deductionAmount,
-          isDeduction: true,
-          referenceId: absence.id.toString(),
-          referenceType: 'absence',
-        }, tx);
+        const absenceItem = await this.payrollItemsRepository.create(
+          {
+            payrollId: payroll.id,
+            employeeId,
+            type: 'OTHER_DEDUCTION',
+            description: `Desconto Falta (${absence.totalDays} dias)`,
+            amount: deductionAmount,
+            isDeduction: true,
+            referenceId: absence.id.toString(),
+            referenceType: 'absence',
+          },
+          tx,
+        );
         items.push(absenceItem);
       }
     }
@@ -427,32 +445,38 @@ export class CalculatePayrollUseCase {
     // 8. Apply bonuses (from prefetched data)
     for (const bonus of bonuses) {
       if (!bonus.isPaid) {
-        const bonusItem = await this.payrollItemsRepository.create({
-          payrollId: payroll.id,
-          employeeId,
-          type: 'BONUS',
-          description: `Bônus: ${bonus.name}`,
-          amount: bonus.amount,
-          isDeduction: false,
-          referenceId: bonus.id.toString(),
-          referenceType: 'bonus',
-        }, tx);
+        const bonusItem = await this.payrollItemsRepository.create(
+          {
+            payrollId: payroll.id,
+            employeeId,
+            type: 'BONUS',
+            description: `Bônus: ${bonus.name}`,
+            amount: bonus.amount,
+            isDeduction: false,
+            referenceId: bonus.id.toString(),
+            referenceType: 'bonus',
+          },
+          tx,
+        );
         items.push(bonusItem);
       }
     }
 
     // 9. Apply deductions (from prefetched data)
     for (const deduction of deductions) {
-      const deductionItem = await this.payrollItemsRepository.create({
-        payrollId: payroll.id,
-        employeeId,
-        type: 'OTHER_DEDUCTION',
-        description: deduction.name,
-        amount: deduction.amount,
-        isDeduction: true,
-        referenceId: deduction.id.toString(),
-        referenceType: 'deduction',
-      }, tx);
+      const deductionItem = await this.payrollItemsRepository.create(
+        {
+          payrollId: payroll.id,
+          employeeId,
+          type: 'OTHER_DEDUCTION',
+          description: deduction.name,
+          amount: deduction.amount,
+          isDeduction: true,
+          referenceId: deduction.id.toString(),
+          referenceType: 'deduction',
+        },
+        tx,
+      );
       items.push(deductionItem);
     }
 
@@ -461,14 +485,17 @@ export class CalculatePayrollUseCase {
       const vtDeduction =
         Math.round(baseSalary * TRANSPORT_VOUCHER_RATE * 100) / 100;
       if (vtDeduction > 0) {
-        const vtItem = await this.payrollItemsRepository.create({
-          payrollId: payroll.id,
-          employeeId,
-          type: 'TRANSPORT_VOUCHER',
-          description: 'Vale-Transporte (6%)',
-          amount: vtDeduction,
-          isDeduction: true,
-        }, tx);
+        const vtItem = await this.payrollItemsRepository.create(
+          {
+            payrollId: payroll.id,
+            employeeId,
+            type: 'TRANSPORT_VOUCHER',
+            description: 'Vale-Transporte (6%)',
+            amount: vtDeduction,
+            isDeduction: true,
+          },
+          tx,
+        );
         items.push(vtItem);
       }
     }
@@ -481,14 +508,17 @@ export class CalculatePayrollUseCase {
     // INSS calculation (progressive rates from tax table)
     const inssAmount = this.calculateINSS(totalEarnings, payroll.referenceYear);
     if (inssAmount > 0) {
-      const inssItem = await this.payrollItemsRepository.create({
-        payrollId: payroll.id,
-        employeeId,
-        type: 'INSS',
-        description: 'INSS',
-        amount: inssAmount,
-        isDeduction: true,
-      }, tx);
+      const inssItem = await this.payrollItemsRepository.create(
+        {
+          payrollId: payroll.id,
+          employeeId,
+          type: 'INSS',
+          description: 'INSS',
+          amount: inssAmount,
+          isDeduction: true,
+        },
+        tx,
+      );
       items.push(inssItem);
     }
 
@@ -499,28 +529,34 @@ export class CalculatePayrollUseCase {
       IRRF_DEPENDANT_DEDUCTION * numberOfIrrfDependants;
     const irrfAmount = this.calculateIRRF(taxableBase, payroll.referenceYear);
     if (irrfAmount > 0) {
-      const irrfItem = await this.payrollItemsRepository.create({
-        payrollId: payroll.id,
-        employeeId,
-        type: 'IRRF',
-        description: 'IRRF',
-        amount: irrfAmount,
-        isDeduction: true,
-      }, tx);
+      const irrfItem = await this.payrollItemsRepository.create(
+        {
+          payrollId: payroll.id,
+          employeeId,
+          type: 'IRRF',
+          description: 'IRRF',
+          amount: irrfAmount,
+          isDeduction: true,
+        },
+        tx,
+      );
       items.push(irrfItem);
     }
 
     // 12. FGTS calculation — employer contribution (8% of gross, NOT a deduction)
     const fgtsAmount = this.calculateFGTS(totalEarnings);
     if (fgtsAmount > 0) {
-      const fgtsItem = await this.payrollItemsRepository.create({
-        payrollId: payroll.id,
-        employeeId,
-        type: 'FGTS',
-        description: 'FGTS (contribuição patronal)',
-        amount: fgtsAmount,
-        isDeduction: false,
-      }, tx);
+      const fgtsItem = await this.payrollItemsRepository.create(
+        {
+          payrollId: payroll.id,
+          employeeId,
+          type: 'FGTS',
+          description: 'FGTS (contribuição patronal)',
+          amount: fgtsAmount,
+          isDeduction: false,
+        },
+        tx,
+      );
       items.push(fgtsItem);
     }
 

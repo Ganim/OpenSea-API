@@ -167,7 +167,7 @@ export class InMemoryBenefitEnrollmentsRepository
     return enrollment;
   }
 
-  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId?: string): Promise<void> {
     const index = this.items.findIndex((enrollment) =>
       enrollment.id.equals(id),
     );

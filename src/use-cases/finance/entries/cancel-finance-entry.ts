@@ -124,7 +124,11 @@ export class CancelFinanceEntryUseCase {
       },
     }).catch((err) => {
       logger.warn(
-        { err, context: 'CancelFinanceEntryUseCase.queueAuditLog', entryId: id },
+        {
+          err,
+          context: 'CancelFinanceEntryUseCase.queueAuditLog',
+          entryId: id,
+        },
         'Failed to queue audit log for finance entry cancellation',
       );
     });

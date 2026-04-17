@@ -63,6 +63,9 @@ export async function startCalendarRemindersScheduler(): Promise<void> {
       'Calendar reminders scheduler worker started successfully',
     );
   } catch (err) {
-    logger.error({ err }, 'Failed to start calendar reminders scheduler worker');
+    logger.error(
+      { err },
+      'Failed to start calendar reminders scheduler worker',
+    );
   }
 }

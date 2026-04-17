@@ -143,7 +143,9 @@ describe('CancelFinanceEntryUseCase', () => {
     };
 
     const failingReverse = {
-      execute: vi.fn().mockRejectedValue(new Error('reversal simulated failure')),
+      execute: vi
+        .fn()
+        .mockRejectedValue(new Error('reversal simulated failure')),
     };
 
     const transactionalSut = new CancelFinanceEntryUseCase(

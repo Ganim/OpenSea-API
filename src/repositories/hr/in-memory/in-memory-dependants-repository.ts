@@ -106,7 +106,7 @@ export class InMemoryDependantsRepository implements DependantsRepository {
     return updated;
   }
 
-  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId?: string): Promise<void> {
     this.items = this.items.filter((item) => !item.id.equals(id));
   }
 }

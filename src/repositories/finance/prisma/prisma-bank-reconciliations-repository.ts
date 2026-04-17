@@ -193,7 +193,9 @@ export class PrismaBankReconciliationsRepository
       where: { id: data.id.toString() },
     });
 
-    return reconciliation ? bankReconciliationPrismaToDomain(reconciliation) : null;
+    return reconciliation
+      ? bankReconciliationPrismaToDomain(reconciliation)
+      : null;
   }
 
   async updateItem(
@@ -205,7 +207,8 @@ export class PrismaBankReconciliationsRepository
     // Use Unchecked* because updateMany works with scalar fields (no relation
     // connect/disconnect). This keeps \`matchedEntryId\` as a straightforward
     // foreign-key write.
-    const updateData: Prisma.BankReconciliationItemUncheckedUpdateManyInput = {};
+    const updateData: Prisma.BankReconciliationItemUncheckedUpdateManyInput =
+      {};
     if (data.matchedEntryId !== undefined)
       updateData.matchedEntryId = data.matchedEntryId;
     if (data.matchConfidence !== undefined)

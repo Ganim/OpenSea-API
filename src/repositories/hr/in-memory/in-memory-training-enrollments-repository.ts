@@ -115,9 +115,7 @@ export class InMemoryTrainingEnrollmentsRepository
     );
   }
 
-  async findExpiringWithin(
-    daysAhead: number,
-  ): Promise<TrainingEnrollment[]> {
+  async findExpiringWithin(daysAhead: number): Promise<TrainingEnrollment[]> {
     const now = new Date();
     const threshold = new Date(now);
     threshold.setDate(threshold.getDate() + daysAhead);
@@ -184,7 +182,7 @@ export class InMemoryTrainingEnrollmentsRepository
     return enrollment;
   }
 
-  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId?: string): Promise<void> {
     const index = this.items.findIndex((enrollment) =>
       enrollment.id.equals(id),
     );

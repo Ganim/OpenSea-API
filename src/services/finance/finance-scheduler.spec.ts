@@ -50,9 +50,12 @@ vi.mock(
   }),
 );
 
-vi.mock('@/repositories/finance/prisma/prisma-cashflow-snapshots-repository', () => ({
-  PrismaCashflowSnapshotsRepository: vi.fn(),
-}));
+vi.mock(
+  '@/repositories/finance/prisma/prisma-cashflow-snapshots-repository',
+  () => ({
+    PrismaCashflowSnapshotsRepository: vi.fn(),
+  }),
+);
 
 vi.mock(
   '@/use-cases/finance/dashboard/factories/make-get-predictive-cashflow-use-case',
@@ -103,11 +106,14 @@ vi.mock(
   }),
 );
 
-vi.mock('@/use-cases/finance/recurring/factories/make-apply-indexation', () => ({
-  makeApplyIndexationUseCase: vi
-    .fn()
-    .mockReturnValue({ execute: vi.fn().mockResolvedValue({}) }),
-}));
+vi.mock(
+  '@/use-cases/finance/recurring/factories/make-apply-indexation',
+  () => ({
+    makeApplyIndexationUseCase: vi
+      .fn()
+      .mockReturnValue({ execute: vi.fn().mockResolvedValue({}) }),
+  }),
+);
 
 vi.mock(
   '@/use-cases/finance/analytics/factories/make-detect-anomalies-use-case',
@@ -147,9 +153,7 @@ type SchedulerInternals = {
   }>;
 };
 
-function asInternals(
-  scheduler: FinanceScheduler,
-): SchedulerInternals {
+function asInternals(scheduler: FinanceScheduler): SchedulerInternals {
   return scheduler as unknown as SchedulerInternals;
 }
 

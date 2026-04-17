@@ -104,7 +104,9 @@ describe('GetDashboardQuickActionsUseCase', () => {
 
     const response = await sut.execute({ tenantId: TENANT_ID });
 
-    const scheduledAction = response.actions.find((a) => a.type === 'SCHEDULED');
+    const scheduledAction = response.actions.find(
+      (a) => a.type === 'SCHEDULED',
+    );
     expect(scheduledAction).toBeDefined();
     expect(scheduledAction!.urgency).toBe('LOW');
     expect(response.summary.scheduledCount).toBeGreaterThan(0);

@@ -63,7 +63,7 @@ export class PrismaOneOnOneTalkingPointsRepository
 
   async save(point: OneOnOneTalkingPoint): Promise<void> {
     await prisma.talkingPoint.update({
-      where: { id: point.id.toString(), tenantId: point.tenantId.toString(), },
+      where: { id: point.id.toString(), tenantId: point.tenantId.toString() },
       data: {
         content: point.content,
         isResolved: point.isResolved,
@@ -73,7 +73,9 @@ export class PrismaOneOnOneTalkingPointsRepository
   }
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
-    await prisma.talkingPoint.delete({ where: { id: id.toString(), ...(tenantId && { tenantId }), } });
+    await prisma.talkingPoint.delete({
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
+    });
   }
 
   async countByMeeting(meetingId: UniqueEntityID): Promise<number> {

@@ -25,14 +25,12 @@ const previewRecurringDatesBodySchema = z
     skipHolidays: z.boolean().optional(),
     adjustBusinessDays: z.boolean().optional(),
   })
-  .transform(input => ({
+  .transform((input) => ({
     startDate: input.startDate,
     frequency: input.frequency,
     count: input.count,
-    skipWeekends:
-      input.skipWeekends ?? input.adjustBusinessDays ?? false,
-    skipHolidays:
-      input.skipHolidays ?? input.adjustBusinessDays ?? false,
+    skipWeekends: input.skipWeekends ?? input.adjustBusinessDays ?? false,
+    skipHolidays: input.skipHolidays ?? input.adjustBusinessDays ?? false,
   }));
 
 const previewDateEntrySchema = z.object({

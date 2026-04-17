@@ -49,7 +49,7 @@ export class InMemoryOneOnOneTalkingPointsRepository
     }
   }
 
-  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId?: string): Promise<void> {
     const index = this.items.findIndex((point) => point.id.equals(id));
     if (index >= 0) {
       this.items.splice(index, 1);

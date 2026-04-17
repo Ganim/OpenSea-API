@@ -335,8 +335,7 @@ describe('verifyWebhookSignature middleware', () => {
       secret,
       JSON.stringify(reorderedParsedBody),
     );
-    const actualRawBody =
-      '{"amount":100,"event":"PIX_RECEIVED","txId":"abc"}';
+    const actualRawBody = '{"amount":100,"event":"PIX_RECEIVED","txId":"abc"}';
 
     mockFindUnique.mockResolvedValue({
       apiWebhookSecret: secret,
@@ -399,7 +398,8 @@ describe('verifyWebhookSignature middleware', () => {
     // Garbage signature (letters outside 0-9a-f). Buffer.from('zz...', 'hex')
     // yields an empty buffer rather than throwing, so the length mismatch
     // path in the middleware must still reject this as 401, not 500.
-    const garbageSig = 'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz';
+    const garbageSig =
+      'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz';
 
     const request = makeRequest({
       headers: { 'x-webhook-signature': garbageSig },

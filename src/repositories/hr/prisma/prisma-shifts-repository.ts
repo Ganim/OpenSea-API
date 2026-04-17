@@ -100,13 +100,20 @@ export class PrismaShiftsRepository implements ShiftsRepository {
 
   async update(data: UpdateShiftSchema): Promise<Shift | null> {
     const existing = await prisma.shift.findFirst({
-      where: { id: data.id.toString(), deletedAt: null, ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        deletedAt: null,
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
     });
 
     if (!existing) return null;
 
     const shiftData = await prisma.shift.update({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
       data: {
         name: data.name,
         code: data.code,

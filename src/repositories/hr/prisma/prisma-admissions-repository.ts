@@ -175,7 +175,10 @@ export class PrismaAdmissionsRepository implements AdmissionsRepository {
 
     try {
       const updated = await prisma.admissionInvite.update({
-        where: { id: data.id, ...(data.tenantId && { tenantId: data.tenantId }), },
+        where: {
+          id: data.id,
+          ...(data.tenantId && { tenantId: data.tenantId }),
+        },
         data: updateData,
         include: {
           documents: true,

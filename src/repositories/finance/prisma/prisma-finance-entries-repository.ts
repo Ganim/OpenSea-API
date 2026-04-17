@@ -671,9 +671,10 @@ export class PrismaFinanceEntriesRepository
     // P0-09: build a status filter clause when callers pass it. Without
     // this, cashflow / predictive / balance-sheet were summing CANCELLED
     // and already-PAID entries as forward-looking obligations.
-    const statusClause = statusIn && statusIn.length > 0
-      ? Prisma.sql`AND "status"::text = ANY(${statusIn}::text[])`
-      : Prisma.empty;
+    const statusClause =
+      statusIn && statusIn.length > 0
+        ? Prisma.sql`AND "status"::text = ANY(${statusIn}::text[])`
+        : Prisma.empty;
 
     const baseQuery = (truncExpr: Prisma.Sql) =>
       type

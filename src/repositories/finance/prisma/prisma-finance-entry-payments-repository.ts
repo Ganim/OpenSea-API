@@ -91,7 +91,9 @@ export class PrismaFinanceEntryPaymentsRepository
     entryType: 'RECEIVABLE' | 'PAYABLE',
     bankAccountId?: string,
   ): Promise<number> {
-    const rows = await prisma.$queryRaw<Array<{ total: Prisma.Decimal | null }>>(
+    const rows = await prisma.$queryRaw<
+      Array<{ total: Prisma.Decimal | null }>
+    >(
       bankAccountId
         ? Prisma.sql`
             SELECT COALESCE(SUM(p."amount"), 0) AS total

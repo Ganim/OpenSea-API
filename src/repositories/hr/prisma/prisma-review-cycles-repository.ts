@@ -92,13 +92,19 @@ export class PrismaReviewCyclesRepository implements ReviewCyclesRepository {
 
   async update(data: UpdateReviewCycleSchema): Promise<ReviewCycle | null> {
     const existingCycle = await prisma.reviewCycle.findUnique({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
     });
 
     if (!existingCycle) return null;
 
     const cycleData = await prisma.reviewCycle.update({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
       data: {
         name: data.name,
         description: data.description,
@@ -118,7 +124,7 @@ export class PrismaReviewCyclesRepository implements ReviewCyclesRepository {
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.reviewCycle.update({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
       data: {
         deletedAt: new Date(),
         isActive: false,

@@ -161,10 +161,12 @@ export class PrismaFinanceCategoriesRepository
     const updateData: Record<string, unknown> = {};
     if (data.name !== undefined) updateData.name = data.name;
     if (data.slug !== undefined) updateData.slug = data.slug;
-    if (data.description !== undefined) updateData.description = data.description;
+    if (data.description !== undefined)
+      updateData.description = data.description;
     if (data.iconUrl !== undefined) updateData.iconUrl = data.iconUrl;
     if (data.color !== undefined) updateData.color = data.color;
-    if (data.type !== undefined) updateData.type = data.type as FinanceCategoryType;
+    if (data.type !== undefined)
+      updateData.type = data.type as FinanceCategoryType;
     if (data.parentId !== undefined) updateData.parentId = data.parentId;
     if (data.chartOfAccountId !== undefined)
       updateData.chartOfAccountId = data.chartOfAccountId;

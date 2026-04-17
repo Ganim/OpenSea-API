@@ -66,8 +66,10 @@ describe('Contracts Multi-Tenant Isolation (E2E)', () => {
       .set('Authorization', `Bearer ${tokenB}`);
 
     expect(response.status).toBe(200);
-    const ids = (response.body.contracts as Array<{ id: string }> | undefined)
-      ?.map((c) => c.id) ?? [];
+    const ids =
+      (response.body.contracts as Array<{ id: string }> | undefined)?.map(
+        (c) => c.id,
+      ) ?? [];
     expect(ids).not.toContain(contractAId);
   });
 

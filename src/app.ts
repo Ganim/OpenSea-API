@@ -149,8 +149,7 @@ if (!isTestEnv) {
 // and blocks app.listen(), which in production makes the Fly proxy refuse
 // connections for minutes on every boot). Set ENABLE_SWAGGER=true to opt in
 // (dev when you need /docs, or a dedicated staging machine).
-const shouldEnableSwagger =
-  !isTestEnv && process.env.ENABLE_SWAGGER === 'true';
+const shouldEnableSwagger = !isTestEnv && process.env.ENABLE_SWAGGER === 'true';
 
 if (shouldEnableSwagger) {
   // Register named schemas for OpenAPI $ref support (must be before swagger registration)

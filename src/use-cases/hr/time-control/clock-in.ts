@@ -121,9 +121,8 @@ export class ClockInUseCase {
       notes,
     });
 
-    const nsrNumber = await this.timeEntriesRepository.findMaxNsrNumber(
-      tenantId,
-    );
+    const nsrNumber =
+      await this.timeEntriesRepository.findMaxNsrNumber(tenantId);
 
     return {
       timeEntry,

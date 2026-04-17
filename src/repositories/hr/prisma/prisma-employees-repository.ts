@@ -1003,14 +1003,17 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
     }
 
     await prisma.employee.update({
-      where: { id: employee.id.toString(), tenantId: employee.tenantId.toString(), },
+      where: {
+        id: employee.id.toString(),
+        tenantId: employee.tenantId.toString(),
+      },
       data: saveData as Parameters<typeof prisma.employee.update>[0]['data'],
     });
   }
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.employee.update({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
       data: { deletedAt: new Date() },
     });
   }

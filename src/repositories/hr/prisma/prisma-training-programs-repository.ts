@@ -101,13 +101,19 @@ export class PrismaTrainingProgramsRepository
     data: UpdateTrainingProgramSchema,
   ): Promise<TrainingProgram | null> {
     const existingProgram = await prisma.trainingProgram.findUnique({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
     });
 
     if (!existingProgram) return null;
 
     const programData = await prisma.trainingProgram.update({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
       data: {
         name: data.name,
         description: data.description,
@@ -131,7 +137,7 @@ export class PrismaTrainingProgramsRepository
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.trainingProgram.update({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
       data: {
         deletedAt: new Date(),
         isActive: false,

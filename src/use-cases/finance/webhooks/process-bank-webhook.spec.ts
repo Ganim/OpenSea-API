@@ -372,7 +372,9 @@ describe('ProcessBankWebhookUseCase', () => {
   // the Prisma P2002 error code.
   it('should process only once when two parallel webhooks share the same externalId', async () => {
     const bankAccount = await setupBankAccount();
-    const entry = await setupReceivableEntry({ pixChargeId: 'pix-tx-parallel' });
+    const entry = await setupReceivableEntry({
+      pixChargeId: 'pix-tx-parallel',
+    });
 
     const provider = makeProviderWithResult({
       eventType: 'PIX_RECEIVED',
@@ -385,9 +387,12 @@ describe('ProcessBankWebhookUseCase', () => {
     // Simulate a unique index on (tenantId, externalId) — the second
     // create() attempt throws P2002 exactly like Prisma would.
     const seenExternalIds = new Set<string>();
-    const realCreate =
-      webhookEventsRepository.create.bind(webhookEventsRepository);
-    webhookEventsRepository.create = (async (data: Parameters<typeof realCreate>[0]) => {
+    const realCreate = webhookEventsRepository.create.bind(
+      webhookEventsRepository,
+    );
+    webhookEventsRepository.create = (async (
+      data: Parameters<typeof realCreate>[0],
+    ) => {
       const key = `${data.tenantId}:${data.externalId}`;
       if (seenExternalIds.has(key)) {
         const err = new Error('Unique constraint failed');
@@ -467,8 +472,9 @@ describe('ProcessBankWebhookUseCase', () => {
     // vez (simulando concorrencia) e o registro real na segunda vez
     // (apos o P2002).
     let checkCount = 0;
-    const originalFind =
-      webhookEventsRepository.findByExternalId.bind(webhookEventsRepository);
+    const originalFind = webhookEventsRepository.findByExternalId.bind(
+      webhookEventsRepository,
+    );
     webhookEventsRepository.findByExternalId = vi
       .fn()
       .mockImplementation(async (externalId: string, tenantId: string) => {
@@ -478,17 +484,16 @@ describe('ProcessBankWebhookUseCase', () => {
       });
 
     // Forca create() a lancar erro de unique constraint.
-    const originalCreate =
-      webhookEventsRepository.create.bind(webhookEventsRepository);
-    webhookEventsRepository.create = vi
-      .fn()
-      .mockImplementation(async () => {
-        const err = new Error(
-          'Unique constraint failed on the fields: (`tenant_id`,`external_id`)',
-        );
-        (err as unknown as { code: string }).code = 'P2002';
-        throw err;
-      });
+    const originalCreate = webhookEventsRepository.create.bind(
+      webhookEventsRepository,
+    );
+    webhookEventsRepository.create = vi.fn().mockImplementation(async () => {
+      const err = new Error(
+        'Unique constraint failed on the fields: (`tenant_id`,`external_id`)',
+      );
+      (err as unknown as { code: string }).code = 'P2002';
+      throw err;
+    });
 
     sut = new TestProcessBankWebhookUseCase(
       webhookEventsRepository,

@@ -89,7 +89,7 @@ export class InMemorySurveysRepository implements SurveysRepository {
     return survey;
   }
 
-  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId?: string): Promise<void> {
     const index = this.items.findIndex((survey) => survey.id.equals(id));
     if (index >= 0) {
       this.items.splice(index, 1);

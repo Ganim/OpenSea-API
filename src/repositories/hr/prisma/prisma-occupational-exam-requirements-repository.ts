@@ -97,7 +97,7 @@ export class PrismaOccupationalExamRequirementsRepository
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.occupationalExamRequirement.delete({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
     });
   }
 }

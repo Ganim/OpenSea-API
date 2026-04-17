@@ -112,7 +112,9 @@ function insertIntoWhereBlock(
     const comma = needsComma ? ',' : '';
     const leading = blockBody.startsWith(' ') ? '' : ' ';
     const newBody = `${leading}${trimmed}${comma} ${scopingText} `;
-    return source.slice(0, whereOpenIdx + 1) + newBody + source.slice(whereCloseIdx);
+    return (
+      source.slice(0, whereOpenIdx + 1) + newBody + source.slice(whereCloseIdx)
+    );
   }
 
   // Multi-line: find indent of the first non-empty line, insert new line before closing brace.
@@ -142,17 +144,16 @@ function insertIntoWhereBlock(
   lines.splice(lastNonEmptyIdx + 1, 0, `${indent}${scopingText}`);
 
   const newBody = lines.join('\n');
-  return source.slice(0, whereOpenIdx + 1) + newBody + source.slice(whereCloseIdx);
+  return (
+    source.slice(0, whereOpenIdx + 1) + newBody + source.slice(whereCloseIdx)
+  );
 }
 
 /**
  * Returns the whole method text containing a given position, heuristically
  * bounded by the previous `async ` keyword and the next matching brace.
  */
-function findEnclosingMethodHeader(
-  source: string,
-  pos: number,
-): string {
+function findEnclosingMethodHeader(source: string, pos: number): string {
   const before = source.slice(0, pos);
   const lastAsync = before.lastIndexOf('async ');
   if (lastAsync === -1) return '';
@@ -161,14 +162,17 @@ function findEnclosingMethodHeader(
   return source.slice(lastAsync, headerEnd);
 }
 
-const UPDATE_SCHEMA_SUFFIX_RX = /Schema$|Request$|Response$|DTO$|Input$|Filters$/;
+const UPDATE_SCHEMA_SUFFIX_RX =
+  /Schema$|Request$|Response$|DTO$|Input$|Filters$/;
 
 function isDomainEntitySaveHeader(header: string): {
   isSave: boolean;
   varName: string | null;
 } {
   // Header like: "async save(entity: SomeType, tx?: TransactionClient): Promise<void>"
-  const m = header.match(/\bsave\s*\(\s*([a-zA-Z_$][\w$]*)\s*:\s*([A-Z][A-Za-z0-9_]*)/);
+  const m = header.match(
+    /\bsave\s*\(\s*([a-zA-Z_$][\w$]*)\s*:\s*([A-Z][A-Za-z0-9_]*)/,
+  );
   if (!m) return { isSave: false, varName: null };
   const [, varName, typeName] = m;
   if (typeName === 'UniqueEntityID') return { isSave: false, varName: null };
@@ -233,10 +237,10 @@ const WRITE_METHODS = [
 ];
 
 type CallSite = {
-  callStart: number;    // position of "("
+  callStart: number; // position of "("
   method: string;
-  whereOpen: number;    // position of "{" after "where:"
-  whereClose: number;   // position of matching "}"
+  whereOpen: number; // position of "{" after "where:"
+  whereClose: number; // position of matching "}"
 };
 
 function findCallSites(source: string): CallSite[] {
@@ -330,7 +334,9 @@ function transformPrismaSource(filePath: string, source: string): string {
 
     const header = findEnclosingMethodHeader(next, site.callStart);
     const saveInfo = isDomainEntitySaveHeader(header);
-    const headerAcceptsTenantId = /\btenantId\s*\??\s*:\s*string\b/.test(header);
+    const headerAcceptsTenantId = /\btenantId\s*\??\s*:\s*string\b/.test(
+      header,
+    );
     const headerAcceptsDataWithTenant =
       /\bdata\s*:\s*[A-Z][A-Za-z0-9_]*(?:Schema|Data)\b/.test(header);
 
@@ -349,7 +355,10 @@ function transformPrismaSource(filePath: string, source: string): string {
         record(filePath, `${site.method}: soft-scope via tenantId param`);
       } else if (headerAcceptsDataWithTenant) {
         scoping = `...(data.tenantId && { tenantId: data.tenantId }),`;
-        record(filePath, `${site.method}: soft-scope by data.tenantId (fallback)`);
+        record(
+          filePath,
+          `${site.method}: soft-scope by data.tenantId (fallback)`,
+        );
       }
     } else if (idToStringSelfMatch) {
       // delete(id: UniqueEntityID, tenantId?: string) — soft-scope by param.
@@ -376,12 +385,7 @@ function transformPrismaSource(filePath: string, source: string): string {
 
     if (!scoping) continue;
 
-    next = insertIntoWhereBlock(
-      next,
-      site.whereOpen,
-      site.whereClose,
-      scoping,
-    );
+    next = insertIntoWhereBlock(next, site.whereOpen, site.whereClose, scoping);
   }
 
   return next;

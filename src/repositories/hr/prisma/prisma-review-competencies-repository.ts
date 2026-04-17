@@ -104,13 +104,19 @@ export class PrismaReviewCompetenciesRepository
     data: UpdateReviewCompetencySchema,
   ): Promise<ReviewCompetency | null> {
     const existing = await prisma.reviewCompetency.findUnique({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
     });
 
     if (!existing || existing.deletedAt) return null;
 
     const competencyData = await prisma.reviewCompetency.update({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
       data: {
         name: data.name,
         selfScore: data.selfScore,

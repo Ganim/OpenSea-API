@@ -151,7 +151,10 @@ export class PrismaEmployeeWarningsRepository
     data: UpdateEmployeeWarningSchema,
   ): Promise<EmployeeWarning | null> {
     const existing = await prisma.employeeWarning.findUnique({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
     });
 
     if (!existing) return null;
@@ -181,7 +184,10 @@ export class PrismaEmployeeWarningsRepository
 
   async save(warning: EmployeeWarning): Promise<void> {
     await prisma.employeeWarning.update({
-      where: { id: warning.id.toString(), tenantId: warning.tenantId.toString(), },
+      where: {
+        id: warning.id.toString(),
+        tenantId: warning.tenantId.toString(),
+      },
       data: {
         status: warning.status.value,
         employeeAcknowledged: warning.employeeAcknowledged,
@@ -192,5 +198,4 @@ export class PrismaEmployeeWarningsRepository
       },
     });
   }
-
 }

@@ -102,13 +102,19 @@ export class PrismaKeyResultsRepository implements KeyResultsRepository {
 
   async update(data: UpdateKeyResultSchema): Promise<KeyResult | null> {
     const existing = await prisma.keyResult.findUnique({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
     });
 
     if (!existing) return null;
 
     const keyResultData = await prisma.keyResult.update({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
       data: {
         title: data.title,
         description: data.description,
@@ -130,7 +136,7 @@ export class PrismaKeyResultsRepository implements KeyResultsRepository {
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.keyResult.delete({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
     });
   }
 }

@@ -180,9 +180,7 @@ describe('ApplyIndexationUseCase', () => {
   // that would mis-adjust every contract.
   it('should propagate provider errors for IPCA/IGPM instead of using placeholder', async () => {
     const indexRateProvider = {
-      getIndex: vi
-        .fn()
-        .mockRejectedValue(new Error('BCB API unreachable')),
+      getIndex: vi.fn().mockRejectedValue(new Error('BCB API unreachable')),
     };
     const sutWithProvider = new ApplyIndexationUseCase(
       recurringConfigsRepository,

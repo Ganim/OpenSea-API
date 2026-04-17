@@ -39,7 +39,11 @@ export class DeleteFinanceEntryUseCase {
       throw new CannotDeletePaidEntryError(entry.status);
     }
 
-    await assertPeriodNotLocked(tenantId, entry.dueDate, this.periodLockChecker);
+    await assertPeriodNotLocked(
+      tenantId,
+      entry.dueDate,
+      this.periodLockChecker,
+    );
 
     await this.financeEntriesRepository.delete(
       new UniqueEntityID(id),

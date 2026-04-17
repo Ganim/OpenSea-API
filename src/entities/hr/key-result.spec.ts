@@ -1,9 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import {
-  calculateKrProgress,
-  inferKrDirection,
-} from './key-result';
+import { calculateKrProgress, inferKrDirection } from './key-result';
 
 describe('inferKrDirection', () => {
   it('infers increase when target is above start', () => {
@@ -80,7 +77,11 @@ describe('calculateKrProgress', () => {
   describe('increase direction (happy path)', () => {
     it('reports 0% when current equals start', () => {
       expect(
-        calculateKrProgress({ startValue: 0, targetValue: 100, currentValue: 0 }),
+        calculateKrProgress({
+          startValue: 0,
+          targetValue: 100,
+          currentValue: 0,
+        }),
       ).toBe(0);
     });
 

@@ -159,7 +159,7 @@ export class InMemoryJobPostingsRepository implements JobPostingsRepository {
     return posting;
   }
 
-  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId?: string): Promise<void> {
     const index = this.items.findIndex((posting) => posting.id.equals(id));
     if (index >= 0) {
       this.items[index].softDelete();

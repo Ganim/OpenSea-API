@@ -25,11 +25,7 @@ const costCenterId = new UniqueEntityID().toString();
 function daysAgo(days: number): Date {
   const now = new Date();
   return new Date(
-    Date.UTC(
-      now.getUTCFullYear(),
-      now.getUTCMonth(),
-      now.getUTCDate() - days,
-    ),
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - days),
   );
 }
 

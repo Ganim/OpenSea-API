@@ -98,13 +98,19 @@ export class PrismaTimeBankRepository implements TimeBankRepository {
 
   async update(data: UpdateTimeBankSchema): Promise<TimeBank | null> {
     const existingTimeBank = await prisma.timeBank.findUnique({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
     });
 
     if (!existingTimeBank) return null;
 
     const timeBankData = await prisma.timeBank.update({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
       data: {
         balance: data.balance,
       },
@@ -119,7 +125,10 @@ export class PrismaTimeBankRepository implements TimeBankRepository {
 
   async save(timeBank: TimeBank): Promise<void> {
     await prisma.timeBank.update({
-      where: { id: timeBank.id.toString(), tenantId: timeBank.tenantId.toString(), },
+      where: {
+        id: timeBank.id.toString(),
+        tenantId: timeBank.tenantId.toString(),
+      },
       data: {
         balance: timeBank.balance,
       },
@@ -147,7 +156,7 @@ export class PrismaTimeBankRepository implements TimeBankRepository {
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.timeBank.delete({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
     });
   }
 }

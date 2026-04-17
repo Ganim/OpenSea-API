@@ -97,9 +97,9 @@ describe('RequestSignerOTPUseCase', () => {
       externalEmail: 'signer@example.com',
     });
 
-    await expect(
-      sut.execute({ accessToken: 'simple-token' }),
-    ).rejects.toThrow(BadRequestError);
+    await expect(sut.execute({ accessToken: 'simple-token' })).rejects.toThrow(
+      BadRequestError,
+    );
   });
 
   it('should throw BadRequestError if signer already signed', async () => {
@@ -112,9 +112,9 @@ describe('RequestSignerOTPUseCase', () => {
       status: 'SIGNED',
     });
 
-    await expect(
-      sut.execute({ accessToken: 'signed-token' }),
-    ).rejects.toThrow(BadRequestError);
+    await expect(sut.execute({ accessToken: 'signed-token' })).rejects.toThrow(
+      BadRequestError,
+    );
   });
 
   it('should throw BadRequestError if signer has no email', async () => {
