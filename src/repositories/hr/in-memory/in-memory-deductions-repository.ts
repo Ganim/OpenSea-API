@@ -168,7 +168,11 @@ export class InMemoryDeductionsRepository implements DeductionsRepository {
   }
 
   async update(data: UpdateDeductionSchema): Promise<Deduction | null> {
-    const index = this.items.findIndex((item) => item.id.equals(data.id));
+    const index = this.items.findIndex(
+      (item) =>
+        item.id.equals(data.id) &&
+        (!data.tenantId || item.tenantId.toString() === data.tenantId),
+    );
     if (index === -1) return null;
 
     const deduction = this.items[index];
@@ -215,8 +219,12 @@ export class InMemoryDeductionsRepository implements DeductionsRepository {
     }
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
-    const index = this.items.findIndex((item) => item.id.equals(id));
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
+    const index = this.items.findIndex(
+      (item) =>
+        item.id.equals(id) &&
+        (!tenantId || item.tenantId.toString() === tenantId),
+    );
     if (index >= 0) {
       this.items.splice(index, 1);
     }

@@ -149,7 +149,11 @@ export class InMemoryPayrollItemsRepository implements PayrollItemsRepository {
   }
 
   async update(data: UpdatePayrollItemSchema): Promise<PayrollItem | null> {
-    const index = this.items.findIndex((item) => item.id.equals(data.id));
+    const index = this.items.findIndex(
+      (item) =>
+        item.id.equals(data.id) &&
+        (!data.tenantId || item.tenantId.toString() === data.tenantId),
+    );
     if (index === -1) return null;
 
     const payrollItem = this.items[index];
@@ -164,8 +168,12 @@ export class InMemoryPayrollItemsRepository implements PayrollItemsRepository {
     return payrollItem;
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
-    const index = this.items.findIndex((item) => item.id.equals(id));
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
+    const index = this.items.findIndex(
+      (item) =>
+        item.id.equals(id) &&
+        (!tenantId || item.tenantId.toString() === tenantId),
+    );
     if (index >= 0) {
       this.items.splice(index, 1);
     }

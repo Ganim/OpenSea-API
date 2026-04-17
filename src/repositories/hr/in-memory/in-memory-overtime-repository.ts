@@ -144,7 +144,11 @@ export class InMemoryOvertimeRepository implements OvertimeRepository {
   }
 
   async update(data: UpdateOvertimeSchema): Promise<Overtime | null> {
-    const index = this.items.findIndex((item) => item.id.equals(data.id));
+    const index = this.items.findIndex(
+      (item) =>
+        item.id.equals(data.id) &&
+        (!data.tenantId || item.tenantId.toString() === data.tenantId),
+    );
 
     if (index === -1) return null;
 
@@ -176,8 +180,12 @@ export class InMemoryOvertimeRepository implements OvertimeRepository {
     }
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
-    const index = this.items.findIndex((item) => item.id.equals(id));
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
+    const index = this.items.findIndex(
+      (item) =>
+        item.id.equals(id) &&
+        (!tenantId || item.tenantId.toString() === tenantId),
+    );
     if (index !== -1) {
       this.items.splice(index, 1);
     }

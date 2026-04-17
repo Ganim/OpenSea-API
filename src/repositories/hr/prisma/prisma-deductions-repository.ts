@@ -228,13 +228,13 @@ export class PrismaDeductionsRepository implements DeductionsRepository {
 
   async update(data: UpdateDeductionSchema): Promise<Deduction | null> {
     const existingDeduction = await prisma.deduction.findUnique({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
     });
 
     if (!existingDeduction) return null;
 
     const deductionData = await prisma.deduction.update({
-      where: { id: data.id.toString() },
+      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
       data: {
         name: data.name,
         amount: data.amount,
@@ -254,16 +254,16 @@ export class PrismaDeductionsRepository implements DeductionsRepository {
     );
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.deduction.delete({
-      where: { id: id.toString() },
+      where: { id: id.toString(), ...(tenantId && { tenantId }), },
     });
   }
 
   async save(deduction: Deduction, tx?: TransactionClient): Promise<void> {
     const client = tx ?? prisma;
     await client.deduction.update({
-      where: { id: deduction.id.toString() },
+      where: { id: deduction.id.toString(), tenantId: deduction.tenantId.toString(), },
       data: {
         name: deduction.name,
         amount: deduction.amount,

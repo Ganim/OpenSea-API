@@ -12,6 +12,13 @@ export interface CreatePayrollSchema {
 
 export interface UpdatePayrollSchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so the underlying Prisma `where` clause is scoped and cannot update a
+   * record belonging to another tenant.
+   */
+  tenantId?: string;
   status?: string;
   totalGross?: number;
   totalDeductions?: number;
@@ -44,5 +51,5 @@ export interface PayrollsRepository {
   findManyByStatus(status: string, tenantId: string): Promise<Payroll[]>;
   update(data: UpdatePayrollSchema): Promise<Payroll | null>;
   save(payroll: Payroll, tx?: TransactionClient): Promise<void>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }

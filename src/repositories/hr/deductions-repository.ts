@@ -15,6 +15,13 @@ export interface CreateDeductionSchema {
 
 export interface UpdateDeductionSchema {
   id: UniqueEntityID;
+  /**
+   * Tenant identifier for multi-tenant write isolation. Optional for backward
+   * compatibility during the defense-in-depth rollout, but callers MUST pass
+   * it so the underlying Prisma `where` clause is scoped and cannot update a
+   * record belonging to another tenant.
+   */
+  tenantId?: string;
   name?: string;
   amount?: number;
   reason?: string;
@@ -77,5 +84,5 @@ export interface DeductionsRepository {
   ): Promise<number>;
   update(data: UpdateDeductionSchema): Promise<Deduction | null>;
   save(deduction: Deduction, tx?: TransactionClient): Promise<void>;
-  delete(id: UniqueEntityID): Promise<void>;
+  delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
 }
