@@ -45,14 +45,25 @@ export function stopNotificationsScheduler() {
   }
 }
 
-// Initial run + start interval
-try {
-  await processBatch();
-  intervalId = setInterval(processBatch, interval);
-  logger.info(
-    { interval },
-    'Notifications scheduler worker started successfully',
-  );
-} catch (err) {
-  logger.error({ err }, 'Failed to start notifications scheduler worker');
+/**
+ * P3-05: previously auto-started on module import. Now called explicitly from
+ * the worker entrypoint so the BULLMQ_ENABLED gate can select between this
+ * legacy in-process scheduler and the durable BullMQ-backed one.
+ */
+export async function startNotificationsScheduler(): Promise<void> {
+  if (intervalId) {
+    logger.info('Notifications scheduler already running');
+    return;
+  }
+
+  try {
+    await processBatch();
+    intervalId = setInterval(processBatch, interval);
+    logger.info(
+      { interval },
+      'Notifications scheduler worker started successfully',
+    );
+  } catch (err) {
+    logger.error({ err }, 'Failed to start notifications scheduler worker');
+  }
 }

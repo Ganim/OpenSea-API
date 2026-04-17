@@ -291,6 +291,13 @@ export const QUEUE_NAMES = {
   AI_GENERATE_INSIGHTS: 'ai-generate-insights',
   ESOCIAL_BATCH_POLLING: 'esocial-batch-polling',
   PAYMENT_RECONCILIATION: 'payment-reconciliation',
+  // P3-05 extension: durable BullMQ-backed schedulers. Each queue name is
+  // stable so repeatable jobs can be cleaned up across deploys.
+  HR_VACATION_ACCRUAL: 'hr-vacation-accrual',
+  HR_DOC_EXPIRY: 'hr-doc-expiry',
+  HR_PAYROLL_GENERATION: 'hr-payroll-generation',
+  CALENDAR_REMINDERS: 'calendar-reminders',
+  NOTIFICATIONS_SCHEDULED: 'notifications-scheduled',
 } as const;
 
 export type QueueName = (typeof QUEUE_NAMES)[keyof typeof QUEUE_NAMES];

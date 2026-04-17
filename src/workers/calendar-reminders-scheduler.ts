@@ -44,14 +44,25 @@ export function stopCalendarRemindersScheduler() {
   }
 }
 
-// Initial run + start interval
-try {
-  await processBatch();
-  intervalId = setInterval(processBatch, INTERVAL_MS);
-  logger.info(
-    { interval: INTERVAL_MS },
-    'Calendar reminders scheduler worker started successfully',
-  );
-} catch (err) {
-  logger.error({ err }, 'Failed to start calendar reminders scheduler worker');
+/**
+ * P3-05: previously auto-started on module import. Now called explicitly from
+ * the worker entrypoint so the BULLMQ_ENABLED gate can select between this
+ * legacy in-process scheduler and the durable BullMQ-backed one.
+ */
+export async function startCalendarRemindersScheduler(): Promise<void> {
+  if (intervalId) {
+    logger.info('Calendar reminders scheduler already running');
+    return;
+  }
+
+  try {
+    await processBatch();
+    intervalId = setInterval(processBatch, INTERVAL_MS);
+    logger.info(
+      { interval: INTERVAL_MS },
+      'Calendar reminders scheduler worker started successfully',
+    );
+  } catch (err) {
+    logger.error({ err }, 'Failed to start calendar reminders scheduler worker');
+  }
 }

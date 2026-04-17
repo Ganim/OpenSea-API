@@ -4,7 +4,10 @@ import { closeAllQueues } from '@/lib/queue';
 import { PrismaEmailAccountsRepository } from '@/repositories/email/prisma/prisma-email-accounts-repository';
 import { CredentialCipherService } from '@/services/email/credential-cipher.service';
 import { getImapIdleManager } from '@/services/email/imap-idle-manager';
-import { stopCalendarRemindersScheduler } from './calendar-reminders-scheduler';
+import {
+  startCalendarRemindersScheduler,
+  stopCalendarRemindersScheduler,
+} from './calendar-reminders-scheduler';
 import {
   startEmailSyncScheduler,
   stopEmailSyncScheduler,
@@ -25,19 +28,47 @@ import {
   startHrVacationAccrualScheduler,
   stopHrVacationAccrualScheduler,
 } from './hr-vacation-accrual-scheduler';
-import { stopNotificationsScheduler } from './notifications-scheduler';
+import {
+  startNotificationsScheduler,
+  stopNotificationsScheduler,
+} from './notifications-scheduler';
 import {
   startPaymentReconciliationScheduler,
   stopPaymentReconciliationScheduler,
 } from './payment-reconciliation-scheduler';
+import {
+  scheduleCalendarRemindersRepeatable,
+  startCalendarRemindersQueueWorker,
+  unscheduleCalendarRemindersRepeatable,
+} from './queues/calendar-reminders.queue';
 import { startEmailSyncWorker } from './queues/email-sync.queue';
 import { startEsocialBatchPollingWorker } from './queues/esocial-batch-polling.queue';
+import {
+  scheduleDocExpiryRepeatable,
+  startDocExpiryQueueWorker,
+  unscheduleDocExpiryRepeatable,
+} from './queues/hr-doc-expiry.queue';
+import {
+  schedulePayrollGenerationRepeatable,
+  startPayrollGenerationQueueWorker,
+  unschedulePayrollGenerationRepeatable,
+} from './queues/hr-payroll-generation.queue';
+import {
+  scheduleVacationAccrualRepeatable,
+  startVacationAccrualQueueWorker,
+  unscheduleVacationAccrualRepeatable,
+} from './queues/hr-vacation-accrual.queue';
 import { startNotificationWorker } from './queues/notification.queue';
 import {
   schedulePaymentReconciliationRepeatable,
   startPaymentReconciliationQueueWorker,
   unschedulePaymentReconciliationRepeatable,
 } from './queues/payment-reconciliation.queue';
+import {
+  scheduleScheduledNotificationsRepeatable,
+  startScheduledNotificationsQueueWorker,
+  unscheduleScheduledNotificationsRepeatable,
+} from './queues/scheduled-notifications.queue';
 
 let workersStarted = false;
 let isShuttingDown = false;
@@ -131,10 +162,13 @@ export async function startAllWorkers(): Promise<void> {
     console.error('[Workers] Failed to start IDLE monitoring:', err);
   }
 
-  // Start payment reconciliation scheduler (daily 02:00 UTC).
-  // P3-05: when BULLMQ_ENABLED=true, use the durable BullMQ-backed worker +
-  // repeatable job. Otherwise fall back to the legacy in-process setInterval
-  // scheduler so production keeps working until the flag is rolled out.
+  // P3-05: scheduler fan-out — when BULLMQ_ENABLED=true, start the durable
+  // BullMQ-backed worker + repeatable job for each scheduler. Otherwise fall
+  // back to the legacy in-process setInterval scheduler so production keeps
+  // working until the flag is rolled out. Each try/catch is isolated so one
+  // bad scheduler does not prevent the others from booting.
+
+  // Payment reconciliation (daily 02:00 UTC).
   if (env.BULLMQ_ENABLED) {
     try {
       startPaymentReconciliationQueueWorker();
@@ -159,34 +193,127 @@ export async function startAllWorkers(): Promise<void> {
     }
   }
 
-  // Start HR vacation accrual scheduler (monthly, day 1 at 02:00 UTC)
-  try {
-    await startHrVacationAccrualScheduler();
-  } catch (err) {
-    console.error(
-      '[Workers] Failed to start HR vacation accrual scheduler:',
-      err,
-    );
+  // HR vacation accrual (monthly, day 1 at 02:00 UTC)
+  if (env.BULLMQ_ENABLED) {
+    try {
+      startVacationAccrualQueueWorker();
+      await scheduleVacationAccrualRepeatable();
+      console.log(
+        '[Workers] HR vacation accrual queue worker started (BullMQ)',
+      );
+    } catch (err) {
+      console.error(
+        '[Workers] Failed to start HR vacation accrual queue worker:',
+        err,
+      );
+    }
+  } else {
+    try {
+      await startHrVacationAccrualScheduler();
+    } catch (err) {
+      console.error(
+        '[Workers] Failed to start HR vacation accrual scheduler:',
+        err,
+      );
+    }
   }
 
-  // Start HR document expiry scheduler (daily 08:00 UTC)
-  try {
-    await startHrDocExpiryScheduler();
-  } catch (err) {
-    console.error(
-      '[Workers] Failed to start HR document expiry scheduler:',
-      err,
-    );
+  // HR document expiry (daily 08:00 UTC)
+  if (env.BULLMQ_ENABLED) {
+    try {
+      startDocExpiryQueueWorker();
+      await scheduleDocExpiryRepeatable();
+      console.log('[Workers] HR doc expiry queue worker started (BullMQ)');
+    } catch (err) {
+      console.error(
+        '[Workers] Failed to start HR doc expiry queue worker:',
+        err,
+      );
+    }
+  } else {
+    try {
+      await startHrDocExpiryScheduler();
+    } catch (err) {
+      console.error(
+        '[Workers] Failed to start HR document expiry scheduler:',
+        err,
+      );
+    }
   }
 
-  // Start HR monthly payroll draft generation scheduler (monthly, day 25 at 03:00 UTC)
-  try {
-    await startHrPayrollGenerationScheduler();
-  } catch (err) {
-    console.error(
-      '[Workers] Failed to start HR payroll generation scheduler:',
-      err,
-    );
+  // HR monthly payroll draft generation (monthly, day 25 at 03:00 UTC)
+  if (env.BULLMQ_ENABLED) {
+    try {
+      startPayrollGenerationQueueWorker();
+      await schedulePayrollGenerationRepeatable();
+      console.log(
+        '[Workers] HR payroll generation queue worker started (BullMQ)',
+      );
+    } catch (err) {
+      console.error(
+        '[Workers] Failed to start HR payroll generation queue worker:',
+        err,
+      );
+    }
+  } else {
+    try {
+      await startHrPayrollGenerationScheduler();
+    } catch (err) {
+      console.error(
+        '[Workers] Failed to start HR payroll generation scheduler:',
+        err,
+      );
+    }
+  }
+
+  // Calendar reminders (every 60s)
+  if (env.BULLMQ_ENABLED) {
+    try {
+      startCalendarRemindersQueueWorker();
+      await scheduleCalendarRemindersRepeatable();
+      console.log(
+        '[Workers] Calendar reminders queue worker started (BullMQ)',
+      );
+    } catch (err) {
+      console.error(
+        '[Workers] Failed to start calendar reminders queue worker:',
+        err,
+      );
+    }
+  } else {
+    try {
+      await startCalendarRemindersScheduler();
+    } catch (err) {
+      console.error(
+        '[Workers] Failed to start calendar reminders scheduler:',
+        err,
+      );
+    }
+  }
+
+  // Scheduled notifications (every 60s)
+  if (env.BULLMQ_ENABLED) {
+    try {
+      startScheduledNotificationsQueueWorker();
+      await scheduleScheduledNotificationsRepeatable();
+      console.log(
+        '[Workers] Scheduled notifications queue worker started (BullMQ)',
+      );
+    } catch (err) {
+      console.error(
+        '[Workers] Failed to start scheduled notifications queue worker:',
+        err,
+      );
+    }
+  } else {
+    try {
+      await startNotificationsScheduler();
+    } catch (err) {
+      console.error(
+        '[Workers] Failed to start notifications scheduler:',
+        err,
+      );
+    }
   }
 
   workersStarted = true;
@@ -212,16 +339,27 @@ export async function stopAllWorkers(): Promise<void> {
   stopHrDocExpiryScheduler();
   stopHrPayrollGenerationScheduler();
 
-  // P3-05: when running on the BullMQ path, also tear down the repeatable
+  // P3-05: when running on the BullMQ path, also tear down every repeatable
   // schedule so a redeploy does not leave orphaned cron entries in Redis.
   if (env.BULLMQ_ENABLED) {
-    try {
-      await unschedulePaymentReconciliationRepeatable();
-    } catch (err) {
-      console.error(
-        '[Workers] Failed to unschedule payment reconciliation repeatable:',
-        err,
-      );
+    const tearDowns: Array<[string, () => Promise<void>]> = [
+      ['payment reconciliation', unschedulePaymentReconciliationRepeatable],
+      ['vacation accrual', unscheduleVacationAccrualRepeatable],
+      ['doc expiry', unscheduleDocExpiryRepeatable],
+      ['payroll generation', unschedulePayrollGenerationRepeatable],
+      ['calendar reminders', unscheduleCalendarRemindersRepeatable],
+      ['scheduled notifications', unscheduleScheduledNotificationsRepeatable],
+    ];
+
+    for (const [label, teardown] of tearDowns) {
+      try {
+        await teardown();
+      } catch (err) {
+        console.error(
+          `[Workers] Failed to unschedule ${label} repeatable:`,
+          err,
+        );
+      }
     }
   }
 
