@@ -1,5 +1,6 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { PPEAssignment } from '@/entities/hr/ppe-assignment';
+import type { TransactionClient } from '@/lib/transaction-manager';
 
 export interface CreatePPEAssignmentSchema {
   tenantId: string;
@@ -33,7 +34,15 @@ export interface FindExpiringAssignmentFilters {
 }
 
 export interface PPEAssignmentsRepository {
-  create(data: CreatePPEAssignmentSchema): Promise<PPEAssignment>;
+  /**
+   * Accepts an optional `tx` so the assignment-create can be composed inside
+   * a transaction with the stock-decrement — if either step fails both must
+   * roll back together (see assign-ppe use case).
+   */
+  create(
+    data: CreatePPEAssignmentSchema,
+    tx?: TransactionClient,
+  ): Promise<PPEAssignment>;
   findById(id: UniqueEntityID, tenantId: string): Promise<PPEAssignment | null>;
   findMany(
     tenantId: string,

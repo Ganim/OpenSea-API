@@ -126,4 +126,56 @@ describe('Assign PPE Use Case', () => {
       }),
     ).rejects.toThrow('Estoque insuficiente');
   });
+
+  // ---------------------------------------------------------------------------
+  // Concurrent race (P0 safety — atomic compare-and-decrement)
+  // ---------------------------------------------------------------------------
+
+  it('should reject over-allocation when two assigns race for the last unit', async () => {
+    // Seed a single unit — only one of the two concurrent assigns may win.
+    const ppeItem = await ppeItemsRepository.create({
+      tenantId,
+      name: 'Cinto Anti-Queda',
+      category: 'FALL_PROTECTION',
+      currentStock: 1,
+    });
+
+    const otherEmployeeId = new UniqueEntityID().toString();
+
+    const [firstOutcome, secondOutcome] = await Promise.allSettled([
+      sut.execute({
+        tenantId,
+        ppeItemId: ppeItem.id.toString(),
+        employeeId,
+        quantity: 1,
+      }),
+      sut.execute({
+        tenantId,
+        ppeItemId: ppeItem.id.toString(),
+        employeeId: otherEmployeeId,
+        quantity: 1,
+      }),
+    ]);
+
+    const outcomes = [firstOutcome, secondOutcome];
+    const fulfilled = outcomes.filter((o) => o.status === 'fulfilled');
+    const rejected = outcomes.filter((o) => o.status === 'rejected');
+
+    // Exactly one assignment must succeed; the other must receive the
+    // "estoque insuficiente" signal from atomicDecrementStock.
+    expect(fulfilled).toHaveLength(1);
+    expect(rejected).toHaveLength(1);
+
+    const rejection = rejected[0] as PromiseRejectedResult;
+    expect((rejection.reason as Error).message).toContain(
+      'Estoque insuficiente',
+    );
+
+    // And the stock must land at exactly 0 — not negative, not stale.
+    const refreshedItem = await ppeItemsRepository.findById(
+      ppeItem.id,
+      tenantId,
+    );
+    expect(refreshedItem!.currentStock).toBe(0);
+  });
 });

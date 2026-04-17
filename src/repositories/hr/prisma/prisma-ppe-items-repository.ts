@@ -1,6 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { PPEItem } from '@/entities/hr/ppe-item';
 import { prisma } from '@/lib/prisma';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import { mapPPEItemPrismaToDomain } from '@/mappers/hr/ppe-item';
 import type {
   PPEItemsRepository,
@@ -180,6 +181,36 @@ export class PrismaPPEItemsRepository implements PPEItemsRepository {
       mapPPEItemPrismaToDomain(record),
       new UniqueEntityID(record.id),
     );
+  }
+
+  /**
+   * Atomic compare-and-decrement powered by Postgres `UPDATE ... WHERE
+   * current_stock >= $qty`. Unlike the check-then-write pattern this closes
+   * the TOCTOU window: two concurrent assigns observing `current_stock = 1`
+   * can no longer both succeed. `updateMany` returns `count` — zero means
+   * the guard tripped and the caller must reject the assignment.
+   *
+   * Accepts an optional `tx` so a use case can compose the decrement with
+   * the assignment-create inside the same transaction and roll both back
+   * together if the assignment fails.
+   */
+  async atomicDecrementStock(
+    itemId: UniqueEntityID,
+    quantity: number,
+    tenantId: string,
+    tx?: TransactionClient,
+  ): Promise<{ count: number }> {
+    const client = tx ?? prisma;
+    const { count } = await client.pPEItem.updateMany({
+      where: {
+        id: itemId.toString(),
+        tenantId,
+        deletedAt: null,
+        currentStock: { gte: quantity },
+      },
+      data: { currentStock: { decrement: quantity } },
+    });
+    return { count };
   }
 
   async softDelete(id: UniqueEntityID, tenantId?: string): Promise<void> {

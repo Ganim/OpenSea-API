@@ -164,6 +164,50 @@ export class InMemoryPPEItemsRepository implements PPEItemsRepository {
     return updatedItem;
   }
 
+  /**
+   * Single-threaded JavaScript guarantees that between the find and the
+   * splice below no other continuation can interleave, so the in-memory
+   * implementation is trivially atomic. We still guard against
+   * currentStock < quantity so tests can simulate the "insufficient stock"
+   * branch deterministically.
+   */
+  async atomicDecrementStock(
+    itemId: UniqueEntityID,
+    quantity: number,
+    tenantId: string,
+  ): Promise<{ count: number }> {
+    const index = this.items.findIndex(
+      (item) =>
+        item.id.equals(itemId) &&
+        item.tenantId.toString() === tenantId &&
+        item.currentStock >= quantity,
+    );
+    if (index === -1) return { count: 0 };
+
+    const existing = this.items[index];
+    const updatedItem = PPEItem.create(
+      {
+        tenantId: existing.tenantId,
+        name: existing.name,
+        category: existing.category,
+        caNumber: existing.caNumber,
+        manufacturer: existing.manufacturer,
+        model: existing.model,
+        expirationMonths: existing.expirationMonths,
+        minStock: existing.minStock,
+        currentStock: existing.currentStock - quantity,
+        isActive: existing.isActive,
+        notes: existing.notes,
+        createdAt: existing.createdAt,
+        deletedAt: existing.deletedAt,
+      },
+      existing.id,
+    );
+
+    this.items[index] = updatedItem;
+    return { count: 1 };
+  }
+
   async softDelete(id: UniqueEntityID): Promise<void> {
     const index = this.items.findIndex((item) => item.id.equals(id));
     if (index !== -1) {

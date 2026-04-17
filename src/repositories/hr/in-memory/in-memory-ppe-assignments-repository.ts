@@ -1,5 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { PPEAssignment } from '@/entities/hr/ppe-assignment';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import type {
   CreatePPEAssignmentSchema,
   FindPPEAssignmentFilters,
@@ -11,9 +12,12 @@ import type {
 export class InMemoryPPEAssignmentsRepository
   implements PPEAssignmentsRepository
 {
-  private items: PPEAssignment[] = [];
+  public items: PPEAssignment[] = [];
 
-  async create(data: CreatePPEAssignmentSchema): Promise<PPEAssignment> {
+  async create(
+    data: CreatePPEAssignmentSchema,
+    _tx?: TransactionClient,
+  ): Promise<PPEAssignment> {
     const id = new UniqueEntityID();
     const assignment = PPEAssignment.create(
       {

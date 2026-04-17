@@ -1,6 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { PPEAssignment } from '@/entities/hr/ppe-assignment';
 import { prisma } from '@/lib/prisma';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import { mapPPEAssignmentPrismaToDomain } from '@/mappers/hr/ppe-assignment';
 import type {
   PPEAssignmentsRepository,
@@ -13,8 +14,12 @@ import type {
 export class PrismaPPEAssignmentsRepository
   implements PPEAssignmentsRepository
 {
-  async create(data: CreatePPEAssignmentSchema): Promise<PPEAssignment> {
-    const record = await prisma.pPEAssignment.create({
+  async create(
+    data: CreatePPEAssignmentSchema,
+    tx?: TransactionClient,
+  ): Promise<PPEAssignment> {
+    const client = tx ?? prisma;
+    const record = await client.pPEAssignment.create({
       data: {
         tenantId: data.tenantId,
         ppeItemId: data.ppeItemId,
