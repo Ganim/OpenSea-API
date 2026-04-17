@@ -90,6 +90,7 @@ describe('ProcessCnabReturnUseCase', () => {
       code: 'REC-001',
       description: 'Customer payment',
       categoryId: new UniqueEntityID().toString(),
+      bankAccountId: 'bank-1',
       expectedAmount: 1500,
       issueDate: new Date(),
       dueDate: new Date(),
@@ -149,6 +150,7 @@ describe('ProcessCnabReturnUseCase', () => {
       code: 'REC-002',
       description: 'Already paid',
       categoryId: new UniqueEntityID().toString(),
+      bankAccountId: 'bank-1',
       expectedAmount: 1000,
       issueDate: new Date(),
       dueDate: new Date(),
@@ -169,6 +171,55 @@ describe('ProcessCnabReturnUseCase', () => {
     });
 
     expect(response.details[0].status).toBe('ALREADY_PAID');
+  });
+
+  it('should not match entries from other bank accounts (P2-05)', async () => {
+    const boletoNumber = 'BOLETO-CROSSBANK-001';
+
+    // Entry belongs to bank-B, but the CNAB is being processed from bank-A
+    await financeEntriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'RECEIVABLE',
+      code: 'REC-X01',
+      description: 'Entry from another bank',
+      categoryId: new UniqueEntityID().toString(),
+      bankAccountId: 'bank-B',
+      expectedAmount: 500,
+      issueDate: new Date(),
+      dueDate: new Date(),
+      status: 'PENDING',
+      boletoBarcodeNumber: boletoNumber,
+    });
+
+    const cnabLine = buildCnab240Line({
+      boletoNumber,
+      amount: '000000000050000',
+      status: '00',
+    });
+
+    const response = await sut.execute({
+      tenantId: 'tenant-1',
+      fileContent: cnabLine,
+      bankAccountId: 'bank-A',
+    });
+
+    expect(response.matched).toBe(0);
+    expect(response.details[0].status).toBe('NOT_FOUND');
+  });
+
+  it('should throw when bankAccountId is not provided (P2-05)', async () => {
+    const cnabLine = buildCnab240Line({
+      boletoNumber: 'IGNORED',
+      status: '00',
+    });
+
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        fileContent: cnabLine,
+        bankAccountId: '',
+      }),
+    ).rejects.toBeInstanceOf(BadRequestError);
   });
 
   it('should handle non-confirmed records separately', async () => {

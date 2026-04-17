@@ -33,10 +33,16 @@ export class ProcessCnabReturnUseCase {
   async execute(
     request: ProcessCnabReturnUseCaseRequest,
   ): Promise<ProcessCnabReturnUseCaseResponse> {
-    const { tenantId, fileContent } = request;
+    const { tenantId, fileContent, bankAccountId } = request;
 
     if (!fileContent || fileContent.trim().length === 0) {
       throw new BadRequestError('Conteúdo do arquivo CNAB está vazio');
+    }
+
+    if (!bankAccountId || bankAccountId.trim().length === 0) {
+      throw new BadRequestError(
+        'A conta bancária de origem do CNAB é obrigatória',
+      );
     }
 
     const cnabRecords = parseCnab240Return(fileContent);
@@ -58,6 +64,7 @@ export class ProcessCnabReturnUseCase {
     for (const record of confirmedRecords) {
       const processedDetail = await this.processRecord(
         tenantId,
+        bankAccountId,
         record,
         errorMessages,
       );
@@ -92,12 +99,14 @@ export class ProcessCnabReturnUseCase {
 
   private async processRecord(
     tenantId: string,
+    bankAccountId: string,
     record: CnabReturnRecord,
     errorMessages: string[],
   ): Promise<CnabProcessedDetail> {
     try {
       const matchedEntry = await this.findEntryByBoleto(
         tenantId,
+        bankAccountId,
         record.boletoNumber,
       );
 
@@ -152,10 +161,18 @@ export class ProcessCnabReturnUseCase {
     }
   }
 
-  private async findEntryByBoleto(tenantId: string, boletoNumber: string) {
-    // Fetch entries and match against all boleto identifier fields
+  private async findEntryByBoleto(
+    tenantId: string,
+    bankAccountId: string,
+    boletoNumber: string,
+  ) {
+    // Scope the lookup to the CNAB-owning bank account. Two entries from
+    // different banks can share the same boleto digit line (different
+    // "nosso número" namespaces), so without this filter a return file
+    // from bank A could mark an entry of bank B as paid.
     const entriesResult = await this.financeEntriesRepository.findMany({
       tenantId,
+      bankAccountId,
       limit: 1000,
     });
 
