@@ -6,7 +6,7 @@ export interface GetEsocialConfigRequest {
 
 export interface UpdateEsocialConfigRequest {
   tenantId: string;
-  environment?: 'PRODUCAO' | 'HOMOLOGACAO';
+  environment?: 'PRODUCAO' | 'PRODUCAO_RESTRITA' | 'HOMOLOGACAO';
   autoGenerate?: boolean;
   requireApproval?: boolean;
   employerType?: string;

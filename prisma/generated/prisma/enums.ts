@@ -3208,6 +3208,7 @@ export type EsocialEventStatus = (typeof EsocialEventStatus)[keyof typeof Esocia
 
 export const EsocialEnvironment = {
   PRODUCAO: 'PRODUCAO',
+  PRODUCAO_RESTRITA: 'PRODUCAO_RESTRITA',
   HOMOLOGACAO: 'HOMOLOGACAO'
 } as const
 

@@ -6,8 +6,18 @@ import https from 'https';
  * government's eSocial SOAP endpoints.
  */
 
+// Three distinct eSocial environments. PRODUCAO is the only one with legal
+// effect; PRODUCAO_RESTRITA is "produção restrita" — accepts real employer
+// data for integration testing but events carry no legal weight; HOMOLOGACAO
+// is the sandbox for initial integration with synthetic data.
 const ENDPOINTS = {
   PRODUCAO: {
+    envioLote:
+      'https://webservices.envio.esocial.gov.br/servicos/empregador/enviarloteeventos/WsEnviarLoteEventos.svc',
+    consultaLote:
+      'https://webservices.consulta.esocial.gov.br/servicos/empregador/consultarloteeventos/WsConsultarLoteEventos.svc',
+  },
+  PRODUCAO_RESTRITA: {
     envioLote:
       'https://webservices.producaorestrita.esocial.gov.br/servicos/empregador/enviarloteeventos/WsEnviarLoteEventos.svc',
     consultaLote:
@@ -20,6 +30,8 @@ const ENDPOINTS = {
       'https://webservices.homologacao.esocial.gov.br/servicos/empregador/consultarloteeventos/WsConsultarLoteEventos.svc',
   },
 } as const;
+
+export type EsocialEnvironment = keyof typeof ENDPOINTS;
 
 export interface BatchTransmitResult {
   protocol: string;
@@ -48,8 +60,9 @@ export class EsocialSoapClient {
    */
   async sendBatch(
     signedEvents: Array<{ id: string; xml: string }>,
-    environment: 'PRODUCAO' | 'HOMOLOGACAO',
+    environment: EsocialEnvironment,
     certificate: CertificateAuth,
+    employerCnpj: string,
   ): Promise<BatchTransmitResult> {
     const endpoint = ENDPOINTS[environment].envioLote;
 
@@ -60,7 +73,11 @@ export class EsocialSoapClient {
 
     // Build SOAP envelope
     const groupId = `GRP_${Date.now()}`;
-    const soapEnvelope = this.buildEnvioLoteEnvelope(groupId, eventsXml);
+    const soapEnvelope = this.buildEnvioLoteEnvelope(
+      groupId,
+      eventsXml,
+      employerCnpj,
+    );
 
     // Send via HTTPS with mTLS
     const responseXml = await this.sendRequest(
@@ -79,7 +96,7 @@ export class EsocialSoapClient {
    */
   async checkBatchStatus(
     protocol: string,
-    environment: 'PRODUCAO' | 'HOMOLOGACAO',
+    environment: EsocialEnvironment,
     certificate: CertificateAuth,
   ): Promise<BatchStatusResult> {
     const endpoint = ENDPOINTS[environment].consultaLote;
@@ -98,8 +115,27 @@ export class EsocialSoapClient {
 
   /**
    * Build the SOAP envelope for batch event submission.
+   *
+   * The envelope carries the employer CNPJ twice (tpInsc=1 for CNPJ):
+   * - ideEmpregador: CNPJ of the company whose events are being submitted
+   * - ideTransmissor: CNPJ of whoever is physically transmitting the batch
+   *
+   * We use the same CNPJ for both — when a third party (contador) transmits
+   * on behalf of a tenant they'd need separate wiring, but for now tenants
+   * always transmit their own events.
    */
-  private buildEnvioLoteEnvelope(groupId: string, eventsXml: string): string {
+  private buildEnvioLoteEnvelope(
+    groupId: string,
+    eventsXml: string,
+    employerCnpj: string,
+  ): string {
+    const cnpjDigits = employerCnpj.replace(/\D/g, '');
+    if (cnpjDigits.length !== 14) {
+      throw new Error(
+        `Invalid employer CNPJ for eSocial envelope: "${employerCnpj}" (expected 14 digits).`,
+      );
+    }
+
     return `<?xml version="1.0" encoding="UTF-8"?>
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
   xmlns:v1="http://www.esocial.gov.br/servicos/empregador/lote/eventos/envio/v1_1_0">
@@ -111,11 +147,11 @@ export class EsocialSoapClient {
           <envioLoteEventos grupo="${groupId}">
             <ideEmpregador>
               <tpInsc>1</tpInsc>
-              <nrInsc></nrInsc>
+              <nrInsc>${cnpjDigits}</nrInsc>
             </ideEmpregador>
             <ideTransmissor>
               <tpInsc>1</tpInsc>
-              <nrInsc></nrInsc>
+              <nrInsc>${cnpjDigits}</nrInsc>
             </ideTransmissor>
             <eventos>
               ${eventsXml}

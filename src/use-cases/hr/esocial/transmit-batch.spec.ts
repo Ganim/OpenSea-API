@@ -84,11 +84,14 @@ import { TransmitBatchUseCase } from './transmit-batch';
 const TENANT_ID = 'tenant-transmit';
 const USER_ID = 'user-transmitter';
 
-function makeConfig() {
+function makeConfig(overrides: Record<string, unknown> = {}) {
   return {
     id: 'config-1',
     tenantId: TENANT_ID,
     environment: 'HOMOLOGACAO',
+    employerType: 'CNPJ',
+    employerDocument: '12.345.678/0001-95',
+    ...overrides,
   };
 }
 
@@ -99,6 +102,9 @@ function makeCertificate(overrides: Record<string, unknown> = {}) {
     encryptedPfx: Buffer.from('encrypted-pfx'),
     encryptionIv: 'iv-hex',
     encryptionTag: 'tag-hex',
+    encryptedPassphrase: Buffer.from('encrypted-pass'),
+    passphraseIv: 'pass-iv-hex',
+    passphraseTag: 'pass-tag-hex',
     validUntil: new Date('2029-01-01'),
     ...overrides,
   };
@@ -128,7 +134,10 @@ describe('TransmitBatchUseCase', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     sut = new TransmitBatchUseCase();
-    mockDecrypt.mockResolvedValue(Buffer.from('decrypted-pfx'));
+    // First decrypt call → PFX buffer; second → passphrase UTF-8.
+    mockDecrypt
+      .mockResolvedValueOnce(Buffer.from('decrypted-pfx'))
+      .mockResolvedValueOnce(Buffer.from('my-passphrase', 'utf-8'));
     mockParsePfx.mockResolvedValue({
       privateKey: 'pem-key',
       certificate: 'pem-cert',

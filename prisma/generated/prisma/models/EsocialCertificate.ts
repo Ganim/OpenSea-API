@@ -30,6 +30,9 @@ export type EsocialCertificateMinAggregateOutputType = {
   encryptedPfx: runtime.Bytes | null
   encryptionIv: string | null
   encryptionTag: string | null
+  encryptedPassphrase: runtime.Bytes | null
+  passphraseIv: string | null
+  passphraseTag: string | null
   serialNumber: string | null
   issuer: string | null
   subject: string | null
@@ -45,6 +48,9 @@ export type EsocialCertificateMaxAggregateOutputType = {
   encryptedPfx: runtime.Bytes | null
   encryptionIv: string | null
   encryptionTag: string | null
+  encryptedPassphrase: runtime.Bytes | null
+  passphraseIv: string | null
+  passphraseTag: string | null
   serialNumber: string | null
   issuer: string | null
   subject: string | null
@@ -60,6 +66,9 @@ export type EsocialCertificateCountAggregateOutputType = {
   encryptedPfx: number
   encryptionIv: number
   encryptionTag: number
+  encryptedPassphrase: number
+  passphraseIv: number
+  passphraseTag: number
   serialNumber: number
   issuer: number
   subject: number
@@ -77,6 +86,9 @@ export type EsocialCertificateMinAggregateInputType = {
   encryptedPfx?: true
   encryptionIv?: true
   encryptionTag?: true
+  encryptedPassphrase?: true
+  passphraseIv?: true
+  passphraseTag?: true
   serialNumber?: true
   issuer?: true
   subject?: true
@@ -92,6 +104,9 @@ export type EsocialCertificateMaxAggregateInputType = {
   encryptedPfx?: true
   encryptionIv?: true
   encryptionTag?: true
+  encryptedPassphrase?: true
+  passphraseIv?: true
+  passphraseTag?: true
   serialNumber?: true
   issuer?: true
   subject?: true
@@ -107,6 +122,9 @@ export type EsocialCertificateCountAggregateInputType = {
   encryptedPfx?: true
   encryptionIv?: true
   encryptionTag?: true
+  encryptedPassphrase?: true
+  passphraseIv?: true
+  passphraseTag?: true
   serialNumber?: true
   issuer?: true
   subject?: true
@@ -195,6 +213,9 @@ export type EsocialCertificateGroupByOutputType = {
   encryptedPfx: runtime.Bytes
   encryptionIv: string
   encryptionTag: string
+  encryptedPassphrase: runtime.Bytes | null
+  passphraseIv: string | null
+  passphraseTag: string | null
   serialNumber: string
   issuer: string
   subject: string
@@ -231,6 +252,9 @@ export type EsocialCertificateWhereInput = {
   encryptedPfx?: Prisma.BytesFilter<"EsocialCertificate"> | runtime.Bytes
   encryptionIv?: Prisma.StringFilter<"EsocialCertificate"> | string
   encryptionTag?: Prisma.StringFilter<"EsocialCertificate"> | string
+  encryptedPassphrase?: Prisma.BytesNullableFilter<"EsocialCertificate"> | runtime.Bytes | null
+  passphraseIv?: Prisma.StringNullableFilter<"EsocialCertificate"> | string | null
+  passphraseTag?: Prisma.StringNullableFilter<"EsocialCertificate"> | string | null
   serialNumber?: Prisma.StringFilter<"EsocialCertificate"> | string
   issuer?: Prisma.StringFilter<"EsocialCertificate"> | string
   subject?: Prisma.StringFilter<"EsocialCertificate"> | string
@@ -247,6 +271,9 @@ export type EsocialCertificateOrderByWithRelationInput = {
   encryptedPfx?: Prisma.SortOrder
   encryptionIv?: Prisma.SortOrder
   encryptionTag?: Prisma.SortOrder
+  encryptedPassphrase?: Prisma.SortOrderInput | Prisma.SortOrder
+  passphraseIv?: Prisma.SortOrderInput | Prisma.SortOrder
+  passphraseTag?: Prisma.SortOrderInput | Prisma.SortOrder
   serialNumber?: Prisma.SortOrder
   issuer?: Prisma.SortOrder
   subject?: Prisma.SortOrder
@@ -266,6 +293,9 @@ export type EsocialCertificateWhereUniqueInput = Prisma.AtLeast<{
   encryptedPfx?: Prisma.BytesFilter<"EsocialCertificate"> | runtime.Bytes
   encryptionIv?: Prisma.StringFilter<"EsocialCertificate"> | string
   encryptionTag?: Prisma.StringFilter<"EsocialCertificate"> | string
+  encryptedPassphrase?: Prisma.BytesNullableFilter<"EsocialCertificate"> | runtime.Bytes | null
+  passphraseIv?: Prisma.StringNullableFilter<"EsocialCertificate"> | string | null
+  passphraseTag?: Prisma.StringNullableFilter<"EsocialCertificate"> | string | null
   serialNumber?: Prisma.StringFilter<"EsocialCertificate"> | string
   issuer?: Prisma.StringFilter<"EsocialCertificate"> | string
   subject?: Prisma.StringFilter<"EsocialCertificate"> | string
@@ -282,6 +312,9 @@ export type EsocialCertificateOrderByWithAggregationInput = {
   encryptedPfx?: Prisma.SortOrder
   encryptionIv?: Prisma.SortOrder
   encryptionTag?: Prisma.SortOrder
+  encryptedPassphrase?: Prisma.SortOrderInput | Prisma.SortOrder
+  passphraseIv?: Prisma.SortOrderInput | Prisma.SortOrder
+  passphraseTag?: Prisma.SortOrderInput | Prisma.SortOrder
   serialNumber?: Prisma.SortOrder
   issuer?: Prisma.SortOrder
   subject?: Prisma.SortOrder
@@ -303,6 +336,9 @@ export type EsocialCertificateScalarWhereWithAggregatesInput = {
   encryptedPfx?: Prisma.BytesWithAggregatesFilter<"EsocialCertificate"> | runtime.Bytes
   encryptionIv?: Prisma.StringWithAggregatesFilter<"EsocialCertificate"> | string
   encryptionTag?: Prisma.StringWithAggregatesFilter<"EsocialCertificate"> | string
+  encryptedPassphrase?: Prisma.BytesNullableWithAggregatesFilter<"EsocialCertificate"> | runtime.Bytes | null
+  passphraseIv?: Prisma.StringNullableWithAggregatesFilter<"EsocialCertificate"> | string | null
+  passphraseTag?: Prisma.StringNullableWithAggregatesFilter<"EsocialCertificate"> | string | null
   serialNumber?: Prisma.StringWithAggregatesFilter<"EsocialCertificate"> | string
   issuer?: Prisma.StringWithAggregatesFilter<"EsocialCertificate"> | string
   subject?: Prisma.StringWithAggregatesFilter<"EsocialCertificate"> | string
@@ -317,6 +353,9 @@ export type EsocialCertificateCreateInput = {
   encryptedPfx: runtime.Bytes
   encryptionIv: string
   encryptionTag: string
+  encryptedPassphrase?: runtime.Bytes | null
+  passphraseIv?: string | null
+  passphraseTag?: string | null
   serialNumber: string
   issuer: string
   subject: string
@@ -333,6 +372,9 @@ export type EsocialCertificateUncheckedCreateInput = {
   encryptedPfx: runtime.Bytes
   encryptionIv: string
   encryptionTag: string
+  encryptedPassphrase?: runtime.Bytes | null
+  passphraseIv?: string | null
+  passphraseTag?: string | null
   serialNumber: string
   issuer: string
   subject: string
@@ -347,6 +389,9 @@ export type EsocialCertificateUpdateInput = {
   encryptedPfx?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
   encryptionIv?: Prisma.StringFieldUpdateOperationsInput | string
   encryptionTag?: Prisma.StringFieldUpdateOperationsInput | string
+  encryptedPassphrase?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  passphraseIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passphraseTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
   issuer?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
@@ -363,6 +408,9 @@ export type EsocialCertificateUncheckedUpdateInput = {
   encryptedPfx?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
   encryptionIv?: Prisma.StringFieldUpdateOperationsInput | string
   encryptionTag?: Prisma.StringFieldUpdateOperationsInput | string
+  encryptedPassphrase?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  passphraseIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passphraseTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
   issuer?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
@@ -378,6 +426,9 @@ export type EsocialCertificateCreateManyInput = {
   encryptedPfx: runtime.Bytes
   encryptionIv: string
   encryptionTag: string
+  encryptedPassphrase?: runtime.Bytes | null
+  passphraseIv?: string | null
+  passphraseTag?: string | null
   serialNumber: string
   issuer: string
   subject: string
@@ -392,6 +443,9 @@ export type EsocialCertificateUpdateManyMutationInput = {
   encryptedPfx?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
   encryptionIv?: Prisma.StringFieldUpdateOperationsInput | string
   encryptionTag?: Prisma.StringFieldUpdateOperationsInput | string
+  encryptedPassphrase?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  passphraseIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passphraseTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
   issuer?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
@@ -407,6 +461,9 @@ export type EsocialCertificateUncheckedUpdateManyInput = {
   encryptedPfx?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
   encryptionIv?: Prisma.StringFieldUpdateOperationsInput | string
   encryptionTag?: Prisma.StringFieldUpdateOperationsInput | string
+  encryptedPassphrase?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  passphraseIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passphraseTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
   issuer?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
@@ -427,6 +484,9 @@ export type EsocialCertificateCountOrderByAggregateInput = {
   encryptedPfx?: Prisma.SortOrder
   encryptionIv?: Prisma.SortOrder
   encryptionTag?: Prisma.SortOrder
+  encryptedPassphrase?: Prisma.SortOrder
+  passphraseIv?: Prisma.SortOrder
+  passphraseTag?: Prisma.SortOrder
   serialNumber?: Prisma.SortOrder
   issuer?: Prisma.SortOrder
   subject?: Prisma.SortOrder
@@ -442,6 +502,9 @@ export type EsocialCertificateMaxOrderByAggregateInput = {
   encryptedPfx?: Prisma.SortOrder
   encryptionIv?: Prisma.SortOrder
   encryptionTag?: Prisma.SortOrder
+  encryptedPassphrase?: Prisma.SortOrder
+  passphraseIv?: Prisma.SortOrder
+  passphraseTag?: Prisma.SortOrder
   serialNumber?: Prisma.SortOrder
   issuer?: Prisma.SortOrder
   subject?: Prisma.SortOrder
@@ -457,6 +520,9 @@ export type EsocialCertificateMinOrderByAggregateInput = {
   encryptedPfx?: Prisma.SortOrder
   encryptionIv?: Prisma.SortOrder
   encryptionTag?: Prisma.SortOrder
+  encryptedPassphrase?: Prisma.SortOrder
+  passphraseIv?: Prisma.SortOrder
+  passphraseTag?: Prisma.SortOrder
   serialNumber?: Prisma.SortOrder
   issuer?: Prisma.SortOrder
   subject?: Prisma.SortOrder
@@ -503,6 +569,9 @@ export type EsocialCertificateCreateWithoutTenantInput = {
   encryptedPfx: runtime.Bytes
   encryptionIv: string
   encryptionTag: string
+  encryptedPassphrase?: runtime.Bytes | null
+  passphraseIv?: string | null
+  passphraseTag?: string | null
   serialNumber: string
   issuer: string
   subject: string
@@ -517,6 +586,9 @@ export type EsocialCertificateUncheckedCreateWithoutTenantInput = {
   encryptedPfx: runtime.Bytes
   encryptionIv: string
   encryptionTag: string
+  encryptedPassphrase?: runtime.Bytes | null
+  passphraseIv?: string | null
+  passphraseTag?: string | null
   serialNumber: string
   issuer: string
   subject: string
@@ -547,6 +619,9 @@ export type EsocialCertificateUpdateWithoutTenantInput = {
   encryptedPfx?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
   encryptionIv?: Prisma.StringFieldUpdateOperationsInput | string
   encryptionTag?: Prisma.StringFieldUpdateOperationsInput | string
+  encryptedPassphrase?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  passphraseIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passphraseTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
   issuer?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
@@ -561,6 +636,9 @@ export type EsocialCertificateUncheckedUpdateWithoutTenantInput = {
   encryptedPfx?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
   encryptionIv?: Prisma.StringFieldUpdateOperationsInput | string
   encryptionTag?: Prisma.StringFieldUpdateOperationsInput | string
+  encryptedPassphrase?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  passphraseIv?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passphraseTag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
   issuer?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
@@ -578,6 +656,9 @@ export type EsocialCertificateSelect<ExtArgs extends runtime.Types.Extensions.In
   encryptedPfx?: boolean
   encryptionIv?: boolean
   encryptionTag?: boolean
+  encryptedPassphrase?: boolean
+  passphraseIv?: boolean
+  passphraseTag?: boolean
   serialNumber?: boolean
   issuer?: boolean
   subject?: boolean
@@ -594,6 +675,9 @@ export type EsocialCertificateSelectCreateManyAndReturn<ExtArgs extends runtime.
   encryptedPfx?: boolean
   encryptionIv?: boolean
   encryptionTag?: boolean
+  encryptedPassphrase?: boolean
+  passphraseIv?: boolean
+  passphraseTag?: boolean
   serialNumber?: boolean
   issuer?: boolean
   subject?: boolean
@@ -610,6 +694,9 @@ export type EsocialCertificateSelectUpdateManyAndReturn<ExtArgs extends runtime.
   encryptedPfx?: boolean
   encryptionIv?: boolean
   encryptionTag?: boolean
+  encryptedPassphrase?: boolean
+  passphraseIv?: boolean
+  passphraseTag?: boolean
   serialNumber?: boolean
   issuer?: boolean
   subject?: boolean
@@ -626,6 +713,9 @@ export type EsocialCertificateSelectScalar = {
   encryptedPfx?: boolean
   encryptionIv?: boolean
   encryptionTag?: boolean
+  encryptedPassphrase?: boolean
+  passphraseIv?: boolean
+  passphraseTag?: boolean
   serialNumber?: boolean
   issuer?: boolean
   subject?: boolean
@@ -635,7 +725,7 @@ export type EsocialCertificateSelectScalar = {
   updatedAt?: boolean
 }
 
-export type EsocialCertificateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "encryptedPfx" | "encryptionIv" | "encryptionTag" | "serialNumber" | "issuer" | "subject" | "validFrom" | "validUntil" | "createdAt" | "updatedAt", ExtArgs["result"]["esocialCertificate"]>
+export type EsocialCertificateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "encryptedPfx" | "encryptionIv" | "encryptionTag" | "encryptedPassphrase" | "passphraseIv" | "passphraseTag" | "serialNumber" | "issuer" | "subject" | "validFrom" | "validUntil" | "createdAt" | "updatedAt", ExtArgs["result"]["esocialCertificate"]>
 export type EsocialCertificateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }
@@ -657,6 +747,9 @@ export type $EsocialCertificatePayload<ExtArgs extends runtime.Types.Extensions.
     encryptedPfx: runtime.Bytes
     encryptionIv: string
     encryptionTag: string
+    encryptedPassphrase: runtime.Bytes | null
+    passphraseIv: string | null
+    passphraseTag: string | null
     serialNumber: string
     issuer: string
     subject: string
@@ -1093,6 +1186,9 @@ export interface EsocialCertificateFieldRefs {
   readonly encryptedPfx: Prisma.FieldRef<"EsocialCertificate", 'Bytes'>
   readonly encryptionIv: Prisma.FieldRef<"EsocialCertificate", 'String'>
   readonly encryptionTag: Prisma.FieldRef<"EsocialCertificate", 'String'>
+  readonly encryptedPassphrase: Prisma.FieldRef<"EsocialCertificate", 'Bytes'>
+  readonly passphraseIv: Prisma.FieldRef<"EsocialCertificate", 'String'>
+  readonly passphraseTag: Prisma.FieldRef<"EsocialCertificate", 'String'>
   readonly serialNumber: Prisma.FieldRef<"EsocialCertificate", 'String'>
   readonly issuer: Prisma.FieldRef<"EsocialCertificate", 'String'>
   readonly subject: Prisma.FieldRef<"EsocialCertificate", 'String'>

@@ -43,9 +43,15 @@ export class UploadEsocialCertificateUseCase {
       throw new BadRequestError('O certificado enviado já está expirado.');
     }
 
-    // 3. Encrypt PFX for secure storage
+    // 3. Encrypt PFX AND passphrase for secure storage. Real ICP-Brasil A1
+    // e-CNPJ certs always have a passphrase, and SOAP signing needs it — we
+    // can't drop it after upload (P0-04).
     const encryptionKey = env.ESOCIAL_ENCRYPTION_KEY || env.JWT_SECRET;
     const encrypted = await this.certManager.encrypt(pfxBuffer, encryptionKey);
+    const encryptedPassphrase = await this.certManager.encrypt(
+      Buffer.from(passphrase, 'utf-8'),
+      encryptionKey,
+    );
 
     // 4. Upsert certificate record
     const certificate = await prisma.esocialCertificate.upsert({
@@ -55,6 +61,9 @@ export class UploadEsocialCertificateUseCase {
         encryptedPfx: encrypted.encrypted,
         encryptionIv: encrypted.iv,
         encryptionTag: encrypted.authTag,
+        encryptedPassphrase: encryptedPassphrase.encrypted,
+        passphraseIv: encryptedPassphrase.iv,
+        passphraseTag: encryptedPassphrase.authTag,
         serialNumber: certInfo.serialNumber,
         issuer: certInfo.issuer,
         subject: certInfo.subject,
@@ -65,6 +74,9 @@ export class UploadEsocialCertificateUseCase {
         encryptedPfx: encrypted.encrypted,
         encryptionIv: encrypted.iv,
         encryptionTag: encrypted.authTag,
+        encryptedPassphrase: encryptedPassphrase.encrypted,
+        passphraseIv: encryptedPassphrase.iv,
+        passphraseTag: encryptedPassphrase.authTag,
         serialNumber: certInfo.serialNumber,
         issuer: certInfo.issuer,
         subject: certInfo.subject,

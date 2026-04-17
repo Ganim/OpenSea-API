@@ -13430,6 +13430,7 @@ enum EsocialEventStatus {
 
 enum EsocialEnvironment {
   PRODUCAO
+  PRODUCAO_RESTRITA
   HOMOLOGACAO
 }
 
@@ -13471,6 +13472,14 @@ model EsocialCertificate {
   encryptedPfx  Bytes  @map("encrypted_pfx")
   encryptionIv  String @map("encryption_iv") @db.VarChar(64)
   encryptionTag String @map("encryption_tag") @db.VarChar(64)
+
+  // Encrypted PFX passphrase (AES-256-GCM, same key as PFX).
+  // Required so SOAP transmission can actually sign with the A1 cert — without
+  // this the PFX can only be used if it was uploaded passphrase-less (which
+  // ICP-Brasil certs never are).
+  encryptedPassphrase    Bytes?  @map("encrypted_passphrase")
+  passphraseIv           String? @map("passphrase_iv") @db.VarChar(64)
+  passphraseTag          String? @map("passphrase_tag") @db.VarChar(64)
 
   // Certificate metadata (extracted on upload)
   serialNumber String   @map("serial_number") @db.VarChar(128)

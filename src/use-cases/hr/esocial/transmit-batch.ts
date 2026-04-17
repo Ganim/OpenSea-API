@@ -60,7 +60,7 @@ export class TransmitBatchUseCase {
       );
     }
 
-    // 3. Decrypt PFX
+    // 3. Decrypt PFX and passphrase
     const encryptionKey = env.ESOCIAL_ENCRYPTION_KEY || env.JWT_SECRET;
     const pfxBuffer = await this.certManager.decrypt(
       Buffer.from(certificate.encryptedPfx),
@@ -69,8 +69,30 @@ export class TransmitBatchUseCase {
       certificate.encryptionTag,
     );
 
+    // The passphrase columns are optional on the schema for backwards
+    // compatibility with certs uploaded before the P0-04 fix. For new
+    // uploads the three fields always arrive together; for legacy rows the
+    // user must re-upload the certificate.
+    if (
+      !certificate.encryptedPassphrase ||
+      !certificate.passphraseIv ||
+      !certificate.passphraseTag
+    ) {
+      throw new BadRequestError(
+        'O certificado digital cadastrado não possui a senha persistida. Faça o upload novamente para habilitar a transmissão.',
+      );
+    }
+
+    const passphraseBuffer = await this.certManager.decrypt(
+      Buffer.from(certificate.encryptedPassphrase),
+      encryptionKey,
+      certificate.passphraseIv,
+      certificate.passphraseTag,
+    );
+    const passphrase = passphraseBuffer.toString('utf-8');
+
     // Parse certificate to get private key and cert
-    const certInfo = await this.certManager.parsePfx(pfxBuffer, '');
+    const certInfo = await this.certManager.parsePfx(pfxBuffer, passphrase);
 
     // 4. Get all APPROVED events
     const approvedEvents = await prisma.esocialEvent.findMany({
@@ -135,11 +157,21 @@ export class TransmitBatchUseCase {
           });
         }
 
+        // The envelope requires the employer CNPJ. Fall back to the config's
+        // employerDocument, then to the tenant record as a defensive default.
+        const employerCnpj = (config.employerDocument ?? '').replace(/\D/g, '');
+        if (employerCnpj.length !== 14) {
+          throw new BadRequestError(
+            'CNPJ do empregador não configurado para o eSocial. Preencha o documento em Configurações antes de transmitir.',
+          );
+        }
+
         // Transmit batch
         const result = await this.soapClient.sendBatch(
           signedEvents,
           config.environment,
-          { pfx: pfxBuffer, passphrase: '' },
+          { pfx: pfxBuffer, passphrase },
+          employerCnpj,
         );
 
         // Update batch with protocol
