@@ -32,7 +32,7 @@ export async function v1ExportMyDataController(app: FastifyInstance) {
           dependants: z.array(z.unknown()),
           vacationPeriods: z.array(z.unknown()),
           absences: z.array(z.unknown()),
-          payrolls: z.array(z.unknown()),
+          payrollItems: z.array(z.unknown()),
           medicalExams: z.array(z.unknown()),
           warnings: z.array(z.unknown()),
           bonuses: z.array(z.unknown()),
@@ -56,7 +56,7 @@ export async function v1ExportMyDataController(app: FastifyInstance) {
       if (!employee) {
         return reply
           .status(404)
-          .send({ message: 'No employee record linked to your user account.' });
+          .send({ message: 'Nenhum registro de colaborador vinculado à sua conta de usuário.' });
       }
 
       const employeeId = employee.id;
@@ -65,7 +65,7 @@ export async function v1ExportMyDataController(app: FastifyInstance) {
         dependants,
         vacationPeriods,
         absences,
-        payrolls,
+        payrollItems,
         medicalExams,
         warnings,
         bonuses,
@@ -85,9 +85,22 @@ export async function v1ExportMyDataController(app: FastifyInstance) {
           orderBy: { startDate: 'desc' },
           take: 500,
         }),
-        prisma.payroll.findMany({
-          where: { employeeId, tenantId },
-          orderBy: [{ referenceYear: 'desc' }, { referenceMonth: 'desc' }],
+        prisma.payrollItem.findMany({
+          where: { employeeId, payroll: { tenantId } },
+          include: {
+            payroll: {
+              select: {
+                referenceMonth: true,
+                referenceYear: true,
+                status: true,
+                paidAt: true,
+              },
+            },
+          },
+          orderBy: [
+            { payroll: { referenceYear: 'desc' } },
+            { payroll: { referenceMonth: 'desc' } },
+          ],
         }),
         prisma.medicalExam.findMany({
           where: { employeeId, tenantId },
@@ -122,7 +135,7 @@ export async function v1ExportMyDataController(app: FastifyInstance) {
         dependants,
         vacationPeriods,
         absences,
-        payrolls,
+        payrollItems,
         medicalExams,
         warnings,
         bonuses,
