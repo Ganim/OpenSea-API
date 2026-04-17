@@ -361,6 +361,163 @@ describe('PayrollToFinanceUseCase', () => {
     expect(vrEntry!.expectedAmount).toBe(500);
   });
 
+  // ─── P2-53: Regression for P0-12 ─────────────────────────────────────
+  // Before the P0-12 fix, the payroll→finance bridge was writing the
+  // FinanceCategory UUID into the costCenterId column, violating the FK
+  // to CostCenter and breaking every downstream report that joined on
+  // costCenter (DRE per cost center, budget tracking, etc).
+  //
+  // The current code intentionally leaves costCenterId null until the
+  // request includes an explicit cost-center selection. These tests lock
+  // that contract so nobody silently reintroduces the bug.
+  it('should NOT set costCenterId equal to categoryId on salary entries (P0-12 regression)', async () => {
+    const payroll = await createApprovedPayroll();
+    const employee = await createEmployee('Amanda Rocha');
+
+    await payrollItemsRepository.create({
+      payrollId: payroll.id,
+      employeeId: employee.id,
+      type: 'BASE_SALARY',
+      description: 'Salário Base',
+      amount: 4000,
+    });
+
+    await sut.execute({ tenantId, payrollId: payroll.id.toString() });
+
+    const salaryEntry = entriesRepository.items.find((e) =>
+      e.description.includes('Salário líquido'),
+    );
+
+    expect(salaryEntry).toBeDefined();
+    expect(salaryEntry!.categoryId.toString()).toBeTruthy();
+    // The P0-12 regression: costCenterId must NOT be the category id,
+    // and must NOT be coincidentally the same string.
+    expect(salaryEntry!.costCenterId).not.toBe(
+      salaryEntry!.categoryId.toString(),
+    );
+    // And it must be null/undefined until the use case is extended with
+    // an explicit cost center selection mechanism.
+    expect(salaryEntry!.costCenterId).toBeUndefined();
+  });
+
+  it('should NOT set costCenterId equal to categoryId on tax aggregate entries (P0-12 regression)', async () => {
+    const payroll = await createApprovedPayroll();
+    const employee = await createEmployee('Bruno Martins');
+
+    await payrollItemsRepository.create({
+      payrollId: payroll.id,
+      employeeId: employee.id,
+      type: 'BASE_SALARY',
+      description: 'Salário Base',
+      amount: 5000,
+    });
+
+    await payrollItemsRepository.create({
+      payrollId: payroll.id,
+      employeeId: employee.id,
+      type: 'INSS',
+      description: 'INSS Desconto',
+      amount: 450,
+      isDeduction: true,
+    });
+
+    await payrollItemsRepository.create({
+      payrollId: payroll.id,
+      employeeId: employee.id,
+      type: 'FGTS',
+      description: 'FGTS Patronal',
+      amount: 400,
+      isDeduction: true,
+    });
+
+    await payrollItemsRepository.create({
+      payrollId: payroll.id,
+      employeeId: employee.id,
+      type: 'IRRF',
+      description: 'IRRF',
+      amount: 200,
+      isDeduction: true,
+    });
+
+    await sut.execute({ tenantId, payrollId: payroll.id.toString() });
+
+    const inssEntry = entriesRepository.items.find((e) =>
+      e.description.includes('INSS'),
+    );
+    const fgtsEntry = entriesRepository.items.find((e) =>
+      e.description.includes('FGTS'),
+    );
+    const irrfEntry = entriesRepository.items.find((e) =>
+      e.description.includes('IRRF'),
+    );
+
+    for (const entry of [inssEntry, fgtsEntry, irrfEntry]) {
+      expect(entry).toBeDefined();
+      expect(entry!.categoryId.toString()).toBeTruthy();
+      expect(entry!.costCenterId).not.toBe(entry!.categoryId.toString());
+      expect(entry!.costCenterId).toBeUndefined();
+    }
+  });
+
+  it('should NOT set costCenterId equal to categoryId on benefit aggregate entries (P0-12 regression)', async () => {
+    const payroll = await createApprovedPayroll();
+    const employee = await createEmployee('Carla Duarte');
+
+    await payrollItemsRepository.create({
+      payrollId: payroll.id,
+      employeeId: employee.id,
+      type: 'BASE_SALARY',
+      description: 'Salário',
+      amount: 3500,
+    });
+
+    await payrollItemsRepository.create({
+      payrollId: payroll.id,
+      employeeId: employee.id,
+      type: 'TRANSPORT_VOUCHER',
+      description: 'VT',
+      amount: 210,
+      isDeduction: true,
+    });
+
+    await payrollItemsRepository.create({
+      payrollId: payroll.id,
+      employeeId: employee.id,
+      type: 'MEAL_VOUCHER',
+      description: 'VR',
+      amount: 540,
+      isDeduction: true,
+    });
+
+    await payrollItemsRepository.create({
+      payrollId: payroll.id,
+      employeeId: employee.id,
+      type: 'HEALTH_PLAN',
+      description: 'Plano de Saúde',
+      amount: 180,
+      isDeduction: true,
+    });
+
+    await sut.execute({ tenantId, payrollId: payroll.id.toString() });
+
+    const vtEntry = entriesRepository.items.find((e) =>
+      e.description.includes('Vale Transporte'),
+    );
+    const vrEntry = entriesRepository.items.find((e) =>
+      e.description.includes('Vale Refeição'),
+    );
+    const healthEntry = entriesRepository.items.find((e) =>
+      e.description.includes('Plano de Saúde'),
+    );
+
+    for (const entry of [vtEntry, vrEntry, healthEntry]) {
+      expect(entry).toBeDefined();
+      expect(entry!.categoryId.toString()).toBeTruthy();
+      expect(entry!.costCenterId).not.toBe(entry!.categoryId.toString());
+      expect(entry!.costCenterId).toBeUndefined();
+    }
+  });
+
   it('should set correct dates and tags', async () => {
     const payroll = await createApprovedPayroll();
     const employee = await createEmployee('Test Employee');
