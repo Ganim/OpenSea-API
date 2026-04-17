@@ -12,6 +12,7 @@ const quickActionSchema = z.object({
     'OVERDUE_PAYMENT',
     'UPCOMING_DUE',
     'PENDING_APPROVAL',
+    'SCHEDULED',
     'UNRECONCILED',
   ]),
   title: z.string(),
@@ -21,6 +22,9 @@ const quickActionSchema = z.object({
   actionUrl: z.string(),
 });
 
+// P2-11: `pendingApprovalCount` is restricted to PaymentOrder rows in
+// PENDING_APPROVAL status; `scheduledCount` covers FinanceEntries in
+// SCHEDULED status (future payment runs already authorized).
 const quickActionsResponseSchema = z.object({
   actions: z.array(quickActionSchema),
   summary: z.object({
@@ -29,6 +33,7 @@ const quickActionsResponseSchema = z.object({
     upcomingCount: z.number(),
     upcomingAmount: z.number(),
     pendingApprovalCount: z.number(),
+    scheduledCount: z.number(),
     unreconciledCount: z.number(),
   }),
 });

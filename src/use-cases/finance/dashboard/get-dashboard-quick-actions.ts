@@ -1,5 +1,6 @@
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 import type { BankReconciliationsRepository } from '@/repositories/finance/bank-reconciliations-repository';
+import type { PaymentOrdersRepository } from '@/repositories/finance/payment-orders-repository';
 
 interface GetDashboardQuickActionsUseCaseRequest {
   tenantId: string;
@@ -10,6 +11,7 @@ interface QuickAction {
     | 'OVERDUE_PAYMENT'
     | 'UPCOMING_DUE'
     | 'PENDING_APPROVAL'
+    | 'SCHEDULED'
     | 'UNRECONCILED';
   title: string;
   count: number;
@@ -24,6 +26,7 @@ interface DashboardQuickActionsSummary {
   upcomingCount: number;
   upcomingAmount: number;
   pendingApprovalCount: number;
+  scheduledCount: number;
   unreconciledCount: number;
 }
 
@@ -36,6 +39,7 @@ export class GetDashboardQuickActionsUseCase {
   constructor(
     private financeEntriesRepository: FinanceEntriesRepository,
     private bankReconciliationsRepository: BankReconciliationsRepository,
+    private paymentOrdersRepository: PaymentOrdersRepository,
   ) {}
 
   async execute(
@@ -46,12 +50,19 @@ export class GetDashboardQuickActionsUseCase {
     const now = new Date();
     const threeDaysFromNow = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000);
 
+    // P2-11: Separate truly pending-approval payment orders from scheduled
+    // entries. Previously we counted FinanceEntry.status='SCHEDULED' as
+    // "awaiting approval", which actually means the entry has been scheduled
+    // for a future payment execution — not that anyone is waiting to approve
+    // it. The correct signal for approval queue is the PaymentOrder whose
+    // status is PENDING_APPROVAL.
     const [
       overduePayableResult,
       overdueReceivableResult,
       upcomingPayableEntries,
       upcomingReceivableEntries,
       scheduledEntries,
+      pendingApprovalOrders,
       unreconciledReconciliations,
     ] = await Promise.all([
       this.financeEntriesRepository.sumOverdue(tenantId, 'PAYABLE'),
@@ -77,6 +88,10 @@ export class GetDashboardQuickActionsUseCase {
         status: 'SCHEDULED',
         limit: 1000,
       }),
+      this.paymentOrdersRepository.findMany(tenantId, {
+        status: 'PENDING_APPROVAL',
+        limit: 1000,
+      }),
       this.bankReconciliationsRepository.findMany({
         tenantId,
         status: 'IN_PROGRESS',
@@ -99,7 +114,16 @@ export class GetDashboardQuickActionsUseCase {
       0,
     );
 
-    const pendingApprovalCount = scheduledEntries.total;
+    const pendingApprovalCount = pendingApprovalOrders.total;
+    const pendingApprovalAmount = pendingApprovalOrders.orders.reduce(
+      (sum, order) => sum + order.amount,
+      0,
+    );
+    const scheduledCount = scheduledEntries.total;
+    const scheduledAmount = scheduledEntries.entries.reduce(
+      (sum, entry) => sum + entry.expectedAmount,
+      0,
+    );
     const unreconciledCount = unreconciledReconciliations.total;
 
     const actions: QuickAction[] = [];
@@ -129,10 +153,21 @@ export class GetDashboardQuickActionsUseCase {
     if (pendingApprovalCount > 0) {
       actions.push({
         type: 'PENDING_APPROVAL',
-        title: `${pendingApprovalCount} lançamento(s) aguardando aprovação`,
+        title: `${pendingApprovalCount} ordem(ns) de pagamento aguardando aprovação`,
         count: pendingApprovalCount,
-        totalAmount: 0,
+        totalAmount: Math.round(pendingApprovalAmount * 100) / 100,
         urgency: 'MEDIUM',
+        actionUrl: '/finance/payment-orders?status=PENDING_APPROVAL',
+      });
+    }
+
+    if (scheduledCount > 0) {
+      actions.push({
+        type: 'SCHEDULED',
+        title: `${scheduledCount} lançamento(s) agendado(s)`,
+        count: scheduledCount,
+        totalAmount: Math.round(scheduledAmount * 100) / 100,
+        urgency: 'LOW',
         actionUrl: '/finance/entries?status=SCHEDULED',
       });
     }
@@ -156,6 +191,7 @@ export class GetDashboardQuickActionsUseCase {
         upcomingCount,
         upcomingAmount: Math.round(upcomingAmount * 100) / 100,
         pendingApprovalCount,
+        scheduledCount,
         unreconciledCount,
       },
     };

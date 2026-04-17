@@ -1,12 +1,14 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryBankReconciliationsRepository } from '@/repositories/finance/in-memory/in-memory-bank-reconciliations-repository';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
+import { InMemoryPaymentOrdersRepository } from '@/repositories/finance/in-memory/in-memory-payment-orders-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 
 import { GetDashboardQuickActionsUseCase } from './get-dashboard-quick-actions';
 
 let financeEntriesRepository: InMemoryFinanceEntriesRepository;
 let bankReconciliationsRepository: InMemoryBankReconciliationsRepository;
+let paymentOrdersRepository: InMemoryPaymentOrdersRepository;
 let sut: GetDashboardQuickActionsUseCase;
 
 const TENANT_ID = 'tenant-1';
@@ -15,9 +17,11 @@ describe('GetDashboardQuickActionsUseCase', () => {
   beforeEach(() => {
     financeEntriesRepository = new InMemoryFinanceEntriesRepository();
     bankReconciliationsRepository = new InMemoryBankReconciliationsRepository();
+    paymentOrdersRepository = new InMemoryPaymentOrdersRepository();
     sut = new GetDashboardQuickActionsUseCase(
       financeEntriesRepository,
       bankReconciliationsRepository,
+      paymentOrdersRepository,
     );
   });
 
@@ -28,6 +32,7 @@ describe('GetDashboardQuickActionsUseCase', () => {
     expect(response.summary.overdueCount).toBe(0);
     expect(response.summary.upcomingCount).toBe(0);
     expect(response.summary.pendingApprovalCount).toBe(0);
+    expect(response.summary.scheduledCount).toBe(0);
     expect(response.summary.unreconciledCount).toBe(0);
   });
 
@@ -81,7 +86,10 @@ describe('GetDashboardQuickActionsUseCase', () => {
     expect(response.summary.upcomingCount).toBeGreaterThan(0);
   });
 
-  it('should return PENDING_APPROVAL action for scheduled entries', async () => {
+  // P2-11: SCHEDULED entries are distinct from PENDING_APPROVAL payment
+  // orders. A SCHEDULED FinanceEntry is an already-approved future payment
+  // run; a PENDING_APPROVAL PaymentOrder is waiting for a human decision.
+  it('should return SCHEDULED action for scheduled entries (not PENDING_APPROVAL)', async () => {
     await financeEntriesRepository.create({
       tenantId: TENANT_ID,
       type: 'PAYABLE',
@@ -96,12 +104,39 @@ describe('GetDashboardQuickActionsUseCase', () => {
 
     const response = await sut.execute({ tenantId: TENANT_ID });
 
+    const scheduledAction = response.actions.find((a) => a.type === 'SCHEDULED');
+    expect(scheduledAction).toBeDefined();
+    expect(scheduledAction!.urgency).toBe('LOW');
+    expect(response.summary.scheduledCount).toBeGreaterThan(0);
+    // PENDING_APPROVAL must remain empty — no payment order was created
+    expect(response.summary.pendingApprovalCount).toBe(0);
+    expect(
+      response.actions.find((a) => a.type === 'PENDING_APPROVAL'),
+    ).toBeUndefined();
+  });
+
+  it('should return PENDING_APPROVAL action for payment orders awaiting approval', async () => {
+    await paymentOrdersRepository.create({
+      tenantId: TENANT_ID,
+      entryId: new UniqueEntityID().toString(),
+      bankAccountId: new UniqueEntityID().toString(),
+      method: 'PIX',
+      amount: 750,
+      recipientData: { pixKey: 'fake@example.com' },
+      requestedById: new UniqueEntityID().toString(),
+    });
+
+    const response = await sut.execute({ tenantId: TENANT_ID });
+
     const pendingAction = response.actions.find(
       (a) => a.type === 'PENDING_APPROVAL',
     );
     expect(pendingAction).toBeDefined();
     expect(pendingAction!.urgency).toBe('MEDIUM');
-    expect(response.summary.pendingApprovalCount).toBeGreaterThan(0);
+    expect(pendingAction!.totalAmount).toBe(750);
+    expect(response.summary.pendingApprovalCount).toBe(1);
+    // SCHEDULED must remain empty — no finance entry was created
+    expect(response.summary.scheduledCount).toBe(0);
   });
 
   it('should return UNRECONCILED action for in-progress reconciliations', async () => {
