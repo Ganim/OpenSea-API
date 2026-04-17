@@ -12,6 +12,7 @@ export function mapTrainingEnrollmentPrismaToDomain(
     enrolledAt: enrollment.enrolledAt,
     startedAt: enrollment.startedAt ?? undefined,
     completedAt: enrollment.completedAt ?? undefined,
+    expirationDate: enrollment.expirationDate ?? undefined,
     score: enrollment.score ?? undefined,
     certificateUrl: enrollment.certificateUrl ?? undefined,
     notes: enrollment.notes ?? undefined,

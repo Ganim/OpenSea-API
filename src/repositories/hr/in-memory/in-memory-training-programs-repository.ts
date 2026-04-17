@@ -24,6 +24,7 @@ export class InMemoryTrainingProgramsRepository
       maxParticipants: data.maxParticipants,
       isActive: data.isActive ?? true,
       isMandatory: data.isMandatory ?? false,
+      isMandatoryForESocial: data.isMandatoryForESocial ?? false,
       validityMonths: data.validityMonths,
     });
 
@@ -131,6 +132,10 @@ export class InMemoryTrainingProgramsRepository
     }
     if (data.isMandatory !== undefined) {
       program.props.isMandatory = data.isMandatory;
+      program.props.updatedAt = new Date();
+    }
+    if (data.isMandatoryForESocial !== undefined) {
+      program.props.isMandatoryForESocial = data.isMandatoryForESocial;
       program.props.updatedAt = new Date();
     }
     if (data.validityMonths !== undefined) {

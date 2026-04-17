@@ -12,6 +12,15 @@ export interface TrainingProgramProps {
   maxParticipants?: number;
   isActive: boolean;
   isMandatory: boolean;
+  /**
+   * Flag the program as "must auto-enqueue S-2240" — completing a mandatory
+   * safety training (NR-10, NR-35 etc.) requires the employer to notify
+   * eSocial about the employee's exposure to environmental risks. When true,
+   * CompleteEnrollmentUseCase queues an S-2240 DRAFT event for manager
+   * review (we do NOT transmit automatically; the event builder needs
+   * infoAmb + fatRisco data that only HR can confirm).
+   */
+  isMandatoryForESocial: boolean;
   validityMonths?: number;
   createdAt: Date;
   updatedAt: Date;
@@ -57,6 +66,10 @@ export class TrainingProgram extends Entity<TrainingProgramProps> {
 
   get isMandatory(): boolean {
     return this.props.isMandatory;
+  }
+
+  get isMandatoryForESocial(): boolean {
+    return this.props.isMandatoryForESocial;
   }
 
   get validityMonths(): number | undefined {
@@ -117,6 +130,7 @@ export class TrainingProgram extends Entity<TrainingProgramProps> {
         ...props,
         isActive: props.isActive ?? true,
         isMandatory: props.isMandatory ?? false,
+        isMandatoryForESocial: props.isMandatoryForESocial ?? false,
         createdAt: props.createdAt ?? now,
         updatedAt: props.updatedAt ?? now,
       },

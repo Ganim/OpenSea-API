@@ -12,6 +12,7 @@ export interface CreateTrainingProgramSchema {
   maxParticipants?: number;
   isActive?: boolean;
   isMandatory?: boolean;
+  isMandatoryForESocial?: boolean;
   validityMonths?: number;
 }
 
@@ -33,6 +34,7 @@ export interface UpdateTrainingProgramSchema {
   maxParticipants?: number;
   isActive?: boolean;
   isMandatory?: boolean;
+  isMandatoryForESocial?: boolean;
   validityMonths?: number;
 }
 

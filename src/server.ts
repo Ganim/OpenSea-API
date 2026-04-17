@@ -19,6 +19,7 @@ import { getWorkflowScheduler } from './services/ai-workflows/workflow-scheduler
 import { getInsightScheduler } from './services/ai-insights/insight-scheduler';
 import { getFinanceScheduler } from './services/finance/finance-scheduler';
 import { BusinessSnapshotService } from './services/ai-tools/business-snapshot.service';
+import { startHrJobs } from './jobs';
 
 let isShuttingDown = false;
 const SHUTDOWN_TIMEOUT_MS = 15_000;
@@ -245,6 +246,12 @@ async function start() {
     // Start finance scheduler (recurring entries, escalations, bank sync)
     const financeScheduler = getFinanceScheduler();
     financeScheduler.start();
+
+    // Start HR in-process cron jobs (training expiry reminders etc.).
+    // Gated by ENABLE_CRONS=true so production operators can pick between
+    // in-process scheduling and external schedulers (Fly machines, k8s
+    // CronJob etc.) without restarting the API.
+    startHrJobs();
 
     // Neon keep-alive ping — prevents Neon Free tier from suspending the
     // compute after 5 minutes of idle, which causes 1–3s cold-start latency

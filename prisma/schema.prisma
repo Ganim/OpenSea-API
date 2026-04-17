@@ -5198,6 +5198,9 @@ model TrainingProgram {
   maxParticipants Int?      @map("max_participants")
   isActive        Boolean   @default(true) @map("is_active")
   isMandatory     Boolean   @default(false) @map("is_mandatory")
+  // When true, completing this program automatically enqueues an S-2240
+  // (Condições Ambientais do Trabalho) draft event for manager review.
+  isMandatoryForESocial Boolean @default(false) @map("is_mandatory_for_esocial")
   validityMonths  Int?      @map("validity_months")
   createdAt       DateTime  @default(now()) @map("created_at")
   updatedAt       DateTime  @updatedAt @map("updated_at")
@@ -5221,6 +5224,9 @@ model TrainingEnrollment {
   enrolledAt        DateTime  @default(now()) @map("enrolled_at")
   startedAt         DateTime? @map("started_at")
   completedAt       DateTime? @map("completed_at")
+  // Certificate expiration — computed on complete() from the program's
+  // validityMonths (defaulting to 24 when the program leaves it unset).
+  expirationDate    DateTime? @map("expiration_date")
   score             Float?
   certificateUrl    String?   @map("certificate_url") @db.VarChar(500)
   notes             String?   @db.VarChar(1000)
@@ -5236,6 +5242,7 @@ model TrainingEnrollment {
   @@index([tenantId, employeeId])
   @@index([tenantId, trainingProgramId])
   @@index([tenantId, status])
+  @@index([tenantId, expirationDate])
   @@map("training_enrollments")
 }
 

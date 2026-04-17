@@ -15,6 +15,7 @@ export function mapTrainingProgramPrismaToDomain(
     maxParticipants: program.maxParticipants ?? undefined,
     isActive: program.isActive,
     isMandatory: program.isMandatory,
+    isMandatoryForESocial: program.isMandatoryForESocial,
     validityMonths: program.validityMonths ?? undefined,
     createdAt: program.createdAt,
     updatedAt: program.updatedAt,

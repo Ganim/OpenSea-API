@@ -9,6 +9,13 @@ export interface TrainingEnrollmentProps {
   enrolledAt: Date;
   startedAt?: Date;
   completedAt?: Date;
+  /**
+   * Certificate expiration. Populated by CompleteEnrollmentUseCase using
+   * `program.validityMonths ?? 24`. The `check-training-expiry` cron scans
+   * this column to notify employees + managers 30 days before expiry and to
+   * send a "re-inscrição necessária" reminder once expired.
+   */
+  expirationDate?: Date;
   score?: number;
   certificateUrl?: string;
   notes?: string;
@@ -43,6 +50,10 @@ export class TrainingEnrollment extends Entity<TrainingEnrollmentProps> {
 
   get completedAt(): Date | undefined {
     return this.props.completedAt;
+  }
+
+  get expirationDate(): Date | undefined {
+    return this.props.expirationDate;
   }
 
   get score(): number | undefined {

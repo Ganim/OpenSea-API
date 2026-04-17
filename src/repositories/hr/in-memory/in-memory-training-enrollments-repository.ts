@@ -115,6 +115,33 @@ export class InMemoryTrainingEnrollmentsRepository
     );
   }
 
+  async findExpiringWithin(
+    daysAhead: number,
+  ): Promise<TrainingEnrollment[]> {
+    const now = new Date();
+    const threshold = new Date(now);
+    threshold.setDate(threshold.getDate() + daysAhead);
+
+    return this.items.filter(
+      (enrollment) =>
+        enrollment.status === 'COMPLETED' &&
+        enrollment.expirationDate !== undefined &&
+        enrollment.expirationDate >= now &&
+        enrollment.expirationDate < threshold,
+    );
+  }
+
+  async findExpiredSince(since: Date): Promise<TrainingEnrollment[]> {
+    const now = new Date();
+    return this.items.filter(
+      (enrollment) =>
+        enrollment.status === 'COMPLETED' &&
+        enrollment.expirationDate !== undefined &&
+        enrollment.expirationDate >= since &&
+        enrollment.expirationDate < now,
+    );
+  }
+
   async update(
     data: UpdateTrainingEnrollmentSchema,
   ): Promise<TrainingEnrollment | null> {
@@ -135,6 +162,10 @@ export class InMemoryTrainingEnrollmentsRepository
     }
     if (data.completedAt !== undefined) {
       enrollment.props.completedAt = data.completedAt;
+      enrollment.props.updatedAt = new Date();
+    }
+    if (data.expirationDate !== undefined) {
+      enrollment.props.expirationDate = data.expirationDate;
       enrollment.props.updatedAt = new Date();
     }
     if (data.score !== undefined) {

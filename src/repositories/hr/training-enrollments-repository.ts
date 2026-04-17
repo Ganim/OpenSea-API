@@ -21,6 +21,12 @@ export interface UpdateTrainingEnrollmentSchema {
   status?: string;
   startedAt?: Date;
   completedAt?: Date;
+  /**
+   * Certificate expiration — CompleteEnrollmentUseCase writes it from
+   * `completedAt + (program.validityMonths ?? 24)`. The retraining cron
+   * reads it daily.
+   */
+  expirationDate?: Date;
   score?: number;
   certificateUrl?: string;
   notes?: string;
@@ -56,6 +62,21 @@ export interface TrainingEnrollmentsRepository {
     employeeId: UniqueEntityID,
     tenantId: string,
   ): Promise<TrainingEnrollment | null>;
+  /**
+   * COMPLETED enrollments whose expirationDate falls inside [now, now+daysAhead).
+   * Used by the retraining cron to send "seu certificado expira em X dias" —
+   * the window is exclusive of the upper bound so consecutive daily runs
+   * don't double-fire the same notification.
+   */
+  findExpiringWithin(
+    daysAhead: number,
+  ): Promise<TrainingEnrollment[]>;
+  /**
+   * COMPLETED enrollments that already expired since the previous cron run.
+   * Caller must persist its own "last-seen" cursor; the repo stays
+   * stateless. Used to trigger the "re-inscrição necessária" notification.
+   */
+  findExpiredSince(since: Date): Promise<TrainingEnrollment[]>;
   update(
     data: UpdateTrainingEnrollmentSchema,
   ): Promise<TrainingEnrollment | null>;

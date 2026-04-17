@@ -25,6 +25,7 @@ export class PrismaTrainingProgramsRepository
         maxParticipants: data.maxParticipants,
         isActive: data.isActive ?? true,
         isMandatory: data.isMandatory ?? false,
+        isMandatoryForESocial: data.isMandatoryForESocial ?? false,
         validityMonths: data.validityMonths,
       },
     });
@@ -117,6 +118,7 @@ export class PrismaTrainingProgramsRepository
         maxParticipants: data.maxParticipants,
         isActive: data.isActive,
         isMandatory: data.isMandatory,
+        isMandatoryForESocial: data.isMandatoryForESocial,
         validityMonths: data.validityMonths,
       },
     });

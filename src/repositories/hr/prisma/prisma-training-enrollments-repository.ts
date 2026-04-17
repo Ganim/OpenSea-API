@@ -131,6 +131,47 @@ export class PrismaTrainingEnrollmentsRepository
     );
   }
 
+  async findExpiringWithin(
+    daysAhead: number,
+  ): Promise<TrainingEnrollment[]> {
+    const now = new Date();
+    const threshold = new Date(now);
+    threshold.setDate(threshold.getDate() + daysAhead);
+
+    const records = await prisma.trainingEnrollment.findMany({
+      where: {
+        status: 'COMPLETED',
+        expirationDate: { gte: now, lt: threshold },
+      },
+      orderBy: { expirationDate: 'asc' },
+    });
+
+    return records.map((record) =>
+      TrainingEnrollment.create(
+        mapTrainingEnrollmentPrismaToDomain(record),
+        new UniqueEntityID(record.id),
+      ),
+    );
+  }
+
+  async findExpiredSince(since: Date): Promise<TrainingEnrollment[]> {
+    const now = new Date();
+    const records = await prisma.trainingEnrollment.findMany({
+      where: {
+        status: 'COMPLETED',
+        expirationDate: { gte: since, lt: now },
+      },
+      orderBy: { expirationDate: 'asc' },
+    });
+
+    return records.map((record) =>
+      TrainingEnrollment.create(
+        mapTrainingEnrollmentPrismaToDomain(record),
+        new UniqueEntityID(record.id),
+      ),
+    );
+  }
+
   async update(
     data: UpdateTrainingEnrollmentSchema,
   ): Promise<TrainingEnrollment | null> {
@@ -146,6 +187,7 @@ export class PrismaTrainingEnrollmentsRepository
         status: data.status,
         startedAt: data.startedAt,
         completedAt: data.completedAt,
+        expirationDate: data.expirationDate,
         score: data.score,
         certificateUrl: data.certificateUrl,
         notes: data.notes,
