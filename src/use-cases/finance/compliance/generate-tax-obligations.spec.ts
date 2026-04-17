@@ -3,7 +3,10 @@ import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memo
 import { InMemoryFinanceEntryRetentionsRepository } from '@/repositories/finance/in-memory/in-memory-finance-entry-retentions-repository';
 import { InMemoryTaxObligationsRepository } from '@/repositories/finance/in-memory/in-memory-tax-obligations-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { GenerateTaxObligationsUseCase } from './generate-tax-obligations';
+import {
+  GenerateTaxObligationsUseCase,
+  getLastBusinessDayOfMonth,
+} from './generate-tax-obligations';
 
 let taxObligationsRepository: InMemoryTaxObligationsRepository;
 let retentionsRepository: InMemoryFinanceEntryRetentionsRepository;
@@ -185,5 +188,94 @@ describe('GenerateTaxObligationsUseCase', () => {
     for (const obligation of result.created) {
       expect(obligation.status).toBe('PENDING');
     }
+  });
+
+  it('should emit ISS obligations WITHOUT DARF code (ISS is municipal)', async () => {
+    // Add an ISS retention so an ISS obligation is generated
+    const category = await categoriesRepository.create({
+      tenantId: 'tenant-1',
+      name: 'Servicos Municipais',
+      slug: 'servicos-municipais',
+      type: 'REVENUE',
+    });
+
+    const issEntry = await entriesRepository.create({
+      tenantId: 'tenant-1',
+      type: 'RECEIVABLE',
+      code: 'REC-ISS-001',
+      description: 'Servico com ISS',
+      categoryId: category.id.toString(),
+      expectedAmount: 20000,
+      issueDate: new Date('2026-05-01'),
+      dueDate: new Date('2026-05-15'),
+      status: 'RECEIVED',
+    });
+
+    await retentionsRepository.createMany([
+      {
+        tenantId: 'tenant-1',
+        entryId: issEntry.id.toString(),
+        taxType: 'ISS',
+        grossAmount: 20000,
+        rate: 0.05,
+        amount: 1000,
+      },
+    ]);
+
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      year: 2026,
+      month: 5,
+    });
+
+    const issObligation = result.created.find((o) => o.taxType === 'ISS');
+
+    expect(issObligation).toBeDefined();
+    expect(issObligation?.darfCode).toBeUndefined();
+    expect(issObligation?.amount).toBe(1000);
+  });
+
+  describe('getLastBusinessDayOfMonth (Brazilian holidays-aware)', () => {
+    it('should roll back when last day is a weekend', () => {
+      // August 2026: 31st is Monday. Use 2025 (Aug 31 is Sunday).
+      // Easier: February 2026: 28th = Saturday → expect Friday 27.
+      const lastBusinessDay = getLastBusinessDayOfMonth(2026, 2);
+      expect(lastBusinessDay.getFullYear()).toBe(2026);
+      expect(lastBusinessDay.getMonth()).toBe(1); // February (0-indexed)
+      expect(lastBusinessDay.getDay()).not.toBe(0);
+      expect(lastBusinessDay.getDay()).not.toBe(6);
+    });
+
+    it('should roll back past Christmas (Dec 25) national holiday', () => {
+      // December 2026: 31st = Thursday (business day), 25th = Friday (Natal).
+      // Last business day of month should be Dec 31, not rolled back.
+      const lastBusinessDay = getLastBusinessDayOfMonth(2026, 12);
+      expect(lastBusinessDay.getMonth()).toBe(11); // December
+      expect(lastBusinessDay.getDate()).toBe(31);
+      expect(lastBusinessDay.getDay()).not.toBe(0);
+      expect(lastBusinessDay.getDay()).not.toBe(6);
+    });
+
+    it('should roll back when last day falls on Confraternização (Jan 1)', () => {
+      // January 2026: 31st = Saturday → Friday 30th.
+      const lastBusinessDay = getLastBusinessDayOfMonth(2026, 1);
+      expect(lastBusinessDay.getMonth()).toBe(0); // January
+      expect(lastBusinessDay.getDate()).toBe(30);
+    });
+
+    it('should return a business day (not a holiday, not a weekend)', () => {
+      // November 2026: 30th = Monday. 15th = Proclamação (Sunday this year).
+      // Last business day must be a business day regardless of year.
+      for (const [year, month] of [
+        [2026, 1],
+        [2026, 12],
+        [2027, 1],
+        [2025, 5],
+      ] as const) {
+        const lastBusinessDay = getLastBusinessDayOfMonth(year, month);
+        expect(lastBusinessDay.getDay()).not.toBe(0);
+        expect(lastBusinessDay.getDay()).not.toBe(6);
+      }
+    });
   });
 });

@@ -5,6 +5,7 @@ import type {
   TaxObligationsRepository,
   CreateTaxObligationSchema,
 } from '@/repositories/finance/tax-obligations-repository';
+import { isBusinessDay } from '@/utils/brazilian-holidays';
 
 interface GenerateTaxObligationsRequest {
   tenantId: string;
@@ -17,10 +18,11 @@ export interface GenerateTaxObligationsResponse {
   skipped: number;
 }
 
-// DARF codes per tax type
-const DARF_CODES: Record<TaxType, string> = {
+// DARF codes per tax type. ISS is a municipal tax (no federal DARF code), so
+// we deliberately leave it undefined — the generator emits a municipal guide
+// (GUIA_MUNICIPAL) instead of a DARF for ISS.
+const DARF_CODES: Partial<Record<TaxType, string>> = {
   IRRF: '0561',
-  ISS: '0000', // ISS is municipal, no federal DARF
   INSS: '2631',
   PIS: '8109',
   COFINS: '2172',
@@ -38,18 +40,15 @@ const TAX_DUE_DAY: Record<TaxType, number> = {
   CSLL: -1, // Last business day of following month
 };
 
-function getLastBusinessDayOfMonth(year: number, month: number): Date {
-  // month is 1-based, so we get last day of that month
+/**
+ * Returns the last business day of the given month, skipping weekends AND
+ * Brazilian national holidays. `month` is 1-based (January = 1).
+ */
+export function getLastBusinessDayOfMonth(year: number, month: number): Date {
   const lastDay = new Date(year, month, 0);
-  const dayOfWeek = lastDay.getDay();
 
-  // If Saturday, go back to Friday
-  if (dayOfWeek === 6) {
+  while (!isBusinessDay(lastDay)) {
     lastDay.setDate(lastDay.getDate() - 1);
-  }
-  // If Sunday, go back to Friday
-  if (dayOfWeek === 0) {
-    lastDay.setDate(lastDay.getDate() - 2);
   }
 
   return lastDay;
@@ -80,11 +79,8 @@ function calculateDueDate(
 
   const dueDate = new Date(dueYear, dueMonth - 1, actualDay);
 
-  // If falls on weekend, move to next business day (Monday)
-  const dayOfWeek = dueDate.getDay();
-  if (dayOfWeek === 6) {
-    dueDate.setDate(dueDate.getDate() + 2);
-  } else if (dayOfWeek === 0) {
+  // If falls on weekend or national holiday, move forward to next business day
+  while (!isBusinessDay(dueDate)) {
     dueDate.setDate(dueDate.getDate() + 1);
   }
 
