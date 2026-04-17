@@ -1,5 +1,7 @@
+import { PermissionCodes } from '@/constants/rbac';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { DelegationScope } from '@/entities/hr/approval-delegation';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { approvalDelegationToDTO } from '@/mappers/hr/approval-delegation/approval-delegation-to-dto';
@@ -13,7 +15,14 @@ export async function v1GetActiveDelegationsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/approval-delegations/active',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.DELEGATIONS.ACCESS,
+        resource: 'delegations',
+      }),
+    ],
     schema: {
       tags: ['HR - Approval Delegations'],
       summary: 'Get currently active delegations',

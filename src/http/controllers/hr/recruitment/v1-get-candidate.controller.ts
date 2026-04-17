@@ -1,4 +1,6 @@
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { candidateResponseSchema } from '@/http/schemas/hr/recruitment';
@@ -13,7 +15,14 @@ export async function v1GetCandidateController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/recruitment/candidates/:candidateId',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.RECRUITMENT.ACCESS,
+        resource: 'recruitment',
+      }),
+    ],
     schema: {
       tags: ['HR - Recruitment'],
       summary: 'Get candidate',

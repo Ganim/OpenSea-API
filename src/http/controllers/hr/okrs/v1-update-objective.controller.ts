@@ -1,3 +1,5 @@
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import {
@@ -16,7 +18,14 @@ export async function v1UpdateObjectiveController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'PUT',
     url: '/v1/hr/okrs/objectives/:objectiveId',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.OKRS.MODIFY,
+        resource: 'okrs',
+      }),
+    ],
     schema: {
       tags: ['HR - OKRs'],
       summary: 'Update an objective',

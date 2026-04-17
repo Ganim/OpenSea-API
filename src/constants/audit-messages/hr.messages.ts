@@ -1714,6 +1714,26 @@ export const HR_AUDIT_MESSAGES = {
     module: AuditModule.HR,
     description: '{{userName}} removeu uma ação da reunião 1:1',
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // MEDICAL EXAMS (ASO) - NR-7 retention, LGPD Art. 11 sensitive health data
+  // ============================================================================
+
+  /**
+   * Soft-delete de exame médico (NR-7 P0-02).
+   *
+   * Substitui o DELETE físico porque NR-7 item 7.4.4.3 exige retenção do ASO
+   * por 20 anos após o desligamento do empregado. O registro continua na base
+   * (com `deletedAt` preenchido) e só pode ser purgado explicitamente após o
+   * prazo legal.
+   */
+  MEDICAL_EXAM_SOFT_DELETED: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.MEDICAL_EXAM,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} arquivou o exame médico do funcionário {{employeeName}} (retenção NR-7 de 20 anos)',
+  } satisfies AuditMessage,
 } as const;
 
 export type HrAuditMessageKey = keyof typeof HR_AUDIT_MESSAGES;

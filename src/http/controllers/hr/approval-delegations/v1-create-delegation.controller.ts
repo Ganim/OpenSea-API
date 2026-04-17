@@ -1,7 +1,9 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
+import { PermissionCodes } from '@/constants/rbac';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { logAudit } from '@/http/helpers/audit.helper';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { approvalDelegationToDTO } from '@/mappers/hr/approval-delegation/approval-delegation-to-dto';
@@ -15,7 +17,14 @@ export async function v1CreateDelegationController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/v1/hr/approval-delegations',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.DELEGATIONS.REGISTER,
+        resource: 'delegations',
+      }),
+    ],
     schema: {
       tags: ['HR - Approval Delegations'],
       summary: 'Create an approval delegation',

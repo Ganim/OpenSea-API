@@ -1,3 +1,5 @@
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { objectiveResponseSchema } from '@/http/schemas/hr/okrs';
@@ -13,7 +15,14 @@ export async function v1GetObjectiveController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/okrs/objectives/:objectiveId',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.OKRS.ACCESS,
+        resource: 'okrs',
+      }),
+    ],
     schema: {
       tags: ['HR - OKRs'],
       summary: 'Get an objective',

@@ -1,3 +1,5 @@
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { surveyResponseSchema } from '@/http/schemas/hr/surveys';
@@ -13,7 +15,14 @@ export async function v1GetSurveyController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/surveys/:surveyId',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.SURVEYS.ACCESS,
+        resource: 'surveys',
+      }),
+    ],
     schema: {
       tags: ['HR - Surveys'],
       summary: 'Get a survey',

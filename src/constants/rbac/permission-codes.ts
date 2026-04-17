@@ -332,6 +332,11 @@ export const PermissionCodes = {
       REGISTER: 'hr.medical-exams.register' as const,
       MODIFY: 'hr.medical-exams.modify' as const,
       REMOVE: 'hr.medical-exams.remove' as const,
+      // ADMIN is reserved for SESMT / medical staff (P0-12): only this
+      // permission allows reading `observations` / `restrictions` from the
+      // ASO (Art. 11 LGPD + CLT Art. 169 sigilo médico) and is required
+      // to soft-delete an ASO (NR-7 20-year retention guarantee — P0-02).
+      ADMIN: 'hr.medical-exams.admin' as const,
     },
     SAFETY: {
       ACCESS: 'hr.safety.access' as const,

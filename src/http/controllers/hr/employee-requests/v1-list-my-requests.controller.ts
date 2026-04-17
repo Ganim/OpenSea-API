@@ -1,4 +1,6 @@
+import { PermissionCodes } from '@/constants/rbac';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { employeeRequestToDTO } from '@/mappers/hr/employee-request';
@@ -12,7 +14,14 @@ export async function v1ListMyRequestsController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/v1/hr/my/requests',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.EMPLOYEE_REQUESTS.ACCESS,
+        resource: 'employee-requests',
+      }),
+    ],
     schema: {
       tags: ['HR - Employee Portal'],
       summary: 'List my requests',

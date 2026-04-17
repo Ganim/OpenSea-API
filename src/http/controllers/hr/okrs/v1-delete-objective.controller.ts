@@ -1,3 +1,5 @@
+import { PermissionCodes } from '@/constants/rbac';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { verifyTenant } from '@/http/middlewares/rbac/verify-tenant';
 import { cuidSchema } from '@/http/schemas/common.schema';
@@ -11,7 +13,14 @@ export async function v1DeleteObjectiveController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/v1/hr/okrs/objectives/:objectiveId',
-    preHandler: [verifyJwt, verifyTenant],
+    preHandler: [
+      verifyJwt,
+      verifyTenant,
+      createPermissionMiddleware({
+        permissionCode: PermissionCodes.HR.OKRS.REMOVE,
+        resource: 'okrs',
+      }),
+    ],
     schema: {
       tags: ['HR - OKRs'],
       summary: 'Delete an objective',

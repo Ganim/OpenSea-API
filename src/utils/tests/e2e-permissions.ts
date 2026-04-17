@@ -550,7 +550,7 @@ export const ALL_PERMISSIONS: Record<string, Record<string, string[]>> = {
     ],
     admissions: ['access', 'register', 'modify', 'remove', 'admin'],
     shifts: ['access', 'register', 'modify', 'remove', 'admin'],
-    'medical-exams': ['access', 'register', 'modify', 'remove'],
+    'medical-exams': ['access', 'register', 'modify', 'remove', 'admin'],
     safety: ['access', 'register', 'modify', 'remove', 'admin'],
     ppe: ['access', 'register', 'modify', 'remove', 'admin'],
     training: ['access', 'register', 'modify', 'remove', 'admin'],
