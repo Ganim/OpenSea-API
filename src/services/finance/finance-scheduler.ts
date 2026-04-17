@@ -3,6 +3,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { prisma } from '@/lib/prisma';
 import { logger } from '@/lib/logger';
 import { getPermissionService } from '@/services/rbac/get-permission-service';
+import type { PermissionService } from '@/services/rbac/permission-service';
 import { makeProcessOverdueEscalationsUseCase } from '@/use-cases/finance/escalations/factories/make-process-overdue-escalations-use-case';
 import { makeGenerateRecurringBatchUseCase } from '@/use-cases/finance/recurring/factories/make-generate-recurring-batch';
 import { makeSyncBankTransactionsUseCase } from '@/use-cases/finance/bank-connections/factories/make-sync-bank-transactions-use-case';
@@ -10,6 +11,12 @@ import { PrismaCashflowSnapshotsRepository } from '@/repositories/finance/prisma
 import { makeGetPredictiveCashflowUseCase } from '@/use-cases/finance/dashboard/factories/make-get-predictive-cashflow-use-case';
 import { makeAutoReconcileUseCase } from '@/use-cases/finance/reconciliation/factories/make-auto-reconcile-use-case';
 import { getBankingProviderForAccount } from '@/services/banking/get-banking-provider';
+import { makeCheckOverdueEntriesUseCase } from '@/use-cases/finance/entries/factories/make-check-overdue-entries-use-case';
+import { makeGenerateContractEntriesUseCase } from '@/use-cases/finance/contracts/factories/make-generate-contract-entries-use-case';
+import { makeGenerateTaxObligationsUseCase } from '@/use-cases/finance/compliance/factories/make-generate-tax-obligations-use-case';
+import { makeApplyIndexationUseCase } from '@/use-cases/finance/recurring/factories/make-apply-indexation';
+import { makeDetectAnomaliesUseCase } from '@/use-cases/finance/analytics/factories/make-detect-anomalies-use-case';
+import { makeCheckCashFlowAlertsUseCase } from '@/use-cases/finance/alerts/factories/make-check-cashflow-alerts-use-case';
 
 const LOG_PREFIX = '[FinanceScheduler]';
 
@@ -25,8 +32,23 @@ const TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000;
 
 interface ScheduledJob {
   name: string;
-  /** Target hour (0-23) in local time. Null = interval-based only. */
+  /**
+   * Target hour (0-23) in **UTC**. Null = interval-based only.
+   * We use UTC because production runs on UTC servers (Fly.io / Neon); using
+   * local time would shift each job by the host's offset and skip targets
+   * entirely on UTC-only hosts.
+   */
   targetHour: number | null;
+  /**
+   * Optional target day of month (1-28) for monthly jobs. When set together
+   * with targetHour, the job only fires when both match. Use 1-28 to keep
+   * monthly jobs valid for every month (avoids 29/30/31 edge cases).
+   */
+  targetDay?: number | null;
+  /**
+   * Optional target month (1-12) for annual jobs.
+   */
+  targetMonth?: number | null;
   /** Minimum milliseconds between executions. */
   intervalMs: number;
   /** Timestamp of last successful execution start. */
@@ -55,17 +77,20 @@ export class FinanceScheduler {
   private jobs: ScheduledJob[] = [];
 
   constructor() {
+    // Hours below are UTC (production = UTC server). To run "at 8 AM Brasília"
+    // pick UTC = 11 (BRT is UTC-3). All targetHour values were chosen to
+    // spread load across early-morning hours when ERP traffic is lowest.
     this.jobs = [
       {
         name: 'generate-recurring-entries',
-        targetHour: 6,
+        targetHour: 9, // ~06:00 BRT
         intervalMs: TWENTY_FOUR_HOURS_MS,
         lastRunAt: 0,
         execute: this.generateRecurringEntries.bind(this),
       },
       {
         name: 'process-overdue-escalations',
-        targetHour: 8,
+        targetHour: 11, // ~08:00 BRT
         intervalMs: TWENTY_FOUR_HOURS_MS,
         lastRunAt: 0,
         execute: this.processOverdueEscalations.bind(this),
@@ -79,10 +104,66 @@ export class FinanceScheduler {
       },
       {
         name: 'save-cashflow-snapshots',
-        targetHour: 23,
+        targetHour: 2, // ~23:00 BRT (previous day) — end-of-day snapshot
         intervalMs: TWENTY_FOUR_HOURS_MS,
         lastRunAt: 0,
         execute: this.saveCashflowSnapshots.bind(this),
+      },
+      // ─── Newly registered jobs (closing audit P1-44 to P1-52) ─────────
+      {
+        // P1-46: status OVERDUE was never auto-applied without this cron.
+        name: 'check-overdue-entries',
+        targetHour: 10, // ~07:00 BRT, runs after recurring batch
+        intervalMs: TWENTY_FOUR_HOURS_MS,
+        lastRunAt: 0,
+        execute: this.checkOverdueEntries.bind(this),
+      },
+      {
+        // P1-52: contracts (rent, insurance, subscriptions) were not
+        // auto-generating their monthly entries.
+        name: 'generate-contract-entries',
+        targetHour: 8, // ~05:00 BRT
+        targetDay: 1, // first day of every month
+        intervalMs: TWENTY_FOUR_HOURS_MS,
+        lastRunAt: 0,
+        execute: this.generateContractEntries.bind(this),
+      },
+      {
+        // P1-45: tax calendar (DAS, DARF) was never populated automatically.
+        name: 'generate-tax-obligations',
+        targetHour: 7, // ~04:00 BRT
+        targetDay: 1, // first day of every month
+        intervalMs: TWENTY_FOUR_HOURS_MS,
+        lastRunAt: 0,
+        execute: this.generateTaxObligations.bind(this),
+      },
+      {
+        // P1-44: indexation (IPCA / IGP-M) was never applied annually.
+        name: 'apply-indexation',
+        targetHour: 6, // ~03:00 BRT
+        targetDay: 1,
+        targetMonth: 1, // January 1st each year
+        intervalMs: TWENTY_FOUR_HOURS_MS,
+        lastRunAt: 0,
+        execute: this.applyIndexation.bind(this),
+      },
+      {
+        // P1-50: anomaly detection (suspicious payments, duplicates) was idle.
+        name: 'detect-anomalies',
+        targetHour: 12, // ~09:00 BRT, after most jobs settled
+        // Weekly: every 7 days. The interval guard handles cadence; we don't
+        // need a target day-of-week because targetHour + 7d interval is enough.
+        intervalMs: 7 * TWENTY_FOUR_HOURS_MS,
+        lastRunAt: 0,
+        execute: this.detectAnomalies.bind(this),
+      },
+      {
+        // P1-51: cashflow alerts (low balance, overdue surge) never fired.
+        name: 'check-cashflow-alerts',
+        targetHour: 13, // ~10:00 BRT
+        intervalMs: TWENTY_FOUR_HOURS_MS,
+        lastRunAt: 0,
+        execute: this.checkCashflowAlerts.bind(this),
       },
     ];
   }
@@ -129,7 +210,12 @@ export class FinanceScheduler {
 
     try {
       const now = Date.now();
-      const currentHour = new Date().getHours();
+      const nowDate = new Date();
+      // Use UTC across the board (P1-06): production servers run in UTC, so
+      // local time would skew every targetHour/targetDay/targetMonth check.
+      const currentHour = nowDate.getUTCHours();
+      const currentDay = nowDate.getUTCDate();
+      const currentMonth = nowDate.getUTCMonth() + 1; // 1-12
 
       for (const job of this.jobs) {
         const elapsed = now - job.lastRunAt;
@@ -141,6 +227,24 @@ export class FinanceScheduler {
 
         // For hour-targeted jobs, only run if we're in the target hour
         if (job.targetHour !== null && currentHour !== job.targetHour) {
+          continue;
+        }
+
+        // Optional day-of-month gate (monthly jobs)
+        if (
+          job.targetDay !== undefined &&
+          job.targetDay !== null &&
+          currentDay !== job.targetDay
+        ) {
+          continue;
+        }
+
+        // Optional month gate (annual jobs)
+        if (
+          job.targetMonth !== undefined &&
+          job.targetMonth !== null &&
+          currentMonth !== job.targetMonth
+        ) {
           continue;
         }
 
@@ -571,12 +675,20 @@ export class FinanceScheduler {
           ? firstMonth.projectedExpenses / daysInMonth
           : 0;
 
-        const predictedInflow = todayProjection
-          ? predictedDailyInflow
-          : predictedDailyInflow;
-        const predictedOutflow = todayProjection
-          ? predictedDailyOutflow
-          : predictedDailyOutflow;
+        // P1-07: the previous code had a no-op ternary that returned the same
+        // value in both branches. DailyProjection only carries a cumulative
+        // balance (not a per-day inflow/outflow), so the day-specific lookup
+        // never had a meaningful value to read. We use the monthly daily
+        // average straight; the lookup is kept (`todayProjection`) only to
+        // emit a debug log when missing so we can spot empty projections.
+        if (!todayProjection) {
+          logger.debug(
+            { tenantId, todayStr },
+            `${LOG_PREFIX} [save-cashflow-snapshots] No projection point for today`,
+          );
+        }
+        const predictedInflow = predictedDailyInflow;
+        const predictedOutflow = predictedDailyOutflow;
 
         // 2. Calculate actual inflow/outflow from realized entries today
         const todayStart = new Date(today);
@@ -690,6 +802,239 @@ export class FinanceScheduler {
     });
 
     return tenants.map((t) => t.id);
+  }
+
+  // ─── Newly registered job implementations ───────────────────────────
+
+  /**
+   * Mark PENDING entries with dueDate < today as OVERDUE.
+   * Without this cron, status transitions only happen on user-triggered reads.
+   */
+  private async checkOverdueEntries(): Promise<void> {
+    const tenantIds = await this.getActiveTenantIds();
+    if (tenantIds.length === 0) return;
+
+    const useCase = makeCheckOverdueEntriesUseCase();
+    let totalProcessed = 0;
+    let tenantsWithErrors = 0;
+
+    for (const tenantId of tenantIds) {
+      try {
+        const result = await useCase.execute({ tenantId });
+        totalProcessed += result.markedOverdue;
+      } catch (err) {
+        tenantsWithErrors++;
+        logger.error(
+          { tenantId, error: err },
+          `${LOG_PREFIX} [check-overdue-entries] Tenant failed`,
+        );
+      }
+    }
+
+    logger.info(
+      { tenantsProcessed: tenantIds.length, totalProcessed, tenantsWithErrors },
+      `${LOG_PREFIX} [check-overdue-entries] Batch complete`,
+    );
+  }
+
+  /**
+   * Generate the current month's entries for every active contract per tenant.
+   * Without this cron, recurring contracts (rent, insurance, subscriptions)
+   * never auto-create their monthly finance entries.
+   */
+  private async generateContractEntries(): Promise<void> {
+    const tenantIds = await this.getActiveTenantIds();
+    if (tenantIds.length === 0) return;
+
+    const useCase = makeGenerateContractEntriesUseCase();
+    let totalGenerated = 0;
+    let tenantsWithErrors = 0;
+    let contractsProcessed = 0;
+
+    for (const tenantId of tenantIds) {
+      try {
+        // The use case takes one contractId at a time, so we resolve all
+        // ACTIVE non-deleted contracts for the tenant and loop. Limited to
+        // contracts with a startDate in the past and endDate in the future
+        // (or null) to skip clearly-inactive ones at SQL level.
+        const today = new Date();
+        const activeContracts = await prisma.contract.findMany({
+          where: {
+            tenantId,
+            deletedAt: null,
+            status: 'ACTIVE',
+            startDate: { lte: today },
+            endDate: { gte: today },
+          },
+          select: { id: true },
+        });
+
+        for (const { id } of activeContracts) {
+          try {
+            const result = await useCase.execute({
+              tenantId,
+              contractId: id,
+            });
+            totalGenerated += result.entriesCreated;
+            contractsProcessed++;
+          } catch (innerErr) {
+            logger.error(
+              { tenantId, contractId: id, error: innerErr },
+              `${LOG_PREFIX} [generate-contract-entries] Contract failed`,
+            );
+          }
+        }
+      } catch (err) {
+        tenantsWithErrors++;
+        logger.error(
+          { tenantId, error: err },
+          `${LOG_PREFIX} [generate-contract-entries] Tenant failed`,
+        );
+      }
+    }
+
+    logger.info(
+      {
+        tenantsProcessed: tenantIds.length,
+        contractsProcessed,
+        totalGenerated,
+        tenantsWithErrors,
+      },
+      `${LOG_PREFIX} [generate-contract-entries] Batch complete`,
+    );
+  }
+
+  /**
+   * Populate the Brazilian fiscal calendar (DAS, DARF, GPS) for the next month.
+   */
+  private async generateTaxObligations(): Promise<void> {
+    const tenantIds = await this.getActiveTenantIds();
+    if (tenantIds.length === 0) return;
+
+    const useCase = makeGenerateTaxObligationsUseCase();
+    const next = new Date();
+    next.setUTCMonth(next.getUTCMonth() + 1);
+    const year = next.getUTCFullYear();
+    const month = next.getUTCMonth() + 1;
+
+    let totalCreated = 0;
+    let tenantsWithErrors = 0;
+
+    for (const tenantId of tenantIds) {
+      try {
+        const result = await useCase.execute({ tenantId, year, month });
+        totalCreated += result.created.length;
+      } catch (err) {
+        tenantsWithErrors++;
+        logger.error(
+          { tenantId, error: err },
+          `${LOG_PREFIX} [generate-tax-obligations] Tenant failed`,
+        );
+      }
+    }
+
+    logger.info(
+      {
+        tenantsProcessed: tenantIds.length,
+        totalCreated,
+        tenantsWithErrors,
+        targetYear: year,
+        targetMonth: month,
+      },
+      `${LOG_PREFIX} [generate-tax-obligations] Batch complete`,
+    );
+  }
+
+  /**
+   * Annual indexation pass — re-applies IPCA / IGP-M to ACTIVE recurring
+   * configs whose adjustment cycle is due.
+   */
+  private async applyIndexation(): Promise<void> {
+    const tenantIds = await this.getActiveTenantIds();
+    if (tenantIds.length === 0) return;
+
+    const useCase = makeApplyIndexationUseCase();
+    const referenceDate = new Date();
+    let totalAdjusted = 0;
+    let tenantsWithErrors = 0;
+
+    for (const tenantId of tenantIds) {
+      try {
+        const result = await useCase.execute({ tenantId, referenceDate });
+        totalAdjusted += result.adjustedCount;
+      } catch (err) {
+        tenantsWithErrors++;
+        logger.error(
+          { tenantId, error: err },
+          `${LOG_PREFIX} [apply-indexation] Tenant failed`,
+        );
+      }
+    }
+
+    logger.info(
+      { tenantsProcessed: tenantIds.length, totalAdjusted, tenantsWithErrors },
+      `${LOG_PREFIX} [apply-indexation] Batch complete`,
+    );
+  }
+
+  /**
+   * Weekly anomaly detection across the last 6 months of finance entries.
+   */
+  private async detectAnomalies(): Promise<void> {
+    const tenantIds = await this.getActiveTenantIds();
+    if (tenantIds.length === 0) return;
+
+    const useCase = makeDetectAnomaliesUseCase();
+    let totalAnomalies = 0;
+    let tenantsWithErrors = 0;
+
+    for (const tenantId of tenantIds) {
+      try {
+        const report = await useCase.execute({ tenantId });
+        totalAnomalies += report.anomalies.length;
+      } catch (err) {
+        tenantsWithErrors++;
+        logger.error(
+          { tenantId, error: err },
+          `${LOG_PREFIX} [detect-anomalies] Tenant failed`,
+        );
+      }
+    }
+
+    logger.info(
+      { tenantsProcessed: tenantIds.length, totalAnomalies, tenantsWithErrors },
+      `${LOG_PREFIX} [detect-anomalies] Batch complete`,
+    );
+  }
+
+  /**
+   * Daily cashflow alert sweep — surfaces low balance, overdue surge, etc.
+   */
+  private async checkCashflowAlerts(): Promise<void> {
+    const tenantIds = await this.getActiveTenantIds();
+    if (tenantIds.length === 0) return;
+
+    const useCase = makeCheckCashFlowAlertsUseCase();
+    let totalAlerts = 0;
+    let tenantsWithErrors = 0;
+
+    for (const tenantId of tenantIds) {
+      try {
+        const result = await useCase.execute({ tenantId });
+        totalAlerts += result.alerts.length;
+      } catch (err) {
+        tenantsWithErrors++;
+        logger.error(
+          { tenantId, error: err },
+          `${LOG_PREFIX} [check-cashflow-alerts] Tenant failed`,
+        );
+      }
+    }
+
+    logger.info(
+      { tenantsProcessed: tenantIds.length, totalAlerts, tenantsWithErrors },
+      `${LOG_PREFIX} [check-cashflow-alerts] Batch complete`,
+    );
   }
 }
 
