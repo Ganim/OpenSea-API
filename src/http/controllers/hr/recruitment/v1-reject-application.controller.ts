@@ -35,7 +35,10 @@ export async function v1RejectApplicationController(app: FastifyInstance) {
       params: z.object({ applicationId: cuidSchema }),
       body: rejectApplicationSchema,
       response: {
-        200: z.object({ application: applicationResponseSchema }),
+        200: z.object({
+          application: applicationResponseSchema,
+          candidateAnonymized: z.boolean(),
+        }),
         400: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },
@@ -43,26 +46,30 @@ export async function v1RejectApplicationController(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
+      const actorUserId = request.user.sub;
       const { applicationId } = request.params;
-      const { rejectionReason } = request.body;
+      const { rejectionReason, final } = request.body;
       try {
         const useCase = makeRejectApplicationUseCase();
-        const { application } = await useCase.execute({
+        const { application, candidateAnonymized } = await useCase.execute({
           tenantId,
           applicationId,
           rejectionReason,
+          final,
+          actorUserId,
         });
         await logAudit(request, {
           message: AUDIT_MESSAGES.HR.APPLICATION_REJECT,
           entityId: application.id.toString(),
           placeholders: {
-            userName: request.user.sub,
+            userName: actorUserId,
             candidateName: application.candidateId.toString(),
           },
         });
-        return reply
-          .status(200)
-          .send({ application: applicationToDTO(application) });
+        return reply.status(200).send({
+          application: applicationToDTO(application),
+          candidateAnonymized,
+        });
       } catch (error) {
         if (error instanceof ResourceNotFoundError)
           return reply.status(404).send({ message: error.message });

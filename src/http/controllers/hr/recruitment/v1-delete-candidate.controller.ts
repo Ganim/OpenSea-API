@@ -38,6 +38,7 @@ export async function v1DeleteCandidateController(app: FastifyInstance) {
 
     handler: async (request, reply) => {
       const tenantId = request.user.tenantId!;
+      const actorUserId = request.user.sub;
       const { candidateId } = request.params;
 
       try {
@@ -45,6 +46,7 @@ export async function v1DeleteCandidateController(app: FastifyInstance) {
         const { candidate } = await useCase.execute({
           tenantId,
           candidateId,
+          actorUserId,
         });
 
         await logAudit(request, {

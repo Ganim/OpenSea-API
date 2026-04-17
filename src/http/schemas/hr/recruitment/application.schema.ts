@@ -27,6 +27,12 @@ export const updateApplicationStatusSchema = z.object({
 
 export const rejectApplicationSchema = z.object({
   rejectionReason: z.string().max(2000).optional(),
+  /**
+   * When `true` the candidate is considered out of the pool and their PII is
+   * scrubbed via the LGPD anonymization flow. Defaults to `false` so the
+   * recruiter can reject from this role yet keep the candidate available.
+   */
+  final: z.boolean().optional().default(false),
 });
 
 export const listApplicationsQuerySchema = z.object({

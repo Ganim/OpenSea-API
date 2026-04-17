@@ -122,13 +122,19 @@ export class PrismaCandidatesRepository implements CandidatesRepository {
 
   async update(data: UpdateCandidateSchema): Promise<Candidate | null> {
     const existingCandidate = await prisma.candidate.findUnique({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
     });
 
     if (!existingCandidate) return null;
 
     const candidateData = await prisma.candidate.update({
-      where: { id: data.id.toString(), ...(data.tenantId && { tenantId: data.tenantId }), },
+      where: {
+        id: data.id.toString(),
+        ...(data.tenantId && { tenantId: data.tenantId }),
+      },
       data: {
         fullName: data.fullName,
         email: data.email,
@@ -150,14 +156,12 @@ export class PrismaCandidatesRepository implements CandidatesRepository {
 
   async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
     await prisma.candidate.update({
-      where: { id: id.toString(), ...(tenantId && { tenantId }), },
+      where: { id: id.toString(), ...(tenantId && { tenantId }) },
       data: { deletedAt: new Date() },
     });
   }
 
-  async anonymize(
-    data: AnonymizeCandidateSchema,
-  ): Promise<Candidate | null> {
+  async anonymize(data: AnonymizeCandidateSchema): Promise<Candidate | null> {
     const existing = await prisma.candidate.findFirst({
       where: { id: data.id.toString(), tenantId: data.tenantId },
     });

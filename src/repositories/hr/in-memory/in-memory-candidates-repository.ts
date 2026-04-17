@@ -143,20 +143,17 @@ export class InMemoryCandidatesRepository implements CandidatesRepository {
     return candidate;
   }
 
-  async delete(id: UniqueEntityID, tenantId?: string): Promise<void> {
+  async delete(id: UniqueEntityID, _tenantId?: string): Promise<void> {
     const index = this.items.findIndex((candidate) => candidate.id.equals(id));
     if (index >= 0) {
       this.items[index].softDelete();
     }
   }
 
-  async anonymize(
-    data: AnonymizeCandidateSchema,
-  ): Promise<Candidate | null> {
+  async anonymize(data: AnonymizeCandidateSchema): Promise<Candidate | null> {
     const candidate = this.items.find(
       (item) =>
-        item.id.equals(data.id) &&
-        item.tenantId.toString() === data.tenantId,
+        item.id.equals(data.id) && item.tenantId.toString() === data.tenantId,
     );
 
     if (!candidate) return null;
