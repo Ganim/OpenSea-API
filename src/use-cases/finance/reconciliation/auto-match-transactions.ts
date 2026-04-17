@@ -1,3 +1,4 @@
+import { MAX_POSSIBLE_SCORE } from '@/constants/finance/match-score';
 import type { BankReconciliationItem } from '@/entities/finance/bank-reconciliation-item';
 import type { FinanceEntry } from '@/entities/finance/finance-entry';
 import {
@@ -18,14 +19,6 @@ const SCORE_SUPPLIER_NAME_EXACT_BONUS = 10;
 const SCORE_TYPE_MATCH = 10;
 
 const AUTO_MATCH_THRESHOLD = 70;
-
-/** Maximum possible score for normalizing confidence */
-const MAX_POSSIBLE_SCORE =
-  SCORE_AMOUNT_EXACT +
-  SCORE_DATE_EXACT +
-  SCORE_DESCRIPTION_HIGH_SIMILARITY +
-  SCORE_SUPPLIER_NAME_EXACT_BONUS +
-  SCORE_TYPE_MATCH;
 
 interface MatchCandidate {
   itemId: string;

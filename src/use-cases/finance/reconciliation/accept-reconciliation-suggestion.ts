@@ -1,6 +1,7 @@
 import { ErrorCodes } from '@/@errors/error-codes';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { MAX_POSSIBLE_SCORE } from '@/constants/finance/match-score';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type {
   TransactionClient,
@@ -80,7 +81,7 @@ export class AcceptReconciliationSuggestionUseCase {
           id: suggestion.transactionId,
           tenantId: suggestion.tenantId.toString(),
           matchedEntryId: suggestion.entryId.toString(),
-          matchConfidence: suggestion.score / 110,
+          matchConfidence: suggestion.score / MAX_POSSIBLE_SCORE,
           matchStatus: 'SUGGESTION_ACCEPTED',
         },
         tx,
