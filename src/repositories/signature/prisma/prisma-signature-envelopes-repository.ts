@@ -72,6 +72,20 @@ export class PrismaSignatureEnvelopesRepository
     return db ? signatureEnvelopePrismaToDomain(db) : null;
   }
 
+  async findByVerificationCode(
+    verificationCode: string,
+  ): Promise<SignatureEnvelope | null> {
+    // Global lookup: verificationCode is unique per tenant, but we query
+    // without tenantId scope to power the public verification endpoint.
+    const db = await prisma.signatureEnvelope.findFirst({
+      where: { verificationCode, deletedAt: null },
+      include: {
+        signers: { orderBy: [{ order: 'asc' }, { group: 'asc' }] },
+      },
+    });
+    return db ? signatureEnvelopePrismaToDomain(db) : null;
+  }
+
   async findMany(
     params: ListSignatureEnvelopesParams,
   ): Promise<FindManyEnvelopesResult> {
@@ -106,6 +120,32 @@ export class PrismaSignatureEnvelopesRepository
       envelopes: items.map(signatureEnvelopePrismaToDomain),
       total,
     };
+  }
+
+  async findExpiredActive(referenceDate: Date): Promise<SignatureEnvelope[]> {
+    const items = await prisma.signatureEnvelope.findMany({
+      where: {
+        deletedAt: null,
+        status: { in: ['PENDING', 'IN_PROGRESS'] },
+        expiresAt: { not: null, lt: referenceDate },
+      },
+      orderBy: { expiresAt: 'asc' },
+    });
+    return items.map(signatureEnvelopePrismaToDomain);
+  }
+
+  async findRemindableInProgress(
+    referenceDate: Date,
+  ): Promise<SignatureEnvelope[]> {
+    const items = await prisma.signatureEnvelope.findMany({
+      where: {
+        deletedAt: null,
+        status: 'IN_PROGRESS',
+        OR: [{ expiresAt: null }, { expiresAt: { gt: referenceDate } }],
+      },
+      orderBy: { createdAt: 'asc' },
+    });
+    return items.map(signatureEnvelopePrismaToDomain);
   }
 
   async update(

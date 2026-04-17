@@ -67,6 +67,17 @@ export class InMemorySignatureEnvelopesRepository
     return this.findById(id, tenantId);
   }
 
+  async findByVerificationCode(
+    verificationCode: string,
+  ): Promise<SignatureEnvelope | null> {
+    return (
+      this.items.find(
+        (item) =>
+          item.verificationCode === verificationCode && !item.deletedAt,
+      ) ?? null
+    );
+  }
+
   async findMany(
     params: ListSignatureEnvelopesParams,
   ): Promise<FindManyEnvelopesResult> {
@@ -102,6 +113,28 @@ export class InMemorySignatureEnvelopesRepository
       envelopes: filtered.slice(start, start + limit),
       total: filtered.length,
     };
+  }
+
+  async findExpiredActive(referenceDate: Date): Promise<SignatureEnvelope[]> {
+    return this.items.filter(
+      (envelope) =>
+        !envelope.deletedAt &&
+        (envelope.status === 'PENDING' || envelope.status === 'IN_PROGRESS') &&
+        envelope.expiresAt !== null &&
+        envelope.expiresAt.getTime() < referenceDate.getTime(),
+    );
+  }
+
+  async findRemindableInProgress(
+    referenceDate: Date,
+  ): Promise<SignatureEnvelope[]> {
+    return this.items.filter(
+      (envelope) =>
+        !envelope.deletedAt &&
+        envelope.status === 'IN_PROGRESS' &&
+        (envelope.expiresAt === null ||
+          envelope.expiresAt.getTime() > referenceDate.getTime()),
+    );
   }
 
   async update(

@@ -58,9 +58,33 @@ export interface SignatureEnvelopesRepository {
     id: UniqueEntityID,
     tenantId: string,
   ): Promise<SignatureEnvelope | null>;
+  /**
+   * Finds an envelope globally (no tenant scope) by its verification code.
+   * Used by the public /v1/signature/verify/:code endpoint. Returning
+   * cross-tenant is OK because the code itself is the shared secret and
+   * the response only exposes non-sensitive audit data.
+   */
+  findByVerificationCode(
+    verificationCode: string,
+  ): Promise<SignatureEnvelope | null>;
   findMany(
     params: ListSignatureEnvelopesParams,
   ): Promise<FindManyEnvelopesResult>;
+  /**
+   * Finds envelopes that have passed their expiration date and are still in
+   * an actionable status (PENDING or IN_PROGRESS). Used by the auto-expire
+   * cron so we can transition them to EXPIRED in a single sweep. Deleted
+   * envelopes are skipped so re-running is idempotent.
+   */
+  findExpiredActive(referenceDate: Date): Promise<SignatureEnvelope[]>;
+  /**
+   * Finds envelopes that are actively in progress and whose reminder cadence
+   * allows another nudge for at least one pending signer. The cron does a
+   * per-signer age check afterwards; this query narrows down the candidate
+   * set (IN_PROGRESS + not yet expired) so the job doesn't scan finished
+   * envelopes.
+   */
+  findRemindableInProgress(referenceDate: Date): Promise<SignatureEnvelope[]>;
   update(
     data: UpdateSignatureEnvelopeSchema,
   ): Promise<SignatureEnvelope | null>;
