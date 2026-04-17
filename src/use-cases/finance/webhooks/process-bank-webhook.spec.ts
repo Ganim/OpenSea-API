@@ -363,6 +363,78 @@ describe('ProcessBankWebhookUseCase', () => {
     expect(updatedEntry?.status).toBe('RECEIVED');
   });
 
+  // P2-51: full concurrent race — fire two executions in parallel with
+  // the same externalId. The use case MUST either (a) return the same
+  // event id for both calls (post-idempotency-check dedupe via P2002
+  // catch), or (b) still end up with a single settled entry without
+  // double-crediting. To force the race deterministically, we patch
+  // create() to serialize behind a unique-index simulation that mirrors
+  // the Prisma P2002 error code.
+  it('should process only once when two parallel webhooks share the same externalId', async () => {
+    const bankAccount = await setupBankAccount();
+    const entry = await setupReceivableEntry({ pixChargeId: 'pix-tx-parallel' });
+
+    const provider = makeProviderWithResult({
+      eventType: 'PIX_RECEIVED',
+      externalId: 'pix-tx-parallel',
+      amount: 100,
+      paidAt: '2026-04-01T10:00:00Z',
+      rawPayload: { seq: 1 },
+    });
+
+    // Simulate a unique index on (tenantId, externalId) — the second
+    // create() attempt throws P2002 exactly like Prisma would.
+    const seenExternalIds = new Set<string>();
+    const realCreate =
+      webhookEventsRepository.create.bind(webhookEventsRepository);
+    webhookEventsRepository.create = (async (data: Parameters<typeof realCreate>[0]) => {
+      const key = `${data.tenantId}:${data.externalId}`;
+      if (seenExternalIds.has(key)) {
+        const err = new Error('Unique constraint failed');
+        (err as unknown as { code: string }).code = 'P2002';
+        throw err;
+      }
+      seenExternalIds.add(key);
+      return realCreate(data);
+    }) as typeof realCreate;
+
+    sut = new TestProcessBankWebhookUseCase(
+      webhookEventsRepository,
+      financeEntriesRepository,
+      bankAccountsRepository,
+      async () => provider,
+    );
+    sut.mockThreshold = null;
+
+    const executions = await Promise.all([
+      sut.execute({
+        tenantId: TENANT_ID,
+        bankAccountId: bankAccount.id.toString(),
+        provider: 'SICOOB',
+        payload: {},
+      }),
+      sut.execute({
+        tenantId: TENANT_ID,
+        bankAccountId: bankAccount.id.toString(),
+        provider: 'SICOOB',
+        payload: {},
+      }),
+    ]);
+
+    // Both calls must return the same event id — the loser in the
+    // create() race falls back to findByExternalId after catching P2002.
+    expect(executions[0].event.id).toBe(executions[1].event.id);
+    // Only one webhook row exists — the unique index blocked the second.
+    expect(webhookEventsRepository.items).toHaveLength(1);
+
+    const updatedEntry = financeEntriesRepository.items.find((e) =>
+      e.id.equals(entry.id),
+    );
+    expect(updatedEntry?.status).toBe('RECEIVED');
+    // actualAmount must be exactly 100 — never 200 from double-apply.
+    expect(updatedEntry?.actualAmount).toBe(100);
+  });
+
   it('should return the existing event when the DB raises P2002 during create (race)', async () => {
     // Simula duas entregas concorrentes: ambas passam pelo check de
     // idempotencia em step 3, mas a segunda create() bate no unique index.
