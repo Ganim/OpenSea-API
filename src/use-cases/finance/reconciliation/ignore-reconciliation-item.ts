@@ -64,6 +64,7 @@ export class IgnoreReconciliationItemUseCase {
     // Mark as ignored
     const updatedItem = await this.bankReconciliationsRepository.updateItem({
       id: new UniqueEntityID(itemId),
+      tenantId,
       matchedEntryId: null,
       matchConfidence: null,
       matchStatus: 'IGNORED',

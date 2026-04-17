@@ -164,6 +164,12 @@ export class InMemoryBankReconciliationsRepository
     const item = this.items.find((i) => i.id.equals(data.id));
     if (!item) return null;
 
+    // Multi-tenant guard: confirm parent reconciliation belongs to caller's tenant
+    const parent = this.reconciliations.find((r) =>
+      r.id.equals(item.reconciliationId),
+    );
+    if (!parent || parent.tenantId.toString() !== data.tenantId) return null;
+
     if (data.matchStatus === 'MANUAL_MATCHED' && data.matchedEntryId) {
       item.manualMatch(new UniqueEntityID(data.matchedEntryId));
     } else if (data.matchStatus === 'AUTO_MATCHED' && data.matchedEntryId) {

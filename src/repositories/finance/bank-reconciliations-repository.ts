@@ -37,6 +37,7 @@ export interface UpdateBankReconciliationSchema {
 
 export interface UpdateBankReconciliationItemSchema {
   id: UniqueEntityID;
+  tenantId: string;
   matchedEntryId?: string | null;
   matchConfidence?: number | null;
   matchStatus?: string;

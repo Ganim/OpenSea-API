@@ -260,6 +260,7 @@ export class AutoReconcileUseCase {
         // Auto-reconcile: update item as AUTO_MATCHED
         await this.bankReconciliationsRepository.updateItem({
           id: new UniqueEntityID(match.itemId),
+          tenantId,
           matchedEntryId: match.entryId,
           matchConfidence: match.score / MAX_POSSIBLE_SCORE,
           matchStatus: 'AUTO_MATCHED',

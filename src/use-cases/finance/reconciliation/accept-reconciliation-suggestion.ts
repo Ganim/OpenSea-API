@@ -68,6 +68,7 @@ export class AcceptReconciliationSuggestionUseCase {
     // Mark the bank reconciliation item as matched
     await this.bankReconciliationsRepository.updateItem({
       id: suggestion.transactionId,
+      tenantId: suggestion.tenantId.toString(),
       matchedEntryId: suggestion.entryId.toString(),
       matchConfidence: suggestion.score / 110,
       matchStatus: 'SUGGESTION_ACCEPTED',

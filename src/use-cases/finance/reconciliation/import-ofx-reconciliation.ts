@@ -127,6 +127,7 @@ export class ImportOfxReconciliationUseCase {
     for (const [itemId, match] of matchResults) {
       await this.bankReconciliationsRepository.updateItem({
         id: new UniqueEntityID(itemId),
+        tenantId,
         matchedEntryId: match.entryId,
         matchConfidence: match.confidence,
         matchStatus: 'AUTO_MATCHED',

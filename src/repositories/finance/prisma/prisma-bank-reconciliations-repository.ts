@@ -169,12 +169,21 @@ export class PrismaBankReconciliationsRepository
     if (data.status !== undefined)
       updateData.status = data.status as ReconciliationStatus;
 
-    const reconciliation = await db.bankReconciliation.update({
-      where: { id: data.id.toString() },
+    // Multi-tenant guard: updateMany scoped by tenantId so a caller from
+    // tenant A cannot modify a reconciliation belonging to tenant B even
+    // if they discover its UUID.
+    const result = await db.bankReconciliation.updateMany({
+      where: { id: data.id.toString(), tenantId: data.tenantId },
       data: updateData,
     });
 
-    return bankReconciliationPrismaToDomain(reconciliation);
+    if (result.count === 0) return null;
+
+    const reconciliation = await db.bankReconciliation.findUnique({
+      where: { id: data.id.toString() },
+    });
+
+    return reconciliation ? bankReconciliationPrismaToDomain(reconciliation) : null;
   }
 
   async updateItem(
@@ -191,11 +200,23 @@ export class PrismaBankReconciliationsRepository
     if (data.matchStatus !== undefined)
       updateData.matchStatus = data.matchStatus as ReconciliationMatchStatus;
 
-    const item = await db.bankReconciliationItem.update({
-      where: { id: data.id.toString() },
+    // Multi-tenant guard via parent reconciliation. The item itself does not
+    // carry tenantId, so we scope by reconciliation.tenantId via a nested
+    // where clause on updateMany.
+    const result = await db.bankReconciliationItem.updateMany({
+      where: {
+        id: data.id.toString(),
+        reconciliation: { tenantId: data.tenantId },
+      },
       data: updateData,
     });
 
-    return bankReconciliationItemPrismaToDomain(item);
+    if (result.count === 0) return null;
+
+    const item = await db.bankReconciliationItem.findUnique({
+      where: { id: data.id.toString() },
+    });
+
+    return item ? bankReconciliationItemPrismaToDomain(item) : null;
   }
 }

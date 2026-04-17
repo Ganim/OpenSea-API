@@ -80,6 +80,7 @@ export class ManualMatchItemUseCase {
     // Update the item with manual match
     const updatedItem = await this.bankReconciliationsRepository.updateItem({
       id: new UniqueEntityID(itemId),
+      tenantId,
       matchedEntryId: entryId,
       matchConfidence: 1.0,
       matchStatus: 'MANUAL_MATCHED',

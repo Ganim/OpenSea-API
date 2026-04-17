@@ -101,6 +101,7 @@ export class CreateEntryFromItemUseCase {
     // Update item to CREATED status
     const updatedItem = await this.bankReconciliationsRepository.updateItem({
       id: new UniqueEntityID(itemId),
+      tenantId,
       matchedEntryId: financeEntry.id.toString(),
       matchConfidence: 1.0,
       matchStatus: 'CREATED',
