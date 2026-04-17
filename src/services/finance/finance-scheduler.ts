@@ -527,10 +527,13 @@ export class FinanceScheduler {
             );
           }
 
-          // Update current balance from provider
+          // Update current balance from provider.
+          // P2-10: scope by tenantId via updateMany so a compromised
+          // apiAccounts list (or a driver id collision) can't write a
+          // balance to another tenant's BankAccount with the same id.
           const balance = await provider.getBalance(account.accountNumber);
-          await prisma.bankAccount.update({
-            where: { id: account.id },
+          await prisma.bankAccount.updateMany({
+            where: { id: account.id, tenantId: account.tenantId },
             data: {
               currentBalance: balance.available,
               balanceUpdatedAt: new Date(),
