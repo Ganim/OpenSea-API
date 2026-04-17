@@ -129,4 +129,42 @@ describe('RegisterLoanPaymentUseCase', () => {
       }),
     ).rejects.toThrow(ResourceNotFoundError);
   });
+
+  // Regression: P1-03 — payments above the installment's total due used to be
+  // silently clipped. We now reject them so data-entry errors surface.
+  it('should reject a payment greater than the installment total due', async () => {
+    await expect(
+      sut.execute({
+        tenantId: 'tenant-1',
+        loanId: seededLoanId,
+        installmentId: seededInstallmentId,
+        amount: 1500, // installment totalAmount is 1000
+        paidAt: new Date('2026-02-01'),
+      }),
+    ).rejects.toThrowError(/excede valor da parcela/);
+
+    const installment = installmentsRepository.items.find(
+      (i) => i.id.toString() === seededInstallmentId,
+    );
+    expect(installment!.status).toBe('PENDING');
+    expect(installment!.paidAmount).toBeUndefined();
+  });
+
+  // Regression: P1-03 — partial payments must NOT mark the installment as PAID
+  // and must not increment the loan's paidInstallments counter.
+  it('should keep installment PENDING and not increment counter on partial payment', async () => {
+    const result = await sut.execute({
+      tenantId: 'tenant-1',
+      loanId: seededLoanId,
+      installmentId: seededInstallmentId,
+      amount: 400, // less than totalAmount (1000)
+      paidAt: new Date('2026-02-01'),
+    });
+
+    expect(result.installment.status).toBe('PENDING');
+    expect(result.installment.paidAmount).toBe(400);
+    expect(result.loan.paidInstallments).toBe(0);
+    expect(result.loan.outstandingBalance).toBe(1600);
+    expect(result.loan.status).toBe('ACTIVE');
+  });
 });

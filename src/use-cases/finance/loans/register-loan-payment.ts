@@ -70,10 +70,32 @@ export class RegisterLoanPaymentUseCase {
       throw new BadRequestError('Payment amount must be positive');
     }
 
-    // Pre-compute update values
+    // Reject overpayments. A single payment attempt must not exceed the
+    // installment's total due — callers must either split the payment or
+    // choose a later installment. Silently clipping the value (as the prior
+    // implementation did) hides data-entry errors.
+    const installmentTotalDue = installment.totalAmount;
+    const epsilon = 0.005; // half-cent tolerance for float rounding
+    if (amount > installmentTotalDue + epsilon) {
+      throw new BadRequestError('Pagamento excede valor da parcela');
+    }
+
+    // A full payment closes the installment (→ PAID) and counts toward
+    // the loan's paidInstallments counter. A partial payment leaves the
+    // installment PENDING with paidAmount tracking the amount applied so
+    // far; the loan counter is not incremented.
+    // The domain type InstallmentStatus currently lacks a PARTIALLY_PAID
+    // value (see src/entities/finance/finance-entry-types.ts). Until it is
+    // extended, partial payments keep status PENDING.
+    const isFullPayment = amount >= installmentTotalDue - epsilon;
+    const installmentStatus = isFullPayment ? 'PAID' : 'PENDING';
+
     const newOutstandingBalance = Math.max(0, loan.outstandingBalance - amount);
-    const newPaidInstallments = loan.paidInstallments + 1;
-    const isFullyPaid = newPaidInstallments >= loan.totalInstallments;
+    const newPaidInstallments = isFullPayment
+      ? loan.paidInstallments + 1
+      : loan.paidInstallments;
+    const isFullyPaid =
+      isFullPayment && newPaidInstallments >= loan.totalInstallments;
 
     // Wrap installment update + loan update in a transaction
     if (this.transactionManager) {
@@ -83,7 +105,7 @@ export class RegisterLoanPaymentUseCase {
             id: new UniqueEntityID(installmentId),
             paidAmount: amount,
             paidAt,
-            status: 'PAID',
+            status: installmentStatus,
             bankAccountId: bankAccountId ?? null,
           },
           tx,
@@ -112,7 +134,7 @@ export class RegisterLoanPaymentUseCase {
       id: new UniqueEntityID(installmentId),
       paidAmount: amount,
       paidAt,
-      status: 'PAID',
+      status: installmentStatus,
       bankAccountId: bankAccountId ?? null,
     });
 
