@@ -1002,7 +1002,8 @@ export const NotificationChannel = {
   IN_APP: 'IN_APP',
   EMAIL: 'EMAIL',
   SMS: 'SMS',
-  PUSH: 'PUSH'
+  PUSH: 'PUSH',
+  WHATSAPP: 'WHATSAPP'
 } as const
 
 export type NotificationChannel = (typeof NotificationChannel)[keyof typeof NotificationChannel]
@@ -1027,6 +1028,62 @@ export const NotificationPriority = {
 } as const
 
 export type NotificationPriority = (typeof NotificationPriority)[keyof typeof NotificationPriority]
+
+
+export const NotificationKind = {
+  INFORMATIONAL: 'INFORMATIONAL',
+  LINK: 'LINK',
+  ACTIONABLE: 'ACTIONABLE',
+  APPROVAL: 'APPROVAL',
+  FORM: 'FORM',
+  PROGRESS: 'PROGRESS',
+  SYSTEM_BANNER: 'SYSTEM_BANNER'
+} as const
+
+export type NotificationKind = (typeof NotificationKind)[keyof typeof NotificationKind]
+
+
+export const NotificationState = {
+  PENDING: 'PENDING',
+  RESOLVED: 'RESOLVED',
+  EXPIRED: 'EXPIRED',
+  DECLINED: 'DECLINED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type NotificationState = (typeof NotificationState)[keyof typeof NotificationState]
+
+
+export const NotificationCallbackStatus = {
+  NOT_APPLICABLE: 'NOT_APPLICABLE',
+  PENDING: 'PENDING',
+  DELIVERED: 'DELIVERED',
+  FAILED: 'FAILED'
+} as const
+
+export type NotificationCallbackStatus = (typeof NotificationCallbackStatus)[keyof typeof NotificationCallbackStatus]
+
+
+export const NotificationFrequency = {
+  INSTANT: 'INSTANT',
+  HOURLY_DIGEST: 'HOURLY_DIGEST',
+  DAILY_DIGEST: 'DAILY_DIGEST',
+  WEEKLY_DIGEST: 'WEEKLY_DIGEST',
+  DISABLED: 'DISABLED'
+} as const
+
+export type NotificationFrequency = (typeof NotificationFrequency)[keyof typeof NotificationFrequency]
+
+
+export const NotificationDeliveryStatus = {
+  QUEUED: 'QUEUED',
+  SENT: 'SENT',
+  DELIVERED: 'DELIVERED',
+  FAILED: 'FAILED',
+  SKIPPED: 'SKIPPED'
+} as const
+
+export type NotificationDeliveryStatus = (typeof NotificationDeliveryStatus)[keyof typeof NotificationDeliveryStatus]
 
 
 export const DiscountType = {

@@ -21,6 +21,7 @@ import { getFinanceScheduler } from './services/finance/finance-scheduler';
 import { BusinessSnapshotService } from './services/ai-tools/business-snapshot.service';
 import { startHrJobs, startSignatureJobs } from './jobs';
 import { startAllWorkers, stopAllWorkers } from './workers';
+import { bootstrapNotificationsModule } from './modules/notifications/bootstrap';
 
 let isShuttingDown = false;
 const SHUTDOWN_TIMEOUT_MS = 15_000;
@@ -236,6 +237,19 @@ async function start() {
     initializeSocketServer(httpServer);
     startHeartbeatChecker();
     console.log('[startup] WebSocket server initialized');
+
+    // Bootstrap the notifications module — registers manifests in DB and
+    // wires the public NotificationClient SDK that every module imports.
+    // Kept non-fatal: if DB sync fails the in-memory registry still works.
+    try {
+      await bootstrapNotificationsModule();
+      console.log('[startup] Notifications module bootstrapped');
+    } catch (err) {
+      console.error(
+        '[startup] Notifications bootstrap failed (non-fatal):',
+        err,
+      );
+    }
 
     // Start AI workflow scheduler (CRON-based workflows)
     const scheduler = getWorkflowScheduler();

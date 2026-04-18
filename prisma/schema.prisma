@@ -403,6 +403,10 @@ model User {
   Comments                 Comment[]
   NotificationPreferences  NotificationPreference[]
   Notifications            Notification[]
+  notificationPreferencesV2 NotificationPreferenceV2[]
+  notificationModuleSettings NotificationModuleSetting[]
+  notificationSettings      UserNotificationSettings[]
+  pushSubscriptions         PushSubscription[]
   permissionGroups         UserPermissionGroup[]
   grantedPermissions       UserPermissionGroup[]    @relation("GrantedPermissions")
   directPermissions        UserDirectPermission[]   @relation("UserDirectPermissions")
@@ -1467,6 +1471,7 @@ enum NotificationChannel {
   EMAIL
   SMS
   PUSH
+  WHATSAPP
 }
 
 // --- Workflow Notifications Enums ---
@@ -1484,6 +1489,49 @@ enum NotificationPriority {
   NORMAL
   HIGH
   URGENT
+}
+
+// --- v2 Notifications Enums (replaces legacy NotificationType semantics) ---
+
+enum NotificationKind {
+  INFORMATIONAL
+  LINK
+  ACTIONABLE
+  APPROVAL
+  FORM
+  PROGRESS
+  SYSTEM_BANNER
+}
+
+enum NotificationState {
+  PENDING
+  RESOLVED
+  EXPIRED
+  DECLINED
+  CANCELLED
+}
+
+enum NotificationCallbackStatus {
+  NOT_APPLICABLE
+  PENDING
+  DELIVERED
+  FAILED
+}
+
+enum NotificationFrequency {
+  INSTANT
+  HOURLY_DIGEST
+  DAILY_DIGEST
+  WEEKLY_DIGEST
+  DISABLED
+}
+
+enum NotificationDeliveryStatus {
+  QUEUED
+  SENT
+  DELIVERED
+  FAILED
+  SKIPPED
 }
 
 enum DiscountType {
@@ -3732,6 +3780,7 @@ model NotificationTemplate {
 model Notification {
   id           String               @id @default(uuid())
   userId       String               @map("user_id")
+  tenantId     String?              @map("tenant_id")
   title        String               @db.VarChar(256)
   message      String               @db.Text
   type         NotificationType
@@ -3751,17 +3800,217 @@ model Notification {
   updatedAt    DateTime             @updatedAt @map("updated_at")
   deletedAt    DateTime?            @map("deleted_at")
 
-  user User @relation(fields: [userId], references: [id])
+  // v2 fields (nullable for backwards compatibility)
+  kind            NotificationKind?           @map("kind")
+  categoryId      String?                     @map("category_id")
+  channels        NotificationChannel[]       @default([]) @map("channels")
+  fallbackUrl     String?                     @map("fallback_url") @db.VarChar(512)
+  actions         Json?                       @map("actions") @db.JsonB
+  state           NotificationState?          @map("state")
+  resolvedAction  String?                     @map("resolved_action") @db.VarChar(64)
+  resolvedById    String?                     @map("resolved_by_id")
+  resolvedAt      DateTime?                   @map("resolved_at")
+  resolvedPayload Json?                       @map("resolved_payload") @db.JsonB
+  callbackUrl     String?                     @map("callback_url") @db.VarChar(512)
+  callbackStatus  NotificationCallbackStatus? @map("callback_status")
+  callbackError   String?                     @map("callback_error") @db.Text
+  expiresAt       DateTime?                   @map("expires_at")
+  groupKey        String?                     @map("group_key") @db.VarChar(128)
+  digestBatchId   String?                     @map("digest_batch_id")
+  idempotencyKey  String?                     @map("idempotency_key") @db.VarChar(128)
+  progress        Int?                        @map("progress")
+  progressTotal   Int?                        @map("progress_total")
+  templateCode    String?                     @map("template_code") @db.VarChar(64)
 
+  user             User                          @relation(fields: [userId], references: [id])
+  tenant           Tenant?                       @relation(fields: [tenantId], references: [id])
+  category         NotificationCategory?         @relation(fields: [categoryId], references: [id])
+  deliveryAttempts NotificationDeliveryAttempt[]
+
+  @@unique([tenantId, userId, idempotencyKey])
   @@index([userId])
+  @@index([tenantId])
   @@index([isRead])
   @@index([type])
+  @@index([kind])
+  @@index([state, expiresAt])
   @@index([priority])
   @@index([channel])
+  @@index([categoryId])
   @@index([entityType, entityId])
   @@index([scheduledFor])
+  @@index([groupKey])
   @@index([createdAt(sort: Desc)])
   @@map("notifications")
+}
+
+// ===============================================
+// v2 NOTIFICATIONS SYSTEM — isolated module
+// ===============================================
+
+model NotificationCategory {
+  id              String               @id @default(uuid())
+  code            String               @unique @db.VarChar(64)
+  module          String               @db.VarChar(32)
+  name            String               @db.VarChar(128)
+  description     String?              @db.Text
+  icon            String?              @db.VarChar(64)
+  defaultKind     NotificationKind     @map("default_kind")
+  defaultPriority NotificationPriority @default(NORMAL) @map("default_priority")
+  defaultChannels String[]             @default([]) @map("default_channels")
+  digestSupported Boolean              @default(true) @map("digest_supported")
+  mandatory       Boolean              @default(false) @map("mandatory")
+  isActive        Boolean              @default(true) @map("is_active")
+  order           Int                  @default(0)
+  createdAt       DateTime             @default(now()) @map("created_at")
+  updatedAt       DateTime             @updatedAt @map("updated_at")
+
+  notifications Notification[]
+  preferences   NotificationPreferenceV2[]
+
+  @@index([module])
+  @@index([isActive])
+  @@map("notification_categories")
+}
+
+model NotificationModuleRegistry {
+  id          String   @id @default(uuid())
+  code        String   @unique @db.VarChar(32)
+  displayName String   @map("display_name") @db.VarChar(128)
+  icon        String?  @db.VarChar(64)
+  order       Int      @default(0)
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  moduleSettings NotificationModuleSetting[]
+
+  @@map("notification_module_registry")
+}
+
+model NotificationPreferenceV2 {
+  id         String                @id @default(uuid())
+  userId     String                @map("user_id")
+  tenantId   String                @map("tenant_id")
+  categoryId String                @map("category_id")
+  channel    NotificationChannel
+  isEnabled  Boolean               @default(true) @map("is_enabled")
+  frequency  NotificationFrequency @default(INSTANT)
+  createdAt  DateTime              @default(now()) @map("created_at")
+  updatedAt  DateTime              @updatedAt @map("updated_at")
+
+  user     User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant   Tenant               @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  category NotificationCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tenantId, categoryId, channel])
+  @@index([userId, tenantId])
+  @@index([categoryId])
+  @@map("notification_preferences_v2")
+}
+
+model NotificationModuleSetting {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  tenantId  String   @map("tenant_id")
+  module    String   @db.VarChar(32)
+  isEnabled Boolean  @default(true) @map("is_enabled")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user     User                        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant   Tenant                      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  registry NotificationModuleRegistry? @relation(fields: [module], references: [code])
+
+  @@unique([userId, tenantId, module])
+  @@index([userId, tenantId])
+  @@map("notification_module_settings")
+}
+
+model UserNotificationSettings {
+  id              String   @id @default(uuid())
+  userId          String   @map("user_id")
+  tenantId        String   @map("tenant_id")
+  doNotDisturb    Boolean  @default(false) @map("do_not_disturb")
+  dndStart        String?  @map("dnd_start") @db.VarChar(5)
+  dndEnd          String?  @map("dnd_end") @db.VarChar(5)
+  timezone        String   @default("America/Sao_Paulo") @map("timezone") @db.VarChar(64)
+  digestSchedule  String?  @map("digest_schedule") @db.VarChar(32)
+  soundEnabled    Boolean  @default(true) @map("sound_enabled")
+  masterInApp     Boolean  @default(true) @map("master_in_app")
+  masterEmail     Boolean  @default(true) @map("master_email")
+  masterPush      Boolean  @default(false) @map("master_push")
+  masterSms       Boolean  @default(false) @map("master_sms")
+  masterWhatsapp  Boolean  @default(false) @map("master_whatsapp")
+  allowBannerAds  Boolean  @default(true) @map("allow_banner_ads")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tenantId])
+  @@index([userId])
+  @@map("user_notification_settings")
+}
+
+model NotificationDeliveryAttempt {
+  id             String                     @id @default(uuid())
+  notificationId String                     @map("notification_id")
+  channel        NotificationChannel
+  status         NotificationDeliveryStatus
+  attemptNumber  Int                        @default(1) @map("attempt_number")
+  providerId     String?                    @map("provider_id") @db.VarChar(128)
+  providerName   String?                    @map("provider_name") @db.VarChar(32)
+  error          String?                    @db.Text
+  latencyMs      Int?                       @map("latency_ms")
+  createdAt      DateTime                   @default(now()) @map("created_at")
+
+  notification Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+
+  @@index([notificationId])
+  @@index([status, createdAt])
+  @@map("notification_delivery_attempts")
+}
+
+model PushSubscription {
+  id         String    @id @default(uuid())
+  userId     String    @map("user_id")
+  tenantId   String?   @map("tenant_id")
+  endpoint   String    @unique @db.Text
+  p256dhKey  String    @map("p256dh_key") @db.VarChar(128)
+  authKey    String    @map("auth_key") @db.VarChar(64)
+  userAgent  String?   @map("user_agent") @db.VarChar(256)
+  deviceName String?   @map("device_name") @db.VarChar(128)
+  lastSeenAt DateTime? @map("last_seen_at")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+  revokedAt  DateTime? @map("revoked_at")
+
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant Tenant? @relation(fields: [tenantId], references: [id])
+
+  @@index([userId, revokedAt])
+  @@index([tenantId])
+  @@map("push_subscriptions")
+}
+
+model NotificationCallbackJob {
+  id             String                     @id @default(uuid())
+  notificationId String                     @map("notification_id")
+  callbackUrl    String                     @map("callback_url") @db.VarChar(512)
+  payload        Json                       @db.JsonB
+  status         NotificationCallbackStatus @default(PENDING)
+  attempts       Int                        @default(0)
+  lastError      String?                    @map("last_error") @db.Text
+  nextAttemptAt  DateTime?                  @map("next_attempt_at")
+  deliveredAt    DateTime?                  @map("delivered_at")
+  createdAt      DateTime                   @default(now()) @map("created_at")
+  updatedAt      DateTime                   @updatedAt @map("updated_at")
+
+  @@index([status, nextAttemptAt])
+  @@index([notificationId])
+  @@map("notification_callback_jobs")
 }
 
 // ===============================================
@@ -6081,6 +6330,13 @@ model Tenant {
   permissionGroups   PermissionGroup[]
   sessions           Session[]
   refreshTokens      RefreshToken[]
+
+  // Notifications v2
+  notifications              Notification[]
+  notificationPreferencesV2  NotificationPreferenceV2[]
+  notificationModuleSettings NotificationModuleSetting[]
+  userNotificationSettings   UserNotificationSettings[]
+  pushSubscriptions          PushSubscription[]
 
   // Stock domain
   warehouses                   Warehouse[]

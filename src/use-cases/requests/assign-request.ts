@@ -66,19 +66,32 @@ export class AssignRequestUseCase {
 
     await this.requestHistoryRepository.create(history);
 
-    // Notificar atribuído
-    await this.createNotificationUseCase.execute({
-      userId: data.assignedToId,
-      title: 'Requisição Atribuída',
-      message: `Uma requisição foi atribuída a você: ${request.title}`,
-      type: 'INFO',
-      priority: request.priority === 'URGENT' ? 'HIGH' : 'NORMAL',
-      channel: 'IN_APP',
-      entityType: 'REQUEST',
-      entityId: request.id.toString(),
-      actionUrl: `/requests/${request.id.toString()}`,
-      actionText: 'Ver Requisição',
+    // Notificar atribuído via v2 notifications dispatcher
+    const { notificationClient, NotificationType, NotificationPriority } =
+      await import('@/modules/notifications/public');
+    const { prisma } = await import('@/lib/prisma');
+    const tenantUser = await prisma.tenantUser.findFirst({
+      where: { userId: data.assignedToId, deletedAt: null },
+      select: { tenantId: true },
     });
+    if (tenantUser) {
+      await notificationClient.dispatch({
+        type: NotificationType.LINK,
+        category: oldAssignedToId ? 'requests.reassigned' : 'requests.assigned',
+        tenantId: tenantUser.tenantId,
+        recipients: { userIds: [data.assignedToId] },
+        priority:
+          request.priority === 'URGENT'
+            ? NotificationPriority.HIGH
+            : NotificationPriority.NORMAL,
+        title: 'Solicitação atribuída',
+        body: `${request.title}`,
+        entity: { type: 'request', id: request.id.toString() },
+        actionUrl: `/requests/${request.id.toString()}`,
+        actionText: 'Ver solicitação',
+        idempotencyKey: `requests.assigned:${request.id.toString()}:${data.assignedToId}`,
+      });
+    }
 
     return { success: true };
   }

@@ -25,6 +25,20 @@ const envSchema = z.object({
   // Frontend
   FRONTEND_URL: z.url().default('http://localhost:3000'),
 
+  // Notifications module (v2)
+  PUBLIC_API_URL: z.string().url().optional(),
+  VAPID_PUBLIC_KEY: z.string().optional(),
+  VAPID_PRIVATE_KEY: z.string().optional(),
+  VAPID_SUBJECT: z.string().default('mailto:admin@opensea.app'),
+  SMS_NOTIFICATIONS_ENABLED: z
+    .string()
+    .default('false')
+    .transform((v) => v === 'true' || v === '1'),
+  WHATSAPP_NOTIFICATIONS_ENABLED: z
+    .string()
+    .default('false')
+    .transform((v) => v === 'true' || v === '1'),
+
   // JWT RS256 (opcional - se não definido, usa HS256)
   JWT_PRIVATE_KEY: z.string().optional(),
   JWT_PUBLIC_KEY: z.string().optional(),

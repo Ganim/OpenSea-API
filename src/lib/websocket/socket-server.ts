@@ -52,6 +52,12 @@ export function initializeSocketServer(httpServer: HTTPServer): SocketIOServer {
       socket.join(`agent:${socketData.agentId}`);
     }
 
+    // Notifications room — lets the notifications module emit
+    // per-user real-time events (notification:new, notification:resolved, etc.)
+    if (socketData.type === 'browser' && socketData.userId) {
+      socket.join(`user:${socketData.userId}`);
+    }
+
     registerSocketHandlers(io!, socket);
   });
 
@@ -78,4 +84,13 @@ export function emitToBrowsers(
   payload: unknown,
 ): void {
   io?.to(`tenant:${tenantId}:browsers`).emit(event, payload);
+}
+
+/** Emit an event to all sockets for a specific user (notifications module) */
+export function emitToUser(
+  userId: string,
+  event: string,
+  payload: unknown,
+): void {
+  io?.to(`user:${userId}`).emit(event, payload);
 }

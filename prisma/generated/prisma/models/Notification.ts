@@ -20,13 +20,26 @@ export type NotificationModel = runtime.Types.Result.DefaultSelection<Prisma.$No
 
 export type AggregateNotification = {
   _count: NotificationCountAggregateOutputType | null
+  _avg: NotificationAvgAggregateOutputType | null
+  _sum: NotificationSumAggregateOutputType | null
   _min: NotificationMinAggregateOutputType | null
   _max: NotificationMaxAggregateOutputType | null
+}
+
+export type NotificationAvgAggregateOutputType = {
+  progress: number | null
+  progressTotal: number | null
+}
+
+export type NotificationSumAggregateOutputType = {
+  progress: number | null
+  progressTotal: number | null
 }
 
 export type NotificationMinAggregateOutputType = {
   id: string | null
   userId: string | null
+  tenantId: string | null
   title: string | null
   message: string | null
   type: $Enums.NotificationType | null
@@ -44,11 +57,29 @@ export type NotificationMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
+  kind: $Enums.NotificationKind | null
+  categoryId: string | null
+  fallbackUrl: string | null
+  state: $Enums.NotificationState | null
+  resolvedAction: string | null
+  resolvedById: string | null
+  resolvedAt: Date | null
+  callbackUrl: string | null
+  callbackStatus: $Enums.NotificationCallbackStatus | null
+  callbackError: string | null
+  expiresAt: Date | null
+  groupKey: string | null
+  digestBatchId: string | null
+  idempotencyKey: string | null
+  progress: number | null
+  progressTotal: number | null
+  templateCode: string | null
 }
 
 export type NotificationMaxAggregateOutputType = {
   id: string | null
   userId: string | null
+  tenantId: string | null
   title: string | null
   message: string | null
   type: $Enums.NotificationType | null
@@ -66,11 +97,29 @@ export type NotificationMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
+  kind: $Enums.NotificationKind | null
+  categoryId: string | null
+  fallbackUrl: string | null
+  state: $Enums.NotificationState | null
+  resolvedAction: string | null
+  resolvedById: string | null
+  resolvedAt: Date | null
+  callbackUrl: string | null
+  callbackStatus: $Enums.NotificationCallbackStatus | null
+  callbackError: string | null
+  expiresAt: Date | null
+  groupKey: string | null
+  digestBatchId: string | null
+  idempotencyKey: string | null
+  progress: number | null
+  progressTotal: number | null
+  templateCode: string | null
 }
 
 export type NotificationCountAggregateOutputType = {
   id: number
   userId: number
+  tenantId: number
   title: number
   message: number
   type: number
@@ -89,13 +138,44 @@ export type NotificationCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   deletedAt: number
+  kind: number
+  categoryId: number
+  channels: number
+  fallbackUrl: number
+  actions: number
+  state: number
+  resolvedAction: number
+  resolvedById: number
+  resolvedAt: number
+  resolvedPayload: number
+  callbackUrl: number
+  callbackStatus: number
+  callbackError: number
+  expiresAt: number
+  groupKey: number
+  digestBatchId: number
+  idempotencyKey: number
+  progress: number
+  progressTotal: number
+  templateCode: number
   _all: number
 }
 
 
+export type NotificationAvgAggregateInputType = {
+  progress?: true
+  progressTotal?: true
+}
+
+export type NotificationSumAggregateInputType = {
+  progress?: true
+  progressTotal?: true
+}
+
 export type NotificationMinAggregateInputType = {
   id?: true
   userId?: true
+  tenantId?: true
   title?: true
   message?: true
   type?: true
@@ -113,11 +193,29 @@ export type NotificationMinAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  kind?: true
+  categoryId?: true
+  fallbackUrl?: true
+  state?: true
+  resolvedAction?: true
+  resolvedById?: true
+  resolvedAt?: true
+  callbackUrl?: true
+  callbackStatus?: true
+  callbackError?: true
+  expiresAt?: true
+  groupKey?: true
+  digestBatchId?: true
+  idempotencyKey?: true
+  progress?: true
+  progressTotal?: true
+  templateCode?: true
 }
 
 export type NotificationMaxAggregateInputType = {
   id?: true
   userId?: true
+  tenantId?: true
   title?: true
   message?: true
   type?: true
@@ -135,11 +233,29 @@ export type NotificationMaxAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  kind?: true
+  categoryId?: true
+  fallbackUrl?: true
+  state?: true
+  resolvedAction?: true
+  resolvedById?: true
+  resolvedAt?: true
+  callbackUrl?: true
+  callbackStatus?: true
+  callbackError?: true
+  expiresAt?: true
+  groupKey?: true
+  digestBatchId?: true
+  idempotencyKey?: true
+  progress?: true
+  progressTotal?: true
+  templateCode?: true
 }
 
 export type NotificationCountAggregateInputType = {
   id?: true
   userId?: true
+  tenantId?: true
   title?: true
   message?: true
   type?: true
@@ -158,6 +274,26 @@ export type NotificationCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  kind?: true
+  categoryId?: true
+  channels?: true
+  fallbackUrl?: true
+  actions?: true
+  state?: true
+  resolvedAction?: true
+  resolvedById?: true
+  resolvedAt?: true
+  resolvedPayload?: true
+  callbackUrl?: true
+  callbackStatus?: true
+  callbackError?: true
+  expiresAt?: true
+  groupKey?: true
+  digestBatchId?: true
+  idempotencyKey?: true
+  progress?: true
+  progressTotal?: true
+  templateCode?: true
   _all?: true
 }
 
@@ -199,6 +335,18 @@ export type NotificationAggregateArgs<ExtArgs extends runtime.Types.Extensions.I
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: NotificationAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: NotificationSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: NotificationMinAggregateInputType
@@ -229,6 +377,8 @@ export type NotificationGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   _count?: NotificationCountAggregateInputType | true
+  _avg?: NotificationAvgAggregateInputType
+  _sum?: NotificationSumAggregateInputType
   _min?: NotificationMinAggregateInputType
   _max?: NotificationMaxAggregateInputType
 }
@@ -236,6 +386,7 @@ export type NotificationGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 export type NotificationGroupByOutputType = {
   id: string
   userId: string
+  tenantId: string | null
   title: string
   message: string
   type: $Enums.NotificationType
@@ -254,7 +405,29 @@ export type NotificationGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
+  kind: $Enums.NotificationKind | null
+  categoryId: string | null
+  channels: $Enums.NotificationChannel[]
+  fallbackUrl: string | null
+  actions: runtime.JsonValue | null
+  state: $Enums.NotificationState | null
+  resolvedAction: string | null
+  resolvedById: string | null
+  resolvedAt: Date | null
+  resolvedPayload: runtime.JsonValue | null
+  callbackUrl: string | null
+  callbackStatus: $Enums.NotificationCallbackStatus | null
+  callbackError: string | null
+  expiresAt: Date | null
+  groupKey: string | null
+  digestBatchId: string | null
+  idempotencyKey: string | null
+  progress: number | null
+  progressTotal: number | null
+  templateCode: string | null
   _count: NotificationCountAggregateOutputType | null
+  _avg: NotificationAvgAggregateOutputType | null
+  _sum: NotificationSumAggregateOutputType | null
   _min: NotificationMinAggregateOutputType | null
   _max: NotificationMaxAggregateOutputType | null
 }
@@ -280,6 +453,7 @@ export type NotificationWhereInput = {
   NOT?: Prisma.NotificationWhereInput | Prisma.NotificationWhereInput[]
   id?: Prisma.StringFilter<"Notification"> | string
   userId?: Prisma.StringFilter<"Notification"> | string
+  tenantId?: Prisma.StringNullableFilter<"Notification"> | string | null
   title?: Prisma.StringFilter<"Notification"> | string
   message?: Prisma.StringFilter<"Notification"> | string
   type?: Prisma.EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType
@@ -298,12 +472,36 @@ export type NotificationWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Notification"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Notification"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Notification"> | Date | string | null
+  kind?: Prisma.EnumNotificationKindNullableFilter<"Notification"> | $Enums.NotificationKind | null
+  categoryId?: Prisma.StringNullableFilter<"Notification"> | string | null
+  channels?: Prisma.EnumNotificationChannelNullableListFilter<"Notification">
+  fallbackUrl?: Prisma.StringNullableFilter<"Notification"> | string | null
+  actions?: Prisma.JsonNullableFilter<"Notification">
+  state?: Prisma.EnumNotificationStateNullableFilter<"Notification"> | $Enums.NotificationState | null
+  resolvedAction?: Prisma.StringNullableFilter<"Notification"> | string | null
+  resolvedById?: Prisma.StringNullableFilter<"Notification"> | string | null
+  resolvedAt?: Prisma.DateTimeNullableFilter<"Notification"> | Date | string | null
+  resolvedPayload?: Prisma.JsonNullableFilter<"Notification">
+  callbackUrl?: Prisma.StringNullableFilter<"Notification"> | string | null
+  callbackStatus?: Prisma.EnumNotificationCallbackStatusNullableFilter<"Notification"> | $Enums.NotificationCallbackStatus | null
+  callbackError?: Prisma.StringNullableFilter<"Notification"> | string | null
+  expiresAt?: Prisma.DateTimeNullableFilter<"Notification"> | Date | string | null
+  groupKey?: Prisma.StringNullableFilter<"Notification"> | string | null
+  digestBatchId?: Prisma.StringNullableFilter<"Notification"> | string | null
+  idempotencyKey?: Prisma.StringNullableFilter<"Notification"> | string | null
+  progress?: Prisma.IntNullableFilter<"Notification"> | number | null
+  progressTotal?: Prisma.IntNullableFilter<"Notification"> | number | null
+  templateCode?: Prisma.StringNullableFilter<"Notification"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  tenant?: Prisma.XOR<Prisma.TenantNullableScalarRelationFilter, Prisma.TenantWhereInput> | null
+  category?: Prisma.XOR<Prisma.NotificationCategoryNullableScalarRelationFilter, Prisma.NotificationCategoryWhereInput> | null
+  deliveryAttempts?: Prisma.NotificationDeliveryAttemptListRelationFilter
 }
 
 export type NotificationOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   message?: Prisma.SortOrder
   type?: Prisma.SortOrder
@@ -322,15 +520,40 @@ export type NotificationOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  kind?: Prisma.SortOrderInput | Prisma.SortOrder
+  categoryId?: Prisma.SortOrderInput | Prisma.SortOrder
+  channels?: Prisma.SortOrder
+  fallbackUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  actions?: Prisma.SortOrderInput | Prisma.SortOrder
+  state?: Prisma.SortOrderInput | Prisma.SortOrder
+  resolvedAction?: Prisma.SortOrderInput | Prisma.SortOrder
+  resolvedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  resolvedPayload?: Prisma.SortOrderInput | Prisma.SortOrder
+  callbackUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  callbackStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  callbackError?: Prisma.SortOrderInput | Prisma.SortOrder
+  expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  groupKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  digestBatchId?: Prisma.SortOrderInput | Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  progress?: Prisma.SortOrderInput | Prisma.SortOrder
+  progressTotal?: Prisma.SortOrderInput | Prisma.SortOrder
+  templateCode?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  tenant?: Prisma.TenantOrderByWithRelationInput
+  category?: Prisma.NotificationCategoryOrderByWithRelationInput
+  deliveryAttempts?: Prisma.NotificationDeliveryAttemptOrderByRelationAggregateInput
 }
 
 export type NotificationWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  tenantId_userId_idempotencyKey?: Prisma.NotificationTenantIdUserIdIdempotencyKeyCompoundUniqueInput
   AND?: Prisma.NotificationWhereInput | Prisma.NotificationWhereInput[]
   OR?: Prisma.NotificationWhereInput[]
   NOT?: Prisma.NotificationWhereInput | Prisma.NotificationWhereInput[]
   userId?: Prisma.StringFilter<"Notification"> | string
+  tenantId?: Prisma.StringNullableFilter<"Notification"> | string | null
   title?: Prisma.StringFilter<"Notification"> | string
   message?: Prisma.StringFilter<"Notification"> | string
   type?: Prisma.EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType
@@ -349,12 +572,36 @@ export type NotificationWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Notification"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Notification"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Notification"> | Date | string | null
+  kind?: Prisma.EnumNotificationKindNullableFilter<"Notification"> | $Enums.NotificationKind | null
+  categoryId?: Prisma.StringNullableFilter<"Notification"> | string | null
+  channels?: Prisma.EnumNotificationChannelNullableListFilter<"Notification">
+  fallbackUrl?: Prisma.StringNullableFilter<"Notification"> | string | null
+  actions?: Prisma.JsonNullableFilter<"Notification">
+  state?: Prisma.EnumNotificationStateNullableFilter<"Notification"> | $Enums.NotificationState | null
+  resolvedAction?: Prisma.StringNullableFilter<"Notification"> | string | null
+  resolvedById?: Prisma.StringNullableFilter<"Notification"> | string | null
+  resolvedAt?: Prisma.DateTimeNullableFilter<"Notification"> | Date | string | null
+  resolvedPayload?: Prisma.JsonNullableFilter<"Notification">
+  callbackUrl?: Prisma.StringNullableFilter<"Notification"> | string | null
+  callbackStatus?: Prisma.EnumNotificationCallbackStatusNullableFilter<"Notification"> | $Enums.NotificationCallbackStatus | null
+  callbackError?: Prisma.StringNullableFilter<"Notification"> | string | null
+  expiresAt?: Prisma.DateTimeNullableFilter<"Notification"> | Date | string | null
+  groupKey?: Prisma.StringNullableFilter<"Notification"> | string | null
+  digestBatchId?: Prisma.StringNullableFilter<"Notification"> | string | null
+  idempotencyKey?: Prisma.StringNullableFilter<"Notification"> | string | null
+  progress?: Prisma.IntNullableFilter<"Notification"> | number | null
+  progressTotal?: Prisma.IntNullableFilter<"Notification"> | number | null
+  templateCode?: Prisma.StringNullableFilter<"Notification"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id">
+  tenant?: Prisma.XOR<Prisma.TenantNullableScalarRelationFilter, Prisma.TenantWhereInput> | null
+  category?: Prisma.XOR<Prisma.NotificationCategoryNullableScalarRelationFilter, Prisma.NotificationCategoryWhereInput> | null
+  deliveryAttempts?: Prisma.NotificationDeliveryAttemptListRelationFilter
+}, "id" | "tenantId_userId_idempotencyKey">
 
 export type NotificationOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   message?: Prisma.SortOrder
   type?: Prisma.SortOrder
@@ -373,9 +620,31 @@ export type NotificationOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  kind?: Prisma.SortOrderInput | Prisma.SortOrder
+  categoryId?: Prisma.SortOrderInput | Prisma.SortOrder
+  channels?: Prisma.SortOrder
+  fallbackUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  actions?: Prisma.SortOrderInput | Prisma.SortOrder
+  state?: Prisma.SortOrderInput | Prisma.SortOrder
+  resolvedAction?: Prisma.SortOrderInput | Prisma.SortOrder
+  resolvedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  resolvedPayload?: Prisma.SortOrderInput | Prisma.SortOrder
+  callbackUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  callbackStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  callbackError?: Prisma.SortOrderInput | Prisma.SortOrder
+  expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  groupKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  digestBatchId?: Prisma.SortOrderInput | Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  progress?: Prisma.SortOrderInput | Prisma.SortOrder
+  progressTotal?: Prisma.SortOrderInput | Prisma.SortOrder
+  templateCode?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.NotificationCountOrderByAggregateInput
+  _avg?: Prisma.NotificationAvgOrderByAggregateInput
   _max?: Prisma.NotificationMaxOrderByAggregateInput
   _min?: Prisma.NotificationMinOrderByAggregateInput
+  _sum?: Prisma.NotificationSumOrderByAggregateInput
 }
 
 export type NotificationScalarWhereWithAggregatesInput = {
@@ -384,6 +653,7 @@ export type NotificationScalarWhereWithAggregatesInput = {
   NOT?: Prisma.NotificationScalarWhereWithAggregatesInput | Prisma.NotificationScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Notification"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Notification"> | string
+  tenantId?: Prisma.StringNullableWithAggregatesFilter<"Notification"> | string | null
   title?: Prisma.StringWithAggregatesFilter<"Notification"> | string
   message?: Prisma.StringWithAggregatesFilter<"Notification"> | string
   type?: Prisma.EnumNotificationTypeWithAggregatesFilter<"Notification"> | $Enums.NotificationType
@@ -402,6 +672,26 @@ export type NotificationScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Notification"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Notification"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Notification"> | Date | string | null
+  kind?: Prisma.EnumNotificationKindNullableWithAggregatesFilter<"Notification"> | $Enums.NotificationKind | null
+  categoryId?: Prisma.StringNullableWithAggregatesFilter<"Notification"> | string | null
+  channels?: Prisma.EnumNotificationChannelNullableListFilter<"Notification">
+  fallbackUrl?: Prisma.StringNullableWithAggregatesFilter<"Notification"> | string | null
+  actions?: Prisma.JsonNullableWithAggregatesFilter<"Notification">
+  state?: Prisma.EnumNotificationStateNullableWithAggregatesFilter<"Notification"> | $Enums.NotificationState | null
+  resolvedAction?: Prisma.StringNullableWithAggregatesFilter<"Notification"> | string | null
+  resolvedById?: Prisma.StringNullableWithAggregatesFilter<"Notification"> | string | null
+  resolvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Notification"> | Date | string | null
+  resolvedPayload?: Prisma.JsonNullableWithAggregatesFilter<"Notification">
+  callbackUrl?: Prisma.StringNullableWithAggregatesFilter<"Notification"> | string | null
+  callbackStatus?: Prisma.EnumNotificationCallbackStatusNullableWithAggregatesFilter<"Notification"> | $Enums.NotificationCallbackStatus | null
+  callbackError?: Prisma.StringNullableWithAggregatesFilter<"Notification"> | string | null
+  expiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Notification"> | Date | string | null
+  groupKey?: Prisma.StringNullableWithAggregatesFilter<"Notification"> | string | null
+  digestBatchId?: Prisma.StringNullableWithAggregatesFilter<"Notification"> | string | null
+  idempotencyKey?: Prisma.StringNullableWithAggregatesFilter<"Notification"> | string | null
+  progress?: Prisma.IntNullableWithAggregatesFilter<"Notification"> | number | null
+  progressTotal?: Prisma.IntNullableWithAggregatesFilter<"Notification"> | number | null
+  templateCode?: Prisma.StringNullableWithAggregatesFilter<"Notification"> | string | null
 }
 
 export type NotificationCreateInput = {
@@ -424,12 +714,35 @@ export type NotificationCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  kind?: $Enums.NotificationKind | null
+  channels?: Prisma.NotificationCreatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: $Enums.NotificationState | null
+  resolvedAction?: string | null
+  resolvedById?: string | null
+  resolvedAt?: Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: string | null
+  callbackStatus?: $Enums.NotificationCallbackStatus | null
+  callbackError?: string | null
+  expiresAt?: Date | string | null
+  groupKey?: string | null
+  digestBatchId?: string | null
+  idempotencyKey?: string | null
+  progress?: number | null
+  progressTotal?: number | null
+  templateCode?: string | null
   user: Prisma.UserCreateNestedOneWithoutNotificationsInput
+  tenant?: Prisma.TenantCreateNestedOneWithoutNotificationsInput
+  category?: Prisma.NotificationCategoryCreateNestedOneWithoutNotificationsInput
+  deliveryAttempts?: Prisma.NotificationDeliveryAttemptCreateNestedManyWithoutNotificationInput
 }
 
 export type NotificationUncheckedCreateInput = {
   id?: string
   userId: string
+  tenantId?: string | null
   title: string
   message: string
   type: $Enums.NotificationType
@@ -448,6 +761,27 @@ export type NotificationUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  kind?: $Enums.NotificationKind | null
+  categoryId?: string | null
+  channels?: Prisma.NotificationCreatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: $Enums.NotificationState | null
+  resolvedAction?: string | null
+  resolvedById?: string | null
+  resolvedAt?: Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: string | null
+  callbackStatus?: $Enums.NotificationCallbackStatus | null
+  callbackError?: string | null
+  expiresAt?: Date | string | null
+  groupKey?: string | null
+  digestBatchId?: string | null
+  idempotencyKey?: string | null
+  progress?: number | null
+  progressTotal?: number | null
+  templateCode?: string | null
+  deliveryAttempts?: Prisma.NotificationDeliveryAttemptUncheckedCreateNestedManyWithoutNotificationInput
 }
 
 export type NotificationUpdateInput = {
@@ -470,12 +804,35 @@ export type NotificationUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  kind?: Prisma.NullableEnumNotificationKindFieldUpdateOperationsInput | $Enums.NotificationKind | null
+  channels?: Prisma.NotificationUpdatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: Prisma.NullableEnumNotificationStateFieldUpdateOperationsInput | $Enums.NotificationState | null
+  resolvedAction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  callbackStatus?: Prisma.NullableEnumNotificationCallbackStatusFieldUpdateOperationsInput | $Enums.NotificationCallbackStatus | null
+  callbackError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  groupKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  digestBatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  progress?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  progressTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  templateCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutNotificationsNestedInput
+  tenant?: Prisma.TenantUpdateOneWithoutNotificationsNestedInput
+  category?: Prisma.NotificationCategoryUpdateOneWithoutNotificationsNestedInput
+  deliveryAttempts?: Prisma.NotificationDeliveryAttemptUpdateManyWithoutNotificationNestedInput
 }
 
 export type NotificationUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
@@ -494,11 +851,33 @@ export type NotificationUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  kind?: Prisma.NullableEnumNotificationKindFieldUpdateOperationsInput | $Enums.NotificationKind | null
+  categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channels?: Prisma.NotificationUpdatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: Prisma.NullableEnumNotificationStateFieldUpdateOperationsInput | $Enums.NotificationState | null
+  resolvedAction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  callbackStatus?: Prisma.NullableEnumNotificationCallbackStatusFieldUpdateOperationsInput | $Enums.NotificationCallbackStatus | null
+  callbackError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  groupKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  digestBatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  progress?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  progressTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  templateCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryAttempts?: Prisma.NotificationDeliveryAttemptUncheckedUpdateManyWithoutNotificationNestedInput
 }
 
 export type NotificationCreateManyInput = {
   id?: string
   userId: string
+  tenantId?: string | null
   title: string
   message: string
   type: $Enums.NotificationType
@@ -517,6 +896,26 @@ export type NotificationCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  kind?: $Enums.NotificationKind | null
+  categoryId?: string | null
+  channels?: Prisma.NotificationCreatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: $Enums.NotificationState | null
+  resolvedAction?: string | null
+  resolvedById?: string | null
+  resolvedAt?: Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: string | null
+  callbackStatus?: $Enums.NotificationCallbackStatus | null
+  callbackError?: string | null
+  expiresAt?: Date | string | null
+  groupKey?: string | null
+  digestBatchId?: string | null
+  idempotencyKey?: string | null
+  progress?: number | null
+  progressTotal?: number | null
+  templateCode?: string | null
 }
 
 export type NotificationUpdateManyMutationInput = {
@@ -539,11 +938,31 @@ export type NotificationUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  kind?: Prisma.NullableEnumNotificationKindFieldUpdateOperationsInput | $Enums.NotificationKind | null
+  channels?: Prisma.NotificationUpdatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: Prisma.NullableEnumNotificationStateFieldUpdateOperationsInput | $Enums.NotificationState | null
+  resolvedAction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  callbackStatus?: Prisma.NullableEnumNotificationCallbackStatusFieldUpdateOperationsInput | $Enums.NotificationCallbackStatus | null
+  callbackError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  groupKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  digestBatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  progress?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  progressTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  templateCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type NotificationUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
@@ -562,6 +981,26 @@ export type NotificationUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  kind?: Prisma.NullableEnumNotificationKindFieldUpdateOperationsInput | $Enums.NotificationKind | null
+  categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channels?: Prisma.NotificationUpdatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: Prisma.NullableEnumNotificationStateFieldUpdateOperationsInput | $Enums.NotificationState | null
+  resolvedAction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  callbackStatus?: Prisma.NullableEnumNotificationCallbackStatusFieldUpdateOperationsInput | $Enums.NotificationCallbackStatus | null
+  callbackError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  groupKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  digestBatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  progress?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  progressTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  templateCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type NotificationListRelationFilter = {
@@ -574,9 +1013,24 @@ export type NotificationOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type EnumNotificationChannelNullableListFilter<$PrismaModel = never> = {
+  equals?: $Enums.NotificationChannel[] | Prisma.ListEnumNotificationChannelFieldRefInput<$PrismaModel> | null
+  has?: $Enums.NotificationChannel | Prisma.EnumNotificationChannelFieldRefInput<$PrismaModel> | null
+  hasEvery?: $Enums.NotificationChannel[] | Prisma.ListEnumNotificationChannelFieldRefInput<$PrismaModel>
+  hasSome?: $Enums.NotificationChannel[] | Prisma.ListEnumNotificationChannelFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
+export type NotificationTenantIdUserIdIdempotencyKeyCompoundUniqueInput = {
+  tenantId: string
+  userId: string
+  idempotencyKey: string
+}
+
 export type NotificationCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   message?: Prisma.SortOrder
   type?: Prisma.SortOrder
@@ -595,11 +1049,37 @@ export type NotificationCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
+  categoryId?: Prisma.SortOrder
+  channels?: Prisma.SortOrder
+  fallbackUrl?: Prisma.SortOrder
+  actions?: Prisma.SortOrder
+  state?: Prisma.SortOrder
+  resolvedAction?: Prisma.SortOrder
+  resolvedById?: Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrder
+  resolvedPayload?: Prisma.SortOrder
+  callbackUrl?: Prisma.SortOrder
+  callbackStatus?: Prisma.SortOrder
+  callbackError?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
+  groupKey?: Prisma.SortOrder
+  digestBatchId?: Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrder
+  progress?: Prisma.SortOrder
+  progressTotal?: Prisma.SortOrder
+  templateCode?: Prisma.SortOrder
+}
+
+export type NotificationAvgOrderByAggregateInput = {
+  progress?: Prisma.SortOrder
+  progressTotal?: Prisma.SortOrder
 }
 
 export type NotificationMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   message?: Prisma.SortOrder
   type?: Prisma.SortOrder
@@ -617,11 +1097,29 @@ export type NotificationMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
+  categoryId?: Prisma.SortOrder
+  fallbackUrl?: Prisma.SortOrder
+  state?: Prisma.SortOrder
+  resolvedAction?: Prisma.SortOrder
+  resolvedById?: Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrder
+  callbackUrl?: Prisma.SortOrder
+  callbackStatus?: Prisma.SortOrder
+  callbackError?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
+  groupKey?: Prisma.SortOrder
+  digestBatchId?: Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrder
+  progress?: Prisma.SortOrder
+  progressTotal?: Prisma.SortOrder
+  templateCode?: Prisma.SortOrder
 }
 
 export type NotificationMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   message?: Prisma.SortOrder
   type?: Prisma.SortOrder
@@ -639,6 +1137,33 @@ export type NotificationMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
+  categoryId?: Prisma.SortOrder
+  fallbackUrl?: Prisma.SortOrder
+  state?: Prisma.SortOrder
+  resolvedAction?: Prisma.SortOrder
+  resolvedById?: Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrder
+  callbackUrl?: Prisma.SortOrder
+  callbackStatus?: Prisma.SortOrder
+  callbackError?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
+  groupKey?: Prisma.SortOrder
+  digestBatchId?: Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrder
+  progress?: Prisma.SortOrder
+  progressTotal?: Prisma.SortOrder
+  templateCode?: Prisma.SortOrder
+}
+
+export type NotificationSumOrderByAggregateInput = {
+  progress?: Prisma.SortOrder
+  progressTotal?: Prisma.SortOrder
+}
+
+export type NotificationScalarRelationFilter = {
+  is?: Prisma.NotificationWhereInput
+  isNot?: Prisma.NotificationWhereInput
 }
 
 export type NotificationCreateNestedManyWithoutUserInput = {
@@ -683,8 +1208,127 @@ export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.NotificationScalarWhereInput | Prisma.NotificationScalarWhereInput[]
 }
 
+export type NotificationCreatechannelsInput = {
+  set: $Enums.NotificationChannel[]
+}
+
 export type EnumNotificationTypeFieldUpdateOperationsInput = {
   set?: $Enums.NotificationType
+}
+
+export type NullableEnumNotificationKindFieldUpdateOperationsInput = {
+  set?: $Enums.NotificationKind | null
+}
+
+export type NotificationUpdatechannelsInput = {
+  set?: $Enums.NotificationChannel[]
+  push?: $Enums.NotificationChannel | $Enums.NotificationChannel[]
+}
+
+export type NullableEnumNotificationStateFieldUpdateOperationsInput = {
+  set?: $Enums.NotificationState | null
+}
+
+export type NullableEnumNotificationCallbackStatusFieldUpdateOperationsInput = {
+  set?: $Enums.NotificationCallbackStatus | null
+}
+
+export type NotificationCreateNestedManyWithoutCategoryInput = {
+  create?: Prisma.XOR<Prisma.NotificationCreateWithoutCategoryInput, Prisma.NotificationUncheckedCreateWithoutCategoryInput> | Prisma.NotificationCreateWithoutCategoryInput[] | Prisma.NotificationUncheckedCreateWithoutCategoryInput[]
+  connectOrCreate?: Prisma.NotificationCreateOrConnectWithoutCategoryInput | Prisma.NotificationCreateOrConnectWithoutCategoryInput[]
+  createMany?: Prisma.NotificationCreateManyCategoryInputEnvelope
+  connect?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+}
+
+export type NotificationUncheckedCreateNestedManyWithoutCategoryInput = {
+  create?: Prisma.XOR<Prisma.NotificationCreateWithoutCategoryInput, Prisma.NotificationUncheckedCreateWithoutCategoryInput> | Prisma.NotificationCreateWithoutCategoryInput[] | Prisma.NotificationUncheckedCreateWithoutCategoryInput[]
+  connectOrCreate?: Prisma.NotificationCreateOrConnectWithoutCategoryInput | Prisma.NotificationCreateOrConnectWithoutCategoryInput[]
+  createMany?: Prisma.NotificationCreateManyCategoryInputEnvelope
+  connect?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+}
+
+export type NotificationUpdateManyWithoutCategoryNestedInput = {
+  create?: Prisma.XOR<Prisma.NotificationCreateWithoutCategoryInput, Prisma.NotificationUncheckedCreateWithoutCategoryInput> | Prisma.NotificationCreateWithoutCategoryInput[] | Prisma.NotificationUncheckedCreateWithoutCategoryInput[]
+  connectOrCreate?: Prisma.NotificationCreateOrConnectWithoutCategoryInput | Prisma.NotificationCreateOrConnectWithoutCategoryInput[]
+  upsert?: Prisma.NotificationUpsertWithWhereUniqueWithoutCategoryInput | Prisma.NotificationUpsertWithWhereUniqueWithoutCategoryInput[]
+  createMany?: Prisma.NotificationCreateManyCategoryInputEnvelope
+  set?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+  disconnect?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+  delete?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+  connect?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+  update?: Prisma.NotificationUpdateWithWhereUniqueWithoutCategoryInput | Prisma.NotificationUpdateWithWhereUniqueWithoutCategoryInput[]
+  updateMany?: Prisma.NotificationUpdateManyWithWhereWithoutCategoryInput | Prisma.NotificationUpdateManyWithWhereWithoutCategoryInput[]
+  deleteMany?: Prisma.NotificationScalarWhereInput | Prisma.NotificationScalarWhereInput[]
+}
+
+export type NotificationUncheckedUpdateManyWithoutCategoryNestedInput = {
+  create?: Prisma.XOR<Prisma.NotificationCreateWithoutCategoryInput, Prisma.NotificationUncheckedCreateWithoutCategoryInput> | Prisma.NotificationCreateWithoutCategoryInput[] | Prisma.NotificationUncheckedCreateWithoutCategoryInput[]
+  connectOrCreate?: Prisma.NotificationCreateOrConnectWithoutCategoryInput | Prisma.NotificationCreateOrConnectWithoutCategoryInput[]
+  upsert?: Prisma.NotificationUpsertWithWhereUniqueWithoutCategoryInput | Prisma.NotificationUpsertWithWhereUniqueWithoutCategoryInput[]
+  createMany?: Prisma.NotificationCreateManyCategoryInputEnvelope
+  set?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+  disconnect?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+  delete?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+  connect?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+  update?: Prisma.NotificationUpdateWithWhereUniqueWithoutCategoryInput | Prisma.NotificationUpdateWithWhereUniqueWithoutCategoryInput[]
+  updateMany?: Prisma.NotificationUpdateManyWithWhereWithoutCategoryInput | Prisma.NotificationUpdateManyWithWhereWithoutCategoryInput[]
+  deleteMany?: Prisma.NotificationScalarWhereInput | Prisma.NotificationScalarWhereInput[]
+}
+
+export type NotificationCreateNestedOneWithoutDeliveryAttemptsInput = {
+  create?: Prisma.XOR<Prisma.NotificationCreateWithoutDeliveryAttemptsInput, Prisma.NotificationUncheckedCreateWithoutDeliveryAttemptsInput>
+  connectOrCreate?: Prisma.NotificationCreateOrConnectWithoutDeliveryAttemptsInput
+  connect?: Prisma.NotificationWhereUniqueInput
+}
+
+export type NotificationUpdateOneRequiredWithoutDeliveryAttemptsNestedInput = {
+  create?: Prisma.XOR<Prisma.NotificationCreateWithoutDeliveryAttemptsInput, Prisma.NotificationUncheckedCreateWithoutDeliveryAttemptsInput>
+  connectOrCreate?: Prisma.NotificationCreateOrConnectWithoutDeliveryAttemptsInput
+  upsert?: Prisma.NotificationUpsertWithoutDeliveryAttemptsInput
+  connect?: Prisma.NotificationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.NotificationUpdateToOneWithWhereWithoutDeliveryAttemptsInput, Prisma.NotificationUpdateWithoutDeliveryAttemptsInput>, Prisma.NotificationUncheckedUpdateWithoutDeliveryAttemptsInput>
+}
+
+export type NotificationCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.NotificationCreateWithoutTenantInput, Prisma.NotificationUncheckedCreateWithoutTenantInput> | Prisma.NotificationCreateWithoutTenantInput[] | Prisma.NotificationUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.NotificationCreateOrConnectWithoutTenantInput | Prisma.NotificationCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.NotificationCreateManyTenantInputEnvelope
+  connect?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+}
+
+export type NotificationUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.NotificationCreateWithoutTenantInput, Prisma.NotificationUncheckedCreateWithoutTenantInput> | Prisma.NotificationCreateWithoutTenantInput[] | Prisma.NotificationUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.NotificationCreateOrConnectWithoutTenantInput | Prisma.NotificationCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.NotificationCreateManyTenantInputEnvelope
+  connect?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+}
+
+export type NotificationUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.NotificationCreateWithoutTenantInput, Prisma.NotificationUncheckedCreateWithoutTenantInput> | Prisma.NotificationCreateWithoutTenantInput[] | Prisma.NotificationUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.NotificationCreateOrConnectWithoutTenantInput | Prisma.NotificationCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.NotificationUpsertWithWhereUniqueWithoutTenantInput | Prisma.NotificationUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.NotificationCreateManyTenantInputEnvelope
+  set?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+  disconnect?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+  delete?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+  connect?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+  update?: Prisma.NotificationUpdateWithWhereUniqueWithoutTenantInput | Prisma.NotificationUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.NotificationUpdateManyWithWhereWithoutTenantInput | Prisma.NotificationUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.NotificationScalarWhereInput | Prisma.NotificationScalarWhereInput[]
+}
+
+export type NotificationUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.NotificationCreateWithoutTenantInput, Prisma.NotificationUncheckedCreateWithoutTenantInput> | Prisma.NotificationCreateWithoutTenantInput[] | Prisma.NotificationUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.NotificationCreateOrConnectWithoutTenantInput | Prisma.NotificationCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.NotificationUpsertWithWhereUniqueWithoutTenantInput | Prisma.NotificationUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.NotificationCreateManyTenantInputEnvelope
+  set?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+  disconnect?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+  delete?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+  connect?: Prisma.NotificationWhereUniqueInput | Prisma.NotificationWhereUniqueInput[]
+  update?: Prisma.NotificationUpdateWithWhereUniqueWithoutTenantInput | Prisma.NotificationUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.NotificationUpdateManyWithWhereWithoutTenantInput | Prisma.NotificationUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.NotificationScalarWhereInput | Prisma.NotificationScalarWhereInput[]
 }
 
 export type NotificationCreateWithoutUserInput = {
@@ -707,10 +1351,33 @@ export type NotificationCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  kind?: $Enums.NotificationKind | null
+  channels?: Prisma.NotificationCreatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: $Enums.NotificationState | null
+  resolvedAction?: string | null
+  resolvedById?: string | null
+  resolvedAt?: Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: string | null
+  callbackStatus?: $Enums.NotificationCallbackStatus | null
+  callbackError?: string | null
+  expiresAt?: Date | string | null
+  groupKey?: string | null
+  digestBatchId?: string | null
+  idempotencyKey?: string | null
+  progress?: number | null
+  progressTotal?: number | null
+  templateCode?: string | null
+  tenant?: Prisma.TenantCreateNestedOneWithoutNotificationsInput
+  category?: Prisma.NotificationCategoryCreateNestedOneWithoutNotificationsInput
+  deliveryAttempts?: Prisma.NotificationDeliveryAttemptCreateNestedManyWithoutNotificationInput
 }
 
 export type NotificationUncheckedCreateWithoutUserInput = {
   id?: string
+  tenantId?: string | null
   title: string
   message: string
   type: $Enums.NotificationType
@@ -729,6 +1396,27 @@ export type NotificationUncheckedCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  kind?: $Enums.NotificationKind | null
+  categoryId?: string | null
+  channels?: Prisma.NotificationCreatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: $Enums.NotificationState | null
+  resolvedAction?: string | null
+  resolvedById?: string | null
+  resolvedAt?: Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: string | null
+  callbackStatus?: $Enums.NotificationCallbackStatus | null
+  callbackError?: string | null
+  expiresAt?: Date | string | null
+  groupKey?: string | null
+  digestBatchId?: string | null
+  idempotencyKey?: string | null
+  progress?: number | null
+  progressTotal?: number | null
+  templateCode?: string | null
+  deliveryAttempts?: Prisma.NotificationDeliveryAttemptUncheckedCreateNestedManyWithoutNotificationInput
 }
 
 export type NotificationCreateOrConnectWithoutUserInput = {
@@ -763,6 +1451,7 @@ export type NotificationScalarWhereInput = {
   NOT?: Prisma.NotificationScalarWhereInput | Prisma.NotificationScalarWhereInput[]
   id?: Prisma.StringFilter<"Notification"> | string
   userId?: Prisma.StringFilter<"Notification"> | string
+  tenantId?: Prisma.StringNullableFilter<"Notification"> | string | null
   title?: Prisma.StringFilter<"Notification"> | string
   message?: Prisma.StringFilter<"Notification"> | string
   type?: Prisma.EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType
@@ -781,9 +1470,29 @@ export type NotificationScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Notification"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Notification"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Notification"> | Date | string | null
+  kind?: Prisma.EnumNotificationKindNullableFilter<"Notification"> | $Enums.NotificationKind | null
+  categoryId?: Prisma.StringNullableFilter<"Notification"> | string | null
+  channels?: Prisma.EnumNotificationChannelNullableListFilter<"Notification">
+  fallbackUrl?: Prisma.StringNullableFilter<"Notification"> | string | null
+  actions?: Prisma.JsonNullableFilter<"Notification">
+  state?: Prisma.EnumNotificationStateNullableFilter<"Notification"> | $Enums.NotificationState | null
+  resolvedAction?: Prisma.StringNullableFilter<"Notification"> | string | null
+  resolvedById?: Prisma.StringNullableFilter<"Notification"> | string | null
+  resolvedAt?: Prisma.DateTimeNullableFilter<"Notification"> | Date | string | null
+  resolvedPayload?: Prisma.JsonNullableFilter<"Notification">
+  callbackUrl?: Prisma.StringNullableFilter<"Notification"> | string | null
+  callbackStatus?: Prisma.EnumNotificationCallbackStatusNullableFilter<"Notification"> | $Enums.NotificationCallbackStatus | null
+  callbackError?: Prisma.StringNullableFilter<"Notification"> | string | null
+  expiresAt?: Prisma.DateTimeNullableFilter<"Notification"> | Date | string | null
+  groupKey?: Prisma.StringNullableFilter<"Notification"> | string | null
+  digestBatchId?: Prisma.StringNullableFilter<"Notification"> | string | null
+  idempotencyKey?: Prisma.StringNullableFilter<"Notification"> | string | null
+  progress?: Prisma.IntNullableFilter<"Notification"> | number | null
+  progressTotal?: Prisma.IntNullableFilter<"Notification"> | number | null
+  templateCode?: Prisma.StringNullableFilter<"Notification"> | string | null
 }
 
-export type NotificationCreateManyUserInput = {
+export type NotificationCreateWithoutCategoryInput = {
   id?: string
   title: string
   message: string
@@ -803,6 +1512,447 @@ export type NotificationCreateManyUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  kind?: $Enums.NotificationKind | null
+  channels?: Prisma.NotificationCreatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: $Enums.NotificationState | null
+  resolvedAction?: string | null
+  resolvedById?: string | null
+  resolvedAt?: Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: string | null
+  callbackStatus?: $Enums.NotificationCallbackStatus | null
+  callbackError?: string | null
+  expiresAt?: Date | string | null
+  groupKey?: string | null
+  digestBatchId?: string | null
+  idempotencyKey?: string | null
+  progress?: number | null
+  progressTotal?: number | null
+  templateCode?: string | null
+  user: Prisma.UserCreateNestedOneWithoutNotificationsInput
+  tenant?: Prisma.TenantCreateNestedOneWithoutNotificationsInput
+  deliveryAttempts?: Prisma.NotificationDeliveryAttemptCreateNestedManyWithoutNotificationInput
+}
+
+export type NotificationUncheckedCreateWithoutCategoryInput = {
+  id?: string
+  userId: string
+  tenantId?: string | null
+  title: string
+  message: string
+  type: $Enums.NotificationType
+  priority?: $Enums.NotificationPriority
+  channel: $Enums.NotificationChannel
+  actionUrl?: string | null
+  actionText?: string | null
+  entityType?: string | null
+  entityId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isRead?: boolean
+  isSent?: boolean
+  scheduledFor?: Date | string | null
+  readAt?: Date | string | null
+  sentAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  kind?: $Enums.NotificationKind | null
+  channels?: Prisma.NotificationCreatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: $Enums.NotificationState | null
+  resolvedAction?: string | null
+  resolvedById?: string | null
+  resolvedAt?: Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: string | null
+  callbackStatus?: $Enums.NotificationCallbackStatus | null
+  callbackError?: string | null
+  expiresAt?: Date | string | null
+  groupKey?: string | null
+  digestBatchId?: string | null
+  idempotencyKey?: string | null
+  progress?: number | null
+  progressTotal?: number | null
+  templateCode?: string | null
+  deliveryAttempts?: Prisma.NotificationDeliveryAttemptUncheckedCreateNestedManyWithoutNotificationInput
+}
+
+export type NotificationCreateOrConnectWithoutCategoryInput = {
+  where: Prisma.NotificationWhereUniqueInput
+  create: Prisma.XOR<Prisma.NotificationCreateWithoutCategoryInput, Prisma.NotificationUncheckedCreateWithoutCategoryInput>
+}
+
+export type NotificationCreateManyCategoryInputEnvelope = {
+  data: Prisma.NotificationCreateManyCategoryInput | Prisma.NotificationCreateManyCategoryInput[]
+  skipDuplicates?: boolean
+}
+
+export type NotificationUpsertWithWhereUniqueWithoutCategoryInput = {
+  where: Prisma.NotificationWhereUniqueInput
+  update: Prisma.XOR<Prisma.NotificationUpdateWithoutCategoryInput, Prisma.NotificationUncheckedUpdateWithoutCategoryInput>
+  create: Prisma.XOR<Prisma.NotificationCreateWithoutCategoryInput, Prisma.NotificationUncheckedCreateWithoutCategoryInput>
+}
+
+export type NotificationUpdateWithWhereUniqueWithoutCategoryInput = {
+  where: Prisma.NotificationWhereUniqueInput
+  data: Prisma.XOR<Prisma.NotificationUpdateWithoutCategoryInput, Prisma.NotificationUncheckedUpdateWithoutCategoryInput>
+}
+
+export type NotificationUpdateManyWithWhereWithoutCategoryInput = {
+  where: Prisma.NotificationScalarWhereInput
+  data: Prisma.XOR<Prisma.NotificationUpdateManyMutationInput, Prisma.NotificationUncheckedUpdateManyWithoutCategoryInput>
+}
+
+export type NotificationCreateWithoutDeliveryAttemptsInput = {
+  id?: string
+  title: string
+  message: string
+  type: $Enums.NotificationType
+  priority?: $Enums.NotificationPriority
+  channel: $Enums.NotificationChannel
+  actionUrl?: string | null
+  actionText?: string | null
+  entityType?: string | null
+  entityId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isRead?: boolean
+  isSent?: boolean
+  scheduledFor?: Date | string | null
+  readAt?: Date | string | null
+  sentAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  kind?: $Enums.NotificationKind | null
+  channels?: Prisma.NotificationCreatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: $Enums.NotificationState | null
+  resolvedAction?: string | null
+  resolvedById?: string | null
+  resolvedAt?: Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: string | null
+  callbackStatus?: $Enums.NotificationCallbackStatus | null
+  callbackError?: string | null
+  expiresAt?: Date | string | null
+  groupKey?: string | null
+  digestBatchId?: string | null
+  idempotencyKey?: string | null
+  progress?: number | null
+  progressTotal?: number | null
+  templateCode?: string | null
+  user: Prisma.UserCreateNestedOneWithoutNotificationsInput
+  tenant?: Prisma.TenantCreateNestedOneWithoutNotificationsInput
+  category?: Prisma.NotificationCategoryCreateNestedOneWithoutNotificationsInput
+}
+
+export type NotificationUncheckedCreateWithoutDeliveryAttemptsInput = {
+  id?: string
+  userId: string
+  tenantId?: string | null
+  title: string
+  message: string
+  type: $Enums.NotificationType
+  priority?: $Enums.NotificationPriority
+  channel: $Enums.NotificationChannel
+  actionUrl?: string | null
+  actionText?: string | null
+  entityType?: string | null
+  entityId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isRead?: boolean
+  isSent?: boolean
+  scheduledFor?: Date | string | null
+  readAt?: Date | string | null
+  sentAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  kind?: $Enums.NotificationKind | null
+  categoryId?: string | null
+  channels?: Prisma.NotificationCreatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: $Enums.NotificationState | null
+  resolvedAction?: string | null
+  resolvedById?: string | null
+  resolvedAt?: Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: string | null
+  callbackStatus?: $Enums.NotificationCallbackStatus | null
+  callbackError?: string | null
+  expiresAt?: Date | string | null
+  groupKey?: string | null
+  digestBatchId?: string | null
+  idempotencyKey?: string | null
+  progress?: number | null
+  progressTotal?: number | null
+  templateCode?: string | null
+}
+
+export type NotificationCreateOrConnectWithoutDeliveryAttemptsInput = {
+  where: Prisma.NotificationWhereUniqueInput
+  create: Prisma.XOR<Prisma.NotificationCreateWithoutDeliveryAttemptsInput, Prisma.NotificationUncheckedCreateWithoutDeliveryAttemptsInput>
+}
+
+export type NotificationUpsertWithoutDeliveryAttemptsInput = {
+  update: Prisma.XOR<Prisma.NotificationUpdateWithoutDeliveryAttemptsInput, Prisma.NotificationUncheckedUpdateWithoutDeliveryAttemptsInput>
+  create: Prisma.XOR<Prisma.NotificationCreateWithoutDeliveryAttemptsInput, Prisma.NotificationUncheckedCreateWithoutDeliveryAttemptsInput>
+  where?: Prisma.NotificationWhereInput
+}
+
+export type NotificationUpdateToOneWithWhereWithoutDeliveryAttemptsInput = {
+  where?: Prisma.NotificationWhereInput
+  data: Prisma.XOR<Prisma.NotificationUpdateWithoutDeliveryAttemptsInput, Prisma.NotificationUncheckedUpdateWithoutDeliveryAttemptsInput>
+}
+
+export type NotificationUpdateWithoutDeliveryAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+  priority?: Prisma.EnumNotificationPriorityFieldUpdateOperationsInput | $Enums.NotificationPriority
+  channel?: Prisma.EnumNotificationChannelFieldUpdateOperationsInput | $Enums.NotificationChannel
+  actionUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  scheduledFor?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  kind?: Prisma.NullableEnumNotificationKindFieldUpdateOperationsInput | $Enums.NotificationKind | null
+  channels?: Prisma.NotificationUpdatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: Prisma.NullableEnumNotificationStateFieldUpdateOperationsInput | $Enums.NotificationState | null
+  resolvedAction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  callbackStatus?: Prisma.NullableEnumNotificationCallbackStatusFieldUpdateOperationsInput | $Enums.NotificationCallbackStatus | null
+  callbackError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  groupKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  digestBatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  progress?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  progressTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  templateCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutNotificationsNestedInput
+  tenant?: Prisma.TenantUpdateOneWithoutNotificationsNestedInput
+  category?: Prisma.NotificationCategoryUpdateOneWithoutNotificationsNestedInput
+}
+
+export type NotificationUncheckedUpdateWithoutDeliveryAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+  priority?: Prisma.EnumNotificationPriorityFieldUpdateOperationsInput | $Enums.NotificationPriority
+  channel?: Prisma.EnumNotificationChannelFieldUpdateOperationsInput | $Enums.NotificationChannel
+  actionUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  scheduledFor?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  kind?: Prisma.NullableEnumNotificationKindFieldUpdateOperationsInput | $Enums.NotificationKind | null
+  categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channels?: Prisma.NotificationUpdatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: Prisma.NullableEnumNotificationStateFieldUpdateOperationsInput | $Enums.NotificationState | null
+  resolvedAction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  callbackStatus?: Prisma.NullableEnumNotificationCallbackStatusFieldUpdateOperationsInput | $Enums.NotificationCallbackStatus | null
+  callbackError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  groupKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  digestBatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  progress?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  progressTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  templateCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type NotificationCreateWithoutTenantInput = {
+  id?: string
+  title: string
+  message: string
+  type: $Enums.NotificationType
+  priority?: $Enums.NotificationPriority
+  channel: $Enums.NotificationChannel
+  actionUrl?: string | null
+  actionText?: string | null
+  entityType?: string | null
+  entityId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isRead?: boolean
+  isSent?: boolean
+  scheduledFor?: Date | string | null
+  readAt?: Date | string | null
+  sentAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  kind?: $Enums.NotificationKind | null
+  channels?: Prisma.NotificationCreatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: $Enums.NotificationState | null
+  resolvedAction?: string | null
+  resolvedById?: string | null
+  resolvedAt?: Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: string | null
+  callbackStatus?: $Enums.NotificationCallbackStatus | null
+  callbackError?: string | null
+  expiresAt?: Date | string | null
+  groupKey?: string | null
+  digestBatchId?: string | null
+  idempotencyKey?: string | null
+  progress?: number | null
+  progressTotal?: number | null
+  templateCode?: string | null
+  user: Prisma.UserCreateNestedOneWithoutNotificationsInput
+  category?: Prisma.NotificationCategoryCreateNestedOneWithoutNotificationsInput
+  deliveryAttempts?: Prisma.NotificationDeliveryAttemptCreateNestedManyWithoutNotificationInput
+}
+
+export type NotificationUncheckedCreateWithoutTenantInput = {
+  id?: string
+  userId: string
+  title: string
+  message: string
+  type: $Enums.NotificationType
+  priority?: $Enums.NotificationPriority
+  channel: $Enums.NotificationChannel
+  actionUrl?: string | null
+  actionText?: string | null
+  entityType?: string | null
+  entityId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isRead?: boolean
+  isSent?: boolean
+  scheduledFor?: Date | string | null
+  readAt?: Date | string | null
+  sentAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  kind?: $Enums.NotificationKind | null
+  categoryId?: string | null
+  channels?: Prisma.NotificationCreatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: $Enums.NotificationState | null
+  resolvedAction?: string | null
+  resolvedById?: string | null
+  resolvedAt?: Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: string | null
+  callbackStatus?: $Enums.NotificationCallbackStatus | null
+  callbackError?: string | null
+  expiresAt?: Date | string | null
+  groupKey?: string | null
+  digestBatchId?: string | null
+  idempotencyKey?: string | null
+  progress?: number | null
+  progressTotal?: number | null
+  templateCode?: string | null
+  deliveryAttempts?: Prisma.NotificationDeliveryAttemptUncheckedCreateNestedManyWithoutNotificationInput
+}
+
+export type NotificationCreateOrConnectWithoutTenantInput = {
+  where: Prisma.NotificationWhereUniqueInput
+  create: Prisma.XOR<Prisma.NotificationCreateWithoutTenantInput, Prisma.NotificationUncheckedCreateWithoutTenantInput>
+}
+
+export type NotificationCreateManyTenantInputEnvelope = {
+  data: Prisma.NotificationCreateManyTenantInput | Prisma.NotificationCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type NotificationUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.NotificationWhereUniqueInput
+  update: Prisma.XOR<Prisma.NotificationUpdateWithoutTenantInput, Prisma.NotificationUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.NotificationCreateWithoutTenantInput, Prisma.NotificationUncheckedCreateWithoutTenantInput>
+}
+
+export type NotificationUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.NotificationWhereUniqueInput
+  data: Prisma.XOR<Prisma.NotificationUpdateWithoutTenantInput, Prisma.NotificationUncheckedUpdateWithoutTenantInput>
+}
+
+export type NotificationUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.NotificationScalarWhereInput
+  data: Prisma.XOR<Prisma.NotificationUpdateManyMutationInput, Prisma.NotificationUncheckedUpdateManyWithoutTenantInput>
+}
+
+export type NotificationCreateManyUserInput = {
+  id?: string
+  tenantId?: string | null
+  title: string
+  message: string
+  type: $Enums.NotificationType
+  priority?: $Enums.NotificationPriority
+  channel: $Enums.NotificationChannel
+  actionUrl?: string | null
+  actionText?: string | null
+  entityType?: string | null
+  entityId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isRead?: boolean
+  isSent?: boolean
+  scheduledFor?: Date | string | null
+  readAt?: Date | string | null
+  sentAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  kind?: $Enums.NotificationKind | null
+  categoryId?: string | null
+  channels?: Prisma.NotificationCreatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: $Enums.NotificationState | null
+  resolvedAction?: string | null
+  resolvedById?: string | null
+  resolvedAt?: Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: string | null
+  callbackStatus?: $Enums.NotificationCallbackStatus | null
+  callbackError?: string | null
+  expiresAt?: Date | string | null
+  groupKey?: string | null
+  digestBatchId?: string | null
+  idempotencyKey?: string | null
+  progress?: number | null
+  progressTotal?: number | null
+  templateCode?: string | null
 }
 
 export type NotificationUpdateWithoutUserInput = {
@@ -825,10 +1975,33 @@ export type NotificationUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  kind?: Prisma.NullableEnumNotificationKindFieldUpdateOperationsInput | $Enums.NotificationKind | null
+  channels?: Prisma.NotificationUpdatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: Prisma.NullableEnumNotificationStateFieldUpdateOperationsInput | $Enums.NotificationState | null
+  resolvedAction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  callbackStatus?: Prisma.NullableEnumNotificationCallbackStatusFieldUpdateOperationsInput | $Enums.NotificationCallbackStatus | null
+  callbackError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  groupKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  digestBatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  progress?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  progressTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  templateCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenant?: Prisma.TenantUpdateOneWithoutNotificationsNestedInput
+  category?: Prisma.NotificationCategoryUpdateOneWithoutNotificationsNestedInput
+  deliveryAttempts?: Prisma.NotificationDeliveryAttemptUpdateManyWithoutNotificationNestedInput
 }
 
 export type NotificationUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
@@ -847,9 +2020,116 @@ export type NotificationUncheckedUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  kind?: Prisma.NullableEnumNotificationKindFieldUpdateOperationsInput | $Enums.NotificationKind | null
+  categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channels?: Prisma.NotificationUpdatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: Prisma.NullableEnumNotificationStateFieldUpdateOperationsInput | $Enums.NotificationState | null
+  resolvedAction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  callbackStatus?: Prisma.NullableEnumNotificationCallbackStatusFieldUpdateOperationsInput | $Enums.NotificationCallbackStatus | null
+  callbackError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  groupKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  digestBatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  progress?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  progressTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  templateCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryAttempts?: Prisma.NotificationDeliveryAttemptUncheckedUpdateManyWithoutNotificationNestedInput
 }
 
 export type NotificationUncheckedUpdateManyWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+  priority?: Prisma.EnumNotificationPriorityFieldUpdateOperationsInput | $Enums.NotificationPriority
+  channel?: Prisma.EnumNotificationChannelFieldUpdateOperationsInput | $Enums.NotificationChannel
+  actionUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  scheduledFor?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  kind?: Prisma.NullableEnumNotificationKindFieldUpdateOperationsInput | $Enums.NotificationKind | null
+  categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channels?: Prisma.NotificationUpdatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: Prisma.NullableEnumNotificationStateFieldUpdateOperationsInput | $Enums.NotificationState | null
+  resolvedAction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  callbackStatus?: Prisma.NullableEnumNotificationCallbackStatusFieldUpdateOperationsInput | $Enums.NotificationCallbackStatus | null
+  callbackError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  groupKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  digestBatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  progress?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  progressTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  templateCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type NotificationCreateManyCategoryInput = {
+  id?: string
+  userId: string
+  tenantId?: string | null
+  title: string
+  message: string
+  type: $Enums.NotificationType
+  priority?: $Enums.NotificationPriority
+  channel: $Enums.NotificationChannel
+  actionUrl?: string | null
+  actionText?: string | null
+  entityType?: string | null
+  entityId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isRead?: boolean
+  isSent?: boolean
+  scheduledFor?: Date | string | null
+  readAt?: Date | string | null
+  sentAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  kind?: $Enums.NotificationKind | null
+  channels?: Prisma.NotificationCreatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: $Enums.NotificationState | null
+  resolvedAction?: string | null
+  resolvedById?: string | null
+  resolvedAt?: Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: string | null
+  callbackStatus?: $Enums.NotificationCallbackStatus | null
+  callbackError?: string | null
+  expiresAt?: Date | string | null
+  groupKey?: string | null
+  digestBatchId?: string | null
+  idempotencyKey?: string | null
+  progress?: number | null
+  progressTotal?: number | null
+  templateCode?: string | null
+}
+
+export type NotificationUpdateWithoutCategoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
@@ -869,13 +2149,326 @@ export type NotificationUncheckedUpdateManyWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  kind?: Prisma.NullableEnumNotificationKindFieldUpdateOperationsInput | $Enums.NotificationKind | null
+  channels?: Prisma.NotificationUpdatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: Prisma.NullableEnumNotificationStateFieldUpdateOperationsInput | $Enums.NotificationState | null
+  resolvedAction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  callbackStatus?: Prisma.NullableEnumNotificationCallbackStatusFieldUpdateOperationsInput | $Enums.NotificationCallbackStatus | null
+  callbackError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  groupKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  digestBatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  progress?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  progressTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  templateCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutNotificationsNestedInput
+  tenant?: Prisma.TenantUpdateOneWithoutNotificationsNestedInput
+  deliveryAttempts?: Prisma.NotificationDeliveryAttemptUpdateManyWithoutNotificationNestedInput
 }
 
+export type NotificationUncheckedUpdateWithoutCategoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+  priority?: Prisma.EnumNotificationPriorityFieldUpdateOperationsInput | $Enums.NotificationPriority
+  channel?: Prisma.EnumNotificationChannelFieldUpdateOperationsInput | $Enums.NotificationChannel
+  actionUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  scheduledFor?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  kind?: Prisma.NullableEnumNotificationKindFieldUpdateOperationsInput | $Enums.NotificationKind | null
+  channels?: Prisma.NotificationUpdatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: Prisma.NullableEnumNotificationStateFieldUpdateOperationsInput | $Enums.NotificationState | null
+  resolvedAction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  callbackStatus?: Prisma.NullableEnumNotificationCallbackStatusFieldUpdateOperationsInput | $Enums.NotificationCallbackStatus | null
+  callbackError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  groupKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  digestBatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  progress?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  progressTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  templateCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryAttempts?: Prisma.NotificationDeliveryAttemptUncheckedUpdateManyWithoutNotificationNestedInput
+}
+
+export type NotificationUncheckedUpdateManyWithoutCategoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+  priority?: Prisma.EnumNotificationPriorityFieldUpdateOperationsInput | $Enums.NotificationPriority
+  channel?: Prisma.EnumNotificationChannelFieldUpdateOperationsInput | $Enums.NotificationChannel
+  actionUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  scheduledFor?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  kind?: Prisma.NullableEnumNotificationKindFieldUpdateOperationsInput | $Enums.NotificationKind | null
+  channels?: Prisma.NotificationUpdatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: Prisma.NullableEnumNotificationStateFieldUpdateOperationsInput | $Enums.NotificationState | null
+  resolvedAction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  callbackStatus?: Prisma.NullableEnumNotificationCallbackStatusFieldUpdateOperationsInput | $Enums.NotificationCallbackStatus | null
+  callbackError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  groupKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  digestBatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  progress?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  progressTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  templateCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type NotificationCreateManyTenantInput = {
+  id?: string
+  userId: string
+  title: string
+  message: string
+  type: $Enums.NotificationType
+  priority?: $Enums.NotificationPriority
+  channel: $Enums.NotificationChannel
+  actionUrl?: string | null
+  actionText?: string | null
+  entityType?: string | null
+  entityId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isRead?: boolean
+  isSent?: boolean
+  scheduledFor?: Date | string | null
+  readAt?: Date | string | null
+  sentAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  kind?: $Enums.NotificationKind | null
+  categoryId?: string | null
+  channels?: Prisma.NotificationCreatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: $Enums.NotificationState | null
+  resolvedAction?: string | null
+  resolvedById?: string | null
+  resolvedAt?: Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: string | null
+  callbackStatus?: $Enums.NotificationCallbackStatus | null
+  callbackError?: string | null
+  expiresAt?: Date | string | null
+  groupKey?: string | null
+  digestBatchId?: string | null
+  idempotencyKey?: string | null
+  progress?: number | null
+  progressTotal?: number | null
+  templateCode?: string | null
+}
+
+export type NotificationUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+  priority?: Prisma.EnumNotificationPriorityFieldUpdateOperationsInput | $Enums.NotificationPriority
+  channel?: Prisma.EnumNotificationChannelFieldUpdateOperationsInput | $Enums.NotificationChannel
+  actionUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  scheduledFor?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  kind?: Prisma.NullableEnumNotificationKindFieldUpdateOperationsInput | $Enums.NotificationKind | null
+  channels?: Prisma.NotificationUpdatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: Prisma.NullableEnumNotificationStateFieldUpdateOperationsInput | $Enums.NotificationState | null
+  resolvedAction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  callbackStatus?: Prisma.NullableEnumNotificationCallbackStatusFieldUpdateOperationsInput | $Enums.NotificationCallbackStatus | null
+  callbackError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  groupKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  digestBatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  progress?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  progressTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  templateCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutNotificationsNestedInput
+  category?: Prisma.NotificationCategoryUpdateOneWithoutNotificationsNestedInput
+  deliveryAttempts?: Prisma.NotificationDeliveryAttemptUpdateManyWithoutNotificationNestedInput
+}
+
+export type NotificationUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+  priority?: Prisma.EnumNotificationPriorityFieldUpdateOperationsInput | $Enums.NotificationPriority
+  channel?: Prisma.EnumNotificationChannelFieldUpdateOperationsInput | $Enums.NotificationChannel
+  actionUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  scheduledFor?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  kind?: Prisma.NullableEnumNotificationKindFieldUpdateOperationsInput | $Enums.NotificationKind | null
+  categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channels?: Prisma.NotificationUpdatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: Prisma.NullableEnumNotificationStateFieldUpdateOperationsInput | $Enums.NotificationState | null
+  resolvedAction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  callbackStatus?: Prisma.NullableEnumNotificationCallbackStatusFieldUpdateOperationsInput | $Enums.NotificationCallbackStatus | null
+  callbackError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  groupKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  digestBatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  progress?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  progressTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  templateCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryAttempts?: Prisma.NotificationDeliveryAttemptUncheckedUpdateManyWithoutNotificationNestedInput
+}
+
+export type NotificationUncheckedUpdateManyWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+  priority?: Prisma.EnumNotificationPriorityFieldUpdateOperationsInput | $Enums.NotificationPriority
+  channel?: Prisma.EnumNotificationChannelFieldUpdateOperationsInput | $Enums.NotificationChannel
+  actionUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actionText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  scheduledFor?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  kind?: Prisma.NullableEnumNotificationKindFieldUpdateOperationsInput | $Enums.NotificationKind | null
+  categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channels?: Prisma.NotificationUpdatechannelsInput | $Enums.NotificationChannel[]
+  fallbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  actions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  state?: Prisma.NullableEnumNotificationStateFieldUpdateOperationsInput | $Enums.NotificationState | null
+  resolvedAction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  callbackUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  callbackStatus?: Prisma.NullableEnumNotificationCallbackStatusFieldUpdateOperationsInput | $Enums.NotificationCallbackStatus | null
+  callbackError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  groupKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  digestBatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  progress?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  progressTotal?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  templateCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+
+/**
+ * Count Type NotificationCountOutputType
+ */
+
+export type NotificationCountOutputType = {
+  deliveryAttempts: number
+}
+
+export type NotificationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  deliveryAttempts?: boolean | NotificationCountOutputTypeCountDeliveryAttemptsArgs
+}
+
+/**
+ * NotificationCountOutputType without action
+ */
+export type NotificationCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the NotificationCountOutputType
+   */
+  select?: Prisma.NotificationCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * NotificationCountOutputType without action
+ */
+export type NotificationCountOutputTypeCountDeliveryAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NotificationDeliveryAttemptWhereInput
+}
 
 
 export type NotificationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  tenantId?: boolean
   title?: boolean
   message?: boolean
   type?: boolean
@@ -894,12 +2487,37 @@ export type NotificationSelect<ExtArgs extends runtime.Types.Extensions.Internal
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  kind?: boolean
+  categoryId?: boolean
+  channels?: boolean
+  fallbackUrl?: boolean
+  actions?: boolean
+  state?: boolean
+  resolvedAction?: boolean
+  resolvedById?: boolean
+  resolvedAt?: boolean
+  resolvedPayload?: boolean
+  callbackUrl?: boolean
+  callbackStatus?: boolean
+  callbackError?: boolean
+  expiresAt?: boolean
+  groupKey?: boolean
+  digestBatchId?: boolean
+  idempotencyKey?: boolean
+  progress?: boolean
+  progressTotal?: boolean
+  templateCode?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tenant?: boolean | Prisma.Notification$tenantArgs<ExtArgs>
+  category?: boolean | Prisma.Notification$categoryArgs<ExtArgs>
+  deliveryAttempts?: boolean | Prisma.Notification$deliveryAttemptsArgs<ExtArgs>
+  _count?: boolean | Prisma.NotificationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["notification"]>
 
 export type NotificationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  tenantId?: boolean
   title?: boolean
   message?: boolean
   type?: boolean
@@ -918,12 +2536,35 @@ export type NotificationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  kind?: boolean
+  categoryId?: boolean
+  channels?: boolean
+  fallbackUrl?: boolean
+  actions?: boolean
+  state?: boolean
+  resolvedAction?: boolean
+  resolvedById?: boolean
+  resolvedAt?: boolean
+  resolvedPayload?: boolean
+  callbackUrl?: boolean
+  callbackStatus?: boolean
+  callbackError?: boolean
+  expiresAt?: boolean
+  groupKey?: boolean
+  digestBatchId?: boolean
+  idempotencyKey?: boolean
+  progress?: boolean
+  progressTotal?: boolean
+  templateCode?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tenant?: boolean | Prisma.Notification$tenantArgs<ExtArgs>
+  category?: boolean | Prisma.Notification$categoryArgs<ExtArgs>
 }, ExtArgs["result"]["notification"]>
 
 export type NotificationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  tenantId?: boolean
   title?: boolean
   message?: boolean
   type?: boolean
@@ -942,12 +2583,35 @@ export type NotificationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  kind?: boolean
+  categoryId?: boolean
+  channels?: boolean
+  fallbackUrl?: boolean
+  actions?: boolean
+  state?: boolean
+  resolvedAction?: boolean
+  resolvedById?: boolean
+  resolvedAt?: boolean
+  resolvedPayload?: boolean
+  callbackUrl?: boolean
+  callbackStatus?: boolean
+  callbackError?: boolean
+  expiresAt?: boolean
+  groupKey?: boolean
+  digestBatchId?: boolean
+  idempotencyKey?: boolean
+  progress?: boolean
+  progressTotal?: boolean
+  templateCode?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tenant?: boolean | Prisma.Notification$tenantArgs<ExtArgs>
+  category?: boolean | Prisma.Notification$categoryArgs<ExtArgs>
 }, ExtArgs["result"]["notification"]>
 
 export type NotificationSelectScalar = {
   id?: boolean
   userId?: boolean
+  tenantId?: boolean
   title?: boolean
   message?: boolean
   type?: boolean
@@ -966,27 +2630,59 @@ export type NotificationSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  kind?: boolean
+  categoryId?: boolean
+  channels?: boolean
+  fallbackUrl?: boolean
+  actions?: boolean
+  state?: boolean
+  resolvedAction?: boolean
+  resolvedById?: boolean
+  resolvedAt?: boolean
+  resolvedPayload?: boolean
+  callbackUrl?: boolean
+  callbackStatus?: boolean
+  callbackError?: boolean
+  expiresAt?: boolean
+  groupKey?: boolean
+  digestBatchId?: boolean
+  idempotencyKey?: boolean
+  progress?: boolean
+  progressTotal?: boolean
+  templateCode?: boolean
 }
 
-export type NotificationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "title" | "message" | "type" | "priority" | "channel" | "actionUrl" | "actionText" | "entityType" | "entityId" | "metadata" | "isRead" | "isSent" | "scheduledFor" | "readAt" | "sentAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["notification"]>
+export type NotificationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "tenantId" | "title" | "message" | "type" | "priority" | "channel" | "actionUrl" | "actionText" | "entityType" | "entityId" | "metadata" | "isRead" | "isSent" | "scheduledFor" | "readAt" | "sentAt" | "createdAt" | "updatedAt" | "deletedAt" | "kind" | "categoryId" | "channels" | "fallbackUrl" | "actions" | "state" | "resolvedAction" | "resolvedById" | "resolvedAt" | "resolvedPayload" | "callbackUrl" | "callbackStatus" | "callbackError" | "expiresAt" | "groupKey" | "digestBatchId" | "idempotencyKey" | "progress" | "progressTotal" | "templateCode", ExtArgs["result"]["notification"]>
 export type NotificationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tenant?: boolean | Prisma.Notification$tenantArgs<ExtArgs>
+  category?: boolean | Prisma.Notification$categoryArgs<ExtArgs>
+  deliveryAttempts?: boolean | Prisma.Notification$deliveryAttemptsArgs<ExtArgs>
+  _count?: boolean | Prisma.NotificationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type NotificationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tenant?: boolean | Prisma.Notification$tenantArgs<ExtArgs>
+  category?: boolean | Prisma.Notification$categoryArgs<ExtArgs>
 }
 export type NotificationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  tenant?: boolean | Prisma.Notification$tenantArgs<ExtArgs>
+  category?: boolean | Prisma.Notification$categoryArgs<ExtArgs>
 }
 
 export type $NotificationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Notification"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    tenant: Prisma.$TenantPayload<ExtArgs> | null
+    category: Prisma.$NotificationCategoryPayload<ExtArgs> | null
+    deliveryAttempts: Prisma.$NotificationDeliveryAttemptPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
+    tenantId: string | null
     title: string
     message: string
     type: $Enums.NotificationType
@@ -1005,6 +2701,26 @@ export type $NotificationPayload<ExtArgs extends runtime.Types.Extensions.Intern
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
+    kind: $Enums.NotificationKind | null
+    categoryId: string | null
+    channels: $Enums.NotificationChannel[]
+    fallbackUrl: string | null
+    actions: runtime.JsonValue | null
+    state: $Enums.NotificationState | null
+    resolvedAction: string | null
+    resolvedById: string | null
+    resolvedAt: Date | null
+    resolvedPayload: runtime.JsonValue | null
+    callbackUrl: string | null
+    callbackStatus: $Enums.NotificationCallbackStatus | null
+    callbackError: string | null
+    expiresAt: Date | null
+    groupKey: string | null
+    digestBatchId: string | null
+    idempotencyKey: string | null
+    progress: number | null
+    progressTotal: number | null
+    templateCode: string | null
   }, ExtArgs["result"]["notification"]>
   composites: {}
 }
@@ -1400,6 +3116,9 @@ readonly fields: NotificationFieldRefs;
 export interface Prisma__NotificationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  tenant<T extends Prisma.Notification$tenantArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Notification$tenantArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  category<T extends Prisma.Notification$categoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Notification$categoryArgs<ExtArgs>>): Prisma.Prisma__NotificationCategoryClient<runtime.Types.Result.GetResult<Prisma.$NotificationCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  deliveryAttempts<T extends Prisma.Notification$deliveryAttemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Notification$deliveryAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationDeliveryAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1431,6 +3150,7 @@ export interface Prisma__NotificationClient<T, Null = never, ExtArgs extends run
 export interface NotificationFieldRefs {
   readonly id: Prisma.FieldRef<"Notification", 'String'>
   readonly userId: Prisma.FieldRef<"Notification", 'String'>
+  readonly tenantId: Prisma.FieldRef<"Notification", 'String'>
   readonly title: Prisma.FieldRef<"Notification", 'String'>
   readonly message: Prisma.FieldRef<"Notification", 'String'>
   readonly type: Prisma.FieldRef<"Notification", 'NotificationType'>
@@ -1449,6 +3169,26 @@ export interface NotificationFieldRefs {
   readonly createdAt: Prisma.FieldRef<"Notification", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Notification", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Notification", 'DateTime'>
+  readonly kind: Prisma.FieldRef<"Notification", 'NotificationKind'>
+  readonly categoryId: Prisma.FieldRef<"Notification", 'String'>
+  readonly channels: Prisma.FieldRef<"Notification", 'NotificationChannel[]'>
+  readonly fallbackUrl: Prisma.FieldRef<"Notification", 'String'>
+  readonly actions: Prisma.FieldRef<"Notification", 'Json'>
+  readonly state: Prisma.FieldRef<"Notification", 'NotificationState'>
+  readonly resolvedAction: Prisma.FieldRef<"Notification", 'String'>
+  readonly resolvedById: Prisma.FieldRef<"Notification", 'String'>
+  readonly resolvedAt: Prisma.FieldRef<"Notification", 'DateTime'>
+  readonly resolvedPayload: Prisma.FieldRef<"Notification", 'Json'>
+  readonly callbackUrl: Prisma.FieldRef<"Notification", 'String'>
+  readonly callbackStatus: Prisma.FieldRef<"Notification", 'NotificationCallbackStatus'>
+  readonly callbackError: Prisma.FieldRef<"Notification", 'String'>
+  readonly expiresAt: Prisma.FieldRef<"Notification", 'DateTime'>
+  readonly groupKey: Prisma.FieldRef<"Notification", 'String'>
+  readonly digestBatchId: Prisma.FieldRef<"Notification", 'String'>
+  readonly idempotencyKey: Prisma.FieldRef<"Notification", 'String'>
+  readonly progress: Prisma.FieldRef<"Notification", 'Int'>
+  readonly progressTotal: Prisma.FieldRef<"Notification", 'Int'>
+  readonly templateCode: Prisma.FieldRef<"Notification", 'String'>
 }
     
 
@@ -1847,6 +3587,68 @@ export type NotificationDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many Notifications to delete.
    */
   limit?: number
+}
+
+/**
+ * Notification.tenant
+ */
+export type Notification$tenantArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Tenant
+   */
+  select?: Prisma.TenantSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Tenant
+   */
+  omit?: Prisma.TenantOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantInclude<ExtArgs> | null
+  where?: Prisma.TenantWhereInput
+}
+
+/**
+ * Notification.category
+ */
+export type Notification$categoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the NotificationCategory
+   */
+  select?: Prisma.NotificationCategorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the NotificationCategory
+   */
+  omit?: Prisma.NotificationCategoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NotificationCategoryInclude<ExtArgs> | null
+  where?: Prisma.NotificationCategoryWhereInput
+}
+
+/**
+ * Notification.deliveryAttempts
+ */
+export type Notification$deliveryAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the NotificationDeliveryAttempt
+   */
+  select?: Prisma.NotificationDeliveryAttemptSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the NotificationDeliveryAttempt
+   */
+  omit?: Prisma.NotificationDeliveryAttemptOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NotificationDeliveryAttemptInclude<ExtArgs> | null
+  where?: Prisma.NotificationDeliveryAttemptWhereInput
+  orderBy?: Prisma.NotificationDeliveryAttemptOrderByWithRelationInput | Prisma.NotificationDeliveryAttemptOrderByWithRelationInput[]
+  cursor?: Prisma.NotificationDeliveryAttemptWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NotificationDeliveryAttemptScalarFieldEnum | Prisma.NotificationDeliveryAttemptScalarFieldEnum[]
 }
 
 /**

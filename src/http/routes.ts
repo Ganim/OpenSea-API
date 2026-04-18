@@ -99,6 +99,9 @@ import { analyticsRankingsRoutes } from './controllers/sales/analytics/rankings/
 import { analyticsReportsRoutes } from './controllers/sales/analytics/reports/routes';
 // Notifications (Workflow)
 import { notificationsRoutes } from './controllers/notifications/routes';
+import { notificationsV2Routes } from '@/modules/notifications/http/routes';
+import { notificationsUnsubscribeRoutes } from '@/modules/notifications/http/unsubscribe.routes';
+import { notificationsAdminHealthRoutes } from '@/modules/notifications/http/admin-health.routes';
 
 // Requests (Workflow)
 import { requestsRoutes } from './controllers/requests/routes';
@@ -437,6 +440,9 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(leadScoringRoutes);
   await app.register(leadRoutingRoutes);
   await app.register(notificationsRoutes);
+  await app.register(notificationsV2Routes);
+  await app.register(notificationsUnsubscribeRoutes);
+  await app.register(notificationsAdminHealthRoutes);
 
   // Sales - Analytics routes
   await app.register(analyticsGoalsRoutes);

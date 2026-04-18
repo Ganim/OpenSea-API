@@ -387,6 +387,46 @@ export type NotificationTemplate = Prisma.NotificationTemplateModel
  */
 export type Notification = Prisma.NotificationModel
 /**
+ * Model NotificationCategory
+ * 
+ */
+export type NotificationCategory = Prisma.NotificationCategoryModel
+/**
+ * Model NotificationModuleRegistry
+ * 
+ */
+export type NotificationModuleRegistry = Prisma.NotificationModuleRegistryModel
+/**
+ * Model NotificationPreferenceV2
+ * 
+ */
+export type NotificationPreferenceV2 = Prisma.NotificationPreferenceV2Model
+/**
+ * Model NotificationModuleSetting
+ * 
+ */
+export type NotificationModuleSetting = Prisma.NotificationModuleSettingModel
+/**
+ * Model UserNotificationSettings
+ * 
+ */
+export type UserNotificationSettings = Prisma.UserNotificationSettingsModel
+/**
+ * Model NotificationDeliveryAttempt
+ * 
+ */
+export type NotificationDeliveryAttempt = Prisma.NotificationDeliveryAttemptModel
+/**
+ * Model PushSubscription
+ * 
+ */
+export type PushSubscription = Prisma.PushSubscriptionModel
+/**
+ * Model NotificationCallbackJob
+ * 
+ */
+export type NotificationCallbackJob = Prisma.NotificationCallbackJobModel
+/**
  * Model Request
  * 
  */

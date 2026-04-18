@@ -120,6 +120,14 @@ export const ModelName = {
   NotificationPreference: 'NotificationPreference',
   NotificationTemplate: 'NotificationTemplate',
   Notification: 'Notification',
+  NotificationCategory: 'NotificationCategory',
+  NotificationModuleRegistry: 'NotificationModuleRegistry',
+  NotificationPreferenceV2: 'NotificationPreferenceV2',
+  NotificationModuleSetting: 'NotificationModuleSetting',
+  UserNotificationSettings: 'UserNotificationSettings',
+  NotificationDeliveryAttempt: 'NotificationDeliveryAttempt',
+  PushSubscription: 'PushSubscription',
+  NotificationCallbackJob: 'NotificationCallbackJob',
   Request: 'Request',
   RequestAttachment: 'RequestAttachment',
   RequestComment: 'RequestComment',
@@ -1804,6 +1812,7 @@ export type NotificationTemplateScalarFieldEnum = (typeof NotificationTemplateSc
 export const NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  tenantId: 'tenantId',
   title: 'title',
   message: 'message',
   type: 'type',
@@ -1821,10 +1830,167 @@ export const NotificationScalarFieldEnum = {
   sentAt: 'sentAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  kind: 'kind',
+  categoryId: 'categoryId',
+  channels: 'channels',
+  fallbackUrl: 'fallbackUrl',
+  actions: 'actions',
+  state: 'state',
+  resolvedAction: 'resolvedAction',
+  resolvedById: 'resolvedById',
+  resolvedAt: 'resolvedAt',
+  resolvedPayload: 'resolvedPayload',
+  callbackUrl: 'callbackUrl',
+  callbackStatus: 'callbackStatus',
+  callbackError: 'callbackError',
+  expiresAt: 'expiresAt',
+  groupKey: 'groupKey',
+  digestBatchId: 'digestBatchId',
+  idempotencyKey: 'idempotencyKey',
+  progress: 'progress',
+  progressTotal: 'progressTotal',
+  templateCode: 'templateCode'
 } as const
 
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const NotificationCategoryScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  module: 'module',
+  name: 'name',
+  description: 'description',
+  icon: 'icon',
+  defaultKind: 'defaultKind',
+  defaultPriority: 'defaultPriority',
+  defaultChannels: 'defaultChannels',
+  digestSupported: 'digestSupported',
+  mandatory: 'mandatory',
+  isActive: 'isActive',
+  order: 'order',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NotificationCategoryScalarFieldEnum = (typeof NotificationCategoryScalarFieldEnum)[keyof typeof NotificationCategoryScalarFieldEnum]
+
+
+export const NotificationModuleRegistryScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  displayName: 'displayName',
+  icon: 'icon',
+  order: 'order',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NotificationModuleRegistryScalarFieldEnum = (typeof NotificationModuleRegistryScalarFieldEnum)[keyof typeof NotificationModuleRegistryScalarFieldEnum]
+
+
+export const NotificationPreferenceV2ScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  categoryId: 'categoryId',
+  channel: 'channel',
+  isEnabled: 'isEnabled',
+  frequency: 'frequency',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NotificationPreferenceV2ScalarFieldEnum = (typeof NotificationPreferenceV2ScalarFieldEnum)[keyof typeof NotificationPreferenceV2ScalarFieldEnum]
+
+
+export const NotificationModuleSettingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  module: 'module',
+  isEnabled: 'isEnabled',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NotificationModuleSettingScalarFieldEnum = (typeof NotificationModuleSettingScalarFieldEnum)[keyof typeof NotificationModuleSettingScalarFieldEnum]
+
+
+export const UserNotificationSettingsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  doNotDisturb: 'doNotDisturb',
+  dndStart: 'dndStart',
+  dndEnd: 'dndEnd',
+  timezone: 'timezone',
+  digestSchedule: 'digestSchedule',
+  soundEnabled: 'soundEnabled',
+  masterInApp: 'masterInApp',
+  masterEmail: 'masterEmail',
+  masterPush: 'masterPush',
+  masterSms: 'masterSms',
+  masterWhatsapp: 'masterWhatsapp',
+  allowBannerAds: 'allowBannerAds',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserNotificationSettingsScalarFieldEnum = (typeof UserNotificationSettingsScalarFieldEnum)[keyof typeof UserNotificationSettingsScalarFieldEnum]
+
+
+export const NotificationDeliveryAttemptScalarFieldEnum = {
+  id: 'id',
+  notificationId: 'notificationId',
+  channel: 'channel',
+  status: 'status',
+  attemptNumber: 'attemptNumber',
+  providerId: 'providerId',
+  providerName: 'providerName',
+  error: 'error',
+  latencyMs: 'latencyMs',
+  createdAt: 'createdAt'
+} as const
+
+export type NotificationDeliveryAttemptScalarFieldEnum = (typeof NotificationDeliveryAttemptScalarFieldEnum)[keyof typeof NotificationDeliveryAttemptScalarFieldEnum]
+
+
+export const PushSubscriptionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  endpoint: 'endpoint',
+  p256dhKey: 'p256dhKey',
+  authKey: 'authKey',
+  userAgent: 'userAgent',
+  deviceName: 'deviceName',
+  lastSeenAt: 'lastSeenAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  revokedAt: 'revokedAt'
+} as const
+
+export type PushSubscriptionScalarFieldEnum = (typeof PushSubscriptionScalarFieldEnum)[keyof typeof PushSubscriptionScalarFieldEnum]
+
+
+export const NotificationCallbackJobScalarFieldEnum = {
+  id: 'id',
+  notificationId: 'notificationId',
+  callbackUrl: 'callbackUrl',
+  payload: 'payload',
+  status: 'status',
+  attempts: 'attempts',
+  lastError: 'lastError',
+  nextAttemptAt: 'nextAttemptAt',
+  deliveredAt: 'deliveredAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NotificationCallbackJobScalarFieldEnum = (typeof NotificationCallbackJobScalarFieldEnum)[keyof typeof NotificationCallbackJobScalarFieldEnum]
 
 
 export const RequestScalarFieldEnum = {

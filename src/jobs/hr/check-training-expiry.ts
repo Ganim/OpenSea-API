@@ -84,22 +84,23 @@ export async function checkTrainingExpiry(options?: {
       enrollment.tenantId.toString(),
     );
 
-    for (const userId of targetUsers) {
-      await createNotificationUseCase.execute({
-        userId,
+    if (targetUsers.length > 0) {
+      const { notificationClient, NotificationType, NotificationPriority } =
+        await import('@/modules/notifications/public');
+      await notificationClient.dispatch({
+        type: NotificationType.LINK,
+        category: 'hr.training_expiring',
+        tenantId: enrollment.tenantId.toString(),
+        recipients: { userIds: targetUsers },
+        priority: NotificationPriority.HIGH,
         title: 'Treinamento próximo do vencimento',
-        message: `A certificação de "${program.name}" vence em ${enrollment.expirationDate!.toLocaleDateString(
-          'pt-BR',
-        )}.`,
-        type: 'WARNING',
-        priority: 'HIGH',
-        channel: 'IN_APP',
-        entityType: 'TRAINING_ENROLLMENT',
-        entityId: enrollment.id.toString(),
+        body: `A certificação de "${program.name}" vence em ${enrollment.expirationDate!.toLocaleDateString('pt-BR')}.`,
         actionUrl: `/hr/trainings/${enrollment.id.toString()}`,
         actionText: 'Planejar re-inscrição',
+        entity: { type: 'training_enrollment', id: enrollment.id.toString() },
+        idempotencyKey: `hr.training_expiring:${enrollment.id.toString()}:${enrollment.expirationDate?.toISOString().slice(0, 10)}`,
       });
-      upcomingNotified++;
+      upcomingNotified += targetUsers.length;
     }
   }
 
@@ -116,22 +117,23 @@ export async function checkTrainingExpiry(options?: {
       enrollment.tenantId.toString(),
     );
 
-    for (const userId of targetUsers) {
-      await createNotificationUseCase.execute({
-        userId,
+    if (targetUsers.length > 0) {
+      const { notificationClient, NotificationType, NotificationPriority } =
+        await import('@/modules/notifications/public');
+      await notificationClient.dispatch({
+        type: NotificationType.LINK,
+        category: 'hr.training_expired',
+        tenantId: enrollment.tenantId.toString(),
+        recipients: { userIds: targetUsers },
+        priority: NotificationPriority.URGENT,
         title: 'Re-inscrição necessária',
-        message: `A certificação de "${program.name}" expirou em ${enrollment.expirationDate!.toLocaleDateString(
-          'pt-BR',
-        )}. É necessário realizar uma nova inscrição no treinamento.`,
-        type: 'ERROR',
-        priority: 'HIGH',
-        channel: 'IN_APP',
-        entityType: 'TRAINING_ENROLLMENT',
-        entityId: enrollment.id.toString(),
+        body: `A certificação de "${program.name}" expirou em ${enrollment.expirationDate!.toLocaleDateString('pt-BR')}. É necessário realizar uma nova inscrição.`,
         actionUrl: `/hr/trainings/${enrollment.id.toString()}`,
         actionText: 'Ver detalhes',
+        entity: { type: 'training_enrollment', id: enrollment.id.toString() },
+        idempotencyKey: `hr.training_expired:${enrollment.id.toString()}:${enrollment.expirationDate?.toISOString().slice(0, 10)}`,
       });
-      expiredNotified++;
+      expiredNotified += targetUsers.length;
     }
   }
 

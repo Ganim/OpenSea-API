@@ -153,27 +153,42 @@ export class CreateAnnouncementUseCase {
       announcement,
     });
 
-    let notificationsCreated = 0;
+    // Dispatch via the v2 notifications module — a single call fans out
+    // to all recipients, applies preferences, persists delivery attempts
+    // and emits real-time Socket.IO events. Legacy dedup is replaced by
+    // the v2 idempotency key.
+    const { notificationClient, NotificationType, NotificationPriority } =
+      await import('@/modules/notifications/public');
 
-    for (const employee of employees) {
-      if (!employee.userId) continue;
+    const userIds = employees
+      .map((e) => e.userId?.toString())
+      .filter((id): id is string => Boolean(id));
 
-      await this.createNotificationUseCase.execute({
-        userId: employee.userId.toString(),
-        title: `Novo comunicado: ${announcement.title}`,
-        message: announcement.content.slice(0, 240),
-        type: priorityToNotificationType(announcement.priority),
-        priority: priorityToNotificationPriority(announcement.priority),
-        channel: 'IN_APP',
-        entityType: 'COMPANY_ANNOUNCEMENT',
-        entityId: announcement.id.toString(),
-        actionUrl: `/hr/announcements/${announcement.id.toString()}`,
-        actionText: 'Ver comunicado',
-      });
-      notificationsCreated++;
-    }
+    if (userIds.length === 0) return 0;
 
-    return notificationsCreated;
+    await notificationClient.dispatch({
+      type: NotificationType.LINK,
+      category: 'hr.announcement',
+      tenantId,
+      recipients: { userIds },
+      priority:
+        announcement.priority === 'URGENT'
+          ? NotificationPriority.URGENT
+          : announcement.priority === 'IMPORTANT'
+            ? NotificationPriority.HIGH
+            : NotificationPriority.NORMAL,
+      title: `Novo comunicado: ${announcement.title}`,
+      body: announcement.content.slice(0, 240),
+      actionUrl: `/hr/announcements/${announcement.id.toString()}`,
+      actionText: 'Ver comunicado',
+      entity: {
+        type: 'company_announcement',
+        id: announcement.id.toString(),
+      },
+      idempotencyKey: `hr.announcement:${announcement.id.toString()}`,
+    });
+
+    return userIds.length;
   }
 }
 
