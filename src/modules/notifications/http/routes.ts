@@ -42,6 +42,108 @@ export async function notificationsV2Routes(
   const api = app.withTypeProvider<ZodTypeProvider>();
 
   // ============================================================
+  // GET /v1/notifications/me — v2 list endpoint returning the full
+  // notification record (kind, state, actions, ...) so the frontend can
+  // render APPROVAL/FORM/ACTIONABLE properly.
+  // ============================================================
+  api.route({
+    method: 'GET',
+    url: '/v1/notifications/me',
+    preHandler: [verifyJwt],
+    schema: {
+      tags: ['Notifications v2'],
+      querystring: z.object({
+        isRead: z.coerce.boolean().optional(),
+        kind: z
+          .enum([
+            'INFORMATIONAL',
+            'LINK',
+            'ACTIONABLE',
+            'APPROVAL',
+            'FORM',
+            'PROGRESS',
+            'SYSTEM_BANNER',
+          ])
+          .optional(),
+        state: z
+          .enum(['PENDING', 'RESOLVED', 'EXPIRED', 'DECLINED', 'CANCELLED'])
+          .optional(),
+        limit: z.coerce.number().int().min(1).max(100).default(50),
+        cursor: z.string().uuid().optional(),
+      }),
+    },
+    handler: async (request, reply) => {
+      const { tenantId, userId } = getTenant(request);
+      const q = request.query as {
+        isRead?: boolean;
+        kind?: string;
+        state?: string;
+        limit: number;
+        cursor?: string;
+      };
+
+      const where: Record<string, unknown> = {
+        userId,
+        tenantId,
+        deletedAt: null,
+      };
+      if (typeof q.isRead === 'boolean') where.isRead = q.isRead;
+      if (q.kind) where.kind = q.kind;
+      if (q.state) where.state = q.state;
+
+      const rows = await prisma.notification.findMany({
+        where: where as never,
+        orderBy: { createdAt: 'desc' },
+        take: q.limit + 1,
+        ...(q.cursor ? { cursor: { id: q.cursor }, skip: 1 } : {}),
+      });
+
+      const hasNext = rows.length > q.limit;
+      const items = hasNext ? rows.slice(0, q.limit) : rows;
+
+      const [totalUnread, total] = await Promise.all([
+        prisma.notification.count({
+          where: { userId, tenantId, deletedAt: null, isRead: false },
+        }),
+        prisma.notification.count({
+          where: { userId, tenantId, deletedAt: null },
+        }),
+      ]);
+
+      return reply.send({
+        notifications: items.map((n) => ({
+          id: n.id,
+          title: n.title,
+          message: n.message,
+          kind: n.kind,
+          priority: n.priority,
+          channel: n.channel,
+          channels: n.channels,
+          state: n.state,
+          actions: n.actions,
+          actionUrl: n.actionUrl,
+          fallbackUrl: n.fallbackUrl,
+          actionText: n.actionText,
+          resolvedAction: n.resolvedAction,
+          resolvedAt: n.resolvedAt?.toISOString() ?? null,
+          entityType: n.entityType,
+          entityId: n.entityId,
+          metadata: n.metadata,
+          isRead: n.isRead,
+          readAt: n.readAt?.toISOString() ?? null,
+          progress: n.progress,
+          progressTotal: n.progressTotal,
+          expiresAt: n.expiresAt?.toISOString() ?? null,
+          createdAt: n.createdAt.toISOString(),
+        })),
+        nextCursor: hasNext ? items[items.length - 1].id : null,
+        total,
+        totalUnread,
+      });
+    },
+  });
+
+  // ============================================================
   // POST /v1/notifications/:id/resolve — resolve actionable/approval/form
   // ============================================================
   api.route({
