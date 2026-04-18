@@ -19,6 +19,9 @@ import {
 import { marketplaceOrderImportConsumer } from './consumers/marketplace-consumer';
 import { dealWonOrderCreationConsumer } from './consumers/deal-won-consumer';
 import { messagingNotificationConsumer } from './consumers/messaging-notification-consumer';
+import { punchEsocialConsumer } from './consumers/punch-esocial-consumer';
+import { punchPayrollConsumer } from './consumers/punch-payroll-consumer';
+import { punchTimebankConsumer } from './consumers/punch-timebank-consumer';
 import type { TypedEventBus } from './typed-event-bus';
 
 export function registerEventConsumers(eventBus: TypedEventBus): void {
@@ -45,4 +48,10 @@ export function registerEventConsumers(eventBus: TypedEventBus): void {
 
   // Messaging module — send WhatsApp/Telegram notifications for order events
   eventBus.register(messagingNotificationConsumer);
+
+  // Punch module (Phase 4) — stub consumers for payroll/timebank/esocial.
+  // Real work is implemented in phase 6/7 (payroll), 7 (timebank), 6 (esocial).
+  eventBus.register(punchPayrollConsumer);
+  eventBus.register(punchTimebankConsumer);
+  eventBus.register(punchEsocialConsumer);
 }
