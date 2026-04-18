@@ -24,6 +24,18 @@ export interface ClockInResponse {
   nsrNumber?: number;
 }
 
+/**
+ * @deprecated Use `ExecutePunchUseCase` via `POST /v1/hr/punch/clock`
+ * (Plan 04-04). This legacy use case is preserved only for backward
+ * compatibility with clients still calling `POST /v1/hr/time-control/clock-in`.
+ *
+ * Scheduled for removal in phase 6 or 7 when all kiosk/PWA clients
+ * migrate to the unified endpoint.
+ *
+ * Do NOT add new features here — extend `ExecutePunchUseCase` and the
+ * `PunchValidationPipeline` instead (AD-03: legacy path stays frozen
+ * to avoid behavior drift vs the canonical path).
+ */
 export class ClockInUseCase {
   constructor(
     private timeEntriesRepository: TimeEntriesRepository,

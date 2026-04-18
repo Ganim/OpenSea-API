@@ -13,6 +13,16 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
+/**
+ * @deprecated Use the unified endpoint `POST /v1/hr/punch/clock`
+ * (Plan 04-04). Legacy route is preserved until phase 6/7 removes it
+ * together with `ClockOutUseCase`.
+ *
+ * New clients MUST NOT bind to this route — it will return 404 once
+ * removed. Audit-wise, punches recorded through this route share the
+ * same NSR sequence as the unified endpoint, so no data migration is
+ * required at cutover.
+ */
 export async function v1ClockOutController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
