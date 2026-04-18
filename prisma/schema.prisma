@@ -4419,6 +4419,10 @@ model Employee {
   // HR Contracts (generated employment contracts)
   generatedContracts GeneratedEmploymentContract[]
 
+  // Punch v2.0
+  punchDeviceAllowlist PunchDeviceEmployee[]
+  punchApprovals       PunchApproval[]
+
   @@unique([registrationNumber, tenantId, deletedAt], name: "employees_registration_tenant_unique_active")
   @@unique([cpfHash, tenantId, deletedAt], name: "employees_cpf_tenant_unique_active")
   @@unique([pisHash, tenantId, deletedAt], name: "employees_pis_tenant_unique_active")
@@ -4471,6 +4475,9 @@ model Department {
   employees        Employee[]        @relation("DepartmentEmployees")
   jobPostings      JobPosting[]
   admissionInvites AdmissionInvite[]
+
+  // Punch v2.0
+  punchDeviceAllowlist PunchDeviceDepartment[]
 
   @@unique([code, companyId, tenantId, deletedAt], name: "departments_code_company_tenant_unique_active")
   @@index([tenantId])
@@ -4559,14 +4566,19 @@ model TimeEntry {
   deviceFingerprint String? @map("device_fingerprint")
   photoUrl          String? @map("photo_url")
 
+  // Idempotency (v2.0 punch — D-11)
+  requestId String? @map("request_id") @db.VarChar(64)
+
   // Audit
   createdAt DateTime @default(now()) @map("created_at")
 
   // Relations
-  tenant   Tenant   @relation(fields: [tenantId], references: [id])
-  employee Employee @relation(fields: [employeeId], references: [id])
+  tenant        Tenant         @relation(fields: [tenantId], references: [id])
+  employee      Employee       @relation(fields: [employeeId], references: [id])
+  punchApproval PunchApproval?
 
   @@unique([tenantId, nsrNumber], name: "time_entries_tenant_nsr_unique")
+  @@unique([tenantId, employeeId, requestId], name: "time_entries_idempotency_unique")
   @@index([tenantId])
   @@index([employeeId])
   @@index([timestamp])
@@ -6590,6 +6602,8 @@ model Tenant {
   // Punch Configuration domain
   punchConfiguration PunchConfiguration?
   geofenceZones      GeofenceZone[]
+  punchDevices       PunchDevice[]
+  punchApprovals     PunchApproval[]
 
   // HR Tenant Configuration
   hrTenantConfig HrTenantConfig?
@@ -13704,7 +13718,8 @@ model GeofenceZone {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
-  tenant Tenant @relation(fields: [tenantId], references: [id])
+  tenant       Tenant        @relation(fields: [tenantId], references: [id])
+  punchDevices PunchDevice[]
 
   @@index([tenantId])
   @@index([tenantId, isActive])
@@ -15890,6 +15905,30 @@ enum PrinterStatus {
   UNKNOWN
 }
 
+// ===============================================
+// PUNCH (Ponto) — v2.0 devices + approvals
+// AD-04: Reuse AgentStatus for PunchDevice.status; do NOT create PunchDeviceStatus.
+// ===============================================
+
+enum PunchDeviceKind {
+  PWA_PERSONAL
+  KIOSK_PUBLIC
+  BIOMETRIC_READER
+  WEBAUTHN_PC
+}
+
+enum PunchApprovalReason {
+  OUT_OF_GEOFENCE
+  // Extensible: FACE_MATCH_LOW (phase 5), FACE_MATCH_FAIL_3X (phase 9),
+  // CLOCK_DRIFT (phase 9), MANUAL_CORRECTION (phase 6)
+}
+
+enum PunchApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 model Invoice {
   id       String @id @default(cuid())
   tenantId String @map("tenant_id")
@@ -15951,6 +15990,101 @@ model PrintAgent {
   @@index([tenantId])
   @@index([deviceTokenHash])
   @@map("print_agents")
+}
+
+// ===============================================
+// PUNCH DEVICES (Ponto) — v2.0
+// Mirrors PrintAgent shape (D-01). Reuses AgentStatus enum (AD-04).
+// ===============================================
+
+model PunchDevice {
+  id              String          @id @default(uuid())
+  tenantId        String          @map("tenant_id")
+  name            String          @db.VarChar(128)
+  deviceKind      PunchDeviceKind @map("device_kind")
+  pairingSecret   String          @map("pairing_secret") @db.VarChar(64)
+  deviceTokenHash String?         @unique @map("device_token_hash") @db.VarChar(128)
+  deviceLabel     String?         @map("device_label") @db.VarChar(128)
+  geofenceZoneId  String?         @map("geofence_zone_id")
+
+  pairedAt        DateTime? @map("paired_at")
+  pairedByUserId  String?   @map("paired_by_user_id")
+  revokedAt       DateTime? @map("revoked_at")
+  revokedByUserId String?   @map("revoked_by_user_id")
+  revokedReason   String?   @map("revoked_reason") @db.Text
+
+  status     AgentStatus @default(OFFLINE)
+  lastSeenAt DateTime?   @map("last_seen_at")
+  ipAddress  String?     @map("ip_address") @db.VarChar(45)
+  hostname   String?     @db.VarChar(128)
+  osInfo     Json?       @map("os_info")
+  version    String?     @db.VarChar(20)
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  tenant             Tenant                  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  geofenceZone       GeofenceZone?           @relation(fields: [geofenceZoneId], references: [id])
+  allowedEmployees   PunchDeviceEmployee[]
+  allowedDepartments PunchDeviceDepartment[]
+
+  @@index([tenantId])
+  @@index([deviceTokenHash])
+  @@index([tenantId, revokedAt])
+  @@map("punch_devices")
+}
+
+model PunchDeviceEmployee {
+  deviceId   String @map("device_id")
+  employeeId String @map("employee_id")
+
+  device   PunchDevice @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  employee Employee    @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@id([deviceId, employeeId])
+  @@index([employeeId])
+  @@map("punch_device_employees")
+}
+
+model PunchDeviceDepartment {
+  deviceId     String @map("device_id")
+  departmentId String @map("department_id")
+
+  device     PunchDevice @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  department Department  @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@id([deviceId, departmentId])
+  @@index([departmentId])
+  @@map("punch_device_departments")
+}
+
+model PunchApproval {
+  id             String              @id @default(uuid())
+  tenantId       String              @map("tenant_id")
+  timeEntryId    String              @unique @map("time_entry_id")
+  employeeId     String              @map("employee_id")
+  reason         PunchApprovalReason
+  details        Json?
+  status         PunchApprovalStatus @default(PENDING)
+  resolverUserId String?             @map("resolver_user_id")
+  resolvedAt     DateTime?           @map("resolved_at")
+  resolverNote   String?             @map("resolver_note") @db.Text
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant    Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  timeEntry TimeEntry @relation(fields: [timeEntryId], references: [id], onDelete: Cascade)
+  employee  Employee  @relation(fields: [employeeId], references: [id])
+
+  @@index([tenantId, status])
+  @@index([employeeId])
+  @@map("punch_approvals")
 }
 
 model PosPrinter {
