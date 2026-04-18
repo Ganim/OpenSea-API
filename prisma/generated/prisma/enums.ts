@@ -1037,7 +1037,10 @@ export const NotificationKind = {
   APPROVAL: 'APPROVAL',
   FORM: 'FORM',
   PROGRESS: 'PROGRESS',
-  SYSTEM_BANNER: 'SYSTEM_BANNER'
+  SYSTEM_BANNER: 'SYSTEM_BANNER',
+  IMAGE_BANNER: 'IMAGE_BANNER',
+  REPORT: 'REPORT',
+  EMAIL_PREVIEW: 'EMAIL_PREVIEW'
 } as const
 
 export type NotificationKind = (typeof NotificationKind)[keyof typeof NotificationKind]

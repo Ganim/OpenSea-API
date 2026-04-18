@@ -52,6 +52,9 @@ const KIND_MAP: Record<NotificationType, string> = {
   [NotificationType.FORM]: 'FORM',
   [NotificationType.PROGRESS]: 'PROGRESS',
   [NotificationType.SYSTEM_BANNER]: 'SYSTEM_BANNER',
+  [NotificationType.IMAGE_BANNER]: 'IMAGE_BANNER',
+  [NotificationType.REPORT]: 'REPORT',
+  [NotificationType.EMAIL_PREVIEW]: 'EMAIL_PREVIEW',
 };
 
 const TYPE_MAP = {
@@ -62,7 +65,45 @@ const TYPE_MAP = {
   FORM: 'REMINDER',
   PROGRESS: 'INFO',
   SYSTEM_BANNER: 'WARNING',
+  IMAGE_BANNER: 'INFO',
+  REPORT: 'INFO',
+  EMAIL_PREVIEW: 'INFO',
 } as const;
+
+/**
+ * Per-type metadata extractor — used so IMAGE_BANNER/REPORT/EMAIL_PREVIEW
+ * can persist their extra fields (imageUrl, reportUrl, emailFrom, ...)
+ * inside the generic `metadata` JSON column without adding new columns.
+ */
+function extractMetadataExtras(
+  input: DispatchNotificationInput,
+): Record<string, unknown> | undefined {
+  switch (input.type) {
+    case NotificationType.IMAGE_BANNER:
+      return {
+        imageUrl: input.imageUrl,
+        imageAlt: input.imageAlt,
+      };
+    case NotificationType.REPORT:
+      return {
+        reportUrl: input.reportUrl,
+        reportFormat: input.reportFormat,
+        reportName: input.reportName,
+        reportSize: input.reportSize,
+        reportPeriod: input.reportPeriod,
+      };
+    case NotificationType.EMAIL_PREVIEW:
+      return {
+        emailFrom: input.emailFrom,
+        emailFromName: input.emailFromName,
+        emailSubject: input.emailSubject,
+        emailPreview: input.emailPreview,
+        openInAppUrl: input.openInAppUrl,
+      };
+    default:
+      return undefined;
+  }
+}
 
 export class NotificationDispatcher {
   private readonly notificationRepo: NotificationPrismaRepository;
@@ -275,7 +316,14 @@ export class NotificationDispatcher {
         categoryId: category.id,
         channels: allowedChannels.map((c) => c) as unknown as never,
         state: requiresResolution(input.type) ? 'PENDING' : null,
-        actionUrl: 'actionUrl' in input ? (input.actionUrl ?? null) : null,
+        actionUrl:
+          input.type === NotificationType.REPORT
+            ? input.reportUrl
+            : input.type === NotificationType.EMAIL_PREVIEW
+              ? (input.openInAppUrl ?? null)
+              : 'actionUrl' in input
+                ? (input.actionUrl ?? null)
+                : null,
         fallbackUrl:
           'fallbackUrl' in input ? (input.fallbackUrl ?? null) : null,
         actionText: 'actionText' in input ? (input.actionText ?? null) : null,
@@ -289,7 +337,10 @@ export class NotificationDispatcher {
         groupKey: input.groupKey ?? null,
         entityType: input.entity?.type ?? null,
         entityId: input.entity?.id ?? null,
-        metadata: (input.metadata as unknown as never) ?? null,
+        metadata: {
+          ...(input.metadata ?? {}),
+          ...(extractMetadataExtras(input) ?? {}),
+        } as unknown as never,
         idempotencyKey: input.idempotencyKey,
         scheduledFor: input.scheduledFor ?? null,
         templateCode: input.templateCode ?? null,

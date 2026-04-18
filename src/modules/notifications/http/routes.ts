@@ -709,6 +709,9 @@ export async function notificationsV2Routes(
               'FORM',
               'PROGRESS',
               'SYSTEM_BANNER',
+              'IMAGE_BANNER',
+              'REPORT',
+              'EMAIL_PREVIEW',
             ])
             .optional(),
         })
@@ -732,6 +735,9 @@ export async function notificationsV2Routes(
             NotificationType.APPROVAL,
             NotificationType.FORM,
             NotificationType.PROGRESS,
+            NotificationType.IMAGE_BANNER,
+            NotificationType.REPORT,
+            NotificationType.EMAIL_PREVIEW,
           ];
 
       const dispatched: string[] = [];
@@ -807,8 +813,48 @@ export async function notificationsV2Routes(
             await notificationClient.dispatch({
               type: NotificationType.PROGRESS,
               ...base,
-              initialProgress: 0,
+              initialProgress: 40,
               totalSteps: 100,
+            });
+            break;
+          case NotificationType.IMAGE_BANNER:
+            await notificationClient.dispatch({
+              type: NotificationType.IMAGE_BANNER,
+              ...base,
+              title: 'Banner: campanha de fim de ano',
+              body: 'A Black Friday OpenSea começa em 24/11 — descontos em estoque e vendas.',
+              imageUrl:
+                'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=70',
+              imageAlt: 'Banner promocional',
+              actionUrl: '/admin',
+              actionText: 'Saiba mais',
+            });
+            break;
+          case NotificationType.REPORT:
+            await notificationClient.dispatch({
+              type: NotificationType.REPORT,
+              ...base,
+              title: 'Relatório mensal disponível',
+              body: 'Resumo de vendas de outubro pronto para download.',
+              reportUrl: '/reports/sales/2026-10.pdf',
+              reportFormat: 'pdf',
+              reportName: 'Vendas-Outubro-2026.pdf',
+              reportSize: 284_100,
+              reportPeriod: 'Out/2026',
+            });
+            break;
+          case NotificationType.EMAIL_PREVIEW:
+            await notificationClient.dispatch({
+              type: NotificationType.EMAIL_PREVIEW,
+              ...base,
+              title: 'Nova mensagem',
+              body: 'Preview de e-mail recebido.',
+              emailFrom: 'cliente@exemplo.com',
+              emailFromName: 'Maria Souza',
+              emailSubject: 'Pedido #12345 — dúvida sobre prazo',
+              emailPreview:
+                'Olá, poderia confirmar quando o pedido deve ser entregue? Obrigada.',
+              openInAppUrl: '/email',
             });
             break;
         }

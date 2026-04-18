@@ -1501,6 +1501,9 @@ enum NotificationKind {
   FORM
   PROGRESS
   SYSTEM_BANNER
+  IMAGE_BANNER
+  REPORT
+  EMAIL_PREVIEW
 }
 
 enum NotificationState {

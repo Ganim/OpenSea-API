@@ -78,6 +78,32 @@ export interface SystemBannerDispatchInput extends BaseDispatchInput {
   bannerStyle?: 'info' | 'warning' | 'error' | 'success';
 }
 
+export interface ImageBannerDispatchInput extends BaseDispatchInput {
+  type: NotificationType.IMAGE_BANNER;
+  imageUrl: string;
+  imageAlt?: string;
+  actionUrl?: string;
+  actionText?: string;
+}
+
+export interface ReportDispatchInput extends BaseDispatchInput {
+  type: NotificationType.REPORT;
+  reportUrl: string;
+  reportFormat?: 'pdf' | 'csv' | 'xlsx' | 'html';
+  reportName?: string;
+  reportSize?: number;
+  reportPeriod?: string;
+}
+
+export interface EmailPreviewDispatchInput extends BaseDispatchInput {
+  type: NotificationType.EMAIL_PREVIEW;
+  emailFrom: string;
+  emailFromName?: string;
+  emailSubject: string;
+  emailPreview?: string;
+  openInAppUrl?: string;
+}
+
 export type DispatchNotificationInput =
   | InformationalDispatchInput
   | LinkDispatchInput
@@ -85,7 +111,10 @@ export type DispatchNotificationInput =
   | ApprovalDispatchInput
   | FormDispatchInput
   | ProgressDispatchInput
-  | SystemBannerDispatchInput;
+  | SystemBannerDispatchInput
+  | ImageBannerDispatchInput
+  | ReportDispatchInput
+  | EmailPreviewDispatchInput;
 
 export interface DispatchResult {
   notificationIds: string[];
