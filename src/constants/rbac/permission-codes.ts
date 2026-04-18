@@ -1314,6 +1314,10 @@ export const DEFAULT_USER_PERMISSIONS: string[] = [
   PermissionCodes.SALES.CONVERSATIONS.REPLY,
   PermissionCodes.SALES.ANALYTICS.ACCESS,
   PermissionCodes.SALES.ANALYTICS.ONLYSELF,
+
+  // hr.punch-approvals — funcionário vê próprias aprovações pendentes
+  // (Plan 04-02 AD-05; o endpoint list filtra por employeeId do chamador)
+  PermissionCodes.HR.PUNCH_APPROVALS.ACCESS,
 ];
 
 // =============================================================================
