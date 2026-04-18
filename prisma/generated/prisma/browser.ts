@@ -1883,6 +1883,26 @@ export type Invoice = Prisma.InvoiceModel
  */
 export type PrintAgent = Prisma.PrintAgentModel
 /**
+ * Model PunchDevice
+ * 
+ */
+export type PunchDevice = Prisma.PunchDeviceModel
+/**
+ * Model PunchDeviceEmployee
+ * 
+ */
+export type PunchDeviceEmployee = Prisma.PunchDeviceEmployeeModel
+/**
+ * Model PunchDeviceDepartment
+ * 
+ */
+export type PunchDeviceDepartment = Prisma.PunchDeviceDepartmentModel
+/**
+ * Model PunchApproval
+ * 
+ */
+export type PunchApproval = Prisma.PunchApprovalModel
+/**
  * Model PosPrinter
  * 
  */

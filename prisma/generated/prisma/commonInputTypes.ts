@@ -5576,6 +5576,57 @@ export type EnumAgentStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumAgentStatusFilter<$PrismaModel>
 }
 
+export type EnumPunchDeviceKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.PunchDeviceKind | Prisma.EnumPunchDeviceKindFieldRefInput<$PrismaModel>
+  in?: $Enums.PunchDeviceKind[] | Prisma.ListEnumPunchDeviceKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PunchDeviceKind[] | Prisma.ListEnumPunchDeviceKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPunchDeviceKindFilter<$PrismaModel> | $Enums.PunchDeviceKind
+}
+
+export type EnumPunchDeviceKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PunchDeviceKind | Prisma.EnumPunchDeviceKindFieldRefInput<$PrismaModel>
+  in?: $Enums.PunchDeviceKind[] | Prisma.ListEnumPunchDeviceKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PunchDeviceKind[] | Prisma.ListEnumPunchDeviceKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPunchDeviceKindWithAggregatesFilter<$PrismaModel> | $Enums.PunchDeviceKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPunchDeviceKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPunchDeviceKindFilter<$PrismaModel>
+}
+
+export type EnumPunchApprovalReasonFilter<$PrismaModel = never> = {
+  equals?: $Enums.PunchApprovalReason | Prisma.EnumPunchApprovalReasonFieldRefInput<$PrismaModel>
+  in?: $Enums.PunchApprovalReason[] | Prisma.ListEnumPunchApprovalReasonFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PunchApprovalReason[] | Prisma.ListEnumPunchApprovalReasonFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPunchApprovalReasonFilter<$PrismaModel> | $Enums.PunchApprovalReason
+}
+
+export type EnumPunchApprovalStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.PunchApprovalStatus | Prisma.EnumPunchApprovalStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PunchApprovalStatus[] | Prisma.ListEnumPunchApprovalStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PunchApprovalStatus[] | Prisma.ListEnumPunchApprovalStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPunchApprovalStatusFilter<$PrismaModel> | $Enums.PunchApprovalStatus
+}
+
+export type EnumPunchApprovalReasonWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PunchApprovalReason | Prisma.EnumPunchApprovalReasonFieldRefInput<$PrismaModel>
+  in?: $Enums.PunchApprovalReason[] | Prisma.ListEnumPunchApprovalReasonFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PunchApprovalReason[] | Prisma.ListEnumPunchApprovalReasonFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPunchApprovalReasonWithAggregatesFilter<$PrismaModel> | $Enums.PunchApprovalReason
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPunchApprovalReasonFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPunchApprovalReasonFilter<$PrismaModel>
+}
+
+export type EnumPunchApprovalStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PunchApprovalStatus | Prisma.EnumPunchApprovalStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PunchApprovalStatus[] | Prisma.ListEnumPunchApprovalStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PunchApprovalStatus[] | Prisma.ListEnumPunchApprovalStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPunchApprovalStatusWithAggregatesFilter<$PrismaModel> | $Enums.PunchApprovalStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPunchApprovalStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPunchApprovalStatusFilter<$PrismaModel>
+}
+
 export type EnumPrinterTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.PrinterType | Prisma.EnumPrinterTypeFieldRefInput<$PrismaModel>
   in?: $Enums.PrinterType[] | Prisma.ListEnumPrinterTypeFieldRefInput<$PrismaModel>
@@ -11345,6 +11396,57 @@ export type NestedEnumAgentStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumAgentStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumAgentStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumPunchDeviceKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.PunchDeviceKind | Prisma.EnumPunchDeviceKindFieldRefInput<$PrismaModel>
+  in?: $Enums.PunchDeviceKind[] | Prisma.ListEnumPunchDeviceKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PunchDeviceKind[] | Prisma.ListEnumPunchDeviceKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPunchDeviceKindFilter<$PrismaModel> | $Enums.PunchDeviceKind
+}
+
+export type NestedEnumPunchDeviceKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PunchDeviceKind | Prisma.EnumPunchDeviceKindFieldRefInput<$PrismaModel>
+  in?: $Enums.PunchDeviceKind[] | Prisma.ListEnumPunchDeviceKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PunchDeviceKind[] | Prisma.ListEnumPunchDeviceKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPunchDeviceKindWithAggregatesFilter<$PrismaModel> | $Enums.PunchDeviceKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPunchDeviceKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPunchDeviceKindFilter<$PrismaModel>
+}
+
+export type NestedEnumPunchApprovalReasonFilter<$PrismaModel = never> = {
+  equals?: $Enums.PunchApprovalReason | Prisma.EnumPunchApprovalReasonFieldRefInput<$PrismaModel>
+  in?: $Enums.PunchApprovalReason[] | Prisma.ListEnumPunchApprovalReasonFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PunchApprovalReason[] | Prisma.ListEnumPunchApprovalReasonFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPunchApprovalReasonFilter<$PrismaModel> | $Enums.PunchApprovalReason
+}
+
+export type NestedEnumPunchApprovalStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.PunchApprovalStatus | Prisma.EnumPunchApprovalStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PunchApprovalStatus[] | Prisma.ListEnumPunchApprovalStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PunchApprovalStatus[] | Prisma.ListEnumPunchApprovalStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPunchApprovalStatusFilter<$PrismaModel> | $Enums.PunchApprovalStatus
+}
+
+export type NestedEnumPunchApprovalReasonWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PunchApprovalReason | Prisma.EnumPunchApprovalReasonFieldRefInput<$PrismaModel>
+  in?: $Enums.PunchApprovalReason[] | Prisma.ListEnumPunchApprovalReasonFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PunchApprovalReason[] | Prisma.ListEnumPunchApprovalReasonFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPunchApprovalReasonWithAggregatesFilter<$PrismaModel> | $Enums.PunchApprovalReason
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPunchApprovalReasonFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPunchApprovalReasonFilter<$PrismaModel>
+}
+
+export type NestedEnumPunchApprovalStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PunchApprovalStatus | Prisma.EnumPunchApprovalStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PunchApprovalStatus[] | Prisma.ListEnumPunchApprovalStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PunchApprovalStatus[] | Prisma.ListEnumPunchApprovalStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPunchApprovalStatusWithAggregatesFilter<$PrismaModel> | $Enums.PunchApprovalStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPunchApprovalStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPunchApprovalStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumPrinterTypeFilter<$PrismaModel = never> = {

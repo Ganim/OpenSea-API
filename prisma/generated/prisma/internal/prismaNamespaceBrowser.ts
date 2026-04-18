@@ -424,6 +424,10 @@ export const ModelName = {
   PaymentCharge: 'PaymentCharge',
   Invoice: 'Invoice',
   PrintAgent: 'PrintAgent',
+  PunchDevice: 'PunchDevice',
+  PunchDeviceEmployee: 'PunchDeviceEmployee',
+  PunchDeviceDepartment: 'PunchDeviceDepartment',
+  PunchApproval: 'PunchApproval',
   PosPrinter: 'PosPrinter',
   PrintJob: 'PrintJob',
   FocusNfeConfig: 'FocusNfeConfig',
@@ -2208,6 +2212,7 @@ export const TimeEntryScalarFieldEnum = {
   receiptUrl: 'receiptUrl',
   deviceFingerprint: 'deviceFingerprint',
   photoUrl: 'photoUrl',
+  requestId: 'requestId',
   createdAt: 'createdAt'
 } as const
 
@@ -8002,6 +8007,70 @@ export const PrintAgentScalarFieldEnum = {
 } as const
 
 export type PrintAgentScalarFieldEnum = (typeof PrintAgentScalarFieldEnum)[keyof typeof PrintAgentScalarFieldEnum]
+
+
+export const PunchDeviceScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  deviceKind: 'deviceKind',
+  pairingSecret: 'pairingSecret',
+  deviceTokenHash: 'deviceTokenHash',
+  deviceLabel: 'deviceLabel',
+  geofenceZoneId: 'geofenceZoneId',
+  pairedAt: 'pairedAt',
+  pairedByUserId: 'pairedByUserId',
+  revokedAt: 'revokedAt',
+  revokedByUserId: 'revokedByUserId',
+  revokedReason: 'revokedReason',
+  status: 'status',
+  lastSeenAt: 'lastSeenAt',
+  ipAddress: 'ipAddress',
+  hostname: 'hostname',
+  osInfo: 'osInfo',
+  version: 'version',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type PunchDeviceScalarFieldEnum = (typeof PunchDeviceScalarFieldEnum)[keyof typeof PunchDeviceScalarFieldEnum]
+
+
+export const PunchDeviceEmployeeScalarFieldEnum = {
+  deviceId: 'deviceId',
+  employeeId: 'employeeId',
+  createdAt: 'createdAt'
+} as const
+
+export type PunchDeviceEmployeeScalarFieldEnum = (typeof PunchDeviceEmployeeScalarFieldEnum)[keyof typeof PunchDeviceEmployeeScalarFieldEnum]
+
+
+export const PunchDeviceDepartmentScalarFieldEnum = {
+  deviceId: 'deviceId',
+  departmentId: 'departmentId',
+  createdAt: 'createdAt'
+} as const
+
+export type PunchDeviceDepartmentScalarFieldEnum = (typeof PunchDeviceDepartmentScalarFieldEnum)[keyof typeof PunchDeviceDepartmentScalarFieldEnum]
+
+
+export const PunchApprovalScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  timeEntryId: 'timeEntryId',
+  employeeId: 'employeeId',
+  reason: 'reason',
+  details: 'details',
+  status: 'status',
+  resolverUserId: 'resolverUserId',
+  resolvedAt: 'resolvedAt',
+  resolverNote: 'resolverNote',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PunchApprovalScalarFieldEnum = (typeof PunchApprovalScalarFieldEnum)[keyof typeof PunchApprovalScalarFieldEnum]
 
 
 export const PosPrinterScalarFieldEnum = {

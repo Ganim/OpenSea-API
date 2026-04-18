@@ -900,6 +900,8 @@ export type EmployeeWhereInput = {
   kudosReplies?: Prisma.KudosReplyListRelationFilter
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptListRelationFilter
   generatedContracts?: Prisma.GeneratedEmploymentContractListRelationFilter
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeListRelationFilter
+  punchApprovals?: Prisma.PunchApprovalListRelationFilter
 }
 
 export type EmployeeOrderByWithRelationInput = {
@@ -1037,6 +1039,8 @@ export type EmployeeOrderByWithRelationInput = {
   kudosReplies?: Prisma.KudosReplyOrderByRelationAggregateInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptOrderByRelationAggregateInput
   generatedContracts?: Prisma.GeneratedEmploymentContractOrderByRelationAggregateInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeOrderByRelationAggregateInput
+  punchApprovals?: Prisma.PunchApprovalOrderByRelationAggregateInput
 }
 
 export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
@@ -1180,6 +1184,8 @@ export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
   kudosReplies?: Prisma.KudosReplyListRelationFilter
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptListRelationFilter
   generatedContracts?: Prisma.GeneratedEmploymentContractListRelationFilter
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeListRelationFilter
+  punchApprovals?: Prisma.PunchApprovalListRelationFilter
 }, "id" | "userId" | "employees_registration_tenant_unique_active" | "employees_cpf_tenant_unique_active" | "employees_pis_tenant_unique_active">
 
 export type EmployeeOrderByWithAggregationInput = {
@@ -1496,6 +1502,8 @@ export type EmployeeCreateInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateInput = {
@@ -1626,6 +1634,8 @@ export type EmployeeUncheckedCreateInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUpdateInput = {
@@ -1756,6 +1766,8 @@ export type EmployeeUpdateInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateInput = {
@@ -1886,6 +1898,8 @@ export type EmployeeUncheckedUpdateInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateManyInput = {
@@ -3317,6 +3331,34 @@ export type EmployeeUpdateOneRequiredWithoutConductedInterviewsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutConductedInterviewsInput, Prisma.EmployeeUpdateWithoutConductedInterviewsInput>, Prisma.EmployeeUncheckedUpdateWithoutConductedInterviewsInput>
 }
 
+export type EmployeeCreateNestedOneWithoutPunchDeviceAllowlistInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutPunchDeviceAllowlistInput, Prisma.EmployeeUncheckedCreateWithoutPunchDeviceAllowlistInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutPunchDeviceAllowlistInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeUpdateOneRequiredWithoutPunchDeviceAllowlistNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutPunchDeviceAllowlistInput, Prisma.EmployeeUncheckedCreateWithoutPunchDeviceAllowlistInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutPunchDeviceAllowlistInput
+  upsert?: Prisma.EmployeeUpsertWithoutPunchDeviceAllowlistInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutPunchDeviceAllowlistInput, Prisma.EmployeeUpdateWithoutPunchDeviceAllowlistInput>, Prisma.EmployeeUncheckedUpdateWithoutPunchDeviceAllowlistInput>
+}
+
+export type EmployeeCreateNestedOneWithoutPunchApprovalsInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutPunchApprovalsInput, Prisma.EmployeeUncheckedCreateWithoutPunchApprovalsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutPunchApprovalsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeUpdateOneRequiredWithoutPunchApprovalsNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutPunchApprovalsInput, Prisma.EmployeeUncheckedCreateWithoutPunchApprovalsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutPunchApprovalsInput
+  upsert?: Prisma.EmployeeUpsertWithoutPunchApprovalsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutPunchApprovalsInput, Prisma.EmployeeUpdateWithoutPunchApprovalsInput>, Prisma.EmployeeUncheckedUpdateWithoutPunchApprovalsInput>
+}
+
 export type EmployeeCreateNestedOneWithoutGeneratedContractsInput = {
   create?: Prisma.XOR<Prisma.EmployeeCreateWithoutGeneratedContractsInput, Prisma.EmployeeUncheckedCreateWithoutGeneratedContractsInput>
   connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutGeneratedContractsInput
@@ -3458,6 +3500,8 @@ export type EmployeeCreateWithoutUserInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutUserInput = {
@@ -3587,6 +3631,8 @@ export type EmployeeUncheckedCreateWithoutUserInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutUserInput = {
@@ -3732,6 +3778,8 @@ export type EmployeeUpdateWithoutUserInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutUserInput = {
@@ -3861,6 +3909,8 @@ export type EmployeeUncheckedUpdateWithoutUserInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutOrganizationInput = {
@@ -3990,6 +4040,8 @@ export type EmployeeCreateWithoutOrganizationInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutOrganizationInput = {
@@ -4119,6 +4171,8 @@ export type EmployeeUncheckedCreateWithoutOrganizationInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutOrganizationInput = {
@@ -4366,6 +4420,8 @@ export type EmployeeCreateWithoutSubordinatesInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutSubordinatesInput = {
@@ -4495,6 +4551,8 @@ export type EmployeeUncheckedCreateWithoutSubordinatesInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutSubordinatesInput = {
@@ -4629,6 +4687,8 @@ export type EmployeeCreateWithoutSupervisorInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutSupervisorInput = {
@@ -4758,6 +4818,8 @@ export type EmployeeUncheckedCreateWithoutSupervisorInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutSupervisorInput = {
@@ -4908,6 +4970,8 @@ export type EmployeeUpdateWithoutSubordinatesInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutSubordinatesInput = {
@@ -5037,6 +5101,8 @@ export type EmployeeUncheckedUpdateWithoutSubordinatesInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUpsertWithWhereUniqueWithoutSupervisorInput = {
@@ -5182,6 +5248,8 @@ export type EmployeeCreateWithoutManagedDepartmentsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutManagedDepartmentsInput = {
@@ -5311,6 +5379,8 @@ export type EmployeeUncheckedCreateWithoutManagedDepartmentsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutManagedDepartmentsInput = {
@@ -5445,6 +5515,8 @@ export type EmployeeCreateWithoutDepartmentInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutDepartmentInput = {
@@ -5574,6 +5646,8 @@ export type EmployeeUncheckedCreateWithoutDepartmentInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutDepartmentInput = {
@@ -5724,6 +5798,8 @@ export type EmployeeUpdateWithoutManagedDepartmentsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutManagedDepartmentsInput = {
@@ -5853,6 +5929,8 @@ export type EmployeeUncheckedUpdateWithoutManagedDepartmentsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUpsertWithWhereUniqueWithoutDepartmentInput = {
@@ -5998,6 +6076,8 @@ export type EmployeeCreateWithoutPositionInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutPositionInput = {
@@ -6127,6 +6207,8 @@ export type EmployeeUncheckedCreateWithoutPositionInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutPositionInput = {
@@ -6282,6 +6364,8 @@ export type EmployeeCreateWithoutTimeEntriesInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutTimeEntriesInput = {
@@ -6411,6 +6495,8 @@ export type EmployeeUncheckedCreateWithoutTimeEntriesInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutTimeEntriesInput = {
@@ -6556,6 +6642,8 @@ export type EmployeeUpdateWithoutTimeEntriesInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutTimeEntriesInput = {
@@ -6685,6 +6773,8 @@ export type EmployeeUncheckedUpdateWithoutTimeEntriesInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutShiftAssignmentsInput = {
@@ -6814,6 +6904,8 @@ export type EmployeeCreateWithoutShiftAssignmentsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutShiftAssignmentsInput = {
@@ -6943,6 +7035,8 @@ export type EmployeeUncheckedCreateWithoutShiftAssignmentsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutShiftAssignmentsInput = {
@@ -7088,6 +7182,8 @@ export type EmployeeUpdateWithoutShiftAssignmentsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutShiftAssignmentsInput = {
@@ -7217,6 +7313,8 @@ export type EmployeeUncheckedUpdateWithoutShiftAssignmentsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutOvertimeInput = {
@@ -7346,6 +7444,8 @@ export type EmployeeCreateWithoutOvertimeInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutOvertimeInput = {
@@ -7475,6 +7575,8 @@ export type EmployeeUncheckedCreateWithoutOvertimeInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutOvertimeInput = {
@@ -7620,6 +7722,8 @@ export type EmployeeUpdateWithoutOvertimeInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutOvertimeInput = {
@@ -7749,6 +7853,8 @@ export type EmployeeUncheckedUpdateWithoutOvertimeInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutTimeBanksInput = {
@@ -7878,6 +7984,8 @@ export type EmployeeCreateWithoutTimeBanksInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutTimeBanksInput = {
@@ -8007,6 +8115,8 @@ export type EmployeeUncheckedCreateWithoutTimeBanksInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutTimeBanksInput = {
@@ -8152,6 +8262,8 @@ export type EmployeeUpdateWithoutTimeBanksInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutTimeBanksInput = {
@@ -8281,6 +8393,8 @@ export type EmployeeUncheckedUpdateWithoutTimeBanksInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutAbsencesInput = {
@@ -8410,6 +8524,8 @@ export type EmployeeCreateWithoutAbsencesInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutAbsencesInput = {
@@ -8539,6 +8655,8 @@ export type EmployeeUncheckedCreateWithoutAbsencesInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutAbsencesInput = {
@@ -8684,6 +8802,8 @@ export type EmployeeUpdateWithoutAbsencesInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutAbsencesInput = {
@@ -8813,6 +8933,8 @@ export type EmployeeUncheckedUpdateWithoutAbsencesInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutVacationPeriodsInput = {
@@ -8942,6 +9064,8 @@ export type EmployeeCreateWithoutVacationPeriodsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutVacationPeriodsInput = {
@@ -9071,6 +9195,8 @@ export type EmployeeUncheckedCreateWithoutVacationPeriodsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutVacationPeriodsInput = {
@@ -9216,6 +9342,8 @@ export type EmployeeUpdateWithoutVacationPeriodsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutVacationPeriodsInput = {
@@ -9345,6 +9473,8 @@ export type EmployeeUncheckedUpdateWithoutVacationPeriodsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutPayrollItemsInput = {
@@ -9474,6 +9604,8 @@ export type EmployeeCreateWithoutPayrollItemsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutPayrollItemsInput = {
@@ -9603,6 +9735,8 @@ export type EmployeeUncheckedCreateWithoutPayrollItemsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutPayrollItemsInput = {
@@ -9748,6 +9882,8 @@ export type EmployeeUpdateWithoutPayrollItemsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutPayrollItemsInput = {
@@ -9877,6 +10013,8 @@ export type EmployeeUncheckedUpdateWithoutPayrollItemsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutBonusesInput = {
@@ -10006,6 +10144,8 @@ export type EmployeeCreateWithoutBonusesInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutBonusesInput = {
@@ -10135,6 +10275,8 @@ export type EmployeeUncheckedCreateWithoutBonusesInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutBonusesInput = {
@@ -10280,6 +10422,8 @@ export type EmployeeUpdateWithoutBonusesInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutBonusesInput = {
@@ -10409,6 +10553,8 @@ export type EmployeeUncheckedUpdateWithoutBonusesInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutDeductionsInput = {
@@ -10538,6 +10684,8 @@ export type EmployeeCreateWithoutDeductionsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutDeductionsInput = {
@@ -10667,6 +10815,8 @@ export type EmployeeUncheckedCreateWithoutDeductionsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutDeductionsInput = {
@@ -10812,6 +10962,8 @@ export type EmployeeUpdateWithoutDeductionsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutDeductionsInput = {
@@ -10941,6 +11093,8 @@ export type EmployeeUncheckedUpdateWithoutDeductionsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutWarningsInput = {
@@ -11070,6 +11224,8 @@ export type EmployeeCreateWithoutWarningsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutWarningsInput = {
@@ -11199,6 +11355,8 @@ export type EmployeeUncheckedCreateWithoutWarningsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutWarningsInput = {
@@ -11333,6 +11491,8 @@ export type EmployeeCreateWithoutIssuedWarningsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutIssuedWarningsInput = {
@@ -11462,6 +11622,8 @@ export type EmployeeUncheckedCreateWithoutIssuedWarningsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutIssuedWarningsInput = {
@@ -11607,6 +11769,8 @@ export type EmployeeUpdateWithoutWarningsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutWarningsInput = {
@@ -11736,6 +11900,8 @@ export type EmployeeUncheckedUpdateWithoutWarningsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUpsertWithoutIssuedWarningsInput = {
@@ -11876,6 +12042,8 @@ export type EmployeeUpdateWithoutIssuedWarningsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutIssuedWarningsInput = {
@@ -12005,6 +12173,8 @@ export type EmployeeUncheckedUpdateWithoutIssuedWarningsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutDependantsInput = {
@@ -12134,6 +12304,8 @@ export type EmployeeCreateWithoutDependantsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutDependantsInput = {
@@ -12263,6 +12435,8 @@ export type EmployeeUncheckedCreateWithoutDependantsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutDependantsInput = {
@@ -12408,6 +12582,8 @@ export type EmployeeUpdateWithoutDependantsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutDependantsInput = {
@@ -12537,6 +12713,8 @@ export type EmployeeUncheckedUpdateWithoutDependantsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutTerminationInput = {
@@ -12666,6 +12844,8 @@ export type EmployeeCreateWithoutTerminationInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutTerminationInput = {
@@ -12795,6 +12975,8 @@ export type EmployeeUncheckedCreateWithoutTerminationInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutTerminationInput = {
@@ -12940,6 +13122,8 @@ export type EmployeeUpdateWithoutTerminationInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutTerminationInput = {
@@ -13069,6 +13253,8 @@ export type EmployeeUncheckedUpdateWithoutTerminationInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutMedicalExamsInput = {
@@ -13198,6 +13384,8 @@ export type EmployeeCreateWithoutMedicalExamsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutMedicalExamsInput = {
@@ -13327,6 +13515,8 @@ export type EmployeeUncheckedCreateWithoutMedicalExamsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutMedicalExamsInput = {
@@ -13472,6 +13662,8 @@ export type EmployeeUpdateWithoutMedicalExamsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutMedicalExamsInput = {
@@ -13601,6 +13793,8 @@ export type EmployeeUncheckedUpdateWithoutMedicalExamsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutCipaMembersInput = {
@@ -13730,6 +13924,8 @@ export type EmployeeCreateWithoutCipaMembersInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutCipaMembersInput = {
@@ -13859,6 +14055,8 @@ export type EmployeeUncheckedCreateWithoutCipaMembersInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutCipaMembersInput = {
@@ -14004,6 +14202,8 @@ export type EmployeeUpdateWithoutCipaMembersInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutCipaMembersInput = {
@@ -14133,6 +14333,8 @@ export type EmployeeUncheckedUpdateWithoutCipaMembersInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutBenefitEnrollmentsInput = {
@@ -14262,6 +14464,8 @@ export type EmployeeCreateWithoutBenefitEnrollmentsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutBenefitEnrollmentsInput = {
@@ -14391,6 +14595,8 @@ export type EmployeeUncheckedCreateWithoutBenefitEnrollmentsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutBenefitEnrollmentsInput = {
@@ -14536,6 +14742,8 @@ export type EmployeeUpdateWithoutBenefitEnrollmentsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutBenefitEnrollmentsInput = {
@@ -14665,6 +14873,8 @@ export type EmployeeUncheckedUpdateWithoutBenefitEnrollmentsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutTrainingEnrollmentsInput = {
@@ -14794,6 +15004,8 @@ export type EmployeeCreateWithoutTrainingEnrollmentsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutTrainingEnrollmentsInput = {
@@ -14923,6 +15135,8 @@ export type EmployeeUncheckedCreateWithoutTrainingEnrollmentsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutTrainingEnrollmentsInput = {
@@ -15068,6 +15282,8 @@ export type EmployeeUpdateWithoutTrainingEnrollmentsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutTrainingEnrollmentsInput = {
@@ -15197,6 +15413,8 @@ export type EmployeeUncheckedUpdateWithoutTrainingEnrollmentsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutPerformanceReviewsInput = {
@@ -15326,6 +15544,8 @@ export type EmployeeCreateWithoutPerformanceReviewsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutPerformanceReviewsInput = {
@@ -15455,6 +15675,8 @@ export type EmployeeUncheckedCreateWithoutPerformanceReviewsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutPerformanceReviewsInput = {
@@ -15589,6 +15811,8 @@ export type EmployeeCreateWithoutConductedPerformanceReviewsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutConductedPerformanceReviewsInput = {
@@ -15718,6 +15942,8 @@ export type EmployeeUncheckedCreateWithoutConductedPerformanceReviewsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutConductedPerformanceReviewsInput = {
@@ -15863,6 +16089,8 @@ export type EmployeeUpdateWithoutPerformanceReviewsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutPerformanceReviewsInput = {
@@ -15992,6 +16220,8 @@ export type EmployeeUncheckedUpdateWithoutPerformanceReviewsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUpsertWithoutConductedPerformanceReviewsInput = {
@@ -16132,6 +16362,8 @@ export type EmployeeUpdateWithoutConductedPerformanceReviewsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutConductedPerformanceReviewsInput = {
@@ -16261,6 +16493,8 @@ export type EmployeeUncheckedUpdateWithoutConductedPerformanceReviewsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutCreatedSurveysInput = {
@@ -16390,6 +16624,8 @@ export type EmployeeCreateWithoutCreatedSurveysInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutCreatedSurveysInput = {
@@ -16519,6 +16755,8 @@ export type EmployeeUncheckedCreateWithoutCreatedSurveysInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutCreatedSurveysInput = {
@@ -16664,6 +16902,8 @@ export type EmployeeUpdateWithoutCreatedSurveysInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutCreatedSurveysInput = {
@@ -16793,6 +17033,8 @@ export type EmployeeUncheckedUpdateWithoutCreatedSurveysInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutSurveyResponsesInput = {
@@ -16922,6 +17164,8 @@ export type EmployeeCreateWithoutSurveyResponsesInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutSurveyResponsesInput = {
@@ -17051,6 +17295,8 @@ export type EmployeeUncheckedCreateWithoutSurveyResponsesInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutSurveyResponsesInput = {
@@ -17196,6 +17442,8 @@ export type EmployeeUpdateWithoutSurveyResponsesInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutSurveyResponsesInput = {
@@ -17325,6 +17573,8 @@ export type EmployeeUncheckedUpdateWithoutSurveyResponsesInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutOwnedObjectivesInput = {
@@ -17454,6 +17704,8 @@ export type EmployeeCreateWithoutOwnedObjectivesInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutOwnedObjectivesInput = {
@@ -17583,6 +17835,8 @@ export type EmployeeUncheckedCreateWithoutOwnedObjectivesInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutOwnedObjectivesInput = {
@@ -17728,6 +17982,8 @@ export type EmployeeUpdateWithoutOwnedObjectivesInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutOwnedObjectivesInput = {
@@ -17857,6 +18113,8 @@ export type EmployeeUncheckedUpdateWithoutOwnedObjectivesInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutOkrCheckInsInput = {
@@ -17986,6 +18244,8 @@ export type EmployeeCreateWithoutOkrCheckInsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutOkrCheckInsInput = {
@@ -18115,6 +18375,8 @@ export type EmployeeUncheckedCreateWithoutOkrCheckInsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutOkrCheckInsInput = {
@@ -18260,6 +18522,8 @@ export type EmployeeUpdateWithoutOkrCheckInsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutOkrCheckInsInput = {
@@ -18389,6 +18653,8 @@ export type EmployeeUncheckedUpdateWithoutOkrCheckInsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutFlexBenefitAllocationsInput = {
@@ -18518,6 +18784,8 @@ export type EmployeeCreateWithoutFlexBenefitAllocationsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutFlexBenefitAllocationsInput = {
@@ -18647,6 +18915,8 @@ export type EmployeeUncheckedCreateWithoutFlexBenefitAllocationsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutFlexBenefitAllocationsInput = {
@@ -18792,6 +19062,8 @@ export type EmployeeUpdateWithoutFlexBenefitAllocationsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutFlexBenefitAllocationsInput = {
@@ -18921,6 +19193,8 @@ export type EmployeeUncheckedUpdateWithoutFlexBenefitAllocationsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutCompanyInput = {
@@ -19050,6 +19324,8 @@ export type EmployeeCreateWithoutCompanyInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutCompanyInput = {
@@ -19179,6 +19455,8 @@ export type EmployeeUncheckedCreateWithoutCompanyInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutCompanyInput = {
@@ -19334,6 +19612,8 @@ export type EmployeeCreateWithoutTenantInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutTenantInput = {
@@ -19463,6 +19743,8 @@ export type EmployeeUncheckedCreateWithoutTenantInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutTenantInput = {
@@ -19618,6 +19900,8 @@ export type EmployeeCreateWithoutOnboardingChecklistsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutOnboardingChecklistsInput = {
@@ -19747,6 +20031,8 @@ export type EmployeeUncheckedCreateWithoutOnboardingChecklistsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutOnboardingChecklistsInput = {
@@ -19892,6 +20178,8 @@ export type EmployeeUpdateWithoutOnboardingChecklistsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutOnboardingChecklistsInput = {
@@ -20021,6 +20309,8 @@ export type EmployeeUncheckedUpdateWithoutOnboardingChecklistsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutPpeAssignmentsInput = {
@@ -20150,6 +20440,8 @@ export type EmployeeCreateWithoutPpeAssignmentsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutPpeAssignmentsInput = {
@@ -20279,6 +20571,8 @@ export type EmployeeUncheckedCreateWithoutPpeAssignmentsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutPpeAssignmentsInput = {
@@ -20424,6 +20718,8 @@ export type EmployeeUpdateWithoutPpeAssignmentsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutPpeAssignmentsInput = {
@@ -20553,6 +20849,8 @@ export type EmployeeUncheckedUpdateWithoutPpeAssignmentsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutOffboardingChecklistsInput = {
@@ -20682,6 +20980,8 @@ export type EmployeeCreateWithoutOffboardingChecklistsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutOffboardingChecklistsInput = {
@@ -20811,6 +21111,8 @@ export type EmployeeUncheckedCreateWithoutOffboardingChecklistsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutOffboardingChecklistsInput = {
@@ -20956,6 +21258,8 @@ export type EmployeeUpdateWithoutOffboardingChecklistsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutOffboardingChecklistsInput = {
@@ -21085,6 +21389,8 @@ export type EmployeeUncheckedUpdateWithoutOffboardingChecklistsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutKudosReactionsInput = {
@@ -21214,6 +21520,8 @@ export type EmployeeCreateWithoutKudosReactionsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutKudosReactionsInput = {
@@ -21343,6 +21651,8 @@ export type EmployeeUncheckedCreateWithoutKudosReactionsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutKudosReactionsInput = {
@@ -21488,6 +21798,8 @@ export type EmployeeUpdateWithoutKudosReactionsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutKudosReactionsInput = {
@@ -21617,6 +21929,8 @@ export type EmployeeUncheckedUpdateWithoutKudosReactionsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutKudosRepliesInput = {
@@ -21746,6 +22060,8 @@ export type EmployeeCreateWithoutKudosRepliesInput = {
   kudosReactions?: Prisma.KudosReactionCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutKudosRepliesInput = {
@@ -21875,6 +22191,8 @@ export type EmployeeUncheckedCreateWithoutKudosRepliesInput = {
   kudosReactions?: Prisma.KudosReactionUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutKudosRepliesInput = {
@@ -22020,6 +22338,8 @@ export type EmployeeUpdateWithoutKudosRepliesInput = {
   kudosReactions?: Prisma.KudosReactionUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutKudosRepliesInput = {
@@ -22149,6 +22469,8 @@ export type EmployeeUncheckedUpdateWithoutKudosRepliesInput = {
   kudosReactions?: Prisma.KudosReactionUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutAnnouncementReadReceiptsInput = {
@@ -22278,6 +22600,8 @@ export type EmployeeCreateWithoutAnnouncementReadReceiptsInput = {
   kudosReactions?: Prisma.KudosReactionCreateNestedManyWithoutEmployeeInput
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutAnnouncementReadReceiptsInput = {
@@ -22407,6 +22731,8 @@ export type EmployeeUncheckedCreateWithoutAnnouncementReadReceiptsInput = {
   kudosReactions?: Prisma.KudosReactionUncheckedCreateNestedManyWithoutEmployeeInput
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutAnnouncementReadReceiptsInput = {
@@ -22552,6 +22878,8 @@ export type EmployeeUpdateWithoutAnnouncementReadReceiptsInput = {
   kudosReactions?: Prisma.KudosReactionUpdateManyWithoutEmployeeNestedInput
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutAnnouncementReadReceiptsInput = {
@@ -22681,6 +23009,8 @@ export type EmployeeUncheckedUpdateWithoutAnnouncementReadReceiptsInput = {
   kudosReactions?: Prisma.KudosReactionUncheckedUpdateManyWithoutEmployeeNestedInput
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutSalaryHistoryInput = {
@@ -22810,6 +23140,8 @@ export type EmployeeCreateWithoutSalaryHistoryInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutSalaryHistoryInput = {
@@ -22939,6 +23271,8 @@ export type EmployeeUncheckedCreateWithoutSalaryHistoryInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutSalaryHistoryInput = {
@@ -23084,6 +23418,8 @@ export type EmployeeUpdateWithoutSalaryHistoryInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutSalaryHistoryInput = {
@@ -23213,6 +23549,8 @@ export type EmployeeUncheckedUpdateWithoutSalaryHistoryInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutManagerOneOnOnesInput = {
@@ -23342,6 +23680,8 @@ export type EmployeeCreateWithoutManagerOneOnOnesInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutManagerOneOnOnesInput = {
@@ -23471,6 +23811,8 @@ export type EmployeeUncheckedCreateWithoutManagerOneOnOnesInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutManagerOneOnOnesInput = {
@@ -23605,6 +23947,8 @@ export type EmployeeCreateWithoutReportOneOnOnesInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutReportOneOnOnesInput = {
@@ -23734,6 +24078,8 @@ export type EmployeeUncheckedCreateWithoutReportOneOnOnesInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutReportOneOnOnesInput = {
@@ -23879,6 +24225,8 @@ export type EmployeeUpdateWithoutManagerOneOnOnesInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutManagerOneOnOnesInput = {
@@ -24008,6 +24356,8 @@ export type EmployeeUncheckedUpdateWithoutManagerOneOnOnesInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUpsertWithoutReportOneOnOnesInput = {
@@ -24148,6 +24498,8 @@ export type EmployeeUpdateWithoutReportOneOnOnesInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutReportOneOnOnesInput = {
@@ -24277,6 +24629,8 @@ export type EmployeeUncheckedUpdateWithoutReportOneOnOnesInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutAddedTalkingPointsInput = {
@@ -24406,6 +24760,8 @@ export type EmployeeCreateWithoutAddedTalkingPointsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutAddedTalkingPointsInput = {
@@ -24535,6 +24891,8 @@ export type EmployeeUncheckedCreateWithoutAddedTalkingPointsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutAddedTalkingPointsInput = {
@@ -24680,6 +25038,8 @@ export type EmployeeUpdateWithoutAddedTalkingPointsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutAddedTalkingPointsInput = {
@@ -24809,6 +25169,8 @@ export type EmployeeUncheckedUpdateWithoutAddedTalkingPointsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutOwnedActionItemsInput = {
@@ -24938,6 +25300,8 @@ export type EmployeeCreateWithoutOwnedActionItemsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutOwnedActionItemsInput = {
@@ -25067,6 +25431,8 @@ export type EmployeeUncheckedCreateWithoutOwnedActionItemsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutOwnedActionItemsInput = {
@@ -25212,6 +25578,8 @@ export type EmployeeUpdateWithoutOwnedActionItemsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutOwnedActionItemsInput = {
@@ -25341,6 +25709,8 @@ export type EmployeeUncheckedUpdateWithoutOwnedActionItemsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutDelegationsGivenInput = {
@@ -25470,6 +25840,8 @@ export type EmployeeCreateWithoutDelegationsGivenInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutDelegationsGivenInput = {
@@ -25599,6 +25971,8 @@ export type EmployeeUncheckedCreateWithoutDelegationsGivenInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutDelegationsGivenInput = {
@@ -25733,6 +26107,8 @@ export type EmployeeCreateWithoutDelegationsReceivedInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutDelegationsReceivedInput = {
@@ -25862,6 +26238,8 @@ export type EmployeeUncheckedCreateWithoutDelegationsReceivedInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutDelegationsReceivedInput = {
@@ -26007,6 +26385,8 @@ export type EmployeeUpdateWithoutDelegationsGivenInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutDelegationsGivenInput = {
@@ -26136,6 +26516,8 @@ export type EmployeeUncheckedUpdateWithoutDelegationsGivenInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUpsertWithoutDelegationsReceivedInput = {
@@ -26276,6 +26658,8 @@ export type EmployeeUpdateWithoutDelegationsReceivedInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutDelegationsReceivedInput = {
@@ -26405,6 +26789,8 @@ export type EmployeeUncheckedUpdateWithoutDelegationsReceivedInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutConductedInterviewsInput = {
@@ -26534,6 +26920,8 @@ export type EmployeeCreateWithoutConductedInterviewsInput = {
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutConductedInterviewsInput = {
@@ -26663,6 +27051,8 @@ export type EmployeeUncheckedCreateWithoutConductedInterviewsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutConductedInterviewsInput = {
@@ -26808,6 +27198,8 @@ export type EmployeeUpdateWithoutConductedInterviewsInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutConductedInterviewsInput = {
@@ -26937,6 +27329,1088 @@ export type EmployeeUncheckedUpdateWithoutConductedInterviewsInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeCreateWithoutPunchDeviceAllowlistInput = {
+  id?: string
+  registrationNumber: string
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
+  user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
+  position?: Prisma.PositionCreateNestedOneWithoutEmployeesInput
+  supervisor?: Prisma.EmployeeCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.EmployeeCreateNestedManyWithoutSupervisorInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutEmployeesInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
+  warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
+  onboardingChecklists?: Prisma.OnboardingChecklistCreateNestedManyWithoutEmployeeInput
+  offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  ppeAssignments?: Prisma.PPEAssignmentCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
+  createdSurveys?: Prisma.SurveyCreateNestedManyWithoutCreatorInput
+  surveyResponses?: Prisma.SurveyResponseCreateNestedManyWithoutEmployeeInput
+  ownedObjectives?: Prisma.ObjectiveCreateNestedManyWithoutOwnerInput
+  okrCheckIns?: Prisma.OKRCheckInCreateNestedManyWithoutEmployeeInput
+  conductedInterviews?: Prisma.InterviewCreateNestedManyWithoutInterviewerInput
+  salaryHistory?: Prisma.SalaryHistoryCreateNestedManyWithoutEmployeeInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingCreateNestedManyWithoutManagerInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingCreateNestedManyWithoutReportInput
+  addedTalkingPoints?: Prisma.TalkingPointCreateNestedManyWithoutAddedByInput
+  ownedActionItems?: Prisma.OneOnOneActionItemCreateNestedManyWithoutOwnerInput
+  kudosReactions?: Prisma.KudosReactionCreateNestedManyWithoutEmployeeInput
+  kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeUncheckedCreateWithoutPunchDeviceAllowlistInput = {
+  id?: string
+  tenantId: string
+  registrationNumber: string
+  userId?: string | null
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  departmentId?: string | null
+  positionId?: string | null
+  supervisorId?: string | null
+  organizationId?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  companyId?: string | null
+  subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+  warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
+  onboardingChecklists?: Prisma.OnboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  ppeAssignments?: Prisma.PPEAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
+  createdSurveys?: Prisma.SurveyUncheckedCreateNestedManyWithoutCreatorInput
+  surveyResponses?: Prisma.SurveyResponseUncheckedCreateNestedManyWithoutEmployeeInput
+  ownedObjectives?: Prisma.ObjectiveUncheckedCreateNestedManyWithoutOwnerInput
+  okrCheckIns?: Prisma.OKRCheckInUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedInterviews?: Prisma.InterviewUncheckedCreateNestedManyWithoutInterviewerInput
+  salaryHistory?: Prisma.SalaryHistoryUncheckedCreateNestedManyWithoutEmployeeInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingUncheckedCreateNestedManyWithoutManagerInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingUncheckedCreateNestedManyWithoutReportInput
+  addedTalkingPoints?: Prisma.TalkingPointUncheckedCreateNestedManyWithoutAddedByInput
+  ownedActionItems?: Prisma.OneOnOneActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  kudosReactions?: Prisma.KudosReactionUncheckedCreateNestedManyWithoutEmployeeInput
+  kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeCreateOrConnectWithoutPunchDeviceAllowlistInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutPunchDeviceAllowlistInput, Prisma.EmployeeUncheckedCreateWithoutPunchDeviceAllowlistInput>
+}
+
+export type EmployeeUpsertWithoutPunchDeviceAllowlistInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutPunchDeviceAllowlistInput, Prisma.EmployeeUncheckedUpdateWithoutPunchDeviceAllowlistInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutPunchDeviceAllowlistInput, Prisma.EmployeeUncheckedCreateWithoutPunchDeviceAllowlistInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutPunchDeviceAllowlistInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutPunchDeviceAllowlistInput, Prisma.EmployeeUncheckedUpdateWithoutPunchDeviceAllowlistInput>
+}
+
+export type EmployeeUpdateWithoutPunchDeviceAllowlistInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
+  user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutEmployeesNestedInput
+  supervisor?: Prisma.EmployeeUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.EmployeeUpdateManyWithoutSupervisorNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutEmployeesNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
+  warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
+  onboardingChecklists?: Prisma.OnboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  ppeAssignments?: Prisma.PPEAssignmentUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
+  createdSurveys?: Prisma.SurveyUpdateManyWithoutCreatorNestedInput
+  surveyResponses?: Prisma.SurveyResponseUpdateManyWithoutEmployeeNestedInput
+  ownedObjectives?: Prisma.ObjectiveUpdateManyWithoutOwnerNestedInput
+  okrCheckIns?: Prisma.OKRCheckInUpdateManyWithoutEmployeeNestedInput
+  conductedInterviews?: Prisma.InterviewUpdateManyWithoutInterviewerNestedInput
+  salaryHistory?: Prisma.SalaryHistoryUpdateManyWithoutEmployeeNestedInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingUpdateManyWithoutManagerNestedInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingUpdateManyWithoutReportNestedInput
+  addedTalkingPoints?: Prisma.TalkingPointUpdateManyWithoutAddedByNestedInput
+  ownedActionItems?: Prisma.OneOnOneActionItemUpdateManyWithoutOwnerNestedInput
+  kudosReactions?: Prisma.KudosReactionUpdateManyWithoutEmployeeNestedInput
+  kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutPunchDeviceAllowlistInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supervisorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+  warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
+  onboardingChecklists?: Prisma.OnboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  ppeAssignments?: Prisma.PPEAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
+  createdSurveys?: Prisma.SurveyUncheckedUpdateManyWithoutCreatorNestedInput
+  surveyResponses?: Prisma.SurveyResponseUncheckedUpdateManyWithoutEmployeeNestedInput
+  ownedObjectives?: Prisma.ObjectiveUncheckedUpdateManyWithoutOwnerNestedInput
+  okrCheckIns?: Prisma.OKRCheckInUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedInterviews?: Prisma.InterviewUncheckedUpdateManyWithoutInterviewerNestedInput
+  salaryHistory?: Prisma.SalaryHistoryUncheckedUpdateManyWithoutEmployeeNestedInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingUncheckedUpdateManyWithoutManagerNestedInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingUncheckedUpdateManyWithoutReportNestedInput
+  addedTalkingPoints?: Prisma.TalkingPointUncheckedUpdateManyWithoutAddedByNestedInput
+  ownedActionItems?: Prisma.OneOnOneActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  kudosReactions?: Prisma.KudosReactionUncheckedUpdateManyWithoutEmployeeNestedInput
+  kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeCreateWithoutPunchApprovalsInput = {
+  id?: string
+  registrationNumber: string
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
+  user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
+  position?: Prisma.PositionCreateNestedOneWithoutEmployeesInput
+  supervisor?: Prisma.EmployeeCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.EmployeeCreateNestedManyWithoutSupervisorInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutEmployeesInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
+  warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
+  onboardingChecklists?: Prisma.OnboardingChecklistCreateNestedManyWithoutEmployeeInput
+  offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  ppeAssignments?: Prisma.PPEAssignmentCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
+  createdSurveys?: Prisma.SurveyCreateNestedManyWithoutCreatorInput
+  surveyResponses?: Prisma.SurveyResponseCreateNestedManyWithoutEmployeeInput
+  ownedObjectives?: Prisma.ObjectiveCreateNestedManyWithoutOwnerInput
+  okrCheckIns?: Prisma.OKRCheckInCreateNestedManyWithoutEmployeeInput
+  conductedInterviews?: Prisma.InterviewCreateNestedManyWithoutInterviewerInput
+  salaryHistory?: Prisma.SalaryHistoryCreateNestedManyWithoutEmployeeInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingCreateNestedManyWithoutManagerInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingCreateNestedManyWithoutReportInput
+  addedTalkingPoints?: Prisma.TalkingPointCreateNestedManyWithoutAddedByInput
+  ownedActionItems?: Prisma.OneOnOneActionItemCreateNestedManyWithoutOwnerInput
+  kudosReactions?: Prisma.KudosReactionCreateNestedManyWithoutEmployeeInput
+  kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeUncheckedCreateWithoutPunchApprovalsInput = {
+  id?: string
+  tenantId: string
+  registrationNumber: string
+  userId?: string | null
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  departmentId?: string | null
+  positionId?: string | null
+  supervisorId?: string | null
+  organizationId?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  companyId?: string | null
+  subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+  warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
+  onboardingChecklists?: Prisma.OnboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  ppeAssignments?: Prisma.PPEAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
+  createdSurveys?: Prisma.SurveyUncheckedCreateNestedManyWithoutCreatorInput
+  surveyResponses?: Prisma.SurveyResponseUncheckedCreateNestedManyWithoutEmployeeInput
+  ownedObjectives?: Prisma.ObjectiveUncheckedCreateNestedManyWithoutOwnerInput
+  okrCheckIns?: Prisma.OKRCheckInUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedInterviews?: Prisma.InterviewUncheckedCreateNestedManyWithoutInterviewerInput
+  salaryHistory?: Prisma.SalaryHistoryUncheckedCreateNestedManyWithoutEmployeeInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingUncheckedCreateNestedManyWithoutManagerInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingUncheckedCreateNestedManyWithoutReportInput
+  addedTalkingPoints?: Prisma.TalkingPointUncheckedCreateNestedManyWithoutAddedByInput
+  ownedActionItems?: Prisma.OneOnOneActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  kudosReactions?: Prisma.KudosReactionUncheckedCreateNestedManyWithoutEmployeeInput
+  kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeCreateOrConnectWithoutPunchApprovalsInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutPunchApprovalsInput, Prisma.EmployeeUncheckedCreateWithoutPunchApprovalsInput>
+}
+
+export type EmployeeUpsertWithoutPunchApprovalsInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutPunchApprovalsInput, Prisma.EmployeeUncheckedUpdateWithoutPunchApprovalsInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutPunchApprovalsInput, Prisma.EmployeeUncheckedCreateWithoutPunchApprovalsInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutPunchApprovalsInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutPunchApprovalsInput, Prisma.EmployeeUncheckedUpdateWithoutPunchApprovalsInput>
+}
+
+export type EmployeeUpdateWithoutPunchApprovalsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
+  user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutEmployeesNestedInput
+  supervisor?: Prisma.EmployeeUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.EmployeeUpdateManyWithoutSupervisorNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutEmployeesNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
+  warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
+  onboardingChecklists?: Prisma.OnboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  ppeAssignments?: Prisma.PPEAssignmentUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
+  createdSurveys?: Prisma.SurveyUpdateManyWithoutCreatorNestedInput
+  surveyResponses?: Prisma.SurveyResponseUpdateManyWithoutEmployeeNestedInput
+  ownedObjectives?: Prisma.ObjectiveUpdateManyWithoutOwnerNestedInput
+  okrCheckIns?: Prisma.OKRCheckInUpdateManyWithoutEmployeeNestedInput
+  conductedInterviews?: Prisma.InterviewUpdateManyWithoutInterviewerNestedInput
+  salaryHistory?: Prisma.SalaryHistoryUpdateManyWithoutEmployeeNestedInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingUpdateManyWithoutManagerNestedInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingUpdateManyWithoutReportNestedInput
+  addedTalkingPoints?: Prisma.TalkingPointUpdateManyWithoutAddedByNestedInput
+  ownedActionItems?: Prisma.OneOnOneActionItemUpdateManyWithoutOwnerNestedInput
+  kudosReactions?: Prisma.KudosReactionUpdateManyWithoutEmployeeNestedInput
+  kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutPunchApprovalsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supervisorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+  warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
+  onboardingChecklists?: Prisma.OnboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  ppeAssignments?: Prisma.PPEAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
+  createdSurveys?: Prisma.SurveyUncheckedUpdateManyWithoutCreatorNestedInput
+  surveyResponses?: Prisma.SurveyResponseUncheckedUpdateManyWithoutEmployeeNestedInput
+  ownedObjectives?: Prisma.ObjectiveUncheckedUpdateManyWithoutOwnerNestedInput
+  okrCheckIns?: Prisma.OKRCheckInUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedInterviews?: Prisma.InterviewUncheckedUpdateManyWithoutInterviewerNestedInput
+  salaryHistory?: Prisma.SalaryHistoryUncheckedUpdateManyWithoutEmployeeNestedInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingUncheckedUpdateManyWithoutManagerNestedInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingUncheckedUpdateManyWithoutReportNestedInput
+  addedTalkingPoints?: Prisma.TalkingPointUncheckedUpdateManyWithoutAddedByNestedInput
+  ownedActionItems?: Prisma.OneOnOneActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  kudosReactions?: Prisma.KudosReactionUncheckedUpdateManyWithoutEmployeeNestedInput
+  kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutGeneratedContractsInput = {
@@ -27066,6 +28540,8 @@ export type EmployeeCreateWithoutGeneratedContractsInput = {
   kudosReactions?: Prisma.KudosReactionCreateNestedManyWithoutEmployeeInput
   kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutGeneratedContractsInput = {
@@ -27195,6 +28671,8 @@ export type EmployeeUncheckedCreateWithoutGeneratedContractsInput = {
   kudosReactions?: Prisma.KudosReactionUncheckedCreateNestedManyWithoutEmployeeInput
   kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutGeneratedContractsInput = {
@@ -27340,6 +28818,8 @@ export type EmployeeUpdateWithoutGeneratedContractsInput = {
   kudosReactions?: Prisma.KudosReactionUpdateManyWithoutEmployeeNestedInput
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutGeneratedContractsInput = {
@@ -27469,6 +28949,8 @@ export type EmployeeUncheckedUpdateWithoutGeneratedContractsInput = {
   kudosReactions?: Prisma.KudosReactionUncheckedUpdateManyWithoutEmployeeNestedInput
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateManyOrganizationInput = {
@@ -27686,6 +29168,8 @@ export type EmployeeUpdateWithoutOrganizationInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutOrganizationInput = {
@@ -27815,6 +29299,8 @@ export type EmployeeUncheckedUpdateWithoutOrganizationInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutOrganizationInput = {
@@ -28120,6 +29606,8 @@ export type EmployeeUpdateWithoutSupervisorInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutSupervisorInput = {
@@ -28249,6 +29737,8 @@ export type EmployeeUncheckedUpdateWithoutSupervisorInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutSupervisorInput = {
@@ -28554,6 +30044,8 @@ export type EmployeeUpdateWithoutDepartmentInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
@@ -28683,6 +30175,8 @@ export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutDepartmentInput = {
@@ -28988,6 +30482,8 @@ export type EmployeeUpdateWithoutPositionInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutPositionInput = {
@@ -29117,6 +30613,8 @@ export type EmployeeUncheckedUpdateWithoutPositionInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutPositionInput = {
@@ -29422,6 +30920,8 @@ export type EmployeeUpdateWithoutCompanyInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutCompanyInput = {
@@ -29551,6 +31051,8 @@ export type EmployeeUncheckedUpdateWithoutCompanyInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutCompanyInput = {
@@ -29856,6 +31358,8 @@ export type EmployeeUpdateWithoutTenantInput = {
   kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutTenantInput = {
@@ -29985,6 +31489,8 @@ export type EmployeeUncheckedUpdateWithoutTenantInput = {
   kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
   announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutTenantInput = {
@@ -30121,6 +31627,8 @@ export type EmployeeCountOutputType = {
   kudosReplies: number
   announcementReadReceipts: number
   generatedContracts: number
+  punchDeviceAllowlist: number
+  punchApprovals: number
 }
 
 export type EmployeeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -30164,6 +31672,8 @@ export type EmployeeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   kudosReplies?: boolean | EmployeeCountOutputTypeCountKudosRepliesArgs
   announcementReadReceipts?: boolean | EmployeeCountOutputTypeCountAnnouncementReadReceiptsArgs
   generatedContracts?: boolean | EmployeeCountOutputTypeCountGeneratedContractsArgs
+  punchDeviceAllowlist?: boolean | EmployeeCountOutputTypeCountPunchDeviceAllowlistArgs
+  punchApprovals?: boolean | EmployeeCountOutputTypeCountPunchApprovalsArgs
 }
 
 /**
@@ -30456,6 +31966,20 @@ export type EmployeeCountOutputTypeCountGeneratedContractsArgs<ExtArgs extends r
   where?: Prisma.GeneratedEmploymentContractWhereInput
 }
 
+/**
+ * EmployeeCountOutputType without action
+ */
+export type EmployeeCountOutputTypeCountPunchDeviceAllowlistArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PunchDeviceEmployeeWhereInput
+}
+
+/**
+ * EmployeeCountOutputType without action
+ */
+export type EmployeeCountOutputTypeCountPunchApprovalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PunchApprovalWhereInput
+}
+
 
 export type EmployeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -30592,6 +32116,8 @@ export type EmployeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   kudosReplies?: boolean | Prisma.Employee$kudosRepliesArgs<ExtArgs>
   announcementReadReceipts?: boolean | Prisma.Employee$announcementReadReceiptsArgs<ExtArgs>
   generatedContracts?: boolean | Prisma.Employee$generatedContractsArgs<ExtArgs>
+  punchDeviceAllowlist?: boolean | Prisma.Employee$punchDeviceAllowlistArgs<ExtArgs>
+  punchApprovals?: boolean | Prisma.Employee$punchApprovalsArgs<ExtArgs>
   _count?: boolean | Prisma.EmployeeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["employee"]>
 
@@ -30926,6 +32452,8 @@ export type EmployeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   kudosReplies?: boolean | Prisma.Employee$kudosRepliesArgs<ExtArgs>
   announcementReadReceipts?: boolean | Prisma.Employee$announcementReadReceiptsArgs<ExtArgs>
   generatedContracts?: boolean | Prisma.Employee$generatedContractsArgs<ExtArgs>
+  punchDeviceAllowlist?: boolean | Prisma.Employee$punchDeviceAllowlistArgs<ExtArgs>
+  punchApprovals?: boolean | Prisma.Employee$punchApprovalsArgs<ExtArgs>
   _count?: boolean | Prisma.EmployeeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EmployeeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -30998,6 +32526,8 @@ export type $EmployeePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     kudosReplies: Prisma.$KudosReplyPayload<ExtArgs>[]
     announcementReadReceipts: Prisma.$AnnouncementReadReceiptPayload<ExtArgs>[]
     generatedContracts: Prisma.$GeneratedEmploymentContractPayload<ExtArgs>[]
+    punchDeviceAllowlist: Prisma.$PunchDeviceEmployeePayload<ExtArgs>[]
+    punchApprovals: Prisma.$PunchApprovalPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -31528,6 +33058,8 @@ export interface Prisma__EmployeeClient<T, Null = never, ExtArgs extends runtime
   kudosReplies<T extends Prisma.Employee$kudosRepliesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$kudosRepliesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KudosReplyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   announcementReadReceipts<T extends Prisma.Employee$announcementReadReceiptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$announcementReadReceiptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnnouncementReadReceiptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   generatedContracts<T extends Prisma.Employee$generatedContractsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$generatedContractsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GeneratedEmploymentContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  punchDeviceAllowlist<T extends Prisma.Employee$punchDeviceAllowlistArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$punchDeviceAllowlistArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PunchDeviceEmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  punchApprovals<T extends Prisma.Employee$punchApprovalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$punchApprovalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PunchApprovalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -33134,6 +34666,54 @@ export type Employee$generatedContractsArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.GeneratedEmploymentContractScalarFieldEnum | Prisma.GeneratedEmploymentContractScalarFieldEnum[]
+}
+
+/**
+ * Employee.punchDeviceAllowlist
+ */
+export type Employee$punchDeviceAllowlistArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PunchDeviceEmployee
+   */
+  select?: Prisma.PunchDeviceEmployeeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PunchDeviceEmployee
+   */
+  omit?: Prisma.PunchDeviceEmployeeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PunchDeviceEmployeeInclude<ExtArgs> | null
+  where?: Prisma.PunchDeviceEmployeeWhereInput
+  orderBy?: Prisma.PunchDeviceEmployeeOrderByWithRelationInput | Prisma.PunchDeviceEmployeeOrderByWithRelationInput[]
+  cursor?: Prisma.PunchDeviceEmployeeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PunchDeviceEmployeeScalarFieldEnum | Prisma.PunchDeviceEmployeeScalarFieldEnum[]
+}
+
+/**
+ * Employee.punchApprovals
+ */
+export type Employee$punchApprovalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PunchApproval
+   */
+  select?: Prisma.PunchApprovalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PunchApproval
+   */
+  omit?: Prisma.PunchApprovalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PunchApprovalInclude<ExtArgs> | null
+  where?: Prisma.PunchApprovalWhereInput
+  orderBy?: Prisma.PunchApprovalOrderByWithRelationInput | Prisma.PunchApprovalOrderByWithRelationInput[]
+  cursor?: Prisma.PunchApprovalWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PunchApprovalScalarFieldEnum | Prisma.PunchApprovalScalarFieldEnum[]
 }
 
 /**

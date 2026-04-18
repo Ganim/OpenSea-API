@@ -265,6 +265,7 @@ export type GeofenceZoneWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"GeofenceZone"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"GeofenceZone"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  punchDevices?: Prisma.PunchDeviceListRelationFilter
 }
 
 export type GeofenceZoneOrderByWithRelationInput = {
@@ -279,6 +280,7 @@ export type GeofenceZoneOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
+  punchDevices?: Prisma.PunchDeviceOrderByRelationAggregateInput
 }
 
 export type GeofenceZoneWhereUniqueInput = Prisma.AtLeast<{
@@ -296,6 +298,7 @@ export type GeofenceZoneWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"GeofenceZone"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"GeofenceZone"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  punchDevices?: Prisma.PunchDeviceListRelationFilter
 }, "id">
 
 export type GeofenceZoneOrderByWithAggregationInput = {
@@ -343,6 +346,7 @@ export type GeofenceZoneCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutGeofenceZonesInput
+  punchDevices?: Prisma.PunchDeviceCreateNestedManyWithoutGeofenceZoneInput
 }
 
 export type GeofenceZoneUncheckedCreateInput = {
@@ -356,6 +360,7 @@ export type GeofenceZoneUncheckedCreateInput = {
   address?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  punchDevices?: Prisma.PunchDeviceUncheckedCreateNestedManyWithoutGeofenceZoneInput
 }
 
 export type GeofenceZoneUpdateInput = {
@@ -369,6 +374,7 @@ export type GeofenceZoneUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutGeofenceZonesNestedInput
+  punchDevices?: Prisma.PunchDeviceUpdateManyWithoutGeofenceZoneNestedInput
 }
 
 export type GeofenceZoneUncheckedUpdateInput = {
@@ -382,6 +388,7 @@ export type GeofenceZoneUncheckedUpdateInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  punchDevices?: Prisma.PunchDeviceUncheckedUpdateManyWithoutGeofenceZoneNestedInput
 }
 
 export type GeofenceZoneCreateManyInput = {
@@ -483,6 +490,11 @@ export type GeofenceZoneSumOrderByAggregateInput = {
   radiusMeters?: Prisma.SortOrder
 }
 
+export type GeofenceZoneNullableScalarRelationFilter = {
+  is?: Prisma.GeofenceZoneWhereInput | null
+  isNot?: Prisma.GeofenceZoneWhereInput | null
+}
+
 export type GeofenceZoneCreateNestedManyWithoutTenantInput = {
   create?: Prisma.XOR<Prisma.GeofenceZoneCreateWithoutTenantInput, Prisma.GeofenceZoneUncheckedCreateWithoutTenantInput> | Prisma.GeofenceZoneCreateWithoutTenantInput[] | Prisma.GeofenceZoneUncheckedCreateWithoutTenantInput[]
   connectOrCreate?: Prisma.GeofenceZoneCreateOrConnectWithoutTenantInput | Prisma.GeofenceZoneCreateOrConnectWithoutTenantInput[]
@@ -525,6 +537,22 @@ export type GeofenceZoneUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.GeofenceZoneScalarWhereInput | Prisma.GeofenceZoneScalarWhereInput[]
 }
 
+export type GeofenceZoneCreateNestedOneWithoutPunchDevicesInput = {
+  create?: Prisma.XOR<Prisma.GeofenceZoneCreateWithoutPunchDevicesInput, Prisma.GeofenceZoneUncheckedCreateWithoutPunchDevicesInput>
+  connectOrCreate?: Prisma.GeofenceZoneCreateOrConnectWithoutPunchDevicesInput
+  connect?: Prisma.GeofenceZoneWhereUniqueInput
+}
+
+export type GeofenceZoneUpdateOneWithoutPunchDevicesNestedInput = {
+  create?: Prisma.XOR<Prisma.GeofenceZoneCreateWithoutPunchDevicesInput, Prisma.GeofenceZoneUncheckedCreateWithoutPunchDevicesInput>
+  connectOrCreate?: Prisma.GeofenceZoneCreateOrConnectWithoutPunchDevicesInput
+  upsert?: Prisma.GeofenceZoneUpsertWithoutPunchDevicesInput
+  disconnect?: Prisma.GeofenceZoneWhereInput | boolean
+  delete?: Prisma.GeofenceZoneWhereInput | boolean
+  connect?: Prisma.GeofenceZoneWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GeofenceZoneUpdateToOneWithWhereWithoutPunchDevicesInput, Prisma.GeofenceZoneUpdateWithoutPunchDevicesInput>, Prisma.GeofenceZoneUncheckedUpdateWithoutPunchDevicesInput>
+}
+
 export type GeofenceZoneCreateWithoutTenantInput = {
   id?: string
   name: string
@@ -535,6 +563,7 @@ export type GeofenceZoneCreateWithoutTenantInput = {
   address?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  punchDevices?: Prisma.PunchDeviceCreateNestedManyWithoutGeofenceZoneInput
 }
 
 export type GeofenceZoneUncheckedCreateWithoutTenantInput = {
@@ -547,6 +576,7 @@ export type GeofenceZoneUncheckedCreateWithoutTenantInput = {
   address?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  punchDevices?: Prisma.PunchDeviceUncheckedCreateNestedManyWithoutGeofenceZoneInput
 }
 
 export type GeofenceZoneCreateOrConnectWithoutTenantInput = {
@@ -591,6 +621,74 @@ export type GeofenceZoneScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"GeofenceZone"> | Date | string
 }
 
+export type GeofenceZoneCreateWithoutPunchDevicesInput = {
+  id?: string
+  name: string
+  latitude: number
+  longitude: number
+  radiusMeters?: number
+  isActive?: boolean
+  address?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutGeofenceZonesInput
+}
+
+export type GeofenceZoneUncheckedCreateWithoutPunchDevicesInput = {
+  id?: string
+  tenantId: string
+  name: string
+  latitude: number
+  longitude: number
+  radiusMeters?: number
+  isActive?: boolean
+  address?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type GeofenceZoneCreateOrConnectWithoutPunchDevicesInput = {
+  where: Prisma.GeofenceZoneWhereUniqueInput
+  create: Prisma.XOR<Prisma.GeofenceZoneCreateWithoutPunchDevicesInput, Prisma.GeofenceZoneUncheckedCreateWithoutPunchDevicesInput>
+}
+
+export type GeofenceZoneUpsertWithoutPunchDevicesInput = {
+  update: Prisma.XOR<Prisma.GeofenceZoneUpdateWithoutPunchDevicesInput, Prisma.GeofenceZoneUncheckedUpdateWithoutPunchDevicesInput>
+  create: Prisma.XOR<Prisma.GeofenceZoneCreateWithoutPunchDevicesInput, Prisma.GeofenceZoneUncheckedCreateWithoutPunchDevicesInput>
+  where?: Prisma.GeofenceZoneWhereInput
+}
+
+export type GeofenceZoneUpdateToOneWithWhereWithoutPunchDevicesInput = {
+  where?: Prisma.GeofenceZoneWhereInput
+  data: Prisma.XOR<Prisma.GeofenceZoneUpdateWithoutPunchDevicesInput, Prisma.GeofenceZoneUncheckedUpdateWithoutPunchDevicesInput>
+}
+
+export type GeofenceZoneUpdateWithoutPunchDevicesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  radiusMeters?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutGeofenceZonesNestedInput
+}
+
+export type GeofenceZoneUncheckedUpdateWithoutPunchDevicesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  radiusMeters?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type GeofenceZoneCreateManyTenantInput = {
   id?: string
   name: string
@@ -613,6 +711,7 @@ export type GeofenceZoneUpdateWithoutTenantInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  punchDevices?: Prisma.PunchDeviceUpdateManyWithoutGeofenceZoneNestedInput
 }
 
 export type GeofenceZoneUncheckedUpdateWithoutTenantInput = {
@@ -625,6 +724,7 @@ export type GeofenceZoneUncheckedUpdateWithoutTenantInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  punchDevices?: Prisma.PunchDeviceUncheckedUpdateManyWithoutGeofenceZoneNestedInput
 }
 
 export type GeofenceZoneUncheckedUpdateManyWithoutTenantInput = {
@@ -640,6 +740,35 @@ export type GeofenceZoneUncheckedUpdateManyWithoutTenantInput = {
 }
 
 
+/**
+ * Count Type GeofenceZoneCountOutputType
+ */
+
+export type GeofenceZoneCountOutputType = {
+  punchDevices: number
+}
+
+export type GeofenceZoneCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  punchDevices?: boolean | GeofenceZoneCountOutputTypeCountPunchDevicesArgs
+}
+
+/**
+ * GeofenceZoneCountOutputType without action
+ */
+export type GeofenceZoneCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GeofenceZoneCountOutputType
+   */
+  select?: Prisma.GeofenceZoneCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * GeofenceZoneCountOutputType without action
+ */
+export type GeofenceZoneCountOutputTypeCountPunchDevicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PunchDeviceWhereInput
+}
+
 
 export type GeofenceZoneSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -653,6 +782,8 @@ export type GeofenceZoneSelect<ExtArgs extends runtime.Types.Extensions.Internal
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  punchDevices?: boolean | Prisma.GeofenceZone$punchDevicesArgs<ExtArgs>
+  _count?: boolean | Prisma.GeofenceZoneCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["geofenceZone"]>
 
 export type GeofenceZoneSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -699,6 +830,8 @@ export type GeofenceZoneSelectScalar = {
 export type GeofenceZoneOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "latitude" | "longitude" | "radiusMeters" | "isActive" | "address" | "createdAt" | "updatedAt", ExtArgs["result"]["geofenceZone"]>
 export type GeofenceZoneInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  punchDevices?: boolean | Prisma.GeofenceZone$punchDevicesArgs<ExtArgs>
+  _count?: boolean | Prisma.GeofenceZoneCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type GeofenceZoneIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -711,6 +844,7 @@ export type $GeofenceZonePayload<ExtArgs extends runtime.Types.Extensions.Intern
   name: "GeofenceZone"
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
+    punchDevices: Prisma.$PunchDevicePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1118,6 +1252,7 @@ readonly fields: GeofenceZoneFieldRefs;
 export interface Prisma__GeofenceZoneClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  punchDevices<T extends Prisma.GeofenceZone$punchDevicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GeofenceZone$punchDevicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PunchDevicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1555,6 +1690,30 @@ export type GeofenceZoneDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many GeofenceZones to delete.
    */
   limit?: number
+}
+
+/**
+ * GeofenceZone.punchDevices
+ */
+export type GeofenceZone$punchDevicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PunchDevice
+   */
+  select?: Prisma.PunchDeviceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PunchDevice
+   */
+  omit?: Prisma.PunchDeviceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PunchDeviceInclude<ExtArgs> | null
+  where?: Prisma.PunchDeviceWhereInput
+  orderBy?: Prisma.PunchDeviceOrderByWithRelationInput | Prisma.PunchDeviceOrderByWithRelationInput[]
+  cursor?: Prisma.PunchDeviceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PunchDeviceScalarFieldEnum | Prisma.PunchDeviceScalarFieldEnum[]
 }
 
 /**

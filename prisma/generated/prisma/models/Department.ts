@@ -247,6 +247,7 @@ export type DepartmentWhereInput = {
   employees?: Prisma.EmployeeListRelationFilter
   jobPostings?: Prisma.JobPostingListRelationFilter
   admissionInvites?: Prisma.AdmissionInviteListRelationFilter
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentListRelationFilter
 }
 
 export type DepartmentOrderByWithRelationInput = {
@@ -271,6 +272,7 @@ export type DepartmentOrderByWithRelationInput = {
   employees?: Prisma.EmployeeOrderByRelationAggregateInput
   jobPostings?: Prisma.JobPostingOrderByRelationAggregateInput
   admissionInvites?: Prisma.AdmissionInviteOrderByRelationAggregateInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentOrderByRelationAggregateInput
 }
 
 export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
@@ -299,6 +301,7 @@ export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
   employees?: Prisma.EmployeeListRelationFilter
   jobPostings?: Prisma.JobPostingListRelationFilter
   admissionInvites?: Prisma.AdmissionInviteListRelationFilter
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentListRelationFilter
 }, "id" | "departments_code_company_tenant_unique_active">
 
 export type DepartmentOrderByWithAggregationInput = {
@@ -355,6 +358,7 @@ export type DepartmentCreateInput = {
   employees?: Prisma.EmployeeCreateNestedManyWithoutDepartmentInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutDepartmentInput
   admissionInvites?: Prisma.AdmissionInviteCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateInput = {
@@ -375,6 +379,7 @@ export type DepartmentUncheckedCreateInput = {
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutDepartmentInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutDepartmentInput
   admissionInvites?: Prisma.AdmissionInviteUncheckedCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUpdateInput = {
@@ -395,6 +400,7 @@ export type DepartmentUpdateInput = {
   employees?: Prisma.EmployeeUpdateManyWithoutDepartmentNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutDepartmentNestedInput
   admissionInvites?: Prisma.AdmissionInviteUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateInput = {
@@ -415,6 +421,7 @@ export type DepartmentUncheckedUpdateInput = {
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutDepartmentNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutDepartmentNestedInput
   admissionInvites?: Prisma.AdmissionInviteUncheckedUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentCreateManyInput = {
@@ -523,6 +530,11 @@ export type DepartmentMinOrderByAggregateInput = {
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type DepartmentScalarRelationFilter = {
+  is?: Prisma.DepartmentWhereInput
+  isNot?: Prisma.DepartmentWhereInput
 }
 
 export type DepartmentCreateNestedOneWithoutEmployeesInput = {
@@ -773,6 +785,20 @@ export type DepartmentUpdateOneWithoutJobPostingsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DepartmentUpdateToOneWithWhereWithoutJobPostingsInput, Prisma.DepartmentUpdateWithoutJobPostingsInput>, Prisma.DepartmentUncheckedUpdateWithoutJobPostingsInput>
 }
 
+export type DepartmentCreateNestedOneWithoutPunchDeviceAllowlistInput = {
+  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutPunchDeviceAllowlistInput, Prisma.DepartmentUncheckedCreateWithoutPunchDeviceAllowlistInput>
+  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutPunchDeviceAllowlistInput
+  connect?: Prisma.DepartmentWhereUniqueInput
+}
+
+export type DepartmentUpdateOneRequiredWithoutPunchDeviceAllowlistNestedInput = {
+  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutPunchDeviceAllowlistInput, Prisma.DepartmentUncheckedCreateWithoutPunchDeviceAllowlistInput>
+  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutPunchDeviceAllowlistInput
+  upsert?: Prisma.DepartmentUpsertWithoutPunchDeviceAllowlistInput
+  connect?: Prisma.DepartmentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DepartmentUpdateToOneWithWhereWithoutPunchDeviceAllowlistInput, Prisma.DepartmentUpdateWithoutPunchDeviceAllowlistInput>, Prisma.DepartmentUncheckedUpdateWithoutPunchDeviceAllowlistInput>
+}
+
 export type DepartmentCreateWithoutEmployeesInput = {
   id?: string
   name: string
@@ -790,6 +816,7 @@ export type DepartmentCreateWithoutEmployeesInput = {
   positions?: Prisma.PositionCreateNestedManyWithoutDepartmentInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutDepartmentInput
   admissionInvites?: Prisma.AdmissionInviteCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutEmployeesInput = {
@@ -809,6 +836,7 @@ export type DepartmentUncheckedCreateWithoutEmployeesInput = {
   positions?: Prisma.PositionUncheckedCreateNestedManyWithoutDepartmentInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutDepartmentInput
   admissionInvites?: Prisma.AdmissionInviteUncheckedCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutEmployeesInput = {
@@ -833,6 +861,7 @@ export type DepartmentCreateWithoutManagerInput = {
   employees?: Prisma.EmployeeCreateNestedManyWithoutDepartmentInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutDepartmentInput
   admissionInvites?: Prisma.AdmissionInviteCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutManagerInput = {
@@ -852,6 +881,7 @@ export type DepartmentUncheckedCreateWithoutManagerInput = {
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutDepartmentInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutDepartmentInput
   admissionInvites?: Prisma.AdmissionInviteUncheckedCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutManagerInput = {
@@ -892,6 +922,7 @@ export type DepartmentUpdateWithoutEmployeesInput = {
   positions?: Prisma.PositionUpdateManyWithoutDepartmentNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutDepartmentNestedInput
   admissionInvites?: Prisma.AdmissionInviteUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutEmployeesInput = {
@@ -911,6 +942,7 @@ export type DepartmentUncheckedUpdateWithoutEmployeesInput = {
   positions?: Prisma.PositionUncheckedUpdateManyWithoutDepartmentNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutDepartmentNestedInput
   admissionInvites?: Prisma.AdmissionInviteUncheckedUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUpsertWithWhereUniqueWithoutManagerInput = {
@@ -964,6 +996,7 @@ export type DepartmentCreateWithoutChildrenInput = {
   employees?: Prisma.EmployeeCreateNestedManyWithoutDepartmentInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutDepartmentInput
   admissionInvites?: Prisma.AdmissionInviteCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutChildrenInput = {
@@ -983,6 +1016,7 @@ export type DepartmentUncheckedCreateWithoutChildrenInput = {
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutDepartmentInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutDepartmentInput
   admissionInvites?: Prisma.AdmissionInviteUncheckedCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutChildrenInput = {
@@ -1007,6 +1041,7 @@ export type DepartmentCreateWithoutParentInput = {
   employees?: Prisma.EmployeeCreateNestedManyWithoutDepartmentInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutDepartmentInput
   admissionInvites?: Prisma.AdmissionInviteCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutParentInput = {
@@ -1026,6 +1061,7 @@ export type DepartmentUncheckedCreateWithoutParentInput = {
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutDepartmentInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutDepartmentInput
   admissionInvites?: Prisma.AdmissionInviteUncheckedCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutParentInput = {
@@ -1066,6 +1102,7 @@ export type DepartmentUpdateWithoutChildrenInput = {
   employees?: Prisma.EmployeeUpdateManyWithoutDepartmentNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutDepartmentNestedInput
   admissionInvites?: Prisma.AdmissionInviteUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutChildrenInput = {
@@ -1085,6 +1122,7 @@ export type DepartmentUncheckedUpdateWithoutChildrenInput = {
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutDepartmentNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutDepartmentNestedInput
   admissionInvites?: Prisma.AdmissionInviteUncheckedUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUpsertWithWhereUniqueWithoutParentInput = {
@@ -1120,6 +1158,7 @@ export type DepartmentCreateWithoutPositionsInput = {
   employees?: Prisma.EmployeeCreateNestedManyWithoutDepartmentInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutDepartmentInput
   admissionInvites?: Prisma.AdmissionInviteCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutPositionsInput = {
@@ -1139,6 +1178,7 @@ export type DepartmentUncheckedCreateWithoutPositionsInput = {
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutDepartmentInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutDepartmentInput
   admissionInvites?: Prisma.AdmissionInviteUncheckedCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutPositionsInput = {
@@ -1174,6 +1214,7 @@ export type DepartmentUpdateWithoutPositionsInput = {
   employees?: Prisma.EmployeeUpdateManyWithoutDepartmentNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutDepartmentNestedInput
   admissionInvites?: Prisma.AdmissionInviteUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutPositionsInput = {
@@ -1193,6 +1234,7 @@ export type DepartmentUncheckedUpdateWithoutPositionsInput = {
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutDepartmentNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutDepartmentNestedInput
   admissionInvites?: Prisma.AdmissionInviteUncheckedUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentCreateWithoutCompanyInput = {
@@ -1212,6 +1254,7 @@ export type DepartmentCreateWithoutCompanyInput = {
   employees?: Prisma.EmployeeCreateNestedManyWithoutDepartmentInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutDepartmentInput
   admissionInvites?: Prisma.AdmissionInviteCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutCompanyInput = {
@@ -1231,6 +1274,7 @@ export type DepartmentUncheckedCreateWithoutCompanyInput = {
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutDepartmentInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutDepartmentInput
   admissionInvites?: Prisma.AdmissionInviteUncheckedCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutCompanyInput = {
@@ -1276,6 +1320,7 @@ export type DepartmentCreateWithoutTenantInput = {
   employees?: Prisma.EmployeeCreateNestedManyWithoutDepartmentInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutDepartmentInput
   admissionInvites?: Prisma.AdmissionInviteCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutTenantInput = {
@@ -1295,6 +1340,7 @@ export type DepartmentUncheckedCreateWithoutTenantInput = {
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutDepartmentInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutDepartmentInput
   admissionInvites?: Prisma.AdmissionInviteUncheckedCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutTenantInput = {
@@ -1340,6 +1386,7 @@ export type DepartmentCreateWithoutAdmissionInvitesInput = {
   positions?: Prisma.PositionCreateNestedManyWithoutDepartmentInput
   employees?: Prisma.EmployeeCreateNestedManyWithoutDepartmentInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutAdmissionInvitesInput = {
@@ -1359,6 +1406,7 @@ export type DepartmentUncheckedCreateWithoutAdmissionInvitesInput = {
   positions?: Prisma.PositionUncheckedCreateNestedManyWithoutDepartmentInput
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutDepartmentInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutAdmissionInvitesInput = {
@@ -1394,6 +1442,7 @@ export type DepartmentUpdateWithoutAdmissionInvitesInput = {
   positions?: Prisma.PositionUpdateManyWithoutDepartmentNestedInput
   employees?: Prisma.EmployeeUpdateManyWithoutDepartmentNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutAdmissionInvitesInput = {
@@ -1413,6 +1462,7 @@ export type DepartmentUncheckedUpdateWithoutAdmissionInvitesInput = {
   positions?: Prisma.PositionUncheckedUpdateManyWithoutDepartmentNestedInput
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutDepartmentNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentCreateWithoutJobPostingsInput = {
@@ -1432,6 +1482,7 @@ export type DepartmentCreateWithoutJobPostingsInput = {
   positions?: Prisma.PositionCreateNestedManyWithoutDepartmentInput
   employees?: Prisma.EmployeeCreateNestedManyWithoutDepartmentInput
   admissionInvites?: Prisma.AdmissionInviteCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutJobPostingsInput = {
@@ -1451,6 +1502,7 @@ export type DepartmentUncheckedCreateWithoutJobPostingsInput = {
   positions?: Prisma.PositionUncheckedCreateNestedManyWithoutDepartmentInput
   employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutDepartmentInput
   admissionInvites?: Prisma.AdmissionInviteUncheckedCreateNestedManyWithoutDepartmentInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutJobPostingsInput = {
@@ -1486,6 +1538,7 @@ export type DepartmentUpdateWithoutJobPostingsInput = {
   positions?: Prisma.PositionUpdateManyWithoutDepartmentNestedInput
   employees?: Prisma.EmployeeUpdateManyWithoutDepartmentNestedInput
   admissionInvites?: Prisma.AdmissionInviteUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutJobPostingsInput = {
@@ -1504,6 +1557,103 @@ export type DepartmentUncheckedUpdateWithoutJobPostingsInput = {
   children?: Prisma.DepartmentUncheckedUpdateManyWithoutParentNestedInput
   positions?: Prisma.PositionUncheckedUpdateManyWithoutDepartmentNestedInput
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutDepartmentNestedInput
+  admissionInvites?: Prisma.AdmissionInviteUncheckedUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedUpdateManyWithoutDepartmentNestedInput
+}
+
+export type DepartmentCreateWithoutPunchDeviceAllowlistInput = {
+  id?: string
+  name: string
+  code: string
+  description?: string | null
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutDepartmentsInput
+  parent?: Prisma.DepartmentCreateNestedOneWithoutChildrenInput
+  children?: Prisma.DepartmentCreateNestedManyWithoutParentInput
+  manager?: Prisma.EmployeeCreateNestedOneWithoutManagedDepartmentsInput
+  company: Prisma.CompanyCreateNestedOneWithoutDepartmentsInput
+  positions?: Prisma.PositionCreateNestedManyWithoutDepartmentInput
+  employees?: Prisma.EmployeeCreateNestedManyWithoutDepartmentInput
+  jobPostings?: Prisma.JobPostingCreateNestedManyWithoutDepartmentInput
+  admissionInvites?: Prisma.AdmissionInviteCreateNestedManyWithoutDepartmentInput
+}
+
+export type DepartmentUncheckedCreateWithoutPunchDeviceAllowlistInput = {
+  id?: string
+  tenantId: string
+  name: string
+  code: string
+  description?: string | null
+  parentId?: string | null
+  managerId?: string | null
+  companyId: string
+  isActive?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  children?: Prisma.DepartmentUncheckedCreateNestedManyWithoutParentInput
+  positions?: Prisma.PositionUncheckedCreateNestedManyWithoutDepartmentInput
+  employees?: Prisma.EmployeeUncheckedCreateNestedManyWithoutDepartmentInput
+  jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutDepartmentInput
+  admissionInvites?: Prisma.AdmissionInviteUncheckedCreateNestedManyWithoutDepartmentInput
+}
+
+export type DepartmentCreateOrConnectWithoutPunchDeviceAllowlistInput = {
+  where: Prisma.DepartmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.DepartmentCreateWithoutPunchDeviceAllowlistInput, Prisma.DepartmentUncheckedCreateWithoutPunchDeviceAllowlistInput>
+}
+
+export type DepartmentUpsertWithoutPunchDeviceAllowlistInput = {
+  update: Prisma.XOR<Prisma.DepartmentUpdateWithoutPunchDeviceAllowlistInput, Prisma.DepartmentUncheckedUpdateWithoutPunchDeviceAllowlistInput>
+  create: Prisma.XOR<Prisma.DepartmentCreateWithoutPunchDeviceAllowlistInput, Prisma.DepartmentUncheckedCreateWithoutPunchDeviceAllowlistInput>
+  where?: Prisma.DepartmentWhereInput
+}
+
+export type DepartmentUpdateToOneWithWhereWithoutPunchDeviceAllowlistInput = {
+  where?: Prisma.DepartmentWhereInput
+  data: Prisma.XOR<Prisma.DepartmentUpdateWithoutPunchDeviceAllowlistInput, Prisma.DepartmentUncheckedUpdateWithoutPunchDeviceAllowlistInput>
+}
+
+export type DepartmentUpdateWithoutPunchDeviceAllowlistInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutDepartmentsNestedInput
+  parent?: Prisma.DepartmentUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.DepartmentUpdateManyWithoutParentNestedInput
+  manager?: Prisma.EmployeeUpdateOneWithoutManagedDepartmentsNestedInput
+  company?: Prisma.CompanyUpdateOneRequiredWithoutDepartmentsNestedInput
+  positions?: Prisma.PositionUpdateManyWithoutDepartmentNestedInput
+  employees?: Prisma.EmployeeUpdateManyWithoutDepartmentNestedInput
+  jobPostings?: Prisma.JobPostingUpdateManyWithoutDepartmentNestedInput
+  admissionInvites?: Prisma.AdmissionInviteUpdateManyWithoutDepartmentNestedInput
+}
+
+export type DepartmentUncheckedUpdateWithoutPunchDeviceAllowlistInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  children?: Prisma.DepartmentUncheckedUpdateManyWithoutParentNestedInput
+  positions?: Prisma.PositionUncheckedUpdateManyWithoutDepartmentNestedInput
+  employees?: Prisma.EmployeeUncheckedUpdateManyWithoutDepartmentNestedInput
+  jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutDepartmentNestedInput
   admissionInvites?: Prisma.AdmissionInviteUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
@@ -1538,6 +1688,7 @@ export type DepartmentUpdateWithoutManagerInput = {
   employees?: Prisma.EmployeeUpdateManyWithoutDepartmentNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutDepartmentNestedInput
   admissionInvites?: Prisma.AdmissionInviteUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutManagerInput = {
@@ -1557,6 +1708,7 @@ export type DepartmentUncheckedUpdateWithoutManagerInput = {
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutDepartmentNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutDepartmentNestedInput
   admissionInvites?: Prisma.AdmissionInviteUncheckedUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateManyWithoutManagerInput = {
@@ -1604,6 +1756,7 @@ export type DepartmentUpdateWithoutParentInput = {
   employees?: Prisma.EmployeeUpdateManyWithoutDepartmentNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutDepartmentNestedInput
   admissionInvites?: Prisma.AdmissionInviteUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutParentInput = {
@@ -1623,6 +1776,7 @@ export type DepartmentUncheckedUpdateWithoutParentInput = {
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutDepartmentNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutDepartmentNestedInput
   admissionInvites?: Prisma.AdmissionInviteUncheckedUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateManyWithoutParentInput = {
@@ -1670,6 +1824,7 @@ export type DepartmentUpdateWithoutCompanyInput = {
   employees?: Prisma.EmployeeUpdateManyWithoutDepartmentNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutDepartmentNestedInput
   admissionInvites?: Prisma.AdmissionInviteUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutCompanyInput = {
@@ -1689,6 +1844,7 @@ export type DepartmentUncheckedUpdateWithoutCompanyInput = {
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutDepartmentNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutDepartmentNestedInput
   admissionInvites?: Prisma.AdmissionInviteUncheckedUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateManyWithoutCompanyInput = {
@@ -1736,6 +1892,7 @@ export type DepartmentUpdateWithoutTenantInput = {
   employees?: Prisma.EmployeeUpdateManyWithoutDepartmentNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutDepartmentNestedInput
   admissionInvites?: Prisma.AdmissionInviteUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutTenantInput = {
@@ -1755,6 +1912,7 @@ export type DepartmentUncheckedUpdateWithoutTenantInput = {
   employees?: Prisma.EmployeeUncheckedUpdateManyWithoutDepartmentNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutDepartmentNestedInput
   admissionInvites?: Prisma.AdmissionInviteUncheckedUpdateManyWithoutDepartmentNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceDepartmentUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateManyWithoutTenantInput = {
@@ -1782,6 +1940,7 @@ export type DepartmentCountOutputType = {
   employees: number
   jobPostings: number
   admissionInvites: number
+  punchDeviceAllowlist: number
 }
 
 export type DepartmentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1790,6 +1949,7 @@ export type DepartmentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extens
   employees?: boolean | DepartmentCountOutputTypeCountEmployeesArgs
   jobPostings?: boolean | DepartmentCountOutputTypeCountJobPostingsArgs
   admissionInvites?: boolean | DepartmentCountOutputTypeCountAdmissionInvitesArgs
+  punchDeviceAllowlist?: boolean | DepartmentCountOutputTypeCountPunchDeviceAllowlistArgs
 }
 
 /**
@@ -1837,6 +1997,13 @@ export type DepartmentCountOutputTypeCountAdmissionInvitesArgs<ExtArgs extends r
   where?: Prisma.AdmissionInviteWhereInput
 }
 
+/**
+ * DepartmentCountOutputType without action
+ */
+export type DepartmentCountOutputTypeCountPunchDeviceAllowlistArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PunchDeviceDepartmentWhereInput
+}
+
 
 export type DepartmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1860,6 +2027,7 @@ export type DepartmentSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   employees?: boolean | Prisma.Department$employeesArgs<ExtArgs>
   jobPostings?: boolean | Prisma.Department$jobPostingsArgs<ExtArgs>
   admissionInvites?: boolean | Prisma.Department$admissionInvitesArgs<ExtArgs>
+  punchDeviceAllowlist?: boolean | Prisma.Department$punchDeviceAllowlistArgs<ExtArgs>
   _count?: boolean | Prisma.DepartmentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["department"]>
 
@@ -1927,6 +2095,7 @@ export type DepartmentInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   employees?: boolean | Prisma.Department$employeesArgs<ExtArgs>
   jobPostings?: boolean | Prisma.Department$jobPostingsArgs<ExtArgs>
   admissionInvites?: boolean | Prisma.Department$admissionInvitesArgs<ExtArgs>
+  punchDeviceAllowlist?: boolean | Prisma.Department$punchDeviceAllowlistArgs<ExtArgs>
   _count?: boolean | Prisma.DepartmentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DepartmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1954,6 +2123,7 @@ export type $DepartmentPayload<ExtArgs extends runtime.Types.Extensions.Internal
     employees: Prisma.$EmployeePayload<ExtArgs>[]
     jobPostings: Prisma.$JobPostingPayload<ExtArgs>[]
     admissionInvites: Prisma.$AdmissionInvitePayload<ExtArgs>[]
+    punchDeviceAllowlist: Prisma.$PunchDeviceDepartmentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2371,6 +2541,7 @@ export interface Prisma__DepartmentClient<T, Null = never, ExtArgs extends runti
   employees<T extends Prisma.Department$employeesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Department$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   jobPostings<T extends Prisma.Department$jobPostingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Department$jobPostingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobPostingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   admissionInvites<T extends Prisma.Department$admissionInvitesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Department$admissionInvitesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdmissionInvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  punchDeviceAllowlist<T extends Prisma.Department$punchDeviceAllowlistArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Department$punchDeviceAllowlistArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PunchDeviceDepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2968,6 +3139,30 @@ export type Department$admissionInvitesArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.AdmissionInviteScalarFieldEnum | Prisma.AdmissionInviteScalarFieldEnum[]
+}
+
+/**
+ * Department.punchDeviceAllowlist
+ */
+export type Department$punchDeviceAllowlistArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PunchDeviceDepartment
+   */
+  select?: Prisma.PunchDeviceDepartmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PunchDeviceDepartment
+   */
+  omit?: Prisma.PunchDeviceDepartmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PunchDeviceDepartmentInclude<ExtArgs> | null
+  where?: Prisma.PunchDeviceDepartmentWhereInput
+  orderBy?: Prisma.PunchDeviceDepartmentOrderByWithRelationInput | Prisma.PunchDeviceDepartmentOrderByWithRelationInput[]
+  cursor?: Prisma.PunchDeviceDepartmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PunchDeviceDepartmentScalarFieldEnum | Prisma.PunchDeviceDepartmentScalarFieldEnum[]
 }
 
 /**

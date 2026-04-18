@@ -3692,6 +3692,32 @@ export const PrinterStatus = {
 export type PrinterStatus = (typeof PrinterStatus)[keyof typeof PrinterStatus]
 
 
+export const PunchDeviceKind = {
+  PWA_PERSONAL: 'PWA_PERSONAL',
+  KIOSK_PUBLIC: 'KIOSK_PUBLIC',
+  BIOMETRIC_READER: 'BIOMETRIC_READER',
+  WEBAUTHN_PC: 'WEBAUTHN_PC'
+} as const
+
+export type PunchDeviceKind = (typeof PunchDeviceKind)[keyof typeof PunchDeviceKind]
+
+
+export const PunchApprovalReason = {
+  OUT_OF_GEOFENCE: 'OUT_OF_GEOFENCE'
+} as const
+
+export type PunchApprovalReason = (typeof PunchApprovalReason)[keyof typeof PunchApprovalReason]
+
+
+export const PunchApprovalStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type PunchApprovalStatus = (typeof PunchApprovalStatus)[keyof typeof PunchApprovalStatus]
+
+
 export const ProductionOrderStatus = {
   DRAFT: 'DRAFT',
   PLANNED: 'PLANNED',

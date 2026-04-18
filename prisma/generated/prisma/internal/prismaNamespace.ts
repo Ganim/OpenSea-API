@@ -757,6 +757,10 @@ export const ModelName = {
   PaymentCharge: 'PaymentCharge',
   Invoice: 'Invoice',
   PrintAgent: 'PrintAgent',
+  PunchDevice: 'PunchDevice',
+  PunchDeviceEmployee: 'PunchDeviceEmployee',
+  PunchDeviceDepartment: 'PunchDeviceDepartment',
+  PunchApproval: 'PunchApproval',
   PosPrinter: 'PosPrinter',
   PrintJob: 'PrintJob',
   FocusNfeConfig: 'FocusNfeConfig',
@@ -800,7 +804,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "inventorySession" | "inventorySessionItem" | "customer" | "salesOrder" | "salesOrderItem" | "crmContact" | "crmPipeline" | "crmPipelineStage" | "crmDeal" | "crmActivity" | "crmTimelineEvent" | "pipeline" | "pipelineStage" | "processBlueprint" | "blueprintStageRule" | "contact" | "deal" | "contactDeal" | "activity" | "timelineEvent" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "notificationCategory" | "notificationModuleRegistry" | "notificationPreferenceV2" | "notificationModuleSetting" | "userNotificationSettings" | "notificationDeliveryAttempt" | "pushSubscription" | "notificationCallbackJob" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "shift" | "shiftAssignment" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "vacationSplit" | "payroll" | "payrollItem" | "bonus" | "deduction" | "employeeWarning" | "employeeDependant" | "termination" | "medicalExam" | "occupationalExamRequirement" | "safetyProgram" | "workplaceRisk" | "cipaMandate" | "cipaMember" | "benefitPlan" | "benefitEnrollment" | "trainingProgram" | "trainingEnrollment" | "reviewCycle" | "performanceReview" | "survey" | "surveyQuestion" | "surveyResponse" | "surveyAnswer" | "objective" | "keyResult" | "oKRCheckIn" | "flexBenefitAllocation" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "chartOfAccount" | "journalEntry" | "journalEntryLine" | "exchangeRate" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryRetention" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeBudget" | "financePeriodLock" | "financeAttachment" | "bankReconciliation" | "bankReconciliationItem" | "reconciliationSuggestion" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig" | "priceTable" | "priceTableRule" | "priceTableItem" | "customerPrice" | "taxProfile" | "taxRule" | "campaign" | "campaignRule" | "campaignProduct" | "coupon" | "couponUsage" | "combo" | "comboItem" | "catalog" | "catalogItem" | "catalogExport" | "tenantBrand" | "contentTemplate" | "generatedContent" | "productMockup" | "emailCampaign" | "order" | "orderItem" | "paymentCondition" | "orderPayment" | "orderDelivery" | "orderDeliveryItem" | "orderReturn" | "orderReturnItem" | "storeCredit" | "storeCreditUsage" | "customerCreditLimit" | "approvalRule" | "orderCommission" | "commissionRule" | "orderHistory" | "digitalCertificate" | "signatureEnvelope" | "signatureEnvelopeSigner" | "signatureAuditEvent" | "signatureTemplate" | "analyticsWidget" | "analyticsDashboard" | "analyticsDashboardWidget" | "analyticsGoal" | "analyticsReport" | "analyticsReportGeneration" | "customerPortalAccess" | "aiTenantConfig" | "aiConversation" | "aiMessage" | "aiFavoriteQuery" | "aiActionLog" | "aiInsight" | "posTerminal" | "posTerminalWarehouse" | "posDevicePairing" | "posSession" | "posTransaction" | "posTransactionPayment" | "posCashMovement" | "posOfflineQueue" | "posVisitLog" | "cardIntegration" | "eventLog" | "bid" | "bidItem" | "bidProposal" | "bidDocument" | "bidContract" | "bidEmpenho" | "bidMonitorEvent" | "bidHistory" | "bidAiConfig" | "certidaoSchedule" | "marketplaceConnection" | "marketplaceListing" | "marketplaceOrder" | "marketplacePayment" | "messagingAccount" | "messagingContact" | "messagingMessage" | "messagingTemplate" | "fiscalConfig" | "fiscalCertificate" | "fiscalDocument" | "fiscalDocumentItem" | "fiscalDocumentEvent" | "pixCharge" | "aiWorkflow" | "aiWorkflowExecution" | "overdueEscalation" | "overdueEscalationStep" | "overdueAction" | "punchConfiguration" | "hrTenantConfig" | "geofenceZone" | "emailToEntryConfig" | "esocialConfig" | "esocialCertificate" | "esocialEvent" | "esocialBatch" | "esocialRubrica" | "esocialEventStatusHistory" | "esocialTable" | "financeApprovalRule" | "taxObligation" | "bankConnection" | "paymentOrder" | "bankWebhookEvent" | "paymentLink" | "cashflowSnapshot" | "accountantAccess" | "quote" | "quoteItem" | "proposal" | "proposalItem" | "proposalAttachment" | "discountRule" | "workflow" | "workflowStep" | "conversation" | "conversationMessage" | "chatbotConfig" | "dealPrediction" | "form" | "formField" | "formSubmission" | "messageTemplate" | "cashierSession" | "cashierTransaction" | "leadScoringRule" | "leadScore" | "cadenceSequence" | "cadenceStep" | "cadenceEnrollment" | "landingPage" | "integration" | "tenantIntegration" | "leadRoutingRule" | "employeeRequest" | "companyAnnouncement" | "employeeKudos" | "onboardingChecklist" | "pPEItem" | "pPEAssignment" | "offboardingChecklist" | "reviewCompetency" | "kudosReaction" | "kudosReply" | "announcementReadReceipt" | "salaryHistory" | "oneOnOneMeeting" | "talkingPoint" | "oneOnOneActionItem" | "admissionInvite" | "admissionDocument" | "digitalSignature" | "authLink" | "tenantAuthConfig" | "magicLinkToken" | "approvalDelegation" | "jobPosting" | "candidate" | "application" | "interviewStage" | "interview" | "tenantPaymentConfig" | "paymentCharge" | "invoice" | "printAgent" | "posPrinter" | "printJob" | "focusNfeConfig" | "productionWorkstationType" | "productionWorkstation" | "productionWorkCenter" | "productionBom" | "productionBomItem" | "productionOperationRouting" | "productionOrder" | "productionMaterialReservation" | "productionMaterialIssue" | "productionMaterialReturn" | "productionJobCard" | "productionTimeEntry" | "productionEntry" | "productionDowntimeReason" | "productionDowntimeRecord" | "productionSchedule" | "productionScheduleEntry" | "productionDefectType" | "productionInspectionPlan" | "productionInspectionResult" | "productionDefectRecord" | "productionQualityHold" | "productionCost" | "contractTemplate" | "generatedEmploymentContract"
+    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "inventorySession" | "inventorySessionItem" | "customer" | "salesOrder" | "salesOrderItem" | "crmContact" | "crmPipeline" | "crmPipelineStage" | "crmDeal" | "crmActivity" | "crmTimelineEvent" | "pipeline" | "pipelineStage" | "processBlueprint" | "blueprintStageRule" | "contact" | "deal" | "contactDeal" | "activity" | "timelineEvent" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "notificationCategory" | "notificationModuleRegistry" | "notificationPreferenceV2" | "notificationModuleSetting" | "userNotificationSettings" | "notificationDeliveryAttempt" | "pushSubscription" | "notificationCallbackJob" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "shift" | "shiftAssignment" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "vacationSplit" | "payroll" | "payrollItem" | "bonus" | "deduction" | "employeeWarning" | "employeeDependant" | "termination" | "medicalExam" | "occupationalExamRequirement" | "safetyProgram" | "workplaceRisk" | "cipaMandate" | "cipaMember" | "benefitPlan" | "benefitEnrollment" | "trainingProgram" | "trainingEnrollment" | "reviewCycle" | "performanceReview" | "survey" | "surveyQuestion" | "surveyResponse" | "surveyAnswer" | "objective" | "keyResult" | "oKRCheckIn" | "flexBenefitAllocation" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "chartOfAccount" | "journalEntry" | "journalEntryLine" | "exchangeRate" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryRetention" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeBudget" | "financePeriodLock" | "financeAttachment" | "bankReconciliation" | "bankReconciliationItem" | "reconciliationSuggestion" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig" | "priceTable" | "priceTableRule" | "priceTableItem" | "customerPrice" | "taxProfile" | "taxRule" | "campaign" | "campaignRule" | "campaignProduct" | "coupon" | "couponUsage" | "combo" | "comboItem" | "catalog" | "catalogItem" | "catalogExport" | "tenantBrand" | "contentTemplate" | "generatedContent" | "productMockup" | "emailCampaign" | "order" | "orderItem" | "paymentCondition" | "orderPayment" | "orderDelivery" | "orderDeliveryItem" | "orderReturn" | "orderReturnItem" | "storeCredit" | "storeCreditUsage" | "customerCreditLimit" | "approvalRule" | "orderCommission" | "commissionRule" | "orderHistory" | "digitalCertificate" | "signatureEnvelope" | "signatureEnvelopeSigner" | "signatureAuditEvent" | "signatureTemplate" | "analyticsWidget" | "analyticsDashboard" | "analyticsDashboardWidget" | "analyticsGoal" | "analyticsReport" | "analyticsReportGeneration" | "customerPortalAccess" | "aiTenantConfig" | "aiConversation" | "aiMessage" | "aiFavoriteQuery" | "aiActionLog" | "aiInsight" | "posTerminal" | "posTerminalWarehouse" | "posDevicePairing" | "posSession" | "posTransaction" | "posTransactionPayment" | "posCashMovement" | "posOfflineQueue" | "posVisitLog" | "cardIntegration" | "eventLog" | "bid" | "bidItem" | "bidProposal" | "bidDocument" | "bidContract" | "bidEmpenho" | "bidMonitorEvent" | "bidHistory" | "bidAiConfig" | "certidaoSchedule" | "marketplaceConnection" | "marketplaceListing" | "marketplaceOrder" | "marketplacePayment" | "messagingAccount" | "messagingContact" | "messagingMessage" | "messagingTemplate" | "fiscalConfig" | "fiscalCertificate" | "fiscalDocument" | "fiscalDocumentItem" | "fiscalDocumentEvent" | "pixCharge" | "aiWorkflow" | "aiWorkflowExecution" | "overdueEscalation" | "overdueEscalationStep" | "overdueAction" | "punchConfiguration" | "hrTenantConfig" | "geofenceZone" | "emailToEntryConfig" | "esocialConfig" | "esocialCertificate" | "esocialEvent" | "esocialBatch" | "esocialRubrica" | "esocialEventStatusHistory" | "esocialTable" | "financeApprovalRule" | "taxObligation" | "bankConnection" | "paymentOrder" | "bankWebhookEvent" | "paymentLink" | "cashflowSnapshot" | "accountantAccess" | "quote" | "quoteItem" | "proposal" | "proposalItem" | "proposalAttachment" | "discountRule" | "workflow" | "workflowStep" | "conversation" | "conversationMessage" | "chatbotConfig" | "dealPrediction" | "form" | "formField" | "formSubmission" | "messageTemplate" | "cashierSession" | "cashierTransaction" | "leadScoringRule" | "leadScore" | "cadenceSequence" | "cadenceStep" | "cadenceEnrollment" | "landingPage" | "integration" | "tenantIntegration" | "leadRoutingRule" | "employeeRequest" | "companyAnnouncement" | "employeeKudos" | "onboardingChecklist" | "pPEItem" | "pPEAssignment" | "offboardingChecklist" | "reviewCompetency" | "kudosReaction" | "kudosReply" | "announcementReadReceipt" | "salaryHistory" | "oneOnOneMeeting" | "talkingPoint" | "oneOnOneActionItem" | "admissionInvite" | "admissionDocument" | "digitalSignature" | "authLink" | "tenantAuthConfig" | "magicLinkToken" | "approvalDelegation" | "jobPosting" | "candidate" | "application" | "interviewStage" | "interview" | "tenantPaymentConfig" | "paymentCharge" | "invoice" | "printAgent" | "punchDevice" | "punchDeviceEmployee" | "punchDeviceDepartment" | "punchApproval" | "posPrinter" | "printJob" | "focusNfeConfig" | "productionWorkstationType" | "productionWorkstation" | "productionWorkCenter" | "productionBom" | "productionBomItem" | "productionOperationRouting" | "productionOrder" | "productionMaterialReservation" | "productionMaterialIssue" | "productionMaterialReturn" | "productionJobCard" | "productionTimeEntry" | "productionEntry" | "productionDowntimeReason" | "productionDowntimeRecord" | "productionSchedule" | "productionScheduleEntry" | "productionDefectType" | "productionInspectionPlan" | "productionInspectionResult" | "productionDefectRecord" | "productionQualityHold" | "productionCost" | "contractTemplate" | "generatedEmploymentContract"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -28406,6 +28410,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PunchDevice: {
+      payload: Prisma.$PunchDevicePayload<ExtArgs>
+      fields: Prisma.PunchDeviceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PunchDeviceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDevicePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PunchDeviceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDevicePayload>
+        }
+        findFirst: {
+          args: Prisma.PunchDeviceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDevicePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PunchDeviceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDevicePayload>
+        }
+        findMany: {
+          args: Prisma.PunchDeviceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDevicePayload>[]
+        }
+        create: {
+          args: Prisma.PunchDeviceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDevicePayload>
+        }
+        createMany: {
+          args: Prisma.PunchDeviceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PunchDeviceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDevicePayload>[]
+        }
+        delete: {
+          args: Prisma.PunchDeviceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDevicePayload>
+        }
+        update: {
+          args: Prisma.PunchDeviceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDevicePayload>
+        }
+        deleteMany: {
+          args: Prisma.PunchDeviceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PunchDeviceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PunchDeviceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDevicePayload>[]
+        }
+        upsert: {
+          args: Prisma.PunchDeviceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDevicePayload>
+        }
+        aggregate: {
+          args: Prisma.PunchDeviceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePunchDevice>
+        }
+        groupBy: {
+          args: Prisma.PunchDeviceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PunchDeviceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PunchDeviceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PunchDeviceCountAggregateOutputType> | number
+        }
+      }
+    }
+    PunchDeviceEmployee: {
+      payload: Prisma.$PunchDeviceEmployeePayload<ExtArgs>
+      fields: Prisma.PunchDeviceEmployeeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PunchDeviceEmployeeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceEmployeePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PunchDeviceEmployeeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceEmployeePayload>
+        }
+        findFirst: {
+          args: Prisma.PunchDeviceEmployeeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceEmployeePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PunchDeviceEmployeeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceEmployeePayload>
+        }
+        findMany: {
+          args: Prisma.PunchDeviceEmployeeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceEmployeePayload>[]
+        }
+        create: {
+          args: Prisma.PunchDeviceEmployeeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceEmployeePayload>
+        }
+        createMany: {
+          args: Prisma.PunchDeviceEmployeeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PunchDeviceEmployeeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceEmployeePayload>[]
+        }
+        delete: {
+          args: Prisma.PunchDeviceEmployeeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceEmployeePayload>
+        }
+        update: {
+          args: Prisma.PunchDeviceEmployeeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceEmployeePayload>
+        }
+        deleteMany: {
+          args: Prisma.PunchDeviceEmployeeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PunchDeviceEmployeeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PunchDeviceEmployeeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceEmployeePayload>[]
+        }
+        upsert: {
+          args: Prisma.PunchDeviceEmployeeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceEmployeePayload>
+        }
+        aggregate: {
+          args: Prisma.PunchDeviceEmployeeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePunchDeviceEmployee>
+        }
+        groupBy: {
+          args: Prisma.PunchDeviceEmployeeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PunchDeviceEmployeeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PunchDeviceEmployeeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PunchDeviceEmployeeCountAggregateOutputType> | number
+        }
+      }
+    }
+    PunchDeviceDepartment: {
+      payload: Prisma.$PunchDeviceDepartmentPayload<ExtArgs>
+      fields: Prisma.PunchDeviceDepartmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PunchDeviceDepartmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceDepartmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PunchDeviceDepartmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceDepartmentPayload>
+        }
+        findFirst: {
+          args: Prisma.PunchDeviceDepartmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceDepartmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PunchDeviceDepartmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceDepartmentPayload>
+        }
+        findMany: {
+          args: Prisma.PunchDeviceDepartmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceDepartmentPayload>[]
+        }
+        create: {
+          args: Prisma.PunchDeviceDepartmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceDepartmentPayload>
+        }
+        createMany: {
+          args: Prisma.PunchDeviceDepartmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PunchDeviceDepartmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceDepartmentPayload>[]
+        }
+        delete: {
+          args: Prisma.PunchDeviceDepartmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceDepartmentPayload>
+        }
+        update: {
+          args: Prisma.PunchDeviceDepartmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceDepartmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.PunchDeviceDepartmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PunchDeviceDepartmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PunchDeviceDepartmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceDepartmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.PunchDeviceDepartmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchDeviceDepartmentPayload>
+        }
+        aggregate: {
+          args: Prisma.PunchDeviceDepartmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePunchDeviceDepartment>
+        }
+        groupBy: {
+          args: Prisma.PunchDeviceDepartmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PunchDeviceDepartmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PunchDeviceDepartmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PunchDeviceDepartmentCountAggregateOutputType> | number
+        }
+      }
+    }
+    PunchApproval: {
+      payload: Prisma.$PunchApprovalPayload<ExtArgs>
+      fields: Prisma.PunchApprovalFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PunchApprovalFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchApprovalPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PunchApprovalFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchApprovalPayload>
+        }
+        findFirst: {
+          args: Prisma.PunchApprovalFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchApprovalPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PunchApprovalFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchApprovalPayload>
+        }
+        findMany: {
+          args: Prisma.PunchApprovalFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchApprovalPayload>[]
+        }
+        create: {
+          args: Prisma.PunchApprovalCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchApprovalPayload>
+        }
+        createMany: {
+          args: Prisma.PunchApprovalCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PunchApprovalCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchApprovalPayload>[]
+        }
+        delete: {
+          args: Prisma.PunchApprovalDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchApprovalPayload>
+        }
+        update: {
+          args: Prisma.PunchApprovalUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchApprovalPayload>
+        }
+        deleteMany: {
+          args: Prisma.PunchApprovalDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PunchApprovalUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PunchApprovalUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchApprovalPayload>[]
+        }
+        upsert: {
+          args: Prisma.PunchApprovalUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PunchApprovalPayload>
+        }
+        aggregate: {
+          args: Prisma.PunchApprovalAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePunchApproval>
+        }
+        groupBy: {
+          args: Prisma.PunchApprovalGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PunchApprovalGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PunchApprovalCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PunchApprovalCountAggregateOutputType> | number
+        }
+      }
+    }
     PosPrinter: {
       payload: Prisma.$PosPrinterPayload<ExtArgs>
       fields: Prisma.PosPrinterFieldRefs
@@ -32255,6 +32555,7 @@ export const TimeEntryScalarFieldEnum = {
   receiptUrl: 'receiptUrl',
   deviceFingerprint: 'deviceFingerprint',
   photoUrl: 'photoUrl',
+  requestId: 'requestId',
   createdAt: 'createdAt'
 } as const
 
@@ -38051,6 +38352,70 @@ export const PrintAgentScalarFieldEnum = {
 export type PrintAgentScalarFieldEnum = (typeof PrintAgentScalarFieldEnum)[keyof typeof PrintAgentScalarFieldEnum]
 
 
+export const PunchDeviceScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  deviceKind: 'deviceKind',
+  pairingSecret: 'pairingSecret',
+  deviceTokenHash: 'deviceTokenHash',
+  deviceLabel: 'deviceLabel',
+  geofenceZoneId: 'geofenceZoneId',
+  pairedAt: 'pairedAt',
+  pairedByUserId: 'pairedByUserId',
+  revokedAt: 'revokedAt',
+  revokedByUserId: 'revokedByUserId',
+  revokedReason: 'revokedReason',
+  status: 'status',
+  lastSeenAt: 'lastSeenAt',
+  ipAddress: 'ipAddress',
+  hostname: 'hostname',
+  osInfo: 'osInfo',
+  version: 'version',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type PunchDeviceScalarFieldEnum = (typeof PunchDeviceScalarFieldEnum)[keyof typeof PunchDeviceScalarFieldEnum]
+
+
+export const PunchDeviceEmployeeScalarFieldEnum = {
+  deviceId: 'deviceId',
+  employeeId: 'employeeId',
+  createdAt: 'createdAt'
+} as const
+
+export type PunchDeviceEmployeeScalarFieldEnum = (typeof PunchDeviceEmployeeScalarFieldEnum)[keyof typeof PunchDeviceEmployeeScalarFieldEnum]
+
+
+export const PunchDeviceDepartmentScalarFieldEnum = {
+  deviceId: 'deviceId',
+  departmentId: 'departmentId',
+  createdAt: 'createdAt'
+} as const
+
+export type PunchDeviceDepartmentScalarFieldEnum = (typeof PunchDeviceDepartmentScalarFieldEnum)[keyof typeof PunchDeviceDepartmentScalarFieldEnum]
+
+
+export const PunchApprovalScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  timeEntryId: 'timeEntryId',
+  employeeId: 'employeeId',
+  reason: 'reason',
+  details: 'details',
+  status: 'status',
+  resolverUserId: 'resolverUserId',
+  resolvedAt: 'resolvedAt',
+  resolverNote: 'resolverNote',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PunchApprovalScalarFieldEnum = (typeof PunchApprovalScalarFieldEnum)[keyof typeof PunchApprovalScalarFieldEnum]
+
+
 export const PosPrinterScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -42766,6 +43131,48 @@ export type ListEnumAgentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$
 
 
 /**
+ * Reference to a field of type 'PunchDeviceKind'
+ */
+export type EnumPunchDeviceKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PunchDeviceKind'>
+    
+
+
+/**
+ * Reference to a field of type 'PunchDeviceKind[]'
+ */
+export type ListEnumPunchDeviceKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PunchDeviceKind[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PunchApprovalReason'
+ */
+export type EnumPunchApprovalReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PunchApprovalReason'>
+    
+
+
+/**
+ * Reference to a field of type 'PunchApprovalReason[]'
+ */
+export type ListEnumPunchApprovalReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PunchApprovalReason[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PunchApprovalStatus'
+ */
+export type EnumPunchApprovalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PunchApprovalStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'PunchApprovalStatus[]'
+ */
+export type ListEnumPunchApprovalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PunchApprovalStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'PrinterType'
  */
 export type EnumPrinterTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PrinterType'>
@@ -43456,6 +43863,10 @@ export type GlobalOmitConfig = {
   paymentCharge?: Prisma.PaymentChargeOmit
   invoice?: Prisma.InvoiceOmit
   printAgent?: Prisma.PrintAgentOmit
+  punchDevice?: Prisma.PunchDeviceOmit
+  punchDeviceEmployee?: Prisma.PunchDeviceEmployeeOmit
+  punchDeviceDepartment?: Prisma.PunchDeviceDepartmentOmit
+  punchApproval?: Prisma.PunchApprovalOmit
   posPrinter?: Prisma.PosPrinterOmit
   printJob?: Prisma.PrintJobOmit
   focusNfeConfig?: Prisma.FocusNfeConfigOmit
