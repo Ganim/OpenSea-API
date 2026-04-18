@@ -298,6 +298,11 @@ export const QUEUE_NAMES = {
   HR_PAYROLL_GENERATION: 'hr-payroll-generation',
   CALENDAR_REMINDERS: 'calendar-reminders',
   NOTIFICATIONS_SCHEDULED: 'notifications-scheduled',
+  // Phase 4 (punch): durable BullMQ fan-out for punch.* domain events
+  // (AD-02). Every punch event published via typedEventBus is also forwarded
+  // by punchEventsQueueBridge so heavy handlers (payroll calc, timebank
+  // recompute, eSocial batching) can run out-of-process in later phases.
+  PUNCH_EVENTS: 'punch-events',
 } as const;
 
 export type QueueName = (typeof QUEUE_NAMES)[keyof typeof QUEUE_NAMES];

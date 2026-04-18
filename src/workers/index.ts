@@ -36,6 +36,7 @@ import {
   startPaymentReconciliationScheduler,
   stopPaymentReconciliationScheduler,
 } from './payment-reconciliation-scheduler';
+import { startPunchEventsWorker } from './punch-events-worker';
 import {
   scheduleCalendarRemindersRepeatable,
   startCalendarRemindersQueueWorker,
@@ -140,6 +141,17 @@ export async function startAllWorkers(): Promise<void> {
   startEmailSyncWorker();
   startNotificationWorker();
   startEsocialBatchPollingWorker();
+
+  // Phase 4 (punch): durable BullMQ fan-out for punch.* events.
+  // Producer: punchEventsQueueBridge (consumer registered in
+  // src/lib/events/register-consumers.ts). Phase 4 handler is a mock
+  // that logs each job — real work lands in phases 6/7.
+  try {
+    startPunchEventsWorker();
+    console.log('[Workers] Punch events worker started');
+  } catch (err) {
+    console.error('[Workers] Failed to start punch events worker:', err);
+  }
 
   // Start the email sync scheduler (enqueues periodic sync jobs)
   try {

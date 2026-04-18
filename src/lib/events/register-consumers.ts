@@ -20,6 +20,7 @@ import { marketplaceOrderImportConsumer } from './consumers/marketplace-consumer
 import { dealWonOrderCreationConsumer } from './consumers/deal-won-consumer';
 import { messagingNotificationConsumer } from './consumers/messaging-notification-consumer';
 import { punchEsocialConsumer } from './consumers/punch-esocial-consumer';
+import { punchEventsQueueBridge } from './consumers/punch-events-queue-bridge';
 import { punchNotificationDispatcherConsumer } from './consumers/punch-notification-dispatcher-consumer';
 import { punchPayrollConsumer } from './consumers/punch-payroll-consumer';
 import { punchTimebankConsumer } from './consumers/punch-timebank-consumer';
@@ -61,4 +62,11 @@ export function registerEventConsumers(eventBus: TypedEventBus): void {
   // to `notificationClient.dispatch(...)` using categories declared in
   // `punch.manifest.ts` (punch.registered, punch.approval_requested).
   eventBus.register(punchNotificationDispatcherConsumer);
+
+  // Punch module (Phase 4) — durable BullMQ fan-out (AD-02).
+  // Subscribes to EVERY punch.* event and forwards it as a job to the
+  // `punch-events` BullMQ queue so heavy handlers (payroll, timebank,
+  // eSocial) can run out-of-process in later phases. The bridge is the
+  // SINGLE producer of that queue — use cases never call addJob directly.
+  eventBus.register(punchEventsQueueBridge);
 }
