@@ -175,9 +175,12 @@ function isSignerDueForReminder(
 }
 
 // Standalone script entrypoint for external schedulers. Usage:
-//   npx tsx src/jobs/signature/remind-pending-signers.ts
-// ESM equivalent of `require.main === module` — project is "type": "module".
+//   STANDALONE_CRON=true npx tsx src/jobs/signature/remind-pending-signers.ts
+// Gated by STANDALONE_CRON because tsup bundles every job into server.js,
+// where `import.meta.url === process.argv[1]` would otherwise trigger this
+// block during API startup and kill the process with exit(0).
 const isDirectRun =
+  process.env.STANDALONE_CRON === 'true' &&
   typeof process.argv[1] === 'string' &&
   fileURLToPath(import.meta.url) === process.argv[1];
 

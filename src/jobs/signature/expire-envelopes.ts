@@ -124,10 +124,12 @@ export async function expireSignatureEnvelopes(
 }
 
 // Standalone script entrypoint. Executed by external schedulers (Fly.io
-// machines, k8s CronJob) via `npx tsx src/jobs/signature/expire-envelopes.ts`.
-// The project is ESM, so we compare the module URL with process.argv[1]
-// instead of the CommonJS `require.main === module` idiom.
+// machines, k8s CronJob) via `npx tsx src/jobs/signature/expire-envelopes.ts`
+// and gated by the STANDALONE_CRON env var so that tsup-bundled builds
+// (where every module shares `import.meta.url` with server.js) do not
+// accidentally auto-run this script during API boot.
 const isDirectRun =
+  process.env.STANDALONE_CRON === 'true' &&
   typeof process.argv[1] === 'string' &&
   fileURLToPath(import.meta.url) === process.argv[1];
 
