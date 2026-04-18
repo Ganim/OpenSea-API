@@ -20,6 +20,7 @@ import { marketplaceOrderImportConsumer } from './consumers/marketplace-consumer
 import { dealWonOrderCreationConsumer } from './consumers/deal-won-consumer';
 import { messagingNotificationConsumer } from './consumers/messaging-notification-consumer';
 import { punchEsocialConsumer } from './consumers/punch-esocial-consumer';
+import { punchNotificationDispatcherConsumer } from './consumers/punch-notification-dispatcher-consumer';
 import { punchPayrollConsumer } from './consumers/punch-payroll-consumer';
 import { punchTimebankConsumer } from './consumers/punch-timebank-consumer';
 import type { TypedEventBus } from './typed-event-bus';
@@ -54,4 +55,10 @@ export function registerEventConsumers(eventBus: TypedEventBus): void {
   eventBus.register(punchPayrollConsumer);
   eventBus.register(punchTimebankConsumer);
   eventBus.register(punchEsocialConsumer);
+
+  // Punch module (Phase 4) — REAL bridge to notifications v2.
+  // Subscribes to TIME_ENTRY_CREATED + APPROVAL_REQUESTED and routes them
+  // to `notificationClient.dispatch(...)` using categories declared in
+  // `punch.manifest.ts` (punch.registered, punch.approval_requested).
+  eventBus.register(punchNotificationDispatcherConsumer);
 }
