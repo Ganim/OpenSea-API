@@ -10,6 +10,11 @@ import { PunchApproval } from '@/entities/hr/punch-approval';
 import type { TimeEntry } from '@/entities/hr/time-entry';
 import { TimeEntryType } from '@/entities/hr/value-objects';
 import { getTypedEventBus } from '@/lib/events';
+import { PUNCH_EVENTS } from '@/lib/events/punch-events';
+import type {
+  PunchApprovalRequestedData,
+  PunchTimeEntryCreatedData,
+} from '@/lib/events/punch-events';
 import { prisma } from '@/lib/prisma';
 import type { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import type { PunchApprovalsRepository } from '@/repositories/hr/punch-approvals-repository';
@@ -18,17 +23,6 @@ import type { PunchDevicesRepository } from '@/repositories/hr/punch-devices-rep
 import type { TimeEntriesRepository } from '@/repositories/hr/time-entries-repository';
 
 import type { PunchValidationPipeline } from './validators/pipeline';
-
-/**
- * Temporary event-name constants. Plan 04-05 introduces a typed
- * `PUNCH_EVENTS` namespace alongside the other module-scoped event
- * constants in `src/lib/events`; this file will then import from there.
- *
- * Kept deliberately local for now to avoid cross-plan coupling —
- * downstream consumers in Plan 5 can grep the literal to find us.
- */
-const EVT_TIME_ENTRY_CREATED = 'punch.time-entry.created';
-const EVT_APPROVAL_REQUESTED = 'punch.approval.requested';
 
 export interface ExecutePunchRequest {
   tenantId: string;
@@ -169,42 +163,46 @@ export class ExecutePunchUseCase {
     //    the transaction or a rollback will leak a phantom event).
     if (!idempotentHit) {
       const bus = getTypedEventBus();
+      const timeEntryCreatedData: PunchTimeEntryCreatedData = {
+        timeEntryId: timeEntry.id.toString(),
+        employeeId: resolvedEmployeeId,
+        entryType: finalType,
+        timestamp: timestamp.toISOString(),
+        nsrNumber: null,
+        hasApproval: approvalsCreated.length > 0,
+        punchDeviceId: req.punchDeviceId ?? null,
+      };
       await bus.publish({
         id: randomUUID(),
-        type: EVT_TIME_ENTRY_CREATED,
+        type: PUNCH_EVENTS.TIME_ENTRY_CREATED,
         version: 1,
         tenantId: req.tenantId,
         source: 'hr',
         sourceEntityType: 'time_entry',
         sourceEntityId: timeEntry.id.toString(),
-        data: {
-          timeEntryId: timeEntry.id.toString(),
-          employeeId: resolvedEmployeeId,
-          entryType: finalType,
-          timestamp: timestamp.toISOString(),
-          hasApproval: approvalsCreated.length > 0,
-          punchDeviceId: req.punchDeviceId ?? null,
-        },
+        data: timeEntryCreatedData as unknown as Record<string, unknown>,
         metadata: req.invokingUserId
           ? { userId: req.invokingUserId }
           : undefined,
         timestamp: new Date().toISOString(),
       });
       for (const a of approvalsCreated) {
+        const approvalRequestedData: PunchApprovalRequestedData = {
+          approvalId: a.id,
+          timeEntryId: timeEntry.id.toString(),
+          employeeId: resolvedEmployeeId,
+          reason: a.reason as 'OUT_OF_GEOFENCE',
+          details: a.details,
+        };
         await bus.publish({
           id: randomUUID(),
-          type: EVT_APPROVAL_REQUESTED,
+          type: PUNCH_EVENTS.APPROVAL_REQUESTED,
           version: 1,
           tenantId: req.tenantId,
           source: 'hr',
           sourceEntityType: 'punch_approval',
           sourceEntityId: a.id,
-          data: {
-            approvalId: a.id,
-            timeEntryId: timeEntry.id.toString(),
-            employeeId: resolvedEmployeeId,
-            reason: a.reason,
-          },
+          data: approvalRequestedData as unknown as Record<string, unknown>,
           timestamp: new Date().toISOString(),
         });
       }
