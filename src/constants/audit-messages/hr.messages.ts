@@ -224,6 +224,71 @@ export const HR_AUDIT_MESSAGES = {
   } satisfies AuditMessage,
 
   // ============================================================================
+  // PUNCH DEVICES - Dispositivos de ponto (v2.0 — kiosk, PWA, biométrico)
+  // ============================================================================
+
+  /** Dispositivo de ponto cadastrado */
+  PUNCH_DEVICE_CREATED: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.PUNCH_DEVICE,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} cadastrou o dispositivo de ponto {{deviceName}} ({{deviceKind}})',
+  } satisfies AuditMessage,
+
+  /** Dispositivo de ponto pareado */
+  PUNCH_DEVICE_PAIRED: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PUNCH_DEVICE,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} pareou o dispositivo {{deviceName}} ({{hostname}})',
+  } satisfies AuditMessage,
+
+  /** Dispositivo de ponto revogado */
+  PUNCH_DEVICE_REVOKED: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PUNCH_DEVICE,
+    module: AuditModule.HR,
+    description: '{{userName}} revogou o dispositivo {{deviceName}}',
+  } satisfies AuditMessage,
+
+  /** Dispositivo de ponto excluído */
+  PUNCH_DEVICE_DELETED: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.PUNCH_DEVICE,
+    module: AuditModule.HR,
+    description: '{{userName}} excluiu o dispositivo de ponto {{deviceName}}',
+  } satisfies AuditMessage,
+
+  /** Batida de ponto registrada (novo canal unificado — Plan 3) */
+  PUNCH_REGISTERED: {
+    action: AuditAction.CLOCK_IN,
+    entity: AuditEntity.TIME_ENTRY,
+    module: AuditModule.HR,
+    description:
+      '{{employeeName}} registrou ponto às {{time}} (NSR {{nsrNumber}})',
+  } satisfies AuditMessage,
+
+  /** Aprovação de ponto criada (ex.: fora de geofence — Plan 5) */
+  PUNCH_APPROVAL_CREATED: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.PUNCH_APPROVAL,
+    module: AuditModule.HR,
+    description:
+      'Aprovação de ponto criada para {{employeeName}} (motivo: {{reason}})',
+  } satisfies AuditMessage,
+
+  /** Aprovação de ponto resolvida (APPROVED ou REJECTED — Plan 5) */
+  PUNCH_APPROVAL_RESOLVED: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PUNCH_APPROVAL,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} {{status}} a aprovação de ponto de {{employeeName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
   // HR TENANT CONFIG - Configuração geral de RH
   // ============================================================================
 

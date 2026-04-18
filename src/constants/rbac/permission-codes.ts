@@ -315,6 +315,24 @@ export const PermissionCodes = {
       PRINT: 'hr.time-control.print' as const,
       ADMIN: 'hr.time-control.admin' as const,
     },
+    // PUNCH_DEVICES — cadastro/pareamento/revogação de dispositivos de ponto
+    // (kiosk, PWA pessoal, leitor biométrico, WebAuthn PC). ADMIN cobre as
+    // operações de pareamento/revogação (mais sensíveis que simples modify).
+    PUNCH_DEVICES: {
+      ACCESS: 'hr.punch-devices.access' as const,
+      REGISTER: 'hr.punch-devices.register' as const,
+      MODIFY: 'hr.punch-devices.modify' as const,
+      REMOVE: 'hr.punch-devices.remove' as const,
+      ADMIN: 'hr.punch-devices.admin' as const,
+    },
+    // PUNCH_APPROVALS — revisão de batidas que caíram em APPROVAL_REQUIRED
+    // (ex.: fora de geofence). Plan 5 implementa o CRUD; este plan apenas
+    // registra as permissões para que a bootstrap de seeds as reconheça.
+    PUNCH_APPROVALS: {
+      ACCESS: 'hr.punch-approvals.access' as const,
+      MODIFY: 'hr.punch-approvals.modify' as const,
+      ADMIN: 'hr.punch-approvals.admin' as const,
+    },
     BONUSES: {
       ACCESS: 'hr.bonuses.access' as const,
       REGISTER: 'hr.bonuses.register' as const,

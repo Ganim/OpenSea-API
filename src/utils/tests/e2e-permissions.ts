@@ -400,6 +400,12 @@ export const ALL_PERMISSIONS: Record<string, Record<string, string[]>> = {
       'onlyself',
     ],
     'time-entries': ['create', 'read', 'list', 'update', 'delete', 'manage'],
+    // PUNCH_DEVICES — 5 níveis (access, register, modify, remove, admin).
+    // Cadastro/pareamento/revogação de kiosk, PWA, leitor biométrico etc.
+    'punch-devices': ['access', 'register', 'modify', 'remove', 'admin'],
+    // PUNCH_APPROVALS — 3 níveis (access, modify, admin). Revisão de
+    // batidas que caíram em APPROVAL_REQUIRED.
+    'punch-approvals': ['access', 'modify', 'admin'],
     overtime: [
       'create',
       'read',
