@@ -28,6 +28,7 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
         ipAddress: data.ipAddress,
         notes: data.notes,
         nsrNumber: data.nsrNumber,
+        requestId: data.requestId,
       },
     });
 
@@ -198,5 +199,26 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
     });
 
     return result._max.nsrNumber ?? 0;
+  }
+
+  async findByRequestId(
+    tenantId: string,
+    employeeId: string,
+    requestId: string,
+  ): Promise<TimeEntry | null> {
+    // Pitfall 3: requestId is nullable on the column. Using findUnique on
+    // the composite `(tenantId, employeeId, requestId)` would be ambiguous
+    // for legacy rows where requestId IS NULL — findFirst with an explicit
+    // `requestId: requestId` clause sidesteps that entirely.
+    const timeEntryData = await prisma.timeEntry.findFirst({
+      where: { tenantId, employeeId, requestId },
+    });
+
+    if (!timeEntryData) return null;
+
+    return TimeEntry.create(
+      mapTimeEntryPrismaToDomain(timeEntryData),
+      new UniqueEntityID(timeEntryData.id),
+    );
   }
 }

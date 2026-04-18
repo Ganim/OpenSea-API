@@ -12,6 +12,14 @@ export interface CreateTimeEntrySchema {
   ipAddress?: string;
   notes?: string;
   nsrNumber?: number;
+  /**
+   * Idempotency key scoped by (tenantId, employeeId, requestId).
+   * Added in Plan 04-04 (D-11). When set, the DB-level composite unique
+   * constraint `time_entries_idempotency_unique` ensures a retried
+   * request with the same triple resolves to the existing row rather
+   * than a duplicate punch.
+   */
+  requestId?: string;
 }
 
 export interface FindTimeEntriesFilters {
@@ -55,6 +63,20 @@ export interface TimeEntriesRepository {
   findLastEntryByEmployee(
     employeeId: UniqueEntityID,
     tenantId: string,
+  ): Promise<TimeEntry | null>;
+  /**
+   * Idempotency lookup added in Plan 04-04 (D-11 / Pitfall 3). Must use
+   * `findFirst` (NOT findUnique) because `requestId` is nullable —
+   * findUnique would mistreat the (tenantId, employeeId, null) triple
+   * as a match when no request_id is set on historical rows.
+   *
+   * Returns null when no prior batida carries this requestId, allowing
+   * the use case to proceed with a fresh insert.
+   */
+  findByRequestId(
+    tenantId: string,
+    employeeId: string,
+    requestId: string,
   ): Promise<TimeEntry | null>;
   delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
   findMaxNsrNumber(tenantId: string): Promise<number>;

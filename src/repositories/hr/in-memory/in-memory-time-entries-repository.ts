@@ -8,7 +8,9 @@ import type {
 } from '../time-entries-repository';
 
 export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
-  private items: TimeEntry[] = [];
+  // Public to let specs assert on recorded entries and override fixtures
+  // (e.g. prime a fake "already persisted with this requestId" row).
+  public items: Array<TimeEntry & { requestId?: string }> = [];
   private nsrCounters: Map<string, number> = new Map();
 
   async create(data: CreateTimeEntrySchema): Promise<TimeEntry> {
@@ -26,6 +28,12 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
       },
       id,
     );
+    // Piggyback requestId as a side-property on the in-memory row so
+    // findByRequestId can filter without extending the domain entity
+    // (the real Prisma row carries the column, but the TimeEntry entity
+    // does not — and we do not want to grow the entity just for tests).
+    (timeEntry as TimeEntry & { requestId?: string }).requestId =
+      data.requestId;
 
     if (data.nsrNumber != null) {
       const current = this.nsrCounters.get(data.tenantId) ?? 0;
@@ -34,7 +42,7 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
       }
     }
 
-    this.items.push(timeEntry);
+    this.items.push(timeEntry as TimeEntry & { requestId?: string });
     return timeEntry;
   }
 
@@ -151,5 +159,19 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
 
   async findMaxNsrNumber(tenantId: string): Promise<number> {
     return this.nsrCounters.get(tenantId) ?? 0;
+  }
+
+  async findByRequestId(
+    tenantId: string,
+    employeeId: string,
+    requestId: string,
+  ): Promise<TimeEntry | null> {
+    const match = this.items.find(
+      (entry) =>
+        entry.tenantId.toString() === tenantId &&
+        entry.employeeId.toString() === employeeId &&
+        (entry as TimeEntry & { requestId?: string }).requestId === requestId,
+    );
+    return match ?? null;
   }
 }
