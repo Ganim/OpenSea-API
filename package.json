@@ -23,6 +23,7 @@
     "prisma:seed": "tsx --env-file=.env prisma/seed.ts",
     "prisma:check-db": "tsx --env-file=.env prisma/check-db.ts",
     "prisma:clean": "tsx --env-file=.env prisma/clean-database.ts",
+    "backfill:phase4": "tsx --env-file=.env prisma/backfill-phase4-permissions.ts",
     "test:load": "k6 run tests/load/smoke.js",
     "test:load:smoke": "k6 run tests/load/smoke.js",
     "test:load:auth": "k6 run tests/load/scenarios/auth-flow.js",
