@@ -1,16 +1,19 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
-import { InMemoryNotificationsRepository } from '@/repositories/notifications/in-memory/in-memory-notifications-repository';
+import { InMemoryModuleNotifier } from '@/use-cases/shared/helpers/module-notifier';
 import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/lib/logger', () => ({
   logger: { info: vi.fn(), debug: vi.fn(), warn: vi.fn(), error: vi.fn() },
 }));
 
-import { CheckOverdueEntriesUseCase } from './check-overdue-entries';
+import {
+  CheckOverdueEntriesUseCase,
+  type FinanceEntryNotificationCategory,
+} from './check-overdue-entries';
 
 let entriesRepository: InMemoryFinanceEntriesRepository;
-let notificationsRepository: InMemoryNotificationsRepository;
+let notifier: InMemoryModuleNotifier<FinanceEntryNotificationCategory>;
 let sut: CheckOverdueEntriesUseCase;
 
 const tenantId = 'tenant-1';
@@ -35,13 +38,10 @@ function daysFromNow(days: number): Date {
 describe('CheckOverdueEntriesUseCase', () => {
   beforeEach(() => {
     entriesRepository = new InMemoryFinanceEntriesRepository();
-    notificationsRepository = new InMemoryNotificationsRepository();
-    sut = new CheckOverdueEntriesUseCase(
-      entriesRepository,
-      notificationsRepository,
-    );
+    notifier = new InMemoryModuleNotifier();
+    sut = new CheckOverdueEntriesUseCase(entriesRepository, notifier);
     vi.useFakeTimers();
-    vi.setSystemTime(new Date(2026, 1, 10, 12, 0, 0)); // Feb 10, 2026 noon
+    vi.setSystemTime(new Date(2026, 1, 10, 12, 0, 0));
   });
 
   afterAll(() => {
@@ -91,7 +91,7 @@ describe('CheckOverdueEntriesUseCase', () => {
     expect(entriesRepository.items[0].status).toBe('OVERDUE');
   });
 
-  it('should create PAYABLE_OVERDUE notification with correct data', async () => {
+  it('should dispatch finance.entry_overdue for payable overdue entries', async () => {
     await entriesRepository.create({
       tenantId,
       type: 'PAYABLE',
@@ -106,17 +106,17 @@ describe('CheckOverdueEntriesUseCase', () => {
 
     await sut.execute({ tenantId, createdBy: userId });
 
-    expect(notificationsRepository.items).toHaveLength(1);
-    const notif = notificationsRepository.items[0];
-    expect(notif.title).toBe('Despesa atrasada');
-    expect(notif.message).toContain('Energia');
-    expect(notif.message).toContain('R$ 500.50');
-    expect(notif.type).toBe('WARNING');
-    expect(notif.priority).toBe('HIGH');
-    expect(notif.entityType).toBe('finance_entry');
+    expect(notifier.dispatches).toHaveLength(1);
+    const dispatched = notifier.dispatches[0];
+    expect(dispatched.category).toBe('finance.entry_overdue');
+    expect(dispatched.title).toBe('Despesa atrasada');
+    expect(dispatched.body).toContain('Energia');
+    expect(dispatched.body).toContain('R$ 500.50');
+    expect(dispatched.priority).toBe('HIGH');
+    expect(dispatched.entityType).toBe('finance_entry');
   });
 
-  it('should create RECEIVABLE_OVERDUE notification with customerName', async () => {
+  it('should dispatch finance.entry_overdue for receivable overdue with customerName', async () => {
     await entriesRepository.create({
       tenantId,
       type: 'RECEIVABLE',
@@ -132,13 +132,14 @@ describe('CheckOverdueEntriesUseCase', () => {
 
     await sut.execute({ tenantId, createdBy: userId });
 
-    const notif = notificationsRepository.items[0];
-    expect(notif.title).toBe('Recebimento atrasado');
-    expect(notif.message).toContain('João Silva');
-    expect(notif.message).toContain('R$ 2000.00');
+    const dispatched = notifier.dispatches[0];
+    expect(dispatched.category).toBe('finance.entry_overdue');
+    expect(dispatched.title).toBe('Recebimento atrasado');
+    expect(dispatched.body).toContain('João Silva');
+    expect(dispatched.body).toContain('R$ 2000.00');
   });
 
-  it('should create DUE_SOON notifications for entries due within 3 days', async () => {
+  it('should dispatch finance.entry_due_3d for entries due within 3 days', async () => {
     await entriesRepository.create({
       tenantId,
       type: 'PAYABLE',
@@ -168,20 +169,23 @@ describe('CheckOverdueEntriesUseCase', () => {
 
     expect(result.dueSoonAlerts).toBe(2);
     expect(result.markedOverdue).toBe(0);
-    expect(notificationsRepository.items).toHaveLength(2);
+    expect(notifier.dispatches).toHaveLength(2);
+    expect(
+      notifier.dispatches.every((d) => d.category === 'finance.entry_due_3d'),
+    ).toBe(true);
 
-    const payableNotif = notificationsRepository.items.find((n) =>
-      n.message.includes('Internet'),
+    const payable = notifier.dispatches.find((d) =>
+      d.body.includes('Internet'),
     );
-    expect(payableNotif!.title).toBe('Despesa próxima do vencimento');
-    expect(payableNotif!.message).toContain('2 dias');
-    expect(payableNotif!.type).toBe('REMINDER');
+    expect(payable!.title).toBe('Despesa próxima do vencimento');
+    expect(payable!.body).toContain('2 dias');
+    expect(payable!.priority).toBe('NORMAL');
 
-    const receivableNotif = notificationsRepository.items.find((n) =>
-      n.message.includes('Mensalidade'),
+    const receivable = notifier.dispatches.find((d) =>
+      d.body.includes('Mensalidade'),
     );
-    expect(receivableNotif!.title).toBe('Recebimento próximo do vencimento');
-    expect(receivableNotif!.message).toContain('Maria');
+    expect(receivable!.title).toBe('Recebimento próximo do vencimento');
+    expect(receivable!.body).toContain('Maria');
   });
 
   it('should not mark already PAID/RECEIVED/CANCELLED entries as overdue', async () => {
@@ -214,11 +218,10 @@ describe('CheckOverdueEntriesUseCase', () => {
     const result = await sut.execute({ tenantId, createdBy: userId });
 
     expect(result.markedOverdue).toBe(0);
-    expect(notificationsRepository.items).toHaveLength(0);
+    expect(notifier.dispatches).toHaveLength(0);
   });
 
   it('should handle mixed overdue and due-soon entries', async () => {
-    // Overdue payable
     await entriesRepository.create({
       tenantId,
       type: 'PAYABLE',
@@ -231,7 +234,6 @@ describe('CheckOverdueEntriesUseCase', () => {
       dueDate: daysAgo(7),
     });
 
-    // Due soon receivable
     await entriesRepository.create({
       tenantId,
       type: 'RECEIVABLE',
@@ -245,7 +247,6 @@ describe('CheckOverdueEntriesUseCase', () => {
       dueDate: daysFromNow(2),
     });
 
-    // Far future - should not trigger anything
     await entriesRepository.create({
       tenantId,
       type: 'PAYABLE',
@@ -263,10 +264,10 @@ describe('CheckOverdueEntriesUseCase', () => {
     expect(result.markedOverdue).toBe(1);
     expect(result.payableOverdue).toBe(1);
     expect(result.dueSoonAlerts).toBe(1);
-    expect(notificationsRepository.items).toHaveLength(2);
+    expect(notifier.dispatches).toHaveLength(2);
   });
 
-  it('should not create notifications when no createdBy is provided', async () => {
+  it('should not dispatch notifications when no createdBy is provided', async () => {
     await entriesRepository.create({
       tenantId,
       type: 'PAYABLE',
@@ -282,6 +283,6 @@ describe('CheckOverdueEntriesUseCase', () => {
     const result = await sut.execute({ tenantId });
 
     expect(result.markedOverdue).toBe(1);
-    expect(notificationsRepository.items).toHaveLength(0);
+    expect(notifier.dispatches).toHaveLength(0);
   });
 });

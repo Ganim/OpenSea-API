@@ -2,19 +2,22 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryFinanceEntriesRepository } from '@/repositories/finance/in-memory/in-memory-finance-entries-repository';
 import { InMemoryOverdueActionsRepository } from '@/repositories/finance/in-memory/in-memory-overdue-actions-repository';
 import { InMemoryOverdueEscalationsRepository } from '@/repositories/finance/in-memory/in-memory-overdue-escalations-repository';
-import { InMemoryNotificationsRepository } from '@/repositories/notifications/in-memory/in-memory-notifications-repository';
+import { InMemoryModuleNotifier } from '@/use-cases/shared/helpers/module-notifier';
 import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/lib/logger', () => ({
   logger: { info: vi.fn(), debug: vi.fn(), warn: vi.fn(), error: vi.fn() },
 }));
 
-import { ProcessOverdueEscalationsUseCase } from './process-overdue-escalations';
+import {
+  ProcessOverdueEscalationsUseCase,
+  type FinanceEscalationNotificationCategory,
+} from './process-overdue-escalations';
 
 let entriesRepository: InMemoryFinanceEntriesRepository;
 let escalationsRepository: InMemoryOverdueEscalationsRepository;
 let actionsRepository: InMemoryOverdueActionsRepository;
-let notificationsRepository: InMemoryNotificationsRepository;
+let notifier: InMemoryModuleNotifier<FinanceEscalationNotificationCategory>;
 let sut: ProcessOverdueEscalationsUseCase;
 
 const tenantId = 'tenant-1';
@@ -34,12 +37,12 @@ describe('ProcessOverdueEscalationsUseCase', () => {
     entriesRepository = new InMemoryFinanceEntriesRepository();
     escalationsRepository = new InMemoryOverdueEscalationsRepository();
     actionsRepository = new InMemoryOverdueActionsRepository();
-    notificationsRepository = new InMemoryNotificationsRepository();
+    notifier = new InMemoryModuleNotifier();
     sut = new ProcessOverdueEscalationsUseCase(
       entriesRepository,
       escalationsRepository,
       actionsRepository,
-      notificationsRepository,
+      notifier,
     );
     vi.useFakeTimers();
     vi.setSystemTime(new Date(2026, 1, 15, 12, 0, 0)); // Feb 15, 2026
@@ -112,10 +115,11 @@ describe('ProcessOverdueEscalationsUseCase', () => {
     expect(actionsRepository.items[1].channel).toBe('SYSTEM_ALERT');
     expect(actionsRepository.items[1].status).toBe('PENDING'); // SYSTEM_ALERT action stays PENDING; notification is created separately
 
-    // Verify notification was created for SYSTEM_ALERT
-    expect(notificationsRepository.items).toHaveLength(1);
-    expect(notificationsRepository.items[0].message).toContain('João Silva');
-    expect(notificationsRepository.items[0].message).toContain('10');
+    // Verify notification was dispatched for SYSTEM_ALERT via the notifier
+    expect(notifier.dispatches).toHaveLength(1);
+    expect(notifier.dispatches[0].category).toBe('finance.entry_overdue');
+    expect(notifier.dispatches[0].body).toContain('João Silva');
+    expect(notifier.dispatches[0].body).toContain('10');
   });
 
   it('should skip already-executed steps', async () => {
@@ -260,7 +264,7 @@ describe('ProcessOverdueEscalationsUseCase', () => {
         entriesRepository,
         escalationsRepository,
         actionsRepository,
-        notificationsRepository,
+        notifier,
         sendUseCase as never,
       );
 
@@ -319,7 +323,7 @@ describe('ProcessOverdueEscalationsUseCase', () => {
         entriesRepository,
         escalationsRepository,
         actionsRepository,
-        notificationsRepository,
+        notifier,
         sendUseCase as never,
       );
 
@@ -380,7 +384,7 @@ describe('ProcessOverdueEscalationsUseCase', () => {
         entriesRepository,
         escalationsRepository,
         actionsRepository,
-        notificationsRepository,
+        notifier,
         sendUseCase as never,
       );
 

@@ -1,12 +1,17 @@
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { logger } from '@/lib/logger';
+import { NotificationPriority } from '@/modules/notifications/public';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
-import type { NotificationsRepository } from '@/repositories/notifications/notifications-repository';
+import type { ModuleNotifier } from '@/use-cases/shared/helpers/module-notifier';
+
+export type FinanceEntryNotificationCategory =
+  | 'finance.entry_overdue'
+  | 'finance.entry_due_3d'
+  | 'finance.entry_due_today';
 
 interface CheckOverdueEntriesUseCaseRequest {
   tenantId: string;
-  dueSoonDays?: number; // default 3
-  createdBy?: string; // userId who triggered the check
+  dueSoonDays?: number;
+  createdBy?: string;
 }
 
 interface CheckOverdueEntriesUseCaseResponse {
@@ -19,7 +24,7 @@ interface CheckOverdueEntriesUseCaseResponse {
 export class CheckOverdueEntriesUseCase {
   constructor(
     private financeEntriesRepository: FinanceEntriesRepository,
-    private notificationsRepository: NotificationsRepository,
+    private notifier: ModuleNotifier<FinanceEntryNotificationCategory>,
   ) {}
 
   async execute(
@@ -36,9 +41,6 @@ export class CheckOverdueEntriesUseCase {
     const t0 = Date.now();
     logger.info({ tenantId, createdBy }, '[check-overdue] starting');
 
-    // Step 1: Find PENDING entries with dueDate < today and mark as OVERDUE
-    // Use UTC boundaries so the cron behaves identically regardless of the
-    // server's local timezone (avoids drift in tenants across regions).
     const todayUtc = new Date(
       Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()),
     );
@@ -51,7 +53,6 @@ export class CheckOverdueEntriesUseCase {
         limit: 1000,
       });
 
-    // Filter only actually overdue (dueDate strictly before today)
     const today = todayUtc;
     const actuallyOverdue = overdueEntries.filter((e) => e.dueDate < today);
 
@@ -74,41 +75,28 @@ export class CheckOverdueEntriesUseCase {
 
       if (entry.type === 'PAYABLE') {
         payableOverdue++;
-        // Create notification for payable overdue
-        if (createdBy) {
-          await this.notificationsRepository.create({
-            userId: new UniqueEntityID(createdBy),
-            title: 'Despesa atrasada',
-            message: `Despesa atrasada: ${entry.description}, vencida em ${this.formatDate(entry.dueDate)}. Valor: R$ ${entry.expectedAmount.toFixed(2)}`,
-            type: 'WARNING',
-            priority: 'HIGH',
-            channel: 'IN_APP',
-            entityType: 'finance_entry',
-            entityId: entry.id.toString(),
-          });
-        }
       } else {
         receivableOverdue++;
-        // Create notification for receivable overdue (include customer name)
-        if (createdBy) {
-          const customerInfo = entry.customerName
-            ? ` de ${entry.customerName}`
-            : '';
-          await this.notificationsRepository.create({
-            userId: new UniqueEntityID(createdBy),
-            title: 'Recebimento atrasado',
-            message: `Recebimento atrasado: ${entry.description}${customerInfo}, vencido em ${this.formatDate(entry.dueDate)}. Valor: R$ ${entry.expectedAmount.toFixed(2)}`,
-            type: 'WARNING',
-            priority: 'HIGH',
-            channel: 'IN_APP',
-            entityType: 'finance_entry',
-            entityId: entry.id.toString(),
-          });
-        }
+      }
+
+      if (createdBy) {
+        const isPayable = entry.type === 'PAYABLE';
+        const customerInfo =
+          !isPayable && entry.customerName ? ` de ${entry.customerName}` : '';
+        await this.notifier.dispatch({
+          category: 'finance.entry_overdue',
+          tenantId,
+          recipientUserId: createdBy,
+          title: isPayable ? 'Despesa atrasada' : 'Recebimento atrasado',
+          body: `${isPayable ? 'Despesa' : 'Recebimento'} atrasado: ${entry.description}${customerInfo}, vencido em ${this.formatDate(entry.dueDate)}. Valor: R$ ${entry.expectedAmount.toFixed(2)}`,
+          priority: NotificationPriority.HIGH,
+          entityType: 'finance_entry',
+          entityId: entry.id.toString(),
+          actionUrl: `/finance/entries/${entry.id.toString()}`,
+        });
       }
     }
 
-    // Step 2: Find PENDING entries due within dueSoonDays and create DUE_SOON alerts
     const dueSoonDate = new Date(today);
     dueSoonDate.setUTCDate(dueSoonDate.getUTCDate() + dueSoonDays);
 
@@ -126,37 +114,27 @@ export class CheckOverdueEntriesUseCase {
         (entry.dueDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
       );
 
-      if (daysUntilDue <= 0) continue; // skip entries due today (not "soon")
+      if (daysUntilDue <= 0) continue;
 
       dueSoonAlerts++;
 
       if (createdBy) {
-        if (entry.type === 'PAYABLE') {
-          await this.notificationsRepository.create({
-            userId: new UniqueEntityID(createdBy),
-            title: 'Despesa próxima do vencimento',
-            message: `Despesa vence em ${daysUntilDue} dias: ${entry.description}. Valor: R$ ${entry.expectedAmount.toFixed(2)}`,
-            type: 'REMINDER',
-            priority: 'NORMAL',
-            channel: 'IN_APP',
-            entityType: 'finance_entry',
-            entityId: entry.id.toString(),
-          });
-        } else {
-          const customerInfo = entry.customerName
-            ? ` de ${entry.customerName}`
-            : '';
-          await this.notificationsRepository.create({
-            userId: new UniqueEntityID(createdBy),
-            title: 'Recebimento próximo do vencimento',
-            message: `Recebimento vence em ${daysUntilDue} dias: ${entry.description}${customerInfo}. Valor: R$ ${entry.expectedAmount.toFixed(2)}`,
-            type: 'REMINDER',
-            priority: 'NORMAL',
-            channel: 'IN_APP',
-            entityType: 'finance_entry',
-            entityId: entry.id.toString(),
-          });
-        }
+        const isPayable = entry.type === 'PAYABLE';
+        const customerInfo =
+          !isPayable && entry.customerName ? ` de ${entry.customerName}` : '';
+        await this.notifier.dispatch({
+          category: 'finance.entry_due_3d',
+          tenantId,
+          recipientUserId: createdBy,
+          title: isPayable
+            ? 'Despesa próxima do vencimento'
+            : 'Recebimento próximo do vencimento',
+          body: `${isPayable ? 'Despesa' : 'Recebimento'} vence em ${daysUntilDue} dias: ${entry.description}${customerInfo}. Valor: R$ ${entry.expectedAmount.toFixed(2)}`,
+          priority: NotificationPriority.NORMAL,
+          entityType: 'finance_entry',
+          entityId: entry.id.toString(),
+          actionUrl: `/finance/entries/${entry.id.toString()}`,
+        });
       }
     }
 

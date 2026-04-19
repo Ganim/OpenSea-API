@@ -37,6 +37,7 @@ export default defineConfig({
             'src/use-cases/**/*.spec.ts',
             'src/entities/**/*.spec.ts',
             'src/repositories/**/*.spec.ts',
+            'src/modules/**/*.spec.ts',
           ],
           exclude: ['**/*.e2e.spec.ts', '**/*.e2e-spec.ts'],
         },

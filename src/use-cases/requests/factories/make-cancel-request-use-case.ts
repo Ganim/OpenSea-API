@@ -1,16 +1,12 @@
 import { PrismaRequestHistoryRepository } from '@/repositories/requests/prisma/prisma-request-history-repository';
 import { PrismaRequestsRepository } from '@/repositories/requests/prisma/prisma-requests-repository';
-import { makeCreateNotificationUseCase } from '@/use-cases/notifications/factories/make-create-notification-use-case';
 import { CancelRequestUseCase } from '../cancel-request';
+import { NotificationClientRequestNotifier } from '../helpers/request-notifier';
 
 export function makeCancelRequestUseCase() {
-  const requestsRepository = new PrismaRequestsRepository();
-  const requestHistoryRepository = new PrismaRequestHistoryRepository();
-  const createNotificationUseCase = makeCreateNotificationUseCase();
-
   return new CancelRequestUseCase(
-    requestsRepository,
-    requestHistoryRepository,
-    createNotificationUseCase,
+    new PrismaRequestsRepository(),
+    new PrismaRequestHistoryRepository(),
+    new NotificationClientRequestNotifier(),
   );
 }

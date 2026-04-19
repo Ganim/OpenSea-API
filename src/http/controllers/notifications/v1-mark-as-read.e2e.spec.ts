@@ -36,4 +36,23 @@ describe('Mark Notification As Read (e2e)', () => {
       ]),
     );
   });
+
+  it('should reject marking a notification that belongs to another user', async () => {
+    const { user: ownerUser } = await createAndAuthenticateUser(app);
+    const { token: attackerToken } = await createAndAuthenticateUser(app);
+
+    const ownerId = ownerUser.user.id.toString();
+    const n = await makeNotification({
+      userId: ownerId,
+      type: 'INFO',
+      channel: 'IN_APP',
+    });
+
+    const response = await request(app.server)
+      .patch(`/v1/notifications/${n.id.toString()}/read`)
+      .set('Authorization', `Bearer ${attackerToken}`)
+      .send();
+
+    expect(response.statusCode).toEqual(404);
+  });
 });

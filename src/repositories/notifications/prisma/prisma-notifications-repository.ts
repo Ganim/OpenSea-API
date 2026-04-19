@@ -141,11 +141,19 @@ export class PrismaNotificationsRepository implements NotificationsRepository {
     return rows.map(notificationPrismaToDomain);
   }
 
-  async markAsRead(id: UniqueEntityID): Promise<void> {
-    await prisma.notification.update({
-      where: { id: id.toString() },
+  async markAsRead(
+    id: UniqueEntityID,
+    userId: UniqueEntityID,
+  ): Promise<boolean> {
+    const result = await prisma.notification.updateMany({
+      where: {
+        id: id.toString(),
+        userId: userId.toString(),
+        deletedAt: null,
+      },
       data: { isRead: true, readAt: new Date() },
     });
+    return result.count > 0;
   }
 
   async markAllAsRead(userId: UniqueEntityID): Promise<number> {
@@ -156,11 +164,16 @@ export class PrismaNotificationsRepository implements NotificationsRepository {
     return result.count;
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
-    await prisma.notification.update({
-      where: { id: id.toString() },
+  async delete(id: UniqueEntityID, userId: UniqueEntityID): Promise<boolean> {
+    const result = await prisma.notification.updateMany({
+      where: {
+        id: id.toString(),
+        userId: userId.toString(),
+        deletedAt: null,
+      },
       data: { deletedAt: new Date() },
     });
+    return result.count > 0;
   }
 
   async save(notification: Notification): Promise<void> {

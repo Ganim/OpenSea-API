@@ -2,25 +2,22 @@ import { InMemoryRequestHistoryRepository } from '@/repositories/requests/in-mem
 import { InMemoryRequestsRepository } from '@/repositories/requests/in-memory/in-memory-requests-repository';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateRequestUseCase } from './create-request';
+import { InMemoryRequestNotifier } from './helpers/in-memory-request-notifier';
 
 let requestsRepository: InMemoryRequestsRepository;
 let requestHistoryRepository: InMemoryRequestHistoryRepository;
+let notifier: InMemoryRequestNotifier;
 let sut: CreateRequestUseCase;
-
-import type { CreateNotificationUseCase } from '@/use-cases/notifications/create-notification';
-
-const mockNotification = {
-  execute: async () => ({ notification: {} }),
-} as unknown as CreateNotificationUseCase;
 
 describe('CreateRequestUseCase', () => {
   beforeEach(() => {
     requestsRepository = new InMemoryRequestsRepository();
     requestHistoryRepository = new InMemoryRequestHistoryRepository();
+    notifier = new InMemoryRequestNotifier();
     sut = new CreateRequestUseCase(
       requestsRepository,
       requestHistoryRepository,
-      mockNotification,
+      notifier,
     );
   });
 

@@ -1,12 +1,14 @@
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { logger } from '@/lib/logger';
-import type { NotificationsRepository } from '@/repositories/notifications/notifications-repository';
+import { NotificationPriority } from '@/modules/notifications/public';
 import type { BoardAutomationsRepository } from '@/repositories/tasks/board-automations-repository';
 import type { BoardColumnsRepository } from '@/repositories/tasks/board-columns-repository';
 import type { CardActivitiesRepository } from '@/repositories/tasks/card-activities-repository';
 import type { CardWatchersRepository } from '@/repositories/tasks/card-watchers-repository';
 import type { CardsRepository } from '@/repositories/tasks/cards-repository';
+import type { ModuleNotifier } from '@/use-cases/shared/helpers/module-notifier';
 import type { AutomationTrigger } from './create-automation';
+
+export type TaskAutomationNotificationCategory = 'tasks.mentioned';
 
 interface AutomationContext {
   cardId: string;
@@ -36,13 +38,13 @@ export class ExecuteAutomationUseCase {
     private boardColumnsRepository: BoardColumnsRepository,
     private cardActivitiesRepository: CardActivitiesRepository,
     private cardWatchersRepository: CardWatchersRepository,
-    private notificationsRepository: NotificationsRepository,
+    private notifier: ModuleNotifier<TaskAutomationNotificationCategory>,
   ) {}
 
   async execute(
     request: ExecuteAutomationRequest,
   ): Promise<ExecuteAutomationResponse> {
-    const { boardId, trigger, context } = request;
+    const { tenantId, boardId, trigger, context } = request;
 
     const activeAutomations =
       await this.boardAutomationsRepository.findActiveByBoardAndTrigger(
@@ -74,6 +76,7 @@ export class ExecuteAutomationUseCase {
         }
 
         const actionDescription = await this.executeAction(
+          tenantId,
           automation.action,
           automation.actionConfig,
           context.cardId,
@@ -158,6 +161,7 @@ export class ExecuteAutomationUseCase {
   }
 
   private async executeAction(
+    tenantId: string,
     action: string,
     actionConfig: Record<string, unknown>,
     cardId: string,
@@ -280,13 +284,13 @@ export class ExecuteAutomationUseCase {
         for (const watcher of watchers) {
           if (watcher.userId === userId) continue;
 
-          await this.notificationsRepository.create({
-            userId: new UniqueEntityID(watcher.userId),
+          await this.notifier.dispatch({
+            category: 'tasks.mentioned',
+            tenantId,
+            recipientUserId: watcher.userId,
             title: `Notificação: ${cardTitle}`,
-            message,
-            type: 'INFO',
-            priority: 'NORMAL',
-            channel: 'IN_APP',
+            body: message,
+            priority: NotificationPriority.NORMAL,
             entityType: 'card',
             entityId: cardId,
             actionUrl: `/tasks/${boardId}?card=${cardId}`,

@@ -38,6 +38,16 @@ const envSchema = z.object({
     .string()
     .default('false')
     .transform((v) => v === 'true' || v === '1'),
+  /**
+   * When true, the dispatcher refuses to accept `dispatch()` calls whose
+   * `category` is not declared in any registered module manifest (throws
+   * UndeclaredCategoryError → 400). Defaults to false so new categories can
+   * be introduced without coordinated deploys.
+   */
+  NOTIFICATIONS_STRICT_MANIFEST: z
+    .string()
+    .default('false')
+    .transform((v) => v === 'true' || v === '1'),
 
   // JWT RS256 (opcional - se não definido, usa HS256)
   JWT_PRIVATE_KEY: z.string().optional(),

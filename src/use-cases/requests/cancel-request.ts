@@ -5,7 +5,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { RequestHistory } from '@/entities/requests/request-history';
 import type { RequestHistoryRepository } from '@/repositories/requests/request-history-repository';
 import type { RequestsRepository } from '@/repositories/requests/requests-repository';
-import type { CreateNotificationUseCase } from '@/use-cases/notifications/create-notification';
+import type { RequestNotifier } from './helpers/request-notifier';
 
 interface CancelRequestUseCaseRequest {
   requestId: string;
@@ -22,7 +22,7 @@ export class CancelRequestUseCase {
   constructor(
     private requestsRepository: RequestsRepository,
     private requestHistoryRepository: RequestHistoryRepository,
-    private createNotificationUseCase: CreateNotificationUseCase,
+    private notifier: RequestNotifier,
   ) {}
 
   async execute(
@@ -36,7 +36,6 @@ export class CancelRequestUseCase {
       throw new ResourceNotFoundError('Request not found');
     }
 
-    // Verificar permissões: apenas o solicitante ou quem tem permissão de cancelar pode cancelar
     const isRequester = request.requesterId.toString() === data.cancelledById;
 
     if (!isRequester && !data.hasCancelAllPermission) {
@@ -45,7 +44,6 @@ export class CancelRequestUseCase {
       );
     }
 
-    // Verificar se a requisição já está finalizada
     if (request.status === 'COMPLETED' || request.status === 'CANCELLED') {
       throw new BadRequestError(
         'Cannot cancel a completed or already cancelled request',
@@ -54,12 +52,10 @@ export class CancelRequestUseCase {
 
     const oldStatus = request.status;
 
-    // Cancelar a requisição
     request.cancel();
 
     await this.requestsRepository.save(request);
 
-    // Registrar histórico
     const history = RequestHistory.create({
       requestId: request.id,
       action: 'cancelled',
@@ -72,38 +68,28 @@ export class CancelRequestUseCase {
 
     await this.requestHistoryRepository.create(history);
 
-    // Notificar o solicitante se não foi ele quem cancelou
+    const body = `A solicitação "${request.title}" foi cancelada. Motivo: ${data.cancellationReason}`;
+
     if (request.requesterId.toString() !== data.cancelledById) {
-      await this.createNotificationUseCase.execute({
-        userId: request.requesterId.toString(),
-        title: 'Request Cancelled',
-        message: `Your request "${request.title}" was cancelled. Reason: ${data.cancellationReason}`,
-        type: 'WARNING',
-        priority: 'NORMAL',
-        channel: 'IN_APP',
-        entityType: 'REQUEST',
-        entityId: request.id.toString(),
-        actionUrl: `/requests/${request.id.toString()}`,
-        actionText: 'View Request',
+      await this.notifier.dispatch({
+        recipientUserId: request.requesterId.toString(),
+        category: 'requests.cancelled',
+        request,
+        title: 'Solicitação cancelada',
+        body,
       });
     }
 
-    // Notificar o atribuído se existir
     if (
       request.assignedToId &&
       request.assignedToId.toString() !== data.cancelledById
     ) {
-      await this.createNotificationUseCase.execute({
-        userId: request.assignedToId.toString(),
-        title: 'Request Cancelled',
-        message: `The request "${request.title}" was cancelled. Reason: ${data.cancellationReason}`,
-        type: 'WARNING',
-        priority: 'NORMAL',
-        channel: 'IN_APP',
-        entityType: 'REQUEST',
-        entityId: request.id.toString(),
-        actionUrl: `/requests/${request.id.toString()}`,
-        actionText: 'View Request',
+      await this.notifier.dispatch({
+        recipientUserId: request.assignedToId.toString(),
+        category: 'requests.cancelled',
+        request,
+        title: 'Solicitação cancelada',
+        body,
       });
     }
 

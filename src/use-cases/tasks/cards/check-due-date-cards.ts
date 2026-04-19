@@ -1,16 +1,19 @@
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import type {
-  NotificationTypeValue,
-  NotificationPriorityValue,
-} from '@/entities/notifications/notification';
+import { NotificationPriority } from '@/modules/notifications/public';
 import type {
   CardsRepository,
   OverdueCardRecord,
 } from '@/repositories/tasks/cards-repository';
-import type { NotificationsRepository } from '@/repositories/notifications/notifications-repository';
+import type { ModuleNotifier } from '@/use-cases/shared/helpers/module-notifier';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface CheckDueDateCardsRequest {}
+export type TaskDueDateNotificationCategory =
+  | 'tasks.due_soon'
+  | 'tasks.due_today'
+  | 'tasks.overdue';
+
+interface CheckDueDateCardsRequest {
+  /** Tenant to scope the notifications to. Required for dispatch. */
+  tenantId: string;
+}
 
 interface CheckDueDateCardsResponse {
   processed: number;
@@ -19,51 +22,69 @@ interface CheckDueDateCardsResponse {
 
 type NotificationLevel = 'OVERDUE' | 'DUE_1H' | 'DUE_24H';
 
+const LEVEL_TO_CATEGORY: Record<
+  NotificationLevel,
+  TaskDueDateNotificationCategory
+> = {
+  OVERDUE: 'tasks.overdue',
+  DUE_1H: 'tasks.due_today',
+  DUE_24H: 'tasks.due_soon',
+};
+
 export class CheckDueDateCardsUseCase {
   constructor(
     private cardsRepository: CardsRepository,
-    private notificationsRepository: NotificationsRepository,
+    private notifier: ModuleNotifier<TaskDueDateNotificationCategory>,
   ) {}
 
   async execute(
-    _request?: CheckDueDateCardsRequest,
+    request: CheckDueDateCardsRequest,
   ): Promise<CheckDueDateCardsResponse> {
     const now = new Date();
     let totalProcessed = 0;
     let totalNotified = 0;
 
-    // 1. Overdue cards (dueDate <= now)
     const overdueCards = await this.cardsRepository.findCardsDueSoon(now);
     totalProcessed += overdueCards.length;
 
     for (const card of overdueCards) {
-      totalNotified += await this.notifyCardUsers(card, 'OVERDUE');
+      totalNotified += await this.notifyCardUsers(
+        request.tenantId,
+        card,
+        'OVERDUE',
+      );
     }
 
-    // 2. Cards due within 1 hour (now < dueDate <= now + 1h)
     const oneHourFromNow = new Date(now.getTime() + 60 * 60 * 1000);
     const dueSoon1h = await this.cardsRepository.findCardsByDueDateRange(
-      new Date(now.getTime() + 1), // exclude already overdue
+      new Date(now.getTime() + 1),
       oneHourFromNow,
     );
     totalProcessed += dueSoon1h.length;
 
     for (const card of dueSoon1h) {
-      totalNotified += await this.notifyCardUsers(card, 'DUE_1H');
+      totalNotified += await this.notifyCardUsers(
+        request.tenantId,
+        card,
+        'DUE_1H',
+      );
     }
 
-    // 3. Cards due within 24 hours (now + 1h < dueDate <= now + 24h)
     const twentyFourHoursFromNow = new Date(
       now.getTime() + 24 * 60 * 60 * 1000,
     );
     const dueSoon24h = await this.cardsRepository.findCardsByDueDateRange(
-      new Date(oneHourFromNow.getTime() + 1), // exclude 1h window
+      new Date(oneHourFromNow.getTime() + 1),
       twentyFourHoursFromNow,
     );
     totalProcessed += dueSoon24h.length;
 
     for (const card of dueSoon24h) {
-      totalNotified += await this.notifyCardUsers(card, 'DUE_24H');
+      totalNotified += await this.notifyCardUsers(
+        request.tenantId,
+        card,
+        'DUE_24H',
+      );
     }
 
     return {
@@ -73,6 +94,7 @@ export class CheckDueDateCardsUseCase {
   }
 
   private async notifyCardUsers(
+    tenantId: string,
     card: OverdueCardRecord,
     level: NotificationLevel,
   ): Promise<number> {
@@ -84,39 +106,26 @@ export class CheckDueDateCardsUseCase {
     usersToNotify.add(card.reporterId);
 
     let notified = 0;
+    const { title, body, priority } = this.buildNotification(card, level);
+    const category = LEVEL_TO_CATEGORY[level];
 
     for (const userId of usersToNotify) {
-      // entityId includes the level to allow separate notifications per time window
-      const entityId = `${card.id}:${level}`;
-
-      const existing = await this.notificationsRepository.findByUserAndEntity(
-        userId,
-        'card',
-        entityId,
-      );
-
-      if (existing) {
-        continue;
-      }
-
-      const { title, message, type, priority } = this.buildNotification(
-        card,
-        level,
-      );
-
-      await this.notificationsRepository.create({
-        userId: new UniqueEntityID(userId),
+      await this.notifier.dispatch({
+        category,
+        tenantId,
+        recipientUserId: userId,
         title,
-        message,
-        type,
+        body,
         priority,
-        channel: 'IN_APP',
         entityType: 'card',
-        entityId,
+        entityId: card.id,
+        // dedupeSuffix ties dispatch idempotency to (level, userId) so each
+        // window fires at most once per user — same semantics as the
+        // previous findByUserAndEntity lookup.
+        dedupeSuffix: `${level}:${userId}`,
         actionUrl: `/tasks?cardId=${card.id}`,
         actionText: 'Ver cartão',
       });
-
       notified++;
     }
 
@@ -128,31 +137,27 @@ export class CheckDueDateCardsUseCase {
     level: NotificationLevel,
   ): {
     title: string;
-    message: string;
-    type: NotificationTypeValue;
-    priority: NotificationPriorityValue;
+    body: string;
+    priority: NotificationPriority;
   } {
     switch (level) {
       case 'DUE_24H':
         return {
           title: 'Cartão vence em breve',
-          message: `O cartão "${card.title}" vence em menos de 24 horas.`,
-          type: 'INFO',
-          priority: 'NORMAL',
+          body: `O cartão "${card.title}" vence em menos de 24 horas.`,
+          priority: NotificationPriority.NORMAL,
         };
       case 'DUE_1H':
         return {
           title: 'Cartão vence em 1 hora',
-          message: `O cartão "${card.title}" vence em menos de 1 hora!`,
-          type: 'WARNING',
-          priority: 'HIGH',
+          body: `O cartão "${card.title}" vence em menos de 1 hora!`,
+          priority: NotificationPriority.HIGH,
         };
       case 'OVERDUE':
         return {
           title: 'Cartão vencido',
-          message: `O cartão "${card.title}" está vencido desde ${this.formatDate(card.dueDate)}.`,
-          type: 'WARNING',
-          priority: 'HIGH',
+          body: `O cartão "${card.title}" está vencido desde ${this.formatDate(card.dueDate)}.`,
+          priority: NotificationPriority.HIGH,
         };
     }
   }

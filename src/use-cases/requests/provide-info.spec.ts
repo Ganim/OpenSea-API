@@ -3,26 +3,24 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Request } from '@/entities/requests/request';
 import { InMemoryRequestHistoryRepository } from '@/repositories/requests/in-memory/in-memory-request-history-repository';
 import { InMemoryRequestsRepository } from '@/repositories/requests/in-memory/in-memory-requests-repository';
-import type { CreateNotificationUseCase } from '@/use-cases/notifications/create-notification';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { InMemoryRequestNotifier } from './helpers/in-memory-request-notifier';
 import { ProvideInfoUseCase } from './provide-info';
 
 describe('ProvideInfoUseCase', () => {
   let requestsRepository: InMemoryRequestsRepository;
   let requestHistoryRepository: InMemoryRequestHistoryRepository;
-  let createNotificationUseCase: Partial<CreateNotificationUseCase>;
+  let notifier: InMemoryRequestNotifier;
   let sut: ProvideInfoUseCase;
 
   beforeEach(() => {
     requestsRepository = new InMemoryRequestsRepository();
     requestHistoryRepository = new InMemoryRequestHistoryRepository();
-    createNotificationUseCase = {
-      execute: vi.fn(),
-    };
+    notifier = new InMemoryRequestNotifier();
     sut = new ProvideInfoUseCase(
       requestsRepository,
       requestHistoryRepository,
-      createNotificationUseCase as CreateNotificationUseCase,
+      notifier,
     );
   });
 
@@ -65,13 +63,11 @@ describe('ProvideInfoUseCase', () => {
     expect(history?.action).toBe('info_provided');
     expect(history?.description).toContain('sistema XYZ');
 
-    expect(createNotificationUseCase.execute).toHaveBeenCalledWith(
-      expect.objectContaining({
-        userId: 'assigned-1',
-        title: 'Information Provided',
-        type: 'INFO',
-      }),
-    );
+    expect(notifier.dispatches).toHaveLength(1);
+    expect(notifier.dispatches[0]).toMatchObject({
+      recipientUserId: 'assigned-1',
+      category: 'requests.info_provided',
+    });
   });
 
   it('should not be able to provide info for a non-existent request', async () => {
@@ -141,6 +137,6 @@ describe('ProvideInfoUseCase', () => {
       informationProvided: 'Additional info',
     });
 
-    expect(createNotificationUseCase.execute).not.toHaveBeenCalled();
+    expect(notifier.dispatches).toHaveLength(0);
   });
 });

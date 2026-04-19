@@ -1,17 +1,20 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import { Slug } from '@/entities/stock/value-objects/slug';
 import { InMemoryItemsRepository } from '@/repositories/stock/in-memory/in-memory-items-repository';
 import { InMemoryVariantsRepository } from '@/repositories/stock/in-memory/in-memory-variants-repository';
-import { InMemoryNotificationsRepository } from '@/repositories/notifications/in-memory/in-memory-notifications-repository';
-import { ItemStatus } from '@/entities/stock/value-objects/item-status';
+import { InMemoryModuleNotifier } from '@/use-cases/shared/helpers/module-notifier';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { CheckStockAlertsUseCase } from './check-stock-alerts';
+import {
+  CheckStockAlertsUseCase,
+  type StockAlertNotificationCategory,
+} from './check-stock-alerts';
 
 const TENANT_ID = 'tenant-1';
 
 let variantsRepository: InMemoryVariantsRepository;
 let itemsRepository: InMemoryItemsRepository;
-let notificationsRepository: InMemoryNotificationsRepository;
+let notifier: InMemoryModuleNotifier<StockAlertNotificationCategory>;
 let sut: CheckStockAlertsUseCase;
 
 async function createVariantWithReorderPoint(
@@ -59,11 +62,11 @@ describe('CheckStockAlertsUseCase', () => {
   beforeEach(() => {
     variantsRepository = new InMemoryVariantsRepository();
     itemsRepository = new InMemoryItemsRepository();
-    notificationsRepository = new InMemoryNotificationsRepository();
+    notifier = new InMemoryModuleNotifier();
     sut = new CheckStockAlertsUseCase(
       variantsRepository,
       itemsRepository,
-      notificationsRepository,
+      notifier,
     );
   });
 
@@ -99,13 +102,12 @@ describe('CheckStockAlertsUseCase', () => {
 
     const result = await sut.execute({ tenantId: TENANT_ID });
 
-    // 5 + 8 = 13 < 20
     expect(result.alerts).toHaveLength(1);
     expect(result.alerts[0].currentQuantity).toBe(13);
     expect(result.alerts[0].deficit).toBe(7);
   });
 
-  it('should create notifications when notifyUserId is provided', async () => {
+  it('should dispatch notifications via low_stock category when notifyUserId is provided', async () => {
     const variant = await createVariantWithReorderPoint('Camiseta GG', 10);
     await createItemForVariant(variant.id, 2);
     const userId = new UniqueEntityID().toString();
@@ -117,29 +119,23 @@ describe('CheckStockAlertsUseCase', () => {
 
     expect(result.alerts).toHaveLength(1);
     expect(result.notificationsCreated).toBe(1);
-    expect(notificationsRepository.items).toHaveLength(1);
-    expect(notificationsRepository.items[0].type).toBe('WARNING');
+    expect(notifier.dispatches).toHaveLength(1);
+    expect(notifier.dispatches[0].category).toBe('stock.low_stock');
+    expect(notifier.dispatches[0].priority).toBe('HIGH');
   });
 
-  it('should not duplicate notifications for the same variant', async () => {
-    const variant = await createVariantWithReorderPoint('Camiseta XG', 10);
-    await createItemForVariant(variant.id, 2);
+  it('should dispatch out_of_stock when currentQuantity is zero', async () => {
+    const _variant = await createVariantWithReorderPoint('Empty Variant', 5);
     const userId = new UniqueEntityID().toString();
 
-    // First call
     await sut.execute({ tenantId: TENANT_ID, notifyUserId: userId });
-    // Second call
-    const result = await sut.execute({
-      tenantId: TENANT_ID,
-      notifyUserId: userId,
-    });
 
-    expect(result.alerts).toHaveLength(1);
-    expect(result.notificationsCreated).toBe(0);
-    expect(notificationsRepository.items).toHaveLength(1);
+    expect(notifier.dispatches).toHaveLength(1);
+    expect(notifier.dispatches[0].category).toBe('stock.out_of_stock');
+    expect(notifier.dispatches[0].title).toBe('Produto sem estoque');
   });
 
-  it('should not create notifications when notifyUserId is not provided', async () => {
+  it('should not dispatch notifications when notifyUserId is not provided', async () => {
     const variant = await createVariantWithReorderPoint('Camiseta PP', 10);
     await createItemForVariant(variant.id, 2);
 
@@ -147,10 +143,11 @@ describe('CheckStockAlertsUseCase', () => {
 
     expect(result.alerts).toHaveLength(1);
     expect(result.notificationsCreated).toBe(0);
+    expect(notifier.dispatches).toHaveLength(0);
   });
 
-  it('should work without notifications repository', async () => {
-    const sutWithoutNotifications = new CheckStockAlertsUseCase(
+  it('should work without notifier', async () => {
+    const sutWithoutNotifier = new CheckStockAlertsUseCase(
       variantsRepository,
       itemsRepository,
     );
@@ -158,7 +155,7 @@ describe('CheckStockAlertsUseCase', () => {
     const variant = await createVariantWithReorderPoint('Camiseta S', 10);
     await createItemForVariant(variant.id, 2);
 
-    const result = await sutWithoutNotifications.execute({
+    const result = await sutWithoutNotifier.execute({
       tenantId: TENANT_ID,
     });
 
@@ -167,7 +164,6 @@ describe('CheckStockAlertsUseCase', () => {
   });
 
   it('should return empty alerts when no variants have reorder points', async () => {
-    // Variant without reorder point
     const productId = new UniqueEntityID();
     await variantsRepository.create({
       tenantId: TENANT_ID,

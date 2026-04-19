@@ -4,7 +4,7 @@ import { Request } from '@/entities/requests/request';
 import { RequestHistory } from '@/entities/requests/request-history';
 import type { RequestHistoryRepository } from '@/repositories/requests/request-history-repository';
 import type { RequestsRepository } from '@/repositories/requests/requests-repository';
-import type { CreateNotificationUseCase } from '@/use-cases/notifications/create-notification';
+import type { RequestNotifier } from './helpers/request-notifier';
 
 type CreateRequestUseCaseRequest = CreateRequestDTO;
 
@@ -16,13 +16,12 @@ export class CreateRequestUseCase {
   constructor(
     private requestsRepository: RequestsRepository,
     private requestHistoryRepository: RequestHistoryRepository,
-    private createNotificationUseCase: CreateNotificationUseCase,
+    private notifier: RequestNotifier,
   ) {}
 
   async execute(
     data: CreateRequestUseCaseRequest,
   ): Promise<CreateRequestUseCaseResponse> {
-    // Calcular SLA deadline (exemplo: 5 dias úteis)
     const slaDeadline = data.dueDate ?? this.calculateSLADeadline(5);
 
     const request = Request.create({
@@ -46,7 +45,6 @@ export class CreateRequestUseCase {
 
     await this.requestsRepository.create(request);
 
-    // Registrar histórico
     const history = RequestHistory.create({
       requestId: request.id,
       action: 'created',
@@ -62,7 +60,6 @@ export class CreateRequestUseCase {
 
     await this.requestHistoryRepository.create(history);
 
-    // Notificar destinatário
     await this.notifyTarget(request);
 
     return { request };
@@ -71,13 +68,12 @@ export class CreateRequestUseCase {
   private calculateSLADeadline(businessDays: number): Date {
     const date = new Date();
     let addedDays = 0;
-    const maxIterations = businessDays * 3 + 10; // Safety limit (accounts for weekends + holidays)
+    const maxIterations = businessDays * 3 + 10;
     let iterations = 0;
 
     while (addedDays < businessDays && iterations < maxIterations) {
       date.setDate(date.getDate() + 1);
       iterations++;
-      // Pular fins de semana
       const dayOfWeek = date.getDay();
       if (dayOfWeek !== 0 && dayOfWeek !== 6) {
         addedDays++;
@@ -88,26 +84,14 @@ export class CreateRequestUseCase {
   }
 
   private async notifyTarget(request: Request): Promise<void> {
-    let targetUserIds: string[] = [];
+    if (request.targetType !== 'USER' || !request.targetId) return;
 
-    if (request.targetType === 'USER' && request.targetId) {
-      targetUserIds = [request.targetId];
-    }
-    // TODO: Implementar lógica para GROUP quando disponível
-
-    for (const userId of targetUserIds) {
-      await this.createNotificationUseCase.execute({
-        userId,
-        title: 'Nova Requisição',
-        message: `Você recebeu uma nova requisição: ${request.title}`,
-        type: 'INFO',
-        priority: request.priority === 'URGENT' ? 'HIGH' : 'NORMAL',
-        channel: 'IN_APP',
-        entityType: 'REQUEST',
-        entityId: request.id.toString(),
-        actionUrl: `/requests/${request.id.toString()}`,
-        actionText: 'Ver Requisição',
-      });
-    }
+    await this.notifier.dispatch({
+      recipientUserId: request.targetId,
+      category: 'requests.created',
+      request,
+      title: 'Nova solicitação',
+      body: `Você recebeu uma nova solicitação: ${request.title}`,
+    });
   }
 }

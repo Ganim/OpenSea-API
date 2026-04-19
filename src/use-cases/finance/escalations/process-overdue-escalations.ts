@@ -1,12 +1,14 @@
 import { logger } from '@/lib/logger';
+import { NotificationPriority } from '@/modules/notifications/public';
 import type { FinanceEntriesRepository } from '@/repositories/finance/finance-entries-repository';
 import type { OverdueActionsRepository } from '@/repositories/finance/overdue-actions-repository';
 import type { OverdueEscalationsRepository } from '@/repositories/finance/overdue-escalations-repository';
-import type { NotificationsRepository } from '@/repositories/notifications/notifications-repository';
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { ModuleNotifier } from '@/use-cases/shared/helpers/module-notifier';
 import type { OverdueEscalationStep } from '@/entities/finance/overdue-escalation-step';
 import type { FinanceEntry } from '@/entities/finance/finance-entry';
 import type { SendEscalationMessageUseCase } from './send-escalation-message';
+
+export type FinanceEscalationNotificationCategory = 'finance.entry_overdue';
 
 interface ProcessOverdueEscalationsUseCaseRequest {
   tenantId: string;
@@ -28,7 +30,7 @@ export class ProcessOverdueEscalationsUseCase {
     private financeEntriesRepository: FinanceEntriesRepository,
     private escalationsRepository: OverdueEscalationsRepository,
     private overdueActionsRepository: OverdueActionsRepository,
-    private notificationsRepository: NotificationsRepository,
+    private notifier: ModuleNotifier<FinanceEscalationNotificationCategory>,
     private sendEscalationMessageUseCase?: SendEscalationMessageUseCase,
   ) {}
 
@@ -278,15 +280,18 @@ export class ProcessOverdueEscalationsUseCase {
     switch (step.channel) {
       case 'SYSTEM_ALERT': {
         if (createdBy) {
-          await this.notificationsRepository.create({
-            userId: new UniqueEntityID(createdBy),
+          await this.notifier.dispatch({
+            category: 'finance.entry_overdue',
+            tenantId,
+            recipientUserId: createdBy,
             title: renderedSubject ?? `Alerta de cobrança: ${entry.code}`,
-            message: renderedMessage,
-            type: 'WARNING',
-            priority: 'HIGH',
-            channel: 'IN_APP',
+            body: renderedMessage,
+            priority: NotificationPriority.HIGH,
             entityType: 'finance_entry',
             entityId: entry.id.toString(),
+            actionUrl: `/finance/entries/${entry.id.toString()}`,
+            actionText: 'Ver lançamento',
+            dedupeSuffix: `escalation:${step.id.toString()}:${createdBy}`,
           });
         }
         break;

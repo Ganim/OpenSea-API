@@ -3,26 +3,24 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Request } from '@/entities/requests/request';
 import { InMemoryRequestHistoryRepository } from '@/repositories/requests/in-memory/in-memory-request-history-repository';
 import { InMemoryRequestsRepository } from '@/repositories/requests/in-memory/in-memory-requests-repository';
-import type { CreateNotificationUseCase } from '@/use-cases/notifications/create-notification';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { CancelRequestUseCase } from './cancel-request';
+import { InMemoryRequestNotifier } from './helpers/in-memory-request-notifier';
 
 describe('CancelRequestUseCase', () => {
   let requestsRepository: InMemoryRequestsRepository;
   let requestHistoryRepository: InMemoryRequestHistoryRepository;
-  let createNotificationUseCase: Partial<CreateNotificationUseCase>;
+  let notifier: InMemoryRequestNotifier;
   let sut: CancelRequestUseCase;
 
   beforeEach(() => {
     requestsRepository = new InMemoryRequestsRepository();
     requestHistoryRepository = new InMemoryRequestHistoryRepository();
-    createNotificationUseCase = {
-      execute: vi.fn(),
-    };
+    notifier = new InMemoryRequestNotifier();
     sut = new CancelRequestUseCase(
       requestsRepository,
       requestHistoryRepository,
-      createNotificationUseCase as CreateNotificationUseCase,
+      notifier,
     );
   });
 
@@ -66,23 +64,12 @@ describe('CancelRequestUseCase', () => {
     expect(history?.action).toBe('cancelled');
     expect(history?.description).toBe('Requisição duplicada');
 
-    // Deve notificar o solicitante
-    expect(createNotificationUseCase.execute).toHaveBeenCalledWith(
-      expect.objectContaining({
-        userId: 'requester-1',
-        title: 'Request Cancelled',
-        type: 'WARNING',
-      }),
-    );
-
-    // Deve notificar o atribuído
-    expect(createNotificationUseCase.execute).toHaveBeenCalledWith(
-      expect.objectContaining({
-        userId: 'assigned-1',
-        title: 'Request Cancelled',
-        type: 'WARNING',
-      }),
-    );
+    const recipients = notifier.dispatches.map((d) => d.recipientUserId);
+    expect(recipients).toContain('requester-1');
+    expect(recipients).toContain('assigned-1');
+    expect(
+      notifier.dispatches.every((d) => d.category === 'requests.cancelled'),
+    ).toBe(true);
   });
 
   it('should not be able to cancel a non-existent request', async () => {
@@ -121,8 +108,7 @@ describe('CancelRequestUseCase', () => {
       cancellationReason: 'Não preciso mais',
     });
 
-    // Não deve enviar notificação para o próprio solicitante
-    expect(createNotificationUseCase.execute).not.toHaveBeenCalled();
+    expect(notifier.dispatches).toHaveLength(0);
   });
 
   it('should not be able to cancel a completed request', async () => {

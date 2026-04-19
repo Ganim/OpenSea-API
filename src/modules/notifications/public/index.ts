@@ -19,4 +19,5 @@ export {
   getRegisteredManifest,
   listRegisteredManifests,
   clearManifestRegistry,
+  isCategoryDeclared,
 } from './manifest-loader';

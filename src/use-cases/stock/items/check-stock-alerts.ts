@@ -1,8 +1,11 @@
-// TODO: Expose via admin endpoint or register as cron job trigger
-import type { VariantsRepository } from '@/repositories/stock/variants-repository';
+import { NotificationPriority } from '@/modules/notifications/public';
 import type { ItemsRepository } from '@/repositories/stock/items-repository';
-import type { NotificationsRepository } from '@/repositories/notifications/notifications-repository';
-import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import type { VariantsRepository } from '@/repositories/stock/variants-repository';
+import type { ModuleNotifier } from '@/use-cases/shared/helpers/module-notifier';
+
+export type StockAlertNotificationCategory =
+  | 'stock.low_stock'
+  | 'stock.out_of_stock';
 
 export interface StockAlert {
   variantId: string;
@@ -29,7 +32,7 @@ export class CheckStockAlertsUseCase {
   constructor(
     private variantsRepository: VariantsRepository,
     private itemsRepository: ItemsRepository,
-    private notificationsRepository?: NotificationsRepository,
+    private notifier?: ModuleNotifier<StockAlertNotificationCategory>,
   ) {}
 
   async execute(
@@ -37,7 +40,6 @@ export class CheckStockAlertsUseCase {
   ): Promise<CheckStockAlertsUseCaseResponse> {
     const { tenantId, notifyUserId } = request;
 
-    // Find all variants with a reorder point set
     const variants =
       await this.variantsRepository.findManyBelowReorderPoint(tenantId);
 
@@ -48,7 +50,6 @@ export class CheckStockAlertsUseCase {
         continue;
       }
 
-      // Sum current quantity across all items of this variant
       const items = await this.itemsRepository.findManyByVariant(
         variant.id,
         tenantId,
@@ -72,37 +73,29 @@ export class CheckStockAlertsUseCase {
       }
     }
 
-    // Create notifications for each alert (if repository + userId available)
     let notificationsCreated = 0;
 
-    if (this.notificationsRepository && notifyUserId && alerts.length > 0) {
+    if (this.notifier && notifyUserId && alerts.length > 0) {
       for (const alert of alerts) {
-        // Check if notification already exists for this variant (avoid duplicates)
-        const existing = await this.notificationsRepository.findByUserAndEntity(
-          notifyUserId,
-          'VARIANT',
-          alert.variantId,
-        );
+        const category: StockAlertNotificationCategory =
+          alert.currentQuantity === 0
+            ? 'stock.out_of_stock'
+            : 'stock.low_stock';
 
-        if (existing) {
-          continue;
-        }
-
-        await this.notificationsRepository.create({
-          userId: new UniqueEntityID(notifyUserId),
-          title: 'Alerta de estoque baixo',
-          message: `A variante "${alert.variantName}" (${alert.fullCode}) está abaixo do ponto de reposição. Quantidade atual: ${alert.currentQuantity}, mínimo: ${alert.reorderPoint}.`,
-          type: 'WARNING',
-          priority: 'HIGH',
-          channel: 'IN_APP',
+        await this.notifier.dispatch({
+          category,
+          tenantId,
+          recipientUserId: notifyUserId,
+          title:
+            alert.currentQuantity === 0
+              ? 'Produto sem estoque'
+              : 'Alerta de estoque baixo',
+          body: `A variante "${alert.variantName}" (${alert.fullCode}) está abaixo do ponto de reposição. Quantidade atual: ${alert.currentQuantity}, mínimo: ${alert.reorderPoint}.`,
+          priority: NotificationPriority.HIGH,
           entityType: 'VARIANT',
           entityId: alert.variantId,
-          metadata: {
-            currentQuantity: alert.currentQuantity,
-            reorderPoint: alert.reorderPoint,
-            deficit: alert.deficit,
-            reorderQuantity: alert.reorderQuantity,
-          },
+          actionUrl: `/stock/variants/${alert.variantId}`,
+          actionText: 'Ver variante',
         });
 
         notificationsCreated++;

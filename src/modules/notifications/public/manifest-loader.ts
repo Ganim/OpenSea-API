@@ -39,3 +39,17 @@ export function listRegisteredManifests(): ModuleNotificationManifest[] {
 export function clearManifestRegistry(): void {
   registry.clear();
 }
+
+/**
+ * Returns true iff `categoryCode` was declared by some module manifest
+ * registered in memory. Used by the dispatcher to reject undeclared
+ * categories before hitting the DB (see NOTIFICATIONS_STRICT_MANIFEST).
+ */
+export function isCategoryDeclared(categoryCode: string): boolean {
+  for (const manifest of registry.values()) {
+    if (manifest.categories.some((c) => c.code === categoryCode)) {
+      return true;
+    }
+  }
+  return false;
+}

@@ -1,6 +1,10 @@
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { logAudit } from '@/http/helpers/audit.helper';
+import {
+  markDeprecated,
+  NOTIFICATION_PREFS_V1_SUNSET,
+} from '@/http/helpers/deprecation.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
   createNotificationPreferenceSchema,
@@ -12,6 +16,10 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
+/**
+ * @deprecated Use PUT /v1/notifications/preferences (v2) instead.
+ * Sunset: 2026-07-17.
+ */
 export async function createMyNotificationPreferenceController(
   app: FastifyInstance,
 ) {
@@ -21,9 +29,9 @@ export async function createMyNotificationPreferenceController(
     preHandler: [verifyJwt],
     schema: {
       tags: ['Me'],
-      summary: 'Create my notification preference',
+      summary: 'Create my notification preference (DEPRECATED)',
       description:
-        'Cria uma nova preferencia de notificacao para o usuario autenticado.',
+        'DEPRECATED — use PUT /v1/notifications/preferences (v2). Sunset: 2026-07-17.',
       security: [{ bearerAuth: [] }],
       body: createNotificationPreferenceSchema,
       response: {
@@ -55,6 +63,11 @@ export async function createMyNotificationPreferenceController(
           newData: data,
         });
 
+        markDeprecated(reply, {
+          sunsetDate: NOTIFICATION_PREFS_V1_SUNSET,
+          replacement: '/v1/notifications/preferences',
+          notes: 'v2 category-based preferences',
+        });
         return reply.status(201).send({ preference });
       } catch (err) {
         if (err instanceof BadRequestError) {

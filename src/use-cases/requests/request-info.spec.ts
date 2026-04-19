@@ -3,26 +3,24 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Request } from '@/entities/requests/request';
 import { InMemoryRequestHistoryRepository } from '@/repositories/requests/in-memory/in-memory-request-history-repository';
 import { InMemoryRequestsRepository } from '@/repositories/requests/in-memory/in-memory-requests-repository';
-import type { CreateNotificationUseCase } from '@/use-cases/notifications/create-notification';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { InMemoryRequestNotifier } from './helpers/in-memory-request-notifier';
 import { RequestInfoUseCase } from './request-info';
 
 describe('RequestInfoUseCase', () => {
   let requestsRepository: InMemoryRequestsRepository;
   let requestHistoryRepository: InMemoryRequestHistoryRepository;
-  let createNotificationUseCase: Partial<CreateNotificationUseCase>;
+  let notifier: InMemoryRequestNotifier;
   let sut: RequestInfoUseCase;
 
   beforeEach(() => {
     requestsRepository = new InMemoryRequestsRepository();
     requestHistoryRepository = new InMemoryRequestHistoryRepository();
-    createNotificationUseCase = {
-      execute: vi.fn(),
-    };
+    notifier = new InMemoryRequestNotifier();
     sut = new RequestInfoUseCase(
       requestsRepository,
       requestHistoryRepository,
-      createNotificationUseCase as CreateNotificationUseCase,
+      notifier,
     );
   });
 
@@ -66,14 +64,11 @@ describe('RequestInfoUseCase', () => {
     expect(history?.action).toBe('info_requested');
     expect(history?.description).toContain('mais detalhes');
 
-    expect(createNotificationUseCase.execute).toHaveBeenCalledWith(
-      expect.objectContaining({
-        userId: 'requester-1',
-        title: 'Additional Information Requested',
-        type: 'INFO',
-        priority: 'HIGH',
-      }),
-    );
+    expect(notifier.dispatches).toHaveLength(1);
+    expect(notifier.dispatches[0]).toMatchObject({
+      recipientUserId: 'requester-1',
+      category: 'requests.info_requested',
+    });
   });
 
   it('should not be able to request info from a non-existent request', async () => {

@@ -4,7 +4,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { RequestHistory } from '@/entities/requests/request-history';
 import type { RequestHistoryRepository } from '@/repositories/requests/request-history-repository';
 import type { RequestsRepository } from '@/repositories/requests/requests-repository';
-import type { CreateNotificationUseCase } from '@/use-cases/notifications/create-notification';
+import type { RequestNotifier } from './helpers/request-notifier';
 
 interface CompleteRequestUseCaseRequest {
   requestId: string;
@@ -20,7 +20,7 @@ export class CompleteRequestUseCase {
   constructor(
     private requestsRepository: RequestsRepository,
     private requestHistoryRepository: RequestHistoryRepository,
-    private createNotificationUseCase: CreateNotificationUseCase,
+    private notifier: RequestNotifier,
   ) {}
 
   async execute(
@@ -34,17 +34,14 @@ export class CompleteRequestUseCase {
       throw new ResourceNotFoundError('Request not found');
     }
 
-    // Verificar se o usuário é o atribuído
     if (request.assignedToId?.toString() !== data.completedById) {
       throw new ForbiddenError('Only assigned user can complete the request');
     }
 
-    // Completar a requisição
     request.complete();
 
     await this.requestsRepository.save(request);
 
-    // Registrar histórico
     const history = RequestHistory.create({
       requestId: request.id,
       action: 'completed',
@@ -57,18 +54,12 @@ export class CompleteRequestUseCase {
 
     await this.requestHistoryRepository.create(history);
 
-    // Notificar o solicitante
-    await this.createNotificationUseCase.execute({
-      userId: request.requesterId.toString(),
-      title: 'Request Completed',
-      message: `Your request "${request.title}" has been completed.`,
-      type: 'SUCCESS',
-      priority: 'NORMAL',
-      channel: 'IN_APP',
-      entityType: 'REQUEST',
-      entityId: request.id.toString(),
-      actionUrl: `/requests/${request.id.toString()}`,
-      actionText: 'View Request',
+    await this.notifier.dispatch({
+      recipientUserId: request.requesterId.toString(),
+      category: 'requests.completed',
+      request,
+      title: 'Solicitação concluída',
+      body: `Sua solicitação "${request.title}" foi concluída.`,
     });
 
     return { success: true };

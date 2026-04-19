@@ -3,26 +3,24 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Request } from '@/entities/requests/request';
 import { InMemoryRequestHistoryRepository } from '@/repositories/requests/in-memory/in-memory-request-history-repository';
 import { InMemoryRequestsRepository } from '@/repositories/requests/in-memory/in-memory-requests-repository';
-import type { CreateNotificationUseCase } from '@/use-cases/notifications/create-notification';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { CompleteRequestUseCase } from './complete-request';
+import { InMemoryRequestNotifier } from './helpers/in-memory-request-notifier';
 
 describe('CompleteRequestUseCase', () => {
   let requestsRepository: InMemoryRequestsRepository;
   let requestHistoryRepository: InMemoryRequestHistoryRepository;
-  let createNotificationUseCase: Partial<CreateNotificationUseCase>;
+  let notifier: InMemoryRequestNotifier;
   let sut: CompleteRequestUseCase;
 
   beforeEach(() => {
     requestsRepository = new InMemoryRequestsRepository();
     requestHistoryRepository = new InMemoryRequestHistoryRepository();
-    createNotificationUseCase = {
-      execute: vi.fn(),
-    };
+    notifier = new InMemoryRequestNotifier();
     sut = new CompleteRequestUseCase(
       requestsRepository,
       requestHistoryRepository,
-      createNotificationUseCase as CreateNotificationUseCase,
+      notifier,
     );
   });
 
@@ -65,13 +63,11 @@ describe('CompleteRequestUseCase', () => {
     expect(history).toBeDefined();
     expect(history?.action).toBe('completed');
 
-    expect(createNotificationUseCase.execute).toHaveBeenCalledWith(
-      expect.objectContaining({
-        userId: request.requesterId.toString(),
-        title: 'Request Completed',
-        type: 'SUCCESS',
-      }),
-    );
+    expect(notifier.dispatches).toHaveLength(1);
+    expect(notifier.dispatches[0]).toMatchObject({
+      recipientUserId: request.requesterId.toString(),
+      category: 'requests.completed',
+    });
   });
 
   it('should not be able to complete a non-existent request', async () => {

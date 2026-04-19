@@ -123,6 +123,17 @@ export interface DispatchResult {
   suppressedByPreference: number;
 }
 
+/**
+ * Result of `dispatchBulkAsync()` — fire-and-forget mode for large recipient
+ * sets. Only the orchestrator jobId is returned. Individual dispatches run
+ * out-of-process; inspect `NotificationCallbackJob` + metrics for status.
+ */
+export interface DispatchBulkAsyncResult {
+  jobId: string;
+  queued: true;
+  recipientCount: number;
+}
+
 export interface ResolveNotificationInput {
   notificationId: string;
   userId: string;

@@ -47,8 +47,8 @@ export interface NotificationsRepository {
     filter: ListNotificationsFilter,
   ): Promise<{ data: Notification[]; total: number }>;
   listScheduledPending(now: Date, limit?: number): Promise<Notification[]>; // scheduledFor <= now AND isSent = false
-  markAsRead(id: UniqueEntityID): Promise<void>;
+  markAsRead(id: UniqueEntityID, userId: UniqueEntityID): Promise<boolean>; // true if affected
   markAllAsRead(userId: UniqueEntityID): Promise<number>; // returns affected count
-  delete(id: UniqueEntityID): Promise<void>; // soft delete
+  delete(id: UniqueEntityID, userId: UniqueEntityID): Promise<boolean>; // soft delete; true if affected
   save(notification: Notification): Promise<void>;
 }

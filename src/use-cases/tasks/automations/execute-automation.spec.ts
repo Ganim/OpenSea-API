@@ -3,20 +3,23 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 vi.mock('@/lib/logger', () => ({
   logger: { warn: vi.fn(), info: vi.fn(), error: vi.fn() },
 }));
-import { ExecuteAutomationUseCase } from './execute-automation';
-import { InMemoryNotificationsRepository } from '@/repositories/notifications/in-memory/in-memory-notifications-repository';
+import {
+  ExecuteAutomationUseCase,
+  type TaskAutomationNotificationCategory,
+} from './execute-automation';
 import { InMemoryBoardAutomationsRepository } from '@/repositories/tasks/in-memory/in-memory-board-automations-repository';
 import { InMemoryBoardColumnsRepository } from '@/repositories/tasks/in-memory/in-memory-board-columns-repository';
 import { InMemoryCardActivitiesRepository } from '@/repositories/tasks/in-memory/in-memory-card-activities-repository';
 import { InMemoryCardWatchersRepository } from '@/repositories/tasks/in-memory/in-memory-card-watchers-repository';
 import { InMemoryCardsRepository } from '@/repositories/tasks/in-memory/in-memory-cards-repository';
+import { InMemoryModuleNotifier } from '@/use-cases/shared/helpers/module-notifier';
 
 let boardAutomationsRepository: InMemoryBoardAutomationsRepository;
 let cardsRepository: InMemoryCardsRepository;
 let boardColumnsRepository: InMemoryBoardColumnsRepository;
 let cardActivitiesRepository: InMemoryCardActivitiesRepository;
 let cardWatchersRepository: InMemoryCardWatchersRepository;
-let notificationsRepository: InMemoryNotificationsRepository;
+let notifier: InMemoryModuleNotifier<TaskAutomationNotificationCategory>;
 let sut: ExecuteAutomationUseCase;
 
 const BOARD_ID = 'board-1';
@@ -30,14 +33,14 @@ describe('ExecuteAutomationUseCase', () => {
     boardColumnsRepository = new InMemoryBoardColumnsRepository();
     cardActivitiesRepository = new InMemoryCardActivitiesRepository();
     cardWatchersRepository = new InMemoryCardWatchersRepository();
-    notificationsRepository = new InMemoryNotificationsRepository();
+    notifier = new InMemoryModuleNotifier();
     sut = new ExecuteAutomationUseCase(
       boardAutomationsRepository,
       cardsRepository,
       boardColumnsRepository,
       cardActivitiesRepository,
       cardWatchersRepository,
-      notificationsRepository,
+      notifier,
     );
 
     await boardColumnsRepository.create({
@@ -526,11 +529,10 @@ describe('ExecuteAutomationUseCase', () => {
     });
 
     expect(executedCount).toBe(1);
-    expect(notificationsRepository.items).toHaveLength(2);
-    expect(notificationsRepository.items[0].message).toBe('Cartão foi criado');
-    expect(notificationsRepository.items[0].title).toBe(
-      'Notificação: Important Task',
-    );
+    expect(notifier.dispatches).toHaveLength(2);
+    expect(notifier.dispatches[0].body).toBe('Cartão foi criado');
+    expect(notifier.dispatches[0].title).toBe('Notificação: Important Task');
+    expect(notifier.dispatches[0].category).toBe('tasks.mentioned');
   });
 
   it('should not send notification to the actor (userId)', async () => {
@@ -569,10 +571,8 @@ describe('ExecuteAutomationUseCase', () => {
       },
     });
 
-    expect(notificationsRepository.items).toHaveLength(1);
-    expect(notificationsRepository.items[0].userId.toString()).toBe(
-      'other-user',
-    );
+    expect(notifier.dispatches).toHaveLength(1);
+    expect(notifier.dispatches[0].recipientUserId).toBe('other-user');
   });
 
   it('should return null for SEND_NOTIFICATION when no watchers exist', async () => {
@@ -600,6 +600,6 @@ describe('ExecuteAutomationUseCase', () => {
     });
 
     expect(executedCount).toBe(0);
-    expect(notificationsRepository.items).toHaveLength(0);
+    expect(notifier.dispatches).toHaveLength(0);
   });
 });

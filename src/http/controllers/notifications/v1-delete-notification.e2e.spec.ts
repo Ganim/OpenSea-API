@@ -36,4 +36,23 @@ describe('Delete Notification (e2e)', () => {
       ]),
     );
   });
+
+  it('should reject deleting a notification that belongs to another user', async () => {
+    const { user: ownerUser } = await createAndAuthenticateUser(app);
+    const { token: attackerToken } = await createAndAuthenticateUser(app);
+
+    const ownerId = ownerUser.user.id.toString();
+    const n = await makeNotification({
+      userId: ownerId,
+      type: 'INFO',
+      channel: 'IN_APP',
+    });
+
+    const response = await request(app.server)
+      .delete(`/v1/notifications/${n.id.toString()}`)
+      .set('Authorization', `Bearer ${attackerToken}`)
+      .send();
+
+    expect(response.statusCode).toEqual(404);
+  });
 });

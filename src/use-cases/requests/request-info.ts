@@ -3,9 +3,10 @@ import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { RequestHistory } from '@/entities/requests/request-history';
+import { NotificationPriority } from '@/modules/notifications/public';
 import type { RequestHistoryRepository } from '@/repositories/requests/request-history-repository';
 import type { RequestsRepository } from '@/repositories/requests/requests-repository';
-import type { CreateNotificationUseCase } from '@/use-cases/notifications/create-notification';
+import type { RequestNotifier } from './helpers/request-notifier';
 
 interface RequestInfoUseCaseRequest {
   requestId: string;
@@ -21,7 +22,7 @@ export class RequestInfoUseCase {
   constructor(
     private requestsRepository: RequestsRepository,
     private requestHistoryRepository: RequestHistoryRepository,
-    private createNotificationUseCase: CreateNotificationUseCase,
+    private notifier: RequestNotifier,
   ) {}
 
   async execute(
@@ -35,14 +36,12 @@ export class RequestInfoUseCase {
       throw new ResourceNotFoundError('Request not found');
     }
 
-    // Verificar se o usuário é o atribuído
     if (request.assignedToId?.toString() !== data.requestedById) {
       throw new ForbiddenError(
         'Only the assigned user can request additional information',
       );
     }
 
-    // Solicitar informação adicional
     try {
       request.requestInfo();
     } catch (error) {
@@ -61,7 +60,6 @@ export class RequestInfoUseCase {
 
     await this.requestsRepository.save(request);
 
-    // Registrar histórico
     const history = RequestHistory.create({
       requestId: request.id,
       action: 'info_requested',
@@ -74,18 +72,14 @@ export class RequestInfoUseCase {
 
     await this.requestHistoryRepository.create(history);
 
-    // Notificar o solicitante
-    await this.createNotificationUseCase.execute({
-      userId: request.requesterId.toString(),
-      title: 'Additional Information Requested',
-      message: `Additional information requested for "${request.title}": ${data.infoRequested}`,
-      type: 'INFO',
-      priority: 'HIGH',
-      channel: 'IN_APP',
-      entityType: 'REQUEST',
-      entityId: request.id.toString(),
-      actionUrl: `/requests/${request.id.toString()}`,
-      actionText: 'Provide Information',
+    await this.notifier.dispatch({
+      recipientUserId: request.requesterId.toString(),
+      category: 'requests.info_requested',
+      request,
+      title: 'Informações adicionais solicitadas',
+      body: `Foram solicitadas informações adicionais para "${request.title}": ${data.infoRequested}`,
+      priorityOverride: NotificationPriority.HIGH,
+      actionText: 'Fornecer informações',
     });
 
     return { success: true };

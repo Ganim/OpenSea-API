@@ -24,8 +24,39 @@ describe('MarkAsReadUseCase', () => {
     });
 
     expect(notification.isRead).toBe(false);
-    await markAsRead.execute({ notificationId: notification.id.toString() });
+    await markAsRead.execute({
+      notificationId: notification.id.toString(),
+      userId: 'user-1',
+    });
     expect(notification.isRead).toBe(true);
     expect(notification.readAt).toBeInstanceOf(Date);
+  });
+
+  it('deve falhar ao marcar notificação de outro usuário', async () => {
+    const { notification } = await createNotification.execute({
+      userId: 'user-1',
+      title: 'Teste',
+      message: 'Mensagem',
+      type: 'INFO',
+      channel: 'IN_APP',
+    });
+
+    await expect(
+      markAsRead.execute({
+        notificationId: notification.id.toString(),
+        userId: 'user-2',
+      }),
+    ).rejects.toThrow('Notification not found');
+
+    expect(notification.isRead).toBe(false);
+  });
+
+  it('deve falhar ao marcar notificação inexistente', async () => {
+    await expect(
+      markAsRead.execute({
+        notificationId: '00000000-0000-0000-0000-000000000000',
+        userId: 'user-1',
+      }),
+    ).rejects.toThrow('Notification not found');
   });
 });

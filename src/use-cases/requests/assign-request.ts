@@ -5,7 +5,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { RequestHistory } from '@/entities/requests/request-history';
 import type { RequestHistoryRepository } from '@/repositories/requests/request-history-repository';
 import type { RequestsRepository } from '@/repositories/requests/requests-repository';
-import type { CreateNotificationUseCase } from '@/use-cases/notifications/create-notification';
+import type { RequestNotifier } from './helpers/request-notifier';
 
 interface AssignRequestUseCaseRequest {
   requestId: string;
@@ -22,7 +22,7 @@ export class AssignRequestUseCase {
   constructor(
     private requestsRepository: RequestsRepository,
     private requestHistoryRepository: RequestHistoryRepository,
-    private createNotificationUseCase: CreateNotificationUseCase,
+    private notifier: RequestNotifier,
   ) {}
 
   async execute(
@@ -32,9 +32,9 @@ export class AssignRequestUseCase {
       throw new ForbiddenError('You do not have permission to assign requests');
     }
 
-    const request = await this.requestsRepository.findById({
-      toString: () => data.requestId,
-    } as UniqueEntityID);
+    const request = await this.requestsRepository.findById(
+      new UniqueEntityID(data.requestId),
+    );
 
     if (!request) {
       throw new ResourceNotFoundError('Request not found');
@@ -50,7 +50,6 @@ export class AssignRequestUseCase {
 
     await this.requestsRepository.save(request);
 
-    // Registrar histórico
     const history = RequestHistory.create({
       requestId: request.id,
       action: 'assigned',
@@ -66,32 +65,13 @@ export class AssignRequestUseCase {
 
     await this.requestHistoryRepository.create(history);
 
-    // Notificar atribuído via v2 notifications dispatcher
-    const { notificationClient, NotificationType, NotificationPriority } =
-      await import('@/modules/notifications/public');
-    const { prisma } = await import('@/lib/prisma');
-    const tenantUser = await prisma.tenantUser.findFirst({
-      where: { userId: data.assignedToId, deletedAt: null },
-      select: { tenantId: true },
+    await this.notifier.dispatch({
+      recipientUserId: data.assignedToId,
+      category: oldAssignedToId ? 'requests.reassigned' : 'requests.assigned',
+      request,
+      title: 'Solicitação atribuída',
+      body: request.title,
     });
-    if (tenantUser) {
-      await notificationClient.dispatch({
-        type: NotificationType.LINK,
-        category: oldAssignedToId ? 'requests.reassigned' : 'requests.assigned',
-        tenantId: tenantUser.tenantId,
-        recipients: { userIds: [data.assignedToId] },
-        priority:
-          request.priority === 'URGENT'
-            ? NotificationPriority.HIGH
-            : NotificationPriority.NORMAL,
-        title: 'Solicitação atribuída',
-        body: `${request.title}`,
-        entity: { type: 'request', id: request.id.toString() },
-        actionUrl: `/requests/${request.id.toString()}`,
-        actionText: 'Ver solicitação',
-        idempotencyKey: `requests.assigned:${request.id.toString()}:${data.assignedToId}`,
-      });
-    }
 
     return { success: true };
   }

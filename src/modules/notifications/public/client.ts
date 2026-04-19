@@ -23,6 +23,7 @@
  */
 
 import type {
+  DispatchBulkAsyncResult,
   DispatchNotificationInput,
   DispatchResult,
   ProgressUpdateInput,
@@ -32,7 +33,16 @@ import type {
 import type { ModuleNotificationManifest } from './types';
 
 export interface NotificationClient {
+  /** Synchronous dispatch — resolves recipients + persists + fans-out in-process. */
   dispatch(input: DispatchNotificationInput): Promise<DispatchResult>;
+  /**
+   * Fire-and-forget dispatch for large recipient sets. Enqueues in BullMQ;
+   * returns a jobId synchronously. Use when `recipients` might expand to
+   * more than ~100 users.
+   */
+  dispatchBulkAsync(
+    input: DispatchNotificationInput,
+  ): Promise<DispatchBulkAsyncResult>;
   resolve(input: ResolveNotificationInput): Promise<ResolveNotificationResult>;
   updateProgress(input: ProgressUpdateInput): Promise<void>;
   registerManifest(manifest: ModuleNotificationManifest): Promise<void>;
@@ -61,6 +71,8 @@ export function getNotificationClient(): NotificationClient {
  */
 export const notificationClient: NotificationClient = {
   dispatch: (input) => getNotificationClient().dispatch(input),
+  dispatchBulkAsync: (input) =>
+    getNotificationClient().dispatchBulkAsync(input),
   resolve: (input) => getNotificationClient().resolve(input),
   updateProgress: (input) => getNotificationClient().updateProgress(input),
   registerManifest: (manifest) =>

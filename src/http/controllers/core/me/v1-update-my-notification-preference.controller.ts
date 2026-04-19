@@ -2,6 +2,10 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { logAudit } from '@/http/helpers/audit.helper';
+import {
+  markDeprecated,
+  NOTIFICATION_PREFS_V1_SUNSET,
+} from '@/http/helpers/deprecation.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import {
   notificationPreferenceResponseSchema,
@@ -14,6 +18,10 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
+/**
+ * @deprecated Use PUT /v1/notifications/preferences (v2) instead.
+ * Sunset: 2026-07-17.
+ */
 export async function updateMyNotificationPreferenceController(
   app: FastifyInstance,
 ) {
@@ -23,7 +31,7 @@ export async function updateMyNotificationPreferenceController(
     preHandler: [verifyJwt],
     schema: {
       tags: ['Me'],
-      summary: 'Update my notification preference',
+      summary: 'Update my notification preference (DEPRECATED)',
       description:
         'Atualiza uma preferencia de notificacao do usuario autenticado. Apenas preferencias proprias podem ser atualizadas.',
       security: [{ bearerAuth: [] }],
@@ -71,6 +79,11 @@ export async function updateMyNotificationPreferenceController(
           newData: data,
         });
 
+        markDeprecated(reply, {
+          sunsetDate: NOTIFICATION_PREFS_V1_SUNSET,
+          replacement: '/v1/notifications/preferences',
+          notes: 'v2 category-based preferences',
+        });
         return reply.status(200).send({ preference });
       } catch (err) {
         if (err instanceof ResourceNotFoundError) {

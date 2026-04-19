@@ -2,6 +2,10 @@ import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
 import { logAudit } from '@/http/helpers/audit.helper';
+import {
+  markDeprecated,
+  NOTIFICATION_PREFS_V1_SUNSET,
+} from '@/http/helpers/deprecation.helper';
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
 import { makeGetUserByIdUseCase } from '@/use-cases/core/users/factories/make-get-user-by-id-use-case';
 import { makeGetNotificationPreferenceUseCase } from '@/use-cases/sales/notification-preferences/factories/make-get-notification-preference-use-case';
@@ -10,6 +14,10 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
+/**
+ * @deprecated Use PUT /v1/notifications/preferences (v2) instead.
+ * Sunset: 2026-07-17.
+ */
 export async function deleteMyNotificationPreferenceController(
   app: FastifyInstance,
 ) {
@@ -19,7 +27,7 @@ export async function deleteMyNotificationPreferenceController(
     preHandler: [verifyJwt],
     schema: {
       tags: ['Me'],
-      summary: 'Delete my notification preference',
+      summary: 'Delete my notification preference (DEPRECATED)',
       description:
         'Remove uma preferencia de notificacao do usuario autenticado. Apenas preferencias proprias podem ser removidas.',
       security: [{ bearerAuth: [] }],
@@ -61,6 +69,11 @@ export async function deleteMyNotificationPreferenceController(
           placeholders: { userName },
         });
 
+        markDeprecated(reply, {
+          sunsetDate: NOTIFICATION_PREFS_V1_SUNSET,
+          replacement: '/v1/notifications/preferences',
+          notes: 'v2 category-based preferences',
+        });
         return reply.status(204).send(null);
       } catch (err) {
         if (err instanceof ResourceNotFoundError) {

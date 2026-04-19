@@ -1,10 +1,13 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { InMemoryCardsRepository } from '@/repositories/tasks/in-memory/in-memory-cards-repository';
-import { InMemoryNotificationsRepository } from '@/repositories/notifications/in-memory/in-memory-notifications-repository';
-import { CheckDueDateCardsUseCase } from './check-due-date-cards';
+import { InMemoryModuleNotifier } from '@/use-cases/shared/helpers/module-notifier';
+import {
+  CheckDueDateCardsUseCase,
+  type TaskDueDateNotificationCategory,
+} from './check-due-date-cards';
 
 let cardsRepository: InMemoryCardsRepository;
-let notificationsRepository: InMemoryNotificationsRepository;
+let notifier: InMemoryModuleNotifier<TaskDueDateNotificationCategory>;
 let sut: CheckDueDateCardsUseCase;
 
 const boardId = 'board-1';
@@ -16,11 +19,8 @@ const reporterId = 'user-reporter';
 describe('CheckDueDateCardsUseCase', () => {
   beforeEach(() => {
     cardsRepository = new InMemoryCardsRepository();
-    notificationsRepository = new InMemoryNotificationsRepository();
-    sut = new CheckDueDateCardsUseCase(
-      cardsRepository,
-      notificationsRepository,
-    );
+    notifier = new InMemoryModuleNotifier();
+    sut = new CheckDueDateCardsUseCase(cardsRepository, notifier);
 
     cardsRepository.boardTenantMap.set(boardId, tenantId);
   });
@@ -39,25 +39,25 @@ describe('CheckDueDateCardsUseCase', () => {
       status: 'IN_PROGRESS',
     });
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId });
 
     expect(result.processed).toBeGreaterThanOrEqual(1);
     expect(result.notified).toBe(2);
 
-    const assigneeNotification = notificationsRepository.items.find(
-      (n) => n.userId.toString() === assigneeId,
+    const assigneeDispatch = notifier.dispatches.find(
+      (d) => d.recipientUserId === assigneeId,
     );
-    expect(assigneeNotification).toBeDefined();
-    expect(assigneeNotification!.title).toBe('Cartão vencido');
-    expect(assigneeNotification!.message).toContain('Tarefa vencida');
-    expect(assigneeNotification!.type).toBe('WARNING');
-    expect(assigneeNotification!.channel).toBe('IN_APP');
-    expect(assigneeNotification!.entityType).toBe('card');
+    expect(assigneeDispatch).toBeDefined();
+    expect(assigneeDispatch!.category).toBe('tasks.overdue');
+    expect(assigneeDispatch!.title).toBe('Cartão vencido');
+    expect(assigneeDispatch!.body).toContain('Tarefa vencida');
+    expect(assigneeDispatch!.priority).toBe('HIGH');
+    expect(assigneeDispatch!.entityType).toBe('card');
 
-    const reporterNotification = notificationsRepository.items.find(
-      (n) => n.userId.toString() === reporterId,
+    const reporterDispatch = notifier.dispatches.find(
+      (d) => d.recipientUserId === reporterId,
     );
-    expect(reporterNotification).toBeDefined();
+    expect(reporterDispatch).toBeDefined();
   });
 
   it('should notify only reporter when card has no assignee', async () => {
@@ -74,10 +74,10 @@ describe('CheckDueDateCardsUseCase', () => {
       status: 'OPEN',
     });
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId });
 
     expect(result.notified).toBe(1);
-    expect(notificationsRepository.items[0].userId.toString()).toBe(reporterId);
+    expect(notifier.dispatches[0].recipientUserId).toBe(reporterId);
   });
 
   it('should not notify for DONE cards', async () => {
@@ -94,7 +94,7 @@ describe('CheckDueDateCardsUseCase', () => {
       status: 'DONE',
     });
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId });
 
     expect(result.processed).toBe(0);
     expect(result.notified).toBe(0);
@@ -114,7 +114,7 @@ describe('CheckDueDateCardsUseCase', () => {
       status: 'CANCELED',
     });
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId });
 
     expect(result.processed).toBe(0);
     expect(result.notified).toBe(0);
@@ -136,7 +136,7 @@ describe('CheckDueDateCardsUseCase', () => {
 
     await cardsRepository.softDelete(card.id.toString(), boardId);
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId });
 
     expect(result.processed).toBe(0);
     expect(result.notified).toBe(0);
@@ -158,13 +158,13 @@ describe('CheckDueDateCardsUseCase', () => {
 
     card.archive();
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId });
 
     expect(result.processed).toBe(0);
     expect(result.notified).toBe(0);
   });
 
-  it('should not duplicate notifications for already notified cards', async () => {
+  it('should dispatch on every run (dispatcher idempotency handles dedupe via idempotencyKey)', async () => {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
 
@@ -178,15 +178,18 @@ describe('CheckDueDateCardsUseCase', () => {
       status: 'OPEN',
     });
 
-    // First run
-    await sut.execute();
-    const firstRunCount = notificationsRepository.items.length;
+    await sut.execute({ tenantId });
+    const result = await sut.execute({ tenantId });
 
-    // Second run - should not create duplicates for the same level
-    const result = await sut.execute();
-
-    expect(result.notified).toBe(0);
-    expect(notificationsRepository.items).toHaveLength(firstRunCount);
+    // The use-case now delegates idempotency to the dispatcher (via
+    // dedupeSuffix in the idempotencyKey), so it always emits — the notifier
+    // receives two dispatches with the SAME idempotencyKey and the dispatcher
+    // deduplicates downstream.
+    expect(result.notified).toBe(1);
+    expect(notifier.dispatches).toHaveLength(2);
+    expect(notifier.dispatches[0].dedupeSuffix).toBe(
+      notifier.dispatches[1].dedupeSuffix,
+    );
   });
 
   it('should not notify for cards without dueDate', async () => {
@@ -200,7 +203,7 @@ describe('CheckDueDateCardsUseCase', () => {
       status: 'OPEN',
     });
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId });
 
     expect(result.processed).toBe(0);
     expect(result.notified).toBe(0);
@@ -220,7 +223,7 @@ describe('CheckDueDateCardsUseCase', () => {
       status: 'OPEN',
     });
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId });
 
     expect(result.processed).toBe(0);
     expect(result.notified).toBe(0);
@@ -240,14 +243,12 @@ describe('CheckDueDateCardsUseCase', () => {
       status: 'OPEN',
     });
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId });
 
     expect(result.notified).toBe(1);
   });
 
-  // ─── New: approaching due date tests ───
-
-  it('should send DUE_24H notification for card due in 12 hours', async () => {
+  it('should dispatch tasks.due_soon for card due in 12 hours', async () => {
     const in12Hours = new Date(Date.now() + 12 * 60 * 60 * 1000);
 
     await cardsRepository.create({
@@ -260,17 +261,17 @@ describe('CheckDueDateCardsUseCase', () => {
       status: 'IN_PROGRESS',
     });
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId });
 
     expect(result.notified).toBe(1);
-    const notification = notificationsRepository.items[0];
-    expect(notification.title).toBe('Cartão vence em breve');
-    expect(notification.message).toContain('24 horas');
-    expect(notification.type).toBe('INFO');
-    expect(notification.priority).toBe('NORMAL');
+    const dispatched = notifier.dispatches[0];
+    expect(dispatched.category).toBe('tasks.due_soon');
+    expect(dispatched.title).toBe('Cartão vence em breve');
+    expect(dispatched.body).toContain('24 horas');
+    expect(dispatched.priority).toBe('NORMAL');
   });
 
-  it('should send DUE_1H notification for card due in 30 minutes', async () => {
+  it('should dispatch tasks.due_today for card due in 30 minutes', async () => {
     const in30Min = new Date(Date.now() + 30 * 60 * 1000);
 
     await cardsRepository.create({
@@ -283,14 +284,14 @@ describe('CheckDueDateCardsUseCase', () => {
       status: 'IN_PROGRESS',
     });
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId });
 
     expect(result.notified).toBe(1);
-    const notification = notificationsRepository.items[0];
-    expect(notification.title).toBe('Cartão vence em 1 hora');
-    expect(notification.message).toContain('1 hora');
-    expect(notification.type).toBe('WARNING');
-    expect(notification.priority).toBe('HIGH');
+    const dispatched = notifier.dispatches[0];
+    expect(dispatched.category).toBe('tasks.due_today');
+    expect(dispatched.title).toBe('Cartão vence em 1 hora');
+    expect(dispatched.body).toContain('1 hora');
+    expect(dispatched.priority).toBe('HIGH');
   });
 
   it('should send separate notifications for different time windows', async () => {
@@ -329,33 +330,14 @@ describe('CheckDueDateCardsUseCase', () => {
       status: 'IN_PROGRESS',
     });
 
-    const result = await sut.execute();
+    const result = await sut.execute({ tenantId });
 
     expect(result.processed).toBe(3);
     expect(result.notified).toBe(3);
 
-    const titles = notificationsRepository.items.map((n) => n.title);
-    expect(titles).toContain('Cartão vencido');
-    expect(titles).toContain('Cartão vence em 1 hora');
-    expect(titles).toContain('Cartão vence em breve');
-  });
-
-  it('should use different entityIds per level to allow multiple notifications per card', async () => {
-    const in30Min = new Date(Date.now() + 30 * 60 * 1000);
-
-    const card = await cardsRepository.create({
-      boardId,
-      columnId,
-      title: 'Multi-notify',
-      reporterId,
-      assigneeId: null,
-      dueDate: in30Min,
-      status: 'IN_PROGRESS',
-    });
-
-    await sut.execute();
-
-    const notification = notificationsRepository.items[0];
-    expect(notification.entityId).toBe(`${card.id.toString()}:DUE_1H`);
+    const categories = notifier.dispatches.map((d) => d.category);
+    expect(categories).toContain('tasks.overdue');
+    expect(categories).toContain('tasks.due_today');
+    expect(categories).toContain('tasks.due_soon');
   });
 });

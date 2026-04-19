@@ -4,29 +4,27 @@ import { Request } from '@/entities/requests/request';
 import { InMemoryRequestCommentsRepository } from '@/repositories/requests/in-memory/in-memory-request-comments-repository';
 import { InMemoryRequestHistoryRepository } from '@/repositories/requests/in-memory/in-memory-request-history-repository';
 import { InMemoryRequestsRepository } from '@/repositories/requests/in-memory/in-memory-requests-repository';
-import type { CreateNotificationUseCase } from '@/use-cases/notifications/create-notification';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { AddRequestCommentUseCase } from './add-request-comment';
+import { InMemoryRequestNotifier } from './helpers/in-memory-request-notifier';
 
 describe('AddRequestCommentUseCase', () => {
   let requestsRepository: InMemoryRequestsRepository;
   let requestCommentsRepository: InMemoryRequestCommentsRepository;
   let requestHistoryRepository: InMemoryRequestHistoryRepository;
-  let createNotificationUseCase: Partial<CreateNotificationUseCase>;
+  let notifier: InMemoryRequestNotifier;
   let sut: AddRequestCommentUseCase;
 
   beforeEach(() => {
     requestsRepository = new InMemoryRequestsRepository();
     requestCommentsRepository = new InMemoryRequestCommentsRepository();
     requestHistoryRepository = new InMemoryRequestHistoryRepository();
-    createNotificationUseCase = {
-      execute: vi.fn(),
-    };
+    notifier = new InMemoryRequestNotifier();
     sut = new AddRequestCommentUseCase(
       requestsRepository,
       requestCommentsRepository,
       requestHistoryRepository,
-      createNotificationUseCase as CreateNotificationUseCase,
+      notifier,
     );
   });
 
@@ -72,14 +70,11 @@ describe('AddRequestCommentUseCase', () => {
     expect(history).toBeDefined();
     expect(history?.action).toBe('comment_added');
 
-    // Deve notificar o solicitante (não o autor)
-    expect(createNotificationUseCase.execute).toHaveBeenCalledWith(
-      expect.objectContaining({
-        userId: 'requester-1',
-        title: 'New Comment',
-        type: 'INFO',
-      }),
-    );
+    expect(notifier.dispatches).toHaveLength(1);
+    expect(notifier.dispatches[0]).toMatchObject({
+      recipientUserId: 'requester-1',
+      category: 'requests.commented',
+    });
   });
 
   it('should not be able to add a comment to a non-existent request', async () => {
@@ -150,8 +145,7 @@ describe('AddRequestCommentUseCase', () => {
       content: 'Meu próprio comentário',
     });
 
-    // Não deve enviar notificação (não tem atribuído e autor é o solicitante)
-    expect(createNotificationUseCase.execute).not.toHaveBeenCalled();
+    expect(notifier.dispatches).toHaveLength(0);
   });
 
   it('should truncate long comments in notification', async () => {
@@ -183,10 +177,7 @@ describe('AddRequestCommentUseCase', () => {
       content: longComment,
     });
 
-    expect(createNotificationUseCase.execute).toHaveBeenCalledWith(
-      expect.objectContaining({
-        message: expect.stringContaining('...'),
-      }),
-    );
+    expect(notifier.dispatches).toHaveLength(1);
+    expect(notifier.dispatches[0].body).toContain('...');
   });
 });

@@ -6,9 +6,7 @@ import type {
   NotificationsRepository,
 } from '../notifications-repository';
 
-export class InMemoryNotificationsRepository
-  implements NotificationsRepository
-{
+export class InMemoryNotificationsRepository implements NotificationsRepository {
   public items: Notification[] = [];
 
   async create(data: CreateNotificationSchema): Promise<Notification> {
@@ -117,9 +115,16 @@ export class InMemoryNotificationsRepository
     return candidates.slice(0, limit);
   }
 
-  async markAsRead(id: UniqueEntityID): Promise<void> {
+  async markAsRead(
+    id: UniqueEntityID,
+    userId: UniqueEntityID,
+  ): Promise<boolean> {
     const n = await this.findById(id);
-    if (n) n.markRead();
+    if (!n) return false;
+    if (!n.userId.equals(userId)) return false;
+    if (n.deletedAt) return false;
+    n.markRead();
+    return true;
   }
 
   async markAllAsRead(userId: UniqueEntityID): Promise<number> {
@@ -133,9 +138,13 @@ export class InMemoryNotificationsRepository
     return count;
   }
 
-  async delete(id: UniqueEntityID): Promise<void> {
+  async delete(id: UniqueEntityID, userId: UniqueEntityID): Promise<boolean> {
     const n = await this.findById(id);
-    if (n) n.delete();
+    if (!n) return false;
+    if (!n.userId.equals(userId)) return false;
+    if (n.deletedAt) return false;
+    n.delete();
+    return true;
   }
 
   async save(notification: Notification): Promise<void> {

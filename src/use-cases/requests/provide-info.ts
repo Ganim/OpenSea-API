@@ -5,7 +5,7 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { RequestHistory } from '@/entities/requests/request-history';
 import type { RequestHistoryRepository } from '@/repositories/requests/request-history-repository';
 import type { RequestsRepository } from '@/repositories/requests/requests-repository';
-import type { CreateNotificationUseCase } from '@/use-cases/notifications/create-notification';
+import type { RequestNotifier } from './helpers/request-notifier';
 
 interface ProvideInfoUseCaseRequest {
   requestId: string;
@@ -21,7 +21,7 @@ export class ProvideInfoUseCase {
   constructor(
     private requestsRepository: RequestsRepository,
     private requestHistoryRepository: RequestHistoryRepository,
-    private createNotificationUseCase: CreateNotificationUseCase,
+    private notifier: RequestNotifier,
   ) {}
 
   async execute(
@@ -35,14 +35,12 @@ export class ProvideInfoUseCase {
       throw new ResourceNotFoundError('Request not found');
     }
 
-    // Verificar se o usuário é o solicitante
     if (request.requesterId.toString() !== data.providedById) {
       throw new ForbiddenError(
         'Only the requester can provide additional information',
       );
     }
 
-    // Fornecer informação
     try {
       request.provideInfo();
     } catch (error) {
@@ -61,7 +59,6 @@ export class ProvideInfoUseCase {
 
     await this.requestsRepository.save(request);
 
-    // Registrar histórico
     const history = RequestHistory.create({
       requestId: request.id,
       action: 'info_provided',
@@ -74,19 +71,13 @@ export class ProvideInfoUseCase {
 
     await this.requestHistoryRepository.create(history);
 
-    // Notificar o atribuído se existir
     if (request.assignedToId) {
-      await this.createNotificationUseCase.execute({
-        userId: request.assignedToId.toString(),
-        title: 'Information Provided',
-        message: `Additional information provided for "${request.title}": ${data.informationProvided}`,
-        type: 'INFO',
-        priority: 'NORMAL',
-        channel: 'IN_APP',
-        entityType: 'REQUEST',
-        entityId: request.id.toString(),
-        actionUrl: `/requests/${request.id.toString()}`,
-        actionText: 'View Request',
+      await this.notifier.dispatch({
+        recipientUserId: request.assignedToId.toString(),
+        category: 'requests.info_provided',
+        request,
+        title: 'Informações fornecidas',
+        body: `Informações adicionais para "${request.title}": ${data.informationProvided}`,
       });
     }
 

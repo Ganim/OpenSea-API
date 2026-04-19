@@ -9,6 +9,7 @@
 import type { NotificationDispatcher } from '../dispatcher/notification-dispatcher.js';
 import type { NotificationClient } from '../public/client.js';
 import type {
+  DispatchBulkAsyncResult,
   DispatchNotificationInput,
   DispatchResult,
   ProgressUpdateInput,
@@ -22,6 +23,12 @@ export class NotificationClientImpl implements NotificationClient {
 
   dispatch(input: DispatchNotificationInput): Promise<DispatchResult> {
     return this.dispatcher.dispatch(input);
+  }
+
+  dispatchBulkAsync(
+    input: DispatchNotificationInput,
+  ): Promise<DispatchBulkAsyncResult> {
+    return this.dispatcher.dispatchBulkAsync(input);
   }
 
   resolve(input: ResolveNotificationInput): Promise<ResolveNotificationResult> {

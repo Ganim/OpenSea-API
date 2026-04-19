@@ -25,6 +25,7 @@ describe('DeleteNotificationUseCase', () => {
 
     await deleteNotification.execute({
       notificationId: notification.id.toString(),
+      userId: 'user-1',
     });
     expect(notification.deletedAt).toBeInstanceOf(Date);
 
@@ -32,5 +33,33 @@ describe('DeleteNotificationUseCase', () => {
       userId: notification.userId,
     });
     expect(total).toBe(0);
+  });
+
+  it('deve falhar ao deletar notificação de outro usuário', async () => {
+    const { notification } = await createNotification.execute({
+      userId: 'user-1',
+      title: 'Teste',
+      message: 'Msg',
+      type: 'INFO',
+      channel: 'IN_APP',
+    });
+
+    await expect(
+      deleteNotification.execute({
+        notificationId: notification.id.toString(),
+        userId: 'user-2',
+      }),
+    ).rejects.toThrow('Notification not found');
+
+    expect(notification.deletedAt).toBeUndefined();
+  });
+
+  it('deve falhar ao deletar notificação inexistente', async () => {
+    await expect(
+      deleteNotification.execute({
+        notificationId: '00000000-0000-0000-0000-000000000000',
+        userId: 'user-1',
+      }),
+    ).rejects.toThrow('Notification not found');
   });
 });

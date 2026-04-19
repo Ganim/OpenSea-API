@@ -298,6 +298,8 @@ export const QUEUE_NAMES = {
   HR_PAYROLL_GENERATION: 'hr-payroll-generation',
   CALENDAR_REMINDERS: 'calendar-reminders',
   NOTIFICATIONS_SCHEDULED: 'notifications-scheduled',
+  NOTIFICATION_CALLBACKS: 'notification-callbacks',
+  NOTIFICATION_BULK_DISPATCH: 'notification-bulk-dispatch',
   // Phase 4 (punch): durable BullMQ fan-out for punch.* domain events
   // (AD-02). Every punch event published via typedEventBus is also forwarded
   // by punchEventsQueueBridge so heavy handlers (payroll calc, timebank

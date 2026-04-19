@@ -1,9 +1,13 @@
 import { PrismaCardsRepository } from '@/repositories/tasks/prisma/prisma-cards-repository';
-import { PrismaNotificationsRepository } from '@/repositories/notifications/prisma/prisma-notifications-repository';
-import { CheckDueDateCardsUseCase } from '../check-due-date-cards';
+import { DefaultModuleNotifier } from '@/use-cases/shared/helpers/default-module-notifier';
+import {
+  CheckDueDateCardsUseCase,
+  type TaskDueDateNotificationCategory,
+} from '../check-due-date-cards';
 
 export function makeCheckDueDateCardsUseCase() {
-  const cardsRepository = new PrismaCardsRepository();
-  const notificationsRepository = new PrismaNotificationsRepository();
-  return new CheckDueDateCardsUseCase(cardsRepository, notificationsRepository);
+  return new CheckDueDateCardsUseCase(
+    new PrismaCardsRepository(),
+    new DefaultModuleNotifier<TaskDueDateNotificationCategory>(),
+  );
 }
