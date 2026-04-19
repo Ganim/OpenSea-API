@@ -12,13 +12,25 @@
  *  - Delegate delivery to channel adapters (stub in phase 2, real in phase 4+).
  */
 
+import { ConflictError } from '@/@errors/use-cases/conflict-error';
+import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
+import { GoneError } from '@/@errors/use-cases/gone-error';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
+import { UndeclaredCategoryError } from '@/@errors/use-cases/undeclared-category-error';
+import { env } from '@/@env';
 import { logger } from '@/lib/logger.js';
+import {
+  notificationsDispatchLatencyMs,
+  notificationsDispatchedTotal,
+  notificationsResolvedTotal,
+} from '@/lib/metrics.js';
 import { prisma } from '@/lib/prisma.js';
 
 import { ChannelRegistry } from '../infrastructure/adapters/channel-adapter.js';
 import { NotificationPrismaRepository } from '../infrastructure/repositories/notification-prisma-repository.js';
 import { NotificationSettingsPrismaRepository } from '../infrastructure/repositories/notification-settings-prisma-repository.js';
 import type {
+  DispatchBulkAsyncResult,
   DispatchNotificationInput,
   DispatchResult,
   ProgressUpdateInput,
@@ -26,6 +38,7 @@ import type {
   ResolveNotificationResult,
 } from '../public/events.js';
 import {
+  isCategoryDeclared,
   listRegisteredManifests,
   registerManifestInMemory,
 } from '../public/manifest-loader.js';
@@ -187,13 +200,77 @@ export class NotificationDispatcher {
     }
   }
 
+  /**
+   * Queues a bulk dispatch asynchronously. Intended for fan-outs whose
+   * recipient set may expand to hundreds of users (e.g. HR announcement to
+   * an entire tenant). The synchronous `dispatch()` is unchanged.
+   */
+  async dispatchBulkAsync(
+    input: DispatchNotificationInput,
+  ): Promise<DispatchBulkAsyncResult> {
+    const { enqueueBulkDispatch } = await import(
+      '../../../workers/queues/notification-bulk-dispatch.queue.js'
+    );
+    const { jobId } = await enqueueBulkDispatch(input);
+
+    // Estimate recipientCount from the selector when trivially possible.
+    let recipientCount = 0;
+    if (
+      'userIds' in input.recipients &&
+      Array.isArray(input.recipients.userIds)
+    ) {
+      recipientCount = input.recipients.userIds.length;
+    }
+
+    return { jobId, queued: true, recipientCount };
+  }
+
   async dispatch(input: DispatchNotificationInput): Promise<DispatchResult> {
+    const startedAt = process.hrtime.bigint();
+    try {
+      const result = await this.dispatchImpl(input);
+      const elapsedMs = Number(process.hrtime.bigint() - startedAt) / 1_000_000;
+      const resultLabel =
+        result.recipientCount === 0
+          ? 'no_recipients'
+          : result.deduplicated
+            ? 'deduplicated'
+            : 'delivered';
+      notificationsDispatchLatencyMs.observe(
+        { category: input.category, result: resultLabel },
+        elapsedMs,
+      );
+      return result;
+    } catch (err) {
+      const elapsedMs = Number(process.hrtime.bigint() - startedAt) / 1_000_000;
+      notificationsDispatchLatencyMs.observe(
+        { category: input.category, result: 'error' },
+        elapsedMs,
+      );
+      throw err;
+    }
+  }
+
+  private async dispatchImpl(
+    input: DispatchNotificationInput,
+  ): Promise<DispatchResult> {
+    // 0. Pre-flight: reject undeclared categories when strict manifest is on.
+    // In non-strict mode, only log a warning so new categories can be added
+    // without coordinated deploys.
+    if (!isCategoryDeclared(input.category)) {
+      if (env.NOTIFICATIONS_STRICT_MANIFEST) {
+        throw new UndeclaredCategoryError(input.category);
+      }
+      logger?.warn?.(
+        { category: input.category },
+        '[notifications] dispatch called with undeclared category (strict manifest is off)',
+      );
+    }
+
     // 1. Resolve category
     const category = await this.settingsRepo.getCategoryByCode(input.category);
     if (!category) {
-      throw new Error(
-        `Notification category not found: ${input.category}. Did you register the module manifest?`,
-      );
+      throw new UndeclaredCategoryError(input.category);
     }
 
     // 2. Resolve recipients
@@ -355,6 +432,20 @@ export class NotificationDispatcher {
       });
 
       createdIds.push(record.id);
+      for (const ch of allowedChannels) {
+        notificationsDispatchedTotal.inc({
+          channel: ch,
+          category: input.category,
+          result: 'created',
+        });
+      }
+      for (const ch of suppressedChannels) {
+        notificationsDispatchedTotal.inc({
+          channel: ch,
+          category: input.category,
+          result: 'suppressed',
+        });
+      }
       this.eventBus.publishCreated({
         tenantId: input.tenantId,
         userId,
@@ -390,16 +481,30 @@ export class NotificationDispatcher {
   ): Promise<ResolveNotificationResult> {
     const record = await this.notificationRepo.findById(input.notificationId);
     if (!record) {
-      throw new Error(`Notification ${input.notificationId} not found`);
+      throw new ResourceNotFoundError(
+        `Notification ${input.notificationId} not found`,
+      );
     }
     if (record.userId !== input.userId) {
-      throw new Error('Not authorized to resolve this notification');
+      throw new ForbiddenError('Not authorized to resolve this notification');
     }
+
+    // Idempotent no-op: already resolved with same actionKey → return current
+    // state without throwing. Any other resolved action → ConflictError.
     if (record.state && record.state !== 'PENDING') {
-      throw new Error(`Notification is not pending (state=${record.state})`);
+      if (record.resolvedAction === input.actionKey) {
+        return {
+          notificationId: record.id,
+          state: record.state as 'RESOLVED' | 'DECLINED',
+          callbackQueued: false,
+        };
+      }
+      throw new ConflictError(
+        `Notification is not pending (state=${record.state})`,
+      );
     }
     if (record.expiresAt && record.expiresAt < new Date()) {
-      throw new Error('Notification has expired');
+      throw new GoneError('Notification has expired');
     }
 
     const newState: 'RESOLVED' | 'DECLINED' = isDeclineAction(
@@ -417,6 +522,24 @@ export class NotificationDispatcher {
       newState,
     });
 
+    let callbackQueued = false;
+    if (record.callbackUrl) {
+      callbackQueued = await this.enqueueCallback({
+        notificationId: record.id,
+        callbackUrl: record.callbackUrl,
+        payload: {
+          notificationId: record.id,
+          tenantId: record.tenantId,
+          userId: record.userId,
+          action: input.actionKey,
+          state: newState,
+          payload: input.payload,
+          reason: input.reason,
+          resolvedAt: new Date().toISOString(),
+        },
+      });
+    }
+
     this.eventBus.publishResolved({
       tenantId: record.tenantId ?? '',
       userId: record.userId,
@@ -425,11 +548,51 @@ export class NotificationDispatcher {
       state: newState,
     });
 
+    notificationsResolvedTotal.inc({
+      category: record.categoryId ?? 'unknown',
+      action_key: input.actionKey,
+      state: newState,
+    });
+
     return {
       notificationId: record.id,
       state: newState,
-      callbackQueued: Boolean(record.callbackUrl),
+      callbackQueued,
     };
+  }
+
+  private async enqueueCallback(params: {
+    notificationId: string;
+    callbackUrl: string;
+    payload: Record<string, unknown>;
+  }): Promise<boolean> {
+    try {
+      const job = await prisma.notificationCallbackJob.create({
+        data: {
+          notificationId: params.notificationId,
+          callbackUrl: params.callbackUrl,
+          payload: params.payload as Parameters<
+            typeof prisma.notificationCallbackJob.create
+          >[0]['data']['payload'],
+          status: 'PENDING',
+          attempts: 0,
+        },
+      });
+
+      // Dynamic import keeps BullMQ (and Redis) off the dispatcher's hot
+      // boot path — only loaded when a callback actually needs queuing.
+      const { enqueueNotificationCallback } = await import(
+        '../../../workers/queues/notification-callbacks.queue.js'
+      );
+      await enqueueNotificationCallback(job.id);
+      return true;
+    } catch (err) {
+      logger?.error?.(
+        { err, notificationId: params.notificationId },
+        '[notifications] failed to enqueue callback',
+      );
+      return false;
+    }
   }
 
   async updateProgress(input: ProgressUpdateInput): Promise<void> {

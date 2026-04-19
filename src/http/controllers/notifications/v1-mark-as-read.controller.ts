@@ -13,7 +13,7 @@ export async function markAsReadController(app: FastifyInstance) {
     url: '/v1/notifications/:id/read',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Sales - Notifications'],
+      tags: ['Notifications'],
       summary: 'Mark a notification as read',
       params: z.object({ id: z.string().uuid() }),
       response: { 204: z.null() },
@@ -31,7 +31,7 @@ export async function markAsReadController(app: FastifyInstance) {
         : user.username || user.email;
 
       const useCase = makeMarkAsReadUseCase();
-      await useCase.execute({ notificationId: id });
+      await useCase.execute({ notificationId: id, userId });
 
       await logAudit(request, {
         message: AUDIT_MESSAGES.NOTIFICATIONS.NOTIFICATION_MARK_READ,

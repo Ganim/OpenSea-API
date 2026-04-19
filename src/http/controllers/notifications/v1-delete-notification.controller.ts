@@ -13,7 +13,7 @@ export async function deleteNotificationController(app: FastifyInstance) {
     url: '/v1/notifications/:id',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Sales - Notifications'],
+      tags: ['Notifications'],
       summary: 'Delete a notification (soft delete)',
       params: z.object({ id: z.string().uuid() }),
       response: { 204: z.null() },
@@ -31,7 +31,7 @@ export async function deleteNotificationController(app: FastifyInstance) {
         : user.username || user.email;
 
       const useCase = makeDeleteNotificationUseCase();
-      await useCase.execute({ notificationId: id });
+      await useCase.execute({ notificationId: id, userId });
 
       await logAudit(request, {
         message: AUDIT_MESSAGES.NOTIFICATIONS.NOTIFICATION_DELETE,

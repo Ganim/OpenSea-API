@@ -22,7 +22,7 @@ export async function processScheduledNotificationsController(
       }),
     ],
     schema: {
-      tags: ['Sales - Notifications'],
+      tags: ['Notifications'],
       summary: 'Process pending scheduled notifications manually',
       description:
         'Processa manualmente as notificacoes agendadas pendentes. Retorna a quantidade processada, enviada e eventuais erros encontrados.',

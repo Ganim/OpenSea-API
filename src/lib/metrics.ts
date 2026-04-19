@@ -85,3 +85,26 @@ export const paymentReconciliationDurationSeconds = new Histogram({
   buckets: [0.1, 0.5, 1, 2, 5, 10, 30, 60, 120],
   registers: [register],
 });
+
+// ─── Notifications Metrics (Sprint 3 S3.5) ─────────────────────────────────
+export const notificationsDispatchedTotal = new Counter({
+  name: 'notifications_dispatched_total',
+  help: 'Total notifications dispatched per channel/category/result',
+  labelNames: ['channel', 'category', 'result'] as const,
+  registers: [register],
+});
+
+export const notificationsDispatchLatencyMs = new Histogram({
+  name: 'notifications_dispatch_latency_ms',
+  help: 'Latency of dispatch() in milliseconds (manifest validation + persist + queue)',
+  labelNames: ['category', 'result'] as const,
+  buckets: [5, 10, 25, 50, 100, 250, 500, 1000, 2500, 5000],
+  registers: [register],
+});
+
+export const notificationsResolvedTotal = new Counter({
+  name: 'notifications_resolved_total_v2',
+  help: 'Total ACTIONABLE/APPROVAL/FORM resolutions',
+  labelNames: ['category', 'action_key', 'state'] as const,
+  registers: [register],
+});

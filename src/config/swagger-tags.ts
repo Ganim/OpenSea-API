@@ -38,10 +38,14 @@ export const swaggerTags = [
     name: 'Sales - Notification Preferences',
     description: 'User notification settings',
   },
-  // Workflow Notifications
+  // Notifications (v1 legacy + v2 unified)
   {
-    name: 'Sales - Notifications',
-    description: 'User notifications management',
+    name: 'Notifications',
+    description: 'User notifications management (v1 legacy + v2)',
+  },
+  {
+    name: 'Notifications v2',
+    description: 'v2 unified notifications with manifest protocol',
   },
 
   // HR Management

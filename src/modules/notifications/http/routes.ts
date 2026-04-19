@@ -11,7 +11,29 @@ import { z } from 'zod';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 
 import { verifyJwt } from '@/http/middlewares/rbac/verify-jwt';
+import { createPermissionMiddleware } from '@/http/middlewares/rbac';
+import { PermissionCodes } from '@/constants/rbac/permission-codes';
 import { prisma } from '@/lib/prisma';
+
+const requireNotificationsAccess = createPermissionMiddleware({
+  permissionCode: PermissionCodes.TOOLS.NOTIFICATIONS.ACCESS,
+  resource: 'notifications',
+});
+
+const requirePreferencesAccess = createPermissionMiddleware({
+  permissionCode: PermissionCodes.TOOLS.NOTIFICATIONS.PREFERENCES.ACCESS,
+  resource: 'notifications',
+});
+
+const requirePreferencesModify = createPermissionMiddleware({
+  permissionCode: PermissionCodes.TOOLS.NOTIFICATIONS.PREFERENCES.MODIFY,
+  resource: 'notifications',
+});
+
+const requireDevicesAdmin = createPermissionMiddleware({
+  permissionCode: PermissionCodes.TOOLS.NOTIFICATIONS.DEVICES.ADMIN,
+  resource: 'notifications',
+});
 
 import { notificationClient } from '../public/index.js';
 import {
@@ -49,7 +71,7 @@ export async function notificationsV2Routes(
   api.route({
     method: 'GET',
     url: '/v1/notifications/me',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, requireNotificationsAccess],
     schema: {
       tags: ['Notifications v2'],
       querystring: z.object({
@@ -149,7 +171,7 @@ export async function notificationsV2Routes(
   api.route({
     method: 'POST',
     url: '/v1/notifications/:id/resolve',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, requireNotificationsAccess],
     schema: {
       tags: ['Notifications v2'],
       params: z.object({ id: z.string().uuid() }),
@@ -167,7 +189,7 @@ export async function notificationsV2Routes(
       },
     },
     handler: async (request, reply) => {
-      const { userId } = getTenant(request);
+      const { tenantId, userId } = getTenant(request);
       const { id } = request.params as { id: string };
       const body = request.body as {
         actionKey: string;
@@ -181,6 +203,26 @@ export async function notificationsV2Routes(
         payload: body.payload,
         reason: body.reason,
       });
+      try {
+        await prisma.auditLog.create({
+          data: {
+            tenantId,
+            userId,
+            action: 'UPDATE',
+            entity: 'NOTIFICATION',
+            module: 'NOTIFICATIONS',
+            entityId: id,
+            description: `Notification resolved (${result.state}, action=${body.actionKey})`,
+            newData: { actionKey: body.actionKey, state: result.state },
+            ip: request.ip,
+            userAgent: request.headers['user-agent'] ?? null,
+            endpoint: request.url,
+            method: request.method,
+          },
+        });
+      } catch {
+        /* audit log failure must never break the resolve */
+      }
       return reply.send(result);
     },
   });
@@ -225,7 +267,7 @@ export async function notificationsV2Routes(
   api.route({
     method: 'GET',
     url: '/v1/notifications/modules-manifest',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, requirePreferencesAccess],
     schema: {
       tags: ['Notifications v2'],
       response: {
@@ -298,7 +340,7 @@ export async function notificationsV2Routes(
   api.route({
     method: 'GET',
     url: '/v1/notifications/settings',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, requirePreferencesAccess],
     schema: {
       tags: ['Notifications v2'],
       response: {
@@ -346,7 +388,7 @@ export async function notificationsV2Routes(
   api.route({
     method: 'PUT',
     url: '/v1/notifications/settings',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, requirePreferencesModify],
     schema: {
       tags: ['Notifications v2'],
       body: z.object({
@@ -380,6 +422,28 @@ export async function notificationsV2Routes(
         update: body,
         create: { userId, tenantId, ...body },
       });
+      try {
+        await prisma.auditLog.create({
+          data: {
+            tenantId,
+            userId,
+            action: 'UPDATE',
+            entity: 'NOTIFICATION_PREFERENCE',
+            module: 'NOTIFICATIONS',
+            entityId: userId,
+            description: 'User notification settings updated',
+            newData: body as Parameters<
+              typeof prisma.auditLog.create
+            >[0]['data']['newData'],
+            ip: request.ip,
+            userAgent: request.headers['user-agent'] ?? null,
+            endpoint: request.url,
+            method: request.method,
+          },
+        });
+      } catch {
+        /* never break on audit failure */
+      }
       return reply.code(204).send(null);
     },
   });
@@ -390,7 +454,7 @@ export async function notificationsV2Routes(
   api.route({
     method: 'GET',
     url: '/v1/notifications/preferences',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, requirePreferencesAccess],
     schema: {
       tags: ['Notifications v2'],
       response: {
@@ -444,7 +508,7 @@ export async function notificationsV2Routes(
   api.route({
     method: 'PUT',
     url: '/v1/notifications/preferences',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, requirePreferencesModify],
     schema: {
       tags: ['Notifications v2'],
       body: z.object({
@@ -564,6 +628,29 @@ export async function notificationsV2Routes(
         }
       }
 
+      try {
+        await prisma.auditLog.create({
+          data: {
+            tenantId,
+            userId,
+            action: 'UPDATE',
+            entity: 'NOTIFICATION_PREFERENCE',
+            module: 'NOTIFICATIONS',
+            entityId: userId,
+            description: `User notification preferences updated (${body.modules?.length ?? 0} modules, ${body.preferences?.length ?? 0} categories)`,
+            newData: body as unknown as Parameters<
+              typeof prisma.auditLog.create
+            >[0]['data']['newData'],
+            ip: request.ip,
+            userAgent: request.headers['user-agent'] ?? null,
+            endpoint: request.url,
+            method: request.method,
+          },
+        });
+      } catch {
+        /* never break on audit failure */
+      }
+
       return reply.code(204).send(null);
     },
   });
@@ -574,7 +661,7 @@ export async function notificationsV2Routes(
   api.route({
     method: 'POST',
     url: '/v1/notifications/push-subscriptions',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, requireDevicesAdmin],
     schema: {
       tags: ['Notifications v2'],
       body: z.object({
@@ -631,7 +718,7 @@ export async function notificationsV2Routes(
   api.route({
     method: 'DELETE',
     url: '/v1/notifications/push-subscriptions/:id',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, requireDevicesAdmin],
     schema: {
       tags: ['Notifications v2'],
       params: z.object({ id: z.string().uuid() }),
@@ -654,7 +741,7 @@ export async function notificationsV2Routes(
   api.route({
     method: 'GET',
     url: '/v1/notifications/push-subscriptions',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, requireDevicesAdmin],
     schema: {
       tags: ['Notifications v2'],
       response: {
@@ -695,7 +782,7 @@ export async function notificationsV2Routes(
   api.route({
     method: 'POST',
     url: '/v1/notifications/test-send',
-    preHandler: [verifyJwt],
+    preHandler: [verifyJwt, requireNotificationsAccess],
     schema: {
       tags: ['Notifications v2'],
       body: z

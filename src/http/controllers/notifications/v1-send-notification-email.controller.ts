@@ -20,7 +20,7 @@ export async function sendNotificationEmailController(app: FastifyInstance) {
       }),
     ],
     schema: {
-      tags: ['Sales - Notifications'],
+      tags: ['Notifications'],
       summary: 'Trigger email sending for a notification',
       params: z.object({ id: z.string().uuid() }),
       response: {

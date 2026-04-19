@@ -13,7 +13,7 @@ export async function markAllAsReadController(app: FastifyInstance) {
     url: '/v1/notifications/mark-all-read',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Sales - Notifications'],
+      tags: ['Notifications'],
       summary: 'Mark all user notifications as read',
       response: { 200: z.object({ count: z.number() }) },
       security: [{ bearerAuth: [] }],

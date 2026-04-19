@@ -786,6 +786,10 @@ export const ALL_PERMISSIONS: Record<string, Record<string, string[]>> = {
     'ai.config': ['access', 'modify'],
     'ai.favorites': ['access', 'register', 'remove'],
     'ai.actions': ['access'],
+    // Notifications
+    notifications: ['access'],
+    'notifications.preferences': ['access', 'modify'],
+    'notifications.devices': ['admin'],
   },
   // PRODUCTION module
   production: {

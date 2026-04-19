@@ -28,7 +28,7 @@ export async function listNotificationsByUserIdController(
     url: '/v1/notifications',
     preHandler: [verifyJwt],
     schema: {
-      tags: ['Sales - Notifications'],
+      tags: ['Notifications'],
       summary: 'List notifications by userId (authenticated user)',
       querystring: listNotificationsQuerySchema,
       response: {

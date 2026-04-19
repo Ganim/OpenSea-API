@@ -1107,6 +1107,16 @@ export const PermissionCodes = {
         ACCESS: 'tools.ai.actions.access' as const,
       },
     },
+    NOTIFICATIONS: {
+      ACCESS: 'tools.notifications.access' as const,
+      PREFERENCES: {
+        ACCESS: 'tools.notifications.preferences.access' as const,
+        MODIFY: 'tools.notifications.preferences.modify' as const,
+      },
+      DEVICES: {
+        ADMIN: 'tools.notifications.devices.admin' as const,
+      },
+    },
   },
 
   // ============================================================================
@@ -1302,6 +1312,12 @@ export const DEFAULT_USER_PERMISSIONS: string[] = [
   PermissionCodes.TOOLS.AI.FAVORITES.REGISTER,
   PermissionCodes.TOOLS.AI.FAVORITES.REMOVE,
   PermissionCodes.TOOLS.AI.ACTIONS.ACCESS,
+
+  // tools.notifications — central + preferências do usuário
+  PermissionCodes.TOOLS.NOTIFICATIONS.ACCESS,
+  PermissionCodes.TOOLS.NOTIFICATIONS.PREFERENCES.ACCESS,
+  PermissionCodes.TOOLS.NOTIFICATIONS.PREFERENCES.MODIFY,
+  PermissionCodes.TOOLS.NOTIFICATIONS.DEVICES.ADMIN,
 
   // sales — CRM básico (visualização + atividades próprias)
   PermissionCodes.SALES.CUSTOMERS.ACCESS,
