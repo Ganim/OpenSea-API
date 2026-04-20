@@ -1903,6 +1903,11 @@ export type PunchDeviceDepartment = Prisma.PunchDeviceDepartmentModel
  */
 export type PunchApproval = Prisma.PunchApprovalModel
 /**
+ * Model EmployeeFaceEnrollment
+ * 
+ */
+export type EmployeeFaceEnrollment = Prisma.EmployeeFaceEnrollmentModel
+/**
  * Model PosPrinter
  * 
  */

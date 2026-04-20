@@ -428,6 +428,7 @@ export const ModelName = {
   PunchDeviceEmployee: 'PunchDeviceEmployee',
   PunchDeviceDepartment: 'PunchDeviceDepartment',
   PunchApproval: 'PunchApproval',
+  EmployeeFaceEnrollment: 'EmployeeFaceEnrollment',
   PosPrinter: 'PosPrinter',
   PrintJob: 'PrintJob',
   FocusNfeConfig: 'FocusNfeConfig',
@@ -2152,7 +2153,14 @@ export const EmployeeScalarFieldEnum = {
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  companyId: 'companyId'
+  companyId: 'companyId',
+  qrTokenHash: 'qrTokenHash',
+  qrTokenSetAt: 'qrTokenSetAt',
+  punchPinHash: 'punchPinHash',
+  punchPinSetAt: 'punchPinSetAt',
+  punchPinLockedUntil: 'punchPinLockedUntil',
+  punchPinFailedAttempts: 'punchPinFailedAttempts',
+  punchPinLastFailedAt: 'punchPinLastFailedAt'
 } as const
 
 export type EmployeeScalarFieldEnum = (typeof EmployeeScalarFieldEnum)[keyof typeof EmployeeScalarFieldEnum]
@@ -6646,6 +6654,7 @@ export const PunchConfigurationScalarFieldEnum = {
   autoClockOutHours: 'autoClockOutHours',
   pdfReceiptEnabled: 'pdfReceiptEnabled',
   defaultRadiusMeters: 'defaultRadiusMeters',
+  faceMatchThreshold: 'faceMatchThreshold',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -8071,6 +8080,24 @@ export const PunchApprovalScalarFieldEnum = {
 } as const
 
 export type PunchApprovalScalarFieldEnum = (typeof PunchApprovalScalarFieldEnum)[keyof typeof PunchApprovalScalarFieldEnum]
+
+
+export const EmployeeFaceEnrollmentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  employeeId: 'employeeId',
+  embedding: 'embedding',
+  iv: 'iv',
+  authTag: 'authTag',
+  photoCount: 'photoCount',
+  capturedAt: 'capturedAt',
+  capturedByUserId: 'capturedByUserId',
+  consentAuditLogId: 'consentAuditLogId',
+  createdAt: 'createdAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type EmployeeFaceEnrollmentScalarFieldEnum = (typeof EmployeeFaceEnrollmentScalarFieldEnum)[keyof typeof EmployeeFaceEnrollmentScalarFieldEnum]
 
 
 export const PosPrinterScalarFieldEnum = {

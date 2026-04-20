@@ -31,6 +31,7 @@ export type PunchConfigurationAvgAggregateOutputType = {
   toleranceMinutes: number | null
   autoClockOutHours: number | null
   defaultRadiusMeters: number | null
+  faceMatchThreshold: number | null
 }
 
 export type PunchConfigurationSumAggregateOutputType = {
@@ -38,6 +39,7 @@ export type PunchConfigurationSumAggregateOutputType = {
   toleranceMinutes: number | null
   autoClockOutHours: number | null
   defaultRadiusMeters: number | null
+  faceMatchThreshold: number | null
 }
 
 export type PunchConfigurationMinAggregateOutputType = {
@@ -56,6 +58,7 @@ export type PunchConfigurationMinAggregateOutputType = {
   autoClockOutHours: number | null
   pdfReceiptEnabled: boolean | null
   defaultRadiusMeters: number | null
+  faceMatchThreshold: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -76,6 +79,7 @@ export type PunchConfigurationMaxAggregateOutputType = {
   autoClockOutHours: number | null
   pdfReceiptEnabled: boolean | null
   defaultRadiusMeters: number | null
+  faceMatchThreshold: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -96,6 +100,7 @@ export type PunchConfigurationCountAggregateOutputType = {
   autoClockOutHours: number
   pdfReceiptEnabled: number
   defaultRadiusMeters: number
+  faceMatchThreshold: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -107,6 +112,7 @@ export type PunchConfigurationAvgAggregateInputType = {
   toleranceMinutes?: true
   autoClockOutHours?: true
   defaultRadiusMeters?: true
+  faceMatchThreshold?: true
 }
 
 export type PunchConfigurationSumAggregateInputType = {
@@ -114,6 +120,7 @@ export type PunchConfigurationSumAggregateInputType = {
   toleranceMinutes?: true
   autoClockOutHours?: true
   defaultRadiusMeters?: true
+  faceMatchThreshold?: true
 }
 
 export type PunchConfigurationMinAggregateInputType = {
@@ -132,6 +139,7 @@ export type PunchConfigurationMinAggregateInputType = {
   autoClockOutHours?: true
   pdfReceiptEnabled?: true
   defaultRadiusMeters?: true
+  faceMatchThreshold?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -152,6 +160,7 @@ export type PunchConfigurationMaxAggregateInputType = {
   autoClockOutHours?: true
   pdfReceiptEnabled?: true
   defaultRadiusMeters?: true
+  faceMatchThreshold?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -172,6 +181,7 @@ export type PunchConfigurationCountAggregateInputType = {
   autoClockOutHours?: true
   pdfReceiptEnabled?: true
   defaultRadiusMeters?: true
+  faceMatchThreshold?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -279,6 +289,7 @@ export type PunchConfigurationGroupByOutputType = {
   autoClockOutHours: number | null
   pdfReceiptEnabled: boolean
   defaultRadiusMeters: number
+  faceMatchThreshold: number
   createdAt: Date
   updatedAt: Date
   _count: PunchConfigurationCountAggregateOutputType | null
@@ -322,6 +333,7 @@ export type PunchConfigurationWhereInput = {
   autoClockOutHours?: Prisma.IntNullableFilter<"PunchConfiguration"> | number | null
   pdfReceiptEnabled?: Prisma.BoolFilter<"PunchConfiguration"> | boolean
   defaultRadiusMeters?: Prisma.IntFilter<"PunchConfiguration"> | number
+  faceMatchThreshold?: Prisma.FloatFilter<"PunchConfiguration"> | number
   createdAt?: Prisma.DateTimeFilter<"PunchConfiguration"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PunchConfiguration"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -343,6 +355,7 @@ export type PunchConfigurationOrderByWithRelationInput = {
   autoClockOutHours?: Prisma.SortOrderInput | Prisma.SortOrder
   pdfReceiptEnabled?: Prisma.SortOrder
   defaultRadiusMeters?: Prisma.SortOrder
+  faceMatchThreshold?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
@@ -367,6 +380,7 @@ export type PunchConfigurationWhereUniqueInput = Prisma.AtLeast<{
   autoClockOutHours?: Prisma.IntNullableFilter<"PunchConfiguration"> | number | null
   pdfReceiptEnabled?: Prisma.BoolFilter<"PunchConfiguration"> | boolean
   defaultRadiusMeters?: Prisma.IntFilter<"PunchConfiguration"> | number
+  faceMatchThreshold?: Prisma.FloatFilter<"PunchConfiguration"> | number
   createdAt?: Prisma.DateTimeFilter<"PunchConfiguration"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PunchConfiguration"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -388,6 +402,7 @@ export type PunchConfigurationOrderByWithAggregationInput = {
   autoClockOutHours?: Prisma.SortOrderInput | Prisma.SortOrder
   pdfReceiptEnabled?: Prisma.SortOrder
   defaultRadiusMeters?: Prisma.SortOrder
+  faceMatchThreshold?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PunchConfigurationCountOrderByAggregateInput
@@ -416,6 +431,7 @@ export type PunchConfigurationScalarWhereWithAggregatesInput = {
   autoClockOutHours?: Prisma.IntNullableWithAggregatesFilter<"PunchConfiguration"> | number | null
   pdfReceiptEnabled?: Prisma.BoolWithAggregatesFilter<"PunchConfiguration"> | boolean
   defaultRadiusMeters?: Prisma.IntWithAggregatesFilter<"PunchConfiguration"> | number
+  faceMatchThreshold?: Prisma.FloatWithAggregatesFilter<"PunchConfiguration"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PunchConfiguration"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PunchConfiguration"> | Date | string
 }
@@ -435,6 +451,7 @@ export type PunchConfigurationCreateInput = {
   autoClockOutHours?: number | null
   pdfReceiptEnabled?: boolean
   defaultRadiusMeters?: number
+  faceMatchThreshold?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPunchConfigurationInput
@@ -456,6 +473,7 @@ export type PunchConfigurationUncheckedCreateInput = {
   autoClockOutHours?: number | null
   pdfReceiptEnabled?: boolean
   defaultRadiusMeters?: number
+  faceMatchThreshold?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -475,6 +493,7 @@ export type PunchConfigurationUpdateInput = {
   autoClockOutHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pdfReceiptEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   defaultRadiusMeters?: Prisma.IntFieldUpdateOperationsInput | number
+  faceMatchThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPunchConfigurationNestedInput
@@ -496,6 +515,7 @@ export type PunchConfigurationUncheckedUpdateInput = {
   autoClockOutHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pdfReceiptEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   defaultRadiusMeters?: Prisma.IntFieldUpdateOperationsInput | number
+  faceMatchThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -516,6 +536,7 @@ export type PunchConfigurationCreateManyInput = {
   autoClockOutHours?: number | null
   pdfReceiptEnabled?: boolean
   defaultRadiusMeters?: number
+  faceMatchThreshold?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -535,6 +556,7 @@ export type PunchConfigurationUpdateManyMutationInput = {
   autoClockOutHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pdfReceiptEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   defaultRadiusMeters?: Prisma.IntFieldUpdateOperationsInput | number
+  faceMatchThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -555,6 +577,7 @@ export type PunchConfigurationUncheckedUpdateManyInput = {
   autoClockOutHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pdfReceiptEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   defaultRadiusMeters?: Prisma.IntFieldUpdateOperationsInput | number
+  faceMatchThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -580,6 +603,7 @@ export type PunchConfigurationCountOrderByAggregateInput = {
   autoClockOutHours?: Prisma.SortOrder
   pdfReceiptEnabled?: Prisma.SortOrder
   defaultRadiusMeters?: Prisma.SortOrder
+  faceMatchThreshold?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -589,6 +613,7 @@ export type PunchConfigurationAvgOrderByAggregateInput = {
   toleranceMinutes?: Prisma.SortOrder
   autoClockOutHours?: Prisma.SortOrder
   defaultRadiusMeters?: Prisma.SortOrder
+  faceMatchThreshold?: Prisma.SortOrder
 }
 
 export type PunchConfigurationMaxOrderByAggregateInput = {
@@ -607,6 +632,7 @@ export type PunchConfigurationMaxOrderByAggregateInput = {
   autoClockOutHours?: Prisma.SortOrder
   pdfReceiptEnabled?: Prisma.SortOrder
   defaultRadiusMeters?: Prisma.SortOrder
+  faceMatchThreshold?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -627,6 +653,7 @@ export type PunchConfigurationMinOrderByAggregateInput = {
   autoClockOutHours?: Prisma.SortOrder
   pdfReceiptEnabled?: Prisma.SortOrder
   defaultRadiusMeters?: Prisma.SortOrder
+  faceMatchThreshold?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -636,6 +663,7 @@ export type PunchConfigurationSumOrderByAggregateInput = {
   toleranceMinutes?: Prisma.SortOrder
   autoClockOutHours?: Prisma.SortOrder
   defaultRadiusMeters?: Prisma.SortOrder
+  faceMatchThreshold?: Prisma.SortOrder
 }
 
 export type PunchConfigurationCreateNestedOneWithoutTenantInput = {
@@ -685,6 +713,7 @@ export type PunchConfigurationCreateWithoutTenantInput = {
   autoClockOutHours?: number | null
   pdfReceiptEnabled?: boolean
   defaultRadiusMeters?: number
+  faceMatchThreshold?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -704,6 +733,7 @@ export type PunchConfigurationUncheckedCreateWithoutTenantInput = {
   autoClockOutHours?: number | null
   pdfReceiptEnabled?: boolean
   defaultRadiusMeters?: number
+  faceMatchThreshold?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -739,6 +769,7 @@ export type PunchConfigurationUpdateWithoutTenantInput = {
   autoClockOutHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pdfReceiptEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   defaultRadiusMeters?: Prisma.IntFieldUpdateOperationsInput | number
+  faceMatchThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -758,6 +789,7 @@ export type PunchConfigurationUncheckedUpdateWithoutTenantInput = {
   autoClockOutHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pdfReceiptEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   defaultRadiusMeters?: Prisma.IntFieldUpdateOperationsInput | number
+  faceMatchThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -780,6 +812,7 @@ export type PunchConfigurationSelect<ExtArgs extends runtime.Types.Extensions.In
   autoClockOutHours?: boolean
   pdfReceiptEnabled?: boolean
   defaultRadiusMeters?: boolean
+  faceMatchThreshold?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -801,6 +834,7 @@ export type PunchConfigurationSelectCreateManyAndReturn<ExtArgs extends runtime.
   autoClockOutHours?: boolean
   pdfReceiptEnabled?: boolean
   defaultRadiusMeters?: boolean
+  faceMatchThreshold?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -822,6 +856,7 @@ export type PunchConfigurationSelectUpdateManyAndReturn<ExtArgs extends runtime.
   autoClockOutHours?: boolean
   pdfReceiptEnabled?: boolean
   defaultRadiusMeters?: boolean
+  faceMatchThreshold?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -843,11 +878,12 @@ export type PunchConfigurationSelectScalar = {
   autoClockOutHours?: boolean
   pdfReceiptEnabled?: boolean
   defaultRadiusMeters?: boolean
+  faceMatchThreshold?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PunchConfigurationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "selfieRequired" | "gpsRequired" | "geofenceEnabled" | "qrCodeEnabled" | "directLoginEnabled" | "kioskModeEnabled" | "pwaEnabled" | "offlineAllowed" | "maxOfflineHours" | "toleranceMinutes" | "autoClockOutHours" | "pdfReceiptEnabled" | "defaultRadiusMeters" | "createdAt" | "updatedAt", ExtArgs["result"]["punchConfiguration"]>
+export type PunchConfigurationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "selfieRequired" | "gpsRequired" | "geofenceEnabled" | "qrCodeEnabled" | "directLoginEnabled" | "kioskModeEnabled" | "pwaEnabled" | "offlineAllowed" | "maxOfflineHours" | "toleranceMinutes" | "autoClockOutHours" | "pdfReceiptEnabled" | "defaultRadiusMeters" | "faceMatchThreshold" | "createdAt" | "updatedAt", ExtArgs["result"]["punchConfiguration"]>
 export type PunchConfigurationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }
@@ -879,6 +915,7 @@ export type $PunchConfigurationPayload<ExtArgs extends runtime.Types.Extensions.
     autoClockOutHours: number | null
     pdfReceiptEnabled: boolean
     defaultRadiusMeters: number
+    faceMatchThreshold: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["punchConfiguration"]>
@@ -1320,6 +1357,7 @@ export interface PunchConfigurationFieldRefs {
   readonly autoClockOutHours: Prisma.FieldRef<"PunchConfiguration", 'Int'>
   readonly pdfReceiptEnabled: Prisma.FieldRef<"PunchConfiguration", 'Boolean'>
   readonly defaultRadiusMeters: Prisma.FieldRef<"PunchConfiguration", 'Int'>
+  readonly faceMatchThreshold: Prisma.FieldRef<"PunchConfiguration", 'Float'>
   readonly createdAt: Prisma.FieldRef<"PunchConfiguration", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"PunchConfiguration", 'DateTime'>
 }

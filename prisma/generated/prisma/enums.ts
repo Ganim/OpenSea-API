@@ -742,6 +742,11 @@ export const AuditEntity = {
   WORK_SCHEDULE: 'WORK_SCHEDULE',
   OVERTIME: 'OVERTIME',
   TIME_BANK: 'TIME_BANK',
+  PUNCH_DEVICE: 'PUNCH_DEVICE',
+  PUNCH_APPROVAL: 'PUNCH_APPROVAL',
+  FACE_ENROLLMENT: 'FACE_ENROLLMENT',
+  PUNCH_PIN: 'PUNCH_PIN',
+  PUNCH_QR_TOKEN: 'PUNCH_QR_TOKEN',
   ABSENCE: 'ABSENCE',
   VACATION_PERIOD: 'VACATION_PERIOD',
   VACATION_BALANCE: 'VACATION_BALANCE',
@@ -3706,7 +3711,8 @@ export type PunchDeviceKind = (typeof PunchDeviceKind)[keyof typeof PunchDeviceK
 
 
 export const PunchApprovalReason = {
-  OUT_OF_GEOFENCE: 'OUT_OF_GEOFENCE'
+  OUT_OF_GEOFENCE: 'OUT_OF_GEOFENCE',
+  FACE_MATCH_LOW: 'FACE_MATCH_LOW'
 } as const
 
 export type PunchApprovalReason = (typeof PunchApprovalReason)[keyof typeof PunchApprovalReason]

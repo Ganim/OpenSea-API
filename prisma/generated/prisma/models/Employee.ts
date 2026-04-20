@@ -29,11 +29,13 @@ export type AggregateEmployee = {
 export type EmployeeAvgAggregateOutputType = {
   baseSalary: runtime.Decimal | null
   weeklyHours: runtime.Decimal | null
+  punchPinFailedAttempts: number | null
 }
 
 export type EmployeeSumAggregateOutputType = {
   baseSalary: runtime.Decimal | null
   weeklyHours: runtime.Decimal | null
+  punchPinFailedAttempts: number | null
 }
 
 export type EmployeeMinAggregateOutputType = {
@@ -119,6 +121,13 @@ export type EmployeeMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   companyId: string | null
+  qrTokenHash: string | null
+  qrTokenSetAt: Date | null
+  punchPinHash: string | null
+  punchPinSetAt: Date | null
+  punchPinLockedUntil: Date | null
+  punchPinFailedAttempts: number | null
+  punchPinLastFailedAt: Date | null
 }
 
 export type EmployeeMaxAggregateOutputType = {
@@ -204,6 +213,13 @@ export type EmployeeMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   companyId: string | null
+  qrTokenHash: string | null
+  qrTokenSetAt: Date | null
+  punchPinHash: string | null
+  punchPinSetAt: Date | null
+  punchPinLockedUntil: Date | null
+  punchPinFailedAttempts: number | null
+  punchPinLastFailedAt: Date | null
 }
 
 export type EmployeeCountAggregateOutputType = {
@@ -293,6 +309,13 @@ export type EmployeeCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   companyId: number
+  qrTokenHash: number
+  qrTokenSetAt: number
+  punchPinHash: number
+  punchPinSetAt: number
+  punchPinLockedUntil: number
+  punchPinFailedAttempts: number
+  punchPinLastFailedAt: number
   _all: number
 }
 
@@ -300,11 +323,13 @@ export type EmployeeCountAggregateOutputType = {
 export type EmployeeAvgAggregateInputType = {
   baseSalary?: true
   weeklyHours?: true
+  punchPinFailedAttempts?: true
 }
 
 export type EmployeeSumAggregateInputType = {
   baseSalary?: true
   weeklyHours?: true
+  punchPinFailedAttempts?: true
 }
 
 export type EmployeeMinAggregateInputType = {
@@ -390,6 +415,13 @@ export type EmployeeMinAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   companyId?: true
+  qrTokenHash?: true
+  qrTokenSetAt?: true
+  punchPinHash?: true
+  punchPinSetAt?: true
+  punchPinLockedUntil?: true
+  punchPinFailedAttempts?: true
+  punchPinLastFailedAt?: true
 }
 
 export type EmployeeMaxAggregateInputType = {
@@ -475,6 +507,13 @@ export type EmployeeMaxAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   companyId?: true
+  qrTokenHash?: true
+  qrTokenSetAt?: true
+  punchPinHash?: true
+  punchPinSetAt?: true
+  punchPinLockedUntil?: true
+  punchPinFailedAttempts?: true
+  punchPinLastFailedAt?: true
 }
 
 export type EmployeeCountAggregateInputType = {
@@ -564,6 +603,13 @@ export type EmployeeCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   companyId?: true
+  qrTokenHash?: true
+  qrTokenSetAt?: true
+  punchPinHash?: true
+  punchPinSetAt?: true
+  punchPinLockedUntil?: true
+  punchPinFailedAttempts?: true
+  punchPinLastFailedAt?: true
   _all?: true
 }
 
@@ -740,6 +786,13 @@ export type EmployeeGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   companyId: string | null
+  qrTokenHash: string | null
+  qrTokenSetAt: Date | null
+  punchPinHash: string | null
+  punchPinSetAt: Date | null
+  punchPinLockedUntil: Date | null
+  punchPinFailedAttempts: number
+  punchPinLastFailedAt: Date | null
   _count: EmployeeCountAggregateOutputType | null
   _avg: EmployeeAvgAggregateOutputType | null
   _sum: EmployeeSumAggregateOutputType | null
@@ -852,6 +905,13 @@ export type EmployeeWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Employee"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Employee"> | Date | string
   companyId?: Prisma.StringNullableFilter<"Employee"> | string | null
+  qrTokenHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  qrTokenSetAt?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  punchPinHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  punchPinSetAt?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  punchPinLockedUntil?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFilter<"Employee"> | number
+  punchPinLastFailedAt?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   department?: Prisma.XOR<Prisma.DepartmentNullableScalarRelationFilter, Prisma.DepartmentWhereInput> | null
@@ -991,6 +1051,13 @@ export type EmployeeOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   companyId?: Prisma.SortOrderInput | Prisma.SortOrder
+  qrTokenHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  qrTokenSetAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  punchPinHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  punchPinSetAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  punchPinLockedUntil?: Prisma.SortOrderInput | Prisma.SortOrder
+  punchPinFailedAttempts?: Prisma.SortOrder
+  punchPinLastFailedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
   department?: Prisma.DepartmentOrderByWithRelationInput
@@ -1136,6 +1203,13 @@ export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Employee"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Employee"> | Date | string
   companyId?: Prisma.StringNullableFilter<"Employee"> | string | null
+  qrTokenHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  qrTokenSetAt?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  punchPinHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  punchPinSetAt?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  punchPinLockedUntil?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFilter<"Employee"> | number
+  punchPinLastFailedAt?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   department?: Prisma.XOR<Prisma.DepartmentNullableScalarRelationFilter, Prisma.DepartmentWhereInput> | null
@@ -1275,6 +1349,13 @@ export type EmployeeOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   companyId?: Prisma.SortOrderInput | Prisma.SortOrder
+  qrTokenHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  qrTokenSetAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  punchPinHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  punchPinSetAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  punchPinLockedUntil?: Prisma.SortOrderInput | Prisma.SortOrder
+  punchPinFailedAttempts?: Prisma.SortOrder
+  punchPinLastFailedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.EmployeeCountOrderByAggregateInput
   _avg?: Prisma.EmployeeAvgOrderByAggregateInput
   _max?: Prisma.EmployeeMaxOrderByAggregateInput
@@ -1372,6 +1453,13 @@ export type EmployeeScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Employee"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Employee"> | Date | string
   companyId?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  qrTokenHash?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  qrTokenSetAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Employee"> | Date | string | null
+  punchPinHash?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  punchPinSetAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Employee"> | Date | string | null
+  punchPinLockedUntil?: Prisma.DateTimeNullableWithAggregatesFilter<"Employee"> | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntWithAggregatesFilter<"Employee"> | number
+  punchPinLastFailedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Employee"> | Date | string | null
 }
 
 export type EmployeeCreateInput = {
@@ -1454,6 +1542,13 @@ export type EmployeeCreateInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -1593,6 +1688,13 @@ export type EmployeeUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -1718,6 +1820,13 @@ export type EmployeeUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -1857,6 +1966,13 @@ export type EmployeeUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -1989,6 +2105,13 @@ export type EmployeeCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
 }
 
 export type EmployeeUpdateManyMutationInput = {
@@ -2071,6 +2194,13 @@ export type EmployeeUpdateManyMutationInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type EmployeeUncheckedUpdateManyInput = {
@@ -2160,6 +2290,13 @@ export type EmployeeUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type EmployeeNullableScalarRelationFilter = {
@@ -2282,11 +2419,19 @@ export type EmployeeCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
+  qrTokenHash?: Prisma.SortOrder
+  qrTokenSetAt?: Prisma.SortOrder
+  punchPinHash?: Prisma.SortOrder
+  punchPinSetAt?: Prisma.SortOrder
+  punchPinLockedUntil?: Prisma.SortOrder
+  punchPinFailedAttempts?: Prisma.SortOrder
+  punchPinLastFailedAt?: Prisma.SortOrder
 }
 
 export type EmployeeAvgOrderByAggregateInput = {
   baseSalary?: Prisma.SortOrder
   weeklyHours?: Prisma.SortOrder
+  punchPinFailedAttempts?: Prisma.SortOrder
 }
 
 export type EmployeeMaxOrderByAggregateInput = {
@@ -2372,6 +2517,13 @@ export type EmployeeMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
+  qrTokenHash?: Prisma.SortOrder
+  qrTokenSetAt?: Prisma.SortOrder
+  punchPinHash?: Prisma.SortOrder
+  punchPinSetAt?: Prisma.SortOrder
+  punchPinLockedUntil?: Prisma.SortOrder
+  punchPinFailedAttempts?: Prisma.SortOrder
+  punchPinLastFailedAt?: Prisma.SortOrder
 }
 
 export type EmployeeMinOrderByAggregateInput = {
@@ -2457,11 +2609,19 @@ export type EmployeeMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
+  qrTokenHash?: Prisma.SortOrder
+  qrTokenSetAt?: Prisma.SortOrder
+  punchPinHash?: Prisma.SortOrder
+  punchPinSetAt?: Prisma.SortOrder
+  punchPinLockedUntil?: Prisma.SortOrder
+  punchPinFailedAttempts?: Prisma.SortOrder
+  punchPinLastFailedAt?: Prisma.SortOrder
 }
 
 export type EmployeeSumOrderByAggregateInput = {
   baseSalary?: Prisma.SortOrder
   weeklyHours?: Prisma.SortOrder
+  punchPinFailedAttempts?: Prisma.SortOrder
 }
 
 export type EmployeeScalarRelationFilter = {
@@ -3453,6 +3613,13 @@ export type EmployeeCreateWithoutUserInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
   position?: Prisma.PositionCreateNestedOneWithoutEmployeesInput
@@ -3590,6 +3757,13 @@ export type EmployeeUncheckedCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -3731,6 +3905,13 @@ export type EmployeeUpdateWithoutUserInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
   position?: Prisma.PositionUpdateOneWithoutEmployeesNestedInput
@@ -3868,6 +4049,13 @@ export type EmployeeUncheckedUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -3993,6 +4181,13 @@ export type EmployeeCreateWithoutOrganizationInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -4130,6 +4325,13 @@ export type EmployeeUncheckedCreateWithoutOrganizationInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -4291,6 +4493,13 @@ export type EmployeeScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Employee"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Employee"> | Date | string
   companyId?: Prisma.StringNullableFilter<"Employee"> | string | null
+  qrTokenHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  qrTokenSetAt?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  punchPinHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  punchPinSetAt?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  punchPinLockedUntil?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFilter<"Employee"> | number
+  punchPinLastFailedAt?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
 }
 
 export type EmployeeCreateWithoutSubordinatesInput = {
@@ -4373,6 +4582,13 @@ export type EmployeeCreateWithoutSubordinatesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -4511,6 +4727,13 @@ export type EmployeeUncheckedCreateWithoutSubordinatesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
   payrollItems?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
@@ -4640,6 +4863,13 @@ export type EmployeeCreateWithoutSupervisorInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -4777,6 +5007,13 @@ export type EmployeeUncheckedCreateWithoutSupervisorInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -4923,6 +5160,13 @@ export type EmployeeUpdateWithoutSubordinatesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -5061,6 +5305,13 @@ export type EmployeeUncheckedUpdateWithoutSubordinatesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
   payrollItems?: Prisma.PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -5201,6 +5452,13 @@ export type EmployeeCreateWithoutManagedDepartmentsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -5339,6 +5597,13 @@ export type EmployeeUncheckedCreateWithoutManagedDepartmentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -5468,6 +5733,13 @@ export type EmployeeCreateWithoutDepartmentInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   position?: Prisma.PositionCreateNestedOneWithoutEmployeesInput
@@ -5605,6 +5877,13 @@ export type EmployeeUncheckedCreateWithoutDepartmentInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -5751,6 +6030,13 @@ export type EmployeeUpdateWithoutManagedDepartmentsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -5889,6 +6175,13 @@ export type EmployeeUncheckedUpdateWithoutManagedDepartmentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -6029,6 +6322,13 @@ export type EmployeeCreateWithoutPositionInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -6166,6 +6466,13 @@ export type EmployeeUncheckedCreateWithoutPositionInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -6317,6 +6624,13 @@ export type EmployeeCreateWithoutTimeEntriesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -6455,6 +6769,13 @@ export type EmployeeUncheckedCreateWithoutTimeEntriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
   payrollItems?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
@@ -6595,6 +6916,13 @@ export type EmployeeUpdateWithoutTimeEntriesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -6733,6 +7061,13 @@ export type EmployeeUncheckedUpdateWithoutTimeEntriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
   payrollItems?: Prisma.PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -6857,6 +7192,13 @@ export type EmployeeCreateWithoutShiftAssignmentsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -6995,6 +7337,13 @@ export type EmployeeUncheckedCreateWithoutShiftAssignmentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -7135,6 +7484,13 @@ export type EmployeeUpdateWithoutShiftAssignmentsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -7273,6 +7629,13 @@ export type EmployeeUncheckedUpdateWithoutShiftAssignmentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -7397,6 +7760,13 @@ export type EmployeeCreateWithoutOvertimeInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -7535,6 +7905,13 @@ export type EmployeeUncheckedCreateWithoutOvertimeInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -7675,6 +8052,13 @@ export type EmployeeUpdateWithoutOvertimeInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -7813,6 +8197,13 @@ export type EmployeeUncheckedUpdateWithoutOvertimeInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -7937,6 +8328,13 @@ export type EmployeeCreateWithoutTimeBanksInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -8075,6 +8473,13 @@ export type EmployeeUncheckedCreateWithoutTimeBanksInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -8215,6 +8620,13 @@ export type EmployeeUpdateWithoutTimeBanksInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -8353,6 +8765,13 @@ export type EmployeeUncheckedUpdateWithoutTimeBanksInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -8477,6 +8896,13 @@ export type EmployeeCreateWithoutAbsencesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -8615,6 +9041,13 @@ export type EmployeeUncheckedCreateWithoutAbsencesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   payrollItems?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
@@ -8755,6 +9188,13 @@ export type EmployeeUpdateWithoutAbsencesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -8893,6 +9333,13 @@ export type EmployeeUncheckedUpdateWithoutAbsencesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   payrollItems?: Prisma.PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -9017,6 +9464,13 @@ export type EmployeeCreateWithoutVacationPeriodsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -9155,6 +9609,13 @@ export type EmployeeUncheckedCreateWithoutVacationPeriodsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -9295,6 +9756,13 @@ export type EmployeeUpdateWithoutVacationPeriodsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -9433,6 +9901,13 @@ export type EmployeeUncheckedUpdateWithoutVacationPeriodsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -9557,6 +10032,13 @@ export type EmployeeCreateWithoutPayrollItemsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -9695,6 +10177,13 @@ export type EmployeeUncheckedCreateWithoutPayrollItemsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -9835,6 +10324,13 @@ export type EmployeeUpdateWithoutPayrollItemsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -9973,6 +10469,13 @@ export type EmployeeUncheckedUpdateWithoutPayrollItemsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -10097,6 +10600,13 @@ export type EmployeeCreateWithoutBonusesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -10235,6 +10745,13 @@ export type EmployeeUncheckedCreateWithoutBonusesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -10375,6 +10892,13 @@ export type EmployeeUpdateWithoutBonusesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -10513,6 +11037,13 @@ export type EmployeeUncheckedUpdateWithoutBonusesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -10637,6 +11168,13 @@ export type EmployeeCreateWithoutDeductionsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -10775,6 +11313,13 @@ export type EmployeeUncheckedCreateWithoutDeductionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -10915,6 +11460,13 @@ export type EmployeeUpdateWithoutDeductionsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -11053,6 +11605,13 @@ export type EmployeeUncheckedUpdateWithoutDeductionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -11177,6 +11736,13 @@ export type EmployeeCreateWithoutWarningsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -11315,6 +11881,13 @@ export type EmployeeUncheckedCreateWithoutWarningsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -11444,6 +12017,13 @@ export type EmployeeCreateWithoutIssuedWarningsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -11582,6 +12162,13 @@ export type EmployeeUncheckedCreateWithoutIssuedWarningsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -11722,6 +12309,13 @@ export type EmployeeUpdateWithoutWarningsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -11860,6 +12454,13 @@ export type EmployeeUncheckedUpdateWithoutWarningsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -11995,6 +12596,13 @@ export type EmployeeUpdateWithoutIssuedWarningsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -12133,6 +12741,13 @@ export type EmployeeUncheckedUpdateWithoutIssuedWarningsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -12257,6 +12872,13 @@ export type EmployeeCreateWithoutDependantsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -12395,6 +13017,13 @@ export type EmployeeUncheckedCreateWithoutDependantsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -12535,6 +13164,13 @@ export type EmployeeUpdateWithoutDependantsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -12673,6 +13309,13 @@ export type EmployeeUncheckedUpdateWithoutDependantsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -12797,6 +13440,13 @@ export type EmployeeCreateWithoutTerminationInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -12935,6 +13585,13 @@ export type EmployeeUncheckedCreateWithoutTerminationInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -13075,6 +13732,13 @@ export type EmployeeUpdateWithoutTerminationInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -13213,6 +13877,13 @@ export type EmployeeUncheckedUpdateWithoutTerminationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -13337,6 +14008,13 @@ export type EmployeeCreateWithoutMedicalExamsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -13475,6 +14153,13 @@ export type EmployeeUncheckedCreateWithoutMedicalExamsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -13615,6 +14300,13 @@ export type EmployeeUpdateWithoutMedicalExamsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -13753,6 +14445,13 @@ export type EmployeeUncheckedUpdateWithoutMedicalExamsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -13877,6 +14576,13 @@ export type EmployeeCreateWithoutCipaMembersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -14015,6 +14721,13 @@ export type EmployeeUncheckedCreateWithoutCipaMembersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -14155,6 +14868,13 @@ export type EmployeeUpdateWithoutCipaMembersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -14293,6 +15013,13 @@ export type EmployeeUncheckedUpdateWithoutCipaMembersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -14417,6 +15144,13 @@ export type EmployeeCreateWithoutBenefitEnrollmentsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -14555,6 +15289,13 @@ export type EmployeeUncheckedCreateWithoutBenefitEnrollmentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -14695,6 +15436,13 @@ export type EmployeeUpdateWithoutBenefitEnrollmentsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -14833,6 +15581,13 @@ export type EmployeeUncheckedUpdateWithoutBenefitEnrollmentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -14957,6 +15712,13 @@ export type EmployeeCreateWithoutTrainingEnrollmentsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -15095,6 +15857,13 @@ export type EmployeeUncheckedCreateWithoutTrainingEnrollmentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -15235,6 +16004,13 @@ export type EmployeeUpdateWithoutTrainingEnrollmentsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -15373,6 +16149,13 @@ export type EmployeeUncheckedUpdateWithoutTrainingEnrollmentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -15497,6 +16280,13 @@ export type EmployeeCreateWithoutPerformanceReviewsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -15635,6 +16425,13 @@ export type EmployeeUncheckedCreateWithoutPerformanceReviewsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -15764,6 +16561,13 @@ export type EmployeeCreateWithoutConductedPerformanceReviewsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -15902,6 +16706,13 @@ export type EmployeeUncheckedCreateWithoutConductedPerformanceReviewsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -16042,6 +16853,13 @@ export type EmployeeUpdateWithoutPerformanceReviewsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -16180,6 +16998,13 @@ export type EmployeeUncheckedUpdateWithoutPerformanceReviewsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -16315,6 +17140,13 @@ export type EmployeeUpdateWithoutConductedPerformanceReviewsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -16453,6 +17285,13 @@ export type EmployeeUncheckedUpdateWithoutConductedPerformanceReviewsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -16577,6 +17416,13 @@ export type EmployeeCreateWithoutCreatedSurveysInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -16715,6 +17561,13 @@ export type EmployeeUncheckedCreateWithoutCreatedSurveysInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -16855,6 +17708,13 @@ export type EmployeeUpdateWithoutCreatedSurveysInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -16993,6 +17853,13 @@ export type EmployeeUncheckedUpdateWithoutCreatedSurveysInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -17117,6 +17984,13 @@ export type EmployeeCreateWithoutSurveyResponsesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -17255,6 +18129,13 @@ export type EmployeeUncheckedCreateWithoutSurveyResponsesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -17395,6 +18276,13 @@ export type EmployeeUpdateWithoutSurveyResponsesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -17533,6 +18421,13 @@ export type EmployeeUncheckedUpdateWithoutSurveyResponsesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -17657,6 +18552,13 @@ export type EmployeeCreateWithoutOwnedObjectivesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -17795,6 +18697,13 @@ export type EmployeeUncheckedCreateWithoutOwnedObjectivesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -17935,6 +18844,13 @@ export type EmployeeUpdateWithoutOwnedObjectivesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -18073,6 +18989,13 @@ export type EmployeeUncheckedUpdateWithoutOwnedObjectivesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -18197,6 +19120,13 @@ export type EmployeeCreateWithoutOkrCheckInsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -18335,6 +19265,13 @@ export type EmployeeUncheckedCreateWithoutOkrCheckInsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -18475,6 +19412,13 @@ export type EmployeeUpdateWithoutOkrCheckInsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -18613,6 +19557,13 @@ export type EmployeeUncheckedUpdateWithoutOkrCheckInsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -18737,6 +19688,13 @@ export type EmployeeCreateWithoutFlexBenefitAllocationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -18875,6 +19833,13 @@ export type EmployeeUncheckedCreateWithoutFlexBenefitAllocationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -19015,6 +19980,13 @@ export type EmployeeUpdateWithoutFlexBenefitAllocationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -19153,6 +20125,13 @@ export type EmployeeUncheckedUpdateWithoutFlexBenefitAllocationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -19277,6 +20256,13 @@ export type EmployeeCreateWithoutCompanyInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -19414,6 +20400,13 @@ export type EmployeeUncheckedCreateWithoutCompanyInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -19565,6 +20558,13 @@ export type EmployeeCreateWithoutTenantInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
   position?: Prisma.PositionCreateNestedOneWithoutEmployeesInput
@@ -19702,6 +20702,13 @@ export type EmployeeUncheckedCreateWithoutTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -19853,6 +20860,13 @@ export type EmployeeCreateWithoutOnboardingChecklistsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -19991,6 +21005,13 @@ export type EmployeeUncheckedCreateWithoutOnboardingChecklistsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -20131,6 +21152,13 @@ export type EmployeeUpdateWithoutOnboardingChecklistsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -20269,6 +21297,13 @@ export type EmployeeUncheckedUpdateWithoutOnboardingChecklistsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -20393,6 +21428,13 @@ export type EmployeeCreateWithoutPpeAssignmentsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -20531,6 +21573,13 @@ export type EmployeeUncheckedCreateWithoutPpeAssignmentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -20671,6 +21720,13 @@ export type EmployeeUpdateWithoutPpeAssignmentsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -20809,6 +21865,13 @@ export type EmployeeUncheckedUpdateWithoutPpeAssignmentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -20933,6 +21996,13 @@ export type EmployeeCreateWithoutOffboardingChecklistsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -21071,6 +22141,13 @@ export type EmployeeUncheckedCreateWithoutOffboardingChecklistsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -21211,6 +22288,13 @@ export type EmployeeUpdateWithoutOffboardingChecklistsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -21349,6 +22433,13 @@ export type EmployeeUncheckedUpdateWithoutOffboardingChecklistsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -21473,6 +22564,13 @@ export type EmployeeCreateWithoutKudosReactionsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -21611,6 +22709,13 @@ export type EmployeeUncheckedCreateWithoutKudosReactionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -21751,6 +22856,13 @@ export type EmployeeUpdateWithoutKudosReactionsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -21889,6 +23001,13 @@ export type EmployeeUncheckedUpdateWithoutKudosReactionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -22013,6 +23132,13 @@ export type EmployeeCreateWithoutKudosRepliesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -22151,6 +23277,13 @@ export type EmployeeUncheckedCreateWithoutKudosRepliesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -22291,6 +23424,13 @@ export type EmployeeUpdateWithoutKudosRepliesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -22429,6 +23569,13 @@ export type EmployeeUncheckedUpdateWithoutKudosRepliesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -22553,6 +23700,13 @@ export type EmployeeCreateWithoutAnnouncementReadReceiptsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -22691,6 +23845,13 @@ export type EmployeeUncheckedCreateWithoutAnnouncementReadReceiptsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -22831,6 +23992,13 @@ export type EmployeeUpdateWithoutAnnouncementReadReceiptsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -22969,6 +24137,13 @@ export type EmployeeUncheckedUpdateWithoutAnnouncementReadReceiptsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -23093,6 +24268,13 @@ export type EmployeeCreateWithoutSalaryHistoryInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -23231,6 +24413,13 @@ export type EmployeeUncheckedCreateWithoutSalaryHistoryInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -23371,6 +24560,13 @@ export type EmployeeUpdateWithoutSalaryHistoryInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -23509,6 +24705,13 @@ export type EmployeeUncheckedUpdateWithoutSalaryHistoryInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -23633,6 +24836,13 @@ export type EmployeeCreateWithoutManagerOneOnOnesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -23771,6 +24981,13 @@ export type EmployeeUncheckedCreateWithoutManagerOneOnOnesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -23900,6 +25117,13 @@ export type EmployeeCreateWithoutReportOneOnOnesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -24038,6 +25262,13 @@ export type EmployeeUncheckedCreateWithoutReportOneOnOnesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -24178,6 +25409,13 @@ export type EmployeeUpdateWithoutManagerOneOnOnesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -24316,6 +25554,13 @@ export type EmployeeUncheckedUpdateWithoutManagerOneOnOnesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -24451,6 +25696,13 @@ export type EmployeeUpdateWithoutReportOneOnOnesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -24589,6 +25841,13 @@ export type EmployeeUncheckedUpdateWithoutReportOneOnOnesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -24713,6 +25972,13 @@ export type EmployeeCreateWithoutAddedTalkingPointsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -24851,6 +26117,13 @@ export type EmployeeUncheckedCreateWithoutAddedTalkingPointsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -24991,6 +26264,13 @@ export type EmployeeUpdateWithoutAddedTalkingPointsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -25129,6 +26409,13 @@ export type EmployeeUncheckedUpdateWithoutAddedTalkingPointsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -25253,6 +26540,13 @@ export type EmployeeCreateWithoutOwnedActionItemsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -25391,6 +26685,13 @@ export type EmployeeUncheckedCreateWithoutOwnedActionItemsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -25531,6 +26832,13 @@ export type EmployeeUpdateWithoutOwnedActionItemsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -25669,6 +26977,13 @@ export type EmployeeUncheckedUpdateWithoutOwnedActionItemsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -25793,6 +27108,13 @@ export type EmployeeCreateWithoutDelegationsGivenInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -25931,6 +27253,13 @@ export type EmployeeUncheckedCreateWithoutDelegationsGivenInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -26060,6 +27389,13 @@ export type EmployeeCreateWithoutDelegationsReceivedInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -26198,6 +27534,13 @@ export type EmployeeUncheckedCreateWithoutDelegationsReceivedInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -26338,6 +27681,13 @@ export type EmployeeUpdateWithoutDelegationsGivenInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -26476,6 +27826,13 @@ export type EmployeeUncheckedUpdateWithoutDelegationsGivenInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -26611,6 +27968,13 @@ export type EmployeeUpdateWithoutDelegationsReceivedInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -26749,6 +28113,13 @@ export type EmployeeUncheckedUpdateWithoutDelegationsReceivedInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -26873,6 +28244,13 @@ export type EmployeeCreateWithoutConductedInterviewsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -27011,6 +28389,13 @@ export type EmployeeUncheckedCreateWithoutConductedInterviewsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -27151,6 +28536,13 @@ export type EmployeeUpdateWithoutConductedInterviewsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -27289,6 +28681,13 @@ export type EmployeeUncheckedUpdateWithoutConductedInterviewsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -27413,6 +28812,13 @@ export type EmployeeCreateWithoutPunchDeviceAllowlistInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -27551,6 +28957,13 @@ export type EmployeeUncheckedCreateWithoutPunchDeviceAllowlistInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -27691,6 +29104,13 @@ export type EmployeeUpdateWithoutPunchDeviceAllowlistInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -27829,6 +29249,13 @@ export type EmployeeUncheckedUpdateWithoutPunchDeviceAllowlistInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -27953,6 +29380,13 @@ export type EmployeeCreateWithoutPunchApprovalsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -28091,6 +29525,13 @@ export type EmployeeUncheckedCreateWithoutPunchApprovalsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -28231,6 +29672,13 @@ export type EmployeeUpdateWithoutPunchApprovalsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -28369,6 +29817,13 @@ export type EmployeeUncheckedUpdateWithoutPunchApprovalsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -28493,6 +29948,13 @@ export type EmployeeCreateWithoutGeneratedContractsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
   user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
   department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -28631,6 +30093,13 @@ export type EmployeeUncheckedCreateWithoutGeneratedContractsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
   subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
   absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
@@ -28771,6 +30240,13 @@ export type EmployeeUpdateWithoutGeneratedContractsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -28909,6 +30385,13 @@ export type EmployeeUncheckedUpdateWithoutGeneratedContractsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -29039,6 +30522,13 @@ export type EmployeeCreateManyOrganizationInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
 }
 
 export type EmployeeUpdateWithoutOrganizationInput = {
@@ -29121,6 +30611,13 @@ export type EmployeeUpdateWithoutOrganizationInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -29258,6 +30755,13 @@ export type EmployeeUncheckedUpdateWithoutOrganizationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -29389,6 +30893,13 @@ export type EmployeeUncheckedUpdateManyWithoutOrganizationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type EmployeeCreateManySupervisorInput = {
@@ -29477,6 +30988,13 @@ export type EmployeeCreateManySupervisorInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
 }
 
 export type EmployeeUpdateWithoutSupervisorInput = {
@@ -29559,6 +31077,13 @@ export type EmployeeUpdateWithoutSupervisorInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -29696,6 +31221,13 @@ export type EmployeeUncheckedUpdateWithoutSupervisorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -29827,6 +31359,13 @@ export type EmployeeUncheckedUpdateManyWithoutSupervisorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type EmployeeCreateManyDepartmentInput = {
@@ -29915,6 +31454,13 @@ export type EmployeeCreateManyDepartmentInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
 }
 
 export type EmployeeUpdateWithoutDepartmentInput = {
@@ -29997,6 +31543,13 @@ export type EmployeeUpdateWithoutDepartmentInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   position?: Prisma.PositionUpdateOneWithoutEmployeesNestedInput
@@ -30134,6 +31687,13 @@ export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -30265,6 +31825,13 @@ export type EmployeeUncheckedUpdateManyWithoutDepartmentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type EmployeeCreateManyPositionInput = {
@@ -30353,6 +31920,13 @@ export type EmployeeCreateManyPositionInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
 }
 
 export type EmployeeUpdateWithoutPositionInput = {
@@ -30435,6 +32009,13 @@ export type EmployeeUpdateWithoutPositionInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -30572,6 +32153,13 @@ export type EmployeeUncheckedUpdateWithoutPositionInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -30703,6 +32291,13 @@ export type EmployeeUncheckedUpdateManyWithoutPositionInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type EmployeeCreateManyCompanyInput = {
@@ -30791,6 +32386,13 @@ export type EmployeeCreateManyCompanyInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
 }
 
 export type EmployeeUpdateWithoutCompanyInput = {
@@ -30873,6 +32475,13 @@ export type EmployeeUpdateWithoutCompanyInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
@@ -31010,6 +32619,13 @@ export type EmployeeUncheckedUpdateWithoutCompanyInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -31141,6 +32757,13 @@ export type EmployeeUncheckedUpdateManyWithoutCompanyInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type EmployeeCreateManyTenantInput = {
@@ -31229,6 +32852,13 @@ export type EmployeeCreateManyTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
 }
 
 export type EmployeeUpdateWithoutTenantInput = {
@@ -31311,6 +32941,13 @@ export type EmployeeUpdateWithoutTenantInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
   department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
   position?: Prisma.PositionUpdateOneWithoutEmployeesNestedInput
@@ -31448,6 +33085,13 @@ export type EmployeeUncheckedUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
   absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -31579,6 +33223,13 @@ export type EmployeeUncheckedUpdateManyWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -32068,6 +33719,13 @@ export type EmployeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   createdAt?: boolean
   updatedAt?: boolean
   companyId?: boolean
+  qrTokenHash?: boolean
+  qrTokenSetAt?: boolean
+  punchPinHash?: boolean
+  punchPinSetAt?: boolean
+  punchPinLockedUntil?: boolean
+  punchPinFailedAttempts?: boolean
+  punchPinLastFailedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Employee$userArgs<ExtArgs>
   department?: boolean | Prisma.Employee$departmentArgs<ExtArgs>
@@ -32208,6 +33866,13 @@ export type EmployeeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   createdAt?: boolean
   updatedAt?: boolean
   companyId?: boolean
+  qrTokenHash?: boolean
+  qrTokenSetAt?: boolean
+  punchPinHash?: boolean
+  punchPinSetAt?: boolean
+  punchPinLockedUntil?: boolean
+  punchPinFailedAttempts?: boolean
+  punchPinLastFailedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Employee$userArgs<ExtArgs>
   department?: boolean | Prisma.Employee$departmentArgs<ExtArgs>
@@ -32304,6 +33969,13 @@ export type EmployeeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   createdAt?: boolean
   updatedAt?: boolean
   companyId?: boolean
+  qrTokenHash?: boolean
+  qrTokenSetAt?: boolean
+  punchPinHash?: boolean
+  punchPinSetAt?: boolean
+  punchPinLockedUntil?: boolean
+  punchPinFailedAttempts?: boolean
+  punchPinLastFailedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Employee$userArgs<ExtArgs>
   department?: boolean | Prisma.Employee$departmentArgs<ExtArgs>
@@ -32400,9 +34072,16 @@ export type EmployeeSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   companyId?: boolean
+  qrTokenHash?: boolean
+  qrTokenSetAt?: boolean
+  punchPinHash?: boolean
+  punchPinSetAt?: boolean
+  punchPinLockedUntil?: boolean
+  punchPinFailedAttempts?: boolean
+  punchPinLastFailedAt?: boolean
 }
 
-export type EmployeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "registrationNumber" | "userId" | "fullName" | "socialName" | "birthDate" | "gender" | "pcd" | "maritalStatus" | "nationality" | "birthPlace" | "emergencyContactInfo" | "healthConditions" | "cpf" | "rg" | "rgIssuer" | "rgIssueDate" | "pis" | "ctpsNumber" | "ctpsSeries" | "ctpsState" | "voterTitle" | "militaryDoc" | "email" | "personalEmail" | "phone" | "mobilePhone" | "emergencyContact" | "emergencyPhone" | "address" | "addressNumber" | "complement" | "neighborhood" | "city" | "state" | "zipCode" | "cpfHash" | "rgHash" | "pisHash" | "pixKeyHash" | "bankAccountHash" | "country" | "raceColor" | "educationLevel" | "motherName" | "municipalityCode" | "addressMunicipalityCode" | "cboCode" | "admissionType" | "workerCategory" | "salaryUnit" | "cnhNumber" | "cnhCategory" | "cnhExpiration" | "professionalRegistration" | "unionCode" | "fgtsOptDate" | "fgtsAccountNumber" | "bankCode" | "bankName" | "bankAgency" | "bankAccount" | "bankAccountType" | "pixKey" | "departmentId" | "positionId" | "supervisorId" | "organizationId" | "hireDate" | "terminationDate" | "status" | "baseSalary" | "contractType" | "workRegime" | "weeklyHours" | "photoUrl" | "isPregnant" | "pregnancyStartDate" | "childBirthDate" | "metadata" | "pendingIssues" | "deletedAt" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["employee"]>
+export type EmployeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "registrationNumber" | "userId" | "fullName" | "socialName" | "birthDate" | "gender" | "pcd" | "maritalStatus" | "nationality" | "birthPlace" | "emergencyContactInfo" | "healthConditions" | "cpf" | "rg" | "rgIssuer" | "rgIssueDate" | "pis" | "ctpsNumber" | "ctpsSeries" | "ctpsState" | "voterTitle" | "militaryDoc" | "email" | "personalEmail" | "phone" | "mobilePhone" | "emergencyContact" | "emergencyPhone" | "address" | "addressNumber" | "complement" | "neighborhood" | "city" | "state" | "zipCode" | "cpfHash" | "rgHash" | "pisHash" | "pixKeyHash" | "bankAccountHash" | "country" | "raceColor" | "educationLevel" | "motherName" | "municipalityCode" | "addressMunicipalityCode" | "cboCode" | "admissionType" | "workerCategory" | "salaryUnit" | "cnhNumber" | "cnhCategory" | "cnhExpiration" | "professionalRegistration" | "unionCode" | "fgtsOptDate" | "fgtsAccountNumber" | "bankCode" | "bankName" | "bankAgency" | "bankAccount" | "bankAccountType" | "pixKey" | "departmentId" | "positionId" | "supervisorId" | "organizationId" | "hireDate" | "terminationDate" | "status" | "baseSalary" | "contractType" | "workRegime" | "weeklyHours" | "photoUrl" | "isPregnant" | "pregnancyStartDate" | "childBirthDate" | "metadata" | "pendingIssues" | "deletedAt" | "createdAt" | "updatedAt" | "companyId" | "qrTokenHash" | "qrTokenSetAt" | "punchPinHash" | "punchPinSetAt" | "punchPinLockedUntil" | "punchPinFailedAttempts" | "punchPinLastFailedAt", ExtArgs["result"]["employee"]>
 export type EmployeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Employee$userArgs<ExtArgs>
@@ -32616,6 +34295,13 @@ export type $EmployeePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     createdAt: Date
     updatedAt: Date
     companyId: string | null
+    qrTokenHash: string | null
+    qrTokenSetAt: Date | null
+    punchPinHash: string | null
+    punchPinSetAt: Date | null
+    punchPinLockedUntil: Date | null
+    punchPinFailedAttempts: number
+    punchPinLastFailedAt: Date | null
   }, ExtArgs["result"]["employee"]>
   composites: {}
 }
@@ -33175,6 +34861,13 @@ export interface EmployeeFieldRefs {
   readonly createdAt: Prisma.FieldRef<"Employee", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Employee", 'DateTime'>
   readonly companyId: Prisma.FieldRef<"Employee", 'String'>
+  readonly qrTokenHash: Prisma.FieldRef<"Employee", 'String'>
+  readonly qrTokenSetAt: Prisma.FieldRef<"Employee", 'DateTime'>
+  readonly punchPinHash: Prisma.FieldRef<"Employee", 'String'>
+  readonly punchPinSetAt: Prisma.FieldRef<"Employee", 'DateTime'>
+  readonly punchPinLockedUntil: Prisma.FieldRef<"Employee", 'DateTime'>
+  readonly punchPinFailedAttempts: Prisma.FieldRef<"Employee", 'Int'>
+  readonly punchPinLastFailedAt: Prisma.FieldRef<"Employee", 'DateTime'>
 }
     
 
