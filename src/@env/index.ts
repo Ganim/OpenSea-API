@@ -103,6 +103,51 @@ const envSchema = z.object({
     .string()
     .default('false')
     .transform((v) => v === 'true' || v === '1'),
+
+  // ============================================================================
+  // Phase 6 / Plan 06-01 — Compliance Portaria 671
+  // ============================================================================
+
+  /**
+   * RECEIPT_HMAC_KEY — chave HMAC para receiptVerifyHash (Plan 06-03).
+   *
+   * Em produção: OBRIGATÓRIA. 32 bytes base64 (≥44 chars), apenas chars base64
+   * válidos. Falha de boot se ausente em production (refine throws).
+   *
+   * Em dev/test: opcional. Quando ausente, o consumer (06-03 receipt-pdf-worker)
+   * emite console.warn loud e usa fallback determinístico
+   * 'dev-only-not-for-production-receipt-hmac-key-fallback'. Isto preserva o
+   * fluxo de desenvolvimento mas faz com que recibos gerados em dev NÃO sejam
+   * válidos em produção (URL de verify de outro ambiente não bate).
+   */
+  RECEIPT_HMAC_KEY: z
+    .string()
+    .optional()
+    .refine(
+      (v) => {
+        if (process.env.NODE_ENV === 'production') {
+          return !!v && v.length >= 44 && /^[A-Za-z0-9+/=]+$/.test(v);
+        }
+        return true;
+      },
+      {
+        message:
+          'RECEIPT_HMAC_KEY deve ser 32 bytes base64 (44+ chars) em produção',
+      },
+    ),
+
+  /**
+   * ESOCIAL_TP_AMB — ambiente de submissão eSocial S-1200 (Plan 06-05).
+   *   1 = Produção (real)
+   *   2 = Homologação (default — sandbox sem efeitos legais)
+   * Default 2 para que ambientes não-prod não submetam acidentalmente em
+   * produção do eSocial.
+   */
+  ESOCIAL_TP_AMB: z
+    .union([z.literal('1'), z.literal('2')])
+    .optional()
+    .default('2')
+    .transform((v) => Number(v) as 1 | 2),
 });
 
 const _env = envSchema.safeParse(process.env);

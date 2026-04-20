@@ -1881,6 +1881,54 @@ export const HR_AUDIT_MESSAGES = {
     description:
       '{{userName}} arquivou o exame médico do funcionário {{employeeName}} (retenção NR-7 de 20 anos)',
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // COMPLIANCE PORTARIA 671 (Phase 6 / Plan 06-01)
+  //
+  // Templates intencionalmente baseados em IDs / labels (não PII) — `filters`
+  // do ComplianceArtifact pode conter employeeId/cnpj/departmentIds, então a
+  // mensagem usa apenas placeholders agregados (T-06-01-02 mitigation).
+  // ============================================================================
+
+  /** Artefato de compliance gerado (AFD/AFDT/folha-espelho/recibo/S1200) */
+  COMPLIANCE_ARTIFACT_GENERATED: {
+    action: AuditAction.COMPLIANCE_GENERATE,
+    entity: AuditEntity.COMPLIANCE_ARTIFACT,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} gerou artefato de compliance "{{type}}" para o período {{period}}',
+  } satisfies AuditMessage,
+
+  /** Artefato de compliance baixado pelo usuário */
+  COMPLIANCE_ARTIFACT_DOWNLOADED: {
+    action: AuditAction.COMPLIANCE_DOWNLOAD,
+    entity: AuditEntity.COMPLIANCE_ARTIFACT,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} baixou artefato de compliance "{{type}}" ({{artifactId}})',
+  } satisfies AuditMessage,
+
+  /**
+   * Consulta pública de autenticidade de recibo (rota /v1/public/punch/verify
+   * sem JWT). Não tem userName — userId fica como `system` ou null no audit
+   * helper. nsrNumber e ipAddress são parte do payload obrigatório.
+   */
+  COMPLIANCE_PUBLIC_VERIFY_ACCESSED: {
+    action: AuditAction.COMPLIANCE_VERIFY_PUBLIC,
+    entity: AuditEntity.COMPLIANCE_ARTIFACT,
+    module: AuditModule.HR,
+    description:
+      'Consulta pública de autenticidade do recibo NSR {{nsrNumber}} pelo IP {{ipAddress}}',
+  } satisfies AuditMessage,
+
+  /** Submissão de S-1200 ao eSocial (Plan 06-05) */
+  ESOCIAL_S1200_SUBMITTED: {
+    action: AuditAction.ESOCIAL_SUBMIT,
+    entity: AuditEntity.COMPLIANCE_ARTIFACT,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} submeteu S-1200 da competência {{competencia}} ao eSocial (batch {{batchId}}, {{eventCount}} eventos)',
+  } satisfies AuditMessage,
 } as const;
 
 export type HrAuditMessageKey = keyof typeof HR_AUDIT_MESSAGES;
