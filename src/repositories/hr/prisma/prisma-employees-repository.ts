@@ -1340,4 +1340,69 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
 
     return { items, total };
   }
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Phase 5 — PIN fallback (D-08, D-10, D-11)
+  // ──────────────────────────────────────────────────────────────────────────
+
+  async updatePunchPin(
+    employeeId: string,
+    tenantId: string,
+    hash: string,
+    setAt: Date,
+  ): Promise<void> {
+    const result = await prisma.employee.updateMany({
+      where: {
+        id: employeeId,
+        tenantId,
+        deletedAt: null,
+      },
+      data: {
+        punchPinHash: hash,
+        punchPinSetAt: setAt,
+      } as unknown as Prisma.EmployeeUpdateManyMutationInput,
+    });
+
+    if (result.count === 0) {
+      throw new ResourceNotFoundError('Funcionário não encontrado');
+    }
+  }
+
+  async updatePinLockState(
+    employeeId: string,
+    tenantId: string,
+    state: {
+      failedAttempts: number;
+      lockedUntil: Date | null;
+      lastFailedAt: Date | null;
+    },
+  ): Promise<void> {
+    await prisma.employee.updateMany({
+      where: {
+        id: employeeId,
+        tenantId,
+        deletedAt: null,
+      },
+      data: {
+        punchPinFailedAttempts: state.failedAttempts,
+        punchPinLockedUntil: state.lockedUntil,
+        punchPinLastFailedAt: state.lastFailedAt,
+      } as unknown as Prisma.EmployeeUpdateManyMutationInput,
+    });
+  }
+
+  async clearPinLock(employeeId: string, tenantId: string): Promise<void> {
+    await prisma.employee.updateMany({
+      where: {
+        id: employeeId,
+        tenantId,
+        deletedAt: null,
+      },
+      data: {
+        punchPinFailedAttempts: 0,
+        punchPinLockedUntil: null,
+        punchPinLastFailedAt: null,
+      } as unknown as Prisma.EmployeeUpdateManyMutationInput,
+    });
+  }
 }

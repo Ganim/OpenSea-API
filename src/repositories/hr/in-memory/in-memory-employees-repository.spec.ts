@@ -628,6 +628,105 @@ describe('InMemoryEmployeesRepository', () => {
         expect(res.items[0].departmentName).toBe('Financeiro');
       });
     });
+
+    // ──────────────────────────────────────────────────────────────────────
+    // Phase 5 — PIN fallback (D-08, D-10, D-11)
+    // ──────────────────────────────────────────────────────────────────────
+
+    describe('updatePunchPin / updatePinLockState / clearPinLock', () => {
+      it('updatePunchPin sets punchPinHash + punchPinSetAt inside the tenant', async () => {
+        const emp = await seed();
+        const setAt = new Date('2026-04-20T12:00:00Z');
+        await repository.updatePunchPin(
+          emp.id.toString(),
+          tenantId,
+          'bcrypt-hash-xxx',
+          setAt,
+        );
+
+        expect(emp.punchPinHash).toBe('bcrypt-hash-xxx');
+        expect(emp.punchPinSetAt?.getTime()).toBe(setAt.getTime());
+      });
+
+      it('updatePunchPin throws ResourceNotFoundError for cross-tenant ids', async () => {
+        const emp = await seed({
+          tenantId: otherTenantId,
+        });
+        await expect(
+          repository.updatePunchPin(
+            emp.id.toString(),
+            tenantId,
+            'hash',
+            new Date(),
+          ),
+        ).rejects.toBeInstanceOf(ResourceNotFoundError);
+      });
+
+      it('updatePinLockState writes failedAttempts, lockedUntil and lastFailedAt atomically', async () => {
+        const emp = await seed();
+        const lockedUntil = new Date('2026-04-20T12:15:00Z');
+        const lastFailedAt = new Date('2026-04-20T12:00:00Z');
+
+        await repository.updatePinLockState(emp.id.toString(), tenantId, {
+          failedAttempts: 3,
+          lockedUntil: null,
+          lastFailedAt,
+        });
+
+        expect(emp.punchPinFailedAttempts).toBe(3);
+        expect(emp.punchPinLockedUntil).toBeNull();
+        expect(emp.punchPinLastFailedAt?.getTime()).toBe(
+          lastFailedAt.getTime(),
+        );
+
+        // Second call transitions to locked — lockedUntil becomes non-null.
+        await repository.updatePinLockState(emp.id.toString(), tenantId, {
+          failedAttempts: 0,
+          lockedUntil,
+          lastFailedAt,
+        });
+
+        expect(emp.punchPinFailedAttempts).toBe(0);
+        expect(emp.punchPinLockedUntil?.getTime()).toBe(lockedUntil.getTime());
+      });
+
+      it('clearPinLock zeroes failedAttempts, lockedUntil and lastFailedAt', async () => {
+        const emp = await seed();
+        await repository.updatePinLockState(emp.id.toString(), tenantId, {
+          failedAttempts: 4,
+          lockedUntil: new Date('2026-04-20T12:15:00Z'),
+          lastFailedAt: new Date('2026-04-20T12:00:00Z'),
+        });
+
+        await repository.clearPinLock(emp.id.toString(), tenantId);
+
+        expect(emp.punchPinFailedAttempts).toBe(0);
+        expect(emp.punchPinLockedUntil).toBeNull();
+        expect(emp.punchPinLastFailedAt).toBeNull();
+      });
+
+      it('clearPinLock is idempotent on a never-locked employee', async () => {
+        const emp = await seed();
+        // No lock state exists. This must not throw.
+        await repository.clearPinLock(emp.id.toString(), tenantId);
+        expect(emp.punchPinFailedAttempts).toBe(0);
+        expect(emp.punchPinLockedUntil).toBeNull();
+      });
+
+      it('updatePinLockState silently no-ops for cross-tenant ids (isolation)', async () => {
+        const emp = await seed({
+          tenantId: otherTenantId,
+        });
+        // Calling with `tenantId` (not otherTenantId) must not mutate the row.
+        await repository.updatePinLockState(emp.id.toString(), tenantId, {
+          failedAttempts: 99,
+          lockedUntil: new Date(),
+          lastFailedAt: new Date(),
+        });
+        expect(emp.punchPinFailedAttempts).toBe(0);
+        expect(emp.punchPinLockedUntil).toBeNull();
+      });
+    });
   });
 });
 

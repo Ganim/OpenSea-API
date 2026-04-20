@@ -752,4 +752,90 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
 
     return { items, total };
   }
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Phase 5 — PIN fallback (D-08, D-10, D-11)
+  // ──────────────────────────────────────────────────────────────────────────
+
+  async updatePunchPin(
+    employeeId: string,
+    tenantId: string,
+    hash: string,
+    setAt: Date,
+  ): Promise<void> {
+    const employee = this.items.find(
+      (item) =>
+        item.id.toString() === employeeId &&
+        item.tenantId.toString() === tenantId &&
+        !item.deletedAt,
+    );
+    if (!employee) {
+      throw new ResourceNotFoundError('Funcionário não encontrado');
+    }
+    // Mutate props directly — the Employee entity exposes getters with
+    // sensible fallbacks for these columns (set by 05-01). Tests assert via
+    // those getters.
+    const props = employee as unknown as {
+      props: {
+        punchPinHash?: string | null;
+        punchPinSetAt?: Date | null;
+        updatedAt: Date;
+      };
+    };
+    props.props.punchPinHash = hash;
+    props.props.punchPinSetAt = setAt;
+    props.props.updatedAt = new Date();
+  }
+
+  async updatePinLockState(
+    employeeId: string,
+    tenantId: string,
+    state: {
+      failedAttempts: number;
+      lockedUntil: Date | null;
+      lastFailedAt: Date | null;
+    },
+  ): Promise<void> {
+    const employee = this.items.find(
+      (item) =>
+        item.id.toString() === employeeId &&
+        item.tenantId.toString() === tenantId &&
+        !item.deletedAt,
+    );
+    if (!employee) return; // idempotent — defense-in-depth only
+    const props = employee as unknown as {
+      props: {
+        punchPinFailedAttempts?: number;
+        punchPinLockedUntil?: Date | null;
+        punchPinLastFailedAt?: Date | null;
+        updatedAt: Date;
+      };
+    };
+    props.props.punchPinFailedAttempts = state.failedAttempts;
+    props.props.punchPinLockedUntil = state.lockedUntil;
+    props.props.punchPinLastFailedAt = state.lastFailedAt;
+    props.props.updatedAt = new Date();
+  }
+
+  async clearPinLock(employeeId: string, tenantId: string): Promise<void> {
+    const employee = this.items.find(
+      (item) =>
+        item.id.toString() === employeeId &&
+        item.tenantId.toString() === tenantId &&
+        !item.deletedAt,
+    );
+    if (!employee) return; // idempotent
+    const props = employee as unknown as {
+      props: {
+        punchPinFailedAttempts?: number;
+        punchPinLockedUntil?: Date | null;
+        punchPinLastFailedAt?: Date | null;
+        updatedAt: Date;
+      };
+    };
+    props.props.punchPinFailedAttempts = 0;
+    props.props.punchPinLockedUntil = null;
+    props.props.punchPinLastFailedAt = null;
+    props.props.updatedAt = new Date();
+  }
 }

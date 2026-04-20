@@ -393,4 +393,61 @@ export interface EmployeesRepository {
     tenantId: string,
     filters: FindCrachasFilters,
   ): Promise<CrachasPaginatedResult>;
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Phase 5 — PIN fallback (D-08, D-10, D-11)
+  // ──────────────────────────────────────────────────────────────────────────
+
+  /**
+   * Replaces the stored PIN hash of an employee and stamps `punchPinSetAt`.
+   * Used by {@link SetPunchPinUseCase} after the plaintext PIN has been run
+   * through bcrypt (cost 10). Throws {@link ResourceNotFoundError} when the
+   * target employee does not exist inside the tenant (or is soft-deleted).
+   *
+   * NOTE: this method ONLY writes the hash/setAt; lockout state is cleared
+   * separately via {@link clearPinLock} so callers keep the state-machine
+   * invariants explicit at the use-case layer.
+   */
+  updatePunchPin(
+    employeeId: string,
+    tenantId: string,
+    hash: string,
+    setAt: Date,
+  ): Promise<void>;
+
+  /**
+   * Atomically writes the three lockout-related columns of the punch-pin
+   * state machine (D-11): `punchPinFailedAttempts`, `punchPinLockedUntil`
+   * and `punchPinLastFailedAt`. Passing `null` for `lockedUntil` or
+   * `lastFailedAt` clears the respective column.
+   *
+   * Called by {@link VerifyPunchPinUseCase} at every state-machine
+   * transition (wrong attempt, lockout transition, auto-reset after 1h
+   * window). Silently no-ops when the target employee does not exist inside
+   * the tenant (defense-in-depth; use cases resolve the employee first so
+   * this path should not normally be hit).
+   */
+  updatePinLockState(
+    employeeId: string,
+    tenantId: string,
+    state: {
+      failedAttempts: number;
+      lockedUntil: Date | null;
+      lastFailedAt: Date | null;
+    },
+  ): Promise<void>;
+
+  /**
+   * Zeroes the three lockout-related columns: `punchPinFailedAttempts = 0`,
+   * `punchPinLockedUntil = null`, `punchPinLastFailedAt = null`. Used by:
+   *   - {@link SetPunchPinUseCase} after a successful (re)set so the new PIN
+   *     starts with a clean counter;
+   *   - {@link VerifyPunchPinUseCase} after a correct PIN is verified;
+   *   - {@link UnlockPunchPinUseCase} admin override (D-11 manual unlock).
+   *
+   * Silently no-ops when the target employee does not exist inside the
+   * tenant (idempotent by design — admin re-click on "Desbloquear" on an
+   * already-unlocked employee succeeds).
+   */
+  clearPinLock(employeeId: string, tenantId: string): Promise<void>;
 }
