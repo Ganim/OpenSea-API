@@ -33,6 +33,15 @@ vi.mock('@/modules/notifications/public', () => ({
     PROGRESS: 'PROGRESS',
     SYSTEM_BANNER: 'SYSTEM_BANNER',
   },
+  // D-16 graceful degrade branch overrides channels on absence → expose
+  // the enum so the consumer's `NotificationChannel.IN_APP` resolves.
+  NotificationChannel: {
+    IN_APP: 'IN_APP',
+    EMAIL: 'EMAIL',
+    PUSH: 'PUSH',
+    SMS: 'SMS',
+    WHATSAPP: 'WHATSAPP',
+  },
 }));
 
 // Mock prisma (employee lookup for userId resolution)

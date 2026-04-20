@@ -79,3 +79,42 @@ export const notificationClient: NotificationClient = {
     getNotificationClient().registerManifest(manifest),
   cancel: (notificationId) => getNotificationClient().cancel(notificationId),
 };
+
+/**
+ * Phase 5 (D-16) — graceful PUSH degrade helper.
+ *
+ * Returns `true` when the tenant has at least one active (non-revoked)
+ * Web Push subscription. Producers (e.g., punchNotificationDispatcherConsumer)
+ * use this BEFORE calling `dispatch()` to decide whether to keep the manifest
+ * default channels (which include PUSH) or to override `channels` to
+ * `[IN_APP]` only — preventing the WebPushChannelAdapter from emitting
+ * SKIPPED-with-error on every dispatch when the tenant has no devices yet.
+ *
+ * The helper deliberately does NOT also check process-level VAPID env vars:
+ * the existing `WebPushChannelAdapter` already returns SKIPPED gracefully
+ * when env keys are missing (no error thrown). This helper closes the
+ * complementary gap — when env IS configured but the tenant has no
+ * subscribed devices.
+ *
+ * Errors are intentionally swallowed and resolved as `false` so the call
+ * site can proceed with IN_APP-only delivery (D-16 fail-open contract).
+ *
+ * Implementation note: this lives in the public surface so cross-module
+ * consumers (in `src/lib/events/consumers/`) can import it without reaching
+ * into `infrastructure/`.
+ */
+export async function tenantHasVapidKeys(tenantId: string): Promise<boolean> {
+  try {
+    // Lazy require so unit specs that mock `@/modules/notifications/public`
+    // do not need to also mock `@/lib/prisma` unless they exercise this fn.
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { prisma } = require('@/lib/prisma');
+    const count = await prisma.pushSubscription.count({
+      where: { tenantId, revokedAt: null },
+    });
+    return count > 0;
+  } catch {
+    // Fail-open per D-16: a probe failure must not break the dispatch.
+    return false;
+  }
+}

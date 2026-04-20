@@ -12,6 +12,7 @@ export {
   notificationClient,
   getNotificationClient,
   setNotificationClient,
+  tenantHasVapidKeys,
   type NotificationClient,
 } from './client';
 export {

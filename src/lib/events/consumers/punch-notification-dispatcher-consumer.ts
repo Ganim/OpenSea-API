@@ -26,7 +26,9 @@ import type {
 import { prisma } from '@/lib/prisma';
 import {
   notificationClient,
+  NotificationChannel,
   NotificationType,
+  tenantHasVapidKeys,
 } from '@/modules/notifications/public';
 
 // Lazy logger to avoid @env initialization in unit tests
@@ -120,6 +122,20 @@ export const punchNotificationDispatcherConsumer: EventConsumer = {
           );
           return;
         }
+        // D-16 / VAPID-01 — graceful PUSH degrade.
+        // When the tenant has no Web Push subscriptions, override channels
+        // to [IN_APP] only so the WebPushChannelAdapter does not emit a
+        // SKIPPED-with-error on every dispatch. The helper swallows its own
+        // errors and resolves `false` on probe failure (fail-open), but we
+        // still wrap the call in a defensive catch in case a future
+        // implementation throws — the user flow (batida registrada) must
+        // never break because of an observability subsystem.
+        let pushOk = true;
+        try {
+          pushOk = await tenantHasVapidKeys(event.tenantId);
+        } catch {
+          pushOk = false;
+        }
         await notificationClient.dispatch({
           type: NotificationType.INFORMATIONAL,
           category: 'punch.registered',
@@ -134,6 +150,9 @@ export const punchNotificationDispatcherConsumer: EventConsumer = {
             hasApproval: data.hasApproval,
             punchDeviceId: data.punchDeviceId,
           },
+          // When PUSH is available, leave `channels` undefined so the
+          // manifest default (which includes PUSH) stays authoritative.
+          ...(pushOk ? {} : { channels: [NotificationChannel.IN_APP] }),
         });
         return;
       }
