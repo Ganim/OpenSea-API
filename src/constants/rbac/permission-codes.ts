@@ -351,6 +351,30 @@ export const PermissionCodes = {
       PRINT: 'hr.crachas.print' as const,
       ADMIN: 'hr.crachas.admin' as const,
     },
+    // Phase 6 / Plan 06-01 — Compliance Portaria 671.
+    // Admin-only por design (D-08): RH executa a geração de artefatos
+    // (AFD/AFDT/folha-espelho/recibo/S-1200) e a configuração eSocial.
+    // Funcionários NÃO recebem por default (não está em
+    // DEFAULT_USER_PERMISSIONS) — gestores ganham via
+    // extractAllCodes(PermissionCodes) ao serem admins.
+    // Sub-actions granulares para permitir permissionamento fino:
+    //   - access: ver dashboard /hr/compliance e listar artefatos
+    //   - afd.generate / afdt.generate / folha-espelho.generate / s1200.submit:
+    //     gates específicos por tipo de artefato (RH pode delegar geração
+    //     de AFD sem expor S-1200, por exemplo)
+    //   - artifact.download: baixar artefato existente
+    //   - config.modify: editar EsocialConfig (certificado, ambiente)
+    //   - admin: super-poder do módulo (cobre tudo + soft-delete artefato)
+    COMPLIANCE: {
+      ACCESS: 'hr.compliance.access' as const,
+      AFD_GENERATE: 'hr.compliance.afd.generate' as const,
+      AFDT_GENERATE: 'hr.compliance.afdt.generate' as const,
+      FOLHA_ESPELHO_GENERATE: 'hr.compliance.folha-espelho.generate' as const,
+      S1200_SUBMIT: 'hr.compliance.s1200.submit' as const,
+      ARTIFACT_DOWNLOAD: 'hr.compliance.artifact.download' as const,
+      CONFIG_MODIFY: 'hr.compliance.config.modify' as const,
+      ADMIN: 'hr.compliance.admin' as const,
+    },
     BONUSES: {
       ACCESS: 'hr.bonuses.access' as const,
       REGISTER: 'hr.bonuses.register' as const,
