@@ -244,57 +244,74 @@ export class PrismaItemsRepository implements ItemsRepository {
     }
 
     if (filters?.search) {
-      const searchTerm = filters.search;
-      where.OR = [
-        { fullCode: { contains: searchTerm, mode: 'insensitive' } },
-        { uniqueCode: { contains: searchTerm, mode: 'insensitive' } },
-        { batchNumber: { contains: searchTerm, mode: 'insensitive' } },
-        {
-          variant: {
-            name: { contains: searchTerm, mode: 'insensitive' },
-          },
-        },
-        {
-          variant: {
-            sku: { contains: searchTerm, mode: 'insensitive' },
-          },
-        },
-        {
-          variant: {
-            reference: { contains: searchTerm, mode: 'insensitive' },
-          },
-        },
-        {
-          variant: {
-            product: {
-              name: { contains: searchTerm, mode: 'insensitive' },
-            },
-          },
-        },
-        {
-          variant: {
-            product: {
-              template: {
-                name: { contains: searchTerm, mode: 'insensitive' },
+      const tokens = filters.search.trim().split(/\s+/).filter(Boolean);
+
+      if (tokens.length > 0) {
+        where.AND = tokens.map((token) => ({
+          OR: [
+            { fullCode: { contains: token, mode: 'insensitive' as const } },
+            { uniqueCode: { contains: token, mode: 'insensitive' as const } },
+            { batchNumber: { contains: token, mode: 'insensitive' as const } },
+            {
+              variant: {
+                name: { contains: token, mode: 'insensitive' as const },
               },
             },
-          },
-        },
-        {
-          variant: {
-            product: {
-              manufacturer: {
-                name: { contains: searchTerm, mode: 'insensitive' },
+            {
+              variant: {
+                sku: { contains: token, mode: 'insensitive' as const },
               },
             },
-          },
-        },
-        {
-          bin: {
-            address: { contains: searchTerm, mode: 'insensitive' },
-          },
-        },
-      ];
+            {
+              variant: {
+                reference: { contains: token, mode: 'insensitive' as const },
+              },
+            },
+            {
+              variant: {
+                fullCode: { contains: token, mode: 'insensitive' as const },
+              },
+            },
+            {
+              variant: {
+                product: {
+                  name: { contains: token, mode: 'insensitive' as const },
+                },
+              },
+            },
+            {
+              variant: {
+                product: {
+                  fullCode: { contains: token, mode: 'insensitive' as const },
+                },
+              },
+            },
+            {
+              variant: {
+                product: {
+                  template: {
+                    name: { contains: token, mode: 'insensitive' as const },
+                  },
+                },
+              },
+            },
+            {
+              variant: {
+                product: {
+                  manufacturer: {
+                    name: { contains: token, mode: 'insensitive' as const },
+                  },
+                },
+              },
+            },
+            {
+              bin: {
+                address: { contains: token, mode: 'insensitive' as const },
+              },
+            },
+          ],
+        }));
+      }
     }
 
     const orderBy = this.buildOrderBy(filters?.sortBy, filters?.sortOrder);
@@ -397,6 +414,44 @@ export class PrismaItemsRepository implements ItemsRepository {
       page: params.page,
       limit: params.limit,
       totalPages: Math.ceil(total / params.limit),
+    };
+  }
+
+  async getStatsByVariant(
+    variantId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<{
+    totalItems: number;
+    inStockItems: number;
+    totalQuantity: number;
+    inStockQuantity: number;
+  }> {
+    const baseWhere = {
+      variantId: variantId.toString(),
+      tenantId,
+      deletedAt: null,
+    };
+
+    const [totalItems, inStockItems, totalAgg, inStockAgg] = await Promise.all([
+      prisma.item.count({ where: baseWhere }),
+      prisma.item.count({
+        where: { ...baseWhere, currentQuantity: { gt: 0 } },
+      }),
+      prisma.item.aggregate({
+        where: baseWhere,
+        _sum: { currentQuantity: true },
+      }),
+      prisma.item.aggregate({
+        where: { ...baseWhere, currentQuantity: { gt: 0 } },
+        _sum: { currentQuantity: true },
+      }),
+    ]);
+
+    return {
+      totalItems,
+      inStockItems,
+      totalQuantity: Number(totalAgg._sum.currentQuantity ?? 0),
+      inStockQuantity: Number(inStockAgg._sum.currentQuantity ?? 0),
     };
   }
 

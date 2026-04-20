@@ -225,11 +225,56 @@ export class PrismaProductsRepository implements ProductsRepository {
       categoryIds?: string[];
     },
   ): Promise<PaginatedResult<Product>> {
+    const tokens = params.search
+      ? params.search.trim().split(/\s+/).filter(Boolean)
+      : [];
+
     const where: Prisma.ProductWhereInput = {
       tenantId,
       deletedAt: null,
-      ...(params.search && {
-        name: { contains: params.search, mode: 'insensitive' as const },
+      ...(tokens.length > 0 && {
+        AND: tokens.map((token) => ({
+          OR: [
+            { name: { contains: token, mode: 'insensitive' as const } },
+            { fullCode: { contains: token, mode: 'insensitive' as const } },
+            {
+              manufacturer: {
+                name: { contains: token, mode: 'insensitive' as const },
+              },
+            },
+            {
+              template: {
+                name: { contains: token, mode: 'insensitive' as const },
+              },
+            },
+            {
+              variants: {
+                some: {
+                  OR: [
+                    {
+                      name: { contains: token, mode: 'insensitive' as const },
+                    },
+                    {
+                      sku: { contains: token, mode: 'insensitive' as const },
+                    },
+                    {
+                      reference: {
+                        contains: token,
+                        mode: 'insensitive' as const,
+                      },
+                    },
+                    {
+                      fullCode: {
+                        contains: token,
+                        mode: 'insensitive' as const,
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+        })),
       }),
       ...(params.templateIds &&
         params.templateIds.length > 0 && {
