@@ -426,6 +426,9 @@ model User {
   approvedPayrolls  Payroll[] @relation("PayrollApprover")
   paidPayrolls      Payroll[] @relation("PayrollPayer")
 
+  // Compliance Relations (Phase 6 / Plan 06-01)
+  generatedComplianceArtifacts ComplianceArtifact[]
+
   // Overtime Relations
   approvedOvertime Overtime[] @relation("OvertimeApprover")
   rejectedOvertime Overtime[] @relation("OvertimeRejecter")
@@ -1239,6 +1242,7 @@ enum AuditEntity {
   FACE_ENROLLMENT
   PUNCH_PIN
   PUNCH_QR_TOKEN
+  COMPLIANCE_ARTIFACT
 
   // HR - Ausências e Férias
   ABSENCE
@@ -4593,6 +4597,23 @@ model TimeEntry {
   // Phase 9 antifraude may derive policy from accumulated samples.
   metadata Json? @db.JsonB
 
+  // Phase 6 / Plan 06-01 — Compliance Portaria 671 (AFD/AFDT ajuste + recibo)
+  // - `originNsrNumber`: FK lógico ao NSR da batida original (NULL em
+  //    linhas ORIGINAL; NOT NULL em ADJUSTMENT_APPROVED). Plan 06-02 usa
+  //    para gerar linhas tipo 4 (ajuste) no AFDT.
+  // - `adjustmentType`: discriminador da semântica da linha.
+  //    - ORIGINAL: batida crua capturada pelo kiosk/PWA.
+  //    - ADJUSTMENT_APPROVED: nova linha criada pelo gestor ao aprovar
+  //      correção via PunchApproval (resolverAction=CREATE_CORRECTION).
+  // - `receiptVerifyHash`: HMAC-SHA256(tenantId:nsrNumber, RECEIPT_HMAC_KEY),
+  //    hex 64 chars. Preenchido pelo receipt-pdf-worker (Plan 06-03) para
+  //    lookup rápido da rota pública `/v1/public/punch/verify/:nsrHash`.
+  //    @unique — colisão HMAC é evento criptograficamente improvável e
+  //    disparar P2002 no insert é preferível a vazar dados de outro tenant.
+  originNsrNumber   Int?           @map("origin_nsr_number")
+  adjustmentType    AdjustmentType @default(ORIGINAL) @map("adjustment_type")
+  receiptVerifyHash String?        @unique @map("receipt_verify_hash") @db.VarChar(64)
+
   // Audit
   createdAt DateTime @default(now()) @map("created_at")
 
@@ -4608,6 +4629,7 @@ model TimeEntry {
   @@index([timestamp])
   @@index([entryType])
   @@index([employeeId, timestamp])
+  @@index([tenantId, originNsrNumber])
   @@map("time_entries")
 }
 
@@ -6628,6 +6650,9 @@ model Tenant {
   geofenceZones      GeofenceZone[]
   punchDevices       PunchDevice[]
   punchApprovals     PunchApproval[]
+
+  // Compliance (Phase 6 / Plan 06-01)
+  complianceArtifacts ComplianceArtifact[]
 
   // HR Tenant Configuration
   hrTenantConfig HrTenantConfig?
@@ -15959,6 +15984,46 @@ enum PunchApprovalStatus {
   REJECTED
 }
 
+// ===============================================
+// COMPLIANCE — Portaria MTP 671/2021 (Phase 6)
+// Plan 06-01: Schema base para AFD/AFDT/Folha Espelho/Recibo/S-1200
+// ===============================================
+
+/**
+ * Tipos de artefato de compliance registrados em `compliance_artifacts`.
+ * - AFD:           Arquivo Fonte de Dados (layout oficial Portaria 671
+ * Anexo I; registros tipo 1..5, 7, 9 byte-a-byte).
+ * - AFDT:          Arquivo Fonte de Dados Tratado (produto proprietário
+ * OpenSea; inclui linhas de ajuste via adjustmentType).
+ * Ver D-05 em 06-CONTEXT.md — AEJ fica Deferred.
+ * - FOLHA_ESPELHO: PDF CLT mensal por funcionário/competência.
+ * - RECIBO:        PDF A6 por batida com QR para consulta pública.
+ * - S1200_XML:     XML eSocial S-1200 por competência/funcionário.
+ */
+enum ComplianceArtifactType {
+  AFD
+  AFDT
+  FOLHA_ESPELHO
+  RECIBO
+  S1200_XML
+}
+
+/**
+ * Discriminador de semântica das linhas de `TimeEntry` (D-01 — AFDT ajuste
+ * como linha nova com NSR sequencial próprio).
+ * - ORIGINAL:             Batida crua capturada pelo kiosk/PWA. NSR
+ * sequencial; jamais mutada. `originNsrNumber = NULL`.
+ * - ADJUSTMENT_APPROVED:  Nova linha gerada quando gestor aprova correção
+ * via PunchApproval. `originNsrNumber` aponta para
+ * o NSR da batida original (sempre < nsrNumber atual).
+ * No AFDT, aparece como registro tipo 4 referenciando
+ * o NSR original.
+ */
+enum AdjustmentType {
+  ORIGINAL
+  ADJUSTMENT_APPROVED
+}
+
 model Invoice {
   id       String @id @default(cuid())
   tenantId String @map("tenant_id")
@@ -16139,6 +16204,63 @@ model EmployeeFaceEnrollment {
 
   @@index([tenantId, employeeId])
   @@map("employee_face_enrollments")
+}
+
+// ===============================================
+// COMPLIANCE ARTIFACTS — Portaria 671 (Phase 6 / Plan 06-01)
+// Registro de cada AFD/AFDT/Folha Espelho/Recibo/S-1200 gerado.
+// Armazenamento no R2 via S3FileUploadService; metadata + contentHash
+// aqui para histórico + regeneração on-demand.
+// ===============================================
+
+model ComplianceArtifact {
+  id          String                 @id @default(uuid())
+  tenantId    String                 @map("tenant_id")
+  type        ComplianceArtifactType
+  periodStart DateTime?              @map("period_start")
+  periodEnd   DateTime?              @map("period_end")
+  competencia String?                @db.VarChar(7) // YYYY-MM (S-1200, Folha Espelho)
+  // Filtros aplicados na geração (ex.: { cnpj, departmentIds, employeeId,
+  // timeEntryId }). JSON opaco — planner consumer decide shape. Não deve
+  // carregar PII verbatim em audit messages (template usa placeholders ID-only).
+  filters     Json?
+  storageKey  String                 @map("storage_key") // R2 key determinística
+  contentHash String                 @map("content_hash") @db.VarChar(64) // SHA-256 hex
+  sizeBytes   Int                    @map("size_bytes")
+  generatedBy String                 @map("generated_by") // userId (ou 'system' para worker)
+  generatedAt DateTime               @default(now()) @map("generated_at")
+  deletedAt   DateTime?              @map("deleted_at")
+
+  tenant    Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  generator User   @relation(fields: [generatedBy], references: [id])
+
+  @@index([tenantId, type, generatedAt(sort: Desc)])
+  @@index([tenantId, competencia])
+  @@index([tenantId, deletedAt])
+  @@map("compliance_artifacts")
+}
+
+// ===============================================
+// COMPLIANCE PUBLIC VERIFY LOG — Audit da rota pública /punch/verify/:nsrHash
+// Intencionalmente SEM relation com Tenant/TimeEntry/User — rate-limit
+// violations de IP desconhecido não podem quebrar FK quando hash inválido.
+// Usado por fase futura (antifraude) para detectar enumeração de hashes.
+// ===============================================
+
+model ComplianceVerifyLog {
+  id          String   @id @default(uuid())
+  nsrHash     String   @map("nsr_hash") @db.VarChar(64)
+  tenantId    String?  @map("tenant_id") // NULL quando hash não identifica tenant
+  timeEntryId String?  @map("time_entry_id") // NULL em NOT_FOUND / RATE_LIMITED
+  ipAddress   String?  @map("ip_address") @db.VarChar(45) // IPv4 ou IPv6
+  userAgent   String?  @map("user_agent") @db.Text
+  accessedAt  DateTime @default(now()) @map("accessed_at")
+  hitResult   String   @map("hit_result") @db.VarChar(16) // FOUND | NOT_FOUND | RATE_LIMITED
+
+  @@index([nsrHash, accessedAt(sort: Desc)])
+  @@index([accessedAt(sort: Desc)])
+  @@index([tenantId, accessedAt(sort: Desc)])
+  @@map("compliance_public_verify_log")
 }
 
 model PosPrinter {
