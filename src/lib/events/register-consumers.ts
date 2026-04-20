@@ -23,6 +23,8 @@ import { punchEsocialConsumer } from './consumers/punch-esocial-consumer';
 import { punchEventsQueueBridge } from './consumers/punch-events-queue-bridge';
 import { punchNotificationDispatcherConsumer } from './consumers/punch-notification-dispatcher-consumer';
 import { punchPayrollConsumer } from './consumers/punch-payroll-consumer';
+import { punchPinLockedDispatcherConsumer } from './consumers/punch-pin-locked-dispatcher-consumer';
+import { punchQrRotationCompletedDispatcherConsumer } from './consumers/punch-qr-rotation-completed-dispatcher-consumer';
 import { punchTimebankConsumer } from './consumers/punch-timebank-consumer';
 import type { TypedEventBus } from './typed-event-bus';
 
@@ -61,7 +63,24 @@ export function registerEventConsumers(eventBus: TypedEventBus): void {
   // Subscribes to TIME_ENTRY_CREATED + APPROVAL_REQUESTED and routes them
   // to `notificationClient.dispatch(...)` using categories declared in
   // `punch.manifest.ts` (punch.registered, punch.approval_requested).
+  // Phase 5 hardened this consumer with D-16 VAPID graceful degrade:
+  // when the tenant has no Web Push subscriptions, `punch.registered`
+  // is emitted with channels overridden to [IN_APP] only.
   eventBus.register(punchNotificationDispatcherConsumer);
+
+  // Punch module (Phase 5, D-11) — PIN_LOCKED → admin notification.
+  // Subscribes to PUNCH_EVENTS.PIN_LOCKED and dispatches an ACTIONABLE
+  // punch.pin_locked notification to every user with the
+  // hr.punch-devices.admin permission in the tenant.
+  eventBus.register(punchPinLockedDispatcherConsumer);
+
+  // Punch module (Phase 5, D-14) — QR_ROTATION_COMPLETED → invoker + admins.
+  // Subscribes to PUNCH_EVENTS.QR_ROTATION_COMPLETED. Primary dispatch
+  // targets the admin who invoked the rotation; secondary broadcast to
+  // hr.punch-devices.admin fires ONLY when processed > 50 (T-QR-01
+  // information-disclosure mitigation — suppress individual-rotation
+  // broadcasts to avoid spam).
+  eventBus.register(punchQrRotationCompletedDispatcherConsumer);
 
   // Punch module (Phase 4) — durable BullMQ fan-out (AD-02).
   // Subscribes to EVERY punch.* event and forwards it as a job to the
