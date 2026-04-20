@@ -21,16 +21,18 @@ describe('punchManifest', () => {
   });
 
   describe('categories', () => {
-    it('declares exactly 3 categories', () => {
-      expect(punchManifest.categories).toHaveLength(3);
+    it('declares exactly 5 categories (3 phase-4 + 2 phase-5)', () => {
+      expect(punchManifest.categories).toHaveLength(5);
     });
 
-    it('declares the expected category codes in order', () => {
+    it('declares the expected category codes in order (phase 4 then phase 5)', () => {
       const codes = punchManifest.categories.map((c) => c.code);
       expect(codes).toEqual([
         'punch.registered',
         'punch.late',
         'punch.approval_requested',
+        'punch.pin_locked',
+        'punch.qr_rotation.completed',
       ]);
     });
 
@@ -74,6 +76,43 @@ describe('punchManifest', () => {
         NotificationChannel.EMAIL,
       ]);
       expect(category!.digestSupported).toBe(false);
+    });
+
+    // ─── Phase 5 additions (Plan 05-02) ─────────────────────────────────────
+
+    it('punch.pin_locked is ACTIONABLE/HIGH/[IN_APP,EMAIL], NOT digest-supported (D-11)', () => {
+      const category = punchManifest.categories.find(
+        (c) => c.code === 'punch.pin_locked',
+      );
+      expect(category).toBeDefined();
+      expect(category!.defaultType).toBe(NotificationType.ACTIONABLE);
+      expect(category!.defaultPriority).toBe(NotificationPriority.HIGH);
+      expect(category!.defaultChannels).toContain(NotificationChannel.IN_APP);
+      expect(category!.defaultChannels).toContain(NotificationChannel.EMAIL);
+      expect(category!.digestSupported).toBe(false);
+      // pt-BR copy
+      expect(category!.name.length).toBeGreaterThan(0);
+      expect(category!.description?.length ?? 0).toBeGreaterThan(0);
+    });
+
+    it('punch.qr_rotation.completed is INFORMATIONAL/NORMAL/[IN_APP], digest-supported (D-14)', () => {
+      const category = punchManifest.categories.find(
+        (c) => c.code === 'punch.qr_rotation.completed',
+      );
+      expect(category).toBeDefined();
+      expect(category!.defaultType).toBe(NotificationType.INFORMATIONAL);
+      expect(category!.defaultPriority).toBe(NotificationPriority.NORMAL);
+      expect(category!.defaultChannels).toContain(NotificationChannel.IN_APP);
+      expect(category!.digestSupported).toBe(true);
+      // pt-BR copy
+      expect(category!.name.length).toBeGreaterThan(0);
+      expect(category!.description?.length ?? 0).toBeGreaterThan(0);
+    });
+
+    it('every category code is unique (no accidental dup with phase-4 codes)', () => {
+      const codes = punchManifest.categories.map((c) => c.code);
+      const unique = new Set(codes);
+      expect(unique.size).toBe(codes.length);
     });
   });
 });
