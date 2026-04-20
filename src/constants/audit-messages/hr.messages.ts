@@ -289,6 +289,79 @@ export const HR_AUDIT_MESSAGES = {
   } satisfies AuditMessage,
 
   // ============================================================================
+  // PUNCH QR TOKENS - Crachá rotacionável (Phase 5 — D-14)
+  // ============================================================================
+
+  /** QR do crachá rotacionado (individual ou via job de massa) */
+  PUNCH_QR_TOKEN_ROTATED: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PUNCH_QR_TOKEN,
+    module: AuditModule.HR,
+    description: '{{userName}} rotacionou o QR do crachá de {{employeeName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // PUNCH FACE ENROLLMENT - Biometria facial (Phase 5 — D-02 / D-05 / D-07)
+  // ============================================================================
+
+  /** Biometria facial cadastrada por admin (3-5 fotos) */
+  PUNCH_FACE_ENROLLMENT_CREATED: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.FACE_ENROLLMENT,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} cadastrou biometria facial de {{employeeName}} ({{photoCount}} fotos)',
+  } satisfies AuditMessage,
+
+  /** Biometria facial removida (soft-delete) */
+  PUNCH_FACE_ENROLLMENT_REMOVED: {
+    action: AuditAction.DELETE,
+    entity: AuditEntity.FACE_ENROLLMENT,
+    module: AuditModule.HR,
+    description: '{{userName}} removeu a biometria facial de {{employeeName}}',
+  } satisfies AuditMessage,
+
+  /** Consentimento LGPD para captura de biometria (D-07) — hash do termo */
+  PUNCH_FACE_ENROLLMENT_CONSENT_GIVEN: {
+    action: AuditAction.CREATE,
+    entity: AuditEntity.FACE_ENROLLMENT,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} registrou consentimento LGPD de biometria de {{employeeName}} (hash: {{consentTextHash}})',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // PUNCH PIN - Fallback PIN no kiosk (Phase 5 — D-08 / D-11)
+  // ============================================================================
+
+  /** PIN de ponto definido ou alterado pelo funcionário/admin */
+  PUNCH_PIN_SET: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PUNCH_PIN,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} definiu/alterou o PIN de ponto de {{employeeName}}',
+  } satisfies AuditMessage,
+
+  /** PIN de ponto bloqueado após 5 tentativas inválidas (auto, sem userName) */
+  PUNCH_PIN_LOCKED: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PUNCH_PIN,
+    module: AuditModule.HR,
+    description:
+      'PIN de ponto de {{employeeName}} bloqueado após {{attempts}} tentativas',
+  } satisfies AuditMessage,
+
+  /** PIN de ponto desbloqueado manualmente por admin (gate hr.punch-devices.admin) */
+  PUNCH_PIN_UNLOCKED: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.PUNCH_PIN,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} desbloqueou manualmente o PIN de ponto de {{employeeName}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
   // HR TENANT CONFIG - Configuração geral de RH
   // ============================================================================
 

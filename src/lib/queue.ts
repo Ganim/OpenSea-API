@@ -305,6 +305,11 @@ export const QUEUE_NAMES = {
   // by punchEventsQueueBridge so heavy handlers (payroll calc, timebank
   // recompute, eSocial batching) can run out-of-process in later phases.
   PUNCH_EVENTS: 'punch-events',
+  // Phase 5 (kiosk + QR + face match):
+  // - QR_BATCH: rotação de tokens QR em massa (50+ funcionários, chunks de 100)
+  // - BADGE_PDF: geração de crachás PDF (individual síncrono <2s, lote async A4 8-up)
+  QR_BATCH: 'qr-batch-operations',
+  BADGE_PDF: 'badge-pdf-generation',
 } as const;
 
 export type QueueName = (typeof QUEUE_NAMES)[keyof typeof QUEUE_NAMES];

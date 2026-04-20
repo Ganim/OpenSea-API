@@ -17,6 +17,11 @@ export const PUNCH_EVENTS = {
   APPROVAL_RESOLVED: 'punch.approval.resolved',
   DEVICE_PAIRED: 'punch.device.paired',
   DEVICE_REVOKED: 'punch.device.revoked',
+  // Phase 5 additions (kiosk + QR + face match)
+  PIN_LOCKED: 'punch.pin.locked',
+  QR_ROTATED: 'punch.qr.rotated',
+  QR_ROTATION_COMPLETED: 'punch.qr.rotation.completed',
+  FACE_MATCH_FAILED: 'punch.face_match.failed',
 } as const;
 
 export type PunchEventType = (typeof PUNCH_EVENTS)[keyof typeof PUNCH_EVENTS];
@@ -73,4 +78,75 @@ export interface PunchDeviceRevokedData {
   deviceName: string;
   revokedByUserId: string;
   reason?: string;
+}
+
+// ─── Phase 5 Event Data Interfaces ───────────────────────────────────────────
+
+/**
+ * Emitted when an employee's PIN of ponto is locked after 5 consecutive
+ * failed attempts (D-11). Triggers `punch.pin_locked` notification to all
+ * users with `hr.punch-devices.admin` permission so they can intervene.
+ *
+ * Body intentionally omits the PIN value and per-attempt details (T-PIN-02:
+ * information-disclosure mitigation — do not aid offline brute-force).
+ */
+export interface PunchPinLockedData {
+  employeeId: string;
+  tenantId: string;
+  employeeName: string;
+  /** ISO 8601 timestamp until which the PIN is locked. */
+  lockedUntil: string;
+  /** How many consecutive failed attempts triggered the lockout. */
+  failedAttempts: number;
+}
+
+/**
+ * Emitted by the individual QR rotation use case (D-14 single rotation).
+ * Audit-friendly trail of who rotated whose QR token and when. Does NOT
+ * trigger a notification by itself (D-14 individual flow is sync; the admin
+ * already saw the result inline).
+ */
+export interface PunchQrRotatedData {
+  employeeId: string;
+  tenantId: string;
+  rotatedByUserId: string;
+  /** ISO 8601 timestamp of the rotation. */
+  rotatedAt: string;
+}
+
+/**
+ * Emitted by the bulk QR rotation worker after all chunks finish (D-14 bulk
+ * rotation, BullMQ job in `QUEUE_NAMES.QR_BATCH`). Triggers
+ * `punch.qr_rotation.completed` notification to the invoking admin (and to
+ * `hr.punch-devices.admin` broadcast when `processed > 50` — bulk-volume
+ * gate to avoid noise on small rotations, T-QR-01 mitigation).
+ */
+export interface PunchQrRotationCompletedData {
+  jobId: string;
+  tenantId: string;
+  invokedByUserId: string;
+  processed: number;
+  total: number;
+  generatedPdfs: boolean;
+  /** Pre-signed S3 URL of consolidated PDF, when `generatedPdfs === true`. */
+  bulkPdfDownloadUrl: string | null;
+}
+
+/**
+ * Emitted when a kiosk face-match call falls below the configured threshold
+ * (D-01 / D-03). The TimeEntry is still recorded (D-12 always-write rule);
+ * a PunchApproval row is created with reason FACE_MATCH_LOW for manager
+ * review. This event lets future antifraude consumers (Phase 9) accumulate
+ * statistics without blocking the kiosk flow.
+ */
+export interface PunchFaceMatchFailedData {
+  timeEntryId: string;
+  employeeId: string;
+  tenantId: string;
+  /** Min euclidean distance achieved across all enrollments (lower = closer). */
+  distance: number;
+  /** Threshold in effect at evaluation time (PunchConfiguration.faceMatchThreshold). */
+  threshold: number;
+  /** How many cadastrais embeddings the employee has registered. */
+  enrollmentCount: number;
 }
