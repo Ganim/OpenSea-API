@@ -429,6 +429,8 @@ export const ModelName = {
   PunchDeviceDepartment: 'PunchDeviceDepartment',
   PunchApproval: 'PunchApproval',
   EmployeeFaceEnrollment: 'EmployeeFaceEnrollment',
+  ComplianceArtifact: 'ComplianceArtifact',
+  ComplianceVerifyLog: 'ComplianceVerifyLog',
   PosPrinter: 'PosPrinter',
   PrintJob: 'PrintJob',
   FocusNfeConfig: 'FocusNfeConfig',
@@ -2222,6 +2224,9 @@ export const TimeEntryScalarFieldEnum = {
   photoUrl: 'photoUrl',
   requestId: 'requestId',
   metadata: 'metadata',
+  originNsrNumber: 'originNsrNumber',
+  adjustmentType: 'adjustmentType',
+  receiptVerifyHash: 'receiptVerifyHash',
   createdAt: 'createdAt'
 } as const
 
@@ -8099,6 +8104,39 @@ export const EmployeeFaceEnrollmentScalarFieldEnum = {
 } as const
 
 export type EmployeeFaceEnrollmentScalarFieldEnum = (typeof EmployeeFaceEnrollmentScalarFieldEnum)[keyof typeof EmployeeFaceEnrollmentScalarFieldEnum]
+
+
+export const ComplianceArtifactScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  type: 'type',
+  periodStart: 'periodStart',
+  periodEnd: 'periodEnd',
+  competencia: 'competencia',
+  filters: 'filters',
+  storageKey: 'storageKey',
+  contentHash: 'contentHash',
+  sizeBytes: 'sizeBytes',
+  generatedBy: 'generatedBy',
+  generatedAt: 'generatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ComplianceArtifactScalarFieldEnum = (typeof ComplianceArtifactScalarFieldEnum)[keyof typeof ComplianceArtifactScalarFieldEnum]
+
+
+export const ComplianceVerifyLogScalarFieldEnum = {
+  id: 'id',
+  nsrHash: 'nsrHash',
+  tenantId: 'tenantId',
+  timeEntryId: 'timeEntryId',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  accessedAt: 'accessedAt',
+  hitResult: 'hitResult'
+} as const
+
+export type ComplianceVerifyLogScalarFieldEnum = (typeof ComplianceVerifyLogScalarFieldEnum)[keyof typeof ComplianceVerifyLogScalarFieldEnum]
 
 
 export const PosPrinterScalarFieldEnum = {

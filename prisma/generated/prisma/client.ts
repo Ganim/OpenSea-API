@@ -1932,6 +1932,16 @@ export type PunchApproval = Prisma.PunchApprovalModel
  */
 export type EmployeeFaceEnrollment = Prisma.EmployeeFaceEnrollmentModel
 /**
+ * Model ComplianceArtifact
+ * 
+ */
+export type ComplianceArtifact = Prisma.ComplianceArtifactModel
+/**
+ * Model ComplianceVerifyLog
+ * 
+ */
+export type ComplianceVerifyLog = Prisma.ComplianceVerifyLogModel
+/**
  * Model PosPrinter
  * 
  */

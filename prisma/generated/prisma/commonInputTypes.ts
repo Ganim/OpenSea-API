@@ -1442,6 +1442,13 @@ export type EnumTimeEntryTypeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumTimeEntryTypeFilter<$PrismaModel> | $Enums.TimeEntryType
 }
 
+export type EnumAdjustmentTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.AdjustmentType | Prisma.EnumAdjustmentTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.AdjustmentType[] | Prisma.ListEnumAdjustmentTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AdjustmentType[] | Prisma.ListEnumAdjustmentTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAdjustmentTypeFilter<$PrismaModel> | $Enums.AdjustmentType
+}
+
 export type EnumTimeEntryTypeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.TimeEntryType | Prisma.EnumTimeEntryTypeFieldRefInput<$PrismaModel>
   in?: $Enums.TimeEntryType[] | Prisma.ListEnumTimeEntryTypeFieldRefInput<$PrismaModel>
@@ -1450,6 +1457,16 @@ export type EnumTimeEntryTypeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumTimeEntryTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumTimeEntryTypeFilter<$PrismaModel>
+}
+
+export type EnumAdjustmentTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AdjustmentType | Prisma.EnumAdjustmentTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.AdjustmentType[] | Prisma.ListEnumAdjustmentTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AdjustmentType[] | Prisma.ListEnumAdjustmentTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAdjustmentTypeWithAggregatesFilter<$PrismaModel> | $Enums.AdjustmentType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAdjustmentTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAdjustmentTypeFilter<$PrismaModel>
 }
 
 export type EnumAbsenceTypeFilter<$PrismaModel = never> = {
@@ -5627,6 +5644,23 @@ export type EnumPunchApprovalStatusWithAggregatesFilter<$PrismaModel = never> = 
   _max?: Prisma.NestedEnumPunchApprovalStatusFilter<$PrismaModel>
 }
 
+export type EnumComplianceArtifactTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ComplianceArtifactType | Prisma.EnumComplianceArtifactTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ComplianceArtifactType[] | Prisma.ListEnumComplianceArtifactTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ComplianceArtifactType[] | Prisma.ListEnumComplianceArtifactTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumComplianceArtifactTypeFilter<$PrismaModel> | $Enums.ComplianceArtifactType
+}
+
+export type EnumComplianceArtifactTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ComplianceArtifactType | Prisma.EnumComplianceArtifactTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ComplianceArtifactType[] | Prisma.ListEnumComplianceArtifactTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ComplianceArtifactType[] | Prisma.ListEnumComplianceArtifactTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumComplianceArtifactTypeWithAggregatesFilter<$PrismaModel> | $Enums.ComplianceArtifactType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumComplianceArtifactTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumComplianceArtifactTypeFilter<$PrismaModel>
+}
+
 export type EnumPrinterTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.PrinterType | Prisma.EnumPrinterTypeFieldRefInput<$PrismaModel>
   in?: $Enums.PrinterType[] | Prisma.ListEnumPrinterTypeFieldRefInput<$PrismaModel>
@@ -7275,6 +7309,13 @@ export type NestedEnumTimeEntryTypeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumTimeEntryTypeFilter<$PrismaModel> | $Enums.TimeEntryType
 }
 
+export type NestedEnumAdjustmentTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.AdjustmentType | Prisma.EnumAdjustmentTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.AdjustmentType[] | Prisma.ListEnumAdjustmentTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AdjustmentType[] | Prisma.ListEnumAdjustmentTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAdjustmentTypeFilter<$PrismaModel> | $Enums.AdjustmentType
+}
+
 export type NestedEnumTimeEntryTypeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.TimeEntryType | Prisma.EnumTimeEntryTypeFieldRefInput<$PrismaModel>
   in?: $Enums.TimeEntryType[] | Prisma.ListEnumTimeEntryTypeFieldRefInput<$PrismaModel>
@@ -7283,6 +7324,16 @@ export type NestedEnumTimeEntryTypeWithAggregatesFilter<$PrismaModel = never> = 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumTimeEntryTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumTimeEntryTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumAdjustmentTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AdjustmentType | Prisma.EnumAdjustmentTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.AdjustmentType[] | Prisma.ListEnumAdjustmentTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AdjustmentType[] | Prisma.ListEnumAdjustmentTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAdjustmentTypeWithAggregatesFilter<$PrismaModel> | $Enums.AdjustmentType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAdjustmentTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAdjustmentTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumAbsenceTypeFilter<$PrismaModel = never> = {
@@ -11447,6 +11498,23 @@ export type NestedEnumPunchApprovalStatusWithAggregatesFilter<$PrismaModel = nev
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumPunchApprovalStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumPunchApprovalStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumComplianceArtifactTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ComplianceArtifactType | Prisma.EnumComplianceArtifactTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ComplianceArtifactType[] | Prisma.ListEnumComplianceArtifactTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ComplianceArtifactType[] | Prisma.ListEnumComplianceArtifactTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumComplianceArtifactTypeFilter<$PrismaModel> | $Enums.ComplianceArtifactType
+}
+
+export type NestedEnumComplianceArtifactTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ComplianceArtifactType | Prisma.EnumComplianceArtifactTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ComplianceArtifactType[] | Prisma.ListEnumComplianceArtifactTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ComplianceArtifactType[] | Prisma.ListEnumComplianceArtifactTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumComplianceArtifactTypeWithAggregatesFilter<$PrismaModel> | $Enums.ComplianceArtifactType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumComplianceArtifactTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumComplianceArtifactTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumPrinterTypeFilter<$PrismaModel = never> = {

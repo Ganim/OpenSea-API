@@ -30,12 +30,14 @@ export type TimeEntryAvgAggregateOutputType = {
   latitude: runtime.Decimal | null
   longitude: runtime.Decimal | null
   nsrNumber: number | null
+  originNsrNumber: number | null
 }
 
 export type TimeEntrySumAggregateOutputType = {
   latitude: runtime.Decimal | null
   longitude: runtime.Decimal | null
   nsrNumber: number | null
+  originNsrNumber: number | null
 }
 
 export type TimeEntryMinAggregateOutputType = {
@@ -55,6 +57,9 @@ export type TimeEntryMinAggregateOutputType = {
   deviceFingerprint: string | null
   photoUrl: string | null
   requestId: string | null
+  originNsrNumber: number | null
+  adjustmentType: $Enums.AdjustmentType | null
+  receiptVerifyHash: string | null
   createdAt: Date | null
 }
 
@@ -75,6 +80,9 @@ export type TimeEntryMaxAggregateOutputType = {
   deviceFingerprint: string | null
   photoUrl: string | null
   requestId: string | null
+  originNsrNumber: number | null
+  adjustmentType: $Enums.AdjustmentType | null
+  receiptVerifyHash: string | null
   createdAt: Date | null
 }
 
@@ -96,6 +104,9 @@ export type TimeEntryCountAggregateOutputType = {
   photoUrl: number
   requestId: number
   metadata: number
+  originNsrNumber: number
+  adjustmentType: number
+  receiptVerifyHash: number
   createdAt: number
   _all: number
 }
@@ -105,12 +116,14 @@ export type TimeEntryAvgAggregateInputType = {
   latitude?: true
   longitude?: true
   nsrNumber?: true
+  originNsrNumber?: true
 }
 
 export type TimeEntrySumAggregateInputType = {
   latitude?: true
   longitude?: true
   nsrNumber?: true
+  originNsrNumber?: true
 }
 
 export type TimeEntryMinAggregateInputType = {
@@ -130,6 +143,9 @@ export type TimeEntryMinAggregateInputType = {
   deviceFingerprint?: true
   photoUrl?: true
   requestId?: true
+  originNsrNumber?: true
+  adjustmentType?: true
+  receiptVerifyHash?: true
   createdAt?: true
 }
 
@@ -150,6 +166,9 @@ export type TimeEntryMaxAggregateInputType = {
   deviceFingerprint?: true
   photoUrl?: true
   requestId?: true
+  originNsrNumber?: true
+  adjustmentType?: true
+  receiptVerifyHash?: true
   createdAt?: true
 }
 
@@ -171,6 +190,9 @@ export type TimeEntryCountAggregateInputType = {
   photoUrl?: true
   requestId?: true
   metadata?: true
+  originNsrNumber?: true
+  adjustmentType?: true
+  receiptVerifyHash?: true
   createdAt?: true
   _all?: true
 }
@@ -279,6 +301,9 @@ export type TimeEntryGroupByOutputType = {
   photoUrl: string | null
   requestId: string | null
   metadata: runtime.JsonValue | null
+  originNsrNumber: number | null
+  adjustmentType: $Enums.AdjustmentType
+  receiptVerifyHash: string | null
   createdAt: Date
   _count: TimeEntryCountAggregateOutputType | null
   _avg: TimeEntryAvgAggregateOutputType | null
@@ -323,6 +348,9 @@ export type TimeEntryWhereInput = {
   photoUrl?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   requestId?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   metadata?: Prisma.JsonNullableFilter<"TimeEntry">
+  originNsrNumber?: Prisma.IntNullableFilter<"TimeEntry"> | number | null
+  adjustmentType?: Prisma.EnumAdjustmentTypeFilter<"TimeEntry"> | $Enums.AdjustmentType
+  receiptVerifyHash?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TimeEntry"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
@@ -347,6 +375,9 @@ export type TimeEntryOrderByWithRelationInput = {
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   requestId?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
+  originNsrNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  adjustmentType?: Prisma.SortOrder
+  receiptVerifyHash?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   employee?: Prisma.EmployeeOrderByWithRelationInput
@@ -355,6 +386,7 @@ export type TimeEntryOrderByWithRelationInput = {
 
 export type TimeEntryWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  receiptVerifyHash?: string
   time_entries_tenant_nsr_unique?: Prisma.TimeEntryTime_entries_tenant_nsr_uniqueCompoundUniqueInput
   time_entries_idempotency_unique?: Prisma.TimeEntryTime_entries_idempotency_uniqueCompoundUniqueInput
   AND?: Prisma.TimeEntryWhereInput | Prisma.TimeEntryWhereInput[]
@@ -376,11 +408,13 @@ export type TimeEntryWhereUniqueInput = Prisma.AtLeast<{
   photoUrl?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   requestId?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   metadata?: Prisma.JsonNullableFilter<"TimeEntry">
+  originNsrNumber?: Prisma.IntNullableFilter<"TimeEntry"> | number | null
+  adjustmentType?: Prisma.EnumAdjustmentTypeFilter<"TimeEntry"> | $Enums.AdjustmentType
   createdAt?: Prisma.DateTimeFilter<"TimeEntry"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
   punchApproval?: Prisma.XOR<Prisma.PunchApprovalNullableScalarRelationFilter, Prisma.PunchApprovalWhereInput> | null
-}, "id" | "time_entries_tenant_nsr_unique" | "time_entries_idempotency_unique">
+}, "id" | "receiptVerifyHash" | "time_entries_tenant_nsr_unique" | "time_entries_idempotency_unique">
 
 export type TimeEntryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -400,6 +434,9 @@ export type TimeEntryOrderByWithAggregationInput = {
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   requestId?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
+  originNsrNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  adjustmentType?: Prisma.SortOrder
+  receiptVerifyHash?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.TimeEntryCountOrderByAggregateInput
   _avg?: Prisma.TimeEntryAvgOrderByAggregateInput
@@ -429,6 +466,9 @@ export type TimeEntryScalarWhereWithAggregatesInput = {
   photoUrl?: Prisma.StringNullableWithAggregatesFilter<"TimeEntry"> | string | null
   requestId?: Prisma.StringNullableWithAggregatesFilter<"TimeEntry"> | string | null
   metadata?: Prisma.JsonNullableWithAggregatesFilter<"TimeEntry">
+  originNsrNumber?: Prisma.IntNullableWithAggregatesFilter<"TimeEntry"> | number | null
+  adjustmentType?: Prisma.EnumAdjustmentTypeWithAggregatesFilter<"TimeEntry"> | $Enums.AdjustmentType
+  receiptVerifyHash?: Prisma.StringNullableWithAggregatesFilter<"TimeEntry"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TimeEntry"> | Date | string
 }
 
@@ -448,6 +488,9 @@ export type TimeEntryCreateInput = {
   photoUrl?: string | null
   requestId?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: number | null
+  adjustmentType?: $Enums.AdjustmentType
+  receiptVerifyHash?: string | null
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTimeEntriesInput
   employee: Prisma.EmployeeCreateNestedOneWithoutTimeEntriesInput
@@ -472,6 +515,9 @@ export type TimeEntryUncheckedCreateInput = {
   photoUrl?: string | null
   requestId?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: number | null
+  adjustmentType?: $Enums.AdjustmentType
+  receiptVerifyHash?: string | null
   createdAt?: Date | string
   punchApproval?: Prisma.PunchApprovalUncheckedCreateNestedOneWithoutTimeEntryInput
 }
@@ -492,6 +538,9 @@ export type TimeEntryUpdateInput = {
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  adjustmentType?: Prisma.EnumAdjustmentTypeFieldUpdateOperationsInput | $Enums.AdjustmentType
+  receiptVerifyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTimeEntriesNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutTimeEntriesNestedInput
@@ -516,6 +565,9 @@ export type TimeEntryUncheckedUpdateInput = {
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  adjustmentType?: Prisma.EnumAdjustmentTypeFieldUpdateOperationsInput | $Enums.AdjustmentType
+  receiptVerifyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   punchApproval?: Prisma.PunchApprovalUncheckedUpdateOneWithoutTimeEntryNestedInput
 }
@@ -538,6 +590,9 @@ export type TimeEntryCreateManyInput = {
   photoUrl?: string | null
   requestId?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: number | null
+  adjustmentType?: $Enums.AdjustmentType
+  receiptVerifyHash?: string | null
   createdAt?: Date | string
 }
 
@@ -557,6 +612,9 @@ export type TimeEntryUpdateManyMutationInput = {
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  adjustmentType?: Prisma.EnumAdjustmentTypeFieldUpdateOperationsInput | $Enums.AdjustmentType
+  receiptVerifyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -578,6 +636,9 @@ export type TimeEntryUncheckedUpdateManyInput = {
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  adjustmentType?: Prisma.EnumAdjustmentTypeFieldUpdateOperationsInput | $Enums.AdjustmentType
+  receiptVerifyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -620,6 +681,9 @@ export type TimeEntryCountOrderByAggregateInput = {
   photoUrl?: Prisma.SortOrder
   requestId?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
+  originNsrNumber?: Prisma.SortOrder
+  adjustmentType?: Prisma.SortOrder
+  receiptVerifyHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -627,6 +691,7 @@ export type TimeEntryAvgOrderByAggregateInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   nsrNumber?: Prisma.SortOrder
+  originNsrNumber?: Prisma.SortOrder
 }
 
 export type TimeEntryMaxOrderByAggregateInput = {
@@ -646,6 +711,9 @@ export type TimeEntryMaxOrderByAggregateInput = {
   deviceFingerprint?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
   requestId?: Prisma.SortOrder
+  originNsrNumber?: Prisma.SortOrder
+  adjustmentType?: Prisma.SortOrder
+  receiptVerifyHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -666,6 +734,9 @@ export type TimeEntryMinOrderByAggregateInput = {
   deviceFingerprint?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
   requestId?: Prisma.SortOrder
+  originNsrNumber?: Prisma.SortOrder
+  adjustmentType?: Prisma.SortOrder
+  receiptVerifyHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -673,6 +744,7 @@ export type TimeEntrySumOrderByAggregateInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   nsrNumber?: Prisma.SortOrder
+  originNsrNumber?: Prisma.SortOrder
 }
 
 export type TimeEntryScalarRelationFilter = {
@@ -724,6 +796,10 @@ export type TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput = {
 
 export type EnumTimeEntryTypeFieldUpdateOperationsInput = {
   set?: $Enums.TimeEntryType
+}
+
+export type EnumAdjustmentTypeFieldUpdateOperationsInput = {
+  set?: $Enums.AdjustmentType
 }
 
 export type TimeEntryCreateNestedManyWithoutTenantInput = {
@@ -798,6 +874,9 @@ export type TimeEntryCreateWithoutEmployeeInput = {
   photoUrl?: string | null
   requestId?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: number | null
+  adjustmentType?: $Enums.AdjustmentType
+  receiptVerifyHash?: string | null
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTimeEntriesInput
   punchApproval?: Prisma.PunchApprovalCreateNestedOneWithoutTimeEntryInput
@@ -820,6 +899,9 @@ export type TimeEntryUncheckedCreateWithoutEmployeeInput = {
   photoUrl?: string | null
   requestId?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: number | null
+  adjustmentType?: $Enums.AdjustmentType
+  receiptVerifyHash?: string | null
   createdAt?: Date | string
   punchApproval?: Prisma.PunchApprovalUncheckedCreateNestedOneWithoutTimeEntryInput
 }
@@ -871,6 +953,9 @@ export type TimeEntryScalarWhereInput = {
   photoUrl?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   requestId?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   metadata?: Prisma.JsonNullableFilter<"TimeEntry">
+  originNsrNumber?: Prisma.IntNullableFilter<"TimeEntry"> | number | null
+  adjustmentType?: Prisma.EnumAdjustmentTypeFilter<"TimeEntry"> | $Enums.AdjustmentType
+  receiptVerifyHash?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TimeEntry"> | Date | string
 }
 
@@ -890,6 +975,9 @@ export type TimeEntryCreateWithoutTenantInput = {
   photoUrl?: string | null
   requestId?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: number | null
+  adjustmentType?: $Enums.AdjustmentType
+  receiptVerifyHash?: string | null
   createdAt?: Date | string
   employee: Prisma.EmployeeCreateNestedOneWithoutTimeEntriesInput
   punchApproval?: Prisma.PunchApprovalCreateNestedOneWithoutTimeEntryInput
@@ -912,6 +1000,9 @@ export type TimeEntryUncheckedCreateWithoutTenantInput = {
   photoUrl?: string | null
   requestId?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: number | null
+  adjustmentType?: $Enums.AdjustmentType
+  receiptVerifyHash?: string | null
   createdAt?: Date | string
   punchApproval?: Prisma.PunchApprovalUncheckedCreateNestedOneWithoutTimeEntryInput
 }
@@ -958,6 +1049,9 @@ export type TimeEntryCreateWithoutPunchApprovalInput = {
   photoUrl?: string | null
   requestId?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: number | null
+  adjustmentType?: $Enums.AdjustmentType
+  receiptVerifyHash?: string | null
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTimeEntriesInput
   employee: Prisma.EmployeeCreateNestedOneWithoutTimeEntriesInput
@@ -981,6 +1075,9 @@ export type TimeEntryUncheckedCreateWithoutPunchApprovalInput = {
   photoUrl?: string | null
   requestId?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: number | null
+  adjustmentType?: $Enums.AdjustmentType
+  receiptVerifyHash?: string | null
   createdAt?: Date | string
 }
 
@@ -1016,6 +1113,9 @@ export type TimeEntryUpdateWithoutPunchApprovalInput = {
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  adjustmentType?: Prisma.EnumAdjustmentTypeFieldUpdateOperationsInput | $Enums.AdjustmentType
+  receiptVerifyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTimeEntriesNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutTimeEntriesNestedInput
@@ -1039,6 +1139,9 @@ export type TimeEntryUncheckedUpdateWithoutPunchApprovalInput = {
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  adjustmentType?: Prisma.EnumAdjustmentTypeFieldUpdateOperationsInput | $Enums.AdjustmentType
+  receiptVerifyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1059,6 +1162,9 @@ export type TimeEntryCreateManyEmployeeInput = {
   photoUrl?: string | null
   requestId?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: number | null
+  adjustmentType?: $Enums.AdjustmentType
+  receiptVerifyHash?: string | null
   createdAt?: Date | string
 }
 
@@ -1078,6 +1184,9 @@ export type TimeEntryUpdateWithoutEmployeeInput = {
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  adjustmentType?: Prisma.EnumAdjustmentTypeFieldUpdateOperationsInput | $Enums.AdjustmentType
+  receiptVerifyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTimeEntriesNestedInput
   punchApproval?: Prisma.PunchApprovalUpdateOneWithoutTimeEntryNestedInput
@@ -1100,6 +1209,9 @@ export type TimeEntryUncheckedUpdateWithoutEmployeeInput = {
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  adjustmentType?: Prisma.EnumAdjustmentTypeFieldUpdateOperationsInput | $Enums.AdjustmentType
+  receiptVerifyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   punchApproval?: Prisma.PunchApprovalUncheckedUpdateOneWithoutTimeEntryNestedInput
 }
@@ -1121,6 +1233,9 @@ export type TimeEntryUncheckedUpdateManyWithoutEmployeeInput = {
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  adjustmentType?: Prisma.EnumAdjustmentTypeFieldUpdateOperationsInput | $Enums.AdjustmentType
+  receiptVerifyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1141,6 +1256,9 @@ export type TimeEntryCreateManyTenantInput = {
   photoUrl?: string | null
   requestId?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: number | null
+  adjustmentType?: $Enums.AdjustmentType
+  receiptVerifyHash?: string | null
   createdAt?: Date | string
 }
 
@@ -1160,6 +1278,9 @@ export type TimeEntryUpdateWithoutTenantInput = {
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  adjustmentType?: Prisma.EnumAdjustmentTypeFieldUpdateOperationsInput | $Enums.AdjustmentType
+  receiptVerifyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutTimeEntriesNestedInput
   punchApproval?: Prisma.PunchApprovalUpdateOneWithoutTimeEntryNestedInput
@@ -1182,6 +1303,9 @@ export type TimeEntryUncheckedUpdateWithoutTenantInput = {
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  adjustmentType?: Prisma.EnumAdjustmentTypeFieldUpdateOperationsInput | $Enums.AdjustmentType
+  receiptVerifyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   punchApproval?: Prisma.PunchApprovalUncheckedUpdateOneWithoutTimeEntryNestedInput
 }
@@ -1203,6 +1327,9 @@ export type TimeEntryUncheckedUpdateManyWithoutTenantInput = {
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  originNsrNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  adjustmentType?: Prisma.EnumAdjustmentTypeFieldUpdateOperationsInput | $Enums.AdjustmentType
+  receiptVerifyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1226,6 +1353,9 @@ export type TimeEntrySelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   photoUrl?: boolean
   requestId?: boolean
   metadata?: boolean
+  originNsrNumber?: boolean
+  adjustmentType?: boolean
+  receiptVerifyHash?: boolean
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
@@ -1250,6 +1380,9 @@ export type TimeEntrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   photoUrl?: boolean
   requestId?: boolean
   metadata?: boolean
+  originNsrNumber?: boolean
+  adjustmentType?: boolean
+  receiptVerifyHash?: boolean
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
@@ -1273,6 +1406,9 @@ export type TimeEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   photoUrl?: boolean
   requestId?: boolean
   metadata?: boolean
+  originNsrNumber?: boolean
+  adjustmentType?: boolean
+  receiptVerifyHash?: boolean
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
@@ -1296,10 +1432,13 @@ export type TimeEntrySelectScalar = {
   photoUrl?: boolean
   requestId?: boolean
   metadata?: boolean
+  originNsrNumber?: boolean
+  adjustmentType?: boolean
+  receiptVerifyHash?: boolean
   createdAt?: boolean
 }
 
-export type TimeEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "entryType" | "timestamp" | "latitude" | "longitude" | "ipAddress" | "notes" | "nsrNumber" | "deviceType" | "receiptGenerated" | "receiptUrl" | "deviceFingerprint" | "photoUrl" | "requestId" | "metadata" | "createdAt", ExtArgs["result"]["timeEntry"]>
+export type TimeEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "entryType" | "timestamp" | "latitude" | "longitude" | "ipAddress" | "notes" | "nsrNumber" | "deviceType" | "receiptGenerated" | "receiptUrl" | "deviceFingerprint" | "photoUrl" | "requestId" | "metadata" | "originNsrNumber" | "adjustmentType" | "receiptVerifyHash" | "createdAt", ExtArgs["result"]["timeEntry"]>
 export type TimeEntryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
@@ -1339,6 +1478,9 @@ export type $TimeEntryPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     photoUrl: string | null
     requestId: string | null
     metadata: runtime.JsonValue | null
+    originNsrNumber: number | null
+    adjustmentType: $Enums.AdjustmentType
+    receiptVerifyHash: string | null
     createdAt: Date
   }, ExtArgs["result"]["timeEntry"]>
   composites: {}
@@ -1783,6 +1925,9 @@ export interface TimeEntryFieldRefs {
   readonly photoUrl: Prisma.FieldRef<"TimeEntry", 'String'>
   readonly requestId: Prisma.FieldRef<"TimeEntry", 'String'>
   readonly metadata: Prisma.FieldRef<"TimeEntry", 'Json'>
+  readonly originNsrNumber: Prisma.FieldRef<"TimeEntry", 'Int'>
+  readonly adjustmentType: Prisma.FieldRef<"TimeEntry", 'AdjustmentType'>
+  readonly receiptVerifyHash: Prisma.FieldRef<"TimeEntry", 'String'>
   readonly createdAt: Prisma.FieldRef<"TimeEntry", 'DateTime'>
 }
     

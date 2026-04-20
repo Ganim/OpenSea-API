@@ -747,6 +747,7 @@ export const AuditEntity = {
   FACE_ENROLLMENT: 'FACE_ENROLLMENT',
   PUNCH_PIN: 'PUNCH_PIN',
   PUNCH_QR_TOKEN: 'PUNCH_QR_TOKEN',
+  COMPLIANCE_ARTIFACT: 'COMPLIANCE_ARTIFACT',
   ABSENCE: 'ABSENCE',
   VACATION_PERIOD: 'VACATION_PERIOD',
   VACATION_BALANCE: 'VACATION_BALANCE',
@@ -3725,6 +3726,25 @@ export const PunchApprovalStatus = {
 } as const
 
 export type PunchApprovalStatus = (typeof PunchApprovalStatus)[keyof typeof PunchApprovalStatus]
+
+
+export const ComplianceArtifactType = {
+  AFD: 'AFD',
+  AFDT: 'AFDT',
+  FOLHA_ESPELHO: 'FOLHA_ESPELHO',
+  RECIBO: 'RECIBO',
+  S1200_XML: 'S1200_XML'
+} as const
+
+export type ComplianceArtifactType = (typeof ComplianceArtifactType)[keyof typeof ComplianceArtifactType]
+
+
+export const AdjustmentType = {
+  ORIGINAL: 'ORIGINAL',
+  ADJUSTMENT_APPROVED: 'ADJUSTMENT_APPROVED'
+} as const
+
+export type AdjustmentType = (typeof AdjustmentType)[keyof typeof AdjustmentType]
 
 
 export const ProductionOrderStatus = {
