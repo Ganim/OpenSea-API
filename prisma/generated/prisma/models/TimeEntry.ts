@@ -95,6 +95,7 @@ export type TimeEntryCountAggregateOutputType = {
   deviceFingerprint: number
   photoUrl: number
   requestId: number
+  metadata: number
   createdAt: number
   _all: number
 }
@@ -169,6 +170,7 @@ export type TimeEntryCountAggregateInputType = {
   deviceFingerprint?: true
   photoUrl?: true
   requestId?: true
+  metadata?: true
   createdAt?: true
   _all?: true
 }
@@ -276,6 +278,7 @@ export type TimeEntryGroupByOutputType = {
   deviceFingerprint: string | null
   photoUrl: string | null
   requestId: string | null
+  metadata: runtime.JsonValue | null
   createdAt: Date
   _count: TimeEntryCountAggregateOutputType | null
   _avg: TimeEntryAvgAggregateOutputType | null
@@ -319,6 +322,7 @@ export type TimeEntryWhereInput = {
   deviceFingerprint?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   photoUrl?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   requestId?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
+  metadata?: Prisma.JsonNullableFilter<"TimeEntry">
   createdAt?: Prisma.DateTimeFilter<"TimeEntry"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
@@ -342,6 +346,7 @@ export type TimeEntryOrderByWithRelationInput = {
   deviceFingerprint?: Prisma.SortOrderInput | Prisma.SortOrder
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   requestId?: Prisma.SortOrderInput | Prisma.SortOrder
+  metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   employee?: Prisma.EmployeeOrderByWithRelationInput
@@ -370,6 +375,7 @@ export type TimeEntryWhereUniqueInput = Prisma.AtLeast<{
   deviceFingerprint?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   photoUrl?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   requestId?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
+  metadata?: Prisma.JsonNullableFilter<"TimeEntry">
   createdAt?: Prisma.DateTimeFilter<"TimeEntry"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
@@ -393,6 +399,7 @@ export type TimeEntryOrderByWithAggregationInput = {
   deviceFingerprint?: Prisma.SortOrderInput | Prisma.SortOrder
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   requestId?: Prisma.SortOrderInput | Prisma.SortOrder
+  metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.TimeEntryCountOrderByAggregateInput
   _avg?: Prisma.TimeEntryAvgOrderByAggregateInput
@@ -421,6 +428,7 @@ export type TimeEntryScalarWhereWithAggregatesInput = {
   deviceFingerprint?: Prisma.StringNullableWithAggregatesFilter<"TimeEntry"> | string | null
   photoUrl?: Prisma.StringNullableWithAggregatesFilter<"TimeEntry"> | string | null
   requestId?: Prisma.StringNullableWithAggregatesFilter<"TimeEntry"> | string | null
+  metadata?: Prisma.JsonNullableWithAggregatesFilter<"TimeEntry">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TimeEntry"> | Date | string
 }
 
@@ -439,6 +447,7 @@ export type TimeEntryCreateInput = {
   deviceFingerprint?: string | null
   photoUrl?: string | null
   requestId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTimeEntriesInput
   employee: Prisma.EmployeeCreateNestedOneWithoutTimeEntriesInput
@@ -462,6 +471,7 @@ export type TimeEntryUncheckedCreateInput = {
   deviceFingerprint?: string | null
   photoUrl?: string | null
   requestId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   punchApproval?: Prisma.PunchApprovalUncheckedCreateNestedOneWithoutTimeEntryInput
 }
@@ -481,6 +491,7 @@ export type TimeEntryUpdateInput = {
   deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTimeEntriesNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutTimeEntriesNestedInput
@@ -504,6 +515,7 @@ export type TimeEntryUncheckedUpdateInput = {
   deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   punchApproval?: Prisma.PunchApprovalUncheckedUpdateOneWithoutTimeEntryNestedInput
 }
@@ -525,6 +537,7 @@ export type TimeEntryCreateManyInput = {
   deviceFingerprint?: string | null
   photoUrl?: string | null
   requestId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
 
@@ -543,6 +556,7 @@ export type TimeEntryUpdateManyMutationInput = {
   deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -563,6 +577,7 @@ export type TimeEntryUncheckedUpdateManyInput = {
   deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -604,6 +619,7 @@ export type TimeEntryCountOrderByAggregateInput = {
   deviceFingerprint?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
   requestId?: Prisma.SortOrder
+  metadata?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -781,6 +797,7 @@ export type TimeEntryCreateWithoutEmployeeInput = {
   deviceFingerprint?: string | null
   photoUrl?: string | null
   requestId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTimeEntriesInput
   punchApproval?: Prisma.PunchApprovalCreateNestedOneWithoutTimeEntryInput
@@ -802,6 +819,7 @@ export type TimeEntryUncheckedCreateWithoutEmployeeInput = {
   deviceFingerprint?: string | null
   photoUrl?: string | null
   requestId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   punchApproval?: Prisma.PunchApprovalUncheckedCreateNestedOneWithoutTimeEntryInput
 }
@@ -852,6 +870,7 @@ export type TimeEntryScalarWhereInput = {
   deviceFingerprint?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   photoUrl?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
   requestId?: Prisma.StringNullableFilter<"TimeEntry"> | string | null
+  metadata?: Prisma.JsonNullableFilter<"TimeEntry">
   createdAt?: Prisma.DateTimeFilter<"TimeEntry"> | Date | string
 }
 
@@ -870,6 +889,7 @@ export type TimeEntryCreateWithoutTenantInput = {
   deviceFingerprint?: string | null
   photoUrl?: string | null
   requestId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   employee: Prisma.EmployeeCreateNestedOneWithoutTimeEntriesInput
   punchApproval?: Prisma.PunchApprovalCreateNestedOneWithoutTimeEntryInput
@@ -891,6 +911,7 @@ export type TimeEntryUncheckedCreateWithoutTenantInput = {
   deviceFingerprint?: string | null
   photoUrl?: string | null
   requestId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   punchApproval?: Prisma.PunchApprovalUncheckedCreateNestedOneWithoutTimeEntryInput
 }
@@ -936,6 +957,7 @@ export type TimeEntryCreateWithoutPunchApprovalInput = {
   deviceFingerprint?: string | null
   photoUrl?: string | null
   requestId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTimeEntriesInput
   employee: Prisma.EmployeeCreateNestedOneWithoutTimeEntriesInput
@@ -958,6 +980,7 @@ export type TimeEntryUncheckedCreateWithoutPunchApprovalInput = {
   deviceFingerprint?: string | null
   photoUrl?: string | null
   requestId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
 
@@ -992,6 +1015,7 @@ export type TimeEntryUpdateWithoutPunchApprovalInput = {
   deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTimeEntriesNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutTimeEntriesNestedInput
@@ -1014,6 +1038,7 @@ export type TimeEntryUncheckedUpdateWithoutPunchApprovalInput = {
   deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1033,6 +1058,7 @@ export type TimeEntryCreateManyEmployeeInput = {
   deviceFingerprint?: string | null
   photoUrl?: string | null
   requestId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
 
@@ -1051,6 +1077,7 @@ export type TimeEntryUpdateWithoutEmployeeInput = {
   deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTimeEntriesNestedInput
   punchApproval?: Prisma.PunchApprovalUpdateOneWithoutTimeEntryNestedInput
@@ -1072,6 +1099,7 @@ export type TimeEntryUncheckedUpdateWithoutEmployeeInput = {
   deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   punchApproval?: Prisma.PunchApprovalUncheckedUpdateOneWithoutTimeEntryNestedInput
 }
@@ -1092,6 +1120,7 @@ export type TimeEntryUncheckedUpdateManyWithoutEmployeeInput = {
   deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1111,6 +1140,7 @@ export type TimeEntryCreateManyTenantInput = {
   deviceFingerprint?: string | null
   photoUrl?: string | null
   requestId?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
 
@@ -1129,6 +1159,7 @@ export type TimeEntryUpdateWithoutTenantInput = {
   deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutTimeEntriesNestedInput
   punchApproval?: Prisma.PunchApprovalUpdateOneWithoutTimeEntryNestedInput
@@ -1150,6 +1181,7 @@ export type TimeEntryUncheckedUpdateWithoutTenantInput = {
   deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   punchApproval?: Prisma.PunchApprovalUncheckedUpdateOneWithoutTimeEntryNestedInput
 }
@@ -1170,6 +1202,7 @@ export type TimeEntryUncheckedUpdateManyWithoutTenantInput = {
   deviceFingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1192,6 +1225,7 @@ export type TimeEntrySelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   deviceFingerprint?: boolean
   photoUrl?: boolean
   requestId?: boolean
+  metadata?: boolean
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
@@ -1215,6 +1249,7 @@ export type TimeEntrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   deviceFingerprint?: boolean
   photoUrl?: boolean
   requestId?: boolean
+  metadata?: boolean
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
@@ -1237,6 +1272,7 @@ export type TimeEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   deviceFingerprint?: boolean
   photoUrl?: boolean
   requestId?: boolean
+  metadata?: boolean
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
@@ -1259,10 +1295,11 @@ export type TimeEntrySelectScalar = {
   deviceFingerprint?: boolean
   photoUrl?: boolean
   requestId?: boolean
+  metadata?: boolean
   createdAt?: boolean
 }
 
-export type TimeEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "entryType" | "timestamp" | "latitude" | "longitude" | "ipAddress" | "notes" | "nsrNumber" | "deviceType" | "receiptGenerated" | "receiptUrl" | "deviceFingerprint" | "photoUrl" | "requestId" | "createdAt", ExtArgs["result"]["timeEntry"]>
+export type TimeEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "entryType" | "timestamp" | "latitude" | "longitude" | "ipAddress" | "notes" | "nsrNumber" | "deviceType" | "receiptGenerated" | "receiptUrl" | "deviceFingerprint" | "photoUrl" | "requestId" | "metadata" | "createdAt", ExtArgs["result"]["timeEntry"]>
 export type TimeEntryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
@@ -1301,6 +1338,7 @@ export type $TimeEntryPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     deviceFingerprint: string | null
     photoUrl: string | null
     requestId: string | null
+    metadata: runtime.JsonValue | null
     createdAt: Date
   }, ExtArgs["result"]["timeEntry"]>
   composites: {}
@@ -1744,6 +1782,7 @@ export interface TimeEntryFieldRefs {
   readonly deviceFingerprint: Prisma.FieldRef<"TimeEntry", 'String'>
   readonly photoUrl: Prisma.FieldRef<"TimeEntry", 'String'>
   readonly requestId: Prisma.FieldRef<"TimeEntry", 'String'>
+  readonly metadata: Prisma.FieldRef<"TimeEntry", 'Json'>
   readonly createdAt: Prisma.FieldRef<"TimeEntry", 'DateTime'>
 }
     

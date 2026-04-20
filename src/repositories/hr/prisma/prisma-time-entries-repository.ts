@@ -29,6 +29,11 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
         notes: data.notes,
         nsrNumber: data.nsrNumber,
         requestId: data.requestId,
+        // Phase 5 (Plan 05-07 / D-04): audit-only kiosk signals (liveness, ...).
+        metadata:
+          data.metadata === undefined
+            ? undefined
+            : (data.metadata as Prisma.InputJsonValue | null),
       },
     });
 

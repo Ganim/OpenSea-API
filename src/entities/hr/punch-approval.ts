@@ -6,13 +6,14 @@ import { UniqueEntityID } from '../domain/unique-entity-id';
  * Motivos que forçam uma batida de ponto a cair em APPROVAL_REQUIRED
  * (gravada com NSR, mas com `PunchApproval` PENDING criada em paralelo).
  *
- * Começa com apenas `OUT_OF_GEOFENCE` na Fase 4. Fases futuras adicionam:
- * - `FACE_MATCH_LOW` (Fase 5 — biometria face-api.js)
- * - `FACE_MATCH_FAIL_3X` (Fase 9 — antifraude)
- * - `CLOCK_DRIFT` (Fase 9 — antifraude)
- * - `MANUAL_CORRECTION` (Fase 6 — compliance Portaria 671)
+ * - `OUT_OF_GEOFENCE` — Fase 4 (geofence fora do raio permitido).
+ * - `FACE_MATCH_LOW`  — Fase 5 / Plan 05-07 (biometria facial kiosk: menor
+ *                       distância euclidiana ≥ threshold configurado).
+ * Futuros: `FACE_MATCH_FAIL_3X` (Fase 9 — antifraude),
+ *          `CLOCK_DRIFT` (Fase 9 — antifraude),
+ *          `MANUAL_CORRECTION` (Fase 6 — compliance Portaria 671).
  */
-export type PunchApprovalReason = 'OUT_OF_GEOFENCE';
+export type PunchApprovalReason = 'OUT_OF_GEOFENCE' | 'FACE_MATCH_LOW';
 
 /**
  * Ciclo de vida de uma aprovação de ponto.

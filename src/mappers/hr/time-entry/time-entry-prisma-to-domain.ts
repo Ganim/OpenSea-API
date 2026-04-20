@@ -12,6 +12,12 @@ export function mapTimeEntryPrismaToDomain(timeEntry: PrismaTimeEntry) {
     longitude: timeEntry.longitude ? Number(timeEntry.longitude) : undefined,
     ipAddress: timeEntry.ipAddress ?? undefined,
     notes: timeEntry.notes ?? undefined,
+    // Phase 5 (Plan 05-07 / D-04): JSONB payload. Prisma returns it typed
+    // as `JsonValue | null`; we widen to our domain's opaque `Record<string, unknown>`
+    // (the wider type carries no invariants, so the widening is safe).
+    metadata:
+      (timeEntry.metadata as Record<string, unknown> | null | undefined) ??
+      null,
     createdAt: timeEntry.createdAt,
   };
 }

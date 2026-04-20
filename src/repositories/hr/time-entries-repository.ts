@@ -20,6 +20,12 @@ export interface CreateTimeEntrySchema {
    * than a duplicate punch.
    */
   requestId?: string;
+  /**
+   * Opaque audit payload (D-04 / Plan 05-07). Currently carries liveness
+   * metadata emitted by the kiosk. Persisted as-is; never queried back
+   * in Phase 5.
+   */
+  metadata?: Record<string, unknown> | null;
 }
 
 export interface FindTimeEntriesFilters {

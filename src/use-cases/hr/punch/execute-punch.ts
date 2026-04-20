@@ -1,8 +1,9 @@
-import { randomUUID } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 
 import { Prisma } from '@prisma/generated/client.js';
 
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { InvalidQRTokenError } from '@/@errors/use-cases/invalid-qr-token-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
@@ -21,7 +22,9 @@ import type { PunchApprovalsRepository } from '@/repositories/hr/punch-approvals
 import type { PunchConfigRepository } from '@/repositories/hr/punch-config-repository';
 import type { PunchDevicesRepository } from '@/repositories/hr/punch-devices-repository';
 import type { TimeEntriesRepository } from '@/repositories/hr/time-entries-repository';
+import type { VerifyPunchPinUseCase } from '@/use-cases/hr/punch-pin/verify-punch-pin';
 
+import type { PunchLivenessMetadata } from './validators/punch-validator.interface';
 import type { PunchValidationPipeline } from './validators/pipeline';
 
 export interface ExecutePunchRequest {
@@ -43,6 +46,27 @@ export interface ExecutePunchRequest {
    * `(tenantId, employeeId, requestId)` at the DB level (D-11).
    */
   requestId?: string;
+
+  // ─── Phase 5 kiosk additions (Plan 05-07) ──────────────────────────────
+  /**
+   * QR token scanned from the employee's crachá (D-15). 32-byte hex string.
+   * `resolveEmployeeId` hashes it with SHA-256 and calls
+   * `employeesRepo.findByQrTokenHash` to hydrate the funcionário.
+   */
+  qrToken?: string;
+  /** PIN fallback: the 6-digit PIN typed on the kiosk (D-08). */
+  pin?: string;
+  /** PIN fallback: the employee's matricula (used with `pin`) (D-08). */
+  matricula?: string;
+  /**
+   * 128-d face embedding extracted by the kiosk (`face-api.js`) and
+   * forwarded to the server for match. Absent on JWT / PWA paths. D-10
+   * requires it on every kiosk path (QR or PIN) — the validator enforces
+   * via `FaceEnrollmentRequiredError` when the employee has no enrollment.
+   */
+  faceEmbedding?: number[];
+  /** Kiosk-side liveness signals (D-04). Persisted to TimeEntry.metadata. */
+  liveness?: PunchLivenessMetadata;
 }
 
 export interface ExecutePunchApprovalCreated {
@@ -86,6 +110,13 @@ export class ExecutePunchUseCase {
     private readonly punchApprovalsRepo: PunchApprovalsRepository,
     private readonly punchConfigRepo: PunchConfigRepository,
     private readonly pipeline: PunchValidationPipeline,
+    /**
+     * Phase 5 (Plan 05-07): internal PIN verification use case, called from
+     * the kiosk pin+matricula branch. Optional — legacy call sites from
+     * Phase 4 that only use JWT / device-token paths can leave it unset
+     * and no PIN resolution will ever execute.
+     */
+    private readonly verifyPunchPinUseCase?: VerifyPunchPinUseCase,
   ) {}
 
   async execute(req: ExecutePunchRequest): Promise<ExecutePunchResponse> {
@@ -139,7 +170,13 @@ export class ExecutePunchUseCase {
             geofenceZoneId: punchDevice.geofenceZoneId?.toString() ?? null,
           }
         : undefined,
-      punchConfig: { geofenceEnabled: punchConfig?.geofenceEnabled ?? false },
+      punchConfig: {
+        geofenceEnabled: punchConfig?.geofenceEnabled ?? false,
+        faceMatchThreshold: punchConfig?.faceMatchThreshold,
+      },
+      // Phase 5 (Plan 05-07): kiosk-only signals — consumed by FaceMatchValidator.
+      faceEmbedding: req.faceEmbedding,
+      liveness: req.liveness,
     });
     if (pipelineResult.decision === 'REJECT') {
       throw new BadRequestError(pipelineResult.rejection.reason);
@@ -191,7 +228,7 @@ export class ExecutePunchUseCase {
           approvalId: a.id,
           timeEntryId: timeEntry.id.toString(),
           employeeId: resolvedEmployeeId,
-          reason: a.reason as 'OUT_OF_GEOFENCE',
+          reason: a.reason as 'OUT_OF_GEOFENCE' | 'FACE_MATCH_LOW',
           details: a.details,
         };
         await bus.publish({
@@ -219,15 +256,69 @@ export class ExecutePunchUseCase {
   /**
    * Authorization-aware employeeId resolution.
    *
-   * - JWT path: look up the employee tied to the JWT's userId. Reject if
-   *   `body.employeeId` contradicts the derived one (prevents a user
-   *   from punching for someone else by smuggling an id into the body).
-   * - Device-token path: `body.employeeId` is required; enforce the
-   *   device allowlist (direct employee link or department link).
-   *   Default-allow when the device has zero allowlist rows — migration
-   *   path for devices provisioned before allowlist UI exists.
+   * Branch precedence (Phase 5 / Plan 05-07):
+   *  1. QR token      — `qrToken` → sha256(token) → `findByQrTokenHash`.
+   *  2. PIN+matricula — `matricula` → `findByRegistrationNumber` +
+   *                     `verifyPunchPinUseCase` verifies the PIN.
+   *  3. JWT path (pre-existing): `invokingUserId` → `findByUserId`.
+   *  4. Device-token path (pre-existing): `employeeId` + allowlist.
+   *
+   * The kiosk auth branches (1 and 2) run FIRST because:
+   *   - They are cheaper (single indexed lookup for QR, one lookup + bcrypt
+   *     compare for PIN) than JWT derivation.
+   *   - They are the Phase 5 happy path; pushing them below the JWT branch
+   *     would waste a DB roundtrip for every kiosk batida.
+   *
+   * D-10 invariant: these branches identify the funcionário but DO NOT
+   * grant a batida. The downstream FaceMatchValidator still runs and
+   * throws FaceEnrollmentRequiredError when no enrollment exists —
+   * preserving the two-factor contract (PIN alone or QR alone never
+   * produce a punch).
    */
   private async resolveEmployeeId(req: ExecutePunchRequest): Promise<string> {
+    // Phase 5 (1) — QR token branch.
+    if (req.qrToken) {
+      const hash = createHash('sha256').update(req.qrToken).digest('hex');
+      const emp = await this.employeesRepo.findByQrTokenHash(
+        hash,
+        req.tenantId,
+      );
+      if (!emp) throw new InvalidQRTokenError();
+      return emp.id.toString();
+    }
+
+    // Phase 5 (2) — PIN + matricula branch.
+    if (req.pin && req.matricula) {
+      const emp = await this.employeesRepo.findByRegistrationNumber(
+        req.matricula,
+        req.tenantId,
+      );
+      // Intentional copy reuse: when matricula is unknown we raise
+      // InvalidQRTokenError (same UI copy: "Crachá não reconhecido") so
+      // the kiosk cannot be used to enumerate valid matriculas by diffing
+      // error messages. Internal error class stays distinct for logs.
+      if (!emp) {
+        throw new InvalidQRTokenError(
+          'Crachá não reconhecido. Verifique a matrícula.',
+        );
+      }
+      if (!this.verifyPunchPinUseCase) {
+        // Defensive: a PIN path was taken but the factory did not wire
+        // the use case. This is a configuration bug — fail-closed.
+        throw new BadRequestError(
+          'Verificação de PIN não está configurada neste servidor.',
+        );
+      }
+      // verifyPunchPinUseCase may throw PinInvalidError, PinLockedError,
+      // or ResourceNotFoundError — all propagate to the controller.
+      await this.verifyPunchPinUseCase.execute({
+        tenantId: req.tenantId,
+        employeeId: emp.id.toString(),
+        pin: req.pin,
+      });
+      return emp.id.toString();
+    }
+
     if (req.invokingUserId) {
       const emp = await this.employeesRepo.findByUserId(
         new UniqueEntityID(req.invokingUserId),
@@ -356,7 +447,7 @@ export class ExecutePunchUseCase {
     entryType: 'CLOCK_IN' | 'CLOCK_OUT' | 'BREAK_START' | 'BREAK_END',
     timestamp: Date,
     approvalsToCreate: Array<{
-      approvalReason: 'OUT_OF_GEOFENCE';
+      approvalReason: 'OUT_OF_GEOFENCE' | 'FACE_MATCH_LOW';
       reason: string;
       details: Record<string, unknown>;
     }>,
@@ -367,6 +458,14 @@ export class ExecutePunchUseCase {
   }> {
     try {
       return await prisma.$transaction(async () => {
+        // Phase 5 (Plan 05-07 / D-04): persist liveness as-is under
+        // `metadata.liveness` for future antifraude analysis. Only
+        // stamped when the kiosk actually carried the payload; JWT /
+        // PWA paths leave it null.
+        const metadata = req.liveness
+          ? { liveness: req.liveness as Record<string, unknown> }
+          : null;
+
         const te = await this.timeEntriesRepo.createWithSequentialNsr({
           tenantId: req.tenantId,
           employeeId: new UniqueEntityID(employeeId),
@@ -377,6 +476,7 @@ export class ExecutePunchUseCase {
           ipAddress: req.ipAddress,
           notes: req.notes,
           requestId: req.requestId,
+          metadata,
         });
 
         const approvalsCreated: ExecutePunchApprovalCreated[] = [];

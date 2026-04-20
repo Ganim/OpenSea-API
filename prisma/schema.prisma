@@ -4587,6 +4587,12 @@ model TimeEntry {
   // Idempotency (v2.0 punch — D-11)
   requestId String? @map("request_id") @db.VarChar(64)
 
+  // Phase 5 / Plan 05-07 (D-04): opaque audit-only JSONB payload carrying
+  // kiosk-side signals (currently: liveness = { blinkDetected, trackingFrames,
+  // durationMs }). Persisted as-is; NO enforcement or query use in Phase 5.
+  // Phase 9 antifraude may derive policy from accumulated samples.
+  metadata Json? @db.JsonB
+
   // Audit
   createdAt DateTime @default(now()) @map("created_at")
 

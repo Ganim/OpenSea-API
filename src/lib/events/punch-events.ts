@@ -47,11 +47,11 @@ export interface PunchApprovalRequestedData {
   timeEntryId: string;
   employeeId: string;
   /**
-   * Reason the batida needs manager review. Extensible — future phases add
-   * FACE_MATCH_LOW (phase 5), CLOCK_DRIFT (phase 9), MANUAL_CORRECTION (phase 6),
-   * FACE_MATCH_FAIL_3X (phase 9).
+   * Reason the batida needs manager review. Phase 5 adds `FACE_MATCH_LOW`
+   * (Plan 05-07 / D-03). Future phases: CLOCK_DRIFT (phase 9),
+   * MANUAL_CORRECTION (phase 6), FACE_MATCH_FAIL_3X (phase 9).
    */
-  reason: 'OUT_OF_GEOFENCE';
+  reason: 'OUT_OF_GEOFENCE' | 'FACE_MATCH_LOW';
   /** Payload specific to the reason (distance, zoneId, faceScore, ...). */
   details?: Record<string, unknown>;
 }

@@ -11,6 +11,13 @@ export interface TimeEntryProps {
   longitude?: number;
   ipAddress?: string;
   notes?: string;
+  /**
+   * Opaque audit-only payload introduced in Phase 5 / Plan 05-07 (D-04).
+   * Currently carries `{ liveness: { blinkDetected, trackingFrames, durationMs } }`
+   * from the kiosk. Not used for gating in Phase 5 — Phase 9 antifraude
+   * consumers may derive policy from this accumulated data.
+   */
+  metadata?: Record<string, unknown> | null;
   createdAt: Date;
 }
 
@@ -45,6 +52,10 @@ export class TimeEntry extends Entity<TimeEntryProps> {
 
   get notes(): string | undefined {
     return this.props.notes;
+  }
+
+  get metadata(): Record<string, unknown> | null {
+    return this.props.metadata ?? null;
   }
 
   get createdAt(): Date {

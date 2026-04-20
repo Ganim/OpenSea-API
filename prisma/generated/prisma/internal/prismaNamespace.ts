@@ -32638,6 +32638,7 @@ export const TimeEntryScalarFieldEnum = {
   deviceFingerprint: 'deviceFingerprint',
   photoUrl: 'photoUrl',
   requestId: 'requestId',
+  metadata: 'metadata',
   createdAt: 'createdAt'
 } as const
 

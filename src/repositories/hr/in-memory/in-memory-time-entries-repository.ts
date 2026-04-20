@@ -25,6 +25,7 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
         longitude: data.longitude,
         ipAddress: data.ipAddress,
         notes: data.notes,
+        metadata: data.metadata ?? null,
       },
       id,
     );
