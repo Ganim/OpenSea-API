@@ -1,18 +1,29 @@
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Employee } from '@/entities/hr/employee';
 import { CPF, EmployeeStatus, PIS } from '@/entities/hr/value-objects';
 import type {
   AnonymizeEmployeeSchema,
+  CrachasPaginatedResult,
   CreateEmployeeSchema,
   EmployeesRepository,
   EmployeeWithRawRelations,
+  FindCrachasFilters,
   FindEmployeeFilters,
   PaginatedEmployeesResult,
   UpdateEmployeeSchema,
 } from '../employees-repository';
 
 export class InMemoryEmployeesRepository implements EmployeesRepository {
-  private items: Employee[] = [];
+  public items: Employee[] = [];
+
+  /**
+   * Phase 5 helper — in-memory `department_id → department_name` lookup used
+   * exclusively by `findAllForCrachas` so unit specs can assert the hydrated
+   * `departmentName` without needing a real Prisma join. Defaults to `null`
+   * when the caller has not seeded a name for the id.
+   */
+  public departmentNamesById: Map<string, string> = new Map();
 
   async create(data: CreateEmployeeSchema, _tx?: unknown): Promise<Employee> {
     const id = new UniqueEntityID();
@@ -589,5 +600,156 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
 
     this.items[employeeIndex] = employee;
     return employee;
+  }
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Phase 5 — kiosk QR rotation (D-14, D-15)
+  // ──────────────────────────────────────────────────────────────────────────
+
+  async findByQrTokenHash(
+    hash: string,
+    tenantId: string,
+  ): Promise<Employee | null> {
+    const employee = this.items.find(
+      (item) =>
+        item.tenantId.toString() === tenantId &&
+        !item.deletedAt &&
+        item.qrTokenHash === hash,
+    );
+    return employee ?? null;
+  }
+
+  async rotateQrToken(
+    employeeId: string,
+    tenantId: string,
+    hash: string,
+  ): Promise<void> {
+    const employee = this.items.find(
+      (item) =>
+        item.id.toString() === employeeId &&
+        item.tenantId.toString() === tenantId &&
+        !item.deletedAt,
+    );
+    if (!employee) {
+      throw new ResourceNotFoundError('Funcionário não encontrado');
+    }
+    employee.rotateQrTokenHash(hash);
+  }
+
+  async rotateQrTokensBulk(
+    updates: Array<{ employeeId: string; hash: string }>,
+    tenantId: string,
+  ): Promise<number> {
+    let updated = 0;
+    for (const { employeeId, hash } of updates) {
+      const employee = this.items.find(
+        (item) =>
+          item.id.toString() === employeeId &&
+          item.tenantId.toString() === tenantId &&
+          !item.deletedAt,
+      );
+      if (!employee) continue;
+      employee.rotateQrTokenHash(hash);
+      updated++;
+    }
+    return updated;
+  }
+
+  async findAllIds(tenantId: string): Promise<string[]> {
+    return this.items
+      .filter(
+        (item) =>
+          item.tenantId.toString() === tenantId &&
+          !item.deletedAt &&
+          !item.isTerminated(),
+      )
+      .map((item) => item.id.toString());
+  }
+
+  async findIdsByDepartments(
+    departmentIds: string[],
+    tenantId: string,
+  ): Promise<string[]> {
+    if (departmentIds.length === 0) return [];
+    const set = new Set(departmentIds);
+    return this.items
+      .filter(
+        (item) =>
+          item.tenantId.toString() === tenantId &&
+          !item.deletedAt &&
+          !item.isTerminated() &&
+          item.departmentId !== undefined &&
+          set.has(item.departmentId.toString()),
+      )
+      .map((item) => item.id.toString());
+  }
+
+  async findAllForCrachas(
+    tenantId: string,
+    filters: FindCrachasFilters,
+  ): Promise<CrachasPaginatedResult> {
+    const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+    const now = Date.now();
+
+    let filtered = this.items.filter(
+      (item) =>
+        item.tenantId.toString() === tenantId &&
+        !item.deletedAt &&
+        !item.isTerminated(),
+    );
+
+    if (filters.departmentId) {
+      filtered = filtered.filter(
+        (item) => item.departmentId?.toString() === filters.departmentId,
+      );
+    }
+
+    if (filters.rotationStatus) {
+      filtered = filtered.filter((item) => {
+        const setAt = item.qrTokenSetAt;
+        if (filters.rotationStatus === 'never') {
+          return setAt === null || setAt === undefined;
+        }
+        if (filters.rotationStatus === 'recent') {
+          return (
+            setAt !== null &&
+            setAt !== undefined &&
+            now - setAt.getTime() <= THIRTY_DAYS_MS
+          );
+        }
+        // 'active' — ever rotated (qrTokenSetAt is not null)
+        return setAt !== null && setAt !== undefined;
+      });
+    }
+
+    if (filters.search) {
+      const needle = filters.search.toLowerCase();
+      filtered = filtered.filter(
+        (item) =>
+          item.fullName.toLowerCase().includes(needle) ||
+          item.registrationNumber.toLowerCase().includes(needle),
+      );
+    }
+
+    const total = filtered.length;
+    const pageSize = Math.min(Math.max(filters.pageSize, 1), 100);
+    const page = Math.max(filters.page, 1);
+    const skip = (page - 1) * pageSize;
+
+    const items = filtered
+      .sort((a, b) => a.fullName.localeCompare(b.fullName))
+      .slice(skip, skip + pageSize)
+      .map((item) => ({
+        id: item.id.toString(),
+        fullName: item.fullName,
+        registration: item.registrationNumber,
+        photoUrl: item.photoUrl ?? null,
+        departmentName: item.departmentId
+          ? (this.departmentNamesById.get(item.departmentId.toString()) ?? null)
+          : null,
+        qrTokenSetAt: item.qrTokenSetAt ?? null,
+      }));
+
+    return { items, total };
   }
 }

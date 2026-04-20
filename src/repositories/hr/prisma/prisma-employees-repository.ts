@@ -1,4 +1,5 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { Employee } from '@/entities/hr/employee';
 import { ANONYMIZED_CPF_PREFIX } from '@/entities/hr/value-objects/cpf';
 import { prisma, Prisma } from '@/lib/prisma';
@@ -8,9 +9,11 @@ import { getFieldCipherService } from '@/services/security/field-cipher-service'
 import { ENCRYPTED_FIELD_CONFIG } from '@/services/security/encrypted-field-config';
 import type {
   AnonymizeEmployeeSchema,
+  CrachasPaginatedResult,
   CreateEmployeeSchema,
   EmployeesRepository,
   EmployeeWithRawRelations,
+  FindCrachasFilters,
   FindEmployeeFilters,
   PaginatedEmployeesResult,
   UpdateEmployeeSchema,
@@ -1135,5 +1138,206 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
     } catch {
       return null;
     }
+  }
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Phase 5 — kiosk QR rotation (D-14, D-15)
+  // ──────────────────────────────────────────────────────────────────────────
+
+  async findByQrTokenHash(
+    hash: string,
+    tenantId: string,
+  ): Promise<Employee | null> {
+    const row = await prisma.employee.findFirst({
+      where: {
+        tenantId,
+        // Defensive cast — the regenerated Prisma client (post 05-01) exposes
+        // this column, but the type may still be narrowed in transient tsc
+        // states shared across plans. Runtime behaviour is unaffected.
+        qrTokenHash: hash,
+        deletedAt: null,
+      } as unknown as Prisma.EmployeeWhereInput,
+      include: {
+        user: true,
+        department: true,
+        position: true,
+        supervisor: true,
+      },
+    });
+
+    if (!row) return null;
+
+    decryptEmployeeData(row as unknown as Record<string, unknown>);
+
+    return Employee.create(
+      mapEmployeePrismaToDomain(row),
+      new UniqueEntityID(row.id),
+    );
+  }
+
+  async rotateQrToken(
+    employeeId: string,
+    tenantId: string,
+    hash: string,
+  ): Promise<void> {
+    const result = await prisma.employee.updateMany({
+      where: {
+        id: employeeId,
+        tenantId,
+        deletedAt: null,
+      },
+      data: {
+        qrTokenHash: hash,
+        qrTokenSetAt: new Date(),
+      } as unknown as Prisma.EmployeeUpdateManyMutationInput,
+    });
+
+    if (result.count === 0) {
+      throw new ResourceNotFoundError('Funcionário não encontrado');
+    }
+  }
+
+  async rotateQrTokensBulk(
+    updates: Array<{ employeeId: string; hash: string }>,
+    tenantId: string,
+  ): Promise<number> {
+    if (updates.length === 0) return 0;
+
+    let updated = 0;
+    const now = new Date();
+
+    await prisma.$transaction(async (tx) => {
+      for (const { employeeId, hash } of updates) {
+        const result = await tx.employee.updateMany({
+          where: {
+            id: employeeId,
+            tenantId,
+            deletedAt: null,
+          },
+          data: {
+            qrTokenHash: hash,
+            qrTokenSetAt: now,
+          } as unknown as Prisma.EmployeeUpdateManyMutationInput,
+        });
+        updated += result.count;
+      }
+    });
+
+    return updated;
+  }
+
+  async findAllIds(tenantId: string): Promise<string[]> {
+    const rows = await prisma.employee.findMany({
+      where: {
+        tenantId,
+        deletedAt: null,
+        status: { not: 'TERMINATED' },
+      },
+      select: { id: true },
+    });
+    return rows.map((r) => r.id);
+  }
+
+  async findIdsByDepartments(
+    departmentIds: string[],
+    tenantId: string,
+  ): Promise<string[]> {
+    if (departmentIds.length === 0) return [];
+    const rows = await prisma.employee.findMany({
+      where: {
+        tenantId,
+        deletedAt: null,
+        status: { not: 'TERMINATED' },
+        departmentId: { in: departmentIds },
+      },
+      select: { id: true },
+    });
+    return rows.map((r) => r.id);
+  }
+
+  async findAllForCrachas(
+    tenantId: string,
+    filters: FindCrachasFilters,
+  ): Promise<CrachasPaginatedResult> {
+    const pageSize = Math.min(Math.max(filters.pageSize, 1), 100);
+    const page = Math.max(filters.page, 1);
+    const skip = (page - 1) * pageSize;
+
+    const where: Record<string, unknown> = {
+      tenantId,
+      deletedAt: null,
+      status: { not: 'TERMINATED' },
+    };
+
+    if (filters.departmentId) {
+      where.departmentId = filters.departmentId;
+    }
+
+    if (filters.rotationStatus === 'never') {
+      where.qrTokenSetAt = null;
+    } else if (filters.rotationStatus === 'recent') {
+      const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+      where.qrTokenSetAt = { gte: cutoff };
+    } else if (filters.rotationStatus === 'active') {
+      where.qrTokenSetAt = { not: null };
+    }
+
+    if (filters.search) {
+      where.OR = [
+        { fullName: { contains: filters.search, mode: 'insensitive' } },
+        {
+          registrationNumber: {
+            contains: filters.search,
+            mode: 'insensitive',
+          },
+        },
+      ];
+    }
+
+    const [rows, total] = await Promise.all([
+      prisma.employee.findMany({
+        where: where as Prisma.EmployeeWhereInput,
+        select: {
+          id: true,
+          fullName: true,
+          registrationNumber: true,
+          photoUrl: true,
+          // qrTokenSetAt comes from the 05-01 migration; Prisma client selects
+          // it by name. Defensive cast keeps us resilient across intermediate
+          // tsc states.
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          qrTokenSetAt: true,
+          department: {
+            select: {
+              name: true,
+            },
+          },
+        } as unknown as Prisma.EmployeeSelect,
+        orderBy: { fullName: 'asc' },
+        skip,
+        take: pageSize,
+      }),
+      prisma.employee.count({ where: where as Prisma.EmployeeWhereInput }),
+    ]);
+
+    const items = (
+      rows as Array<{
+        id: string;
+        fullName: string;
+        registrationNumber: string;
+        photoUrl: string | null;
+        qrTokenSetAt: Date | null;
+        department?: { name: string } | null;
+      }>
+    ).map((row) => ({
+      id: row.id,
+      fullName: row.fullName,
+      registration: row.registrationNumber,
+      photoUrl: row.photoUrl ?? null,
+      departmentName: row.department?.name ?? null,
+      qrTokenSetAt: row.qrTokenSetAt ?? null,
+    }));
+
+    return { items, total };
   }
 }

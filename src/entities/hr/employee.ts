@@ -441,6 +441,17 @@ export class Employee extends Entity<EmployeeProps> {
   }
 
   /**
+   * Phase 5 (D-14) — replaces the stored QR token hash and stamps
+   * `qrTokenSetAt = now()`. The plaintext token itself is never persisted;
+   * callers compute `sha256(token)` before handing the hash in.
+   */
+  rotateQrTokenHash(hash: string): void {
+    this.props.qrTokenHash = hash;
+    this.props.qrTokenSetAt = new Date();
+    this.props.updatedAt = new Date();
+  }
+
+  /**
    * Replaces every PII property with anonymized placeholder values, preserving
    * only fiscal-relevant fields (registration number, hire/termination dates,
    * salary, contract type) so that payroll, audit and eSocial relations

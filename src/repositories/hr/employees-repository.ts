@@ -207,6 +207,41 @@ export interface AnonymizeEmployeeSchema {
   reason?: string;
 }
 
+/**
+ * Lightweight row shape returned by {@link EmployeesRepository.findAllForCrachas}.
+ *
+ * Only the fields needed to render the admin listing at `/hr/crachas` (and to
+ * fan out bulk-badge-PDF jobs in Plan 05-06) are surfaced here. The caller
+ * derives `rotationStatus` from `qrTokenSetAt` server-side; filtering by it
+ * is already applied inside the repository.
+ */
+export interface CrachaListItem {
+  id: string;
+  fullName: string;
+  registration: string;
+  photoUrl: string | null;
+  departmentName: string | null;
+  qrTokenSetAt: Date | null;
+}
+
+/** Status derived from `qrTokenSetAt` for the `/hr/crachas` listing. */
+export type CrachaRotationStatus = 'active' | 'recent' | 'never';
+
+export interface FindCrachasFilters {
+  departmentId?: string;
+  rotationStatus?: CrachaRotationStatus;
+  search?: string;
+  /** 1-indexed page number. */
+  page: number;
+  /** Cap 100 — repositories MUST clamp to this. */
+  pageSize: number;
+}
+
+export interface CrachasPaginatedResult {
+  items: CrachaListItem[];
+  total: number;
+}
+
 export interface EmployeesRepository {
   create(data: CreateEmployeeSchema, tx?: TransactionClient): Promise<Employee>;
   findById(
@@ -294,4 +329,68 @@ export interface EmployeesRepository {
    * Cascades to {@link EmployeeDependant} rows belonging to the employee.
    */
   anonymize(data: AnonymizeEmployeeSchema): Promise<Employee | null>;
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Phase 5 — kiosk QR rotation (D-14, D-15)
+  // ──────────────────────────────────────────────────────────────────────────
+
+  /**
+   * Resolves an employee by the SHA-256 hash of its QR token, tenant-scoped.
+   * Used by Plan 05-07 `FaceMatchValidator` / `ExecutePunchUseCase` QR branch
+   * to hydrate the funcionário when the kiosk scans a crachá. Returns `null`
+   * when no non-deleted employee in the tenant holds that hash (supports the
+   * lost/rotated/cross-tenant cases without leaking existence).
+   */
+  findByQrTokenHash(hash: string, tenantId: string): Promise<Employee | null>;
+
+  /**
+   * Replaces the QR token hash of a single employee (sync flow, D-14
+   * individual). Stamps `qrTokenSetAt = now()`. Throws {@link
+   * ResourceNotFoundError} when the target employee does not exist inside
+   * the tenant (or is soft-deleted).
+   */
+  rotateQrToken(
+    employeeId: string,
+    tenantId: string,
+    hash: string,
+  ): Promise<void>;
+
+  /**
+   * Bulk rotation entry point used by the `qr-batch` worker (D-14 bulk).
+   * Applies every `{ employeeId, hash }` pair inside a single `$transaction`
+   * so the chunk is all-or-nothing. Returns the number of rows actually
+   * updated (IDs that do not belong to the tenant — or are soft-deleted —
+   * are silently skipped so a single bad input does not kill the chunk).
+   */
+  rotateQrTokensBulk(
+    updates: Array<{ employeeId: string; hash: string }>,
+    tenantId: string,
+  ): Promise<number>;
+
+  /**
+   * Returns the IDs of every non-deleted, non-terminated employee in the
+   * tenant — required by the bulk rotation use case when `scope='ALL'`.
+   */
+  findAllIds(tenantId: string): Promise<string[]>;
+
+  /**
+   * Returns the IDs of every non-deleted, non-terminated employee in the
+   * tenant whose `departmentId` falls in the supplied list — required by
+   * the bulk rotation use case when `scope='DEPARTMENT'`.
+   */
+  findIdsByDepartments(
+    departmentIds: string[],
+    tenantId: string,
+  ): Promise<string[]>;
+
+  /**
+   * Paged listing for the admin `/hr/crachas` page. See
+   * {@link FindCrachasFilters} for the semantics of `rotationStatus` /
+   * `search`. Only non-deleted, non-terminated employees are returned;
+   * items are sorted by `fullName` ascending for a stable UX.
+   */
+  findAllForCrachas(
+    tenantId: string,
+    filters: FindCrachasFilters,
+  ): Promise<CrachasPaginatedResult>;
 }
