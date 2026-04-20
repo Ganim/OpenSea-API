@@ -98,6 +98,25 @@ export function mapEmployeePrismaToDomain(
     childBirthDate: employeeDb.childBirthDate ?? undefined,
     metadata: employeeDb.metadata as Record<string, unknown>,
     pendingIssues: (employeeDb.pendingIssues as string[]) ?? [],
+    // Phase 5 — kiosk badge QR + PIN fallback. Prisma returns string|null /
+    // Date|null / number — map straight through (entity getters normalize).
+    qrTokenHash:
+      (employeeDb as { qrTokenHash?: string | null }).qrTokenHash ?? null,
+    qrTokenSetAt:
+      (employeeDb as { qrTokenSetAt?: Date | null }).qrTokenSetAt ?? null,
+    punchPinHash:
+      (employeeDb as { punchPinHash?: string | null }).punchPinHash ?? null,
+    punchPinSetAt:
+      (employeeDb as { punchPinSetAt?: Date | null }).punchPinSetAt ?? null,
+    punchPinLockedUntil:
+      (employeeDb as { punchPinLockedUntil?: Date | null })
+        .punchPinLockedUntil ?? null,
+    punchPinFailedAttempts:
+      (employeeDb as { punchPinFailedAttempts?: number })
+        .punchPinFailedAttempts ?? 0,
+    punchPinLastFailedAt:
+      (employeeDb as { punchPinLastFailedAt?: Date | null })
+        .punchPinLastFailedAt ?? null,
     deletedAt: employeeDb.deletedAt ?? undefined,
     createdAt: employeeDb.createdAt,
     updatedAt: employeeDb.updatedAt,

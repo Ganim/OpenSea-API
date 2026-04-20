@@ -81,6 +81,14 @@ export interface EmployeeProps {
   childBirthDate?: Date;
   metadata: Record<string, unknown>;
   pendingIssues: string[];
+  // Phase 5 — kiosk badge QR token (D-15) + PIN fallback (D-08)
+  qrTokenHash?: string | null;
+  qrTokenSetAt?: Date | null;
+  punchPinHash?: string | null;
+  punchPinSetAt?: Date | null;
+  punchPinLockedUntil?: Date | null;
+  punchPinFailedAttempts?: number;
+  punchPinLastFailedAt?: Date | null;
   deletedAt?: Date;
   createdAt: Date;
   updatedAt: Date;
@@ -337,6 +345,35 @@ export class Employee extends Entity<EmployeeProps> {
 
   get updatedAt(): Date {
     return this.props.updatedAt;
+  }
+
+  // Phase 5 — Kiosk badge QR + PIN fallback getters
+  get qrTokenHash(): string | null {
+    return this.props.qrTokenHash ?? null;
+  }
+
+  get qrTokenSetAt(): Date | null {
+    return this.props.qrTokenSetAt ?? null;
+  }
+
+  get punchPinHash(): string | null {
+    return this.props.punchPinHash ?? null;
+  }
+
+  get punchPinSetAt(): Date | null {
+    return this.props.punchPinSetAt ?? null;
+  }
+
+  get punchPinLockedUntil(): Date | null {
+    return this.props.punchPinLockedUntil ?? null;
+  }
+
+  get punchPinFailedAttempts(): number {
+    return this.props.punchPinFailedAttempts ?? 0;
+  }
+
+  get punchPinLastFailedAt(): Date | null {
+    return this.props.punchPinLastFailedAt ?? null;
   }
 
   // Business methods

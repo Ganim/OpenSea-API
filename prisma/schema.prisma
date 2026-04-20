@@ -388,35 +388,35 @@ model User {
   updatedAt   DateTime  @updatedAt @map("updated_at")
 
   // Relations
-  profile                  UserProfile?
-  RefreshToken             RefreshToken[]
-  sessions                 Session[]
-  tenantUsers              TenantUser[]
-  ItemMovement             ItemMovement[]
-  ApprovedMovements        ItemMovement[]           @relation("ApprovedMovements")
-  AuditLogs                AuditLog[]
-  VariantPriceHistory      VariantPriceHistory[]
-  Alerts                   Alert[]
-  CreatedPurchaseOrders    PurchaseOrder[]          @relation("CreatedPurchaseOrders")
-  CreatedSalesOrders       SalesOrder[]             @relation("CreatedSalesOrders")
-  ItemReservations         ItemReservation[]
-  Comments                 Comment[]
-  NotificationPreferences  NotificationPreference[]
-  Notifications            Notification[]
-  notificationPreferencesV2 NotificationPreferenceV2[]
+  profile                    UserProfile?
+  RefreshToken               RefreshToken[]
+  sessions                   Session[]
+  tenantUsers                TenantUser[]
+  ItemMovement               ItemMovement[]
+  ApprovedMovements          ItemMovement[]              @relation("ApprovedMovements")
+  AuditLogs                  AuditLog[]
+  VariantPriceHistory        VariantPriceHistory[]
+  Alerts                     Alert[]
+  CreatedPurchaseOrders      PurchaseOrder[]             @relation("CreatedPurchaseOrders")
+  CreatedSalesOrders         SalesOrder[]                @relation("CreatedSalesOrders")
+  ItemReservations           ItemReservation[]
+  Comments                   Comment[]
+  NotificationPreferences    NotificationPreference[]
+  Notifications              Notification[]
+  notificationPreferencesV2  NotificationPreferenceV2[]
   notificationModuleSettings NotificationModuleSetting[]
-  notificationSettings      UserNotificationSettings[]
-  pushSubscriptions         PushSubscription[]
-  permissionGroups         UserPermissionGroup[]
-  grantedPermissions       UserPermissionGroup[]    @relation("GrantedPermissions")
-  directPermissions        UserDirectPermission[]   @relation("UserDirectPermissions")
-  grantedDirectPermissions UserDirectPermission[]   @relation("GrantedDirectPermissions")
-  permissionAuditLogs      PermissionAuditLog[]
-  RequestsCreated          Request[]                @relation("RequestsCreated")
-  RequestsAssigned         Request[]                @relation("RequestsAssigned")
-  UploadedAttachments      RequestAttachment[]      @relation("UploadedAttachments")
-  RequestComments          RequestComment[]         @relation("RequestComments")
-  RequestHistoryActions    RequestHistory[]         @relation("RequestHistoryActions")
+  notificationSettings       UserNotificationSettings[]
+  pushSubscriptions          PushSubscription[]
+  permissionGroups           UserPermissionGroup[]
+  grantedPermissions         UserPermissionGroup[]       @relation("GrantedPermissions")
+  directPermissions          UserDirectPermission[]      @relation("UserDirectPermissions")
+  grantedDirectPermissions   UserDirectPermission[]      @relation("GrantedDirectPermissions")
+  permissionAuditLogs        PermissionAuditLog[]
+  RequestsCreated            Request[]                   @relation("RequestsCreated")
+  RequestsAssigned           Request[]                   @relation("RequestsAssigned")
+  UploadedAttachments        RequestAttachment[]         @relation("UploadedAttachments")
+  RequestComments            RequestComment[]            @relation("RequestComments")
+  RequestHistoryActions      RequestHistory[]            @relation("RequestHistoryActions")
 
   // HR Relations
   employee Employee?
@@ -1234,6 +1234,11 @@ enum AuditEntity {
   WORK_SCHEDULE
   OVERTIME
   TIME_BANK
+  PUNCH_DEVICE
+  PUNCH_APPROVAL
+  FACE_ENROLLMENT
+  PUNCH_PIN
+  PUNCH_QR_TOKEN
 
   // HR - Ausências e Férias
   ABSENCE
@@ -3931,23 +3936,23 @@ model NotificationModuleSetting {
 }
 
 model UserNotificationSettings {
-  id              String   @id @default(uuid())
-  userId          String   @map("user_id")
-  tenantId        String   @map("tenant_id")
-  doNotDisturb    Boolean  @default(false) @map("do_not_disturb")
-  dndStart        String?  @map("dnd_start") @db.VarChar(5)
-  dndEnd          String?  @map("dnd_end") @db.VarChar(5)
-  timezone        String   @default("America/Sao_Paulo") @map("timezone") @db.VarChar(64)
-  digestSchedule  String?  @map("digest_schedule") @db.VarChar(32)
-  soundEnabled    Boolean  @default(true) @map("sound_enabled")
-  masterInApp     Boolean  @default(true) @map("master_in_app")
-  masterEmail     Boolean  @default(true) @map("master_email")
-  masterPush      Boolean  @default(false) @map("master_push")
-  masterSms       Boolean  @default(false) @map("master_sms")
-  masterWhatsapp  Boolean  @default(false) @map("master_whatsapp")
-  allowBannerAds  Boolean  @default(true) @map("allow_banner_ads")
-  createdAt       DateTime @default(now()) @map("created_at")
-  updatedAt       DateTime @updatedAt @map("updated_at")
+  id             String   @id @default(uuid())
+  userId         String   @map("user_id")
+  tenantId       String   @map("tenant_id")
+  doNotDisturb   Boolean  @default(false) @map("do_not_disturb")
+  dndStart       String?  @map("dnd_start") @db.VarChar(5)
+  dndEnd         String?  @map("dnd_end") @db.VarChar(5)
+  timezone       String   @default("America/Sao_Paulo") @map("timezone") @db.VarChar(64)
+  digestSchedule String?  @map("digest_schedule") @db.VarChar(32)
+  soundEnabled   Boolean  @default(true) @map("sound_enabled")
+  masterInApp    Boolean  @default(true) @map("master_in_app")
+  masterEmail    Boolean  @default(true) @map("master_email")
+  masterPush     Boolean  @default(false) @map("master_push")
+  masterSms      Boolean  @default(false) @map("master_sms")
+  masterWhatsapp Boolean  @default(false) @map("master_whatsapp")
+  allowBannerAds Boolean  @default(true) @map("allow_banner_ads")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
@@ -4426,6 +4431,15 @@ model Employee {
   punchDeviceAllowlist PunchDeviceEmployee[]
   punchApprovals       PunchApproval[]
 
+  // Phase 5 — QR badge token (D-15) + PIN fallback (D-08)
+  qrTokenHash            String?   @map("qr_token_hash") @db.VarChar(64)
+  qrTokenSetAt           DateTime? @map("qr_token_set_at")
+  punchPinHash           String?   @map("punch_pin_hash") @db.VarChar(100)
+  punchPinSetAt          DateTime? @map("punch_pin_set_at")
+  punchPinLockedUntil    DateTime? @map("punch_pin_locked_until")
+  punchPinFailedAttempts Int       @default(0) @map("punch_pin_failed_attempts")
+  punchPinLastFailedAt   DateTime? @map("punch_pin_last_failed_at")
+
   @@unique([registrationNumber, tenantId, deletedAt], name: "employees_registration_tenant_unique_active")
   @@unique([cpfHash, tenantId, deletedAt], name: "employees_cpf_tenant_unique_active")
   @@unique([pisHash, tenantId, deletedAt], name: "employees_pis_tenant_unique_active")
@@ -4442,6 +4456,7 @@ model Employee {
   @@index([status])
   @@index([hireDate])
   @@index([terminationDate])
+  @@index([tenantId, qrTokenHash])
   @@index([deletedAt])
   @@index([organizationId])
   @@map("employees")
@@ -5455,24 +5470,24 @@ model BenefitEnrollment {
 // ===============================================
 
 model TrainingProgram {
-  id              String    @id @default(cuid())
-  tenantId        String    @map("tenant_id")
-  name            String    @db.VarChar(128)
-  description     String?   @db.VarChar(1000)
-  category        String    @db.VarChar(32) // ONBOARDING, SAFETY, TECHNICAL, COMPLIANCE, LEADERSHIP, SOFT_SKILLS
-  format          String    @db.VarChar(16) // PRESENCIAL, ONLINE, HIBRIDO
-  durationHours   Int       @map("duration_hours")
-  instructor      String?   @db.VarChar(128)
-  maxParticipants Int?      @map("max_participants")
-  isActive        Boolean   @default(true) @map("is_active")
-  isMandatory     Boolean   @default(false) @map("is_mandatory")
+  id                    String    @id @default(cuid())
+  tenantId              String    @map("tenant_id")
+  name                  String    @db.VarChar(128)
+  description           String?   @db.VarChar(1000)
+  category              String    @db.VarChar(32) // ONBOARDING, SAFETY, TECHNICAL, COMPLIANCE, LEADERSHIP, SOFT_SKILLS
+  format                String    @db.VarChar(16) // PRESENCIAL, ONLINE, HIBRIDO
+  durationHours         Int       @map("duration_hours")
+  instructor            String?   @db.VarChar(128)
+  maxParticipants       Int?      @map("max_participants")
+  isActive              Boolean   @default(true) @map("is_active")
+  isMandatory           Boolean   @default(false) @map("is_mandatory")
   // When true, completing this program automatically enqueues an S-2240
   // (Condições Ambientais do Trabalho) draft event for manager review.
-  isMandatoryForESocial Boolean @default(false) @map("is_mandatory_for_esocial")
-  validityMonths  Int?      @map("validity_months")
-  createdAt       DateTime  @default(now()) @map("created_at")
-  updatedAt       DateTime  @updatedAt @map("updated_at")
-  deletedAt       DateTime? @map("deleted_at")
+  isMandatoryForESocial Boolean   @default(false) @map("is_mandatory_for_esocial")
+  validityMonths        Int?      @map("validity_months")
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+  deletedAt             DateTime? @map("deleted_at")
 
   tenant      Tenant               @relation(fields: [tenantId], references: [id])
   enrollments TrainingEnrollment[]
@@ -6653,7 +6668,7 @@ model Tenant {
   oneOnOneMeetings         OneOnOneMeeting[]
 
   // HR Contracts (templates + generated contracts)
-  contractTemplates           ContractTemplate[]
+  contractTemplates            ContractTemplate[]
   generatedEmploymentContracts GeneratedEmploymentContract[]
 
   // PPE / EPI domain
@@ -10842,10 +10857,10 @@ model SignatureEnvelopeSigner {
   otpVerified  Boolean  @default(false) @map("otp_verified")
 
   // OTP (Lei 14.063 ADVANCED level — code sent by email before signing)
-  otpCodeHash   String?   @map("otp_code_hash") @db.VarChar(128)
-  otpExpiresAt  DateTime? @map("otp_expires_at")
-  otpAttempts   Int       @default(0) @map("otp_attempts")
-  otpSentAt     DateTime? @map("otp_sent_at")
+  otpCodeHash  String?   @map("otp_code_hash") @db.VarChar(128)
+  otpExpiresAt DateTime? @map("otp_expires_at")
+  otpAttempts  Int       @default(0) @map("otp_attempts")
+  otpSentAt    DateTime? @map("otp_sent_at")
 
   // Rejection
   rejectedAt     DateTime? @map("rejected_at")
@@ -13655,6 +13670,10 @@ model PunchConfiguration {
   // Geofence defaults
   defaultRadiusMeters Int @default(200) @map("default_radius_meters")
 
+  // Phase 5 — Face match threshold (D-03). Default 0.55 (more strict than
+  // face-api.js default 0.6) to reduce false positives in kiosk lighting.
+  faceMatchThreshold Float @default(0.55) @map("face_match_threshold")
+
   // Audit
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -13816,9 +13835,9 @@ model EsocialCertificate {
   // Required so SOAP transmission can actually sign with the A1 cert — without
   // this the PFX can only be used if it was uploaded passphrase-less (which
   // ICP-Brasil certs never are).
-  encryptedPassphrase    Bytes?  @map("encrypted_passphrase")
-  passphraseIv           String? @map("passphrase_iv") @db.VarChar(64)
-  passphraseTag          String? @map("passphrase_tag") @db.VarChar(64)
+  encryptedPassphrase Bytes?  @map("encrypted_passphrase")
+  passphraseIv        String? @map("passphrase_iv") @db.VarChar(64)
+  passphraseTag       String? @map("passphrase_tag") @db.VarChar(64)
 
   // Certificate metadata (extracted on upload)
   serialNumber String   @map("serial_number") @db.VarChar(128)
@@ -15922,7 +15941,9 @@ enum PunchDeviceKind {
 
 enum PunchApprovalReason {
   OUT_OF_GEOFENCE
-  // Extensible: FACE_MATCH_LOW (phase 5), FACE_MATCH_FAIL_3X (phase 9),
+  // Phase 5 (D-03): face match below tenant threshold.
+  FACE_MATCH_LOW
+  // Extensible: FACE_MATCH_FAIL_3X (phase 9),
   // CLOCK_DRIFT (phase 9), MANUAL_CORRECTION (phase 6)
 }
 
@@ -16088,6 +16109,30 @@ model PunchApproval {
   @@index([tenantId, status])
   @@index([employeeId])
   @@map("punch_approvals")
+}
+
+// ===============================================
+// EMPLOYEE FACE ENROLLMENT (Phase 5 / D-02)
+// AES-256-GCM ciphertext + per-row IV + auth tag.
+// Helper: src/lib/face-encryption.ts
+// ===============================================
+
+model EmployeeFaceEnrollment {
+  id                String    @id @default(uuid())
+  tenantId          String    @map("tenant_id")
+  employeeId        String    @map("employee_id")
+  embedding         Bytes // AES-256-GCM ciphertext (Float32Array(128) = 512 bytes plaintext)
+  iv                Bytes // 12-byte GCM IV
+  authTag           Bytes     @map("auth_tag") // 16-byte GCM auth tag
+  photoCount        Int       @map("photo_count") // 1..N inside batch (rastreabilidade)
+  capturedAt        DateTime  @map("captured_at")
+  capturedByUserId  String    @map("captured_by_user_id")
+  consentAuditLogId String?   @map("consent_audit_log_id")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  deletedAt         DateTime? @map("deleted_at")
+
+  @@index([tenantId, employeeId])
+  @@map("employee_face_enrollments")
 }
 
 model PosPrinter {
