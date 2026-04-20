@@ -2,6 +2,10 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { FaceEnrollmentRequiredError } from '@/@errors/use-cases/face-enrollment-required-error';
+import { InvalidQRTokenError } from '@/@errors/use-cases/invalid-qr-token-error';
+import { PinInvalidError } from '@/@errors/use-cases/pin-invalid-error';
+import { PinLockedError } from '@/@errors/use-cases/pin-locked-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UnauthorizedError } from '@/@errors/use-cases/unauthorized-error';
 import { AUDIT_MESSAGES } from '@/constants/audit-messages';
@@ -51,6 +55,8 @@ export async function v1ExecutePunchController(app: FastifyInstance) {
         400: executePunchErrorSchema,
         401: executePunchErrorSchema,
         404: executePunchErrorSchema,
+        412: executePunchErrorSchema,
+        423: executePunchErrorSchema,
       },
       security: [{ bearerAuth: [] }, { punchDeviceToken: [] }],
     },
@@ -76,6 +82,12 @@ export async function v1ExecutePunchController(app: FastifyInstance) {
           ipAddress: request.body.ipAddress ?? request.ip,
           notes: request.body.notes,
           requestId: request.body.requestId,
+          // Phase 5 (Plan 05-07) — kiosk auth + face match + liveness.
+          qrToken: request.body.qrToken,
+          pin: request.body.pin,
+          matricula: request.body.matricula,
+          faceEmbedding: request.body.faceEmbedding,
+          liveness: request.body.liveness,
         });
 
         // Idempotent replays do NOT re-audit — the original punch was
@@ -110,6 +122,36 @@ export async function v1ExecutePunchController(app: FastifyInstance) {
           idempotentHit: result.idempotentHit,
         });
       } catch (error) {
+        // Phase 5 (Plan 05-07) — kiosk-specific error mapping. Each carries
+        // a discriminator `code` so the kiosk UI can react without parsing
+        // user-facing messages.
+        if (error instanceof InvalidQRTokenError) {
+          return reply.status(400).send({
+            message: error.message,
+            code: 'INVALID_QR_TOKEN',
+          });
+        }
+        if (error instanceof PinInvalidError) {
+          return reply.status(400).send({
+            message: error.message,
+            code: 'PIN_INVALID',
+            attemptsRemaining: error.attemptsRemaining,
+          });
+        }
+        if (error instanceof PinLockedError) {
+          return reply.status(423).send({
+            message: error.message,
+            code: 'PIN_LOCKED',
+            lockedUntil: error.lockedUntil.toISOString(),
+          });
+        }
+        if (error instanceof FaceEnrollmentRequiredError) {
+          return reply.status(412).send({
+            message: error.message,
+            code: 'FACE_ENROLLMENT_REQUIRED',
+          });
+        }
+
         if (error instanceof UnauthorizedError) {
           return reply.status(401).send({ message: error.message });
         }
