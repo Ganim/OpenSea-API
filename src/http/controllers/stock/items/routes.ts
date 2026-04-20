@@ -5,6 +5,7 @@ import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module'
 import { getItemByIdController } from './v1-get-item-by-id.controller';
 import { listItemsByProductIdController } from './v1-list-items-by-product-id.controller';
 import { listItemsByVariantIdController } from './v1-list-items-by-variant-id.controller';
+import { getVariantItemsStatsController } from './v1-get-variant-items-stats.controller';
 import { listItemsController } from './v1-list-items.controller';
 import { registerItemEntryController } from './v1-register-item-entry.controller';
 import { registerItemExitController } from './v1-register-item-exit.controller';
@@ -23,6 +24,7 @@ export async function itemsRoutes(app: FastifyInstance) {
       queryApp.register(getItemByIdController);
       queryApp.register(listItemsController);
       queryApp.register(listItemsByVariantIdController);
+      queryApp.register(getVariantItemsStatsController);
       queryApp.register(listItemsByProductIdController);
       queryApp.register(getItemLocationHistoryController);
       queryApp.register(getItemsLabelDataController);

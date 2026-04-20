@@ -72,6 +72,13 @@ export interface UpdateItemSchema {
   expiryDate?: Date;
 }
 
+export interface VariantItemsStats {
+  totalItems: number;
+  inStockItems: number;
+  totalQuantity: number;
+  inStockQuantity: number;
+}
+
 export interface ItemListFilters {
   search?: string;
   manufacturerId?: string;
@@ -166,4 +173,8 @@ export interface ItemsRepository {
     tenantId: string,
     params: PaginationParams,
   ): Promise<PaginatedResult<ItemWithRelationsDTO>>;
+  getStatsByVariant(
+    variantId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<VariantItemsStats>;
 }

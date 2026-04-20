@@ -357,6 +357,38 @@ export class InMemoryItemsRepository implements ItemsRepository {
     };
   }
 
+  async getStatsByVariant(
+    variantId: UniqueEntityID,
+    tenantId: string,
+  ): Promise<{
+    totalItems: number;
+    inStockItems: number;
+    totalQuantity: number;
+    inStockQuantity: number;
+  }> {
+    const items = this.items.filter(
+      (item) =>
+        !item.deletedAt &&
+        item.variantId.equals(variantId) &&
+        item.tenantId.toString() === tenantId,
+    );
+
+    const inStock = items.filter((i) => i.currentQuantity > 0);
+
+    return {
+      totalItems: items.length,
+      inStockItems: inStock.length,
+      totalQuantity: items.reduce(
+        (acc, i) => acc + Number(i.currentQuantity),
+        0,
+      ),
+      inStockQuantity: inStock.reduce(
+        (acc, i) => acc + Number(i.currentQuantity),
+        0,
+      ),
+    };
+  }
+
   async findManyByVariantWithRelations(
     variantId: UniqueEntityID,
     tenantId: string,
