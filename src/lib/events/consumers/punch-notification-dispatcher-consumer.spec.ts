@@ -15,13 +15,15 @@ const mocks = vi.hoisted(() => ({
     suppressedByPreference: 0,
   }),
   findFirstMock: vi.fn().mockResolvedValue({ userId: 'user-123' }),
+  tenantHasVapidKeysMock: vi.fn().mockResolvedValue(true),
 }));
 
-// Mock notificationClient
+// Mock notificationClient + tenantHasVapidKeys (D-16 VAPID degrade)
 vi.mock('@/modules/notifications/public', () => ({
   notificationClient: {
     dispatch: mocks.dispatchMock,
   },
+  tenantHasVapidKeys: mocks.tenantHasVapidKeysMock,
   NotificationType: {
     INFORMATIONAL: 'INFORMATIONAL',
     LINK: 'LINK',
@@ -44,6 +46,7 @@ vi.mock('@/lib/prisma', () => ({
 
 const findFirstMock = mocks.findFirstMock;
 const dispatchMock = mocks.dispatchMock;
+const tenantHasVapidKeysMock = mocks.tenantHasVapidKeysMock;
 
 // Import AFTER the mocks so the mocked modules are loaded
 const { punchNotificationDispatcherConsumer } = await import(
@@ -109,6 +112,9 @@ describe('punchNotificationDispatcherConsumer', () => {
     });
     findFirstMock.mockClear();
     findFirstMock.mockResolvedValue({ userId: 'user-123' });
+    tenantHasVapidKeysMock.mockClear();
+    // Default: tenant HAS VAPID → PUSH channel is kept (manifest defaults stand)
+    tenantHasVapidKeysMock.mockResolvedValue(true);
   });
 
   describe('Consumer Properties', () => {
@@ -250,6 +256,61 @@ describe('punchNotificationDispatcherConsumer', () => {
 
       await punchNotificationDispatcherConsumer.handle(event);
       expect(dispatchMock).not.toHaveBeenCalled();
+    });
+  });
+
+  // ─── Phase 5 (D-16) — PUSH channel graceful degrade ─────────────────────
+
+  describe('VAPID graceful degrade on TIME_ENTRY_CREATED', () => {
+    it('when tenant HAS VAPID, does NOT override channels (manifest defaults stand)', async () => {
+      tenantHasVapidKeysMock.mockResolvedValueOnce(true);
+      const event = makeTimeEntryCreatedEvent();
+      await punchNotificationDispatcherConsumer.handle(event);
+
+      expect(dispatchMock).toHaveBeenCalledTimes(1);
+      const payload = dispatchMock.mock.calls[0][0];
+      // When VAPID is OK, the consumer should NOT set a channels override —
+      // the manifest default (which includes PUSH) remains authoritative.
+      expect(payload.channels).toBeUndefined();
+    });
+
+    it('when tenant LACKS VAPID, forces channels to [IN_APP] only (no error)', async () => {
+      tenantHasVapidKeysMock.mockResolvedValueOnce(false);
+      const event = makeTimeEntryCreatedEvent();
+
+      await expect(
+        punchNotificationDispatcherConsumer.handle(event),
+      ).resolves.not.toThrow();
+
+      expect(dispatchMock).toHaveBeenCalledTimes(1);
+      const payload = dispatchMock.mock.calls[0][0];
+      expect(payload.channels).toEqual(['IN_APP']);
+    });
+
+    it('when tenantHasVapidKeys throws, fail-open → IN_APP only (no user-facing error)', async () => {
+      tenantHasVapidKeysMock.mockRejectedValueOnce(new Error('db unavailable'));
+      const event = makeTimeEntryCreatedEvent();
+
+      await expect(
+        punchNotificationDispatcherConsumer.handle(event),
+      ).resolves.not.toThrow();
+
+      expect(dispatchMock).toHaveBeenCalledTimes(1);
+      const payload = dispatchMock.mock.calls[0][0];
+      expect(payload.channels).toEqual(['IN_APP']);
+    });
+
+    it('APPROVAL_REQUESTED flow is not affected by VAPID probe (EMAIL/IN_APP category)', async () => {
+      tenantHasVapidKeysMock.mockResolvedValueOnce(false);
+      const event = makeApprovalRequestedEvent();
+      await punchNotificationDispatcherConsumer.handle(event);
+
+      // tenantHasVapidKeys is only consulted for PUSH-eligible categories.
+      // APPROVAL_REQUESTED dispatch must still fire and must not override
+      // channels based on a PIN/QR probe.
+      expect(dispatchMock).toHaveBeenCalledTimes(1);
+      const payload = dispatchMock.mock.calls[0][0];
+      expect(payload.category).toBe('punch.approval_requested');
     });
   });
 });
