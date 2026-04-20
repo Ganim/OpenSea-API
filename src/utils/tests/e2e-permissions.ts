@@ -406,6 +406,12 @@ export const ALL_PERMISSIONS: Record<string, Record<string, string[]>> = {
     // PUNCH_APPROVALS — 3 níveis (access, modify, admin). Revisão de
     // batidas que caíram em APPROVAL_REQUIRED.
     'punch-approvals': ['access', 'modify', 'admin'],
+    // FACE_ENROLLMENT — Phase 5 / Plan 05-02 / Plan 05-03. Enrollment
+    // biométrico do funcionário (kiosk + face match). Admin-only por padrão
+    // (D-05): RH cadastra/remove a biometria; sem self-service nesta fase.
+    'face-enrollment': ['access', 'register', 'remove', 'admin'],
+    // CRACHAS — Phase 5. Impressão de crachás (PDF individual e em lote).
+    crachas: ['access', 'print', 'admin'],
     overtime: [
       'create',
       'read',
