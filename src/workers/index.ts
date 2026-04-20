@@ -37,6 +37,7 @@ import {
   stopPaymentReconciliationScheduler,
 } from './payment-reconciliation-scheduler';
 import { startPunchEventsWorker } from './punch-events-worker';
+import { startQrBatchWorker } from './qr-batch-worker';
 import {
   scheduleCalendarRemindersRepeatable,
   startCalendarRemindersQueueWorker,
@@ -151,6 +152,17 @@ export async function startAllWorkers(): Promise<void> {
     console.log('[Workers] Punch events worker started');
   } catch (err) {
     console.error('[Workers] Failed to start punch events worker:', err);
+  }
+
+  // Phase 5 (kiosk QR rotation D-14): worker for `QUEUE_NAMES.QR_BATCH`.
+  // Chunks 100 employees per Prisma $transaction, emits Socket.IO progress
+  // to `tenant:{id}:hr`, publishes `PUNCH_EVENTS.QR_ROTATION_COMPLETED`
+  // on finish, optionally fans out a `BADGE_PDF` sub-job.
+  try {
+    startQrBatchWorker();
+    console.log('[Workers] QR batch worker started');
+  } catch (err) {
+    console.error('[Workers] Failed to start QR batch worker:', err);
   }
 
   // Start the email sync scheduler (enqueues periodic sync jobs)
