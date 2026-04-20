@@ -1,0 +1,7 @@
+# Pitfall 2 (06-RESEARCH.md): Git normaliza CRLF para LF em Windows quando
+# `core.autocrlf` está ativo, o que corrompe golden tests do AFD/AFDT
+# (Portaria 671 exige CRLF literal). Marcando os fixtures como `binary -text`
+# garantimos que o conteúdo sai do disco byte-a-byte como foi gravado, em
+# qualquer plataforma. Sem isso, dev em Windows + CI em Linux = false fail.
+*.txt binary -text
+*.golden.txt binary -text
