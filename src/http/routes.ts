@@ -311,6 +311,7 @@ import { punchApprovalsRoutes } from './controllers/hr/punch-approvals/routes';
 import { punchConfigRoutes } from './controllers/hr/punch-config/routes';
 import { faceEnrollmentsRoutes } from './controllers/hr/face-enrollments/routes';
 import { punchDevicesRoutes } from './controllers/hr/punch-devices/routes';
+import { qrTokensRoutes } from './controllers/hr/qr-tokens/routes';
 import { punchRoutes } from './controllers/hr/punch/routes';
 import { recruitmentRoutes } from './controllers/hr/recruitment/routes';
 import { hrReportsRoutes } from './controllers/hr/reports/routes';
@@ -539,6 +540,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(punchConfigRoutes);
   await app.register(punchDevicesRoutes);
   await app.register(faceEnrollmentsRoutes);
+  await app.register(qrTokensRoutes);
   await app.register(punchApprovalsRoutes);
   await app.register(punchRoutes);
   await app.register(geofenceZonesRoutes);
