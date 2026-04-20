@@ -36,6 +36,7 @@ import {
   startPaymentReconciliationScheduler,
   stopPaymentReconciliationScheduler,
 } from './payment-reconciliation-scheduler';
+import { startBadgePdfWorker } from './badge-pdf-worker';
 import { startPunchEventsWorker } from './punch-events-worker';
 import { startQrBatchWorker } from './qr-batch-worker';
 import {
@@ -163,6 +164,18 @@ export async function startAllWorkers(): Promise<void> {
     console.log('[Workers] QR batch worker started');
   } catch (err) {
     console.error('[Workers] Failed to start QR batch worker:', err);
+  }
+
+  // Phase 5 (crachá PDF D-13): worker for `QUEUE_NAMES.BADGE_PDF`.
+  // Renders A4 2×4 lote PDFs (8 crachás/page + dashed cut marks), uploads
+  // to S3 with 24h pre-signed URL (or Redis fallback when S3 env is
+  // unavailable), publishes `PUNCH_EVENTS.QR_ROTATION_COMPLETED` with
+  // `bulkPdfDownloadUrl` for the Plan 05-02 notification consumer.
+  try {
+    startBadgePdfWorker();
+    console.log('[Workers] Badge PDF worker started');
+  } catch (err) {
+    console.error('[Workers] Failed to start Badge PDF worker:', err);
   }
 
   // Start the email sync scheduler (enqueues periodic sync jobs)
