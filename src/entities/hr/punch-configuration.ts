@@ -27,6 +27,11 @@ export interface PunchConfigurationProps {
   // Geofence defaults
   defaultRadiusMeters: number;
 
+  // Face match (Phase 5 / Plan 05-01 / D-03): tenant-configurable Euclidean
+  // distance threshold (lower = stricter; default 0.55). Consumed by the
+  // FaceMatchValidator (Plan 05-07) to decide ACCEPT vs APPROVAL_REQUIRED.
+  faceMatchThreshold: number;
+
   // Audit
   createdAt: Date;
   updatedAt: Date;
@@ -89,6 +94,10 @@ export class PunchConfiguration extends Entity<PunchConfigurationProps> {
     return this.props.defaultRadiusMeters;
   }
 
+  get faceMatchThreshold(): number {
+    return this.props.faceMatchThreshold;
+  }
+
   get createdAt(): Date {
     return this.props.createdAt;
   }
@@ -132,6 +141,7 @@ export class PunchConfiguration extends Entity<PunchConfigurationProps> {
       autoClockOutHours: null,
       pdfReceiptEnabled: true,
       defaultRadiusMeters: 200,
+      faceMatchThreshold: 0.55,
     });
   }
 }

@@ -14,6 +14,7 @@ export interface UpdatePunchConfigData {
   autoClockOutHours?: number | null;
   pdfReceiptEnabled?: boolean;
   defaultRadiusMeters?: number;
+  faceMatchThreshold?: number;
 }
 
 export interface PunchConfigRepository {

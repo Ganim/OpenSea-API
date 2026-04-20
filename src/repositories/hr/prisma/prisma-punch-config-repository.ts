@@ -22,6 +22,7 @@ function mapPrismaToDomain(data: {
   autoClockOutHours: number | null;
   pdfReceiptEnabled: boolean;
   defaultRadiusMeters: number;
+  faceMatchThreshold: number;
   createdAt: Date;
   updatedAt: Date;
 }): PunchConfiguration {
@@ -41,6 +42,7 @@ function mapPrismaToDomain(data: {
       autoClockOutHours: data.autoClockOutHours,
       pdfReceiptEnabled: data.pdfReceiptEnabled,
       defaultRadiusMeters: data.defaultRadiusMeters,
+      faceMatchThreshold: data.faceMatchThreshold,
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,
     },

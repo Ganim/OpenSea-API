@@ -53,6 +53,8 @@ export class InMemoryPunchConfigRepository implements PunchConfigRepository {
         pdfReceiptEnabled: data.pdfReceiptEnabled ?? existing.pdfReceiptEnabled,
         defaultRadiusMeters:
           data.defaultRadiusMeters ?? existing.defaultRadiusMeters,
+        faceMatchThreshold:
+          data.faceMatchThreshold ?? existing.faceMatchThreshold,
       },
       existing.id,
     );

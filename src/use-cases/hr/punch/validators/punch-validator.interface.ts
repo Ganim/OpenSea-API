@@ -18,10 +18,10 @@ export type PunchRejectionCode =
 /**
  * Reasons that force a punch into `APPROVAL_REQUIRED` — gravada com NSR
  * imutável e aprovação PENDING em paralelo. Fase 4 entrega só
- * `OUT_OF_GEOFENCE`; fases futuras adicionam FACE_MATCH_LOW, CLOCK_DRIFT,
- * MANUAL_CORRECTION.
+ * `OUT_OF_GEOFENCE`; Phase 5 adds `FACE_MATCH_LOW` (D-03 / Plan 05-07);
+ * fases futuras adicionam CLOCK_DRIFT, MANUAL_CORRECTION.
  */
-export type PunchApprovalReasonCode = 'OUT_OF_GEOFENCE';
+export type PunchApprovalReasonCode = 'OUT_OF_GEOFENCE' | 'FACE_MATCH_LOW';
 
 /**
  * Sum type returned by every validator. Pipeline orchestrates: first
@@ -44,6 +44,18 @@ export type PunchValidationDecision =
  * Tenant scoping is enforced by `tenantId` — every repo call a validator
  * makes MUST pass it in the where clause.
  */
+/**
+ * Liveness metadata captured by the kiosk (client-side). Persisted as-is
+ * for audit per D-04; NOT used to REJECT a batida in Phase 5. Phase 9
+ * antifraude hardening may flip this to a gating policy once real data
+ * drives the thresholds.
+ */
+export interface PunchLivenessMetadata {
+  blinkDetected: boolean;
+  trackingFrames: number;
+  durationMs: number;
+}
+
 export interface PunchValidationContext {
   tenantId: string;
   employeeId: string;
@@ -51,7 +63,21 @@ export interface PunchValidationContext {
   latitude?: number;
   longitude?: number;
   punchDevice?: { id: string; geofenceZoneId?: string | null };
-  punchConfig: { geofenceEnabled: boolean };
+  /**
+   * Configuration for validator behavior. `faceMatchThreshold` feeds the
+   * FaceMatchValidator (Plan 05-07 / D-03); `null` when the validator
+   * should use its internal default (0.55).
+   */
+  punchConfig: { geofenceEnabled: boolean; faceMatchThreshold?: number };
+  /**
+   * 128-d face embedding extracted by the kiosk (`face-api.js` on WebGL)
+   * and sent to the server for comparison against stored enrollments.
+   * Absent on the JWT / PWA path (employee authenticates via token only
+   * — no face challenge).
+   */
+  faceEmbedding?: number[] | Float32Array;
+  /** Kiosk-side liveness signals. Absent on non-kiosk paths. */
+  liveness?: PunchLivenessMetadata;
 }
 
 /**

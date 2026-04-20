@@ -51,6 +51,7 @@ describe('Get Punch Config Use Case', () => {
       autoClockOutHours: 10,
       pdfReceiptEnabled: false,
       defaultRadiusMeters: 500,
+      faceMatchThreshold: 0.5,
     });
     punchConfigRepository.items.push(existingConfig);
 
