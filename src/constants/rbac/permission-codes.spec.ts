@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { isValidPermissionCode, parsePermissionCode } from './permission-codes';
+import {
+  DEFAULT_USER_PERMISSIONS,
+  isValidPermissionCode,
+  parsePermissionCode,
+  PermissionCodes,
+} from './permission-codes';
 
 describe('isValidPermissionCode', () => {
   it('should accept 3-level codes', () => {
@@ -103,6 +108,105 @@ describe('parsePermissionCode', () => {
       expect(() => parsePermissionCode('stock')).toThrow(
         'Invalid permission code',
       );
+    });
+  });
+});
+
+// ─── Phase 5 additions: FACE_ENROLLMENT + CRACHAS ────────────────────────────
+
+describe('PermissionCodes.HR.FACE_ENROLLMENT (Phase 5)', () => {
+  it('expõe ACCESS como hr.face-enrollment.access', () => {
+    expect(PermissionCodes.HR.FACE_ENROLLMENT.ACCESS).toBe(
+      'hr.face-enrollment.access',
+    );
+  });
+
+  it('expõe REGISTER como hr.face-enrollment.register', () => {
+    expect(PermissionCodes.HR.FACE_ENROLLMENT.REGISTER).toBe(
+      'hr.face-enrollment.register',
+    );
+  });
+
+  it('expõe REMOVE como hr.face-enrollment.remove', () => {
+    expect(PermissionCodes.HR.FACE_ENROLLMENT.REMOVE).toBe(
+      'hr.face-enrollment.remove',
+    );
+  });
+
+  it('expõe ADMIN como hr.face-enrollment.admin', () => {
+    expect(PermissionCodes.HR.FACE_ENROLLMENT.ADMIN).toBe(
+      'hr.face-enrollment.admin',
+    );
+  });
+
+  it('todas as 4 codes são reconhecidas como 3-level válidas', () => {
+    const codes = [
+      PermissionCodes.HR.FACE_ENROLLMENT.ACCESS,
+      PermissionCodes.HR.FACE_ENROLLMENT.REGISTER,
+      PermissionCodes.HR.FACE_ENROLLMENT.REMOVE,
+      PermissionCodes.HR.FACE_ENROLLMENT.ADMIN,
+    ];
+    codes.forEach((code) => {
+      expect(isValidPermissionCode(code)).toBe(true);
+      const parsed = parsePermissionCode(code);
+      expect(parsed.module).toBe('hr');
+      expect(parsed.resource).toBe('face-enrollment');
+    });
+  });
+});
+
+describe('PermissionCodes.HR.CRACHAS (Phase 5)', () => {
+  it('expõe ACCESS como hr.crachas.access', () => {
+    expect(PermissionCodes.HR.CRACHAS.ACCESS).toBe('hr.crachas.access');
+  });
+
+  it('expõe PRINT como hr.crachas.print', () => {
+    expect(PermissionCodes.HR.CRACHAS.PRINT).toBe('hr.crachas.print');
+  });
+
+  it('expõe ADMIN como hr.crachas.admin', () => {
+    expect(PermissionCodes.HR.CRACHAS.ADMIN).toBe('hr.crachas.admin');
+  });
+
+  it('todas as 3 codes são reconhecidas como 3-level válidas', () => {
+    const codes = [
+      PermissionCodes.HR.CRACHAS.ACCESS,
+      PermissionCodes.HR.CRACHAS.PRINT,
+      PermissionCodes.HR.CRACHAS.ADMIN,
+    ];
+    codes.forEach((code) => {
+      expect(isValidPermissionCode(code)).toBe(true);
+      const parsed = parsePermissionCode(code);
+      expect(parsed.module).toBe('hr');
+      expect(parsed.resource).toBe('crachas');
+    });
+  });
+});
+
+describe('DEFAULT_USER_PERMISSIONS — Phase 5 admin-only gates', () => {
+  // D-05: enrollment biométrico é admin-only. CRACHAS.PRINT também é
+  // operação administrativa. Nenhum desses 7 codes deve aparecer no array
+  // de defaults — admins recebem via extractAllCodes(PermissionCodes).
+  it('NÃO inclui nenhuma permissão hr.face-enrollment.* nos defaults', () => {
+    const phase5FaceCodes = [
+      PermissionCodes.HR.FACE_ENROLLMENT.ACCESS,
+      PermissionCodes.HR.FACE_ENROLLMENT.REGISTER,
+      PermissionCodes.HR.FACE_ENROLLMENT.REMOVE,
+      PermissionCodes.HR.FACE_ENROLLMENT.ADMIN,
+    ];
+    phase5FaceCodes.forEach((code) => {
+      expect(DEFAULT_USER_PERMISSIONS).not.toContain(code);
+    });
+  });
+
+  it('NÃO inclui nenhuma permissão hr.crachas.* nos defaults', () => {
+    const phase5CrachaCodes = [
+      PermissionCodes.HR.CRACHAS.ACCESS,
+      PermissionCodes.HR.CRACHAS.PRINT,
+      PermissionCodes.HR.CRACHAS.ADMIN,
+    ];
+    phase5CrachaCodes.forEach((code) => {
+      expect(DEFAULT_USER_PERMISSIONS).not.toContain(code);
     });
   });
 });

@@ -333,6 +333,24 @@ export const PermissionCodes = {
       MODIFY: 'hr.punch-approvals.modify' as const,
       ADMIN: 'hr.punch-approvals.admin' as const,
     },
+    // Phase 5 — enrollment biométrico do funcionário (kiosk + face match).
+    // Admin-only por padrão (D-05): RH cadastra/remove a biometria; o
+    // funcionário não tem self-service nesta fase. Não está em
+    // `DEFAULT_USER_PERMISSIONS` — admins recebem via `extractAllCodes`.
+    FACE_ENROLLMENT: {
+      ACCESS: 'hr.face-enrollment.access' as const,
+      REGISTER: 'hr.face-enrollment.register' as const,
+      REMOVE: 'hr.face-enrollment.remove' as const,
+      ADMIN: 'hr.face-enrollment.admin' as const,
+    },
+    // Phase 5 — impressão de crachás (PDF individual e em lote).
+    // PRINT é o gate de geração; ADMIN cobre rotação de QR em massa
+    // (operação que invalida crachás existentes).
+    CRACHAS: {
+      ACCESS: 'hr.crachas.access' as const,
+      PRINT: 'hr.crachas.print' as const,
+      ADMIN: 'hr.crachas.admin' as const,
+    },
     BONUSES: {
       ACCESS: 'hr.bonuses.access' as const,
       REGISTER: 'hr.bonuses.register' as const,
