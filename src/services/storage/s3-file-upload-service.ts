@@ -21,6 +21,8 @@ import type {
   MultipartUploadInit,
   UploadOptions,
   UploadResult,
+  UploadWithKeyOptions,
+  UploadWithKeyResult,
 } from './file-upload-service';
 
 const DEFAULT_MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
@@ -127,6 +129,43 @@ export class S3FileUploadService implements FileUploadService {
       url: objectUrl,
       size: fileBuffer.length, // Original size for DB records
       mimeType,
+    };
+  }
+
+  /**
+   * Deterministic-key upload — caller controls the exact `Key` used in S3.
+   *
+   * Used by Phase 06 compliance flows to keep `ComplianceArtifact.storageKey`
+   * in lockstep with the blob path. Skips gzip compression unconditionally:
+   * compliance buffers must hash byte-for-byte to `contentHash` recorded in
+   * the row, so any encoding transformation would break the integrity audit.
+   *
+   * @param fileBuffer Raw bytes to upload.
+   * @param key Exact S3 object key (no UUID/sanitization applied).
+   * @param options mimeType is required; cacheControl + metadata optional.
+   * @returns key + bucket + etag + size (etag is the S3-side hash, not our hash).
+   */
+  async uploadWithKey(
+    fileBuffer: Buffer,
+    key: string,
+    options: UploadWithKeyOptions,
+  ): Promise<UploadWithKeyResult> {
+    const putCommand = new PutObjectCommand({
+      Bucket: this.bucket,
+      Key: key,
+      Body: fileBuffer,
+      ContentType: options.mimeType,
+      CacheControl: options.cacheControl,
+      Metadata: options.metadata,
+    });
+
+    const response = await this.s3Client.send(putCommand);
+
+    return {
+      key,
+      bucket: this.bucket,
+      etag: response.ETag,
+      size: fileBuffer.length,
     };
   }
 

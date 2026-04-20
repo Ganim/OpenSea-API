@@ -141,6 +141,23 @@ export class PunchApproval extends Entity<PunchApprovalProps> {
     this.touch();
   }
 
+  /**
+   * Phase 06 / Plan 06-02 (PUNCH-COMPLIANCE-07).
+   *
+   * Mescla campos no JSONB `details` da aprovação. Usado pelo
+   * `ResolvePunchApprovalUseCase` quando há `correctionPayload`: precisamos
+   * gravar `correctionNsr` (e potencialmente `correctionEntryId`) sem perder
+   * os campos preexistentes (`distance`, `zoneId`, `faceScore` etc. setados
+   * no momento da criação pelo `ExecutePunchUseCase`).
+   *
+   * `touch()` é invocado automaticamente para que `updatedAt` reflita a
+   * mutação (audit trail consistente com `resolve`/`reject`).
+   */
+  mergeDetails(patch: Record<string, unknown>) {
+    this.props.details = { ...(this.props.details ?? {}), ...patch };
+    this.touch();
+  }
+
   private touch() {
     this.props.updatedAt = new Date();
   }

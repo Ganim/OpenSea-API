@@ -52,6 +52,14 @@ export class PrismaPunchApprovalsRepository
         resolverUserId: approval.resolverUserId?.toString() ?? null,
         resolvedAt: approval.resolvedAt ?? null,
         resolverNote: approval.resolverNote ?? null,
+        // Phase 06 / Plan 06-02: persistir mutações no `details` (ex:
+        // `correctionNsr` setado por `mergeDetails` quando o gestor aprova
+        // com `correctionPayload`). Antes de Phase 6 esta coluna era write-once
+        // (set apenas no `create`) — agora é read-write.
+        details:
+          approval.details === undefined
+            ? undefined
+            : (approval.details as Prisma.InputJsonValue),
       },
     });
   }

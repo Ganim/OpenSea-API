@@ -26,6 +26,19 @@ export interface MultipartCompletePart {
   etag: string;
 }
 
+export interface UploadWithKeyOptions {
+  mimeType: string;
+  cacheControl?: string;
+  metadata?: Record<string, string>;
+}
+
+export interface UploadWithKeyResult {
+  key: string;
+  bucket: string;
+  etag?: string;
+  size: number;
+}
+
 export interface FileUploadService {
   upload(
     fileBuffer: Buffer,
@@ -33,6 +46,23 @@ export interface FileUploadService {
     mimeType: string,
     options: UploadOptions,
   ): Promise<UploadResult>;
+
+  /**
+   * PUT with a caller-provided key (no UUID prefix, no sanitization of path
+   * segments — the caller is responsible for deterministic key construction).
+   *
+   * Used by compliance flows (Phase 06) where `storageKey` must match the
+   * deterministic pattern `{tenant}/compliance/{artifactType}/{YYYY}/{MM}/{id}.txt`
+   * so that the generated `ComplianceArtifact.storageKey` column stays in
+   * sync with the blob location. Does NOT compress the body (compliance
+   * artifacts are already compact and must match the byte-for-byte hash
+   * recorded in `ComplianceArtifact.contentHash`).
+   */
+  uploadWithKey(
+    fileBuffer: Buffer,
+    key: string,
+    options: UploadWithKeyOptions,
+  ): Promise<UploadWithKeyResult>;
 
   getPresignedUrl(key: string, expiresIn?: number): Promise<string>;
 

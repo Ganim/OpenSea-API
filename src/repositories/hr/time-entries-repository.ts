@@ -43,6 +43,52 @@ export interface FindManyTimeEntriesResult {
   total: number;
 }
 
+/**
+ * Payload para criar uma batida de CORREÇÃO (Phase 06 / Plan 06-02).
+ *
+ * Diferente de `CreateTimeEntrySchema`: aqui o NSR é alocado SEMPRE pelo
+ * próprio repositório (não aceita do caller — invariante PUNCH-COMPLIANCE-07
+ * exige NSR sequencial novo); a entrada original é referenciada via
+ * `originEntryId` para que o repo escreva `originNsrNumber` na nova linha.
+ *
+ * **Imutabilidade da origem:** o `TimeEntry` original NUNCA é modificado por
+ * este método — apenas uma nova linha é inserida com `adjustmentType =
+ * ADJUSTMENT_APPROVED`. Quem invocar este método (ex:
+ * `ResolvePunchApprovalUseCase` após `correctionPayload`) pode confiar que
+ * os campos NSR/timestamp/payload da batida original permanecem intactos.
+ */
+export interface CreateTimeEntryAdjustmentParams {
+  /** ID do TimeEntry original que está sendo corrigido (NSR fica preservado). */
+  originEntryId: string;
+  /** Tenant scope — repo guard rejeita se a origem não pertence ao tenant. */
+  tenantId: string;
+  /** Funcionário associado à batida corrigida (geralmente == origem). */
+  employeeId: UniqueEntityID;
+  /** Tipo de batida corrigido (gestor pode mudar IN→OUT etc). */
+  entryType: TimeEntryType;
+  /** Timestamp final corrigido. */
+  timestamp: Date;
+  /** Nota livre do gestor sobre a correção (vai parar em TimeEntry.notes). */
+  note?: string;
+  /** UserID do gestor que aprovou a correção (audit trail). */
+  resolverUserId: string;
+  /**
+   * Idempotency token opcional — se a tela do gestor enviar o mesmo
+   * token duas vezes, o repo retorna a entry já criada em vez de duplicar.
+   */
+  requestId?: string;
+}
+
+/**
+ * Resultado de `createAdjustment`. Inclui o `nsrNumber` recém-alocado
+ * (fica visível para o caller pode escrever em `PunchApproval.details.correctionNsr`).
+ */
+export interface CreateTimeEntryAdjustmentResult {
+  timeEntry: TimeEntry;
+  nsrNumber: number;
+  originNsrNumber: number;
+}
+
 export interface TimeEntriesRepository {
   create(data: CreateTimeEntrySchema): Promise<TimeEntry>;
   /**
@@ -86,4 +132,25 @@ export interface TimeEntriesRepository {
   ): Promise<TimeEntry | null>;
   delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
   findMaxNsrNumber(tenantId: string): Promise<number>;
+  /**
+   * Phase 06 / Plan 06-02 (PUNCH-COMPLIANCE-07).
+   *
+   * Cria uma BATIDA DE CORREÇÃO ligada a `originEntryId`, alocando um NSR
+   * sequencial novo dentro do tenant. A batida original NÃO é modificada
+   * (invariante crítica para AFD não ser invalidado: NSR é imutável depois
+   * de gravado). A nova entry carrega:
+   *
+   * - `nsrNumber`        → novo, sequencial
+   * - `originNsrNumber`  → NSR da batida original (FK lógica para AFDT)
+   * - `adjustmentType`   → ADJUSTMENT_APPROVED
+   * - `timestamp`        → valor corrigido pelo gestor
+   * - `entryType`        → valor corrigido pelo gestor
+   * - `notes`            → nota do gestor (opcional)
+   *
+   * Retorna a entity nova + ambos os NSRs (origem e correção) para o caller
+   * usar em `PunchApproval.details.correctionNsr` e nos eventos PUNCH_EVENTS.
+   */
+  createAdjustment(
+    params: CreateTimeEntryAdjustmentParams,
+  ): Promise<CreateTimeEntryAdjustmentResult>;
 }

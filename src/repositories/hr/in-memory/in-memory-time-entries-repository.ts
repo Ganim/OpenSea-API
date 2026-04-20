@@ -1,16 +1,32 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { TimeEntry } from '@/entities/hr/time-entry';
 import type {
+  CreateTimeEntryAdjustmentParams,
+  CreateTimeEntryAdjustmentResult,
   CreateTimeEntrySchema,
   FindManyTimeEntriesResult,
   FindTimeEntriesFilters,
   TimeEntriesRepository,
 } from '../time-entries-repository';
 
+/**
+ * Sidecar Phase 06 / Plan 06-02: in-memory tracking of compliance fields
+ * (`nsrNumber`, `originNsrNumber`, `adjustmentType`). The domain entity
+ * `TimeEntry` does NOT carry these (D-06-01-04: keep entity stable). Tests
+ * that need to assert on adjustment metadata read from `complianceMeta`.
+ */
+type ComplianceMeta = {
+  nsrNumber?: number;
+  originNsrNumber?: number;
+  adjustmentType?: 'ORIGINAL' | 'ADJUSTMENT_APPROVED';
+};
+
 export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
   // Public to let specs assert on recorded entries and override fixtures
   // (e.g. prime a fake "already persisted with this requestId" row).
-  public items: Array<TimeEntry & { requestId?: string }> = [];
+  public items: Array<
+    TimeEntry & { requestId?: string; complianceMeta?: ComplianceMeta }
+  > = [];
   private nsrCounters: Map<string, number> = new Map();
 
   async create(data: CreateTimeEntrySchema): Promise<TimeEntry> {
@@ -43,7 +59,17 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
       }
     }
 
-    this.items.push(timeEntry as TimeEntry & { requestId?: string });
+    const enriched = timeEntry as TimeEntry & {
+      requestId?: string;
+      complianceMeta?: ComplianceMeta;
+    };
+    if (data.nsrNumber != null) {
+      enriched.complianceMeta = {
+        nsrNumber: data.nsrNumber,
+        adjustmentType: 'ORIGINAL',
+      };
+    }
+    this.items.push(enriched);
     return timeEntry;
   }
 
@@ -174,5 +200,77 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
         (entry as TimeEntry & { requestId?: string }).requestId === requestId,
     );
     return match ?? null;
+  }
+
+  async createAdjustment(
+    params: CreateTimeEntryAdjustmentParams,
+  ): Promise<CreateTimeEntryAdjustmentResult> {
+    // Locate origin and assert tenant scope.
+    const origin = this.items.find(
+      (item) =>
+        item.id.toString() === params.originEntryId &&
+        item.tenantId.toString() === params.tenantId,
+    );
+    if (!origin) {
+      throw new Error(
+        `TimeEntry origem não encontrada (id=${params.originEntryId}, tenant=${params.tenantId}).`,
+      );
+    }
+    const originNsr = origin.complianceMeta?.nsrNumber;
+    if (originNsr == null) {
+      throw new Error(
+        `TimeEntry origem ${params.originEntryId} não possui nsrNumber — correção exige NSR válido na origem (Portaria 671).`,
+      );
+    }
+
+    // Idempotência por requestId (se fornecido).
+    if (params.requestId) {
+      const existing = this.items.find(
+        (item) =>
+          item.tenantId.toString() === params.tenantId &&
+          (item as TimeEntry & { requestId?: string }).requestId ===
+            params.requestId,
+      );
+      if (existing && existing.complianceMeta?.nsrNumber != null) {
+        return {
+          timeEntry: existing,
+          nsrNumber: existing.complianceMeta.nsrNumber,
+          originNsrNumber: originNsr,
+        };
+      }
+    }
+
+    const nextNsr = (this.nsrCounters.get(params.tenantId) ?? 0) + 1;
+    this.nsrCounters.set(params.tenantId, nextNsr);
+
+    const adjustmentId = new UniqueEntityID();
+    const adjustment = TimeEntry.create(
+      {
+        tenantId: new UniqueEntityID(params.tenantId),
+        employeeId: params.employeeId,
+        entryType: params.entryType,
+        timestamp: params.timestamp,
+        notes: params.note,
+        metadata: { resolverUserId: params.resolverUserId },
+      },
+      adjustmentId,
+    );
+    const enriched = adjustment as TimeEntry & {
+      requestId?: string;
+      complianceMeta?: ComplianceMeta;
+    };
+    enriched.requestId = params.requestId;
+    enriched.complianceMeta = {
+      nsrNumber: nextNsr,
+      originNsrNumber: originNsr,
+      adjustmentType: 'ADJUSTMENT_APPROVED',
+    };
+    this.items.push(enriched);
+
+    return {
+      timeEntry: adjustment,
+      nsrNumber: nextNsr,
+      originNsrNumber: originNsr,
+    };
   }
 }

@@ -3,10 +3,13 @@ import { TimeEntry } from '@/entities/hr/time-entry';
 import { prisma } from '@/lib/prisma';
 import { mapTimeEntryPrismaToDomain } from '@/mappers/hr/time-entry';
 import {
+  AdjustmentType as PrismaAdjustmentType,
   Prisma,
   TimeEntryType as PrismaTimeEntryType,
 } from '@prisma/generated/client.js';
 import type {
+  CreateTimeEntryAdjustmentParams,
+  CreateTimeEntryAdjustmentResult,
   CreateTimeEntrySchema,
   FindManyTimeEntriesResult,
   FindTimeEntriesFilters,
@@ -225,5 +228,85 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
       mapTimeEntryPrismaToDomain(timeEntryData),
       new UniqueEntityID(timeEntryData.id),
     );
+  }
+
+  async createAdjustment(
+    params: CreateTimeEntryAdjustmentParams,
+  ): Promise<CreateTimeEntryAdjustmentResult> {
+    return prisma.$transaction(async (tx) => {
+      const origin = await tx.timeEntry.findFirst({
+        where: { id: params.originEntryId, tenantId: params.tenantId },
+        select: { id: true, nsrNumber: true, tenantId: true },
+      });
+
+      if (!origin) {
+        throw new Error(
+          `TimeEntry origem não encontrada (id=${params.originEntryId}, tenant=${params.tenantId}).`,
+        );
+      }
+      if (origin.nsrNumber == null) {
+        throw new Error(
+          `TimeEntry origem ${params.originEntryId} sem nsrNumber — Portaria 671 exige NSR válido na origem.`,
+        );
+      }
+
+      // Idempotência por requestId.
+      if (params.requestId) {
+        const existing = await tx.timeEntry.findFirst({
+          where: {
+            tenantId: params.tenantId,
+            requestId: params.requestId,
+          },
+        });
+        if (existing && existing.nsrNumber != null) {
+          return {
+            timeEntry: TimeEntry.create(
+              mapTimeEntryPrismaToDomain(existing),
+              new UniqueEntityID(existing.id),
+            ),
+            nsrNumber: existing.nsrNumber,
+            originNsrNumber: origin.nsrNumber,
+          };
+        }
+      }
+
+      // Aloca próximo NSR sob a transação. Em concorrência o constraint
+      // @@unique([tenantId, nsrNumber]) protege; o caller deve ter retry
+      // se necessário (CreateAdjustment é tipicamente fluxo manual de gestor,
+      // contenção esperada baixa).
+      const aggregate = await tx.timeEntry.aggregate({
+        where: { tenantId: params.tenantId },
+        _max: { nsrNumber: true },
+      });
+      const nextNsr = (aggregate._max.nsrNumber ?? 0) + 1;
+
+      const created = await tx.timeEntry.create({
+        data: {
+          tenantId: params.tenantId,
+          employeeId: params.employeeId.toString(),
+          entryType: params.entryType.value as PrismaTimeEntryType,
+          timestamp: params.timestamp,
+          notes: params.note,
+          requestId: params.requestId,
+          nsrNumber: nextNsr,
+          originNsrNumber: origin.nsrNumber,
+          adjustmentType: PrismaAdjustmentType.ADJUSTMENT_APPROVED,
+          // Audit-only: who resolved the correction. Lives in the JSONB
+          // metadata column added in Plan 05-07; never queried back.
+          metadata: {
+            resolverUserId: params.resolverUserId,
+          } as Prisma.InputJsonValue,
+        },
+      });
+
+      return {
+        timeEntry: TimeEntry.create(
+          mapTimeEntryPrismaToDomain(created),
+          new UniqueEntityID(created.id),
+        ),
+        nsrNumber: nextNsr,
+        originNsrNumber: origin.nsrNumber,
+      };
+    });
   }
 }
