@@ -8,6 +8,8 @@ import { v1GenerateAfdController } from './v1-generate-afd.controller';
 import { v1GenerateAfdtController } from './v1-generate-afdt.controller';
 import { v1GenerateFolhaEspelhoController } from './v1-generate-folha-espelho.controller';
 import { v1GenerateFolhaEspelhoBulkController } from './v1-generate-folha-espelho-bulk.controller';
+import { v1ListRubricaMapController } from './v1-list-rubrica-map.controller';
+import { v1UpsertRubricaMapController } from './v1-upsert-rubrica-map.controller';
 
 /**
  * Phase 06 / Plan 06-02 — Aggregator das rotas de `hr/compliance`.
@@ -17,9 +19,8 @@ import { v1GenerateFolhaEspelhoBulkController } from './v1-generate-folha-espelh
  *    o plano com módulo HR habilitado.
  *  - Mutation routes (AFD/AFDT generate) com rate-limit estrito (mutation).
  *
- * Próximos plans 06-0x adicionarão aqui (folha-espelho, s1200-submit, listing,
- * download) — manter 1 registro por controller dentro dos blocos apropriados
- * (mutation vs query).
+ * Plan 06-05 adicionou rotas de RubricaMap (query + mutation) e o endpoint
+ * de submissão de S-1200 (mutation).
  */
 export async function complianceRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('HR'));
@@ -33,9 +34,14 @@ export async function complianceRoutes(app: FastifyInstance) {
       // Plan 06-04 — folha espelho individual + bulk
       mutationApp.register(v1GenerateFolhaEspelhoController);
       mutationApp.register(v1GenerateFolhaEspelhoBulkController);
+      // Plan 06-05 — upsert de mapeamento CLT → codRubr
+      mutationApp.register(v1UpsertRubricaMapController);
     },
     { prefix: '' },
   );
 
-  // Plans 06-05/06 registrarão query routes aqui (listing, download, S-1200).
+  // Query routes — listagens (leitura)
+  app.register(async (queryApp) => {
+    queryApp.register(v1ListRubricaMapController);
+  });
 }
