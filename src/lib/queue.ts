@@ -310,6 +310,11 @@ export const QUEUE_NAMES = {
   // - BADGE_PDF: geração de crachás PDF (individual síncrono <2s, lote async A4 8-up)
   QR_BATCH: 'qr-batch-operations',
   BADGE_PDF: 'badge-pdf-generation',
+  // Phase 6 (compliance Portaria 671):
+  // - RECEIPT_PDF: geração eager de recibo PDF por batida, subscreve
+  //   PUNCH_EVENTS.TIME_ENTRY_CREATED (via dispatcher consumer). jobId =
+  //   timeEntryId garante dedupe em replay (Plan 06-03 Pitfall 5).
+  RECEIPT_PDF: 'receipt-pdf-generation',
 } as const;
 
 export type QueueName = (typeof QUEUE_NAMES)[keyof typeof QUEUE_NAMES];

@@ -39,6 +39,7 @@ import {
 import { startBadgePdfWorker } from './badge-pdf-worker';
 import { startPunchEventsWorker } from './punch-events-worker';
 import { startQrBatchWorker } from './qr-batch-worker';
+import { startReceiptPdfWorker } from './receipt-pdf-worker';
 import {
   scheduleCalendarRemindersRepeatable,
   startCalendarRemindersQueueWorker,
@@ -169,9 +170,18 @@ export async function startAllWorkers(): Promise<void> {
     } catch (err) {
       console.error('[Workers] Failed to start Badge PDF worker:', err);
     }
+
+    try {
+      startReceiptPdfWorker();
+      console.log(
+        '[Workers] Receipt PDF worker started (Phase 06 / Plan 06-03)',
+      );
+    } catch (err) {
+      console.error('[Workers] Failed to start Receipt PDF worker:', err);
+    }
   } else {
     console.log(
-      '[Workers] BULLMQ_ENABLED=false — skipping email-sync, notifications, esocial-batch-polling, punch-events, qr-batch, badge-pdf workers',
+      '[Workers] BULLMQ_ENABLED=false — skipping email-sync, notifications, esocial-batch-polling, punch-events, qr-batch, badge-pdf, receipt-pdf workers',
     );
   }
 

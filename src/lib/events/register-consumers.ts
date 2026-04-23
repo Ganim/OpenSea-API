@@ -22,6 +22,7 @@ import { messagingNotificationConsumer } from './consumers/messaging-notificatio
 import { punchEsocialConsumer } from './consumers/punch-esocial-consumer';
 import { punchEventsQueueBridge } from './consumers/punch-events-queue-bridge';
 import { punchNotificationDispatcherConsumer } from './consumers/punch-notification-dispatcher-consumer';
+import { receiptPdfDispatcherConsumer } from './consumers/receipt-pdf-dispatcher-consumer';
 import { punchPayrollConsumer } from './consumers/punch-payroll-consumer';
 import { punchPinLockedDispatcherConsumer } from './consumers/punch-pin-locked-dispatcher-consumer';
 import { punchQrRotationCompletedDispatcherConsumer } from './consumers/punch-qr-rotation-completed-dispatcher-consumer';
@@ -88,4 +89,10 @@ export function registerEventConsumers(eventBus: TypedEventBus): void {
   // eSocial) can run out-of-process in later phases. The bridge is the
   // SINGLE producer of that queue — use cases never call addJob directly.
   eventBus.register(punchEventsQueueBridge);
+
+  // Compliance (Phase 6, Plan 06-03) — subscreve TIME_ENTRY_CREATED e
+  // enfileira 1 job em `receipt-pdf-generation` com jobId=timeEntryId.
+  // Queue DEDICADA (não reusa punch-events) para que o worker de recibo
+  // possa ter SLA/retry/priority próprios — < 5s por recibo.
+  eventBus.register(receiptPdfDispatcherConsumer);
 }
