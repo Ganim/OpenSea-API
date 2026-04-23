@@ -140,42 +140,39 @@ export async function startAllWorkers(): Promise<void> {
 
   console.log('[Workers] Starting all queue workers...');
 
-  startEmailSyncWorker();
-  startNotificationWorker();
-  startEsocialBatchPollingWorker();
+  // BULLMQ_ENABLED gate: when false, skip every worker that polls Redis
+  // (email-sync, notifications, esocial-batch-polling, punch-events,
+  // qr-batch, badge-pdf). Prevents the entire worker fleet from hammering
+  // Redis in a retry-storm when the Upstash quota is exhausted.
+  if (env.BULLMQ_ENABLED) {
+    startEmailSyncWorker();
+    startNotificationWorker();
+    startEsocialBatchPollingWorker();
 
-  // Phase 4 (punch): durable BullMQ fan-out for punch.* events.
-  // Producer: punchEventsQueueBridge (consumer registered in
-  // src/lib/events/register-consumers.ts). Phase 4 handler is a mock
-  // that logs each job — real work lands in phases 6/7.
-  try {
-    startPunchEventsWorker();
-    console.log('[Workers] Punch events worker started');
-  } catch (err) {
-    console.error('[Workers] Failed to start punch events worker:', err);
-  }
+    try {
+      startPunchEventsWorker();
+      console.log('[Workers] Punch events worker started');
+    } catch (err) {
+      console.error('[Workers] Failed to start punch events worker:', err);
+    }
 
-  // Phase 5 (kiosk QR rotation D-14): worker for `QUEUE_NAMES.QR_BATCH`.
-  // Chunks 100 employees per Prisma $transaction, emits Socket.IO progress
-  // to `tenant:{id}:hr`, publishes `PUNCH_EVENTS.QR_ROTATION_COMPLETED`
-  // on finish, optionally fans out a `BADGE_PDF` sub-job.
-  try {
-    startQrBatchWorker();
-    console.log('[Workers] QR batch worker started');
-  } catch (err) {
-    console.error('[Workers] Failed to start QR batch worker:', err);
-  }
+    try {
+      startQrBatchWorker();
+      console.log('[Workers] QR batch worker started');
+    } catch (err) {
+      console.error('[Workers] Failed to start QR batch worker:', err);
+    }
 
-  // Phase 5 (crachá PDF D-13): worker for `QUEUE_NAMES.BADGE_PDF`.
-  // Renders A4 2×4 lote PDFs (8 crachás/page + dashed cut marks), uploads
-  // to S3 with 24h pre-signed URL (or Redis fallback when S3 env is
-  // unavailable), publishes `PUNCH_EVENTS.QR_ROTATION_COMPLETED` with
-  // `bulkPdfDownloadUrl` for the Plan 05-02 notification consumer.
-  try {
-    startBadgePdfWorker();
-    console.log('[Workers] Badge PDF worker started');
-  } catch (err) {
-    console.error('[Workers] Failed to start Badge PDF worker:', err);
+    try {
+      startBadgePdfWorker();
+      console.log('[Workers] Badge PDF worker started');
+    } catch (err) {
+      console.error('[Workers] Failed to start Badge PDF worker:', err);
+    }
+  } else {
+    console.log(
+      '[Workers] BULLMQ_ENABLED=false — skipping email-sync, notifications, esocial-batch-polling, punch-events, qr-batch, badge-pdf workers',
+    );
   }
 
   // Start the email sync scheduler (enqueues periodic sync jobs)
