@@ -6664,6 +6664,9 @@ model Tenant {
   // Compliance (Phase 6 / Plan 06-01)
   complianceArtifacts ComplianceArtifact[]
 
+  // Compliance rubrica map (Plan 06-05)
+  complianceRubricaMaps ComplianceRubricaMap[]
+
   // HR Tenant Configuration
   hrTenantConfig HrTenantConfig?
 
@@ -13853,6 +13856,12 @@ model EsocialConfig {
   employerType     String             @default("CNPJ") @map("employer_type") @db.VarChar(8) // CNPJ or CPF
   employerDocument String?            @map("employer_document") @db.VarChar(18)
 
+  // Plan 06-05 D-06 — Número INPI para cabeçalho AFD (Portaria 671 Anexo I tipo 1).
+  // Nullable: tenants sem registro INPI real usam placeholder '99999999999999999'
+  // (convenção REP-A aceita pelo Validador MTP). UI em Plan 06-06 deve expor esse
+  // campo com label de ajuda.
+  inpiNumber String? @map("inpi_number") @db.VarChar(17)
+
   // Audit
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -14044,6 +14053,36 @@ model EsocialTable {
   @@unique([tableCode, itemCode])
   @@index([tableCode])
   @@map("esocial_tables")
+}
+
+// ===============================================
+// COMPLIANCE — Rubrica mapping (Plan 06-05 Part B / A5 gap)
+// ===============================================
+
+// Mapeia conceitos CLT (HE_50, HE_100, DSR, FERIAS, etc.) → codRubr + ideTabRubr
+// configurados pelo tenant na Tabela S-1010 do eSocial.
+// Usado por `BuildS1200ForCompetenciaUseCase` para traduzir totais consolidados
+// (TimeBank + Overtime + Payroll) em `S1200ItemRemun` aceitáveis pelo governo.
+//
+// Investigação A5 (2026-04-23) confirmou que o `EsocialRubrica` existente é um
+// CRUD genérico sem campo `clrConcept` — este model é a ponte faltante.
+model ComplianceRubricaMap {
+  id         String  @id @default(uuid())
+  tenantId   String  @map("tenant_id")
+  clrConcept String  @map("clt_concept") @db.VarChar(32) // HE_50 | HE_100 | DSR | FERIAS | FALTA_JUSTIFICADA | SALARIO_BASE
+  codRubr    String  @map("cod_rubr") @db.VarChar(16)
+  ideTabRubr String  @map("ide_tab_rubr") @db.VarChar(16)
+  indApurIR  Int?    @map("ind_apur_ir") @db.SmallInt
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  updatedBy String   @map("updated_by")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, clrConcept])
+  @@index([tenantId])
+  @@map("compliance_rubrica_map")
 }
 
 // ===============================================

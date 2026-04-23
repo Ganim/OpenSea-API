@@ -358,6 +358,7 @@ export const ModelName = {
   EsocialRubrica: 'EsocialRubrica',
   EsocialEventStatusHistory: 'EsocialEventStatusHistory',
   EsocialTable: 'EsocialTable',
+  ComplianceRubricaMap: 'ComplianceRubricaMap',
   FinanceApprovalRule: 'FinanceApprovalRule',
   TaxObligation: 'TaxObligation',
   BankConnection: 'BankConnection',
@@ -6732,6 +6733,7 @@ export const EsocialConfigScalarFieldEnum = {
   requireApproval: 'requireApproval',
   employerType: 'employerType',
   employerDocument: 'employerDocument',
+  inpiNumber: 'inpiNumber',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -6855,6 +6857,21 @@ export const EsocialTableScalarFieldEnum = {
 } as const
 
 export type EsocialTableScalarFieldEnum = (typeof EsocialTableScalarFieldEnum)[keyof typeof EsocialTableScalarFieldEnum]
+
+
+export const ComplianceRubricaMapScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  clrConcept: 'clrConcept',
+  codRubr: 'codRubr',
+  ideTabRubr: 'ideTabRubr',
+  indApurIR: 'indApurIR',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy'
+} as const
+
+export type ComplianceRubricaMapScalarFieldEnum = (typeof ComplianceRubricaMapScalarFieldEnum)[keyof typeof ComplianceRubricaMapScalarFieldEnum]
 
 
 export const FinanceApprovalRuleScalarFieldEnum = {

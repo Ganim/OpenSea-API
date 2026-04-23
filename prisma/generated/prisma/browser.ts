@@ -1553,6 +1553,11 @@ export type EsocialEventStatusHistory = Prisma.EsocialEventStatusHistoryModel
  */
 export type EsocialTable = Prisma.EsocialTableModel
 /**
+ * Model ComplianceRubricaMap
+ * 
+ */
+export type ComplianceRubricaMap = Prisma.ComplianceRubricaMapModel
+/**
  * Model FinanceApprovalRule
  * 
  */

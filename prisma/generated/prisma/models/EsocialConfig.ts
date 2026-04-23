@@ -32,6 +32,7 @@ export type EsocialConfigMinAggregateOutputType = {
   requireApproval: boolean | null
   employerType: string | null
   employerDocument: string | null
+  inpiNumber: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -44,6 +45,7 @@ export type EsocialConfigMaxAggregateOutputType = {
   requireApproval: boolean | null
   employerType: string | null
   employerDocument: string | null
+  inpiNumber: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -56,6 +58,7 @@ export type EsocialConfigCountAggregateOutputType = {
   requireApproval: number
   employerType: number
   employerDocument: number
+  inpiNumber: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -70,6 +73,7 @@ export type EsocialConfigMinAggregateInputType = {
   requireApproval?: true
   employerType?: true
   employerDocument?: true
+  inpiNumber?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -82,6 +86,7 @@ export type EsocialConfigMaxAggregateInputType = {
   requireApproval?: true
   employerType?: true
   employerDocument?: true
+  inpiNumber?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -94,6 +99,7 @@ export type EsocialConfigCountAggregateInputType = {
   requireApproval?: true
   employerType?: true
   employerDocument?: true
+  inpiNumber?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -179,6 +185,7 @@ export type EsocialConfigGroupByOutputType = {
   requireApproval: boolean
   employerType: string
   employerDocument: string | null
+  inpiNumber: string | null
   createdAt: Date
   updatedAt: Date
   _count: EsocialConfigCountAggregateOutputType | null
@@ -212,6 +219,7 @@ export type EsocialConfigWhereInput = {
   requireApproval?: Prisma.BoolFilter<"EsocialConfig"> | boolean
   employerType?: Prisma.StringFilter<"EsocialConfig"> | string
   employerDocument?: Prisma.StringNullableFilter<"EsocialConfig"> | string | null
+  inpiNumber?: Prisma.StringNullableFilter<"EsocialConfig"> | string | null
   createdAt?: Prisma.DateTimeFilter<"EsocialConfig"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EsocialConfig"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -225,6 +233,7 @@ export type EsocialConfigOrderByWithRelationInput = {
   requireApproval?: Prisma.SortOrder
   employerType?: Prisma.SortOrder
   employerDocument?: Prisma.SortOrderInput | Prisma.SortOrder
+  inpiNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
@@ -241,6 +250,7 @@ export type EsocialConfigWhereUniqueInput = Prisma.AtLeast<{
   requireApproval?: Prisma.BoolFilter<"EsocialConfig"> | boolean
   employerType?: Prisma.StringFilter<"EsocialConfig"> | string
   employerDocument?: Prisma.StringNullableFilter<"EsocialConfig"> | string | null
+  inpiNumber?: Prisma.StringNullableFilter<"EsocialConfig"> | string | null
   createdAt?: Prisma.DateTimeFilter<"EsocialConfig"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EsocialConfig"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -254,6 +264,7 @@ export type EsocialConfigOrderByWithAggregationInput = {
   requireApproval?: Prisma.SortOrder
   employerType?: Prisma.SortOrder
   employerDocument?: Prisma.SortOrderInput | Prisma.SortOrder
+  inpiNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.EsocialConfigCountOrderByAggregateInput
@@ -272,6 +283,7 @@ export type EsocialConfigScalarWhereWithAggregatesInput = {
   requireApproval?: Prisma.BoolWithAggregatesFilter<"EsocialConfig"> | boolean
   employerType?: Prisma.StringWithAggregatesFilter<"EsocialConfig"> | string
   employerDocument?: Prisma.StringNullableWithAggregatesFilter<"EsocialConfig"> | string | null
+  inpiNumber?: Prisma.StringNullableWithAggregatesFilter<"EsocialConfig"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"EsocialConfig"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"EsocialConfig"> | Date | string
 }
@@ -283,6 +295,7 @@ export type EsocialConfigCreateInput = {
   requireApproval?: boolean
   employerType?: string
   employerDocument?: string | null
+  inpiNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutEsocialConfigInput
@@ -296,6 +309,7 @@ export type EsocialConfigUncheckedCreateInput = {
   requireApproval?: boolean
   employerType?: string
   employerDocument?: string | null
+  inpiNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -307,6 +321,7 @@ export type EsocialConfigUpdateInput = {
   requireApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   employerType?: Prisma.StringFieldUpdateOperationsInput | string
   employerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inpiNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEsocialConfigNestedInput
@@ -320,6 +335,7 @@ export type EsocialConfigUncheckedUpdateInput = {
   requireApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   employerType?: Prisma.StringFieldUpdateOperationsInput | string
   employerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inpiNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -332,6 +348,7 @@ export type EsocialConfigCreateManyInput = {
   requireApproval?: boolean
   employerType?: string
   employerDocument?: string | null
+  inpiNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -343,6 +360,7 @@ export type EsocialConfigUpdateManyMutationInput = {
   requireApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   employerType?: Prisma.StringFieldUpdateOperationsInput | string
   employerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inpiNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -355,6 +373,7 @@ export type EsocialConfigUncheckedUpdateManyInput = {
   requireApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   employerType?: Prisma.StringFieldUpdateOperationsInput | string
   employerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inpiNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -372,6 +391,7 @@ export type EsocialConfigCountOrderByAggregateInput = {
   requireApproval?: Prisma.SortOrder
   employerType?: Prisma.SortOrder
   employerDocument?: Prisma.SortOrder
+  inpiNumber?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -384,6 +404,7 @@ export type EsocialConfigMaxOrderByAggregateInput = {
   requireApproval?: Prisma.SortOrder
   employerType?: Prisma.SortOrder
   employerDocument?: Prisma.SortOrder
+  inpiNumber?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -396,6 +417,7 @@ export type EsocialConfigMinOrderByAggregateInput = {
   requireApproval?: Prisma.SortOrder
   employerType?: Prisma.SortOrder
   employerDocument?: Prisma.SortOrder
+  inpiNumber?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -443,6 +465,7 @@ export type EsocialConfigCreateWithoutTenantInput = {
   requireApproval?: boolean
   employerType?: string
   employerDocument?: string | null
+  inpiNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -454,6 +477,7 @@ export type EsocialConfigUncheckedCreateWithoutTenantInput = {
   requireApproval?: boolean
   employerType?: string
   employerDocument?: string | null
+  inpiNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -481,6 +505,7 @@ export type EsocialConfigUpdateWithoutTenantInput = {
   requireApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   employerType?: Prisma.StringFieldUpdateOperationsInput | string
   employerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inpiNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -492,6 +517,7 @@ export type EsocialConfigUncheckedUpdateWithoutTenantInput = {
   requireApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   employerType?: Prisma.StringFieldUpdateOperationsInput | string
   employerDocument?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inpiNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -506,6 +532,7 @@ export type EsocialConfigSelect<ExtArgs extends runtime.Types.Extensions.Interna
   requireApproval?: boolean
   employerType?: boolean
   employerDocument?: boolean
+  inpiNumber?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -519,6 +546,7 @@ export type EsocialConfigSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   requireApproval?: boolean
   employerType?: boolean
   employerDocument?: boolean
+  inpiNumber?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -532,6 +560,7 @@ export type EsocialConfigSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   requireApproval?: boolean
   employerType?: boolean
   employerDocument?: boolean
+  inpiNumber?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -545,11 +574,12 @@ export type EsocialConfigSelectScalar = {
   requireApproval?: boolean
   employerType?: boolean
   employerDocument?: boolean
+  inpiNumber?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type EsocialConfigOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "environment" | "autoGenerate" | "requireApproval" | "employerType" | "employerDocument" | "createdAt" | "updatedAt", ExtArgs["result"]["esocialConfig"]>
+export type EsocialConfigOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "environment" | "autoGenerate" | "requireApproval" | "employerType" | "employerDocument" | "inpiNumber" | "createdAt" | "updatedAt", ExtArgs["result"]["esocialConfig"]>
 export type EsocialConfigInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }
@@ -573,6 +603,7 @@ export type $EsocialConfigPayload<ExtArgs extends runtime.Types.Extensions.Inter
     requireApproval: boolean
     employerType: string
     employerDocument: string | null
+    inpiNumber: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["esocialConfig"]>
@@ -1006,6 +1037,7 @@ export interface EsocialConfigFieldRefs {
   readonly requireApproval: Prisma.FieldRef<"EsocialConfig", 'Boolean'>
   readonly employerType: Prisma.FieldRef<"EsocialConfig", 'String'>
   readonly employerDocument: Prisma.FieldRef<"EsocialConfig", 'String'>
+  readonly inpiNumber: Prisma.FieldRef<"EsocialConfig", 'String'>
   readonly createdAt: Prisma.FieldRef<"EsocialConfig", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"EsocialConfig", 'DateTime'>
 }
