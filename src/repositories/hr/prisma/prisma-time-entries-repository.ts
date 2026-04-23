@@ -14,6 +14,8 @@ import type {
   FindManyTimeEntriesResult,
   FindTimeEntriesFilters,
   TimeEntriesRepository,
+  TimeEntryForReceiptLookup,
+  UpdateReceiptMetadataParams,
 } from '../time-entries-repository';
 
 const NSR_MAX_RETRIES = 10;
@@ -307,6 +309,74 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
         nsrNumber: nextNsr,
         originNsrNumber: origin.nsrNumber,
       };
+    });
+  }
+
+  async findByReceiptVerifyHash(
+    nsrHash: string,
+  ): Promise<TimeEntryForReceiptLookup | null> {
+    // Pitfall 8: findFirst (NÃO findUnique) — a coluna é nullable (batidas
+    // criadas ANTES do worker do Plan 06-03 carregam NULL), e findUnique em
+    // nullable field pode produzir ambiguidade. findFirst com WHERE explícito
+    // é robusto.
+    const row = await prisma.timeEntry.findFirst({
+      where: { receiptVerifyHash: nsrHash },
+      select: {
+        id: true,
+        tenantId: true,
+        employeeId: true,
+        entryType: true,
+        timestamp: true,
+        nsrNumber: true,
+        punchApproval: { select: { status: true } },
+      },
+    });
+
+    if (!row || row.nsrNumber == null) return null;
+
+    // BREAK_START/BREAK_END/CLOCK_IN/CLOCK_OUT — os 4 tipos que o recibo
+    // público reconhece. OVERTIME_START/END ficam fora (rotas de horas extras
+    // não geram recibo público nesta fase).
+    const allowed: TimeEntryForReceiptLookup['entryType'][] = [
+      'CLOCK_IN',
+      'CLOCK_OUT',
+      'BREAK_START',
+      'BREAK_END',
+    ];
+    if (
+      !allowed.includes(row.entryType as TimeEntryForReceiptLookup['entryType'])
+    ) {
+      return null;
+    }
+
+    return {
+      id: row.id,
+      tenantId: row.tenantId,
+      employeeId: row.employeeId,
+      entryType: row.entryType as TimeEntryForReceiptLookup['entryType'],
+      timestamp: row.timestamp,
+      nsrNumber: row.nsrNumber,
+      approvalStatus:
+        (row.punchApproval?.status as
+          | 'PENDING'
+          | 'APPROVED'
+          | 'REJECTED'
+          | null
+          | undefined) ?? null,
+    };
+  }
+
+  async updateReceiptMetadata(
+    params: UpdateReceiptMetadataParams,
+  ): Promise<void> {
+    // updateMany + tenant guard silencia no-op se o id não pertencer ao tenant.
+    await prisma.timeEntry.updateMany({
+      where: { id: params.timeEntryId, tenantId: params.tenantId },
+      data: {
+        receiptGenerated: true,
+        receiptUrl: params.receiptUrl,
+        receiptVerifyHash: params.receiptVerifyHash,
+      },
     });
   }
 }

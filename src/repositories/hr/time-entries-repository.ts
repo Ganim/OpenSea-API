@@ -89,6 +89,41 @@ export interface CreateTimeEntryAdjustmentResult {
   originNsrNumber: number;
 }
 
+/**
+ * Projeção flat retornada por `findByReceiptVerifyHash` (Phase 06 / Plan 06-03).
+ *
+ * A entity `TimeEntry` não carrega `nsrNumber` nem `receiptVerifyHash`
+ * (campos adicionados em Plan 06-01 via sidecar). Para a rota pública de
+ * consulta de recibo, o use case precisa de TODOS esses campos em uma única
+ * ida ao banco — retornamos um DTO plano em vez de widenar a entity.
+ *
+ * Inclui `approvalStatus` para o mapper LGPD decidir entre "Registrado" (APPROVED)
+ * e "Aguardando aprovação do gestor" (PENDING). Null quando não há PunchApproval
+ * vinculado (batida aceita na captura) — mesma semântica que APPROVED para o
+ * público.
+ */
+export interface TimeEntryForReceiptLookup {
+  id: string;
+  tenantId: string;
+  employeeId: string;
+  entryType: 'CLOCK_IN' | 'CLOCK_OUT' | 'BREAK_START' | 'BREAK_END';
+  timestamp: Date;
+  nsrNumber: number;
+  /** 'PENDING' quando há aprovação pendente; null quando aceita na captura. */
+  approvalStatus: 'PENDING' | 'APPROVED' | 'REJECTED' | null;
+}
+
+/**
+ * Update usada pelo receipt-pdf-worker (Plan 06-03) para marcar a batida
+ * como já-tendo-recibo. Guard de tenant evita atualizar cross-tenant.
+ */
+export interface UpdateReceiptMetadataParams {
+  timeEntryId: string;
+  tenantId: string;
+  receiptUrl: string;
+  receiptVerifyHash: string;
+}
+
 export interface TimeEntriesRepository {
   create(data: CreateTimeEntrySchema): Promise<TimeEntry>;
   /**
@@ -153,4 +188,38 @@ export interface TimeEntriesRepository {
   createAdjustment(
     params: CreateTimeEntryAdjustmentParams,
   ): Promise<CreateTimeEntryAdjustmentResult>;
+
+  /**
+   * Phase 06 / Plan 06-03 (PUNCH-COMPLIANCE-04).
+   *
+   * Procura a batida cujo HMAC público (`receipt_verify_hash`) bate com o
+   * hash informado pela rota pública `/v1/public/punch/verify/:nsrHash`.
+   *
+   * **Pitfall 8:** usar `findFirst` (NÃO `findUnique`). Embora
+   * `receipt_verify_hash` tenha constraint @unique no schema, linhas
+   * legadas carregam NULL (batidas criadas ANTES do worker do Plan 06-03);
+   * `findUnique` em coluna nullable emite warning e o shape `{nsrHash}` fica
+   * ambíguo quando o parâmetro não existe. `findFirst` com WHERE explícito é
+   * robusto a ambos os cenários.
+   *
+   * Retorna `null` quando não existe batida com esse hash. Use case loga
+   * `compliance_public_verify_log(hitResult='NOT_FOUND')` e responde 404.
+   *
+   * A busca é deliberadamente SEM escopo de tenant: o hash é HMAC com secret
+   * único global, então descobrir-o-hash é equivalente a conhecer a batida.
+   * Tenant é resolvido a partir da própria linha encontrada.
+   */
+  findByReceiptVerifyHash(
+    nsrHash: string,
+  ): Promise<TimeEntryForReceiptLookup | null>;
+
+  /**
+   * Phase 06 / Plan 06-03 — atualiza `receipt_generated=true`, `receipt_url`
+   * e `receipt_verify_hash` depois de o worker persistir o PDF no R2.
+   *
+   * Guard de tenant via `updateMany` — se o id não bater com o tenant, zero
+   * rows afetadas (silenciosamente no-op, mesmo semântica de `softDelete` em
+   * outros repos Phase 6).
+   */
+  updateReceiptMetadata(params: UpdateReceiptMetadataParams): Promise<void>;
 }

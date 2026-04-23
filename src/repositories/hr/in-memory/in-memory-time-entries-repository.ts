@@ -7,6 +7,8 @@ import type {
   FindManyTimeEntriesResult,
   FindTimeEntriesFilters,
   TimeEntriesRepository,
+  TimeEntryForReceiptLookup,
+  UpdateReceiptMetadataParams,
 } from '../time-entries-repository';
 
 /**
@@ -19,6 +21,12 @@ type ComplianceMeta = {
   nsrNumber?: number;
   originNsrNumber?: number;
   adjustmentType?: 'ORIGINAL' | 'ADJUSTMENT_APPROVED';
+  /** Phase 06 / Plan 06-03 — HMAC do recibo público. */
+  receiptVerifyHash?: string;
+  receiptUrl?: string;
+  receiptGenerated?: boolean;
+  /** 'PENDING' quando há PunchApproval vinculado. */
+  approvalStatus?: 'PENDING' | 'APPROVED' | 'REJECTED' | null;
 };
 
 export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
@@ -271,6 +279,65 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
       timeEntry: adjustment,
       nsrNumber: nextNsr,
       originNsrNumber: originNsr,
+    };
+  }
+
+  async findByReceiptVerifyHash(
+    nsrHash: string,
+  ): Promise<TimeEntryForReceiptLookup | null> {
+    const row = this.items.find(
+      (item) => item.complianceMeta?.receiptVerifyHash === nsrHash,
+    );
+    if (!row) return null;
+    const nsrNumber = row.complianceMeta?.nsrNumber;
+    if (nsrNumber == null) return null;
+
+    const entryTypeValue = row.entryType.value as
+      | 'CLOCK_IN'
+      | 'CLOCK_OUT'
+      | 'BREAK_START'
+      | 'BREAK_END'
+      | 'OVERTIME_START'
+      | 'OVERTIME_END';
+    const allowed: TimeEntryForReceiptLookup['entryType'][] = [
+      'CLOCK_IN',
+      'CLOCK_OUT',
+      'BREAK_START',
+      'BREAK_END',
+    ];
+    if (
+      !allowed.includes(
+        entryTypeValue as TimeEntryForReceiptLookup['entryType'],
+      )
+    ) {
+      return null;
+    }
+
+    return {
+      id: row.id.toString(),
+      tenantId: row.tenantId.toString(),
+      employeeId: row.employeeId.toString(),
+      entryType: entryTypeValue as TimeEntryForReceiptLookup['entryType'],
+      timestamp: row.timestamp,
+      nsrNumber,
+      approvalStatus: row.complianceMeta?.approvalStatus ?? null,
+    };
+  }
+
+  async updateReceiptMetadata(
+    params: UpdateReceiptMetadataParams,
+  ): Promise<void> {
+    const row = this.items.find(
+      (item) =>
+        item.id.toString() === params.timeEntryId &&
+        item.tenantId.toString() === params.tenantId,
+    );
+    if (!row) return;
+    row.complianceMeta = {
+      ...(row.complianceMeta ?? {}),
+      receiptGenerated: true,
+      receiptUrl: params.receiptUrl,
+      receiptVerifyHash: params.receiptVerifyHash,
     };
   }
 }
