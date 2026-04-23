@@ -314,7 +314,12 @@ export const QUEUE_NAMES = {
   // - RECEIPT_PDF: geração eager de recibo PDF por batida, subscreve
   //   PUNCH_EVENTS.TIME_ENTRY_CREATED (via dispatcher consumer). jobId =
   //   timeEntryId garante dedupe em replay (Plan 06-03 Pitfall 5).
+  // - FOLHA_ESPELHO_BULK: geração em lote (departamentos × funcionários)
+  //   de folha espelho mensal PDF. Dispatcher use case enfileira 1 job com
+  //   employeeIds[]+competencia; worker processa chunks de 20 com
+  //   Promise.allSettled e emite Socket.IO progress (Plan 06-04).
   RECEIPT_PDF: 'receipt-pdf-generation',
+  FOLHA_ESPELHO_BULK: 'folha-espelho-bulk-generation',
 } as const;
 
 export type QueueName = (typeof QUEUE_NAMES)[keyof typeof QUEUE_NAMES];

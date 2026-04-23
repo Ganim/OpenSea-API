@@ -6,6 +6,8 @@ import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module'
 
 import { v1GenerateAfdController } from './v1-generate-afd.controller';
 import { v1GenerateAfdtController } from './v1-generate-afdt.controller';
+import { v1GenerateFolhaEspelhoController } from './v1-generate-folha-espelho.controller';
+import { v1GenerateFolhaEspelhoBulkController } from './v1-generate-folha-espelho-bulk.controller';
 
 /**
  * Phase 06 / Plan 06-02 — Aggregator das rotas de `hr/compliance`.
@@ -28,9 +30,12 @@ export async function complianceRoutes(app: FastifyInstance) {
       mutationApp.register(rateLimit, rateLimitConfig.mutation);
       mutationApp.register(v1GenerateAfdController);
       mutationApp.register(v1GenerateAfdtController);
+      // Plan 06-04 — folha espelho individual + bulk
+      mutationApp.register(v1GenerateFolhaEspelhoController);
+      mutationApp.register(v1GenerateFolhaEspelhoBulkController);
     },
     { prefix: '' },
   );
 
-  // Plans 06-03/04/05/06 registrarão query routes aqui (listing, download).
+  // Plans 06-05/06 registrarão query routes aqui (listing, download, S-1200).
 }

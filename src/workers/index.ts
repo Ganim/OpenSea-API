@@ -37,6 +37,7 @@ import {
   stopPaymentReconciliationScheduler,
 } from './payment-reconciliation-scheduler';
 import { startBadgePdfWorker } from './badge-pdf-worker';
+import { startFolhaEspelhoBulkWorker } from './folha-espelho-bulk-worker';
 import { startPunchEventsWorker } from './punch-events-worker';
 import { startQrBatchWorker } from './qr-batch-worker';
 import { startReceiptPdfWorker } from './receipt-pdf-worker';
@@ -179,9 +180,21 @@ export async function startAllWorkers(): Promise<void> {
     } catch (err) {
       console.error('[Workers] Failed to start Receipt PDF worker:', err);
     }
+
+    try {
+      startFolhaEspelhoBulkWorker();
+      console.log(
+        '[Workers] Folha Espelho bulk worker started (Phase 06 / Plan 06-04)',
+      );
+    } catch (err) {
+      console.error(
+        '[Workers] Failed to start Folha Espelho bulk worker:',
+        err,
+      );
+    }
   } else {
     console.log(
-      '[Workers] BULLMQ_ENABLED=false — skipping email-sync, notifications, esocial-batch-polling, punch-events, qr-batch, badge-pdf, receipt-pdf workers',
+      '[Workers] BULLMQ_ENABLED=false — skipping email-sync, notifications, esocial-batch-polling, punch-events, qr-batch, badge-pdf, receipt-pdf, folha-espelho-bulk workers',
     );
   }
 
