@@ -186,7 +186,7 @@ import { accountantPortalRoutes } from './controllers/accountant/routes';
 import { paymentWebhookRoutes } from './controllers/webhooks/routes';
 
 // Public routes (no auth)
-import { publicRoutes } from './controllers/public/routes';
+import { publicRoutes, publicPunchRoutes } from './controllers/public/routes';
 
 // Calendar routes
 import { calendarCalendarsRoutes } from './controllers/calendar/calendars/routes';
@@ -607,6 +607,11 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(signaturePublicRoutes);
   await app.register(signatureSigningRoutes);
   await app.register(signatureTemplatesRoutes);
+
+  // Public punch verify (Phase 06 / Plan 06-03) — registered alongside
+  // signaturePublicRoutes so both public endpoints sit in the same no-auth
+  // scope. Rate-limit 30 req/min is applied inside the aggregator.
+  await app.register(publicPunchRoutes);
 
   // AI Assistant routes
   await app.register(aiChatRoutes);
