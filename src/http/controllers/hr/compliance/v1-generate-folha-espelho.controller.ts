@@ -39,7 +39,7 @@ import { makeGenerateFolhaEspelhoUseCase } from '@/use-cases/hr/compliance/facto
  *  - 403 (sem permissão `hr.compliance.folha-espelho.generate`)
  *  - 404 (funcionário não encontrado ou cross-tenant)
  *
- * ADR-026: preHandler (NUNCA onRequest).
+ * ADR-026: usa preHandler para toda a cadeia de auth/permissão.
  */
 export async function v1GenerateFolhaEspelhoController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().route({

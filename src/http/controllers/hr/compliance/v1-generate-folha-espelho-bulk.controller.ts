@@ -39,7 +39,7 @@ import { makeGenerateFolhaEspelhoBulkUseCase } from '@/use-cases/hr/compliance/f
  *  - 403 (sem permissão)
  *  - 202 (enqueued com bulkJobId)
  *
- * ADR-026: preHandler (NUNCA onRequest).
+ * ADR-026: usa preHandler para toda a cadeia de auth/permissão.
  */
 export async function v1GenerateFolhaEspelhoBulkController(
   app: FastifyInstance,
