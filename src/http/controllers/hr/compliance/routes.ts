@@ -4,6 +4,7 @@ import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 
+import { v1BuildS1200Controller } from './v1-build-s1200.controller';
 import { v1GenerateAfdController } from './v1-generate-afd.controller';
 import { v1GenerateAfdtController } from './v1-generate-afdt.controller';
 import { v1GenerateFolhaEspelhoController } from './v1-generate-folha-espelho.controller';
@@ -36,6 +37,8 @@ export async function complianceRoutes(app: FastifyInstance) {
       mutationApp.register(v1GenerateFolhaEspelhoBulkController);
       // Plan 06-05 — upsert de mapeamento CLT → codRubr
       mutationApp.register(v1UpsertRubricaMapController);
+      // Plan 06-05 — geração de eventos S-1200 (Remuneração do Trabalhador)
+      mutationApp.register(v1BuildS1200Controller);
     },
     { prefix: '' },
   );
