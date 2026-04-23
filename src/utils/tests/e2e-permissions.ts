@@ -412,6 +412,16 @@ export const ALL_PERMISSIONS: Record<string, Record<string, string[]>> = {
     'face-enrollment': ['access', 'register', 'remove', 'admin'],
     // CRACHAS — Phase 5. Impressão de crachás (PDF individual e em lote).
     crachas: ['access', 'print', 'admin'],
+    // COMPLIANCE — Phase 6 (Portaria MTP 671/2021). Sub-resources por
+    // tipo de artefato para gate granular (RH pode delegar AFD sem expor S-1200).
+    // Ver hr.compliance.* em permission-codes.ts (admin-only by D-08).
+    compliance: ['access', 'admin'],
+    'compliance.afd': ['generate'],
+    'compliance.afdt': ['generate'],
+    'compliance.folha-espelho': ['generate'],
+    'compliance.s1200': ['submit'],
+    'compliance.artifact': ['download'],
+    'compliance.config': ['modify'],
     overtime: [
       'create',
       'read',

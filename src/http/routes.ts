@@ -307,6 +307,7 @@ import { reviewCompetenciesRoutes } from './controllers/hr/review-competencies/r
 import { positionsRoutes } from './controllers/hr/positions/routes';
 import { ppeAssignmentsRoutes } from './controllers/hr/ppe-assignments/routes';
 import { ppeItemsRoutes } from './controllers/hr/ppe-items/routes';
+import { complianceRoutes } from './controllers/hr/compliance/routes';
 import { punchApprovalsRoutes } from './controllers/hr/punch-approvals/routes';
 import { punchConfigRoutes } from './controllers/hr/punch-config/routes';
 import { faceEnrollmentsRoutes } from './controllers/hr/face-enrollments/routes';
@@ -546,6 +547,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(badgesRoutes);
   await app.register(punchPinRoutes);
   await app.register(punchApprovalsRoutes);
+  await app.register(complianceRoutes);
   await app.register(punchRoutes);
   await app.register(geofenceZonesRoutes);
   await app.register(medicalExamsRoutes);

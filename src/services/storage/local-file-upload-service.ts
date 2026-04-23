@@ -9,6 +9,8 @@ import type {
   MultipartUploadInit,
   UploadOptions,
   UploadResult,
+  UploadWithKeyOptions,
+  UploadWithKeyResult,
 } from './file-upload-service';
 
 const DEFAULT_MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
@@ -48,6 +50,34 @@ export class LocalFileUploadService implements FileUploadService {
       url: `file://${absoluteFilePath}`,
       size: fileBuffer.length,
       mimeType,
+    };
+  }
+
+  /**
+   * Phase 06 / Plan 06-02 — `uploadWithKey` para fluxos de compliance
+   * (AFD/AFDT/recibo) que precisam de chave determinística. Não sanitiza o
+   * caminho — o chamador é responsável; aqui usamos localmente o mesmo
+   * layout usado pelo S3 (chave = path relativo sob `UPLOADS_BASE_DIR`).
+   */
+  async uploadWithKey(
+    fileBuffer: Buffer,
+    key: string,
+    _options: UploadWithKeyOptions,
+  ): Promise<UploadWithKeyResult> {
+    // mimeType/cacheControl/metadata são ignorados no disco local — o R2 é
+    // quem consome esses hints em produção.
+    const absoluteFilePath = join(UPLOADS_BASE_DIR, key);
+    const targetDirectory = absoluteFilePath.substring(
+      0,
+      absoluteFilePath.lastIndexOf('/'),
+    );
+    await mkdir(targetDirectory, { recursive: true });
+    await writeFile(absoluteFilePath, fileBuffer);
+    return {
+      key,
+      bucket: 'local',
+      etag: undefined,
+      size: fileBuffer.length,
     };
   }
 

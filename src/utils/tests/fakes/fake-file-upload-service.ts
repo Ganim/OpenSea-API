@@ -1,6 +1,8 @@
 import type {
   FileUploadService,
   UploadResult,
+  UploadWithKeyOptions,
+  UploadWithKeyResult,
 } from '@/services/storage/file-upload-service';
 
 export class FakeFileUploadService implements FileUploadService {
@@ -15,6 +17,26 @@ export class FakeFileUploadService implements FileUploadService {
       url: `https://fake-storage.example.com/${options.prefix}/${fileName}`,
       size: _fileBuffer.length,
       mimeType,
+    };
+  }
+
+  /**
+   * Phase 06 / Plan 06-02 — stub do método `uploadWithKey` adicionado à
+   * interface `FileUploadService` para fluxos de compliance (AFD/AFDT/recibo).
+   * Testes que NÃO exercitam compliance podem ignorar o retorno; testes que
+   * exercitam compliance injetam um fake dedicado (ver `FakeFileUploadService`
+   * em `generate-afd.spec.ts`).
+   */
+  async uploadWithKey(
+    fileBuffer: Buffer,
+    key: string,
+    _options: UploadWithKeyOptions,
+  ): Promise<UploadWithKeyResult> {
+    return {
+      key,
+      bucket: 'fake-bucket',
+      etag: '"fake-etag"',
+      size: fileBuffer.length,
     };
   }
 

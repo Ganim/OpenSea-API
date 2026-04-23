@@ -1086,6 +1086,16 @@ enum AuditAction {
   ENROLL
   ADVANCE_STEP
   PROCESS_PENDING
+
+  // Phase 6 / Plan 06-01 — Compliance Portaria 671
+  // (Schema alignment catch-up in 06-02 — TS enum já tinha estes 4 valores,
+  // mas o schema Prisma não foi atualizado em 06-01, causando
+  // PrismaClientValidationError nos audit logs do Plan 06-02.)
+  COMPLIANCE_GENERATE
+  COMPLIANCE_DOWNLOAD
+  COMPLIANCE_VERIFY_PUBLIC
+  ESOCIAL_SUBMIT
+
   OTHER
 }
 

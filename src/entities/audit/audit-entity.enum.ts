@@ -351,6 +351,17 @@ export enum AuditEntity {
   PRODUCTION_TEXTILE_BUNDLE_TICKET = 'PRODUCTION_TEXTILE_BUNDLE_TICKET',
 
   // ==========================================
+  // Phase 6 / Plan 06-01 — Compliance Portaria 671
+  // ==========================================
+  /**
+   * AFD, AFDT, Folha Espelho, Recibo, S-1200 XML — artefatos legais gerados
+   * em `compliance_artifacts`. O schema Prisma já tem este valor (Plan 06-01);
+   * TS enum adicionado em Plan 06-02 para compilar os audit templates de
+   * `HR_AUDIT_MESSAGES.COMPLIANCE_*`.
+   */
+  COMPLIANCE_ARTIFACT = 'COMPLIANCE_ARTIFACT',
+
+  // ==========================================
   // System
   // ==========================================
   OTHER = 'OTHER',
