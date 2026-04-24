@@ -4239,6 +4239,7 @@ model Employee {
 
   // Identificação
   registrationNumber String @map("registration_number") @db.VarChar(32)
+  shortId String? @map("short_id") @db.VarChar(6)
 
   // Vinculação com usuário (opcional)
   userId String? @unique @map("user_id")
@@ -4475,6 +4476,7 @@ model Employee {
   @@unique([registrationNumber, tenantId, deletedAt], name: "employees_registration_tenant_unique_active")
   @@unique([cpfHash, tenantId, deletedAt], name: "employees_cpf_tenant_unique_active")
   @@unique([pisHash, tenantId, deletedAt], name: "employees_pis_tenant_unique_active")
+  @@unique([shortId, tenantId, deletedAt], name: "employees_short_id_tenant_unique", map: "employees_short_id_tenant_unique")
   @@index([tenantId])
   @@index([userId])
   @@index([cpfHash])
@@ -4489,6 +4491,7 @@ model Employee {
   @@index([hireDate])
   @@index([terminationDate])
   @@index([tenantId, qrTokenHash])
+  @@index([tenantId, shortId])
   @@index([deletedAt])
   @@index([organizationId])
   @@map("employees")
