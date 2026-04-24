@@ -904,6 +904,11 @@ export const PermissionCodes = {
       OVERRIDE: 'sales.pos.override' as const,
       ADMIN: 'sales.pos.admin' as const,
       ONLYSELF: 'sales.pos.onlyself' as const,
+      OPERATE: 'sales.pos.operate' as const,
+      CONFLICTS_RESOLVE: 'sales.pos.conflicts-resolve' as const,
+      PROFILES_MANAGE: 'sales.pos.profiles-manage' as const,
+      FISCAL_CONFIGURE: 'sales.pos.fiscal-configure' as const,
+      ORPHAN_PAYMENTS_RECONCILE: 'sales.pos.orphan-payments-reconcile' as const,
       TERMINALS: {
         ACCESS: 'sales.pos.terminals.access' as const,
         REGISTER: 'sales.pos.terminals.register' as const,
