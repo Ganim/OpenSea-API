@@ -6645,6 +6645,7 @@ model Tenant {
   posTerminalProfiles PosTerminalProfile[]
   posFiscalConfig     PosFiscalConfig?
   posOrderConflicts   PosOrderConflict[]
+  posOrphanPayments   PosOrphanPayment[]
   posDevicePairings   PosDevicePairing[]
   posPrinters         PosPrinter[]
   printAgents         PrintAgent[]
@@ -10279,6 +10280,7 @@ model Order {
   posTransactions   PosTransaction[]
   posVisitLogs      PosVisitLog[]
   posOrderConflicts PosOrderConflict[]
+  orphanPaymentsMatched PosOrphanPayment[] @relation("OrphanPaymentsMatched")
 
   // Invoicing Relations
   invoice Invoice?
@@ -11887,6 +11889,7 @@ model PosTerminal {
   warehouses      PosTerminalWarehouse[]
   zoneLinks       PosTerminalZone[]      @relation("PosTerminalToZones")
   conflicts       PosOrderConflict[]     @relation("PosTerminalToConflicts")
+  orphanPayments  PosOrphanPayment[]     @relation("OrphanPaymentsAtTerminal")
   devicePairing   PosDevicePairing?
   sessions        PosSession[]
   offlineQueue    PosOfflineQueue[]
@@ -12010,6 +12013,31 @@ model PosOrderConflict {
   @@index([posTerminalId])
   @@index([createdAt(sort: Desc)])
   @@map("pos_order_conflicts")
+}
+
+model PosOrphanPayment {
+  id                   String   @id @default(uuid())
+  tenantId             String   @map("tenant_id")
+  orderCode            String   @map("order_code") @db.VarChar(4)
+  amountCents          Int      @map("amount_cents")
+  receivedAt           DateTime @default(now()) @map("received_at")
+  receivedByTerminalId String   @map("received_by_terminal_id")
+  receivedByOperatorId String?  @map("received_by_operator_id")
+
+  matchedOrderId String?   @map("matched_order_id")
+  matchedAt      DateTime? @map("matched_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant   Tenant      @relation(fields: [tenantId], references: [id])
+  terminal PosTerminal @relation("OrphanPaymentsAtTerminal", fields: [receivedByTerminalId], references: [id])
+  order    Order?      @relation("OrphanPaymentsMatched", fields: [matchedOrderId], references: [id])
+
+  @@unique([orderCode, tenantId, receivedAt], name: "pos_orphan_payments_code_tenant_unique", map: "pos_orphan_payments_code_tenant_unique")
+  @@index([tenantId, matchedOrderId])
+  @@index([orderCode])
+  @@map("pos_orphan_payments")
 }
 
 // Pareamento persistente device → terminal (1:1 com terminal — decisão arquitetural)
