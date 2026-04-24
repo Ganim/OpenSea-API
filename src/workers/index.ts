@@ -38,6 +38,7 @@ import {
 } from './payment-reconciliation-scheduler';
 import { startBadgePdfWorker } from './badge-pdf-worker';
 import { startFolhaEspelhoBulkWorker } from './folha-espelho-bulk-worker';
+import { startPunchBatchExportWorker } from './punch-batch-export-worker';
 import { startPunchEventsWorker } from './punch-events-worker';
 import { startQrBatchWorker } from './qr-batch-worker';
 import { startReceiptPdfWorker } from './receipt-pdf-worker';
@@ -189,6 +190,18 @@ export async function startAllWorkers(): Promise<void> {
     } catch (err) {
       console.error(
         '[Workers] Failed to start Folha Espelho bulk worker:',
+        err,
+      );
+    }
+
+    try {
+      startPunchBatchExportWorker();
+      console.log(
+        '[Workers] Punch Batch Export worker started (Phase 07 / Plan 07-04)',
+      );
+    } catch (err) {
+      console.error(
+        '[Workers] Failed to start Punch Batch Export worker:',
         err,
       );
     }
