@@ -21,11 +21,11 @@ describe('punchManifest', () => {
   });
 
   describe('categories', () => {
-    it('declares exactly 5 categories (3 phase-4 + 2 phase-5)', () => {
-      expect(punchManifest.categories).toHaveLength(5);
+    it('declares exactly 8 categories (3 phase-4 + 2 phase-5 + 3 phase-7)', () => {
+      expect(punchManifest.categories).toHaveLength(8);
     });
 
-    it('declares the expected category codes in order (phase 4 then phase 5)', () => {
+    it('declares the expected category codes in order (phase 4 → 5 → 7)', () => {
       const codes = punchManifest.categories.map((c) => c.code);
       expect(codes).toEqual([
         'punch.registered',
@@ -33,6 +33,9 @@ describe('punchManifest', () => {
         'punch.approval_requested',
         'punch.pin_locked',
         'punch.qr_rotation.completed',
+        'punch.daily_digest',
+        'punch.exception_approval_requested',
+        'punch.export_ready',
       ]);
     });
 
@@ -104,6 +107,57 @@ describe('punchManifest', () => {
       expect(category!.defaultPriority).toBe(NotificationPriority.NORMAL);
       expect(category!.defaultChannels).toContain(NotificationChannel.IN_APP);
       expect(category!.digestSupported).toBe(true);
+      // pt-BR copy
+      expect(category!.name.length).toBeGreaterThan(0);
+      expect(category!.description?.length ?? 0).toBeGreaterThan(0);
+    });
+
+    // ─── Phase 7 additions (Plan 07-01) ─────────────────────────────────────
+
+    it('punch.daily_digest is INFORMATIONAL/NORMAL/[IN_APP,EMAIL], NOT digest-supported (D-14, é próprio digest)', () => {
+      const category = punchManifest.categories.find(
+        (c) => c.code === 'punch.daily_digest',
+      );
+      expect(category).toBeDefined();
+      expect(category!.defaultType).toBe(NotificationType.INFORMATIONAL);
+      expect(category!.defaultPriority).toBe(NotificationPriority.NORMAL);
+      expect(category!.defaultChannels).toEqual([
+        NotificationChannel.IN_APP,
+        NotificationChannel.EMAIL,
+      ]);
+      expect(category!.digestSupported).toBe(false);
+      // pt-BR copy
+      expect(category!.name.length).toBeGreaterThan(0);
+      expect(category!.description?.length ?? 0).toBeGreaterThan(0);
+    });
+
+    it('punch.exception_approval_requested is ACTIONABLE/HIGH/[IN_APP,PUSH,EMAIL], NOT digest-supported (D-15)', () => {
+      const category = punchManifest.categories.find(
+        (c) => c.code === 'punch.exception_approval_requested',
+      );
+      expect(category).toBeDefined();
+      expect(category!.defaultType).toBe(NotificationType.ACTIONABLE);
+      expect(category!.defaultPriority).toBe(NotificationPriority.HIGH);
+      expect(category!.defaultChannels).toEqual([
+        NotificationChannel.IN_APP,
+        NotificationChannel.PUSH,
+        NotificationChannel.EMAIL,
+      ]);
+      expect(category!.digestSupported).toBe(false);
+      // pt-BR copy
+      expect(category!.name.length).toBeGreaterThan(0);
+      expect(category!.description?.length ?? 0).toBeGreaterThan(0);
+    });
+
+    it('punch.export_ready is INFORMATIONAL/NORMAL/[IN_APP], NOT digest-supported (D-11 async export)', () => {
+      const category = punchManifest.categories.find(
+        (c) => c.code === 'punch.export_ready',
+      );
+      expect(category).toBeDefined();
+      expect(category!.defaultType).toBe(NotificationType.INFORMATIONAL);
+      expect(category!.defaultPriority).toBe(NotificationPriority.NORMAL);
+      expect(category!.defaultChannels).toEqual([NotificationChannel.IN_APP]);
+      expect(category!.digestSupported).toBe(false);
       // pt-BR copy
       expect(category!.name.length).toBeGreaterThan(0);
       expect(category!.description?.length ?? 0).toBeGreaterThan(0);
