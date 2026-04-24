@@ -67,6 +67,10 @@ export async function v1ResolvePunchApprovalController(app: FastifyInstance) {
           decision: request.body.decision,
           resolverUserId,
           note: request.body.note,
+          // Phase 7 / Plan 07-03 — D-10: passa através para o use case.
+          // Ausentes no body → use case apenas ignora (sem headObject call).
+          evidenceFileKeys: request.body.evidenceFileKeys,
+          linkedRequestId: request.body.linkedRequestId,
         });
 
         await logAudit(request, {

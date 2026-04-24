@@ -58,13 +58,60 @@ export const punchApprovalParamsSchema = z.object({
   id: z.string().uuid(),
 });
 
+/**
+ * Phase 7 / Plan 07-03 — D-09/D-10: extensão opcional do resolve body com
+ * evidências (storageKeys já enviadas via endpoint de upload separado) e
+ * cross-ref a EmployeeRequest.
+ */
 export const resolvePunchApprovalBodySchema = z.object({
   decision: z.enum(['APPROVE', 'REJECT']),
   note: z.string().max(1000).optional(),
+  evidenceFileKeys: z.array(z.string().min(1)).max(10).optional(),
+  linkedRequestId: z.string().uuid().optional(),
 });
 
 export const resolvePunchApprovalResponseSchema = z.object({
   approvalId: z.string().uuid(),
   status: z.enum(['APPROVED', 'REJECTED']),
   resolvedAt: z.string(),
+});
+
+// ────────────────────────────────────────────────────────────────────
+// BATCH RESOLVE (Phase 7 / Plan 07-03 — D-09)
+// ────────────────────────────────────────────────────────────────────
+
+/**
+ * Lote máximo de 100 aprovações por request (anti-DoS). Frontend deve
+ * chunkar listas maiores em múltiplos requests. `evidenceFileKeys` +
+ * `linkedRequestId` são SHARED entre todas as aprovações do lote.
+ */
+export const batchResolvePunchApprovalsBodySchema = z.object({
+  approvalIds: z.array(z.string().uuid()).min(1).max(100),
+  decision: z.enum(['APPROVE', 'REJECT']),
+  note: z.string().max(1000).optional(),
+  evidenceFileKeys: z.array(z.string().min(1)).max(10).optional(),
+  linkedRequestId: z.string().uuid().optional(),
+});
+
+export const batchResolvePunchApprovalsResultItemSchema = z.object({
+  approvalId: z.string().uuid(),
+  success: z.boolean(),
+  error: z.string().optional(),
+});
+
+export const batchResolvePunchApprovalsResponseSchema = z.object({
+  results: z.array(batchResolvePunchApprovalsResultItemSchema),
+  totalSucceeded: z.number().int().nonnegative(),
+  totalFailed: z.number().int().nonnegative(),
+});
+
+// ────────────────────────────────────────────────────────────────────
+// EVIDENCE UPLOAD (Phase 7 / Plan 07-03 — D-10)
+// ────────────────────────────────────────────────────────────────────
+
+export const uploadPunchApprovalEvidenceResponseSchema = z.object({
+  storageKey: z.string(),
+  size: z.number().int().positive(),
+  uploadedAt: z.string(),
+  filename: z.string(),
 });
