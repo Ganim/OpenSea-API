@@ -283,33 +283,56 @@ export async function processReceiptPdfJob(
   const contentHash = createHash('sha256').update(buffer).digest('hex');
 
   // ── 6. Persist: TimeEntry.update + ComplianceArtifact.create (atomic) ────
-  await prisma.$transaction([
-    prisma.timeEntry.updateMany({
-      where: { id: timeEntryId, tenantId },
-      data: {
-        receiptGenerated: true,
-        receiptUrl: storageKey,
-        receiptVerifyHash: nsrHash,
-      },
-    }),
-    prisma.complianceArtifact.create({
-      data: {
-        tenantId,
-        type: 'RECIBO',
-        periodStart: timeEntry.timestamp,
-        periodEnd: timeEntry.timestamp,
-        filters: {
-          timeEntryId,
-          employeeId: timeEntry.employeeId,
-          nsrNumber: timeEntry.nsrNumber,
+  //
+  // CR-03 mitigation: the idempotency findFirst above is not atomic under
+  // BullMQ `concurrency: 3`. A DB-level partial UNIQUE index on
+  // (tenant_id, storage_key) WHERE type='RECIBO' AND deleted_at IS NULL
+  // (migration 20260423220000) guarantees that concurrent duplicates fail
+  // with Prisma code P2002. We catch that specific code and treat it as
+  // "already generated" — the first winning job persists, the losers return
+  // `skipped: true` idempotently.
+  try {
+    await prisma.$transaction([
+      prisma.timeEntry.updateMany({
+        where: { id: timeEntryId, tenantId },
+        data: {
+          receiptGenerated: true,
+          receiptUrl: storageKey,
+          receiptVerifyHash: nsrHash,
         },
-        storageKey,
-        contentHash,
-        sizeBytes: buffer.length,
-        generatedBy: SYSTEM_GENERATED_BY,
-      },
-    }),
-  ]);
+      }),
+      prisma.complianceArtifact.create({
+        data: {
+          tenantId,
+          type: 'RECIBO',
+          periodStart: timeEntry.timestamp,
+          periodEnd: timeEntry.timestamp,
+          filters: {
+            timeEntryId,
+            employeeId: timeEntry.employeeId,
+            nsrNumber: timeEntry.nsrNumber,
+          },
+          storageKey,
+          contentHash,
+          sizeBytes: buffer.length,
+          generatedBy: SYSTEM_GENERATED_BY,
+        },
+      }),
+    ]);
+  } catch (err) {
+    const code =
+      err && typeof err === 'object' && 'code' in err
+        ? (err as { code?: string }).code
+        : undefined;
+    if (code === 'P2002') {
+      getLogger().info(
+        { timeEntryId, tenantId, storageKey },
+        '[receiptPdfWorker] skipped: UNIQUE constraint (concurrent job won race)',
+      );
+      return { skipped: true };
+    }
+    throw err;
+  }
 
   getLogger().info(
     {
