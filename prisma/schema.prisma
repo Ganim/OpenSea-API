@@ -2165,6 +2165,9 @@ model Zone {
   // Configuração da estrutura física (JSONB)
   structure Json @default("{}") // ZoneStructure
 
+  allowsFractionalSale Boolean  @default(false) @map("allows_fractional_sale")
+  minFractionalSale    Decimal? @map("min_fractional_sale") @db.Decimal(10, 3)
+
   // Layout visual customizado (JSONB, opcional)
   layout Json? // ZoneLayout
 
@@ -2440,6 +2443,8 @@ model Variant {
   similars  Json?   @default("[]") // IDs de variantes semelhantes
   outOfLine Boolean @default(false) @map("out_of_line") // Fora de linha/descontinuado
 
+  fractionalAllowed Boolean @default(false) @map("fractional_allowed")
+
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
@@ -2507,6 +2512,8 @@ model Item {
   status          ItemStatus @default(AVAILABLE)
   entryDate       DateTime   @default(now()) @map("entry_date")
   attributes      Json       @default("{}")
+
+  fractionalSaleEnabled Boolean @default(false) @map("fractional_sale_enabled")
 
   // Códigos de Barras (gerados automaticamente do fullCode) - IMUTÁVEIS
   barcode String  @unique @db.VarChar(30) // Code128 baseado no fullCode
