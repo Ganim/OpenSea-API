@@ -379,4 +379,31 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
       },
     });
   }
+
+  async existsOnDate(
+    employeeId: string,
+    tenantId: string,
+    date: Date,
+  ): Promise<boolean> {
+    const startOfDay = new Date(
+      Date.UTC(
+        date.getUTCFullYear(),
+        date.getUTCMonth(),
+        date.getUTCDate(),
+        0,
+        0,
+        0,
+        0,
+      ),
+    );
+    const endOfDay = new Date(startOfDay.getTime() + 24 * 60 * 60 * 1000 - 1);
+    const count = await prisma.timeEntry.count({
+      where: {
+        employeeId,
+        tenantId,
+        timestamp: { gte: startOfDay, lte: endOfDay },
+      },
+    });
+    return count > 0;
+  }
 }

@@ -181,6 +181,24 @@ export class InMemoryAbsencesRepository implements AbsencesRepository {
     );
   }
 
+  async findActiveCoveringDate(
+    employeeId: string,
+    tenantId: string,
+    date: Date,
+  ): Promise<Absence | null> {
+    const target = date.getTime();
+    return (
+      this.items.find(
+        (item) =>
+          item.employeeId.toString() === employeeId &&
+          item.tenantId.toString() === tenantId &&
+          (item.status.isApproved() || item.status.isInProgress()) &&
+          item.startDate.getTime() <= target &&
+          item.endDate.getTime() >= target,
+      ) ?? null
+    );
+  }
+
   async countByEmployeeAndType(
     employeeId: UniqueEntityID,
     type: string,

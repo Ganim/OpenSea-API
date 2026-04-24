@@ -21,6 +21,26 @@ export interface ShiftAssignmentsRepository {
     employeeId: string,
     tenantId: string,
   ): Promise<ShiftAssignment | null>;
+  /**
+   * Phase 07 / Plan 07-05a — retorna o ShiftAssignment ativo que cobre `date`
+   * (startDate <= date AND (endDate IS NULL OR endDate >= date)) com
+   * `isActive=true`. Consumido pelo `DetectMissedPunchesUseCase` para saber
+   * se o funcionário tinha expectativa de trabalhar naquele dia.
+   */
+  findActiveOnDate(
+    employeeId: string,
+    tenantId: string,
+    date: Date,
+  ): Promise<ShiftAssignment | null>;
+  /**
+   * Phase 07 / Plan 07-05a — conveniência booleana sobre `findActiveOnDate`.
+   * Útil para gate ASCII em queries agregadas (ex.: heatmap).
+   */
+  existsForEmployeeOnDate(
+    employeeId: string,
+    tenantId: string,
+    date: Date,
+  ): Promise<boolean>;
   findManyByShift(
     shiftId: string,
     tenantId: string,

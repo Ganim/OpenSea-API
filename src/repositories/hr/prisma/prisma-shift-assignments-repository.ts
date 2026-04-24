@@ -7,9 +7,7 @@ import type {
   ShiftAssignmentsRepository,
 } from '../shift-assignments-repository';
 
-export class PrismaShiftAssignmentsRepository
-  implements ShiftAssignmentsRepository
-{
+export class PrismaShiftAssignmentsRepository implements ShiftAssignmentsRepository {
   async create(data: CreateShiftAssignmentSchema): Promise<ShiftAssignment> {
     const assignmentData = await prisma.shiftAssignment.create({
       data: {
@@ -60,6 +58,47 @@ export class PrismaShiftAssignmentsRepository
       mapShiftAssignmentPrismaToDomain(assignmentData),
       new UniqueEntityID(assignmentData.id),
     );
+  }
+
+  async findActiveOnDate(
+    employeeId: string,
+    tenantId: string,
+    date: Date,
+  ): Promise<ShiftAssignment | null> {
+    const assignmentData = await prisma.shiftAssignment.findFirst({
+      where: {
+        employeeId,
+        tenantId,
+        isActive: true,
+        startDate: { lte: date },
+        OR: [{ endDate: null }, { endDate: { gte: date } }],
+      },
+      orderBy: { startDate: 'desc' },
+    });
+
+    if (!assignmentData) return null;
+
+    return ShiftAssignment.create(
+      mapShiftAssignmentPrismaToDomain(assignmentData),
+      new UniqueEntityID(assignmentData.id),
+    );
+  }
+
+  async existsForEmployeeOnDate(
+    employeeId: string,
+    tenantId: string,
+    date: Date,
+  ): Promise<boolean> {
+    const count = await prisma.shiftAssignment.count({
+      where: {
+        employeeId,
+        tenantId,
+        isActive: true,
+        startDate: { lte: date },
+        OR: [{ endDate: null }, { endDate: { gte: date } }],
+      },
+    });
+    return count > 0;
   }
 
   async findManyByShift(

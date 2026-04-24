@@ -130,4 +130,13 @@ export class InMemoryPunchDevicesRepository implements PunchDevicesRepository {
     device.deletedAt = new Date();
     await this.save(device);
   }
+
+  async findManyActiveByTenant(tenantId: string): Promise<PunchDevice[]> {
+    return this.items.filter(
+      (device) =>
+        device.tenantId.toString() === tenantId &&
+        !device.deletedAt &&
+        !device.revokedAt,
+    );
+  }
 }

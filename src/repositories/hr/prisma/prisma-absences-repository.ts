@@ -265,6 +265,31 @@ export class PrismaAbsencesRepository implements AbsencesRepository {
     );
   }
 
+  async findActiveCoveringDate(
+    employeeId: string,
+    tenantId: string,
+    date: Date,
+  ): Promise<Absence | null> {
+    const absenceData = await prisma.absence.findFirst({
+      where: {
+        employeeId,
+        tenantId,
+        deletedAt: null,
+        status: { in: ['APPROVED', 'IN_PROGRESS'] },
+        startDate: { lte: date },
+        endDate: { gte: date },
+      },
+      orderBy: { startDate: 'desc' },
+    });
+
+    if (!absenceData) return null;
+
+    return Absence.create(
+      decryptAndMap(absenceData as unknown as Record<string, unknown>),
+      new UniqueEntityID(absenceData.id),
+    );
+  }
+
   async countByEmployeeAndType(
     employeeId: UniqueEntityID,
     type: string,

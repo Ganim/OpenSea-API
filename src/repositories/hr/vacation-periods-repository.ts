@@ -75,6 +75,21 @@ export interface VacationPeriodsRepository {
   ): Promise<VacationPeriod | null>;
   findExpiring(beforeDate: Date, tenantId: string): Promise<VacationPeriod[]>;
   findExpiredPeriods(tenantId: string): Promise<VacationPeriod[]>;
+  /**
+   * Phase 07 / Plan 07-05a — retorna o período de férias que cobre `date`,
+   * i.e. status em ('SCHEDULED' | 'IN_PROGRESS') e
+   * `scheduledStart <= date <= scheduledEnd`. Consumido pelo
+   * `DetectMissedPunchesUseCase` para skipar funcionários em férias ativas.
+   *
+   * Nome alinhado ao plan 07-05a (referenciado como "vacations repo"). Nosso
+   * modelo canônico é `VacationPeriod` (não há um model `Vacation` separado —
+   * a aquisição/concessão/agendamento convivem na mesma entity).
+   */
+  findApprovedCoveringDate(
+    employeeId: string,
+    tenantId: string,
+    date: Date,
+  ): Promise<VacationPeriod | null>;
   update(data: UpdateVacationPeriodSchema): Promise<VacationPeriod | null>;
   save(vacationPeriod: VacationPeriod): Promise<void>;
   delete(id: UniqueEntityID, tenantId?: string): Promise<void>;

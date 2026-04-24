@@ -340,4 +340,30 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
       receiptVerifyHash: params.receiptVerifyHash,
     };
   }
+
+  async existsOnDate(
+    employeeId: string,
+    tenantId: string,
+    date: Date,
+  ): Promise<boolean> {
+    const startOfDay = new Date(
+      Date.UTC(
+        date.getUTCFullYear(),
+        date.getUTCMonth(),
+        date.getUTCDate(),
+        0,
+        0,
+        0,
+        0,
+      ),
+    );
+    const endOfDay = new Date(startOfDay.getTime() + 24 * 60 * 60 * 1000 - 1);
+    return this.items.some(
+      (item) =>
+        item.employeeId.toString() === employeeId &&
+        item.tenantId.toString() === tenantId &&
+        item.timestamp.getTime() >= startOfDay.getTime() &&
+        item.timestamp.getTime() <= endOfDay.getTime(),
+    );
+  }
 }

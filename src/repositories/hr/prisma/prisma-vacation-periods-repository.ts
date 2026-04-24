@@ -9,9 +9,7 @@ import type {
   VacationPeriodsRepository,
 } from '../vacation-periods-repository';
 
-export class PrismaVacationPeriodsRepository
-  implements VacationPeriodsRepository
-{
+export class PrismaVacationPeriodsRepository implements VacationPeriodsRepository {
   async create(data: CreateVacationPeriodSchema): Promise<VacationPeriod> {
     const vacationPeriodData = await prisma.vacationPeriod.create({
       data: {
@@ -190,6 +188,31 @@ export class PrismaVacationPeriodsRepository
         deletedAt: null,
       },
       orderBy: { acquisitionStart: 'asc' },
+    });
+
+    if (!vacationPeriod) return null;
+
+    return VacationPeriod.create(
+      mapVacationPeriodPrismaToDomain(vacationPeriod),
+      new UniqueEntityID(vacationPeriod.id),
+    );
+  }
+
+  async findApprovedCoveringDate(
+    employeeId: string,
+    tenantId: string,
+    date: Date,
+  ): Promise<VacationPeriod | null> {
+    const vacationPeriod = await prisma.vacationPeriod.findFirst({
+      where: {
+        employeeId,
+        tenantId,
+        deletedAt: null,
+        status: { in: ['SCHEDULED', 'IN_PROGRESS'] },
+        scheduledStart: { lte: date },
+        scheduledEnd: { gte: date },
+      },
+      orderBy: { scheduledStart: 'desc' },
     });
 
     if (!vacationPeriod) return null;

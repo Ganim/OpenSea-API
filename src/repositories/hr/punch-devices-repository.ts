@@ -85,4 +85,13 @@ export interface PunchDevicesRepository {
    * `deletedAt` preenchido e as queries normais o ignoram.
    */
   delete(id: UniqueEntityID, tenantId: string): Promise<void>;
+
+  /**
+   * Phase 07 / Plan 07-05a — retorna todos os devices ativos do tenant
+   * (soft-delete e revogação respeitados). Consumido pelo scheduler
+   * `punch-device-offline-scheduler` para avaliar `lastSeenAt` contra
+   * threshold de 3min. Sem paginação — um tenant tem tipicamente <50
+   * devices (kiosk por filial + PWAs por manager).
+   */
+  findManyActiveByTenant(tenantId: string): Promise<PunchDevice[]>;
 }

@@ -222,4 +222,16 @@ export interface TimeEntriesRepository {
    * outros repos Phase 6).
    */
   updateReceiptMetadata(params: UpdateReceiptMetadataParams): Promise<void>;
+
+  /**
+   * Phase 07 / Plan 07-05a — retorna `true` quando houve ao menos uma batida
+   * do funcionário no dia UTC de `date` (comparação contra startOfDay/endOfDay
+   * do dia em UTC). Consumido pelo `DetectMissedPunchesUseCase` para skipar
+   * funcionários que já bateram.
+   */
+  existsOnDate(
+    employeeId: string,
+    tenantId: string,
+    date: Date,
+  ): Promise<boolean>;
 }

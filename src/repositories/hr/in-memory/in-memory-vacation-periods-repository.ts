@@ -8,9 +8,7 @@ import type {
   VacationPeriodsRepository,
 } from '../vacation-periods-repository';
 
-export class InMemoryVacationPeriodsRepository
-  implements VacationPeriodsRepository
-{
+export class InMemoryVacationPeriodsRepository implements VacationPeriodsRepository {
   public items: VacationPeriod[] = [];
 
   async create(data: CreateVacationPeriodSchema): Promise<VacationPeriod> {
@@ -154,6 +152,26 @@ export class InMemoryVacationPeriodsRepository
           item.tenantId.toString() === tenantId &&
           item.status.isPending() &&
           item.acquisitionEnd >= today,
+      ) ?? null
+    );
+  }
+
+  async findApprovedCoveringDate(
+    employeeId: string,
+    tenantId: string,
+    date: Date,
+  ): Promise<VacationPeriod | null> {
+    const target = date.getTime();
+    return (
+      this.items.find(
+        (item) =>
+          item.employeeId.toString() === employeeId &&
+          item.tenantId.toString() === tenantId &&
+          (item.status.isScheduled() || item.status.isInProgress()) &&
+          item.scheduledStart !== undefined &&
+          item.scheduledEnd !== undefined &&
+          item.scheduledStart.getTime() <= target &&
+          item.scheduledEnd.getTime() >= target,
       ) ?? null
     );
   }

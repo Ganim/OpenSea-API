@@ -179,6 +179,18 @@ export class PrismaPunchDevicesRepository implements PunchDevicesRepository {
     });
   }
 
+  async findManyActiveByTenant(tenantId: string): Promise<PunchDevice[]> {
+    const rows = await prisma.punchDevice.findMany({
+      where: {
+        tenantId,
+        deletedAt: null,
+        revokedAt: null,
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+    return rows.map(punchDevicePrismaToDomain);
+  }
+
   private toPrismaData(
     device: PunchDevice,
   ): Prisma.PunchDeviceUncheckedCreateInput {

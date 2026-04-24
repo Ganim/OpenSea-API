@@ -5,9 +5,7 @@ import type {
   ShiftAssignmentsRepository,
 } from '../shift-assignments-repository';
 
-export class InMemoryShiftAssignmentsRepository
-  implements ShiftAssignmentsRepository
-{
+export class InMemoryShiftAssignmentsRepository implements ShiftAssignmentsRepository {
   private items: ShiftAssignment[] = [];
 
   // Expose for testing
@@ -55,6 +53,31 @@ export class InMemoryShiftAssignmentsRepository
         item.isActive,
     );
     return assignment || null;
+  }
+
+  async findActiveOnDate(
+    employeeId: string,
+    tenantId: string,
+    date: Date,
+  ): Promise<ShiftAssignment | null> {
+    const target = date.getTime();
+    const assignment = this.items.find(
+      (item) =>
+        item.employeeId.toString() === employeeId &&
+        item.tenantId.toString() === tenantId &&
+        item.isActive &&
+        item.startDate.getTime() <= target &&
+        (!item.endDate || item.endDate.getTime() >= target),
+    );
+    return assignment || null;
+  }
+
+  async existsForEmployeeOnDate(
+    employeeId: string,
+    tenantId: string,
+    date: Date,
+  ): Promise<boolean> {
+    return (await this.findActiveOnDate(employeeId, tenantId, date)) !== null;
   }
 
   async findManyByShift(

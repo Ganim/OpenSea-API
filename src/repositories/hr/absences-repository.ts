@@ -79,6 +79,19 @@ export interface AbsencesRepository {
     tenantId: string,
     excludeId?: UniqueEntityID,
   ): Promise<Absence[]>;
+  /**
+   * Phase 07 / Plan 07-05a — retorna a Absence cobrindo `date` com status
+   * "ativo" (APPROVED ou IN_PROGRESS) para o funcionário. Consumido pelo
+   * `DetectMissedPunchesUseCase` para skipar funcionários que têm atestado/
+   * licença aprovado cobrindo a data.
+   *
+   * Não considera absences PENDING (ainda em aprovação) nem REJECTED/CANCELLED.
+   */
+  findActiveCoveringDate(
+    employeeId: string,
+    tenantId: string,
+    date: Date,
+  ): Promise<Absence | null>;
   countByEmployeeAndType(
     employeeId: UniqueEntityID,
     type: string,
