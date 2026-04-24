@@ -539,6 +539,7 @@ model User {
   posCashMovementsAuthorized PosCashMovement[] @relation("PosCashMovementAuthorizer")
   posVisitLogs               PosVisitLog[]     @relation("PosVisitLogUser")
   posTerminalsAsSystem       PosTerminal[]     @relation("PosTerminalSystemUser")
+  posOrderConflictsResolved  PosOrderConflict[] @relation("ConflictResolvedBy")
   cardIntegrationsCreated    CardIntegration[] @relation("CardIntegrationCreator")
 
   // CRM Relations (non-prefixed / Sales)
@@ -6640,6 +6641,7 @@ model Tenant {
   posTerminalZones    PosTerminalZone[]
   posTerminalProfiles PosTerminalProfile[]
   posFiscalConfig     PosFiscalConfig?
+  posOrderConflicts   PosOrderConflict[]
   posDevicePairings   PosDevicePairing[]
   posPrinters         PosPrinter[]
   printAgents         PrintAgent[]
@@ -10243,8 +10245,9 @@ model Order {
   terminal      PosTerminal? @relation("OrderTerminal", fields: [terminalId], references: [id])
 
   // POS Relations
-  posTransactions PosTransaction[]
-  posVisitLogs    PosVisitLog[]
+  posTransactions   PosTransaction[]
+  posVisitLogs      PosVisitLog[]
+  posOrderConflicts PosOrderConflict[]
 
   // Invoicing Relations
   invoice Invoice?
@@ -11759,6 +11762,16 @@ enum PosFiscalDocumentType {
   MFE
 }
 
+enum PosOrderConflictStatus {
+  PENDING_RESOLUTION
+  AUTO_SUBSTITUTED
+  AUTO_ADJUSTED
+  CANCELED_REFUNDED
+  FORCED_ADJUSTMENT
+  ITEM_SUBSTITUTED_MANUAL
+  EXPIRED
+}
+
 enum PosOfflineStatus {
   PENDING
   SYNCING
@@ -11838,6 +11851,7 @@ model PosTerminal {
 
   warehouses      PosTerminalWarehouse[]
   zoneLinks       PosTerminalZone[]      @relation("PosTerminalToZones")
+  conflicts       PosOrderConflict[]     @relation("PosTerminalToConflicts")
   devicePairing   PosDevicePairing?
   sessions        PosSession[]
   offlineQueue    PosOfflineQueue[]
@@ -11927,6 +11941,37 @@ model PosFiscalConfig {
   tenant Tenant @relation(fields: [tenantId], references: [id])
 
   @@map("pos_fiscal_config")
+}
+
+model PosOrderConflict {
+  id            String @id @default(uuid())
+  tenantId      String @map("tenant_id")
+  saleLocalUuid String @map("sale_local_uuid") @db.VarChar(64)
+
+  orderId               String? @map("order_id")
+  posTerminalId         String  @map("pos_terminal_id")
+  posSessionId          String? @map("pos_session_id")
+  posOperatorEmployeeId String? @map("pos_operator_employee_id")
+
+  status            PosOrderConflictStatus @default(PENDING_RESOLUTION)
+  conflictDetails   Json                   @map("conflict_details")
+  resolutionDetails Json?                  @map("resolution_details")
+  resolvedByUserId  String?                @map("resolved_by_user_id")
+  resolvedAt        DateTime?              @map("resolved_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant     Tenant      @relation(fields: [tenantId], references: [id])
+  terminal   PosTerminal @relation("PosTerminalToConflicts", fields: [posTerminalId], references: [id])
+  order      Order?      @relation(fields: [orderId], references: [id])
+  resolvedBy User?       @relation("ConflictResolvedBy", fields: [resolvedByUserId], references: [id])
+
+  @@unique([saleLocalUuid, tenantId], name: "pos_order_conflicts_sale_unique", map: "pos_order_conflicts_sale_unique")
+  @@index([tenantId, status])
+  @@index([posTerminalId])
+  @@index([createdAt(sort: Desc)])
+  @@map("pos_order_conflicts")
 }
 
 // Pareamento persistente device → terminal (1:1 com terminal — decisão arquitetural)
