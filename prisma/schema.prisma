@@ -6639,6 +6639,7 @@ model Tenant {
   posTerminals        PosTerminal[]
   posTerminalZones    PosTerminalZone[]
   posTerminalProfiles PosTerminalProfile[]
+  posFiscalConfig     PosFiscalConfig?
   posDevicePairings   PosDevicePairing[]
   posPrinters         PosPrinter[]
   printAgents         PrintAgent[]
@@ -11745,6 +11746,19 @@ enum PosZoneTier {
   SECONDARY
 }
 
+enum PosFiscalEmissionMode {
+  ONLINE_SYNC
+  OFFLINE_CONTINGENCY
+  NONE
+}
+
+enum PosFiscalDocumentType {
+  NFE
+  NFC_E
+  SAT_CFE
+  MFE
+}
+
 enum PosOfflineStatus {
   PENDING
   SYNCING
@@ -11893,6 +11907,26 @@ model PosTerminalProfile {
   @@index([tenantId])
   @@index([isActive])
   @@map("pos_terminal_profiles")
+}
+
+model PosFiscalConfig {
+  id                   String                  @id @default(uuid())
+  tenantId             String                  @unique @map("tenant_id")
+  enabledDocumentTypes PosFiscalDocumentType[] @map("enabled_document_types")
+  defaultDocumentType  PosFiscalDocumentType   @map("default_document_type")
+  emissionMode         PosFiscalEmissionMode   @default(ONLINE_SYNC) @map("emission_mode")
+
+  certificatePath String? @map("certificate_path") @db.VarChar(512)
+  nfceSeries      Int?    @map("nfce_series")
+  nfceNextNumber  Int?    @map("nfce_next_number")
+  satDeviceId     String? @map("sat_device_id") @db.VarChar(128)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@map("pos_fiscal_config")
 }
 
 // Pareamento persistente device → terminal (1:1 com terminal — decisão arquitetural)
