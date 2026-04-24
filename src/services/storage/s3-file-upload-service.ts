@@ -216,9 +216,16 @@ export class S3FileUploadService implements FileUploadService {
       }
     }
 
+    // WR-07: limita o TTL do cache pelo `expiresIn` real da URL (com 60s de
+    // folga). Antes o cache retinha URLs com `expiresIn=900` (15 min) por até
+    // 50 min, servindo-as do cache após expirar no S3/R2 e causando 403.
+    const cacheTtl = Math.min(
+      Math.max(0, expiresIn - 60) * 1000, // expiresIn em segundos → ms, -60s folga
+      PRESIGNED_URL_CACHE_TTL,
+    );
     this.presignedUrlCache.set(cacheKey, {
       url: presignedUrl,
-      expiresAt: Date.now() + PRESIGNED_URL_CACHE_TTL,
+      expiresAt: Date.now() + cacheTtl,
     });
 
     return presignedUrl;
