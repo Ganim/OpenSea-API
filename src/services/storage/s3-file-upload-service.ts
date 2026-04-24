@@ -172,8 +172,12 @@ export class S3FileUploadService implements FileUploadService {
   async getPresignedUrl(
     key: string,
     expiresIn: number = DEFAULT_PRESIGNED_URL_EXPIRATION,
+    responseContentDisposition?: string,
   ): Promise<string> {
-    const cacheKey = `${key}:${expiresIn}`;
+    // Cache key includes the disposition so that requests with different
+    // filenames produce distinct signed URLs (the query string changes the
+    // signature — sharing a cache entry would serve the wrong filename).
+    const cacheKey = `${key}:${expiresIn}:${responseContentDisposition ?? ''}`;
     const cached = this.presignedUrlCache.get(cacheKey);
 
     if (cached && cached.expiresAt > Date.now()) {
@@ -183,6 +187,10 @@ export class S3FileUploadService implements FileUploadService {
     const getCommand = new GetObjectCommand({
       Bucket: this.bucket,
       Key: key,
+      // AWS SDK serializes this as `response-content-disposition` in the
+      // presigned URL query string. The signature covers it, so browsers
+      // cannot tamper with the filename.
+      ResponseContentDisposition: responseContentDisposition,
     });
 
     const presignedUrl = await getSignedUrl(this.s3Client, getCommand, {

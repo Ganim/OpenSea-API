@@ -5,6 +5,11 @@ export interface UpdateEsocialConfigData {
   version?: string;
   tpInsc?: number;
   nrInsc?: string | null;
+  /**
+   * Phase 06 Plan 06-06 — Número INPI (REP-P), 17 dígitos. null para limpar
+   * explicitamente; undefined para não tocar no valor existente.
+   */
+  inpiNumber?: string | null;
   autoGenerateOnAdmission?: boolean;
   autoGenerateOnTermination?: boolean;
   autoGenerateOnLeave?: boolean;

@@ -40,8 +40,15 @@ export class FakeFileUploadService implements FileUploadService {
     };
   }
 
-  async getPresignedUrl(key: string): Promise<string> {
-    return `https://fake-storage.example.com/${key}?signed=true`;
+  async getPresignedUrl(
+    key: string,
+    _expiresIn?: number,
+    responseContentDisposition?: string,
+  ): Promise<string> {
+    const disposition = responseContentDisposition
+      ? `&response-content-disposition=${encodeURIComponent(responseContentDisposition)}`
+      : '';
+    return `https://fake-storage.example.com/${key}?signed=true${disposition}`;
   }
 
   async delete(_key: string): Promise<void> {}

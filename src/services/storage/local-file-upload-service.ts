@@ -81,10 +81,18 @@ export class LocalFileUploadService implements FileUploadService {
     };
   }
 
-  async getPresignedUrl(key: string, _expiresIn?: number): Promise<string> {
+  async getPresignedUrl(
+    key: string,
+    _expiresIn?: number,
+    responseContentDisposition?: string,
+  ): Promise<string> {
     const absoluteFilePath = join(UPLOADS_BASE_DIR, key);
-
-    return `file://${absoluteFilePath}`;
+    // No signing locally; disposition is appended as a debuggable query hint
+    // so tests can assert on the returned URL.
+    const disposition = responseContentDisposition
+      ? `?response-content-disposition=${encodeURIComponent(responseContentDisposition)}`
+      : '';
+    return `file://${absoluteFilePath}${disposition}`;
   }
 
   async getObject(key: string): Promise<Buffer> {

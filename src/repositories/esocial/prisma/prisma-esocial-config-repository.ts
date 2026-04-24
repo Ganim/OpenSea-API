@@ -21,6 +21,7 @@ export class PrismaEsocialConfigRepository implements EsocialConfigRepository {
         version: 'S-1.2', // Not stored in schema; using default
         tpInsc: data.employerType === 'CPF' ? 2 : 1,
         nrInsc: data.employerDocument ?? undefined,
+        inpiNumber: data.inpiNumber ?? undefined,
         autoGenerateOnAdmission: data.autoGenerate,
         autoGenerateOnTermination: data.autoGenerate,
         autoGenerateOnLeave: data.autoGenerate,
@@ -60,6 +61,7 @@ export class PrismaEsocialConfigRepository implements EsocialConfigRepository {
               : 'CNPJ'
             : 'CNPJ',
         employerDocument: data.nrInsc ?? undefined,
+        inpiNumber: data.inpiNumber ?? undefined,
         requireApproval: data.requireApproval ?? true,
       },
       update: {
@@ -72,6 +74,11 @@ export class PrismaEsocialConfigRepository implements EsocialConfigRepository {
         }),
         ...(data.nrInsc !== undefined && {
           employerDocument: data.nrInsc,
+        }),
+        // `inpiNumber: null` explicit → clear the column;
+        // `inpiNumber: undefined` → don't touch.
+        ...(data.inpiNumber !== undefined && {
+          inpiNumber: data.inpiNumber,
         }),
         ...(data.requireApproval !== undefined && {
           requireApproval: data.requireApproval,
@@ -86,6 +93,7 @@ export class PrismaEsocialConfigRepository implements EsocialConfigRepository {
         version: 'S-1.2',
         tpInsc: result.employerType === 'CPF' ? 2 : 1,
         nrInsc: result.employerDocument ?? undefined,
+        inpiNumber: result.inpiNumber ?? undefined,
         autoGenerateOnAdmission: result.autoGenerate,
         autoGenerateOnTermination: result.autoGenerate,
         autoGenerateOnLeave: result.autoGenerate,

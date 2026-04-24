@@ -64,7 +64,21 @@ export interface FileUploadService {
     options: UploadWithKeyOptions,
   ): Promise<UploadWithKeyResult>;
 
-  getPresignedUrl(key: string, expiresIn?: number): Promise<string>;
+  /**
+   * Presigned URL for a GET download.
+   *
+   * `responseContentDisposition` (Phase 06 / Plan 06-06): optional — appended
+   * to the signed URL as `response-content-disposition` query param, causing
+   * R2/S3 to serve the blob with the specified Content-Disposition header
+   * (e.g. `attachment; filename="AFD_12345678000190_20260301_20260331.txt"`).
+   * The presigned URL signature covers this param, so browsers cannot tamper
+   * with the filename via query string manipulation.
+   */
+  getPresignedUrl(
+    key: string,
+    expiresIn?: number,
+    responseContentDisposition?: string,
+  ): Promise<string>;
 
   getObject(key: string): Promise<Buffer>;
 

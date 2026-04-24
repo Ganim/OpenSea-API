@@ -11,6 +11,11 @@ export interface UpdateEsocialConfigRequest {
   version?: string;
   tpInsc?: number;
   nrInsc?: string | null;
+  /**
+   * Phase 06 Plan 06-06 (D-06) — Número INPI (REP-P), 17 dígitos.
+   * null = limpar explicitamente; undefined = não tocar.
+   */
+  inpiNumber?: string | null;
   autoGenerateOnAdmission?: boolean;
   autoGenerateOnTermination?: boolean;
   autoGenerateOnLeave?: boolean;
@@ -52,12 +57,27 @@ export class UpdateEsocialConfigUseCase {
       }
     }
 
+    // Validate inpiNumber format (Phase 06 Plan 06-06 D-06): 17 dígitos numéricos
+    // quando fornecido. null é aceito como "limpar explicitamente".
+    if (request.inpiNumber) {
+      const cleaned = request.inpiNumber.replace(/\D/g, '');
+      if (cleaned.length !== 17) {
+        throw new BadRequestError(
+          'inpiNumber deve conter 17 dígitos numéricos',
+        );
+      }
+    }
+
     const data: UpdateEsocialConfigData = {};
     if (request.environment !== undefined)
       data.environment = request.environment;
     if (request.version !== undefined) data.version = request.version;
     if (request.tpInsc !== undefined) data.tpInsc = request.tpInsc;
     if (request.nrInsc !== undefined) data.nrInsc = request.nrInsc;
+    if (request.inpiNumber !== undefined)
+      data.inpiNumber = request.inpiNumber
+        ? request.inpiNumber.replace(/\D/g, '')
+        : null;
     if (request.autoGenerateOnAdmission !== undefined)
       data.autoGenerateOnAdmission = request.autoGenerateOnAdmission;
     if (request.autoGenerateOnTermination !== undefined)

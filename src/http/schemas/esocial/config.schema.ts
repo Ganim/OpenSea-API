@@ -11,6 +11,12 @@ export const esocialConfigResponseSchema = z.object({
   version: z.string(),
   tpInsc: z.number(),
   nrInsc: z.string().nullable(),
+  /**
+   * Phase 06 Plan 06-06 (D-06) — Número INPI (REP-P), 17 dígitos.
+   * Fallback '99999999999999999' é aplicado em tempo de geração do AFD
+   * quando null (convenção REP-A).
+   */
+  inpiNumber: z.string().nullable(),
   autoGenerateOnAdmission: z.boolean(),
   autoGenerateOnTermination: z.boolean(),
   autoGenerateOnLeave: z.boolean(),
@@ -31,6 +37,15 @@ export const updateEsocialConfigSchema = z.object({
     .string()
     .max(14)
     .regex(/^\d*$/, 'Must contain only digits')
+    .optional()
+    .nullable(),
+  /**
+   * Phase 06 Plan 06-06 (D-06): 17 dígitos obrigatórios quando informado.
+   * `null` = limpar; `undefined` = não tocar.
+   */
+  inpiNumber: z
+    .string()
+    .regex(/^\d{17}$/, 'inpiNumber deve conter exatamente 17 dígitos numéricos')
     .optional()
     .nullable(),
   autoGenerateOnAdmission: z.boolean().optional(),

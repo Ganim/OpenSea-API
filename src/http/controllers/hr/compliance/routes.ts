@@ -9,6 +9,8 @@ import { v1GenerateAfdController } from './v1-generate-afd.controller';
 import { v1GenerateAfdtController } from './v1-generate-afdt.controller';
 import { v1GenerateFolhaEspelhoController } from './v1-generate-folha-espelho.controller';
 import { v1GenerateFolhaEspelhoBulkController } from './v1-generate-folha-espelho-bulk.controller';
+import { v1GetComplianceArtifactDownloadController } from './v1-get-compliance-artifact-download.controller';
+import { v1ListComplianceArtifactsController } from './v1-list-compliance-artifacts.controller';
 import { v1ListRubricaMapController } from './v1-list-rubrica-map.controller';
 import { v1UpsertRubricaMapController } from './v1-upsert-rubrica-map.controller';
 
@@ -46,5 +48,8 @@ export async function complianceRoutes(app: FastifyInstance) {
   // Query routes — listagens (leitura)
   app.register(async (queryApp) => {
     queryApp.register(v1ListRubricaMapController);
+    // Plan 06-06 — dashboard /hr/compliance: listagem paginada + download
+    queryApp.register(v1ListComplianceArtifactsController);
+    queryApp.register(v1GetComplianceArtifactDownloadController);
   });
 }

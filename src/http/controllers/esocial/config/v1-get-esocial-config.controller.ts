@@ -46,6 +46,7 @@ export async function v1GetEsocialConfigController(app: FastifyInstance) {
           version: config.version,
           tpInsc: config.tpInsc,
           nrInsc: config.nrInsc ?? null,
+          inpiNumber: config.inpiNumber ?? null,
           autoGenerateOnAdmission: config.autoGenerateOnAdmission,
           autoGenerateOnTermination: config.autoGenerateOnTermination,
           autoGenerateOnLeave: config.autoGenerateOnLeave,

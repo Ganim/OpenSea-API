@@ -7,6 +7,12 @@ export interface EsocialConfigProps {
   version: string;
   tpInsc: number;
   nrInsc?: string;
+  /**
+   * Phase 06 Plan 06-05/06-06 (D-06) — Número INPI (REP-P), 17 dígitos.
+   * Nullable: tenants sem registro INPI usam placeholder `99999999999999999`
+   * (convenção REP-A aceita pelo Validador MTP) na geração de AFD.
+   */
+  inpiNumber?: string;
   autoGenerateOnAdmission: boolean;
   autoGenerateOnTermination: boolean;
   autoGenerateOnLeave: boolean;
@@ -35,6 +41,10 @@ export class EsocialConfig extends Entity<EsocialConfigProps> {
 
   get nrInsc(): string | undefined {
     return this.props.nrInsc;
+  }
+
+  get inpiNumber(): string | undefined {
+    return this.props.inpiNumber;
   }
 
   get autoGenerateOnAdmission(): boolean {
