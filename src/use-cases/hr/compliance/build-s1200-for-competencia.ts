@@ -50,6 +50,8 @@ import type { ComplianceArtifactRepository } from '@/repositories/hr/compliance-
 import type { ComplianceRubricaMapRepository } from '@/repositories/hr/compliance-rubrica-map-repository';
 import type { FileUploadService } from '@/services/storage/file-upload-service';
 
+import type { EsocialBatchPersistenceService } from './ports/esocial-batch-persistence';
+
 /** Minimal Payroll data needed by the use case (decoupled from Prisma/entity). */
 export interface S1200PayrollItemDataset {
   codRubr: string;
@@ -127,6 +129,14 @@ export class BuildS1200ForCompetenciaUseCase {
     private readonly rubricaMapRepo: ComplianceRubricaMapRepository,
     private readonly complianceRepo: ComplianceArtifactRepository,
     private readonly fileUploadService: FileUploadService,
+    /**
+     * WR-02: persistência do EsocialBatch + EsocialEvent migrada do controller
+     * para o use case. Opcional para preservar compatibilidade com specs
+     * existentes que exercitam apenas a parte pura de geração — quando
+     * ausente, o use case gera os eventos em memória e o controller assume
+     * a persistência (comportamento pré-WR-02).
+     */
+    private readonly batchPersistence?: EsocialBatchPersistenceService,
     builder?: S1200Builder,
   ) {
     this.builder = builder ?? new S1200Builder();
@@ -306,6 +316,43 @@ export class BuildS1200ForCompetenciaUseCase {
       throw new BadRequestError(
         `Nenhum evento S-1200 pôde ser gerado. Verifique EsocialConfig, rubrica map e dados dos funcionários. Total de falhas: ${errors.length}`,
       );
+    }
+
+    // WR-02: persistência do batch + events centralizada no use case quando
+    // a dependência está injetada. Isso retira o Prisma direto do controller
+    // e mantém a responsabilidade de persistência na camada de aplicação.
+    if (this.batchPersistence) {
+      try {
+        await this.batchPersistence.persistS1200Batch({
+          batchId,
+          tenantId: input.tenantId,
+          createdBy: input.invokedByUserId,
+          environment,
+          totalEvents: events.length,
+          events: events.map((ev) => ({
+            eventId: ev.eventId,
+            referenceId: ev.referenceId,
+            xmlContent: ev.xmlContent,
+            competencia: input.competencia,
+            rectifiedEventId: ev.rectifiedEventId,
+          })),
+        });
+      } catch (err) {
+        // Constraint/FK failures são erros de input (batchId colisão, FK
+        // ausente). Traduzimos para BadRequestError → 400 ao invés de 500.
+        const code =
+          err && typeof err === 'object' && 'code' in err
+            ? (err as { code?: string }).code
+            : undefined;
+        if (code === 'P2002' || code === 'P2003') {
+          throw new BadRequestError(
+            `Falha ao persistir EsocialBatch S-1200: ${
+              err instanceof Error ? err.message : String(err)
+            }`,
+          );
+        }
+        throw err;
+      }
     }
 
     return {

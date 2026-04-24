@@ -87,8 +87,6 @@ export async function v1BuildS1200Controller(app: FastifyInstance) {
           });
         }
         const tpAmb: 1 | 2 = esocialConfig.environment === 'PRODUCAO' ? 1 : 2;
-        const environment: 'HOMOLOGACAO' | 'PRODUCAO' =
-          tpAmb === 1 ? 'PRODUCAO' : 'HOMOLOGACAO';
 
         // ── 2. Resolve employeeIds baseado em scope ────────────────────
         let employeeIds: string[] = [];
@@ -195,6 +193,10 @@ export async function v1BuildS1200Controller(app: FastifyInstance) {
         }
 
         // ── 4. Invoca o use case puro ──────────────────────────────────
+        // WR-02: a persistência do EsocialBatch + EsocialEvent agora vive
+        // dentro do use case (via EsocialBatchPersistenceService), eliminando
+        // a violação de Clean Architecture. O controller apenas monta o
+        // dataset + chama o use case + faz audit log.
         const useCase = makeBuildS1200ForCompetenciaUseCase();
         const result = await useCase.execute({
           tenantId,
@@ -206,41 +208,10 @@ export async function v1BuildS1200Controller(app: FastifyInstance) {
           retify: body.retify,
         });
 
-        // ── 5. Persiste EsocialBatch + Events no DB ──────────────────
-        const batch = await prisma.esocialBatch.create({
-          data: {
-            id: result.batchId,
-            tenantId,
-            status: 'PENDING',
-            environment,
-            totalEvents: result.events.length,
-            acceptedCount: 0,
-            rejectedCount: 0,
-            createdBy: invokedByUserId,
-          },
-        });
-
-        if (result.events.length > 0) {
-          await prisma.esocialEvent.createMany({
-            data: result.events.map((ev) => ({
-              id: ev.eventId,
-              tenantId,
-              eventType: 'S-1200',
-              description: `S-1200 ${body.competencia} — employee ${ev.referenceId}`,
-              status: 'DRAFT',
-              referenceId: ev.referenceId,
-              referenceType: 'employee',
-              xmlContent: ev.xmlContent,
-              batchId: batch.id,
-              rectifiedEventId: ev.rectifiedEventId ?? null,
-            })),
-          });
-        }
-
-        // ── 6. Audit log ───────────────────────────────────────────────
+        // ── 5. Audit log ───────────────────────────────────────────────
         await logAudit(request, {
           message: AUDIT_MESSAGES.HR.ESOCIAL_S1200_SUBMITTED,
-          entityId: batch.id,
+          entityId: result.batchId,
           placeholders: {
             userName: invokedByUserId,
             competencia: body.competencia,
