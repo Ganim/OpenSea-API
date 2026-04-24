@@ -1,5 +1,5 @@
 import { mkdir, writeFile, unlink, readFile } from 'node:fs/promises';
-import { resolve, join } from 'node:path';
+import { dirname, resolve, join } from 'node:path';
 import { randomUUID } from 'node:crypto';
 
 import type {
@@ -67,10 +67,9 @@ export class LocalFileUploadService implements FileUploadService {
     // mimeType/cacheControl/metadata são ignorados no disco local — o R2 é
     // quem consome esses hints em produção.
     const absoluteFilePath = join(UPLOADS_BASE_DIR, key);
-    const targetDirectory = absoluteFilePath.substring(
-      0,
-      absoluteFilePath.lastIndexOf('/'),
-    );
+    // WR-04: use `dirname` para cross-platform (Windows usa '\', Linux '/').
+    // `lastIndexOf('/')` falhava silenciosamente em Windows dev.
+    const targetDirectory = dirname(absoluteFilePath);
     await mkdir(targetDirectory, { recursive: true });
     await writeFile(absoluteFilePath, fileBuffer);
     return {
