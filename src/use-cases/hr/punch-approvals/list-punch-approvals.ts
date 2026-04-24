@@ -51,7 +51,10 @@ export class ListPunchApprovalsUseCase {
       });
 
     return {
-      items: items.map(punchApprovalToDTO),
+      // Wrap in arrow so Array.map não passe index como 2º arg do mapper
+      // (o mapper tem `linkedRequest?` como 2º param — sem wrapper, o index
+      // numérico seria coerced para o campo e a Zod response falha).
+      items: items.map((approval) => punchApprovalToDTO(approval)),
       total,
       page,
       pageSize,

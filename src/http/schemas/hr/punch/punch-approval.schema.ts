@@ -14,7 +14,10 @@ export const punchApprovalStatusEnum = z.enum([
   'REJECTED',
 ]);
 
-export const punchApprovalReasonEnum = z.enum(['OUT_OF_GEOFENCE']);
+export const punchApprovalReasonEnum = z.enum([
+  'OUT_OF_GEOFENCE',
+  'FACE_MATCH_LOW',
+]);
 
 // ────────────────────────────────────────────────────────────────────
 // LIST
@@ -28,6 +31,24 @@ export const listPunchApprovalsQuerySchema = z.object({
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 });
 
+/**
+ * Phase 7 / Plan 07-03 — D-10: evidenceFiles + linkedRequest (snapshot).
+ * Shape restrita da EvidenceFile para mitigar T-7-01-01 (tampering JSONB).
+ */
+export const evidenceFileSchema = z.object({
+  storageKey: z.string(),
+  filename: z.string(),
+  size: z.number().int().nonnegative(),
+  uploadedAt: z.string(),
+  uploadedBy: z.string(),
+});
+
+export const linkedRequestSnapshotSchema = z.object({
+  id: z.string(),
+  type: z.string(),
+  status: z.string(),
+});
+
 export const punchApprovalDtoSchema = z.object({
   id: z.string(),
   tenantId: z.string(),
@@ -39,6 +60,11 @@ export const punchApprovalDtoSchema = z.object({
   resolverUserId: z.string().nullable(),
   resolvedAt: z.string().nullable(),
   resolverNote: z.string().nullable(),
+  // Phase 7 / Plan 07-03 — D-10: evidenceFiles sempre retornado (default []);
+  // linkedRequest opcional porque o mapper só popula quando o caller
+  // já resolveu o snapshot do EmployeeRequest (controllers Phase 7).
+  evidenceFiles: z.array(evidenceFileSchema),
+  linkedRequest: linkedRequestSnapshotSchema.nullable(),
   createdAt: z.string(),
   updatedAt: z.string().nullable(),
 });
