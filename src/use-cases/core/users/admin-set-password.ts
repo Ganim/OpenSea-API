@@ -36,6 +36,16 @@ export class AdminSetPasswordUseCase {
     const targetId = new UniqueEntityID(targetUserId);
     const requestedById = new UniqueEntityID(requestedByUserId);
 
+    // Self-target protection: este endpoint é apenas para administradores
+    // alterarem senhas de OUTROS usuários. O próprio usuário deve usar
+    // o endpoint /v1/me/password, que pede a senha atual e não revoga
+    // suas próprias sessões no processo.
+    if (targetId.equals(requestedById)) {
+      throw new BadRequestError(
+        'Use o endpoint /v1/me/password para alterar sua própria senha',
+      );
+    }
+
     const targetUser = await this.usersRepository.findById(targetId);
     if (!targetUser || targetUser.deletedAt) {
       throw new ResourceNotFoundError('Usuário não encontrado');

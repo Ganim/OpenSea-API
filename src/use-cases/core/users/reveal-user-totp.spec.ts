@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
@@ -42,6 +43,21 @@ describe('RevealUserTotpUseCase', () => {
       new UniqueEntityID(target.id),
     );
     expect(isValidRotatingCode(freshUser!.totpSecret, result.code)).toBe(true);
+  });
+
+  it('rejeita quando o admin tenta revelar o próprio token', async () => {
+    const { user: admin } = await makeUser({
+      email: 'admin@example.com',
+      password: 'Admin@123',
+      usersRepository,
+    });
+
+    await expect(
+      sut.execute({
+        targetUserId: admin.id,
+        requestedByUserId: admin.id,
+      }),
+    ).rejects.toBeInstanceOf(BadRequestError);
   });
 
   it('lança ResourceNotFoundError quando target não existe', async () => {

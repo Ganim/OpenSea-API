@@ -132,6 +132,23 @@ describe('AdminSetPasswordUseCase', () => {
     ).rejects.toBeInstanceOf(BadRequestError);
   });
 
+  it('rejeita quando o requester tenta alterar a própria senha', async () => {
+    const { user: admin } = await makeUser({
+      email: 'admin@example.com',
+      password: 'Admin@123',
+      usersRepository,
+    });
+
+    await expect(
+      sut.execute({
+        targetUserId: admin.id,
+        requestedByUserId: admin.id,
+        newPassword: 'NewPass@456',
+        forceChangeOnNextLogin: false,
+      }),
+    ).rejects.toBeInstanceOf(BadRequestError);
+  });
+
   it('lança ResourceNotFoundError se target não existe', async () => {
     const { user: admin } = await makeUser({
       email: 'admin@example.com',

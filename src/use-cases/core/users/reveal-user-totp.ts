@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
 import { ForbiddenError } from '@/@errors/use-cases/forbidden-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
@@ -34,6 +35,14 @@ export class RevealUserTotpUseCase {
   }: RevealUserTotpRequest): Promise<RevealUserTotpResponse> {
     const targetId = new UniqueEntityID(targetUserId);
     const requestedById = new UniqueEntityID(requestedByUserId);
+
+    // Revelar o próprio token não faz sentido — este é um fluxo de
+    // "admin passa código para usuário que esqueceu a senha".
+    if (targetId.equals(requestedById)) {
+      throw new BadRequestError(
+        'Você não pode revelar seu próprio token administrativo',
+      );
+    }
 
     const targetUser = await this.usersRepository.findById(targetId);
     if (!targetUser || targetUser.deletedAt) {
