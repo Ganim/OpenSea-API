@@ -96,7 +96,19 @@ function entryTypeLabelPt(t: string): string {
   }
 }
 
+/**
+ * Entry point do worker.
+ *
+ * WR-01: gate `BULLMQ_ENABLED` aplicado defensivamente aqui mesmo, em
+ * adição ao gate já presente em `workers/index.ts`. Isso protege contra
+ * chamadas diretas (testes, plugins, refatorações) que invoquem o start
+ * sem passar pelo entrypoint principal — padrão consistente com os demais
+ * workers (lesson Upstash / commit 013b898).
+ */
 export function startReceiptPdfWorker() {
+  if (process.env.BULLMQ_ENABLED !== 'true') {
+    return null;
+  }
   return createWorker<ReceiptPdfJobData>(
     QUEUE_NAMES.RECEIPT_PDF,
     async (job: Job<ReceiptPdfJobData>): Promise<ReceiptPdfJobResult> => {
@@ -105,7 +117,9 @@ export function startReceiptPdfWorker() {
     {
       // Recibo é sintético (< 30KB) e rápido; permitir concorrência maior
       // que badge-pdf (concurrency 1 bulk) — vários funcionários batem
-      // ponto ao mesmo tempo em horários-pico (08:00/18:00).
+      // ponto ao mesmo tempo em horários-pico (08:00/18:00). A idempotência
+      // contra race é garantida pela UNIQUE (tenant_id, storage_key) WHERE
+      // type='RECIBO' — migration 20260423220000 (CR-03).
       concurrency: 3,
       limiter: { max: 30, duration: 1000 }, // 30 recibos/s máximo
     },
