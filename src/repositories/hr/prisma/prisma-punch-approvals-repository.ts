@@ -40,6 +40,12 @@ export class PrismaPunchApprovalsRepository
         resolverUserId: approval.resolverUserId?.toString() ?? null,
         resolvedAt: approval.resolvedAt ?? null,
         resolverNote: approval.resolverNote ?? null,
+        // Phase 07 / Plan 07-03 — D-10: inicial (quase sempre [] e null no create
+        // via ExecutePunchUseCase — o resolve posterior anexa/liga). Incluído no
+        // create porque `evidence_files` é NOT NULL no schema (default []).
+        evidenceFiles:
+          approval.evidenceFiles as unknown as Prisma.InputJsonValue,
+        linkedRequestId: approval.linkedRequestId?.toString() ?? null,
       },
     });
   }
@@ -60,6 +66,14 @@ export class PrismaPunchApprovalsRepository
           approval.details === undefined
             ? undefined
             : (approval.details as Prisma.InputJsonValue),
+        // Phase 07 / Plan 07-03 — D-10: evidências PDF anexadas pelo gestor
+        // no resolve. JSONB write inteiro (small array, <= 10 itens). A entity
+        // garante a shape EvidenceFile via `attachEvidence()`.
+        evidenceFiles:
+          approval.evidenceFiles as unknown as Prisma.InputJsonValue,
+        // Phase 07 / Plan 07-03 — D-10: FK nullable a EmployeeRequest resolvida
+        // por `linkRequest()`. `null` quando o gestor não anexou cross-ref.
+        linkedRequestId: approval.linkedRequestId?.toString() ?? null,
       },
     });
   }

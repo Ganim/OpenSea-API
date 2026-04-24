@@ -1,4 +1,4 @@
-import type { PunchApproval } from '@/entities/hr/punch-approval';
+import type { EvidenceFile, PunchApproval } from '@/entities/hr/punch-approval';
 
 /**
  * DTO público do PunchApproval.
@@ -10,23 +10,42 @@ import type { PunchApproval } from '@/entities/hr/punch-approval';
  *
  * `details` é um record JSON com dados específicos do motivo — para
  * `OUT_OF_GEOFENCE` contém `{ distance, zoneId, accuracy? }`.
+ *
+ * Phase 7 / Plan 07-03 — D-09/D-10:
+ * - `evidenceFiles[]`: arquivos PDF anexados ao resolve (5 anos retenção
+ *   Portaria 671). Array vazio quando nenhuma evidência foi anexada.
+ * - `linkedRequest`: snapshot opcional do `EmployeeRequest` linkado
+ *   (atestado/justificativa aprovado). Populado pelo caller quando o
+ *   request já foi resolvido; `null` quando não há link ou o use case
+ *   optou por não resolvê-lo.
  */
+export interface LinkedRequestSnapshot {
+  id: string;
+  type: string;
+  status: string;
+}
+
 export interface PunchApprovalDTO {
   id: string;
   tenantId: string;
   timeEntryId: string;
   employeeId: string;
-  reason: 'OUT_OF_GEOFENCE';
+  reason: 'OUT_OF_GEOFENCE' | 'FACE_MATCH_LOW';
   details: Record<string, unknown> | null;
   status: 'PENDING' | 'APPROVED' | 'REJECTED';
   resolverUserId: string | null;
   resolvedAt: string | null;
   resolverNote: string | null;
+  evidenceFiles: EvidenceFile[];
+  linkedRequest: LinkedRequestSnapshot | null;
   createdAt: string;
   updatedAt: string | null;
 }
 
-export function punchApprovalToDTO(approval: PunchApproval): PunchApprovalDTO {
+export function punchApprovalToDTO(
+  approval: PunchApproval,
+  linkedRequest?: LinkedRequestSnapshot | null,
+): PunchApprovalDTO {
   return {
     id: approval.id.toString(),
     tenantId: approval.tenantId.toString(),
@@ -38,6 +57,8 @@ export function punchApprovalToDTO(approval: PunchApproval): PunchApprovalDTO {
     resolverUserId: approval.resolverUserId?.toString() ?? null,
     resolvedAt: approval.resolvedAt?.toISOString() ?? null,
     resolverNote: approval.resolverNote ?? null,
+    evidenceFiles: approval.evidenceFiles,
+    linkedRequest: linkedRequest ?? null,
     createdAt: approval.createdAt.toISOString(),
     updatedAt: approval.updatedAt?.toISOString() ?? null,
   };
