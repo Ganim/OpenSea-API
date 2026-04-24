@@ -540,6 +540,8 @@ model User {
   posVisitLogs               PosVisitLog[]     @relation("PosVisitLogUser")
   posTerminalsAsSystem       PosTerminal[]     @relation("PosTerminalSystemUser")
   posOrderConflictsResolved  PosOrderConflict[] @relation("ConflictResolvedBy")
+  posOperatorsAssigned       PosTerminalOperator[] @relation("PosOperatorAssignedBy")
+  posOperatorsRevoked        PosTerminalOperator[] @relation("PosOperatorRevokedBy")
   cardIntegrationsCreated    CardIntegration[] @relation("CardIntegrationCreator")
 
   // CRM Relations (non-prefixed / Sales)
@@ -4486,6 +4488,8 @@ model Employee {
   // POS Desktop (Emporion) — operator relation for orders sold via POS
   ordersAsOperator Order[] @relation("OrdersByOperator")
 
+  posTerminalOperators PosTerminalOperator[] @relation("EmployeeToPosTerminals")
+
   @@unique([registrationNumber, tenantId, deletedAt], name: "employees_registration_tenant_unique_active")
   @@unique([cpfHash, tenantId, deletedAt], name: "employees_cpf_tenant_unique_active")
   @@unique([pisHash, tenantId, deletedAt], name: "employees_pis_tenant_unique_active")
@@ -6646,6 +6650,7 @@ model Tenant {
   posFiscalConfig     PosFiscalConfig?
   posOrderConflicts   PosOrderConflict[]
   posOrphanPayments   PosOrphanPayment[]
+  posTerminalOperators PosTerminalOperator[]
   posDevicePairings   PosDevicePairing[]
   posPrinters         PosPrinter[]
   printAgents         PrintAgent[]
@@ -11890,6 +11895,7 @@ model PosTerminal {
   zoneLinks       PosTerminalZone[]      @relation("PosTerminalToZones")
   conflicts       PosOrderConflict[]     @relation("PosTerminalToConflicts")
   orphanPayments  PosOrphanPayment[]     @relation("OrphanPaymentsAtTerminal")
+  operators       PosTerminalOperator[]  @relation("PosTerminalToOperators")
   devicePairing   PosDevicePairing?
   sessions        PosSession[]
   offlineQueue    PosOfflineQueue[]
@@ -12038,6 +12044,31 @@ model PosOrphanPayment {
   @@index([tenantId, matchedOrderId])
   @@index([orderCode])
   @@map("pos_orphan_payments")
+}
+
+model PosTerminalOperator {
+  id         String  @id @default(uuid())
+  terminalId String  @map("terminal_id")
+  employeeId String  @map("employee_id")
+  tenantId   String  @map("tenant_id")
+  isActive   Boolean @default(true) @map("is_active")
+
+  assignedAt       DateTime  @default(now()) @map("assigned_at")
+  assignedByUserId String    @map("assigned_by_user_id")
+  revokedAt        DateTime? @map("revoked_at")
+  revokedByUserId  String?   @map("revoked_by_user_id")
+
+  tenant     Tenant      @relation(fields: [tenantId], references: [id])
+  terminal   PosTerminal @relation("PosTerminalToOperators", fields: [terminalId], references: [id], onDelete: Cascade)
+  employee   Employee    @relation("EmployeeToPosTerminals", fields: [employeeId], references: [id])
+  assignedBy User        @relation("PosOperatorAssignedBy", fields: [assignedByUserId], references: [id])
+  revokedBy  User?       @relation("PosOperatorRevokedBy", fields: [revokedByUserId], references: [id])
+
+  @@unique([terminalId, employeeId], name: "pos_terminal_operators_unique", map: "pos_terminal_operators_unique")
+  @@index([tenantId])
+  @@index([employeeId])
+  @@index([terminalId, isActive])
+  @@map("pos_terminal_operators")
 }
 
 // Pareamento persistente device → terminal (1:1 com terminal — decisão arquitetural)
