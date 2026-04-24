@@ -22,6 +22,11 @@ export const PUNCH_EVENTS = {
   QR_ROTATED: 'punch.qr.rotated',
   QR_ROTATION_COMPLETED: 'punch.qr.rotation.completed',
   FACE_MATCH_FAILED: 'punch.face_match.failed',
+  // Phase 7 additions (Plan 07-01 — Dashboard Gestor)
+  MISSED_PUNCHES_DETECTED: 'punch.missed-punches.detected',
+  DEVICE_STATUS_CHANGED: 'punch.device.status-changed',
+  DAILY_DIGEST_SENT: 'punch.daily-digest.sent',
+  EXCEPTION_APPROVAL_REQUESTED: 'punch.exception.approval-requested',
 } as const;
 
 export type PunchEventType = (typeof PUNCH_EVENTS)[keyof typeof PUNCH_EVENTS];
@@ -149,4 +154,68 @@ export interface PunchFaceMatchFailedData {
   threshold: number;
   /** How many cadastrais embeddings the employee has registered. */
   enrollmentCount: number;
+}
+
+// ─── Phase 7 Event Data Interfaces (Plan 07-01 — Dashboard Gestor) ───────────
+
+/**
+ * Emitted by the scheduler `detect-missed-punches` (22h por tenant, timezone-aware)
+ * quando o job finaliza a passagem por todos os funcionários ativos do tenant e
+ * persiste os PunchMissedLog correspondentes (UNIQUE [tenantId, employeeId, date]).
+ * Consumido pelo digest diário 18h (D-14) e pelo card "Faltantes do dia" da dashboard.
+ */
+export interface PunchMissedPunchesDetectedData {
+  tenantId: string;
+  /** Data de referência (YYYY-MM-DD) — coincide com PunchMissedLog.date. */
+  date: string;
+  /** Quantidade de PunchMissedLog criados nesta execução. */
+  count: number;
+  /** IDs dos PunchMissedLog criados (para downstream listagem/notificação). */
+  logIds: string[];
+}
+
+/**
+ * Emitted pelo heartbeat scheduler (1min) ao detectar transição ONLINE↔OFFLINE
+ * de um PunchDevice (threshold 3min sem heartbeat = OFFLINE). Propagado via
+ * Socket.IO `tenant:{id}:hr:devices:status-change` para atualizar a dashboard
+ * de saúde dos dispositivos em tempo real.
+ */
+export interface PunchDeviceStatusChangedData {
+  tenantId: string;
+  deviceId: string;
+  previousStatus: 'ONLINE' | 'OFFLINE';
+  nextStatus: 'ONLINE' | 'OFFLINE';
+  /** ISO 8601 timestamp da transição. */
+  changedAt: string;
+}
+
+/**
+ * Emitted pelo scheduler de digest 18h após o dispatch da notification
+ * `punch.daily_digest` para um gestor/admin. Permite downstream consumers
+ * (ex.: analytics) registrar quantos digests foram entregues por tenant/dia.
+ */
+export interface PunchDailyDigestSentData {
+  tenantId: string;
+  recipientUserId: string;
+  /** Data de referência (YYYY-MM-DD) do digest. */
+  date: string;
+  pendingCount: number;
+  approvedCount: number;
+  missingCount: number;
+}
+
+/**
+ * Emitted quando gestor solicita ao funcionário que justifique uma exceção de
+ * ponto (PUNCH-NOTIF-03). Dispara a notification `punch.exception_approval_requested`
+ * ACTIONABLE com botões embutidos. O fluxo completo do funcionário justificando
+ * fica para Phase 8 (PWA pessoal); Phase 7 apenas envia o convite.
+ */
+export interface PunchExceptionApprovalRequestedData {
+  tenantId: string;
+  approvalId: string;
+  employeeId: string;
+  /** userId do gestor que solicitou a justificativa. */
+  requestedBy: string;
+  /** ISO 8601 — prazo opcional para o funcionário responder. */
+  deadline?: string;
 }

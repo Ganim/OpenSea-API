@@ -362,6 +362,22 @@ export enum AuditEntity {
   COMPLIANCE_ARTIFACT = 'COMPLIANCE_ARTIFACT',
 
   // ==========================================
+  // Phase 7 / Plan 07-01 — Dashboard Gestor
+  // ==========================================
+  /**
+   * PunchMissedLog — batidas faltantes detectadas pelo job `detect-missed-punches`
+   * (22h por tenant). Uma linha por (tenantId, employeeId, date) com UNIQUE.
+   */
+  PUNCH_MISSED_LOG = 'PUNCH_MISSED_LOG',
+
+  /**
+   * ExportJob — artefato de exportação em lote (CSV, PDF, AFD, AFDT) disparado
+   * via BullMQ quando tenant excede 10k linhas. Audit `PUNCH_BATCH_EXPORTED`
+   * aponta para este entity type.
+   */
+  EXPORT_JOB = 'EXPORT_JOB',
+
+  // ==========================================
   // System
   // ==========================================
   OTHER = 'OTHER',

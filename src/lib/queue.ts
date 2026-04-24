@@ -320,6 +320,22 @@ export const QUEUE_NAMES = {
   //   Promise.allSettled e emite Socket.IO progress (Plan 06-04).
   RECEIPT_PDF: 'receipt-pdf-generation',
   FOLHA_ESPELHO_BULK: 'folha-espelho-bulk-generation',
+  // Phase 7 / Plan 07-01 — Dashboard Gestor
+  // - PUNCH_BATCH_EXPORT: worker que processa exports em lote (CSV/PDF/AFD/AFDT)
+  //   quando estimativa de linhas excede 10k (D-11); jobId = exportJobId.
+  // - PUNCH_DETECT_MISSED: scheduler diário 22h (timezone-tenant) que cria
+  //   PunchMissedLog para cada funcionário com ShiftAssignment ativo sem
+  //   TimeEntry e sem licença justificada (D-12).
+  // - PUNCH_DAILY_DIGEST: scheduler diário 18h (timezone-tenant) que computa
+  //   pendentes/aprovadas/faltantes e dispara notification `punch.daily_digest`
+  //   para managers + admins (D-14).
+  // - PUNCH_DEVICE_HEARTBEAT: scheduler 1-min que verifica lastHeartbeatAt de
+  //   cada PunchDevice e emite transições ONLINE↔OFFLINE após 3min silêncio
+  //   (D-13).
+  PUNCH_BATCH_EXPORT: 'punch-batch-export',
+  PUNCH_DETECT_MISSED: 'punch-detect-missed',
+  PUNCH_DAILY_DIGEST: 'punch-daily-digest',
+  PUNCH_DEVICE_HEARTBEAT: 'punch-device-heartbeat',
 } as const;
 
 export type QueueName = (typeof QUEUE_NAMES)[keyof typeof QUEUE_NAMES];
