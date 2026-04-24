@@ -964,6 +964,10 @@ export const PermissionCodes = {
       REMOVE: 'admin.users.remove' as const,
       ADMIN: 'admin.users.admin' as const,
       IMPORT: 'admin.users.import' as const,
+      SECURITY: {
+        SET_PASSWORD: 'admin.users.security.setPassword' as const,
+        REVEAL_ADMIN_TOKEN: 'admin.users.security.revealAdminToken' as const,
+      },
     },
     PERMISSION_GROUPS: {
       ACCESS: 'admin.permission-groups.access' as const,

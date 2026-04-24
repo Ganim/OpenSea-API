@@ -1,6 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 import { rateLimitConfig } from '@/config/rate-limits';
 import rateLimit from '@fastify/rate-limit';
+import { adminSetPasswordController } from './v1-admin-set-password.controller';
 import { changeUserEmailController } from './v1-change-user-email.controller';
 import { changeUserPasswordController } from './v1-change-user-password.controller';
 import { changeUserProfileController } from './v1-change-user-profile.controller';
@@ -33,6 +34,7 @@ export async function usersRoutes(app: FastifyInstance) {
       adminApp.register(forcePasswordResetController);
       adminApp.register(forceAccessPinResetController);
       adminApp.register(forceActionPinResetController);
+      adminApp.register(adminSetPasswordController);
     },
     { prefix: '' },
   );

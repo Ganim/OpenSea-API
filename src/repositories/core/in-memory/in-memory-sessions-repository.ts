@@ -95,6 +95,22 @@ export class InMemorySessionsRepository implements SessionsRepository {
     session.expiredAt = new Date();
   }
 
+  async revokeAllForUser(userId: UniqueEntityID): Promise<number> {
+    const now = new Date();
+    let count = 0;
+    for (const session of this.items) {
+      if (
+        session.userId.equals(userId) &&
+        !session.revokedAt &&
+        !session.expiredAt
+      ) {
+        session.revokedAt = now;
+        count++;
+      }
+    }
+    return count;
+  }
+
   // RETRIEVE
   // - findById(sessionId: UniqueEntityID): Promise<Session | null>;
 

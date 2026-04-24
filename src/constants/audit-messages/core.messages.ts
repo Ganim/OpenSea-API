@@ -198,6 +198,15 @@ export const CORE_AUDIT_MESSAGES = {
       '{{adminName}} solicitou reset de senha obrigatório para {{userName}}: {{reason}}',
   } satisfies AuditMessage,
 
+  /** Admin definiu nova senha diretamente para outro usuário */
+  USER_PASSWORD_SET_BY_ADMIN: {
+    action: AuditAction.PASSWORD_CHANGE,
+    entity: AuditEntity.USER_PASSWORD,
+    module: AuditModule.CORE,
+    description:
+      '{{adminName}} definiu uma nova senha para {{userName}} (forçar troca: {{forceChange}})',
+  } satisfies AuditMessage,
+
   /** Admin forçou reset de PIN de acesso de outro usuário */
   USER_FORCE_ACCESS_PIN_RESET: {
     action: AuditAction.PIN_FORCE_RESET,

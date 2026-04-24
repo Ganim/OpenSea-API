@@ -162,6 +162,18 @@ export class PrismaSessionsRepository implements SessionsRepository {
     });
   }
 
+  async revokeAllForUser(userId: UniqueEntityID): Promise<number> {
+    const result = await prisma.session.updateMany({
+      where: {
+        userId: userId.toString(),
+        revokedAt: null,
+        expiredAt: null,
+      },
+      data: { revokedAt: new Date() },
+    });
+    return result.count;
+  }
+
   // RETRIEVE
   // - findById(sessionId: UniqueEntityID): Promise<Session | null>;
 

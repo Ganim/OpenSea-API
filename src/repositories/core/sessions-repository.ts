@@ -48,6 +48,7 @@ export interface SessionsRepository {
   // DELETE
   revoke(sessionId: UniqueEntityID): Promise<void | null>;
   expire(sessionId: UniqueEntityID): Promise<void | null>;
+  revokeAllForUser(userId: UniqueEntityID): Promise<number>;
 
   // RETRIEVE
   findById(sessionId: UniqueEntityID): Promise<Session | null>;
