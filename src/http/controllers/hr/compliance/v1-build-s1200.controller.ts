@@ -131,6 +131,25 @@ export async function v1BuildS1200Controller(app: FastifyInstance) {
           select: { id: true },
         });
 
+        // WR-03: a v1 simplificada mapeia todos os payroll items para
+        // `codRubr='1000' / ideTabRubr='TAB01'` (placeholder genérico). Isso é
+        // aceitável em HOMOLOGACAO para validar o pipeline, mas NUNCA deve ir
+        // ao governo em PRODUCAO — o evento seria fiscalmente inválido.
+        // Enquanto o mapeamento real por tipo de payroll item não estiver
+        // implementado, bloqueamos explicitamente a geração em produção quando
+        // há payroll consumido. Geração sem payroll (TimeBank puro) usa o
+        // rubricaMap real configurado em /hr/compliance/esocial-rubricas.
+        if (esocialConfig.environment === 'PRODUCAO' && payroll) {
+          return reply.status(400).send({
+            message:
+              'Geração de S-1200 com itens de Payroll em ambiente PRODUCAO ' +
+              'não suportada nesta versão — os codRubr/ideTabRubr do payroll ' +
+              'ainda usam placeholders. Configure o ambiente como ' +
+              'HOMOLOGACAO ou gere S-1200 apenas para competências sem ' +
+              'Payroll (TimeBank puro via mapeamento de rubricas).',
+          });
+        }
+
         const employees = await prisma.employee.findMany({
           where: { id: { in: employeeIds }, tenantId },
           select: {
