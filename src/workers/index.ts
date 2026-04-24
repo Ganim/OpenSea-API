@@ -39,6 +39,18 @@ import {
 import { startBadgePdfWorker } from './badge-pdf-worker';
 import { startFolhaEspelhoBulkWorker } from './folha-espelho-bulk-worker';
 import { startPunchBatchExportWorker } from './punch-batch-export-worker';
+import {
+  startPunchDailyDigestScheduler,
+  stopPunchDailyDigestScheduler,
+} from './punch-daily-digest-scheduler';
+import {
+  startPunchDetectMissedScheduler,
+  stopPunchDetectMissedScheduler,
+} from './punch-detect-missed-scheduler';
+import {
+  startPunchDeviceOfflineScheduler,
+  stopPunchDeviceOfflineScheduler,
+} from './punch-device-offline-scheduler';
 import { startPunchEventsWorker } from './punch-events-worker';
 import { startQrBatchWorker } from './qr-batch-worker';
 import { startReceiptPdfWorker } from './receipt-pdf-worker';
@@ -202,6 +214,42 @@ export async function startAllWorkers(): Promise<void> {
     } catch (err) {
       console.error(
         '[Workers] Failed to start Punch Batch Export worker:',
+        err,
+      );
+    }
+
+    try {
+      await startPunchDetectMissedScheduler();
+      console.log(
+        '[Workers] PunchDetectMissed scheduler started (Phase 07 / Plan 07-05a)',
+      );
+    } catch (err) {
+      console.error(
+        '[Workers] Failed to start PunchDetectMissed scheduler:',
+        err,
+      );
+    }
+
+    try {
+      await startPunchDailyDigestScheduler();
+      console.log(
+        '[Workers] PunchDailyDigest scheduler started (Phase 07 / Plan 07-05a)',
+      );
+    } catch (err) {
+      console.error(
+        '[Workers] Failed to start PunchDailyDigest scheduler:',
+        err,
+      );
+    }
+
+    try {
+      await startPunchDeviceOfflineScheduler();
+      console.log(
+        '[Workers] PunchDeviceOffline scheduler started (Phase 07 / Plan 07-05a)',
+      );
+    } catch (err) {
+      console.error(
+        '[Workers] Failed to start PunchDeviceOffline scheduler:',
         err,
       );
     }
@@ -403,6 +451,9 @@ export async function stopAllWorkers(): Promise<void> {
   stopHrVacationAccrualScheduler();
   stopHrDocExpiryScheduler();
   stopHrPayrollGenerationScheduler();
+  stopPunchDetectMissedScheduler();
+  stopPunchDailyDigestScheduler();
+  stopPunchDeviceOfflineScheduler();
 
   // P3-05: when running on the BullMQ path, also tear down every repeatable
   // schedule so a redeploy does not leave orphaned cron entries in Redis.
