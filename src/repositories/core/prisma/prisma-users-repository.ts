@@ -4,6 +4,7 @@ import type { Token } from '@/entities/core/value-objects/token';
 import { Username } from '@/entities/core/value-objects/username';
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { prisma } from '@/lib/prisma';
+import { generateRotatingSecret } from '@/lib/rotating-code';
 import type { TransactionClient } from '@/lib/transaction-manager';
 import { mapUserPrismaToDomain } from '@/mappers/core/user/user-prisma-to-domain';
 import type {
@@ -29,6 +30,7 @@ export class PrismaUsersRepository implements UsersRepository {
         forcePasswordReset: false,
         forceAccessPinSetup: true,
         forceActionPinSetup: true,
+        totpSecret: generateRotatingSecret(),
         profile: {
           create: {
             name: data.profile.name,

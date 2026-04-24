@@ -1,6 +1,7 @@
 import { User } from '@/entities/core/user';
 import { UserProfile } from '@/entities/core/user-profile';
 import { Email } from '@/entities/core/value-objects/email';
+import { generateRotatingSecret } from '@/lib/rotating-code';
 import type { Token } from '@/entities/core/value-objects/token';
 import { Url } from '@/entities/core/value-objects/url';
 import { Username } from '@/entities/core/value-objects/username';
@@ -29,6 +30,7 @@ export class InMemoryUsersRepository implements UsersRepository {
       createdAt: new Date(),
       profile: null,
       deletedAt: data.deletedAt ?? undefined,
+      totpSecret: generateRotatingSecret(),
     });
 
     user.profile = UserProfile.create({

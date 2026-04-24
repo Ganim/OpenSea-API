@@ -11,6 +11,7 @@ import { getTenantAuthConfigController } from './v1-get-tenant-auth-config.contr
 import { listUserTenantsController } from './v1-list-user-tenants.controller';
 import { registerNewUserController } from './v1-register-new-user.controller';
 import { requestMagicLinkController } from './v1-request-magic-link.controller';
+import { initiatePasswordResetByTotpController } from './v1-initiate-password-reset-by-totp.controller';
 import { resetPasswordByTokenController } from './v1-reset-password-by-token.controller';
 import { selectTenantController } from './v1-select-tenant.controller';
 import { routineCheckController } from './v1-routine-check.controller';
@@ -37,6 +38,7 @@ export async function authRoutes(app: FastifyInstance) {
       authApp.register(registerNewUserController);
       authApp.register(resetPasswordByTokenController);
       authApp.register(sendPasswordResetTokenController);
+      authApp.register(initiatePasswordResetByTotpController);
       authApp.register(requestMagicLinkController);
       authApp.register(verifyMagicLinkController);
     },

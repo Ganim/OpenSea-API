@@ -20,6 +20,7 @@ import { adminLinkAuthMethodController } from './v1-admin-link-auth-method.contr
 import { adminToggleAuthLinkController } from './v1-admin-toggle-auth-link.controller';
 import { adminUnlinkAuthMethodController } from './v1-admin-unlink-auth-method.controller';
 import { listUserAuthLinksController } from './v1-list-user-auth-links.controller';
+import { revealUserTotpController } from './v1-reveal-user-totp.controller';
 
 export async function usersRoutes(app: FastifyInstance) {
   // Admin routes com rate limit elevado
@@ -35,6 +36,7 @@ export async function usersRoutes(app: FastifyInstance) {
       adminApp.register(forceAccessPinResetController);
       adminApp.register(forceActionPinResetController);
       adminApp.register(adminSetPasswordController);
+      adminApp.register(revealUserTotpController);
     },
     { prefix: '' },
   );

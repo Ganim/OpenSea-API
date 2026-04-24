@@ -29,6 +29,7 @@ export interface UserProps {
   forceAccessPinSetup: boolean;
   forceActionPinSetup: boolean;
   isSuperAdmin: boolean;
+  totpSecret: string;
   deletedAt?: Date;
   lastLoginAt?: Date;
   createdAt: Date;
@@ -90,6 +91,9 @@ export class User extends Entity<UserProps> {
   }
   get isSuperAdmin(): boolean {
     return this.props.isSuperAdmin;
+  }
+  get totpSecret(): string {
+    return this.props.totpSecret;
   }
   get deletedAt(): Date | undefined {
     return this.props.deletedAt;
@@ -223,6 +227,7 @@ export class User extends Entity<UserProps> {
       | 'forceAccessPinSetup'
       | 'forceActionPinSetup'
       | 'isSuperAdmin'
+      | 'totpSecret'
     >,
     id?: UniqueEntityID,
   ) {
@@ -234,6 +239,7 @@ export class User extends Entity<UserProps> {
         forceAccessPinSetup: props.forceAccessPinSetup ?? true,
         forceActionPinSetup: props.forceActionPinSetup ?? true,
         isSuperAdmin: props.isSuperAdmin ?? false,
+        totpSecret: props.totpSecret ?? '',
         createdAt: props.createdAt ?? new Date(),
         deletedAt: props.deletedAt ?? undefined,
       },

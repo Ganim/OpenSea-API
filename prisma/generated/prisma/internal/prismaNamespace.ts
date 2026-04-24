@@ -31127,6 +31127,7 @@ export const UserScalarFieldEnum = {
   blockedUntil: 'blockedUntil',
   passwordResetToken: 'passwordResetToken',
   passwordResetExpires: 'passwordResetExpires',
+  totpSecret: 'totpSecret',
   forcePasswordReset: 'forcePasswordReset',
   forcePasswordResetReason: 'forcePasswordResetReason',
   forcePasswordResetRequestedBy: 'forcePasswordResetRequestedBy',

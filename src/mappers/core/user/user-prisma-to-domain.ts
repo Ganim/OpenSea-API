@@ -41,6 +41,7 @@ export function mapUserPrismaToDomain(
     forceAccessPinSetup: userDb.forceAccessPinSetup ?? true,
     forceActionPinSetup: userDb.forceActionPinSetup ?? true,
     isSuperAdmin: userDb.isSuperAdmin ?? false,
+    totpSecret: userDb.totpSecret ?? '',
     lastLoginAt: userDb.lastLoginAt ?? undefined,
     createdAt: userDb.createdAt,
     updatedAt: userDb.updatedAt,

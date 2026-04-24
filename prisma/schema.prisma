@@ -364,6 +364,12 @@ model User {
   passwordResetToken   String?   @map("password_reset_token")
   passwordResetExpires DateTime? @map("password_reset_expires")
 
+  // Admin Reset Token (TOTP). Secret estável por usuário — gerado no
+  // create. Usado pelo fluxo de "esqueci minha senha → tenho um token
+  // administrativo" que permite admin passar um código rotativo de 6
+  // chars (60s) por telefone/presencial para o usuário redefinir a senha.
+  totpSecret String @default("") @map("totp_secret") @db.VarChar(64)
+
   // Forced Password Reset
   forcePasswordReset            Boolean   @default(false) @map("force_password_reset")
   forcePasswordResetReason      String?   @map("force_password_reset_reason") @db.VarChar(255)

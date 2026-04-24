@@ -207,6 +207,15 @@ export const CORE_AUDIT_MESSAGES = {
       '{{adminName}} definiu uma nova senha para {{userName}} (forçar troca: {{forceChange}})',
   } satisfies AuditMessage,
 
+  /** Admin revelou o código TOTP rotativo de um usuário (reset administrativo) */
+  USER_TOTP_REVEALED_BY_ADMIN: {
+    action: AuditAction.PASSWORD_RESET_REQUEST,
+    entity: AuditEntity.USER_PASSWORD,
+    module: AuditModule.CORE,
+    description:
+      '{{adminName}} revelou o token administrativo de reset de senha de {{userName}}',
+  } satisfies AuditMessage,
+
   /** Admin forçou reset de PIN de acesso de outro usuário */
   USER_FORCE_ACCESS_PIN_RESET: {
     action: AuditAction.PIN_FORCE_RESET,
