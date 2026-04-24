@@ -444,29 +444,36 @@ export class PrismaVariantsRepository implements VariantsRepository {
     }
 
     if (params.search) {
-      const q = params.search;
-      const like = { contains: q, mode: 'insensitive' as const };
-      filters.push({
-        OR: [
-          { name: like },
-          { sku: like },
-          { reference: like },
-          { barcode: like },
-          { product: { name: like, deletedAt: null } },
-          {
-            product: {
-              template: { name: like },
-              deletedAt: null,
-            },
-          },
-          {
-            product: {
-              manufacturer: { name: like },
-              deletedAt: null,
-            },
-          },
-        ],
-      });
+      const tokens = params.search.trim().split(/\s+/).filter(Boolean);
+
+      if (tokens.length > 0) {
+        filters.push({
+          AND: tokens.map((token) => {
+            const like = { contains: token, mode: 'insensitive' as const };
+            return {
+              OR: [
+                { name: like },
+                { sku: like },
+                { reference: like },
+                { barcode: like },
+                { product: { name: like, deletedAt: null } },
+                {
+                  product: {
+                    template: { name: like },
+                    deletedAt: null,
+                  },
+                },
+                {
+                  product: {
+                    manufacturer: { name: like },
+                    deletedAt: null,
+                  },
+                },
+              ],
+            };
+          }),
+        });
+      }
     }
 
     return { AND: filters };

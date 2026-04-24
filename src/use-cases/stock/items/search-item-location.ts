@@ -36,22 +36,28 @@ export class SearchItemLocationUseCase {
       MAX_SEARCH_LIMIT,
     );
 
+    const tokens = query.trim().split(/\s+/).filter(Boolean);
+
     const matchedItems = await prisma.item.findMany({
       where: {
         tenantId,
         deletedAt: null,
-        OR: [
-          {
-            variant: {
-              product: { name: { contains: query, mode: 'insensitive' } },
-            },
-          },
-          { variant: { name: { contains: query, mode: 'insensitive' } } },
-          { variant: { sku: { contains: query, mode: 'insensitive' } } },
-          { barcode: { contains: query, mode: 'insensitive' } },
-          { eanCode: { contains: query, mode: 'insensitive' } },
-          { fullCode: { contains: query, mode: 'insensitive' } },
-        ],
+        ...(tokens.length > 0 && {
+          AND: tokens.map((token) => ({
+            OR: [
+              {
+                variant: {
+                  product: { name: { contains: token, mode: 'insensitive' } },
+                },
+              },
+              { variant: { name: { contains: token, mode: 'insensitive' } } },
+              { variant: { sku: { contains: token, mode: 'insensitive' } } },
+              { barcode: { contains: token, mode: 'insensitive' } },
+              { eanCode: { contains: token, mode: 'insensitive' } },
+              { fullCode: { contains: token, mode: 'insensitive' } },
+            ],
+          })),
+        }),
       },
       include: {
         variant: {

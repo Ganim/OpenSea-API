@@ -246,14 +246,24 @@ export class InMemoryVariantsRepository implements VariantsRepository {
     }
 
     if (params.search) {
-      const searchLower = params.search.toLowerCase();
-      filtered = filtered.filter(
-        (item) =>
-          item.name.toLowerCase().includes(searchLower) ||
-          item.sku?.toLowerCase().includes(searchLower) ||
-          item.reference?.toLowerCase().includes(searchLower) ||
-          item.barcode?.toLowerCase().includes(searchLower),
-      );
+      const tokens = params.search
+        .trim()
+        .toLowerCase()
+        .split(/\s+/)
+        .filter(Boolean);
+
+      if (tokens.length > 0) {
+        filtered = filtered.filter((item) =>
+          tokens.every((token) => {
+            return (
+              item.name.toLowerCase().includes(token) ||
+              item.sku?.toLowerCase().includes(token) ||
+              item.reference?.toLowerCase().includes(token) ||
+              item.barcode?.toLowerCase().includes(token)
+            );
+          }),
+        );
+      }
     }
 
     // Note: categoryId filtering requires product relation lookup
