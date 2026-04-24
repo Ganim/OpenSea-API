@@ -1,6 +1,7 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Template } from '@/entities/stock/template';
 import { prisma } from '@/lib/prisma';
+import { tokenizedSearchAnd } from '@/lib/tokenized-search';
 import { templatePrismaToDomain } from '@/mappers/stock/template/template-prisma-to-domain';
 import type {
   PaginatedResult,
@@ -89,9 +90,9 @@ export class PrismaTemplatesRepository implements TemplatesRepository {
     const where: Prisma.TemplateWhereInput = {
       tenantId,
       deletedAt: null,
-      ...(params.search && {
-        name: { contains: params.search, mode: 'insensitive' as const },
-      }),
+      ...tokenizedSearchAnd(params.search, (token) => ({
+        name: { contains: token, mode: 'insensitive' as const },
+      })),
     };
 
     const [templates, total] = await Promise.all([

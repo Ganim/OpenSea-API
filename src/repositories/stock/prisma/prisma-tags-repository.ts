@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Tag } from '@/entities/stock/tag';
 import { prisma } from '@/lib/prisma';
+import { tokenizedSearchAnd } from '@/lib/tokenized-search';
 import type {
   PaginatedResult,
   PaginationParams,
@@ -155,9 +156,9 @@ export class PrismaTagsRepository implements TagsRepository {
     const where: Prisma.TagWhereInput = {
       tenantId,
       deletedAt: null,
-      ...(params.search && {
-        name: { contains: params.search, mode: 'insensitive' as const },
-      }),
+      ...tokenizedSearchAnd(params.search, (token) => ({
+        name: { contains: token, mode: 'insensitive' as const },
+      })),
     };
 
     const [tags, total] = await Promise.all([

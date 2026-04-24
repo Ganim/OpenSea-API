@@ -1,5 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Manufacturer } from '@/entities/stock/manufacturer';
+import { filterByTokens } from '@/lib/tokenized-search';
 import type {
   PaginatedResult,
   PaginationParams,
@@ -99,12 +100,9 @@ export class InMemoryManufacturersRepository
       (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
     );
 
-    if (params.search) {
-      const searchLower = params.search.toLowerCase();
-      filtered = filtered.filter((item) =>
-        item.name.toLowerCase().includes(searchLower),
-      );
-    }
+    filtered = filterByTokens(filtered, params.search, (item, token) =>
+      item.name.toLowerCase().includes(token),
+    );
 
     const sortBy = params.sortBy ?? 'name';
     const sortOrder = params.sortOrder ?? 'asc';

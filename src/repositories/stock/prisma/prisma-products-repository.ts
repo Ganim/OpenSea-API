@@ -3,6 +3,7 @@ import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Product } from '@/entities/stock/product';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
 import { prisma } from '@/lib/prisma';
+import { tokenizedSearchAnd } from '@/lib/tokenized-search';
 import { productPrismaToDomain } from '@/mappers/stock/product/product-prisma-to-domain';
 import type {
   Prisma,
@@ -225,56 +226,31 @@ export class PrismaProductsRepository implements ProductsRepository {
       categoryIds?: string[];
     },
   ): Promise<PaginatedResult<Product>> {
-    const tokens = params.search
-      ? params.search.trim().split(/\s+/).filter(Boolean)
-      : [];
-
     const where: Prisma.ProductWhereInput = {
       tenantId,
       deletedAt: null,
-      ...(tokens.length > 0 && {
-        AND: tokens.map((token) => ({
+      ...tokenizedSearchAnd(params.search, (token) => {
+        const like = { contains: token, mode: 'insensitive' as const };
+        return {
           OR: [
-            { name: { contains: token, mode: 'insensitive' as const } },
-            { fullCode: { contains: token, mode: 'insensitive' as const } },
-            {
-              manufacturer: {
-                name: { contains: token, mode: 'insensitive' as const },
-              },
-            },
-            {
-              template: {
-                name: { contains: token, mode: 'insensitive' as const },
-              },
-            },
+            { name: like },
+            { fullCode: like },
+            { manufacturer: { name: like } },
+            { template: { name: like } },
             {
               variants: {
                 some: {
                   OR: [
-                    {
-                      name: { contains: token, mode: 'insensitive' as const },
-                    },
-                    {
-                      sku: { contains: token, mode: 'insensitive' as const },
-                    },
-                    {
-                      reference: {
-                        contains: token,
-                        mode: 'insensitive' as const,
-                      },
-                    },
-                    {
-                      fullCode: {
-                        contains: token,
-                        mode: 'insensitive' as const,
-                      },
-                    },
+                    { name: like },
+                    { sku: like },
+                    { reference: like },
+                    { fullCode: like },
                   ],
                 },
               },
             },
           ],
-        })),
+        };
       }),
       ...(params.templateIds &&
         params.templateIds.length > 0 && {

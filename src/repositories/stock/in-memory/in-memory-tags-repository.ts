@@ -1,6 +1,7 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Tag } from '@/entities/stock/tag';
+import { filterByTokens } from '@/lib/tokenized-search';
 import type {
   PaginatedResult,
   PaginationParams,
@@ -78,12 +79,9 @@ export class InMemoryTagsRepository implements TagsRepository {
       (tag) => !tag.deletedAt && tag.tenantId.toString() === tenantId,
     );
 
-    if (params.search) {
-      const searchLower = params.search.toLowerCase();
-      filteredTags = filteredTags.filter((tag) =>
-        tag.name.toLowerCase().includes(searchLower),
-      );
-    }
+    filteredTags = filterByTokens(filteredTags, params.search, (tag, token) =>
+      tag.name.toLowerCase().includes(token),
+    );
 
     filteredTags.sort((a, b) => {
       const aValue = a[sortBy];

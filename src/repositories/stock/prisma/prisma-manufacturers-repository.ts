@@ -2,6 +2,7 @@ import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Manufacturer } from '@/entities/stock/manufacturer';
 import { prisma } from '@/lib/prisma';
+import { tokenizedSearchAnd } from '@/lib/tokenized-search';
 import type {
   PaginatedResult,
   PaginationParams,
@@ -198,9 +199,9 @@ export class PrismaManufacturersRepository implements ManufacturersRepository {
     const where: Prisma.ManufacturerWhereInput = {
       tenantId,
       deletedAt: null,
-      ...(params.search && {
-        name: { contains: params.search, mode: 'insensitive' as const },
-      }),
+      ...tokenizedSearchAnd(params.search, (token) => ({
+        name: { contains: token, mode: 'insensitive' as const },
+      })),
     };
 
     const [manufacturers, total] = await Promise.all([

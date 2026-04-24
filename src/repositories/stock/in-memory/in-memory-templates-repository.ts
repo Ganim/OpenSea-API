@@ -1,6 +1,7 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Template } from '@/entities/stock/template';
+import { filterByTokens } from '@/lib/tokenized-search';
 import type {
   PaginatedResult,
   PaginationParams,
@@ -79,12 +80,9 @@ export class InMemoryTemplatesRepository implements TemplatesRepository {
       (item) => !item.deletedAt && item.tenantId.toString() === tenantId,
     );
 
-    if (params.search) {
-      const searchLower = params.search.toLowerCase();
-      filtered = filtered.filter((item) =>
-        item.name.toLowerCase().includes(searchLower),
-      );
-    }
+    filtered = filterByTokens(filtered, params.search, (item, token) =>
+      item.name.toLowerCase().includes(token),
+    );
 
     const sortBy = params.sortBy ?? 'name';
     const sortOrder = params.sortOrder ?? 'asc';

@@ -1,5 +1,6 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Variant } from '@/entities/stock/variant';
+import { filterByTokens } from '@/lib/tokenized-search';
 import type {
   PaginatedResult,
   PaginationParams,
@@ -245,26 +246,15 @@ export class InMemoryVariantsRepository implements VariantsRepository {
       filtered = filtered.filter((item) => item.barcode === params.barcode);
     }
 
-    if (params.search) {
-      const tokens = params.search
-        .trim()
-        .toLowerCase()
-        .split(/\s+/)
-        .filter(Boolean);
-
-      if (tokens.length > 0) {
-        filtered = filtered.filter((item) =>
-          tokens.every((token) => {
-            return (
-              item.name.toLowerCase().includes(token) ||
-              item.sku?.toLowerCase().includes(token) ||
-              item.reference?.toLowerCase().includes(token) ||
-              item.barcode?.toLowerCase().includes(token)
-            );
-          }),
-        );
-      }
-    }
+    filtered = filterByTokens(
+      filtered,
+      params.search,
+      (item, token) =>
+        item.name.toLowerCase().includes(token) ||
+        item.sku?.toLowerCase().includes(token) === true ||
+        item.reference?.toLowerCase().includes(token) === true ||
+        item.barcode?.toLowerCase().includes(token) === true,
+    );
 
     // Note: categoryId filtering requires product relation lookup
     // In-memory does not have cross-repository joins, so we skip this filter

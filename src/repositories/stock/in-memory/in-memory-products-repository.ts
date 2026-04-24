@@ -1,6 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Product } from '@/entities/stock/product';
 import { ProductStatus } from '@/entities/stock/value-objects/product-status';
+import { filterByTokens } from '@/lib/tokenized-search';
 import type {
   PaginatedResult,
   PaginationParams,
@@ -117,12 +118,9 @@ export class InMemoryProductsRepository implements ProductsRepository {
   ): Promise<PaginatedResult<Product>> {
     let filtered = await this.findMany(tenantId);
 
-    if (params.search) {
-      const searchLower = params.search.toLowerCase();
-      filtered = filtered.filter((p) =>
-        p.name.toLowerCase().includes(searchLower),
-      );
-    }
+    filtered = filterByTokens(filtered, params.search, (p, token) =>
+      p.name.toLowerCase().includes(token),
+    );
 
     if (params.templateIds && params.templateIds.length > 0) {
       filtered = filtered.filter((p) =>

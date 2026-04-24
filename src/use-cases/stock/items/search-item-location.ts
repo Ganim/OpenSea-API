@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import { tokenizedSearchAnd } from '@/lib/tokenized-search';
 
 export interface SearchItemLocationRequest {
   tenantId: string;
@@ -36,27 +37,22 @@ export class SearchItemLocationUseCase {
       MAX_SEARCH_LIMIT,
     );
 
-    const tokens = query.trim().split(/\s+/).filter(Boolean);
-
     const matchedItems = await prisma.item.findMany({
       where: {
         tenantId,
         deletedAt: null,
-        ...(tokens.length > 0 && {
-          AND: tokens.map((token) => ({
+        ...tokenizedSearchAnd(query, (token) => {
+          const like = { contains: token, mode: 'insensitive' as const };
+          return {
             OR: [
-              {
-                variant: {
-                  product: { name: { contains: token, mode: 'insensitive' } },
-                },
-              },
-              { variant: { name: { contains: token, mode: 'insensitive' } } },
-              { variant: { sku: { contains: token, mode: 'insensitive' } } },
-              { barcode: { contains: token, mode: 'insensitive' } },
-              { eanCode: { contains: token, mode: 'insensitive' } },
-              { fullCode: { contains: token, mode: 'insensitive' } },
+              { variant: { product: { name: like } } },
+              { variant: { name: like } },
+              { variant: { sku: like } },
+              { barcode: like },
+              { eanCode: like },
+              { fullCode: like },
             ],
-          })),
+          };
         }),
       },
       include: {

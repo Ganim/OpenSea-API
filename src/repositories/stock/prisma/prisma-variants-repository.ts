@@ -3,6 +3,7 @@ import { UniqueEntityID as EntityID } from '@/entities/domain/unique-entity-id';
 import { Variant } from '@/entities/stock/variant';
 import { Slug } from '@/entities/stock/value-objects/slug';
 import { prisma } from '@/lib/prisma';
+import { tokenizedSearchAnd } from '@/lib/tokenized-search';
 import type {
   Prisma,
   Pattern as PrismaPattern,
@@ -443,37 +444,23 @@ export class PrismaVariantsRepository implements VariantsRepository {
       });
     }
 
-    if (params.search) {
-      const tokens = params.search.trim().split(/\s+/).filter(Boolean);
+    const searchClause = tokenizedSearchAnd(params.search, (token) => {
+      const like = { contains: token, mode: 'insensitive' as const };
+      return {
+        OR: [
+          { name: like },
+          { sku: like },
+          { reference: like },
+          { barcode: like },
+          { product: { name: like, deletedAt: null } },
+          { product: { template: { name: like }, deletedAt: null } },
+          { product: { manufacturer: { name: like }, deletedAt: null } },
+        ],
+      };
+    });
 
-      if (tokens.length > 0) {
-        filters.push({
-          AND: tokens.map((token) => {
-            const like = { contains: token, mode: 'insensitive' as const };
-            return {
-              OR: [
-                { name: like },
-                { sku: like },
-                { reference: like },
-                { barcode: like },
-                { product: { name: like, deletedAt: null } },
-                {
-                  product: {
-                    template: { name: like },
-                    deletedAt: null,
-                  },
-                },
-                {
-                  product: {
-                    manufacturer: { name: like },
-                    deletedAt: null,
-                  },
-                },
-              ],
-            };
-          }),
-        });
-      }
+    if (searchClause) {
+      filters.push(searchClause);
     }
 
     return { AND: filters };

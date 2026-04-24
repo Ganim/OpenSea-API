@@ -4,6 +4,7 @@ import { Item } from '@/entities/stock/item';
 import { ItemStatus } from '@/entities/stock/value-objects/item-status';
 import { Slug } from '@/entities/stock/value-objects/slug';
 import { prisma } from '@/lib/prisma';
+import { tokenizedSearchAnd } from '@/lib/tokenized-search';
 import type { TransactionClient } from '@/lib/transaction-manager';
 import {
   Prisma,
@@ -243,75 +244,28 @@ export class PrismaItemsRepository implements ItemsRepository {
       };
     }
 
-    if (filters?.search) {
-      const tokens = filters.search.trim().split(/\s+/).filter(Boolean);
+    const searchClause = tokenizedSearchAnd(filters?.search, (token) => {
+      const like = { contains: token, mode: 'insensitive' as const };
+      return {
+        OR: [
+          { fullCode: like },
+          { uniqueCode: like },
+          { batchNumber: like },
+          { variant: { name: like } },
+          { variant: { sku: like } },
+          { variant: { reference: like } },
+          { variant: { fullCode: like } },
+          { variant: { product: { name: like } } },
+          { variant: { product: { fullCode: like } } },
+          { variant: { product: { template: { name: like } } } },
+          { variant: { product: { manufacturer: { name: like } } } },
+          { bin: { address: like } },
+        ],
+      };
+    });
 
-      if (tokens.length > 0) {
-        where.AND = tokens.map((token) => ({
-          OR: [
-            { fullCode: { contains: token, mode: 'insensitive' as const } },
-            { uniqueCode: { contains: token, mode: 'insensitive' as const } },
-            { batchNumber: { contains: token, mode: 'insensitive' as const } },
-            {
-              variant: {
-                name: { contains: token, mode: 'insensitive' as const },
-              },
-            },
-            {
-              variant: {
-                sku: { contains: token, mode: 'insensitive' as const },
-              },
-            },
-            {
-              variant: {
-                reference: { contains: token, mode: 'insensitive' as const },
-              },
-            },
-            {
-              variant: {
-                fullCode: { contains: token, mode: 'insensitive' as const },
-              },
-            },
-            {
-              variant: {
-                product: {
-                  name: { contains: token, mode: 'insensitive' as const },
-                },
-              },
-            },
-            {
-              variant: {
-                product: {
-                  fullCode: { contains: token, mode: 'insensitive' as const },
-                },
-              },
-            },
-            {
-              variant: {
-                product: {
-                  template: {
-                    name: { contains: token, mode: 'insensitive' as const },
-                  },
-                },
-              },
-            },
-            {
-              variant: {
-                product: {
-                  manufacturer: {
-                    name: { contains: token, mode: 'insensitive' as const },
-                  },
-                },
-              },
-            },
-            {
-              bin: {
-                address: { contains: token, mode: 'insensitive' as const },
-              },
-            },
-          ],
-        }));
-      }
+    if (searchClause) {
+      where.AND = searchClause.AND;
     }
 
     const orderBy = this.buildOrderBy(filters?.sortBy, filters?.sortOrder);
