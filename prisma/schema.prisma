@@ -2185,6 +2185,8 @@ model Zone {
   // Inventory Session Relations
   inventorySessions InventorySession[]
 
+  posTerminalZones PosTerminalZone[]
+
   @@unique([warehouseId, code, deletedAt], name: "zones_warehouse_code_unique_active")
   @@index([warehouseId])
   @@index([isActive])
@@ -6635,6 +6637,7 @@ model Tenant {
 
   // POS domain
   posTerminals      PosTerminal[]
+  posTerminalZones  PosTerminalZone[]
   posDevicePairings PosDevicePairing[]
   posPrinters       PosPrinter[]
   printAgents       PrintAgent[]
@@ -11724,6 +11727,23 @@ enum PosCashMovementType {
   CLOSING
 }
 
+enum PosOperatorSessionMode {
+  PER_SALE
+  STAY_LOGGED_IN
+}
+
+enum PosCoordinationMode {
+  STANDALONE
+  SELLER
+  CASHIER
+  BOTH
+}
+
+enum PosZoneTier {
+  PRIMARY
+  SECONDARY
+}
+
 enum PosOfflineStatus {
   PENDING
   SYNCING
@@ -11777,6 +11797,12 @@ model PosTerminal {
   // Configurações operacionais
   defaultPriceTableId String? @map("default_price_table_id")
 
+  operatorSessionMode    PosOperatorSessionMode @default(PER_SALE) @map("operator_session_mode")
+  operatorSessionTimeout Int?                   @map("operator_session_timeout")
+  autoCloseSessionAt     String?                @map("auto_close_session_at") @db.VarChar(5)
+  coordinationMode       PosCoordinationMode    @default(STANDALONE) @map("coordination_mode")
+  appliedProfileId       String?                @map("applied_profile_id")
+
   isActive     Boolean   @default(true) @map("is_active")
   lastSyncAt   DateTime? @map("last_sync_at")
   lastOnlineAt DateTime? @map("last_online_at")
@@ -11795,6 +11821,7 @@ model PosTerminal {
   systemUser User?       @relation("PosTerminalSystemUser", fields: [systemUserId], references: [id])
 
   warehouses      PosTerminalWarehouse[]
+  zoneLinks       PosTerminalZone[]      @relation("PosTerminalToZones")
   devicePairing   PosDevicePairing?
   sessions        PosSession[]
   offlineQueue    PosOfflineQueue[]
@@ -11821,6 +11848,27 @@ model PosTerminalWarehouse {
   @@id([terminalId, warehouseId])
   @@index([warehouseId])
   @@map("pos_terminal_warehouses")
+}
+
+model PosTerminalZone {
+  id         String      @id @default(uuid())
+  terminalId String      @map("terminal_id")
+  zoneId     String      @map("zone_id")
+  tier       PosZoneTier @default(PRIMARY)
+  tenantId   String      @map("tenant_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant   Tenant      @relation(fields: [tenantId], references: [id])
+  terminal PosTerminal @relation("PosTerminalToZones", fields: [terminalId], references: [id], onDelete: Cascade)
+  zone     Zone        @relation(fields: [zoneId], references: [id])
+
+  @@unique([terminalId, zoneId], name: "pos_terminal_zones_unique", map: "pos_terminal_zones_unique")
+  @@index([tenantId])
+  @@index([terminalId])
+  @@index([zoneId])
+  @@map("pos_terminal_zones")
 }
 
 // Pareamento persistente device → terminal (1:1 com terminal — decisão arquitetural)
