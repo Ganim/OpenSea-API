@@ -4483,6 +4483,9 @@ model Employee {
   punchPinFailedAttempts Int       @default(0) @map("punch_pin_failed_attempts")
   punchPinLastFailedAt   DateTime? @map("punch_pin_last_failed_at")
 
+  // POS Desktop (Emporion) — operator relation for orders sold via POS
+  ordersAsOperator Order[] @relation("OrdersByOperator")
+
   @@unique([registrationNumber, tenantId, deletedAt], name: "employees_registration_tenant_unique_active")
   @@unique([cpfHash, tenantId, deletedAt], name: "employees_cpf_tenant_unique_active")
   @@unique([pisHash, tenantId, deletedAt], name: "employees_pis_tenant_unique_active")
@@ -9955,6 +9958,13 @@ enum OrderChannel {
   API
 }
 
+enum OrderOriginSource {
+  WEB
+  POS_DESKTOP
+  API
+  MOBILE
+}
+
 enum DeliveryMethod {
   PICKUP
   OWN_FLEET
@@ -10199,6 +10209,23 @@ model Order {
   claimedAt       DateTime? @map("claimed_at")
   version         Int       @default(1)
 
+  // POS (Emporion) origin — separate from PDV v1 terminalId/posSessionId
+  originSource          OrderOriginSource @default(WEB) @map("origin_source")
+  posTerminalId         String?           @map("pos_terminal_id")
+  posOperatorEmployeeId String?           @map("pos_operator_employee_id")
+  saleLocalUuid         String?           @unique @map("sale_local_uuid") @db.VarChar(64)
+
+  // Reconciliação com terminal
+  ackReceivedAt DateTime? @map("ack_received_at")
+
+  // Emissão fiscal (NFC-e / SAT-CFE)
+  fiscalDocumentType          PosFiscalDocumentType? @map("fiscal_document_type")
+  fiscalDocumentNumber        Int?                   @map("fiscal_document_number")
+  fiscalAccessKey             String?                @map("fiscal_access_key") @db.VarChar(44)
+  fiscalAuthorizationProtocol String?                @map("fiscal_authorization_protocol") @db.VarChar(64)
+  fiscalEmittedAt             DateTime?              @map("fiscal_emitted_at")
+  fiscalEmissionStatus        String?                @map("fiscal_emission_status") @db.VarChar(32)
+
   // NF-e fields
   invoiceId  String?   @map("invoice_id")
   invoicedAt DateTime? @map("invoiced_at")
@@ -10244,6 +10271,10 @@ model Order {
   claimedByUser User?        @relation("OrderClaimedBy", fields: [claimedByUserId], references: [id])
   terminal      PosTerminal? @relation("OrderTerminal", fields: [terminalId], references: [id])
 
+  // POS Desktop (Emporion) Relations
+  posTerminal         PosTerminal? @relation("OrdersFromTerminal", fields: [posTerminalId], references: [id])
+  posOperatorEmployee Employee?    @relation("OrdersByOperator", fields: [posOperatorEmployeeId], references: [id])
+
   // POS Relations
   posTransactions   PosTransaction[]
   posVisitLogs      PosVisitLog[]
@@ -10270,6 +10301,10 @@ model Order {
   @@index([tenantId, createdAt])
   @@index([tenantId, channel, status, createdAt])
   @@index([tenantId, assignedToUserId, status])
+  @@index([posTerminalId])
+  @@index([originSource])
+  @@index([saleLocalUuid])
+  @@index([fiscalAccessKey])
   @@map("orders")
 }
 
@@ -11857,6 +11892,9 @@ model PosTerminal {
   offlineQueue    PosOfflineQueue[]
   cashierSessions CashierSession[]
   orders          Order[]                @relation("OrderTerminal")
+
+  // POS Desktop (Emporion) — parallel relation for new posTerminalId field
+  ordersFromTerminal Order[] @relation("OrdersFromTerminal")
 
   @@index([tenantId])
   @@index([tenantId, isActive])
