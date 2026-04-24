@@ -1,13 +1,52 @@
 import type { Server as HTTPServer } from 'node:http';
 import { createAdapter } from '@socket.io/redis-adapter';
-import { Server as SocketIOServer } from 'socket.io';
+import { Server as SocketIOServer, type Socket } from 'socket.io';
 
 import { getRedisClient } from '../redis';
+import { joinHrRoomsForUser } from './hr-socket-scope';
 import { authenticateSocket } from './socket-auth';
 import { registerSocketHandlers } from './socket-handlers';
 import type { SocketData } from './types';
 
 let io: SocketIOServer | null = null;
+
+/**
+ * Connection handler extracted for unit testability (Phase 7 / Plan 07-02).
+ *
+ * Mirrors the original `io.on('connection', ...)` closure verbatim, with the
+ * addition of `joinHrRoomsForUser` auto-join for browser sockets with a
+ * userId — fixes the silent bug where workers emitted to `tenant:{id}:hr`
+ * but no socket was ever joined to that room (RESEARCH §2 + §CE-2).
+ */
+export async function handleSocketConnection(socket: Socket): Promise<void> {
+  const socketData = socket.data as SocketData;
+  const tenantRoom = `tenant:${socketData.tenantId}`;
+  const typeRoom =
+    socketData.type === 'agent'
+      ? `tenant:${socketData.tenantId}:agents`
+      : `tenant:${socketData.tenantId}:browsers`;
+
+  socket.join(tenantRoom);
+  socket.join(typeRoom);
+
+  if (socketData.type === 'agent' && socketData.agentId) {
+    socket.join(`agent:${socketData.agentId}`);
+  }
+
+  // Notifications room — lets the notifications module emit
+  // per-user real-time events (notification:new, notification:resolved, etc.)
+  if (socketData.type === 'browser' && socketData.userId) {
+    socket.join(`user:${socketData.userId}`);
+    // Phase 7 — auto-join HR rooms when user has hr.* permissions.
+    // Without this, workers emitting to `tenant:{id}:hr` silently drop
+    // events because the Redis Adapter only routes to joined sockets.
+    await joinHrRoomsForUser(socket, socketData.userId, socketData.tenantId);
+  }
+
+  if (io) {
+    registerSocketHandlers(io, socket);
+  }
+}
 
 export function initializeSocketServer(httpServer: HTTPServer): SocketIOServer {
   io = new SocketIOServer(httpServer, {
@@ -38,27 +77,7 @@ export function initializeSocketServer(httpServer: HTTPServer): SocketIOServer {
   io.use(authenticateSocket);
 
   io.on('connection', (socket) => {
-    const socketData = socket.data as SocketData;
-    const tenantRoom = `tenant:${socketData.tenantId}`;
-    const typeRoom =
-      socketData.type === 'agent'
-        ? `tenant:${socketData.tenantId}:agents`
-        : `tenant:${socketData.tenantId}:browsers`;
-
-    socket.join(tenantRoom);
-    socket.join(typeRoom);
-
-    if (socketData.type === 'agent' && socketData.agentId) {
-      socket.join(`agent:${socketData.agentId}`);
-    }
-
-    // Notifications room — lets the notifications module emit
-    // per-user real-time events (notification:new, notification:resolved, etc.)
-    if (socketData.type === 'browser' && socketData.userId) {
-      socket.join(`user:${socketData.userId}`);
-    }
-
-    registerSocketHandlers(io!, socket);
+    void handleSocketConnection(socket);
   });
 
   return io;
