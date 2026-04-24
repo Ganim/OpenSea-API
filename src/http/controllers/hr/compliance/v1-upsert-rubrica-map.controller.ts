@@ -71,13 +71,17 @@ export async function v1UpsertRubricaMapController(app: FastifyInstance) {
           updatedBy,
         });
 
+        // WR-05: usa mensagem específica para upsert de rubrica map (action
+        // UPDATE) em vez de reutilizar COMPLIANCE_ARTIFACT_GENERATED — assim
+        // investigações forenses por "artefatos gerados" não são poluídas com
+        // operações de configuração.
         await logAudit(request, {
-          message: AUDIT_MESSAGES.HR.COMPLIANCE_ARTIFACT_GENERATED,
+          message: AUDIT_MESSAGES.HR.COMPLIANCE_RUBRICA_MAP_UPSERTED,
           entityId: rubricaMap.id.toString(),
           placeholders: {
             userName: updatedBy,
-            type: `RUBRICA_MAP_${concept}`,
-            period: '-',
+            concept,
+            codRubr,
           },
         });
 

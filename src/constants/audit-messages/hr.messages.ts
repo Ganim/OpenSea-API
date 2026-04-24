@@ -1929,6 +1929,20 @@ export const HR_AUDIT_MESSAGES = {
     description:
       '{{userName}} submeteu S-1200 da competência {{competencia}} ao eSocial (batch {{batchId}}, {{eventCount}} eventos)',
   } satisfies AuditMessage,
+
+  /**
+   * Upsert de mapeamento CLT → eSocial codRubr (Plan 06-05 / Review WR-05).
+   * Usa `AuditAction.UPDATE` (e não `COMPLIANCE_GENERATE`) porque a operação
+   * é de configuração, não de geração de artefato — isso evita poluir buscas
+   * forenses por "artefatos gerados".
+   */
+  COMPLIANCE_RUBRICA_MAP_UPSERTED: {
+    action: AuditAction.UPDATE,
+    entity: AuditEntity.COMPLIANCE_ARTIFACT,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} configurou mapeamento de rubrica "{{concept}}" (codRubr {{codRubr}})',
+  } satisfies AuditMessage,
 } as const;
 
 export type HrAuditMessageKey = keyof typeof HR_AUDIT_MESSAGES;
