@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { EvidenceFileNotFoundError } from '@/@errors/use-cases/evidence-file-not-found-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { TimeEntryType } from '@/entities/hr/value-objects';
@@ -12,6 +13,10 @@ import type {
 } from '@/lib/events/punch-events';
 import type { PunchApprovalsRepository } from '@/repositories/hr/punch-approvals-repository';
 import type { TimeEntriesRepository } from '@/repositories/hr/time-entries-repository';
+import type {
+  FileUploadService,
+  HeadObjectResult,
+} from '@/services/storage/file-upload-service';
 
 export type ResolveDecision = 'APPROVE' | 'REJECT';
 
@@ -56,6 +61,20 @@ export interface ResolvePunchApprovalRequest {
    * descartar a batida).
    */
   correctionPayload?: ResolvePunchCorrectionPayload;
+  /**
+   * Phase 7 / Plan 07-03 — D-10. Lista de storageKeys (PDFs já enviadas para
+   * o S3 via `UploadPunchApprovalEvidenceUseCase` num passo separado). Cada
+   * key é validada via `s3.headObject` antes de ser anexada ao PunchApproval
+   * — phantom keys (client-side forgery) são rejeitadas com
+   * `EvidenceFileNotFoundError`.
+   */
+  evidenceFileKeys?: string[];
+  /**
+   * Phase 7 / Plan 07-03 — D-10. ID opcional de um `EmployeeRequest` aprovado
+   * que cobre a ausência (ex.: atestado médico). FK nullable — se o request
+   * for removido, `linkedRequestId` vira `null` via `ON DELETE SET NULL`.
+   */
+  linkedRequestId?: string;
 }
 
 export interface ResolvePunchApprovalResponse {
@@ -102,6 +121,13 @@ export class ResolvePunchApprovalUseCase {
      * por compat — quando ausente e o caller pediu correção, falha imediata.
      */
     private readonly eventBus?: TypedEventBus,
+    /**
+     * Phase 7 / Plan 07-03 — D-10. File upload service para validar
+     * `evidenceFileKeys` via `headObject` antes de anexar ao PunchApproval.
+     * Opcional por compat; se ausente e o caller enviar `evidenceFileKeys`,
+     * `BadRequestError` é lançado.
+     */
+    private readonly fileUploadService?: Pick<FileUploadService, 'headObject'>,
   ) {}
 
   async execute(
@@ -194,6 +220,35 @@ export class ResolvePunchApprovalUseCase {
             : 'Falha ao criar correção da batida.',
         );
       }
+    }
+
+    // Phase 7 / Plan 07-03 — D-10: anexar evidências PDF + cross-ref a
+    // EmployeeRequest (se fornecido). S3 headObject garante que as keys
+    // apontam para objetos existentes (Warning #7: anti phantom keys).
+    if (input.evidenceFileKeys && input.evidenceFileKeys.length > 0) {
+      if (!this.fileUploadService) {
+        throw new BadRequestError(
+          'Evidência anexada, mas FileUploadService não foi injetado — use makeResolvePunchApprovalWithCorrectionUseCase ou makeBatchResolvePunchApprovalsUseCase.',
+        );
+      }
+      for (const key of input.evidenceFileKeys) {
+        const head: HeadObjectResult | null =
+          await this.fileUploadService.headObject(key);
+        if (!head) {
+          throw new EvidenceFileNotFoundError(key);
+        }
+        approval.attachEvidence({
+          storageKey: key,
+          filename: key.split('/').pop() ?? 'evidence.pdf',
+          size: head.contentLength,
+          uploadedAt: new Date().toISOString(),
+          uploadedBy: input.resolverUserId,
+        });
+      }
+    }
+
+    if (input.linkedRequestId) {
+      approval.linkRequest(input.linkedRequestId);
     }
 
     await this.punchApprovalsRepository.save(approval);

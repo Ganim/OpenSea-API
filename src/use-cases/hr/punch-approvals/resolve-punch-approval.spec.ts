@@ -1,5 +1,6 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { BadRequestError } from '@/@errors/use-cases/bad-request-error';
+import { EvidenceFileNotFoundError } from '@/@errors/use-cases/evidence-file-not-found-error';
 import { ResourceNotFoundError } from '@/@errors/use-cases/resource-not-found';
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { PunchApproval } from '@/entities/hr/punch-approval';
@@ -146,5 +147,80 @@ describe('ResolvePunchApprovalUseCase', () => {
         resolverUserId: 'user-01',
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
+  });
+
+  // ──────────────────────────────────────────────────────────────────
+  // Phase 7 / Plan 07-03 — D-10: evidenceFileKeys + linkedRequestId
+  // ──────────────────────────────────────────────────────────────────
+
+  it('APPROVE com evidenceFileKeys válidas anexa evidências + grava linkedRequestId', async () => {
+    const approval = await seedPending();
+    const headObject = vi
+      .fn()
+      .mockResolvedValue({
+        contentLength: 2048,
+        contentType: 'application/pdf',
+      });
+    sut = new ResolvePunchApprovalUseCase(repo, undefined, undefined, {
+      headObject,
+    });
+
+    await sut.execute({
+      tenantId,
+      approvalId: approval.id.toString(),
+      decision: 'APPROVE',
+      resolverUserId: 'user-01',
+      evidenceFileKeys: [
+        'tenantX/punch-approvals/abc/evidence/uuid-1.pdf',
+        'tenantX/punch-approvals/abc/evidence/uuid-2.pdf',
+      ],
+      linkedRequestId: new UniqueEntityID().toString(),
+    });
+
+    expect(headObject).toHaveBeenCalledTimes(2);
+
+    const stored = await repo.findById(approval.id, tenantId);
+    expect(stored?.evidenceFiles).toHaveLength(2);
+    expect(stored?.evidenceFiles[0].storageKey).toMatch(/uuid-1\.pdf$/);
+    expect(stored?.evidenceFiles[0].size).toBe(2048);
+    expect(stored?.evidenceFiles[0].uploadedBy).toBe('user-01');
+    expect(stored?.linkedRequestId).not.toBeNull();
+  });
+
+  it('evidenceFileKey que não existe no S3 (headObject returns null) lança EvidenceFileNotFoundError', async () => {
+    const approval = await seedPending();
+    const headObject = vi.fn().mockResolvedValue(null);
+    sut = new ResolvePunchApprovalUseCase(repo, undefined, undefined, {
+      headObject,
+    });
+
+    await expect(
+      sut.execute({
+        tenantId,
+        approvalId: approval.id.toString(),
+        decision: 'APPROVE',
+        resolverUserId: 'user-01',
+        evidenceFileKeys: ['phantom/key.pdf'],
+      }),
+    ).rejects.toBeInstanceOf(EvidenceFileNotFoundError);
+
+    // Aprovação NÃO deve ter sido persistida
+    const stored = await repo.findById(approval.id, tenantId);
+    expect(stored?.evidenceFiles).toHaveLength(0);
+  });
+
+  it('evidenceFileKeys sem fileUploadService injetado lança BadRequestError', async () => {
+    const approval = await seedPending();
+    // `sut` default (beforeEach) — sem fileUploadService
+
+    await expect(
+      sut.execute({
+        tenantId,
+        approvalId: approval.id.toString(),
+        decision: 'APPROVE',
+        resolverUserId: 'user-01',
+        evidenceFileKeys: ['foo/bar.pdf'],
+      }),
+    ).rejects.toBeInstanceOf(BadRequestError);
   });
 });

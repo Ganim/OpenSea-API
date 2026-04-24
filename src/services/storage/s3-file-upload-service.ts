@@ -3,6 +3,7 @@ import {
   PutObjectCommand,
   DeleteObjectCommand,
   GetObjectCommand,
+  HeadObjectCommand,
   CreateMultipartUploadCommand,
   UploadPartCommand,
   CompleteMultipartUploadCommand,
@@ -16,6 +17,7 @@ import { env } from '@/@env';
 
 import type {
   FileUploadService,
+  HeadObjectResult,
   MultipartCompletePart,
   MultipartPartUrl,
   MultipartUploadInit,
@@ -245,6 +247,36 @@ export class S3FileUploadService implements FileUploadService {
     }
 
     return Buffer.from(bodyBytes);
+  }
+
+  async headObject(key: string): Promise<HeadObjectResult | null> {
+    try {
+      const response = await this.s3Client.send(
+        new HeadObjectCommand({
+          Bucket: this.bucket,
+          Key: key,
+        }),
+      );
+      // AWS SDK retorna undefined para campos ausentes — normalizamos para 0/''
+      // mas o caller (ResolvePunchApprovalUseCase) deve usar apenas contentLength
+      // para setar `EvidenceFile.size` real.
+      return {
+        contentLength: response.ContentLength ?? 0,
+        contentType: response.ContentType ?? '',
+      };
+    } catch (err) {
+      // R2/S3 devolvem 404 como `NotFound`/`NoSuchKey`; qualquer outra falha
+      // (rede, credenciais) propaga para o caller decidir (log + 5xx).
+      const name = (
+        err as { name?: string; $metadata?: { httpStatusCode?: number } }
+      )?.name;
+      const status = (err as { $metadata?: { httpStatusCode?: number } })
+        ?.$metadata?.httpStatusCode;
+      if (name === 'NotFound' || name === 'NoSuchKey' || status === 404) {
+        return null;
+      }
+      throw err;
+    }
   }
 
   async delete(key: string): Promise<void> {

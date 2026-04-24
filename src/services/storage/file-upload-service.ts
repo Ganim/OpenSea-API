@@ -39,6 +39,17 @@ export interface UploadWithKeyResult {
   size: number;
 }
 
+/**
+ * Metadata retornada por `headObject` — subset mínimo para validar a
+ * existência de um objeto e confirmar o tamanho declarado pelo client.
+ *
+ * Phase 7 / Plan 07-03 — D-10 (S3 headObject validation / Warning #7).
+ */
+export interface HeadObjectResult {
+  contentLength: number;
+  contentType: string;
+}
+
 export interface FileUploadService {
   upload(
     fileBuffer: Buffer,
@@ -81,6 +92,15 @@ export interface FileUploadService {
   ): Promise<string>;
 
   getObject(key: string): Promise<Buffer>;
+
+  /**
+   * HEAD request — retorna metadata do objeto sem baixar o corpo.
+   * `null` se o objeto não existe. Usado pelo `ResolvePunchApprovalUseCase`
+   * (Phase 7 / Plan 07-03 — D-10) para validar que uma `evidenceFileKey`
+   * enviada pelo client realmente existe no bucket antes de anexá-la ao
+   * PunchApproval (Warning #7: defesa contra phantom keys).
+   */
+  headObject(key: string): Promise<HeadObjectResult | null>;
 
   delete(key: string): Promise<void>;
 
