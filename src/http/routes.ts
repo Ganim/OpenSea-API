@@ -313,6 +313,7 @@ import { punchDashboardRoutes } from './controllers/hr/punch-dashboard/routes';
 import { punchConfigRoutes } from './controllers/hr/punch-config/routes';
 import { faceEnrollmentsRoutes } from './controllers/hr/face-enrollments/routes';
 import { punchDevicesRoutes } from './controllers/hr/punch-devices/routes';
+import { punchDeviceHeartbeatRoutes } from './controllers/hr/punch-devices/v1-heartbeat.controller';
 import { qrTokensRoutes } from './controllers/hr/qr-tokens/routes';
 import { badgesRoutes } from './controllers/hr/badges/routes';
 import { punchPinRoutes } from './controllers/hr/punch-pin/routes';
@@ -543,6 +544,9 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(terminationsRoutes);
   await app.register(punchConfigRoutes);
   await app.register(punchDevicesRoutes);
+  // Heartbeat usa device-token auth (não JWT) — fora do aggregator
+  // `punchDevicesRoutes` que aplica module middleware dependente de JWT.
+  await app.register(punchDeviceHeartbeatRoutes);
   await app.register(faceEnrollmentsRoutes);
   await app.register(qrTokensRoutes);
   await app.register(badgesRoutes);
