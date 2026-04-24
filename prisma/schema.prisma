@@ -6636,15 +6636,16 @@ model Tenant {
   aiWorkflows       AiWorkflow[]
 
   // POS domain
-  posTerminals      PosTerminal[]
-  posTerminalZones  PosTerminalZone[]
-  posDevicePairings PosDevicePairing[]
-  posPrinters       PosPrinter[]
-  printAgents       PrintAgent[]
-  printJobs         PrintJob[]
-  posSessions       PosSession[]
-  posTransactions   PosTransaction[]
-  posVisitLogs      PosVisitLog[]
+  posTerminals        PosTerminal[]
+  posTerminalZones    PosTerminalZone[]
+  posTerminalProfiles PosTerminalProfile[]
+  posDevicePairings   PosDevicePairing[]
+  posPrinters         PosPrinter[]
+  printAgents         PrintAgent[]
+  printJobs           PrintJob[]
+  posSessions         PosSession[]
+  posTransactions     PosTransaction[]
+  posVisitLogs        PosVisitLog[]
   // CRM domain
   contacts          Contact[]
   pipelines         Pipeline[]
@@ -11816,9 +11817,10 @@ model PosTerminal {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
-  tenant     Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  priceTable PriceTable? @relation(fields: [defaultPriceTableId], references: [id])
-  systemUser User?       @relation("PosTerminalSystemUser", fields: [systemUserId], references: [id])
+  tenant         Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  priceTable     PriceTable?         @relation(fields: [defaultPriceTableId], references: [id])
+  systemUser     User?               @relation("PosTerminalSystemUser", fields: [systemUserId], references: [id])
+  appliedProfile PosTerminalProfile? @relation("PosTerminalToProfile", fields: [appliedProfileId], references: [id])
 
   warehouses      PosTerminalWarehouse[]
   zoneLinks       PosTerminalZone[]      @relation("PosTerminalToZones")
@@ -11869,6 +11871,28 @@ model PosTerminalZone {
   @@index([terminalId])
   @@index([zoneId])
   @@map("pos_terminal_zones")
+}
+
+model PosTerminalProfile {
+  id          String  @id @default(uuid())
+  tenantId    String  @map("tenant_id")
+  name        String  @db.VarChar(128)
+  description String? @db.VarChar(500)
+  isActive    Boolean @default(true) @map("is_active")
+
+  config Json @default("{}")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  tenant    Tenant        @relation(fields: [tenantId], references: [id])
+  terminals PosTerminal[] @relation("PosTerminalToProfile")
+
+  @@unique([name, tenantId, deletedAt], name: "pos_terminal_profiles_name_tenant_unique", map: "pos_terminal_profiles_name_tenant_unique")
+  @@index([tenantId])
+  @@index([isActive])
+  @@map("pos_terminal_profiles")
 }
 
 // Pareamento persistente device → terminal (1:1 com terminal — decisão arquitetural)
