@@ -29,6 +29,26 @@ export type PunchApprovalReason = 'OUT_OF_GEOFENCE' | 'FACE_MATCH_LOW';
  */
 export type PunchApprovalStatus = 'PENDING' | 'APPROVED' | 'REJECTED';
 
+/**
+ * Arquivo anexo como evidência de uma aprovação de ponto (Phase 7 / Plan 07-01,
+ * D-10). Persistido como `EvidenceFile[]` no JSONB `punch_approvals.evidence_files`.
+ *
+ * Campos propositadamente restritos: controller de upload (Plan 03) valida via
+ * Zod antes de injetar. Nenhum campo livre-form evita T-7-01-01 (tampering).
+ * Retention mandatória 5 anos (Portaria 671).
+ */
+export interface EvidenceFile {
+  /** Ex.: "tenant/punch-approvals/{id}/evidence/{uuid}.pdf" (R2 key). */
+  storageKey: string;
+  filename: string;
+  /** Bytes — validado pelo controller (limite mostrado ao usuário). */
+  size: number;
+  /** ISO 8601 — UTC. */
+  uploadedAt: string;
+  /** User.id de quem fez o upload (mostrado no drawer do gestor). */
+  uploadedBy: string;
+}
+
 export interface PunchApprovalProps {
   id: UniqueEntityID;
   tenantId: UniqueEntityID;
@@ -40,6 +60,10 @@ export interface PunchApprovalProps {
   resolverUserId?: UniqueEntityID;
   resolvedAt?: Date;
   resolverNote?: string;
+  /** Phase 7 / Plan 07-01 — D-10 evidência PDF/documentos anexos. */
+  evidenceFiles?: EvidenceFile[];
+  /** Phase 7 / Plan 07-01 — D-10 referência cruzada a EmployeeRequest existente. */
+  linkedRequestId?: UniqueEntityID | null;
   createdAt: Date;
   updatedAt?: Date;
 }
@@ -95,6 +119,21 @@ export class PunchApproval extends Entity<PunchApprovalProps> {
 
   get updatedAt() {
     return this.props.updatedAt;
+  }
+
+  /**
+   * Evidências PDF anexadas (D-10). Array vazio quando nenhuma foi anexada.
+   */
+  get evidenceFiles(): EvidenceFile[] {
+    return this.props.evidenceFiles ?? [];
+  }
+
+  /**
+   * Referência a `EmployeeRequest` existente (atestado aprovado, por exemplo),
+   * evitando duplicação de anexos (D-10). `null` quando não linkado.
+   */
+  get linkedRequestId(): UniqueEntityID | null {
+    return this.props.linkedRequestId ?? null;
   }
 
   get isPending(): boolean {
@@ -155,6 +194,33 @@ export class PunchApproval extends Entity<PunchApprovalProps> {
    */
   mergeDetails(patch: Record<string, unknown>) {
     this.props.details = { ...(this.props.details ?? {}), ...patch };
+    this.touch();
+  }
+
+  /**
+   * Phase 7 / Plan 07-01 — D-10 evidência.
+   *
+   * Anexa uma nova evidência (PDF) à aprovação, preservando as anteriores.
+   * Uso esperado: após upload via `S3FileUploadService`, o resolve use case
+   * injeta o `EvidenceFile` antes (ou durante) `resolve()`/`reject()`. Método
+   * dedicado (NÃO reusa `mergeDetails`) porque evidência é de natureza e
+   * retenção distinta do correction payload (Portaria 671 exige 5 anos).
+   */
+  attachEvidence(file: EvidenceFile) {
+    this.props.evidenceFiles = [...(this.props.evidenceFiles ?? []), file];
+    this.touch();
+  }
+
+  /**
+   * Phase 7 / Plan 07-01 — D-10 referência cruzada.
+   *
+   * Liga esta aprovação a um `EmployeeRequest` já aprovado (ex.: atestado
+   * médico cuja decisão RH cobre a falta na data). FK nullable com
+   * `ON DELETE SET NULL` — se o request for removido, a aprovação permanece
+   * mas perde o link (UI mostra "Request removido").
+   */
+  linkRequest(requestId: string) {
+    this.props.linkedRequestId = new UniqueEntityID(requestId);
     this.touch();
   }
 

@@ -4460,6 +4460,9 @@ model Employee {
   punchDeviceAllowlist PunchDeviceEmployee[]
   punchApprovals       PunchApproval[]
 
+  // Phase 7 / Plan 07-01 — Dashboard Gestor
+  punchMissedLogs PunchMissedLog[]
+
   // Phase 5 — QR badge token (D-15) + PIN fallback (D-08)
   qrTokenHash            String?   @map("qr_token_hash") @db.VarChar(64)
   qrTokenSetAt           DateTime? @map("qr_token_set_at")
@@ -6675,6 +6678,9 @@ model Tenant {
   geofenceZones      GeofenceZone[]
   punchDevices       PunchDevice[]
   punchApprovals     PunchApproval[]
+
+  // Phase 7 / Plan 07-01 — Dashboard Gestor
+  punchMissedLogs PunchMissedLog[]
 
   // Compliance (Phase 6 / Plan 06-01)
   complianceArtifacts ComplianceArtifact[]
@@ -15182,6 +15188,9 @@ model EmployeeRequest {
 
   tenant Tenant @relation(fields: [tenantId], references: [id])
 
+  // Phase 7 / Plan 07-01 — D-10 referência cruzada com PunchApproval
+  linkedPunchApprovals PunchApproval[] @relation("PunchApprovalLinkedRequest")
+
   @@index([tenantId, employeeId])
   @@index([tenantId, status])
   @@map("employee_requests")
@@ -16234,15 +16243,21 @@ model PunchApproval {
   resolvedAt     DateTime?           @map("resolved_at")
   resolverNote   String?             @map("resolver_note") @db.Text
 
+  // Phase 7 / Plan 07-01 — Dashboard Gestor (D-10 evidência)
+  evidenceFiles   Json?            @map("evidence_files")
+  linkedRequestId String?          @map("linked_request_id")
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  tenant    Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  timeEntry TimeEntry @relation(fields: [timeEntryId], references: [id], onDelete: Cascade)
-  employee  Employee  @relation(fields: [employeeId], references: [id])
+  tenant        Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  timeEntry     TimeEntry        @relation(fields: [timeEntryId], references: [id], onDelete: Cascade)
+  employee      Employee         @relation(fields: [employeeId], references: [id])
+  linkedRequest EmployeeRequest? @relation("PunchApprovalLinkedRequest", fields: [linkedRequestId], references: [id], onDelete: SetNull)
 
   @@index([tenantId, status])
   @@index([employeeId])
+  @@index([linkedRequestId])
   @@map("punch_approvals")
 }
 
@@ -17113,4 +17128,36 @@ model GeneratedEmploymentContract {
   @@index([createdAt])
   @@index([signatureEnvelopeId])
   @@map("hr_generated_employment_contracts")
+}
+
+// ===============================================
+// PUNCH MISSED LOG — Phase 7 / Plan 07-01 (D-12)
+// Output do scheduler `detect-missed-punches` (22h timezone-tenant).
+// UNIQUE (tenantId, employeeId, date) — idempotente frente a reruns; multi-
+// machine dup é defendido em primeira linha por Redis SETNX no scheduler
+// (Pitfall 3 do 07-RESEARCH).
+// ===============================================
+
+model PunchMissedLog {
+  id                String    @id @default(uuid())
+  tenantId          String    @map("tenant_id")
+  employeeId        String    @map("employee_id")
+  date              DateTime  @db.Date
+  shiftAssignmentId String?   @map("shift_assignment_id")
+  expectedStartTime DateTime? @map("expected_start_time")
+  expectedEndTime   DateTime? @map("expected_end_time")
+  generatedAt       DateTime  @default(now()) @map("generated_at")
+  generatedByJobId  String?   @map("generated_by_job_id")
+  // Phase 9 (recuperação): funcionário bate depois OU ajuste manual OU licença
+  // justificada posterior. Em Phase 7 permanece `null`.
+  resolvedAt        DateTime? @map("resolved_at")
+  resolutionType    String?   @map("resolution_type") @db.VarChar(30)
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, employeeId, date])
+  @@index([tenantId, date])
+  @@index([employeeId, date])
+  @@map("punch_missed_logs")
 }

@@ -2062,3 +2062,8 @@ export type ContractTemplate = Prisma.ContractTemplateModel
  * 
  */
 export type GeneratedEmploymentContract = Prisma.GeneratedEmploymentContractModel
+/**
+ * Model PunchMissedLog
+ * 
+ */
+export type PunchMissedLog = Prisma.PunchMissedLogModel

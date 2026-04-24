@@ -279,13 +279,57 @@ export const HR_AUDIT_MESSAGES = {
       'Aprovação de ponto criada para {{employeeName}} (motivo: {{reason}})',
   } satisfies AuditMessage,
 
-  /** Aprovação de ponto resolvida (APPROVED ou REJECTED — Plan 5) */
+  /**
+   * Aprovação de ponto resolvida (APPROVED ou REJECTED — Plan 5 / Phase 7).
+   * Usa enum dedicado `PUNCH_APPROVAL_RESOLVED` (Phase 7 / Plan 07-01) ao invés
+   * do genérico `UPDATE`: auditoria Portaria 671 passa a ter ação específica
+   * para exceção resolvida, permitindo filtros e dashboards direcionados.
+   */
   PUNCH_APPROVAL_RESOLVED: {
-    action: AuditAction.UPDATE,
+    action: AuditAction.PUNCH_APPROVAL_RESOLVED,
     entity: AuditEntity.PUNCH_APPROVAL,
     module: AuditModule.HR,
+    description: '{{userName}} {{decision}} a exceção {{approvalId}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
+  // Phase 7 / Plan 07-01 — Dashboard Gestor (audit templates PII-safe)
+  // ============================================================================
+
+  /**
+   * Export em lote de batidas (CSV/PDF/AFD/AFDT) — disparado via modal ou
+   * worker assíncrono (D-11). LGPD: NUNCA verbaliza employeeIds ou CPFs;
+   * apenas formato, período e contagem de linhas.
+   */
+  PUNCH_BATCH_EXPORTED: {
+    action: AuditAction.PUNCH_BATCH_EXPORTED,
+    entity: AuditEntity.EXPORT_JOB,
+    module: AuditModule.HR,
     description:
-      '{{userName}} {{status}} a aprovação de ponto de {{employeeName}}',
+      '{{userName}} exportou batidas em lote (formato {{format}}, período {{period}}, {{count}} linhas)',
+  } satisfies AuditMessage,
+
+  /**
+   * Job `detect-missed-punches` (22h) concluiu — contagem de faltantes
+   * detectados no tenant (D-12). Não nomeia funcionários.
+   */
+  PUNCH_MISSED_PUNCH_DETECTED: {
+    action: AuditAction.PUNCH_MISSED_PUNCH_DETECTED,
+    entity: AuditEntity.PUNCH_MISSED_LOG,
+    module: AuditModule.HR,
+    description: 'Job detectou {{count}} funcionários faltantes em {{date}}',
+  } satisfies AuditMessage,
+
+  /**
+   * Dispositivo de ponto transitou entre ONLINE ↔ OFFLINE (heartbeat
+   * 60s / threshold 3min, D-13). `deviceId` é UUID opaco, não expõe
+   * localização física.
+   */
+  PUNCH_DEVICE_STATUS_CHANGED: {
+    action: AuditAction.PUNCH_DEVICE_STATUS_CHANGED,
+    entity: AuditEntity.PUNCH_DEVICE,
+    module: AuditModule.HR,
+    description: 'Dispositivo {{deviceId}} transitou para {{status}}',
   } satisfies AuditMessage,
 
   // ============================================================================

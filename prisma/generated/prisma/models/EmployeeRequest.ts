@@ -227,6 +227,7 @@ export type EmployeeRequestWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"EmployeeRequest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EmployeeRequest"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  linkedPunchApprovals?: Prisma.PunchApprovalListRelationFilter
 }
 
 export type EmployeeRequestOrderByWithRelationInput = {
@@ -242,6 +243,7 @@ export type EmployeeRequestOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
+  linkedPunchApprovals?: Prisma.PunchApprovalOrderByRelationAggregateInput
 }
 
 export type EmployeeRequestWhereUniqueInput = Prisma.AtLeast<{
@@ -260,6 +262,7 @@ export type EmployeeRequestWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"EmployeeRequest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"EmployeeRequest"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  linkedPunchApprovals?: Prisma.PunchApprovalListRelationFilter
 }, "id">
 
 export type EmployeeRequestOrderByWithAggregationInput = {
@@ -308,6 +311,7 @@ export type EmployeeRequestCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutEmployeeRequestsInput
+  linkedPunchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutLinkedRequestInput
 }
 
 export type EmployeeRequestUncheckedCreateInput = {
@@ -322,6 +326,7 @@ export type EmployeeRequestUncheckedCreateInput = {
   rejectionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  linkedPunchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutLinkedRequestInput
 }
 
 export type EmployeeRequestUpdateInput = {
@@ -336,6 +341,7 @@ export type EmployeeRequestUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeeRequestsNestedInput
+  linkedPunchApprovals?: Prisma.PunchApprovalUpdateManyWithoutLinkedRequestNestedInput
 }
 
 export type EmployeeRequestUncheckedUpdateInput = {
@@ -350,6 +356,7 @@ export type EmployeeRequestUncheckedUpdateInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedPunchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutLinkedRequestNestedInput
 }
 
 export type EmployeeRequestCreateManyInput = {
@@ -443,6 +450,11 @@ export type EmployeeRequestMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type EmployeeRequestNullableScalarRelationFilter = {
+  is?: Prisma.EmployeeRequestWhereInput | null
+  isNot?: Prisma.EmployeeRequestWhereInput | null
+}
+
 export type EmployeeRequestCreateNestedManyWithoutTenantInput = {
   create?: Prisma.XOR<Prisma.EmployeeRequestCreateWithoutTenantInput, Prisma.EmployeeRequestUncheckedCreateWithoutTenantInput> | Prisma.EmployeeRequestCreateWithoutTenantInput[] | Prisma.EmployeeRequestUncheckedCreateWithoutTenantInput[]
   connectOrCreate?: Prisma.EmployeeRequestCreateOrConnectWithoutTenantInput | Prisma.EmployeeRequestCreateOrConnectWithoutTenantInput[]
@@ -485,6 +497,22 @@ export type EmployeeRequestUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.EmployeeRequestScalarWhereInput | Prisma.EmployeeRequestScalarWhereInput[]
 }
 
+export type EmployeeRequestCreateNestedOneWithoutLinkedPunchApprovalsInput = {
+  create?: Prisma.XOR<Prisma.EmployeeRequestCreateWithoutLinkedPunchApprovalsInput, Prisma.EmployeeRequestUncheckedCreateWithoutLinkedPunchApprovalsInput>
+  connectOrCreate?: Prisma.EmployeeRequestCreateOrConnectWithoutLinkedPunchApprovalsInput
+  connect?: Prisma.EmployeeRequestWhereUniqueInput
+}
+
+export type EmployeeRequestUpdateOneWithoutLinkedPunchApprovalsNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeRequestCreateWithoutLinkedPunchApprovalsInput, Prisma.EmployeeRequestUncheckedCreateWithoutLinkedPunchApprovalsInput>
+  connectOrCreate?: Prisma.EmployeeRequestCreateOrConnectWithoutLinkedPunchApprovalsInput
+  upsert?: Prisma.EmployeeRequestUpsertWithoutLinkedPunchApprovalsInput
+  disconnect?: Prisma.EmployeeRequestWhereInput | boolean
+  delete?: Prisma.EmployeeRequestWhereInput | boolean
+  connect?: Prisma.EmployeeRequestWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeRequestUpdateToOneWithWhereWithoutLinkedPunchApprovalsInput, Prisma.EmployeeRequestUpdateWithoutLinkedPunchApprovalsInput>, Prisma.EmployeeRequestUncheckedUpdateWithoutLinkedPunchApprovalsInput>
+}
+
 export type EmployeeRequestCreateWithoutTenantInput = {
   id?: string
   employeeId: string
@@ -496,6 +524,7 @@ export type EmployeeRequestCreateWithoutTenantInput = {
   rejectionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  linkedPunchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutLinkedRequestInput
 }
 
 export type EmployeeRequestUncheckedCreateWithoutTenantInput = {
@@ -509,6 +538,7 @@ export type EmployeeRequestUncheckedCreateWithoutTenantInput = {
   rejectionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  linkedPunchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutLinkedRequestInput
 }
 
 export type EmployeeRequestCreateOrConnectWithoutTenantInput = {
@@ -554,6 +584,78 @@ export type EmployeeRequestScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"EmployeeRequest"> | Date | string
 }
 
+export type EmployeeRequestCreateWithoutLinkedPunchApprovalsInput = {
+  id?: string
+  employeeId: string
+  type: string
+  status?: string
+  data?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  approverEmployeeId?: string | null
+  approvedAt?: Date | string | null
+  rejectionReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeeRequestsInput
+}
+
+export type EmployeeRequestUncheckedCreateWithoutLinkedPunchApprovalsInput = {
+  id?: string
+  tenantId: string
+  employeeId: string
+  type: string
+  status?: string
+  data?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  approverEmployeeId?: string | null
+  approvedAt?: Date | string | null
+  rejectionReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type EmployeeRequestCreateOrConnectWithoutLinkedPunchApprovalsInput = {
+  where: Prisma.EmployeeRequestWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeRequestCreateWithoutLinkedPunchApprovalsInput, Prisma.EmployeeRequestUncheckedCreateWithoutLinkedPunchApprovalsInput>
+}
+
+export type EmployeeRequestUpsertWithoutLinkedPunchApprovalsInput = {
+  update: Prisma.XOR<Prisma.EmployeeRequestUpdateWithoutLinkedPunchApprovalsInput, Prisma.EmployeeRequestUncheckedUpdateWithoutLinkedPunchApprovalsInput>
+  create: Prisma.XOR<Prisma.EmployeeRequestCreateWithoutLinkedPunchApprovalsInput, Prisma.EmployeeRequestUncheckedCreateWithoutLinkedPunchApprovalsInput>
+  where?: Prisma.EmployeeRequestWhereInput
+}
+
+export type EmployeeRequestUpdateToOneWithWhereWithoutLinkedPunchApprovalsInput = {
+  where?: Prisma.EmployeeRequestWhereInput
+  data: Prisma.XOR<Prisma.EmployeeRequestUpdateWithoutLinkedPunchApprovalsInput, Prisma.EmployeeRequestUncheckedUpdateWithoutLinkedPunchApprovalsInput>
+}
+
+export type EmployeeRequestUpdateWithoutLinkedPunchApprovalsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  employeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  data?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  approverEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeeRequestsNestedInput
+}
+
+export type EmployeeRequestUncheckedUpdateWithoutLinkedPunchApprovalsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  employeeId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  data?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  approverEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type EmployeeRequestCreateManyTenantInput = {
   id?: string
   employeeId: string
@@ -578,6 +680,7 @@ export type EmployeeRequestUpdateWithoutTenantInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedPunchApprovals?: Prisma.PunchApprovalUpdateManyWithoutLinkedRequestNestedInput
 }
 
 export type EmployeeRequestUncheckedUpdateWithoutTenantInput = {
@@ -591,6 +694,7 @@ export type EmployeeRequestUncheckedUpdateWithoutTenantInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedPunchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutLinkedRequestNestedInput
 }
 
 export type EmployeeRequestUncheckedUpdateManyWithoutTenantInput = {
@@ -607,6 +711,35 @@ export type EmployeeRequestUncheckedUpdateManyWithoutTenantInput = {
 }
 
 
+/**
+ * Count Type EmployeeRequestCountOutputType
+ */
+
+export type EmployeeRequestCountOutputType = {
+  linkedPunchApprovals: number
+}
+
+export type EmployeeRequestCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  linkedPunchApprovals?: boolean | EmployeeRequestCountOutputTypeCountLinkedPunchApprovalsArgs
+}
+
+/**
+ * EmployeeRequestCountOutputType without action
+ */
+export type EmployeeRequestCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EmployeeRequestCountOutputType
+   */
+  select?: Prisma.EmployeeRequestCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * EmployeeRequestCountOutputType without action
+ */
+export type EmployeeRequestCountOutputTypeCountLinkedPunchApprovalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PunchApprovalWhereInput
+}
+
 
 export type EmployeeRequestSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -621,6 +754,8 @@ export type EmployeeRequestSelect<ExtArgs extends runtime.Types.Extensions.Inter
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  linkedPunchApprovals?: boolean | Prisma.EmployeeRequest$linkedPunchApprovalsArgs<ExtArgs>
+  _count?: boolean | Prisma.EmployeeRequestCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["employeeRequest"]>
 
 export type EmployeeRequestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -670,6 +805,8 @@ export type EmployeeRequestSelectScalar = {
 export type EmployeeRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "employeeId" | "type" | "status" | "data" | "approverEmployeeId" | "approvedAt" | "rejectionReason" | "createdAt" | "updatedAt", ExtArgs["result"]["employeeRequest"]>
 export type EmployeeRequestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  linkedPunchApprovals?: boolean | Prisma.EmployeeRequest$linkedPunchApprovalsArgs<ExtArgs>
+  _count?: boolean | Prisma.EmployeeRequestCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EmployeeRequestIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -682,6 +819,7 @@ export type $EmployeeRequestPayload<ExtArgs extends runtime.Types.Extensions.Int
   name: "EmployeeRequest"
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
+    linkedPunchApprovals: Prisma.$PunchApprovalPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1090,6 +1228,7 @@ readonly fields: EmployeeRequestFieldRefs;
 export interface Prisma__EmployeeRequestClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  linkedPunchApprovals<T extends Prisma.EmployeeRequest$linkedPunchApprovalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeRequest$linkedPunchApprovalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PunchApprovalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1528,6 +1667,30 @@ export type EmployeeRequestDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many EmployeeRequests to delete.
    */
   limit?: number
+}
+
+/**
+ * EmployeeRequest.linkedPunchApprovals
+ */
+export type EmployeeRequest$linkedPunchApprovalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PunchApproval
+   */
+  select?: Prisma.PunchApprovalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PunchApproval
+   */
+  omit?: Prisma.PunchApprovalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PunchApprovalInclude<ExtArgs> | null
+  where?: Prisma.PunchApprovalWhereInput
+  orderBy?: Prisma.PunchApprovalOrderByWithRelationInput | Prisma.PunchApprovalOrderByWithRelationInput[]
+  cursor?: Prisma.PunchApprovalWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PunchApprovalScalarFieldEnum | Prisma.PunchApprovalScalarFieldEnum[]
 }
 
 /**

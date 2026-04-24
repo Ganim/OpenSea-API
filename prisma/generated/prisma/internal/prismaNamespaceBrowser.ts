@@ -459,7 +459,8 @@ export const ModelName = {
   ProductionQualityHold: 'ProductionQualityHold',
   ProductionCost: 'ProductionCost',
   ContractTemplate: 'ContractTemplate',
-  GeneratedEmploymentContract: 'GeneratedEmploymentContract'
+  GeneratedEmploymentContract: 'GeneratedEmploymentContract',
+  PunchMissedLog: 'PunchMissedLog'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -8099,6 +8100,8 @@ export const PunchApprovalScalarFieldEnum = {
   resolverUserId: 'resolverUserId',
   resolvedAt: 'resolvedAt',
   resolverNote: 'resolverNote',
+  evidenceFiles: 'evidenceFiles',
+  linkedRequestId: 'linkedRequestId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -8650,6 +8653,23 @@ export const GeneratedEmploymentContractScalarFieldEnum = {
 } as const
 
 export type GeneratedEmploymentContractScalarFieldEnum = (typeof GeneratedEmploymentContractScalarFieldEnum)[keyof typeof GeneratedEmploymentContractScalarFieldEnum]
+
+
+export const PunchMissedLogScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  employeeId: 'employeeId',
+  date: 'date',
+  shiftAssignmentId: 'shiftAssignmentId',
+  expectedStartTime: 'expectedStartTime',
+  expectedEndTime: 'expectedEndTime',
+  generatedAt: 'generatedAt',
+  generatedByJobId: 'generatedByJobId',
+  resolvedAt: 'resolvedAt',
+  resolutionType: 'resolutionType'
+} as const
+
+export type PunchMissedLogScalarFieldEnum = (typeof PunchMissedLogScalarFieldEnum)[keyof typeof PunchMissedLogScalarFieldEnum]
 
 
 export const SortOrder = {
