@@ -309,6 +309,7 @@ import { ppeAssignmentsRoutes } from './controllers/hr/ppe-assignments/routes';
 import { ppeItemsRoutes } from './controllers/hr/ppe-items/routes';
 import { complianceRoutes } from './controllers/hr/compliance/routes';
 import { punchApprovalsRoutes } from './controllers/hr/punch-approvals/routes';
+import { punchDashboardRoutes } from './controllers/hr/punch-dashboard/routes';
 import { punchConfigRoutes } from './controllers/hr/punch-config/routes';
 import { faceEnrollmentsRoutes } from './controllers/hr/face-enrollments/routes';
 import { punchDevicesRoutes } from './controllers/hr/punch-devices/routes';
@@ -547,6 +548,7 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(badgesRoutes);
   await app.register(punchPinRoutes);
   await app.register(punchApprovalsRoutes);
+  await app.register(punchDashboardRoutes);
   await app.register(complianceRoutes);
   await app.register(punchRoutes);
   await app.register(geofenceZonesRoutes);
