@@ -38,6 +38,29 @@ import type {
 } from '@/repositories/hr/time-entries-repository';
 import type { TenantsRepository } from '@/repositories/core/tenants-repository';
 
+// Lazy logger import — evita acoplar o use case ao logger real em specs de
+// unidade que usam in-memory repos. Mesmo padrão do receipt-pdf-worker.
+let _logger: {
+  info: (obj: unknown, msg: string) => void;
+  warn: (obj: unknown, msg: string) => void;
+  error: (obj: unknown, msg: string) => void;
+} | null = null;
+function getLogger() {
+  if (!_logger) {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      _logger = require('@/lib/logger').logger;
+    } catch {
+      _logger = {
+        info: (obj, msg) => console.log(msg, obj),
+        warn: (obj, msg) => console.warn(msg, obj),
+        error: (obj, msg) => console.error(msg, obj),
+      };
+    }
+  }
+  return _logger!;
+}
+
 /**
  * Resolver opaco do CNPJ do tenant. Encapsula a ordem de fallback
  * (EsocialConfig.employerDocument → Tenant.settings.cnpj → '00000000000000').
@@ -93,7 +116,7 @@ export class FindTimeEntryByReceiptHashUseCase {
   private async resolveAndRespond(
     timeEntry: TimeEntryForReceiptLookup,
     input: FindTimeEntryByReceiptHashInput,
-  ): Promise<PublicReceiptDto> {
+  ): Promise<PublicReceiptDto | null> {
     const [employee, tenant, tenantCnpj] = await Promise.all([
       this.employeeRepo.findById(
         new UniqueEntityID(timeEntry.employeeId),
@@ -105,7 +128,20 @@ export class FindTimeEntryByReceiptHashUseCase {
 
     if (!employee || !tenant) {
       // Estado raro — batida existe mas employee/tenant foi removido. Tratamos
-      // como NOT_FOUND ao público (não vazamos estado inconsistente).
+      // como NOT_FOUND ao público (não vazamos estado inconsistente). WR-06:
+      // logar o estado de inconsistência para investigação/métricas em vez
+      // do anti-pattern `Promise.reject().catch(() => null as never)` que
+      // descartava o erro silenciosamente.
+      getLogger().error(
+        {
+          nsrHash: input.nsrHash,
+          timeEntryId: timeEntry.id,
+          tenantId: timeEntry.tenantId,
+          employeeMissing: !employee,
+          tenantMissing: !tenant,
+        },
+        '[FindTimeEntryByReceiptHash] Inconsistência: TimeEntry sem Employee/Tenant — retornando NOT_FOUND ao público',
+      );
       await this.writeVerifyLog({
         nsrHash: input.nsrHash,
         tenantId: null,
@@ -114,11 +150,7 @@ export class FindTimeEntryByReceiptHashUseCase {
         userAgent: input.accessedByUserAgent ?? null,
         hitResult: 'NOT_FOUND',
       });
-      return Promise.reject(
-        new Error(
-          'Inconsistência: TimeEntry encontrado mas Employee/Tenant ausente',
-        ),
-      ).catch(() => null as never);
+      return null;
     }
 
     await this.writeVerifyLog({
