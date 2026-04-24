@@ -266,9 +266,11 @@ export class BuildS1200ForCompetenciaUseCase {
             tenantId: new UniqueEntityID(input.tenantId),
             type: 'S1200_XML',
             competencia: input.competencia,
+            // LGPD (CR-02): cpfTrab removido — PII não deve ser persistido em
+            // metadata JSON que é exposto pela API de listagem. O CPF permanece
+            // apenas dentro do XML S-1200 no storage privado.
             filters: {
               employeeId: employee.id,
-              cpfTrab: cpfDigits,
               batchId,
               eventId,
             },

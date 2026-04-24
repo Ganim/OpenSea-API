@@ -105,6 +105,43 @@ describe('BuildS1200ForCompetenciaUseCase', () => {
     expect(complianceRepo.items[0].type).toBe('S1200_XML');
   });
 
+  // CR-02 (LGPD sentinel): CPF do trabalhador NUNCA deve ser persistido em
+  // `filters` do ComplianceArtifact — o campo é exposto na API de listagem
+  // (authenticated, but still broadcast ao frontend). O CPF permanece apenas
+  // dentro do XML S-1200 no storage privado.
+  it('LGPD sentinel: never persists cpfTrab inside ComplianceArtifact.filters', async () => {
+    await seedRequiredRubricas(rubricaRepo);
+
+    const cpfA = '12345678909';
+    const cpfB = '98765432100';
+
+    await sut.execute({
+      tenantId: TENANT,
+      invokedByUserId: USER,
+      competencia: '2026-03',
+      tpAmb: 2,
+      employerCnpj: CNPJ,
+      employees: [
+        makeEmployee({ id: 'emp-1', cpfTrab: cpfA }),
+        makeEmployee({ id: 'emp-2', cpfTrab: cpfB }),
+      ],
+    });
+
+    for (const artifact of complianceRepo.items) {
+      const filters = artifact.filters as Record<string, unknown> | null;
+      expect(filters).toBeTruthy();
+      // Direct assertion: cpfTrab key MUST NOT exist in filters.
+      expect(filters).not.toHaveProperty('cpfTrab');
+
+      // Broader sentinel: serialized filters must not contain any 11-digit
+      // numeric substring matching a CPF pattern.
+      const serialized = JSON.stringify(filters);
+      expect(serialized).not.toContain(cpfA);
+      expect(serialized).not.toContain(cpfB);
+      expect(serialized).not.toMatch(/\b\d{11}\b/);
+    }
+  });
+
   it('rejects 400 when rubrica HE_50 is missing (Pitfall 6)', async () => {
     // Seed only HE_100 + DSR; HE_50 missing.
     await rubricaRepo.upsert({
