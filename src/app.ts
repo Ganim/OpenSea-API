@@ -26,6 +26,7 @@ import requestIdPlugin from './http/plugins/request-id.plugin';
 import { prometheusPlugin } from './http/plugins/prometheus.plugin';
 import { registerRoutes } from './http/routes';
 import { initSentry } from './lib/sentry';
+import { registerPosWebSocketNamespace } from './lib/websocket/pos-namespace';
 
 // Initialize Sentry for error monitoring
 initSentry();
@@ -223,8 +224,15 @@ app.register(multipart, {
   },
 });
 
-// WebSocket support (used by print-agent native WS endpoint)
+// WebSocket support (used by print-agent native WS endpoint and POS terminal namespace)
 app.register(websocket);
+
+// POS terminal WebSocket namespace (Emporion Plan A — Task 33).
+// Registered as a Fastify plugin so its `app.get('/v1/pos/ws', ...)` runs
+// after the `@fastify/websocket` plugin above is fully ready.
+app.register(async (scopedApp) => {
+  await registerPosWebSocketNamespace(scopedApp);
+});
 
 // HTTP Cache-Control + ETag + Metrics (disabled in tests)
 if (!isTestEnv) {
