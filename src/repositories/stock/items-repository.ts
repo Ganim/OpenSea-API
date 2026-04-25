@@ -127,6 +127,33 @@ export interface ItemsRepository {
     tenantId: string,
     sinceDate?: Date,
   ): Promise<Item[]>;
+  /**
+   * Cursor-paginated lookup of items whose `bin.zoneId` is in the supplied
+   * set, scoped to a tenant. Used by the POS catalog full-sync endpoint
+   * (Emporion Phase 1) for initial and recovery syncs — when the device has
+   * no local state yet, or when the incremental delta would be too large to
+   * ship in a single response.
+   *
+   * Cursor semantics: `cursor` is the last `Item.id` returned by the previous
+   * page; the next page starts at the *first* row whose `id` is strictly
+   * greater than `cursor`. Items are sorted by `id ASC` (UUID lex order) for
+   * stability — `updatedAt` is intentionally not used because rows edited
+   * mid-sync would skip pages.
+   *
+   * Returns at most `limit` items plus a `nextCursor` set to the last item's
+   * `id` when another page exists; `nextCursor` is `null` on the final page.
+   * Skips soft-deleted rows and items without a `binId`. Returns
+   * `{ items: [], nextCursor: null }` for an empty `zoneIds` argument without
+   * hitting the database.
+   */
+  findManyByZoneIdsPaginated(
+    zoneIds: string[],
+    tenantId: string,
+    options: {
+      cursor?: string;
+      limit: number;
+    },
+  ): Promise<{ items: Item[]; nextCursor: string | null }>;
   findManyByProduct(
     productId: UniqueEntityID,
     tenantId: string,

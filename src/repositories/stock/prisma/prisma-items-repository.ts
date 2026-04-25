@@ -627,6 +627,41 @@ export class PrismaItemsRepository implements ItemsRepository {
     return items.map((item) => this.toDomainItem(item));
   }
 
+  async findManyByZoneIdsPaginated(
+    zoneIds: string[],
+    tenantId: string,
+    options: { cursor?: string; limit: number },
+  ): Promise<{ items: Item[]; nextCursor: string | null }> {
+    if (zoneIds.length === 0) return { items: [], nextCursor: null };
+
+    const { cursor, limit } = options;
+
+    // Fetch limit + 1 rows to detect whether a subsequent page exists without
+    // a separate count query. Cursor is the last id from the previous page;
+    // ordering by id ASC gives a stable lex-sorted UUID timeline.
+    const fetched = await prisma.item.findMany({
+      where: {
+        tenantId,
+        deletedAt: null,
+        bin: {
+          zoneId: { in: zoneIds },
+        },
+        ...(cursor ? { id: { gt: cursor } } : {}),
+      },
+      orderBy: { id: 'asc' },
+      take: limit + 1,
+    });
+
+    const hasMore = fetched.length > limit;
+    const pageRows = hasMore ? fetched.slice(0, limit) : fetched;
+    const nextCursor = hasMore ? pageRows[pageRows.length - 1].id : null;
+
+    return {
+      items: pageRows.map((item) => this.toDomainItem(item)),
+      nextCursor,
+    };
+  }
+
   async findByIdWithRelations(
     id: UniqueEntityID,
     tenantId: string,

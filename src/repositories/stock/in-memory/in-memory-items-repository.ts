@@ -104,6 +104,49 @@ export class InMemoryItemsRepository implements ItemsRepository {
     });
   }
 
+  async findManyByZoneIdsPaginated(
+    zoneIds: string[],
+    tenantId: string,
+    options: { cursor?: string; limit: number },
+  ): Promise<{ items: Item[]; nextCursor: string | null }> {
+    if (zoneIds.length === 0) return { items: [], nextCursor: null };
+
+    const zoneIdSet = new Set(zoneIds);
+    const { cursor, limit } = options;
+
+    const matching = this.items
+      .filter((item) => {
+        if (item.deletedAt) return false;
+        if (item.tenantId.toString() !== tenantId) return false;
+        if (!item.binId) return false;
+
+        const bin = this.relatedData.bins.get(item.binId.toString());
+        if (!bin || !bin.zoneId) return false;
+        if (!zoneIdSet.has(bin.zoneId)) return false;
+
+        if (cursor && item.id.toString() <= cursor) return false;
+
+        return true;
+      })
+      .sort((firstItem, secondItem) => {
+        const firstId = firstItem.id.toString();
+        const secondId = secondItem.id.toString();
+        if (firstId < secondId) return -1;
+        if (firstId > secondId) return 1;
+        return 0;
+      });
+
+    // Take limit + 1 to detect whether another page exists.
+    const fetched = matching.slice(0, limit + 1);
+    const hasMore = fetched.length > limit;
+    const pageItems = hasMore ? fetched.slice(0, limit) : fetched;
+    const nextCursor = hasMore
+      ? pageItems[pageItems.length - 1].id.toString()
+      : null;
+
+    return { items: pageItems, nextCursor };
+  }
+
   async findByUniqueCode(
     uniqueCode: string,
     tenantId: string,
