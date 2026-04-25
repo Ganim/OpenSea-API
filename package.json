@@ -83,6 +83,7 @@
     "@fastify/swagger": "9.5.1",
     "@fastify/swagger-ui": "5.2.3",
     "@fastify/websocket": "11.2.0",
+    "@maxmind/geoip2-node": "6.3.4",
     "@prisma/adapter-pg": "7.2.0",
     "@prisma/client": "7.4.0",
     "@sentry/node": "10.34.0",

@@ -24,3 +24,11 @@ docs/*.txt
 docs/*.html
 docs/test-failures*
 .playwright-cli/
+
+# MaxMind GeoLite2 database (Phase 9 / Plan 09-02 — D-03; MaxMind license proibe
+# redistribuição via repos git públicos. Use `scripts/download-geolite2.sh` para
+# baixar manualmente em data/GeoLite2-City.mmdb na primeira instalação).
+data/*.mmdb
+data/*.mmdb.gz
+data/COPYRIGHT.txt
+data/LICENSE.txt

@@ -2,6 +2,24 @@ import Redis from 'ioredis';
 import { env } from '@/@env';
 import { redisConfig } from '@/config/redis';
 
+/**
+ * Phase 9 / Plan 09-02 (D-17 / D-09) — BullMQ-shared client safety check.
+ *
+ * Investigated 2026-04-25: BullMQ in this project (Workers in src/workers/*)
+ * does NOT call `getRedisClient()` for its own queue connections — it uses
+ * a dedicated factory (`bullmq` lib creates its own Redis instance via the
+ * `connection: redisConfig` option passed to Queue/Worker constructors).
+ * Only `punch-daily-digest-scheduler.ts` and `punch-detect-missed-scheduler.ts`
+ * use `getRedisClient()` for SET/EXPIRE locks (compatible with our usage).
+ *
+ * No BLPOP / brpop calls were found via grep on `src/workers/`, `src/lib/queue/`
+ * or `src/lib/queues/`. SETNX/INCR/DEL/EXPIRE on this singleton are safe for
+ * the new antifraude validators (rate-limit + face-match-streak).
+ *
+ * Decision: reuse `getRedisClient()` directly. No `getAntifraudeRedisClient()`
+ * separate client needed.
+ */
+
 let redisClient: Redis | null = null;
 
 export function getRedisClient(): Redis {
