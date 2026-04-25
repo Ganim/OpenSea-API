@@ -312,5 +312,14 @@ export enum AuditAction {
   PUNCH_DEVICE_STATUS_CHANGED = 'PUNCH_DEVICE_STATUS_CHANGED',
   PUNCH_APPROVAL_RESOLVED = 'PUNCH_APPROVAL_RESOLVED',
 
+  // Phase 9 / Plan 09-01 — Antifraude Hardening (D-25, D-26)
+  // NOTA: dívida técnica conhecida — schema Prisma `AuditAction` ainda não
+  // tem esses 2 values. logAudit fará swallow do PrismaClientValidationError
+  // até a próxima migration de sync (Decisions 04-04 / 06-02 / 07-01).
+  // Plan 09-03/09-04 deve coordenar a sync TS↔Prisma quando o controller
+  // de /hr/punch/audit for implementado.
+  PUNCH_AUDIT_MARK_SUSPICION = 'PUNCH_AUDIT_MARK_SUSPICION',
+  PUNCH_AUDIT_VIEW = 'PUNCH_AUDIT_VIEW',
+
   OTHER = 'OTHER',
 }

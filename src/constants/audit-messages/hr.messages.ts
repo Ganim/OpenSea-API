@@ -1996,6 +1996,40 @@ export const HR_AUDIT_MESSAGES = {
     description:
       '{{userName}} configurou mapeamento de rubrica "{{concept}}" (codRubr {{codRubr}})',
   } satisfies AuditMessage,
+
+  // ============================================================================
+  // Phase 9 / Plan 09-01 — Antifraude Audit (D-25, D-26)
+  // ============================================================================
+
+  /**
+   * Admin marcou batida como suspeita de fraude no /hr/punch/audit (Plan 09-03).
+   *
+   * PII-safe: template usa apenas `{{userName}}` e `{{nsrNumber}}` — nunca
+   * verbatim de filtros JSON (que poderiam vazar employeeId/cpf via audit log).
+   * Lesson 06-01 incorporada (Pitfall 3).
+   */
+  PUNCH_AUDIT_MARK_SUSPICION: {
+    action: AuditAction.PUNCH_AUDIT_MARK_SUSPICION,
+    entity: AuditEntity.PUNCH_APPROVAL,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} marcou a batida {{nsrNumber}} como suspeita de fraude',
+  } satisfies AuditMessage,
+
+  /**
+   * Admin abriu /hr/punch/audit com filtros aplicados (Plan 09-03).
+   *
+   * PII-safe: NÃO grava o conteúdo dos filtros (que pode incluir cpf/
+   * employeeId/departmentIds). Apenas registra o ato de consulta — auditor
+   * que precisar dos filtros exatos olha logs estruturados de aplicação.
+   */
+  PUNCH_AUDIT_VIEW: {
+    action: AuditAction.PUNCH_AUDIT_VIEW,
+    entity: AuditEntity.PUNCH_APPROVAL,
+    module: AuditModule.HR,
+    description:
+      '{{userName}} consultou auditoria de ponto com filtros aplicados',
+  } satisfies AuditMessage,
 } as const;
 
 export type HrAuditMessageKey = keyof typeof HR_AUDIT_MESSAGES;
