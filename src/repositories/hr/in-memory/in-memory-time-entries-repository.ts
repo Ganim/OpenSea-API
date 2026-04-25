@@ -83,9 +83,11 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
 
   async createWithSequentialNsr(
     data: Omit<CreateTimeEntrySchema, 'nsrNumber'>,
-  ): Promise<TimeEntry> {
-    const next = (this.nsrCounters.get(data.tenantId) ?? 0) + 1;
-    return this.create({ ...data, nsrNumber: next });
+  ): Promise<{ timeEntry: TimeEntry; nsrNumber: number }> {
+    const nsrNumber = (this.nsrCounters.get(data.tenantId) ?? 0) + 1;
+    this.nsrCounters.set(data.tenantId, nsrNumber);
+    const timeEntry = await this.create({ ...data, nsrNumber });
+    return { timeEntry, nsrNumber };
   }
 
   async findById(
@@ -200,14 +202,17 @@ export class InMemoryTimeEntriesRepository implements TimeEntriesRepository {
     tenantId: string,
     employeeId: string,
     requestId: string,
-  ): Promise<TimeEntry | null> {
+  ): Promise<{ timeEntry: TimeEntry; nsrNumber: number } | null> {
     const match = this.items.find(
       (entry) =>
         entry.tenantId.toString() === tenantId &&
         entry.employeeId.toString() === employeeId &&
         (entry as TimeEntry & { requestId?: string }).requestId === requestId,
     );
-    return match ?? null;
+    if (!match) return null;
+    const meta = (match as TimeEntry & { complianceMeta?: ComplianceMeta })
+      .complianceMeta;
+    return { timeEntry: match, nsrNumber: meta?.nsrNumber ?? 0 };
   }
 
   async createAdjustment(

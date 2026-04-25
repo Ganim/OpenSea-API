@@ -51,7 +51,7 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
 
   async createWithSequentialNsr(
     data: Omit<CreateTimeEntrySchema, 'nsrNumber'>,
-  ): Promise<TimeEntry> {
+  ): Promise<{ timeEntry: TimeEntry; nsrNumber: number }> {
     // Portaria 671 Anexo III requires unique, strictly increasing NSR per
     // tenant. The DB enforces @@unique([tenantId, nsrNumber]); if two
     // concurrent punches compute the same next NSR, the loser retries.
@@ -61,7 +61,8 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
     while (attempt < NSR_MAX_RETRIES) {
       const nsrNumber = currentMax + 1;
       try {
-        return await this.create({ ...data, nsrNumber });
+        const timeEntry = await this.create({ ...data, nsrNumber });
+        return { timeEntry, nsrNumber };
       } catch (err) {
         if (
           err instanceof Prisma.PrismaClientKnownRequestError &&
@@ -215,7 +216,7 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
     tenantId: string,
     employeeId: string,
     requestId: string,
-  ): Promise<TimeEntry | null> {
+  ): Promise<{ timeEntry: TimeEntry; nsrNumber: number } | null> {
     // Pitfall 3: requestId is nullable on the column. Using findUnique on
     // the composite `(tenantId, employeeId, requestId)` would be ambiguous
     // for legacy rows where requestId IS NULL — findFirst with an explicit
@@ -226,10 +227,11 @@ export class PrismaTimeEntriesRepository implements TimeEntriesRepository {
 
     if (!timeEntryData) return null;
 
-    return TimeEntry.create(
+    const timeEntry = TimeEntry.create(
       mapTimeEntryPrismaToDomain(timeEntryData),
       new UniqueEntityID(timeEntryData.id),
     );
+    return { timeEntry, nsrNumber: timeEntryData.nsrNumber };
   }
 
   async createAdjustment(

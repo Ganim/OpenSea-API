@@ -131,10 +131,15 @@ export interface TimeEntriesRepository {
    * constraint violation (@@unique([tenantId, nsrNumber])) to handle
    * concurrent punches safely. Required by Portaria 671 Anexo III — NSR
    * duplicates invalidate the AFD.
+   *
+   * Returns both the entity and the allocated NSR — the entity itself does
+   * not carry `nsrNumber` (it lives in the DB column only), so callers
+   * that need to surface NSR in their response (e.g. ExecutePunchUseCase)
+   * read it from this tuple.
    */
   createWithSequentialNsr(
     data: Omit<CreateTimeEntrySchema, 'nsrNumber'>,
-  ): Promise<TimeEntry>;
+  ): Promise<{ timeEntry: TimeEntry; nsrNumber: number }>;
   findById(id: UniqueEntityID, tenantId: string): Promise<TimeEntry | null>;
   findMany(filters: FindTimeEntriesFilters): Promise<FindManyTimeEntriesResult>;
   findManyByEmployee(
@@ -164,7 +169,7 @@ export interface TimeEntriesRepository {
     tenantId: string,
     employeeId: string,
     requestId: string,
-  ): Promise<TimeEntry | null>;
+  ): Promise<{ timeEntry: TimeEntry; nsrNumber: number } | null>;
   delete(id: UniqueEntityID, tenantId?: string): Promise<void>;
   findMaxNsrNumber(tenantId: string): Promise<number>;
   /**

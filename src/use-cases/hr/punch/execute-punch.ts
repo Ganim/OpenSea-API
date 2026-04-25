@@ -126,7 +126,9 @@ export class ExecutePunchUseCase {
     const resolvedEmployeeId = await this.resolveEmployeeId(req);
 
     // 2. Idempotency shortcut — if a prior request with this requestId
-    //    already landed, return it without writing anything.
+    //    already landed, return it without writing anything. The repo
+    //    returns the persisted nsrNumber alongside the entity so retries
+    //    surface the same NSR the original batida received (Phase 4 gap).
     if (req.requestId) {
       const existing = await this.timeEntriesRepo.findByRequestId(
         req.tenantId,
@@ -135,8 +137,8 @@ export class ExecutePunchUseCase {
       );
       if (existing) {
         return {
-          timeEntry: existing,
-          nsrNumber: 0, // entity does not carry nsrNumber; use 0 for idempotent replays
+          timeEntry: existing.timeEntry,
+          nsrNumber: existing.nsrNumber,
           approvalsCreated: [],
           idempotentHit: true,
         };
@@ -187,7 +189,7 @@ export class ExecutePunchUseCase {
         : [];
 
     // 6. Persist TimeEntry + PunchApprovals (transactional write, Pitfall 2).
-    const { timeEntry, approvalsCreated, idempotentHit } =
+    const { timeEntry, nsrNumber, approvalsCreated, idempotentHit } =
       await this.writeAtomically(
         req,
         resolvedEmployeeId,
@@ -205,7 +207,7 @@ export class ExecutePunchUseCase {
         employeeId: resolvedEmployeeId,
         entryType: finalType,
         timestamp: timestamp.toISOString(),
-        nsrNumber: null,
+        nsrNumber,
         hasApproval: approvalsCreated.length > 0,
         punchDeviceId: req.punchDeviceId ?? null,
       };
@@ -247,7 +249,7 @@ export class ExecutePunchUseCase {
 
     return {
       timeEntry,
-      nsrNumber: 0, // entity does not expose nsrNumber publicly
+      nsrNumber,
       approvalsCreated,
       idempotentHit,
     };
@@ -453,6 +455,7 @@ export class ExecutePunchUseCase {
     }>,
   ): Promise<{
     timeEntry: TimeEntry;
+    nsrNumber: number;
     approvalsCreated: ExecutePunchApprovalCreated[];
     idempotentHit: boolean;
   }> {
@@ -466,18 +469,19 @@ export class ExecutePunchUseCase {
           ? { liveness: req.liveness as Record<string, unknown> }
           : null;
 
-        const te = await this.timeEntriesRepo.createWithSequentialNsr({
-          tenantId: req.tenantId,
-          employeeId: new UniqueEntityID(employeeId),
-          entryType: TimeEntryType.create(entryType),
-          timestamp,
-          latitude: req.latitude,
-          longitude: req.longitude,
-          ipAddress: req.ipAddress,
-          notes: req.notes,
-          requestId: req.requestId,
-          metadata,
-        });
+        const { timeEntry: te, nsrNumber } =
+          await this.timeEntriesRepo.createWithSequentialNsr({
+            tenantId: req.tenantId,
+            employeeId: new UniqueEntityID(employeeId),
+            entryType: TimeEntryType.create(entryType),
+            timestamp,
+            latitude: req.latitude,
+            longitude: req.longitude,
+            ipAddress: req.ipAddress,
+            notes: req.notes,
+            requestId: req.requestId,
+            metadata,
+          });
 
         const approvalsCreated: ExecutePunchApprovalCreated[] = [];
         for (const a of approvalsToCreate) {
@@ -497,7 +501,12 @@ export class ExecutePunchUseCase {
           });
         }
 
-        return { timeEntry: te, approvalsCreated, idempotentHit: false };
+        return {
+          timeEntry: te,
+          nsrNumber,
+          approvalsCreated,
+          idempotentHit: false,
+        };
       });
     } catch (err) {
       if (
@@ -519,7 +528,8 @@ export class ExecutePunchUseCase {
           );
           if (existing) {
             return {
-              timeEntry: existing,
+              timeEntry: existing.timeEntry,
+              nsrNumber: existing.nsrNumber,
               approvalsCreated: [],
               idempotentHit: true,
             };

@@ -124,16 +124,17 @@ export class ClockOutUseCase {
 
     // Create clock out entry with sequential NSR (Portaria 671 requires a
     // unique NSR per punch, including clock-outs — previously skipped here).
-    const timeEntry = await this.timeEntriesRepository.createWithSequentialNsr({
-      tenantId,
-      employeeId: new UniqueEntityID(employeeId),
-      entryType: TimeEntryType.CLOCK_OUT(),
-      timestamp,
-      latitude,
-      longitude,
-      ipAddress,
-      notes,
-    });
+    const { timeEntry } =
+      await this.timeEntriesRepository.createWithSequentialNsr({
+        tenantId,
+        employeeId: new UniqueEntityID(employeeId),
+        entryType: TimeEntryType.CLOCK_OUT(),
+        timestamp,
+        latitude,
+        longitude,
+        ipAddress,
+        notes,
+      });
 
     return {
       timeEntry,

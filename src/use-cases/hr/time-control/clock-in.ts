@@ -122,19 +122,17 @@ export class ClockInUseCase {
 
     // Auto-generate NSR atomically (retries on (tenantId, nsrNumber) collisions
     // — @@unique enforces Portaria 671's NSR uniqueness requirement).
-    const timeEntry = await this.timeEntriesRepository.createWithSequentialNsr({
-      tenantId,
-      employeeId: new UniqueEntityID(employeeId),
-      entryType: TimeEntryType.CLOCK_IN(),
-      timestamp,
-      latitude,
-      longitude,
-      ipAddress,
-      notes,
-    });
-
-    const nsrNumber =
-      await this.timeEntriesRepository.findMaxNsrNumber(tenantId);
+    const { timeEntry, nsrNumber } =
+      await this.timeEntriesRepository.createWithSequentialNsr({
+        tenantId,
+        employeeId: new UniqueEntityID(employeeId),
+        entryType: TimeEntryType.CLOCK_IN(),
+        timestamp,
+        latitude,
+        longitude,
+        ipAddress,
+        notes,
+      });
 
     return {
       timeEntry,
