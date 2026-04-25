@@ -333,7 +333,7 @@ export const PermissionCodes = {
       MODIFY: 'hr.punch-approvals.modify' as const,
       ADMIN: 'hr.punch-approvals.admin' as const,
     },
-    // Phase 9 / D-28 (4-level RBAC outside `tools` — ADR-027)
+    // Phase 9 / D-28 (4-level RBAC outside `tools` — ADR-031)
     // hr.compliance.* (Phase 6) was the first 4-level cluster outside `tools`.
     // hr.punch.audit.* is the second. parsePermissionCode (linhas ~1448-1466)
     // distingue ambos os shapes (3-level e 4-level) e absorve o sub-resource em

@@ -1,7 +1,7 @@
 -- Phase 09 / Plan 09-01 — Antifraude foundation
 --
 -- Adds enum values FACE_MATCH_FAIL_3X (D-10) and GPS_INCONSISTENT (D-02/D-04) to PunchApprovalReason.
--- Inserts permission row 'hr.punch.audit.access' (D-28, 4-level RBAC outside tools — ADR-027).
+-- Inserts permission row 'hr.punch.audit.access' (D-28, 4-level RBAC outside tools — ADR-031).
 --
 -- Applied via Plan 04-01/06-01/07-01 workaround:
 --   npx prisma db execute --file prisma/migrations/20260425230000_phase9_antifraude_enums_perm/migration.sql --schema prisma/schema.prisma
@@ -38,7 +38,7 @@ VALUES (
   gen_random_uuid()::text,
   'hr.punch.audit.access',
   'Acessar Auditoria de Ponto',
-  'Investigar batidas suspeitas com filtros antifraude e ferramentas forenses (LGPD: legitimate interest documented in ADR-027).',
+  'Investigar batidas suspeitas com filtros antifraude e ferramentas forenses (LGPD: legitimate interest documented in ADR-031).',
   'hr',
   'punch.audit',
   'access',

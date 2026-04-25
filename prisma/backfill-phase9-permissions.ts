@@ -2,7 +2,7 @@
  * Standalone Backfill Script — Phase 9 RBAC Permissions
  *
  * Garante que TODOS os admin groups (admin + admin-{prefix}) em TODOS os
- * tenants tenham a permissão `hr.punch.audit.access` (4 níveis — D-28 / ADR-027)
+ * tenants tenham a permissão `hr.punch.audit.access` (4 níveis — D-28 / ADR-031)
  * registrada no banco.
  *
  * Por que existe:
