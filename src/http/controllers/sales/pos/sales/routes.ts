@@ -1,5 +1,6 @@
 import type { FastifyInstance } from 'fastify';
 
+import { v1AcknowledgeSaleResultController } from './v1-acknowledge-sale-result.controller';
 import { v1CreateSaleFromTerminalController } from './v1-create-sale-from-terminal.controller';
 
 /**
@@ -11,4 +12,5 @@ import { v1CreateSaleFromTerminalController } from './v1-create-sale-from-termin
  */
 export async function posSalesRoutes(app: FastifyInstance) {
   await app.register(v1CreateSaleFromTerminalController);
+  await app.register(v1AcknowledgeSaleResultController);
 }

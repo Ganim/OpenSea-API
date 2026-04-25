@@ -571,6 +571,28 @@ export class Order extends Entity<OrderProps> {
     this.touch();
   }
 
+  /**
+   * Marks this Order as acknowledged by the originating POS terminal
+   * (Emporion Plan A — Task 29). The terminal calls
+   * `POST /v1/pos/sales/:saleLocalUuid/ack` after it has read and processed
+   * the API's response for `POST /v1/pos/sales`, which lets the terminal
+   * safely drop the sale from its local outbox even if the create-sale
+   * response itself was lost on the wire.
+   *
+   * The operation is idempotent: a second invocation is a no-op so the
+   * stored timestamp continues to reflect the *first* time the terminal
+   * confirmed receipt — not the latest retry. Callers can compare the
+   * post-call `ackReceivedAt` against the value returned to know whether
+   * this call was the one that flipped the flag.
+   */
+  markAcknowledged(): void {
+    if (this.props.ackReceivedAt) {
+      return;
+    }
+    this.props.ackReceivedAt = new Date();
+    this.touch();
+  }
+
   cancel(reason?: string): void {
     this.props.cancelledAt = new Date();
     this.props.cancelReason = reason;

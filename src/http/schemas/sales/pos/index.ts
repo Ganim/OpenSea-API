@@ -11,3 +11,4 @@ export * from './unassign-terminal-zone.schema';
 export * from './get-catalog-delta.schema';
 export * from './get-catalog-full.schema';
 export * from './create-sale-from-terminal.schema';
+export * from './acknowledge-sale-result.schema';

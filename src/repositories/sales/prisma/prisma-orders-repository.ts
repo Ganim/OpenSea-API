@@ -429,6 +429,19 @@ export class PrismaOrdersRepository implements OrdersRepository {
         cancelledAt: order.cancelledAt ?? null,
         cancelReason: order.cancelReason ?? null,
         deletedAt: order.deletedAt ?? null,
+        // Emporion (Plan A — Tasks 5 + 21.5 + 28 + 29) — POS metadata.
+        // The `create()` path already writes these columns; the original
+        // `save()` was missing them, which meant subsequent updates to a
+        // POS-originated Order silently dropped origin/ack/fiscal fields.
+        // Task 29 (`markAcknowledged()`) is the first explicit consumer
+        // of the `ackReceivedAt` write path on `save()`; the surrounding
+        // fields are added defensively so future mutations keep the
+        // origin envelope intact.
+        originSource: order.originSource.value,
+        posTerminalId: order.posTerminalId ?? null,
+        posOperatorEmployeeId: order.posOperatorEmployeeId ?? null,
+        saleLocalUuid: order.saleLocalUuid ?? null,
+        ackReceivedAt: order.ackReceivedAt ?? null,
       },
     });
   }
