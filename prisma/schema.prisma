@@ -1011,6 +1011,10 @@ enum AuditAction {
   POS_CONFLICT_RESOLVE_FORCE_ADJUSTMENT
   POS_CONFLICT_RESOLVE_SUBSTITUTE_ITEM
 
+  // POS - Configuração e emissão fiscal (Emporion Plan A — Task 32)
+  POS_FISCAL_CONFIG_UPDATE
+  POS_FISCAL_EMIT
+
   // HR - Ponto e Tempo
   CLOCK_IN
   CLOCK_OUT
@@ -1215,6 +1219,7 @@ enum AuditEntity {
   POS_TRANSACTION
   POS_CASH_MOVEMENT
   POS_ORDER_CONFLICT
+  POS_FISCAL_CONFIG
 
   // Sales Evolution — Novos subsistemas
   QUOTE

@@ -786,6 +786,24 @@ export const SALES_AUDIT_MESSAGES = {
       '{{userName}} resolveu o conflito PDV {{saleLocalUuid}} substituindo {{substituteCount}} item(ns) manualmente',
   } satisfies AuditMessage,
 
+  /** Configuração fiscal do PDV criada ou atualizada (Emporion Plan A — Task 32) */
+  POS_FISCAL_CONFIG_UPDATE: {
+    action: AuditAction.POS_FISCAL_CONFIG_UPDATE,
+    entity: AuditEntity.POS_FISCAL_CONFIG,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} atualizou a configuração fiscal do PDV (modo: {{emissionMode}}, documento padrão: {{defaultDocumentType}})',
+  } satisfies AuditMessage,
+
+  /** Documento fiscal emitido a partir de uma venda PDV (Emporion Plan A — Task 32) */
+  POS_FISCAL_EMIT: {
+    action: AuditAction.POS_FISCAL_EMIT,
+    entity: AuditEntity.ORDER,
+    module: AuditModule.SALES,
+    description:
+      'Documento fiscal {{documentType}} #{{documentNumber}} emitido para o pedido {{orderNumber}} (chave: {{accessKey}})',
+  } satisfies AuditMessage,
+
   // ============================================================================
   // PDV ORDER FLOW - Fluxo de pedidos PDV
   // ============================================================================

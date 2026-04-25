@@ -1,5 +1,6 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Order } from '@/entities/sales/order';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import type { PaginatedResult } from '@/repositories/pagination-params';
 
 export interface FindManyOrdersPaginatedParams {
@@ -65,7 +66,13 @@ export interface OrdersRepository {
   findManyPaginated(
     params: FindManyOrdersPaginatedParams,
   ): Promise<PaginatedResult<Order>>;
-  save(order: Order): Promise<void>;
+  /**
+   * Persists pending changes on `order`. Optionally accepts a Prisma
+   * `TransactionClient` so callers (e.g. fiscal emission — Task 32) can
+   * atomically write the Order alongside other updates that share the same
+   * transactional scope (such as the tenant fiscal counter increment).
+   */
+  save(order: Order, tx?: TransactionClient): Promise<void>;
   delete(id: UniqueEntityID, tenantId: string): Promise<void>;
   getNextOrderNumber(tenantId: string): Promise<string>;
   generateOrderNumber(tenantId: string): Promise<string>;

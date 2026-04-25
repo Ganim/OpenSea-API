@@ -228,6 +228,10 @@ export class InMemoryOrdersRepository implements OrdersRepository {
   }
 
   async save(order: Order): Promise<void> {
+    // The optional `tx` parameter on the contract is a no-op for the in-memory
+    // implementation: there is no transactional boundary to participate in.
+    // Use cases that pass it must rely on production code paths to honor it
+    // (the Prisma implementation does).
     const index = this.items.findIndex(
       (o) => o.id.toString() === order.id.toString(),
     );

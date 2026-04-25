@@ -1,6 +1,7 @@
 import type { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import type { Order } from '@/entities/sales/order';
 import { prisma } from '@/lib/prisma';
+import type { TransactionClient } from '@/lib/transaction-manager';
 import { orderPrismaToDomain } from '@/mappers/sales/order/order-prisma-to-domain';
 import type { PaginatedResult } from '@/repositories/pagination-params';
 import type {
@@ -12,6 +13,7 @@ import type {
   OrderType as PrismaOrderType,
   OrderChannel as PrismaOrderChannel,
   OrderStatus as PrismaOrderStatus,
+  PosFiscalDocumentType as PrismaPosFiscalDocumentType,
 } from '@prisma/generated/client.js';
 
 export class PrismaOrdersRepository implements OrdersRepository {
@@ -393,8 +395,9 @@ export class PrismaOrdersRepository implements OrdersRepository {
     };
   }
 
-  async save(order: Order): Promise<void> {
-    await prisma.order.update({
+  async save(order: Order, tx?: TransactionClient): Promise<void> {
+    const client = tx ?? prisma;
+    await client.order.update({
       where: { id: order.id.toString() },
       data: {
         type: order.type as PrismaOrderType,
@@ -442,6 +445,19 @@ export class PrismaOrdersRepository implements OrdersRepository {
         posOperatorEmployeeId: order.posOperatorEmployeeId ?? null,
         saleLocalUuid: order.saleLocalUuid ?? null,
         ackReceivedAt: order.ackReceivedAt ?? null,
+        // Emporion (Plan A — Task 32) — fiscal emission output. The fiscal
+        // emit endpoint stamps these columns inside the same transaction
+        // that increments the tenant's NF-C-e counter; persisting them via
+        // `save()` is required so the Order reflects the authorization
+        // metadata after the use case writes them on the entity.
+        fiscalDocumentType:
+          (order.fiscalDocumentType?.value as PrismaPosFiscalDocumentType) ??
+          null,
+        fiscalDocumentNumber: order.fiscalDocumentNumber ?? null,
+        fiscalAccessKey: order.fiscalAccessKey ?? null,
+        fiscalAuthorizationProtocol: order.fiscalAuthorizationProtocol ?? null,
+        fiscalEmittedAt: order.fiscalEmittedAt ?? null,
+        fiscalEmissionStatus: order.fiscalEmissionStatus ?? null,
       },
     });
   }

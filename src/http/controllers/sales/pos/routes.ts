@@ -46,6 +46,9 @@ import { posSalesRoutes } from './sales/routes';
 // Conflicts (admin)
 import { posConflictsRoutes } from './conflicts/routes';
 
+// Fiscal (admin GET/PUT + device emit) — Emporion Plan A Task 32
+import { posFiscalRoutes } from './fiscal/routes';
+
 export async function posRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('SALES'));
 
@@ -93,4 +96,7 @@ export async function posRoutes(app: FastifyInstance) {
 
   // Conflicts (admin)
   await app.register(posConflictsRoutes);
+
+  // Fiscal (admin GET/PUT + device emit) — Emporion Plan A Task 32
+  await app.register(posFiscalRoutes);
 }
