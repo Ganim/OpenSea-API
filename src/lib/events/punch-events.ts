@@ -7,6 +7,13 @@
  * Introduced by Plan 04-05 — replaces the temporary string literals used in
  * Plan 04-04's ExecutePunchUseCase. Aligns with SALES_EVENTS / FINANCE_EVENTS /
  * MESSAGING_EVENTS pattern.
+ *
+ * Phase 9 sync invariant (Pitfall 2 / Decision 06-02): adding a new
+ * APPROVAL_REQUESTED reason requires synced edits in:
+ *   1. prisma/schema.prisma (enum PunchApprovalReason)
+ *   2. src/use-cases/hr/punch/validators/punch-validator.interface.ts (PunchApprovalReasonCode)
+ *   3. src/use-cases/hr/punch/execute-punch.ts (cast literal)
+ *   4. THIS FILE (PunchApprovalRequestedData.reason)
  */
 
 // ─── Event Type Constants ────────────────────────────────────────────────────
@@ -27,6 +34,8 @@ export const PUNCH_EVENTS = {
   DEVICE_STATUS_CHANGED: 'punch.device.status-changed',
   DAILY_DIGEST_SENT: 'punch.daily-digest.sent',
   EXCEPTION_APPROVAL_REQUESTED: 'punch.exception.approval-requested',
+  // Phase 9 additions (Plan 09-01 — Antifraude Hardening)
+  FACE_MATCH_FAIL_3X: 'punch.face-match.fail-3x', // D-10 — 3 falhas consecutivas em 60min
 } as const;
 
 export type PunchEventType = (typeof PUNCH_EVENTS)[keyof typeof PUNCH_EVENTS];
@@ -53,10 +62,17 @@ export interface PunchApprovalRequestedData {
   employeeId: string;
   /**
    * Reason the batida needs manager review. Phase 5 adds `FACE_MATCH_LOW`
-   * (Plan 05-07 / D-03). Future phases: CLOCK_DRIFT (phase 9),
-   * MANUAL_CORRECTION (phase 6), FACE_MATCH_FAIL_3X (phase 9).
+   * (Plan 05-07 / D-03). Phase 8 adds `EMPLOYEE_SELF_REQUEST` (Plan 08-01 / D-07).
+   * Phase 9 adds `GPS_INCONSISTENT` (D-02/D-04) and `FACE_MATCH_FAIL_3X` (D-10).
+   * MUST stay in sync with Prisma enum `PunchApprovalReason` and TS union
+   * `PunchApprovalReasonCode` (see top-of-file Pitfall 2 invariant).
    */
-  reason: 'OUT_OF_GEOFENCE' | 'FACE_MATCH_LOW';
+  reason:
+    | 'OUT_OF_GEOFENCE'
+    | 'FACE_MATCH_LOW'
+    | 'EMPLOYEE_SELF_REQUEST'
+    | 'GPS_INCONSISTENT'
+    | 'FACE_MATCH_FAIL_3X';
   /** Payload specific to the reason (distance, zoneId, faceScore, ...). */
   details?: Record<string, unknown>;
 }
@@ -223,4 +239,33 @@ export interface PunchExceptionApprovalRequestedData {
   requestedBy: string;
   /** ISO 8601 — prazo opcional para o funcionário responder. */
   deadline?: string;
+}
+
+// ─── Phase 9 Event Data Interfaces (Plan 09-01 — Antifraude Hardening) ───────
+
+/**
+ * Emitted by `FaceMatchStreakValidator` (Plan 09-02) when an employee
+ * accumulates 3 consecutive face match failures inside the 60min sliding
+ * window (D-09/D-10). The validator emits this event AFTER creating the
+ * `PunchApproval(reason=FACE_MATCH_FAIL_3X)` row.
+ *
+ * Consumed by `punch-notification-dispatcher-consumer` (Phase 4 wiring) to
+ * trigger the `punch.face_match_alert` notification (D-11): immediate push +
+ * in-app to the eligible managers (BFS via `Employee.supervisorId`,
+ * Phase 7 helper). E-mail only when user preferences allow.
+ */
+export interface PunchFaceMatchFail3xData {
+  /** ID of the `PunchApproval` row just created (reason = FACE_MATCH_FAIL_3X). */
+  approvalId: string;
+  /** Tenant scope — required by every downstream consumer for isolation. */
+  tenantId: string;
+  employeeId: string;
+  /** Friendly name for the notification body ("Funcionário {name} teve 3 falhas..."). */
+  employeeName: string;
+  /** Always >= 3 when this event is emitted. */
+  failureCount: number;
+  /** Sliding window in minutes (D-09 — fixed at 60). */
+  windowMinutes: 60;
+  /** ISO 8601 timestamp when the 3rd failure was detected. */
+  triggeredAt: string;
 }
