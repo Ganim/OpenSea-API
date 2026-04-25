@@ -9,11 +9,18 @@ import { UniqueEntityID } from '../domain/unique-entity-id';
  * - `OUT_OF_GEOFENCE` — Fase 4 (geofence fora do raio permitido).
  * - `FACE_MATCH_LOW`  — Fase 5 / Plan 05-07 (biometria facial kiosk: menor
  *                       distância euclidiana ≥ threshold configurado).
+ * - `EMPLOYEE_SELF_REQUEST` — Fase 8 / Plan 08-01 (D-07/D-08): funcionário
+ *                       antecipa via PWA pessoal a justificativa por uma
+ *                       batida esquecida ou pelo upload de atestado médico,
+ *                       sem depender do gestor criar a aprovação primeiro.
  * Futuros: `FACE_MATCH_FAIL_3X` (Fase 9 — antifraude),
  *          `CLOCK_DRIFT` (Fase 9 — antifraude),
  *          `MANUAL_CORRECTION` (Fase 6 — compliance Portaria 671).
  */
-export type PunchApprovalReason = 'OUT_OF_GEOFENCE' | 'FACE_MATCH_LOW';
+export type PunchApprovalReason =
+  | 'OUT_OF_GEOFENCE'
+  | 'FACE_MATCH_LOW'
+  | 'EMPLOYEE_SELF_REQUEST';
 
 /**
  * Ciclo de vida de uma aprovação de ponto.
@@ -52,7 +59,15 @@ export interface EvidenceFile {
 export interface PunchApprovalProps {
   id: UniqueEntityID;
   tenantId: UniqueEntityID;
-  timeEntryId: UniqueEntityID;
+  /**
+   * Phase 8 / Plan 08-01 (D-07): nullable. Quando o funcionário cria a
+   * justificativa via PWA pessoal sem batida prévia (cenário "esqueci de
+   * bater"), `proposedTimestamp` + `proposedEntryType` ficam em `details` e
+   * `timeEntryId` permanece NULL até o gestor aprovar com correctionPayload.
+   * No fluxo Phase 4 (geofence/face-match flagged), continua sendo populada
+   * dentro do mesmo `$transaction` da gravação da TimeEntry.
+   */
+  timeEntryId?: UniqueEntityID | null;
   employeeId: UniqueEntityID;
   reason: PunchApprovalReason;
   details?: Record<string, unknown>;
@@ -81,8 +96,12 @@ export class PunchApproval extends Entity<PunchApprovalProps> {
     return this.props.tenantId;
   }
 
-  get timeEntryId() {
-    return this.props.timeEntryId;
+  /**
+   * Pode ser `null` quando a aprovação é self-create (Phase 8 D-07) sem
+   * batida prévia. Callers precisam tratar o caso explicitamente.
+   */
+  get timeEntryId(): UniqueEntityID | null {
+    return this.props.timeEntryId ?? null;
   }
 
   get employeeId() {

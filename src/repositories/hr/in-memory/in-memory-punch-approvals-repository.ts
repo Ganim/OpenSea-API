@@ -12,9 +12,7 @@ import type {
  * - `save` substitui por id
  * - `findManyByTenantId` ordena desc por createdAt, pagina por page/pageSize
  */
-export class InMemoryPunchApprovalsRepository
-  implements PunchApprovalsRepository
-{
+export class InMemoryPunchApprovalsRepository implements PunchApprovalsRepository {
   public items: PunchApproval[] = [];
 
   async create(approval: PunchApproval): Promise<void> {
@@ -51,7 +49,7 @@ export class InMemoryPunchApprovalsRepository
     return (
       this.items.find(
         (approval) =>
-          approval.timeEntryId.toString() === timeEntryId.toString() &&
+          approval.timeEntryId?.toString() === timeEntryId.toString() &&
           approval.tenantId.toString() === tenantId,
       ) ?? null
     );
@@ -85,5 +83,18 @@ export class InMemoryPunchApprovalsRepository
     const paginated = sorted.slice(start, start + pageSize);
 
     return { items: paginated, total: filtered.length };
+  }
+
+  async countByEmployeeAndStatus(
+    employeeId: string,
+    status: 'PENDING' | 'APPROVED' | 'REJECTED',
+    tenantId: string,
+  ): Promise<number> {
+    return this.items.filter(
+      (a) =>
+        a.employeeId.toString() === employeeId &&
+        a.status === status &&
+        a.tenantId.toString() === tenantId,
+    ).length;
   }
 }

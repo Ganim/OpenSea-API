@@ -63,7 +63,12 @@ export interface PunchApprovalRequestedData {
 
 export interface PunchApprovalResolvedData {
   approvalId: string;
-  timeEntryId: string;
+  /**
+   * Phase 8 / Plan 08-01 (D-07): nullable. Self-create cenário 2 ainda não
+   * tem TimeEntry física no momento da criação — só após o gestor aprovar
+   * com correctionPayload (Phase 6-02) é que o ID é resolvido.
+   */
+  timeEntryId: string | null;
   employeeId: string;
   status: 'APPROVED' | 'REJECTED';
   resolverUserId: string;

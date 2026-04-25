@@ -182,6 +182,15 @@ export class ResolvePunchApprovalUseCase {
       // origem existe + pertence ao tenant + tem NSR válido (lança Error
       // que traduzimos para BadRequest).
       try {
+        // Phase 8 / Plan 08-01 (D-07): timeEntryId pode ser null em self-create
+        // cenário 2. Quando ausente, não é "ajuste de batida existente" — é
+        // criação inicial da batida que o gestor está aprovando. Falhar com
+        // BadRequestError até que o controller tenha um path dedicado para isso.
+        if (!approval.timeEntryId) {
+          throw new BadRequestError(
+            'Self-create scenario sem timeEntryId ainda não suporta correctionPayload — gestor deve criar a batida via fluxo dedicado.',
+          );
+        }
         const adjustment = await this.timeEntriesRepository.createAdjustment({
           originEntryId: approval.timeEntryId.toString(),
           tenantId: input.tenantId,
@@ -290,7 +299,10 @@ export class ResolvePunchApprovalUseCase {
       try {
         const resolvedEventData: PunchApprovalResolvedData = {
           approvalId: approval.id.toString(),
-          timeEntryId: approval.timeEntryId.toString(),
+          // Phase 8 / Plan 08-01 (D-07): nullable. Após correctionPayload
+          // bem-sucedido o ID resolvido fica em `correctionTimeEntryId` —
+          // mas no evento publicamos o ID original (que pode ser null).
+          timeEntryId: approval.timeEntryId?.toString() ?? null,
           employeeId: approval.employeeId.toString(),
           status: approval.status as 'APPROVED' | 'REJECTED',
           resolverUserId: input.resolverUserId,

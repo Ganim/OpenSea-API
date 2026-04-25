@@ -42,4 +42,17 @@ export interface PunchApprovalsRepository {
     tenantId: string,
     filters?: FindManyPunchApprovalsFilters,
   ): Promise<{ items: PunchApproval[]; total: number }>;
+
+  /**
+   * Phase 8 / Plan 08-01 — D-08 anti-spam.
+   *
+   * Conta quantas `PunchApproval` o funcionário tem no `status` informado
+   * dentro do tenant. Usado pelo `CreateSelfPunchApprovalUseCase` para
+   * limitar a 5 PENDING simultâneas (acima disso retorna 429).
+   */
+  countByEmployeeAndStatus(
+    employeeId: string,
+    status: PunchApprovalStatus,
+    tenantId: string,
+  ): Promise<number>;
 }

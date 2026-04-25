@@ -23,15 +23,14 @@ import type {
  * da gravação do `TimeEntry` quando `GeofenceValidator` retorna
  * `APPROVAL_REQUIRED` (D-12).
  */
-export class PrismaPunchApprovalsRepository
-  implements PunchApprovalsRepository
-{
+export class PrismaPunchApprovalsRepository implements PunchApprovalsRepository {
   async create(approval: PunchApproval): Promise<void> {
     await prisma.punchApproval.create({
       data: {
         id: approval.id.toString(),
         tenantId: approval.tenantId.toString(),
-        timeEntryId: approval.timeEntryId.toString(),
+        // Phase 8 / Plan 08-01 (D-07): nullable para self-create cenário 2.
+        timeEntryId: approval.timeEntryId?.toString() ?? null,
         employeeId: approval.employeeId.toString(),
         reason: approval.reason as PrismaPunchApprovalReason,
         details:
@@ -135,5 +134,15 @@ export class PrismaPunchApprovalsRepository
     ]);
 
     return { items: rows.map(punchApprovalPrismaToDomain), total };
+  }
+
+  async countByEmployeeAndStatus(
+    employeeId: string,
+    status: PrismaPunchApprovalStatus,
+    tenantId: string,
+  ): Promise<number> {
+    return prisma.punchApproval.count({
+      where: { employeeId, status, tenantId },
+    });
   }
 }

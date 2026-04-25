@@ -196,7 +196,7 @@ export type PunchApprovalGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 export type PunchApprovalGroupByOutputType = {
   id: string
   tenantId: string
-  timeEntryId: string
+  timeEntryId: string | null
   employeeId: string
   reason: $Enums.PunchApprovalReason
   details: runtime.JsonValue | null
@@ -234,7 +234,7 @@ export type PunchApprovalWhereInput = {
   NOT?: Prisma.PunchApprovalWhereInput | Prisma.PunchApprovalWhereInput[]
   id?: Prisma.StringFilter<"PunchApproval"> | string
   tenantId?: Prisma.StringFilter<"PunchApproval"> | string
-  timeEntryId?: Prisma.StringFilter<"PunchApproval"> | string
+  timeEntryId?: Prisma.StringNullableFilter<"PunchApproval"> | string | null
   employeeId?: Prisma.StringFilter<"PunchApproval"> | string
   reason?: Prisma.EnumPunchApprovalReasonFilter<"PunchApproval"> | $Enums.PunchApprovalReason
   details?: Prisma.JsonNullableFilter<"PunchApproval">
@@ -247,7 +247,7 @@ export type PunchApprovalWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"PunchApproval"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PunchApproval"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
-  timeEntry?: Prisma.XOR<Prisma.TimeEntryScalarRelationFilter, Prisma.TimeEntryWhereInput>
+  timeEntry?: Prisma.XOR<Prisma.TimeEntryNullableScalarRelationFilter, Prisma.TimeEntryWhereInput> | null
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
   linkedRequest?: Prisma.XOR<Prisma.EmployeeRequestNullableScalarRelationFilter, Prisma.EmployeeRequestWhereInput> | null
 }
@@ -255,7 +255,7 @@ export type PunchApprovalWhereInput = {
 export type PunchApprovalOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  timeEntryId?: Prisma.SortOrder
+  timeEntryId?: Prisma.SortOrderInput | Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   details?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -292,7 +292,7 @@ export type PunchApprovalWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"PunchApproval"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PunchApproval"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
-  timeEntry?: Prisma.XOR<Prisma.TimeEntryScalarRelationFilter, Prisma.TimeEntryWhereInput>
+  timeEntry?: Prisma.XOR<Prisma.TimeEntryNullableScalarRelationFilter, Prisma.TimeEntryWhereInput> | null
   employee?: Prisma.XOR<Prisma.EmployeeScalarRelationFilter, Prisma.EmployeeWhereInput>
   linkedRequest?: Prisma.XOR<Prisma.EmployeeRequestNullableScalarRelationFilter, Prisma.EmployeeRequestWhereInput> | null
 }, "id" | "timeEntryId">
@@ -300,7 +300,7 @@ export type PunchApprovalWhereUniqueInput = Prisma.AtLeast<{
 export type PunchApprovalOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  timeEntryId?: Prisma.SortOrder
+  timeEntryId?: Prisma.SortOrderInput | Prisma.SortOrder
   employeeId?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   details?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -323,7 +323,7 @@ export type PunchApprovalScalarWhereWithAggregatesInput = {
   NOT?: Prisma.PunchApprovalScalarWhereWithAggregatesInput | Prisma.PunchApprovalScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"PunchApproval"> | string
   tenantId?: Prisma.StringWithAggregatesFilter<"PunchApproval"> | string
-  timeEntryId?: Prisma.StringWithAggregatesFilter<"PunchApproval"> | string
+  timeEntryId?: Prisma.StringNullableWithAggregatesFilter<"PunchApproval"> | string | null
   employeeId?: Prisma.StringWithAggregatesFilter<"PunchApproval"> | string
   reason?: Prisma.EnumPunchApprovalReasonWithAggregatesFilter<"PunchApproval"> | $Enums.PunchApprovalReason
   details?: Prisma.JsonNullableWithAggregatesFilter<"PunchApproval">
@@ -349,7 +349,7 @@ export type PunchApprovalCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPunchApprovalsInput
-  timeEntry: Prisma.TimeEntryCreateNestedOneWithoutPunchApprovalInput
+  timeEntry?: Prisma.TimeEntryCreateNestedOneWithoutPunchApprovalInput
   employee: Prisma.EmployeeCreateNestedOneWithoutPunchApprovalsInput
   linkedRequest?: Prisma.EmployeeRequestCreateNestedOneWithoutLinkedPunchApprovalsInput
 }
@@ -357,7 +357,7 @@ export type PunchApprovalCreateInput = {
 export type PunchApprovalUncheckedCreateInput = {
   id?: string
   tenantId: string
-  timeEntryId: string
+  timeEntryId?: string | null
   employeeId: string
   reason: $Enums.PunchApprovalReason
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -383,7 +383,7 @@ export type PunchApprovalUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPunchApprovalsNestedInput
-  timeEntry?: Prisma.TimeEntryUpdateOneRequiredWithoutPunchApprovalNestedInput
+  timeEntry?: Prisma.TimeEntryUpdateOneWithoutPunchApprovalNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutPunchApprovalsNestedInput
   linkedRequest?: Prisma.EmployeeRequestUpdateOneWithoutLinkedPunchApprovalsNestedInput
 }
@@ -391,7 +391,7 @@ export type PunchApprovalUpdateInput = {
 export type PunchApprovalUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  timeEntryId?: Prisma.StringFieldUpdateOperationsInput | string
+  timeEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.EnumPunchApprovalReasonFieldUpdateOperationsInput | $Enums.PunchApprovalReason
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -408,7 +408,7 @@ export type PunchApprovalUncheckedUpdateInput = {
 export type PunchApprovalCreateManyInput = {
   id?: string
   tenantId: string
-  timeEntryId: string
+  timeEntryId?: string | null
   employeeId: string
   reason: $Enums.PunchApprovalReason
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -438,7 +438,7 @@ export type PunchApprovalUpdateManyMutationInput = {
 export type PunchApprovalUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  timeEntryId?: Prisma.StringFieldUpdateOperationsInput | string
+  timeEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.EnumPunchApprovalReasonFieldUpdateOperationsInput | $Enums.PunchApprovalReason
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -692,14 +692,14 @@ export type PunchApprovalCreateWithoutEmployeeInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPunchApprovalsInput
-  timeEntry: Prisma.TimeEntryCreateNestedOneWithoutPunchApprovalInput
+  timeEntry?: Prisma.TimeEntryCreateNestedOneWithoutPunchApprovalInput
   linkedRequest?: Prisma.EmployeeRequestCreateNestedOneWithoutLinkedPunchApprovalsInput
 }
 
 export type PunchApprovalUncheckedCreateWithoutEmployeeInput = {
   id?: string
   tenantId: string
-  timeEntryId: string
+  timeEntryId?: string | null
   reason: $Enums.PunchApprovalReason
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.PunchApprovalStatus
@@ -744,7 +744,7 @@ export type PunchApprovalScalarWhereInput = {
   NOT?: Prisma.PunchApprovalScalarWhereInput | Prisma.PunchApprovalScalarWhereInput[]
   id?: Prisma.StringFilter<"PunchApproval"> | string
   tenantId?: Prisma.StringFilter<"PunchApproval"> | string
-  timeEntryId?: Prisma.StringFilter<"PunchApproval"> | string
+  timeEntryId?: Prisma.StringNullableFilter<"PunchApproval"> | string | null
   employeeId?: Prisma.StringFilter<"PunchApproval"> | string
   reason?: Prisma.EnumPunchApprovalReasonFilter<"PunchApproval"> | $Enums.PunchApprovalReason
   details?: Prisma.JsonNullableFilter<"PunchApproval">
@@ -849,14 +849,14 @@ export type PunchApprovalCreateWithoutTenantInput = {
   evidenceFiles?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
-  timeEntry: Prisma.TimeEntryCreateNestedOneWithoutPunchApprovalInput
+  timeEntry?: Prisma.TimeEntryCreateNestedOneWithoutPunchApprovalInput
   employee: Prisma.EmployeeCreateNestedOneWithoutPunchApprovalsInput
   linkedRequest?: Prisma.EmployeeRequestCreateNestedOneWithoutLinkedPunchApprovalsInput
 }
 
 export type PunchApprovalUncheckedCreateWithoutTenantInput = {
   id?: string
-  timeEntryId: string
+  timeEntryId?: string | null
   employeeId: string
   reason: $Enums.PunchApprovalReason
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -908,14 +908,14 @@ export type PunchApprovalCreateWithoutLinkedRequestInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutPunchApprovalsInput
-  timeEntry: Prisma.TimeEntryCreateNestedOneWithoutPunchApprovalInput
+  timeEntry?: Prisma.TimeEntryCreateNestedOneWithoutPunchApprovalInput
   employee: Prisma.EmployeeCreateNestedOneWithoutPunchApprovalsInput
 }
 
 export type PunchApprovalUncheckedCreateWithoutLinkedRequestInput = {
   id?: string
   tenantId: string
-  timeEntryId: string
+  timeEntryId?: string | null
   employeeId: string
   reason: $Enums.PunchApprovalReason
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -957,7 +957,7 @@ export type PunchApprovalUpdateManyWithWhereWithoutLinkedRequestInput = {
 export type PunchApprovalCreateManyEmployeeInput = {
   id?: string
   tenantId: string
-  timeEntryId: string
+  timeEntryId?: string | null
   reason: $Enums.PunchApprovalReason
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.PunchApprovalStatus
@@ -982,14 +982,14 @@ export type PunchApprovalUpdateWithoutEmployeeInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPunchApprovalsNestedInput
-  timeEntry?: Prisma.TimeEntryUpdateOneRequiredWithoutPunchApprovalNestedInput
+  timeEntry?: Prisma.TimeEntryUpdateOneWithoutPunchApprovalNestedInput
   linkedRequest?: Prisma.EmployeeRequestUpdateOneWithoutLinkedPunchApprovalsNestedInput
 }
 
 export type PunchApprovalUncheckedUpdateWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  timeEntryId?: Prisma.StringFieldUpdateOperationsInput | string
+  timeEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reason?: Prisma.EnumPunchApprovalReasonFieldUpdateOperationsInput | $Enums.PunchApprovalReason
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumPunchApprovalStatusFieldUpdateOperationsInput | $Enums.PunchApprovalStatus
@@ -1005,7 +1005,7 @@ export type PunchApprovalUncheckedUpdateWithoutEmployeeInput = {
 export type PunchApprovalUncheckedUpdateManyWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  timeEntryId?: Prisma.StringFieldUpdateOperationsInput | string
+  timeEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reason?: Prisma.EnumPunchApprovalReasonFieldUpdateOperationsInput | $Enums.PunchApprovalReason
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumPunchApprovalStatusFieldUpdateOperationsInput | $Enums.PunchApprovalStatus
@@ -1020,7 +1020,7 @@ export type PunchApprovalUncheckedUpdateManyWithoutEmployeeInput = {
 
 export type PunchApprovalCreateManyTenantInput = {
   id?: string
-  timeEntryId: string
+  timeEntryId?: string | null
   employeeId: string
   reason: $Enums.PunchApprovalReason
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1045,14 +1045,14 @@ export type PunchApprovalUpdateWithoutTenantInput = {
   evidenceFiles?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  timeEntry?: Prisma.TimeEntryUpdateOneRequiredWithoutPunchApprovalNestedInput
+  timeEntry?: Prisma.TimeEntryUpdateOneWithoutPunchApprovalNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutPunchApprovalsNestedInput
   linkedRequest?: Prisma.EmployeeRequestUpdateOneWithoutLinkedPunchApprovalsNestedInput
 }
 
 export type PunchApprovalUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  timeEntryId?: Prisma.StringFieldUpdateOperationsInput | string
+  timeEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.EnumPunchApprovalReasonFieldUpdateOperationsInput | $Enums.PunchApprovalReason
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1068,7 +1068,7 @@ export type PunchApprovalUncheckedUpdateWithoutTenantInput = {
 
 export type PunchApprovalUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  timeEntryId?: Prisma.StringFieldUpdateOperationsInput | string
+  timeEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.EnumPunchApprovalReasonFieldUpdateOperationsInput | $Enums.PunchApprovalReason
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1085,7 +1085,7 @@ export type PunchApprovalUncheckedUpdateManyWithoutTenantInput = {
 export type PunchApprovalCreateManyLinkedRequestInput = {
   id?: string
   tenantId: string
-  timeEntryId: string
+  timeEntryId?: string | null
   employeeId: string
   reason: $Enums.PunchApprovalReason
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1110,14 +1110,14 @@ export type PunchApprovalUpdateWithoutLinkedRequestInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutPunchApprovalsNestedInput
-  timeEntry?: Prisma.TimeEntryUpdateOneRequiredWithoutPunchApprovalNestedInput
+  timeEntry?: Prisma.TimeEntryUpdateOneWithoutPunchApprovalNestedInput
   employee?: Prisma.EmployeeUpdateOneRequiredWithoutPunchApprovalsNestedInput
 }
 
 export type PunchApprovalUncheckedUpdateWithoutLinkedRequestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  timeEntryId?: Prisma.StringFieldUpdateOperationsInput | string
+  timeEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.EnumPunchApprovalReasonFieldUpdateOperationsInput | $Enums.PunchApprovalReason
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1133,7 +1133,7 @@ export type PunchApprovalUncheckedUpdateWithoutLinkedRequestInput = {
 export type PunchApprovalUncheckedUpdateManyWithoutLinkedRequestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  timeEntryId?: Prisma.StringFieldUpdateOperationsInput | string
+  timeEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employeeId?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.EnumPunchApprovalReasonFieldUpdateOperationsInput | $Enums.PunchApprovalReason
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1164,7 +1164,7 @@ export type PunchApprovalSelect<ExtArgs extends runtime.Types.Extensions.Interna
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
-  timeEntry?: boolean | Prisma.TimeEntryDefaultArgs<ExtArgs>
+  timeEntry?: boolean | Prisma.PunchApproval$timeEntryArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   linkedRequest?: boolean | Prisma.PunchApproval$linkedRequestArgs<ExtArgs>
 }, ExtArgs["result"]["punchApproval"]>
@@ -1185,7 +1185,7 @@ export type PunchApprovalSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
-  timeEntry?: boolean | Prisma.TimeEntryDefaultArgs<ExtArgs>
+  timeEntry?: boolean | Prisma.PunchApproval$timeEntryArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   linkedRequest?: boolean | Prisma.PunchApproval$linkedRequestArgs<ExtArgs>
 }, ExtArgs["result"]["punchApproval"]>
@@ -1206,7 +1206,7 @@ export type PunchApprovalSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
-  timeEntry?: boolean | Prisma.TimeEntryDefaultArgs<ExtArgs>
+  timeEntry?: boolean | Prisma.PunchApproval$timeEntryArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   linkedRequest?: boolean | Prisma.PunchApproval$linkedRequestArgs<ExtArgs>
 }, ExtArgs["result"]["punchApproval"]>
@@ -1231,19 +1231,19 @@ export type PunchApprovalSelectScalar = {
 export type PunchApprovalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "timeEntryId" | "employeeId" | "reason" | "details" | "status" | "resolverUserId" | "resolvedAt" | "resolverNote" | "evidenceFiles" | "linkedRequestId" | "createdAt" | "updatedAt", ExtArgs["result"]["punchApproval"]>
 export type PunchApprovalInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
-  timeEntry?: boolean | Prisma.TimeEntryDefaultArgs<ExtArgs>
+  timeEntry?: boolean | Prisma.PunchApproval$timeEntryArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   linkedRequest?: boolean | Prisma.PunchApproval$linkedRequestArgs<ExtArgs>
 }
 export type PunchApprovalIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
-  timeEntry?: boolean | Prisma.TimeEntryDefaultArgs<ExtArgs>
+  timeEntry?: boolean | Prisma.PunchApproval$timeEntryArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   linkedRequest?: boolean | Prisma.PunchApproval$linkedRequestArgs<ExtArgs>
 }
 export type PunchApprovalIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
-  timeEntry?: boolean | Prisma.TimeEntryDefaultArgs<ExtArgs>
+  timeEntry?: boolean | Prisma.PunchApproval$timeEntryArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
   linkedRequest?: boolean | Prisma.PunchApproval$linkedRequestArgs<ExtArgs>
 }
@@ -1252,14 +1252,14 @@ export type $PunchApprovalPayload<ExtArgs extends runtime.Types.Extensions.Inter
   name: "PunchApproval"
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
-    timeEntry: Prisma.$TimeEntryPayload<ExtArgs>
+    timeEntry: Prisma.$TimeEntryPayload<ExtArgs> | null
     employee: Prisma.$EmployeePayload<ExtArgs>
     linkedRequest: Prisma.$EmployeeRequestPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     tenantId: string
-    timeEntryId: string
+    timeEntryId: string | null
     employeeId: string
     reason: $Enums.PunchApprovalReason
     details: runtime.JsonValue | null
@@ -1666,7 +1666,7 @@ readonly fields: PunchApprovalFieldRefs;
 export interface Prisma__PunchApprovalClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  timeEntry<T extends Prisma.TimeEntryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TimeEntryDefaultArgs<ExtArgs>>): Prisma.Prisma__TimeEntryClient<runtime.Types.Result.GetResult<Prisma.$TimeEntryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  timeEntry<T extends Prisma.PunchApproval$timeEntryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PunchApproval$timeEntryArgs<ExtArgs>>): Prisma.Prisma__TimeEntryClient<runtime.Types.Result.GetResult<Prisma.$TimeEntryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   employee<T extends Prisma.EmployeeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeDefaultArgs<ExtArgs>>): Prisma.Prisma__EmployeeClient<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   linkedRequest<T extends Prisma.PunchApproval$linkedRequestArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PunchApproval$linkedRequestArgs<ExtArgs>>): Prisma.Prisma__EmployeeRequestClient<runtime.Types.Result.GetResult<Prisma.$EmployeeRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
@@ -2110,6 +2110,25 @@ export type PunchApprovalDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many PunchApprovals to delete.
    */
   limit?: number
+}
+
+/**
+ * PunchApproval.timeEntry
+ */
+export type PunchApproval$timeEntryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TimeEntry
+   */
+  select?: Prisma.TimeEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TimeEntry
+   */
+  omit?: Prisma.TimeEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TimeEntryInclude<ExtArgs> | null
+  where?: Prisma.TimeEntryWhereInput
 }
 
 /**

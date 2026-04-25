@@ -16507,7 +16507,14 @@ model PunchDeviceDepartment {
 model PunchApproval {
   id             String              @id @default(uuid())
   tenantId       String              @map("tenant_id")
-  timeEntryId    String              @unique @map("time_entry_id")
+  // Phase 8 / Plan 08-01 (D-07): nullable para suportar self-create cenário 2
+  // (funcionário pede registro de batida ausente — proposedTimestamp + entryType
+  // armazenados em `details`; gestor cria TimeEntry real via correctionPayload
+  // no resolve, lifecycle Phase 6-02). Quando o gestor cria a aprovação a
+  // partir de uma flag (Phase 4 OUT_OF_GEOFENCE / FACE_MATCH_LOW), o ExecutePunch
+  // continua passando timeEntryId no mesmo $transaction — comportamento original
+  // preservado.
+  timeEntryId    String?             @unique @map("time_entry_id")
   employeeId     String              @map("employee_id")
   reason         PunchApprovalReason
   details        Json?
@@ -16524,7 +16531,8 @@ model PunchApproval {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   tenant        Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  timeEntry     TimeEntry        @relation(fields: [timeEntryId], references: [id], onDelete: Cascade)
+  // Phase 8 / Plan 08-01 (D-07): timeEntry agora opcional para self-create.
+  timeEntry     TimeEntry?       @relation(fields: [timeEntryId], references: [id], onDelete: Cascade)
   employee      Employee         @relation(fields: [employeeId], references: [id])
   linkedRequest EmployeeRequest? @relation("PunchApprovalLinkedRequest", fields: [linkedRequestId], references: [id], onDelete: SetNull)
 

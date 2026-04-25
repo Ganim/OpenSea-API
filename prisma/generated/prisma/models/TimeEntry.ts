@@ -747,9 +747,9 @@ export type TimeEntrySumOrderByAggregateInput = {
   originNsrNumber?: Prisma.SortOrder
 }
 
-export type TimeEntryScalarRelationFilter = {
-  is?: Prisma.TimeEntryWhereInput
-  isNot?: Prisma.TimeEntryWhereInput
+export type TimeEntryNullableScalarRelationFilter = {
+  is?: Prisma.TimeEntryWhereInput | null
+  isNot?: Prisma.TimeEntryWhereInput | null
 }
 
 export type TimeEntryCreateNestedManyWithoutEmployeeInput = {
@@ -850,10 +850,12 @@ export type TimeEntryCreateNestedOneWithoutPunchApprovalInput = {
   connect?: Prisma.TimeEntryWhereUniqueInput
 }
 
-export type TimeEntryUpdateOneRequiredWithoutPunchApprovalNestedInput = {
+export type TimeEntryUpdateOneWithoutPunchApprovalNestedInput = {
   create?: Prisma.XOR<Prisma.TimeEntryCreateWithoutPunchApprovalInput, Prisma.TimeEntryUncheckedCreateWithoutPunchApprovalInput>
   connectOrCreate?: Prisma.TimeEntryCreateOrConnectWithoutPunchApprovalInput
   upsert?: Prisma.TimeEntryUpsertWithoutPunchApprovalInput
+  disconnect?: Prisma.TimeEntryWhereInput | boolean
+  delete?: Prisma.TimeEntryWhereInput | boolean
   connect?: Prisma.TimeEntryWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.TimeEntryUpdateToOneWithWhereWithoutPunchApprovalInput, Prisma.TimeEntryUpdateWithoutPunchApprovalInput>, Prisma.TimeEntryUncheckedUpdateWithoutPunchApprovalInput>
 }

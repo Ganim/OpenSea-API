@@ -4,6 +4,7 @@ import { rateLimitConfig } from '@/config/rate-limits';
 import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 
 import { v1BatchResolvePunchApprovalsController } from './v1-batch-resolve-punch-approvals.controller';
+import { v1CreateSelfPunchApprovalController } from './v1-create-self-punch-approval.controller';
 import { v1ListPunchApprovalsController } from './v1-list-punch-approvals.controller';
 import { v1ResolvePunchApprovalController } from './v1-resolve-punch-approval.controller';
 import { v1UploadPunchApprovalEvidenceController } from './v1-upload-punch-approval-evidence.controller';
@@ -29,6 +30,9 @@ export async function punchApprovalsRoutes(app: FastifyInstance) {
       mutationApp.register(v1ResolvePunchApprovalController);
       mutationApp.register(v1BatchResolvePunchApprovalsController);
       mutationApp.register(v1UploadPunchApprovalEvidenceController);
+      // Phase 8 / Plan 08-01 — D-07/D-08: funcionário cria justificativa própria
+      // via PWA pessoal (POST /v1/hr/punch-approvals — sem :id).
+      mutationApp.register(v1CreateSelfPunchApprovalController);
     },
     { prefix: '' },
   );

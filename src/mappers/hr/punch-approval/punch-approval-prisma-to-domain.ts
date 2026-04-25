@@ -47,7 +47,8 @@ export function punchApprovalPrismaToDomain(
     {
       id: new UniqueEntityID(raw.id),
       tenantId: new UniqueEntityID(raw.tenantId),
-      timeEntryId: new UniqueEntityID(raw.timeEntryId),
+      // Phase 8 / Plan 08-01 (D-07): timeEntryId nullable.
+      timeEntryId: raw.timeEntryId ? new UniqueEntityID(raw.timeEntryId) : null,
       employeeId: new UniqueEntityID(raw.employeeId),
       reason: raw.reason as PunchApprovalReason,
       details: (raw.details as Record<string, unknown> | null) ?? undefined,

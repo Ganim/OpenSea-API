@@ -17,6 +17,9 @@ export const punchApprovalStatusEnum = z.enum([
 export const punchApprovalReasonEnum = z.enum([
   'OUT_OF_GEOFENCE',
   'FACE_MATCH_LOW',
+  // Phase 8 / Plan 08-01 (D-07/D-08): funcionário antecipa justificativa pela
+  // PWA pessoal — bate atestado, esquece de bater, falta com motivo.
+  'EMPLOYEE_SELF_REQUEST',
 ]);
 
 // ────────────────────────────────────────────────────────────────────
@@ -52,7 +55,8 @@ export const linkedRequestSnapshotSchema = z.object({
 export const punchApprovalDtoSchema = z.object({
   id: z.string(),
   tenantId: z.string(),
-  timeEntryId: z.string(),
+  // Phase 8 / Plan 08-01 (D-07): nullable para self-create cenário 2.
+  timeEntryId: z.string().nullable(),
   employeeId: z.string(),
   reason: punchApprovalReasonEnum,
   details: z.record(z.string(), z.unknown()).nullable(),
@@ -140,4 +144,50 @@ export const uploadPunchApprovalEvidenceResponseSchema = z.object({
   size: z.number().int().positive(),
   uploadedAt: z.string(),
   filename: z.string(),
+});
+
+// ────────────────────────────────────────────────────────────────────
+// CREATE SELF (Phase 8 / Plan 08-01 — D-07/D-08)
+// ────────────────────────────────────────────────────────────────────
+//
+// Endpoint: POST /v1/hr/punch-approvals
+//
+// Funcionário comum (`hr.punch-approvals.access`) cria uma aprovação PENDING
+// para si próprio a partir da PWA pessoal. Dois cenários atendidos:
+//
+//  1) Justificar batida existente flagueada (timeEntryId).
+//  2) Solicitar a criação de uma batida ausente
+//     (proposedTimestamp + entryType — sem timeEntryId).
+//
+// O refine garante mutual exclusion mínima (pelo menos um dos dois caminhos).
+// `evidenceFileKeys.max(3)` honra D-08 (até 3 arquivos × 5MB).
+
+export const createSelfPunchApprovalBodySchema = z
+  .object({
+    timeEntryId: z.string().uuid().optional(),
+    proposedTimestamp: z.string().datetime().optional(),
+    entryType: z
+      .enum(['CLOCK_IN', 'CLOCK_OUT', 'BREAK_START', 'BREAK_END'])
+      .optional(),
+    reason: z.enum([
+      'OUT_OF_GEOFENCE',
+      'FACE_MATCH_LOW',
+      'EMPLOYEE_SELF_REQUEST',
+    ]),
+    note: z.string().min(10).max(1000).optional(),
+    evidenceFileKeys: z.array(z.string().min(1)).max(3).optional(),
+  })
+  .refine(
+    (data) =>
+      Boolean(data.timeEntryId) ||
+      Boolean(data.proposedTimestamp && data.entryType),
+    {
+      message: 'timeEntryId OR (proposedTimestamp + entryType) é obrigatório',
+    },
+  );
+
+export const createSelfPunchApprovalResponseSchema = z.object({
+  approvalId: z.string().uuid(),
+  status: z.literal('PENDING'),
+  createdAt: z.string(),
 });

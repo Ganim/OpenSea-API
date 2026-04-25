@@ -11,6 +11,7 @@ import { customerPortalPublicRoutes } from './customer-portal/routes';
 import { v1GetPublicAdmissionController } from './v1-get-public-admission.controller';
 import { v1SubmitCandidateDataController } from './v1-submit-candidate-data.controller';
 import { v1SignAdmissionDocumentController } from './v1-sign-admission-document.controller';
+import { v1GetVapidPublicKeyController } from './v1-get-vapid-public-key.controller';
 import { v1PunchVerifyPublicController } from './v1-punch-verify-public.controller';
 
 export async function publicRoutes(app: FastifyInstance) {
@@ -25,6 +26,10 @@ export async function publicRoutes(app: FastifyInstance) {
   app.register(v1GetPublicAdmissionController);
   app.register(v1SubmitCandidateDataController);
   app.register(v1SignAdmissionDocumentController);
+
+  // Phase 8 / Plan 08-01 — A1: VAPID public key (não-secreto, RFC 8292)
+  // Sem rate-limit (browser cacheia indefinidamente).
+  app.register(v1GetVapidPublicKeyController);
 }
 
 /**

@@ -28,9 +28,10 @@ export interface LinkedRequestSnapshot {
 export interface PunchApprovalDTO {
   id: string;
   tenantId: string;
-  timeEntryId: string;
+  // Phase 8 / Plan 08-01 (D-07): nullable para self-create cenário 2.
+  timeEntryId: string | null;
   employeeId: string;
-  reason: 'OUT_OF_GEOFENCE' | 'FACE_MATCH_LOW';
+  reason: 'OUT_OF_GEOFENCE' | 'FACE_MATCH_LOW' | 'EMPLOYEE_SELF_REQUEST';
   details: Record<string, unknown> | null;
   status: 'PENDING' | 'APPROVED' | 'REJECTED';
   resolverUserId: string | null;
@@ -49,7 +50,7 @@ export function punchApprovalToDTO(
   return {
     id: approval.id.toString(),
     tenantId: approval.tenantId.toString(),
-    timeEntryId: approval.timeEntryId.toString(),
+    timeEntryId: approval.timeEntryId?.toString() ?? null,
     employeeId: approval.employeeId.toString(),
     reason: approval.reason,
     details: approval.details ?? null,
