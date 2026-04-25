@@ -40,6 +40,9 @@ import { v1CashMovementController } from './cash/v1-cash-movement.controller';
 // Catalog (device-authenticated)
 import { posCatalogRoutes } from './catalog/routes';
 
+// Sales (device-authenticated)
+import { posSalesRoutes } from './sales/routes';
+
 export async function posRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('SALES'));
 
@@ -81,4 +84,7 @@ export async function posRoutes(app: FastifyInstance) {
 
   // Catalog (device-authenticated)
   await app.register(posCatalogRoutes);
+
+  // Sales (device-authenticated)
+  await app.register(posSalesRoutes);
 }

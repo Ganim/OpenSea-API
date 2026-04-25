@@ -38,6 +38,21 @@ export interface OrdersRepository {
   findById(id: UniqueEntityID, tenantId: string): Promise<Order | null>;
   findByNumber(orderNumber: string, tenantId: string): Promise<Order | null>;
   findBySaleCode(saleCode: string, tenantId: string): Promise<Order | null>;
+  /**
+   * Looks up an Order by its `saleLocalUuid` — the client-generated UUID v4
+   * the POS terminal assigns to a sale before it is synchronized to the API.
+   * This lookup is the canonical idempotency key for `POST /v1/pos/sales`
+   * (Emporion Plan A — Task 28): a second sync request bearing the same
+   * `saleLocalUuid` must short-circuit to `already_synced` instead of
+   * persisting a duplicate Order.
+   *
+   * Scoped to the tenant; soft-deleted Orders are excluded. Returns `null`
+   * when no Order matches.
+   */
+  findBySaleLocalUuid(
+    saleLocalUuid: string,
+    tenantId: string,
+  ): Promise<Order | null>;
   findCashierQueue(
     tenantId: string,
     params: FindCashierQueueParams,

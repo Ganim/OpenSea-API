@@ -54,6 +54,20 @@ export class InMemoryOrdersRepository implements OrdersRepository {
     );
   }
 
+  async findBySaleLocalUuid(
+    saleLocalUuid: string,
+    tenantId: string,
+  ): Promise<Order | null> {
+    return (
+      this.items.find(
+        (o) =>
+          o.saleLocalUuid === saleLocalUuid &&
+          o.tenantId.toString() === tenantId &&
+          !o.isDeleted,
+      ) ?? null
+    );
+  }
+
   async findCashierQueue(
     tenantId: string,
     params: FindCashierQueueParams,

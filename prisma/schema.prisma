@@ -1002,6 +1002,10 @@ enum AuditAction {
   POS_TERMINAL_ZONE_ASSIGN
   POS_TERMINAL_ZONE_UNASSIGN
 
+  // POS - Vendas (Emporion Plan A — Task 28)
+  POS_SALE_CREATE
+  POS_SALE_CONFLICT
+
   // HR - Ponto e Tempo
   CLOCK_IN
   CLOCK_OUT
@@ -1205,6 +1209,7 @@ enum AuditEntity {
   POS_SESSION
   POS_TRANSACTION
   POS_CASH_MOVEMENT
+  POS_ORDER_CONFLICT
 
   // Sales Evolution — Novos subsistemas
   QUOTE

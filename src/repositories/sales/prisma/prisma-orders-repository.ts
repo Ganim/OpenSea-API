@@ -106,6 +106,13 @@ export class PrismaOrdersRepository implements OrdersRepository {
         stageEnteredAt: order.stageEnteredAt,
         expiresAt: order.expiresAt ?? null,
         createdAt: order.createdAt,
+        // Emporion (Plan A — Tasks 5 + 21.5 + 28) — POS origin metadata.
+        // The mapper / use case populate these for terminal-originated sales;
+        // they are nullable for legacy WEB / API / MOBILE flows.
+        originSource: order.originSource.value,
+        posTerminalId: order.posTerminalId ?? null,
+        posOperatorEmployeeId: order.posOperatorEmployeeId ?? null,
+        saleLocalUuid: order.saleLocalUuid ?? null,
       },
     });
   }
@@ -146,6 +153,22 @@ export class PrismaOrdersRepository implements OrdersRepository {
     const data = await prisma.order.findFirst({
       where: {
         saleCode,
+        tenantId,
+        deletedAt: null,
+      },
+    });
+
+    if (!data) return null;
+    return orderPrismaToDomain(data);
+  }
+
+  async findBySaleLocalUuid(
+    saleLocalUuid: string,
+    tenantId: string,
+  ): Promise<Order | null> {
+    const data = await prisma.order.findFirst({
+      where: {
+        saleLocalUuid,
         tenantId,
         deletedAt: null,
       },

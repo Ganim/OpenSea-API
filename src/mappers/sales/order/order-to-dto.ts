@@ -34,6 +34,7 @@ export interface OrderDTO {
   // Fase 1 (Emporion) — origin + ack + fiscal
   originSource: 'WEB' | 'POS_DESKTOP' | 'API' | 'MOBILE';
   posTerminalId: string | null;
+  posSessionId: string | null;
   posOperatorEmployeeId: string | null;
   saleLocalUuid: string | null;
   ackReceivedAt: Date | null;
@@ -81,6 +82,7 @@ export function orderToDTO(order: Order): OrderDTO {
     expiresAt: order.expiresAt ?? null,
     originSource: order.originSource.value,
     posTerminalId: order.posTerminalId ?? null,
+    posSessionId: order.posSessionId?.toString() ?? null,
     posOperatorEmployeeId: order.posOperatorEmployeeId ?? null,
     saleLocalUuid: order.saleLocalUuid ?? null,
     ackReceivedAt: order.ackReceivedAt ?? null,

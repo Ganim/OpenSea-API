@@ -741,6 +741,24 @@ export const SALES_AUDIT_MESSAGES = {
       '{{userName}} removeu o vínculo da zona {{zoneId}} com o terminal {{terminalName}}',
   } satisfies AuditMessage,
 
+  /** Venda PDV (Emporion) sincronizada com sucesso a partir do terminal */
+  POS_SALE_CREATE: {
+    action: AuditAction.POS_SALE_CREATE,
+    entity: AuditEntity.ORDER,
+    module: AuditModule.SALES,
+    description:
+      'Venda PDV {{saleLocalUuid}} sincronizada do terminal {{posTerminalId}} (pedido {{orderNumber}})',
+  } satisfies AuditMessage,
+
+  /** Sincronização de venda PDV (Emporion) gerou conflito de estoque ou regra de fracionamento */
+  POS_SALE_CONFLICT: {
+    action: AuditAction.POS_SALE_CONFLICT,
+    entity: AuditEntity.POS_ORDER_CONFLICT,
+    module: AuditModule.SALES,
+    description:
+      'Conflito ao sincronizar venda PDV {{saleLocalUuid}} do terminal {{posTerminalId}} ({{conflictCount}} item(ns) com problema)',
+  } satisfies AuditMessage,
+
   // ============================================================================
   // PDV ORDER FLOW - Fluxo de pedidos PDV
   // ============================================================================
