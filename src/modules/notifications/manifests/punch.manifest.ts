@@ -21,7 +21,11 @@ import {
  *   - daily_digest (D-14 — resumo 18h),
  *   - exception_approval_requested (D-15 — actionable justificativa),
  *   - export_ready (D-11 — export async pronto pra download).
- * Total atual: 8.
+ * Phase 9 (Plan 09-01) adds 3 more for Antifraude Hardening:
+ *   - face_match_alert (D-11 — 3 falhas consecutivas de face match),
+ *   - missed_punch_manager (D-22/D-23 — gestor recebe lista agregada às 22h),
+ *   - missed_punch_employee (D-21/D-22 — funcionário recebe lembrete individual).
+ * Total atual: 11.
  *
  * Order value 35 places the section between HR (30) and Finance (40).
  */
@@ -114,6 +118,47 @@ export const punchManifest: ModuleNotificationManifest = {
       defaultType: NotificationType.INFORMATIONAL,
       defaultPriority: NotificationPriority.NORMAL,
       defaultChannels: [NotificationChannel.IN_APP],
+      digestSupported: false,
+    },
+    // Phase 9 — antifraude hardening (Plan 09-01 / D-11, D-21, D-22, D-23)
+    {
+      code: 'punch.face_match_alert',
+      name: 'Alerta de falha de face match',
+      description:
+        'Funcionário acumulou 3 falhas consecutivas de face match em 60min (D-11).',
+      defaultType: NotificationType.ACTIONABLE,
+      defaultPriority: NotificationPriority.HIGH,
+      // D-11: e-mail só se preferences allow (não default).
+      defaultChannels: [NotificationChannel.IN_APP, NotificationChannel.PUSH],
+      digestSupported: false,
+    },
+    {
+      code: 'punch.missed_punch_manager',
+      name: 'Funcionários sem batida no dia',
+      description:
+        '1 notificação agregada por gestor às 22h com lista de até 5 funcionários ausentes (D-23).',
+      defaultType: NotificationType.INFORMATIONAL,
+      defaultPriority: NotificationPriority.HIGH,
+      // D-22: 3 canais override do recommended (push + in-app + e-mail).
+      defaultChannels: [
+        NotificationChannel.IN_APP,
+        NotificationChannel.PUSH,
+        NotificationChannel.EMAIL,
+      ],
+      digestSupported: false,
+    },
+    {
+      code: 'punch.missed_punch_employee',
+      name: 'Você não bateu ponto hoje',
+      description:
+        'Lembrete ao funcionário individual que não bateu ponto até 22h (D-21/D-22).',
+      defaultType: NotificationType.INFORMATIONAL,
+      defaultPriority: NotificationPriority.NORMAL,
+      defaultChannels: [
+        NotificationChannel.IN_APP,
+        NotificationChannel.PUSH,
+        NotificationChannel.EMAIL,
+      ],
       digestSupported: false,
     },
   ],
