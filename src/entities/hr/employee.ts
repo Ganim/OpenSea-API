@@ -81,6 +81,8 @@ export interface EmployeeProps {
   childBirthDate?: Date;
   metadata: Record<string, unknown>;
   pendingIssues: string[];
+  // Fase 1 (Emporion) — short ID (used by POS operator login)
+  shortId?: string | null;
   // Phase 5 — kiosk badge QR token (D-15) + PIN fallback (D-08)
   qrTokenHash?: string | null;
   qrTokenSetAt?: Date | null;
@@ -335,6 +337,16 @@ export class Employee extends Entity<EmployeeProps> {
     return this.props.pendingIssues;
   }
 
+  // Fase 1 (Emporion) — short ID
+  get shortId(): string | null | undefined {
+    return this.props.shortId;
+  }
+
+  set shortId(value: string | null | undefined) {
+    this.props.shortId = value;
+    this.props.updatedAt = new Date();
+  }
+
   get deletedAt(): Date | undefined {
     return this.props.deletedAt;
   }
@@ -542,6 +554,7 @@ export class Employee extends Entity<EmployeeProps> {
         ...props,
         isPregnant: props.isPregnant ?? false,
         pendingIssues: props.pendingIssues ?? [],
+        shortId: props.shortId ?? null,
         createdAt,
         updatedAt,
       },

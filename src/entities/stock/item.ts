@@ -30,6 +30,8 @@ export interface ItemProps {
   manufacturingDate?: Date;
   expiryDate?: Date;
   exitMovementType?: string;
+  // Fase 1 (Emporion) — fractional sale flag (per-item override)
+  fractionalSaleEnabled: boolean;
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date;
@@ -204,6 +206,16 @@ export class Item extends Entity<ItemProps> {
     this.touch();
   }
 
+  // Fase 1 (Emporion) — fractional sale flag
+  get fractionalSaleEnabled(): boolean {
+    return this.props.fractionalSaleEnabled;
+  }
+
+  set fractionalSaleEnabled(value: boolean) {
+    this.props.fractionalSaleEnabled = value;
+    this.touch();
+  }
+
   get createdAt(): Date {
     return this.props.createdAt;
   }
@@ -262,7 +274,13 @@ export class Item extends Entity<ItemProps> {
   }
 
   get isEmpty(): boolean {
-    return this.props.currentQuantity === 0;
+    return Number(this.props.currentQuantity) === 0;
+  }
+
+  get isOpened(): boolean {
+    return (
+      Number(this.props.currentQuantity) < Number(this.props.initialQuantity)
+    );
   }
 
   get canBeSold(): boolean {
@@ -357,7 +375,13 @@ export class Item extends Entity<ItemProps> {
   static create(
     props: Optional<
       ItemProps,
-      'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'attributes' | 'status'
+      | 'id'
+      | 'createdAt'
+      | 'updatedAt'
+      | 'deletedAt'
+      | 'attributes'
+      | 'status'
+      | 'fractionalSaleEnabled'
     >,
     id?: UniqueEntityID,
   ): Item {
@@ -367,6 +391,7 @@ export class Item extends Entity<ItemProps> {
         id: id ?? new UniqueEntityID(),
         attributes: props.attributes ?? {},
         status: props.status ?? ItemStatus.create('AVAILABLE'),
+        fractionalSaleEnabled: props.fractionalSaleEnabled ?? false,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt,
         deletedAt: props.deletedAt,

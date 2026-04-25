@@ -2,6 +2,8 @@ import { randomBytes } from 'node:crypto';
 import { Entity } from '../domain/entities';
 import type { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
+import { PosCoordinationMode } from './value-objects/pos-coordination-mode';
+import { PosOperatorSessionMode } from './value-objects/pos-operator-session-mode';
 
 export type PosTerminalMode =
   | 'SALES_ONLY'
@@ -27,6 +29,12 @@ export interface PosTerminalProps {
   lastSyncAt?: Date;
   lastOnlineAt?: Date;
   settings?: Record<string, unknown>;
+  // Fase 1 (Emporion) — operator session + coordination + applied profile
+  operatorSessionMode: PosOperatorSessionMode;
+  operatorSessionTimeout?: number | null;
+  autoCloseSessionAt?: string | null;
+  coordinationMode: PosCoordinationMode;
+  appliedProfileId?: UniqueEntityID | null;
   createdAt: Date;
   updatedAt?: Date;
 }
@@ -125,6 +133,39 @@ export class PosTerminal extends Entity<PosTerminalProps> {
   set settings(value: Record<string, unknown> | undefined) {
     this.props.settings = value;
   }
+
+  // Fase 1 (Emporion) — operator session + coordination
+  get operatorSessionMode(): PosOperatorSessionMode {
+    return this.props.operatorSessionMode;
+  }
+  set operatorSessionMode(value: PosOperatorSessionMode) {
+    this.props.operatorSessionMode = value;
+  }
+  get operatorSessionTimeout(): number | null | undefined {
+    return this.props.operatorSessionTimeout;
+  }
+  set operatorSessionTimeout(value: number | null | undefined) {
+    this.props.operatorSessionTimeout = value;
+  }
+  get autoCloseSessionAt(): string | null | undefined {
+    return this.props.autoCloseSessionAt;
+  }
+  set autoCloseSessionAt(value: string | null | undefined) {
+    this.props.autoCloseSessionAt = value;
+  }
+  get coordinationMode(): PosCoordinationMode {
+    return this.props.coordinationMode;
+  }
+  set coordinationMode(value: PosCoordinationMode) {
+    this.props.coordinationMode = value;
+  }
+  get appliedProfileId(): UniqueEntityID | null | undefined {
+    return this.props.appliedProfileId;
+  }
+  set appliedProfileId(value: UniqueEntityID | null | undefined) {
+    this.props.appliedProfileId = value;
+  }
+
   get createdAt() {
     return this.props.createdAt;
   }
@@ -141,6 +182,11 @@ export class PosTerminal extends Entity<PosTerminalProps> {
       | 'acceptsPendingOrders'
       | 'requiresSession'
       | 'allowAnonymous'
+      | 'operatorSessionMode'
+      | 'operatorSessionTimeout'
+      | 'autoCloseSessionAt'
+      | 'coordinationMode'
+      | 'appliedProfileId'
     >,
     id?: UniqueEntityID,
   ) {
@@ -153,6 +199,13 @@ export class PosTerminal extends Entity<PosTerminalProps> {
         requiresSession: props.requiresSession ?? true,
         allowAnonymous: props.allowAnonymous ?? false,
         pairingSecret: props.pairingSecret ?? randomBytes(32).toString('hex'),
+        operatorSessionMode:
+          props.operatorSessionMode ?? PosOperatorSessionMode.PER_SALE(),
+        operatorSessionTimeout: props.operatorSessionTimeout ?? null,
+        autoCloseSessionAt: props.autoCloseSessionAt ?? null,
+        coordinationMode:
+          props.coordinationMode ?? PosCoordinationMode.STANDALONE(),
+        appliedProfileId: props.appliedProfileId ?? null,
         createdAt: props.createdAt ?? new Date(),
       },
       id ?? props.id,

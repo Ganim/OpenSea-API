@@ -14,6 +14,9 @@ export interface ZoneProps {
   structure: ZoneStructure;
   layout: ZoneLayout | null;
   isActive: boolean;
+  // Fase 1 (Emporion) — fractional sale config
+  allowsFractionalSale: boolean;
+  minFractionalSale?: number | null;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;
@@ -55,6 +58,25 @@ export class Zone extends Entity<ZoneProps> {
 
   get isActive(): boolean {
     return this.props.isActive;
+  }
+
+  // Fase 1 (Emporion) — fractional sale config
+  get allowsFractionalSale(): boolean {
+    return this.props.allowsFractionalSale;
+  }
+
+  set allowsFractionalSale(value: boolean) {
+    this.props.allowsFractionalSale = value;
+    this.touch();
+  }
+
+  get minFractionalSale(): number | null | undefined {
+    return this.props.minFractionalSale;
+  }
+
+  set minFractionalSale(value: number | null | undefined) {
+    this.props.minFractionalSale = value;
+    this.touch();
   }
 
   get createdAt(): Date {
@@ -161,7 +183,14 @@ export class Zone extends Entity<ZoneProps> {
   static create(
     props: Optional<
       ZoneProps,
-      'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'isActive' | 'layout'
+      | 'id'
+      | 'createdAt'
+      | 'updatedAt'
+      | 'deletedAt'
+      | 'isActive'
+      | 'layout'
+      | 'allowsFractionalSale'
+      | 'minFractionalSale'
     >,
     id?: UniqueEntityID,
   ): Zone {
@@ -174,6 +203,8 @@ export class Zone extends Entity<ZoneProps> {
         code: props.code.toUpperCase(),
         layout: props.layout ?? null,
         isActive: props.isActive ?? true,
+        allowsFractionalSale: props.allowsFractionalSale ?? false,
+        minFractionalSale: props.minFractionalSale ?? null,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt ?? new Date(),
         deletedAt: props.deletedAt ?? null,

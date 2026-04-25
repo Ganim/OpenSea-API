@@ -33,6 +33,8 @@ export interface VariantProps {
   similars?: unknown[];
   outOfLine: boolean;
   isActive: boolean;
+  // Fase 1 (Emporion) — fractional sale flag (e.g., bulk goods)
+  fractionalAllowed: boolean;
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date;
@@ -289,6 +291,16 @@ export class Variant extends Entity<VariantProps> {
     this.touch();
   }
 
+  // Fase 1 (Emporion) — fractional sale flag
+  get fractionalAllowed(): boolean {
+    return this.props.fractionalAllowed;
+  }
+
+  set fractionalAllowed(value: boolean) {
+    this.props.fractionalAllowed = value;
+    this.touch();
+  }
+
   get createdAt(): Date {
     return this.props.createdAt;
   }
@@ -418,6 +430,7 @@ export class Variant extends Entity<VariantProps> {
       | 'price'
       | 'isActive'
       | 'outOfLine'
+      | 'fractionalAllowed'
     >,
     id?: UniqueEntityID,
   ): Variant {
@@ -429,6 +442,7 @@ export class Variant extends Entity<VariantProps> {
         price: props.price ?? 0,
         isActive: props.isActive ?? true,
         outOfLine: props.outOfLine ?? false,
+        fractionalAllowed: props.fractionalAllowed ?? false,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt,
         deletedAt: props.deletedAt,

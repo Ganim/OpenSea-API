@@ -1,6 +1,8 @@
 import { Entity } from '../domain/entities';
 import type { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
+import { OrderOriginSource } from './value-objects/order-origin-source';
+import { PosFiscalDocumentType } from './value-objects/pos-fiscal-document-type';
 
 export type OrderType = 'QUOTE' | 'ORDER';
 
@@ -85,6 +87,19 @@ export interface OrderProps {
   claimedByUserId?: UniqueEntityID;
   claimedAt?: Date;
   version: number;
+
+  // Fase 1 (Emporion) — origin + ack + fiscal
+  originSource: OrderOriginSource;
+  posTerminalId?: string | null;
+  posOperatorEmployeeId?: string | null;
+  saleLocalUuid?: string | null;
+  ackReceivedAt?: Date | null;
+  fiscalDocumentType?: PosFiscalDocumentType | null;
+  fiscalDocumentNumber?: number | null;
+  fiscalAccessKey?: string | null;
+  fiscalAuthorizationProtocol?: string | null;
+  fiscalEmittedAt?: Date | null;
+  fiscalEmissionStatus?: string | null;
 
   // Metadata
   notes?: string;
@@ -447,6 +462,106 @@ export class Order extends Entity<OrderProps> {
     return this.props.updatedAt;
   }
 
+  // Fase 1 (Emporion) — origin + ack + fiscal getters/setters
+  get originSource(): OrderOriginSource {
+    return this.props.originSource;
+  }
+
+  set originSource(value: OrderOriginSource) {
+    this.props.originSource = value;
+    this.touch();
+  }
+
+  get posTerminalId(): string | null | undefined {
+    return this.props.posTerminalId;
+  }
+
+  set posTerminalId(value: string | null | undefined) {
+    this.props.posTerminalId = value;
+    this.touch();
+  }
+
+  get posOperatorEmployeeId(): string | null | undefined {
+    return this.props.posOperatorEmployeeId;
+  }
+
+  set posOperatorEmployeeId(value: string | null | undefined) {
+    this.props.posOperatorEmployeeId = value;
+    this.touch();
+  }
+
+  get saleLocalUuid(): string | null | undefined {
+    return this.props.saleLocalUuid;
+  }
+
+  set saleLocalUuid(value: string | null | undefined) {
+    this.props.saleLocalUuid = value;
+    this.touch();
+  }
+
+  get ackReceivedAt(): Date | null | undefined {
+    return this.props.ackReceivedAt;
+  }
+
+  set ackReceivedAt(value: Date | null | undefined) {
+    this.props.ackReceivedAt = value;
+    this.touch();
+  }
+
+  get fiscalDocumentType(): PosFiscalDocumentType | null | undefined {
+    return this.props.fiscalDocumentType;
+  }
+
+  set fiscalDocumentType(value: PosFiscalDocumentType | null | undefined) {
+    this.props.fiscalDocumentType = value;
+    this.touch();
+  }
+
+  get fiscalDocumentNumber(): number | null | undefined {
+    return this.props.fiscalDocumentNumber;
+  }
+
+  set fiscalDocumentNumber(value: number | null | undefined) {
+    this.props.fiscalDocumentNumber = value;
+    this.touch();
+  }
+
+  get fiscalAccessKey(): string | null | undefined {
+    return this.props.fiscalAccessKey;
+  }
+
+  set fiscalAccessKey(value: string | null | undefined) {
+    this.props.fiscalAccessKey = value;
+    this.touch();
+  }
+
+  get fiscalAuthorizationProtocol(): string | null | undefined {
+    return this.props.fiscalAuthorizationProtocol;
+  }
+
+  set fiscalAuthorizationProtocol(value: string | null | undefined) {
+    this.props.fiscalAuthorizationProtocol = value;
+    this.touch();
+  }
+
+  get fiscalEmittedAt(): Date | null | undefined {
+    return this.props.fiscalEmittedAt;
+  }
+
+  set fiscalEmittedAt(value: Date | null | undefined) {
+    this.props.fiscalEmittedAt = value;
+    this.touch();
+  }
+
+  get fiscalEmissionStatus(): string | null | undefined {
+    return this.props.fiscalEmissionStatus;
+  }
+
+  set fiscalEmissionStatus(value: string | null | undefined) {
+    this.props.fiscalEmissionStatus = value;
+    this.touch();
+  }
+
   confirm(approvedByUserId?: UniqueEntityID): void {
     this.props.confirmedAt = new Date();
     if (approvedByUserId) {
@@ -511,6 +626,17 @@ export class Order extends Entity<OrderProps> {
       | 'stageEnteredAt'
       | 'status'
       | 'version'
+      | 'originSource'
+      | 'posTerminalId'
+      | 'posOperatorEmployeeId'
+      | 'saleLocalUuid'
+      | 'ackReceivedAt'
+      | 'fiscalDocumentType'
+      | 'fiscalDocumentNumber'
+      | 'fiscalAccessKey'
+      | 'fiscalAuthorizationProtocol'
+      | 'fiscalEmittedAt'
+      | 'fiscalEmissionStatus'
     >,
     id?: UniqueEntityID,
   ): Order {
@@ -542,6 +668,17 @@ export class Order extends Entity<OrderProps> {
         needsApproval: props.needsApproval ?? false,
         stageEnteredAt: props.stageEnteredAt ?? new Date(),
         version: props.version ?? 1,
+        originSource: props.originSource ?? OrderOriginSource.WEB(),
+        posTerminalId: props.posTerminalId ?? null,
+        posOperatorEmployeeId: props.posOperatorEmployeeId ?? null,
+        saleLocalUuid: props.saleLocalUuid ?? null,
+        ackReceivedAt: props.ackReceivedAt ?? null,
+        fiscalDocumentType: props.fiscalDocumentType ?? null,
+        fiscalDocumentNumber: props.fiscalDocumentNumber ?? null,
+        fiscalAccessKey: props.fiscalAccessKey ?? null,
+        fiscalAuthorizationProtocol: props.fiscalAuthorizationProtocol ?? null,
+        fiscalEmittedAt: props.fiscalEmittedAt ?? null,
+        fiscalEmissionStatus: props.fiscalEmissionStatus ?? null,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt,
         deletedAt: props.deletedAt,
