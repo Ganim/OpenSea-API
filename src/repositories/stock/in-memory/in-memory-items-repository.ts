@@ -79,6 +79,31 @@ export class InMemoryItemsRepository implements ItemsRepository {
     );
   }
 
+  async findManyByZoneIds(
+    zoneIds: string[],
+    tenantId: string,
+    sinceDate?: Date,
+  ): Promise<Item[]> {
+    if (zoneIds.length === 0) return [];
+    const zoneIdSet = new Set(zoneIds);
+
+    return this.items.filter((item) => {
+      if (item.deletedAt) return false;
+      if (item.tenantId.toString() !== tenantId) return false;
+      if (!item.binId) return false;
+
+      const bin = this.relatedData.bins.get(item.binId.toString());
+      if (!bin || !bin.zoneId) return false;
+      if (!zoneIdSet.has(bin.zoneId)) return false;
+
+      if (sinceDate) {
+        const candidate = item.updatedAt ?? item.createdAt;
+        if (candidate < sinceDate) return false;
+      }
+      return true;
+    });
+  }
+
   async findByUniqueCode(
     uniqueCode: string,
     tenantId: string,

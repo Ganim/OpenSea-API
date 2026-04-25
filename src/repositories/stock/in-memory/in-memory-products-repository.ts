@@ -66,6 +66,25 @@ export class InMemoryProductsRepository implements ProductsRepository {
     return product ?? null;
   }
 
+  async findManyByIds(
+    ids: UniqueEntityID[],
+    tenantId: string,
+    sinceDate?: Date,
+  ): Promise<Product[]> {
+    if (ids.length === 0) return [];
+    const idSet = new Set(ids.map((id) => id.toString()));
+    return this.items.filter((product) => {
+      if (product.deletedAt) return false;
+      if (!idSet.has(product.id.toString())) return false;
+      if (product.tenantId.toString() !== tenantId) return false;
+      if (sinceDate) {
+        const candidate = product.updatedAt ?? product.createdAt;
+        if (candidate < sinceDate) return false;
+      }
+      return true;
+    });
+  }
+
   async findByFullCode(
     fullCode: string,
     tenantId: string,

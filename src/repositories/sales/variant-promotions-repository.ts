@@ -31,6 +31,23 @@ export interface VariantPromotionsRepository {
   findManyActiveByVariant(
     variantId: UniqueEntityID,
   ): Promise<VariantPromotion[]>;
+  /**
+   * Bulk lookup of currently-valid promotions covering a list of variants.
+   * "Currently valid" means `isActive = true` AND `startDate <= now <= endDate`.
+   * Soft-deleted promotions (`deletedAt != null`) are skipped.
+   *
+   * Used by the POS catalog delta endpoint (Emporion Phase 1) to ship the
+   * promotions that apply to the variants returned for a terminal's zones.
+   * Returns `[]` for an empty `variantIds` argument without hitting the
+   * database.
+   *
+   * Note: tenant isolation is delegated to the variant scope — promotions are
+   * physically owned by their parent variant (cascade-on-delete) and the
+   * caller is expected to have already filtered the variant list by tenant.
+   */
+  findActiveForVariants(
+    variantIds: UniqueEntityID[],
+  ): Promise<VariantPromotion[]>;
   update(data: UpdateVariantPromotionSchema): Promise<VariantPromotion | null>;
   save(promotion: VariantPromotion): Promise<void>;
   delete(id: UniqueEntityID): Promise<void>;

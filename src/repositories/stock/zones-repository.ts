@@ -35,6 +35,17 @@ export interface UpdateZoneLayoutSchema {
 export interface ZonesRepository {
   create(data: CreateZoneSchema): Promise<Zone>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Zone | null>;
+  /**
+   * Bulk lookup of zones by id, scoped to a tenant. Used by the POS catalog
+   * delta endpoint (Emporion Phase 1) which receives a list of zoneIds derived
+   * from `pos_terminal_zones` and needs to materialize the corresponding
+   * `Zone` entities in a single round-trip.
+   *
+   * Skips soft-deleted rows. IDs that do not belong to the tenant (or are
+   * soft-deleted) are silently omitted from the result. Returns `[]` for an
+   * empty `ids` argument without hitting the database.
+   */
+  findManyByIds(ids: UniqueEntityID[], tenantId: string): Promise<Zone[]>;
   findByCode(
     warehouseId: UniqueEntityID,
     code: string,

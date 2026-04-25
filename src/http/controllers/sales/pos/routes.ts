@@ -37,6 +37,9 @@ import { v1ListTransactionsController } from './transactions/v1-list-transaction
 // Cash
 import { v1CashMovementController } from './cash/v1-cash-movement.controller';
 
+// Catalog (device-authenticated)
+import { posCatalogRoutes } from './catalog/routes';
+
 export async function posRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('SALES'));
 
@@ -75,4 +78,7 @@ export async function posRoutes(app: FastifyInstance) {
 
   // Cash
   await app.register(v1CashMovementController);
+
+  // Catalog (device-authenticated)
+  await app.register(posCatalogRoutes);
 }

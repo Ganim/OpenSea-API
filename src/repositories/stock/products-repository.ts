@@ -39,6 +39,20 @@ export interface UpdateProductSchema {
 export interface ProductsRepository {
   create(data: CreateProductSchema): Promise<Product>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Product | null>;
+  /**
+   * Bulk lookup of products by id, scoped to a tenant. Used by the POS catalog
+   * delta endpoint (Emporion Phase 1) to materialize products for the variants
+   * that came back from the bulk variant lookup.
+   *
+   * When `sinceDate` is provided, only products with `updatedAt >= sinceDate`
+   * are returned (incremental sync). Skips soft-deleted rows. Returns `[]`
+   * for an empty `ids` argument without hitting the database.
+   */
+  findManyByIds(
+    ids: UniqueEntityID[],
+    tenantId: string,
+    sinceDate?: Date,
+  ): Promise<Product[]>;
   findByFullCode(fullCode: string, tenantId: string): Promise<Product | null>;
   findByName(name: string, tenantId: string): Promise<Product | null>;
   findManyByNames(names: string[], tenantId: string): Promise<Product[]>;

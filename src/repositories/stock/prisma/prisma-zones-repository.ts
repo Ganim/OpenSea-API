@@ -100,6 +100,23 @@ export class PrismaZonesRepository implements ZonesRepository {
     return mapToZone(zoneData);
   }
 
+  async findManyByIds(
+    ids: UniqueEntityID[],
+    tenantId: string,
+  ): Promise<Zone[]> {
+    if (ids.length === 0) return [];
+
+    const zones = await prisma.zone.findMany({
+      where: {
+        id: { in: ids.map((id) => id.toString()) },
+        tenantId,
+        deletedAt: null,
+      },
+    });
+
+    return zones.map(mapToZone);
+  }
+
   async findByCode(
     warehouseId: UniqueEntityID,
     code: string,

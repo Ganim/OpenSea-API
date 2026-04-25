@@ -606,6 +606,27 @@ export class PrismaItemsRepository implements ItemsRepository {
     return items.map((item) => this.toDomainItem(item));
   }
 
+  async findManyByZoneIds(
+    zoneIds: string[],
+    tenantId: string,
+    sinceDate?: Date,
+  ): Promise<Item[]> {
+    if (zoneIds.length === 0) return [];
+
+    const items = await prisma.item.findMany({
+      where: {
+        tenantId,
+        deletedAt: null,
+        bin: {
+          zoneId: { in: zoneIds },
+        },
+        ...(sinceDate ? { updatedAt: { gte: sinceDate } } : {}),
+      },
+    });
+
+    return items.map((item) => this.toDomainItem(item));
+  }
+
   async findByIdWithRelations(
     id: UniqueEntityID,
     tenantId: string,

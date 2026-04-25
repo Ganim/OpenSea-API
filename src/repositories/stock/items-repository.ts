@@ -110,6 +110,23 @@ export interface ItemsRepository {
     variantId: UniqueEntityID,
     tenantId: string,
   ): Promise<Item[]>;
+  /**
+   * Bulk lookup of items whose `bin.zoneId` is in the supplied set, scoped to
+   * a tenant. Used by the POS catalog delta endpoint (Emporion Phase 1) to
+   * select the items that belong to the zones associated with the requesting
+   * terminal.
+   *
+   * When `sinceDate` is provided, only items with `updatedAt >= sinceDate`
+   * are returned (incremental sync). Skips soft-deleted rows. Items without a
+   * `binId` (i.e. unallocated) are excluded — the catalog delta only ships
+   * items that are physically present in one of the terminal's zones. Returns
+   * `[]` for an empty `zoneIds` argument without hitting the database.
+   */
+  findManyByZoneIds(
+    zoneIds: string[],
+    tenantId: string,
+    sinceDate?: Date,
+  ): Promise<Item[]>;
   findManyByProduct(
     productId: UniqueEntityID,
     tenantId: string,

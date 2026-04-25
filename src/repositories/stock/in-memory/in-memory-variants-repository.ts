@@ -65,6 +65,25 @@ export class InMemoryVariantsRepository implements VariantsRepository {
     return variant ?? null;
   }
 
+  async findManyByIds(
+    ids: UniqueEntityID[],
+    tenantId: string,
+    sinceDate?: Date,
+  ): Promise<Variant[]> {
+    if (ids.length === 0) return [];
+    const idSet = new Set(ids.map((id) => id.toString()));
+    return this.items.filter((item) => {
+      if (item.deletedAt) return false;
+      if (!idSet.has(item.id.toString())) return false;
+      if (item.tenantId.toString() !== tenantId) return false;
+      if (sinceDate) {
+        const candidate = item.updatedAt ?? item.createdAt;
+        if (candidate < sinceDate) return false;
+      }
+      return true;
+    });
+  }
+
   async findByFullCode(
     fullCode: string,
     tenantId: string,

@@ -50,6 +50,17 @@ export class InMemoryVariantPromotionsRepository
     );
   }
 
+  async findActiveForVariants(
+    variantIds: UniqueEntityID[],
+  ): Promise<VariantPromotion[]> {
+    if (variantIds.length === 0) return [];
+    const variantIdSet = new Set(variantIds.map((id) => id.toString()));
+    return this.items.filter(
+      (item) =>
+        variantIdSet.has(item.variantId.toString()) && item.isCurrentlyValid,
+    );
+  }
+
   async update(
     data: UpdateVariantPromotionSchema,
   ): Promise<VariantPromotion | null> {

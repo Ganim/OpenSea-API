@@ -42,6 +42,20 @@ export class InMemoryZonesRepository implements ZonesRepository {
     return zone ?? null;
   }
 
+  async findManyByIds(
+    ids: UniqueEntityID[],
+    tenantId: string,
+  ): Promise<Zone[]> {
+    if (ids.length === 0) return [];
+    const idSet = new Set(ids.map((id) => id.toString()));
+    return this.zones.filter(
+      (z) =>
+        !z.deletedAt &&
+        idSet.has(z.zoneId.toString()) &&
+        z.tenantId.toString() === tenantId,
+    );
+  }
+
   async findByCode(
     warehouseId: UniqueEntityID,
     code: string,

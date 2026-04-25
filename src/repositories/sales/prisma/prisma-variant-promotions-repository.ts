@@ -166,6 +166,43 @@ export class PrismaVariantPromotionsRepository
     );
   }
 
+  async findActiveForVariants(
+    variantIds: UniqueEntityID[],
+  ): Promise<VariantPromotion[]> {
+    if (variantIds.length === 0) return [];
+    const now = new Date();
+
+    const promotionsData = await prisma.variantPromotion.findMany({
+      where: {
+        variantId: { in: variantIds.map((id) => id.toString()) },
+        isActive: true,
+        deletedAt: null,
+        startDate: { lte: now },
+        endDate: { gte: now },
+      },
+      orderBy: { startDate: 'desc' },
+    });
+
+    return promotionsData.map((promotionData) =>
+      VariantPromotion.create(
+        {
+          variantId: new EntityID(promotionData.variantId),
+          name: promotionData.name,
+          discountType: DiscountType.create(promotionData.discountType),
+          discountValue: Number(promotionData.discountValue),
+          startDate: promotionData.startDate,
+          endDate: promotionData.endDate,
+          isActive: promotionData.isActive,
+          notes: promotionData.notes ?? undefined,
+          createdAt: promotionData.createdAt,
+          updatedAt: promotionData.updatedAt,
+          deletedAt: promotionData.deletedAt ?? undefined,
+        },
+        new EntityID(promotionData.id),
+      ),
+    );
+  }
+
   async update(
     data: UpdateVariantPromotionSchema,
   ): Promise<VariantPromotion | null> {

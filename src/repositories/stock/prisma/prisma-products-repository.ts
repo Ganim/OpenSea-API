@@ -166,6 +166,26 @@ export class PrismaProductsRepository implements ProductsRepository {
     return productPrismaToDomain(productData);
   }
 
+  async findManyByIds(
+    ids: UniqueEntityID[],
+    tenantId: string,
+    sinceDate?: Date,
+  ): Promise<Product[]> {
+    if (ids.length === 0) return [];
+
+    const products = await prisma.product.findMany({
+      where: {
+        id: { in: ids.map((id) => id.toString()) },
+        tenantId,
+        deletedAt: null,
+        ...(sinceDate ? { updatedAt: { gte: sinceDate } } : {}),
+      },
+      include: productInclude,
+    });
+
+    return products.map(productPrismaToDomain);
+  }
+
   async findByName(name: string, tenantId: string): Promise<Product | null> {
     const productData = await prisma.product.findFirst({
       where: {

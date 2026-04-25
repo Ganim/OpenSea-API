@@ -94,6 +94,20 @@ export interface UpdateVariantSchema {
 export interface VariantsRepository {
   create(data: CreateVariantSchema): Promise<Variant>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Variant | null>;
+  /**
+   * Bulk lookup of variants by id, scoped to a tenant. Used by the POS catalog
+   * delta endpoint (Emporion Phase 1) to materialize variants for the items
+   * that came back from the zone-scoped query.
+   *
+   * When `sinceDate` is provided, only variants with `updatedAt >= sinceDate`
+   * are returned (incremental sync). Skips soft-deleted rows. Returns `[]`
+   * for an empty `ids` argument without hitting the database.
+   */
+  findManyByIds(
+    ids: UniqueEntityID[],
+    tenantId: string,
+    sinceDate?: Date,
+  ): Promise<Variant[]>;
   findByFullCode(fullCode: string, tenantId: string): Promise<Variant | null>;
   findBySKU(sku: string, tenantId: string): Promise<Variant | null>;
   findByBarcode(barcode: string, tenantId: string): Promise<Variant | null>;

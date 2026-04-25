@@ -176,6 +176,25 @@ export class PrismaVariantsRepository implements VariantsRepository {
     return this.mapVariantToDomain(variantData);
   }
 
+  async findManyByIds(
+    ids: UniqueEntityID[],
+    tenantId: string,
+    sinceDate?: Date,
+  ): Promise<Variant[]> {
+    if (ids.length === 0) return [];
+
+    const variants = await prisma.variant.findMany({
+      where: {
+        id: { in: ids.map((id) => id.toString()) },
+        tenantId,
+        deletedAt: null,
+        ...(sinceDate ? { updatedAt: { gte: sinceDate } } : {}),
+      },
+    });
+
+    return variants.map((v) => this.mapVariantToDomain(v));
+  }
+
   async findByFullCode(
     fullCode: string,
     tenantId: string,
