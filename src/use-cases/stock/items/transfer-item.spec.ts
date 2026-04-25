@@ -49,8 +49,11 @@ async function createTestBin(
   zonesRepo: InMemoryZonesRepository,
   binsRepo: InMemoryBinsRepository,
   code: string,
+  options?: { zoneCode?: string; allowsFractionalSale?: boolean },
 ) {
   const tenantId = 'tenant-1';
+  const zoneCode = options?.zoneCode ?? 'EST';
+
   // Create warehouse if needed
   let warehouse = await warehousesRepo.findByCode('FAB', tenantId);
   if (!warehouse) {
@@ -62,21 +65,28 @@ async function createTestBin(
   }
 
   // Create zone if needed
-  let zone = await zonesRepo.findByCode(warehouse.warehouseId, 'EST', tenantId);
+  let zone = await zonesRepo.findByCode(
+    warehouse.warehouseId,
+    zoneCode,
+    tenantId,
+  );
   if (!zone) {
     zone = await zonesRepo.create({
       tenantId,
       warehouseId: warehouse.warehouseId,
-      code: 'EST',
-      name: 'Estoque',
+      code: zoneCode,
+      name: zoneCode === 'EST' ? 'Estoque' : `Zona ${zoneCode}`,
     });
+    if (options?.allowsFractionalSale) {
+      zone.allowsFractionalSale = true;
+    }
   }
 
   // Create bin
   const bin = await binsRepo.create({
     tenantId,
     zoneId: zone.zoneId,
-    address: `FAB-EST-${code}`,
+    address: `FAB-${zoneCode}-${code}`,
     aisle: 1,
     shelf: 1,
     position: code,
@@ -113,6 +123,8 @@ describe('TransferItemUseCase', () => {
       binsRepository,
       itemMovementsRepository,
       fakeTransactionManager,
+      zonesRepository,
+      variantsRepository,
     );
 
     createVariant = new CreateVariantUseCase(
@@ -455,5 +467,272 @@ describe('TransferItemUseCase', () => {
 
     expect(finalResult.item.binId).toBe(binC.binId.toString());
     expect(finalResult.item.currentQuantity).toBe(100);
+  });
+
+  // ────────────────────────────────────────────────────────────────────────
+  // Fase 1 (Emporion) — fractional zone transition tests
+  // ────────────────────────────────────────────────────────────────────────
+
+  it('retorna shouldOfferFractionalConfirmation=true ao mover para zona fracional quando variante permite', async () => {
+    const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
+      name: 'Test Template',
+      productAttributes: { brand: templateAttr.string() },
+    });
+
+    const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
+      name: 'Test Product',
+      status: 'ACTIVE',
+      attributes: { brand: 'Samsung' },
+      templateId: template.id,
+    });
+
+    const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
+      productId: product.id.toString(),
+      sku: 'SKU-FRAC-1',
+      name: 'Fractional Variant',
+      price: 100,
+    });
+    // Mark variant as fractional-allowed
+    variant.fractionalAllowed = true;
+    await variantsRepository.save(variant);
+
+    // Origin zone: non-fractional (default EST)
+    const { bin: binA } = await createTestBin(
+      warehousesRepository,
+      zonesRepository,
+      binsRepository,
+      'A',
+    );
+
+    // Destination zone: fractional-enabled (different zone code)
+    const { bin: binB } = await createTestBin(
+      warehousesRepository,
+      zonesRepository,
+      binsRepository,
+      'B',
+      { zoneCode: 'FRAC', allowsFractionalSale: true },
+    );
+
+    const userId = new UniqueEntityID().toString();
+
+    const { item: entryItem } = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
+      uniqueCode: 'ITEM-FRAC-1',
+      variantId: variant.id.toString(),
+      binId: binA.binId.toString(),
+      quantity: 10,
+      userId,
+    });
+
+    const result = await transferItem.execute({
+      tenantId: 'tenant-1',
+      itemId: entryItem.id,
+      destinationBinId: binB.binId.toString(),
+      userId,
+    });
+
+    expect(result.shouldOfferFractionalConfirmation).toBe(true);
+    expect(result.item.fractionalSaleEnabled).toBe(false); // not yet confirmed
+  });
+
+  it('ativa fractionalSaleEnabled quando confirmFractionalSale=true', async () => {
+    const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
+      name: 'Test Template',
+      productAttributes: { brand: templateAttr.string() },
+    });
+
+    const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
+      name: 'Test Product',
+      status: 'ACTIVE',
+      attributes: { brand: 'Samsung' },
+      templateId: template.id,
+    });
+
+    const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
+      productId: product.id.toString(),
+      sku: 'SKU-FRAC-2',
+      name: 'Fractional Variant',
+      price: 100,
+    });
+    variant.fractionalAllowed = true;
+    await variantsRepository.save(variant);
+
+    const { bin: binA } = await createTestBin(
+      warehousesRepository,
+      zonesRepository,
+      binsRepository,
+      'A',
+    );
+
+    const { bin: binB } = await createTestBin(
+      warehousesRepository,
+      zonesRepository,
+      binsRepository,
+      'B',
+      { zoneCode: 'FRAC', allowsFractionalSale: true },
+    );
+
+    const userId = new UniqueEntityID().toString();
+
+    const { item: entryItem } = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
+      uniqueCode: 'ITEM-FRAC-2',
+      variantId: variant.id.toString(),
+      binId: binA.binId.toString(),
+      quantity: 10,
+      userId,
+    });
+
+    const result = await transferItem.execute({
+      tenantId: 'tenant-1',
+      itemId: entryItem.id,
+      destinationBinId: binB.binId.toString(),
+      userId,
+      confirmFractionalSale: true,
+    });
+
+    expect(result.item.fractionalSaleEnabled).toBe(true);
+    expect(result.shouldOfferFractionalConfirmation).toBe(false);
+  });
+
+  it('desliga fractionalSaleEnabled ao mover para zona sem allowsFractionalSale', async () => {
+    const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
+      name: 'Test Template',
+      productAttributes: { brand: templateAttr.string() },
+    });
+
+    const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
+      name: 'Test Product',
+      status: 'ACTIVE',
+      attributes: { brand: 'Samsung' },
+      templateId: template.id,
+    });
+
+    const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
+      productId: product.id.toString(),
+      sku: 'SKU-FRAC-3',
+      name: 'Fractional Variant',
+      price: 100,
+    });
+    variant.fractionalAllowed = true;
+    await variantsRepository.save(variant);
+
+    // Origin zone: fractional-enabled
+    const { bin: binA } = await createTestBin(
+      warehousesRepository,
+      zonesRepository,
+      binsRepository,
+      'A',
+      { zoneCode: 'FRAC', allowsFractionalSale: true },
+    );
+
+    // Destination zone: non-fractional
+    const { bin: binB } = await createTestBin(
+      warehousesRepository,
+      zonesRepository,
+      binsRepository,
+      'B',
+    );
+
+    const userId = new UniqueEntityID().toString();
+
+    const { item: entryItem } = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
+      uniqueCode: 'ITEM-FRAC-3',
+      variantId: variant.id.toString(),
+      binId: binA.binId.toString(),
+      quantity: 10,
+      userId,
+    });
+
+    // Pre-condition: enable fractional on the item before the transfer
+    const itemEntity = await itemsRepository.findById(
+      new UniqueEntityID(entryItem.id),
+      'tenant-1',
+    );
+    expect(itemEntity).not.toBeNull();
+    itemEntity!.fractionalSaleEnabled = true;
+    await itemsRepository.save(itemEntity!);
+
+    const result = await transferItem.execute({
+      tenantId: 'tenant-1',
+      itemId: entryItem.id,
+      destinationBinId: binB.binId.toString(),
+      userId,
+    });
+
+    expect(result.item.fractionalSaleEnabled).toBe(false);
+    expect(result.shouldOfferFractionalConfirmation).toBe(false);
+  });
+
+  it('não oferece confirmação quando variante.fractionalAllowed=false', async () => {
+    const { template } = await createTemplate.execute({
+      tenantId: 'tenant-1',
+      name: 'Test Template',
+      productAttributes: { brand: templateAttr.string() },
+    });
+
+    const { product } = await createProduct.execute({
+      tenantId: 'tenant-1',
+      name: 'Test Product',
+      status: 'ACTIVE',
+      attributes: { brand: 'Samsung' },
+      templateId: template.id,
+    });
+
+    const variant = await createVariant.execute({
+      tenantId: 'tenant-1',
+      productId: product.id.toString(),
+      sku: 'SKU-FRAC-4',
+      name: 'Non-fractional Variant',
+      price: 100,
+    });
+    // variant.fractionalAllowed defaults to false — leave as is
+
+    const { bin: binA } = await createTestBin(
+      warehousesRepository,
+      zonesRepository,
+      binsRepository,
+      'A',
+    );
+
+    // Destination zone allows fractional, but variant doesn't
+    const { bin: binB } = await createTestBin(
+      warehousesRepository,
+      zonesRepository,
+      binsRepository,
+      'B',
+      { zoneCode: 'FRAC', allowsFractionalSale: true },
+    );
+
+    const userId = new UniqueEntityID().toString();
+
+    const { item: entryItem } = await registerItemEntry.execute({
+      tenantId: 'tenant-1',
+      uniqueCode: 'ITEM-FRAC-4',
+      variantId: variant.id.toString(),
+      binId: binA.binId.toString(),
+      quantity: 10,
+      userId,
+    });
+
+    const result = await transferItem.execute({
+      tenantId: 'tenant-1',
+      itemId: entryItem.id,
+      destinationBinId: binB.binId.toString(),
+      userId,
+    });
+
+    expect(result.shouldOfferFractionalConfirmation).toBe(false);
+    expect(result.item.fractionalSaleEnabled).toBe(false); // unchanged
   });
 });

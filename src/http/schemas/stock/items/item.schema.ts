@@ -91,11 +91,18 @@ export const transferItemSchema = z.object({
   destinationBinId: z.uuid(),
   reasonCode: z.string().max(50).optional(),
   notes: z.string().max(1000).optional(),
+  // Fase 1 (Emporion) — confirms enabling fractional sale on transition
+  // to a fractional-enabled zone. When omitted, the API responds with
+  // `shouldOfferFractionalConfirmation: true` so the UI can prompt.
+  confirmFractionalSale: z.boolean().optional(),
 });
 
 export const itemTransferResponseSchema = z.object({
   item: itemResponseSchema,
   movement: itemMovementResponseSchema,
+  // Fase 1 (Emporion) — true when the item moved to a fractional-enabled
+  // zone (variant fractionalAllowed) without `confirmFractionalSale`.
+  shouldOfferFractionalConfirmation: z.boolean(),
 });
 
 export const registerItemEntrySchema = z.object({

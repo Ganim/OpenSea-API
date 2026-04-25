@@ -10,6 +10,8 @@ import { itemToDTO } from '@/mappers/stock/item/item-to-dto';
 import { BinsRepository } from '@/repositories/stock/bins-repository';
 import { ItemMovementsRepository } from '@/repositories/stock/item-movements-repository';
 import { ItemsRepository } from '@/repositories/stock/items-repository';
+import { VariantsRepository } from '@/repositories/stock/variants-repository';
+import { ZonesRepository } from '@/repositories/stock/zones-repository';
 import { queueAuditLog } from '@/workers/queues/audit.queue';
 
 interface TransferItemUseCaseRequest {
@@ -19,11 +21,27 @@ interface TransferItemUseCaseRequest {
   userId: string;
   reasonCode?: string;
   notes?: string;
+  /**
+   * When true, confirms enabling fractional sale on the item if the
+   * destination zone allows fractional sale and the variant permits it.
+   * When omitted/false in that scenario, the use-case returns
+   * `shouldOfferFractionalConfirmation: true` so the UI can prompt
+   * the user before re-calling with confirmation.
+   * Fase 1 (Emporion).
+   */
+  confirmFractionalSale?: boolean;
 }
 
 interface TransferItemUseCaseResponse {
   item: ItemDTO;
   movement: ItemMovementDTO;
+  /**
+   * `true` when the transfer moved the item to a fractional-enabled zone
+   * for a fractional-allowed variant, but the item was not yet flagged
+   * for fractional sale and `confirmFractionalSale` was not provided.
+   * The UI should prompt the user and re-call with `confirmFractionalSale: true`.
+   */
+  shouldOfferFractionalConfirmation: boolean;
 }
 
 export class TransferItemUseCase {
@@ -32,6 +50,8 @@ export class TransferItemUseCase {
     private binsRepository: BinsRepository,
     private itemMovementsRepository: ItemMovementsRepository,
     private transactionManager: TransactionManager,
+    private zonesRepository: ZonesRepository,
+    private variantsRepository: VariantsRepository,
   ) {}
 
   async execute(
@@ -87,6 +107,38 @@ export class TransferItemUseCase {
     item.binId = destinationBin.binId;
     item.lastKnownAddress = destinationBin.address;
 
+    // Fase 1 (Emporion) — detect fractional zone transition
+    let shouldOfferFractionalConfirmation = false;
+
+    const destinationZone = await this.zonesRepository.findById(
+      destinationBin.zoneId,
+      input.tenantId,
+    );
+    const variant = await this.variantsRepository.findById(
+      item.variantId,
+      input.tenantId,
+    );
+
+    if (destinationZone && variant) {
+      const newZoneAllowsFractional = destinationZone.allowsFractionalSale;
+      const variantAllowsFractional = variant.fractionalAllowed;
+
+      if (
+        newZoneAllowsFractional &&
+        variantAllowsFractional &&
+        !item.fractionalSaleEnabled
+      ) {
+        if (input.confirmFractionalSale) {
+          item.fractionalSaleEnabled = true;
+        } else {
+          shouldOfferFractionalConfirmation = true;
+        }
+      } else if (!newZoneAllowsFractional && item.fractionalSaleEnabled) {
+        // Moving to a non-fractional zone — auto-disable
+        item.fractionalSaleEnabled = false;
+      }
+    }
+
     const { savedItem, movement } = await this.transactionManager.run(
       async () => {
         await this.itemsRepository.save(item);
@@ -128,6 +180,7 @@ export class TransferItemUseCase {
     return {
       item: itemToDTO(savedItem),
       movement: itemMovementToDTO(movement),
+      shouldOfferFractionalConfirmation,
     };
   }
 }
