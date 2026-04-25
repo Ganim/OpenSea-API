@@ -71,6 +71,7 @@ interface MakeEmployeeProps {
   photoUrl?: string;
   metadata?: Record<string, unknown>;
   pendingIssues?: string[];
+  shortId?: string | null;
   deletedAt?: Date;
 }
 
@@ -242,6 +243,7 @@ export function makeEmployee(override: MakeEmployeeProps = {}): Employee {
       photoUrl: override.photoUrl,
       metadata: override.metadata ?? {},
       pendingIssues: override.pendingIssues ?? [],
+      shortId: override.shortId ?? null,
       deletedAt: override.deletedAt,
     },
     new UniqueEntityID(),

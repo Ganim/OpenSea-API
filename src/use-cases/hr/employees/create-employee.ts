@@ -9,8 +9,11 @@ import {
   PIS,
   WorkRegime,
 } from '@/entities/hr/value-objects';
+import { generateShortId } from '@/lib/short-id/generate-short-id';
 import { EmployeesRepository } from '@/repositories/hr/employees-repository';
 import type { CalendarSyncService } from '@/services/calendar/calendar-sync.service';
+
+const SHORT_ID_MAX_ATTEMPTS = 10;
 
 export interface CreateEmployeeRequest {
   tenantId: string;
@@ -188,6 +191,26 @@ export class CreateEmployeeUseCase {
       }
     }
 
+    // Auto-generate a unique short ID with bounded retry on collision.
+    // Used by Emporion POS operator login (Plan A — Task 21).
+    let shortId: string | null = null;
+    for (let attempt = 0; attempt < SHORT_ID_MAX_ATTEMPTS; attempt++) {
+      const candidate = generateShortId();
+      const existing = await this.employeesRepository.findByShortId(
+        candidate,
+        tenantId,
+      );
+      if (!existing) {
+        shortId = candidate;
+        break;
+      }
+    }
+    if (!shortId) {
+      throw new Error(
+        `Não foi possível gerar shortId único após ${SHORT_ID_MAX_ATTEMPTS} tentativas.`,
+      );
+    }
+
     const pendingIssues = this.computePendingIssues({
       gender,
       birthDate,
@@ -268,6 +291,7 @@ export class CreateEmployeeUseCase {
       photoUrl,
       metadata,
       pendingIssues,
+      shortId,
     });
 
     // Sync birthday to calendar (non-blocking)

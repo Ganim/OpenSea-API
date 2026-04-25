@@ -1,6 +1,17 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { InMemoryEmployeesRepository } from '@/repositories/hr/in-memory/in-memory-employees-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { makeEmployee } from '@/utils/tests/factories/hr/make-employee';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+// Hoisted mock so the use-case picks it up via the named import. Default
+// implementation produces a deterministic 6-char id ("AAAAAA") that we override
+// on a per-test basis via `mockImplementation` / `mockReturnValueOnce`.
+const generateShortIdMock = vi.hoisted(() => vi.fn(() => 'AAAAAA'));
+
+vi.mock('@/lib/short-id/generate-short-id', () => ({
+  generateShortId: generateShortIdMock,
+}));
+
 import { CreateEmployeeUseCase } from './create-employee';
 
 let employeesRepository: InMemoryEmployeesRepository;
@@ -11,6 +22,8 @@ describe('Create Employee Use Case', () => {
   beforeEach(() => {
     employeesRepository = new InMemoryEmployeesRepository();
     sut = new CreateEmployeeUseCase(employeesRepository);
+    generateShortIdMock.mockReset();
+    generateShortIdMock.mockImplementation(() => 'AAAAAA');
   });
 
   it('should create an employee successfully', async () => {
@@ -285,5 +298,89 @@ describe('Create Employee Use Case', () => {
     });
 
     expect(result.employee.country).toBe('Brasil');
+  });
+
+  it('gera shortId automaticamente na criação', async () => {
+    // Use the real generator for this test so we exercise the actual
+    // alphabet/length contract instead of the deterministic mock.
+    const { generateShortId: realGenerate } = await vi.importActual<
+      typeof import('@/lib/short-id/generate-short-id')
+    >('@/lib/short-id/generate-short-id');
+    generateShortIdMock.mockImplementation(() => realGenerate());
+
+    const result = await sut.execute({
+      tenantId,
+      registrationNumber: 'EMP001',
+      fullName: 'João Silva',
+      cpf: '529.982.247-25',
+      hireDate: new Date('2024-01-01'),
+      baseSalary: 3000,
+      contractType: 'CLT',
+      workRegime: 'FULL_TIME',
+      weeklyHours: 44,
+      country: 'Brasil',
+    });
+
+    expect(result.employee.shortId).toBeDefined();
+    expect(result.employee.shortId).not.toBeNull();
+    expect(result.employee.shortId).toHaveLength(6);
+  });
+
+  it('faz retry quando há colisão de shortId', async () => {
+    // Pré-popular um employee com shortId previsível no mesmo tenant.
+    const existing = makeEmployee({
+      tenantId: new UniqueEntityID(tenantId),
+      shortId: 'ABCDEF',
+    });
+    employeesRepository.items.push(existing);
+
+    // Primeira tentativa colide ('ABCDEF' já existe), segunda retorna valor único.
+    generateShortIdMock
+      .mockReturnValueOnce('ABCDEF')
+      .mockReturnValueOnce('ZYXWVU');
+
+    const result = await sut.execute({
+      tenantId,
+      registrationNumber: 'EMP002',
+      fullName: 'Maria Santos',
+      cpf: '529.982.247-25',
+      hireDate: new Date('2024-01-01'),
+      baseSalary: 3000,
+      contractType: 'CLT',
+      workRegime: 'FULL_TIME',
+      weeklyHours: 44,
+      country: 'Brasil',
+    });
+
+    expect(result.employee.shortId).toBe('ZYXWVU');
+    expect(generateShortIdMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('falha após 10 tentativas de colisão de shortId', async () => {
+    // Sempre retorna o mesmo valor que já está ocupado.
+    generateShortIdMock.mockReturnValue('ABCDEF');
+    employeesRepository.items.push(
+      makeEmployee({
+        tenantId: new UniqueEntityID(tenantId),
+        shortId: 'ABCDEF',
+      }),
+    );
+
+    await expect(
+      sut.execute({
+        tenantId,
+        registrationNumber: 'EMP003',
+        fullName: 'Carlos Pereira',
+        cpf: '529.982.247-25',
+        hireDate: new Date('2024-01-01'),
+        baseSalary: 3000,
+        contractType: 'CLT',
+        workRegime: 'FULL_TIME',
+        weeklyHours: 44,
+        country: 'Brasil',
+      }),
+    ).rejects.toThrow(/shortId/);
+
+    expect(generateShortIdMock).toHaveBeenCalledTimes(10);
   });
 });

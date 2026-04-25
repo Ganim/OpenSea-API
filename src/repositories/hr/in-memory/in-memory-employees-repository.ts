@@ -89,6 +89,7 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
         childBirthDate: data.childBirthDate,
         metadata: data.metadata || {},
         pendingIssues: data.pendingIssues || [],
+        shortId: data.shortId ?? null,
       },
       id,
     );
@@ -137,6 +138,20 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
     const employee = this.items.find(
       (item) =>
         item.registrationNumber === registrationNumber &&
+        item.tenantId.toString() === tenantId &&
+        (includeDeleted || !item.deletedAt),
+    );
+    return employee || null;
+  }
+
+  async findByShortId(
+    shortId: string,
+    tenantId: string,
+    includeDeleted = false,
+  ): Promise<Employee | null> {
+    const employee = this.items.find(
+      (item) =>
+        item.shortId === shortId &&
         item.tenantId.toString() === tenantId &&
         (includeDeleted || !item.deletedAt),
     );

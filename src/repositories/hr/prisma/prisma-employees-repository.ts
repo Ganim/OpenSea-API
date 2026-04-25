@@ -105,6 +105,7 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
       pendingIssues: data.pendingIssues
         ? JSON.parse(JSON.stringify(data.pendingIssues))
         : [],
+      shortId: data.shortId ?? null,
     };
 
     // Encrypt sensitive fields and generate blind index hashes
@@ -257,6 +258,40 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
         tenantId,
         deletedAt: includeDeleted ? undefined : null,
       },
+      include: {
+        user: true,
+        department: true,
+        position: true,
+        supervisor: true,
+      },
+    });
+
+    if (!employeeData) return null;
+
+    decryptEmployeeData(employeeData as unknown as Record<string, unknown>);
+
+    const employee = Employee.create(
+      mapEmployeePrismaToDomain(employeeData),
+      new UniqueEntityID(employeeData.id),
+    );
+    return employee;
+  }
+
+  async findByShortId(
+    shortId: string,
+    tenantId: string,
+    includeDeleted = false,
+  ): Promise<Employee | null> {
+    const employeeData = await prisma.employee.findFirst({
+      where: {
+        // Defensive cast — `shortId` was added by the Emporion Plan A migration
+        // (Task 1). Runtime is unaffected when the regenerated Prisma client
+        // already exposes the column; the cast keeps us resilient across
+        // intermediate tsc states shared between plans.
+        shortId,
+        tenantId,
+        deletedAt: includeDeleted ? undefined : null,
+      } as unknown as Prisma.EmployeeWhereInput,
       include: {
         user: true,
         department: true,
