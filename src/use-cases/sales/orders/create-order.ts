@@ -7,6 +7,10 @@ import {
   type OrderType,
 } from '@/entities/sales/order';
 import { OrderItem } from '@/entities/sales/order-item';
+import {
+  OrderOriginSource,
+  type OrderOriginSourceValue,
+} from '@/entities/sales/value-objects/order-origin-source';
 import type { CustomersRepository } from '@/repositories/sales/customers-repository';
 import type { OrderItemsRepository } from '@/repositories/sales/order-items-repository';
 import type { OrdersRepository } from '@/repositories/sales/orders-repository';
@@ -50,6 +54,12 @@ interface CreateOrderUseCaseRequest {
   tags?: string[];
   expiresAt?: string;
   items: CreateOrderItem[];
+  // Emporion — POS origin metadata (all optional)
+  originSource?: OrderOriginSourceValue;
+  posTerminalId?: string;
+  posSessionId?: string;
+  posOperatorEmployeeId?: string;
+  saleLocalUuid?: string;
 }
 
 interface CreateOrderUseCaseResponse {
@@ -123,6 +133,10 @@ export class CreateOrderUseCase {
       calculatedSubtotal += item.quantity * item.unitPrice - discountValue;
     }
 
+    const originSource = input.originSource
+      ? OrderOriginSource.create(input.originSource)
+      : OrderOriginSource.WEB();
+
     const order = Order.create({
       tenantId: new UniqueEntityID(input.tenantId),
       orderNumber,
@@ -163,6 +177,14 @@ export class CreateOrderUseCase {
       internalNotes: input.internalNotes,
       tags: input.tags,
       expiresAt: input.expiresAt ? new Date(input.expiresAt) : undefined,
+      // Emporion — POS origin metadata
+      originSource,
+      posTerminalId: input.posTerminalId ?? null,
+      posSessionId: input.posSessionId
+        ? new UniqueEntityID(input.posSessionId)
+        : undefined,
+      posOperatorEmployeeId: input.posOperatorEmployeeId ?? null,
+      saleLocalUuid: input.saleLocalUuid ?? null,
     });
 
     await this.ordersRepository.create(order);

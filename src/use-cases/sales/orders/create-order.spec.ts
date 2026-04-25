@@ -253,6 +253,51 @@ describe('Create Order', () => {
     ).rejects.toBeInstanceOf(BadRequestError);
   });
 
+  it('cria Order com originSource=POS_DESKTOP e metadados do terminal quando fornecido', async () => {
+    const customer = makeCustomer({ tenantId: new UniqueEntityID(tenantId) });
+    customersRepository.items.push(customer);
+
+    const result = await sut.execute({
+      tenantId,
+      type: 'ORDER',
+      customerId: customer.id.toString(),
+      pipelineId,
+      stageId,
+      channel: 'MANUAL',
+      subtotal: 100,
+      items: [{ name: 'Item', quantity: 1, unitPrice: 100 }],
+      originSource: 'POS_DESKTOP',
+      posTerminalId: 'term-1',
+      posOperatorEmployeeId: 'emp-1',
+      saleLocalUuid: '550e8400-e29b-41d4-a716-446655440000',
+    });
+
+    expect(result.order.originSource.value).toBe('POS_DESKTOP');
+    expect(result.order.posTerminalId).toBe('term-1');
+    expect(result.order.posOperatorEmployeeId).toBe('emp-1');
+    expect(result.order.saleLocalUuid).toBe(
+      '550e8400-e29b-41d4-a716-446655440000',
+    );
+  });
+
+  it('default originSource=WEB quando não especificado', async () => {
+    const customer = makeCustomer({ tenantId: new UniqueEntityID(tenantId) });
+    customersRepository.items.push(customer);
+
+    const result = await sut.execute({
+      tenantId,
+      type: 'ORDER',
+      customerId: customer.id.toString(),
+      pipelineId,
+      stageId,
+      channel: 'MANUAL',
+      subtotal: 100,
+      items: [{ name: 'Item', quantity: 1, unitPrice: 100 }],
+    });
+
+    expect(result.order.originSource.value).toBe('WEB');
+  });
+
   it('should auto-generate sequential order numbers', async () => {
     const customer = makeCustomer({ tenantId: new UniqueEntityID(tenantId) });
     customersRepository.items.push(customer);
