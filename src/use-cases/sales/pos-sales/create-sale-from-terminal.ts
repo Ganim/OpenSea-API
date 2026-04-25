@@ -209,6 +209,25 @@ export class CreateSaleFromTerminalUseCase {
         posSessionId: request.posSessionId,
         posOperatorEmployeeId: request.posOperatorEmployeeId,
         conflictDetails: conflicts,
+        // Snapshot the original sale shape so the manual-resolution endpoint
+        // (Emporion Plan A — Task 31) can re-create the Order on
+        // FORCE_ADJUSTMENT or SUBSTITUTE_ITEM without asking the terminal to
+        // replay the sale.
+        originalCart: request.cart.map((line) => ({
+          itemId: line.itemId,
+          variantId: line.variantId,
+          name: line.name,
+          sku: line.sku,
+          quantity: line.quantity,
+          unitPrice: line.unitPrice,
+          discountValue: line.discountValue,
+        })),
+        originalPayments: request.payments.map((payment) => ({
+          method: payment.method,
+          amount: payment.amount,
+          reference: payment.reference,
+        })),
+        originalCustomerData: request.customerData,
       });
 
       await this.posOrderConflictsRepository.create(conflictRecord);

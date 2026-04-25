@@ -1,6 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 
 import { v1ListConflictsController } from './v1-list-conflicts.controller';
+import { v1ResolveConflictManuallyController } from './v1-resolve-conflict-manually.controller';
 
 /**
  * Registers admin endpoints for POS Order Conflicts (Emporion Plan A —
@@ -9,4 +10,5 @@ import { v1ListConflictsController } from './v1-list-conflicts.controller';
  */
 export async function posConflictsRoutes(app: FastifyInstance) {
   await app.register(v1ListConflictsController);
+  await app.register(v1ResolveConflictManuallyController);
 }

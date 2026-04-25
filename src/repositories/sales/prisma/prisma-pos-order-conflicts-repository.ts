@@ -39,6 +39,15 @@ export class PrismaPosOrderConflictsRepository
           (conflict.resolutionDetails as Prisma.InputJsonValue) ?? undefined,
         resolvedByUserId: conflict.resolvedByUserId ?? null,
         resolvedAt: conflict.resolvedAt ?? null,
+        originalCart:
+          (conflict.originalCart as unknown as Prisma.InputJsonValue) ??
+          undefined,
+        originalPayments:
+          (conflict.originalPayments as unknown as Prisma.InputJsonValue) ??
+          undefined,
+        originalCustomerData:
+          (conflict.originalCustomerData as unknown as Prisma.InputJsonValue) ??
+          undefined,
         createdAt: conflict.createdAt,
         updatedAt: conflict.updatedAt ?? new Date(),
       },
@@ -63,6 +72,15 @@ export class PrismaPosOrderConflictsRepository
           (conflict.resolutionDetails as Prisma.InputJsonValue) ?? undefined,
         resolvedByUserId: conflict.resolvedByUserId ?? null,
         resolvedAt: conflict.resolvedAt ?? null,
+        originalCart:
+          (conflict.originalCart as unknown as Prisma.InputJsonValue) ??
+          undefined,
+        originalPayments:
+          (conflict.originalPayments as unknown as Prisma.InputJsonValue) ??
+          undefined,
+        originalCustomerData:
+          (conflict.originalCustomerData as unknown as Prisma.InputJsonValue) ??
+          undefined,
         updatedAt: conflict.updatedAt ?? new Date(),
       },
     });

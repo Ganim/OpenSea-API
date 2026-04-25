@@ -2,6 +2,9 @@ import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import {
   PosOrderConflict,
   type ConflictDetail,
+  type OriginalCartLine,
+  type OriginalCustomerData,
+  type OriginalPayment,
 } from '@/entities/sales/pos-order-conflict';
 import { PosOrderConflictStatus } from '@/entities/sales/value-objects/pos-order-conflict-status';
 import type { PosOrderConflict as PrismaPosOrderConflict } from '@prisma/generated/client.js';
@@ -23,6 +26,13 @@ export function posOrderConflictPrismaToDomain(
         (raw.resolutionDetails as Record<string, unknown> | null) ?? null,
       resolvedByUserId: raw.resolvedByUserId ?? null,
       resolvedAt: raw.resolvedAt ?? null,
+      originalCart:
+        (raw.originalCart as unknown as OriginalCartLine[] | null) ?? null,
+      originalPayments:
+        (raw.originalPayments as unknown as OriginalPayment[] | null) ?? null,
+      originalCustomerData:
+        (raw.originalCustomerData as unknown as OriginalCustomerData | null) ??
+        null,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt ?? undefined,
     },

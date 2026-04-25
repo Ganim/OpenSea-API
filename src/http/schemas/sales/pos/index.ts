@@ -13,3 +13,4 @@ export * from './get-catalog-full.schema';
 export * from './create-sale-from-terminal.schema';
 export * from './acknowledge-sale-result.schema';
 export * from './list-conflicts.schema';
+export * from './resolve-conflict-manually.schema';

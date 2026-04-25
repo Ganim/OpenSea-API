@@ -1006,6 +1006,11 @@ enum AuditAction {
   POS_SALE_CREATE
   POS_SALE_CONFLICT
 
+  // POS - Resolução manual de conflito (Emporion Plan A — Task 31)
+  POS_CONFLICT_RESOLVE_CANCEL_AND_REFUND
+  POS_CONFLICT_RESOLVE_FORCE_ADJUSTMENT
+  POS_CONFLICT_RESOLVE_SUBSTITUTE_ITEM
+
   // HR - Ponto e Tempo
   CLOCK_IN
   CLOCK_OUT
@@ -12022,6 +12027,16 @@ model PosOrderConflict {
   resolutionDetails Json?                  @map("resolution_details")
   resolvedByUserId  String?                @map("resolved_by_user_id")
   resolvedAt        DateTime?              @map("resolved_at")
+
+  // Original sale snapshot persisted on conflict creation so the manual
+  // resolution endpoint can re-create the Order on FORCE_ADJUSTMENT and
+  // SUBSTITUTE_ITEM (Emporion Plan A — Task 31). Stored as JSON because the
+  // shape is owned by the upstream `CreateSaleFromTerminalUseCase` request
+  // (cart lines, payment legs, customer data variant). Optional to remain
+  // backward-compatible with conflicts created before Task 31's migration.
+  originalCart         Json? @map("original_cart")
+  originalPayments     Json? @map("original_payments")
+  originalCustomerData Json? @map("original_customer_data")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

@@ -759,6 +759,33 @@ export const SALES_AUDIT_MESSAGES = {
       'Conflito ao sincronizar venda PDV {{saleLocalUuid}} do terminal {{posTerminalId}} ({{conflictCount}} item(ns) com problema)',
   } satisfies AuditMessage,
 
+  /** Conflito PDV resolvido cancelando a venda e gerando reembolso (Emporion Plan A — Task 31) */
+  POS_CONFLICT_RESOLVE_CANCEL_AND_REFUND: {
+    action: AuditAction.POS_CONFLICT_RESOLVE_CANCEL_AND_REFUND,
+    entity: AuditEntity.POS_ORDER_CONFLICT,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} resolveu o conflito PDV {{saleLocalUuid}} cancelando a venda e gerando reembolso',
+  } satisfies AuditMessage,
+
+  /** Conflito PDV resolvido forçando o ajuste do estoque (Emporion Plan A — Task 31) */
+  POS_CONFLICT_RESOLVE_FORCE_ADJUSTMENT: {
+    action: AuditAction.POS_CONFLICT_RESOLVE_FORCE_ADJUSTMENT,
+    entity: AuditEntity.POS_ORDER_CONFLICT,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} resolveu o conflito PDV {{saleLocalUuid}} forçando o ajuste do estoque ({{adjustmentCount}} item(ns) ajustado(s))',
+  } satisfies AuditMessage,
+
+  /** Conflito PDV resolvido substituindo itens manualmente (Emporion Plan A — Task 31) */
+  POS_CONFLICT_RESOLVE_SUBSTITUTE_ITEM: {
+    action: AuditAction.POS_CONFLICT_RESOLVE_SUBSTITUTE_ITEM,
+    entity: AuditEntity.POS_ORDER_CONFLICT,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} resolveu o conflito PDV {{saleLocalUuid}} substituindo {{substituteCount}} item(ns) manualmente',
+  } satisfies AuditMessage,
+
   // ============================================================================
   // PDV ORDER FLOW - Fluxo de pedidos PDV
   // ============================================================================

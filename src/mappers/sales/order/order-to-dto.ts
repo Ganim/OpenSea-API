@@ -1,10 +1,11 @@
-import type { Order } from '@/entities/sales/order';
+import type { Order, OrderStatus } from '@/entities/sales/order';
 
 export interface OrderDTO {
   id: string;
   tenantId: string;
   orderNumber: string;
   type: string;
+  status: OrderStatus;
   customerId: string;
   contactId: string | null;
   pipelineId: string;
@@ -54,6 +55,7 @@ export function orderToDTO(order: Order): OrderDTO {
     tenantId: order.tenantId.toString(),
     orderNumber: order.orderNumber,
     type: order.type,
+    status: order.status,
     customerId: order.customerId.toString(),
     contactId: order.contactId?.toString() ?? null,
     pipelineId: order.pipelineId.toString(),
