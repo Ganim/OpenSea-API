@@ -29,6 +29,8 @@ export interface VariantDTO {
   similars?: unknown[];
   outOfLine: boolean;
   isActive: boolean;
+  // Fase 1 (Emporion) — fractional sale config
+  fractionalAllowed: boolean;
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date;
@@ -83,6 +85,7 @@ export function variantToDTO(variant: Variant): VariantDTO {
     similars: variant.similars,
     outOfLine: variant.outOfLine,
     isActive: variant.isActive,
+    fractionalAllowed: variant.fractionalAllowed,
     createdAt: variant.createdAt,
     updatedAt: variant.updatedAt,
     deletedAt: variant.deletedAt,

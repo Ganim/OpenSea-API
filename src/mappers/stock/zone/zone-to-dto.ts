@@ -20,6 +20,9 @@ export interface ZoneDTO {
   structure: ZoneStructureProps;
   layout: ZoneLayoutProps | null;
   isActive: boolean;
+  // Fase 1 (Emporion) — fractional sale config
+  allowsFractionalSale: boolean;
+  minFractionalSale: number | null;
   createdAt: Date;
   updatedAt: Date;
   binCount?: number;
@@ -40,6 +43,8 @@ export function zoneToDTO(
     structure: zone.structure.toJSON(),
     layout: zone.layout?.toJSON() ?? null,
     isActive: zone.isActive,
+    allowsFractionalSale: zone.allowsFractionalSale,
+    minFractionalSale: zone.minFractionalSale ?? null,
     createdAt: zone.createdAt,
     updatedAt: zone.updatedAt,
     binCount: options?.binCount,

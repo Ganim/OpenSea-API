@@ -25,6 +25,7 @@ export function mapEmployeePrismaToDomain(
   return {
     tenantId: new UniqueEntityID(employeeDb.tenantId),
     registrationNumber: employeeDb.registrationNumber,
+    shortId: employeeDb.shortId ?? null,
     userId: employeeDb.userId
       ? new UniqueEntityID(employeeDb.userId)
       : undefined,

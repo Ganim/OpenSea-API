@@ -37,6 +37,7 @@ export function mapItemPrismaToDomain(itemDb: PrismaItem) {
       | string
       | undefined,
     lastKnownAddress: itemDb.lastKnownAddress ?? undefined,
+    fractionalSaleEnabled: itemDb.fractionalSaleEnabled ?? false,
     createdAt: itemDb.createdAt,
     updatedAt: itemDb.updatedAt,
     deletedAt: itemDb.deletedAt ?? undefined,

@@ -52,6 +52,7 @@ export function mapVariantPrismaToDomain(variantDb: PrismaVariant) {
     similars: (variantDb.similars as unknown[]) ?? undefined,
     outOfLine: variantDb.outOfLine,
     isActive: variantDb.isActive,
+    fractionalAllowed: variantDb.fractionalAllowed ?? false,
     createdAt: variantDb.createdAt,
     updatedAt: variantDb.updatedAt,
     deletedAt: variantDb.deletedAt ?? undefined,

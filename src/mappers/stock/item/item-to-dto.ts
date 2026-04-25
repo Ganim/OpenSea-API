@@ -22,6 +22,8 @@ export interface ItemDTO {
   manufacturingDate?: Date;
   expiryDate?: Date;
   exitMovementType?: string;
+  // Fase 1 (Emporion) — fractional sale config
+  fractionalSaleEnabled: boolean;
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date;
@@ -75,6 +77,7 @@ export function itemToDTO(item: Item, relatedData?: ItemRelatedData): ItemDTO {
     manufacturingDate: item.manufacturingDate,
     expiryDate: item.expiryDate,
     exitMovementType: item.exitMovementType,
+    fractionalSaleEnabled: item.fractionalSaleEnabled,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     deletedAt: item.deletedAt,

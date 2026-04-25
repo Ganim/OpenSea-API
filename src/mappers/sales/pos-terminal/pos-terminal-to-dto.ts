@@ -20,6 +20,12 @@ export interface PosTerminalDTO {
   lastSyncAt: string | null;
   lastOnlineAt: string | null;
   settings: Record<string, unknown> | null;
+  // Fase 1 (Emporion) — operator session + coordination + applied profile
+  operatorSessionMode: 'PER_SALE' | 'STAY_LOGGED_IN';
+  operatorSessionTimeout: number | null;
+  autoCloseSessionAt: string | null;
+  coordinationMode: 'STANDALONE' | 'SELLER' | 'CASHIER' | 'BOTH';
+  appliedProfileId: string | null;
   createdAt: string;
   updatedAt: string | null;
 }
@@ -42,6 +48,11 @@ export function posTerminalToDTO(terminal: PosTerminal): PosTerminalDTO {
     lastSyncAt: terminal.lastSyncAt?.toISOString() ?? null,
     lastOnlineAt: terminal.lastOnlineAt?.toISOString() ?? null,
     settings: terminal.settings ?? null,
+    operatorSessionMode: terminal.operatorSessionMode.value,
+    operatorSessionTimeout: terminal.operatorSessionTimeout ?? null,
+    autoCloseSessionAt: terminal.autoCloseSessionAt ?? null,
+    coordinationMode: terminal.coordinationMode.value,
+    appliedProfileId: terminal.appliedProfileId?.toString() ?? null,
     createdAt: terminal.createdAt.toISOString(),
     updatedAt: terminal.updatedAt?.toISOString() ?? null,
   };

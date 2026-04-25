@@ -31,6 +31,18 @@ export interface OrderDTO {
   cancelledAt: Date | null;
   cancelReason: string | null;
   expiresAt: Date | null;
+  // Fase 1 (Emporion) — origin + ack + fiscal
+  originSource: 'WEB' | 'POS_DESKTOP' | 'API' | 'MOBILE';
+  posTerminalId: string | null;
+  posOperatorEmployeeId: string | null;
+  saleLocalUuid: string | null;
+  ackReceivedAt: Date | null;
+  fiscalDocumentType: 'NFE' | 'NFC_E' | 'SAT_CFE' | 'MFE' | null;
+  fiscalDocumentNumber: number | null;
+  fiscalAccessKey: string | null;
+  fiscalAuthorizationProtocol: string | null;
+  fiscalEmittedAt: Date | null;
+  fiscalEmissionStatus: string | null;
   createdAt: Date;
   updatedAt: Date | null;
 }
@@ -67,6 +79,17 @@ export function orderToDTO(order: Order): OrderDTO {
     cancelledAt: order.cancelledAt ?? null,
     cancelReason: order.cancelReason ?? null,
     expiresAt: order.expiresAt ?? null,
+    originSource: order.originSource.value,
+    posTerminalId: order.posTerminalId ?? null,
+    posOperatorEmployeeId: order.posOperatorEmployeeId ?? null,
+    saleLocalUuid: order.saleLocalUuid ?? null,
+    ackReceivedAt: order.ackReceivedAt ?? null,
+    fiscalDocumentType: order.fiscalDocumentType?.value ?? null,
+    fiscalDocumentNumber: order.fiscalDocumentNumber ?? null,
+    fiscalAccessKey: order.fiscalAccessKey ?? null,
+    fiscalAuthorizationProtocol: order.fiscalAuthorizationProtocol ?? null,
+    fiscalEmittedAt: order.fiscalEmittedAt ?? null,
+    fiscalEmissionStatus: order.fiscalEmissionStatus ?? null,
     createdAt: order.createdAt,
     updatedAt: order.updatedAt ?? null,
   };

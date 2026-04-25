@@ -12,6 +12,7 @@ export interface EmployeeDTORelation {
 export interface EmployeeDTO {
   id: string;
   registrationNumber: string;
+  shortId: string | null;
   userId?: string | null;
   fullName: string;
   socialName?: string | null;
@@ -82,6 +83,7 @@ export function employeeToDTO(employee: Employee): EmployeeDTO {
   return {
     id: employee.id.toString(),
     registrationNumber: employee.registrationNumber,
+    shortId: employee.shortId ?? null,
     userId: employee.userId?.toString() ?? null,
     fullName: employee.fullName,
     socialName: employee.socialName ?? null,

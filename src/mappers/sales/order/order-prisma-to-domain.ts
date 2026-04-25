@@ -1,5 +1,7 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
 import { Order } from '@/entities/sales/order';
+import { OrderOriginSource } from '@/entities/sales/value-objects/order-origin-source';
+import { PosFiscalDocumentType } from '@/entities/sales/value-objects/pos-fiscal-document-type';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function orderPrismaToDomain(raw: any): Order {
@@ -77,6 +79,22 @@ export function orderPrismaToDomain(raw: any): Order {
       cancelledAt: raw.cancelledAt ?? undefined,
       cancelReason: raw.cancelReason ?? undefined,
       expiresAt: raw.expiresAt ?? undefined,
+      // Fase 1 (Emporion) — origin + ack + fiscal
+      originSource: raw.originSource
+        ? OrderOriginSource.create(raw.originSource)
+        : OrderOriginSource.WEB(),
+      posTerminalId: raw.posTerminalId ?? null,
+      posOperatorEmployeeId: raw.posOperatorEmployeeId ?? null,
+      saleLocalUuid: raw.saleLocalUuid ?? null,
+      ackReceivedAt: raw.ackReceivedAt ?? null,
+      fiscalDocumentType: raw.fiscalDocumentType
+        ? PosFiscalDocumentType.create(raw.fiscalDocumentType)
+        : null,
+      fiscalDocumentNumber: raw.fiscalDocumentNumber ?? null,
+      fiscalAccessKey: raw.fiscalAccessKey ?? null,
+      fiscalAuthorizationProtocol: raw.fiscalAuthorizationProtocol ?? null,
+      fiscalEmittedAt: raw.fiscalEmittedAt ?? null,
+      fiscalEmissionStatus: raw.fiscalEmissionStatus ?? null,
       deletedAt: raw.deletedAt ?? undefined,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt ?? undefined,

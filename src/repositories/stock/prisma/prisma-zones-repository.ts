@@ -29,6 +29,8 @@ function mapToZone(zoneData: {
   structure: Prisma.JsonValue;
   layout: Prisma.JsonValue | null;
   isActive: boolean;
+  allowsFractionalSale?: boolean | null;
+  minFractionalSale?: Prisma.Decimal | null;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;
@@ -46,6 +48,11 @@ function mapToZone(zoneData: {
       structure: ZoneStructure.fromJSON(structureJson),
       layout: layoutJson ? ZoneLayout.fromJSON(layoutJson) : null,
       isActive: zoneData.isActive,
+      allowsFractionalSale: zoneData.allowsFractionalSale ?? false,
+      minFractionalSale:
+        zoneData.minFractionalSale != null
+          ? Number(zoneData.minFractionalSale.toString())
+          : null,
       createdAt: zoneData.createdAt,
       updatedAt: zoneData.updatedAt,
       deletedAt: zoneData.deletedAt,
