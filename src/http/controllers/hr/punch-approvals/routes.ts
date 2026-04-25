@@ -8,6 +8,7 @@ import { v1CreateSelfPunchApprovalController } from './v1-create-self-punch-appr
 import { v1ListPunchApprovalsController } from './v1-list-punch-approvals.controller';
 import { v1ResolvePunchApprovalController } from './v1-resolve-punch-approval.controller';
 import { v1UploadPunchApprovalEvidenceController } from './v1-upload-punch-approval-evidence.controller';
+import { v1UploadSelfPunchEvidenceController } from './v1-upload-self-punch-evidence.controller';
 
 /**
  * Aggregator das rotas de PunchApproval (HR module scoped).
@@ -33,6 +34,9 @@ export async function punchApprovalsRoutes(app: FastifyInstance) {
       // Phase 8 / Plan 08-01 — D-07/D-08: funcionário cria justificativa própria
       // via PWA pessoal (POST /v1/hr/punch-approvals — sem :id).
       mutationApp.register(v1CreateSelfPunchApprovalController);
+      // Phase 8 / Plan 08-03 / Task 2 — D-08-03-01: funcionário sobe foto/PDF
+      // (POST /v1/hr/punch-approvals/self-evidence) sem PIN, owner-only.
+      mutationApp.register(v1UploadSelfPunchEvidenceController);
     },
     { prefix: '' },
   );
