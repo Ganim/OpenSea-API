@@ -10,6 +10,8 @@ import type {
 } from '../pos-terminals-repository';
 import type {
   Prisma,
+  PosCoordinationMode as PrismaCoordinationMode,
+  PosOperatorSessionMode as PrismaOperatorSessionMode,
   PosTerminalMode as PrismaMode,
 } from '@prisma/generated/client.js';
 
@@ -46,6 +48,13 @@ export class PrismaPosTerminalsRepository implements PosTerminalsRepository {
         lastSyncAt: terminal.lastSyncAt ?? null,
         lastOnlineAt: terminal.lastOnlineAt ?? null,
         settings: (terminal.settings as Prisma.InputJsonValue) ?? undefined,
+        operatorSessionMode: terminal.operatorSessionMode
+          .value as PrismaOperatorSessionMode,
+        operatorSessionTimeout: terminal.operatorSessionTimeout ?? null,
+        autoCloseSessionAt: terminal.autoCloseSessionAt ?? null,
+        coordinationMode: terminal.coordinationMode
+          .value as PrismaCoordinationMode,
+        appliedProfileId: terminal.appliedProfileId?.toString() ?? null,
       },
     });
   }
@@ -162,6 +171,13 @@ export class PrismaPosTerminalsRepository implements PosTerminalsRepository {
         lastSyncAt: terminal.lastSyncAt ?? null,
         lastOnlineAt: terminal.lastOnlineAt ?? null,
         settings: (terminal.settings as Prisma.InputJsonValue) ?? undefined,
+        operatorSessionMode: terminal.operatorSessionMode
+          .value as PrismaOperatorSessionMode,
+        operatorSessionTimeout: terminal.operatorSessionTimeout ?? null,
+        autoCloseSessionAt: terminal.autoCloseSessionAt ?? null,
+        coordinationMode: terminal.coordinationMode
+          .value as PrismaCoordinationMode,
+        appliedProfileId: terminal.appliedProfileId?.toString() ?? null,
       },
     });
   }

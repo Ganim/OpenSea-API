@@ -12,6 +12,9 @@ import { v1UnpairDeviceController } from './terminals/v1-unpair-device.controlle
 import { v1AssignOperatorController } from './terminals/v1-assign-operator.controller';
 import { v1RevokeOperatorController } from './terminals/v1-revoke-operator.controller';
 import { v1ListTerminalOperatorsController } from './terminals/v1-list-terminal-operators.controller';
+import { v1UpdateSessionModeController } from './terminals/v1-update-session-mode.controller';
+import { v1AssignTerminalZoneController } from './terminals/v1-assign-terminal-zone.controller';
+import { v1UnassignTerminalZoneController } from './terminals/v1-unassign-terminal-zone.controller';
 
 // Devices
 import { v1PairDeviceController } from './devices/v1-pair-device.controller';
@@ -48,6 +51,9 @@ export async function posRoutes(app: FastifyInstance) {
   await app.register(v1AssignOperatorController);
   await app.register(v1RevokeOperatorController);
   await app.register(v1ListTerminalOperatorsController);
+  await app.register(v1UpdateSessionModeController);
+  await app.register(v1AssignTerminalZoneController);
+  await app.register(v1UnassignTerminalZoneController);
 
   // Devices
   await app.register(v1PairDeviceController);

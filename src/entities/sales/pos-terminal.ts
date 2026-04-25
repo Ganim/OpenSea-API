@@ -173,6 +173,80 @@ export class PosTerminal extends Entity<PosTerminalProps> {
     return this.props.updatedAt;
   }
 
+  /**
+   * Updates operator-session and coordination configuration in a single
+   * transactional change. Centralizes the per-mode invariants so the use case
+   * doesn't have to mutate four setters in sequence:
+   *
+   *  - `STAY_LOGGED_IN` requires a positive `operatorSessionTimeout` (seconds).
+   *    `autoCloseSessionAt` may still be provided to force-close at a daily
+   *    wall-clock time.
+   *  - `PER_SALE` forbids `operatorSessionTimeout` and forces it to `null`,
+   *    since the session is closed automatically after each sale.
+   *  - `autoCloseSessionAt`, when provided, must match `HH:MM` (24h).
+   *
+   * Throws plain `Error`s on invariant violations — the use case is
+   * responsible for translating them into `BadRequestError` for the HTTP
+   * layer (mirrors the project pattern where domain throws are surfaced as
+   * 400 by the controllers, see Task 23 `assign-operator`).
+   *
+   * @param config new configuration values; `operatorSessionTimeout` and
+   * `autoCloseSessionAt` accept `null` to explicitly clear the slot.
+   */
+  updateSessionConfig(config: {
+    operatorSessionMode: PosOperatorSessionMode;
+    operatorSessionTimeout?: number | null;
+    autoCloseSessionAt?: string | null;
+    coordinationMode?: PosCoordinationMode;
+  }): void {
+    const {
+      operatorSessionMode,
+      operatorSessionTimeout,
+      autoCloseSessionAt,
+      coordinationMode,
+    } = config;
+
+    if (operatorSessionMode.isStayLoggedIn) {
+      if (
+        operatorSessionTimeout === undefined ||
+        operatorSessionTimeout === null ||
+        operatorSessionTimeout <= 0
+      ) {
+        throw new Error(
+          'operatorSessionTimeout is required and must be greater than 0 when operatorSessionMode is STAY_LOGGED_IN',
+        );
+      }
+    }
+
+    if (autoCloseSessionAt !== undefined && autoCloseSessionAt !== null) {
+      const HH_MM_24H_REGEX = /^([01]\d|2[0-3]):[0-5]\d$/;
+      if (!HH_MM_24H_REGEX.test(autoCloseSessionAt)) {
+        throw new Error(
+          'autoCloseSessionAt must be in HH:MM 24h format (e.g. "23:00")',
+        );
+      }
+    }
+
+    this.props.operatorSessionMode = operatorSessionMode;
+
+    if (operatorSessionMode.isPerSale) {
+      // PER_SALE forces the timeout to null — the session ends per sale.
+      this.props.operatorSessionTimeout = null;
+    } else if (operatorSessionTimeout !== undefined) {
+      this.props.operatorSessionTimeout = operatorSessionTimeout;
+    }
+
+    if (autoCloseSessionAt !== undefined) {
+      this.props.autoCloseSessionAt = autoCloseSessionAt;
+    }
+
+    if (coordinationMode !== undefined) {
+      this.props.coordinationMode = coordinationMode;
+    }
+
+    this.props.updatedAt = new Date();
+  }
+
   static create(
     props: Optional<
       PosTerminalProps,

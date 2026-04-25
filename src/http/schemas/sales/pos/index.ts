@@ -5,3 +5,6 @@ export * from './pos-cash-movement.schema';
 export * from './assign-operator.schema';
 export * from './revoke-operator.schema';
 export * from './list-terminal-operators.schema';
+export * from './update-session-mode.schema';
+export * from './assign-terminal-zone.schema';
+export * from './unassign-terminal-zone.schema';

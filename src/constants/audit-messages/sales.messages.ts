@@ -714,6 +714,33 @@ export const SALES_AUDIT_MESSAGES = {
       '{{userName}} revogou o vínculo de {{employeeName}} como operador do terminal {{terminalName}}',
   } satisfies AuditMessage,
 
+  /** Configuração de modo de sessão do terminal PDV atualizada */
+  POS_TERMINAL_SESSION_MODE_UPDATE: {
+    action: AuditAction.POS_TERMINAL_SESSION_MODE_UPDATE,
+    entity: AuditEntity.POS_TERMINAL,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} atualizou a configuração de sessão do terminal {{terminalName}}',
+  } satisfies AuditMessage,
+
+  /** Zona vinculada a terminal PDV (cria ou atualiza tier) */
+  POS_TERMINAL_ZONE_ASSIGN: {
+    action: AuditAction.POS_TERMINAL_ZONE_ASSIGN,
+    entity: AuditEntity.POS_TERMINAL_ZONE,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} vinculou a zona {{zoneId}} ao terminal {{terminalName}} ({{tier}})',
+  } satisfies AuditMessage,
+
+  /** Vínculo de zona com terminal PDV removido */
+  POS_TERMINAL_ZONE_UNASSIGN: {
+    action: AuditAction.POS_TERMINAL_ZONE_UNASSIGN,
+    entity: AuditEntity.POS_TERMINAL_ZONE,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} removeu o vínculo da zona {{zoneId}} com o terminal {{terminalName}}',
+  } satisfies AuditMessage,
+
   // ============================================================================
   // PDV ORDER FLOW - Fluxo de pedidos PDV
   // ============================================================================
