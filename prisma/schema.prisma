@@ -16368,8 +16368,14 @@ enum PunchApprovalReason {
   // Phase 8 (D-08): funcionário antecipa justificativa via PWA pessoal sem
   // depender do gestor criar a PunchApproval — trigger manual da PUNCH-PWA-05.
   EMPLOYEE_SELF_REQUEST
-  // Extensible: FACE_MATCH_FAIL_3X (phase 9),
-  // CLOCK_DRIFT (phase 9), MANUAL_CORRECTION (phase 6)
+  // Phase 9 (D-02 / D-04): GPS suspeito — velocity > 200 km/h entre batidas
+  // consecutivas OU heurística cliente-side de mock GPS sinalizou suspectMock=true.
+  GPS_INCONSISTENT
+  // Phase 9 (D-10): 3 falhas consecutivas de face match na janela sliding 60min
+  // (counter Redis em FaceMatchStreakValidator).
+  FACE_MATCH_FAIL_3X
+  // Extensible: CLOCK_DRIFT permanece como REJECT (D-07), não vira approval.
+  // MANUAL_CORRECTION (phase 6) — pendente quando aplicável.
 }
 
 enum PunchApprovalStatus {
