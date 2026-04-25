@@ -52,6 +52,22 @@ export class PosTerminalOperator extends Entity<PosTerminalOperatorProps> {
     this.props.revokedByUserId = userId;
   }
 
+  /**
+   * Reactivates a previously revoked operator assignment.
+   *
+   * Clears the revocation metadata (`revokedAt`, `revokedByUserId`) and
+   * stamps the new assignment with the current timestamp and the user who
+   * performed the reactivation. Used by the assign-operator flow when the
+   * unique (terminal_id, employee_id) row already exists in revoked state.
+   */
+  public reactivate(userId: UniqueEntityID): void {
+    this.props.isActive = true;
+    this.props.assignedAt = new Date();
+    this.props.assignedByUserId = userId;
+    this.props.revokedAt = null;
+    this.props.revokedByUserId = null;
+  }
+
   public static create(
     props: Optional<
       PosTerminalOperatorProps,

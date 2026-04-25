@@ -48,6 +48,29 @@ describe('PosTerminalOperator entity', () => {
     expect(op.revokedByUserId?.toString()).toBe('user-revoker');
   });
 
+  it('reactivate() limpa revokedAt/revokedByUserId, atualiza assignedAt e seta novo assignedByUserId', () => {
+    const op = PosTerminalOperator.create({
+      terminalId: new UniqueEntityID('term-1'),
+      employeeId: new UniqueEntityID('emp-1'),
+      tenantId: 'tenant-1',
+      assignedByUserId: new UniqueEntityID('user-1'),
+      assignedAt: new Date('2026-01-01T10:00:00Z'),
+    });
+    op.revoke(new UniqueEntityID('user-revoker'));
+    expect(op.isActive).toBe(false);
+
+    const newAssigner = new UniqueEntityID('user-new-assigner');
+    op.reactivate(newAssigner);
+
+    expect(op.isActive).toBe(true);
+    expect(op.revokedAt).toBeNull();
+    expect(op.revokedByUserId).toBeNull();
+    expect(op.assignedByUserId.toString()).toBe('user-new-assigner');
+    expect(op.assignedAt.getTime()).toBeGreaterThan(
+      new Date('2026-01-01T10:00:00Z').getTime(),
+    );
+  });
+
   it('aceita id explícito', () => {
     const explicitId = new UniqueEntityID('explicit-id');
     const op = PosTerminalOperator.create(

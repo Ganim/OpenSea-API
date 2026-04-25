@@ -114,6 +114,7 @@ export enum AuditEntity {
   // POS - Ponto de Venda
   // ==========================================
   POS_TERMINAL = 'POS_TERMINAL',
+  POS_TERMINAL_OPERATOR = 'POS_TERMINAL_OPERATOR',
   POS_SESSION = 'POS_SESSION',
   POS_TRANSACTION = 'POS_TRANSACTION',
   POS_CASH_MOVEMENT = 'POS_CASH_MOVEMENT',

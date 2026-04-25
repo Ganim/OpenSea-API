@@ -9,6 +9,7 @@ import { v1DeleteTerminalController } from './terminals/v1-delete-terminal.contr
 import { v1GetPairingCodeController } from './terminals/v1-get-pairing-code.controller';
 import { v1PairThisDeviceController } from './terminals/v1-pair-this-device.controller';
 import { v1UnpairDeviceController } from './terminals/v1-unpair-device.controller';
+import { v1AssignOperatorController } from './terminals/v1-assign-operator.controller';
 
 // Devices
 import { v1PairDeviceController } from './devices/v1-pair-device.controller';
@@ -42,6 +43,7 @@ export async function posRoutes(app: FastifyInstance) {
   await app.register(v1GetPairingCodeController);
   await app.register(v1PairThisDeviceController);
   await app.register(v1UnpairDeviceController);
+  await app.register(v1AssignOperatorController);
 
   // Devices
   await app.register(v1PairDeviceController);

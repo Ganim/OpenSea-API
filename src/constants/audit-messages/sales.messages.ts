@@ -696,6 +696,15 @@ export const SALES_AUDIT_MESSAGES = {
     description: '{{userName}} registrou movimentação de caixa',
   } satisfies AuditMessage,
 
+  /** Funcionário vinculado como operador autorizado de terminal PDV */
+  POS_OPERATOR_ASSIGN: {
+    action: AuditAction.POS_OPERATOR_ASSIGN,
+    entity: AuditEntity.POS_TERMINAL_OPERATOR,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} vinculou {{employeeName}} como operador do terminal {{terminalName}}',
+  } satisfies AuditMessage,
+
   // ============================================================================
   // PDV ORDER FLOW - Fluxo de pedidos PDV
   // ============================================================================
