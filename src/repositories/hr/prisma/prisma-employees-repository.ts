@@ -1011,6 +1011,7 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
       weeklyHours: employee.weeklyHours,
       photoUrl: employee.photoUrl,
       metadata: JSON.parse(JSON.stringify(employee.metadata)),
+      shortId: employee.shortId ?? null,
     };
 
     if (cipher) {

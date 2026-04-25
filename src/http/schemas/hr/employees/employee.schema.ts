@@ -252,6 +252,7 @@ export const listEmployeesQuerySchema = z.object({
 export const employeeResponseSchema = z.object({
   id: idSchema,
   registrationNumber: z.string(),
+  shortId: z.string().optional().nullable(),
   userId: idSchema.optional().nullable(),
   fullName: z.string(),
   socialName: z.string().optional().nullable(),

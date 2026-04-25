@@ -23,6 +23,7 @@ import { v1UploadEmployeePhotoController } from './v1-upload-employee-photo.cont
 import { v1DeleteEmployeePhotoController } from './v1-delete-employee-photo.controller';
 import { v1GeneratePPPController } from './v1-generate-ppp.controller';
 import { v1ExportMyDataController } from './v1-export-my-data.controller';
+import { v1RegenerateEmployeeShortIdController } from './v1-regenerate-employee-short-id.controller';
 
 export async function employeesRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('HR'));
@@ -45,6 +46,7 @@ export async function employeesRoutes(app: FastifyInstance) {
       managerApp.register(v1AnonymizeEmployeeController);
       managerApp.register(v1UploadEmployeePhotoController);
       managerApp.register(v1DeleteEmployeePhotoController);
+      managerApp.register(v1RegenerateEmployeeShortIdController);
     },
     { prefix: '' },
   );

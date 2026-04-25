@@ -7,3 +7,4 @@ export * from './employee-common.schema';
 export * from './employee.schema';
 export * from './dependant.schema';
 export * from './medical-exam.schema';
+export * from './regenerate-short-id.schema';

@@ -118,6 +118,15 @@ export const HR_AUDIT_MESSAGES = {
       '{{adminName}} anonimizou os dados pessoais do funcionário {{employeeName}} (LGPD Art. 18 VI)',
   } satisfies AuditMessage,
 
+  /** ShortId público do funcionário regenerado (Emporion POS operator login) */
+  EMPLOYEE_REGENERATE_SHORT_ID: {
+    action: AuditAction.EMPLOYEE_REGENERATE_SHORT_ID,
+    entity: AuditEntity.EMPLOYEE,
+    module: AuditModule.HR,
+    description:
+      '{{adminName}} regenerou o shortId público de {{employeeName}}',
+  } satisfies AuditMessage,
+
   /** Verificação de CPF */
   EMPLOYEE_CHECK_CPF: {
     action: AuditAction.CHECK_CPF,
