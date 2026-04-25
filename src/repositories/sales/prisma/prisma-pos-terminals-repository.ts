@@ -83,6 +83,26 @@ export class PrismaPosTerminalsRepository implements PosTerminalsRepository {
     return raw ? posTerminalPrismaToDomain(raw) : null;
   }
 
+  async findManyByIds(
+    ids: UniqueEntityID[],
+    tenantId: string,
+    includeDeleted = false,
+  ): Promise<PosTerminal[]> {
+    if (ids.length === 0) {
+      return [];
+    }
+
+    const rows = await prisma.posTerminal.findMany({
+      where: {
+        id: { in: ids.map((id) => id.toString()) },
+        tenantId,
+        deletedAt: includeDeleted ? undefined : null,
+      },
+    });
+
+    return rows.map(posTerminalPrismaToDomain);
+  }
+
   async findManyPaginated(
     params: FindManyPosTerminalsPaginatedParams,
   ): Promise<PaginatedResult<PosTerminal>> {

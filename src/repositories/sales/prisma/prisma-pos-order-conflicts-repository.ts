@@ -101,6 +101,10 @@ export class PrismaPosOrderConflictsRepository
       where.posTerminalId = params.posTerminalId;
     }
 
+    if (params.operatorEmployeeId) {
+      where.posOperatorEmployeeId = params.operatorEmployeeId;
+    }
+
     if (params.fromDate || params.toDate) {
       const createdAt: Record<string, Date> = {};
       if (params.fromDate) createdAt.gte = params.fromDate;

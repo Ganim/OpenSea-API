@@ -68,6 +68,12 @@ export class InMemoryPosOrderConflictsRepository
       );
     }
 
+    if (params.operatorEmployeeId) {
+      filtered = filtered.filter(
+        (c) => c.posOperatorEmployeeId === params.operatorEmployeeId,
+      );
+    }
+
     if (params.fromDate) {
       const from = params.fromDate;
       filtered = filtered.filter((c) => c.createdAt >= from);
@@ -77,6 +83,14 @@ export class InMemoryPosOrderConflictsRepository
       const to = params.toDate;
       filtered = filtered.filter((c) => c.createdAt <= to);
     }
+
+    // Stable createdAt DESC sort to match the Prisma impl. Ties fall back to
+    // id for determinism in unit tests.
+    filtered.sort((a, b) => {
+      const dateDiff = b.createdAt.getTime() - a.createdAt.getTime();
+      if (dateDiff !== 0) return dateDiff;
+      return a.id.toString().localeCompare(b.id.toString());
+    });
 
     const total = filtered.length;
     const start = (params.page - 1) * params.limit;

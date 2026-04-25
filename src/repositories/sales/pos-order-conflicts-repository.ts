@@ -10,6 +10,14 @@ export interface FindManyPosOrderConflictsParams {
   limit: number;
   status?: PosOrderConflictStatusValue[];
   posTerminalId?: string;
+  /**
+   * Filter by `posOperatorEmployeeId`. Added by Emporion Plan A — Task 30
+   * (`GET /v1/admin/pos/conflicts`). When omitted, conflicts of every operator
+   * are returned. When provided, only conflicts whose `posOperatorEmployeeId`
+   * exactly matches are returned (rows where the column is `null` are
+   * excluded — those represent terminal-level / anonymous conflicts).
+   */
+  operatorEmployeeId?: string;
   fromDate?: Date;
   toDate?: Date;
 }

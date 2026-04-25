@@ -50,6 +50,20 @@ export class InMemoryPosTerminalsRepository implements PosTerminalsRepository {
     return this.items.find((t) => t.totemCode === code && !t.deletedAt) ?? null;
   }
 
+  async findManyByIds(
+    ids: UniqueEntityID[],
+    tenantId: string,
+    includeDeleted = false,
+  ): Promise<PosTerminal[]> {
+    const lookupSet = new Set(ids.map((id) => id.toString()));
+    return this.items.filter(
+      (terminal) =>
+        lookupSet.has(terminal.id.toString()) &&
+        terminal.tenantId.toString() === tenantId &&
+        (includeDeleted || !terminal.deletedAt),
+    );
+  }
+
   async findManyPaginated(
     params: FindManyPosTerminalsPaginatedParams,
   ): Promise<PaginatedResult<PosTerminal>> {

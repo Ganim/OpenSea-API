@@ -43,6 +43,9 @@ import { posCatalogRoutes } from './catalog/routes';
 // Sales (device-authenticated)
 import { posSalesRoutes } from './sales/routes';
 
+// Conflicts (admin)
+import { posConflictsRoutes } from './conflicts/routes';
+
 export async function posRoutes(app: FastifyInstance) {
   app.addHook('onRequest', createModuleMiddleware('SALES'));
 
@@ -87,4 +90,7 @@ export async function posRoutes(app: FastifyInstance) {
 
   // Sales (device-authenticated)
   await app.register(posSalesRoutes);
+
+  // Conflicts (admin)
+  await app.register(posConflictsRoutes);
 }
