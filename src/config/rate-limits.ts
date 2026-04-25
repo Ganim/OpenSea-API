@@ -210,6 +210,19 @@ export const rateLimitConfig = {
     message:
       'Muitas consultas de verificação. Aguarde antes de tentar novamente.',
   },
+
+  /**
+   * Public POS device pair endpoint (`POST /v1/pos/devices/pair-public`)
+   * Limite restritivo por IP — o pairing code de 6 chars é o secret e roda
+   * a cada minuto. 5 tentativas/min basta para o fluxo legítimo (Emporion
+   * fresh install) e impede brute force prático: 5 × 32^6 ≈ 1B por minuto
+   * a partir do mesmo IP é inviável.
+   */
+  posPairPublic: {
+    max: 5, // 5 tentativas por minuto por IP
+    timeWindow: '1 minute',
+    message: 'Too many pair attempts. Please wait before trying again.',
+  },
 } as const;
 
 /**

@@ -31,6 +31,15 @@ export interface PosTerminalsRepository {
     tenantId: string,
     includeDeleted?: boolean,
   ): Promise<PosTerminal[]>;
+  /**
+   * Cross-tenant scan returning every active terminal that has a non-null
+   * `pairingSecret`. Used exclusively by the public pair-by-code endpoint
+   * (`POST /v1/pos/devices/pair-public`) which receives only the rotating
+   * code and must locate the matching terminal across tenants. The code
+   * itself acts as the tenant-revealing secret; rate limiting on the
+   * controller mitigates brute force.
+   */
+  findAllWithActivePairingSecret(): Promise<PosTerminal[]>;
   findManyPaginated(
     params: FindManyPosTerminalsPaginatedParams,
   ): Promise<PaginatedResult<PosTerminal>>;

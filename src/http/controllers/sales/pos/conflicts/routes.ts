@@ -1,5 +1,6 @@
 import type { FastifyInstance } from 'fastify';
 
+import { v1GetConflictController } from './v1-get-conflict.controller';
 import { v1ListConflictsController } from './v1-list-conflicts.controller';
 import { v1ResolveConflictManuallyController } from './v1-resolve-conflict-manually.controller';
 
@@ -10,5 +11,6 @@ import { v1ResolveConflictManuallyController } from './v1-resolve-conflict-manua
  */
 export async function posConflictsRoutes(app: FastifyInstance) {
   await app.register(v1ListConflictsController);
+  await app.register(v1GetConflictController);
   await app.register(v1ResolveConflictManuallyController);
 }

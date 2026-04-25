@@ -64,6 +64,12 @@ export class InMemoryPosTerminalsRepository implements PosTerminalsRepository {
     );
   }
 
+  async findAllWithActivePairingSecret(): Promise<PosTerminal[]> {
+    return this.items.filter(
+      (t) => !!t.pairingSecret && t.isActive && !t.deletedAt,
+    );
+  }
+
   async findManyPaginated(
     params: FindManyPosTerminalsPaginatedParams,
   ): Promise<PaginatedResult<PosTerminal>> {

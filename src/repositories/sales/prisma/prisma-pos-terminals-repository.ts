@@ -69,6 +69,17 @@ export class PrismaPosTerminalsRepository implements PosTerminalsRepository {
     return raw ? posTerminalPrismaToDomain(raw) : null;
   }
 
+  async findAllWithActivePairingSecret(): Promise<PosTerminal[]> {
+    const rows = await prisma.posTerminal.findMany({
+      where: {
+        pairingSecret: { not: null },
+        isActive: true,
+        deletedAt: null,
+      },
+    });
+    return rows.map(posTerminalPrismaToDomain);
+  }
+
   async findByTerminalCode(code: string): Promise<PosTerminal | null> {
     const raw = await prisma.posTerminal.findFirst({
       where: { terminalCode: code, deletedAt: null },

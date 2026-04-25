@@ -22,6 +22,7 @@ export interface UpdateWarehouseSchema {
 export interface WarehousesRepository {
   create(data: CreateWarehouseSchema): Promise<Warehouse>;
   findById(id: UniqueEntityID, tenantId: string): Promise<Warehouse | null>;
+  findManyByIds(ids: UniqueEntityID[], tenantId: string): Promise<Warehouse[]>;
   findByCode(code: string, tenantId: string): Promise<Warehouse | null>;
   findMany(tenantId: string): Promise<Warehouse[]>;
   findManyActive(tenantId: string): Promise<Warehouse[]>;

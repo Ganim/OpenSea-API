@@ -37,6 +37,20 @@ export class InMemoryWarehousesRepository implements WarehousesRepository {
     return warehouse ?? null;
   }
 
+  async findManyByIds(
+    ids: UniqueEntityID[],
+    tenantId: string,
+  ): Promise<Warehouse[]> {
+    if (ids.length === 0) return [];
+    const idSet = new Set(ids.map((id) => id.toString()));
+    return this.warehouses.filter(
+      (w) =>
+        !w.deletedAt &&
+        w.tenantId.toString() === tenantId &&
+        idSet.has(w.warehouseId.toString()),
+    );
+  }
+
   async findByCode(code: string, tenantId: string): Promise<Warehouse | null> {
     const warehouse = this.warehouses.find(
       (w) =>

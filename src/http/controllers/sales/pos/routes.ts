@@ -1,9 +1,14 @@
 import type { FastifyInstance } from 'fastify';
+import rateLimit from '@fastify/rate-limit';
+
+import { env } from '@/@env';
+import { rateLimitConfig } from '@/config/rate-limits';
 import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 
 // Terminals
 import { v1CreateTerminalController } from './terminals/v1-create-terminal.controller';
 import { v1ListTerminalsController } from './terminals/v1-list-terminals.controller';
+import { v1GetTerminalController } from './terminals/v1-get-terminal.controller';
 import { v1UpdateTerminalController } from './terminals/v1-update-terminal.controller';
 import { v1DeleteTerminalController } from './terminals/v1-delete-terminal.controller';
 import { v1GetPairingCodeController } from './terminals/v1-get-pairing-code.controller';
@@ -15,15 +20,19 @@ import { v1ListTerminalOperatorsController } from './terminals/v1-list-terminal-
 import { v1UpdateSessionModeController } from './terminals/v1-update-session-mode.controller';
 import { v1AssignTerminalZoneController } from './terminals/v1-assign-terminal-zone.controller';
 import { v1UnassignTerminalZoneController } from './terminals/v1-unassign-terminal-zone.controller';
+import { v1ListTerminalZonesController } from './terminals/v1-list-terminal-zones.controller';
 
 // Devices
 import { v1PairDeviceController } from './devices/v1-pair-device.controller';
+import { v1PairPublicController } from './devices/v1-pair-public.controller';
 import { v1GetMyDeviceController } from './devices/v1-get-my-device.controller';
 
 // Sessions
 import { v1OpenSessionController } from './sessions/v1-open-session.controller';
+import { v1OpenSessionFromDeviceController } from './sessions/v1-open-session-from-device.controller';
 import { v1OpenTotemSessionController } from './sessions/v1-open-totem-session.controller';
 import { v1CloseSessionController } from './sessions/v1-close-session.controller';
+import { v1CloseSessionFromDeviceController } from './sessions/v1-close-session-from-device.controller';
 import { v1CloseOrphanSessionController } from './sessions/v1-close-orphan-session.controller';
 import { v1GetActiveSessionController } from './sessions/v1-get-active-session.controller';
 import { v1ListSessionsController } from './sessions/v1-list-sessions.controller';
@@ -36,6 +45,7 @@ import { v1ListTransactionsController } from './transactions/v1-list-transaction
 
 // Cash
 import { v1CashMovementController } from './cash/v1-cash-movement.controller';
+import { v1CashMovementFromDeviceController } from './cash/v1-cash-movement-from-device.controller';
 
 // Catalog (device-authenticated)
 import { posCatalogRoutes } from './catalog/routes';
@@ -54,6 +64,7 @@ export async function posRoutes(app: FastifyInstance) {
 
   // Terminals
   await app.register(v1ListTerminalsController);
+  await app.register(v1GetTerminalController);
   await app.register(v1CreateTerminalController);
   await app.register(v1UpdateTerminalController);
   await app.register(v1DeleteTerminalController);
@@ -66,15 +77,33 @@ export async function posRoutes(app: FastifyInstance) {
   await app.register(v1UpdateSessionModeController);
   await app.register(v1AssignTerminalZoneController);
   await app.register(v1UnassignTerminalZoneController);
+  await app.register(v1ListTerminalZonesController);
 
   // Devices
   await app.register(v1PairDeviceController);
   await app.register(v1GetMyDeviceController);
 
+  // Public device pair (no JWT) — wrapped in a sub-app so the rate limit
+  // applies only to this route. The SALES module hook on the parent
+  // short-circuits silently when `request.user` is absent (see
+  // verify-module.ts), so no module gate fires here.
+  await app.register(async (publicPairApp) => {
+    const isTestEnv =
+      env.NODE_ENV === 'test' ||
+      process.env.VITEST === 'true' ||
+      process.env.VITEST === '1';
+    if (!isTestEnv) {
+      await publicPairApp.register(rateLimit, rateLimitConfig.posPairPublic);
+    }
+    await publicPairApp.register(v1PairPublicController);
+  });
+
   // Sessions
   await app.register(v1OpenSessionController);
+  await app.register(v1OpenSessionFromDeviceController);
   await app.register(v1OpenTotemSessionController);
   await app.register(v1CloseSessionController);
+  await app.register(v1CloseSessionFromDeviceController);
   await app.register(v1CloseOrphanSessionController);
   await app.register(v1GetActiveSessionController);
   await app.register(v1ListSessionsController);
@@ -87,6 +116,7 @@ export async function posRoutes(app: FastifyInstance) {
 
   // Cash
   await app.register(v1CashMovementController);
+  await app.register(v1CashMovementFromDeviceController);
 
   // Catalog (device-authenticated)
   await app.register(posCatalogRoutes);

@@ -67,6 +67,37 @@ export class PrismaWarehousesRepository implements WarehousesRepository {
     );
   }
 
+  async findManyByIds(
+    ids: UniqueEntityID[],
+    tenantId: string,
+  ): Promise<Warehouse[]> {
+    if (ids.length === 0) return [];
+
+    const rows = await prisma.warehouse.findMany({
+      where: {
+        id: { in: ids.map((id) => id.toString()) },
+        tenantId,
+        deletedAt: null,
+      },
+    });
+
+    return rows.map((row) =>
+      Warehouse.create(
+        {
+          tenantId: new EntityID(row.tenantId),
+          code: row.code,
+          name: row.name,
+          description: row.description,
+          address: row.address,
+          isActive: row.isActive,
+          createdAt: row.createdAt,
+          updatedAt: row.updatedAt,
+        },
+        new EntityID(row.id),
+      ),
+    );
+  }
+
   async findByCode(code: string, tenantId: string): Promise<Warehouse | null> {
     const warehouseData = await prisma.warehouse.findFirst({
       where: {
