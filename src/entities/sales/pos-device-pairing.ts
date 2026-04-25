@@ -2,6 +2,8 @@ import { Entity } from '../domain/entities';
 import type { Optional } from '../domain/optional';
 import { UniqueEntityID } from '../domain/unique-entity-id';
 
+export type PosPairingSource = 'JWT' | 'PUBLIC';
+
 export interface PosDevicePairingProps {
   id: string;
   tenantId: UniqueEntityID;
@@ -11,6 +13,7 @@ export interface PosDevicePairingProps {
   pairedAt: Date;
   lastSeenAt?: Date;
   pairedByUserId: string;
+  pairingSource: PosPairingSource;
   revokedAt?: Date;
   revokedByUserId?: string;
   revokedReason?: string;
@@ -44,6 +47,9 @@ export class PosDevicePairing extends Entity<PosDevicePairingProps> {
   get pairedByUserId() {
     return this.props.pairedByUserId;
   }
+  get pairingSource(): PosPairingSource {
+    return this.props.pairingSource;
+  }
   get revokedAt() {
     return this.props.revokedAt;
   }
@@ -68,7 +74,7 @@ export class PosDevicePairing extends Entity<PosDevicePairingProps> {
   }
 
   static create(
-    props: Optional<PosDevicePairingProps, 'id' | 'pairedAt'>,
+    props: Optional<PosDevicePairingProps, 'id' | 'pairedAt' | 'pairingSource'>,
     id?: UniqueEntityID,
   ) {
     return new PosDevicePairing(
@@ -76,6 +82,7 @@ export class PosDevicePairing extends Entity<PosDevicePairingProps> {
         ...props,
         id: props.id ?? '',
         pairedAt: props.pairedAt ?? new Date(),
+        pairingSource: props.pairingSource ?? 'JWT',
       },
       id ?? new UniqueEntityID(props.id),
     );

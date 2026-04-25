@@ -11820,6 +11820,16 @@ enum PosZoneTier {
   SECONDARY
 }
 
+// How a PosDevicePairing was created:
+//  - JWT    → admin paired the device using their authenticated session
+//             (`POST /v1/pos/devices/pair` or `/v1/pos/terminals/:id/pair-self`)
+//  - PUBLIC → device paired itself with the rotating code, no JWT
+//             (`POST /v1/pos/devices/pair-public` — see ADR 030)
+enum PosPairingSource {
+  JWT
+  PUBLIC
+}
+
 enum PosFiscalEmissionMode {
   ONLINE_SYNC
   OFFLINE_CONTINGENCY
@@ -12126,6 +12136,11 @@ model PosDevicePairing {
   pairedAt        DateTime  @default(now()) @map("paired_at")
   lastSeenAt      DateTime? @map("last_seen_at")
   pairedByUserId  String    @map("paired_by_user_id")
+  // Source of the pair operation. JWT pairings carry a real `pairedByUserId`
+  // (FK-less but valid uuid). PUBLIC pairings (Emporion fresh install via
+  // pair-public) carry the sentinel string 'public' and audit code should
+  // skip user-name lookups when source = PUBLIC. See ADR 030.
+  pairingSource   PosPairingSource @default(JWT) @map("pairing_source")
   revokedAt       DateTime? @map("revoked_at")
   revokedByUserId String?   @map("revoked_by_user_id")
   revokedReason   String?   @map("revoked_reason") @db.VarChar(256)

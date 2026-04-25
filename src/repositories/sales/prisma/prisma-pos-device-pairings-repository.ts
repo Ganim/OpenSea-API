@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma';
 import { posDevicePairingPrismaToDomain } from '@/mappers/sales/pos-device-pairing/pos-device-pairing-prisma-to-domain';
 import type { PosDevicePairingsRepository } from '../pos-device-pairings-repository';
 
+import type { PosPairingSource as PrismaPairingSource } from '@prisma/generated/client.js';
+
 export class PrismaPosDevicePairingsRepository
   implements PosDevicePairingsRepository
 {
@@ -17,6 +19,7 @@ export class PrismaPosDevicePairingsRepository
         pairedAt: pairing.pairedAt,
         lastSeenAt: pairing.lastSeenAt ?? null,
         pairedByUserId: pairing.pairedByUserId,
+        pairingSource: pairing.pairingSource as PrismaPairingSource,
         revokedAt: pairing.revokedAt ?? null,
         revokedByUserId: pairing.revokedByUserId ?? null,
         revokedReason: pairing.revokedReason ?? null,

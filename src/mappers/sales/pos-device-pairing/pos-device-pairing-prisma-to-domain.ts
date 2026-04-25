@@ -1,5 +1,8 @@
 import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
-import { PosDevicePairing } from '@/entities/sales/pos-device-pairing';
+import {
+  PosDevicePairing,
+  type PosPairingSource,
+} from '@/entities/sales/pos-device-pairing';
 import type { PosDevicePairing as PrismaPosDevicePairing } from '@prisma/generated/client.js';
 
 export function posDevicePairingPrismaToDomain(
@@ -15,6 +18,7 @@ export function posDevicePairingPrismaToDomain(
       pairedAt: raw.pairedAt,
       lastSeenAt: raw.lastSeenAt ?? undefined,
       pairedByUserId: raw.pairedByUserId,
+      pairingSource: raw.pairingSource as PosPairingSource,
       revokedAt: raw.revokedAt ?? undefined,
       revokedByUserId: raw.revokedByUserId ?? undefined,
       revokedReason: raw.revokedReason ?? undefined,

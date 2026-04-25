@@ -80,11 +80,12 @@ export class PairDevicePublicUseCase {
       terminalId: matched.id,
       deviceLabel: request.deviceLabel,
       deviceTokenHash,
-      // No authenticated user — store an empty string so the column
-      // stays consistent with the JWT flow (the PosDevicePairing entity
-      // accepts arbitrary user-id strings; the public flow uses
-      // 'public' as a sentinel that the audit log can recognise).
+      // No authenticated user — `pairingSource = 'PUBLIC'` records the fact
+      // semantically (audit code skips user-name lookups when source = PUBLIC).
+      // The 'public' sentinel on `pairedByUserId` is kept for backwards
+      // compatibility with code that reads the column without checking source.
       pairedByUserId: 'public',
+      pairingSource: 'PUBLIC',
     });
 
     await this.posDevicePairingsRepository.create(pairing);
