@@ -11937,6 +11937,12 @@ model PosTerminal {
   @@index([tenantId])
   @@index([tenantId, isActive])
   @@index([tenantId, mode])
+  // Cross-tenant scan support for `POST /v1/pos/devices/pair-public` (ADR 030):
+  // findAllWithActivePairingSecret() filters on (pairingSecret IS NOT NULL,
+  // isActive=true, deletedAt IS NULL). Postgres supports partial indexes on
+  // raw SQL but Prisma's `@@index` is a full-column B-Tree; selective enough
+  // since most rows have NULL pairing_secret outside the pair window.
+  @@index([pairingSecret])
   @@map("pos_terminals")
 }
 
