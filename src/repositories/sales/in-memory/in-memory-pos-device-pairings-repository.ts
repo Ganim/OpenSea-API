@@ -20,6 +20,10 @@ export class InMemoryPosDevicePairingsRepository
     return this.items.find((p) => p.deviceTokenHash === hash) ?? null;
   }
 
+  async findByTokenHash(tokenHash: string): Promise<PosDevicePairing | null> {
+    return this.items.find((p) => p.deviceTokenHash === tokenHash) ?? null;
+  }
+
   async save(pairing: PosDevicePairing): Promise<void> {
     const index = this.items.findIndex(
       (p) => p.pairingId === pairing.pairingId,

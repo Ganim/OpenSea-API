@@ -38,6 +38,13 @@ export class PrismaPosDevicePairingsRepository
     return raw ? posDevicePairingPrismaToDomain(raw) : null;
   }
 
+  async findByTokenHash(tokenHash: string): Promise<PosDevicePairing | null> {
+    const raw = await prisma.posDevicePairing.findFirst({
+      where: { deviceTokenHash: tokenHash },
+    });
+    return raw ? posDevicePairingPrismaToDomain(raw) : null;
+  }
+
   async save(pairing: PosDevicePairing): Promise<void> {
     await prisma.posDevicePairing.update({
       where: { id: pairing.pairingId },
