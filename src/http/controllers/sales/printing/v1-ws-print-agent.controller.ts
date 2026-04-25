@@ -57,8 +57,9 @@ export async function v1WsPrintAgentController(app: FastifyInstance) {
       const agentId = agent.id;
       const tenantId = agent.tenantId;
 
-      // Register connection and set agent online
-      registerAgentConnection(agentId, socket);
+      // Register connection and set agent online (tenantId enables
+      // tenant-scoped broadcasts via `broadcastToPrintServer`).
+      registerAgentConnection(agentId, socket, tenantId);
 
       await prisma.printAgent.update({
         where: { id: agentId },
