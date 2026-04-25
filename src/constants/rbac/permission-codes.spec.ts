@@ -183,6 +183,49 @@ describe('PermissionCodes.HR.CRACHAS (Phase 5)', () => {
   });
 });
 
+// ─── Phase 9 additions: HR.PUNCH.AUDIT (4-level outside `tools` — D-28 / ADR-027) ───
+
+describe('PermissionCodes.HR.PUNCH.AUDIT (Phase 9 — 4-level outside tools)', () => {
+  it('expõe ACCESS como hr.punch.audit.access (4 níveis)', () => {
+    expect(PermissionCodes.HR.PUNCH.AUDIT.ACCESS).toBe('hr.punch.audit.access');
+  });
+
+  it('é reconhecido como 4-level válido pelo isValidPermissionCode', () => {
+    expect(isValidPermissionCode(PermissionCodes.HR.PUNCH.AUDIT.ACCESS)).toBe(
+      true,
+    );
+  });
+
+  it('parsePermissionCode absorve sub-resource em resource (ADR-024)', () => {
+    const parsed = parsePermissionCode(PermissionCodes.HR.PUNCH.AUDIT.ACCESS);
+    expect(parsed).toEqual({
+      module: 'hr',
+      resource: 'punch.audit',
+      action: 'access',
+    });
+  });
+
+  it('NÃO está em DEFAULT_USER_PERMISSIONS — audit é admin-only (D-28)', () => {
+    expect(DEFAULT_USER_PERMISSIONS).not.toContain(
+      PermissionCodes.HR.PUNCH.AUDIT.ACCESS,
+    );
+  });
+
+  it('coexiste com clusters HR de 3 níveis pré-existentes (PUNCH_APPROVALS, PUNCH_DEVICES)', () => {
+    // O parser distingue por número de níveis — nenhum conflito.
+    expect(parsePermissionCode('hr.punch-approvals.access')).toEqual({
+      module: 'hr',
+      resource: 'punch-approvals',
+      action: 'access',
+    });
+    expect(parsePermissionCode('hr.punch.audit.access')).toEqual({
+      module: 'hr',
+      resource: 'punch.audit',
+      action: 'access',
+    });
+  });
+});
+
 describe('DEFAULT_USER_PERMISSIONS — Phase 5 admin-only gates', () => {
   // D-05: enrollment biométrico é admin-only. CRACHAS.PRINT também é
   // operação administrativa. Nenhum desses 7 codes deve aparecer no array

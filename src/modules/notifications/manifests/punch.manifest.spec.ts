@@ -21,11 +21,11 @@ describe('punchManifest', () => {
   });
 
   describe('categories', () => {
-    it('declares exactly 8 categories (3 phase-4 + 2 phase-5 + 3 phase-7)', () => {
-      expect(punchManifest.categories).toHaveLength(8);
+    it('declares exactly 11 categories (3 phase-4 + 2 phase-5 + 3 phase-7 + 3 phase-9)', () => {
+      expect(punchManifest.categories).toHaveLength(11);
     });
 
-    it('declares the expected category codes in order (phase 4 → 5 → 7)', () => {
+    it('declares the expected category codes in order (phase 4 → 5 → 7 → 9)', () => {
       const codes = punchManifest.categories.map((c) => c.code);
       expect(codes).toEqual([
         'punch.registered',
@@ -36,6 +36,9 @@ describe('punchManifest', () => {
         'punch.daily_digest',
         'punch.exception_approval_requested',
         'punch.export_ready',
+        'punch.face_match_alert',
+        'punch.missed_punch_manager',
+        'punch.missed_punch_employee',
       ]);
     });
 
@@ -163,7 +166,59 @@ describe('punchManifest', () => {
       expect(category!.description?.length ?? 0).toBeGreaterThan(0);
     });
 
-    it('every category code is unique (no accidental dup with phase-4 codes)', () => {
+    // ─── Phase 9 additions (Plan 09-01) ─────────────────────────────────────
+
+    it('punch.face_match_alert is ACTIONABLE/HIGH/[IN_APP,PUSH], NOT digest-supported (D-11)', () => {
+      const category = punchManifest.categories.find(
+        (c) => c.code === 'punch.face_match_alert',
+      );
+      expect(category).toBeDefined();
+      expect(category!.defaultType).toBe(NotificationType.ACTIONABLE);
+      expect(category!.defaultPriority).toBe(NotificationPriority.HIGH);
+      expect(category!.defaultChannels).toEqual([
+        NotificationChannel.IN_APP,
+        NotificationChannel.PUSH,
+      ]);
+      expect(category!.digestSupported).toBe(false);
+      expect(category!.name.length).toBeGreaterThan(0);
+      expect(category!.description?.length ?? 0).toBeGreaterThan(0);
+    });
+
+    it('punch.missed_punch_manager is INFORMATIONAL/HIGH/[IN_APP,PUSH,EMAIL], NOT digest-supported (D-22/D-23)', () => {
+      const category = punchManifest.categories.find(
+        (c) => c.code === 'punch.missed_punch_manager',
+      );
+      expect(category).toBeDefined();
+      expect(category!.defaultType).toBe(NotificationType.INFORMATIONAL);
+      expect(category!.defaultPriority).toBe(NotificationPriority.HIGH);
+      expect(category!.defaultChannels).toEqual([
+        NotificationChannel.IN_APP,
+        NotificationChannel.PUSH,
+        NotificationChannel.EMAIL,
+      ]);
+      expect(category!.digestSupported).toBe(false);
+      expect(category!.name.length).toBeGreaterThan(0);
+      expect(category!.description?.length ?? 0).toBeGreaterThan(0);
+    });
+
+    it('punch.missed_punch_employee is INFORMATIONAL/NORMAL/[IN_APP,PUSH,EMAIL], NOT digest-supported (D-21/D-22)', () => {
+      const category = punchManifest.categories.find(
+        (c) => c.code === 'punch.missed_punch_employee',
+      );
+      expect(category).toBeDefined();
+      expect(category!.defaultType).toBe(NotificationType.INFORMATIONAL);
+      expect(category!.defaultPriority).toBe(NotificationPriority.NORMAL);
+      expect(category!.defaultChannels).toEqual([
+        NotificationChannel.IN_APP,
+        NotificationChannel.PUSH,
+        NotificationChannel.EMAIL,
+      ]);
+      expect(category!.digestSupported).toBe(false);
+      expect(category!.name.length).toBeGreaterThan(0);
+      expect(category!.description?.length ?? 0).toBeGreaterThan(0);
+    });
+
+    it('every category code is unique (no accidental dup with phase-4/5/7/9 codes)', () => {
       const codes = punchManifest.categories.map((c) => c.code);
       const unique = new Set(codes);
       expect(unique.size).toBe(codes.length);
