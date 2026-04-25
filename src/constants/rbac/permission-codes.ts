@@ -333,6 +333,24 @@ export const PermissionCodes = {
       MODIFY: 'hr.punch-approvals.modify' as const,
       ADMIN: 'hr.punch-approvals.admin' as const,
     },
+    // Phase 9 / D-28 (4-level RBAC outside `tools` — ADR-027)
+    // hr.compliance.* (Phase 6) was the first 4-level cluster outside `tools`.
+    // hr.punch.audit.* is the second. parsePermissionCode (linhas ~1448-1466)
+    // distingue ambos os shapes (3-level e 4-level) e absorve o sub-resource em
+    // `resource` — ADR-024. Coexiste com HR.PUNCH_APPROVALS (3 níveis) e
+    // HR.PUNCH_DEVICES (3 níveis) — nenhum conflito.
+    //
+    // Forensic audit é admin-only por design (D-28). NÃO entra em
+    // DEFAULT_USER_PERMISSIONS — apenas admin/super-admin via
+    // extractAllCodes(PermissionCodes) ou via backfill-phase9-permissions.ts.
+    //
+    // Sub-actions futuras previstas: EXPORT (export forense),
+    // ADMIN (super-poder do módulo audit, eg. mark-suspicion override).
+    PUNCH: {
+      AUDIT: {
+        ACCESS: 'hr.punch.audit.access' as const,
+      },
+    },
     // Phase 5 — enrollment biométrico do funcionário (kiosk + face match).
     // Admin-only por padrão (D-05): RH cadastra/remove a biometria; o
     // funcionário não tem self-service nesta fase. Não está em
