@@ -294,6 +294,18 @@ export interface EmployeesRepository {
     includeDeleted?: boolean,
   ): Promise<Employee | null>;
   findMany(tenantId: string, includeDeleted?: boolean): Promise<Employee[]>;
+  /**
+   * Hydrates a list of employees given their IDs, scoped to a tenant. Used by
+   * paginated listings that need to enrich join-table rows with employee
+   * metadata (e.g. `GET /v1/pos/terminals/:id/operators` — Emporion Plan A).
+   * Skips soft-deleted rows by default. IDs that do not belong to the tenant
+   * (or are soft-deleted) are silently omitted from the result.
+   */
+  findManyByIds(
+    ids: UniqueEntityID[],
+    tenantId: string,
+    includeDeleted?: boolean,
+  ): Promise<Employee[]>;
   findManyPaginated(
     tenantId: string,
     filters: FindEmployeeFilters,

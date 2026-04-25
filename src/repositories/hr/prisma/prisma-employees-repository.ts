@@ -474,6 +474,38 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
     });
   }
 
+  async findManyByIds(
+    ids: UniqueEntityID[],
+    tenantId: string,
+    includeDeleted = false,
+  ): Promise<Employee[]> {
+    if (ids.length === 0) {
+      return [];
+    }
+
+    const employeesData = await prisma.employee.findMany({
+      where: {
+        id: { in: ids.map((id) => id.toString()) },
+        tenantId,
+        deletedAt: includeDeleted ? undefined : null,
+      },
+      include: {
+        user: true,
+        department: true,
+        position: true,
+        supervisor: true,
+      },
+    });
+
+    return employeesData.map((employeeData) => {
+      decryptEmployeeData(employeeData as unknown as Record<string, unknown>);
+      return Employee.create(
+        mapEmployeePrismaToDomain(employeeData),
+        new UniqueEntityID(employeeData.id),
+      );
+    });
+  }
+
   async findManyPaginated(
     tenantId: string,
     filters: FindEmployeeFilters,

@@ -82,6 +82,11 @@ export class InMemoryPosTerminalOperatorsRepository
       filtered = filtered.filter((o) => !o.revokedAt);
     }
 
+    // Sort by assignedAt DESC so newest-first mirrors the Prisma impl.
+    filtered = [...filtered].sort(
+      (a, b) => b.assignedAt.getTime() - a.assignedAt.getTime(),
+    );
+
     const total = filtered.length;
     const start = (params.page - 1) * params.limit;
     const data = filtered.slice(start, start + params.limit);

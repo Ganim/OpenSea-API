@@ -995,6 +995,7 @@ enum AuditAction {
 
   // POS - Operador
   POS_OPERATOR_ASSIGN
+  POS_OPERATOR_REVOKE
 
   // HR - Ponto e Tempo
   CLOCK_IN
@@ -16310,6 +16311,9 @@ enum PunchApprovalReason {
   OUT_OF_GEOFENCE
   // Phase 5 (D-03): face match below tenant threshold.
   FACE_MATCH_LOW
+  // Phase 8 (D-08): funcionário antecipa justificativa via PWA pessoal sem
+  // depender do gestor criar a PunchApproval — trigger manual da PUNCH-PWA-05.
+  EMPLOYEE_SELF_REQUEST
   // Extensible: FACE_MATCH_FAIL_3X (phase 9),
   // CLOCK_DRIFT (phase 9), MANUAL_CORRECTION (phase 6)
 }

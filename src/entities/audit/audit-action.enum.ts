@@ -219,6 +219,7 @@ export enum AuditAction {
 
   // POS - Operador
   POS_OPERATOR_ASSIGN = 'POS_OPERATOR_ASSIGN',
+  POS_OPERATOR_REVOKE = 'POS_OPERATOR_REVOKE',
 
   // Cashier
   CASHIER_OPEN = 'CASHIER_OPEN',

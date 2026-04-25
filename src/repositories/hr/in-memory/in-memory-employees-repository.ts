@@ -220,6 +220,20 @@ export class InMemoryEmployeesRepository implements EmployeesRepository {
     );
   }
 
+  async findManyByIds(
+    ids: UniqueEntityID[],
+    tenantId: string,
+    includeDeleted = false,
+  ): Promise<Employee[]> {
+    const lookupSet = new Set(ids.map((id) => id.toString()));
+    return this.items.filter(
+      (item) =>
+        lookupSet.has(item.id.toString()) &&
+        item.tenantId.toString() === tenantId &&
+        (includeDeleted || !item.deletedAt),
+    );
+  }
+
   async findManyPaginated(
     tenantId: string,
     filters: FindEmployeeFilters,

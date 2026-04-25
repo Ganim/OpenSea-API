@@ -705,6 +705,15 @@ export const SALES_AUDIT_MESSAGES = {
       '{{userName}} vinculou {{employeeName}} como operador do terminal {{terminalName}}',
   } satisfies AuditMessage,
 
+  /** Vínculo de operador com terminal PDV revogado */
+  POS_OPERATOR_REVOKE: {
+    action: AuditAction.POS_OPERATOR_REVOKE,
+    entity: AuditEntity.POS_TERMINAL_OPERATOR,
+    module: AuditModule.SALES,
+    description:
+      '{{userName}} revogou o vínculo de {{employeeName}} como operador do terminal {{terminalName}}',
+  } satisfies AuditMessage,
+
   // ============================================================================
   // PDV ORDER FLOW - Fluxo de pedidos PDV
   // ============================================================================
