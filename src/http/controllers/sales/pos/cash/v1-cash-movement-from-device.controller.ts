@@ -7,11 +7,9 @@ import {
 } from '@/http/schemas/sales/pos/pos-cash-movement.schema';
 import { posCashMovementToDTO } from '@/mappers/sales/pos-cash-movement/pos-cash-movement-to-dto';
 import { makeCreatePosCashMovementFromDeviceUseCase } from '@/use-cases/sales/pos-cash-movements/factories/make-create-pos-cash-movement-from-device-use-case';
-import type { FastifyInstance, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
-
-import type { VerifiedDeviceContext } from '@/http/middlewares/verify-device-token';
 
 const cashMovementFromDeviceSchema = z.object({
   sessionId: z.string().uuid(),
@@ -38,9 +36,7 @@ export async function v1CashMovementFromDeviceController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      const { device } = request as FastifyRequest & {
-        device: VerifiedDeviceContext;
-      };
+      const device = request.device!;
       const data = request.body;
 
       try {

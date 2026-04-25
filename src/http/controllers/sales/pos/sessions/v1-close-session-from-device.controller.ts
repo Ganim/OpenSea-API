@@ -4,11 +4,9 @@ import { verifyDeviceToken } from '@/http/middlewares/verify-device-token';
 import { posSessionResponseSchema } from '@/http/schemas/sales/pos/pos-session.schema';
 import { posSessionToDTO } from '@/mappers/sales/pos-session/pos-session-to-dto';
 import { makeClosePosSessionFromDeviceUseCase } from '@/use-cases/sales/pos-sessions/factories/make-close-pos-session-from-device-use-case';
-import type { FastifyInstance, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
-
-import type { VerifiedDeviceContext } from '@/http/middlewares/verify-device-token';
 
 const closePosSessionFromDeviceSchema = z.object({
   performedByEmployeeId: z.string().uuid(),
@@ -43,9 +41,7 @@ export async function v1CloseSessionFromDeviceController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      const { device } = request as FastifyRequest & {
-        device: VerifiedDeviceContext;
-      };
+      const device = request.device!;
       const { sessionId } = request.params;
       const data = request.body;
 

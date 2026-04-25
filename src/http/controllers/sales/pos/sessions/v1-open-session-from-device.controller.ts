@@ -5,11 +5,9 @@ import { verifyDeviceToken } from '@/http/middlewares/verify-device-token';
 import { posSessionResponseSchema } from '@/http/schemas/sales/pos/pos-session.schema';
 import { posSessionToDTO } from '@/mappers/sales/pos-session/pos-session-to-dto';
 import { makeOpenPosSessionFromDeviceUseCase } from '@/use-cases/sales/pos-sessions/factories/make-open-pos-session-from-device-use-case';
-import type { FastifyInstance, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
-
-import type { VerifiedDeviceContext } from '@/http/middlewares/verify-device-token';
 
 const openPosSessionFromDeviceSchema = z.object({
   operatorEmployeeId: z.string().uuid(),
@@ -39,9 +37,9 @@ export async function v1OpenSessionFromDeviceController(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      const { device } = request as FastifyRequest & {
-        device: VerifiedDeviceContext;
-      };
+      // `device` is set by the verifyDeviceToken preHandler — guaranteed
+      // present here via the @types/fastify-pos.d.ts module augmentation.
+      const device = request.device!;
       const { operatorEmployeeId, openingBalance } = request.body;
 
       try {
