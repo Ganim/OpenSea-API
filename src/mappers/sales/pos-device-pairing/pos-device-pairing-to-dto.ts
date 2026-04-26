@@ -7,6 +7,7 @@ export interface PosDevicePairingDTO {
   deviceLabel: string;
   pairedAt: string;
   lastSeenAt: string | null;
+  appVersion: string | null;
   pairedByUserId: string;
   revokedAt: string | null;
   revokedByUserId: string | null;
@@ -24,6 +25,7 @@ export function posDevicePairingToDTO(
     deviceLabel: pairing.deviceLabel,
     pairedAt: pairing.pairedAt.toISOString(),
     lastSeenAt: pairing.lastSeenAt?.toISOString() ?? null,
+    appVersion: pairing.appVersion ?? null,
     pairedByUserId: pairing.pairedByUserId,
     revokedAt: pairing.revokedAt?.toISOString() ?? null,
     revokedByUserId: pairing.revokedByUserId ?? null,

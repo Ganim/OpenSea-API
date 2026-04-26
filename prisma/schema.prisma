@@ -12135,6 +12135,9 @@ model PosDevicePairing {
   deviceTokenHash String    @unique @map("device_token_hash") @db.VarChar(128)
   pairedAt        DateTime  @default(now()) @map("paired_at")
   lastSeenAt      DateTime? @map("last_seen_at")
+  // App version reported by the desktop client (Emporion) on heartbeat.
+  // Lets the admin UI surface "v0.2.2" badges and detect outdated devices.
+  appVersion      String?   @map("app_version") @db.VarChar(32)
   pairedByUserId  String    @map("paired_by_user_id")
   // Source of the pair operation. JWT pairings carry a real `pairedByUserId`
   // (FK-less but valid uuid). PUBLIC pairings (Emporion fresh install via

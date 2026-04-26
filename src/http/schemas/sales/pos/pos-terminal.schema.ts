@@ -25,6 +25,14 @@ export const updatePosTerminalSchema = z.object({
   settings: z.record(z.string(), z.unknown()).nullable().optional(),
 });
 
+export const posTerminalPairingSummarySchema = z.object({
+  id: z.string(),
+  deviceLabel: z.string(),
+  pairedAt: z.string(),
+  lastSeenAt: z.string().nullable(),
+  appVersion: z.string().nullable(),
+});
+
 export const posTerminalResponseSchema = z.object({
   id: z.string(),
   tenantId: z.string(),
@@ -39,6 +47,8 @@ export const posTerminalResponseSchema = z.object({
   defaultPriceTableId: z.string().nullable(),
   isActive: z.boolean(),
   hasPairing: z.boolean().optional(),
+  pairing: posTerminalPairingSummarySchema.nullable().optional(),
+  isOnline: z.boolean().optional(),
   deletedAt: z.string().nullable(),
   lastSyncAt: z.string().nullable(),
   lastOnlineAt: z.string().nullable(),

@@ -1,5 +1,7 @@
+import type { PosDevicePairing } from '@/entities/sales/pos-device-pairing';
 import type { PosTerminal } from '@/entities/sales/pos-terminal';
 import type { PaginatedResult } from '@/repositories/pagination-params';
+import type { PosDevicePairingsRepository } from '@/repositories/sales/pos-device-pairings-repository';
 import type { PosTerminalsRepository } from '@/repositories/sales/pos-terminals-repository';
 
 interface ListPosTerminalsUseCaseRequest {
@@ -14,8 +16,14 @@ interface ListPosTerminalsUseCaseRequest {
   sortOrder?: 'asc' | 'desc';
 }
 
+export interface ListPosTerminalsUseCaseRow {
+  terminal: PosTerminal;
+  pairing: PosDevicePairing | null;
+}
+
 interface ListPosTerminalsUseCaseResponse {
   terminals: PosTerminal[];
+  pairingsByTerminalId: Map<string, PosDevicePairing>;
   total: number;
   page: number;
   limit: number;
@@ -23,7 +31,10 @@ interface ListPosTerminalsUseCaseResponse {
 }
 
 export class ListPosTerminalsUseCase {
-  constructor(private posTerminalsRepository: PosTerminalsRepository) {}
+  constructor(
+    private posTerminalsRepository: PosTerminalsRepository,
+    private posDevicePairingsRepository: PosDevicePairingsRepository,
+  ) {}
 
   async execute(
     request: ListPosTerminalsUseCaseRequest,
@@ -41,8 +52,20 @@ export class ListPosTerminalsUseCase {
         sortOrder: request.sortOrder,
       });
 
+    const terminalIds = result.data.map((t) => t.id.toString());
+    const pairings =
+      await this.posDevicePairingsRepository.findManyActiveByTerminalIds(
+        terminalIds,
+      );
+
+    const pairingsByTerminalId = new Map<string, PosDevicePairing>();
+    for (const p of pairings) {
+      pairingsByTerminalId.set(p.terminalId.toString(), p);
+    }
+
     return {
       terminals: result.data,
+      pairingsByTerminalId,
       total: result.total,
       page: result.page,
       limit: result.limit,

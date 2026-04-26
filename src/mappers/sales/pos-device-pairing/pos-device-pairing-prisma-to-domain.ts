@@ -17,6 +17,7 @@ export function posDevicePairingPrismaToDomain(
       deviceTokenHash: raw.deviceTokenHash,
       pairedAt: raw.pairedAt,
       lastSeenAt: raw.lastSeenAt ?? undefined,
+      appVersion: raw.appVersion ?? undefined,
       pairedByUserId: raw.pairedByUserId,
       pairingSource: raw.pairingSource as PosPairingSource,
       revokedAt: raw.revokedAt ?? undefined,

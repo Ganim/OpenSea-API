@@ -6,20 +6,26 @@ vi.mock('@/lib/prisma', () => ({
   },
 }));
 
+import { InMemoryPosDevicePairingsRepository } from '@/repositories/sales/in-memory/in-memory-pos-device-pairings-repository';
 import { InMemoryPosTerminalsRepository } from '@/repositories/sales/in-memory/in-memory-pos-terminals-repository';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { CreatePosTerminalUseCase } from './create-pos-terminal';
 import { ListPosTerminalsUseCase } from './list-pos-terminals';
 
 let posTerminalsRepository: InMemoryPosTerminalsRepository;
+let pairingsRepository: InMemoryPosDevicePairingsRepository;
 let createPosTerminal: CreatePosTerminalUseCase;
 let listPosTerminals: ListPosTerminalsUseCase;
 
 describe('ListPosTerminalsUseCase', () => {
   beforeEach(() => {
     posTerminalsRepository = new InMemoryPosTerminalsRepository();
+    pairingsRepository = new InMemoryPosDevicePairingsRepository();
     createPosTerminal = new CreatePosTerminalUseCase(posTerminalsRepository);
-    listPosTerminals = new ListPosTerminalsUseCase(posTerminalsRepository);
+    listPosTerminals = new ListPosTerminalsUseCase(
+      posTerminalsRepository,
+      pairingsRepository,
+    );
   });
 
   it('should list all terminals for a tenant', async () => {

@@ -12,6 +12,7 @@ export interface PosDevicePairingProps {
   deviceTokenHash: string;
   pairedAt: Date;
   lastSeenAt?: Date;
+  appVersion?: string;
   pairedByUserId: string;
   pairingSource: PosPairingSource;
   revokedAt?: Date;
@@ -43,6 +44,12 @@ export class PosDevicePairing extends Entity<PosDevicePairingProps> {
   }
   set lastSeenAt(value: Date | undefined) {
     this.props.lastSeenAt = value;
+  }
+  get appVersion() {
+    return this.props.appVersion;
+  }
+  set appVersion(value: string | undefined) {
+    this.props.appVersion = value;
   }
   get pairedByUserId() {
     return this.props.pairedByUserId;

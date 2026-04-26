@@ -7,6 +7,7 @@ import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module'
 
 // Terminals
 import { v1CreateTerminalController } from './terminals/v1-create-terminal.controller';
+import { v1HeartbeatDeviceController } from './terminals/v1-heartbeat-device.controller';
 import { v1ListTerminalsController } from './terminals/v1-list-terminals.controller';
 import { v1GetTerminalController } from './terminals/v1-get-terminal.controller';
 import { v1UpdateTerminalController } from './terminals/v1-update-terminal.controller';
@@ -64,6 +65,7 @@ export async function posRoutes(app: FastifyInstance) {
 
   // Terminals
   await app.register(v1ListTerminalsController);
+  await app.register(v1HeartbeatDeviceController);
   await app.register(v1GetTerminalController);
   await app.register(v1CreateTerminalController);
   await app.register(v1UpdateTerminalController);

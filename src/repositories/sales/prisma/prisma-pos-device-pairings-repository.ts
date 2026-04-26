@@ -18,6 +18,7 @@ export class PrismaPosDevicePairingsRepository
         deviceTokenHash: pairing.deviceTokenHash,
         pairedAt: pairing.pairedAt,
         lastSeenAt: pairing.lastSeenAt ?? null,
+        appVersion: pairing.appVersion ?? null,
         pairedByUserId: pairing.pairedByUserId,
         pairingSource: pairing.pairingSource as PrismaPairingSource,
         revokedAt: pairing.revokedAt ?? null,
@@ -48,12 +49,26 @@ export class PrismaPosDevicePairingsRepository
     return raw ? posDevicePairingPrismaToDomain(raw) : null;
   }
 
+  async findManyActiveByTerminalIds(
+    terminalIds: string[],
+  ): Promise<PosDevicePairing[]> {
+    if (terminalIds.length === 0) return [];
+    const rows = await prisma.posDevicePairing.findMany({
+      where: {
+        terminalId: { in: terminalIds },
+        revokedAt: null,
+      },
+    });
+    return rows.map(posDevicePairingPrismaToDomain);
+  }
+
   async save(pairing: PosDevicePairing): Promise<void> {
     await prisma.posDevicePairing.update({
       where: { id: pairing.pairingId },
       data: {
         deviceLabel: pairing.deviceLabel,
         lastSeenAt: pairing.lastSeenAt ?? null,
+        appVersion: pairing.appVersion ?? null,
         revokedAt: pairing.revokedAt ?? null,
         revokedByUserId: pairing.revokedByUserId ?? null,
         revokedReason: pairing.revokedReason ?? null,

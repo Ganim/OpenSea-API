@@ -24,6 +24,16 @@ export class InMemoryPosDevicePairingsRepository
     return this.items.find((p) => p.deviceTokenHash === tokenHash) ?? null;
   }
 
+  async findManyActiveByTerminalIds(
+    terminalIds: string[],
+  ): Promise<PosDevicePairing[]> {
+    if (terminalIds.length === 0) return [];
+    const set = new Set(terminalIds);
+    return this.items.filter(
+      (p) => set.has(p.terminalId.toString()) && !p.revokedAt,
+    );
+  }
+
   async save(pairing: PosDevicePairing): Promise<void> {
     const index = this.items.findIndex(
       (p) => p.pairingId === pairing.pairingId,

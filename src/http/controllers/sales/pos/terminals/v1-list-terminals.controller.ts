@@ -52,8 +52,36 @@ export async function v1ListTerminalsController(app: FastifyInstance) {
       const useCase = makeListPosTerminalsUseCase();
       const result = await useCase.execute({ tenantId, ...query });
 
+      // Online window: a paired device is considered online when its last
+      // seen timestamp is within ONLINE_WINDOW_MS. Heartbeat cadence on the
+      // Emporion side should be < this value so a steady device stays green.
+      const ONLINE_WINDOW_MS = 2 * 60 * 1000;
+      const now = Date.now();
+
       return reply.send({
-        data: result.terminals.map(posTerminalToDTO),
+        data: result.terminals.map((terminal) => {
+          const dto = posTerminalToDTO(terminal);
+          const pairing = result.pairingsByTerminalId.get(
+            terminal.id.toString(),
+          );
+          const lastSeen = pairing?.lastSeenAt ?? null;
+          const isOnline =
+            !!lastSeen && now - lastSeen.getTime() < ONLINE_WINDOW_MS;
+          return {
+            ...dto,
+            hasPairing: !!pairing,
+            pairing: pairing
+              ? {
+                  id: pairing.pairingId,
+                  deviceLabel: pairing.deviceLabel,
+                  pairedAt: pairing.pairedAt.toISOString(),
+                  lastSeenAt: lastSeen ? lastSeen.toISOString() : null,
+                  appVersion: pairing.appVersion ?? null,
+                }
+              : null,
+            isOnline,
+          };
+        }),
         meta: {
           total: result.total,
           page: result.page,
