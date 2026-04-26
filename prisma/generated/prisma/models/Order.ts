@@ -36,6 +36,7 @@ export type OrderAvgAggregateOutputType = {
   paidAmount: runtime.Decimal | null
   remainingAmount: runtime.Decimal | null
   version: number | null
+  fiscalDocumentNumber: number | null
 }
 
 export type OrderSumAggregateOutputType = {
@@ -48,6 +49,7 @@ export type OrderSumAggregateOutputType = {
   paidAmount: runtime.Decimal | null
   remainingAmount: runtime.Decimal | null
   version: number | null
+  fiscalDocumentNumber: number | null
 }
 
 export type OrderMinAggregateOutputType = {
@@ -102,6 +104,17 @@ export type OrderMinAggregateOutputType = {
   claimedByUserId: string | null
   claimedAt: Date | null
   version: number | null
+  originSource: $Enums.OrderOriginSource | null
+  posTerminalId: string | null
+  posOperatorEmployeeId: string | null
+  saleLocalUuid: string | null
+  ackReceivedAt: Date | null
+  fiscalDocumentType: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber: number | null
+  fiscalAccessKey: string | null
+  fiscalAuthorizationProtocol: string | null
+  fiscalEmittedAt: Date | null
+  fiscalEmissionStatus: string | null
   invoiceId: string | null
   invoicedAt: Date | null
   deletedAt: Date | null
@@ -161,6 +174,17 @@ export type OrderMaxAggregateOutputType = {
   claimedByUserId: string | null
   claimedAt: Date | null
   version: number | null
+  originSource: $Enums.OrderOriginSource | null
+  posTerminalId: string | null
+  posOperatorEmployeeId: string | null
+  saleLocalUuid: string | null
+  ackReceivedAt: Date | null
+  fiscalDocumentType: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber: number | null
+  fiscalAccessKey: string | null
+  fiscalAuthorizationProtocol: string | null
+  fiscalEmittedAt: Date | null
+  fiscalEmissionStatus: string | null
   invoiceId: string | null
   invoicedAt: Date | null
   deletedAt: Date | null
@@ -223,6 +247,17 @@ export type OrderCountAggregateOutputType = {
   claimedByUserId: number
   claimedAt: number
   version: number
+  originSource: number
+  posTerminalId: number
+  posOperatorEmployeeId: number
+  saleLocalUuid: number
+  ackReceivedAt: number
+  fiscalDocumentType: number
+  fiscalDocumentNumber: number
+  fiscalAccessKey: number
+  fiscalAuthorizationProtocol: number
+  fiscalEmittedAt: number
+  fiscalEmissionStatus: number
   invoiceId: number
   invoicedAt: number
   deletedAt: number
@@ -242,6 +277,7 @@ export type OrderAvgAggregateInputType = {
   paidAmount?: true
   remainingAmount?: true
   version?: true
+  fiscalDocumentNumber?: true
 }
 
 export type OrderSumAggregateInputType = {
@@ -254,6 +290,7 @@ export type OrderSumAggregateInputType = {
   paidAmount?: true
   remainingAmount?: true
   version?: true
+  fiscalDocumentNumber?: true
 }
 
 export type OrderMinAggregateInputType = {
@@ -308,6 +345,17 @@ export type OrderMinAggregateInputType = {
   claimedByUserId?: true
   claimedAt?: true
   version?: true
+  originSource?: true
+  posTerminalId?: true
+  posOperatorEmployeeId?: true
+  saleLocalUuid?: true
+  ackReceivedAt?: true
+  fiscalDocumentType?: true
+  fiscalDocumentNumber?: true
+  fiscalAccessKey?: true
+  fiscalAuthorizationProtocol?: true
+  fiscalEmittedAt?: true
+  fiscalEmissionStatus?: true
   invoiceId?: true
   invoicedAt?: true
   deletedAt?: true
@@ -367,6 +415,17 @@ export type OrderMaxAggregateInputType = {
   claimedByUserId?: true
   claimedAt?: true
   version?: true
+  originSource?: true
+  posTerminalId?: true
+  posOperatorEmployeeId?: true
+  saleLocalUuid?: true
+  ackReceivedAt?: true
+  fiscalDocumentType?: true
+  fiscalDocumentNumber?: true
+  fiscalAccessKey?: true
+  fiscalAuthorizationProtocol?: true
+  fiscalEmittedAt?: true
+  fiscalEmissionStatus?: true
   invoiceId?: true
   invoicedAt?: true
   deletedAt?: true
@@ -429,6 +488,17 @@ export type OrderCountAggregateInputType = {
   claimedByUserId?: true
   claimedAt?: true
   version?: true
+  originSource?: true
+  posTerminalId?: true
+  posOperatorEmployeeId?: true
+  saleLocalUuid?: true
+  ackReceivedAt?: true
+  fiscalDocumentType?: true
+  fiscalDocumentNumber?: true
+  fiscalAccessKey?: true
+  fiscalAuthorizationProtocol?: true
+  fiscalEmittedAt?: true
+  fiscalEmissionStatus?: true
   invoiceId?: true
   invoicedAt?: true
   deletedAt?: true
@@ -578,6 +648,17 @@ export type OrderGroupByOutputType = {
   claimedByUserId: string | null
   claimedAt: Date | null
   version: number
+  originSource: $Enums.OrderOriginSource
+  posTerminalId: string | null
+  posOperatorEmployeeId: string | null
+  saleLocalUuid: string | null
+  ackReceivedAt: Date | null
+  fiscalDocumentType: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber: number | null
+  fiscalAccessKey: string | null
+  fiscalAuthorizationProtocol: string | null
+  fiscalEmittedAt: Date | null
+  fiscalEmissionStatus: string | null
   invoiceId: string | null
   invoicedAt: Date | null
   deletedAt: Date | null
@@ -663,6 +744,17 @@ export type OrderWhereInput = {
   claimedByUserId?: Prisma.StringNullableFilter<"Order"> | string | null
   claimedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   version?: Prisma.IntFilter<"Order"> | number
+  originSource?: Prisma.EnumOrderOriginSourceFilter<"Order"> | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.StringNullableFilter<"Order"> | string | null
+  posOperatorEmployeeId?: Prisma.StringNullableFilter<"Order"> | string | null
+  saleLocalUuid?: Prisma.StringNullableFilter<"Order"> | string | null
+  ackReceivedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  fiscalDocumentType?: Prisma.EnumPosFiscalDocumentTypeNullableFilter<"Order"> | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.IntNullableFilter<"Order"> | number | null
+  fiscalAccessKey?: Prisma.StringNullableFilter<"Order"> | string | null
+  fiscalAuthorizationProtocol?: Prisma.StringNullableFilter<"Order"> | string | null
+  fiscalEmittedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  fiscalEmissionStatus?: Prisma.StringNullableFilter<"Order"> | string | null
   invoiceId?: Prisma.StringNullableFilter<"Order"> | string | null
   invoicedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
@@ -695,8 +787,12 @@ export type OrderWhereInput = {
   posSession?: Prisma.XOR<Prisma.PosSessionNullableScalarRelationFilter, Prisma.PosSessionWhereInput> | null
   claimedByUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   terminal?: Prisma.XOR<Prisma.PosTerminalNullableScalarRelationFilter, Prisma.PosTerminalWhereInput> | null
+  posTerminal?: Prisma.XOR<Prisma.PosTerminalNullableScalarRelationFilter, Prisma.PosTerminalWhereInput> | null
+  posOperatorEmployee?: Prisma.XOR<Prisma.EmployeeNullableScalarRelationFilter, Prisma.EmployeeWhereInput> | null
   posTransactions?: Prisma.PosTransactionListRelationFilter
   posVisitLogs?: Prisma.PosVisitLogListRelationFilter
+  posOrderConflicts?: Prisma.PosOrderConflictListRelationFilter
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentListRelationFilter
   invoice?: Prisma.XOR<Prisma.InvoiceNullableScalarRelationFilter, Prisma.InvoiceWhereInput> | null
   fiscalDocuments?: Prisma.FiscalDocumentListRelationFilter
   paymentCharges?: Prisma.PaymentChargeListRelationFilter
@@ -757,6 +853,17 @@ export type OrderOrderByWithRelationInput = {
   claimedByUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   claimedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   version?: Prisma.SortOrder
+  originSource?: Prisma.SortOrder
+  posTerminalId?: Prisma.SortOrderInput | Prisma.SortOrder
+  posOperatorEmployeeId?: Prisma.SortOrderInput | Prisma.SortOrder
+  saleLocalUuid?: Prisma.SortOrderInput | Prisma.SortOrder
+  ackReceivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  fiscalDocumentType?: Prisma.SortOrderInput | Prisma.SortOrder
+  fiscalDocumentNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  fiscalAccessKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  fiscalAuthorizationProtocol?: Prisma.SortOrderInput | Prisma.SortOrder
+  fiscalEmittedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  fiscalEmissionStatus?: Prisma.SortOrderInput | Prisma.SortOrder
   invoiceId?: Prisma.SortOrderInput | Prisma.SortOrder
   invoicedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -789,8 +896,12 @@ export type OrderOrderByWithRelationInput = {
   posSession?: Prisma.PosSessionOrderByWithRelationInput
   claimedByUser?: Prisma.UserOrderByWithRelationInput
   terminal?: Prisma.PosTerminalOrderByWithRelationInput
+  posTerminal?: Prisma.PosTerminalOrderByWithRelationInput
+  posOperatorEmployee?: Prisma.EmployeeOrderByWithRelationInput
   posTransactions?: Prisma.PosTransactionOrderByRelationAggregateInput
   posVisitLogs?: Prisma.PosVisitLogOrderByRelationAggregateInput
+  posOrderConflicts?: Prisma.PosOrderConflictOrderByRelationAggregateInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentOrderByRelationAggregateInput
   invoice?: Prisma.InvoiceOrderByWithRelationInput
   fiscalDocuments?: Prisma.FiscalDocumentOrderByRelationAggregateInput
   paymentCharges?: Prisma.PaymentChargeOrderByRelationAggregateInput
@@ -798,6 +909,7 @@ export type OrderOrderByWithRelationInput = {
 
 export type OrderWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  saleLocalUuid?: string
   tenantId_orderNumber?: Prisma.OrderTenantIdOrderNumberCompoundUniqueInput
   tenantId_saleCode?: Prisma.OrderTenantIdSaleCodeCompoundUniqueInput
   AND?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
@@ -856,6 +968,16 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   claimedByUserId?: Prisma.StringNullableFilter<"Order"> | string | null
   claimedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   version?: Prisma.IntFilter<"Order"> | number
+  originSource?: Prisma.EnumOrderOriginSourceFilter<"Order"> | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.StringNullableFilter<"Order"> | string | null
+  posOperatorEmployeeId?: Prisma.StringNullableFilter<"Order"> | string | null
+  ackReceivedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  fiscalDocumentType?: Prisma.EnumPosFiscalDocumentTypeNullableFilter<"Order"> | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.IntNullableFilter<"Order"> | number | null
+  fiscalAccessKey?: Prisma.StringNullableFilter<"Order"> | string | null
+  fiscalAuthorizationProtocol?: Prisma.StringNullableFilter<"Order"> | string | null
+  fiscalEmittedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  fiscalEmissionStatus?: Prisma.StringNullableFilter<"Order"> | string | null
   invoiceId?: Prisma.StringNullableFilter<"Order"> | string | null
   invoicedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
@@ -888,12 +1010,16 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   posSession?: Prisma.XOR<Prisma.PosSessionNullableScalarRelationFilter, Prisma.PosSessionWhereInput> | null
   claimedByUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   terminal?: Prisma.XOR<Prisma.PosTerminalNullableScalarRelationFilter, Prisma.PosTerminalWhereInput> | null
+  posTerminal?: Prisma.XOR<Prisma.PosTerminalNullableScalarRelationFilter, Prisma.PosTerminalWhereInput> | null
+  posOperatorEmployee?: Prisma.XOR<Prisma.EmployeeNullableScalarRelationFilter, Prisma.EmployeeWhereInput> | null
   posTransactions?: Prisma.PosTransactionListRelationFilter
   posVisitLogs?: Prisma.PosVisitLogListRelationFilter
+  posOrderConflicts?: Prisma.PosOrderConflictListRelationFilter
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentListRelationFilter
   invoice?: Prisma.XOR<Prisma.InvoiceNullableScalarRelationFilter, Prisma.InvoiceWhereInput> | null
   fiscalDocuments?: Prisma.FiscalDocumentListRelationFilter
   paymentCharges?: Prisma.PaymentChargeListRelationFilter
-}, "id" | "tenantId_orderNumber" | "tenantId_saleCode">
+}, "id" | "saleLocalUuid" | "tenantId_orderNumber" | "tenantId_saleCode">
 
 export type OrderOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -950,6 +1076,17 @@ export type OrderOrderByWithAggregationInput = {
   claimedByUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   claimedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   version?: Prisma.SortOrder
+  originSource?: Prisma.SortOrder
+  posTerminalId?: Prisma.SortOrderInput | Prisma.SortOrder
+  posOperatorEmployeeId?: Prisma.SortOrderInput | Prisma.SortOrder
+  saleLocalUuid?: Prisma.SortOrderInput | Prisma.SortOrder
+  ackReceivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  fiscalDocumentType?: Prisma.SortOrderInput | Prisma.SortOrder
+  fiscalDocumentNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  fiscalAccessKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  fiscalAuthorizationProtocol?: Prisma.SortOrderInput | Prisma.SortOrder
+  fiscalEmittedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  fiscalEmissionStatus?: Prisma.SortOrderInput | Prisma.SortOrder
   invoiceId?: Prisma.SortOrderInput | Prisma.SortOrder
   invoicedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -1020,6 +1157,17 @@ export type OrderScalarWhereWithAggregatesInput = {
   claimedByUserId?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   claimedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
   version?: Prisma.IntWithAggregatesFilter<"Order"> | number
+  originSource?: Prisma.EnumOrderOriginSourceWithAggregatesFilter<"Order"> | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  posOperatorEmployeeId?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  saleLocalUuid?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  ackReceivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
+  fiscalDocumentType?: Prisma.EnumPosFiscalDocumentTypeNullableWithAggregatesFilter<"Order"> | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.IntNullableWithAggregatesFilter<"Order"> | number | null
+  fiscalAccessKey?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  fiscalAuthorizationProtocol?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  fiscalEmittedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
+  fiscalEmissionStatus?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   invoiceId?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   invoicedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
@@ -1065,6 +1213,15 @@ export type OrderCreateInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -1097,8 +1254,12 @@ export type OrderCreateInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -1159,6 +1320,17 @@ export type OrderUncheckedCreateInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -1176,6 +1348,8 @@ export type OrderUncheckedCreateInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -1219,6 +1393,15 @@ export type OrderUpdateInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1251,8 +1434,12 @@ export type OrderUpdateInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -1313,6 +1500,17 @@ export type OrderUncheckedUpdateInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1330,6 +1528,8 @@ export type OrderUncheckedUpdateInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -1390,6 +1590,17 @@ export type OrderCreateManyInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -1435,6 +1646,15 @@ export type OrderUpdateManyMutationInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1497,6 +1717,17 @@ export type OrderUncheckedUpdateManyInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1584,6 +1815,17 @@ export type OrderCountOrderByAggregateInput = {
   claimedByUserId?: Prisma.SortOrder
   claimedAt?: Prisma.SortOrder
   version?: Prisma.SortOrder
+  originSource?: Prisma.SortOrder
+  posTerminalId?: Prisma.SortOrder
+  posOperatorEmployeeId?: Prisma.SortOrder
+  saleLocalUuid?: Prisma.SortOrder
+  ackReceivedAt?: Prisma.SortOrder
+  fiscalDocumentType?: Prisma.SortOrder
+  fiscalDocumentNumber?: Prisma.SortOrder
+  fiscalAccessKey?: Prisma.SortOrder
+  fiscalAuthorizationProtocol?: Prisma.SortOrder
+  fiscalEmittedAt?: Prisma.SortOrder
+  fiscalEmissionStatus?: Prisma.SortOrder
   invoiceId?: Prisma.SortOrder
   invoicedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -1601,6 +1843,7 @@ export type OrderAvgOrderByAggregateInput = {
   paidAmount?: Prisma.SortOrder
   remainingAmount?: Prisma.SortOrder
   version?: Prisma.SortOrder
+  fiscalDocumentNumber?: Prisma.SortOrder
 }
 
 export type OrderMaxOrderByAggregateInput = {
@@ -1655,6 +1898,17 @@ export type OrderMaxOrderByAggregateInput = {
   claimedByUserId?: Prisma.SortOrder
   claimedAt?: Prisma.SortOrder
   version?: Prisma.SortOrder
+  originSource?: Prisma.SortOrder
+  posTerminalId?: Prisma.SortOrder
+  posOperatorEmployeeId?: Prisma.SortOrder
+  saleLocalUuid?: Prisma.SortOrder
+  ackReceivedAt?: Prisma.SortOrder
+  fiscalDocumentType?: Prisma.SortOrder
+  fiscalDocumentNumber?: Prisma.SortOrder
+  fiscalAccessKey?: Prisma.SortOrder
+  fiscalAuthorizationProtocol?: Prisma.SortOrder
+  fiscalEmittedAt?: Prisma.SortOrder
+  fiscalEmissionStatus?: Prisma.SortOrder
   invoiceId?: Prisma.SortOrder
   invoicedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -1714,6 +1968,17 @@ export type OrderMinOrderByAggregateInput = {
   claimedByUserId?: Prisma.SortOrder
   claimedAt?: Prisma.SortOrder
   version?: Prisma.SortOrder
+  originSource?: Prisma.SortOrder
+  posTerminalId?: Prisma.SortOrder
+  posOperatorEmployeeId?: Prisma.SortOrder
+  saleLocalUuid?: Prisma.SortOrder
+  ackReceivedAt?: Prisma.SortOrder
+  fiscalDocumentType?: Prisma.SortOrder
+  fiscalDocumentNumber?: Prisma.SortOrder
+  fiscalAccessKey?: Prisma.SortOrder
+  fiscalAuthorizationProtocol?: Prisma.SortOrder
+  fiscalEmittedAt?: Prisma.SortOrder
+  fiscalEmissionStatus?: Prisma.SortOrder
   invoiceId?: Prisma.SortOrder
   invoicedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -1731,6 +1996,7 @@ export type OrderSumOrderByAggregateInput = {
   paidAmount?: Prisma.SortOrder
   remainingAmount?: Prisma.SortOrder
   version?: Prisma.SortOrder
+  fiscalDocumentNumber?: Prisma.SortOrder
 }
 
 export type OrderScalarRelationFilter = {
@@ -2116,6 +2382,48 @@ export type OrderUncheckedUpdateManyWithoutStageNestedInput = {
   deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
 }
 
+export type OrderCreateNestedManyWithoutPosOperatorEmployeeInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutPosOperatorEmployeeInput, Prisma.OrderUncheckedCreateWithoutPosOperatorEmployeeInput> | Prisma.OrderCreateWithoutPosOperatorEmployeeInput[] | Prisma.OrderUncheckedCreateWithoutPosOperatorEmployeeInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutPosOperatorEmployeeInput | Prisma.OrderCreateOrConnectWithoutPosOperatorEmployeeInput[]
+  createMany?: Prisma.OrderCreateManyPosOperatorEmployeeInputEnvelope
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+}
+
+export type OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutPosOperatorEmployeeInput, Prisma.OrderUncheckedCreateWithoutPosOperatorEmployeeInput> | Prisma.OrderCreateWithoutPosOperatorEmployeeInput[] | Prisma.OrderUncheckedCreateWithoutPosOperatorEmployeeInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutPosOperatorEmployeeInput | Prisma.OrderCreateOrConnectWithoutPosOperatorEmployeeInput[]
+  createMany?: Prisma.OrderCreateManyPosOperatorEmployeeInputEnvelope
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+}
+
+export type OrderUpdateManyWithoutPosOperatorEmployeeNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutPosOperatorEmployeeInput, Prisma.OrderUncheckedCreateWithoutPosOperatorEmployeeInput> | Prisma.OrderCreateWithoutPosOperatorEmployeeInput[] | Prisma.OrderUncheckedCreateWithoutPosOperatorEmployeeInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutPosOperatorEmployeeInput | Prisma.OrderCreateOrConnectWithoutPosOperatorEmployeeInput[]
+  upsert?: Prisma.OrderUpsertWithWhereUniqueWithoutPosOperatorEmployeeInput | Prisma.OrderUpsertWithWhereUniqueWithoutPosOperatorEmployeeInput[]
+  createMany?: Prisma.OrderCreateManyPosOperatorEmployeeInputEnvelope
+  set?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  disconnect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  delete?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  update?: Prisma.OrderUpdateWithWhereUniqueWithoutPosOperatorEmployeeInput | Prisma.OrderUpdateWithWhereUniqueWithoutPosOperatorEmployeeInput[]
+  updateMany?: Prisma.OrderUpdateManyWithWhereWithoutPosOperatorEmployeeInput | Prisma.OrderUpdateManyWithWhereWithoutPosOperatorEmployeeInput[]
+  deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
+}
+
+export type OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutPosOperatorEmployeeInput, Prisma.OrderUncheckedCreateWithoutPosOperatorEmployeeInput> | Prisma.OrderCreateWithoutPosOperatorEmployeeInput[] | Prisma.OrderUncheckedCreateWithoutPosOperatorEmployeeInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutPosOperatorEmployeeInput | Prisma.OrderCreateOrConnectWithoutPosOperatorEmployeeInput[]
+  upsert?: Prisma.OrderUpsertWithWhereUniqueWithoutPosOperatorEmployeeInput | Prisma.OrderUpsertWithWhereUniqueWithoutPosOperatorEmployeeInput[]
+  createMany?: Prisma.OrderCreateManyPosOperatorEmployeeInputEnvelope
+  set?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  disconnect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  delete?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  update?: Prisma.OrderUpdateWithWhereUniqueWithoutPosOperatorEmployeeInput | Prisma.OrderUpdateWithWhereUniqueWithoutPosOperatorEmployeeInput[]
+  updateMany?: Prisma.OrderUpdateManyWithWhereWithoutPosOperatorEmployeeInput | Prisma.OrderUpdateManyWithWhereWithoutPosOperatorEmployeeInput[]
+  deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
+}
+
 export type OrderCreateNestedManyWithoutTenantInput = {
   create?: Prisma.XOR<Prisma.OrderCreateWithoutTenantInput, Prisma.OrderUncheckedCreateWithoutTenantInput> | Prisma.OrderCreateWithoutTenantInput[] | Prisma.OrderUncheckedCreateWithoutTenantInput[]
   connectOrCreate?: Prisma.OrderCreateOrConnectWithoutTenantInput | Prisma.OrderCreateOrConnectWithoutTenantInput[]
@@ -2301,6 +2609,14 @@ export type NullableEnumDeliveryMethodFieldUpdateOperationsInput = {
 export type OrderUpdatetagsInput = {
   set?: string[]
   push?: string | string[]
+}
+
+export type EnumOrderOriginSourceFieldUpdateOperationsInput = {
+  set?: $Enums.OrderOriginSource
+}
+
+export type NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput = {
+  set?: $Enums.PosFiscalDocumentType | null
 }
 
 export type OrderUpdateOneWithoutConvertedOrdersNestedInput = {
@@ -2542,10 +2858,24 @@ export type OrderCreateNestedManyWithoutTerminalInput = {
   connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
 }
 
+export type OrderCreateNestedManyWithoutPosTerminalInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutPosTerminalInput, Prisma.OrderUncheckedCreateWithoutPosTerminalInput> | Prisma.OrderCreateWithoutPosTerminalInput[] | Prisma.OrderUncheckedCreateWithoutPosTerminalInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutPosTerminalInput | Prisma.OrderCreateOrConnectWithoutPosTerminalInput[]
+  createMany?: Prisma.OrderCreateManyPosTerminalInputEnvelope
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+}
+
 export type OrderUncheckedCreateNestedManyWithoutTerminalInput = {
   create?: Prisma.XOR<Prisma.OrderCreateWithoutTerminalInput, Prisma.OrderUncheckedCreateWithoutTerminalInput> | Prisma.OrderCreateWithoutTerminalInput[] | Prisma.OrderUncheckedCreateWithoutTerminalInput[]
   connectOrCreate?: Prisma.OrderCreateOrConnectWithoutTerminalInput | Prisma.OrderCreateOrConnectWithoutTerminalInput[]
   createMany?: Prisma.OrderCreateManyTerminalInputEnvelope
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+}
+
+export type OrderUncheckedCreateNestedManyWithoutPosTerminalInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutPosTerminalInput, Prisma.OrderUncheckedCreateWithoutPosTerminalInput> | Prisma.OrderCreateWithoutPosTerminalInput[] | Prisma.OrderUncheckedCreateWithoutPosTerminalInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutPosTerminalInput | Prisma.OrderCreateOrConnectWithoutPosTerminalInput[]
+  createMany?: Prisma.OrderCreateManyPosTerminalInputEnvelope
   connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
 }
 
@@ -2563,6 +2893,20 @@ export type OrderUpdateManyWithoutTerminalNestedInput = {
   deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
 }
 
+export type OrderUpdateManyWithoutPosTerminalNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutPosTerminalInput, Prisma.OrderUncheckedCreateWithoutPosTerminalInput> | Prisma.OrderCreateWithoutPosTerminalInput[] | Prisma.OrderUncheckedCreateWithoutPosTerminalInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutPosTerminalInput | Prisma.OrderCreateOrConnectWithoutPosTerminalInput[]
+  upsert?: Prisma.OrderUpsertWithWhereUniqueWithoutPosTerminalInput | Prisma.OrderUpsertWithWhereUniqueWithoutPosTerminalInput[]
+  createMany?: Prisma.OrderCreateManyPosTerminalInputEnvelope
+  set?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  disconnect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  delete?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  update?: Prisma.OrderUpdateWithWhereUniqueWithoutPosTerminalInput | Prisma.OrderUpdateWithWhereUniqueWithoutPosTerminalInput[]
+  updateMany?: Prisma.OrderUpdateManyWithWhereWithoutPosTerminalInput | Prisma.OrderUpdateManyWithWhereWithoutPosTerminalInput[]
+  deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
+}
+
 export type OrderUncheckedUpdateManyWithoutTerminalNestedInput = {
   create?: Prisma.XOR<Prisma.OrderCreateWithoutTerminalInput, Prisma.OrderUncheckedCreateWithoutTerminalInput> | Prisma.OrderCreateWithoutTerminalInput[] | Prisma.OrderUncheckedCreateWithoutTerminalInput[]
   connectOrCreate?: Prisma.OrderCreateOrConnectWithoutTerminalInput | Prisma.OrderCreateOrConnectWithoutTerminalInput[]
@@ -2575,6 +2919,52 @@ export type OrderUncheckedUpdateManyWithoutTerminalNestedInput = {
   update?: Prisma.OrderUpdateWithWhereUniqueWithoutTerminalInput | Prisma.OrderUpdateWithWhereUniqueWithoutTerminalInput[]
   updateMany?: Prisma.OrderUpdateManyWithWhereWithoutTerminalInput | Prisma.OrderUpdateManyWithWhereWithoutTerminalInput[]
   deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
+}
+
+export type OrderUncheckedUpdateManyWithoutPosTerminalNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutPosTerminalInput, Prisma.OrderUncheckedCreateWithoutPosTerminalInput> | Prisma.OrderCreateWithoutPosTerminalInput[] | Prisma.OrderUncheckedCreateWithoutPosTerminalInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutPosTerminalInput | Prisma.OrderCreateOrConnectWithoutPosTerminalInput[]
+  upsert?: Prisma.OrderUpsertWithWhereUniqueWithoutPosTerminalInput | Prisma.OrderUpsertWithWhereUniqueWithoutPosTerminalInput[]
+  createMany?: Prisma.OrderCreateManyPosTerminalInputEnvelope
+  set?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  disconnect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  delete?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  update?: Prisma.OrderUpdateWithWhereUniqueWithoutPosTerminalInput | Prisma.OrderUpdateWithWhereUniqueWithoutPosTerminalInput[]
+  updateMany?: Prisma.OrderUpdateManyWithWhereWithoutPosTerminalInput | Prisma.OrderUpdateManyWithWhereWithoutPosTerminalInput[]
+  deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
+}
+
+export type OrderCreateNestedOneWithoutPosOrderConflictsInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutPosOrderConflictsInput, Prisma.OrderUncheckedCreateWithoutPosOrderConflictsInput>
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutPosOrderConflictsInput
+  connect?: Prisma.OrderWhereUniqueInput
+}
+
+export type OrderUpdateOneWithoutPosOrderConflictsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutPosOrderConflictsInput, Prisma.OrderUncheckedCreateWithoutPosOrderConflictsInput>
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutPosOrderConflictsInput
+  upsert?: Prisma.OrderUpsertWithoutPosOrderConflictsInput
+  disconnect?: Prisma.OrderWhereInput | boolean
+  delete?: Prisma.OrderWhereInput | boolean
+  connect?: Prisma.OrderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrderUpdateToOneWithWhereWithoutPosOrderConflictsInput, Prisma.OrderUpdateWithoutPosOrderConflictsInput>, Prisma.OrderUncheckedUpdateWithoutPosOrderConflictsInput>
+}
+
+export type OrderCreateNestedOneWithoutOrphanPaymentsMatchedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutOrphanPaymentsMatchedInput, Prisma.OrderUncheckedCreateWithoutOrphanPaymentsMatchedInput>
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutOrphanPaymentsMatchedInput
+  connect?: Prisma.OrderWhereUniqueInput
+}
+
+export type OrderUpdateOneWithoutOrphanPaymentsMatchedNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutOrphanPaymentsMatchedInput, Prisma.OrderUncheckedCreateWithoutOrphanPaymentsMatchedInput>
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutOrphanPaymentsMatchedInput
+  upsert?: Prisma.OrderUpsertWithoutOrphanPaymentsMatchedInput
+  disconnect?: Prisma.OrderWhereInput | boolean
+  delete?: Prisma.OrderWhereInput | boolean
+  connect?: Prisma.OrderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrderUpdateToOneWithWhereWithoutOrphanPaymentsMatchedInput, Prisma.OrderUpdateWithoutOrphanPaymentsMatchedInput>, Prisma.OrderUncheckedUpdateWithoutOrphanPaymentsMatchedInput>
 }
 
 export type OrderCreateNestedManyWithoutPosSessionInput = {
@@ -2731,6 +3121,15 @@ export type OrderCreateWithoutAssignedToInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -2762,8 +3161,12 @@ export type OrderCreateWithoutAssignedToInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -2823,6 +3226,17 @@ export type OrderUncheckedCreateWithoutAssignedToInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -2840,6 +3254,8 @@ export type OrderUncheckedCreateWithoutAssignedToInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -2893,6 +3309,15 @@ export type OrderCreateWithoutApprovedByInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -2924,8 +3349,12 @@ export type OrderCreateWithoutApprovedByInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -2985,6 +3414,17 @@ export type OrderUncheckedCreateWithoutApprovedByInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -3002,6 +3442,8 @@ export type OrderUncheckedCreateWithoutApprovedByInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -3055,6 +3497,15 @@ export type OrderCreateWithoutCashierUserInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -3086,8 +3537,12 @@ export type OrderCreateWithoutCashierUserInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -3147,6 +3602,17 @@ export type OrderUncheckedCreateWithoutCashierUserInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -3164,6 +3630,8 @@ export type OrderUncheckedCreateWithoutCashierUserInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -3217,6 +3685,15 @@ export type OrderCreateWithoutClaimedByUserInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -3248,8 +3725,12 @@ export type OrderCreateWithoutClaimedByUserInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -3309,6 +3790,17 @@ export type OrderUncheckedCreateWithoutClaimedByUserInput = {
   posSessionId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -3326,6 +3818,8 @@ export type OrderUncheckedCreateWithoutClaimedByUserInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -3415,6 +3909,17 @@ export type OrderScalarWhereInput = {
   claimedByUserId?: Prisma.StringNullableFilter<"Order"> | string | null
   claimedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   version?: Prisma.IntFilter<"Order"> | number
+  originSource?: Prisma.EnumOrderOriginSourceFilter<"Order"> | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.StringNullableFilter<"Order"> | string | null
+  posOperatorEmployeeId?: Prisma.StringNullableFilter<"Order"> | string | null
+  saleLocalUuid?: Prisma.StringNullableFilter<"Order"> | string | null
+  ackReceivedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  fiscalDocumentType?: Prisma.EnumPosFiscalDocumentTypeNullableFilter<"Order"> | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.IntNullableFilter<"Order"> | number | null
+  fiscalAccessKey?: Prisma.StringNullableFilter<"Order"> | string | null
+  fiscalAuthorizationProtocol?: Prisma.StringNullableFilter<"Order"> | string | null
+  fiscalEmittedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  fiscalEmissionStatus?: Prisma.StringNullableFilter<"Order"> | string | null
   invoiceId?: Prisma.StringNullableFilter<"Order"> | string | null
   invoicedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
@@ -3508,6 +4013,15 @@ export type OrderCreateWithoutSourceWarehouseInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -3539,8 +4053,12 @@ export type OrderCreateWithoutSourceWarehouseInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -3600,6 +4118,17 @@ export type OrderUncheckedCreateWithoutSourceWarehouseInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -3617,6 +4146,8 @@ export type OrderUncheckedCreateWithoutSourceWarehouseInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -3686,6 +4217,15 @@ export type OrderCreateWithoutCustomerInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -3717,8 +4257,12 @@ export type OrderCreateWithoutCustomerInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -3778,6 +4322,17 @@ export type OrderUncheckedCreateWithoutCustomerInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -3795,6 +4350,8 @@ export type OrderUncheckedCreateWithoutCustomerInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -3864,6 +4421,15 @@ export type OrderCreateWithoutContactInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -3895,8 +4461,12 @@ export type OrderCreateWithoutContactInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -3956,6 +4526,17 @@ export type OrderUncheckedCreateWithoutContactInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -3973,6 +4554,8 @@ export type OrderUncheckedCreateWithoutContactInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -4042,6 +4625,15 @@ export type OrderCreateWithoutPipelineInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -4073,8 +4665,12 @@ export type OrderCreateWithoutPipelineInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -4134,6 +4730,17 @@ export type OrderUncheckedCreateWithoutPipelineInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -4151,6 +4758,8 @@ export type OrderUncheckedCreateWithoutPipelineInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -4220,6 +4829,15 @@ export type OrderCreateWithoutStageInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -4251,8 +4869,12 @@ export type OrderCreateWithoutStageInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -4312,6 +4934,17 @@ export type OrderUncheckedCreateWithoutStageInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -4329,6 +4962,8 @@ export type OrderUncheckedCreateWithoutStageInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -4358,6 +4993,210 @@ export type OrderUpdateWithWhereUniqueWithoutStageInput = {
 export type OrderUpdateManyWithWhereWithoutStageInput = {
   where: Prisma.OrderScalarWhereInput
   data: Prisma.XOR<Prisma.OrderUpdateManyMutationInput, Prisma.OrderUncheckedUpdateManyWithoutStageInput>
+}
+
+export type OrderCreateWithoutPosOperatorEmployeeInput = {
+  id?: string
+  orderNumber: string
+  type: $Enums.OrderType
+  status?: $Enums.OrderStatus
+  channel: $Enums.OrderChannel
+  subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  creditUsed?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: string | null
+  carrierName?: string | null
+  estimatedDelivery?: Date | string | null
+  deliveredAt?: Date | string | null
+  needsApproval?: boolean
+  approvedAt?: Date | string | null
+  approvalNotes?: string | null
+  rejectedReason?: string | null
+  dealId?: string | null
+  notes?: string | null
+  internalNotes?: string | null
+  tags?: Prisma.OrderCreatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt: Date | string
+  confirmedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  expiresAt?: Date | string | null
+  saleCode?: string | null
+  claimedAt?: Date | string | null
+  version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
+  invoiceId?: string | null
+  invoicedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutOrdersInput
+  customer: Prisma.CustomerCreateNestedOneWithoutOrdersInput
+  contact?: Prisma.CrmContactCreateNestedOneWithoutOrdersInput
+  pipeline: Prisma.CrmPipelineCreateNestedOneWithoutOrdersInput
+  stage: Prisma.CrmPipelineStageCreateNestedOneWithoutOrdersInput
+  priceTable?: Prisma.PriceTableCreateNestedOneWithoutOrdersInput
+  paymentCondition?: Prisma.PaymentConditionCreateNestedOneWithoutOrdersInput
+  quote?: Prisma.OrderCreateNestedOneWithoutConvertedOrdersInput
+  convertedOrders?: Prisma.OrderCreateNestedManyWithoutQuoteInput
+  returnOrigin?: Prisma.OrderCreateNestedOneWithoutReturnedOrdersInput
+  returnedOrders?: Prisma.OrderCreateNestedManyWithoutReturnOriginInput
+  coupon?: Prisma.CouponCreateNestedOneWithoutOrdersInput
+  sourceWarehouse?: Prisma.WarehouseCreateNestedOneWithoutOrdersInput
+  assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedOrdersInput
+  approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedOrdersInput
+  items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
+  payments?: Prisma.OrderPaymentCreateNestedManyWithoutOrderInput
+  deliveries?: Prisma.OrderDeliveryCreateNestedManyWithoutOrderInput
+  returns?: Prisma.OrderReturnCreateNestedManyWithoutOrderInput
+  commissions?: Prisma.OrderCommissionCreateNestedManyWithoutOrderInput
+  history?: Prisma.OrderHistoryCreateNestedManyWithoutOrderInput
+  storeCreditsReserved?: Prisma.StoreCreditCreateNestedManyWithoutReservedForOrderInput
+  storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
+  cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
+  posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
+  claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
+  posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
+  invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
+  paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
+}
+
+export type OrderUncheckedCreateWithoutPosOperatorEmployeeInput = {
+  id?: string
+  tenantId: string
+  orderNumber: string
+  type: $Enums.OrderType
+  status?: $Enums.OrderStatus
+  customerId: string
+  contactId?: string | null
+  pipelineId: string
+  stageId: string
+  channel: $Enums.OrderChannel
+  subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  priceTableId?: string | null
+  paymentConditionId?: string | null
+  creditUsed?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: string | null
+  carrierName?: string | null
+  estimatedDelivery?: Date | string | null
+  deliveredAt?: Date | string | null
+  needsApproval?: boolean
+  approvedByUserId?: string | null
+  approvedAt?: Date | string | null
+  approvalNotes?: string | null
+  rejectedReason?: string | null
+  dealId?: string | null
+  quoteId?: string | null
+  returnOriginId?: string | null
+  couponId?: string | null
+  sourceWarehouseId?: string | null
+  assignedToUserId?: string | null
+  notes?: string | null
+  internalNotes?: string | null
+  tags?: Prisma.OrderCreatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt: Date | string
+  confirmedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  expiresAt?: Date | string | null
+  saleCode?: string | null
+  terminalId?: string | null
+  cashierUserId?: string | null
+  posSessionId?: string | null
+  claimedByUserId?: string | null
+  claimedAt?: Date | string | null
+  version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
+  invoiceId?: string | null
+  invoicedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  convertedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutQuoteInput
+  returnedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutReturnOriginInput
+  items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
+  payments?: Prisma.OrderPaymentUncheckedCreateNestedManyWithoutOrderInput
+  deliveries?: Prisma.OrderDeliveryUncheckedCreateNestedManyWithoutOrderInput
+  returns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutOrderInput
+  commissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutOrderInput
+  history?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutOrderInput
+  storeCreditsReserved?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutReservedForOrderInput
+  storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
+  posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
+  posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
+  invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
+  paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
+}
+
+export type OrderCreateOrConnectWithoutPosOperatorEmployeeInput = {
+  where: Prisma.OrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderCreateWithoutPosOperatorEmployeeInput, Prisma.OrderUncheckedCreateWithoutPosOperatorEmployeeInput>
+}
+
+export type OrderCreateManyPosOperatorEmployeeInputEnvelope = {
+  data: Prisma.OrderCreateManyPosOperatorEmployeeInput | Prisma.OrderCreateManyPosOperatorEmployeeInput[]
+  skipDuplicates?: boolean
+}
+
+export type OrderUpsertWithWhereUniqueWithoutPosOperatorEmployeeInput = {
+  where: Prisma.OrderWhereUniqueInput
+  update: Prisma.XOR<Prisma.OrderUpdateWithoutPosOperatorEmployeeInput, Prisma.OrderUncheckedUpdateWithoutPosOperatorEmployeeInput>
+  create: Prisma.XOR<Prisma.OrderCreateWithoutPosOperatorEmployeeInput, Prisma.OrderUncheckedCreateWithoutPosOperatorEmployeeInput>
+}
+
+export type OrderUpdateWithWhereUniqueWithoutPosOperatorEmployeeInput = {
+  where: Prisma.OrderWhereUniqueInput
+  data: Prisma.XOR<Prisma.OrderUpdateWithoutPosOperatorEmployeeInput, Prisma.OrderUncheckedUpdateWithoutPosOperatorEmployeeInput>
+}
+
+export type OrderUpdateManyWithWhereWithoutPosOperatorEmployeeInput = {
+  where: Prisma.OrderScalarWhereInput
+  data: Prisma.XOR<Prisma.OrderUpdateManyMutationInput, Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeInput>
 }
 
 export type OrderCreateWithoutTenantInput = {
@@ -4398,6 +5237,15 @@ export type OrderCreateWithoutTenantInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -4429,8 +5277,12 @@ export type OrderCreateWithoutTenantInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -4490,6 +5342,17 @@ export type OrderUncheckedCreateWithoutTenantInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -4507,6 +5370,8 @@ export type OrderUncheckedCreateWithoutTenantInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -4576,6 +5441,15 @@ export type OrderCreateWithoutPriceTableInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -4607,8 +5481,12 @@ export type OrderCreateWithoutPriceTableInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -4668,6 +5546,17 @@ export type OrderUncheckedCreateWithoutPriceTableInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -4685,6 +5574,8 @@ export type OrderUncheckedCreateWithoutPriceTableInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -4754,6 +5645,15 @@ export type OrderCreateWithoutCouponInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -4785,8 +5685,12 @@ export type OrderCreateWithoutCouponInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -4846,6 +5750,17 @@ export type OrderUncheckedCreateWithoutCouponInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -4863,6 +5778,8 @@ export type OrderUncheckedCreateWithoutCouponInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -4932,6 +5849,15 @@ export type OrderCreateWithoutConvertedOrdersInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -4963,8 +5889,12 @@ export type OrderCreateWithoutConvertedOrdersInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -5025,6 +5955,17 @@ export type OrderUncheckedCreateWithoutConvertedOrdersInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -5041,6 +5982,8 @@ export type OrderUncheckedCreateWithoutConvertedOrdersInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -5089,6 +6032,15 @@ export type OrderCreateWithoutQuoteInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -5120,8 +6072,12 @@ export type OrderCreateWithoutQuoteInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -5181,6 +6137,17 @@ export type OrderUncheckedCreateWithoutQuoteInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -5198,6 +6165,8 @@ export type OrderUncheckedCreateWithoutQuoteInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -5251,6 +6220,15 @@ export type OrderCreateWithoutReturnedOrdersInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -5282,8 +6260,12 @@ export type OrderCreateWithoutReturnedOrdersInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -5344,6 +6326,17 @@ export type OrderUncheckedCreateWithoutReturnedOrdersInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -5360,6 +6353,8 @@ export type OrderUncheckedCreateWithoutReturnedOrdersInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -5408,6 +6403,15 @@ export type OrderCreateWithoutReturnOriginInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -5439,8 +6443,12 @@ export type OrderCreateWithoutReturnOriginInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -5500,6 +6508,17 @@ export type OrderUncheckedCreateWithoutReturnOriginInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -5517,6 +6536,8 @@ export type OrderUncheckedCreateWithoutReturnOriginInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -5581,6 +6602,15 @@ export type OrderUpdateWithoutConvertedOrdersInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5612,8 +6642,12 @@ export type OrderUpdateWithoutConvertedOrdersInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -5674,6 +6708,17 @@ export type OrderUncheckedUpdateWithoutConvertedOrdersInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5690,6 +6735,8 @@ export type OrderUncheckedUpdateWithoutConvertedOrdersInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -5760,6 +6807,15 @@ export type OrderUpdateWithoutReturnedOrdersInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5791,8 +6847,12 @@ export type OrderUpdateWithoutReturnedOrdersInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -5853,6 +6913,17 @@ export type OrderUncheckedUpdateWithoutReturnedOrdersInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5869,6 +6940,8 @@ export type OrderUncheckedUpdateWithoutReturnedOrdersInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -5928,6 +7001,15 @@ export type OrderCreateWithoutItemsInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -5959,8 +7041,12 @@ export type OrderCreateWithoutItemsInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -6021,6 +7107,17 @@ export type OrderUncheckedCreateWithoutItemsInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -6037,6 +7134,8 @@ export type OrderUncheckedCreateWithoutItemsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -6096,6 +7195,15 @@ export type OrderUpdateWithoutItemsInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6127,8 +7235,12 @@ export type OrderUpdateWithoutItemsInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -6189,6 +7301,17 @@ export type OrderUncheckedUpdateWithoutItemsInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6205,6 +7328,8 @@ export type OrderUncheckedUpdateWithoutItemsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -6248,6 +7373,15 @@ export type OrderCreateWithoutPaymentConditionInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -6279,8 +7413,12 @@ export type OrderCreateWithoutPaymentConditionInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -6340,6 +7478,17 @@ export type OrderUncheckedCreateWithoutPaymentConditionInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -6357,6 +7506,8 @@ export type OrderUncheckedCreateWithoutPaymentConditionInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -6426,6 +7577,15 @@ export type OrderCreateWithoutPaymentsInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -6457,8 +7617,12 @@ export type OrderCreateWithoutPaymentsInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -6519,6 +7683,17 @@ export type OrderUncheckedCreateWithoutPaymentsInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -6535,6 +7710,8 @@ export type OrderUncheckedCreateWithoutPaymentsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -6594,6 +7771,15 @@ export type OrderUpdateWithoutPaymentsInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6625,8 +7811,12 @@ export type OrderUpdateWithoutPaymentsInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -6687,6 +7877,17 @@ export type OrderUncheckedUpdateWithoutPaymentsInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6703,6 +7904,8 @@ export type OrderUncheckedUpdateWithoutPaymentsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -6746,6 +7949,15 @@ export type OrderCreateWithoutDeliveriesInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -6777,8 +7989,12 @@ export type OrderCreateWithoutDeliveriesInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -6839,6 +8055,17 @@ export type OrderUncheckedCreateWithoutDeliveriesInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -6855,6 +8082,8 @@ export type OrderUncheckedCreateWithoutDeliveriesInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -6914,6 +8143,15 @@ export type OrderUpdateWithoutDeliveriesInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6945,8 +8183,12 @@ export type OrderUpdateWithoutDeliveriesInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -7007,6 +8249,17 @@ export type OrderUncheckedUpdateWithoutDeliveriesInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7023,6 +8276,8 @@ export type OrderUncheckedUpdateWithoutDeliveriesInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -7066,6 +8321,15 @@ export type OrderCreateWithoutReturnsInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -7097,8 +8361,12 @@ export type OrderCreateWithoutReturnsInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -7159,6 +8427,17 @@ export type OrderUncheckedCreateWithoutReturnsInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -7175,6 +8454,8 @@ export type OrderUncheckedCreateWithoutReturnsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -7234,6 +8515,15 @@ export type OrderUpdateWithoutReturnsInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7265,8 +8555,12 @@ export type OrderUpdateWithoutReturnsInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -7327,6 +8621,17 @@ export type OrderUncheckedUpdateWithoutReturnsInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7343,6 +8648,8 @@ export type OrderUncheckedUpdateWithoutReturnsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -7386,6 +8693,15 @@ export type OrderCreateWithoutStoreCreditsReservedInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -7417,8 +8733,12 @@ export type OrderCreateWithoutStoreCreditsReservedInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -7479,6 +8799,17 @@ export type OrderUncheckedCreateWithoutStoreCreditsReservedInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -7495,6 +8826,8 @@ export type OrderUncheckedCreateWithoutStoreCreditsReservedInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -7554,6 +8887,15 @@ export type OrderUpdateWithoutStoreCreditsReservedInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7585,8 +8927,12 @@ export type OrderUpdateWithoutStoreCreditsReservedInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -7647,6 +8993,17 @@ export type OrderUncheckedUpdateWithoutStoreCreditsReservedInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7663,6 +9020,8 @@ export type OrderUncheckedUpdateWithoutStoreCreditsReservedInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -7706,6 +9065,15 @@ export type OrderCreateWithoutStoreCreditUsagesInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -7737,8 +9105,12 @@ export type OrderCreateWithoutStoreCreditUsagesInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -7799,6 +9171,17 @@ export type OrderUncheckedCreateWithoutStoreCreditUsagesInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -7815,6 +9198,8 @@ export type OrderUncheckedCreateWithoutStoreCreditUsagesInput = {
   storeCreditsReserved?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutReservedForOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -7874,6 +9259,15 @@ export type OrderUpdateWithoutStoreCreditUsagesInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7905,8 +9299,12 @@ export type OrderUpdateWithoutStoreCreditUsagesInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -7967,6 +9365,17 @@ export type OrderUncheckedUpdateWithoutStoreCreditUsagesInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7983,6 +9392,8 @@ export type OrderUncheckedUpdateWithoutStoreCreditUsagesInput = {
   storeCreditsReserved?: Prisma.StoreCreditUncheckedUpdateManyWithoutReservedForOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -8026,6 +9437,15 @@ export type OrderCreateWithoutCommissionsInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -8057,8 +9477,12 @@ export type OrderCreateWithoutCommissionsInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -8119,6 +9543,17 @@ export type OrderUncheckedCreateWithoutCommissionsInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -8135,6 +9570,8 @@ export type OrderUncheckedCreateWithoutCommissionsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -8194,6 +9631,15 @@ export type OrderUpdateWithoutCommissionsInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8225,8 +9671,12 @@ export type OrderUpdateWithoutCommissionsInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -8287,6 +9737,17 @@ export type OrderUncheckedUpdateWithoutCommissionsInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8303,6 +9764,8 @@ export type OrderUncheckedUpdateWithoutCommissionsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -8346,6 +9809,15 @@ export type OrderCreateWithoutHistoryInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -8377,8 +9849,12 @@ export type OrderCreateWithoutHistoryInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -8439,6 +9915,17 @@ export type OrderUncheckedCreateWithoutHistoryInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -8455,6 +9942,8 @@ export type OrderUncheckedCreateWithoutHistoryInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -8514,6 +10003,15 @@ export type OrderUpdateWithoutHistoryInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8545,8 +10043,12 @@ export type OrderUpdateWithoutHistoryInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -8607,6 +10109,17 @@ export type OrderUncheckedUpdateWithoutHistoryInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8623,6 +10136,8 @@ export type OrderUncheckedUpdateWithoutHistoryInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -8666,6 +10181,15 @@ export type OrderCreateWithoutTerminalInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -8697,8 +10221,12 @@ export type OrderCreateWithoutTerminalInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -8758,6 +10286,17 @@ export type OrderUncheckedCreateWithoutTerminalInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -8775,6 +10314,8 @@ export type OrderUncheckedCreateWithoutTerminalInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -8787,6 +10328,194 @@ export type OrderCreateOrConnectWithoutTerminalInput = {
 
 export type OrderCreateManyTerminalInputEnvelope = {
   data: Prisma.OrderCreateManyTerminalInput | Prisma.OrderCreateManyTerminalInput[]
+  skipDuplicates?: boolean
+}
+
+export type OrderCreateWithoutPosTerminalInput = {
+  id?: string
+  orderNumber: string
+  type: $Enums.OrderType
+  status?: $Enums.OrderStatus
+  channel: $Enums.OrderChannel
+  subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  creditUsed?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: string | null
+  carrierName?: string | null
+  estimatedDelivery?: Date | string | null
+  deliveredAt?: Date | string | null
+  needsApproval?: boolean
+  approvedAt?: Date | string | null
+  approvalNotes?: string | null
+  rejectedReason?: string | null
+  dealId?: string | null
+  notes?: string | null
+  internalNotes?: string | null
+  tags?: Prisma.OrderCreatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt: Date | string
+  confirmedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  expiresAt?: Date | string | null
+  saleCode?: string | null
+  claimedAt?: Date | string | null
+  version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
+  invoiceId?: string | null
+  invoicedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutOrdersInput
+  customer: Prisma.CustomerCreateNestedOneWithoutOrdersInput
+  contact?: Prisma.CrmContactCreateNestedOneWithoutOrdersInput
+  pipeline: Prisma.CrmPipelineCreateNestedOneWithoutOrdersInput
+  stage: Prisma.CrmPipelineStageCreateNestedOneWithoutOrdersInput
+  priceTable?: Prisma.PriceTableCreateNestedOneWithoutOrdersInput
+  paymentCondition?: Prisma.PaymentConditionCreateNestedOneWithoutOrdersInput
+  quote?: Prisma.OrderCreateNestedOneWithoutConvertedOrdersInput
+  convertedOrders?: Prisma.OrderCreateNestedManyWithoutQuoteInput
+  returnOrigin?: Prisma.OrderCreateNestedOneWithoutReturnedOrdersInput
+  returnedOrders?: Prisma.OrderCreateNestedManyWithoutReturnOriginInput
+  coupon?: Prisma.CouponCreateNestedOneWithoutOrdersInput
+  sourceWarehouse?: Prisma.WarehouseCreateNestedOneWithoutOrdersInput
+  assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedOrdersInput
+  approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedOrdersInput
+  items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
+  payments?: Prisma.OrderPaymentCreateNestedManyWithoutOrderInput
+  deliveries?: Prisma.OrderDeliveryCreateNestedManyWithoutOrderInput
+  returns?: Prisma.OrderReturnCreateNestedManyWithoutOrderInput
+  commissions?: Prisma.OrderCommissionCreateNestedManyWithoutOrderInput
+  history?: Prisma.OrderHistoryCreateNestedManyWithoutOrderInput
+  storeCreditsReserved?: Prisma.StoreCreditCreateNestedManyWithoutReservedForOrderInput
+  storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
+  cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
+  posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
+  claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
+  posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
+  posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
+  invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
+  paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
+}
+
+export type OrderUncheckedCreateWithoutPosTerminalInput = {
+  id?: string
+  tenantId: string
+  orderNumber: string
+  type: $Enums.OrderType
+  status?: $Enums.OrderStatus
+  customerId: string
+  contactId?: string | null
+  pipelineId: string
+  stageId: string
+  channel: $Enums.OrderChannel
+  subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  priceTableId?: string | null
+  paymentConditionId?: string | null
+  creditUsed?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: string | null
+  carrierName?: string | null
+  estimatedDelivery?: Date | string | null
+  deliveredAt?: Date | string | null
+  needsApproval?: boolean
+  approvedByUserId?: string | null
+  approvedAt?: Date | string | null
+  approvalNotes?: string | null
+  rejectedReason?: string | null
+  dealId?: string | null
+  quoteId?: string | null
+  returnOriginId?: string | null
+  couponId?: string | null
+  sourceWarehouseId?: string | null
+  assignedToUserId?: string | null
+  notes?: string | null
+  internalNotes?: string | null
+  tags?: Prisma.OrderCreatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt: Date | string
+  confirmedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  expiresAt?: Date | string | null
+  saleCode?: string | null
+  terminalId?: string | null
+  cashierUserId?: string | null
+  posSessionId?: string | null
+  claimedByUserId?: string | null
+  claimedAt?: Date | string | null
+  version?: number
+  originSource?: $Enums.OrderOriginSource
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
+  invoiceId?: string | null
+  invoicedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  convertedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutQuoteInput
+  returnedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutReturnOriginInput
+  items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
+  payments?: Prisma.OrderPaymentUncheckedCreateNestedManyWithoutOrderInput
+  deliveries?: Prisma.OrderDeliveryUncheckedCreateNestedManyWithoutOrderInput
+  returns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutOrderInput
+  commissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutOrderInput
+  history?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutOrderInput
+  storeCreditsReserved?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutReservedForOrderInput
+  storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
+  posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
+  posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
+  invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
+  paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
+}
+
+export type OrderCreateOrConnectWithoutPosTerminalInput = {
+  where: Prisma.OrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderCreateWithoutPosTerminalInput, Prisma.OrderUncheckedCreateWithoutPosTerminalInput>
+}
+
+export type OrderCreateManyPosTerminalInputEnvelope = {
+  data: Prisma.OrderCreateManyPosTerminalInput | Prisma.OrderCreateManyPosTerminalInput[]
   skipDuplicates?: boolean
 }
 
@@ -8804,6 +10533,766 @@ export type OrderUpdateWithWhereUniqueWithoutTerminalInput = {
 export type OrderUpdateManyWithWhereWithoutTerminalInput = {
   where: Prisma.OrderScalarWhereInput
   data: Prisma.XOR<Prisma.OrderUpdateManyMutationInput, Prisma.OrderUncheckedUpdateManyWithoutTerminalInput>
+}
+
+export type OrderUpsertWithWhereUniqueWithoutPosTerminalInput = {
+  where: Prisma.OrderWhereUniqueInput
+  update: Prisma.XOR<Prisma.OrderUpdateWithoutPosTerminalInput, Prisma.OrderUncheckedUpdateWithoutPosTerminalInput>
+  create: Prisma.XOR<Prisma.OrderCreateWithoutPosTerminalInput, Prisma.OrderUncheckedCreateWithoutPosTerminalInput>
+}
+
+export type OrderUpdateWithWhereUniqueWithoutPosTerminalInput = {
+  where: Prisma.OrderWhereUniqueInput
+  data: Prisma.XOR<Prisma.OrderUpdateWithoutPosTerminalInput, Prisma.OrderUncheckedUpdateWithoutPosTerminalInput>
+}
+
+export type OrderUpdateManyWithWhereWithoutPosTerminalInput = {
+  where: Prisma.OrderScalarWhereInput
+  data: Prisma.XOR<Prisma.OrderUpdateManyMutationInput, Prisma.OrderUncheckedUpdateManyWithoutPosTerminalInput>
+}
+
+export type OrderCreateWithoutPosOrderConflictsInput = {
+  id?: string
+  orderNumber: string
+  type: $Enums.OrderType
+  status?: $Enums.OrderStatus
+  channel: $Enums.OrderChannel
+  subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  creditUsed?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: string | null
+  carrierName?: string | null
+  estimatedDelivery?: Date | string | null
+  deliveredAt?: Date | string | null
+  needsApproval?: boolean
+  approvedAt?: Date | string | null
+  approvalNotes?: string | null
+  rejectedReason?: string | null
+  dealId?: string | null
+  notes?: string | null
+  internalNotes?: string | null
+  tags?: Prisma.OrderCreatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt: Date | string
+  confirmedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  expiresAt?: Date | string | null
+  saleCode?: string | null
+  claimedAt?: Date | string | null
+  version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
+  invoiceId?: string | null
+  invoicedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutOrdersInput
+  customer: Prisma.CustomerCreateNestedOneWithoutOrdersInput
+  contact?: Prisma.CrmContactCreateNestedOneWithoutOrdersInput
+  pipeline: Prisma.CrmPipelineCreateNestedOneWithoutOrdersInput
+  stage: Prisma.CrmPipelineStageCreateNestedOneWithoutOrdersInput
+  priceTable?: Prisma.PriceTableCreateNestedOneWithoutOrdersInput
+  paymentCondition?: Prisma.PaymentConditionCreateNestedOneWithoutOrdersInput
+  quote?: Prisma.OrderCreateNestedOneWithoutConvertedOrdersInput
+  convertedOrders?: Prisma.OrderCreateNestedManyWithoutQuoteInput
+  returnOrigin?: Prisma.OrderCreateNestedOneWithoutReturnedOrdersInput
+  returnedOrders?: Prisma.OrderCreateNestedManyWithoutReturnOriginInput
+  coupon?: Prisma.CouponCreateNestedOneWithoutOrdersInput
+  sourceWarehouse?: Prisma.WarehouseCreateNestedOneWithoutOrdersInput
+  assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedOrdersInput
+  approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedOrdersInput
+  items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
+  payments?: Prisma.OrderPaymentCreateNestedManyWithoutOrderInput
+  deliveries?: Prisma.OrderDeliveryCreateNestedManyWithoutOrderInput
+  returns?: Prisma.OrderReturnCreateNestedManyWithoutOrderInput
+  commissions?: Prisma.OrderCommissionCreateNestedManyWithoutOrderInput
+  history?: Prisma.OrderHistoryCreateNestedManyWithoutOrderInput
+  storeCreditsReserved?: Prisma.StoreCreditCreateNestedManyWithoutReservedForOrderInput
+  storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
+  cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
+  posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
+  claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
+  posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
+  posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
+  invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
+  paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
+}
+
+export type OrderUncheckedCreateWithoutPosOrderConflictsInput = {
+  id?: string
+  tenantId: string
+  orderNumber: string
+  type: $Enums.OrderType
+  status?: $Enums.OrderStatus
+  customerId: string
+  contactId?: string | null
+  pipelineId: string
+  stageId: string
+  channel: $Enums.OrderChannel
+  subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  priceTableId?: string | null
+  paymentConditionId?: string | null
+  creditUsed?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: string | null
+  carrierName?: string | null
+  estimatedDelivery?: Date | string | null
+  deliveredAt?: Date | string | null
+  needsApproval?: boolean
+  approvedByUserId?: string | null
+  approvedAt?: Date | string | null
+  approvalNotes?: string | null
+  rejectedReason?: string | null
+  dealId?: string | null
+  quoteId?: string | null
+  returnOriginId?: string | null
+  couponId?: string | null
+  sourceWarehouseId?: string | null
+  assignedToUserId?: string | null
+  notes?: string | null
+  internalNotes?: string | null
+  tags?: Prisma.OrderCreatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt: Date | string
+  confirmedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  expiresAt?: Date | string | null
+  saleCode?: string | null
+  terminalId?: string | null
+  cashierUserId?: string | null
+  posSessionId?: string | null
+  claimedByUserId?: string | null
+  claimedAt?: Date | string | null
+  version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
+  invoiceId?: string | null
+  invoicedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  convertedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutQuoteInput
+  returnedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutReturnOriginInput
+  items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
+  payments?: Prisma.OrderPaymentUncheckedCreateNestedManyWithoutOrderInput
+  deliveries?: Prisma.OrderDeliveryUncheckedCreateNestedManyWithoutOrderInput
+  returns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutOrderInput
+  commissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutOrderInput
+  history?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutOrderInput
+  storeCreditsReserved?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutReservedForOrderInput
+  storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
+  posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
+  posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
+  invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
+  paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
+}
+
+export type OrderCreateOrConnectWithoutPosOrderConflictsInput = {
+  where: Prisma.OrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderCreateWithoutPosOrderConflictsInput, Prisma.OrderUncheckedCreateWithoutPosOrderConflictsInput>
+}
+
+export type OrderUpsertWithoutPosOrderConflictsInput = {
+  update: Prisma.XOR<Prisma.OrderUpdateWithoutPosOrderConflictsInput, Prisma.OrderUncheckedUpdateWithoutPosOrderConflictsInput>
+  create: Prisma.XOR<Prisma.OrderCreateWithoutPosOrderConflictsInput, Prisma.OrderUncheckedCreateWithoutPosOrderConflictsInput>
+  where?: Prisma.OrderWhereInput
+}
+
+export type OrderUpdateToOneWithWhereWithoutPosOrderConflictsInput = {
+  where?: Prisma.OrderWhereInput
+  data: Prisma.XOR<Prisma.OrderUpdateWithoutPosOrderConflictsInput, Prisma.OrderUncheckedUpdateWithoutPosOrderConflictsInput>
+}
+
+export type OrderUpdateWithoutPosOrderConflictsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  channel?: Prisma.EnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  creditUsed?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: Prisma.NullableEnumDeliveryMethodFieldUpdateOperationsInput | $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  carrierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedDelivery?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  needsApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dealId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.OrderUpdatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutOrdersNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutOrdersNestedInput
+  contact?: Prisma.CrmContactUpdateOneWithoutOrdersNestedInput
+  pipeline?: Prisma.CrmPipelineUpdateOneRequiredWithoutOrdersNestedInput
+  stage?: Prisma.CrmPipelineStageUpdateOneRequiredWithoutOrdersNestedInput
+  priceTable?: Prisma.PriceTableUpdateOneWithoutOrdersNestedInput
+  paymentCondition?: Prisma.PaymentConditionUpdateOneWithoutOrdersNestedInput
+  quote?: Prisma.OrderUpdateOneWithoutConvertedOrdersNestedInput
+  convertedOrders?: Prisma.OrderUpdateManyWithoutQuoteNestedInput
+  returnOrigin?: Prisma.OrderUpdateOneWithoutReturnedOrdersNestedInput
+  returnedOrders?: Prisma.OrderUpdateManyWithoutReturnOriginNestedInput
+  coupon?: Prisma.CouponUpdateOneWithoutOrdersNestedInput
+  sourceWarehouse?: Prisma.WarehouseUpdateOneWithoutOrdersNestedInput
+  assignedTo?: Prisma.UserUpdateOneWithoutAssignedOrdersNestedInput
+  approvedBy?: Prisma.UserUpdateOneWithoutApprovedOrdersNestedInput
+  items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
+  payments?: Prisma.OrderPaymentUpdateManyWithoutOrderNestedInput
+  deliveries?: Prisma.OrderDeliveryUpdateManyWithoutOrderNestedInput
+  returns?: Prisma.OrderReturnUpdateManyWithoutOrderNestedInput
+  commissions?: Prisma.OrderCommissionUpdateManyWithoutOrderNestedInput
+  history?: Prisma.OrderHistoryUpdateManyWithoutOrderNestedInput
+  storeCreditsReserved?: Prisma.StoreCreditUpdateManyWithoutReservedForOrderNestedInput
+  storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
+  cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
+  posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
+  claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
+  posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
+  posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
+  invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
+  paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderUncheckedUpdateWithoutPosOrderConflictsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineId?: Prisma.StringFieldUpdateOperationsInput | string
+  stageId?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  priceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentConditionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creditUsed?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: Prisma.NullableEnumDeliveryMethodFieldUpdateOperationsInput | $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  carrierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedDelivery?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  needsApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dealId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  returnOriginId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  couponId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceWarehouseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.OrderUpdatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  convertedOrders?: Prisma.OrderUncheckedUpdateManyWithoutQuoteNestedInput
+  returnedOrders?: Prisma.OrderUncheckedUpdateManyWithoutReturnOriginNestedInput
+  items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
+  payments?: Prisma.OrderPaymentUncheckedUpdateManyWithoutOrderNestedInput
+  deliveries?: Prisma.OrderDeliveryUncheckedUpdateManyWithoutOrderNestedInput
+  returns?: Prisma.OrderReturnUncheckedUpdateManyWithoutOrderNestedInput
+  commissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutOrderNestedInput
+  history?: Prisma.OrderHistoryUncheckedUpdateManyWithoutOrderNestedInput
+  storeCreditsReserved?: Prisma.StoreCreditUncheckedUpdateManyWithoutReservedForOrderNestedInput
+  storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
+  posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
+  posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
+  invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
+  paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderCreateWithoutOrphanPaymentsMatchedInput = {
+  id?: string
+  orderNumber: string
+  type: $Enums.OrderType
+  status?: $Enums.OrderStatus
+  channel: $Enums.OrderChannel
+  subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  creditUsed?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: string | null
+  carrierName?: string | null
+  estimatedDelivery?: Date | string | null
+  deliveredAt?: Date | string | null
+  needsApproval?: boolean
+  approvedAt?: Date | string | null
+  approvalNotes?: string | null
+  rejectedReason?: string | null
+  dealId?: string | null
+  notes?: string | null
+  internalNotes?: string | null
+  tags?: Prisma.OrderCreatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt: Date | string
+  confirmedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  expiresAt?: Date | string | null
+  saleCode?: string | null
+  claimedAt?: Date | string | null
+  version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
+  invoiceId?: string | null
+  invoicedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutOrdersInput
+  customer: Prisma.CustomerCreateNestedOneWithoutOrdersInput
+  contact?: Prisma.CrmContactCreateNestedOneWithoutOrdersInput
+  pipeline: Prisma.CrmPipelineCreateNestedOneWithoutOrdersInput
+  stage: Prisma.CrmPipelineStageCreateNestedOneWithoutOrdersInput
+  priceTable?: Prisma.PriceTableCreateNestedOneWithoutOrdersInput
+  paymentCondition?: Prisma.PaymentConditionCreateNestedOneWithoutOrdersInput
+  quote?: Prisma.OrderCreateNestedOneWithoutConvertedOrdersInput
+  convertedOrders?: Prisma.OrderCreateNestedManyWithoutQuoteInput
+  returnOrigin?: Prisma.OrderCreateNestedOneWithoutReturnedOrdersInput
+  returnedOrders?: Prisma.OrderCreateNestedManyWithoutReturnOriginInput
+  coupon?: Prisma.CouponCreateNestedOneWithoutOrdersInput
+  sourceWarehouse?: Prisma.WarehouseCreateNestedOneWithoutOrdersInput
+  assignedTo?: Prisma.UserCreateNestedOneWithoutAssignedOrdersInput
+  approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedOrdersInput
+  items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
+  payments?: Prisma.OrderPaymentCreateNestedManyWithoutOrderInput
+  deliveries?: Prisma.OrderDeliveryCreateNestedManyWithoutOrderInput
+  returns?: Prisma.OrderReturnCreateNestedManyWithoutOrderInput
+  commissions?: Prisma.OrderCommissionCreateNestedManyWithoutOrderInput
+  history?: Prisma.OrderHistoryCreateNestedManyWithoutOrderInput
+  storeCreditsReserved?: Prisma.StoreCreditCreateNestedManyWithoutReservedForOrderInput
+  storeCreditUsages?: Prisma.StoreCreditUsageCreateNestedManyWithoutOrderInput
+  cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
+  posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
+  claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
+  terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
+  posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
+  posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
+  paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
+}
+
+export type OrderUncheckedCreateWithoutOrphanPaymentsMatchedInput = {
+  id?: string
+  tenantId: string
+  orderNumber: string
+  type: $Enums.OrderType
+  status?: $Enums.OrderStatus
+  customerId: string
+  contactId?: string | null
+  pipelineId: string
+  stageId: string
+  channel: $Enums.OrderChannel
+  subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  priceTableId?: string | null
+  paymentConditionId?: string | null
+  creditUsed?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: string | null
+  carrierName?: string | null
+  estimatedDelivery?: Date | string | null
+  deliveredAt?: Date | string | null
+  needsApproval?: boolean
+  approvedByUserId?: string | null
+  approvedAt?: Date | string | null
+  approvalNotes?: string | null
+  rejectedReason?: string | null
+  dealId?: string | null
+  quoteId?: string | null
+  returnOriginId?: string | null
+  couponId?: string | null
+  sourceWarehouseId?: string | null
+  assignedToUserId?: string | null
+  notes?: string | null
+  internalNotes?: string | null
+  tags?: Prisma.OrderCreatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt: Date | string
+  confirmedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  expiresAt?: Date | string | null
+  saleCode?: string | null
+  terminalId?: string | null
+  cashierUserId?: string | null
+  posSessionId?: string | null
+  claimedByUserId?: string | null
+  claimedAt?: Date | string | null
+  version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
+  invoiceId?: string | null
+  invoicedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  convertedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutQuoteInput
+  returnedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutReturnOriginInput
+  items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
+  payments?: Prisma.OrderPaymentUncheckedCreateNestedManyWithoutOrderInput
+  deliveries?: Prisma.OrderDeliveryUncheckedCreateNestedManyWithoutOrderInput
+  returns?: Prisma.OrderReturnUncheckedCreateNestedManyWithoutOrderInput
+  commissions?: Prisma.OrderCommissionUncheckedCreateNestedManyWithoutOrderInput
+  history?: Prisma.OrderHistoryUncheckedCreateNestedManyWithoutOrderInput
+  storeCreditsReserved?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutReservedForOrderInput
+  storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
+  posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
+  posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
+  paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
+}
+
+export type OrderCreateOrConnectWithoutOrphanPaymentsMatchedInput = {
+  where: Prisma.OrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderCreateWithoutOrphanPaymentsMatchedInput, Prisma.OrderUncheckedCreateWithoutOrphanPaymentsMatchedInput>
+}
+
+export type OrderUpsertWithoutOrphanPaymentsMatchedInput = {
+  update: Prisma.XOR<Prisma.OrderUpdateWithoutOrphanPaymentsMatchedInput, Prisma.OrderUncheckedUpdateWithoutOrphanPaymentsMatchedInput>
+  create: Prisma.XOR<Prisma.OrderCreateWithoutOrphanPaymentsMatchedInput, Prisma.OrderUncheckedCreateWithoutOrphanPaymentsMatchedInput>
+  where?: Prisma.OrderWhereInput
+}
+
+export type OrderUpdateToOneWithWhereWithoutOrphanPaymentsMatchedInput = {
+  where?: Prisma.OrderWhereInput
+  data: Prisma.XOR<Prisma.OrderUpdateWithoutOrphanPaymentsMatchedInput, Prisma.OrderUncheckedUpdateWithoutOrphanPaymentsMatchedInput>
+}
+
+export type OrderUpdateWithoutOrphanPaymentsMatchedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  channel?: Prisma.EnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  creditUsed?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: Prisma.NullableEnumDeliveryMethodFieldUpdateOperationsInput | $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  carrierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedDelivery?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  needsApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dealId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.OrderUpdatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutOrdersNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutOrdersNestedInput
+  contact?: Prisma.CrmContactUpdateOneWithoutOrdersNestedInput
+  pipeline?: Prisma.CrmPipelineUpdateOneRequiredWithoutOrdersNestedInput
+  stage?: Prisma.CrmPipelineStageUpdateOneRequiredWithoutOrdersNestedInput
+  priceTable?: Prisma.PriceTableUpdateOneWithoutOrdersNestedInput
+  paymentCondition?: Prisma.PaymentConditionUpdateOneWithoutOrdersNestedInput
+  quote?: Prisma.OrderUpdateOneWithoutConvertedOrdersNestedInput
+  convertedOrders?: Prisma.OrderUpdateManyWithoutQuoteNestedInput
+  returnOrigin?: Prisma.OrderUpdateOneWithoutReturnedOrdersNestedInput
+  returnedOrders?: Prisma.OrderUpdateManyWithoutReturnOriginNestedInput
+  coupon?: Prisma.CouponUpdateOneWithoutOrdersNestedInput
+  sourceWarehouse?: Prisma.WarehouseUpdateOneWithoutOrdersNestedInput
+  assignedTo?: Prisma.UserUpdateOneWithoutAssignedOrdersNestedInput
+  approvedBy?: Prisma.UserUpdateOneWithoutApprovedOrdersNestedInput
+  items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
+  payments?: Prisma.OrderPaymentUpdateManyWithoutOrderNestedInput
+  deliveries?: Prisma.OrderDeliveryUpdateManyWithoutOrderNestedInput
+  returns?: Prisma.OrderReturnUpdateManyWithoutOrderNestedInput
+  commissions?: Prisma.OrderCommissionUpdateManyWithoutOrderNestedInput
+  history?: Prisma.OrderHistoryUpdateManyWithoutOrderNestedInput
+  storeCreditsReserved?: Prisma.StoreCreditUpdateManyWithoutReservedForOrderNestedInput
+  storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
+  cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
+  posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
+  claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
+  posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
+  posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
+  paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderUncheckedUpdateWithoutOrphanPaymentsMatchedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineId?: Prisma.StringFieldUpdateOperationsInput | string
+  stageId?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  priceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentConditionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creditUsed?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: Prisma.NullableEnumDeliveryMethodFieldUpdateOperationsInput | $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  carrierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedDelivery?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  needsApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dealId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  returnOriginId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  couponId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceWarehouseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.OrderUpdatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  convertedOrders?: Prisma.OrderUncheckedUpdateManyWithoutQuoteNestedInput
+  returnedOrders?: Prisma.OrderUncheckedUpdateManyWithoutReturnOriginNestedInput
+  items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
+  payments?: Prisma.OrderPaymentUncheckedUpdateManyWithoutOrderNestedInput
+  deliveries?: Prisma.OrderDeliveryUncheckedUpdateManyWithoutOrderNestedInput
+  returns?: Prisma.OrderReturnUncheckedUpdateManyWithoutOrderNestedInput
+  commissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutOrderNestedInput
+  history?: Prisma.OrderHistoryUncheckedUpdateManyWithoutOrderNestedInput
+  storeCreditsReserved?: Prisma.StoreCreditUncheckedUpdateManyWithoutReservedForOrderNestedInput
+  storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
+  posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
+  posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
+  paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderCreateWithoutPosSessionInput = {
@@ -8844,6 +11333,15 @@ export type OrderCreateWithoutPosSessionInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -8875,8 +11373,12 @@ export type OrderCreateWithoutPosSessionInput = {
   cashierUser?: Prisma.UserCreateNestedOneWithoutCashierOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -8936,6 +11438,17 @@ export type OrderUncheckedCreateWithoutPosSessionInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -8953,6 +11466,8 @@ export type OrderUncheckedCreateWithoutPosSessionInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -9022,6 +11537,15 @@ export type OrderCreateWithoutPosTransactionsInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -9054,7 +11578,11 @@ export type OrderCreateWithoutPosTransactionsInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -9115,6 +11643,17 @@ export type OrderUncheckedCreateWithoutPosTransactionsInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -9131,6 +11670,8 @@ export type OrderUncheckedCreateWithoutPosTransactionsInput = {
   storeCreditsReserved?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutReservedForOrderInput
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -9190,6 +11731,15 @@ export type OrderUpdateWithoutPosTransactionsInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9222,7 +11772,11 @@ export type OrderUpdateWithoutPosTransactionsInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -9283,6 +11837,17 @@ export type OrderUncheckedUpdateWithoutPosTransactionsInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9299,6 +11864,8 @@ export type OrderUncheckedUpdateWithoutPosTransactionsInput = {
   storeCreditsReserved?: Prisma.StoreCreditUncheckedUpdateManyWithoutReservedForOrderNestedInput
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -9342,6 +11909,15 @@ export type OrderCreateWithoutPosVisitLogsInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -9374,7 +11950,11 @@ export type OrderCreateWithoutPosVisitLogsInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
@@ -9435,6 +12015,17 @@ export type OrderUncheckedCreateWithoutPosVisitLogsInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -9451,6 +12042,8 @@ export type OrderUncheckedCreateWithoutPosVisitLogsInput = {
   storeCreditsReserved?: Prisma.StoreCreditUncheckedCreateNestedManyWithoutReservedForOrderInput
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
@@ -9510,6 +12103,15 @@ export type OrderUpdateWithoutPosVisitLogsInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9542,7 +12144,11 @@ export type OrderUpdateWithoutPosVisitLogsInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -9603,6 +12209,17 @@ export type OrderUncheckedUpdateWithoutPosVisitLogsInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9619,6 +12236,8 @@ export type OrderUncheckedUpdateWithoutPosVisitLogsInput = {
   storeCreditsReserved?: Prisma.StoreCreditUncheckedUpdateManyWithoutReservedForOrderNestedInput
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -9662,6 +12281,15 @@ export type OrderCreateWithoutFiscalDocumentsInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -9694,8 +12322,12 @@ export type OrderCreateWithoutFiscalDocumentsInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
 }
@@ -9755,6 +12387,17 @@ export type OrderUncheckedCreateWithoutFiscalDocumentsInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -9772,6 +12415,8 @@ export type OrderUncheckedCreateWithoutFiscalDocumentsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
 }
@@ -9830,6 +12475,15 @@ export type OrderUpdateWithoutFiscalDocumentsInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9862,8 +12516,12 @@ export type OrderUpdateWithoutFiscalDocumentsInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
 }
@@ -9923,6 +12581,17 @@ export type OrderUncheckedUpdateWithoutFiscalDocumentsInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9940,6 +12609,8 @@ export type OrderUncheckedUpdateWithoutFiscalDocumentsInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
 }
@@ -9982,6 +12653,15 @@ export type OrderCreateWithoutPaymentChargesInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -10014,8 +12694,12 @@ export type OrderCreateWithoutPaymentChargesInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
 }
@@ -10075,6 +12759,17 @@ export type OrderUncheckedCreateWithoutPaymentChargesInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -10092,6 +12787,8 @@ export type OrderUncheckedCreateWithoutPaymentChargesInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
 }
@@ -10150,6 +12847,15 @@ export type OrderUpdateWithoutPaymentChargesInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10182,8 +12888,12 @@ export type OrderUpdateWithoutPaymentChargesInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
 }
@@ -10243,6 +12953,17 @@ export type OrderUncheckedUpdateWithoutPaymentChargesInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10260,6 +12981,8 @@ export type OrderUncheckedUpdateWithoutPaymentChargesInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
 }
@@ -10302,6 +13025,15 @@ export type OrderCreateWithoutInvoiceInput = {
   saleCode?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -10334,8 +13066,12 @@ export type OrderCreateWithoutInvoiceInput = {
   posSession?: Prisma.PosSessionCreateNestedOneWithoutOrdersInput
   claimedByUser?: Prisma.UserCreateNestedOneWithoutClaimedOrdersInput
   terminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersInput
+  posTerminal?: Prisma.PosTerminalCreateNestedOneWithoutOrdersFromTerminalInput
+  posOperatorEmployee?: Prisma.EmployeeCreateNestedOneWithoutOrdersAsOperatorInput
   posTransactions?: Prisma.PosTransactionCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentCreateNestedManyWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeCreateNestedManyWithoutOrderInput
 }
@@ -10395,6 +13131,17 @@ export type OrderUncheckedCreateWithoutInvoiceInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -10412,6 +13159,8 @@ export type OrderUncheckedCreateWithoutInvoiceInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedCreateNestedManyWithoutOrderInput
   posTransactions?: Prisma.PosTransactionUncheckedCreateNestedManyWithoutOrderInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedCreateNestedManyWithoutOrderInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedCreateNestedManyWithoutOrderInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedCreateNestedManyWithoutOrderInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedCreateNestedManyWithoutOrderInput
   paymentCharges?: Prisma.PaymentChargeUncheckedCreateNestedManyWithoutOrderInput
 }
@@ -10470,6 +13219,15 @@ export type OrderUpdateWithoutInvoiceInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10502,8 +13260,12 @@ export type OrderUpdateWithoutInvoiceInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
 }
@@ -10563,6 +13325,17 @@ export type OrderUncheckedUpdateWithoutInvoiceInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10580,6 +13353,8 @@ export type OrderUncheckedUpdateWithoutInvoiceInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
 }
@@ -10638,6 +13413,17 @@ export type OrderCreateManyAssignedToInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -10699,6 +13485,17 @@ export type OrderCreateManyApprovedByInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -10760,6 +13557,17 @@ export type OrderCreateManyCashierUserInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -10821,6 +13629,17 @@ export type OrderCreateManyClaimedByUserInput = {
   posSessionId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -10866,6 +13685,15 @@ export type OrderUpdateWithoutAssignedToInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10897,8 +13725,12 @@ export type OrderUpdateWithoutAssignedToInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -10958,6 +13790,17 @@ export type OrderUncheckedUpdateWithoutAssignedToInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10975,6 +13818,8 @@ export type OrderUncheckedUpdateWithoutAssignedToInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -11034,6 +13879,17 @@ export type OrderUncheckedUpdateManyWithoutAssignedToInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11079,6 +13935,15 @@ export type OrderUpdateWithoutApprovedByInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11110,8 +13975,12 @@ export type OrderUpdateWithoutApprovedByInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -11171,6 +14040,17 @@ export type OrderUncheckedUpdateWithoutApprovedByInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11188,6 +14068,8 @@ export type OrderUncheckedUpdateWithoutApprovedByInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -11247,6 +14129,17 @@ export type OrderUncheckedUpdateManyWithoutApprovedByInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11292,6 +14185,15 @@ export type OrderUpdateWithoutCashierUserInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11323,8 +14225,12 @@ export type OrderUpdateWithoutCashierUserInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -11384,6 +14290,17 @@ export type OrderUncheckedUpdateWithoutCashierUserInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11401,6 +14318,8 @@ export type OrderUncheckedUpdateWithoutCashierUserInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -11460,6 +14379,17 @@ export type OrderUncheckedUpdateManyWithoutCashierUserInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11505,6 +14435,15 @@ export type OrderUpdateWithoutClaimedByUserInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11536,8 +14475,12 @@ export type OrderUpdateWithoutClaimedByUserInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -11597,6 +14540,17 @@ export type OrderUncheckedUpdateWithoutClaimedByUserInput = {
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11614,6 +14568,8 @@ export type OrderUncheckedUpdateWithoutClaimedByUserInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -11673,6 +14629,17 @@ export type OrderUncheckedUpdateManyWithoutClaimedByUserInput = {
   posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11734,6 +14701,17 @@ export type OrderCreateManySourceWarehouseInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -11779,6 +14757,15 @@ export type OrderUpdateWithoutSourceWarehouseInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11810,8 +14797,12 @@ export type OrderUpdateWithoutSourceWarehouseInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -11871,6 +14862,17 @@ export type OrderUncheckedUpdateWithoutSourceWarehouseInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11888,6 +14890,8 @@ export type OrderUncheckedUpdateWithoutSourceWarehouseInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -11947,6 +14951,17 @@ export type OrderUncheckedUpdateManyWithoutSourceWarehouseInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12008,6 +15023,17 @@ export type OrderCreateManyCustomerInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -12053,6 +15079,15 @@ export type OrderUpdateWithoutCustomerInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12084,8 +15119,12 @@ export type OrderUpdateWithoutCustomerInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -12145,6 +15184,17 @@ export type OrderUncheckedUpdateWithoutCustomerInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12162,6 +15212,8 @@ export type OrderUncheckedUpdateWithoutCustomerInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -12221,6 +15273,17 @@ export type OrderUncheckedUpdateManyWithoutCustomerInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12282,6 +15345,17 @@ export type OrderCreateManyContactInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -12327,6 +15401,15 @@ export type OrderUpdateWithoutContactInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12358,8 +15441,12 @@ export type OrderUpdateWithoutContactInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -12419,6 +15506,17 @@ export type OrderUncheckedUpdateWithoutContactInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12436,6 +15534,8 @@ export type OrderUncheckedUpdateWithoutContactInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -12495,6 +15595,17 @@ export type OrderUncheckedUpdateManyWithoutContactInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12556,6 +15667,17 @@ export type OrderCreateManyPipelineInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -12601,6 +15723,15 @@ export type OrderUpdateWithoutPipelineInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12632,8 +15763,12 @@ export type OrderUpdateWithoutPipelineInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -12693,6 +15828,17 @@ export type OrderUncheckedUpdateWithoutPipelineInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12710,6 +15856,8 @@ export type OrderUncheckedUpdateWithoutPipelineInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -12769,6 +15917,17 @@ export type OrderUncheckedUpdateManyWithoutPipelineInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12830,6 +15989,17 @@ export type OrderCreateManyStageInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -12875,6 +16045,15 @@ export type OrderUpdateWithoutStageInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12906,8 +16085,12 @@ export type OrderUpdateWithoutStageInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -12967,6 +16150,17 @@ export type OrderUncheckedUpdateWithoutStageInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12984,6 +16178,8 @@ export type OrderUncheckedUpdateWithoutStageInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -13043,6 +16239,339 @@ export type OrderUncheckedUpdateManyWithoutStageInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OrderCreateManyPosOperatorEmployeeInput = {
+  id?: string
+  tenantId: string
+  orderNumber: string
+  type: $Enums.OrderType
+  status?: $Enums.OrderStatus
+  customerId: string
+  contactId?: string | null
+  pipelineId: string
+  stageId: string
+  channel: $Enums.OrderChannel
+  subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  priceTableId?: string | null
+  paymentConditionId?: string | null
+  creditUsed?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: string | null
+  carrierName?: string | null
+  estimatedDelivery?: Date | string | null
+  deliveredAt?: Date | string | null
+  needsApproval?: boolean
+  approvedByUserId?: string | null
+  approvedAt?: Date | string | null
+  approvalNotes?: string | null
+  rejectedReason?: string | null
+  dealId?: string | null
+  quoteId?: string | null
+  returnOriginId?: string | null
+  couponId?: string | null
+  sourceWarehouseId?: string | null
+  assignedToUserId?: string | null
+  notes?: string | null
+  internalNotes?: string | null
+  tags?: Prisma.OrderCreatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt: Date | string
+  confirmedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  expiresAt?: Date | string | null
+  saleCode?: string | null
+  terminalId?: string | null
+  cashierUserId?: string | null
+  posSessionId?: string | null
+  claimedByUserId?: string | null
+  claimedAt?: Date | string | null
+  version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
+  invoiceId?: string | null
+  invoicedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OrderUpdateWithoutPosOperatorEmployeeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  channel?: Prisma.EnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  creditUsed?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: Prisma.NullableEnumDeliveryMethodFieldUpdateOperationsInput | $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  carrierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedDelivery?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  needsApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dealId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.OrderUpdatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutOrdersNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutOrdersNestedInput
+  contact?: Prisma.CrmContactUpdateOneWithoutOrdersNestedInput
+  pipeline?: Prisma.CrmPipelineUpdateOneRequiredWithoutOrdersNestedInput
+  stage?: Prisma.CrmPipelineStageUpdateOneRequiredWithoutOrdersNestedInput
+  priceTable?: Prisma.PriceTableUpdateOneWithoutOrdersNestedInput
+  paymentCondition?: Prisma.PaymentConditionUpdateOneWithoutOrdersNestedInput
+  quote?: Prisma.OrderUpdateOneWithoutConvertedOrdersNestedInput
+  convertedOrders?: Prisma.OrderUpdateManyWithoutQuoteNestedInput
+  returnOrigin?: Prisma.OrderUpdateOneWithoutReturnedOrdersNestedInput
+  returnedOrders?: Prisma.OrderUpdateManyWithoutReturnOriginNestedInput
+  coupon?: Prisma.CouponUpdateOneWithoutOrdersNestedInput
+  sourceWarehouse?: Prisma.WarehouseUpdateOneWithoutOrdersNestedInput
+  assignedTo?: Prisma.UserUpdateOneWithoutAssignedOrdersNestedInput
+  approvedBy?: Prisma.UserUpdateOneWithoutApprovedOrdersNestedInput
+  items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
+  payments?: Prisma.OrderPaymentUpdateManyWithoutOrderNestedInput
+  deliveries?: Prisma.OrderDeliveryUpdateManyWithoutOrderNestedInput
+  returns?: Prisma.OrderReturnUpdateManyWithoutOrderNestedInput
+  commissions?: Prisma.OrderCommissionUpdateManyWithoutOrderNestedInput
+  history?: Prisma.OrderHistoryUpdateManyWithoutOrderNestedInput
+  storeCreditsReserved?: Prisma.StoreCreditUpdateManyWithoutReservedForOrderNestedInput
+  storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
+  cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
+  posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
+  claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
+  posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
+  invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
+  paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderUncheckedUpdateWithoutPosOperatorEmployeeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineId?: Prisma.StringFieldUpdateOperationsInput | string
+  stageId?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  priceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentConditionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creditUsed?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: Prisma.NullableEnumDeliveryMethodFieldUpdateOperationsInput | $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  carrierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedDelivery?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  needsApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dealId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  returnOriginId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  couponId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceWarehouseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.OrderUpdatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  convertedOrders?: Prisma.OrderUncheckedUpdateManyWithoutQuoteNestedInput
+  returnedOrders?: Prisma.OrderUncheckedUpdateManyWithoutReturnOriginNestedInput
+  items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
+  payments?: Prisma.OrderPaymentUncheckedUpdateManyWithoutOrderNestedInput
+  deliveries?: Prisma.OrderDeliveryUncheckedUpdateManyWithoutOrderNestedInput
+  returns?: Prisma.OrderReturnUncheckedUpdateManyWithoutOrderNestedInput
+  commissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutOrderNestedInput
+  history?: Prisma.OrderHistoryUncheckedUpdateManyWithoutOrderNestedInput
+  storeCreditsReserved?: Prisma.StoreCreditUncheckedUpdateManyWithoutReservedForOrderNestedInput
+  storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
+  posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
+  posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
+  invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
+  paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderUncheckedUpdateManyWithoutPosOperatorEmployeeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineId?: Prisma.StringFieldUpdateOperationsInput | string
+  stageId?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  priceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentConditionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creditUsed?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: Prisma.NullableEnumDeliveryMethodFieldUpdateOperationsInput | $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  carrierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedDelivery?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  needsApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dealId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  returnOriginId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  couponId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceWarehouseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.OrderUpdatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13104,6 +16633,17 @@ export type OrderCreateManyTenantInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -13149,6 +16689,15 @@ export type OrderUpdateWithoutTenantInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13180,8 +16729,12 @@ export type OrderUpdateWithoutTenantInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -13241,6 +16794,17 @@ export type OrderUncheckedUpdateWithoutTenantInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13258,6 +16822,8 @@ export type OrderUncheckedUpdateWithoutTenantInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -13317,6 +16883,17 @@ export type OrderUncheckedUpdateManyWithoutTenantInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13378,6 +16955,17 @@ export type OrderCreateManyPriceTableInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -13423,6 +17011,15 @@ export type OrderUpdateWithoutPriceTableInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13454,8 +17051,12 @@ export type OrderUpdateWithoutPriceTableInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -13515,6 +17116,17 @@ export type OrderUncheckedUpdateWithoutPriceTableInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13532,6 +17144,8 @@ export type OrderUncheckedUpdateWithoutPriceTableInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -13591,6 +17205,17 @@ export type OrderUncheckedUpdateManyWithoutPriceTableInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13652,6 +17277,17 @@ export type OrderCreateManyCouponInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -13697,6 +17333,15 @@ export type OrderUpdateWithoutCouponInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13728,8 +17373,12 @@ export type OrderUpdateWithoutCouponInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -13789,6 +17438,17 @@ export type OrderUncheckedUpdateWithoutCouponInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13806,6 +17466,8 @@ export type OrderUncheckedUpdateWithoutCouponInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -13865,6 +17527,17 @@ export type OrderUncheckedUpdateManyWithoutCouponInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13926,6 +17599,17 @@ export type OrderCreateManyQuoteInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -13987,6 +17671,17 @@ export type OrderCreateManyReturnOriginInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -14032,6 +17727,15 @@ export type OrderUpdateWithoutQuoteInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14063,8 +17767,12 @@ export type OrderUpdateWithoutQuoteInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -14124,6 +17832,17 @@ export type OrderUncheckedUpdateWithoutQuoteInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14141,6 +17860,8 @@ export type OrderUncheckedUpdateWithoutQuoteInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -14200,6 +17921,17 @@ export type OrderUncheckedUpdateManyWithoutQuoteInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14245,6 +17977,15 @@ export type OrderUpdateWithoutReturnOriginInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14276,8 +18017,12 @@ export type OrderUpdateWithoutReturnOriginInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -14337,6 +18082,17 @@ export type OrderUncheckedUpdateWithoutReturnOriginInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14354,6 +18110,8 @@ export type OrderUncheckedUpdateWithoutReturnOriginInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -14413,6 +18171,17 @@ export type OrderUncheckedUpdateManyWithoutReturnOriginInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14474,6 +18243,17 @@ export type OrderCreateManyPaymentConditionInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -14519,6 +18299,15 @@ export type OrderUpdateWithoutPaymentConditionInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14550,8 +18339,12 @@ export type OrderUpdateWithoutPaymentConditionInput = {
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -14611,6 +18404,17 @@ export type OrderUncheckedUpdateWithoutPaymentConditionInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14628,6 +18432,8 @@ export type OrderUncheckedUpdateWithoutPaymentConditionInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -14687,6 +18493,17 @@ export type OrderUncheckedUpdateManyWithoutPaymentConditionInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14748,6 +18565,89 @@ export type OrderCreateManyTerminalInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
+  invoiceId?: string | null
+  invoicedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OrderCreateManyPosTerminalInput = {
+  id?: string
+  tenantId: string
+  orderNumber: string
+  type: $Enums.OrderType
+  status?: $Enums.OrderStatus
+  customerId: string
+  contactId?: string | null
+  pipelineId: string
+  stageId: string
+  channel: $Enums.OrderChannel
+  subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  priceTableId?: string | null
+  paymentConditionId?: string | null
+  creditUsed?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: string | null
+  carrierName?: string | null
+  estimatedDelivery?: Date | string | null
+  deliveredAt?: Date | string | null
+  needsApproval?: boolean
+  approvedByUserId?: string | null
+  approvedAt?: Date | string | null
+  approvalNotes?: string | null
+  rejectedReason?: string | null
+  dealId?: string | null
+  quoteId?: string | null
+  returnOriginId?: string | null
+  couponId?: string | null
+  sourceWarehouseId?: string | null
+  assignedToUserId?: string | null
+  notes?: string | null
+  internalNotes?: string | null
+  tags?: Prisma.OrderCreatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt: Date | string
+  confirmedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  cancelReason?: string | null
+  expiresAt?: Date | string | null
+  saleCode?: string | null
+  terminalId?: string | null
+  cashierUserId?: string | null
+  posSessionId?: string | null
+  claimedByUserId?: string | null
+  claimedAt?: Date | string | null
+  version?: number
+  originSource?: $Enums.OrderOriginSource
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -14793,6 +18693,15 @@ export type OrderUpdateWithoutTerminalInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14824,8 +18733,12 @@ export type OrderUpdateWithoutTerminalInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -14885,6 +18798,17 @@ export type OrderUncheckedUpdateWithoutTerminalInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14902,6 +18826,8 @@ export type OrderUncheckedUpdateWithoutTerminalInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -14961,6 +18887,267 @@ export type OrderUncheckedUpdateManyWithoutTerminalInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OrderUpdateWithoutPosTerminalInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  channel?: Prisma.EnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  creditUsed?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: Prisma.NullableEnumDeliveryMethodFieldUpdateOperationsInput | $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  carrierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedDelivery?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  needsApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dealId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.OrderUpdatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutOrdersNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutOrdersNestedInput
+  contact?: Prisma.CrmContactUpdateOneWithoutOrdersNestedInput
+  pipeline?: Prisma.CrmPipelineUpdateOneRequiredWithoutOrdersNestedInput
+  stage?: Prisma.CrmPipelineStageUpdateOneRequiredWithoutOrdersNestedInput
+  priceTable?: Prisma.PriceTableUpdateOneWithoutOrdersNestedInput
+  paymentCondition?: Prisma.PaymentConditionUpdateOneWithoutOrdersNestedInput
+  quote?: Prisma.OrderUpdateOneWithoutConvertedOrdersNestedInput
+  convertedOrders?: Prisma.OrderUpdateManyWithoutQuoteNestedInput
+  returnOrigin?: Prisma.OrderUpdateOneWithoutReturnedOrdersNestedInput
+  returnedOrders?: Prisma.OrderUpdateManyWithoutReturnOriginNestedInput
+  coupon?: Prisma.CouponUpdateOneWithoutOrdersNestedInput
+  sourceWarehouse?: Prisma.WarehouseUpdateOneWithoutOrdersNestedInput
+  assignedTo?: Prisma.UserUpdateOneWithoutAssignedOrdersNestedInput
+  approvedBy?: Prisma.UserUpdateOneWithoutApprovedOrdersNestedInput
+  items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
+  payments?: Prisma.OrderPaymentUpdateManyWithoutOrderNestedInput
+  deliveries?: Prisma.OrderDeliveryUpdateManyWithoutOrderNestedInput
+  returns?: Prisma.OrderReturnUpdateManyWithoutOrderNestedInput
+  commissions?: Prisma.OrderCommissionUpdateManyWithoutOrderNestedInput
+  history?: Prisma.OrderHistoryUpdateManyWithoutOrderNestedInput
+  storeCreditsReserved?: Prisma.StoreCreditUpdateManyWithoutReservedForOrderNestedInput
+  storeCreditUsages?: Prisma.StoreCreditUsageUpdateManyWithoutOrderNestedInput
+  cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
+  posSession?: Prisma.PosSessionUpdateOneWithoutOrdersNestedInput
+  claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
+  terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
+  posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
+  posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
+  invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
+  paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderUncheckedUpdateWithoutPosTerminalInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineId?: Prisma.StringFieldUpdateOperationsInput | string
+  stageId?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  priceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentConditionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creditUsed?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: Prisma.NullableEnumDeliveryMethodFieldUpdateOperationsInput | $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  carrierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedDelivery?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  needsApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dealId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  returnOriginId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  couponId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceWarehouseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.OrderUpdatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  convertedOrders?: Prisma.OrderUncheckedUpdateManyWithoutQuoteNestedInput
+  returnedOrders?: Prisma.OrderUncheckedUpdateManyWithoutReturnOriginNestedInput
+  items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
+  payments?: Prisma.OrderPaymentUncheckedUpdateManyWithoutOrderNestedInput
+  deliveries?: Prisma.OrderDeliveryUncheckedUpdateManyWithoutOrderNestedInput
+  returns?: Prisma.OrderReturnUncheckedUpdateManyWithoutOrderNestedInput
+  commissions?: Prisma.OrderCommissionUncheckedUpdateManyWithoutOrderNestedInput
+  history?: Prisma.OrderHistoryUncheckedUpdateManyWithoutOrderNestedInput
+  storeCreditsReserved?: Prisma.StoreCreditUncheckedUpdateManyWithoutReservedForOrderNestedInput
+  storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
+  posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
+  posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
+  invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
+  fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
+  paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderUncheckedUpdateManyWithoutPosTerminalInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
+  status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineId?: Prisma.StringFieldUpdateOperationsInput | string
+  stageId?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumOrderChannelFieldUpdateOperationsInput | $Enums.OrderChannel
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  priceTableId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentConditionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creditUsed?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  remainingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryMethod?: Prisma.NullableEnumDeliveryMethodFieldUpdateOperationsInput | $Enums.DeliveryMethod | null
+  deliveryAddress?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  carrierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedDelivery?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  needsApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approvedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dealId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quoteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  returnOriginId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  couponId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceWarehouseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assignedToUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  internalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.OrderUpdatetagsInput | string[]
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  stageEnteredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cashierUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15022,6 +19209,17 @@ export type OrderCreateManyPosSessionInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   version?: number
+  originSource?: $Enums.OrderOriginSource
+  posTerminalId?: string | null
+  posOperatorEmployeeId?: string | null
+  saleLocalUuid?: string | null
+  ackReceivedAt?: Date | string | null
+  fiscalDocumentType?: $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: number | null
+  fiscalAccessKey?: string | null
+  fiscalAuthorizationProtocol?: string | null
+  fiscalEmittedAt?: Date | string | null
+  fiscalEmissionStatus?: string | null
   invoiceId?: string | null
   invoicedAt?: Date | string | null
   deletedAt?: Date | string | null
@@ -15067,6 +19265,15 @@ export type OrderUpdateWithoutPosSessionInput = {
   saleCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15098,8 +19305,12 @@ export type OrderUpdateWithoutPosSessionInput = {
   cashierUser?: Prisma.UserUpdateOneWithoutCashierOrdersNestedInput
   claimedByUser?: Prisma.UserUpdateOneWithoutClaimedOrdersNestedInput
   terminal?: Prisma.PosTerminalUpdateOneWithoutOrdersNestedInput
+  posTerminal?: Prisma.PosTerminalUpdateOneWithoutOrdersFromTerminalNestedInput
+  posOperatorEmployee?: Prisma.EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput
   posTransactions?: Prisma.PosTransactionUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUpdateManyWithoutOrderNestedInput
@@ -15159,6 +19370,17 @@ export type OrderUncheckedUpdateWithoutPosSessionInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15176,6 +19398,8 @@ export type OrderUncheckedUpdateWithoutPosSessionInput = {
   storeCreditUsages?: Prisma.StoreCreditUsageUncheckedUpdateManyWithoutOrderNestedInput
   posTransactions?: Prisma.PosTransactionUncheckedUpdateManyWithoutOrderNestedInput
   posVisitLogs?: Prisma.PosVisitLogUncheckedUpdateManyWithoutOrderNestedInput
+  posOrderConflicts?: Prisma.PosOrderConflictUncheckedUpdateManyWithoutOrderNestedInput
+  orphanPaymentsMatched?: Prisma.PosOrphanPaymentUncheckedUpdateManyWithoutOrderNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutOrderNestedInput
   fiscalDocuments?: Prisma.FiscalDocumentUncheckedUpdateManyWithoutOrderNestedInput
   paymentCharges?: Prisma.PaymentChargeUncheckedUpdateManyWithoutOrderNestedInput
@@ -15235,6 +19459,17 @@ export type OrderUncheckedUpdateManyWithoutPosSessionInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  originSource?: Prisma.EnumOrderOriginSourceFieldUpdateOperationsInput | $Enums.OrderOriginSource
+  posTerminalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  posOperatorEmployeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleLocalUuid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ackReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalDocumentType?: Prisma.NullableEnumPosFiscalDocumentTypeFieldUpdateOperationsInput | $Enums.PosFiscalDocumentType | null
+  fiscalDocumentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalAccessKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalAuthorizationProtocol?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalEmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fiscalEmissionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoicedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15260,6 +19495,8 @@ export type OrderCountOutputType = {
   storeCreditUsages: number
   posTransactions: number
   posVisitLogs: number
+  posOrderConflicts: number
+  orphanPaymentsMatched: number
   fiscalDocuments: number
   paymentCharges: number
 }
@@ -15277,6 +19514,8 @@ export type OrderCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   storeCreditUsages?: boolean | OrderCountOutputTypeCountStoreCreditUsagesArgs
   posTransactions?: boolean | OrderCountOutputTypeCountPosTransactionsArgs
   posVisitLogs?: boolean | OrderCountOutputTypeCountPosVisitLogsArgs
+  posOrderConflicts?: boolean | OrderCountOutputTypeCountPosOrderConflictsArgs
+  orphanPaymentsMatched?: boolean | OrderCountOutputTypeCountOrphanPaymentsMatchedArgs
   fiscalDocuments?: boolean | OrderCountOutputTypeCountFiscalDocumentsArgs
   paymentCharges?: boolean | OrderCountOutputTypeCountPaymentChargesArgs
 }
@@ -15378,6 +19617,20 @@ export type OrderCountOutputTypeCountPosVisitLogsArgs<ExtArgs extends runtime.Ty
 /**
  * OrderCountOutputType without action
  */
+export type OrderCountOutputTypeCountPosOrderConflictsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PosOrderConflictWhereInput
+}
+
+/**
+ * OrderCountOutputType without action
+ */
+export type OrderCountOutputTypeCountOrphanPaymentsMatchedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PosOrphanPaymentWhereInput
+}
+
+/**
+ * OrderCountOutputType without action
+ */
 export type OrderCountOutputTypeCountFiscalDocumentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.FiscalDocumentWhereInput
 }
@@ -15445,6 +19698,17 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   claimedByUserId?: boolean
   claimedAt?: boolean
   version?: boolean
+  originSource?: boolean
+  posTerminalId?: boolean
+  posOperatorEmployeeId?: boolean
+  saleLocalUuid?: boolean
+  ackReceivedAt?: boolean
+  fiscalDocumentType?: boolean
+  fiscalDocumentNumber?: boolean
+  fiscalAccessKey?: boolean
+  fiscalAuthorizationProtocol?: boolean
+  fiscalEmittedAt?: boolean
+  fiscalEmissionStatus?: boolean
   invoiceId?: boolean
   invoicedAt?: boolean
   deletedAt?: boolean
@@ -15477,8 +19741,12 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   posSession?: boolean | Prisma.Order$posSessionArgs<ExtArgs>
   claimedByUser?: boolean | Prisma.Order$claimedByUserArgs<ExtArgs>
   terminal?: boolean | Prisma.Order$terminalArgs<ExtArgs>
+  posTerminal?: boolean | Prisma.Order$posTerminalArgs<ExtArgs>
+  posOperatorEmployee?: boolean | Prisma.Order$posOperatorEmployeeArgs<ExtArgs>
   posTransactions?: boolean | Prisma.Order$posTransactionsArgs<ExtArgs>
   posVisitLogs?: boolean | Prisma.Order$posVisitLogsArgs<ExtArgs>
+  posOrderConflicts?: boolean | Prisma.Order$posOrderConflictsArgs<ExtArgs>
+  orphanPaymentsMatched?: boolean | Prisma.Order$orphanPaymentsMatchedArgs<ExtArgs>
   invoice?: boolean | Prisma.Order$invoiceArgs<ExtArgs>
   fiscalDocuments?: boolean | Prisma.Order$fiscalDocumentsArgs<ExtArgs>
   paymentCharges?: boolean | Prisma.Order$paymentChargesArgs<ExtArgs>
@@ -15540,6 +19808,17 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   claimedByUserId?: boolean
   claimedAt?: boolean
   version?: boolean
+  originSource?: boolean
+  posTerminalId?: boolean
+  posOperatorEmployeeId?: boolean
+  saleLocalUuid?: boolean
+  ackReceivedAt?: boolean
+  fiscalDocumentType?: boolean
+  fiscalDocumentNumber?: boolean
+  fiscalAccessKey?: boolean
+  fiscalAuthorizationProtocol?: boolean
+  fiscalEmittedAt?: boolean
+  fiscalEmissionStatus?: boolean
   invoiceId?: boolean
   invoicedAt?: boolean
   deletedAt?: boolean
@@ -15562,6 +19841,8 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   posSession?: boolean | Prisma.Order$posSessionArgs<ExtArgs>
   claimedByUser?: boolean | Prisma.Order$claimedByUserArgs<ExtArgs>
   terminal?: boolean | Prisma.Order$terminalArgs<ExtArgs>
+  posTerminal?: boolean | Prisma.Order$posTerminalArgs<ExtArgs>
+  posOperatorEmployee?: boolean | Prisma.Order$posOperatorEmployeeArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
 
 export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -15619,6 +19900,17 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   claimedByUserId?: boolean
   claimedAt?: boolean
   version?: boolean
+  originSource?: boolean
+  posTerminalId?: boolean
+  posOperatorEmployeeId?: boolean
+  saleLocalUuid?: boolean
+  ackReceivedAt?: boolean
+  fiscalDocumentType?: boolean
+  fiscalDocumentNumber?: boolean
+  fiscalAccessKey?: boolean
+  fiscalAuthorizationProtocol?: boolean
+  fiscalEmittedAt?: boolean
+  fiscalEmissionStatus?: boolean
   invoiceId?: boolean
   invoicedAt?: boolean
   deletedAt?: boolean
@@ -15641,6 +19933,8 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   posSession?: boolean | Prisma.Order$posSessionArgs<ExtArgs>
   claimedByUser?: boolean | Prisma.Order$claimedByUserArgs<ExtArgs>
   terminal?: boolean | Prisma.Order$terminalArgs<ExtArgs>
+  posTerminal?: boolean | Prisma.Order$posTerminalArgs<ExtArgs>
+  posOperatorEmployee?: boolean | Prisma.Order$posOperatorEmployeeArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
 
 export type OrderSelectScalar = {
@@ -15698,6 +19992,17 @@ export type OrderSelectScalar = {
   claimedByUserId?: boolean
   claimedAt?: boolean
   version?: boolean
+  originSource?: boolean
+  posTerminalId?: boolean
+  posOperatorEmployeeId?: boolean
+  saleLocalUuid?: boolean
+  ackReceivedAt?: boolean
+  fiscalDocumentType?: boolean
+  fiscalDocumentNumber?: boolean
+  fiscalAccessKey?: boolean
+  fiscalAuthorizationProtocol?: boolean
+  fiscalEmittedAt?: boolean
+  fiscalEmissionStatus?: boolean
   invoiceId?: boolean
   invoicedAt?: boolean
   deletedAt?: boolean
@@ -15705,7 +20010,7 @@ export type OrderSelectScalar = {
   updatedAt?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "orderNumber" | "type" | "status" | "customerId" | "contactId" | "pipelineId" | "stageId" | "channel" | "subtotal" | "discountTotal" | "taxTotal" | "shippingTotal" | "grandTotal" | "currency" | "priceTableId" | "paymentConditionId" | "creditUsed" | "paidAmount" | "remainingAmount" | "deliveryMethod" | "deliveryAddress" | "trackingCode" | "carrierName" | "estimatedDelivery" | "deliveredAt" | "needsApproval" | "approvedByUserId" | "approvedAt" | "approvalNotes" | "rejectedReason" | "dealId" | "quoteId" | "returnOriginId" | "couponId" | "sourceWarehouseId" | "assignedToUserId" | "notes" | "internalNotes" | "tags" | "customFields" | "stageEnteredAt" | "confirmedAt" | "cancelledAt" | "cancelReason" | "expiresAt" | "saleCode" | "terminalId" | "cashierUserId" | "posSessionId" | "claimedByUserId" | "claimedAt" | "version" | "invoiceId" | "invoicedAt" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "orderNumber" | "type" | "status" | "customerId" | "contactId" | "pipelineId" | "stageId" | "channel" | "subtotal" | "discountTotal" | "taxTotal" | "shippingTotal" | "grandTotal" | "currency" | "priceTableId" | "paymentConditionId" | "creditUsed" | "paidAmount" | "remainingAmount" | "deliveryMethod" | "deliveryAddress" | "trackingCode" | "carrierName" | "estimatedDelivery" | "deliveredAt" | "needsApproval" | "approvedByUserId" | "approvedAt" | "approvalNotes" | "rejectedReason" | "dealId" | "quoteId" | "returnOriginId" | "couponId" | "sourceWarehouseId" | "assignedToUserId" | "notes" | "internalNotes" | "tags" | "customFields" | "stageEnteredAt" | "confirmedAt" | "cancelledAt" | "cancelReason" | "expiresAt" | "saleCode" | "terminalId" | "cashierUserId" | "posSessionId" | "claimedByUserId" | "claimedAt" | "version" | "originSource" | "posTerminalId" | "posOperatorEmployeeId" | "saleLocalUuid" | "ackReceivedAt" | "fiscalDocumentType" | "fiscalDocumentNumber" | "fiscalAccessKey" | "fiscalAuthorizationProtocol" | "fiscalEmittedAt" | "fiscalEmissionStatus" | "invoiceId" | "invoicedAt" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
@@ -15734,8 +20039,12 @@ export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   posSession?: boolean | Prisma.Order$posSessionArgs<ExtArgs>
   claimedByUser?: boolean | Prisma.Order$claimedByUserArgs<ExtArgs>
   terminal?: boolean | Prisma.Order$terminalArgs<ExtArgs>
+  posTerminal?: boolean | Prisma.Order$posTerminalArgs<ExtArgs>
+  posOperatorEmployee?: boolean | Prisma.Order$posOperatorEmployeeArgs<ExtArgs>
   posTransactions?: boolean | Prisma.Order$posTransactionsArgs<ExtArgs>
   posVisitLogs?: boolean | Prisma.Order$posVisitLogsArgs<ExtArgs>
+  posOrderConflicts?: boolean | Prisma.Order$posOrderConflictsArgs<ExtArgs>
+  orphanPaymentsMatched?: boolean | Prisma.Order$orphanPaymentsMatchedArgs<ExtArgs>
   invoice?: boolean | Prisma.Order$invoiceArgs<ExtArgs>
   fiscalDocuments?: boolean | Prisma.Order$fiscalDocumentsArgs<ExtArgs>
   paymentCharges?: boolean | Prisma.Order$paymentChargesArgs<ExtArgs>
@@ -15759,6 +20068,8 @@ export type OrderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   posSession?: boolean | Prisma.Order$posSessionArgs<ExtArgs>
   claimedByUser?: boolean | Prisma.Order$claimedByUserArgs<ExtArgs>
   terminal?: boolean | Prisma.Order$terminalArgs<ExtArgs>
+  posTerminal?: boolean | Prisma.Order$posTerminalArgs<ExtArgs>
+  posOperatorEmployee?: boolean | Prisma.Order$posOperatorEmployeeArgs<ExtArgs>
 }
 export type OrderIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -15778,6 +20089,8 @@ export type OrderIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   posSession?: boolean | Prisma.Order$posSessionArgs<ExtArgs>
   claimedByUser?: boolean | Prisma.Order$claimedByUserArgs<ExtArgs>
   terminal?: boolean | Prisma.Order$terminalArgs<ExtArgs>
+  posTerminal?: boolean | Prisma.Order$posTerminalArgs<ExtArgs>
+  posOperatorEmployee?: boolean | Prisma.Order$posOperatorEmployeeArgs<ExtArgs>
 }
 
 export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -15810,8 +20123,12 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     posSession: Prisma.$PosSessionPayload<ExtArgs> | null
     claimedByUser: Prisma.$UserPayload<ExtArgs> | null
     terminal: Prisma.$PosTerminalPayload<ExtArgs> | null
+    posTerminal: Prisma.$PosTerminalPayload<ExtArgs> | null
+    posOperatorEmployee: Prisma.$EmployeePayload<ExtArgs> | null
     posTransactions: Prisma.$PosTransactionPayload<ExtArgs>[]
     posVisitLogs: Prisma.$PosVisitLogPayload<ExtArgs>[]
+    posOrderConflicts: Prisma.$PosOrderConflictPayload<ExtArgs>[]
+    orphanPaymentsMatched: Prisma.$PosOrphanPaymentPayload<ExtArgs>[]
     invoice: Prisma.$InvoicePayload<ExtArgs> | null
     fiscalDocuments: Prisma.$FiscalDocumentPayload<ExtArgs>[]
     paymentCharges: Prisma.$PaymentChargePayload<ExtArgs>[]
@@ -15871,6 +20188,17 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     claimedByUserId: string | null
     claimedAt: Date | null
     version: number
+    originSource: $Enums.OrderOriginSource
+    posTerminalId: string | null
+    posOperatorEmployeeId: string | null
+    saleLocalUuid: string | null
+    ackReceivedAt: Date | null
+    fiscalDocumentType: $Enums.PosFiscalDocumentType | null
+    fiscalDocumentNumber: number | null
+    fiscalAccessKey: string | null
+    fiscalAuthorizationProtocol: string | null
+    fiscalEmittedAt: Date | null
+    fiscalEmissionStatus: string | null
     invoiceId: string | null
     invoicedAt: Date | null
     deletedAt: Date | null
@@ -16297,8 +20625,12 @@ export interface Prisma__OrderClient<T, Null = never, ExtArgs extends runtime.Ty
   posSession<T extends Prisma.Order$posSessionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$posSessionArgs<ExtArgs>>): Prisma.Prisma__PosSessionClient<runtime.Types.Result.GetResult<Prisma.$PosSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   claimedByUser<T extends Prisma.Order$claimedByUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$claimedByUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   terminal<T extends Prisma.Order$terminalArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$terminalArgs<ExtArgs>>): Prisma.Prisma__PosTerminalClient<runtime.Types.Result.GetResult<Prisma.$PosTerminalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  posTerminal<T extends Prisma.Order$posTerminalArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$posTerminalArgs<ExtArgs>>): Prisma.Prisma__PosTerminalClient<runtime.Types.Result.GetResult<Prisma.$PosTerminalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  posOperatorEmployee<T extends Prisma.Order$posOperatorEmployeeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$posOperatorEmployeeArgs<ExtArgs>>): Prisma.Prisma__EmployeeClient<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   posTransactions<T extends Prisma.Order$posTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$posTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   posVisitLogs<T extends Prisma.Order$posVisitLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$posVisitLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosVisitLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  posOrderConflicts<T extends Prisma.Order$posOrderConflictsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$posOrderConflictsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosOrderConflictPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  orphanPaymentsMatched<T extends Prisma.Order$orphanPaymentsMatchedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$orphanPaymentsMatchedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosOrphanPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   invoice<T extends Prisma.Order$invoiceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$invoiceArgs<ExtArgs>>): Prisma.Prisma__InvoiceClient<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   fiscalDocuments<T extends Prisma.Order$fiscalDocumentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$fiscalDocumentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FiscalDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   paymentCharges<T extends Prisma.Order$paymentChargesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$paymentChargesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentChargePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -16385,6 +20717,17 @@ export interface OrderFieldRefs {
   readonly claimedByUserId: Prisma.FieldRef<"Order", 'String'>
   readonly claimedAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly version: Prisma.FieldRef<"Order", 'Int'>
+  readonly originSource: Prisma.FieldRef<"Order", 'OrderOriginSource'>
+  readonly posTerminalId: Prisma.FieldRef<"Order", 'String'>
+  readonly posOperatorEmployeeId: Prisma.FieldRef<"Order", 'String'>
+  readonly saleLocalUuid: Prisma.FieldRef<"Order", 'String'>
+  readonly ackReceivedAt: Prisma.FieldRef<"Order", 'DateTime'>
+  readonly fiscalDocumentType: Prisma.FieldRef<"Order", 'PosFiscalDocumentType'>
+  readonly fiscalDocumentNumber: Prisma.FieldRef<"Order", 'Int'>
+  readonly fiscalAccessKey: Prisma.FieldRef<"Order", 'String'>
+  readonly fiscalAuthorizationProtocol: Prisma.FieldRef<"Order", 'String'>
+  readonly fiscalEmittedAt: Prisma.FieldRef<"Order", 'DateTime'>
+  readonly fiscalEmissionStatus: Prisma.FieldRef<"Order", 'String'>
   readonly invoiceId: Prisma.FieldRef<"Order", 'String'>
   readonly invoicedAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Order", 'DateTime'>
@@ -17278,6 +21621,44 @@ export type Order$terminalArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
+ * Order.posTerminal
+ */
+export type Order$posTerminalArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PosTerminal
+   */
+  select?: Prisma.PosTerminalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PosTerminal
+   */
+  omit?: Prisma.PosTerminalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PosTerminalInclude<ExtArgs> | null
+  where?: Prisma.PosTerminalWhereInput
+}
+
+/**
+ * Order.posOperatorEmployee
+ */
+export type Order$posOperatorEmployeeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Employee
+   */
+  select?: Prisma.EmployeeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Employee
+   */
+  omit?: Prisma.EmployeeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmployeeInclude<ExtArgs> | null
+  where?: Prisma.EmployeeWhereInput
+}
+
+/**
  * Order.posTransactions
  */
 export type Order$posTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -17323,6 +21704,54 @@ export type Order$posVisitLogsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.PosVisitLogScalarFieldEnum | Prisma.PosVisitLogScalarFieldEnum[]
+}
+
+/**
+ * Order.posOrderConflicts
+ */
+export type Order$posOrderConflictsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PosOrderConflict
+   */
+  select?: Prisma.PosOrderConflictSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PosOrderConflict
+   */
+  omit?: Prisma.PosOrderConflictOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PosOrderConflictInclude<ExtArgs> | null
+  where?: Prisma.PosOrderConflictWhereInput
+  orderBy?: Prisma.PosOrderConflictOrderByWithRelationInput | Prisma.PosOrderConflictOrderByWithRelationInput[]
+  cursor?: Prisma.PosOrderConflictWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PosOrderConflictScalarFieldEnum | Prisma.PosOrderConflictScalarFieldEnum[]
+}
+
+/**
+ * Order.orphanPaymentsMatched
+ */
+export type Order$orphanPaymentsMatchedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PosOrphanPayment
+   */
+  select?: Prisma.PosOrphanPaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PosOrphanPayment
+   */
+  omit?: Prisma.PosOrphanPaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PosOrphanPaymentInclude<ExtArgs> | null
+  where?: Prisma.PosOrphanPaymentWhereInput
+  orderBy?: Prisma.PosOrphanPaymentOrderByWithRelationInput | Prisma.PosOrphanPaymentOrderByWithRelationInput[]
+  cursor?: Prisma.PosOrphanPaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PosOrphanPaymentScalarFieldEnum | Prisma.PosOrphanPaymentScalarFieldEnum[]
 }
 
 /**

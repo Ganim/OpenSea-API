@@ -74,6 +74,7 @@ export type VariantMinAggregateOutputType = {
   reorderQuantity: runtime.Decimal | null
   reference: string | null
   outOfLine: boolean | null
+  fractionalAllowed: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -107,6 +108,7 @@ export type VariantMaxAggregateOutputType = {
   reorderQuantity: runtime.Decimal | null
   reference: string | null
   outOfLine: boolean | null
+  fractionalAllowed: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -142,6 +144,7 @@ export type VariantCountAggregateOutputType = {
   reference: number
   similars: number
   outOfLine: number
+  fractionalAllowed: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -199,6 +202,7 @@ export type VariantMinAggregateInputType = {
   reorderQuantity?: true
   reference?: true
   outOfLine?: true
+  fractionalAllowed?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -232,6 +236,7 @@ export type VariantMaxAggregateInputType = {
   reorderQuantity?: true
   reference?: true
   outOfLine?: true
+  fractionalAllowed?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -267,6 +272,7 @@ export type VariantCountAggregateInputType = {
   reference?: true
   similars?: true
   outOfLine?: true
+  fractionalAllowed?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -389,6 +395,7 @@ export type VariantGroupByOutputType = {
   reference: string | null
   similars: runtime.JsonValue | null
   outOfLine: boolean
+  fractionalAllowed: boolean
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -447,6 +454,7 @@ export type VariantWhereInput = {
   reference?: Prisma.StringNullableFilter<"Variant"> | string | null
   similars?: Prisma.JsonNullableFilter<"Variant">
   outOfLine?: Prisma.BoolFilter<"Variant"> | boolean
+  fractionalAllowed?: Prisma.BoolFilter<"Variant"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Variant"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Variant"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Variant"> | Date | string | null
@@ -503,6 +511,7 @@ export type VariantOrderByWithRelationInput = {
   reference?: Prisma.SortOrderInput | Prisma.SortOrder
   similars?: Prisma.SortOrderInput | Prisma.SortOrder
   outOfLine?: Prisma.SortOrder
+  fractionalAllowed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -564,6 +573,7 @@ export type VariantWhereUniqueInput = Prisma.AtLeast<{
   reference?: Prisma.StringNullableFilter<"Variant"> | string | null
   similars?: Prisma.JsonNullableFilter<"Variant">
   outOfLine?: Prisma.BoolFilter<"Variant"> | boolean
+  fractionalAllowed?: Prisma.BoolFilter<"Variant"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Variant"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Variant"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Variant"> | Date | string | null
@@ -620,6 +630,7 @@ export type VariantOrderByWithAggregationInput = {
   reference?: Prisma.SortOrderInput | Prisma.SortOrder
   similars?: Prisma.SortOrderInput | Prisma.SortOrder
   outOfLine?: Prisma.SortOrder
+  fractionalAllowed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -663,6 +674,7 @@ export type VariantScalarWhereWithAggregatesInput = {
   reference?: Prisma.StringNullableWithAggregatesFilter<"Variant"> | string | null
   similars?: Prisma.JsonNullableWithAggregatesFilter<"Variant">
   outOfLine?: Prisma.BoolWithAggregatesFilter<"Variant"> | boolean
+  fractionalAllowed?: Prisma.BoolWithAggregatesFilter<"Variant"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Variant"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Variant"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Variant"> | Date | string | null
@@ -698,6 +710,7 @@ export type VariantCreateInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -752,6 +765,7 @@ export type VariantUncheckedCreateInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -806,6 +820,7 @@ export type VariantUpdateInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -860,6 +875,7 @@ export type VariantUncheckedUpdateInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -914,6 +930,7 @@ export type VariantCreateManyInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -949,6 +966,7 @@ export type VariantUpdateManyMutationInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -982,6 +1000,7 @@ export type VariantUncheckedUpdateManyInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1039,6 +1058,7 @@ export type VariantCountOrderByAggregateInput = {
   reference?: Prisma.SortOrder
   similars?: Prisma.SortOrder
   outOfLine?: Prisma.SortOrder
+  fractionalAllowed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -1083,6 +1103,7 @@ export type VariantMaxOrderByAggregateInput = {
   reorderQuantity?: Prisma.SortOrder
   reference?: Prisma.SortOrder
   outOfLine?: Prisma.SortOrder
+  fractionalAllowed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -1116,6 +1137,7 @@ export type VariantMinOrderByAggregateInput = {
   reorderQuantity?: Prisma.SortOrder
   reference?: Prisma.SortOrder
   outOfLine?: Prisma.SortOrder
+  fractionalAllowed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -1542,6 +1564,7 @@ export type VariantCreateWithoutProductInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1595,6 +1618,7 @@ export type VariantUncheckedCreateWithoutProductInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1677,6 +1701,7 @@ export type VariantScalarWhereInput = {
   reference?: Prisma.StringNullableFilter<"Variant"> | string | null
   similars?: Prisma.JsonNullableFilter<"Variant">
   outOfLine?: Prisma.BoolFilter<"Variant"> | boolean
+  fractionalAllowed?: Prisma.BoolFilter<"Variant"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Variant"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Variant"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Variant"> | Date | string | null
@@ -1712,6 +1737,7 @@ export type VariantCreateWithoutItemsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1765,6 +1791,7 @@ export type VariantUncheckedCreateWithoutItemsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1834,6 +1861,7 @@ export type VariantUpdateWithoutItemsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1887,6 +1915,7 @@ export type VariantUncheckedUpdateWithoutItemsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1940,6 +1969,7 @@ export type VariantCreateWithoutPriceHistoryInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1993,6 +2023,7 @@ export type VariantUncheckedCreateWithoutPriceHistoryInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2062,6 +2093,7 @@ export type VariantUpdateWithoutPriceHistoryInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2115,6 +2147,7 @@ export type VariantUncheckedUpdateWithoutPriceHistoryInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2168,6 +2201,7 @@ export type VariantCreateWithoutVariantImagesInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2221,6 +2255,7 @@ export type VariantUncheckedCreateWithoutVariantImagesInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2290,6 +2325,7 @@ export type VariantUpdateWithoutVariantImagesInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2343,6 +2379,7 @@ export type VariantUncheckedUpdateWithoutVariantImagesInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2396,6 +2433,7 @@ export type VariantCreateWithoutAttachmentsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2449,6 +2487,7 @@ export type VariantUncheckedCreateWithoutAttachmentsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2518,6 +2557,7 @@ export type VariantUpdateWithoutAttachmentsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2571,6 +2611,7 @@ export type VariantUncheckedUpdateWithoutAttachmentsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2624,6 +2665,7 @@ export type VariantCreateWithoutPurchaseOrderItemsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2677,6 +2719,7 @@ export type VariantUncheckedCreateWithoutPurchaseOrderItemsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2746,6 +2789,7 @@ export type VariantUpdateWithoutPurchaseOrderItemsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2799,6 +2843,7 @@ export type VariantUncheckedUpdateWithoutPurchaseOrderItemsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2852,6 +2897,7 @@ export type VariantCreateWithoutUnitConversionsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2905,6 +2951,7 @@ export type VariantUncheckedCreateWithoutUnitConversionsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2974,6 +3021,7 @@ export type VariantUpdateWithoutUnitConversionsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3027,6 +3075,7 @@ export type VariantUncheckedUpdateWithoutUnitConversionsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3080,6 +3129,7 @@ export type VariantCreateWithoutStockSnapshotsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3133,6 +3183,7 @@ export type VariantUncheckedCreateWithoutStockSnapshotsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3202,6 +3253,7 @@ export type VariantUpdateWithoutStockSnapshotsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3255,6 +3307,7 @@ export type VariantUncheckedUpdateWithoutStockSnapshotsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3308,6 +3361,7 @@ export type VariantCreateWithoutInventorySessionsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3361,6 +3415,7 @@ export type VariantUncheckedCreateWithoutInventorySessionsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3430,6 +3485,7 @@ export type VariantUpdateWithoutInventorySessionsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3483,6 +3539,7 @@ export type VariantUncheckedUpdateWithoutInventorySessionsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3536,6 +3593,7 @@ export type VariantCreateWithoutSalesOrderItemsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3589,6 +3647,7 @@ export type VariantUncheckedCreateWithoutSalesOrderItemsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3658,6 +3717,7 @@ export type VariantUpdateWithoutSalesOrderItemsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3711,6 +3771,7 @@ export type VariantUncheckedUpdateWithoutSalesOrderItemsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3764,6 +3825,7 @@ export type VariantCreateWithoutSupplierCodesInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3817,6 +3879,7 @@ export type VariantUncheckedCreateWithoutSupplierCodesInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -3886,6 +3949,7 @@ export type VariantUpdateWithoutSupplierCodesInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3939,6 +4003,7 @@ export type VariantUncheckedUpdateWithoutSupplierCodesInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3992,6 +4057,7 @@ export type VariantCreateWithoutVariantPromotionsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -4045,6 +4111,7 @@ export type VariantUncheckedCreateWithoutVariantPromotionsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -4114,6 +4181,7 @@ export type VariantUpdateWithoutVariantPromotionsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4167,6 +4235,7 @@ export type VariantUncheckedUpdateWithoutVariantPromotionsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4220,6 +4289,7 @@ export type VariantCreateWithoutTenantInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -4273,6 +4343,7 @@ export type VariantUncheckedCreateWithoutTenantInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -4352,6 +4423,7 @@ export type VariantCreateWithoutPriceTableItemsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -4405,6 +4477,7 @@ export type VariantUncheckedCreateWithoutPriceTableItemsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -4474,6 +4547,7 @@ export type VariantUpdateWithoutPriceTableItemsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4527,6 +4601,7 @@ export type VariantUncheckedUpdateWithoutPriceTableItemsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4580,6 +4655,7 @@ export type VariantCreateWithoutCustomerPricesInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -4633,6 +4709,7 @@ export type VariantUncheckedCreateWithoutCustomerPricesInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -4702,6 +4779,7 @@ export type VariantUpdateWithoutCustomerPricesInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4755,6 +4833,7 @@ export type VariantUncheckedUpdateWithoutCustomerPricesInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4808,6 +4887,7 @@ export type VariantCreateWithoutCampaignProductsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -4861,6 +4941,7 @@ export type VariantUncheckedCreateWithoutCampaignProductsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -4930,6 +5011,7 @@ export type VariantUpdateWithoutCampaignProductsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4983,6 +5065,7 @@ export type VariantUncheckedUpdateWithoutCampaignProductsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5036,6 +5119,7 @@ export type VariantCreateWithoutComboItemsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -5089,6 +5173,7 @@ export type VariantUncheckedCreateWithoutComboItemsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -5158,6 +5243,7 @@ export type VariantUpdateWithoutComboItemsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5211,6 +5297,7 @@ export type VariantUncheckedUpdateWithoutComboItemsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5264,6 +5351,7 @@ export type VariantCreateWithoutCatalogItemsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -5317,6 +5405,7 @@ export type VariantUncheckedCreateWithoutCatalogItemsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -5386,6 +5475,7 @@ export type VariantUpdateWithoutCatalogItemsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5439,6 +5529,7 @@ export type VariantUncheckedUpdateWithoutCatalogItemsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5492,6 +5583,7 @@ export type VariantCreateWithoutProductMockupsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -5545,6 +5637,7 @@ export type VariantUncheckedCreateWithoutProductMockupsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -5614,6 +5707,7 @@ export type VariantUpdateWithoutProductMockupsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5667,6 +5761,7 @@ export type VariantUncheckedUpdateWithoutProductMockupsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5720,6 +5815,7 @@ export type VariantCreateWithoutOrderItemsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -5773,6 +5869,7 @@ export type VariantUncheckedCreateWithoutOrderItemsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -5842,6 +5939,7 @@ export type VariantUpdateWithoutOrderItemsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5895,6 +5993,7 @@ export type VariantUncheckedUpdateWithoutOrderItemsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5948,6 +6047,7 @@ export type VariantCreateWithoutMarketplaceListingsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -6001,6 +6101,7 @@ export type VariantUncheckedCreateWithoutMarketplaceListingsInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -6070,6 +6171,7 @@ export type VariantUpdateWithoutMarketplaceListingsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6123,6 +6225,7 @@ export type VariantUncheckedUpdateWithoutMarketplaceListingsInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6176,6 +6279,7 @@ export type VariantCreateManyProductInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -6210,6 +6314,7 @@ export type VariantUpdateWithoutProductInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6263,6 +6368,7 @@ export type VariantUncheckedUpdateWithoutProductInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6316,6 +6422,7 @@ export type VariantUncheckedUpdateManyWithoutProductInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6350,6 +6457,7 @@ export type VariantCreateManyTenantInput = {
   reference?: string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -6384,6 +6492,7 @@ export type VariantUpdateWithoutTenantInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6437,6 +6546,7 @@ export type VariantUncheckedUpdateWithoutTenantInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6490,6 +6600,7 @@ export type VariantUncheckedUpdateManyWithoutTenantInput = {
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   similars?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   outOfLine?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fractionalAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6717,6 +6828,7 @@ export type VariantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   reference?: boolean
   similars?: boolean
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -6774,6 +6886,7 @@ export type VariantSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   reference?: boolean
   similars?: boolean
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -6811,6 +6924,7 @@ export type VariantSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   reference?: boolean
   similars?: boolean
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -6848,6 +6962,7 @@ export type VariantSelectScalar = {
   reference?: boolean
   similars?: boolean
   outOfLine?: boolean
+  fractionalAllowed?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -6855,7 +6970,7 @@ export type VariantSelectScalar = {
   tenantId?: boolean
 }
 
-export type VariantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sku" | "slug" | "fullCode" | "sequentialCode" | "name" | "price" | "attributes" | "isActive" | "costPrice" | "profitMargin" | "barcode" | "eanCode" | "upcCode" | "qrCode" | "colorHex" | "colorPantone" | "secondaryColorHex" | "secondaryColorPantone" | "pattern" | "minStock" | "maxStock" | "reorderPoint" | "reorderQuantity" | "reference" | "similars" | "outOfLine" | "createdAt" | "updatedAt" | "deletedAt" | "productId" | "tenantId", ExtArgs["result"]["variant"]>
+export type VariantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sku" | "slug" | "fullCode" | "sequentialCode" | "name" | "price" | "attributes" | "isActive" | "costPrice" | "profitMargin" | "barcode" | "eanCode" | "upcCode" | "qrCode" | "colorHex" | "colorPantone" | "secondaryColorHex" | "secondaryColorPantone" | "pattern" | "minStock" | "maxStock" | "reorderPoint" | "reorderQuantity" | "reference" | "similars" | "outOfLine" | "fractionalAllowed" | "createdAt" | "updatedAt" | "deletedAt" | "productId" | "tenantId", ExtArgs["result"]["variant"]>
 export type VariantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
@@ -6942,6 +7057,7 @@ export type $VariantPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     reference: string | null
     similars: runtime.JsonValue | null
     outOfLine: boolean
+    fractionalAllowed: boolean
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -7418,6 +7534,7 @@ export interface VariantFieldRefs {
   readonly reference: Prisma.FieldRef<"Variant", 'String'>
   readonly similars: Prisma.FieldRef<"Variant", 'Json'>
   readonly outOfLine: Prisma.FieldRef<"Variant", 'Boolean'>
+  readonly fractionalAllowed: Prisma.FieldRef<"Variant", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Variant", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Variant", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Variant", 'DateTime'>

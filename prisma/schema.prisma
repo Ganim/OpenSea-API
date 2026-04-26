@@ -1134,6 +1134,12 @@ enum AuditAction {
   PUNCH_DEVICE_STATUS_CHANGED
   PUNCH_APPROVAL_RESOLVED
 
+  // Phase 10 / Plan 10-01 — Punch-Agent Biométrico
+  AGENT_PAIRED
+  BIO_ENROLLED
+  BIO_MATCH
+  AGENT_REVOKED
+
   OTHER
 }
 
@@ -1300,6 +1306,9 @@ enum AuditEntity {
   // Phase 7 / Plan 07-01 — Dashboard Gestor
   PUNCH_MISSED_LOG
   EXPORT_JOB
+
+  // Phase 10 / Plan 10-01 — Punch-Agent Biométrico
+  PUNCH_BIO_AGENT
 
   // HR - Ausências e Férias
   ABSENCE
@@ -4505,6 +4514,9 @@ model Employee {
   // Phase 7 / Plan 07-01 — Dashboard Gestor
   punchMissedLogs PunchMissedLog[]
 
+  // Phase 10 / Plan 10-01 — Punch-Agent Biométrico (WebAuthn)
+  webauthnCredentials WebAuthnCredential[]
+
   // Phase 5 — QR badge token (D-15) + PIN fallback (D-08)
   qrTokenHash            String?   @map("qr_token_hash") @db.VarChar(64)
   qrTokenSetAt           DateTime? @map("qr_token_set_at")
@@ -6736,6 +6748,9 @@ model Tenant {
 
   // Phase 7 / Plan 07-01 — Dashboard Gestor
   punchMissedLogs PunchMissedLog[]
+
+  // Phase 10 / Plan 10-01 — Punch-Agent Biométrico (WebAuthn)
+  webauthnCredentials WebAuthnCredential[]
 
   // Compliance (Phase 6 / Plan 06-01)
   complianceArtifacts ComplianceArtifact[]
@@ -17498,4 +17513,33 @@ model PunchMissedLog {
   @@index([tenantId, date])
   @@index([employeeId, date])
   @@map("punch_missed_logs")
+}
+
+// ===============================================
+// WEBAUTHN CREDENTIALS — Phase 10 / Plan 10-01 (D-G1)
+// Credenciais WebAuthn para Windows Hello (PUNCH-BIO-05 fallback).
+// Templates ISO 19794-2 ficam locais no agente; este model só guarda
+// a chave pública/credentialId para verificação server-side.
+// Plan 10-07 implementa os 4 endpoints de registro/autenticação.
+// ===============================================
+
+model WebAuthnCredential {
+  id           String    @id @default(uuid())
+  tenantId     String    @map("tenant_id")
+  employeeId   String    @map("employee_id")
+  credentialId Bytes     @unique @map("credential_id")
+  publicKey    Bytes     @map("public_key")
+  counter      BigInt    @default(0)
+  transports   String[]
+  deviceType   String    @map("device_type")
+  backedUp     Boolean   @default(false) @map("backed_up")
+  lastUsedAt   DateTime? @map("last_used_at")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id])
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, employeeId])
+  @@map("webauthn_credentials")
 }

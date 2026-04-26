@@ -309,6 +309,12 @@ export const ModelName = {
   AiInsight: 'AiInsight',
   PosTerminal: 'PosTerminal',
   PosTerminalWarehouse: 'PosTerminalWarehouse',
+  PosTerminalZone: 'PosTerminalZone',
+  PosTerminalProfile: 'PosTerminalProfile',
+  PosFiscalConfig: 'PosFiscalConfig',
+  PosOrderConflict: 'PosOrderConflict',
+  PosOrphanPayment: 'PosOrphanPayment',
+  PosTerminalOperator: 'PosTerminalOperator',
   PosDevicePairing: 'PosDevicePairing',
   PosSession: 'PosSession',
   PosTransaction: 'PosTransaction',
@@ -460,7 +466,8 @@ export const ModelName = {
   ProductionCost: 'ProductionCost',
   ContractTemplate: 'ContractTemplate',
   GeneratedEmploymentContract: 'GeneratedEmploymentContract',
-  PunchMissedLog: 'PunchMissedLog'
+  PunchMissedLog: 'PunchMissedLog',
+  WebAuthnCredential: 'WebAuthnCredential'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -881,6 +888,8 @@ export const ZoneScalarFieldEnum = {
   name: 'name',
   description: 'description',
   structure: 'structure',
+  allowsFractionalSale: 'allowsFractionalSale',
+  minFractionalSale: 'minFractionalSale',
   layout: 'layout',
   isActive: 'isActive',
   createdAt: 'createdAt',
@@ -1024,6 +1033,7 @@ export const VariantScalarFieldEnum = {
   reference: 'reference',
   similars: 'similars',
   outOfLine: 'outOfLine',
+  fractionalAllowed: 'fractionalAllowed',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',
@@ -1046,6 +1056,7 @@ export const ItemScalarFieldEnum = {
   status: 'status',
   entryDate: 'entryDate',
   attributes: 'attributes',
+  fractionalSaleEnabled: 'fractionalSaleEnabled',
   barcode: 'barcode',
   eanCode: 'eanCode',
   upcCode: 'upcCode',
@@ -2076,6 +2087,7 @@ export const EmployeeScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
   registrationNumber: 'registrationNumber',
+  shortId: 'shortId',
   userId: 'userId',
   fullName: 'fullName',
   socialName: 'socialName',
@@ -5003,6 +5015,17 @@ export const OrderScalarFieldEnum = {
   claimedByUserId: 'claimedByUserId',
   claimedAt: 'claimedAt',
   version: 'version',
+  originSource: 'originSource',
+  posTerminalId: 'posTerminalId',
+  posOperatorEmployeeId: 'posOperatorEmployeeId',
+  saleLocalUuid: 'saleLocalUuid',
+  ackReceivedAt: 'ackReceivedAt',
+  fiscalDocumentType: 'fiscalDocumentType',
+  fiscalDocumentNumber: 'fiscalDocumentNumber',
+  fiscalAccessKey: 'fiscalAccessKey',
+  fiscalAuthorizationProtocol: 'fiscalAuthorizationProtocol',
+  fiscalEmittedAt: 'fiscalEmittedAt',
+  fiscalEmissionStatus: 'fiscalEmissionStatus',
   invoiceId: 'invoiceId',
   invoicedAt: 'invoicedAt',
   deletedAt: 'deletedAt',
@@ -5734,6 +5757,11 @@ export const PosTerminalScalarFieldEnum = {
   systemUserId: 'systemUserId',
   pairingSecret: 'pairingSecret',
   defaultPriceTableId: 'defaultPriceTableId',
+  operatorSessionMode: 'operatorSessionMode',
+  operatorSessionTimeout: 'operatorSessionTimeout',
+  autoCloseSessionAt: 'autoCloseSessionAt',
+  coordinationMode: 'coordinationMode',
+  appliedProfileId: 'appliedProfileId',
   isActive: 'isActive',
   lastSyncAt: 'lastSyncAt',
   lastOnlineAt: 'lastOnlineAt',
@@ -5756,6 +5784,106 @@ export const PosTerminalWarehouseScalarFieldEnum = {
 export type PosTerminalWarehouseScalarFieldEnum = (typeof PosTerminalWarehouseScalarFieldEnum)[keyof typeof PosTerminalWarehouseScalarFieldEnum]
 
 
+export const PosTerminalZoneScalarFieldEnum = {
+  id: 'id',
+  terminalId: 'terminalId',
+  zoneId: 'zoneId',
+  tier: 'tier',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PosTerminalZoneScalarFieldEnum = (typeof PosTerminalZoneScalarFieldEnum)[keyof typeof PosTerminalZoneScalarFieldEnum]
+
+
+export const PosTerminalProfileScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  isActive: 'isActive',
+  config: 'config',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type PosTerminalProfileScalarFieldEnum = (typeof PosTerminalProfileScalarFieldEnum)[keyof typeof PosTerminalProfileScalarFieldEnum]
+
+
+export const PosFiscalConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  enabledDocumentTypes: 'enabledDocumentTypes',
+  defaultDocumentType: 'defaultDocumentType',
+  emissionMode: 'emissionMode',
+  certificatePath: 'certificatePath',
+  nfceSeries: 'nfceSeries',
+  nfceNextNumber: 'nfceNextNumber',
+  satDeviceId: 'satDeviceId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PosFiscalConfigScalarFieldEnum = (typeof PosFiscalConfigScalarFieldEnum)[keyof typeof PosFiscalConfigScalarFieldEnum]
+
+
+export const PosOrderConflictScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  saleLocalUuid: 'saleLocalUuid',
+  orderId: 'orderId',
+  posTerminalId: 'posTerminalId',
+  posSessionId: 'posSessionId',
+  posOperatorEmployeeId: 'posOperatorEmployeeId',
+  status: 'status',
+  conflictDetails: 'conflictDetails',
+  resolutionDetails: 'resolutionDetails',
+  resolvedByUserId: 'resolvedByUserId',
+  resolvedAt: 'resolvedAt',
+  originalCart: 'originalCart',
+  originalPayments: 'originalPayments',
+  originalCustomerData: 'originalCustomerData',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PosOrderConflictScalarFieldEnum = (typeof PosOrderConflictScalarFieldEnum)[keyof typeof PosOrderConflictScalarFieldEnum]
+
+
+export const PosOrphanPaymentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  orderCode: 'orderCode',
+  amountCents: 'amountCents',
+  receivedAt: 'receivedAt',
+  receivedByTerminalId: 'receivedByTerminalId',
+  receivedByOperatorId: 'receivedByOperatorId',
+  matchedOrderId: 'matchedOrderId',
+  matchedAt: 'matchedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PosOrphanPaymentScalarFieldEnum = (typeof PosOrphanPaymentScalarFieldEnum)[keyof typeof PosOrphanPaymentScalarFieldEnum]
+
+
+export const PosTerminalOperatorScalarFieldEnum = {
+  id: 'id',
+  terminalId: 'terminalId',
+  employeeId: 'employeeId',
+  tenantId: 'tenantId',
+  isActive: 'isActive',
+  assignedAt: 'assignedAt',
+  assignedByUserId: 'assignedByUserId',
+  revokedAt: 'revokedAt',
+  revokedByUserId: 'revokedByUserId'
+} as const
+
+export type PosTerminalOperatorScalarFieldEnum = (typeof PosTerminalOperatorScalarFieldEnum)[keyof typeof PosTerminalOperatorScalarFieldEnum]
+
+
 export const PosDevicePairingScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -5764,7 +5892,9 @@ export const PosDevicePairingScalarFieldEnum = {
   deviceTokenHash: 'deviceTokenHash',
   pairedAt: 'pairedAt',
   lastSeenAt: 'lastSeenAt',
+  appVersion: 'appVersion',
   pairedByUserId: 'pairedByUserId',
+  pairingSource: 'pairingSource',
   revokedAt: 'revokedAt',
   revokedByUserId: 'revokedByUserId',
   revokedReason: 'revokedReason'
@@ -8670,6 +8800,24 @@ export const PunchMissedLogScalarFieldEnum = {
 } as const
 
 export type PunchMissedLogScalarFieldEnum = (typeof PunchMissedLogScalarFieldEnum)[keyof typeof PunchMissedLogScalarFieldEnum]
+
+
+export const WebAuthnCredentialScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  employeeId: 'employeeId',
+  credentialId: 'credentialId',
+  publicKey: 'publicKey',
+  counter: 'counter',
+  transports: 'transports',
+  deviceType: 'deviceType',
+  backedUp: 'backedUp',
+  lastUsedAt: 'lastUsedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WebAuthnCredentialScalarFieldEnum = (typeof WebAuthnCredentialScalarFieldEnum)[keyof typeof WebAuthnCredentialScalarFieldEnum]
 
 
 export const SortOrder = {

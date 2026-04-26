@@ -42,6 +42,7 @@ export type EmployeeMinAggregateOutputType = {
   id: string | null
   tenantId: string | null
   registrationNumber: string | null
+  shortId: string | null
   userId: string | null
   fullName: string | null
   socialName: string | null
@@ -134,6 +135,7 @@ export type EmployeeMaxAggregateOutputType = {
   id: string | null
   tenantId: string | null
   registrationNumber: string | null
+  shortId: string | null
   userId: string | null
   fullName: string | null
   socialName: string | null
@@ -226,6 +228,7 @@ export type EmployeeCountAggregateOutputType = {
   id: number
   tenantId: number
   registrationNumber: number
+  shortId: number
   userId: number
   fullName: number
   socialName: number
@@ -336,6 +339,7 @@ export type EmployeeMinAggregateInputType = {
   id?: true
   tenantId?: true
   registrationNumber?: true
+  shortId?: true
   userId?: true
   fullName?: true
   socialName?: true
@@ -428,6 +432,7 @@ export type EmployeeMaxAggregateInputType = {
   id?: true
   tenantId?: true
   registrationNumber?: true
+  shortId?: true
   userId?: true
   fullName?: true
   socialName?: true
@@ -520,6 +525,7 @@ export type EmployeeCountAggregateInputType = {
   id?: true
   tenantId?: true
   registrationNumber?: true
+  shortId?: true
   userId?: true
   fullName?: true
   socialName?: true
@@ -703,6 +709,7 @@ export type EmployeeGroupByOutputType = {
   id: string
   tenantId: string
   registrationNumber: string
+  shortId: string | null
   userId: string | null
   fullName: string
   socialName: string | null
@@ -822,6 +829,7 @@ export type EmployeeWhereInput = {
   id?: Prisma.StringFilter<"Employee"> | string
   tenantId?: Prisma.StringFilter<"Employee"> | string
   registrationNumber?: Prisma.StringFilter<"Employee"> | string
+  shortId?: Prisma.StringNullableFilter<"Employee"> | string | null
   userId?: Prisma.StringNullableFilter<"Employee"> | string | null
   fullName?: Prisma.StringFilter<"Employee"> | string
   socialName?: Prisma.StringNullableFilter<"Employee"> | string | null
@@ -963,12 +971,16 @@ export type EmployeeWhereInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeListRelationFilter
   punchApprovals?: Prisma.PunchApprovalListRelationFilter
   punchMissedLogs?: Prisma.PunchMissedLogListRelationFilter
+  webauthnCredentials?: Prisma.WebAuthnCredentialListRelationFilter
+  ordersAsOperator?: Prisma.OrderListRelationFilter
+  posTerminalOperators?: Prisma.PosTerminalOperatorListRelationFilter
 }
 
 export type EmployeeOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   registrationNumber?: Prisma.SortOrder
+  shortId?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   fullName?: Prisma.SortOrder
   socialName?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -1110,6 +1122,9 @@ export type EmployeeOrderByWithRelationInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeOrderByRelationAggregateInput
   punchApprovals?: Prisma.PunchApprovalOrderByRelationAggregateInput
   punchMissedLogs?: Prisma.PunchMissedLogOrderByRelationAggregateInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialOrderByRelationAggregateInput
+  ordersAsOperator?: Prisma.OrderOrderByRelationAggregateInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorOrderByRelationAggregateInput
 }
 
 export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
@@ -1118,11 +1133,13 @@ export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
   employees_registration_tenant_unique_active?: Prisma.EmployeeEmployees_registration_tenant_unique_activeCompoundUniqueInput
   employees_cpf_tenant_unique_active?: Prisma.EmployeeEmployees_cpf_tenant_unique_activeCompoundUniqueInput
   employees_pis_tenant_unique_active?: Prisma.EmployeeEmployees_pis_tenant_unique_activeCompoundUniqueInput
+  employees_short_id_tenant_unique?: Prisma.EmployeeEmployees_short_id_tenant_uniqueCompoundUniqueInput
   AND?: Prisma.EmployeeWhereInput | Prisma.EmployeeWhereInput[]
   OR?: Prisma.EmployeeWhereInput[]
   NOT?: Prisma.EmployeeWhereInput | Prisma.EmployeeWhereInput[]
   tenantId?: Prisma.StringFilter<"Employee"> | string
   registrationNumber?: Prisma.StringFilter<"Employee"> | string
+  shortId?: Prisma.StringNullableFilter<"Employee"> | string | null
   fullName?: Prisma.StringFilter<"Employee"> | string
   socialName?: Prisma.StringNullableFilter<"Employee"> | string | null
   birthDate?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
@@ -1263,12 +1280,16 @@ export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeListRelationFilter
   punchApprovals?: Prisma.PunchApprovalListRelationFilter
   punchMissedLogs?: Prisma.PunchMissedLogListRelationFilter
-}, "id" | "userId" | "employees_registration_tenant_unique_active" | "employees_cpf_tenant_unique_active" | "employees_pis_tenant_unique_active">
+  webauthnCredentials?: Prisma.WebAuthnCredentialListRelationFilter
+  ordersAsOperator?: Prisma.OrderListRelationFilter
+  posTerminalOperators?: Prisma.PosTerminalOperatorListRelationFilter
+}, "id" | "userId" | "employees_registration_tenant_unique_active" | "employees_cpf_tenant_unique_active" | "employees_pis_tenant_unique_active" | "employees_short_id_tenant_unique">
 
 export type EmployeeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   registrationNumber?: Prisma.SortOrder
+  shortId?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   fullName?: Prisma.SortOrder
   socialName?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -1373,6 +1394,7 @@ export type EmployeeScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Employee"> | string
   tenantId?: Prisma.StringWithAggregatesFilter<"Employee"> | string
   registrationNumber?: Prisma.StringWithAggregatesFilter<"Employee"> | string
+  shortId?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
   userId?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
   fullName?: Prisma.StringWithAggregatesFilter<"Employee"> | string
   socialName?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
@@ -1468,6 +1490,7 @@ export type EmployeeScalarWhereWithAggregatesInput = {
 export type EmployeeCreateInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -1603,12 +1626,16 @@ export type EmployeeCreateInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -1743,11 +1770,15 @@ export type EmployeeUncheckedCreateInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1883,12 +1914,16 @@ export type EmployeeUpdateInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2023,12 +2058,16 @@ export type EmployeeUncheckedUpdateInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateManyInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -2124,6 +2163,7 @@ export type EmployeeCreateManyInput = {
 export type EmployeeUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2214,6 +2254,7 @@ export type EmployeeUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2339,10 +2380,17 @@ export type EmployeeEmployees_pis_tenant_unique_activeCompoundUniqueInput = {
   deletedAt: Date | string
 }
 
+export type EmployeeEmployees_short_id_tenant_uniqueCompoundUniqueInput = {
+  shortId: string
+  tenantId: string
+  deletedAt: Date | string
+}
+
 export type EmployeeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   registrationNumber?: Prisma.SortOrder
+  shortId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
   socialName?: Prisma.SortOrder
@@ -2445,6 +2493,7 @@ export type EmployeeMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   registrationNumber?: Prisma.SortOrder
+  shortId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
   socialName?: Prisma.SortOrder
@@ -2537,6 +2586,7 @@ export type EmployeeMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   registrationNumber?: Prisma.SortOrder
+  shortId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
   socialName?: Prisma.SortOrder
@@ -3302,6 +3352,36 @@ export type EmployeeUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.EmployeeScalarWhereInput | Prisma.EmployeeScalarWhereInput[]
 }
 
+export type EmployeeCreateNestedOneWithoutOrdersAsOperatorInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutOrdersAsOperatorInput, Prisma.EmployeeUncheckedCreateWithoutOrdersAsOperatorInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutOrdersAsOperatorInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeUpdateOneWithoutOrdersAsOperatorNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutOrdersAsOperatorInput, Prisma.EmployeeUncheckedCreateWithoutOrdersAsOperatorInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutOrdersAsOperatorInput
+  upsert?: Prisma.EmployeeUpsertWithoutOrdersAsOperatorInput
+  disconnect?: Prisma.EmployeeWhereInput | boolean
+  delete?: Prisma.EmployeeWhereInput | boolean
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutOrdersAsOperatorInput, Prisma.EmployeeUpdateWithoutOrdersAsOperatorInput>, Prisma.EmployeeUncheckedUpdateWithoutOrdersAsOperatorInput>
+}
+
+export type EmployeeCreateNestedOneWithoutPosTerminalOperatorsInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutPosTerminalOperatorsInput, Prisma.EmployeeUncheckedCreateWithoutPosTerminalOperatorsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutPosTerminalOperatorsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeUpdateOneRequiredWithoutPosTerminalOperatorsNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutPosTerminalOperatorsInput, Prisma.EmployeeUncheckedCreateWithoutPosTerminalOperatorsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutPosTerminalOperatorsInput
+  upsert?: Prisma.EmployeeUpsertWithoutPosTerminalOperatorsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutPosTerminalOperatorsInput, Prisma.EmployeeUpdateWithoutPosTerminalOperatorsInput>, Prisma.EmployeeUncheckedUpdateWithoutPosTerminalOperatorsInput>
+}
+
 export type EmployeeCreateNestedOneWithoutOnboardingChecklistsInput = {
   create?: Prisma.XOR<Prisma.EmployeeCreateWithoutOnboardingChecklistsInput, Prisma.EmployeeUncheckedCreateWithoutOnboardingChecklistsInput>
   connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutOnboardingChecklistsInput
@@ -3554,9 +3634,24 @@ export type EmployeeUpdateOneRequiredWithoutPunchMissedLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutPunchMissedLogsInput, Prisma.EmployeeUpdateWithoutPunchMissedLogsInput>, Prisma.EmployeeUncheckedUpdateWithoutPunchMissedLogsInput>
 }
 
+export type EmployeeCreateNestedOneWithoutWebauthnCredentialsInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutWebauthnCredentialsInput, Prisma.EmployeeUncheckedCreateWithoutWebauthnCredentialsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutWebauthnCredentialsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeUpdateOneRequiredWithoutWebauthnCredentialsNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutWebauthnCredentialsInput, Prisma.EmployeeUncheckedCreateWithoutWebauthnCredentialsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutWebauthnCredentialsInput
+  upsert?: Prisma.EmployeeUpsertWithoutWebauthnCredentialsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutWebauthnCredentialsInput, Prisma.EmployeeUpdateWithoutWebauthnCredentialsInput>, Prisma.EmployeeUncheckedUpdateWithoutWebauthnCredentialsInput>
+}
+
 export type EmployeeCreateWithoutUserInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -3691,12 +3786,16 @@ export type EmployeeCreateWithoutUserInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutUserInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -3830,6 +3929,9 @@ export type EmployeeUncheckedCreateWithoutUserInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutUserInput = {
@@ -3851,6 +3953,7 @@ export type EmployeeUpdateToOneWithWhereWithoutUserInput = {
 export type EmployeeUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3985,12 +4088,16 @@ export type EmployeeUpdateWithoutUserInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4124,11 +4231,15 @@ export type EmployeeUncheckedUpdateWithoutUserInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutOrganizationInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -4263,12 +4374,16 @@ export type EmployeeCreateWithoutOrganizationInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutOrganizationInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -4402,6 +4517,9 @@ export type EmployeeUncheckedCreateWithoutOrganizationInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutOrganizationInput = {
@@ -4437,6 +4555,7 @@ export type EmployeeScalarWhereInput = {
   id?: Prisma.StringFilter<"Employee"> | string
   tenantId?: Prisma.StringFilter<"Employee"> | string
   registrationNumber?: Prisma.StringFilter<"Employee"> | string
+  shortId?: Prisma.StringNullableFilter<"Employee"> | string | null
   userId?: Prisma.StringNullableFilter<"Employee"> | string | null
   fullName?: Prisma.StringFilter<"Employee"> | string
   socialName?: Prisma.StringNullableFilter<"Employee"> | string | null
@@ -4532,6 +4651,7 @@ export type EmployeeScalarWhereInput = {
 export type EmployeeCreateWithoutSubordinatesInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -4666,12 +4786,16 @@ export type EmployeeCreateWithoutSubordinatesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutSubordinatesInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -4805,6 +4929,9 @@ export type EmployeeUncheckedCreateWithoutSubordinatesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutSubordinatesInput = {
@@ -4815,6 +4942,7 @@ export type EmployeeCreateOrConnectWithoutSubordinatesInput = {
 export type EmployeeCreateWithoutSupervisorInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -4949,12 +5077,16 @@ export type EmployeeCreateWithoutSupervisorInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutSupervisorInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -5088,6 +5220,9 @@ export type EmployeeUncheckedCreateWithoutSupervisorInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutSupervisorInput = {
@@ -5114,6 +5249,7 @@ export type EmployeeUpdateToOneWithWhereWithoutSubordinatesInput = {
 export type EmployeeUpdateWithoutSubordinatesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5248,12 +5384,16 @@ export type EmployeeUpdateWithoutSubordinatesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutSubordinatesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5387,6 +5527,9 @@ export type EmployeeUncheckedUpdateWithoutSubordinatesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUpsertWithWhereUniqueWithoutSupervisorInput = {
@@ -5408,6 +5551,7 @@ export type EmployeeUpdateManyWithWhereWithoutSupervisorInput = {
 export type EmployeeCreateWithoutManagedDepartmentsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -5542,12 +5686,16 @@ export type EmployeeCreateWithoutManagedDepartmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutManagedDepartmentsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -5681,6 +5829,9 @@ export type EmployeeUncheckedCreateWithoutManagedDepartmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutManagedDepartmentsInput = {
@@ -5691,6 +5842,7 @@ export type EmployeeCreateOrConnectWithoutManagedDepartmentsInput = {
 export type EmployeeCreateWithoutDepartmentInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -5825,12 +5977,16 @@ export type EmployeeCreateWithoutDepartmentInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutDepartmentInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -5964,6 +6120,9 @@ export type EmployeeUncheckedCreateWithoutDepartmentInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutDepartmentInput = {
@@ -5990,6 +6149,7 @@ export type EmployeeUpdateToOneWithWhereWithoutManagedDepartmentsInput = {
 export type EmployeeUpdateWithoutManagedDepartmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6124,12 +6284,16 @@ export type EmployeeUpdateWithoutManagedDepartmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutManagedDepartmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6263,6 +6427,9 @@ export type EmployeeUncheckedUpdateWithoutManagedDepartmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUpsertWithWhereUniqueWithoutDepartmentInput = {
@@ -6284,6 +6451,7 @@ export type EmployeeUpdateManyWithWhereWithoutDepartmentInput = {
 export type EmployeeCreateWithoutPositionInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -6418,12 +6586,16 @@ export type EmployeeCreateWithoutPositionInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutPositionInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -6557,6 +6729,9 @@ export type EmployeeUncheckedCreateWithoutPositionInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutPositionInput = {
@@ -6588,6 +6763,7 @@ export type EmployeeUpdateManyWithWhereWithoutPositionInput = {
 export type EmployeeCreateWithoutTimeEntriesInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -6722,12 +6898,16 @@ export type EmployeeCreateWithoutTimeEntriesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutTimeEntriesInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -6861,6 +7041,9 @@ export type EmployeeUncheckedCreateWithoutTimeEntriesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutTimeEntriesInput = {
@@ -6882,6 +7065,7 @@ export type EmployeeUpdateToOneWithWhereWithoutTimeEntriesInput = {
 export type EmployeeUpdateWithoutTimeEntriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7016,12 +7200,16 @@ export type EmployeeUpdateWithoutTimeEntriesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutTimeEntriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7155,11 +7343,15 @@ export type EmployeeUncheckedUpdateWithoutTimeEntriesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutShiftAssignmentsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -7294,12 +7486,16 @@ export type EmployeeCreateWithoutShiftAssignmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutShiftAssignmentsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -7433,6 +7629,9 @@ export type EmployeeUncheckedCreateWithoutShiftAssignmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutShiftAssignmentsInput = {
@@ -7454,6 +7653,7 @@ export type EmployeeUpdateToOneWithWhereWithoutShiftAssignmentsInput = {
 export type EmployeeUpdateWithoutShiftAssignmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7588,12 +7788,16 @@ export type EmployeeUpdateWithoutShiftAssignmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutShiftAssignmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7727,11 +7931,15 @@ export type EmployeeUncheckedUpdateWithoutShiftAssignmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutOvertimeInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -7866,12 +8074,16 @@ export type EmployeeCreateWithoutOvertimeInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutOvertimeInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -8005,6 +8217,9 @@ export type EmployeeUncheckedCreateWithoutOvertimeInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutOvertimeInput = {
@@ -8026,6 +8241,7 @@ export type EmployeeUpdateToOneWithWhereWithoutOvertimeInput = {
 export type EmployeeUpdateWithoutOvertimeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8160,12 +8376,16 @@ export type EmployeeUpdateWithoutOvertimeInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutOvertimeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8299,11 +8519,15 @@ export type EmployeeUncheckedUpdateWithoutOvertimeInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutTimeBanksInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -8438,12 +8662,16 @@ export type EmployeeCreateWithoutTimeBanksInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutTimeBanksInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -8577,6 +8805,9 @@ export type EmployeeUncheckedCreateWithoutTimeBanksInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutTimeBanksInput = {
@@ -8598,6 +8829,7 @@ export type EmployeeUpdateToOneWithWhereWithoutTimeBanksInput = {
 export type EmployeeUpdateWithoutTimeBanksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8732,12 +8964,16 @@ export type EmployeeUpdateWithoutTimeBanksInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutTimeBanksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8871,11 +9107,15 @@ export type EmployeeUncheckedUpdateWithoutTimeBanksInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutAbsencesInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -9010,12 +9250,16 @@ export type EmployeeCreateWithoutAbsencesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutAbsencesInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -9149,6 +9393,9 @@ export type EmployeeUncheckedCreateWithoutAbsencesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutAbsencesInput = {
@@ -9170,6 +9417,7 @@ export type EmployeeUpdateToOneWithWhereWithoutAbsencesInput = {
 export type EmployeeUpdateWithoutAbsencesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9304,12 +9552,16 @@ export type EmployeeUpdateWithoutAbsencesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutAbsencesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9443,11 +9695,15 @@ export type EmployeeUncheckedUpdateWithoutAbsencesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutVacationPeriodsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -9582,12 +9838,16 @@ export type EmployeeCreateWithoutVacationPeriodsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutVacationPeriodsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -9721,6 +9981,9 @@ export type EmployeeUncheckedCreateWithoutVacationPeriodsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutVacationPeriodsInput = {
@@ -9742,6 +10005,7 @@ export type EmployeeUpdateToOneWithWhereWithoutVacationPeriodsInput = {
 export type EmployeeUpdateWithoutVacationPeriodsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9876,12 +10140,16 @@ export type EmployeeUpdateWithoutVacationPeriodsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutVacationPeriodsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10015,11 +10283,15 @@ export type EmployeeUncheckedUpdateWithoutVacationPeriodsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutPayrollItemsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -10154,12 +10426,16 @@ export type EmployeeCreateWithoutPayrollItemsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutPayrollItemsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -10293,6 +10569,9 @@ export type EmployeeUncheckedCreateWithoutPayrollItemsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutPayrollItemsInput = {
@@ -10314,6 +10593,7 @@ export type EmployeeUpdateToOneWithWhereWithoutPayrollItemsInput = {
 export type EmployeeUpdateWithoutPayrollItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10448,12 +10728,16 @@ export type EmployeeUpdateWithoutPayrollItemsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutPayrollItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10587,11 +10871,15 @@ export type EmployeeUncheckedUpdateWithoutPayrollItemsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutBonusesInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -10726,12 +11014,16 @@ export type EmployeeCreateWithoutBonusesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutBonusesInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -10865,6 +11157,9 @@ export type EmployeeUncheckedCreateWithoutBonusesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutBonusesInput = {
@@ -10886,6 +11181,7 @@ export type EmployeeUpdateToOneWithWhereWithoutBonusesInput = {
 export type EmployeeUpdateWithoutBonusesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11020,12 +11316,16 @@ export type EmployeeUpdateWithoutBonusesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutBonusesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11159,11 +11459,15 @@ export type EmployeeUncheckedUpdateWithoutBonusesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutDeductionsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -11298,12 +11602,16 @@ export type EmployeeCreateWithoutDeductionsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutDeductionsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -11437,6 +11745,9 @@ export type EmployeeUncheckedCreateWithoutDeductionsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutDeductionsInput = {
@@ -11458,6 +11769,7 @@ export type EmployeeUpdateToOneWithWhereWithoutDeductionsInput = {
 export type EmployeeUpdateWithoutDeductionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11592,12 +11904,16 @@ export type EmployeeUpdateWithoutDeductionsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutDeductionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11731,11 +12047,15 @@ export type EmployeeUncheckedUpdateWithoutDeductionsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutWarningsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -11870,12 +12190,16 @@ export type EmployeeCreateWithoutWarningsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutWarningsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -12009,6 +12333,9 @@ export type EmployeeUncheckedCreateWithoutWarningsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutWarningsInput = {
@@ -12019,6 +12346,7 @@ export type EmployeeCreateOrConnectWithoutWarningsInput = {
 export type EmployeeCreateWithoutIssuedWarningsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -12153,12 +12481,16 @@ export type EmployeeCreateWithoutIssuedWarningsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutIssuedWarningsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -12292,6 +12624,9 @@ export type EmployeeUncheckedCreateWithoutIssuedWarningsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutIssuedWarningsInput = {
@@ -12313,6 +12648,7 @@ export type EmployeeUpdateToOneWithWhereWithoutWarningsInput = {
 export type EmployeeUpdateWithoutWarningsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12447,12 +12783,16 @@ export type EmployeeUpdateWithoutWarningsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutWarningsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12586,6 +12926,9 @@ export type EmployeeUncheckedUpdateWithoutWarningsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUpsertWithoutIssuedWarningsInput = {
@@ -12602,6 +12945,7 @@ export type EmployeeUpdateToOneWithWhereWithoutIssuedWarningsInput = {
 export type EmployeeUpdateWithoutIssuedWarningsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12736,12 +13080,16 @@ export type EmployeeUpdateWithoutIssuedWarningsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutIssuedWarningsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12875,11 +13223,15 @@ export type EmployeeUncheckedUpdateWithoutIssuedWarningsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutDependantsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -13014,12 +13366,16 @@ export type EmployeeCreateWithoutDependantsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutDependantsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -13153,6 +13509,9 @@ export type EmployeeUncheckedCreateWithoutDependantsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutDependantsInput = {
@@ -13174,6 +13533,7 @@ export type EmployeeUpdateToOneWithWhereWithoutDependantsInput = {
 export type EmployeeUpdateWithoutDependantsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13308,12 +13668,16 @@ export type EmployeeUpdateWithoutDependantsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutDependantsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13447,11 +13811,15 @@ export type EmployeeUncheckedUpdateWithoutDependantsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutTerminationInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -13586,12 +13954,16 @@ export type EmployeeCreateWithoutTerminationInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutTerminationInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -13725,6 +14097,9 @@ export type EmployeeUncheckedCreateWithoutTerminationInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutTerminationInput = {
@@ -13746,6 +14121,7 @@ export type EmployeeUpdateToOneWithWhereWithoutTerminationInput = {
 export type EmployeeUpdateWithoutTerminationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13880,12 +14256,16 @@ export type EmployeeUpdateWithoutTerminationInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutTerminationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -14019,11 +14399,15 @@ export type EmployeeUncheckedUpdateWithoutTerminationInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutMedicalExamsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -14158,12 +14542,16 @@ export type EmployeeCreateWithoutMedicalExamsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutMedicalExamsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -14297,6 +14685,9 @@ export type EmployeeUncheckedCreateWithoutMedicalExamsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutMedicalExamsInput = {
@@ -14318,6 +14709,7 @@ export type EmployeeUpdateToOneWithWhereWithoutMedicalExamsInput = {
 export type EmployeeUpdateWithoutMedicalExamsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14452,12 +14844,16 @@ export type EmployeeUpdateWithoutMedicalExamsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutMedicalExamsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -14591,11 +14987,15 @@ export type EmployeeUncheckedUpdateWithoutMedicalExamsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutCipaMembersInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -14730,12 +15130,16 @@ export type EmployeeCreateWithoutCipaMembersInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutCipaMembersInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -14869,6 +15273,9 @@ export type EmployeeUncheckedCreateWithoutCipaMembersInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutCipaMembersInput = {
@@ -14890,6 +15297,7 @@ export type EmployeeUpdateToOneWithWhereWithoutCipaMembersInput = {
 export type EmployeeUpdateWithoutCipaMembersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15024,12 +15432,16 @@ export type EmployeeUpdateWithoutCipaMembersInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutCipaMembersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -15163,11 +15575,15 @@ export type EmployeeUncheckedUpdateWithoutCipaMembersInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutBenefitEnrollmentsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -15302,12 +15718,16 @@ export type EmployeeCreateWithoutBenefitEnrollmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutBenefitEnrollmentsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -15441,6 +15861,9 @@ export type EmployeeUncheckedCreateWithoutBenefitEnrollmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutBenefitEnrollmentsInput = {
@@ -15462,6 +15885,7 @@ export type EmployeeUpdateToOneWithWhereWithoutBenefitEnrollmentsInput = {
 export type EmployeeUpdateWithoutBenefitEnrollmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15596,12 +16020,16 @@ export type EmployeeUpdateWithoutBenefitEnrollmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutBenefitEnrollmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -15735,11 +16163,15 @@ export type EmployeeUncheckedUpdateWithoutBenefitEnrollmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutTrainingEnrollmentsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -15874,12 +16306,16 @@ export type EmployeeCreateWithoutTrainingEnrollmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutTrainingEnrollmentsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -16013,6 +16449,9 @@ export type EmployeeUncheckedCreateWithoutTrainingEnrollmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutTrainingEnrollmentsInput = {
@@ -16034,6 +16473,7 @@ export type EmployeeUpdateToOneWithWhereWithoutTrainingEnrollmentsInput = {
 export type EmployeeUpdateWithoutTrainingEnrollmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -16168,12 +16608,16 @@ export type EmployeeUpdateWithoutTrainingEnrollmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutTrainingEnrollmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -16307,11 +16751,15 @@ export type EmployeeUncheckedUpdateWithoutTrainingEnrollmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutPerformanceReviewsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -16446,12 +16894,16 @@ export type EmployeeCreateWithoutPerformanceReviewsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutPerformanceReviewsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -16585,6 +17037,9 @@ export type EmployeeUncheckedCreateWithoutPerformanceReviewsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutPerformanceReviewsInput = {
@@ -16595,6 +17050,7 @@ export type EmployeeCreateOrConnectWithoutPerformanceReviewsInput = {
 export type EmployeeCreateWithoutConductedPerformanceReviewsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -16729,12 +17185,16 @@ export type EmployeeCreateWithoutConductedPerformanceReviewsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutConductedPerformanceReviewsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -16868,6 +17328,9 @@ export type EmployeeUncheckedCreateWithoutConductedPerformanceReviewsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutConductedPerformanceReviewsInput = {
@@ -16889,6 +17352,7 @@ export type EmployeeUpdateToOneWithWhereWithoutPerformanceReviewsInput = {
 export type EmployeeUpdateWithoutPerformanceReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17023,12 +17487,16 @@ export type EmployeeUpdateWithoutPerformanceReviewsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutPerformanceReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -17162,6 +17630,9 @@ export type EmployeeUncheckedUpdateWithoutPerformanceReviewsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUpsertWithoutConductedPerformanceReviewsInput = {
@@ -17178,6 +17649,7 @@ export type EmployeeUpdateToOneWithWhereWithoutConductedPerformanceReviewsInput 
 export type EmployeeUpdateWithoutConductedPerformanceReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17312,12 +17784,16 @@ export type EmployeeUpdateWithoutConductedPerformanceReviewsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutConductedPerformanceReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -17451,11 +17927,15 @@ export type EmployeeUncheckedUpdateWithoutConductedPerformanceReviewsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutCreatedSurveysInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -17590,12 +18070,16 @@ export type EmployeeCreateWithoutCreatedSurveysInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutCreatedSurveysInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -17729,6 +18213,9 @@ export type EmployeeUncheckedCreateWithoutCreatedSurveysInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutCreatedSurveysInput = {
@@ -17750,6 +18237,7 @@ export type EmployeeUpdateToOneWithWhereWithoutCreatedSurveysInput = {
 export type EmployeeUpdateWithoutCreatedSurveysInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17884,12 +18372,16 @@ export type EmployeeUpdateWithoutCreatedSurveysInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutCreatedSurveysInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -18023,11 +18515,15 @@ export type EmployeeUncheckedUpdateWithoutCreatedSurveysInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutSurveyResponsesInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -18162,12 +18658,16 @@ export type EmployeeCreateWithoutSurveyResponsesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutSurveyResponsesInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -18301,6 +18801,9 @@ export type EmployeeUncheckedCreateWithoutSurveyResponsesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutSurveyResponsesInput = {
@@ -18322,6 +18825,7 @@ export type EmployeeUpdateToOneWithWhereWithoutSurveyResponsesInput = {
 export type EmployeeUpdateWithoutSurveyResponsesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -18456,12 +18960,16 @@ export type EmployeeUpdateWithoutSurveyResponsesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutSurveyResponsesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -18595,11 +19103,15 @@ export type EmployeeUncheckedUpdateWithoutSurveyResponsesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutOwnedObjectivesInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -18734,12 +19246,16 @@ export type EmployeeCreateWithoutOwnedObjectivesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutOwnedObjectivesInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -18873,6 +19389,9 @@ export type EmployeeUncheckedCreateWithoutOwnedObjectivesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutOwnedObjectivesInput = {
@@ -18894,6 +19413,7 @@ export type EmployeeUpdateToOneWithWhereWithoutOwnedObjectivesInput = {
 export type EmployeeUpdateWithoutOwnedObjectivesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19028,12 +19548,16 @@ export type EmployeeUpdateWithoutOwnedObjectivesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutOwnedObjectivesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -19167,11 +19691,15 @@ export type EmployeeUncheckedUpdateWithoutOwnedObjectivesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutOkrCheckInsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -19306,12 +19834,16 @@ export type EmployeeCreateWithoutOkrCheckInsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutOkrCheckInsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -19445,6 +19977,9 @@ export type EmployeeUncheckedCreateWithoutOkrCheckInsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutOkrCheckInsInput = {
@@ -19466,6 +20001,7 @@ export type EmployeeUpdateToOneWithWhereWithoutOkrCheckInsInput = {
 export type EmployeeUpdateWithoutOkrCheckInsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19600,12 +20136,16 @@ export type EmployeeUpdateWithoutOkrCheckInsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutOkrCheckInsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -19739,11 +20279,15 @@ export type EmployeeUncheckedUpdateWithoutOkrCheckInsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutFlexBenefitAllocationsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -19878,12 +20422,16 @@ export type EmployeeCreateWithoutFlexBenefitAllocationsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutFlexBenefitAllocationsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -20017,6 +20565,9 @@ export type EmployeeUncheckedCreateWithoutFlexBenefitAllocationsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutFlexBenefitAllocationsInput = {
@@ -20038,6 +20589,7 @@ export type EmployeeUpdateToOneWithWhereWithoutFlexBenefitAllocationsInput = {
 export type EmployeeUpdateWithoutFlexBenefitAllocationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20172,12 +20724,16 @@ export type EmployeeUpdateWithoutFlexBenefitAllocationsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutFlexBenefitAllocationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -20311,11 +20867,15 @@ export type EmployeeUncheckedUpdateWithoutFlexBenefitAllocationsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutCompanyInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -20450,12 +21010,16 @@ export type EmployeeCreateWithoutCompanyInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutCompanyInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -20589,6 +21153,9 @@ export type EmployeeUncheckedCreateWithoutCompanyInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutCompanyInput = {
@@ -20620,6 +21187,7 @@ export type EmployeeUpdateManyWithWhereWithoutCompanyInput = {
 export type EmployeeCreateWithoutTenantInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -20754,11 +21322,15 @@ export type EmployeeCreateWithoutTenantInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutTenantInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -20893,6 +21465,9 @@ export type EmployeeUncheckedCreateWithoutTenantInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutTenantInput = {
@@ -20921,9 +21496,1186 @@ export type EmployeeUpdateManyWithWhereWithoutTenantInput = {
   data: Prisma.XOR<Prisma.EmployeeUpdateManyMutationInput, Prisma.EmployeeUncheckedUpdateManyWithoutTenantInput>
 }
 
+export type EmployeeCreateWithoutOrdersAsOperatorInput = {
+  id?: string
+  registrationNumber: string
+  shortId?: string | null
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
+  user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
+  position?: Prisma.PositionCreateNestedOneWithoutEmployeesInput
+  supervisor?: Prisma.EmployeeCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.EmployeeCreateNestedManyWithoutSupervisorInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutEmployeesInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
+  warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
+  onboardingChecklists?: Prisma.OnboardingChecklistCreateNestedManyWithoutEmployeeInput
+  offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  ppeAssignments?: Prisma.PPEAssignmentCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
+  createdSurveys?: Prisma.SurveyCreateNestedManyWithoutCreatorInput
+  surveyResponses?: Prisma.SurveyResponseCreateNestedManyWithoutEmployeeInput
+  ownedObjectives?: Prisma.ObjectiveCreateNestedManyWithoutOwnerInput
+  okrCheckIns?: Prisma.OKRCheckInCreateNestedManyWithoutEmployeeInput
+  conductedInterviews?: Prisma.InterviewCreateNestedManyWithoutInterviewerInput
+  salaryHistory?: Prisma.SalaryHistoryCreateNestedManyWithoutEmployeeInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingCreateNestedManyWithoutManagerInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingCreateNestedManyWithoutReportInput
+  addedTalkingPoints?: Prisma.TalkingPointCreateNestedManyWithoutAddedByInput
+  ownedActionItems?: Prisma.OneOnOneActionItemCreateNestedManyWithoutOwnerInput
+  kudosReactions?: Prisma.KudosReactionCreateNestedManyWithoutEmployeeInput
+  kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
+  punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeUncheckedCreateWithoutOrdersAsOperatorInput = {
+  id?: string
+  tenantId: string
+  registrationNumber: string
+  shortId?: string | null
+  userId?: string | null
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  departmentId?: string | null
+  positionId?: string | null
+  supervisorId?: string | null
+  organizationId?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
+  subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+  warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
+  onboardingChecklists?: Prisma.OnboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  ppeAssignments?: Prisma.PPEAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
+  createdSurveys?: Prisma.SurveyUncheckedCreateNestedManyWithoutCreatorInput
+  surveyResponses?: Prisma.SurveyResponseUncheckedCreateNestedManyWithoutEmployeeInput
+  ownedObjectives?: Prisma.ObjectiveUncheckedCreateNestedManyWithoutOwnerInput
+  okrCheckIns?: Prisma.OKRCheckInUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedInterviews?: Prisma.InterviewUncheckedCreateNestedManyWithoutInterviewerInput
+  salaryHistory?: Prisma.SalaryHistoryUncheckedCreateNestedManyWithoutEmployeeInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingUncheckedCreateNestedManyWithoutManagerInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingUncheckedCreateNestedManyWithoutReportInput
+  addedTalkingPoints?: Prisma.TalkingPointUncheckedCreateNestedManyWithoutAddedByInput
+  ownedActionItems?: Prisma.OneOnOneActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  kudosReactions?: Prisma.KudosReactionUncheckedCreateNestedManyWithoutEmployeeInput
+  kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
+  punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeCreateOrConnectWithoutOrdersAsOperatorInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutOrdersAsOperatorInput, Prisma.EmployeeUncheckedCreateWithoutOrdersAsOperatorInput>
+}
+
+export type EmployeeUpsertWithoutOrdersAsOperatorInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutOrdersAsOperatorInput, Prisma.EmployeeUncheckedUpdateWithoutOrdersAsOperatorInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutOrdersAsOperatorInput, Prisma.EmployeeUncheckedCreateWithoutOrdersAsOperatorInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutOrdersAsOperatorInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutOrdersAsOperatorInput, Prisma.EmployeeUncheckedUpdateWithoutOrdersAsOperatorInput>
+}
+
+export type EmployeeUpdateWithoutOrdersAsOperatorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
+  user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutEmployeesNestedInput
+  supervisor?: Prisma.EmployeeUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.EmployeeUpdateManyWithoutSupervisorNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutEmployeesNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
+  warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
+  onboardingChecklists?: Prisma.OnboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  ppeAssignments?: Prisma.PPEAssignmentUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
+  createdSurveys?: Prisma.SurveyUpdateManyWithoutCreatorNestedInput
+  surveyResponses?: Prisma.SurveyResponseUpdateManyWithoutEmployeeNestedInput
+  ownedObjectives?: Prisma.ObjectiveUpdateManyWithoutOwnerNestedInput
+  okrCheckIns?: Prisma.OKRCheckInUpdateManyWithoutEmployeeNestedInput
+  conductedInterviews?: Prisma.InterviewUpdateManyWithoutInterviewerNestedInput
+  salaryHistory?: Prisma.SalaryHistoryUpdateManyWithoutEmployeeNestedInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingUpdateManyWithoutManagerNestedInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingUpdateManyWithoutReportNestedInput
+  addedTalkingPoints?: Prisma.TalkingPointUpdateManyWithoutAddedByNestedInput
+  ownedActionItems?: Prisma.OneOnOneActionItemUpdateManyWithoutOwnerNestedInput
+  kudosReactions?: Prisma.KudosReactionUpdateManyWithoutEmployeeNestedInput
+  kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
+  punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutOrdersAsOperatorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supervisorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+  warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
+  onboardingChecklists?: Prisma.OnboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  ppeAssignments?: Prisma.PPEAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
+  createdSurveys?: Prisma.SurveyUncheckedUpdateManyWithoutCreatorNestedInput
+  surveyResponses?: Prisma.SurveyResponseUncheckedUpdateManyWithoutEmployeeNestedInput
+  ownedObjectives?: Prisma.ObjectiveUncheckedUpdateManyWithoutOwnerNestedInput
+  okrCheckIns?: Prisma.OKRCheckInUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedInterviews?: Prisma.InterviewUncheckedUpdateManyWithoutInterviewerNestedInput
+  salaryHistory?: Prisma.SalaryHistoryUncheckedUpdateManyWithoutEmployeeNestedInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingUncheckedUpdateManyWithoutManagerNestedInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingUncheckedUpdateManyWithoutReportNestedInput
+  addedTalkingPoints?: Prisma.TalkingPointUncheckedUpdateManyWithoutAddedByNestedInput
+  ownedActionItems?: Prisma.OneOnOneActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  kudosReactions?: Prisma.KudosReactionUncheckedUpdateManyWithoutEmployeeNestedInput
+  kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeCreateWithoutPosTerminalOperatorsInput = {
+  id?: string
+  registrationNumber: string
+  shortId?: string | null
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
+  user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
+  position?: Prisma.PositionCreateNestedOneWithoutEmployeesInput
+  supervisor?: Prisma.EmployeeCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.EmployeeCreateNestedManyWithoutSupervisorInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutEmployeesInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
+  warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
+  onboardingChecklists?: Prisma.OnboardingChecklistCreateNestedManyWithoutEmployeeInput
+  offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  ppeAssignments?: Prisma.PPEAssignmentCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
+  createdSurveys?: Prisma.SurveyCreateNestedManyWithoutCreatorInput
+  surveyResponses?: Prisma.SurveyResponseCreateNestedManyWithoutEmployeeInput
+  ownedObjectives?: Prisma.ObjectiveCreateNestedManyWithoutOwnerInput
+  okrCheckIns?: Prisma.OKRCheckInCreateNestedManyWithoutEmployeeInput
+  conductedInterviews?: Prisma.InterviewCreateNestedManyWithoutInterviewerInput
+  salaryHistory?: Prisma.SalaryHistoryCreateNestedManyWithoutEmployeeInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingCreateNestedManyWithoutManagerInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingCreateNestedManyWithoutReportInput
+  addedTalkingPoints?: Prisma.TalkingPointCreateNestedManyWithoutAddedByInput
+  ownedActionItems?: Prisma.OneOnOneActionItemCreateNestedManyWithoutOwnerInput
+  kudosReactions?: Prisma.KudosReactionCreateNestedManyWithoutEmployeeInput
+  kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
+  punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+}
+
+export type EmployeeUncheckedCreateWithoutPosTerminalOperatorsInput = {
+  id?: string
+  tenantId: string
+  registrationNumber: string
+  shortId?: string | null
+  userId?: string | null
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  departmentId?: string | null
+  positionId?: string | null
+  supervisorId?: string | null
+  organizationId?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
+  subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+  warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
+  onboardingChecklists?: Prisma.OnboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  ppeAssignments?: Prisma.PPEAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
+  createdSurveys?: Prisma.SurveyUncheckedCreateNestedManyWithoutCreatorInput
+  surveyResponses?: Prisma.SurveyResponseUncheckedCreateNestedManyWithoutEmployeeInput
+  ownedObjectives?: Prisma.ObjectiveUncheckedCreateNestedManyWithoutOwnerInput
+  okrCheckIns?: Prisma.OKRCheckInUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedInterviews?: Prisma.InterviewUncheckedCreateNestedManyWithoutInterviewerInput
+  salaryHistory?: Prisma.SalaryHistoryUncheckedCreateNestedManyWithoutEmployeeInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingUncheckedCreateNestedManyWithoutManagerInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingUncheckedCreateNestedManyWithoutReportInput
+  addedTalkingPoints?: Prisma.TalkingPointUncheckedCreateNestedManyWithoutAddedByInput
+  ownedActionItems?: Prisma.OneOnOneActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  kudosReactions?: Prisma.KudosReactionUncheckedCreateNestedManyWithoutEmployeeInput
+  kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
+  punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+}
+
+export type EmployeeCreateOrConnectWithoutPosTerminalOperatorsInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutPosTerminalOperatorsInput, Prisma.EmployeeUncheckedCreateWithoutPosTerminalOperatorsInput>
+}
+
+export type EmployeeUpsertWithoutPosTerminalOperatorsInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutPosTerminalOperatorsInput, Prisma.EmployeeUncheckedUpdateWithoutPosTerminalOperatorsInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutPosTerminalOperatorsInput, Prisma.EmployeeUncheckedCreateWithoutPosTerminalOperatorsInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutPosTerminalOperatorsInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutPosTerminalOperatorsInput, Prisma.EmployeeUncheckedUpdateWithoutPosTerminalOperatorsInput>
+}
+
+export type EmployeeUpdateWithoutPosTerminalOperatorsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
+  user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutEmployeesNestedInput
+  supervisor?: Prisma.EmployeeUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.EmployeeUpdateManyWithoutSupervisorNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutEmployeesNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
+  warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
+  onboardingChecklists?: Prisma.OnboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  ppeAssignments?: Prisma.PPEAssignmentUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
+  createdSurveys?: Prisma.SurveyUpdateManyWithoutCreatorNestedInput
+  surveyResponses?: Prisma.SurveyResponseUpdateManyWithoutEmployeeNestedInput
+  ownedObjectives?: Prisma.ObjectiveUpdateManyWithoutOwnerNestedInput
+  okrCheckIns?: Prisma.OKRCheckInUpdateManyWithoutEmployeeNestedInput
+  conductedInterviews?: Prisma.InterviewUpdateManyWithoutInterviewerNestedInput
+  salaryHistory?: Prisma.SalaryHistoryUpdateManyWithoutEmployeeNestedInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingUpdateManyWithoutManagerNestedInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingUpdateManyWithoutReportNestedInput
+  addedTalkingPoints?: Prisma.TalkingPointUpdateManyWithoutAddedByNestedInput
+  ownedActionItems?: Prisma.OneOnOneActionItemUpdateManyWithoutOwnerNestedInput
+  kudosReactions?: Prisma.KudosReactionUpdateManyWithoutEmployeeNestedInput
+  kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
+  punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutPosTerminalOperatorsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supervisorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+  warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
+  onboardingChecklists?: Prisma.OnboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  ppeAssignments?: Prisma.PPEAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
+  createdSurveys?: Prisma.SurveyUncheckedUpdateManyWithoutCreatorNestedInput
+  surveyResponses?: Prisma.SurveyResponseUncheckedUpdateManyWithoutEmployeeNestedInput
+  ownedObjectives?: Prisma.ObjectiveUncheckedUpdateManyWithoutOwnerNestedInput
+  okrCheckIns?: Prisma.OKRCheckInUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedInterviews?: Prisma.InterviewUncheckedUpdateManyWithoutInterviewerNestedInput
+  salaryHistory?: Prisma.SalaryHistoryUncheckedUpdateManyWithoutEmployeeNestedInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingUncheckedUpdateManyWithoutManagerNestedInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingUncheckedUpdateManyWithoutReportNestedInput
+  addedTalkingPoints?: Prisma.TalkingPointUncheckedUpdateManyWithoutAddedByNestedInput
+  ownedActionItems?: Prisma.OneOnOneActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  kudosReactions?: Prisma.KudosReactionUncheckedUpdateManyWithoutEmployeeNestedInput
+  kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+}
+
 export type EmployeeCreateWithoutOnboardingChecklistsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -21058,12 +22810,16 @@ export type EmployeeCreateWithoutOnboardingChecklistsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutOnboardingChecklistsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -21197,6 +22953,9 @@ export type EmployeeUncheckedCreateWithoutOnboardingChecklistsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutOnboardingChecklistsInput = {
@@ -21218,6 +22977,7 @@ export type EmployeeUpdateToOneWithWhereWithoutOnboardingChecklistsInput = {
 export type EmployeeUpdateWithoutOnboardingChecklistsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21352,12 +23112,16 @@ export type EmployeeUpdateWithoutOnboardingChecklistsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutOnboardingChecklistsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -21491,11 +23255,15 @@ export type EmployeeUncheckedUpdateWithoutOnboardingChecklistsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutPpeAssignmentsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -21630,12 +23398,16 @@ export type EmployeeCreateWithoutPpeAssignmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutPpeAssignmentsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -21769,6 +23541,9 @@ export type EmployeeUncheckedCreateWithoutPpeAssignmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutPpeAssignmentsInput = {
@@ -21790,6 +23565,7 @@ export type EmployeeUpdateToOneWithWhereWithoutPpeAssignmentsInput = {
 export type EmployeeUpdateWithoutPpeAssignmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21924,12 +23700,16 @@ export type EmployeeUpdateWithoutPpeAssignmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutPpeAssignmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -22063,11 +23843,15 @@ export type EmployeeUncheckedUpdateWithoutPpeAssignmentsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutOffboardingChecklistsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -22202,12 +23986,16 @@ export type EmployeeCreateWithoutOffboardingChecklistsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutOffboardingChecklistsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -22341,6 +24129,9 @@ export type EmployeeUncheckedCreateWithoutOffboardingChecklistsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutOffboardingChecklistsInput = {
@@ -22362,6 +24153,7 @@ export type EmployeeUpdateToOneWithWhereWithoutOffboardingChecklistsInput = {
 export type EmployeeUpdateWithoutOffboardingChecklistsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22496,12 +24288,16 @@ export type EmployeeUpdateWithoutOffboardingChecklistsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutOffboardingChecklistsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -22635,11 +24431,15 @@ export type EmployeeUncheckedUpdateWithoutOffboardingChecklistsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutKudosReactionsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -22774,12 +24574,16 @@ export type EmployeeCreateWithoutKudosReactionsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutKudosReactionsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -22913,6 +24717,9 @@ export type EmployeeUncheckedCreateWithoutKudosReactionsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutKudosReactionsInput = {
@@ -22934,6 +24741,7 @@ export type EmployeeUpdateToOneWithWhereWithoutKudosReactionsInput = {
 export type EmployeeUpdateWithoutKudosReactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -23068,12 +24876,16 @@ export type EmployeeUpdateWithoutKudosReactionsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutKudosReactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -23207,11 +25019,15 @@ export type EmployeeUncheckedUpdateWithoutKudosReactionsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutKudosRepliesInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -23346,12 +25162,16 @@ export type EmployeeCreateWithoutKudosRepliesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutKudosRepliesInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -23485,6 +25305,9 @@ export type EmployeeUncheckedCreateWithoutKudosRepliesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutKudosRepliesInput = {
@@ -23506,6 +25329,7 @@ export type EmployeeUpdateToOneWithWhereWithoutKudosRepliesInput = {
 export type EmployeeUpdateWithoutKudosRepliesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -23640,12 +25464,16 @@ export type EmployeeUpdateWithoutKudosRepliesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutKudosRepliesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -23779,11 +25607,15 @@ export type EmployeeUncheckedUpdateWithoutKudosRepliesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutAnnouncementReadReceiptsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -23918,12 +25750,16 @@ export type EmployeeCreateWithoutAnnouncementReadReceiptsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutAnnouncementReadReceiptsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -24057,6 +25893,9 @@ export type EmployeeUncheckedCreateWithoutAnnouncementReadReceiptsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutAnnouncementReadReceiptsInput = {
@@ -24078,6 +25917,7 @@ export type EmployeeUpdateToOneWithWhereWithoutAnnouncementReadReceiptsInput = {
 export type EmployeeUpdateWithoutAnnouncementReadReceiptsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -24212,12 +26052,16 @@ export type EmployeeUpdateWithoutAnnouncementReadReceiptsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutAnnouncementReadReceiptsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -24351,11 +26195,15 @@ export type EmployeeUncheckedUpdateWithoutAnnouncementReadReceiptsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutSalaryHistoryInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -24490,12 +26338,16 @@ export type EmployeeCreateWithoutSalaryHistoryInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutSalaryHistoryInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -24629,6 +26481,9 @@ export type EmployeeUncheckedCreateWithoutSalaryHistoryInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutSalaryHistoryInput = {
@@ -24650,6 +26505,7 @@ export type EmployeeUpdateToOneWithWhereWithoutSalaryHistoryInput = {
 export type EmployeeUpdateWithoutSalaryHistoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -24784,12 +26640,16 @@ export type EmployeeUpdateWithoutSalaryHistoryInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutSalaryHistoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -24923,11 +26783,15 @@ export type EmployeeUncheckedUpdateWithoutSalaryHistoryInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutManagerOneOnOnesInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -25062,12 +26926,16 @@ export type EmployeeCreateWithoutManagerOneOnOnesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutManagerOneOnOnesInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -25201,6 +27069,9 @@ export type EmployeeUncheckedCreateWithoutManagerOneOnOnesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutManagerOneOnOnesInput = {
@@ -25211,6 +27082,7 @@ export type EmployeeCreateOrConnectWithoutManagerOneOnOnesInput = {
 export type EmployeeCreateWithoutReportOneOnOnesInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -25345,12 +27217,16 @@ export type EmployeeCreateWithoutReportOneOnOnesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutReportOneOnOnesInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -25484,6 +27360,9 @@ export type EmployeeUncheckedCreateWithoutReportOneOnOnesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutReportOneOnOnesInput = {
@@ -25505,6 +27384,7 @@ export type EmployeeUpdateToOneWithWhereWithoutManagerOneOnOnesInput = {
 export type EmployeeUpdateWithoutManagerOneOnOnesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -25639,12 +27519,16 @@ export type EmployeeUpdateWithoutManagerOneOnOnesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutManagerOneOnOnesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -25778,6 +27662,9 @@ export type EmployeeUncheckedUpdateWithoutManagerOneOnOnesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUpsertWithoutReportOneOnOnesInput = {
@@ -25794,6 +27681,7 @@ export type EmployeeUpdateToOneWithWhereWithoutReportOneOnOnesInput = {
 export type EmployeeUpdateWithoutReportOneOnOnesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -25928,12 +27816,16 @@ export type EmployeeUpdateWithoutReportOneOnOnesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutReportOneOnOnesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -26067,11 +27959,15 @@ export type EmployeeUncheckedUpdateWithoutReportOneOnOnesInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutAddedTalkingPointsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -26206,12 +28102,16 @@ export type EmployeeCreateWithoutAddedTalkingPointsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutAddedTalkingPointsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -26345,6 +28245,9 @@ export type EmployeeUncheckedCreateWithoutAddedTalkingPointsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutAddedTalkingPointsInput = {
@@ -26366,6 +28269,7 @@ export type EmployeeUpdateToOneWithWhereWithoutAddedTalkingPointsInput = {
 export type EmployeeUpdateWithoutAddedTalkingPointsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -26500,12 +28404,16 @@ export type EmployeeUpdateWithoutAddedTalkingPointsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutAddedTalkingPointsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -26639,11 +28547,15 @@ export type EmployeeUncheckedUpdateWithoutAddedTalkingPointsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutOwnedActionItemsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -26778,12 +28690,16 @@ export type EmployeeCreateWithoutOwnedActionItemsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutOwnedActionItemsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -26917,6 +28833,9 @@ export type EmployeeUncheckedCreateWithoutOwnedActionItemsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutOwnedActionItemsInput = {
@@ -26938,6 +28857,7 @@ export type EmployeeUpdateToOneWithWhereWithoutOwnedActionItemsInput = {
 export type EmployeeUpdateWithoutOwnedActionItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -27072,12 +28992,16 @@ export type EmployeeUpdateWithoutOwnedActionItemsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutOwnedActionItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -27211,11 +29135,15 @@ export type EmployeeUncheckedUpdateWithoutOwnedActionItemsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutDelegationsGivenInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -27350,12 +29278,16 @@ export type EmployeeCreateWithoutDelegationsGivenInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutDelegationsGivenInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -27489,6 +29421,9 @@ export type EmployeeUncheckedCreateWithoutDelegationsGivenInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutDelegationsGivenInput = {
@@ -27499,6 +29434,7 @@ export type EmployeeCreateOrConnectWithoutDelegationsGivenInput = {
 export type EmployeeCreateWithoutDelegationsReceivedInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -27633,12 +29569,16 @@ export type EmployeeCreateWithoutDelegationsReceivedInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutDelegationsReceivedInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -27772,6 +29712,9 @@ export type EmployeeUncheckedCreateWithoutDelegationsReceivedInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutDelegationsReceivedInput = {
@@ -27793,6 +29736,7 @@ export type EmployeeUpdateToOneWithWhereWithoutDelegationsGivenInput = {
 export type EmployeeUpdateWithoutDelegationsGivenInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -27927,12 +29871,16 @@ export type EmployeeUpdateWithoutDelegationsGivenInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutDelegationsGivenInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -28066,6 +30014,9 @@ export type EmployeeUncheckedUpdateWithoutDelegationsGivenInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUpsertWithoutDelegationsReceivedInput = {
@@ -28082,6 +30033,7 @@ export type EmployeeUpdateToOneWithWhereWithoutDelegationsReceivedInput = {
 export type EmployeeUpdateWithoutDelegationsReceivedInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -28216,12 +30168,16 @@ export type EmployeeUpdateWithoutDelegationsReceivedInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutDelegationsReceivedInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -28355,11 +30311,15 @@ export type EmployeeUncheckedUpdateWithoutDelegationsReceivedInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutConductedInterviewsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -28494,12 +30454,16 @@ export type EmployeeCreateWithoutConductedInterviewsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutConductedInterviewsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -28633,6 +30597,9 @@ export type EmployeeUncheckedCreateWithoutConductedInterviewsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutConductedInterviewsInput = {
@@ -28654,6 +30621,7 @@ export type EmployeeUpdateToOneWithWhereWithoutConductedInterviewsInput = {
 export type EmployeeUpdateWithoutConductedInterviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -28788,12 +30756,16 @@ export type EmployeeUpdateWithoutConductedInterviewsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutConductedInterviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -28927,11 +30899,15 @@ export type EmployeeUncheckedUpdateWithoutConductedInterviewsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutPunchDeviceAllowlistInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -29066,12 +31042,16 @@ export type EmployeeCreateWithoutPunchDeviceAllowlistInput = {
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutPunchDeviceAllowlistInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -29205,6 +31185,9 @@ export type EmployeeUncheckedCreateWithoutPunchDeviceAllowlistInput = {
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutPunchDeviceAllowlistInput = {
@@ -29226,6 +31209,7 @@ export type EmployeeUpdateToOneWithWhereWithoutPunchDeviceAllowlistInput = {
 export type EmployeeUpdateWithoutPunchDeviceAllowlistInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -29360,12 +31344,16 @@ export type EmployeeUpdateWithoutPunchDeviceAllowlistInput = {
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutPunchDeviceAllowlistInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -29499,11 +31487,15 @@ export type EmployeeUncheckedUpdateWithoutPunchDeviceAllowlistInput = {
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutPunchApprovalsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -29638,12 +31630,16 @@ export type EmployeeCreateWithoutPunchApprovalsInput = {
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutPunchApprovalsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -29777,6 +31773,9 @@ export type EmployeeUncheckedCreateWithoutPunchApprovalsInput = {
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutPunchApprovalsInput = {
@@ -29798,6 +31797,7 @@ export type EmployeeUpdateToOneWithWhereWithoutPunchApprovalsInput = {
 export type EmployeeUpdateWithoutPunchApprovalsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -29932,12 +31932,16 @@ export type EmployeeUpdateWithoutPunchApprovalsInput = {
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutPunchApprovalsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -30071,11 +32075,15 @@ export type EmployeeUncheckedUpdateWithoutPunchApprovalsInput = {
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutGeneratedContractsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -30210,12 +32218,16 @@ export type EmployeeCreateWithoutGeneratedContractsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutGeneratedContractsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -30349,6 +32361,9 @@ export type EmployeeUncheckedCreateWithoutGeneratedContractsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutGeneratedContractsInput = {
@@ -30370,6 +32385,7 @@ export type EmployeeUpdateToOneWithWhereWithoutGeneratedContractsInput = {
 export type EmployeeUpdateWithoutGeneratedContractsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -30504,12 +32520,16 @@ export type EmployeeUpdateWithoutGeneratedContractsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutGeneratedContractsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -30643,11 +32663,15 @@ export type EmployeeUncheckedUpdateWithoutGeneratedContractsInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutPunchMissedLogsInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   fullName: string
   socialName?: string | null
   birthDate?: Date | string | null
@@ -30782,12 +32806,16 @@ export type EmployeeCreateWithoutPunchMissedLogsInput = {
   generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutPunchMissedLogsInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -30921,6 +32949,9 @@ export type EmployeeUncheckedCreateWithoutPunchMissedLogsInput = {
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
   punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutPunchMissedLogsInput = {
@@ -30942,6 +32973,7 @@ export type EmployeeUpdateToOneWithWhereWithoutPunchMissedLogsInput = {
 export type EmployeeUpdateWithoutPunchMissedLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -31076,12 +33108,16 @@ export type EmployeeUpdateWithoutPunchMissedLogsInput = {
   generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutPunchMissedLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -31215,12 +33251,604 @@ export type EmployeeUncheckedUpdateWithoutPunchMissedLogsInput = {
   generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeCreateWithoutWebauthnCredentialsInput = {
+  id?: string
+  registrationNumber: string
+  shortId?: string | null
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
+  user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
+  position?: Prisma.PositionCreateNestedOneWithoutEmployeesInput
+  supervisor?: Prisma.EmployeeCreateNestedOneWithoutSubordinatesInput
+  subordinates?: Prisma.EmployeeCreateNestedManyWithoutSupervisorInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutEmployeesInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewCreateNestedManyWithoutReviewerInput
+  managedDepartments?: Prisma.DepartmentCreateNestedManyWithoutManagerInput
+  company?: Prisma.CompanyCreateNestedOneWithoutEmployeesInput
+  warnings?: Prisma.EmployeeWarningCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningCreateNestedManyWithoutIssuerInput
+  onboardingChecklists?: Prisma.OnboardingChecklistCreateNestedManyWithoutEmployeeInput
+  offboardingChecklists?: Prisma.OffboardingChecklistCreateNestedManyWithoutEmployeeInput
+  ppeAssignments?: Prisma.PPEAssignmentCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationCreateNestedManyWithoutDelegateInput
+  createdSurveys?: Prisma.SurveyCreateNestedManyWithoutCreatorInput
+  surveyResponses?: Prisma.SurveyResponseCreateNestedManyWithoutEmployeeInput
+  ownedObjectives?: Prisma.ObjectiveCreateNestedManyWithoutOwnerInput
+  okrCheckIns?: Prisma.OKRCheckInCreateNestedManyWithoutEmployeeInput
+  conductedInterviews?: Prisma.InterviewCreateNestedManyWithoutInterviewerInput
+  salaryHistory?: Prisma.SalaryHistoryCreateNestedManyWithoutEmployeeInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingCreateNestedManyWithoutManagerInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingCreateNestedManyWithoutReportInput
+  addedTalkingPoints?: Prisma.TalkingPointCreateNestedManyWithoutAddedByInput
+  ownedActionItems?: Prisma.OneOnOneActionItemCreateNestedManyWithoutOwnerInput
+  kudosReactions?: Prisma.KudosReactionCreateNestedManyWithoutEmployeeInput
+  kudosReplies?: Prisma.KudosReplyCreateNestedManyWithoutEmployeeInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptCreateNestedManyWithoutEmployeeInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalCreateNestedManyWithoutEmployeeInput
+  punchMissedLogs?: Prisma.PunchMissedLogCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeUncheckedCreateWithoutWebauthnCredentialsInput = {
+  id?: string
+  tenantId: string
+  registrationNumber: string
+  shortId?: string | null
+  userId?: string | null
+  fullName: string
+  socialName?: string | null
+  birthDate?: Date | string | null
+  gender?: string | null
+  pcd?: boolean
+  maritalStatus?: string | null
+  nationality?: string | null
+  birthPlace?: string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf: string
+  rg?: string | null
+  rgIssuer?: string | null
+  rgIssueDate?: Date | string | null
+  pis?: string | null
+  ctpsNumber?: string | null
+  ctpsSeries?: string | null
+  ctpsState?: string | null
+  voterTitle?: string | null
+  militaryDoc?: string | null
+  email?: string | null
+  personalEmail?: string | null
+  phone?: string | null
+  mobilePhone?: string | null
+  emergencyContact?: string | null
+  emergencyPhone?: string | null
+  address?: string | null
+  addressNumber?: string | null
+  complement?: string | null
+  neighborhood?: string | null
+  city?: string | null
+  state?: string | null
+  zipCode?: string | null
+  cpfHash?: string | null
+  rgHash?: string | null
+  pisHash?: string | null
+  pixKeyHash?: string | null
+  bankAccountHash?: string | null
+  country?: string
+  raceColor?: string | null
+  educationLevel?: string | null
+  motherName?: string | null
+  municipalityCode?: string | null
+  addressMunicipalityCode?: string | null
+  cboCode?: string | null
+  admissionType?: string | null
+  workerCategory?: string | null
+  salaryUnit?: string | null
+  cnhNumber?: string | null
+  cnhCategory?: string | null
+  cnhExpiration?: Date | string | null
+  professionalRegistration?: string | null
+  unionCode?: string | null
+  fgtsOptDate?: Date | string | null
+  fgtsAccountNumber?: string | null
+  bankCode?: string | null
+  bankName?: string | null
+  bankAgency?: string | null
+  bankAccount?: string | null
+  bankAccountType?: string | null
+  pixKey?: string | null
+  departmentId?: string | null
+  positionId?: string | null
+  supervisorId?: string | null
+  organizationId?: string | null
+  hireDate: Date | string
+  terminationDate?: Date | string | null
+  status?: $Enums.EmployeeStatus
+  baseSalary?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType: $Enums.ContractType
+  workRegime: $Enums.WorkRegime
+  weeklyHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: string | null
+  isPregnant?: boolean
+  pregnancyStartDate?: Date | string | null
+  childBirthDate?: Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  companyId?: string | null
+  qrTokenHash?: string | null
+  qrTokenSetAt?: Date | string | null
+  punchPinHash?: string | null
+  punchPinSetAt?: Date | string | null
+  punchPinLockedUntil?: Date | string | null
+  punchPinFailedAttempts?: number
+  punchPinLastFailedAt?: Date | string | null
+  subordinates?: Prisma.EmployeeUncheckedCreateNestedManyWithoutSupervisorInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  absences?: Prisma.AbsenceUncheckedCreateNestedManyWithoutEmployeeInput
+  payrollItems?: Prisma.PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
+  overtime?: Prisma.OvertimeUncheckedCreateNestedManyWithoutEmployeeInput
+  timeBanks?: Prisma.TimeBankUncheckedCreateNestedManyWithoutEmployeeInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedCreateNestedManyWithoutEmployeeInput
+  bonuses?: Prisma.BonusUncheckedCreateNestedManyWithoutEmployeeInput
+  deductions?: Prisma.DeductionUncheckedCreateNestedManyWithoutEmployeeInput
+  dependants?: Prisma.EmployeeDependantUncheckedCreateNestedManyWithoutEmployeeInput
+  termination?: Prisma.TerminationUncheckedCreateNestedOneWithoutEmployeeInput
+  medicalExams?: Prisma.MedicalExamUncheckedCreateNestedManyWithoutEmployeeInput
+  cipaMembers?: Prisma.CipaMemberUncheckedCreateNestedManyWithoutEmployeeInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedCreateNestedManyWithoutEmployeeInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedCreateNestedManyWithoutEmployeeInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+  managedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutManagerInput
+  warnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutEmployeeInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedCreateNestedManyWithoutIssuerInput
+  onboardingChecklists?: Prisma.OnboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedCreateNestedManyWithoutEmployeeInput
+  ppeAssignments?: Prisma.PPEAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegatorInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedCreateNestedManyWithoutDelegateInput
+  createdSurveys?: Prisma.SurveyUncheckedCreateNestedManyWithoutCreatorInput
+  surveyResponses?: Prisma.SurveyResponseUncheckedCreateNestedManyWithoutEmployeeInput
+  ownedObjectives?: Prisma.ObjectiveUncheckedCreateNestedManyWithoutOwnerInput
+  okrCheckIns?: Prisma.OKRCheckInUncheckedCreateNestedManyWithoutEmployeeInput
+  conductedInterviews?: Prisma.InterviewUncheckedCreateNestedManyWithoutInterviewerInput
+  salaryHistory?: Prisma.SalaryHistoryUncheckedCreateNestedManyWithoutEmployeeInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingUncheckedCreateNestedManyWithoutManagerInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingUncheckedCreateNestedManyWithoutReportInput
+  addedTalkingPoints?: Prisma.TalkingPointUncheckedCreateNestedManyWithoutAddedByInput
+  ownedActionItems?: Prisma.OneOnOneActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  kudosReactions?: Prisma.KudosReactionUncheckedCreateNestedManyWithoutEmployeeInput
+  kudosReplies?: Prisma.KudosReplyUncheckedCreateNestedManyWithoutEmployeeInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedCreateNestedManyWithoutEmployeeInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedCreateNestedManyWithoutEmployeeInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedCreateNestedManyWithoutEmployeeInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedCreateNestedManyWithoutEmployeeInput
+  punchMissedLogs?: Prisma.PunchMissedLogUncheckedCreateNestedManyWithoutEmployeeInput
+  ordersAsOperator?: Prisma.OrderUncheckedCreateNestedManyWithoutPosOperatorEmployeeInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeCreateOrConnectWithoutWebauthnCredentialsInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutWebauthnCredentialsInput, Prisma.EmployeeUncheckedCreateWithoutWebauthnCredentialsInput>
+}
+
+export type EmployeeUpsertWithoutWebauthnCredentialsInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutWebauthnCredentialsInput, Prisma.EmployeeUncheckedUpdateWithoutWebauthnCredentialsInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutWebauthnCredentialsInput, Prisma.EmployeeUncheckedCreateWithoutWebauthnCredentialsInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutWebauthnCredentialsInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutWebauthnCredentialsInput, Prisma.EmployeeUncheckedUpdateWithoutWebauthnCredentialsInput>
+}
+
+export type EmployeeUpdateWithoutWebauthnCredentialsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
+  user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutEmployeesNestedInput
+  position?: Prisma.PositionUpdateOneWithoutEmployeesNestedInput
+  supervisor?: Prisma.EmployeeUpdateOneWithoutSubordinatesNestedInput
+  subordinates?: Prisma.EmployeeUpdateManyWithoutSupervisorNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutEmployeesNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUpdateManyWithoutReviewerNestedInput
+  managedDepartments?: Prisma.DepartmentUpdateManyWithoutManagerNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutEmployeesNestedInput
+  warnings?: Prisma.EmployeeWarningUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUpdateManyWithoutIssuerNestedInput
+  onboardingChecklists?: Prisma.OnboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUpdateManyWithoutEmployeeNestedInput
+  ppeAssignments?: Prisma.PPEAssignmentUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUpdateManyWithoutDelegateNestedInput
+  createdSurveys?: Prisma.SurveyUpdateManyWithoutCreatorNestedInput
+  surveyResponses?: Prisma.SurveyResponseUpdateManyWithoutEmployeeNestedInput
+  ownedObjectives?: Prisma.ObjectiveUpdateManyWithoutOwnerNestedInput
+  okrCheckIns?: Prisma.OKRCheckInUpdateManyWithoutEmployeeNestedInput
+  conductedInterviews?: Prisma.InterviewUpdateManyWithoutInterviewerNestedInput
+  salaryHistory?: Prisma.SalaryHistoryUpdateManyWithoutEmployeeNestedInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingUpdateManyWithoutManagerNestedInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingUpdateManyWithoutReportNestedInput
+  addedTalkingPoints?: Prisma.TalkingPointUpdateManyWithoutAddedByNestedInput
+  ownedActionItems?: Prisma.OneOnOneActionItemUpdateManyWithoutOwnerNestedInput
+  kudosReactions?: Prisma.KudosReactionUpdateManyWithoutEmployeeNestedInput
+  kudosReplies?: Prisma.KudosReplyUpdateManyWithoutEmployeeNestedInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptUpdateManyWithoutEmployeeNestedInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
+  punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutWebauthnCredentialsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pcd?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  maritalStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  healthConditions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  rg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsSeries?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctpsState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  voterTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  militaryDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mobilePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  complement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  neighborhood?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cpfHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rgHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pisHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKeyHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  raceColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  educationLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  motherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  municipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressMunicipalityCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cboCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admissionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workerCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhCategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnhExpiration?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  professionalRegistration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fgtsOptDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fgtsAccountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bankAccountType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pixKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  positionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supervisorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hireDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumEmployeeStatusFieldUpdateOperationsInput | $Enums.EmployeeStatus
+  baseSalary?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contractType?: Prisma.EnumContractTypeFieldUpdateOperationsInput | $Enums.ContractType
+  workRegime?: Prisma.EnumWorkRegimeFieldUpdateOperationsInput | $Enums.WorkRegime
+  weeklyHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPregnant?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  pregnancyStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  childBirthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metadata?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  pendingIssues?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qrTokenSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  punchPinSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinLockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  punchPinFailedAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  punchPinLastFailedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subordinates?: Prisma.EmployeeUncheckedUpdateManyWithoutSupervisorNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  absences?: Prisma.AbsenceUncheckedUpdateManyWithoutEmployeeNestedInput
+  payrollItems?: Prisma.PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
+  overtime?: Prisma.OvertimeUncheckedUpdateManyWithoutEmployeeNestedInput
+  timeBanks?: Prisma.TimeBankUncheckedUpdateManyWithoutEmployeeNestedInput
+  vacationPeriods?: Prisma.VacationPeriodUncheckedUpdateManyWithoutEmployeeNestedInput
+  bonuses?: Prisma.BonusUncheckedUpdateManyWithoutEmployeeNestedInput
+  deductions?: Prisma.DeductionUncheckedUpdateManyWithoutEmployeeNestedInput
+  dependants?: Prisma.EmployeeDependantUncheckedUpdateManyWithoutEmployeeNestedInput
+  termination?: Prisma.TerminationUncheckedUpdateOneWithoutEmployeeNestedInput
+  medicalExams?: Prisma.MedicalExamUncheckedUpdateManyWithoutEmployeeNestedInput
+  cipaMembers?: Prisma.CipaMemberUncheckedUpdateManyWithoutEmployeeNestedInput
+  benefitEnrollments?: Prisma.BenefitEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  flexBenefitAllocations?: Prisma.FlexBenefitAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
+  trainingEnrollments?: Prisma.TrainingEnrollmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  performanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedPerformanceReviews?: Prisma.PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  managedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutManagerNestedInput
+  warnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutEmployeeNestedInput
+  issuedWarnings?: Prisma.EmployeeWarningUncheckedUpdateManyWithoutIssuerNestedInput
+  onboardingChecklists?: Prisma.OnboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  offboardingChecklists?: Prisma.OffboardingChecklistUncheckedUpdateManyWithoutEmployeeNestedInput
+  ppeAssignments?: Prisma.PPEAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  shiftAssignments?: Prisma.ShiftAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  delegationsGiven?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegatorNestedInput
+  delegationsReceived?: Prisma.ApprovalDelegationUncheckedUpdateManyWithoutDelegateNestedInput
+  createdSurveys?: Prisma.SurveyUncheckedUpdateManyWithoutCreatorNestedInput
+  surveyResponses?: Prisma.SurveyResponseUncheckedUpdateManyWithoutEmployeeNestedInput
+  ownedObjectives?: Prisma.ObjectiveUncheckedUpdateManyWithoutOwnerNestedInput
+  okrCheckIns?: Prisma.OKRCheckInUncheckedUpdateManyWithoutEmployeeNestedInput
+  conductedInterviews?: Prisma.InterviewUncheckedUpdateManyWithoutInterviewerNestedInput
+  salaryHistory?: Prisma.SalaryHistoryUncheckedUpdateManyWithoutEmployeeNestedInput
+  managerOneOnOnes?: Prisma.OneOnOneMeetingUncheckedUpdateManyWithoutManagerNestedInput
+  reportOneOnOnes?: Prisma.OneOnOneMeetingUncheckedUpdateManyWithoutReportNestedInput
+  addedTalkingPoints?: Prisma.TalkingPointUncheckedUpdateManyWithoutAddedByNestedInput
+  ownedActionItems?: Prisma.OneOnOneActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  kudosReactions?: Prisma.KudosReactionUncheckedUpdateManyWithoutEmployeeNestedInput
+  kudosReplies?: Prisma.KudosReplyUncheckedUpdateManyWithoutEmployeeNestedInput
+  announcementReadReceipts?: Prisma.AnnouncementReadReceiptUncheckedUpdateManyWithoutEmployeeNestedInput
+  generatedContracts?: Prisma.GeneratedEmploymentContractUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
+  punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateManyOrganizationInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -31315,6 +33943,7 @@ export type EmployeeCreateManyOrganizationInput = {
 export type EmployeeUpdateWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -31449,12 +34078,16 @@ export type EmployeeUpdateWithoutOrganizationInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -31588,12 +34221,16 @@ export type EmployeeUncheckedUpdateWithoutOrganizationInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -31689,6 +34326,7 @@ export type EmployeeCreateManySupervisorInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -31783,6 +34421,7 @@ export type EmployeeCreateManySupervisorInput = {
 export type EmployeeUpdateWithoutSupervisorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -31917,12 +34556,16 @@ export type EmployeeUpdateWithoutSupervisorInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutSupervisorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -32056,12 +34699,16 @@ export type EmployeeUncheckedUpdateWithoutSupervisorInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutSupervisorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -32157,6 +34804,7 @@ export type EmployeeCreateManyDepartmentInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -32251,6 +34899,7 @@ export type EmployeeCreateManyDepartmentInput = {
 export type EmployeeUpdateWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -32385,12 +35034,16 @@ export type EmployeeUpdateWithoutDepartmentInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -32524,12 +35177,16 @@ export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -32625,6 +35282,7 @@ export type EmployeeCreateManyPositionInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -32719,6 +35377,7 @@ export type EmployeeCreateManyPositionInput = {
 export type EmployeeUpdateWithoutPositionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -32853,12 +35512,16 @@ export type EmployeeUpdateWithoutPositionInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutPositionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -32992,12 +35655,16 @@ export type EmployeeUncheckedUpdateWithoutPositionInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutPositionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -33093,6 +35760,7 @@ export type EmployeeCreateManyCompanyInput = {
   id?: string
   tenantId: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -33187,6 +35855,7 @@ export type EmployeeCreateManyCompanyInput = {
 export type EmployeeUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -33321,12 +35990,16 @@ export type EmployeeUpdateWithoutCompanyInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -33460,12 +36133,16 @@ export type EmployeeUncheckedUpdateWithoutCompanyInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -33560,6 +36237,7 @@ export type EmployeeUncheckedUpdateManyWithoutCompanyInput = {
 export type EmployeeCreateManyTenantInput = {
   id?: string
   registrationNumber: string
+  shortId?: string | null
   userId?: string | null
   fullName: string
   socialName?: string | null
@@ -33655,6 +36333,7 @@ export type EmployeeCreateManyTenantInput = {
 export type EmployeeUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -33789,11 +36468,15 @@ export type EmployeeUpdateWithoutTenantInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -33928,11 +36611,15 @@ export type EmployeeUncheckedUpdateWithoutTenantInput = {
   punchDeviceAllowlist?: Prisma.PunchDeviceEmployeeUncheckedUpdateManyWithoutEmployeeNestedInput
   punchApprovals?: Prisma.PunchApprovalUncheckedUpdateManyWithoutEmployeeNestedInput
   punchMissedLogs?: Prisma.PunchMissedLogUncheckedUpdateManyWithoutEmployeeNestedInput
+  webauthnCredentials?: Prisma.WebAuthnCredentialUncheckedUpdateManyWithoutEmployeeNestedInput
+  ordersAsOperator?: Prisma.OrderUncheckedUpdateManyWithoutPosOperatorEmployeeNestedInput
+  posTerminalOperators?: Prisma.PosTerminalOperatorUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  shortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   socialName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -34074,6 +36761,9 @@ export type EmployeeCountOutputType = {
   punchDeviceAllowlist: number
   punchApprovals: number
   punchMissedLogs: number
+  webauthnCredentials: number
+  ordersAsOperator: number
+  posTerminalOperators: number
 }
 
 export type EmployeeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -34120,6 +36810,9 @@ export type EmployeeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   punchDeviceAllowlist?: boolean | EmployeeCountOutputTypeCountPunchDeviceAllowlistArgs
   punchApprovals?: boolean | EmployeeCountOutputTypeCountPunchApprovalsArgs
   punchMissedLogs?: boolean | EmployeeCountOutputTypeCountPunchMissedLogsArgs
+  webauthnCredentials?: boolean | EmployeeCountOutputTypeCountWebauthnCredentialsArgs
+  ordersAsOperator?: boolean | EmployeeCountOutputTypeCountOrdersAsOperatorArgs
+  posTerminalOperators?: boolean | EmployeeCountOutputTypeCountPosTerminalOperatorsArgs
 }
 
 /**
@@ -34433,11 +37126,33 @@ export type EmployeeCountOutputTypeCountPunchMissedLogsArgs<ExtArgs extends runt
   where?: Prisma.PunchMissedLogWhereInput
 }
 
+/**
+ * EmployeeCountOutputType without action
+ */
+export type EmployeeCountOutputTypeCountWebauthnCredentialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WebAuthnCredentialWhereInput
+}
+
+/**
+ * EmployeeCountOutputType without action
+ */
+export type EmployeeCountOutputTypeCountOrdersAsOperatorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderWhereInput
+}
+
+/**
+ * EmployeeCountOutputType without action
+ */
+export type EmployeeCountOutputTypeCountPosTerminalOperatorsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PosTerminalOperatorWhereInput
+}
+
 
 export type EmployeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantId?: boolean
   registrationNumber?: boolean
+  shortId?: boolean
   userId?: boolean
   fullName?: boolean
   socialName?: boolean
@@ -34579,6 +37294,9 @@ export type EmployeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   punchDeviceAllowlist?: boolean | Prisma.Employee$punchDeviceAllowlistArgs<ExtArgs>
   punchApprovals?: boolean | Prisma.Employee$punchApprovalsArgs<ExtArgs>
   punchMissedLogs?: boolean | Prisma.Employee$punchMissedLogsArgs<ExtArgs>
+  webauthnCredentials?: boolean | Prisma.Employee$webauthnCredentialsArgs<ExtArgs>
+  ordersAsOperator?: boolean | Prisma.Employee$ordersAsOperatorArgs<ExtArgs>
+  posTerminalOperators?: boolean | Prisma.Employee$posTerminalOperatorsArgs<ExtArgs>
   _count?: boolean | Prisma.EmployeeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["employee"]>
 
@@ -34586,6 +37304,7 @@ export type EmployeeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   tenantId?: boolean
   registrationNumber?: boolean
+  shortId?: boolean
   userId?: boolean
   fullName?: boolean
   socialName?: boolean
@@ -34689,6 +37408,7 @@ export type EmployeeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   tenantId?: boolean
   registrationNumber?: boolean
+  shortId?: boolean
   userId?: boolean
   fullName?: boolean
   socialName?: boolean
@@ -34792,6 +37512,7 @@ export type EmployeeSelectScalar = {
   id?: boolean
   tenantId?: boolean
   registrationNumber?: boolean
+  shortId?: boolean
   userId?: boolean
   fullName?: boolean
   socialName?: boolean
@@ -34884,7 +37605,7 @@ export type EmployeeSelectScalar = {
   punchPinLastFailedAt?: boolean
 }
 
-export type EmployeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "registrationNumber" | "userId" | "fullName" | "socialName" | "birthDate" | "gender" | "pcd" | "maritalStatus" | "nationality" | "birthPlace" | "emergencyContactInfo" | "healthConditions" | "cpf" | "rg" | "rgIssuer" | "rgIssueDate" | "pis" | "ctpsNumber" | "ctpsSeries" | "ctpsState" | "voterTitle" | "militaryDoc" | "email" | "personalEmail" | "phone" | "mobilePhone" | "emergencyContact" | "emergencyPhone" | "address" | "addressNumber" | "complement" | "neighborhood" | "city" | "state" | "zipCode" | "cpfHash" | "rgHash" | "pisHash" | "pixKeyHash" | "bankAccountHash" | "country" | "raceColor" | "educationLevel" | "motherName" | "municipalityCode" | "addressMunicipalityCode" | "cboCode" | "admissionType" | "workerCategory" | "salaryUnit" | "cnhNumber" | "cnhCategory" | "cnhExpiration" | "professionalRegistration" | "unionCode" | "fgtsOptDate" | "fgtsAccountNumber" | "bankCode" | "bankName" | "bankAgency" | "bankAccount" | "bankAccountType" | "pixKey" | "departmentId" | "positionId" | "supervisorId" | "organizationId" | "hireDate" | "terminationDate" | "status" | "baseSalary" | "contractType" | "workRegime" | "weeklyHours" | "photoUrl" | "isPregnant" | "pregnancyStartDate" | "childBirthDate" | "metadata" | "pendingIssues" | "deletedAt" | "createdAt" | "updatedAt" | "companyId" | "qrTokenHash" | "qrTokenSetAt" | "punchPinHash" | "punchPinSetAt" | "punchPinLockedUntil" | "punchPinFailedAttempts" | "punchPinLastFailedAt", ExtArgs["result"]["employee"]>
+export type EmployeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "registrationNumber" | "shortId" | "userId" | "fullName" | "socialName" | "birthDate" | "gender" | "pcd" | "maritalStatus" | "nationality" | "birthPlace" | "emergencyContactInfo" | "healthConditions" | "cpf" | "rg" | "rgIssuer" | "rgIssueDate" | "pis" | "ctpsNumber" | "ctpsSeries" | "ctpsState" | "voterTitle" | "militaryDoc" | "email" | "personalEmail" | "phone" | "mobilePhone" | "emergencyContact" | "emergencyPhone" | "address" | "addressNumber" | "complement" | "neighborhood" | "city" | "state" | "zipCode" | "cpfHash" | "rgHash" | "pisHash" | "pixKeyHash" | "bankAccountHash" | "country" | "raceColor" | "educationLevel" | "motherName" | "municipalityCode" | "addressMunicipalityCode" | "cboCode" | "admissionType" | "workerCategory" | "salaryUnit" | "cnhNumber" | "cnhCategory" | "cnhExpiration" | "professionalRegistration" | "unionCode" | "fgtsOptDate" | "fgtsAccountNumber" | "bankCode" | "bankName" | "bankAgency" | "bankAccount" | "bankAccountType" | "pixKey" | "departmentId" | "positionId" | "supervisorId" | "organizationId" | "hireDate" | "terminationDate" | "status" | "baseSalary" | "contractType" | "workRegime" | "weeklyHours" | "photoUrl" | "isPregnant" | "pregnancyStartDate" | "childBirthDate" | "metadata" | "pendingIssues" | "deletedAt" | "createdAt" | "updatedAt" | "companyId" | "qrTokenHash" | "qrTokenSetAt" | "punchPinHash" | "punchPinSetAt" | "punchPinLockedUntil" | "punchPinFailedAttempts" | "punchPinLastFailedAt", ExtArgs["result"]["employee"]>
 export type EmployeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Employee$userArgs<ExtArgs>
@@ -34937,6 +37658,9 @@ export type EmployeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   punchDeviceAllowlist?: boolean | Prisma.Employee$punchDeviceAllowlistArgs<ExtArgs>
   punchApprovals?: boolean | Prisma.Employee$punchApprovalsArgs<ExtArgs>
   punchMissedLogs?: boolean | Prisma.Employee$punchMissedLogsArgs<ExtArgs>
+  webauthnCredentials?: boolean | Prisma.Employee$webauthnCredentialsArgs<ExtArgs>
+  ordersAsOperator?: boolean | Prisma.Employee$ordersAsOperatorArgs<ExtArgs>
+  posTerminalOperators?: boolean | Prisma.Employee$posTerminalOperatorsArgs<ExtArgs>
   _count?: boolean | Prisma.EmployeeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EmployeeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -35012,11 +37736,15 @@ export type $EmployeePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     punchDeviceAllowlist: Prisma.$PunchDeviceEmployeePayload<ExtArgs>[]
     punchApprovals: Prisma.$PunchApprovalPayload<ExtArgs>[]
     punchMissedLogs: Prisma.$PunchMissedLogPayload<ExtArgs>[]
+    webauthnCredentials: Prisma.$WebAuthnCredentialPayload<ExtArgs>[]
+    ordersAsOperator: Prisma.$OrderPayload<ExtArgs>[]
+    posTerminalOperators: Prisma.$PosTerminalOperatorPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     tenantId: string
     registrationNumber: string
+    shortId: string | null
     userId: string | null
     fullName: string
     socialName: string | null
@@ -35552,6 +38280,9 @@ export interface Prisma__EmployeeClient<T, Null = never, ExtArgs extends runtime
   punchDeviceAllowlist<T extends Prisma.Employee$punchDeviceAllowlistArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$punchDeviceAllowlistArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PunchDeviceEmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   punchApprovals<T extends Prisma.Employee$punchApprovalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$punchApprovalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PunchApprovalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   punchMissedLogs<T extends Prisma.Employee$punchMissedLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$punchMissedLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PunchMissedLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  webauthnCredentials<T extends Prisma.Employee$webauthnCredentialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$webauthnCredentialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WebAuthnCredentialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ordersAsOperator<T extends Prisma.Employee$ordersAsOperatorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$ordersAsOperatorArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  posTerminalOperators<T extends Prisma.Employee$posTerminalOperatorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$posTerminalOperatorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosTerminalOperatorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -35584,6 +38315,7 @@ export interface EmployeeFieldRefs {
   readonly id: Prisma.FieldRef<"Employee", 'String'>
   readonly tenantId: Prisma.FieldRef<"Employee", 'String'>
   readonly registrationNumber: Prisma.FieldRef<"Employee", 'String'>
+  readonly shortId: Prisma.FieldRef<"Employee", 'String'>
   readonly userId: Prisma.FieldRef<"Employee", 'String'>
   readonly fullName: Prisma.FieldRef<"Employee", 'String'>
   readonly socialName: Prisma.FieldRef<"Employee", 'String'>
@@ -37237,6 +39969,78 @@ export type Employee$punchMissedLogsArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.PunchMissedLogScalarFieldEnum | Prisma.PunchMissedLogScalarFieldEnum[]
+}
+
+/**
+ * Employee.webauthnCredentials
+ */
+export type Employee$webauthnCredentialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WebAuthnCredential
+   */
+  select?: Prisma.WebAuthnCredentialSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WebAuthnCredential
+   */
+  omit?: Prisma.WebAuthnCredentialOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WebAuthnCredentialInclude<ExtArgs> | null
+  where?: Prisma.WebAuthnCredentialWhereInput
+  orderBy?: Prisma.WebAuthnCredentialOrderByWithRelationInput | Prisma.WebAuthnCredentialOrderByWithRelationInput[]
+  cursor?: Prisma.WebAuthnCredentialWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WebAuthnCredentialScalarFieldEnum | Prisma.WebAuthnCredentialScalarFieldEnum[]
+}
+
+/**
+ * Employee.ordersAsOperator
+ */
+export type Employee$ordersAsOperatorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Order
+   */
+  select?: Prisma.OrderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Order
+   */
+  omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  where?: Prisma.OrderWhereInput
+  orderBy?: Prisma.OrderOrderByWithRelationInput | Prisma.OrderOrderByWithRelationInput[]
+  cursor?: Prisma.OrderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrderScalarFieldEnum | Prisma.OrderScalarFieldEnum[]
+}
+
+/**
+ * Employee.posTerminalOperators
+ */
+export type Employee$posTerminalOperatorsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PosTerminalOperator
+   */
+  select?: Prisma.PosTerminalOperatorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PosTerminalOperator
+   */
+  omit?: Prisma.PosTerminalOperatorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PosTerminalOperatorInclude<ExtArgs> | null
+  where?: Prisma.PosTerminalOperatorWhereInput
+  orderBy?: Prisma.PosTerminalOperatorOrderByWithRelationInput | Prisma.PosTerminalOperatorOrderByWithRelationInput[]
+  cursor?: Prisma.PosTerminalOperatorWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PosTerminalOperatorScalarFieldEnum | Prisma.PosTerminalOperatorScalarFieldEnum[]
 }
 
 /**

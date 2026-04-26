@@ -20,8 +20,18 @@ export type ZoneModel = runtime.Types.Result.DefaultSelection<Prisma.$ZonePayloa
 
 export type AggregateZone = {
   _count: ZoneCountAggregateOutputType | null
+  _avg: ZoneAvgAggregateOutputType | null
+  _sum: ZoneSumAggregateOutputType | null
   _min: ZoneMinAggregateOutputType | null
   _max: ZoneMaxAggregateOutputType | null
+}
+
+export type ZoneAvgAggregateOutputType = {
+  minFractionalSale: runtime.Decimal | null
+}
+
+export type ZoneSumAggregateOutputType = {
+  minFractionalSale: runtime.Decimal | null
 }
 
 export type ZoneMinAggregateOutputType = {
@@ -30,6 +40,8 @@ export type ZoneMinAggregateOutputType = {
   code: string | null
   name: string | null
   description: string | null
+  allowsFractionalSale: boolean | null
+  minFractionalSale: runtime.Decimal | null
   isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -43,6 +55,8 @@ export type ZoneMaxAggregateOutputType = {
   code: string | null
   name: string | null
   description: string | null
+  allowsFractionalSale: boolean | null
+  minFractionalSale: runtime.Decimal | null
   isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -57,6 +71,8 @@ export type ZoneCountAggregateOutputType = {
   name: number
   description: number
   structure: number
+  allowsFractionalSale: number
+  minFractionalSale: number
   layout: number
   isActive: number
   createdAt: number
@@ -67,12 +83,22 @@ export type ZoneCountAggregateOutputType = {
 }
 
 
+export type ZoneAvgAggregateInputType = {
+  minFractionalSale?: true
+}
+
+export type ZoneSumAggregateInputType = {
+  minFractionalSale?: true
+}
+
 export type ZoneMinAggregateInputType = {
   id?: true
   warehouseId?: true
   code?: true
   name?: true
   description?: true
+  allowsFractionalSale?: true
+  minFractionalSale?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
@@ -86,6 +112,8 @@ export type ZoneMaxAggregateInputType = {
   code?: true
   name?: true
   description?: true
+  allowsFractionalSale?: true
+  minFractionalSale?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
@@ -100,6 +128,8 @@ export type ZoneCountAggregateInputType = {
   name?: true
   description?: true
   structure?: true
+  allowsFractionalSale?: true
+  minFractionalSale?: true
   layout?: true
   isActive?: true
   createdAt?: true
@@ -147,6 +177,18 @@ export type ZoneAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: ZoneAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: ZoneSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: ZoneMinAggregateInputType
@@ -177,6 +219,8 @@ export type ZoneGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   _count?: ZoneCountAggregateInputType | true
+  _avg?: ZoneAvgAggregateInputType
+  _sum?: ZoneSumAggregateInputType
   _min?: ZoneMinAggregateInputType
   _max?: ZoneMaxAggregateInputType
 }
@@ -188,6 +232,8 @@ export type ZoneGroupByOutputType = {
   name: string
   description: string | null
   structure: runtime.JsonValue
+  allowsFractionalSale: boolean
+  minFractionalSale: runtime.Decimal | null
   layout: runtime.JsonValue | null
   isActive: boolean
   createdAt: Date
@@ -195,6 +241,8 @@ export type ZoneGroupByOutputType = {
   deletedAt: Date | null
   tenantId: string
   _count: ZoneCountAggregateOutputType | null
+  _avg: ZoneAvgAggregateOutputType | null
+  _sum: ZoneSumAggregateOutputType | null
   _min: ZoneMinAggregateOutputType | null
   _max: ZoneMaxAggregateOutputType | null
 }
@@ -224,6 +272,8 @@ export type ZoneWhereInput = {
   name?: Prisma.StringFilter<"Zone"> | string
   description?: Prisma.StringNullableFilter<"Zone"> | string | null
   structure?: Prisma.JsonFilter<"Zone">
+  allowsFractionalSale?: Prisma.BoolFilter<"Zone"> | boolean
+  minFractionalSale?: Prisma.DecimalNullableFilter<"Zone"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.JsonNullableFilter<"Zone">
   isActive?: Prisma.BoolFilter<"Zone"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Zone"> | Date | string
@@ -234,6 +284,7 @@ export type ZoneWhereInput = {
   warehouse?: Prisma.XOR<Prisma.WarehouseScalarRelationFilter, Prisma.WarehouseWhereInput>
   bins?: Prisma.BinListRelationFilter
   inventorySessions?: Prisma.InventorySessionListRelationFilter
+  posTerminalZones?: Prisma.PosTerminalZoneListRelationFilter
 }
 
 export type ZoneOrderByWithRelationInput = {
@@ -243,6 +294,8 @@ export type ZoneOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   structure?: Prisma.SortOrder
+  allowsFractionalSale?: Prisma.SortOrder
+  minFractionalSale?: Prisma.SortOrderInput | Prisma.SortOrder
   layout?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -253,6 +306,7 @@ export type ZoneOrderByWithRelationInput = {
   warehouse?: Prisma.WarehouseOrderByWithRelationInput
   bins?: Prisma.BinOrderByRelationAggregateInput
   inventorySessions?: Prisma.InventorySessionOrderByRelationAggregateInput
+  posTerminalZones?: Prisma.PosTerminalZoneOrderByRelationAggregateInput
 }
 
 export type ZoneWhereUniqueInput = Prisma.AtLeast<{
@@ -266,6 +320,8 @@ export type ZoneWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Zone"> | string
   description?: Prisma.StringNullableFilter<"Zone"> | string | null
   structure?: Prisma.JsonFilter<"Zone">
+  allowsFractionalSale?: Prisma.BoolFilter<"Zone"> | boolean
+  minFractionalSale?: Prisma.DecimalNullableFilter<"Zone"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.JsonNullableFilter<"Zone">
   isActive?: Prisma.BoolFilter<"Zone"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Zone"> | Date | string
@@ -276,6 +332,7 @@ export type ZoneWhereUniqueInput = Prisma.AtLeast<{
   warehouse?: Prisma.XOR<Prisma.WarehouseScalarRelationFilter, Prisma.WarehouseWhereInput>
   bins?: Prisma.BinListRelationFilter
   inventorySessions?: Prisma.InventorySessionListRelationFilter
+  posTerminalZones?: Prisma.PosTerminalZoneListRelationFilter
 }, "id" | "zones_warehouse_code_unique_active">
 
 export type ZoneOrderByWithAggregationInput = {
@@ -285,6 +342,8 @@ export type ZoneOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   structure?: Prisma.SortOrder
+  allowsFractionalSale?: Prisma.SortOrder
+  minFractionalSale?: Prisma.SortOrderInput | Prisma.SortOrder
   layout?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -292,8 +351,10 @@ export type ZoneOrderByWithAggregationInput = {
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   _count?: Prisma.ZoneCountOrderByAggregateInput
+  _avg?: Prisma.ZoneAvgOrderByAggregateInput
   _max?: Prisma.ZoneMaxOrderByAggregateInput
   _min?: Prisma.ZoneMinOrderByAggregateInput
+  _sum?: Prisma.ZoneSumOrderByAggregateInput
 }
 
 export type ZoneScalarWhereWithAggregatesInput = {
@@ -306,6 +367,8 @@ export type ZoneScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Zone"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Zone"> | string | null
   structure?: Prisma.JsonWithAggregatesFilter<"Zone">
+  allowsFractionalSale?: Prisma.BoolWithAggregatesFilter<"Zone"> | boolean
+  minFractionalSale?: Prisma.DecimalNullableWithAggregatesFilter<"Zone"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.JsonNullableWithAggregatesFilter<"Zone">
   isActive?: Prisma.BoolWithAggregatesFilter<"Zone"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Zone"> | Date | string
@@ -320,6 +383,8 @@ export type ZoneCreateInput = {
   name: string
   description?: string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: boolean
+  minFractionalSale?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
@@ -329,6 +394,7 @@ export type ZoneCreateInput = {
   warehouse: Prisma.WarehouseCreateNestedOneWithoutZonesInput
   bins?: Prisma.BinCreateNestedManyWithoutZoneInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutZoneInput
+  posTerminalZones?: Prisma.PosTerminalZoneCreateNestedManyWithoutZoneInput
 }
 
 export type ZoneUncheckedCreateInput = {
@@ -338,6 +404,8 @@ export type ZoneUncheckedCreateInput = {
   name: string
   description?: string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: boolean
+  minFractionalSale?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
@@ -346,6 +414,7 @@ export type ZoneUncheckedCreateInput = {
   tenantId: string
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutZoneInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutZoneInput
+  posTerminalZones?: Prisma.PosTerminalZoneUncheckedCreateNestedManyWithoutZoneInput
 }
 
 export type ZoneUpdateInput = {
@@ -354,6 +423,8 @@ export type ZoneUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  minFractionalSale?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -363,6 +434,7 @@ export type ZoneUpdateInput = {
   warehouse?: Prisma.WarehouseUpdateOneRequiredWithoutZonesNestedInput
   bins?: Prisma.BinUpdateManyWithoutZoneNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutZoneNestedInput
+  posTerminalZones?: Prisma.PosTerminalZoneUpdateManyWithoutZoneNestedInput
 }
 
 export type ZoneUncheckedUpdateInput = {
@@ -372,6 +444,8 @@ export type ZoneUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  minFractionalSale?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -380,6 +454,7 @@ export type ZoneUncheckedUpdateInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   bins?: Prisma.BinUncheckedUpdateManyWithoutZoneNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutZoneNestedInput
+  posTerminalZones?: Prisma.PosTerminalZoneUncheckedUpdateManyWithoutZoneNestedInput
 }
 
 export type ZoneCreateManyInput = {
@@ -389,6 +464,8 @@ export type ZoneCreateManyInput = {
   name: string
   description?: string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: boolean
+  minFractionalSale?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
@@ -403,6 +480,8 @@ export type ZoneUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  minFractionalSale?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -417,6 +496,8 @@ export type ZoneUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  minFractionalSale?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -448,6 +529,8 @@ export type ZoneCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   structure?: Prisma.SortOrder
+  allowsFractionalSale?: Prisma.SortOrder
+  minFractionalSale?: Prisma.SortOrder
   layout?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -456,12 +539,18 @@ export type ZoneCountOrderByAggregateInput = {
   tenantId?: Prisma.SortOrder
 }
 
+export type ZoneAvgOrderByAggregateInput = {
+  minFractionalSale?: Prisma.SortOrder
+}
+
 export type ZoneMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   warehouseId?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  allowsFractionalSale?: Prisma.SortOrder
+  minFractionalSale?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -475,11 +564,17 @@ export type ZoneMinOrderByAggregateInput = {
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  allowsFractionalSale?: Prisma.SortOrder
+  minFractionalSale?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
+}
+
+export type ZoneSumOrderByAggregateInput = {
+  minFractionalSale?: Prisma.SortOrder
 }
 
 export type ZoneScalarRelationFilter = {
@@ -606,12 +701,28 @@ export type ZoneUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.ZoneScalarWhereInput | Prisma.ZoneScalarWhereInput[]
 }
 
+export type ZoneCreateNestedOneWithoutPosTerminalZonesInput = {
+  create?: Prisma.XOR<Prisma.ZoneCreateWithoutPosTerminalZonesInput, Prisma.ZoneUncheckedCreateWithoutPosTerminalZonesInput>
+  connectOrCreate?: Prisma.ZoneCreateOrConnectWithoutPosTerminalZonesInput
+  connect?: Prisma.ZoneWhereUniqueInput
+}
+
+export type ZoneUpdateOneRequiredWithoutPosTerminalZonesNestedInput = {
+  create?: Prisma.XOR<Prisma.ZoneCreateWithoutPosTerminalZonesInput, Prisma.ZoneUncheckedCreateWithoutPosTerminalZonesInput>
+  connectOrCreate?: Prisma.ZoneCreateOrConnectWithoutPosTerminalZonesInput
+  upsert?: Prisma.ZoneUpsertWithoutPosTerminalZonesInput
+  connect?: Prisma.ZoneWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ZoneUpdateToOneWithWhereWithoutPosTerminalZonesInput, Prisma.ZoneUpdateWithoutPosTerminalZonesInput>, Prisma.ZoneUncheckedUpdateWithoutPosTerminalZonesInput>
+}
+
 export type ZoneCreateWithoutWarehouseInput = {
   id?: string
   code: string
   name: string
   description?: string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: boolean
+  minFractionalSale?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
@@ -620,6 +731,7 @@ export type ZoneCreateWithoutWarehouseInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutZonesInput
   bins?: Prisma.BinCreateNestedManyWithoutZoneInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutZoneInput
+  posTerminalZones?: Prisma.PosTerminalZoneCreateNestedManyWithoutZoneInput
 }
 
 export type ZoneUncheckedCreateWithoutWarehouseInput = {
@@ -628,6 +740,8 @@ export type ZoneUncheckedCreateWithoutWarehouseInput = {
   name: string
   description?: string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: boolean
+  minFractionalSale?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
@@ -636,6 +750,7 @@ export type ZoneUncheckedCreateWithoutWarehouseInput = {
   tenantId: string
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutZoneInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutZoneInput
+  posTerminalZones?: Prisma.PosTerminalZoneUncheckedCreateNestedManyWithoutZoneInput
 }
 
 export type ZoneCreateOrConnectWithoutWarehouseInput = {
@@ -674,6 +789,8 @@ export type ZoneScalarWhereInput = {
   name?: Prisma.StringFilter<"Zone"> | string
   description?: Prisma.StringNullableFilter<"Zone"> | string | null
   structure?: Prisma.JsonFilter<"Zone">
+  allowsFractionalSale?: Prisma.BoolFilter<"Zone"> | boolean
+  minFractionalSale?: Prisma.DecimalNullableFilter<"Zone"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.JsonNullableFilter<"Zone">
   isActive?: Prisma.BoolFilter<"Zone"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Zone"> | Date | string
@@ -688,6 +805,8 @@ export type ZoneCreateWithoutBinsInput = {
   name: string
   description?: string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: boolean
+  minFractionalSale?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
@@ -696,6 +815,7 @@ export type ZoneCreateWithoutBinsInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutZonesInput
   warehouse: Prisma.WarehouseCreateNestedOneWithoutZonesInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutZoneInput
+  posTerminalZones?: Prisma.PosTerminalZoneCreateNestedManyWithoutZoneInput
 }
 
 export type ZoneUncheckedCreateWithoutBinsInput = {
@@ -705,6 +825,8 @@ export type ZoneUncheckedCreateWithoutBinsInput = {
   name: string
   description?: string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: boolean
+  minFractionalSale?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
@@ -712,6 +834,7 @@ export type ZoneUncheckedCreateWithoutBinsInput = {
   deletedAt?: Date | string | null
   tenantId: string
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutZoneInput
+  posTerminalZones?: Prisma.PosTerminalZoneUncheckedCreateNestedManyWithoutZoneInput
 }
 
 export type ZoneCreateOrConnectWithoutBinsInput = {
@@ -736,6 +859,8 @@ export type ZoneUpdateWithoutBinsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  minFractionalSale?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -744,6 +869,7 @@ export type ZoneUpdateWithoutBinsInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutZonesNestedInput
   warehouse?: Prisma.WarehouseUpdateOneRequiredWithoutZonesNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutZoneNestedInput
+  posTerminalZones?: Prisma.PosTerminalZoneUpdateManyWithoutZoneNestedInput
 }
 
 export type ZoneUncheckedUpdateWithoutBinsInput = {
@@ -753,6 +879,8 @@ export type ZoneUncheckedUpdateWithoutBinsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  minFractionalSale?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -760,6 +888,7 @@ export type ZoneUncheckedUpdateWithoutBinsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutZoneNestedInput
+  posTerminalZones?: Prisma.PosTerminalZoneUncheckedUpdateManyWithoutZoneNestedInput
 }
 
 export type ZoneCreateWithoutInventorySessionsInput = {
@@ -768,6 +897,8 @@ export type ZoneCreateWithoutInventorySessionsInput = {
   name: string
   description?: string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: boolean
+  minFractionalSale?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
@@ -776,6 +907,7 @@ export type ZoneCreateWithoutInventorySessionsInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutZonesInput
   warehouse: Prisma.WarehouseCreateNestedOneWithoutZonesInput
   bins?: Prisma.BinCreateNestedManyWithoutZoneInput
+  posTerminalZones?: Prisma.PosTerminalZoneCreateNestedManyWithoutZoneInput
 }
 
 export type ZoneUncheckedCreateWithoutInventorySessionsInput = {
@@ -785,6 +917,8 @@ export type ZoneUncheckedCreateWithoutInventorySessionsInput = {
   name: string
   description?: string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: boolean
+  minFractionalSale?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
@@ -792,6 +926,7 @@ export type ZoneUncheckedCreateWithoutInventorySessionsInput = {
   deletedAt?: Date | string | null
   tenantId: string
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutZoneInput
+  posTerminalZones?: Prisma.PosTerminalZoneUncheckedCreateNestedManyWithoutZoneInput
 }
 
 export type ZoneCreateOrConnectWithoutInventorySessionsInput = {
@@ -816,6 +951,8 @@ export type ZoneUpdateWithoutInventorySessionsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  minFractionalSale?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -824,6 +961,7 @@ export type ZoneUpdateWithoutInventorySessionsInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutZonesNestedInput
   warehouse?: Prisma.WarehouseUpdateOneRequiredWithoutZonesNestedInput
   bins?: Prisma.BinUpdateManyWithoutZoneNestedInput
+  posTerminalZones?: Prisma.PosTerminalZoneUpdateManyWithoutZoneNestedInput
 }
 
 export type ZoneUncheckedUpdateWithoutInventorySessionsInput = {
@@ -833,6 +971,8 @@ export type ZoneUncheckedUpdateWithoutInventorySessionsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  minFractionalSale?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -840,6 +980,7 @@ export type ZoneUncheckedUpdateWithoutInventorySessionsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   bins?: Prisma.BinUncheckedUpdateManyWithoutZoneNestedInput
+  posTerminalZones?: Prisma.PosTerminalZoneUncheckedUpdateManyWithoutZoneNestedInput
 }
 
 export type ZoneCreateWithoutTenantInput = {
@@ -848,6 +989,8 @@ export type ZoneCreateWithoutTenantInput = {
   name: string
   description?: string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: boolean
+  minFractionalSale?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
@@ -856,6 +999,7 @@ export type ZoneCreateWithoutTenantInput = {
   warehouse: Prisma.WarehouseCreateNestedOneWithoutZonesInput
   bins?: Prisma.BinCreateNestedManyWithoutZoneInput
   inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutZoneInput
+  posTerminalZones?: Prisma.PosTerminalZoneCreateNestedManyWithoutZoneInput
 }
 
 export type ZoneUncheckedCreateWithoutTenantInput = {
@@ -865,6 +1009,8 @@ export type ZoneUncheckedCreateWithoutTenantInput = {
   name: string
   description?: string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: boolean
+  minFractionalSale?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
@@ -872,6 +1018,7 @@ export type ZoneUncheckedCreateWithoutTenantInput = {
   deletedAt?: Date | string | null
   bins?: Prisma.BinUncheckedCreateNestedManyWithoutZoneInput
   inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutZoneInput
+  posTerminalZones?: Prisma.PosTerminalZoneUncheckedCreateNestedManyWithoutZoneInput
 }
 
 export type ZoneCreateOrConnectWithoutTenantInput = {
@@ -900,12 +1047,106 @@ export type ZoneUpdateManyWithWhereWithoutTenantInput = {
   data: Prisma.XOR<Prisma.ZoneUpdateManyMutationInput, Prisma.ZoneUncheckedUpdateManyWithoutTenantInput>
 }
 
+export type ZoneCreateWithoutPosTerminalZonesInput = {
+  id?: string
+  code: string
+  name: string
+  description?: string | null
+  structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: boolean
+  minFractionalSale?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenant: Prisma.TenantCreateNestedOneWithoutZonesInput
+  warehouse: Prisma.WarehouseCreateNestedOneWithoutZonesInput
+  bins?: Prisma.BinCreateNestedManyWithoutZoneInput
+  inventorySessions?: Prisma.InventorySessionCreateNestedManyWithoutZoneInput
+}
+
+export type ZoneUncheckedCreateWithoutPosTerminalZonesInput = {
+  id?: string
+  warehouseId: string
+  code: string
+  name: string
+  description?: string | null
+  structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: boolean
+  minFractionalSale?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  tenantId: string
+  bins?: Prisma.BinUncheckedCreateNestedManyWithoutZoneInput
+  inventorySessions?: Prisma.InventorySessionUncheckedCreateNestedManyWithoutZoneInput
+}
+
+export type ZoneCreateOrConnectWithoutPosTerminalZonesInput = {
+  where: Prisma.ZoneWhereUniqueInput
+  create: Prisma.XOR<Prisma.ZoneCreateWithoutPosTerminalZonesInput, Prisma.ZoneUncheckedCreateWithoutPosTerminalZonesInput>
+}
+
+export type ZoneUpsertWithoutPosTerminalZonesInput = {
+  update: Prisma.XOR<Prisma.ZoneUpdateWithoutPosTerminalZonesInput, Prisma.ZoneUncheckedUpdateWithoutPosTerminalZonesInput>
+  create: Prisma.XOR<Prisma.ZoneCreateWithoutPosTerminalZonesInput, Prisma.ZoneUncheckedCreateWithoutPosTerminalZonesInput>
+  where?: Prisma.ZoneWhereInput
+}
+
+export type ZoneUpdateToOneWithWhereWithoutPosTerminalZonesInput = {
+  where?: Prisma.ZoneWhereInput
+  data: Prisma.XOR<Prisma.ZoneUpdateWithoutPosTerminalZonesInput, Prisma.ZoneUncheckedUpdateWithoutPosTerminalZonesInput>
+}
+
+export type ZoneUpdateWithoutPosTerminalZonesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  minFractionalSale?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutZonesNestedInput
+  warehouse?: Prisma.WarehouseUpdateOneRequiredWithoutZonesNestedInput
+  bins?: Prisma.BinUpdateManyWithoutZoneNestedInput
+  inventorySessions?: Prisma.InventorySessionUpdateManyWithoutZoneNestedInput
+}
+
+export type ZoneUncheckedUpdateWithoutPosTerminalZonesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  warehouseId?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  minFractionalSale?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  bins?: Prisma.BinUncheckedUpdateManyWithoutZoneNestedInput
+  inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutZoneNestedInput
+}
+
 export type ZoneCreateManyWarehouseInput = {
   id?: string
   code: string
   name: string
   description?: string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: boolean
+  minFractionalSale?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
@@ -920,6 +1161,8 @@ export type ZoneUpdateWithoutWarehouseInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  minFractionalSale?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -928,6 +1171,7 @@ export type ZoneUpdateWithoutWarehouseInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutZonesNestedInput
   bins?: Prisma.BinUpdateManyWithoutZoneNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutZoneNestedInput
+  posTerminalZones?: Prisma.PosTerminalZoneUpdateManyWithoutZoneNestedInput
 }
 
 export type ZoneUncheckedUpdateWithoutWarehouseInput = {
@@ -936,6 +1180,8 @@ export type ZoneUncheckedUpdateWithoutWarehouseInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  minFractionalSale?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -944,6 +1190,7 @@ export type ZoneUncheckedUpdateWithoutWarehouseInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   bins?: Prisma.BinUncheckedUpdateManyWithoutZoneNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutZoneNestedInput
+  posTerminalZones?: Prisma.PosTerminalZoneUncheckedUpdateManyWithoutZoneNestedInput
 }
 
 export type ZoneUncheckedUpdateManyWithoutWarehouseInput = {
@@ -952,6 +1199,8 @@ export type ZoneUncheckedUpdateManyWithoutWarehouseInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  minFractionalSale?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -967,6 +1216,8 @@ export type ZoneCreateManyTenantInput = {
   name: string
   description?: string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: boolean
+  minFractionalSale?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
@@ -980,6 +1231,8 @@ export type ZoneUpdateWithoutTenantInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  minFractionalSale?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -988,6 +1241,7 @@ export type ZoneUpdateWithoutTenantInput = {
   warehouse?: Prisma.WarehouseUpdateOneRequiredWithoutZonesNestedInput
   bins?: Prisma.BinUpdateManyWithoutZoneNestedInput
   inventorySessions?: Prisma.InventorySessionUpdateManyWithoutZoneNestedInput
+  posTerminalZones?: Prisma.PosTerminalZoneUpdateManyWithoutZoneNestedInput
 }
 
 export type ZoneUncheckedUpdateWithoutTenantInput = {
@@ -997,6 +1251,8 @@ export type ZoneUncheckedUpdateWithoutTenantInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  minFractionalSale?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1004,6 +1260,7 @@ export type ZoneUncheckedUpdateWithoutTenantInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   bins?: Prisma.BinUncheckedUpdateManyWithoutZoneNestedInput
   inventorySessions?: Prisma.InventorySessionUncheckedUpdateManyWithoutZoneNestedInput
+  posTerminalZones?: Prisma.PosTerminalZoneUncheckedUpdateManyWithoutZoneNestedInput
 }
 
 export type ZoneUncheckedUpdateManyWithoutTenantInput = {
@@ -1013,6 +1270,8 @@ export type ZoneUncheckedUpdateManyWithoutTenantInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   structure?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  allowsFractionalSale?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  minFractionalSale?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   layout?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1028,11 +1287,13 @@ export type ZoneUncheckedUpdateManyWithoutTenantInput = {
 export type ZoneCountOutputType = {
   bins: number
   inventorySessions: number
+  posTerminalZones: number
 }
 
 export type ZoneCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   bins?: boolean | ZoneCountOutputTypeCountBinsArgs
   inventorySessions?: boolean | ZoneCountOutputTypeCountInventorySessionsArgs
+  posTerminalZones?: boolean | ZoneCountOutputTypeCountPosTerminalZonesArgs
 }
 
 /**
@@ -1059,6 +1320,13 @@ export type ZoneCountOutputTypeCountInventorySessionsArgs<ExtArgs extends runtim
   where?: Prisma.InventorySessionWhereInput
 }
 
+/**
+ * ZoneCountOutputType without action
+ */
+export type ZoneCountOutputTypeCountPosTerminalZonesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PosTerminalZoneWhereInput
+}
+
 
 export type ZoneSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1067,6 +1335,8 @@ export type ZoneSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   name?: boolean
   description?: boolean
   structure?: boolean
+  allowsFractionalSale?: boolean
+  minFractionalSale?: boolean
   layout?: boolean
   isActive?: boolean
   createdAt?: boolean
@@ -1077,6 +1347,7 @@ export type ZoneSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
   bins?: boolean | Prisma.Zone$binsArgs<ExtArgs>
   inventorySessions?: boolean | Prisma.Zone$inventorySessionsArgs<ExtArgs>
+  posTerminalZones?: boolean | Prisma.Zone$posTerminalZonesArgs<ExtArgs>
   _count?: boolean | Prisma.ZoneCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["zone"]>
 
@@ -1087,6 +1358,8 @@ export type ZoneSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   description?: boolean
   structure?: boolean
+  allowsFractionalSale?: boolean
+  minFractionalSale?: boolean
   layout?: boolean
   isActive?: boolean
   createdAt?: boolean
@@ -1104,6 +1377,8 @@ export type ZoneSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   description?: boolean
   structure?: boolean
+  allowsFractionalSale?: boolean
+  minFractionalSale?: boolean
   layout?: boolean
   isActive?: boolean
   createdAt?: boolean
@@ -1121,6 +1396,8 @@ export type ZoneSelectScalar = {
   name?: boolean
   description?: boolean
   structure?: boolean
+  allowsFractionalSale?: boolean
+  minFractionalSale?: boolean
   layout?: boolean
   isActive?: boolean
   createdAt?: boolean
@@ -1129,12 +1406,13 @@ export type ZoneSelectScalar = {
   tenantId?: boolean
 }
 
-export type ZoneOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "warehouseId" | "code" | "name" | "description" | "structure" | "layout" | "isActive" | "createdAt" | "updatedAt" | "deletedAt" | "tenantId", ExtArgs["result"]["zone"]>
+export type ZoneOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "warehouseId" | "code" | "name" | "description" | "structure" | "allowsFractionalSale" | "minFractionalSale" | "layout" | "isActive" | "createdAt" | "updatedAt" | "deletedAt" | "tenantId", ExtArgs["result"]["zone"]>
 export type ZoneInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   warehouse?: boolean | Prisma.WarehouseDefaultArgs<ExtArgs>
   bins?: boolean | Prisma.Zone$binsArgs<ExtArgs>
   inventorySessions?: boolean | Prisma.Zone$inventorySessionsArgs<ExtArgs>
+  posTerminalZones?: boolean | Prisma.Zone$posTerminalZonesArgs<ExtArgs>
   _count?: boolean | Prisma.ZoneCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ZoneIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1153,6 +1431,7 @@ export type $ZonePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     warehouse: Prisma.$WarehousePayload<ExtArgs>
     bins: Prisma.$BinPayload<ExtArgs>[]
     inventorySessions: Prisma.$InventorySessionPayload<ExtArgs>[]
+    posTerminalZones: Prisma.$PosTerminalZonePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1161,6 +1440,8 @@ export type $ZonePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     name: string
     description: string | null
     structure: runtime.JsonValue
+    allowsFractionalSale: boolean
+    minFractionalSale: runtime.Decimal | null
     layout: runtime.JsonValue | null
     isActive: boolean
     createdAt: Date
@@ -1565,6 +1846,7 @@ export interface Prisma__ZoneClient<T, Null = never, ExtArgs extends runtime.Typ
   warehouse<T extends Prisma.WarehouseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WarehouseDefaultArgs<ExtArgs>>): Prisma.Prisma__WarehouseClient<runtime.Types.Result.GetResult<Prisma.$WarehousePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   bins<T extends Prisma.Zone$binsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Zone$binsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   inventorySessions<T extends Prisma.Zone$inventorySessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Zone$inventorySessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventorySessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  posTerminalZones<T extends Prisma.Zone$posTerminalZonesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Zone$posTerminalZonesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PosTerminalZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1600,6 +1882,8 @@ export interface ZoneFieldRefs {
   readonly name: Prisma.FieldRef<"Zone", 'String'>
   readonly description: Prisma.FieldRef<"Zone", 'String'>
   readonly structure: Prisma.FieldRef<"Zone", 'Json'>
+  readonly allowsFractionalSale: Prisma.FieldRef<"Zone", 'Boolean'>
+  readonly minFractionalSale: Prisma.FieldRef<"Zone", 'Decimal'>
   readonly layout: Prisma.FieldRef<"Zone", 'Json'>
   readonly isActive: Prisma.FieldRef<"Zone", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Zone", 'DateTime'>
@@ -2052,6 +2336,30 @@ export type Zone$inventorySessionsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.InventorySessionScalarFieldEnum | Prisma.InventorySessionScalarFieldEnum[]
+}
+
+/**
+ * Zone.posTerminalZones
+ */
+export type Zone$posTerminalZonesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PosTerminalZone
+   */
+  select?: Prisma.PosTerminalZoneSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PosTerminalZone
+   */
+  omit?: Prisma.PosTerminalZoneOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PosTerminalZoneInclude<ExtArgs> | null
+  where?: Prisma.PosTerminalZoneWhereInput
+  orderBy?: Prisma.PosTerminalZoneOrderByWithRelationInput | Prisma.PosTerminalZoneOrderByWithRelationInput[]
+  cursor?: Prisma.PosTerminalZoneWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PosTerminalZoneScalarFieldEnum | Prisma.PosTerminalZoneScalarFieldEnum[]
 }
 
 /**

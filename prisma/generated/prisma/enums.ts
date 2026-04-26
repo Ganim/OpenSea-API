@@ -539,6 +539,19 @@ export const AuditAction = {
   EMPLOYEE_TERMINATE: 'EMPLOYEE_TERMINATE',
   EMPLOYEE_TRANSFER: 'EMPLOYEE_TRANSFER',
   EMPLOYEE_LINK_USER: 'EMPLOYEE_LINK_USER',
+  EMPLOYEE_REGENERATE_SHORT_ID: 'EMPLOYEE_REGENERATE_SHORT_ID',
+  POS_OPERATOR_ASSIGN: 'POS_OPERATOR_ASSIGN',
+  POS_OPERATOR_REVOKE: 'POS_OPERATOR_REVOKE',
+  POS_TERMINAL_SESSION_MODE_UPDATE: 'POS_TERMINAL_SESSION_MODE_UPDATE',
+  POS_TERMINAL_ZONE_ASSIGN: 'POS_TERMINAL_ZONE_ASSIGN',
+  POS_TERMINAL_ZONE_UNASSIGN: 'POS_TERMINAL_ZONE_UNASSIGN',
+  POS_SALE_CREATE: 'POS_SALE_CREATE',
+  POS_SALE_CONFLICT: 'POS_SALE_CONFLICT',
+  POS_CONFLICT_RESOLVE_CANCEL_AND_REFUND: 'POS_CONFLICT_RESOLVE_CANCEL_AND_REFUND',
+  POS_CONFLICT_RESOLVE_FORCE_ADJUSTMENT: 'POS_CONFLICT_RESOLVE_FORCE_ADJUSTMENT',
+  POS_CONFLICT_RESOLVE_SUBSTITUTE_ITEM: 'POS_CONFLICT_RESOLVE_SUBSTITUTE_ITEM',
+  POS_FISCAL_CONFIG_UPDATE: 'POS_FISCAL_CONFIG_UPDATE',
+  POS_FISCAL_EMIT: 'POS_FISCAL_EMIT',
   CLOCK_IN: 'CLOCK_IN',
   CLOCK_OUT: 'CLOCK_OUT',
   TIME_CALCULATE: 'TIME_CALCULATE',
@@ -625,6 +638,10 @@ export const AuditAction = {
   PUNCH_MISSED_PUNCH_DETECTED: 'PUNCH_MISSED_PUNCH_DETECTED',
   PUNCH_DEVICE_STATUS_CHANGED: 'PUNCH_DEVICE_STATUS_CHANGED',
   PUNCH_APPROVAL_RESOLVED: 'PUNCH_APPROVAL_RESOLVED',
+  AGENT_PAIRED: 'AGENT_PAIRED',
+  BIO_ENROLLED: 'BIO_ENROLLED',
+  BIO_MATCH: 'BIO_MATCH',
+  AGENT_REVOKED: 'AGENT_REVOKED',
   OTHER: 'OTHER'
 } as const
 
@@ -696,9 +713,13 @@ export const AuditEntity = {
   TIMELINE_EVENT: 'TIMELINE_EVENT',
   LEAD_ROUTING_RULE: 'LEAD_ROUTING_RULE',
   POS_TERMINAL: 'POS_TERMINAL',
+  POS_TERMINAL_OPERATOR: 'POS_TERMINAL_OPERATOR',
+  POS_TERMINAL_ZONE: 'POS_TERMINAL_ZONE',
   POS_SESSION: 'POS_SESSION',
   POS_TRANSACTION: 'POS_TRANSACTION',
   POS_CASH_MOVEMENT: 'POS_CASH_MOVEMENT',
+  POS_ORDER_CONFLICT: 'POS_ORDER_CONFLICT',
+  POS_FISCAL_CONFIG: 'POS_FISCAL_CONFIG',
   QUOTE: 'QUOTE',
   QUOTE_ITEM: 'QUOTE_ITEM',
   PROPOSAL: 'PROPOSAL',
@@ -752,12 +773,15 @@ export const AuditEntity = {
   TIME_BANK: 'TIME_BANK',
   PUNCH_DEVICE: 'PUNCH_DEVICE',
   PUNCH_APPROVAL: 'PUNCH_APPROVAL',
+  PUNCH_CONFIGURATION: 'PUNCH_CONFIGURATION',
+  GEOFENCE_ZONE: 'GEOFENCE_ZONE',
   FACE_ENROLLMENT: 'FACE_ENROLLMENT',
   PUNCH_PIN: 'PUNCH_PIN',
   PUNCH_QR_TOKEN: 'PUNCH_QR_TOKEN',
   COMPLIANCE_ARTIFACT: 'COMPLIANCE_ARTIFACT',
   PUNCH_MISSED_LOG: 'PUNCH_MISSED_LOG',
   EXPORT_JOB: 'EXPORT_JOB',
+  PUNCH_BIO_AGENT: 'PUNCH_BIO_AGENT',
   ABSENCE: 'ABSENCE',
   VACATION_PERIOD: 'VACATION_PERIOD',
   VACATION_BALANCE: 'VACATION_BALANCE',
@@ -2090,6 +2114,16 @@ export const OrderChannel = {
 export type OrderChannel = (typeof OrderChannel)[keyof typeof OrderChannel]
 
 
+export const OrderOriginSource = {
+  WEB: 'WEB',
+  POS_DESKTOP: 'POS_DESKTOP',
+  API: 'API',
+  MOBILE: 'MOBILE'
+} as const
+
+export type OrderOriginSource = (typeof OrderOriginSource)[keyof typeof OrderOriginSource]
+
+
 export const DeliveryMethod = {
   PICKUP: 'PICKUP',
   OWN_FLEET: 'OWN_FLEET',
@@ -2738,6 +2772,72 @@ export const PosCashMovementType = {
 } as const
 
 export type PosCashMovementType = (typeof PosCashMovementType)[keyof typeof PosCashMovementType]
+
+
+export const PosOperatorSessionMode = {
+  PER_SALE: 'PER_SALE',
+  STAY_LOGGED_IN: 'STAY_LOGGED_IN'
+} as const
+
+export type PosOperatorSessionMode = (typeof PosOperatorSessionMode)[keyof typeof PosOperatorSessionMode]
+
+
+export const PosCoordinationMode = {
+  STANDALONE: 'STANDALONE',
+  SELLER: 'SELLER',
+  CASHIER: 'CASHIER',
+  BOTH: 'BOTH'
+} as const
+
+export type PosCoordinationMode = (typeof PosCoordinationMode)[keyof typeof PosCoordinationMode]
+
+
+export const PosZoneTier = {
+  PRIMARY: 'PRIMARY',
+  SECONDARY: 'SECONDARY'
+} as const
+
+export type PosZoneTier = (typeof PosZoneTier)[keyof typeof PosZoneTier]
+
+
+export const PosPairingSource = {
+  JWT: 'JWT',
+  PUBLIC: 'PUBLIC'
+} as const
+
+export type PosPairingSource = (typeof PosPairingSource)[keyof typeof PosPairingSource]
+
+
+export const PosFiscalEmissionMode = {
+  ONLINE_SYNC: 'ONLINE_SYNC',
+  OFFLINE_CONTINGENCY: 'OFFLINE_CONTINGENCY',
+  NONE: 'NONE'
+} as const
+
+export type PosFiscalEmissionMode = (typeof PosFiscalEmissionMode)[keyof typeof PosFiscalEmissionMode]
+
+
+export const PosFiscalDocumentType = {
+  NFE: 'NFE',
+  NFC_E: 'NFC_E',
+  SAT_CFE: 'SAT_CFE',
+  MFE: 'MFE'
+} as const
+
+export type PosFiscalDocumentType = (typeof PosFiscalDocumentType)[keyof typeof PosFiscalDocumentType]
+
+
+export const PosOrderConflictStatus = {
+  PENDING_RESOLUTION: 'PENDING_RESOLUTION',
+  AUTO_SUBSTITUTED: 'AUTO_SUBSTITUTED',
+  AUTO_ADJUSTED: 'AUTO_ADJUSTED',
+  CANCELED_REFUNDED: 'CANCELED_REFUNDED',
+  FORCED_ADJUSTMENT: 'FORCED_ADJUSTMENT',
+  ITEM_SUBSTITUTED_MANUAL: 'ITEM_SUBSTITUTED_MANUAL',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type PosOrderConflictStatus = (typeof PosOrderConflictStatus)[keyof typeof PosOrderConflictStatus]
 
 
 export const PosOfflineStatus = {
@@ -3723,7 +3823,10 @@ export type PunchDeviceKind = (typeof PunchDeviceKind)[keyof typeof PunchDeviceK
 
 export const PunchApprovalReason = {
   OUT_OF_GEOFENCE: 'OUT_OF_GEOFENCE',
-  FACE_MATCH_LOW: 'FACE_MATCH_LOW'
+  FACE_MATCH_LOW: 'FACE_MATCH_LOW',
+  EMPLOYEE_SELF_REQUEST: 'EMPLOYEE_SELF_REQUEST',
+  GPS_INCONSISTENT: 'GPS_INCONSISTENT',
+  FACE_MATCH_FAIL_3X: 'FACE_MATCH_FAIL_3X'
 } as const
 
 export type PunchApprovalReason = (typeof PunchApprovalReason)[keyof typeof PunchApprovalReason]

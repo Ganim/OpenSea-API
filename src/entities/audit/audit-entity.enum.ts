@@ -382,6 +382,16 @@ export enum AuditEntity {
   EXPORT_JOB = 'EXPORT_JOB',
 
   // ==========================================
+  // Phase 10 / Plan 10-01 — Punch-Agent Biométrico
+  // ==========================================
+  /**
+   * PunchBioAgent — agente biométrico (leitor DigitalPersona / Windows Hello).
+   * Usado pelos 4 AuditActions novos: AGENT_PAIRED, BIO_ENROLLED, BIO_MATCH,
+   * AGENT_REVOKED. Sincronizado com Prisma enum em mesmo commit (Pitfall 8).
+   */
+  PUNCH_BIO_AGENT = 'PUNCH_BIO_AGENT',
+
+  // ==========================================
   // System
   // ==========================================
   OTHER = 'OTHER',

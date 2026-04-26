@@ -321,5 +321,11 @@ export enum AuditAction {
   PUNCH_AUDIT_MARK_SUSPICION = 'PUNCH_AUDIT_MARK_SUSPICION',
   PUNCH_AUDIT_VIEW = 'PUNCH_AUDIT_VIEW',
 
+  // Phase 10 / Plan 10-01 — Punch-Agent Biométrico (Pitfall 8 — sync com Prisma enum)
+  AGENT_PAIRED = 'AGENT_PAIRED',
+  BIO_ENROLLED = 'BIO_ENROLLED',
+  BIO_MATCH = 'BIO_MATCH',
+  AGENT_REVOKED = 'AGENT_REVOKED',
+
   OTHER = 'OTHER',
 }

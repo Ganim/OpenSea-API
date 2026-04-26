@@ -51,6 +51,7 @@ export type ItemMinAggregateOutputType = {
   unitCost: runtime.Decimal | null
   status: $Enums.ItemStatus | null
   entryDate: Date | null
+  fractionalSaleEnabled: boolean | null
   barcode: string | null
   eanCode: string | null
   upcCode: string | null
@@ -79,6 +80,7 @@ export type ItemMaxAggregateOutputType = {
   unitCost: runtime.Decimal | null
   status: $Enums.ItemStatus | null
   entryDate: Date | null
+  fractionalSaleEnabled: boolean | null
   barcode: string | null
   eanCode: string | null
   upcCode: string | null
@@ -108,6 +110,7 @@ export type ItemCountAggregateOutputType = {
   status: number
   entryDate: number
   attributes: number
+  fractionalSaleEnabled: number
   barcode: number
   eanCode: number
   upcCode: number
@@ -152,6 +155,7 @@ export type ItemMinAggregateInputType = {
   unitCost?: true
   status?: true
   entryDate?: true
+  fractionalSaleEnabled?: true
   barcode?: true
   eanCode?: true
   upcCode?: true
@@ -180,6 +184,7 @@ export type ItemMaxAggregateInputType = {
   unitCost?: true
   status?: true
   entryDate?: true
+  fractionalSaleEnabled?: true
   barcode?: true
   eanCode?: true
   upcCode?: true
@@ -209,6 +214,7 @@ export type ItemCountAggregateInputType = {
   status?: true
   entryDate?: true
   attributes?: true
+  fractionalSaleEnabled?: true
   barcode?: true
   eanCode?: true
   upcCode?: true
@@ -325,6 +331,7 @@ export type ItemGroupByOutputType = {
   status: $Enums.ItemStatus
   entryDate: Date
   attributes: runtime.JsonValue
+  fractionalSaleEnabled: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -377,6 +384,7 @@ export type ItemWhereInput = {
   status?: Prisma.EnumItemStatusFilter<"Item"> | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFilter<"Item"> | Date | string
   attributes?: Prisma.JsonFilter<"Item">
+  fractionalSaleEnabled?: Prisma.BoolFilter<"Item"> | boolean
   barcode?: Prisma.StringFilter<"Item"> | string
   eanCode?: Prisma.StringFilter<"Item"> | string
   upcCode?: Prisma.StringFilter<"Item"> | string
@@ -413,6 +421,7 @@ export type ItemOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   entryDate?: Prisma.SortOrder
   attributes?: Prisma.SortOrder
+  fractionalSaleEnabled?: Prisma.SortOrder
   barcode?: Prisma.SortOrder
   eanCode?: Prisma.SortOrder
   upcCode?: Prisma.SortOrder
@@ -457,6 +466,7 @@ export type ItemWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumItemStatusFilter<"Item"> | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFilter<"Item"> | Date | string
   attributes?: Prisma.JsonFilter<"Item">
+  fractionalSaleEnabled?: Prisma.BoolFilter<"Item"> | boolean
   qrCode?: Prisma.StringNullableFilter<"Item"> | string | null
   batchNumber?: Prisma.StringNullableFilter<"Item"> | string | null
   manufacturingDate?: Prisma.DateTimeNullableFilter<"Item"> | Date | string | null
@@ -490,6 +500,7 @@ export type ItemOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   entryDate?: Prisma.SortOrder
   attributes?: Prisma.SortOrder
+  fractionalSaleEnabled?: Prisma.SortOrder
   barcode?: Prisma.SortOrder
   eanCode?: Prisma.SortOrder
   upcCode?: Prisma.SortOrder
@@ -527,6 +538,7 @@ export type ItemScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumItemStatusWithAggregatesFilter<"Item"> | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeWithAggregatesFilter<"Item"> | Date | string
   attributes?: Prisma.JsonWithAggregatesFilter<"Item">
+  fractionalSaleEnabled?: Prisma.BoolWithAggregatesFilter<"Item"> | boolean
   barcode?: Prisma.StringWithAggregatesFilter<"Item"> | string
   eanCode?: Prisma.StringWithAggregatesFilter<"Item"> | string
   upcCode?: Prisma.StringWithAggregatesFilter<"Item"> | string
@@ -556,6 +568,7 @@ export type ItemCreateInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -589,6 +602,7 @@ export type ItemUncheckedCreateInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -622,6 +636,7 @@ export type ItemUpdateInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -655,6 +670,7 @@ export type ItemUncheckedUpdateInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -688,6 +704,7 @@ export type ItemCreateManyInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -717,6 +734,7 @@ export type ItemUpdateManyMutationInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -743,6 +761,7 @@ export type ItemUncheckedUpdateManyInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -799,6 +818,7 @@ export type ItemCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   entryDate?: Prisma.SortOrder
   attributes?: Prisma.SortOrder
+  fractionalSaleEnabled?: Prisma.SortOrder
   barcode?: Prisma.SortOrder
   eanCode?: Prisma.SortOrder
   upcCode?: Prisma.SortOrder
@@ -834,6 +854,7 @@ export type ItemMaxOrderByAggregateInput = {
   unitCost?: Prisma.SortOrder
   status?: Prisma.SortOrder
   entryDate?: Prisma.SortOrder
+  fractionalSaleEnabled?: Prisma.SortOrder
   barcode?: Prisma.SortOrder
   eanCode?: Prisma.SortOrder
   upcCode?: Prisma.SortOrder
@@ -862,6 +883,7 @@ export type ItemMinOrderByAggregateInput = {
   unitCost?: Prisma.SortOrder
   status?: Prisma.SortOrder
   entryDate?: Prisma.SortOrder
+  fractionalSaleEnabled?: Prisma.SortOrder
   barcode?: Prisma.SortOrder
   eanCode?: Prisma.SortOrder
   upcCode?: Prisma.SortOrder
@@ -1088,6 +1110,7 @@ export type ItemCreateWithoutBinInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -1120,6 +1143,7 @@ export type ItemUncheckedCreateWithoutBinInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -1181,6 +1205,7 @@ export type ItemScalarWhereInput = {
   status?: Prisma.EnumItemStatusFilter<"Item"> | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFilter<"Item"> | Date | string
   attributes?: Prisma.JsonFilter<"Item">
+  fractionalSaleEnabled?: Prisma.BoolFilter<"Item"> | boolean
   barcode?: Prisma.StringFilter<"Item"> | string
   eanCode?: Prisma.StringFilter<"Item"> | string
   upcCode?: Prisma.StringFilter<"Item"> | string
@@ -1210,6 +1235,7 @@ export type ItemCreateWithoutVolumeItemsInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -1242,6 +1268,7 @@ export type ItemUncheckedCreateWithoutVolumeItemsInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -1290,6 +1317,7 @@ export type ItemUpdateWithoutVolumeItemsInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1322,6 +1350,7 @@ export type ItemUncheckedUpdateWithoutVolumeItemsInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1354,6 +1383,7 @@ export type ItemCreateWithoutVariantInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -1386,6 +1416,7 @@ export type ItemUncheckedCreateWithoutVariantInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -1444,6 +1475,7 @@ export type ItemCreateWithoutMovementsInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -1476,6 +1508,7 @@ export type ItemUncheckedCreateWithoutMovementsInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -1524,6 +1557,7 @@ export type ItemUpdateWithoutMovementsInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1556,6 +1590,7 @@ export type ItemUncheckedUpdateWithoutMovementsInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1588,6 +1623,7 @@ export type ItemCreateWithoutInventorySessionItemsInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -1620,6 +1656,7 @@ export type ItemUncheckedCreateWithoutInventorySessionItemsInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -1668,6 +1705,7 @@ export type ItemUpdateWithoutInventorySessionItemsInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1700,6 +1738,7 @@ export type ItemUncheckedUpdateWithoutInventorySessionItemsInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1732,6 +1771,7 @@ export type ItemCreateWithoutReservationsInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -1764,6 +1804,7 @@ export type ItemUncheckedCreateWithoutReservationsInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -1812,6 +1853,7 @@ export type ItemUpdateWithoutReservationsInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1844,6 +1886,7 @@ export type ItemUncheckedUpdateWithoutReservationsInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1876,6 +1919,7 @@ export type ItemCreateWithoutTenantInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -1908,6 +1952,7 @@ export type ItemUncheckedCreateWithoutTenantInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -1966,6 +2011,7 @@ export type ItemCreateManyBinInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -1994,6 +2040,7 @@ export type ItemUpdateWithoutBinInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2026,6 +2073,7 @@ export type ItemUncheckedUpdateWithoutBinInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2058,6 +2106,7 @@ export type ItemUncheckedUpdateManyWithoutBinInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2086,6 +2135,7 @@ export type ItemCreateManyVariantInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -2114,6 +2164,7 @@ export type ItemUpdateWithoutVariantInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2146,6 +2197,7 @@ export type ItemUncheckedUpdateWithoutVariantInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2178,6 +2230,7 @@ export type ItemUncheckedUpdateManyWithoutVariantInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2206,6 +2259,7 @@ export type ItemCreateManyTenantInput = {
   status?: $Enums.ItemStatus
   entryDate?: Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: boolean
   barcode: string
   eanCode: string
   upcCode: string
@@ -2234,6 +2288,7 @@ export type ItemUpdateWithoutTenantInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2266,6 +2321,7 @@ export type ItemUncheckedUpdateWithoutTenantInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2298,6 +2354,7 @@ export type ItemUncheckedUpdateManyWithoutTenantInput = {
   status?: Prisma.EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attributes?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  fractionalSaleEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   barcode?: Prisma.StringFieldUpdateOperationsInput | string
   eanCode?: Prisma.StringFieldUpdateOperationsInput | string
   upcCode?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2384,6 +2441,7 @@ export type ItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   status?: boolean
   entryDate?: boolean
   attributes?: boolean
+  fractionalSaleEnabled?: boolean
   barcode?: boolean
   eanCode?: boolean
   upcCode?: boolean
@@ -2421,6 +2479,7 @@ export type ItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   status?: boolean
   entryDate?: boolean
   attributes?: boolean
+  fractionalSaleEnabled?: boolean
   barcode?: boolean
   eanCode?: boolean
   upcCode?: boolean
@@ -2453,6 +2512,7 @@ export type ItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   status?: boolean
   entryDate?: boolean
   attributes?: boolean
+  fractionalSaleEnabled?: boolean
   barcode?: boolean
   eanCode?: boolean
   upcCode?: boolean
@@ -2485,6 +2545,7 @@ export type ItemSelectScalar = {
   status?: boolean
   entryDate?: boolean
   attributes?: boolean
+  fractionalSaleEnabled?: boolean
   barcode?: boolean
   eanCode?: boolean
   upcCode?: boolean
@@ -2502,7 +2563,7 @@ export type ItemSelectScalar = {
   tenantId?: boolean
 }
 
-export type ItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "uniqueCode" | "slug" | "fullCode" | "sequentialCode" | "initialQuantity" | "currentQuantity" | "unitCost" | "status" | "entryDate" | "attributes" | "barcode" | "eanCode" | "upcCode" | "qrCode" | "batchNumber" | "manufacturingDate" | "expiryDate" | "exitMovementType" | "createdAt" | "updatedAt" | "deletedAt" | "variantId" | "binId" | "lastKnownAddress" | "tenantId", ExtArgs["result"]["item"]>
+export type ItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "uniqueCode" | "slug" | "fullCode" | "sequentialCode" | "initialQuantity" | "currentQuantity" | "unitCost" | "status" | "entryDate" | "attributes" | "fractionalSaleEnabled" | "barcode" | "eanCode" | "upcCode" | "qrCode" | "batchNumber" | "manufacturingDate" | "expiryDate" | "exitMovementType" | "createdAt" | "updatedAt" | "deletedAt" | "variantId" | "binId" | "lastKnownAddress" | "tenantId", ExtArgs["result"]["item"]>
 export type ItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   variant?: boolean | Prisma.VariantDefaultArgs<ExtArgs>
@@ -2547,6 +2608,7 @@ export type $ItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     status: $Enums.ItemStatus
     entryDate: Date
     attributes: runtime.JsonValue
+    fractionalSaleEnabled: boolean
     barcode: string
     eanCode: string
     upcCode: string
@@ -3003,6 +3065,7 @@ export interface ItemFieldRefs {
   readonly status: Prisma.FieldRef<"Item", 'ItemStatus'>
   readonly entryDate: Prisma.FieldRef<"Item", 'DateTime'>
   readonly attributes: Prisma.FieldRef<"Item", 'Json'>
+  readonly fractionalSaleEnabled: Prisma.FieldRef<"Item", 'Boolean'>
   readonly barcode: Prisma.FieldRef<"Item", 'String'>
   readonly eanCode: Prisma.FieldRef<"Item", 'String'>
   readonly upcCode: Prisma.FieldRef<"Item", 'String'>

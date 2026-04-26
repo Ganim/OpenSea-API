@@ -1308,6 +1308,36 @@ export type PosTerminal = Prisma.PosTerminalModel
  */
 export type PosTerminalWarehouse = Prisma.PosTerminalWarehouseModel
 /**
+ * Model PosTerminalZone
+ * 
+ */
+export type PosTerminalZone = Prisma.PosTerminalZoneModel
+/**
+ * Model PosTerminalProfile
+ * 
+ */
+export type PosTerminalProfile = Prisma.PosTerminalProfileModel
+/**
+ * Model PosFiscalConfig
+ * 
+ */
+export type PosFiscalConfig = Prisma.PosFiscalConfigModel
+/**
+ * Model PosOrderConflict
+ * 
+ */
+export type PosOrderConflict = Prisma.PosOrderConflictModel
+/**
+ * Model PosOrphanPayment
+ * 
+ */
+export type PosOrphanPayment = Prisma.PosOrphanPaymentModel
+/**
+ * Model PosTerminalOperator
+ * 
+ */
+export type PosTerminalOperator = Prisma.PosTerminalOperatorModel
+/**
  * Model PosDevicePairing
  * 
  */
@@ -2067,3 +2097,8 @@ export type GeneratedEmploymentContract = Prisma.GeneratedEmploymentContractMode
  * 
  */
 export type PunchMissedLog = Prisma.PunchMissedLogModel
+/**
+ * Model WebAuthnCredential
+ * 
+ */
+export type WebAuthnCredential = Prisma.WebAuthnCredentialModel

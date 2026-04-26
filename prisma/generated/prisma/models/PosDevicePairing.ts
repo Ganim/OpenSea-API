@@ -32,7 +32,9 @@ export type PosDevicePairingMinAggregateOutputType = {
   deviceTokenHash: string | null
   pairedAt: Date | null
   lastSeenAt: Date | null
+  appVersion: string | null
   pairedByUserId: string | null
+  pairingSource: $Enums.PosPairingSource | null
   revokedAt: Date | null
   revokedByUserId: string | null
   revokedReason: string | null
@@ -46,7 +48,9 @@ export type PosDevicePairingMaxAggregateOutputType = {
   deviceTokenHash: string | null
   pairedAt: Date | null
   lastSeenAt: Date | null
+  appVersion: string | null
   pairedByUserId: string | null
+  pairingSource: $Enums.PosPairingSource | null
   revokedAt: Date | null
   revokedByUserId: string | null
   revokedReason: string | null
@@ -60,7 +64,9 @@ export type PosDevicePairingCountAggregateOutputType = {
   deviceTokenHash: number
   pairedAt: number
   lastSeenAt: number
+  appVersion: number
   pairedByUserId: number
+  pairingSource: number
   revokedAt: number
   revokedByUserId: number
   revokedReason: number
@@ -76,7 +82,9 @@ export type PosDevicePairingMinAggregateInputType = {
   deviceTokenHash?: true
   pairedAt?: true
   lastSeenAt?: true
+  appVersion?: true
   pairedByUserId?: true
+  pairingSource?: true
   revokedAt?: true
   revokedByUserId?: true
   revokedReason?: true
@@ -90,7 +98,9 @@ export type PosDevicePairingMaxAggregateInputType = {
   deviceTokenHash?: true
   pairedAt?: true
   lastSeenAt?: true
+  appVersion?: true
   pairedByUserId?: true
+  pairingSource?: true
   revokedAt?: true
   revokedByUserId?: true
   revokedReason?: true
@@ -104,7 +114,9 @@ export type PosDevicePairingCountAggregateInputType = {
   deviceTokenHash?: true
   pairedAt?: true
   lastSeenAt?: true
+  appVersion?: true
   pairedByUserId?: true
+  pairingSource?: true
   revokedAt?: true
   revokedByUserId?: true
   revokedReason?: true
@@ -191,7 +203,9 @@ export type PosDevicePairingGroupByOutputType = {
   deviceTokenHash: string
   pairedAt: Date
   lastSeenAt: Date | null
+  appVersion: string | null
   pairedByUserId: string
+  pairingSource: $Enums.PosPairingSource
   revokedAt: Date | null
   revokedByUserId: string | null
   revokedReason: string | null
@@ -226,7 +240,9 @@ export type PosDevicePairingWhereInput = {
   deviceTokenHash?: Prisma.StringFilter<"PosDevicePairing"> | string
   pairedAt?: Prisma.DateTimeFilter<"PosDevicePairing"> | Date | string
   lastSeenAt?: Prisma.DateTimeNullableFilter<"PosDevicePairing"> | Date | string | null
+  appVersion?: Prisma.StringNullableFilter<"PosDevicePairing"> | string | null
   pairedByUserId?: Prisma.StringFilter<"PosDevicePairing"> | string
+  pairingSource?: Prisma.EnumPosPairingSourceFilter<"PosDevicePairing"> | $Enums.PosPairingSource
   revokedAt?: Prisma.DateTimeNullableFilter<"PosDevicePairing"> | Date | string | null
   revokedByUserId?: Prisma.StringNullableFilter<"PosDevicePairing"> | string | null
   revokedReason?: Prisma.StringNullableFilter<"PosDevicePairing"> | string | null
@@ -242,7 +258,9 @@ export type PosDevicePairingOrderByWithRelationInput = {
   deviceTokenHash?: Prisma.SortOrder
   pairedAt?: Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  appVersion?: Prisma.SortOrderInput | Prisma.SortOrder
   pairedByUserId?: Prisma.SortOrder
+  pairingSource?: Prisma.SortOrder
   revokedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   revokedByUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   revokedReason?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -261,7 +279,9 @@ export type PosDevicePairingWhereUniqueInput = Prisma.AtLeast<{
   deviceLabel?: Prisma.StringFilter<"PosDevicePairing"> | string
   pairedAt?: Prisma.DateTimeFilter<"PosDevicePairing"> | Date | string
   lastSeenAt?: Prisma.DateTimeNullableFilter<"PosDevicePairing"> | Date | string | null
+  appVersion?: Prisma.StringNullableFilter<"PosDevicePairing"> | string | null
   pairedByUserId?: Prisma.StringFilter<"PosDevicePairing"> | string
+  pairingSource?: Prisma.EnumPosPairingSourceFilter<"PosDevicePairing"> | $Enums.PosPairingSource
   revokedAt?: Prisma.DateTimeNullableFilter<"PosDevicePairing"> | Date | string | null
   revokedByUserId?: Prisma.StringNullableFilter<"PosDevicePairing"> | string | null
   revokedReason?: Prisma.StringNullableFilter<"PosDevicePairing"> | string | null
@@ -277,7 +297,9 @@ export type PosDevicePairingOrderByWithAggregationInput = {
   deviceTokenHash?: Prisma.SortOrder
   pairedAt?: Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  appVersion?: Prisma.SortOrderInput | Prisma.SortOrder
   pairedByUserId?: Prisma.SortOrder
+  pairingSource?: Prisma.SortOrder
   revokedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   revokedByUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   revokedReason?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -297,7 +319,9 @@ export type PosDevicePairingScalarWhereWithAggregatesInput = {
   deviceTokenHash?: Prisma.StringWithAggregatesFilter<"PosDevicePairing"> | string
   pairedAt?: Prisma.DateTimeWithAggregatesFilter<"PosDevicePairing"> | Date | string
   lastSeenAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PosDevicePairing"> | Date | string | null
+  appVersion?: Prisma.StringNullableWithAggregatesFilter<"PosDevicePairing"> | string | null
   pairedByUserId?: Prisma.StringWithAggregatesFilter<"PosDevicePairing"> | string
+  pairingSource?: Prisma.EnumPosPairingSourceWithAggregatesFilter<"PosDevicePairing"> | $Enums.PosPairingSource
   revokedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PosDevicePairing"> | Date | string | null
   revokedByUserId?: Prisma.StringNullableWithAggregatesFilter<"PosDevicePairing"> | string | null
   revokedReason?: Prisma.StringNullableWithAggregatesFilter<"PosDevicePairing"> | string | null
@@ -309,7 +333,9 @@ export type PosDevicePairingCreateInput = {
   deviceTokenHash: string
   pairedAt?: Date | string
   lastSeenAt?: Date | string | null
+  appVersion?: string | null
   pairedByUserId: string
+  pairingSource?: $Enums.PosPairingSource
   revokedAt?: Date | string | null
   revokedByUserId?: string | null
   revokedReason?: string | null
@@ -325,7 +351,9 @@ export type PosDevicePairingUncheckedCreateInput = {
   deviceTokenHash: string
   pairedAt?: Date | string
   lastSeenAt?: Date | string | null
+  appVersion?: string | null
   pairedByUserId: string
+  pairingSource?: $Enums.PosPairingSource
   revokedAt?: Date | string | null
   revokedByUserId?: string | null
   revokedReason?: string | null
@@ -337,7 +365,9 @@ export type PosDevicePairingUpdateInput = {
   deviceTokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   pairedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pairedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  pairingSource?: Prisma.EnumPosPairingSourceFieldUpdateOperationsInput | $Enums.PosPairingSource
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revokedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -353,7 +383,9 @@ export type PosDevicePairingUncheckedUpdateInput = {
   deviceTokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   pairedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pairedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  pairingSource?: Prisma.EnumPosPairingSourceFieldUpdateOperationsInput | $Enums.PosPairingSource
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revokedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -367,7 +399,9 @@ export type PosDevicePairingCreateManyInput = {
   deviceTokenHash: string
   pairedAt?: Date | string
   lastSeenAt?: Date | string | null
+  appVersion?: string | null
   pairedByUserId: string
+  pairingSource?: $Enums.PosPairingSource
   revokedAt?: Date | string | null
   revokedByUserId?: string | null
   revokedReason?: string | null
@@ -379,7 +413,9 @@ export type PosDevicePairingUpdateManyMutationInput = {
   deviceTokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   pairedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pairedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  pairingSource?: Prisma.EnumPosPairingSourceFieldUpdateOperationsInput | $Enums.PosPairingSource
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revokedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -393,7 +429,9 @@ export type PosDevicePairingUncheckedUpdateManyInput = {
   deviceTokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   pairedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pairedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  pairingSource?: Prisma.EnumPosPairingSourceFieldUpdateOperationsInput | $Enums.PosPairingSource
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revokedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -422,7 +460,9 @@ export type PosDevicePairingCountOrderByAggregateInput = {
   deviceTokenHash?: Prisma.SortOrder
   pairedAt?: Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrder
+  appVersion?: Prisma.SortOrder
   pairedByUserId?: Prisma.SortOrder
+  pairingSource?: Prisma.SortOrder
   revokedAt?: Prisma.SortOrder
   revokedByUserId?: Prisma.SortOrder
   revokedReason?: Prisma.SortOrder
@@ -436,7 +476,9 @@ export type PosDevicePairingMaxOrderByAggregateInput = {
   deviceTokenHash?: Prisma.SortOrder
   pairedAt?: Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrder
+  appVersion?: Prisma.SortOrder
   pairedByUserId?: Prisma.SortOrder
+  pairingSource?: Prisma.SortOrder
   revokedAt?: Prisma.SortOrder
   revokedByUserId?: Prisma.SortOrder
   revokedReason?: Prisma.SortOrder
@@ -450,7 +492,9 @@ export type PosDevicePairingMinOrderByAggregateInput = {
   deviceTokenHash?: Prisma.SortOrder
   pairedAt?: Prisma.SortOrder
   lastSeenAt?: Prisma.SortOrder
+  appVersion?: Prisma.SortOrder
   pairedByUserId?: Prisma.SortOrder
+  pairingSource?: Prisma.SortOrder
   revokedAt?: Prisma.SortOrder
   revokedByUserId?: Prisma.SortOrder
   revokedReason?: Prisma.SortOrder
@@ -530,13 +574,19 @@ export type PosDevicePairingUncheckedUpdateOneWithoutTerminalNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PosDevicePairingUpdateToOneWithWhereWithoutTerminalInput, Prisma.PosDevicePairingUpdateWithoutTerminalInput>, Prisma.PosDevicePairingUncheckedUpdateWithoutTerminalInput>
 }
 
+export type EnumPosPairingSourceFieldUpdateOperationsInput = {
+  set?: $Enums.PosPairingSource
+}
+
 export type PosDevicePairingCreateWithoutTenantInput = {
   id?: string
   deviceLabel: string
   deviceTokenHash: string
   pairedAt?: Date | string
   lastSeenAt?: Date | string | null
+  appVersion?: string | null
   pairedByUserId: string
+  pairingSource?: $Enums.PosPairingSource
   revokedAt?: Date | string | null
   revokedByUserId?: string | null
   revokedReason?: string | null
@@ -550,7 +600,9 @@ export type PosDevicePairingUncheckedCreateWithoutTenantInput = {
   deviceTokenHash: string
   pairedAt?: Date | string
   lastSeenAt?: Date | string | null
+  appVersion?: string | null
   pairedByUserId: string
+  pairingSource?: $Enums.PosPairingSource
   revokedAt?: Date | string | null
   revokedByUserId?: string | null
   revokedReason?: string | null
@@ -593,7 +645,9 @@ export type PosDevicePairingScalarWhereInput = {
   deviceTokenHash?: Prisma.StringFilter<"PosDevicePairing"> | string
   pairedAt?: Prisma.DateTimeFilter<"PosDevicePairing"> | Date | string
   lastSeenAt?: Prisma.DateTimeNullableFilter<"PosDevicePairing"> | Date | string | null
+  appVersion?: Prisma.StringNullableFilter<"PosDevicePairing"> | string | null
   pairedByUserId?: Prisma.StringFilter<"PosDevicePairing"> | string
+  pairingSource?: Prisma.EnumPosPairingSourceFilter<"PosDevicePairing"> | $Enums.PosPairingSource
   revokedAt?: Prisma.DateTimeNullableFilter<"PosDevicePairing"> | Date | string | null
   revokedByUserId?: Prisma.StringNullableFilter<"PosDevicePairing"> | string | null
   revokedReason?: Prisma.StringNullableFilter<"PosDevicePairing"> | string | null
@@ -605,7 +659,9 @@ export type PosDevicePairingCreateWithoutTerminalInput = {
   deviceTokenHash: string
   pairedAt?: Date | string
   lastSeenAt?: Date | string | null
+  appVersion?: string | null
   pairedByUserId: string
+  pairingSource?: $Enums.PosPairingSource
   revokedAt?: Date | string | null
   revokedByUserId?: string | null
   revokedReason?: string | null
@@ -619,7 +675,9 @@ export type PosDevicePairingUncheckedCreateWithoutTerminalInput = {
   deviceTokenHash: string
   pairedAt?: Date | string
   lastSeenAt?: Date | string | null
+  appVersion?: string | null
   pairedByUserId: string
+  pairingSource?: $Enums.PosPairingSource
   revokedAt?: Date | string | null
   revokedByUserId?: string | null
   revokedReason?: string | null
@@ -647,7 +705,9 @@ export type PosDevicePairingUpdateWithoutTerminalInput = {
   deviceTokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   pairedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pairedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  pairingSource?: Prisma.EnumPosPairingSourceFieldUpdateOperationsInput | $Enums.PosPairingSource
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revokedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -661,7 +721,9 @@ export type PosDevicePairingUncheckedUpdateWithoutTerminalInput = {
   deviceTokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   pairedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pairedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  pairingSource?: Prisma.EnumPosPairingSourceFieldUpdateOperationsInput | $Enums.PosPairingSource
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revokedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -674,7 +736,9 @@ export type PosDevicePairingCreateManyTenantInput = {
   deviceTokenHash: string
   pairedAt?: Date | string
   lastSeenAt?: Date | string | null
+  appVersion?: string | null
   pairedByUserId: string
+  pairingSource?: $Enums.PosPairingSource
   revokedAt?: Date | string | null
   revokedByUserId?: string | null
   revokedReason?: string | null
@@ -686,7 +750,9 @@ export type PosDevicePairingUpdateWithoutTenantInput = {
   deviceTokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   pairedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pairedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  pairingSource?: Prisma.EnumPosPairingSourceFieldUpdateOperationsInput | $Enums.PosPairingSource
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revokedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -700,7 +766,9 @@ export type PosDevicePairingUncheckedUpdateWithoutTenantInput = {
   deviceTokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   pairedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pairedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  pairingSource?: Prisma.EnumPosPairingSourceFieldUpdateOperationsInput | $Enums.PosPairingSource
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revokedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -713,7 +781,9 @@ export type PosDevicePairingUncheckedUpdateManyWithoutTenantInput = {
   deviceTokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   pairedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pairedByUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  pairingSource?: Prisma.EnumPosPairingSourceFieldUpdateOperationsInput | $Enums.PosPairingSource
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revokedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revokedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -729,7 +799,9 @@ export type PosDevicePairingSelect<ExtArgs extends runtime.Types.Extensions.Inte
   deviceTokenHash?: boolean
   pairedAt?: boolean
   lastSeenAt?: boolean
+  appVersion?: boolean
   pairedByUserId?: boolean
+  pairingSource?: boolean
   revokedAt?: boolean
   revokedByUserId?: boolean
   revokedReason?: boolean
@@ -745,7 +817,9 @@ export type PosDevicePairingSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   deviceTokenHash?: boolean
   pairedAt?: boolean
   lastSeenAt?: boolean
+  appVersion?: boolean
   pairedByUserId?: boolean
+  pairingSource?: boolean
   revokedAt?: boolean
   revokedByUserId?: boolean
   revokedReason?: boolean
@@ -761,7 +835,9 @@ export type PosDevicePairingSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   deviceTokenHash?: boolean
   pairedAt?: boolean
   lastSeenAt?: boolean
+  appVersion?: boolean
   pairedByUserId?: boolean
+  pairingSource?: boolean
   revokedAt?: boolean
   revokedByUserId?: boolean
   revokedReason?: boolean
@@ -777,13 +853,15 @@ export type PosDevicePairingSelectScalar = {
   deviceTokenHash?: boolean
   pairedAt?: boolean
   lastSeenAt?: boolean
+  appVersion?: boolean
   pairedByUserId?: boolean
+  pairingSource?: boolean
   revokedAt?: boolean
   revokedByUserId?: boolean
   revokedReason?: boolean
 }
 
-export type PosDevicePairingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "terminalId" | "deviceLabel" | "deviceTokenHash" | "pairedAt" | "lastSeenAt" | "pairedByUserId" | "revokedAt" | "revokedByUserId" | "revokedReason", ExtArgs["result"]["posDevicePairing"]>
+export type PosDevicePairingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "terminalId" | "deviceLabel" | "deviceTokenHash" | "pairedAt" | "lastSeenAt" | "appVersion" | "pairedByUserId" | "pairingSource" | "revokedAt" | "revokedByUserId" | "revokedReason", ExtArgs["result"]["posDevicePairing"]>
 export type PosDevicePairingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   terminal?: boolean | Prisma.PosTerminalDefaultArgs<ExtArgs>
@@ -811,7 +889,9 @@ export type $PosDevicePairingPayload<ExtArgs extends runtime.Types.Extensions.In
     deviceTokenHash: string
     pairedAt: Date
     lastSeenAt: Date | null
+    appVersion: string | null
     pairedByUserId: string
+    pairingSource: $Enums.PosPairingSource
     revokedAt: Date | null
     revokedByUserId: string | null
     revokedReason: string | null
@@ -1247,7 +1327,9 @@ export interface PosDevicePairingFieldRefs {
   readonly deviceTokenHash: Prisma.FieldRef<"PosDevicePairing", 'String'>
   readonly pairedAt: Prisma.FieldRef<"PosDevicePairing", 'DateTime'>
   readonly lastSeenAt: Prisma.FieldRef<"PosDevicePairing", 'DateTime'>
+  readonly appVersion: Prisma.FieldRef<"PosDevicePairing", 'String'>
   readonly pairedByUserId: Prisma.FieldRef<"PosDevicePairing", 'String'>
+  readonly pairingSource: Prisma.FieldRef<"PosDevicePairing", 'PosPairingSource'>
   readonly revokedAt: Prisma.FieldRef<"PosDevicePairing", 'DateTime'>
   readonly revokedByUserId: Prisma.FieldRef<"PosDevicePairing", 'String'>
   readonly revokedReason: Prisma.FieldRef<"PosDevicePairing", 'String'>
