@@ -57,8 +57,10 @@ export interface JobUpdatePayload {
 }
 
 export interface SocketData {
-  type: 'browser' | 'agent';
+  type: 'browser' | 'agent' | 'punch-agent';
   tenantId: string;
   userId?: string;
   agentId?: string;
+  /** deviceId for punch-agent sockets (Phase 10 / Plan 10-01 — D-D1) */
+  deviceId?: string;
 }

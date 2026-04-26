@@ -21,11 +21,11 @@ describe('punchManifest', () => {
   });
 
   describe('categories', () => {
-    it('declares exactly 11 categories (3 phase-4 + 2 phase-5 + 3 phase-7 + 3 phase-9)', () => {
-      expect(punchManifest.categories).toHaveLength(11);
+    it('declares exactly 12 categories (3 phase-4 + 2 phase-5 + 3 phase-7 + 3 phase-9 + 1 phase-10)', () => {
+      expect(punchManifest.categories).toHaveLength(12);
     });
 
-    it('declares the expected category codes in order (phase 4 → 5 → 7 → 9)', () => {
+    it('declares the expected category codes in order (phase 4 → 5 → 7 → 9 → 10)', () => {
       const codes = punchManifest.categories.map((c) => c.code);
       expect(codes).toEqual([
         'punch.registered',
@@ -39,6 +39,7 @@ describe('punchManifest', () => {
         'punch.face_match_alert',
         'punch.missed_punch_manager',
         'punch.missed_punch_employee',
+        'punch.agent_update_failed',
       ]);
     });
 
@@ -218,7 +219,26 @@ describe('punchManifest', () => {
       expect(category!.description?.length ?? 0).toBeGreaterThan(0);
     });
 
-    it('every category code is unique (no accidental dup with phase-4/5/7/9 codes)', () => {
+    // ─── Phase 10 additions (Plan 10-01) ─────────────────────────────────────
+
+    it('punch.agent_update_failed is ACTIONABLE/HIGH/[IN_APP,EMAIL], digest-supported (D-E1)', () => {
+      const category = punchManifest.categories.find(
+        (c) => c.code === 'punch.agent_update_failed',
+      );
+      expect(category).toBeDefined();
+      expect(category!.defaultType).toBe(NotificationType.ACTIONABLE);
+      expect(category!.defaultPriority).toBe(NotificationPriority.HIGH);
+      expect(category!.defaultChannels).toEqual([
+        NotificationChannel.IN_APP,
+        NotificationChannel.EMAIL,
+      ]);
+      expect(category!.digestSupported).toBe(true);
+      // pt-BR copy
+      expect(category!.name.length).toBeGreaterThan(0);
+      expect(category!.description?.length ?? 0).toBeGreaterThan(0);
+    });
+
+    it('every category code is unique (no accidental dup with phase-4/5/7/9/10 codes)', () => {
       const codes = punchManifest.categories.map((c) => c.code);
       const unique = new Set(codes);
       expect(unique.size).toBe(codes.length);

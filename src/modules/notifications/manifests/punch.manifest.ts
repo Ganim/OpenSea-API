@@ -161,5 +161,16 @@ export const punchManifest: ModuleNotificationManifest = {
       ],
       digestSupported: false,
     },
+    // Phase 10 — agente biométrico (Plan 10-01 / D-E1)
+    {
+      code: 'punch.agent_update_failed',
+      name: 'Falha de auto-update do agente',
+      description:
+        'O agente biométrico não conseguiu se atualizar para a versão mais recente.',
+      defaultType: NotificationType.ACTIONABLE,
+      defaultPriority: NotificationPriority.HIGH,
+      defaultChannels: [NotificationChannel.IN_APP, NotificationChannel.EMAIL],
+      digestSupported: true,
+    },
   ],
 };

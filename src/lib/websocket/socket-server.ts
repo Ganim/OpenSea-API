@@ -7,6 +7,7 @@ import { joinHrRoomsForUser } from './hr-socket-scope';
 import { authenticateSocket } from './socket-auth';
 import { registerSocketHandlers } from './socket-handlers';
 import type { SocketData } from './types';
+import { logger } from '@/lib/logger';
 
 let io: SocketIOServer | null = null;
 
@@ -24,13 +25,24 @@ export async function handleSocketConnection(socket: Socket): Promise<void> {
   const typeRoom =
     socketData.type === 'agent'
       ? `tenant:${socketData.tenantId}:agents`
-      : `tenant:${socketData.tenantId}:browsers`;
+      : socketData.type === 'punch-agent'
+        ? `tenant:${socketData.tenantId}:punch-agents`
+        : `tenant:${socketData.tenantId}:browsers`;
 
   socket.join(tenantRoom);
   socket.join(typeRoom);
 
   if (socketData.type === 'agent' && socketData.agentId) {
     socket.join(`agent:${socketData.agentId}`);
+  }
+
+  // Phase 10 / Plan 10-01 — punch-agent dedicated room (D-D1)
+  // Server pushes: device.revoked, device.force_update, employee.updated
+  // Room name follows ADR-027: tenant:{id}:punch-agent:{deviceId}
+  if (socketData.type === 'punch-agent' && socketData.deviceId) {
+    const room = `tenant:${socketData.tenantId}:punch-agent:${socketData.deviceId}`;
+    socket.join(room);
+    logger.info(`[socket] punch-agent ${socketData.deviceId} joined ${room}`);
   }
 
   // Notifications room — lets the notifications module emit

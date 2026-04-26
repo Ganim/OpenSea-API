@@ -16,10 +16,18 @@ export async function authenticateSocket(
   next: (err?: Error) => void,
 ): Promise<void> {
   try {
-    const { deviceToken, token } = socket.handshake.auth as {
+    const { deviceToken, token, type } = socket.handshake.auth as {
       deviceToken?: string;
       token?: string;
+      type?: string;
     };
+
+    // Phase 10 / Plan 10-01 — punch-agent branch (D-D1)
+    // SDK sends: { token: <deviceToken>, type: 'punch-agent' }
+    if (type === 'punch-agent' && token) {
+      await authenticatePunchAgent(socket, token);
+      return next();
+    }
 
     if (deviceToken) {
       await authenticateAgent(socket, deviceToken);
@@ -93,6 +101,51 @@ async function authenticateBrowser(
     type: 'browser',
     tenantId: decoded.tenantId,
     userId: decoded.sub,
+  };
+
+  socket.data = socketData;
+}
+
+/**
+ * Authenticates a Punch-Agent socket connection (Phase 10 / Plan 10-01 — D-D1).
+ *
+ * Mirrors the logic of `verifyPunchDeviceToken` HTTP middleware (Plan 04-02):
+ * SHA-256 hash lookup against `PunchDevice.deviceTokenHash`, with `revokedAt`
+ * and `deletedAt` null checks for instant revocation (PUNCH-CORE-08 < 5s).
+ *
+ * On success, sets `socket.data` so `handleSocketConnection` can join the
+ * punch-agent room `tenant:{tenantId}:punch-agent:{deviceId}`.
+ *
+ * Security note (T-10-01-01): fail-closed on any lookup miss — no token
+ * caching in this path, consistent with the HTTP middleware contract.
+ *
+ * @param socket   - Socket.IO socket instance
+ * @param deviceToken - Raw (unhashed) device token sent by the agent
+ */
+export async function authenticatePunchAgent(
+  socket: Socket,
+  deviceToken: string,
+): Promise<void> {
+  const deviceTokenHash = createHash('sha256')
+    .update(deviceToken)
+    .digest('hex');
+
+  const device = await prisma.punchDevice.findFirst({
+    where: {
+      deviceTokenHash,
+      deletedAt: null,
+      revokedAt: null,
+    },
+  });
+
+  if (!device) {
+    throw new Error('Invalid or revoked punch device token');
+  }
+
+  const socketData: SocketData = {
+    type: 'punch-agent',
+    tenantId: device.tenantId,
+    deviceId: device.id,
   };
 
   socket.data = socketData;
