@@ -351,6 +351,18 @@ export const PermissionCodes = {
         ACCESS: 'hr.punch.audit.access' as const,
       },
     },
+    // Phase 10 / Plan 10-01 — Agente biométrico (leitor DigitalPersona / Windows Hello).
+    // Admin-only por design (D-J1): biometria é ferramenta de RH/admin, funcionário
+    // comum não recebe self-service. Não está em DEFAULT_USER_PERMISSIONS —
+    // admins recebem via extractAllCodes(PermissionCodes) + backfill script.
+    //   - ACCESS: visualizar agentes pareados e status
+    //   - ENROLL: gate de enrollment via verifyActionPin (Plan 10-04)
+    //   - ADMIN: revogar agente, gerenciar configuração avançada
+    PUNCH_BIO: {
+      ACCESS: 'hr.bio.access' as const,
+      ENROLL: 'hr.bio.enroll' as const,
+      ADMIN: 'hr.bio.admin' as const,
+    },
     // Phase 5 — enrollment biométrico do funcionário (kiosk + face match).
     // Admin-only por padrão (D-05): RH cadastra/remove a biometria; o
     // funcionário não tem self-service nesta fase. Não está em

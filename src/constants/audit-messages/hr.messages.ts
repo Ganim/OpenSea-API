@@ -342,6 +342,48 @@ export const HR_AUDIT_MESSAGES = {
   } satisfies AuditMessage,
 
   // ============================================================================
+  // Phase 10 / Plan 10-01 — PUNCH BIO AGENT (Agente Biométrico)
+  // Audit messages para eventos do agente biométrico (leitor DigitalPersona /
+  // Windows Hello). Usam PUNCH_BIO_AGENT entity + 4 novos AuditAction values.
+  // LGPD: templates usam {{userName}}/{{employeeName}}/{{deviceLabel}} — nunca
+  // CPF/email/cargo direto (T-10-01-04 mitigation).
+  // ============================================================================
+
+  /** Agente biométrico pareado com um dispositivo de ponto (Plan 10-02) */
+  PUNCH_BIO_AGENT_PAIRED: {
+    action: AuditAction.AGENT_PAIRED,
+    entity: AuditEntity.PUNCH_BIO_AGENT,
+    module: AuditModule.HR,
+    description: '{{userName}} pareou agente biométrico {{deviceLabel}}',
+  } satisfies AuditMessage,
+
+  /** Biometria digital do funcionário cadastrada no agente (Plan 10-04) */
+  PUNCH_BIO_ENROLLED: {
+    action: AuditAction.BIO_ENROLLED,
+    entity: AuditEntity.PUNCH_BIO_AGENT,
+    module: AuditModule.HR,
+    description:
+      '{{adminUserName}} cadastrou biometria de {{employeeName}} no agente {{deviceLabel}}',
+  } satisfies AuditMessage,
+
+  /** Funcionário bateu ponto via biometria digital (Plan 10-03) */
+  PUNCH_BIO_MATCH: {
+    action: AuditAction.BIO_MATCH,
+    entity: AuditEntity.PUNCH_BIO_AGENT,
+    module: AuditModule.HR,
+    description:
+      'Funcionário {{employeeName}} bateu ponto via biometria no agente {{deviceLabel}}',
+  } satisfies AuditMessage,
+
+  /** Agente biométrico revogado (Plan 10-05 / Plan 10-02) */
+  PUNCH_BIO_AGENT_REVOKED: {
+    action: AuditAction.AGENT_REVOKED,
+    entity: AuditEntity.PUNCH_BIO_AGENT,
+    module: AuditModule.HR,
+    description: '{{userName}} revogou agente biométrico {{deviceLabel}}',
+  } satisfies AuditMessage,
+
+  // ============================================================================
   // PUNCH QR TOKENS - Crachá rotacionável (Phase 5 — D-14)
   // ============================================================================
 
