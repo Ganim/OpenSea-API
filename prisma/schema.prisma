@@ -1142,6 +1142,13 @@ enum AuditAction {
   // Phase 10 / Plan 10-06 — auto-update failure notification
   AGENT_UPDATE_FAILED
 
+  // Phase 11 / Plan 11-01 — Webhooks outbound
+  WEBHOOK_REGISTERED
+  WEBHOOK_DELETED
+  WEBHOOK_DELIVERY_FAILED
+  WEBHOOK_DELIVERY_REPROCESSED
+  WEBHOOK_AUTO_DISABLED
+
   OTHER
 }
 
@@ -1311,6 +1318,10 @@ enum AuditEntity {
 
   // Phase 10 / Plan 10-01 — Punch-Agent Biométrico
   PUNCH_BIO_AGENT
+
+  // Phase 11 / Plan 11-01 — Webhooks outbound
+  WEBHOOK_ENDPOINT
+  WEBHOOK_DELIVERY
 
   // HR - Ausências e Férias
   ABSENCE
@@ -6753,6 +6764,9 @@ model Tenant {
 
   // Phase 10 / Plan 10-01 — Punch-Agent Biométrico (WebAuthn)
   webauthnCredentials WebAuthnCredential[]
+
+  // Phase 11 / Plan 11-01 — Webhooks outbound
+  webhookEndpoints WebhookEndpoint[]
 
   // Compliance (Phase 6 / Plan 06-01)
   complianceArtifacts ComplianceArtifact[]
@@ -17544,4 +17558,104 @@ model WebAuthnCredential {
 
   @@index([tenantId, employeeId])
   @@map("webauthn_credentials")
+}
+
+// ===============================================
+// WEBHOOKS OUTBOUND — Phase 11 / Plan 11-01 (D-15, D-31, D-35)
+// Sistema externo (BI, folha de terceiros) recebe eventos do OpenSea via
+// HTTP POST com assinatura HMAC-SHA256 (Stripe-style header
+// `X-OpenSea-Signature: t=<unix>,v1=<hex>`), retry exponencial automático
+// (30s/1m/5m/30m/2h, 5 tentativas) e reprocessamento manual.
+// Tenant-scoped estrito (D-35) — fanout consumer filtra por tenantId
+// antes de enfileirar delivery.
+// ===============================================
+
+model WebhookEndpoint {
+  id                            String                    @id @default(cuid())
+  tenantId                      String                    @map("tenant_id")
+  url                           String                    @db.VarChar(2048)
+  description                   String?                   @db.VarChar(200)
+  apiVersion                    String                    @default("2026-04-27") @map("api_version")
+  subscribedEvents              String[]                  @map("subscribed_events")
+  status                        WebhookEndpointStatus     @default(ACTIVE)
+  autoDisabledReason            WebhookAutoDisableReason? @map("auto_disabled_reason")
+  autoDisabledAt                DateTime?                 @map("auto_disabled_at")
+  consecutiveDeadCount          Int                       @default(0) @map("consecutive_dead_count")
+  secretCurrent                 String                    @map("secret_current") @db.VarChar(80)
+  secretCurrentLast4            String                    @map("secret_current_last4") @db.VarChar(4)
+  secretCurrentCreatedAt        DateTime                  @map("secret_current_created_at")
+  secretPrevious                String?                   @map("secret_previous") @db.VarChar(80)
+  secretPreviousExpiresAt       DateTime?                 @map("secret_previous_expires_at")
+  lastSuccessAt                 DateTime?                 @map("last_success_at")
+  lastDeliveryAt                DateTime?                 @map("last_delivery_at")
+  createdAt                     DateTime                  @default(now()) @map("created_at")
+  updatedAt                     DateTime                  @updatedAt @map("updated_at")
+  deletedAt                     DateTime?                 @map("deleted_at")
+
+  tenant     Tenant            @relation(fields: [tenantId], references: [id])
+  deliveries WebhookDelivery[]
+
+  @@index([tenantId, deletedAt])
+  @@index([tenantId, status])
+  @@index([secretPreviousExpiresAt])
+  @@map("webhook_endpoints")
+}
+
+model WebhookDelivery {
+  id                    String                @id @default(cuid())
+  tenantId              String                @map("tenant_id")
+  endpointId            String                @map("endpoint_id")
+  eventId               String                @map("event_id")
+  eventType             String                @map("event_type")
+  status                WebhookDeliveryStatus
+  attemptCount          Int                   @default(0) @map("attempt_count")
+  manualReprocessCount  Int                   @default(0) @map("manual_reprocess_count")
+  lastManualReprocessAt DateTime?             @map("last_manual_reprocess_at")
+  lastAttemptAt         DateTime?             @map("last_attempt_at")
+  lastHttpStatus        Int?                  @map("last_http_status")
+  lastErrorClass        WebhookErrorClass?    @map("last_error_class")
+  lastErrorMessage      String?               @map("last_error_message") @db.VarChar(500)
+  lastDurationMs        Int?                  @map("last_duration_ms")
+  lastResponseBody      String?               @map("last_response_body") @db.VarChar(1024)
+  lastRetryAfterSeconds Int?                  @map("last_retry_after_seconds")
+  attempts              Json                  @default("[]")
+  payloadHash           String                @map("payload_hash") @db.VarChar(64)
+  createdAt             DateTime              @default(now()) @map("created_at")
+  updatedAt             DateTime              @updatedAt @map("updated_at")
+
+  endpoint WebhookEndpoint @relation(fields: [endpointId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, endpointId, createdAt(sort: Desc)])
+  @@index([tenantId, status, createdAt(sort: Desc)])
+  @@index([eventId])
+  @@map("webhook_deliveries")
+}
+
+enum WebhookEndpointStatus {
+  ACTIVE
+  PAUSED
+  AUTO_DISABLED
+}
+
+enum WebhookDeliveryStatus {
+  PENDING
+  DELIVERED
+  FAILED
+  DEAD
+}
+
+enum WebhookErrorClass {
+  TIMEOUT
+  NETWORK
+  TLS
+  HTTP_4XX
+  HTTP_5XX
+  REDIRECT_BLOCKED
+  SSRF_BLOCKED
+  DNS_FAIL
+}
+
+enum WebhookAutoDisableReason {
+  CONSECUTIVE_DEAD
+  HTTP_410_GONE
 }
