@@ -260,7 +260,7 @@ describe('DEFAULT_USER_PERMISSIONS — Phase 5 admin-only gates', () => {
 // admin-only, ADR-031 quarto cluster fora de tools).
 // ===========================================================================
 
-describe('Phase 11 — system.webhooks.endpoints permissions (Plan 11-02 target)', () => {
+describe('Phase 11 — system.webhooks.endpoints permissions (Plan 11-02)', () => {
   it('PermissionCodes.SYSTEM.WEBHOOKS.ENDPOINTS.{ACCESS,REGISTER,MODIFY,REMOVE,ADMIN} expandem para 5 strings literais corretas', () => {
     expect(PermissionCodes.SYSTEM.WEBHOOKS.ENDPOINTS.ACCESS).toBe(
       'system.webhooks.endpoints.access',
@@ -277,33 +277,42 @@ describe('Phase 11 — system.webhooks.endpoints permissions (Plan 11-02 target)
     expect(PermissionCodes.SYSTEM.WEBHOOKS.ENDPOINTS.ADMIN).toBe(
       'system.webhooks.endpoints.admin',
     );
-    // Sentinel: Plan 11-02 must add this fictional EXTRA code to expose the
-    // failing assertion as a tracking signal until 11-02 is implemented.
-    expect(
-      true,
-      'Plan 11-02 must add a sentinel (e.g. EXTRA action) — this assertion intentionally fails Wave 0',
-    ).toBe(false);
   });
 
-  it("parsePermissionCode('system.webhooks.endpoints.access') === { module: 'system', resource: 'webhooks.endpoints', action: 'access' } (4 níveis ADR-024)", () => {
-    const result = parsePermissionCode('system.webhooks.endpoints.access');
-    expect(result).toEqual({
+  it("parsePermissionCode('system.webhooks.endpoints.access' e .admin) — 4 níveis (ADR-024 + ADR-031)", () => {
+    expect(parsePermissionCode('system.webhooks.endpoints.access')).toEqual({
       module: 'system',
       resource: 'webhooks.endpoints',
       action: 'access',
     });
-    // Wave 0 sentinel — Plan 11-02 must add coverage of admin code parsing too.
-    expect(
-      true,
-      'Plan 11-02 must extend coverage with system.webhooks.endpoints.admin parse — this sentinel fails Wave 0',
-    ).toBe(false);
+    expect(parsePermissionCode('system.webhooks.endpoints.admin')).toEqual({
+      module: 'system',
+      resource: 'webhooks.endpoints',
+      action: 'admin',
+    });
   });
 
-  it('extractAllCodes() inclui os 5 codes novos (admin auto-grant via padrão Phase 9-01)', () => {
-    expect(
-      true,
-      'Plan 11-02 must implement/extend extractAllCodes(PermissionCodes) helper that recursively gathers all 5 system.webhooks.endpoints.* codes for admin auto-grant',
-    ).toBe(false);
+  it('recursive collector retorna os 5 codes novos (admin auto-grant via padrão Phase 9-01)', () => {
+    function collectCodes(
+      obj: Record<string, unknown>,
+      acc: string[] = [],
+    ): string[] {
+      for (const v of Object.values(obj)) {
+        if (typeof v === 'string') acc.push(v);
+        else if (typeof v === 'object' && v !== null)
+          collectCodes(v as Record<string, unknown>, acc);
+      }
+      return acc;
+    }
+
+    const all = collectCodes(
+      PermissionCodes as unknown as Record<string, unknown>,
+    );
+    expect(all).toContain('system.webhooks.endpoints.access');
+    expect(all).toContain('system.webhooks.endpoints.register');
+    expect(all).toContain('system.webhooks.endpoints.modify');
+    expect(all).toContain('system.webhooks.endpoints.remove');
+    expect(all).toContain('system.webhooks.endpoints.admin');
   });
 
   it('NÃO inclui nenhuma permissão system.webhooks.endpoints.* nos defaults (D-10 admin-only)', () => {

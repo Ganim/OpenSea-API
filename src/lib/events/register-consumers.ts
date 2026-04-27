@@ -22,6 +22,9 @@ import { messagingNotificationConsumer } from './consumers/messaging-notificatio
 import { punchEsocialConsumer } from './consumers/punch-esocial-consumer';
 import { punchEventsQueueBridge } from './consumers/punch-events-queue-bridge';
 import { punchNotificationDispatcherConsumer } from './consumers/punch-notification-dispatcher-consumer';
+// Phase 11 / Plan 11-02 — webhooks outbound platform-level (ADR-032)
+import { webhookFanoutConsumer } from './consumers/webhook-fanout-consumer';
+import { webhookDeliveryFailedDispatcherConsumer } from './consumers/webhook-delivery-failed-dispatcher-consumer';
 import { receiptPdfDispatcherConsumer } from './consumers/receipt-pdf-dispatcher-consumer';
 import { punchPayrollConsumer } from './consumers/punch-payroll-consumer';
 import { punchPinLockedDispatcherConsumer } from './consumers/punch-pin-locked-dispatcher-consumer';
@@ -95,4 +98,12 @@ export function registerEventConsumers(eventBus: TypedEventBus): void {
   // Queue DEDICADA (não reusa punch-events) para que o worker de recibo
   // possa ter SLA/retry/priority próprios — < 5s por recibo.
   eventBus.register(receiptPdfDispatcherConsumer);
+
+  // Phase 11 (Plan 11-02) — webhooks outbound (system.* platform-level).
+  // - webhookFanoutConsumer: subscribesTo = WEBHOOK_EVENT_ALLOWLIST (5 punch.* events,
+  //   D-16); fanout para `webhook-deliveries` queue com tenant guard (D-35).
+  // - webhookDeliveryFailedDispatcherConsumer: subscribesTo = ['system.webhook.delivery_failed',
+  //   'system.webhook.auto_disabled']; chama notificationClient.dispatch (D-24).
+  eventBus.register(webhookFanoutConsumer);
+  eventBus.register(webhookDeliveryFailedDispatcherConsumer);
 }

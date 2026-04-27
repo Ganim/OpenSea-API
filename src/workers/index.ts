@@ -54,6 +54,15 @@ import {
 import { startPunchEventsWorker } from './punch-events-worker';
 import { startQrBatchWorker } from './qr-batch-worker';
 import { startReceiptPdfWorker } from './receipt-pdf-worker';
+// Phase 11 / Plan 11-02 — webhooks outbound platform-level (ADR-032)
+import {
+  startWebhookDeliveryWorker,
+  stopWebhookDeliveryWorker,
+} from './webhook-delivery-worker';
+import {
+  startWebhooksCleanupScheduler,
+  stopWebhooksCleanupScheduler,
+} from './webhooks-cleanup-scheduler';
 import {
   scheduleCalendarRemindersRepeatable,
   startCalendarRemindersQueueWorker,
@@ -250,6 +259,28 @@ export async function startAllWorkers(): Promise<void> {
     } catch (err) {
       console.error(
         '[Workers] Failed to start PunchDeviceOffline scheduler:',
+        err,
+      );
+    }
+
+    // Phase 11 (Plan 11-02) — webhooks outbound delivery worker + cleanup scheduler
+    try {
+      startWebhookDeliveryWorker();
+      console.log(
+        '[Workers] Webhook delivery worker started (Phase 11 / Plan 11-02)',
+      );
+    } catch (err) {
+      console.error('[Workers] Failed to start Webhook delivery worker:', err);
+    }
+
+    try {
+      await startWebhooksCleanupScheduler();
+      console.log(
+        '[Workers] Webhooks cleanup scheduler started (Phase 11 / Plan 11-02)',
+      );
+    } catch (err) {
+      console.error(
+        '[Workers] Failed to start Webhooks cleanup scheduler:',
         err,
       );
     }
@@ -454,6 +485,8 @@ export async function stopAllWorkers(): Promise<void> {
   stopPunchDetectMissedScheduler();
   stopPunchDailyDigestScheduler();
   stopPunchDeviceOfflineScheduler();
+  stopWebhooksCleanupScheduler();
+  await stopWebhookDeliveryWorker();
 
   // P3-05: when running on the BullMQ path, also tear down every repeatable
   // schedule so a redeploy does not leave orphaned cron entries in Redis.
