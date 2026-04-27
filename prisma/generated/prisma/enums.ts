@@ -643,6 +643,11 @@ export const AuditAction = {
   BIO_MATCH: 'BIO_MATCH',
   AGENT_REVOKED: 'AGENT_REVOKED',
   AGENT_UPDATE_FAILED: 'AGENT_UPDATE_FAILED',
+  WEBHOOK_REGISTERED: 'WEBHOOK_REGISTERED',
+  WEBHOOK_DELETED: 'WEBHOOK_DELETED',
+  WEBHOOK_DELIVERY_FAILED: 'WEBHOOK_DELIVERY_FAILED',
+  WEBHOOK_DELIVERY_REPROCESSED: 'WEBHOOK_DELIVERY_REPROCESSED',
+  WEBHOOK_AUTO_DISABLED: 'WEBHOOK_AUTO_DISABLED',
   OTHER: 'OTHER'
 } as const
 
@@ -783,6 +788,8 @@ export const AuditEntity = {
   PUNCH_MISSED_LOG: 'PUNCH_MISSED_LOG',
   EXPORT_JOB: 'EXPORT_JOB',
   PUNCH_BIO_AGENT: 'PUNCH_BIO_AGENT',
+  WEBHOOK_ENDPOINT: 'WEBHOOK_ENDPOINT',
+  WEBHOOK_DELIVERY: 'WEBHOOK_DELIVERY',
   ABSENCE: 'ABSENCE',
   VACATION_PERIOD: 'VACATION_PERIOD',
   VACATION_BALANCE: 'VACATION_BALANCE',
@@ -3977,3 +3984,44 @@ export const ContractTemplateType = {
 } as const
 
 export type ContractTemplateType = (typeof ContractTemplateType)[keyof typeof ContractTemplateType]
+
+
+export const WebhookEndpointStatus = {
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  AUTO_DISABLED: 'AUTO_DISABLED'
+} as const
+
+export type WebhookEndpointStatus = (typeof WebhookEndpointStatus)[keyof typeof WebhookEndpointStatus]
+
+
+export const WebhookDeliveryStatus = {
+  PENDING: 'PENDING',
+  DELIVERED: 'DELIVERED',
+  FAILED: 'FAILED',
+  DEAD: 'DEAD'
+} as const
+
+export type WebhookDeliveryStatus = (typeof WebhookDeliveryStatus)[keyof typeof WebhookDeliveryStatus]
+
+
+export const WebhookErrorClass = {
+  TIMEOUT: 'TIMEOUT',
+  NETWORK: 'NETWORK',
+  TLS: 'TLS',
+  HTTP_4XX: 'HTTP_4XX',
+  HTTP_5XX: 'HTTP_5XX',
+  REDIRECT_BLOCKED: 'REDIRECT_BLOCKED',
+  SSRF_BLOCKED: 'SSRF_BLOCKED',
+  DNS_FAIL: 'DNS_FAIL'
+} as const
+
+export type WebhookErrorClass = (typeof WebhookErrorClass)[keyof typeof WebhookErrorClass]
+
+
+export const WebhookAutoDisableReason = {
+  CONSECUTIVE_DEAD: 'CONSECUTIVE_DEAD',
+  HTTP_410_GONE: 'HTTP_410_GONE'
+} as const
+
+export type WebhookAutoDisableReason = (typeof WebhookAutoDisableReason)[keyof typeof WebhookAutoDisableReason]

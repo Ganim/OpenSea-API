@@ -467,7 +467,9 @@ export const ModelName = {
   ContractTemplate: 'ContractTemplate',
   GeneratedEmploymentContract: 'GeneratedEmploymentContract',
   PunchMissedLog: 'PunchMissedLog',
-  WebAuthnCredential: 'WebAuthnCredential'
+  WebAuthnCredential: 'WebAuthnCredential',
+  WebhookEndpoint: 'WebhookEndpoint',
+  WebhookDelivery: 'WebhookDelivery'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -8818,6 +8820,58 @@ export const WebAuthnCredentialScalarFieldEnum = {
 } as const
 
 export type WebAuthnCredentialScalarFieldEnum = (typeof WebAuthnCredentialScalarFieldEnum)[keyof typeof WebAuthnCredentialScalarFieldEnum]
+
+
+export const WebhookEndpointScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  url: 'url',
+  description: 'description',
+  apiVersion: 'apiVersion',
+  subscribedEvents: 'subscribedEvents',
+  status: 'status',
+  autoDisabledReason: 'autoDisabledReason',
+  autoDisabledAt: 'autoDisabledAt',
+  consecutiveDeadCount: 'consecutiveDeadCount',
+  secretCurrent: 'secretCurrent',
+  secretCurrentLast4: 'secretCurrentLast4',
+  secretCurrentCreatedAt: 'secretCurrentCreatedAt',
+  secretPrevious: 'secretPrevious',
+  secretPreviousExpiresAt: 'secretPreviousExpiresAt',
+  lastSuccessAt: 'lastSuccessAt',
+  lastDeliveryAt: 'lastDeliveryAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type WebhookEndpointScalarFieldEnum = (typeof WebhookEndpointScalarFieldEnum)[keyof typeof WebhookEndpointScalarFieldEnum]
+
+
+export const WebhookDeliveryScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  endpointId: 'endpointId',
+  eventId: 'eventId',
+  eventType: 'eventType',
+  status: 'status',
+  attemptCount: 'attemptCount',
+  manualReprocessCount: 'manualReprocessCount',
+  lastManualReprocessAt: 'lastManualReprocessAt',
+  lastAttemptAt: 'lastAttemptAt',
+  lastHttpStatus: 'lastHttpStatus',
+  lastErrorClass: 'lastErrorClass',
+  lastErrorMessage: 'lastErrorMessage',
+  lastDurationMs: 'lastDurationMs',
+  lastResponseBody: 'lastResponseBody',
+  lastRetryAfterSeconds: 'lastRetryAfterSeconds',
+  attempts: 'attempts',
+  payloadHash: 'payloadHash',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WebhookDeliveryScalarFieldEnum = (typeof WebhookDeliveryScalarFieldEnum)[keyof typeof WebhookDeliveryScalarFieldEnum]
 
 
 export const SortOrder = {

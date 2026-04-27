@@ -2102,3 +2102,13 @@ export type PunchMissedLog = Prisma.PunchMissedLogModel
  * 
  */
 export type WebAuthnCredential = Prisma.WebAuthnCredentialModel
+/**
+ * Model WebhookEndpoint
+ * 
+ */
+export type WebhookEndpoint = Prisma.WebhookEndpointModel
+/**
+ * Model WebhookDelivery
+ * 
+ */
+export type WebhookDelivery = Prisma.WebhookDeliveryModel

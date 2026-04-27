@@ -800,7 +800,9 @@ export const ModelName = {
   ContractTemplate: 'ContractTemplate',
   GeneratedEmploymentContract: 'GeneratedEmploymentContract',
   PunchMissedLog: 'PunchMissedLog',
-  WebAuthnCredential: 'WebAuthnCredential'
+  WebAuthnCredential: 'WebAuthnCredential',
+  WebhookEndpoint: 'WebhookEndpoint',
+  WebhookDelivery: 'WebhookDelivery'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -816,7 +818,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "inventorySession" | "inventorySessionItem" | "customer" | "salesOrder" | "salesOrderItem" | "crmContact" | "crmPipeline" | "crmPipelineStage" | "crmDeal" | "crmActivity" | "crmTimelineEvent" | "pipeline" | "pipelineStage" | "processBlueprint" | "blueprintStageRule" | "contact" | "deal" | "contactDeal" | "activity" | "timelineEvent" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "notificationCategory" | "notificationModuleRegistry" | "notificationPreferenceV2" | "notificationModuleSetting" | "userNotificationSettings" | "notificationDeliveryAttempt" | "pushSubscription" | "notificationCallbackJob" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "shift" | "shiftAssignment" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "vacationSplit" | "payroll" | "payrollItem" | "bonus" | "deduction" | "employeeWarning" | "employeeDependant" | "termination" | "medicalExam" | "occupationalExamRequirement" | "safetyProgram" | "workplaceRisk" | "cipaMandate" | "cipaMember" | "benefitPlan" | "benefitEnrollment" | "trainingProgram" | "trainingEnrollment" | "reviewCycle" | "performanceReview" | "survey" | "surveyQuestion" | "surveyResponse" | "surveyAnswer" | "objective" | "keyResult" | "oKRCheckIn" | "flexBenefitAllocation" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "chartOfAccount" | "journalEntry" | "journalEntryLine" | "exchangeRate" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryRetention" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeBudget" | "financePeriodLock" | "financeAttachment" | "bankReconciliation" | "bankReconciliationItem" | "reconciliationSuggestion" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig" | "priceTable" | "priceTableRule" | "priceTableItem" | "customerPrice" | "taxProfile" | "taxRule" | "campaign" | "campaignRule" | "campaignProduct" | "coupon" | "couponUsage" | "combo" | "comboItem" | "catalog" | "catalogItem" | "catalogExport" | "tenantBrand" | "contentTemplate" | "generatedContent" | "productMockup" | "emailCampaign" | "order" | "orderItem" | "paymentCondition" | "orderPayment" | "orderDelivery" | "orderDeliveryItem" | "orderReturn" | "orderReturnItem" | "storeCredit" | "storeCreditUsage" | "customerCreditLimit" | "approvalRule" | "orderCommission" | "commissionRule" | "orderHistory" | "digitalCertificate" | "signatureEnvelope" | "signatureEnvelopeSigner" | "signatureAuditEvent" | "signatureTemplate" | "analyticsWidget" | "analyticsDashboard" | "analyticsDashboardWidget" | "analyticsGoal" | "analyticsReport" | "analyticsReportGeneration" | "customerPortalAccess" | "aiTenantConfig" | "aiConversation" | "aiMessage" | "aiFavoriteQuery" | "aiActionLog" | "aiInsight" | "posTerminal" | "posTerminalWarehouse" | "posTerminalZone" | "posTerminalProfile" | "posFiscalConfig" | "posOrderConflict" | "posOrphanPayment" | "posTerminalOperator" | "posDevicePairing" | "posSession" | "posTransaction" | "posTransactionPayment" | "posCashMovement" | "posOfflineQueue" | "posVisitLog" | "cardIntegration" | "eventLog" | "bid" | "bidItem" | "bidProposal" | "bidDocument" | "bidContract" | "bidEmpenho" | "bidMonitorEvent" | "bidHistory" | "bidAiConfig" | "certidaoSchedule" | "marketplaceConnection" | "marketplaceListing" | "marketplaceOrder" | "marketplacePayment" | "messagingAccount" | "messagingContact" | "messagingMessage" | "messagingTemplate" | "fiscalConfig" | "fiscalCertificate" | "fiscalDocument" | "fiscalDocumentItem" | "fiscalDocumentEvent" | "pixCharge" | "aiWorkflow" | "aiWorkflowExecution" | "overdueEscalation" | "overdueEscalationStep" | "overdueAction" | "punchConfiguration" | "hrTenantConfig" | "geofenceZone" | "emailToEntryConfig" | "esocialConfig" | "esocialCertificate" | "esocialEvent" | "esocialBatch" | "esocialRubrica" | "esocialEventStatusHistory" | "esocialTable" | "complianceRubricaMap" | "financeApprovalRule" | "taxObligation" | "bankConnection" | "paymentOrder" | "bankWebhookEvent" | "paymentLink" | "cashflowSnapshot" | "accountantAccess" | "quote" | "quoteItem" | "proposal" | "proposalItem" | "proposalAttachment" | "discountRule" | "workflow" | "workflowStep" | "conversation" | "conversationMessage" | "chatbotConfig" | "dealPrediction" | "form" | "formField" | "formSubmission" | "messageTemplate" | "cashierSession" | "cashierTransaction" | "leadScoringRule" | "leadScore" | "cadenceSequence" | "cadenceStep" | "cadenceEnrollment" | "landingPage" | "integration" | "tenantIntegration" | "leadRoutingRule" | "employeeRequest" | "companyAnnouncement" | "employeeKudos" | "onboardingChecklist" | "pPEItem" | "pPEAssignment" | "offboardingChecklist" | "reviewCompetency" | "kudosReaction" | "kudosReply" | "announcementReadReceipt" | "salaryHistory" | "oneOnOneMeeting" | "talkingPoint" | "oneOnOneActionItem" | "admissionInvite" | "admissionDocument" | "digitalSignature" | "authLink" | "tenantAuthConfig" | "magicLinkToken" | "approvalDelegation" | "jobPosting" | "candidate" | "application" | "interviewStage" | "interview" | "tenantPaymentConfig" | "paymentCharge" | "invoice" | "printAgent" | "punchDevice" | "punchDeviceEmployee" | "punchDeviceDepartment" | "punchApproval" | "employeeFaceEnrollment" | "complianceArtifact" | "complianceVerifyLog" | "posPrinter" | "printJob" | "focusNfeConfig" | "productionWorkstationType" | "productionWorkstation" | "productionWorkCenter" | "productionBom" | "productionBomItem" | "productionOperationRouting" | "productionOrder" | "productionMaterialReservation" | "productionMaterialIssue" | "productionMaterialReturn" | "productionJobCard" | "productionTimeEntry" | "productionEntry" | "productionDowntimeReason" | "productionDowntimeRecord" | "productionSchedule" | "productionScheduleEntry" | "productionDefectType" | "productionInspectionPlan" | "productionInspectionResult" | "productionDefectRecord" | "productionQualityHold" | "productionCost" | "contractTemplate" | "generatedEmploymentContract" | "punchMissedLog" | "webAuthnCredential"
+    modelProps: "user" | "userProfile" | "session" | "refreshToken" | "permission" | "permissionGroup" | "permissionGroupPermission" | "userPermissionGroup" | "userDirectPermission" | "permissionAuditLog" | "organization" | "organizationAddress" | "organizationCnae" | "organizationFiscalSettings" | "organizationStakeholder" | "supplier" | "manufacturer" | "category" | "warehouse" | "zone" | "bin" | "volume" | "volumeItem" | "template" | "product" | "variant" | "item" | "itemMovement" | "productCategory" | "variantPriceHistory" | "auditLog" | "tag" | "productTag" | "variantImage" | "productCareInstruction" | "productAttachment" | "variantAttachment" | "alert" | "purchaseOrder" | "purchaseOrderItem" | "unitConversion" | "stockSnapshot" | "inventorySession" | "inventorySessionItem" | "customer" | "salesOrder" | "salesOrderItem" | "crmContact" | "crmPipeline" | "crmPipelineStage" | "crmDeal" | "crmActivity" | "crmTimelineEvent" | "pipeline" | "pipelineStage" | "processBlueprint" | "blueprintStageRule" | "contact" | "deal" | "contactDeal" | "activity" | "timelineEvent" | "itemReservation" | "variantSupplierCode" | "variantPromotion" | "comment" | "notificationPreference" | "notificationTemplate" | "notification" | "notificationCategory" | "notificationModuleRegistry" | "notificationPreferenceV2" | "notificationModuleSetting" | "userNotificationSettings" | "notificationDeliveryAttempt" | "pushSubscription" | "notificationCallbackJob" | "request" | "requestAttachment" | "requestComment" | "requestHistory" | "employee" | "department" | "position" | "timeEntry" | "workSchedule" | "shift" | "shiftAssignment" | "overtime" | "timeBank" | "absence" | "vacationPeriod" | "vacationSplit" | "payroll" | "payrollItem" | "bonus" | "deduction" | "employeeWarning" | "employeeDependant" | "termination" | "medicalExam" | "occupationalExamRequirement" | "safetyProgram" | "workplaceRisk" | "cipaMandate" | "cipaMember" | "benefitPlan" | "benefitEnrollment" | "trainingProgram" | "trainingEnrollment" | "reviewCycle" | "performanceReview" | "survey" | "surveyQuestion" | "surveyResponse" | "surveyAnswer" | "objective" | "keyResult" | "oKRCheckIn" | "flexBenefitAllocation" | "company" | "companyDocument" | "companyAddress" | "companyCnae" | "companyFiscalSettings" | "companyStakeholder" | "labelTemplate" | "tenant" | "plan" | "planModule" | "tenantPlan" | "tenantUser" | "tenantFeatureFlag" | "costCenter" | "chartOfAccount" | "journalEntry" | "journalEntryLine" | "exchangeRate" | "bankAccount" | "financeCategory" | "financeEntry" | "financeEntryRetention" | "financeCodeSequence" | "financeEntryPayment" | "financeEntryCostCenter" | "recurringConfig" | "financeBudget" | "financePeriodLock" | "financeAttachment" | "bankReconciliation" | "bankReconciliationItem" | "reconciliationSuggestion" | "loan" | "loanInstallment" | "consortium" | "consortiumPayment" | "contract" | "storageFolder" | "storageFile" | "storageFileVersion" | "folderAccessRule" | "storageShareLink" | "calendar" | "teamCalendarConfig" | "calendarEvent" | "eventParticipant" | "eventReminder" | "emailAccount" | "emailAccountAccess" | "emailFolder" | "emailMessage" | "emailAttachment" | "team" | "teamMember" | "teamEmailAccount" | "board" | "boardColumn" | "card" | "boardLabel" | "cardLabel" | "boardMember" | "boardCustomField" | "cardCustomFieldValue" | "cardComment" | "commentReaction" | "cardAttachment" | "cardChecklist" | "checklistItem" | "cardActivity" | "boardAutomation" | "cardWatcher" | "systemSkillDefinition" | "skillPricing" | "tenantSubscription" | "tenantConsumption" | "tenantBilling" | "tenantIntegrationStatus" | "centralUser" | "supportTicket" | "supportTicketMessage" | "supportTicketAttachment" | "supportSlaConfig" | "priceTable" | "priceTableRule" | "priceTableItem" | "customerPrice" | "taxProfile" | "taxRule" | "campaign" | "campaignRule" | "campaignProduct" | "coupon" | "couponUsage" | "combo" | "comboItem" | "catalog" | "catalogItem" | "catalogExport" | "tenantBrand" | "contentTemplate" | "generatedContent" | "productMockup" | "emailCampaign" | "order" | "orderItem" | "paymentCondition" | "orderPayment" | "orderDelivery" | "orderDeliveryItem" | "orderReturn" | "orderReturnItem" | "storeCredit" | "storeCreditUsage" | "customerCreditLimit" | "approvalRule" | "orderCommission" | "commissionRule" | "orderHistory" | "digitalCertificate" | "signatureEnvelope" | "signatureEnvelopeSigner" | "signatureAuditEvent" | "signatureTemplate" | "analyticsWidget" | "analyticsDashboard" | "analyticsDashboardWidget" | "analyticsGoal" | "analyticsReport" | "analyticsReportGeneration" | "customerPortalAccess" | "aiTenantConfig" | "aiConversation" | "aiMessage" | "aiFavoriteQuery" | "aiActionLog" | "aiInsight" | "posTerminal" | "posTerminalWarehouse" | "posTerminalZone" | "posTerminalProfile" | "posFiscalConfig" | "posOrderConflict" | "posOrphanPayment" | "posTerminalOperator" | "posDevicePairing" | "posSession" | "posTransaction" | "posTransactionPayment" | "posCashMovement" | "posOfflineQueue" | "posVisitLog" | "cardIntegration" | "eventLog" | "bid" | "bidItem" | "bidProposal" | "bidDocument" | "bidContract" | "bidEmpenho" | "bidMonitorEvent" | "bidHistory" | "bidAiConfig" | "certidaoSchedule" | "marketplaceConnection" | "marketplaceListing" | "marketplaceOrder" | "marketplacePayment" | "messagingAccount" | "messagingContact" | "messagingMessage" | "messagingTemplate" | "fiscalConfig" | "fiscalCertificate" | "fiscalDocument" | "fiscalDocumentItem" | "fiscalDocumentEvent" | "pixCharge" | "aiWorkflow" | "aiWorkflowExecution" | "overdueEscalation" | "overdueEscalationStep" | "overdueAction" | "punchConfiguration" | "hrTenantConfig" | "geofenceZone" | "emailToEntryConfig" | "esocialConfig" | "esocialCertificate" | "esocialEvent" | "esocialBatch" | "esocialRubrica" | "esocialEventStatusHistory" | "esocialTable" | "complianceRubricaMap" | "financeApprovalRule" | "taxObligation" | "bankConnection" | "paymentOrder" | "bankWebhookEvent" | "paymentLink" | "cashflowSnapshot" | "accountantAccess" | "quote" | "quoteItem" | "proposal" | "proposalItem" | "proposalAttachment" | "discountRule" | "workflow" | "workflowStep" | "conversation" | "conversationMessage" | "chatbotConfig" | "dealPrediction" | "form" | "formField" | "formSubmission" | "messageTemplate" | "cashierSession" | "cashierTransaction" | "leadScoringRule" | "leadScore" | "cadenceSequence" | "cadenceStep" | "cadenceEnrollment" | "landingPage" | "integration" | "tenantIntegration" | "leadRoutingRule" | "employeeRequest" | "companyAnnouncement" | "employeeKudos" | "onboardingChecklist" | "pPEItem" | "pPEAssignment" | "offboardingChecklist" | "reviewCompetency" | "kudosReaction" | "kudosReply" | "announcementReadReceipt" | "salaryHistory" | "oneOnOneMeeting" | "talkingPoint" | "oneOnOneActionItem" | "admissionInvite" | "admissionDocument" | "digitalSignature" | "authLink" | "tenantAuthConfig" | "magicLinkToken" | "approvalDelegation" | "jobPosting" | "candidate" | "application" | "interviewStage" | "interview" | "tenantPaymentConfig" | "paymentCharge" | "invoice" | "printAgent" | "punchDevice" | "punchDeviceEmployee" | "punchDeviceDepartment" | "punchApproval" | "employeeFaceEnrollment" | "complianceArtifact" | "complianceVerifyLog" | "posPrinter" | "printJob" | "focusNfeConfig" | "productionWorkstationType" | "productionWorkstation" | "productionWorkCenter" | "productionBom" | "productionBomItem" | "productionOperationRouting" | "productionOrder" | "productionMaterialReservation" | "productionMaterialIssue" | "productionMaterialReturn" | "productionJobCard" | "productionTimeEntry" | "productionEntry" | "productionDowntimeReason" | "productionDowntimeRecord" | "productionSchedule" | "productionScheduleEntry" | "productionDefectType" | "productionInspectionPlan" | "productionInspectionResult" | "productionDefectRecord" | "productionQualityHold" | "productionCost" | "contractTemplate" | "generatedEmploymentContract" | "punchMissedLog" | "webAuthnCredential" | "webhookEndpoint" | "webhookDelivery"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -31678,6 +31680,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    WebhookEndpoint: {
+      payload: Prisma.$WebhookEndpointPayload<ExtArgs>
+      fields: Prisma.WebhookEndpointFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WebhookEndpointFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookEndpointPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WebhookEndpointFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookEndpointPayload>
+        }
+        findFirst: {
+          args: Prisma.WebhookEndpointFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookEndpointPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WebhookEndpointFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookEndpointPayload>
+        }
+        findMany: {
+          args: Prisma.WebhookEndpointFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookEndpointPayload>[]
+        }
+        create: {
+          args: Prisma.WebhookEndpointCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookEndpointPayload>
+        }
+        createMany: {
+          args: Prisma.WebhookEndpointCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WebhookEndpointCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookEndpointPayload>[]
+        }
+        delete: {
+          args: Prisma.WebhookEndpointDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookEndpointPayload>
+        }
+        update: {
+          args: Prisma.WebhookEndpointUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookEndpointPayload>
+        }
+        deleteMany: {
+          args: Prisma.WebhookEndpointDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WebhookEndpointUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WebhookEndpointUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookEndpointPayload>[]
+        }
+        upsert: {
+          args: Prisma.WebhookEndpointUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookEndpointPayload>
+        }
+        aggregate: {
+          args: Prisma.WebhookEndpointAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWebhookEndpoint>
+        }
+        groupBy: {
+          args: Prisma.WebhookEndpointGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WebhookEndpointGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WebhookEndpointCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WebhookEndpointCountAggregateOutputType> | number
+        }
+      }
+    }
+    WebhookDelivery: {
+      payload: Prisma.$WebhookDeliveryPayload<ExtArgs>
+      fields: Prisma.WebhookDeliveryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WebhookDeliveryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WebhookDeliveryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload>
+        }
+        findFirst: {
+          args: Prisma.WebhookDeliveryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WebhookDeliveryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload>
+        }
+        findMany: {
+          args: Prisma.WebhookDeliveryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload>[]
+        }
+        create: {
+          args: Prisma.WebhookDeliveryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload>
+        }
+        createMany: {
+          args: Prisma.WebhookDeliveryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WebhookDeliveryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload>[]
+        }
+        delete: {
+          args: Prisma.WebhookDeliveryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload>
+        }
+        update: {
+          args: Prisma.WebhookDeliveryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload>
+        }
+        deleteMany: {
+          args: Prisma.WebhookDeliveryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WebhookDeliveryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WebhookDeliveryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload>[]
+        }
+        upsert: {
+          args: Prisma.WebhookDeliveryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload>
+        }
+        aggregate: {
+          args: Prisma.WebhookDeliveryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWebhookDelivery>
+        }
+        groupBy: {
+          args: Prisma.WebhookDeliveryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WebhookDeliveryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WebhookDeliveryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WebhookDeliveryCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -40051,6 +40201,58 @@ export const WebAuthnCredentialScalarFieldEnum = {
 export type WebAuthnCredentialScalarFieldEnum = (typeof WebAuthnCredentialScalarFieldEnum)[keyof typeof WebAuthnCredentialScalarFieldEnum]
 
 
+export const WebhookEndpointScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  url: 'url',
+  description: 'description',
+  apiVersion: 'apiVersion',
+  subscribedEvents: 'subscribedEvents',
+  status: 'status',
+  autoDisabledReason: 'autoDisabledReason',
+  autoDisabledAt: 'autoDisabledAt',
+  consecutiveDeadCount: 'consecutiveDeadCount',
+  secretCurrent: 'secretCurrent',
+  secretCurrentLast4: 'secretCurrentLast4',
+  secretCurrentCreatedAt: 'secretCurrentCreatedAt',
+  secretPrevious: 'secretPrevious',
+  secretPreviousExpiresAt: 'secretPreviousExpiresAt',
+  lastSuccessAt: 'lastSuccessAt',
+  lastDeliveryAt: 'lastDeliveryAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type WebhookEndpointScalarFieldEnum = (typeof WebhookEndpointScalarFieldEnum)[keyof typeof WebhookEndpointScalarFieldEnum]
+
+
+export const WebhookDeliveryScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  endpointId: 'endpointId',
+  eventId: 'eventId',
+  eventType: 'eventType',
+  status: 'status',
+  attemptCount: 'attemptCount',
+  manualReprocessCount: 'manualReprocessCount',
+  lastManualReprocessAt: 'lastManualReprocessAt',
+  lastAttemptAt: 'lastAttemptAt',
+  lastHttpStatus: 'lastHttpStatus',
+  lastErrorClass: 'lastErrorClass',
+  lastErrorMessage: 'lastErrorMessage',
+  lastDurationMs: 'lastDurationMs',
+  lastResponseBody: 'lastResponseBody',
+  lastRetryAfterSeconds: 'lastRetryAfterSeconds',
+  attempts: 'attempts',
+  payloadHash: 'payloadHash',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WebhookDeliveryScalarFieldEnum = (typeof WebhookDeliveryScalarFieldEnum)[keyof typeof WebhookDeliveryScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -44689,6 +44891,62 @@ export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
 export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
     
 
+
+/**
+ * Reference to a field of type 'WebhookEndpointStatus'
+ */
+export type EnumWebhookEndpointStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WebhookEndpointStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'WebhookEndpointStatus[]'
+ */
+export type ListEnumWebhookEndpointStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WebhookEndpointStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'WebhookAutoDisableReason'
+ */
+export type EnumWebhookAutoDisableReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WebhookAutoDisableReason'>
+    
+
+
+/**
+ * Reference to a field of type 'WebhookAutoDisableReason[]'
+ */
+export type ListEnumWebhookAutoDisableReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WebhookAutoDisableReason[]'>
+    
+
+
+/**
+ * Reference to a field of type 'WebhookDeliveryStatus'
+ */
+export type EnumWebhookDeliveryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WebhookDeliveryStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'WebhookDeliveryStatus[]'
+ */
+export type ListEnumWebhookDeliveryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WebhookDeliveryStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'WebhookErrorClass'
+ */
+export type EnumWebhookErrorClassFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WebhookErrorClass'>
+    
+
+
+/**
+ * Reference to a field of type 'WebhookErrorClass[]'
+ */
+export type ListEnumWebhookErrorClassFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WebhookErrorClass[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -45201,6 +45459,8 @@ export type GlobalOmitConfig = {
   generatedEmploymentContract?: Prisma.GeneratedEmploymentContractOmit
   punchMissedLog?: Prisma.PunchMissedLogOmit
   webAuthnCredential?: Prisma.WebAuthnCredentialOmit
+  webhookEndpoint?: Prisma.WebhookEndpointOmit
+  webhookDelivery?: Prisma.WebhookDeliveryOmit
 }
 
 /* Types for Logging */
