@@ -148,6 +148,31 @@ const envSchema = z.object({
     .optional()
     .default('2')
     .transform((v) => Number(v) as 1 | 2),
+
+  // ============================================================================
+  // Phase 10 / Plan 10-07 — WebAuthn Relying Party (D-G1 fallback)
+  // ============================================================================
+
+  /**
+   * WEBAUTHN_RP_ID — Relying Party ID (FQDN).
+   * Must match the domain origin for all paired PCs in the same tenant.
+   * Single RP ID strategy per RESEARCH §Pitfall 4.
+   * Dev/test default: 'localhost'
+   */
+  WEBAUTHN_RP_ID: z.string().min(3).default('localhost'),
+
+  /**
+   * WEBAUTHN_ORIGIN — Full origin URL used during WebAuthn ceremony verification.
+   * Must match the Electron app origin (usually the API URL for agent calls).
+   * Dev/test default: 'http://localhost:3333'
+   */
+  WEBAUTHN_ORIGIN: z.string().url().default('http://localhost:3333'),
+
+  /**
+   * WEBAUTHN_REGISTRATION_TIMEOUT_SEC — Challenge TTL for registration (seconds).
+   * Default 300 (5 min). Challenge stored in Redis with this TTL.
+   */
+  WEBAUTHN_REGISTRATION_TIMEOUT_SEC: z.coerce.number().default(300),
 });
 
 const _env = envSchema.safeParse(process.env);
