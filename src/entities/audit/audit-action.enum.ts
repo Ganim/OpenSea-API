@@ -326,6 +326,8 @@ export enum AuditAction {
   BIO_ENROLLED = 'BIO_ENROLLED',
   BIO_MATCH = 'BIO_MATCH',
   AGENT_REVOKED = 'AGENT_REVOKED',
+  // Phase 10 / Plan 10-06 — auto-update failure notification
+  AGENT_UPDATE_FAILED = 'AGENT_UPDATE_FAILED',
 
   OTHER = 'OTHER',
 }

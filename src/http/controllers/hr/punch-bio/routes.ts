@@ -10,6 +10,7 @@ import rateLimit from '@fastify/rate-limit';
 import { rateLimitConfig } from '@/config/rate-limits';
 import { createModuleMiddleware } from '@/http/middlewares/tenant/verify-module';
 import { v1EnrollPinController } from './v1-enroll-pin.controller';
+import { v1NotifyUpdateFailedController } from './v1-notify-update-failed.controller';
 
 export async function punchBioRoutes(app: FastifyInstance) {
   app.addHook('preHandler', createModuleMiddleware('HR'));
@@ -19,6 +20,8 @@ export async function punchBioRoutes(app: FastifyInstance) {
     async (mutationApp) => {
       mutationApp.register(rateLimit, rateLimitConfig.mutation);
       mutationApp.register(v1EnrollPinController);
+      // Plan 10-06: agent notifies API when auto-update fails (device-token auth)
+      mutationApp.register(v1NotifyUpdateFailedController);
     },
     { prefix: '' },
   );

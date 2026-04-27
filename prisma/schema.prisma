@@ -1139,6 +1139,8 @@ enum AuditAction {
   BIO_ENROLLED
   BIO_MATCH
   AGENT_REVOKED
+  // Phase 10 / Plan 10-06 — auto-update failure notification
+  AGENT_UPDATE_FAILED
 
   OTHER
 }
