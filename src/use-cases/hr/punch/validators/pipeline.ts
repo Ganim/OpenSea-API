@@ -51,17 +51,33 @@ export class PunchValidationPipeline {
       PunchValidationDecision,
       { outcome: 'APPROVAL_REQUIRED' }
     >[] = [];
+    let enrichedCtx = ctx;
 
     for (const validator of this.validators) {
-      const result = await validator.validate(ctx);
+      const result = await validator.validate(enrichedCtx);
 
       if (result.outcome === 'REJECT') {
         return { decision: 'REJECT', rejection: result, approvals: [] };
       }
       if (result.outcome === 'APPROVAL_REQUIRED') {
         approvals.push(result);
+        // Phase 9 Pitfall 6: enrich ctx based on approval reason for downstream validators
+        if (result.approvalReason === 'FACE_MATCH_LOW') {
+          enrichedCtx = { ...enrichedCtx, faceMatchOutcome: 'low' };
+        }
+      } else if (
+        result.outcome === 'ACCEPT' &&
+        validator.name === 'FaceMatchValidator'
+      ) {
+        // FaceMatchValidator returns ACCEPT for both "match:ok" and "no embedding".
+        // Distinguish: if faceEmbedding was provided and we got ACCEPT, it's match:ok.
+        if (enrichedCtx.faceEmbedding) {
+          enrichedCtx = { ...enrichedCtx, faceMatchOutcome: 'ok' };
+        } else {
+          enrichedCtx = { ...enrichedCtx, faceMatchOutcome: 'no_embedding' };
+        }
       }
-      // ACCEPT: nothing to do, move on.
+      // ACCEPT (other validators): nothing to do, move on.
     }
 
     return approvals.length

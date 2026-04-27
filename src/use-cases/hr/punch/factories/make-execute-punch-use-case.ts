@@ -8,13 +8,18 @@ import { PrismaPunchDevicesRepository } from '@/repositories/hr/prisma/prisma-pu
 import { PrismaShiftAssignmentsRepository } from '@/repositories/hr/prisma/prisma-shift-assignments-repository';
 import { PrismaTimeEntriesRepository } from '@/repositories/hr/prisma/prisma-time-entries-repository';
 import { PrismaVacationPeriodsRepository } from '@/repositories/hr/prisma/prisma-vacation-periods-repository';
+import { getRedisClient } from '@/lib/redis';
 import { makeVerifyPunchPinUseCase } from '@/use-cases/hr/punch-pin/factories/make-verify-punch-pin';
 
 import { ExecutePunchUseCase } from '../execute-punch';
 import { AbsenceActiveValidator } from '../validators/absence-active.validator';
+import { ClockDriftValidator } from '../validators/clock-drift.validator';
 import { EmployeeActiveValidator } from '../validators/employee-active.validator';
+import { FaceMatchStreakValidator } from '../validators/face-match-streak.validator';
 import { FaceMatchValidator } from '../validators/face-match.validator';
 import { GeofenceValidator } from '../validators/geofence.validator';
+import { GpsConsistencyValidator } from '../validators/gps-consistency.validator';
+import { PunchRateLimitValidator } from '../validators/rate-limit.validator';
 import { PunchValidationPipeline } from '../validators/pipeline';
 import { VacationActiveValidator } from '../validators/vacation-active.validator';
 import { WorkScheduleValidator } from '../validators/work-schedule.validator';
@@ -22,17 +27,22 @@ import { WorkScheduleValidator } from '../validators/work-schedule.validator';
 /**
  * Factory for the unified punch endpoint (POST /v1/hr/punch/clock).
  *
- * Wires the 6 validators in the canonical pipeline order documented in
- * D-05 + Plan 05-07 pipeline_order_spec:
+ * Wires 10 validators in the canonical pipeline order (Phase 9 final):
+ *   1. PunchRateLimitValidator (Phase 9 D-17 — fast-fail)
+ *   2. ClockDriftValidator (Phase 9 D-05 — fast-fail)
+ *   3. EmployeeActiveValidator (Phase 4)
+ *   4. VacationActiveValidator (Phase 4)
+ *   5. AbsenceActiveValidator (Phase 4)
+ *   6. WorkScheduleValidator (Phase 4)
+ *   7. GpsConsistencyValidator (Phase 9 D-01..D-04)
+ *   8. GeofenceValidator (Phase 4)
+ *   9. FaceMatchValidator (Phase 5)
+ *   10. FaceMatchStreakValidator (Phase 9 D-09..D-12 — reads faceMatchOutcome from #9)
  *
- *   EmployeeActive → VacationActive → AbsenceActive → WorkSchedule → Geofence → FaceMatch
- *
- * The order is intentionally "cheapest first, face-match last": the
- * cheaper gates short-circuit pathological cases before paying for the
- * face-enrollment lookup + AES-GCM decrypt + Euclidean distance loop.
- * Geofence stays before FaceMatch so that an out-of-geofence AND face-
- * match-low batida produces two separate `PunchApproval` rows (both
- * approval reasons accumulate per D-12 always-write semantics).
+ * The order prioritizes fast-fail antifraude checks first (rate-limit, clock-drift),
+ * then employee status gates, then geo/face validators. Phase 9 enrichment:
+ * pipeline.run() mutates ctx to set `faceMatchOutcome` based on FaceMatchValidator
+ * result, so FaceMatchStreakValidator can read it downstream (Pitfall 6 resolution).
  *
  * Phase 5 (Plan 05-07): also wires `VerifyPunchPinUseCase` for the kiosk
  * pin+matricula identification branch. The FaceMatchValidator gets its
@@ -50,14 +60,19 @@ export function makeExecutePunchUseCase(): ExecutePunchUseCase {
   const punchDevicesRepo = new PrismaPunchDevicesRepository();
   const punchApprovalsRepo = new PrismaPunchApprovalsRepository();
   const faceEnrollmentsRepo = new PrismaFaceEnrollmentsRepository();
+  const redis = getRedisClient();
 
   const pipeline = new PunchValidationPipeline([
+    new PunchRateLimitValidator(redis), // Phase 9 D-17 — fast-fail
+    new ClockDriftValidator(), // Phase 9 D-05 — fast-fail
     new EmployeeActiveValidator(employeesRepo),
     new VacationActiveValidator(vacationsRepo),
     new AbsenceActiveValidator(absencesRepo),
     new WorkScheduleValidator(shiftAssignmentsRepo),
+    new GpsConsistencyValidator(), // Phase 9 D-01..D-04
     new GeofenceValidator(geofenceZonesRepo),
-    new FaceMatchValidator(faceEnrollmentsRepo, punchConfigRepo),
+    new FaceMatchValidator(faceEnrollmentsRepo, punchConfigRepo), // Phase 5 advisory
+    new FaceMatchStreakValidator(redis), // Phase 9 D-09..D-12 — reads faceMatchOutcome
   ]);
 
   const verifyPunchPinUseCase = makeVerifyPunchPinUseCase();
