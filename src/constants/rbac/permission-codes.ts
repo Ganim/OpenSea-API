@@ -1224,6 +1224,21 @@ export const PermissionCodes = {
       MODIFY: 'system.self.modify' as const,
       ADMIN: 'system.self.admin' as const,
     },
+    // Phase 11 — Webhooks outbound (4-level — ADR-031, quarto cluster fora de tools).
+    // Precedentes: hr.compliance.* (Phase 6), hr.punch.audit.* (Phase 9),
+    // agora system.webhooks.endpoints.*. D-10: admin-only — NÃO entra em
+    // DEFAULT_USER_PERMISSIONS; admins recebem via extractAllCodes (recursão
+    // genérica já cobre 4 níveis — ver permission-codes.spec.ts) + backfill
+    // script idempotente prisma/backfill-phase11-permissions.ts.
+    WEBHOOKS: {
+      ENDPOINTS: {
+        ACCESS: 'system.webhooks.endpoints.access' as const,
+        REGISTER: 'system.webhooks.endpoints.register' as const,
+        MODIFY: 'system.webhooks.endpoints.modify' as const,
+        REMOVE: 'system.webhooks.endpoints.remove' as const,
+        ADMIN: 'system.webhooks.endpoints.admin' as const,
+      },
+    },
   },
 
   // ============================================================================
