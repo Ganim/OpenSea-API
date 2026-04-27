@@ -56,7 +56,19 @@ export type PunchApprovalReasonCode =
  */
 export type PunchValidationDecision =
   | { outcome: 'ACCEPT' }
-  | { outcome: 'REJECT'; code: PunchRejectionCode; reason: string }
+  | {
+      outcome: 'REJECT';
+      code: PunchRejectionCode;
+      reason: string;
+      /**
+       * Phase 9 / Plan 09-02 — optional payload to surface validator-specific
+       * data to the controller (e.g. `retryAfterSec` for RATE_LIMIT_EXCEEDED,
+       * `driftSec` for CLOCK_DRIFT, `accuracy` for GPS_ACCURACY_LOW). Pre-Phase
+       * 9 validators (EmployeeNotFound/Inactive/Vacation/...) leave it
+       * undefined — controllers handle absence as legacy 400 with `reason`.
+       */
+      details?: Record<string, unknown>;
+    }
   | {
       outcome: 'APPROVAL_REQUIRED';
       approvalReason: PunchApprovalReasonCode;
