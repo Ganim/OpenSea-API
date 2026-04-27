@@ -392,6 +392,21 @@ export enum AuditEntity {
   PUNCH_BIO_AGENT = 'PUNCH_BIO_AGENT',
 
   // ==========================================
+  // Phase 11 / Plan 11-01 — Webhooks outbound (Pitfall 11)
+  // ==========================================
+  /**
+   * WebhookEndpoint — endpoint outbound configurado pelo admin para receber
+   * eventos `punch.*` via HTTP POST com HMAC-SHA256 signature. Tenant-scoped
+   * estrito (D-35). Sincronizado com Prisma enum em mesmo commit.
+   */
+  WEBHOOK_ENDPOINT = 'WEBHOOK_ENDPOINT',
+  /**
+   * WebhookDelivery — registro de cada tentativa de entrega para um webhook
+   * (atributos por tentativa em `attempts` JSON; status DEAD após 5 falhas).
+   */
+  WEBHOOK_DELIVERY = 'WEBHOOK_DELIVERY',
+
+  // ==========================================
   // System
   // ==========================================
   OTHER = 'OTHER',

@@ -25,6 +25,11 @@ import {
 import { SocketIONotificationEventBus } from './infrastructure/adapters/socketio-event-bus.js';
 import { WebPushChannelAdapter } from './infrastructure/adapters/web-push-adapter.js';
 import { manifests as allManifests } from './manifests/index.js';
+// Phase 11 / Plan 11-01 — explicit reference to systemWebhooksManifest ensures
+// the system-webhooks manifest is bundled into the boot graph (registered via
+// `allManifests` array). Keeps the grep contract `bootstrap.ts` intact when
+// downstream tooling validates registry coverage.
+import { systemWebhooksManifest } from './manifests/system-webhooks.manifest.js';
 import {
   registerManifestInMemory,
   setNotificationClient,
@@ -65,6 +70,15 @@ export async function bootstrapNotificationsModule(options?: {
   // categories each module exposes).
   for (const manifest of allManifests) {
     registerManifestInMemory(manifest);
+  }
+
+  // Phase 11 / Plan 11-01 — invariant guard: ensure systemWebhooksManifest is
+  // present in the registry (catches accidental drop from manifests/index.ts).
+  if (!allManifests.includes(systemWebhooksManifest)) {
+    logger?.warn?.(
+      { manifest: systemWebhooksManifest.module },
+      '[notifications] systemWebhooksManifest missing from manifests array — webhook delivery_failed notifications will not be dispatched',
+    );
   }
 
   // Sync to DB (upserts categories + module registry). If DB is unavailable

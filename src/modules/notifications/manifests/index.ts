@@ -10,6 +10,7 @@ import { punchManifest } from './punch.manifest.js';
 import { requestsManifest } from './requests.manifest.js';
 import { salesManifest } from './sales.manifest.js';
 import { stockManifest } from './stock.manifest.js';
+import { systemWebhooksManifest } from './system-webhooks.manifest.js';
 import { tasksManifest } from './tasks.manifest.js';
 
 export const manifests: ModuleNotificationManifest[] = [
@@ -24,6 +25,7 @@ export const manifests: ModuleNotificationManifest[] = [
   emailManifest,
   adminManifest,
   punchManifest,
+  systemWebhooksManifest,
 ];
 
 export {
@@ -37,5 +39,6 @@ export {
   requestsManifest,
   salesManifest,
   stockManifest,
+  systemWebhooksManifest,
   tasksManifest,
 };
