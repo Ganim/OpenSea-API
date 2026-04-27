@@ -196,7 +196,7 @@ export async function validateWebhookUrlOrThrow(
     throw new Error(`Invalid URL: "${url}"`);
   }
 
-  const isProduction = options?.isProduction ?? env.NODE_ENV === 'production';
+  const isProduction = options?.isProduction ?? getIsProductionDefault();
 
   if (isProduction && parsed.protocol !== 'https:') {
     throw new Error(
