@@ -71,5 +71,5 @@ describe('GET /v1/hr/punch/audit/:id (E2E)', () => {
     expect(response.body.row.type).toBe('TimeEntry');
     expect(Array.isArray(response.body.allSignals)).toBe(true);
     expect(response.body.allSignals.length).toBeGreaterThan(0);
-  };
+  });
 });
