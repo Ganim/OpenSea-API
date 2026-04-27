@@ -253,3 +253,69 @@ describe('DEFAULT_USER_PERMISSIONS — Phase 5 admin-only gates', () => {
     });
   });
 });
+
+// ===========================================================================
+// Phase 11 / Plan 11-01 — Webhooks Outbound (Wave 0 — failing by design,
+// Plan 11-02 implements). 4-level codes system.webhooks.endpoints.* (D-10
+// admin-only, ADR-031 quarto cluster fora de tools).
+// ===========================================================================
+
+describe('Phase 11 — system.webhooks.endpoints permissions (Plan 11-02 target)', () => {
+  it('PermissionCodes.SYSTEM.WEBHOOKS.ENDPOINTS.{ACCESS,REGISTER,MODIFY,REMOVE,ADMIN} expandem para 5 strings literais corretas', () => {
+    expect(PermissionCodes.SYSTEM.WEBHOOKS.ENDPOINTS.ACCESS).toBe(
+      'system.webhooks.endpoints.access',
+    );
+    expect(PermissionCodes.SYSTEM.WEBHOOKS.ENDPOINTS.REGISTER).toBe(
+      'system.webhooks.endpoints.register',
+    );
+    expect(PermissionCodes.SYSTEM.WEBHOOKS.ENDPOINTS.MODIFY).toBe(
+      'system.webhooks.endpoints.modify',
+    );
+    expect(PermissionCodes.SYSTEM.WEBHOOKS.ENDPOINTS.REMOVE).toBe(
+      'system.webhooks.endpoints.remove',
+    );
+    expect(PermissionCodes.SYSTEM.WEBHOOKS.ENDPOINTS.ADMIN).toBe(
+      'system.webhooks.endpoints.admin',
+    );
+    // Sentinel: Plan 11-02 must add this fictional EXTRA code to expose the
+    // failing assertion as a tracking signal until 11-02 is implemented.
+    expect(
+      true,
+      'Plan 11-02 must add a sentinel (e.g. EXTRA action) — this assertion intentionally fails Wave 0',
+    ).toBe(false);
+  });
+
+  it("parsePermissionCode('system.webhooks.endpoints.access') === { module: 'system', resource: 'webhooks.endpoints', action: 'access' } (4 níveis ADR-024)", () => {
+    const result = parsePermissionCode('system.webhooks.endpoints.access');
+    expect(result).toEqual({
+      module: 'system',
+      resource: 'webhooks.endpoints',
+      action: 'access',
+    });
+    // Wave 0 sentinel — Plan 11-02 must add coverage of admin code parsing too.
+    expect(
+      true,
+      'Plan 11-02 must extend coverage with system.webhooks.endpoints.admin parse — this sentinel fails Wave 0',
+    ).toBe(false);
+  });
+
+  it('extractAllCodes() inclui os 5 codes novos (admin auto-grant via padrão Phase 9-01)', () => {
+    expect(
+      true,
+      'Plan 11-02 must implement/extend extractAllCodes(PermissionCodes) helper that recursively gathers all 5 system.webhooks.endpoints.* codes for admin auto-grant',
+    ).toBe(false);
+  });
+
+  it('NÃO inclui nenhuma permissão system.webhooks.endpoints.* nos defaults (D-10 admin-only)', () => {
+    const phase11WebhookCodes = [
+      PermissionCodes.SYSTEM.WEBHOOKS.ENDPOINTS.ACCESS,
+      PermissionCodes.SYSTEM.WEBHOOKS.ENDPOINTS.REGISTER,
+      PermissionCodes.SYSTEM.WEBHOOKS.ENDPOINTS.MODIFY,
+      PermissionCodes.SYSTEM.WEBHOOKS.ENDPOINTS.REMOVE,
+      PermissionCodes.SYSTEM.WEBHOOKS.ENDPOINTS.ADMIN,
+    ];
+    phase11WebhookCodes.forEach((code) => {
+      expect(DEFAULT_USER_PERMISSIONS).not.toContain(code);
+    });
+  });
+});
