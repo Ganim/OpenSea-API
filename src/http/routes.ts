@@ -338,6 +338,9 @@ import { workplaceRisksRoutes } from './controllers/hr/workplace-risks/routes';
 import { salaryHistoryRoutes } from './controllers/hr/salary-history/routes';
 import { oneOnOnesRoutes } from './controllers/hr/one-on-ones/routes';
 
+// System routes (platform-level — Phase 11 / ADR-032)
+import { systemWebhooksRoutes } from './controllers/system/webhooks/routes';
+
 export async function registerRoutes(app: FastifyInstance) {
   // Core routes
   await app.register(healthRoutes);
@@ -348,6 +351,9 @@ export async function registerRoutes(app: FastifyInstance) {
   await app.register(labelTemplatesRoutes);
   await app.register(tenantsRoutes);
   await app.register(teamsRoutes);
+
+  // System (platform-level) — Phase 11 webhooks outbound (ADR-032)
+  await app.register(systemWebhooksRoutes);
 
   // Admin routes (super-admin)
   await app.register(adminRoutes);
