@@ -1,31 +1,57 @@
 /**
- * Wave 0 spec stub — Phase 11 / Plan 11-02 will implement
- * `src/mappers/system/webhook-delivery/webhook-delivery-to-dto.ts`.
+ * Phase 11 / Plan 11-02 — webhookDeliveryToDto.
  *
- * Truncates response body to 1KB (D-29) and sanitizes potential secret echoes
- * from customer-supplied error responses (Pitfall 5).
+ * D-29 (1KB truncate) + Pitfall 5 (sanitize whsec_* echo) + signature mask.
  */
 import { describe, expect, it } from 'vitest';
 
-describe('webhookDeliveryToDto (Plan 11-02 target)', () => {
+import { UniqueEntityID } from '@/entities/domain/unique-entity-id';
+import { WebhookDelivery } from '@/entities/system/webhook-delivery';
+
+import {
+  maskSignatureHeader,
+  webhookDeliveryToDto,
+} from './webhook-delivery-to-dto';
+
+function makeDelivery(
+  overrides: {
+    responseBody?: string | null;
+    errorMessage?: string | null;
+  } = {},
+) {
+  return WebhookDelivery.create({
+    id: new UniqueEntityID('d_1'),
+    tenantId: new UniqueEntityID('t_1'),
+    endpointId: new UniqueEntityID('wh_1'),
+    eventId: 'evt_abc',
+    eventType: 'punch.time-entry.created',
+    payloadHash: 'hash_xyz',
+    lastResponseBody: overrides.responseBody ?? null,
+    lastErrorMessage: overrides.errorMessage ?? null,
+  });
+}
+
+describe('webhookDeliveryToDto — D-29 + Pitfall 5', () => {
   it('responseBody truncado a 1024 chars (D-29)', () => {
-    expect(
-      true,
-      'Plan 11-02 must truncate delivery.lastResponseBody to max 1024 chars (D-29 — even though @db.VarChar(1024), defensively truncate at mapper boundary)',
-    ).toBe(false);
+    const big = 'A'.repeat(2048);
+    const dto = webhookDeliveryToDto(makeDelivery({ responseBody: big }));
+    expect(dto.responseBodyTruncated).not.toBeNull();
+    expect(dto.responseBodyTruncated!.length).toBe(1024);
   });
 
   it('lastErrorMessage sanitiza `whsec_*` para `whsec_••••` (Pitfall 5 — secret eco do customer)', () => {
-    expect(
-      true,
-      'Plan 11-02 must replace any whsec_<token> pattern in errorMessage with whsec_•••• — defends against customer endpoint echoing secret in error body',
-    ).toBe(false);
+    const echo =
+      'Customer endpoint replied with secret echo: whsec_VERY_LONG_SECRET_VALUE_LEAKED_BACK_BAD_BAD';
+    const dto = webhookDeliveryToDto(makeDelivery({ errorMessage: echo }));
+    expect(dto.lastErrorMessage).toContain('whsec_••••');
+    expect(dto.lastErrorMessage!.match(/whsec_[A-Za-z0-9_-]{30,}/)).toBeNull();
   });
 
   it('header X-OpenSea-Signature mascarado após primeiros 8 chars do hex no DTO', () => {
-    expect(
-      true,
-      'Plan 11-02 must mask the v1=<hex> portion of X-OpenSea-Signature in DTO (show first 8 hex chars + ellipsis) so audit reads do not expose full HMAC',
-    ).toBe(false);
+    const sig = 't=1700000000,v1=' + 'a'.repeat(64);
+    const masked = maskSignatureHeader(sig);
+    expect(masked).toMatch(/^t=\d+,v1=[a-f0-9]{8}\.\.\.$/);
+    // Não deve expor o digest completo
+    expect(masked).not.toContain('a'.repeat(64));
   });
 });
