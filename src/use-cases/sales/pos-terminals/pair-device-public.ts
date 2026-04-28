@@ -72,23 +72,33 @@ export class PairDevicePublicUseCase {
       .update(deviceToken)
       .digest('hex');
 
-    const pairingId = randomBytes(12).toString('hex');
-
-    const pairing = PosDevicePairing.create({
-      id: pairingId,
-      tenantId: matched.tenantId,
-      terminalId: matched.id,
-      deviceLabel: request.deviceLabel,
-      deviceTokenHash,
-      // No authenticated user — `pairingSource = 'PUBLIC'` records the fact
-      // semantically (audit code skips user-name lookups when source = PUBLIC).
-      // The 'public' sentinel on `pairedByUserId` is kept for backwards
-      // compatibility with code that reads the column without checking source.
-      pairedByUserId: 'public',
-      pairingSource: 'PUBLIC',
-    });
-
-    await this.posDevicePairingsRepository.create(pairing);
+    if (existing) {
+      // Reaproveita o registro revogado — `terminalId @unique` no schema impede
+      // criar novo. Limpa marcadores de revoga e regenera token+rótulo.
+      existing.reactivate({
+        deviceTokenHash,
+        deviceLabel: request.deviceLabel,
+        pairedByUserId: 'public',
+        pairingSource: 'PUBLIC',
+      });
+      await this.posDevicePairingsRepository.save(existing);
+    } else {
+      const pairingId = randomBytes(12).toString('hex');
+      const pairing = PosDevicePairing.create({
+        id: pairingId,
+        tenantId: matched.tenantId,
+        terminalId: matched.id,
+        deviceLabel: request.deviceLabel,
+        deviceTokenHash,
+        // No authenticated user — `pairingSource = 'PUBLIC'` records the fact
+        // semantically (audit code skips user-name lookups when source = PUBLIC).
+        // The 'public' sentinel on `pairedByUserId` is kept for backwards
+        // compatibility with code that reads the column without checking source.
+        pairedByUserId: 'public',
+        pairingSource: 'PUBLIC',
+      });
+      await this.posDevicePairingsRepository.create(pairing);
+    }
 
     return { deviceToken, terminal: matched };
   }

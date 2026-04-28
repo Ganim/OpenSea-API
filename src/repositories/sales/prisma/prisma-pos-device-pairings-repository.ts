@@ -5,9 +5,7 @@ import type { PosDevicePairingsRepository } from '../pos-device-pairings-reposit
 
 import type { PosPairingSource as PrismaPairingSource } from '@prisma/generated/client.js';
 
-export class PrismaPosDevicePairingsRepository
-  implements PosDevicePairingsRepository
-{
+export class PrismaPosDevicePairingsRepository implements PosDevicePairingsRepository {
   async create(pairing: PosDevicePairing): Promise<void> {
     await prisma.posDevicePairing.create({
       data: {
@@ -67,6 +65,10 @@ export class PrismaPosDevicePairingsRepository
       where: { id: pairing.pairingId },
       data: {
         deviceLabel: pairing.deviceLabel,
+        deviceTokenHash: pairing.deviceTokenHash,
+        pairedAt: pairing.pairedAt,
+        pairedByUserId: pairing.pairedByUserId,
+        pairingSource: pairing.pairingSource,
         lastSeenAt: pairing.lastSeenAt ?? null,
         appVersion: pairing.appVersion ?? null,
         revokedAt: pairing.revokedAt ?? null,

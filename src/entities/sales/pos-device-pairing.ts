@@ -80,6 +80,39 @@ export class PosDevicePairing extends Entity<PosDevicePairingProps> {
     this.props.revokedReason = reason;
   }
 
+  /**
+   * Reaproveita um registro previamente revogado para um novo pareamento.
+   *
+   * Por que existe: a tabela `PosDevicePairing` tem `terminalId @unique`,
+   * portanto criar um novo pairing para o mesmo terminal viola constraint.
+   * Em vez de hard-delete na revoga (perde auditoria) ou de migrar o schema
+   * para multi-pairings, o caminho menos invasivo é reativar o registro
+   * existente: limpa marcadores de revoga, regenera token+rótulo+autor e
+   * atualiza `pairedAt` para refletir o novo pareamento.
+   *
+   * Os campos `revokedAt`/`revokedByUserId`/`revokedReason` são apagados —
+   * a auditoria do pareamento anterior se perde nesta tabela. Eventos de
+   * pareamento/revoga devem ser persistidos em log de auditoria à parte
+   * caso seja necessário preservar a história completa.
+   */
+  reactivate(input: {
+    deviceTokenHash: string;
+    deviceLabel: string;
+    pairedByUserId: string;
+    pairingSource: PosPairingSource;
+  }): void {
+    this.props.deviceTokenHash = input.deviceTokenHash;
+    this.props.deviceLabel = input.deviceLabel;
+    this.props.pairedByUserId = input.pairedByUserId;
+    this.props.pairingSource = input.pairingSource;
+    this.props.pairedAt = new Date();
+    this.props.lastSeenAt = undefined;
+    this.props.appVersion = undefined;
+    this.props.revokedAt = undefined;
+    this.props.revokedByUserId = undefined;
+    this.props.revokedReason = undefined;
+  }
+
   static create(
     props: Optional<PosDevicePairingProps, 'id' | 'pairedAt' | 'pairingSource'>,
     id?: UniqueEntityID,

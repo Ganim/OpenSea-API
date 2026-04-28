@@ -56,18 +56,28 @@ export class PairThisDeviceUseCase {
       .update(deviceToken)
       .digest('hex');
 
-    const pairingId = randomBytes(12).toString('hex');
-
-    const pairing = PosDevicePairing.create({
-      id: pairingId,
-      tenantId: terminal.tenantId,
-      terminalId: terminal.id,
-      deviceLabel: request.deviceLabel,
-      deviceTokenHash,
-      pairedByUserId: request.pairedByUserId,
-    });
-
-    await this.posDevicePairingsRepository.create(pairing);
+    if (existing) {
+      // Reaproveita o registro revogado — `terminalId @unique` no schema
+      // impede criar novo. Limpa marcadores de revoga e regenera token.
+      existing.reactivate({
+        deviceTokenHash,
+        deviceLabel: request.deviceLabel,
+        pairedByUserId: request.pairedByUserId,
+        pairingSource: 'JWT',
+      });
+      await this.posDevicePairingsRepository.save(existing);
+    } else {
+      const pairingId = randomBytes(12).toString('hex');
+      const pairing = PosDevicePairing.create({
+        id: pairingId,
+        tenantId: terminal.tenantId,
+        terminalId: terminal.id,
+        deviceLabel: request.deviceLabel,
+        deviceTokenHash,
+        pairedByUserId: request.pairedByUserId,
+      });
+      await this.posDevicePairingsRepository.create(pairing);
+    }
 
     return { deviceToken, terminal };
   }
